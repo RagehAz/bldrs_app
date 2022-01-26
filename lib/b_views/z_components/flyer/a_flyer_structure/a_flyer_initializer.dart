@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
-import 'package:bldrs/c_controllers/i_flyer_controller.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +38,21 @@ class _FlyerStarterState extends State<FlyerStarter> {
   }
 // -----------------------------------------------------------------------------
   /// --- FLYER BZ MODEL
-  final ValueNotifier<BzModel> _bzModelListenableValue = ValueNotifier(null);
-// -----------------------------------
+  final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null);
   Future<void> _setBz(BzModel bzModel) async {
-    _bzModelListenableValue.value = bzModel;
+    _bzModelNotifier.value = bzModel;
+  }
+// -----------------------------------------------------------------------------
+  /// FLYER BZ COUNTRY
+  final ValueNotifier<CountryModel> _bzCountryNotifier = ValueNotifier(null);
+  void _setBzCountry(CountryModel bzCountry){
+    _bzCountryNotifier.value = bzCountry;
+  }
+// -----------------------------------------------------------------------------
+  /// FLYER BZ CITY
+  final ValueNotifier<CityModel> _bzCityNotifier = ValueNotifier(null);
+  void _setBzCity(CityModel bzCity){
+    _bzCityNotifier.value = bzCity;
   }
 // -----------------------------------------------------------------------------
   FlyerModel _flyerModel;
@@ -61,8 +74,18 @@ class _FlyerStarterState extends State<FlyerStarter> {
           context: context,
           flyerModel: _flyerModel,
         );
+        final CountryModel _bzCountry = await getFlyerBzCountry(
+          context: context,
+          countryID: _bzModel.zone.countryID,
+        );
+        final CityModel _bzCity = await getFlyerBzCity(
+          context: context,
+          cityID: _bzModel.zone.cityID,
+        );
 
         await _setBz(_bzModel);
+        _setBzCountry(_bzCountry);
+        _setBzCity(_bzCity);
 
         await _triggerLoading(setTo: false);
 
@@ -71,6 +94,20 @@ class _FlyerStarterState extends State<FlyerStarter> {
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _openFullScreenFlyer() async {
+
+    await context.pushTransparentRoute(
+        FlyerFullScreen(
+          key: const ValueKey<String>('Flyer_Full_Screen'),
+          flyerModel: _flyerModel,
+          bzModel: _bzModelNotifier.value,
+          minWidthFactor: widget.minWidthFactor,
+          bzCountry: _bzCountryNotifier.value,
+          bzCity: _bzCityNotifier.value,
+        )
+    );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -88,46 +125,44 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
           else {
 
-            return ValueListenableBuilder(
-                valueListenable: _bzModelListenableValue,
+            return ValueListenableBuilder<BzModel>(
+                valueListenable: _bzModelNotifier,
                 builder: (_, BzModel bzModel, Widget child){
 
-                  if (bzModel == null || widget.flyerModel == null){
-                    return FlyerLoading(flyerWidthFactor: widget.minWidthFactor,);
-                  }
+                  return ValueListenableBuilder<CountryModel>(
+                      valueListenable: _bzCountryNotifier,
+                      builder: (_, CountryModel bzCountry, Widget child){
 
-                  else {
+                        return ValueListenableBuilder<CityModel>(
+                            valueListenable: _bzCityNotifier,
+                            builder: (_, CityModel bzCity, Widget child){
 
-                    return GestureDetector(
-                      onTap: () async {
+                              if (bzModel == null || widget.flyerModel == null){
+                                return FlyerLoading(flyerWidthFactor: widget.minWidthFactor,);
+                              }
 
-                        blog('getting city and county on flyer ${_flyerModel.id} tap');
+                              else {
 
-                        await onOpenFullScreenFlyer(
-                          context: context,
-                          bzModel: bzModel,
-                          flyerID: _flyerModel.id,
+                                return GestureDetector(
+                                  onTap: _openFullScreenFlyer,
+                                  child: FlyerHero(
+                                    key: const ValueKey<String>('Flyer_hero'),
+                                    flyerModel: _flyerModel,
+                                    bzModel: bzModel,
+                                    bzCountry: bzCountry,
+                                    bzCity: bzCity,
+                                    minWidthFactor: widget.minWidthFactor,
+                                    isFullScreen: widget.isFullScreen,
+                                  ),
+                                );
+
+                              }
+
+                            }
                         );
 
-                        await context.pushTransparentRoute(
-                            FlyerFullScreen(
-                              key: const ValueKey<String>('Flyer_Full_Screen'),
-                              flyerModel: _flyerModel,
-                              bzModel: bzModel,
-                              minWidthFactor: widget.minWidthFactor,
-                            )
-                        );
-                      },
-                      child: FlyerHero(
-                        key: const ValueKey<String>('Flyer_hero'),
-                        flyerModel: _flyerModel,
-                        bzModel: bzModel,
-                        minWidthFactor: widget.minWidthFactor,
-                        isFullScreen: widget.isFullScreen,
-                      ),
-                    );
-
-                  }
+                      }
+                  );
 
                 }
             );

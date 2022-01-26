@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,85 +38,46 @@ void onTriggerHeader({
   @required BuildContext context,
   @required AnimationController headerAnimationController,
   @required ScrollController verticalController,
+  @required ValueNotifier<bool> headerIsExpanded,
+  @required ValueNotifier<double> progressBarOpacity,
+  @required ValueNotifier<double> headerPageOpacity,
 }) {
-
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final bool _bzPageIsOn = _activeFlyerProvider.headerIsExpanded;
 
   /// HEADER ANIMATION
   _animateHeaderExpansion(
     context: context,
     headerAnimationController: headerAnimationController,
     verticalController: verticalController,
+    headerIsExpanded: headerIsExpanded,
   );
 
   /// PROGRESS BAR OPACITY
   _triggerProgressBarOpacity(
     context: context,
-    notify: false,
+    progressBarOpacity: progressBarOpacity,
   );
 
     /// HEADER FADING
   _triggerHeaderPageOpacity(
     context: context,
     notify: false,
+    headerPageOpacity: headerPageOpacity,
   );
 
   /// HEADER EXPANSION
   _triggerHeaderExpansion(
     context: context,
     notify: false,
+    headerIsExpanded: headerIsExpanded,
   );
 
-    /// CAN DISMISS FLYER
-  _triggerCanDismissFlyer(
-    context: context,
-    notify: true,
-  );
+  //   /// CAN DISMISS FLYER
+  // _triggerCanDismissFlyer(
+  //   context: context,
+  //   notify: true,
+  // );
 
-  blog('_onHeaderTap : bzPageIsOn is : $_bzPageIsOn');
-}
-// -------------------------------------------------------
-/// PROGRESS BAR OPACITY
-void _triggerProgressBarOpacity({
-  @required BuildContext context,
-  @required bool notify,
-}){
-
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final int _progressBarOpacity = _activeFlyerProvider.progressBarOpacity;
-
-  /// WHEN PROGRESS BAR IS VISIBLE
-  if (_progressBarOpacity == 1) {
-    _activeFlyerProvider.setProgressBarOpacity(setOpacityTo: 0, notify: notify);
-  }
-
-  /// WHEN PROGRESS BAR IS HIDDEN
-  else {
-    Future<void>.delayed(Ratioz.durationFading210, () {
-      _activeFlyerProvider.setProgressBarOpacity(setOpacityTo: 1, notify: notify);
-    });
-  }
-
-}
-// -------------------------------------------------------
-/// HEADER IS EXPANDED
-void _triggerHeaderExpansion({
-  @required BuildContext context,
-  @required bool notify,
-}) {
-
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
-
-  _activeFlyerProvider.setHeaderIsExpanded(
-    setHeaderIsExpandedTo: !_headerIsExpanded,
-    notify: notify,
-  );
-
-  /// TASK : MAYBE WILL REMOVE THIS
-  PageStorage.of(context)?.writeState(context, !_headerIsExpanded);
-
+  blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');
 }
 // -------------------------------------------------------
 /// HEADER EXPANSION ANIMATION
@@ -123,14 +85,12 @@ void _animateHeaderExpansion({
   @required BuildContext context,
   @required AnimationController headerAnimationController,
   @required ScrollController verticalController,
+  @required ValueNotifier<bool> headerIsExpanded,
 }){
-
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
 
   /// WHEN HEADER IS COLLAPSED
   // TASK : MAYBE NEED TO INVERT THESE METHODS
-  if (_headerIsExpanded == false) {
+  if (headerIsExpanded.value == false) {
     headerAnimationController.forward();
   }
 
@@ -152,6 +112,43 @@ void _animateHeaderExpansion({
     });
   }
 
+}
+// -------------------------------------------------------
+/// PROGRESS BAR OPACITY
+void _triggerProgressBarOpacity({
+  @required BuildContext context,
+  @required ValueNotifier<double> progressBarOpacity,
+}){
+  /// progressBarOpacity is used because it has a slight delay after triggering header
+  /// AND SO headerIsExpanded can not be used to hold the progress bar opacity value
+
+  /// WHEN PROGRESS BAR IS VISIBLE
+  if (progressBarOpacity.value == 1) {
+    blog('triggering _progressBarOpacity to 0');
+    progressBarOpacity.value = 0;
+  }
+
+  /// WHEN PROGRESS BAR IS HIDDEN
+  else {
+    Future<void>.delayed(Ratioz.durationFading210, () {
+      blog('triggering _progressBarOpacity to 1');
+      progressBarOpacity.value = 1;
+    });
+  }
+
+}
+// // -------------------------------------------------------
+/// HEADER IS EXPANDED
+void _triggerHeaderExpansion({
+  @required BuildContext context,
+  @required bool notify,
+  @required ValueNotifier<bool> headerIsExpanded,
+}) {
+
+  headerIsExpanded.value = !headerIsExpanded.value;
+
+  /// TASK : MAYBE WILL REMOVE THIS
+  PageStorage.of(context)?.writeState(context, headerIsExpanded.value);
 
 }
 // -------------------------------------------------------
@@ -159,66 +156,57 @@ void _animateHeaderExpansion({
 void _triggerHeaderPageOpacity({
   @required BuildContext context,
   @required bool notify,
+  @required ValueNotifier<double> headerPageOpacity,
 }) {
 
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final double _headerPageOpacity = _activeFlyerProvider.headerPageOpacity;
-
-  blog('_headerPageOpacity = $_headerPageOpacity');
+  blog('_headerPageOpacity = ${headerPageOpacity.value}');
 
   Future<void>.delayed(Ratioz.durationFading200, () {
 
     /// WHEN PAGE IS VISIBLE
-    if (_headerPageOpacity == 1) {
-      _activeFlyerProvider.setHeaderPageOpacity(
-        setOpacityTo: 0,
-        notify: notify,
-      );
+    if (headerPageOpacity.value == 1) {
+      headerPageOpacity.value = 0;
     }
 
     /// WHEN HEADER PAGE IS HIDDEN
     else {
-      _activeFlyerProvider.setHeaderPageOpacity(
-        setOpacityTo: 1,
-        notify: notify,
-      );
+      headerPageOpacity.value = 1;
     }
 
   });
 }
-// -------------------------------------------------------
-void _triggerCanDismissFlyer({
-  @required BuildContext context,
-  @required bool notify,
-}){
-
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
-  // final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
-
-  if (_headerIsExpanded == true){
-    _activeFlyerProvider.setCanDismissFlyer(
-        setTo: false,
-        notify: notify
-    );
-  }
-
-  else {
-    _activeFlyerProvider.setCanDismissFlyer(
-        setTo: true,
-        notify: notify
-    );
-  }
-}
-// -----------------------------------------------------------------------------
+// // -------------------------------------------------------
+// void _triggerCanDismissFlyer({
+//   @required BuildContext context,
+//   @required bool notify,
+// }){
+//
+//   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
+//   final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
+//   // final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
+//
+//   if (_headerIsExpanded == true){
+//     _activeFlyerProvider.setCanDismissFlyer(
+//         setTo: false,
+//         notify: notify
+//     );
+//   }
+//
+//   else {
+//     _activeFlyerProvider.setCanDismissFlyer(
+//         setTo: true,
+//         notify: notify
+//     );
+//   }
+// }
+// // -----------------------------------------------------------------------------
 /// ON FOLLOW
 Future<void> onFollowTap({
   @required BuildContext context,
   @required BzModel bzModel,
+  @required ValueNotifier<bool> followIsOn,
 }) async {
 
-  final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-  final bool _followIsOn = _activeFlyerProvider.followIsOn;
 
   /// TASK : start follow bz ops
   // final List<String> _updatedBzFollows = await RecordOps.followBzOPs(
@@ -231,10 +219,7 @@ Future<void> onFollowTap({
   // _prof.updatedFollowsInLocalList(_updatedBzFollows);
 
   /// trigger current follow value
-  _activeFlyerProvider.setFollowIsOn(
-    setFollowIsOnTo: !_followIsOn,
-    notify: true,
-  );
+  followIsOn.value = !followIsOn.value;
 
 }
 // -----------------------------------------------------------------------------

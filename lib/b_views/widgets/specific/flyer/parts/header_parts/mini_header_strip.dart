@@ -25,7 +25,7 @@ class MiniHeaderStrip extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _stripHeight = FlyerBox.headerStripHeight(
-        bzPageIsOn: superFlyer.nav.bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
+        headerIsExpanded: superFlyer.nav.bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
     final BorderRadius _stripBorders = FlyerBox.superHeaderStripCorners(
       context: context,
       bzPageIsOn: superFlyer.nav.bzPageIsOn,
@@ -59,7 +59,6 @@ class MiniHeaderStrip extends StatelessWidget {
                   context: context,
                   flyerBoxWidth: flyerBoxWidth,
                   zeroCornerIsOn: superFlyer.flyerShowsAuthor),
-              bzPageIsOn: superFlyer.nav.bzPageIsOn,
               zeroCornerIsOn: superFlyer.flyerShowsAuthor,
               // onTap: superFlyer.onHeaderTap,
             ),
@@ -76,7 +75,7 @@ class MiniHeaderStrip extends StatelessWidget {
             ),
 
             /// --- FOLLOW & Call
-            FollowAndCallBTs(
+            OldFollowAndCallBTs(
               flyerBoxWidth: flyerBoxWidth,
               onFollowTap: superFlyer.rec.onFollowTap,
               onCallTap: superFlyer.rec.onCallTap,

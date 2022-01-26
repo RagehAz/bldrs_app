@@ -13,7 +13,6 @@ class BzLogo extends StatelessWidget {
     this.image,
     this.tinyMode = true,
     this.corners,
-    this.bzPageIsOn = false,
     this.zeroCornerIsOn,
     this.margins,
     this.onTap,
@@ -26,7 +25,6 @@ class BzLogo extends StatelessWidget {
   final dynamic image;
   final bool tinyMode;
   final BorderRadius corners;
-  final bool bzPageIsOn;
   final bool zeroCornerIsOn;
   final EdgeInsets margins;
   final Function onTap;

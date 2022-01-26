@@ -200,8 +200,8 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     const double _followCallScaleEnd = 1.5;
-    final double _followCallPaddingEnd = FollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
-    final double _followCallBoxWidthEnd = FollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
+    final double _followCallPaddingEnd = OldFollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * _followCallScaleEnd;
+    final double _followCallBoxWidthEnd = OldFollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
     final double _logoSizeBegin = OldFlyerBox.logoWidth(
         bzPageIsOn: false,
         flyerBoxWidth: widget.flyerBoxWidth
@@ -355,7 +355,6 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                               image: widget.bzModel?.logo,
                               tinyMode: OldFlyerBox.isTinyMode(context, widget.flyerBoxWidth),
                               corners: _logoBorders,
-                              bzPageIsOn: widget.headerIsExpanded,
                               zeroCornerIsOn: widget.authorIsOn,
                               // onTap:
                               //superFlyer.onHeaderTap,
@@ -404,14 +403,14 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                             /// FOLLOW AND CALL
                             Center(
                               child: Container(
-                                width: FollowAndCallBTs.getBoxWidth(
+                                width: OldFollowAndCallBTs.getBoxWidth(
                                         flyerBoxWidth: widget.flyerBoxWidth) *
                                     _followCallButtonsScaleTween.value,
                                 height:
                                     _logoSizeBegin * _logoSizeRatioTween.value,
                                 alignment: Alignment.topCenter,
                                 // color: Colorz.BloodTest,
-                                child: FollowAndCallBTs(
+                                child: OldFollowAndCallBTs(
                                   flyerBoxWidth: widget.flyerBoxWidth * _followCallButtonsScaleTween.value,
                                   onFollowTap: widget.onFollowTap,
                                   onCallTap: widget.onCallTap,

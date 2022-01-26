@@ -521,10 +521,9 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 height: _progressBarHeight,
                 // color: Colorz.BloodTest,
                 // alignment: Alignment.center,
-                child: ProgressBar(
+                child: OldProgressBar(
                   index: _currentPageIndex,
-                  numberOfSlides: _flyers.length,
-                  numberOfStrips: _numberOfStrips,
+                  numberOfSlides: _numberOfStrips,
                   opacity: _progressBarOpacity,
                   swipeDirection: _lastSwipeDirection,
                   loading: _loading,

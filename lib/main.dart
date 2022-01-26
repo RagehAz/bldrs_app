@@ -202,9 +202,6 @@ class _BldrsAppState extends State<BldrsApp> {
           ChangeNotifierProvider<FlyersProvider>(
             create: (BuildContext ctx) => FlyersProvider(),
           ),
-          ChangeNotifierProvider<ActiveFlyerProvider>(
-            create: (BuildContext ctx) => ActiveFlyerProvider(),
-          ),
           ChangeNotifierProvider<KeywordsProvider>(
             create: (BuildContext ctx) => KeywordsProvider(),
           ),

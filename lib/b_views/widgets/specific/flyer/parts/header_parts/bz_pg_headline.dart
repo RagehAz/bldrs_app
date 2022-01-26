@@ -16,49 +16,50 @@ class BzPageHeadline extends StatelessWidget {
     @required this.city,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool bzPageIsOn;
   final BzModel bzModel;
   final CountryModel country;
   final CityModel city;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return bzPageIsOn == false
-        ? Container()
-        : Container(
-            height: flyerBoxWidth * 0.3,
-            width: flyerBoxWidth,
-            color: Colorz.nothing,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                /// BUSINESS NAME
-                SuperVerse(
-                  verse: bzModel?.name,
-                  size: 5,
-                  shadow: true,
-                  maxLines: 2,
-                  // softWrap: true,
-                ),
+    return bzPageIsOn == false ?
+    Container()
+        :
+    Container(
+      height: flyerBoxWidth * 0.3,
+      width: flyerBoxWidth,
+      color: Colorz.nothing,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
 
-                /// BUSINESS LOCALE
-                SuperVerse(
-                  verse: TextGen.countryStringer(
-                    context: context,
-                    zone: bzModel?.zone,
-                    country: country,
-                    city: city,
-                  ),
-                  italic: true,
-                  weight: VerseWeight.regular,
-                  color: Colorz.white200,
-                ),
-              ],
+          /// BUSINESS NAME
+          SuperVerse(
+            verse: bzModel?.name,
+            size: 5,
+            shadow: true,
+            maxLines: 2,
+            // softWrap: true,
+          ),
+
+          /// BUSINESS LOCALE
+          SuperVerse(
+            verse: TextGen.countryStringer(
+              context: context,
+              zone: bzModel?.zone,
+              country: country,
+              city: city,
             ),
-          );
+            italic: true,
+            weight: VerseWeight.regular,
+            color: Colorz.white200,
+          ),
+
+        ],
+      ),
+    );
   }
 }

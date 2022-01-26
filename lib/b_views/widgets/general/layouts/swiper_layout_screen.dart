@@ -180,11 +180,10 @@ class _SwiperLayoutScreenState extends State<SwiperLayoutScreen> {
 
         children: <Widget>[
 
-          ProgressBar(
+          OldProgressBar(
             flyerBoxWidth: _screenWidth,
             index: _pageIndex,
             numberOfSlides: widget.swiperPages.length,
-            numberOfStrips: widget.swiperPages.length,
             swipeDirection: _swipeDirection,
             opacity: 1,
             margins: const EdgeInsets.only(top: Ratioz.stratosphere - Ratioz.appBarMargin - 2),
