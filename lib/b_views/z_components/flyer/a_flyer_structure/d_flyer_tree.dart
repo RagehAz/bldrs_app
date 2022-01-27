@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -208,6 +207,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 
         /// SLIDES
         SlidesStack(
+          key: const ValueKey<String>('FlyerTree_SlidesStack'),
           flyerModel: widget.flyerModel,
           flyerBoxWidth: _flyerBoxWidth,
           flyerBoxHeight: _flyerBoxHeight,

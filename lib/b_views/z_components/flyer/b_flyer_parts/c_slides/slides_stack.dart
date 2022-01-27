@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_part.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_slides.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
@@ -46,11 +46,13 @@ class SlidesStack extends StatelessWidget {
 
 
     return Stack(
+      key: const ValueKey<String>('SlidesStack_the_stack'),
       children: <Widget>[
 
         /// SLIDES
         if (currentSlideIndex?.value != null)
           FlyerSlides(
+            key: const ValueKey<String>('SlidesStack_FlyerSlides'),
             flyerModel: flyerModel,
             flyerBoxWidth: flyerBoxWidth,
             flyerBoxHeight: flyerBoxHeight,
