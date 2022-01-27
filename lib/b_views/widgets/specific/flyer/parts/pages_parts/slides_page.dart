@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/flyer_methods.dart'
-    as FlyerMethod;
+import 'package:bldrs/b_views/widgets/specific/flyer/flyer_methods.dart' as FlyerMethod;
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/price_tag.dart';
@@ -8,38 +7,40 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_pa
 import 'package:bldrs/f_helpers/drafters/tracers.dart' as Tracer;
 import 'package:flutter/material.dart';
 
-class SlidesPage extends StatelessWidget {
+class OldSlidesPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SlidesPage({
+  const OldSlidesPage({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     Tracer.traceWidgetBuild(
         widgetName: 'SlidesPage',
         varName: 'numberOfSlides',
         varValue: superFlyer.numberOfSlides,
-        tracerIsOn: false);
+        tracerIsOn: false
+    );
+
     return Stack(
       children: <Widget>[
+
         /// SLIDES
         if (superFlyer.currentSlideIndex != null)
-          Slides(
+          OldSlides(
             superFlyer: superFlyer,
             flyerBoxWidth: flyerBoxWidth,
           ),
 
         /// PRICE TAG
         if (superFlyer.priceTagIsOn == true)
-          PriceTag(
+          OldPriceTag(
             flyerBoxWidth: flyerBoxWidth,
             superFlyer: superFlyer,
           ),
@@ -48,7 +49,7 @@ class SlidesPage extends StatelessWidget {
         if (superFlyer.currentSlideIndex != null &&
             superFlyer.numberOfSlides != 0 &&
             superFlyer.edit.editMode != true)
-          AnkhButton(
+          OldAnkhButton(
             bzPageIsOn: superFlyer.nav.bzPageIsOn,
             flyerBoxWidth: flyerBoxWidth,
             listenToSwipe: superFlyer.nav.listenToSwipe,
@@ -60,8 +61,7 @@ class SlidesPage extends StatelessWidget {
         if (superFlyer.edit.editMode == true)
           EditorFooter(
             flyerBoxWidth: flyerBoxWidth,
-            currentPicFit: FlyerMethod.getCurrentBoxFitFromSuperFlyer(
-                superFlyer: superFlyer),
+            currentPicFit: FlyerMethod.getCurrentBoxFitFromSuperFlyer(superFlyer: superFlyer),
             onAddImages: superFlyer.edit.onAddImages,
             onDeleteSlide: superFlyer.edit.onDeleteSlide,
             onCropImage: superFlyer.edit.onCropImage,
@@ -70,6 +70,7 @@ class SlidesPage extends StatelessWidget {
             numberOfSlides: superFlyer.numberOfSlides,
             superFlyer: superFlyer,
           ),
+
       ],
     );
   }

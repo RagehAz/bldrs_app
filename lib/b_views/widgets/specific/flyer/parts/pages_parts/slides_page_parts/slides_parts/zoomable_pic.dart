@@ -9,7 +9,7 @@ class ZoomablePicture extends StatefulWidget {
   const ZoomablePicture({
     @required this.child,
     @required this.isOn,
-    @required this.onTap,
+    this.onTap,
     this.autoShrink = true,
     this.isFullScreen = false,
     Key key,
@@ -29,8 +29,7 @@ class ZoomablePicture extends StatefulWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _ZoomablePictureState extends State<ZoomablePicture>
-    with TickerProviderStateMixin {
+class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderStateMixin {
   TransformationController _transformationController;
   AnimationController _zoomAnimationController;
 // -----------------------------------------------------------------------------
@@ -84,14 +83,18 @@ class _ZoomablePictureState extends State<ZoomablePicture>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+
         if (widget.isFullScreen == true) {
           await _resetZoom();
-        } else {
+        }
+
+        if (widget.onTap != null){
           widget.onTap();
         }
+
       },
-      onDoubleTap: widget.isFullScreen
-          ? () async {
+      onDoubleTap: widget.isFullScreen ?
+          () async {
               await _onDoubleTap();
             }
           : null,

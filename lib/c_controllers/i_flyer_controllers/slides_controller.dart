@@ -1,10 +1,8 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
  void onHorizontalSlideSwipe({
    @required BuildContext context,
@@ -30,7 +28,6 @@ import 'package:provider/provider.dart';
       FocusScope.of(context).nextFocus();
 
       _setSwipeDirectionAndCurrentIndex(
-        context: context,
         newSwipeDirection: _direction,
         swipeDirection: swipeDirection,
         currentSlideIndex: currentSlideIndex,
@@ -45,7 +42,6 @@ import 'package:provider/provider.dart';
       blog('going back');
       FocusScope.of(context).previousFocus();
       _setSwipeDirectionAndCurrentIndex(
-          context: context,
           newSwipeDirection: _direction,
           swipeDirection: swipeDirection,
           currentSlideIndex: currentSlideIndex,
@@ -58,7 +54,6 @@ import 'package:provider/provider.dart';
     else {
       blog('going no where');
       _setSwipeDirectionAndCurrentIndex(
-          context: context,
           newSwipeDirection: _direction,
           swipeDirection: swipeDirection,
           currentSlideIndex: currentSlideIndex,
@@ -72,7 +67,6 @@ import 'package:provider/provider.dart';
   else {
     // blog('KEYBOARD IS NOT ACTIVE');
     _setSwipeDirectionAndCurrentIndex(
-        context: context,
         newSwipeDirection: _direction,
         swipeDirection: swipeDirection,
         currentSlideIndex: currentSlideIndex,
@@ -83,7 +77,6 @@ import 'package:provider/provider.dart';
 }
 // -----------------------------------------------------------------------------
 void _setSwipeDirectionAndCurrentIndex({
-  @required BuildContext context,
   @required ValueNotifier<int> currentSlideIndex,
   @required int newIndex,
   @required bool notify,

@@ -26,18 +26,7 @@ class FlyerFullScreen extends StatelessWidget {
   final double minWidthFactor;
   /// --------------------------------------------------------------------------
   void _onDismiss(BuildContext context){
-
-    // final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-    // final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
-    //
-    // blog('can dismiss is : $_canDismissFlyer');
-    //
-    // if (_canDismissFlyer == true){
-    //   onCloseFullScreenFlyer(context);
-    // }
-
     Nav.goBack(context);
-
   }
 // -----------------------------------------------------------------------------
   @override

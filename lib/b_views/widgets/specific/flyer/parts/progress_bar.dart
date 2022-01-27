@@ -18,7 +18,6 @@ class OldProgressBar extends StatelessWidget {
     // @required this.draft,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final int numberOfSlides;
   final int index;
@@ -29,7 +28,6 @@ class OldProgressBar extends StatelessWidget {
   final bool loading;
   final Sliders.SwipeDirection swipeDirection;
   final EdgeInsets margins;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,28 +41,28 @@ class OldProgressBar extends StatelessWidget {
         child:
 
             // superFlyer.loading == true ?
-            loading == true || numberOfSlides == null ? ProgressBox(
-                    flyerBoxWidth: flyerBoxWidth,
-                    margins: margins,
-                    strips: <Widget>[
+        loading == true || numberOfSlides == null ? ProgressBox(
+            flyerBoxWidth: flyerBoxWidth,
+            margins: margins,
+            strips: <Widget>[
 
-                        Container(
-                          width: Strips.stripsTotalLength(flyerBoxWidth),
-                          height: Strips.stripThickness(flyerBoxWidth),
-                          decoration: BoxDecoration(
-                            color: Strips.stripOffColor,
-                            borderRadius: Strips.stripBorders(
-                                context: context, flyerBoxWidth: flyerBoxWidth),
-                          ),
-                          child: LinearProgressIndicator(
-                            backgroundColor: Colorz.nothing,
-                            minHeight: Strips.stripThickness(flyerBoxWidth),
-                            valueColor: const AlwaysStoppedAnimation(Strips.stripFadedColor),
-                          ),
-                        ),
+              Container(
+                width: Strips.stripsTotalLength(flyerBoxWidth),
+                height: Strips.stripThickness(flyerBoxWidth),
+                decoration: BoxDecoration(
+                  color: Strips.stripOffColor,
+                  borderRadius: Strips.stripBorders(
+                      context: context, flyerBoxWidth: flyerBoxWidth),
+                ),
+                child: LinearProgressIndicator(
+                  backgroundColor: Colorz.nothing,
+                  minHeight: Strips.stripThickness(flyerBoxWidth),
+                  valueColor: const AlwaysStoppedAnimation(Strips.stripFadedColor),
+                ),
+              ),
 
-                      ]
-            )
+            ]
+        )
                 :
             Strips.canBuildStrips(numberOfSlides) == true ?
             Strips(
