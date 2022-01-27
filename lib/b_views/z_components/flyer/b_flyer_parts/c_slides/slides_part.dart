@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,8 @@ class FlyerSlides extends StatelessWidget {
     @required this.flyerModel,
     @required this.horizontalController,
     @required this.onSwipeSlide,
+    @required this.onSlideNextTap,
+    @required this.onSlideBackTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +25,8 @@ class FlyerSlides extends StatelessWidget {
   final FlyerModel flyerModel;
   final PageController horizontalController;
   final ValueChanged<int> onSwipeSlide;
+  final Function onSlideNextTap;
+  final Function onSlideBackTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -35,6 +40,7 @@ class FlyerSlides extends StatelessWidget {
     }
 
     else {
+
       return PageView(
         controller: horizontalController,
         physics: const BouncingScrollPhysics(),
@@ -57,7 +63,11 @@ class FlyerSlides extends StatelessWidget {
                   flyerBoxHeight: flyerBoxHeight,
                   slideModel: _slide,
                   tinyMode: tinyMode,
+                  onSlideNextTap: onSlideNextTap,
+                  onSlideBackTap: onSlideBackTap,
                 ),
+
+                /// ---------
 
                 // FlyerFooter(
                 //   flyerBoxWidth: flyerBoxWidth,
@@ -76,60 +86,7 @@ class FlyerSlides extends StatelessWidget {
                 // ),
 
                 // /// TAP AREAS
-                // Row(
-                //   children: <Widget>[
-                //
-                //     /// --- back tap area
-                //     GestureDetector(
-                //       onTap: () async {
-                //         blog('widget.currentSlideIndex was : ${widget.superFlyer.currentSlideIndex}');
-                //         int _newIndex = await Sliders.slideToBackAndGetNewIndex(_slidingController, widget.superFlyer.currentSlideIndex);
-                //
-                //         /// if its first slide swipe to last flyer
-                //         if (_newIndex == widget.superFlyer.currentSlideIndex){
-                //           widget.superFlyer.onSwipeFlyer(SwipeDirection.back);
-                //         }
-                //         /// if its a middle or last slide, slide to the new index
-                //         else {
-                //           widget.superFlyer.onHorizontalSlideSwipe(_newIndex);
-                //           blog('widget.currentSlideIndex after sliding is : $_newIndex');
-                //         }
-                //
-                //       },
-                //       child: Container(
-                //         width: widget.superFlyer.flyerBoxWidth * 0.25,
-                //         height: _tapAreaHeight,
-                //         margin: EdgeInsets.only(top: _headerHeight + _progressBarHeight),
-                //         color: Colorz.Nothing,
-                //       ),
-                //     ),
-                //
-                //     // /// --- front tap area
-                //     // GestureDetector(
-                //     //   onTap: () async {
-                //     //     blog('widget.currentSlideIndex was : ${widget.currentSlideIndex}');
-                //     //     int _newIndex = await Sliders.slideToNextAndGetNewIndex(_slidingController, _slidesLength, widget.currentSlideIndex);
-                //     //
-                //     //     /// if its last slide swipe to next flyer
-                //     //     if (_newIndex == widget.currentSlideIndex){
-                //     //       widget.swipeFlyer(SwipeDirection.next);
-                //     //     }
-                //     //     /// if its a middle or last slide, slide to the new index
-                //     //     else {
-                //     //       widget.sliding(_newIndex);
-                //     //       blog('widget.currentSlideIndex after sliding is : $_newIndex');
-                //     //     }
-                //     //   },
-                //     //   child: Container(
-                //     //     width: widget.flyerBoxWidth * 0.75,
-                //     //     height: _tapAreaHeight,
-                //     //     margin: EdgeInsets.only(top: _headerHeight + _progressBarHeight),
-                //     //     color: Colorz.Nothing,
-                //     //   ),
-                //     // ),
-                //
-                //   ],
-                // ),
+
 
               ],
             );
@@ -138,6 +95,7 @@ class FlyerSlides extends StatelessWidget {
 
         ],
       );
+
     }
 
   }

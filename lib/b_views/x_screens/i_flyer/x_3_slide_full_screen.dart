@@ -40,7 +40,7 @@ class SlideFullScreen extends StatelessWidget {
         // color: Colorz.Yellow50,
         alignment: Alignment.center,
         child: ZoomablePicture(
-          onTap: null,
+          // onTap: null,
           isOn: true,
           isFullScreen: true,
           autoShrink: false,
