@@ -7,22 +7,27 @@ class FlyerLoading extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerLoading({
     @required this.flyerWidthFactor,
+    this.loadingColor = Colorz.white10,
+    this.boxColor = Colorz.white20,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerWidthFactor;
+  final Color loadingColor;
+  final Color boxColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return FlyerBox(
       flyerWidthFactor: flyerWidthFactor,
+      boxColor: boxColor,
       stackWidgets: <Widget>[
 
         RotatedBox(
           quarterTurns: appIsLeftToRight(context) ? 2 : 0,
           child: LinearProgressIndicator(
-            color: Colorz.white10,
+            color: loadingColor,
             backgroundColor: Colorz.nothing,
             minHeight: FlyerBox.heightByWidthFactor(
                 context: context,
