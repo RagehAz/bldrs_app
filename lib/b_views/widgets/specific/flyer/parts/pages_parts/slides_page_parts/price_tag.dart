@@ -12,9 +12,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PriceTag extends StatelessWidget {
+class OldPriceTag extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const PriceTag({
+  const OldPriceTag({
     @required this.flyerBoxWidth,
     @required this.superFlyer,
     Key key,

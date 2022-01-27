@@ -14,11 +14,9 @@ class FlyerPages extends StatelessWidget {
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,9 @@ class FlyerPages extends StatelessWidget {
         widgetName: 'FlyerPages',
         varName: '_tinyMode',
         varValue: _tinyMode,
-        tracerIsOn: false);
+        tracerIsOn: false
+    );
+
     return MaxBounceNavigator(
       notificationListenerKey: ValueKey<String>(
           '${superFlyer.flyerID}_flyerPages_notification_listener_key'),
@@ -44,7 +44,7 @@ class FlyerPages extends StatelessWidget {
         controller: superFlyer.nav.verticalController,
         children: <Widget>[
           /// SLIDES PAGE
-          SlidesPage(
+          OldSlidesPage(
             superFlyer: superFlyer,
             flyerBoxWidth: flyerBoxWidth,
           ),
