@@ -6,9 +6,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class AnkhButton extends StatefulWidget {
+class OldAnkhButton extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const AnkhButton({
+  const OldAnkhButton({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.listenToSwipe,
@@ -26,12 +26,12 @@ class AnkhButton extends StatefulWidget {
 
   /// --------------------------------------------------------------------------
   @override
-  _AnkhButtonState createState() => _AnkhButtonState();
+  _OldAnkhButtonState createState() => _OldAnkhButtonState();
 
   /// --------------------------------------------------------------------------
 }
 
-class _AnkhButtonState extends State<AnkhButton>
+class _OldAnkhButtonState extends State<OldAnkhButton>
     with SingleTickerProviderStateMixin {
   AnimationController _ankhAniController;
   // Animation _ankhColorAni;
