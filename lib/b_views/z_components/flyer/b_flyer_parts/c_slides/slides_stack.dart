@@ -1,9 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_part.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SlidesStack extends StatelessWidget {
@@ -16,6 +13,8 @@ class SlidesStack extends StatelessWidget {
     @required this.flyerModel,
     @required this.horizontalController,
     @required this.onSwipeSlide,
+    @required this.onSlideNextTap,
+    @required this.onSlideBackTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,6 +25,8 @@ class SlidesStack extends StatelessWidget {
   final FlyerModel flyerModel;
   final PageController horizontalController;
   final ValueChanged<int> onSwipeSlide;
+  final Function onSlideNextTap;
+  final Function onSlideBackTap;
   /// --------------------------------------------------------------------------
   bool _canShowSaveButton(){
     bool _canShow = false;
@@ -56,6 +57,8 @@ class SlidesStack extends StatelessWidget {
             tinyMode: tinyMode,
             horizontalController: horizontalController,
             onSwipeSlide: onSwipeSlide,
+            onSlideBackTap: onSlideBackTap,
+            onSlideNextTap: onSlideNextTap,
           ),
 
 
@@ -68,8 +71,8 @@ class SlidesStack extends StatelessWidget {
         //   ),
 
         /// SAVE BUTTON
-        if (_canShowSaveButton() == true)
-          Container(),
+        // if (_canShowSaveButton() == true)
+        //   Container(),
         //   SaveButton(
         //     bzPageIsOn: superFlyer.nav.bzPageIsOn,
         //     flyerBoxWidth: flyerBoxWidth,

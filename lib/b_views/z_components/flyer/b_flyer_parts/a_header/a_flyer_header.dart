@@ -216,7 +216,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
     //--------------------------------o
     final double _minHeaderHeight = FlyerBox.headerBoxHeight(
-        bzPageIsOn: false,
         flyerBoxWidth: widget.flyerBoxWidth
     );
     //--------------------------------o

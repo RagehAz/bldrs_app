@@ -96,17 +96,16 @@ class FlyerBox extends StatelessWidget {
 
   //--------------------------------o
   static double headerBoxHeight({
-    @required bool bzPageIsOn,
     @required double flyerBoxWidth
   }) {
-    final double _miniHeaderHeightAtMaxState = flyerBoxWidth * Ratioz.xxflyerHeaderMaxHeight;
+    // final double _miniHeaderHeightAtMaxState = flyerBoxWidth * Ratioz.xxflyerHeaderMaxHeight;
     final double _miniHeaderHeightAtMiniState = flyerBoxWidth * Ratioz.xxflyerHeaderMiniHeight;
-    final double _headerHeight = bzPageIsOn == true ?
-    _miniHeaderHeightAtMaxState
-        :
-    _miniHeaderHeightAtMiniState;
+    // final double _headerHeight = bzPageIsOn == true ?
+    // _miniHeaderHeightAtMaxState
+    //     :
+    // _miniHeaderHeightAtMiniState;
 
-    return _headerHeight;
+    return _miniHeaderHeightAtMiniState;
   }
   //--------------------------------o
   static double headerStripHeight({
@@ -131,7 +130,6 @@ class FlyerBox extends StatelessWidget {
   //--------------------------------o
   static double headerAndProgressHeights(double flyerBoxHeight) {
     final double _headerBoxHeight = headerBoxHeight(
-        bzPageIsOn: false,
         flyerBoxWidth: flyerBoxHeight
     );
 

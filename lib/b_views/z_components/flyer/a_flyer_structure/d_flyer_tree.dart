@@ -6,10 +6,13 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_pa
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_stack.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -156,6 +159,38 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     );
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onSlideNextTap() async {
+
+    final int _lastIndex = widget.flyerModel.slides.length - 1;
+
+    /// WHEN AT LAST INDEX
+    if (_currentSlideIndex.value == _lastIndex){
+      goBack(context);
+    }
+
+    /// WHEN AT ANY OTHER INDEX
+    else {
+      final int _newIndex = await slideToNextAndGetNewIndex(_horizontalController, widget.flyerModel.slides.length, _currentSlideIndex.value);
+      blog('_onSlideNextTap : _newIndex : $_newIndex');
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onSlideBackTap() async {
+
+    /// WHEN AT FIRST INDEX
+    if (_currentSlideIndex.value == 0){
+      goBack(context);
+    }
+
+    /// WHEN AT ANY OTHER SLIDE
+    else {
+      final int _newIndex = await slideToBackAndGetNewIndex(_horizontalController, _currentSlideIndex.value);
+      blog('onSlideBackTap _newIndex : $_newIndex');
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -172,16 +207,16 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
       stackWidgets: <Widget>[
 
         /// SLIDES
-        Center(
-          child: SlidesStack(
-            flyerModel: widget.flyerModel,
-            flyerBoxWidth: _flyerBoxWidth,
-            flyerBoxHeight: _flyerBoxHeight,
-            tinyMode: _tinyMode,
-            currentSlideIndex: _currentSlideIndex,
-            horizontalController: _horizontalController,
-            onSwipeSlide: _onSwipeSlide,
-          ),
+        SlidesStack(
+          flyerModel: widget.flyerModel,
+          flyerBoxWidth: _flyerBoxWidth,
+          flyerBoxHeight: _flyerBoxHeight,
+          tinyMode: _tinyMode,
+          currentSlideIndex: _currentSlideIndex,
+          horizontalController: _horizontalController,
+          onSwipeSlide: _onSwipeSlide,
+          onSlideNextTap: _onSlideNextTap,
+          onSlideBackTap: _onSlideBackTap,
         ),
 
         /// HEADER

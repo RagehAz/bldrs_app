@@ -48,6 +48,13 @@ void onTriggerHeader({
     headerIsExpanded: headerIsExpanded,
   );
 
+  /// HEADER EXPANSION
+  _triggerHeaderExpansion(
+    context: context,
+    notify: false,
+    headerIsExpanded: headerIsExpanded,
+  );
+
   /// PROGRESS BAR OPACITY
   _triggerProgressBarOpacity(
     context: context,
@@ -59,13 +66,6 @@ void onTriggerHeader({
     context: context,
     notify: false,
     headerPageOpacity: headerPageOpacity,
-  );
-
-  /// HEADER EXPANSION
-  _triggerHeaderExpansion(
-    context: context,
-    notify: false,
-    headerIsExpanded: headerIsExpanded,
   );
 
   blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');

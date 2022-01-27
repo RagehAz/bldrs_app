@@ -26,18 +26,18 @@ class HeaderBox extends StatelessWidget {
 
     return GestureDetector(
       onTap: tinyMode == true ? null : onHeaderTap,
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: ClipRRect(
+      child: Container(
+        width: flyerBoxWidth,
+        height: headerHeightTween.value,
+        decoration: BoxDecoration(
+          color: headerColor,
           borderRadius: headerBorders,
-          child: Container(
-            width: flyerBoxWidth,
-            height: headerHeightTween.value,
-            decoration: BoxDecoration(
-              color: headerColor,
-              // borderRadius: headerBorders,
-            ),
-            alignment: Alignment.topCenter,
+        ),
+        alignment: Alignment.topCenter,
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: ClipRRect(
+            borderRadius: headerBorders,
             child: Stack(
               alignment: Alignment.topCenter,
               children: children,
