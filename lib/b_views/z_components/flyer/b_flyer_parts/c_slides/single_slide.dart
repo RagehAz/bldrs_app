@@ -1,6 +1,4 @@
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/x_3_slide_full_screen.dart';
@@ -22,6 +20,8 @@ class SingleSlide extends StatelessWidget {
     @required this.flyerBoxHeight,
     @required this.slideModel,
     @required this.tinyMode,
+    @required this.onSlideNextTap,
+    @required this.onSlideBackTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +29,8 @@ class SingleSlide extends StatelessWidget {
   final double flyerBoxHeight;
   final SlideModel slideModel;
   final bool tinyMode;
+  final Function onSlideNextTap;
+  final Function onSlideBackTap;
   /// --------------------------------------------------------------------------
   void _onBehindSlideImageTap(BuildContext context) {
 
@@ -76,7 +78,7 @@ class SingleSlide extends StatelessWidget {
 
     return _canTap;
   }
-
+// -----------------------------------------------------------------------------
   int _getSlideTitleSize(BuildContext context){
     final double _screenWidth = Scale.superScreenWidth(context);
 
@@ -95,7 +97,7 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    blog('single slide title is : ${slideModel?.headline} and tinyMode is : ${tinyMode}');
+    blog('single slide title is : ${slideModel?.headline} and tinyMode is : $tinyMode');
 // -----------------------------------------------------------------------------
     final int _slideTitleSize = _getSlideTitleSize(context);
 // -----------------------------------------------------------------------------
@@ -125,61 +127,133 @@ class SingleSlide extends StatelessWidget {
 
     return AbsorbPointer(
       absorbing: !_canTapSlide(),
-      child: Container(
-        width: flyerBoxWidth,
-        height: flyerBoxHeight,
-        alignment: Alignment.topCenter,
-        decoration: BoxDecoration(
-          borderRadius: FlyerBox.corners(context, flyerBoxWidth),
-          color: slideModel.midColor,
-          // image: slideModel.pic,
-        ),
-        child: ClipRRect(
-          borderRadius: FlyerBox.corners(context, flyerBoxWidth),
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: <Widget>[
+      child: ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
 
-              /// --- IMAGE NETWORK
-              if (ObjectChecker.objectIsURL(slideModel.pic))
-                ZoomablePicture(
-                  isOn: !tinyMode,
-                  // onTap: (){blog('image of single slide is tapped');},
-                  child: Image.network(
-                    slideModel.pic,
-                    fit: slideModel.picFit,
-                    width: flyerBoxWidth,
-                    height: flyerBoxHeight,
-                  ),
-                ),
+            Container(
+              width: flyerBoxWidth,
+              height: flyerBoxHeight,
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                borderRadius: FlyerBox.corners(context, flyerBoxWidth),
+                color: slideModel.midColor,
+                // image: slideModel.pic,
+              ),
+              child: ClipRRect(
+                borderRadius: FlyerBox.corners(context, flyerBoxWidth),
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: <Widget>[
 
-              /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
-              Container(
-                width: flyerBoxWidth,
-                height: flyerBoxWidth * 0.6,
-                decoration: BoxDecoration(
-                  borderRadius: Borderers.superHeaderShadowCorners(context, flyerBoxWidth),
-                  gradient: Colorizer.superSlideGradient(),
+                    /// --- IMAGE NETWORK
+                    if (ObjectChecker.objectIsURL(slideModel.pic))
+                      ZoomablePicture(
+                        isOn: !tinyMode,
+                        // onTap: (){blog('image of single slide is tapped');},
+                        child: Stack(
+                          children: <Widget>[
 
-                  /// TASK : can optimize this by adding svg instead
+                            Image.network(
+                              slideModel.pic,
+                              fit: slideModel.picFit,
+                              width: flyerBoxWidth,
+                              height: flyerBoxHeight,
+                            ),
+
+                            /// TAP AREAS
+                            if (tinyMode == false)
+                              SlideTapAreas(
+                                key: const ValueKey<String>('SlideTapAreas'),
+                                flyerBoxWidth: flyerBoxWidth,
+                                flyerBoxHeight: flyerBoxHeight,
+                                onTapNext: onSlideNextTap,
+                                onTapBack: onSlideBackTap,
+                              ),
+
+                          ],
+                        ),
+                      ),
+
+                    /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
+                    Container(
+                      width: flyerBoxWidth,
+                      height: flyerBoxWidth * 0.6,
+                      decoration: BoxDecoration(
+                        borderRadius: Borderers.superHeaderShadowCorners(context, flyerBoxWidth),
+                        gradient: Colorizer.superSlideGradient(),
+
+                        /// TASK : can optimize this by adding svg instead
+                      ),
+                    ),
+
+                    /// HEADLINE
+                    SlideHeadline(
+                      flyerBoxWidth: flyerBoxWidth,
+                      verse: slideModel.headline,
+                      verseSize: _slideTitleSize,
+                      verseColor: Colorz.white255,
+                      tappingVerse: () {
+                        blog('Flyer Title clicked');
+                      },
+                    ),
+
+                  ],
                 ),
               ),
+            ),
 
-                SlideHeadline(
-                  flyerBoxWidth: flyerBoxWidth,
-                  verse: slideModel.headline,
-                  verseSize: _slideTitleSize,
-                  verseColor: Colorz.white255,
-                  tappingVerse: () {
-                    blog('Flyer Title clicked');
-                  },
-                ),
-
-            ],
-          ),
-        ),
+          ],
       ),
+
     );
 
+  }
+}
+
+class SlideTapAreas extends StatelessWidget {
+
+  const SlideTapAreas({
+    @required this.onTapNext,
+    @required this.onTapBack,
+    @required this.flyerBoxWidth,
+    @required this.flyerBoxHeight,
+    Key key
+  }) : super(key: key);
+
+  final Function onTapNext;
+  final Function onTapBack;
+  final double flyerBoxWidth;
+  final double flyerBoxHeight;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Row(
+      children: <Widget>[
+
+        /// BACK
+        GestureDetector(
+          onTap: onTapBack,
+          child: Container(
+            width: flyerBoxWidth * 0.25,
+            height: flyerBoxHeight,
+            color: Colorz.nothing,
+          ),
+        ),
+
+        /// NEXT
+        GestureDetector(
+          onTap: onTapNext,
+          child: Container(
+            width: flyerBoxWidth * 0.75,
+            height: flyerBoxHeight,
+            color: Colorz.nothing,
+          ),
+        ),
+
+      ],
+    );
   }
 }
