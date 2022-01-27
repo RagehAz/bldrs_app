@@ -9,6 +9,7 @@ class FlyerBox extends StatelessWidget {
   const FlyerBox({
     @required this.flyerWidthFactor,
     this.stackWidgets,
+    this.boxColor = Colorz.white20,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -17,6 +18,7 @@ class FlyerBox extends StatelessWidget {
   final double flyerWidthFactor;
   /// internal parts of the flyer
   final List<Widget> stackWidgets;
+  final Color boxColor;
 // -----------------------------------------------------------------------------
 
   /// FLYER SIZES
@@ -238,7 +240,7 @@ class FlyerBox extends StatelessWidget {
         height: _flyerZoneHeight,
         alignment: Alignment.topCenter,
         decoration: BoxDecoration(
-          color: Colorz.white20,
+          color: boxColor,
           borderRadius: _flyerBorders,
           // boxShadow: Shadowz.flyerZoneShadow(_flyerBoxWidth),
         ),
