@@ -11,18 +11,16 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class Slides extends StatelessWidget {
+class OldSlides extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const Slides({
+  const OldSlides({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final SuperFlyer superFlyer;
   final double flyerBoxWidth;
-
   /// --------------------------------------------------------------------------
   void _onSingleSlideTap(BuildContext context) {
     final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
@@ -77,15 +75,15 @@ class Slides extends StatelessWidget {
                 ? superFlyer.mSlides[i].headlineController.text
                 : superFlyer.mSlides[i].headline;
             // ------------------------------------------------------o
-            return superFlyer.mSlides.isEmpty
-                ? Container()
-                : AnimatedOpacity(
-                    // key: ObjectKey('${superFlyer.key.value}${i}'),
-                    opacity: superFlyer.mSlides[i].opacity,
-                    duration: Ratioz.durationFading200,
-                    child: Stack(
+            return superFlyer.mSlides.isEmpty ? Container()
+                :
+            AnimatedOpacity(
+              // key: ObjectKey('${superFlyer.key.value}${i}'),
+              opacity: superFlyer.mSlides[i].opacity,
+              duration: Ratioz.durationFading200,
+              child: Stack(
                       children: <Widget>[
-                        SingleSlide(
+                        OldSingleSlide(
                           superFlyer: superFlyer,
                           flyerBoxWidth: flyerBoxWidth,
                           slideIndex: i,

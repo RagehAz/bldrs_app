@@ -1,10 +1,4 @@
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
-import 'package:bldrs/d_providers/active_flyer_provider.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------

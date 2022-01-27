@@ -1,12 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/d_providers/active_flyer_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 AnimationController initializeHeaderAnimationController({
   @required BuildContext context,
@@ -57,7 +54,7 @@ void onTriggerHeader({
     progressBarOpacity: progressBarOpacity,
   );
 
-    /// HEADER FADING
+  /// HEADER FADING
   _triggerHeaderPageOpacity(
     context: context,
     notify: false,
@@ -70,12 +67,6 @@ void onTriggerHeader({
     notify: false,
     headerIsExpanded: headerIsExpanded,
   );
-
-  //   /// CAN DISMISS FLYER
-  // _triggerCanDismissFlyer(
-  //   context: context,
-  //   notify: true,
-  // );
 
   blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');
 }
@@ -175,31 +166,7 @@ void _triggerHeaderPageOpacity({
 
   });
 }
-// // -------------------------------------------------------
-// void _triggerCanDismissFlyer({
-//   @required BuildContext context,
-//   @required bool notify,
-// }){
-//
-//   final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
-//   final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
-//   // final bool _canDismissFlyer = _activeFlyerProvider.canDismissFlyer;
-//
-//   if (_headerIsExpanded == true){
-//     _activeFlyerProvider.setCanDismissFlyer(
-//         setTo: false,
-//         notify: notify
-//     );
-//   }
-//
-//   else {
-//     _activeFlyerProvider.setCanDismissFlyer(
-//         setTo: true,
-//         notify: notify
-//     );
-//   }
-// }
-// // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 /// ON FOLLOW
 Future<void> onFollowTap({
   @required BuildContext context,

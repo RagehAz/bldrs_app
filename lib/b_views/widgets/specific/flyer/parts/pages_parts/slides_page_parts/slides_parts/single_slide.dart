@@ -18,9 +18,9 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class SingleSlide extends StatelessWidget {
+class OldSingleSlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SingleSlide({
+  const OldSingleSlide({
     @required this.flyerBoxWidth,
     @required this.superFlyer,
     @required this.slideIndex,
@@ -40,7 +40,6 @@ class SingleSlide extends StatelessWidget {
     this.autoFocus,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final dynamic picture;
@@ -59,7 +58,6 @@ class SingleSlide extends StatelessWidget {
   final bool autoFocus;
   final Function onTap;
   final SuperFlyer superFlyer;
-
   /// --------------------------------------------------------------------------
   void _onBehindSlideImageTap(BuildContext context, bool tinyMode) {
     if (tinyMode == true) {
@@ -69,7 +67,6 @@ class SingleSlide extends StatelessWidget {
       blog('tapping slide behind image while tinyMode is $tinyMode');
     }
   }
-
 // -----------------------------------------------------------------------------
   void _onSingleSlideTapCancel(BuildContext context) {
     blog('tap cancel single slide');
@@ -78,7 +75,6 @@ class SingleSlide extends StatelessWidget {
       Keyboarders.minimizeKeyboardOnTapOutSide(context);
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onImageDoubleTap(BuildContext context) async {
     final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
@@ -94,7 +90,6 @@ class SingleSlide extends StatelessWidget {
           ));
     }
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -162,6 +157,7 @@ class SingleSlide extends StatelessWidget {
           child: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
+
               // /// --- IMAGE FILE FULL HEIGHT
               // if (ObjectChecker.objectIsFile(picture) && _blurLayerIsActive)
               //   Image.file(
@@ -274,13 +270,15 @@ class SingleSlide extends StatelessWidget {
                   // height: flyerBoxWidth * 0.15,
                   fieldColor: Colorz.black80,
                   margin: EdgeInsets.only(
-                      top: flyerBoxWidth * 0.3, left: 5, right: 5),
+                      top: flyerBoxWidth * 0.3,
+                      left: 5,
+                      right: 5
+                  ),
                   maxLines: 4,
                   counterIsOn: false,
                   inputSize: 3,
                   centered: true,
-                  textController:
-                      superFlyer.mSlides[slideIndex].headlineController,
+                  textController: superFlyer.mSlides[slideIndex].headlineController,
                   onChanged: textFieldOnChanged,
                   inputWeight: VerseWeight.bold,
                   inputShadow: true,
@@ -289,6 +287,7 @@ class SingleSlide extends StatelessWidget {
                   onSubmitted: onTextFieldSubmitted,
                   keyboardTextInputAction: TextInputAction.done,
                 ),
+
             ],
           ),
         ),
