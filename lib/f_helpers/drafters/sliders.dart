@@ -9,35 +9,47 @@ enum SwipeDirection {
   freeze,
 }
 // -----------------------------------------------------------------------------
-Future<int> slideToNextAndGetNewIndex(PageController slidingController,
-    int numberOfSlides, int currentSlide) async {
+Future<int> slideToNextAndGetNewIndex(
+    PageController slidingController,
+    int numberOfSlides,
+    int currentSlide,
+    ) async {
+
   if (currentSlide + 1 == numberOfSlides) {
     blog('Can not slide forward');
     return currentSlide;
-  } else {
+  }
+  else {
+
     await slidingController.animateToPage(currentSlide + 1,
-        duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
+        duration: Ratioz.durationFading200,
+        curve: Curves.easeInOutCirc
+    );
 
     return currentSlide + 1;
   }
 }
-
 // -----------------------------------------------------------------------------
 /// this checks if its the first slide, it won't change index and won't slide, otherwise
 /// will slide back and return decreased index
 Future<int> slideToBackAndGetNewIndex(
-    PageController slidingController, int currentSlide) async {
+    PageController slidingController,
+    int currentSlide
+    ) async {
+
   if (currentSlide == 0) {
     blog('can not slide back');
     return currentSlide;
   } else {
+
     await slidingController.animateToPage(currentSlide - 1,
-        duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
+        duration: Ratioz.durationFading200,
+        curve: Curves.easeInOutCirc
+    );
 
     return currentSlide - 1;
   }
 }
-
 // -----------------------------------------------------------------------------
 Future<void> slideToNext(PageController slidingController, int numberOfSlides,
     int currentSlide) async {

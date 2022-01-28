@@ -1,51 +1,16 @@
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strip.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ProgressBox extends StatelessWidget {
+class OldStrips extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ProgressBox({
-    @required this.flyerBoxWidth,
-    @required this.strips,
-    this.margins,
-    Key key,
-  }) : super(key: key);
-
-  /// --------------------------------------------------------------------------
-  final double flyerBoxWidth;
-  final List<Widget> strips;
-  final EdgeInsets margins;
-
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Aligners.superTopAlignment(context),
-      child: Container(
-        width: Strips.boxWidth(flyerBoxWidth),
-        height: Strips.boxHeight(flyerBoxWidth),
-        margin: Strips.boxMargins(flyerBoxWidth: flyerBoxWidth, margins: margins),
-        padding: EdgeInsets.symmetric(horizontal: Strips.stripsOneSideMargin(flyerBoxWidth)),
-        alignment: Alignment.center,
-        // color: Colorz.bloodTest,
-        child: Stack(
-          alignment: Aligners.superCenterAlignment(context),
-          children: strips,
-        ),
-      ),
-    );
-  }
-}
-
-class Strips extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const Strips({
+  const OldStrips({
     @required this.flyerBoxWidth,
     @required this.numberOfStrips,
     @required this.swipeDirection,
@@ -54,7 +19,6 @@ class Strips extends StatelessWidget {
     this.margins,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool barIsOn;
