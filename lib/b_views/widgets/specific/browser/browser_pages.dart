@@ -12,7 +12,7 @@
 // import 'package:bldrs/b_views/widgets/specific/browser/filters_page.dart';
 // import 'package:bldrs/b_views/widgets/specific/browser/groups_page.dart';
 // import 'package:bldrs/b_views/widgets/specific/browser/keywords_page.dart';
-// import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
+// import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/old_strips.dart';
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 //

@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/old_strips.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:flutter/material.dart';
 
@@ -26,13 +26,13 @@ class Strip extends StatelessWidget {
     // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 // -----------------------------------------------------------------------------
 //     double _stripsTotalLength = Strips.stripsTotalLength(flyerBoxWidth);
-    final double _aStripThickness = Strips.stripThickness(flyerBoxWidth);
+    final double _aStripThickness = OldStrips.stripThickness(flyerBoxWidth);
     final double _aStripOnePadding = _aStripThickness / 2;
-    final double _aStripLength = Strips.oneStripLength(
+    final double _aStripLength = OldStrips.oneStripLength(
         flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfSlides);
-    final double _stripCorner = Strips.stripCornerValue(flyerBoxWidth);
+    final double _stripCorner = OldStrips.stripCornerValue(flyerBoxWidth);
     final Color _stripColor =
-        Strips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
+        OldStrips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
 // -----------------------------------------------------------------------------
 
     return Container(

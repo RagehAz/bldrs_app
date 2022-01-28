@@ -3055,7 +3055,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       stackWidgets: <Widget>[
 
         if (_superFlyerHasID == true)
-          FlyerPages(
+          OldFlyerPages(
             superFlyer: _superFlyer,
             flyerBoxWidth: widget.flyerBoxWidth,
           ),
@@ -3103,6 +3103,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
             index: _superFlyer.currentSlideIndex,
             flyerBoxWidth: widget.flyerBoxWidth,
             loading: _loading,
+
           ),
 
       ],

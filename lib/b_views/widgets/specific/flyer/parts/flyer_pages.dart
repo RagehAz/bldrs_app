@@ -7,9 +7,9 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart' as Tracer;
 import 'package:flutter/material.dart';
 
-class FlyerPages extends StatelessWidget {
+class OldFlyerPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerPages({
+  const OldFlyerPages({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
@@ -51,7 +51,7 @@ class FlyerPages extends StatelessWidget {
 
           /// INFO PAGE
           if (_tinyMode == false && superFlyer.mSlides != null)
-            InfoPage(
+            OldInfoPage(
               superFlyer: superFlyer,
               flyerBoxWidth: flyerBoxWidth,
             ),

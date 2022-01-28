@@ -31,14 +31,20 @@ AnimationController initializeHeaderAnimationController({
   return _headerAnimationController;
 }
 // -----------------------------------------------------------------------------
-void onTriggerHeader({
+Future<void> onTriggerHeader({
   @required BuildContext context,
   @required AnimationController headerAnimationController,
   @required ScrollController verticalController,
   @required ValueNotifier<bool> headerIsExpanded,
   @required ValueNotifier<double> progressBarOpacity,
   @required ValueNotifier<double> headerPageOpacity,
-}) {
+}) async {
+
+  /// PROGRESS BAR OPACITY
+  await _triggerProgressBarOpacity(
+    context: context,
+    progressBarOpacity: progressBarOpacity,
+  );
 
   /// HEADER ANIMATION
   _animateHeaderExpansion(
@@ -55,11 +61,6 @@ void onTriggerHeader({
     headerIsExpanded: headerIsExpanded,
   );
 
-  /// PROGRESS BAR OPACITY
-  _triggerProgressBarOpacity(
-    context: context,
-    progressBarOpacity: progressBarOpacity,
-  );
 
   /// HEADER FADING
   _triggerHeaderPageOpacity(
@@ -106,10 +107,10 @@ void _animateHeaderExpansion({
 }
 // -------------------------------------------------------
 /// PROGRESS BAR OPACITY
-void _triggerProgressBarOpacity({
+Future<void> _triggerProgressBarOpacity({
   @required BuildContext context,
   @required ValueNotifier<double> progressBarOpacity,
-}){
+}) async {
   /// progressBarOpacity is used because it has a slight delay after triggering header
   /// AND SO headerIsExpanded can not be used to hold the progress bar opacity value
 
@@ -121,7 +122,7 @@ void _triggerProgressBarOpacity({
 
   /// WHEN PROGRESS BAR IS HIDDEN
   else {
-    Future<void>.delayed(Ratioz.durationFading210, () {
+    await Future<void>.delayed(Ratioz.durationFading210, () {
       blog('triggering _progressBarOpacity to 1');
       progressBarOpacity.value = 1;
     });

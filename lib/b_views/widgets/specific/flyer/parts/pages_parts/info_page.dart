@@ -30,9 +30,9 @@ import 'package:provider/provider.dart';
 
 final PageStorageBucket appBucket = PageStorageBucket();
 
-class InfoPage extends StatelessWidget {
+class OldInfoPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const InfoPage({
+  const OldInfoPage({
     @required this.superFlyer,
     @required this.flyerBoxWidth,
     Key key,
