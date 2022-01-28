@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/widgets/specific/flyer/flyer_methods.dart' as Flye
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/editor_footer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer_parts/ankh_button.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/price_tag.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/slides.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/old_slides.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart' as Tracer;
 import 'package:flutter/material.dart';
 

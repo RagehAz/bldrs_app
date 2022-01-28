@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/old_strips.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
@@ -501,7 +501,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final double _clearScreenHeight =
         DashBoardLayout.clearScreenHeight(context);
     const double _footerZoneHeight = 70;
-    final double _progressBarHeight = Strips.boxHeight(_screenWidth);
+    final double _progressBarHeight = OldStrips.boxHeight(_screenWidth);
     final double _bodyZoneHeight =
         _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
     const double _flyerSizeFactor = 0.7;

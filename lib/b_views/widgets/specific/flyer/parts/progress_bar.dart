@@ -1,4 +1,5 @@
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strips.dart';
+import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/old_strips.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -47,25 +48,25 @@ class OldProgressBar extends StatelessWidget {
             strips: <Widget>[
 
               Container(
-                width: Strips.stripsTotalLength(flyerBoxWidth),
-                height: Strips.stripThickness(flyerBoxWidth),
+                width: OldStrips.stripsTotalLength(flyerBoxWidth),
+                height: OldStrips.stripThickness(flyerBoxWidth),
                 decoration: BoxDecoration(
-                  color: Strips.stripOffColor,
-                  borderRadius: Strips.stripBorders(
+                  color: OldStrips.stripOffColor,
+                  borderRadius: OldStrips.stripBorders(
                       context: context, flyerBoxWidth: flyerBoxWidth),
                 ),
                 child: LinearProgressIndicator(
                   backgroundColor: Colorz.nothing,
-                  minHeight: Strips.stripThickness(flyerBoxWidth),
-                  valueColor: const AlwaysStoppedAnimation(Strips.stripFadedColor),
+                  minHeight: OldStrips.stripThickness(flyerBoxWidth),
+                  valueColor: const AlwaysStoppedAnimation(OldStrips.stripFadedColor),
                 ),
               ),
 
             ]
         )
                 :
-            Strips.canBuildStrips(numberOfSlides) == true ?
-            Strips(
+            OldStrips.canBuildStrips(numberOfSlides) == true ?
+            OldStrips(
               flyerBoxWidth: flyerBoxWidth,
               numberOfStrips: numberOfSlides,
               slideIndex: index,
