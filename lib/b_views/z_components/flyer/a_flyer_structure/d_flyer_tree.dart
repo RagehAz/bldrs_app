@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_pa
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_stack.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
@@ -25,6 +26,7 @@ class FlyerTree extends StatefulWidget {
     @required this.bzCity,
     this.flyerWidthFactor = 1,
     this.onTap,
+    this.loading = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -34,6 +36,7 @@ class FlyerTree extends StatefulWidget {
   final BzModel bzModel;
   final CountryModel bzCountry;
   final CityModel bzCity;
+  final bool loading;
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
   /// --------------------------------------------------------------------------
@@ -107,7 +110,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
   /// CURRENT SLIDE INDEX
   final ValueNotifier<int> _currentSlideIndex = ValueNotifier(0);
   /// PROGRESS BAR OPACITY
-  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(0);
+  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
   /// HEADER IS EXPANDED
   final ValueNotifier<bool> _headerIsExpanded = ValueNotifier(false);
   /// HEADER PAGE OPACITY
@@ -120,7 +123,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     // await Future.delayed(const Duration(milliseconds: 100),
     //         () async {
 
-          onTriggerHeader(
+          await onTriggerHeader(
             context: context,
             headerAnimationController: _headerAnimationController,
             verticalController: _headerScrollController,
@@ -198,8 +201,6 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     final double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: _flyerBoxWidth);
     final bool _tinyMode = FlyerBox.isTinyMode(context, _flyerBoxWidth);
 
-    // blog('THE Fu*king thing is doing good aho yabn el gazma : sizeFactor : $flyerWidthFactor');
-
     return FlyerBox(
       key: const ValueKey<String>('FlyerTree_FlyerBox'),
       flyerWidthFactor: widget.flyerWidthFactor,
@@ -249,12 +250,15 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
         ),
 
         /// PROGRESS BAR
-        // Container(
-        //   color: Colorz.yellow50,
-        //   child: ProgressBar(
-        //     flyerBoxWidth: _flyerBoxWidth,
-        //   ),
-        // ),
+        ProgressBar(
+          flyerBoxWidth: _flyerBoxWidth,
+          progressBarOpacity: _progressBarOpacity,
+          numberOfSlides: widget.flyerModel.slides.length,
+          swipeDirection: _swipeDirection,
+          currentSlideIndex: _currentSlideIndex,
+          tinyMode: _tinyMode,
+          loading: widget.loading,
+        ),
 
         // Consumer<ActiveFlyerProvider>(
         //   child: Container(),

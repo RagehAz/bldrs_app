@@ -99,6 +99,7 @@ class FlyerHero extends StatelessWidget {
               bzModel: bzModel,
               bzCountry: null,
               bzCity: null,
+              loading: true,
             ),
           );
 
