@@ -16,7 +16,7 @@ class FlyersGrid extends StatelessWidget {
     @required this.gridHeight,
     this.topPadding = Ratioz.stratosphere,
     this.numberOfColumns = 3,
-    this.parentFlyerID,
+    this.heroTag,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,7 +26,7 @@ class FlyersGrid extends StatelessWidget {
   final double topPadding;
   final int numberOfColumns;
   /// when grid is inside a flyer
-  final String parentFlyerID;
+  final String heroTag;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class FlyersGrid extends StatelessWidget {
                     key: const ValueKey<String>('Flyer_within_a_flyer'),
                     flyerModel: flyers[index],
                     minWidthFactor: _minWidthFactor,
-                    parentFlyerID: parentFlyerID,
+                    heroTag: heroTag,
                   );
               }
 
