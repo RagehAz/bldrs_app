@@ -45,7 +45,7 @@ class SelectDistrictScreenView extends StatelessWidget {
     /// WHEN SHOWING ALL CITY DISTRICTS
     else {
 
-      return MaxBounceNavigator(
+      return OldMaxBounceNavigator(
         child: Scroller(
           child: Selector<SearchProvider, bool>(
             selector: (_, SearchProvider searchProvder) => searchProvder.isSearchingDistrict,

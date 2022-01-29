@@ -73,7 +73,7 @@ class EditorFooter extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _spacing = FlyerFooter.buttonMargin(
+    final double _spacing = OldFlyerFooter.buttonMargin(
       buttonIsOn: false,
       flyerBoxWidth: flyerBoxWidth,
       context: context,
@@ -102,13 +102,13 @@ class EditorFooter extends StatelessWidget {
       /// --- FLYER FOOTER BOX
       child: SizedBox(
         width: flyerBoxWidth,
-        height: FlyerFooter.boxHeight(
+        height: OldFlyerFooter.boxHeight(
             context: context, flyerBoxWidth: flyerBoxWidth),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             /// BOTTOM SHADOW
-            FlyerFooter.boxShadow(
+            OldFlyerFooter.boxShadow(
                 context: context, flyerBoxWidth: flyerBoxWidth),
 
             /// BUTTONS

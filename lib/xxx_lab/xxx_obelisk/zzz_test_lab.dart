@@ -101,7 +101,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
-        child: MaxBounceNavigator(
+        child: OldMaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
             controller: _scrollController,

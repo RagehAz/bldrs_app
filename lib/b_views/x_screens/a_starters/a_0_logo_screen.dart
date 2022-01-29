@@ -47,6 +47,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
   @override
   void dispose() {
     _scaleController.dispose();
+    _loading.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

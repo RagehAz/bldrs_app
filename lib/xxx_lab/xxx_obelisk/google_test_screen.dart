@@ -189,7 +189,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
-        child: MaxBounceNavigator(
+        child: OldMaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
             controller: _scrollController,

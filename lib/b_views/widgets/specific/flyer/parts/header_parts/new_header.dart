@@ -305,7 +305,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
               alignment: Alignment.topCenter,
               child: ClipRRect(
                 borderRadius: _headerBorders,
-                child: MaxBounceNavigator(
+                child: OldMaxBounceNavigator(
                   child: ListView(
                     physics: _tinyMode == true || _isExpanded == false ?
                     const NeverScrollableScrollPhysics()
