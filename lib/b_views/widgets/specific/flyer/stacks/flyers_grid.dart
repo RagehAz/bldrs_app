@@ -7,14 +7,14 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class FlyersGrid extends StatelessWidget {
+class OldFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyersGrid({
+  const OldFlyersGrid({
     @required this.gridZoneWidth,
     this.numberOfColumns = 3,
     this.flyers,
     this.scrollable = false,
-    this.stratosphere = false,
+    this.topPadding = Ratioz.stratosphere,
     this.scrollDirection = Axis.vertical,
     this.onFlyerTap,
     this.scrollController,
@@ -25,7 +25,7 @@ class FlyersGrid extends StatelessWidget {
   final int numberOfColumns;
   final List<FlyerModel> flyers;
   final bool scrollable;
-  final bool stratosphere;
+  final double topPadding;
   final Axis scrollDirection;
   final ValueChanged<FlyerModel> onFlyerTap;
   final ScrollController scrollController;
@@ -71,15 +71,17 @@ class FlyersGrid extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _flyerSizeFactor = ((gridZoneWidth - (gridSpacing * (gridColumnsCount + 1))) / gridColumnsCount) / screenWidth;
 // -----------------------------------------------------------------------------
-    final EdgeInsets _gridPadding = stratosphere == true ?
+    final EdgeInsets _gridPadding =
+    // topMargin == true ?
     EdgeInsets.only(
         right: gridSpacing,
         left: gridSpacing,
         bottom: gridSpacing + Ratioz.horizon,
-        top: gridSpacing + Ratioz.stratosphere
+        top: gridSpacing + topPadding,
     )
-        :
-    EdgeInsets.all(gridSpacing);
+    //     :
+    // EdgeInsets.all(gridSpacing)
+    ;
 // -----------------------------------------------------------------------------
     final bool _canTapFlyer =  _canTapFlyerCheck();
 

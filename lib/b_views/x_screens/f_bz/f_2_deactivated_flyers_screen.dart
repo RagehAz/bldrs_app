@@ -207,11 +207,10 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
           ? Loading(
               loading: _loading,
             )
-          : FlyersGrid(
+          : OldFlyersGrid(
               gridZoneWidth: Scale.superScreenWidth(context),
               flyers: _allFlyers,
               scrollable: true,
-              stratosphere: true,
             ),
     );
   }

@@ -16,6 +16,7 @@ class FlyerFullScreen extends StatelessWidget {
     @required this.bzModel,
     @required this.bzCountry,
     @required this.bzCity,
+    @required this.parentFlyerID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +25,7 @@ class FlyerFullScreen extends StatelessWidget {
   final CountryModel bzCountry;
   final CityModel bzCity;
   final double minWidthFactor;
+  final String parentFlyerID;
   /// --------------------------------------------------------------------------
   void _onDismiss(BuildContext context){
     Nav.goBack(context);
@@ -52,6 +54,7 @@ class FlyerFullScreen extends StatelessWidget {
           bzCity: bzCity,
           isFullScreen: true,
           minWidthFactor: minWidthFactor,
+          parentFlyerID: parentFlyerID,
         ),
 
       ),

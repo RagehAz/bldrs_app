@@ -138,9 +138,8 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       layoutWidget: _flyers == null ?
       Container()
           :
-      FlyersGrid(
+      OldFlyersGrid(
         gridZoneWidth: OldFlyerBox.width(context, 1),
-        stratosphere: true,
         numberOfColumns: 2,
         scrollable: true,
         flyers: _flyers,
