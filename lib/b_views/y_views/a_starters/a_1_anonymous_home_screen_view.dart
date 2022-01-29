@@ -61,10 +61,9 @@ class _AnonymousHomeScreenState extends State<AnonymousHomeScreen> {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
     final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
 
-    return  FlyersGrid(
+    return  OldFlyersGrid(
       gridZoneWidth: OldFlyerBox.width(context, 1),
       scrollController: _scrollController,
-      stratosphere: true,
       numberOfColumns: 2,
       scrollable: true,
       flyers: _wallFlyers,

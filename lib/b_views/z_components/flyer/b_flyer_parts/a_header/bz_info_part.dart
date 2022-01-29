@@ -23,7 +23,7 @@ class BzInfoPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    blog('BUILDING MAX HEADER INFO PART FOR ${flyerModel.id} where bzID is ${bzModel.id}');
+    // blog('BUILDING MAX HEADER INFO PART FOR ${flyerModel.id} where bzID is ${bzModel.id}');
 
     return ValueListenableBuilder(
         valueListenable: headerPageOpacity,
