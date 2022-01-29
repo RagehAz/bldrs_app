@@ -90,7 +90,7 @@ class _ExpansionTilesTestState extends State<ExpansionTilesTest> {
         width: 300,
         height: Scale.superScreenHeight(context),
         padding: const EdgeInsets.only(top: Ratioz.stratosphere),
-        child: MaxBounceNavigator(
+        child: OldMaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: <Widget>[

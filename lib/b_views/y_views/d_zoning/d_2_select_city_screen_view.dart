@@ -35,7 +35,7 @@ class SelectCityScreenView extends StatelessWidget {
     /// WHEN SHOWING ALL COUNTRY CITIES
     else {
 
-      return MaxBounceNavigator(
+      return OldMaxBounceNavigator(
         child: Scroller(
           child: Selector<SearchProvider, bool>(
             selector: (_, SearchProvider searchProvider) => searchProvider.isSearchingCity,

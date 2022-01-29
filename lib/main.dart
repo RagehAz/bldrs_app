@@ -85,7 +85,6 @@ class _BldrsAppState extends State<BldrsApp> {
   void initState() {
     super.initState();
   }
-
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -114,7 +113,14 @@ class _BldrsAppState extends State<BldrsApp> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    _locale.dispose();
+    _fireError.dispose();
+    super.dispose();
+  }
 // -----------------------------------------------------------------------------
   Locale _localeResolutionCallback(
       Locale deviceLocale, Iterable<Locale> supportedLocales) {

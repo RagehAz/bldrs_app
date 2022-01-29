@@ -21,7 +21,7 @@ class UserScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaxBounceNavigator(
+    return OldMaxBounceNavigator(
       child: NestedScrollView(
         physics: const BouncingScrollPhysics(),
         floatHeaderSlivers: true,

@@ -32,3 +32,16 @@ needs to assert your
 - ability to resolve conflicts
 
  */
+
+/*
+
+The rule of Ablaut reduplication
+
+I -> A -> O
+
+adjectives to be in order : -
+opinion - size - age - shape - colour - origin - material - purpose - noun
+
+have a lovely little old rectangular green french silver whittling knife
+
+ */

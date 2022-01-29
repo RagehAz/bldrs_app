@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
 /// GoHomeOnMaxBounce
-class MaxBounceNavigator extends StatefulWidget {
+class OldMaxBounceNavigator extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const MaxBounceNavigator({
+  const OldMaxBounceNavigator({
     @required this.child,
     this.boxDistance,
     this.numberOfScreens = 1,
@@ -27,12 +27,12 @@ class MaxBounceNavigator extends StatefulWidget {
 
   /// --------------------------------------------------------------------------
   @override
-  _MaxBounceNavigatorState createState() => _MaxBounceNavigatorState();
+  _OldMaxBounceNavigatorState createState() => _OldMaxBounceNavigatorState();
 
   /// --------------------------------------------------------------------------
 }
 
-class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
+class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
   bool _canNavigate = true;
 // -----------------------------------------------------------------------------
   void navigate() {
@@ -47,9 +47,9 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
 
     else {
       widget.onNavigate();
-      setState(() {
-        _canNavigate = true;
-      });
+      // setState(() {
+      //   _canNavigate = true;
+      // });
     }
   }
 
@@ -79,6 +79,7 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
     return NotificationListener<ScrollUpdateNotification>(
       key: widget.notificationListenerKey,
       onNotification: (ScrollUpdateNotification details) {
+
         final bool _canSlide = Scrollers.canSlide(
           details: details,
           boxDistance: _boxDistance,

@@ -52,7 +52,7 @@ class DashBoardLayout extends StatelessWidget {
           onTap: onBldrsTap,
         ),
       ],
-      layoutWidget: MaxBounceNavigator(
+      layoutWidget: OldMaxBounceNavigator(
         child: Scroller(
           controller: _controller,
           child: ListView(

@@ -8,9 +8,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
-class FlyerFooter extends StatelessWidget {
+class OldFlyerFooter extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerFooter({
+  const OldFlyerFooter({
     @required this.flyerBoxWidth,
     @required this.shares,
     @required this.views,
@@ -19,7 +19,6 @@ class FlyerFooter extends StatelessWidget {
     @required this.onCountersTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final int shares;
@@ -27,12 +26,10 @@ class FlyerFooter extends StatelessWidget {
   final int saves;
   final Function onShareTap;
   final Function onCountersTap;
-
   /// --------------------------------------------------------------------------
   static double boxCorners(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerBottomCorners;
   }
-
 // -----------------------------------------------------------------------------
   static double boxHeight({BuildContext context, double flyerBoxWidth}) {
     final double _footerBTMargins = buttonMargin(
@@ -51,12 +48,12 @@ class FlyerFooter extends StatelessWidget {
 
     return _flyerFooterHeight;
   }
-
 // -----------------------------------------------------------------------------
-  static double buttonMargin(
-      {@required BuildContext context,
-      @required double flyerBoxWidth,
-      @required bool buttonIsOn}) {
+  static double buttonMargin({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+    @required bool buttonIsOn,
+  }) {
     final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 
     bool _buttonIsOn;
@@ -75,10 +72,8 @@ class FlyerFooter extends StatelessWidget {
 
     return _footerBTMargins;
   }
-
 // -----------------------------------------------------------------------------
-  static double buttonRadius(
-      {BuildContext context, double flyerBoxWidth, bool buttonIsOn}) {
+  static double buttonRadius({BuildContext context, double flyerBoxWidth, bool buttonIsOn}) {
     final double _flyerBottomCorners = boxCorners(flyerBoxWidth);
     final double _footerBTMargins = buttonMargin(
       context: context,
@@ -89,15 +84,16 @@ class FlyerFooter extends StatelessWidget {
     final double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
     return _footerBTRadius;
   }
-
 // -----------------------------------------------------------------------------
-  static double buttonSize(
-      {BuildContext context, double flyerBoxWidth, bool buttonIsOn}) {
+  static double buttonSize({BuildContext context, double flyerBoxWidth, bool buttonIsOn}) {
     final double _footerBTRadius = buttonRadius(
-        context: context, flyerBoxWidth: flyerBoxWidth, buttonIsOn: buttonIsOn);
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        buttonIsOn: buttonIsOn,
+    );
+
     return _footerBTRadius * 2;
   }
-
 // -----------------------------------------------------------------------------
   static Color buttonColor({bool buttonIsOn}) {
     const Color _onColor = Colorz.yellow80;

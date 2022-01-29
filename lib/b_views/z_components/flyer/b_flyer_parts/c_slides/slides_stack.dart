@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_slides.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -11,6 +12,7 @@ class SlidesStack extends StatelessWidget {
     @required this.tinyMode,
     @required this.currentSlideIndex,
     @required this.flyerModel,
+    @required this.bzModel,
     @required this.horizontalController,
     @required this.onSwipeSlide,
     @required this.onSlideNextTap,
@@ -23,6 +25,7 @@ class SlidesStack extends StatelessWidget {
   final bool tinyMode;
   final ValueNotifier<int> currentSlideIndex;
   final FlyerModel flyerModel;
+  final BzModel bzModel;
   final PageController horizontalController;
   final ValueChanged<int> onSwipeSlide;
   final Function onSlideNextTap;
@@ -54,6 +57,7 @@ class SlidesStack extends StatelessWidget {
           FlyerSlides(
             key: const ValueKey<String>('SlidesStack_FlyerSlides'),
             flyerModel: flyerModel,
+            bzModel: bzModel,
             flyerBoxWidth: flyerBoxWidth,
             flyerBoxHeight: flyerBoxHeight,
             tinyMode: tinyMode,
@@ -61,9 +65,8 @@ class SlidesStack extends StatelessWidget {
             onSwipeSlide: onSwipeSlide,
             onSlideBackTap: onSlideBackTap,
             onSlideNextTap: onSlideNextTap,
+            currentSlideIndex: currentSlideIndex,
           ),
-
-
 
         /// PRICE TAG
         // if (superFlyer.priceTagIsOn == true)
@@ -82,7 +85,6 @@ class SlidesStack extends StatelessWidget {
         //     ankhIsOn: superFlyer.rec.ankhIsOn,
         //     onAnkhTap: superFlyer.rec.onAnkhTap,
         //   ),
-
 
       ],
 

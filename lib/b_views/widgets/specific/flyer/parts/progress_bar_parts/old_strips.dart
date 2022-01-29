@@ -181,7 +181,7 @@ class OldStrips extends StatelessWidget {
     }
     // -----------------------------------------o
 
-    blog('_getNumberOfWhiteStrips : $_numberOfStrips : index : $slideIndex');
+    // blog('_getNumberOfWhiteStrips : $_numberOfStrips : index : $slideIndex');
 
     return _numberOfStrips;
   }
@@ -237,7 +237,7 @@ class OldStrips extends StatelessWidget {
     ProgressBox(
         flyerBoxWidth: flyerBoxWidth,
         margins: margins,
-        strips: <Widget>[
+        stripsStack: <Widget>[
           Strip(
             flyerBoxWidth: flyerBoxWidth,
             stripWidth: _stripsTotalLength,
@@ -250,7 +250,7 @@ class OldStrips extends StatelessWidget {
     ProgressBox(
         flyerBoxWidth: flyerBoxWidth,
         margins: margins,
-        strips: <Widget>[
+        stripsStack: <Widget>[
 
           /// --- BASE STRIP
           Row(

@@ -47,6 +47,7 @@ class ProgressBar extends StatelessWidget {
           swipeDirection: swipeDirection,
           numberOfSlides: numberOfSlides,
           tinyMode: tinyMode,
+          loading: loading,
         ),
 
       ),
