@@ -20,7 +20,7 @@ class FlyerSlides extends StatelessWidget {
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
     @required this.currentSlideIndex,
-    this.parentFlyerID,
+    this.heroTag,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -34,7 +34,7 @@ class FlyerSlides extends StatelessWidget {
   final Function onSlideNextTap;
   final Function onSlideBackTap;
   final ValueNotifier currentSlideIndex;
-  final String parentFlyerID;
+  final String heroTag;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class FlyerSlides extends StatelessWidget {
                 flyerBoxHeight: flyerBoxHeight,
                 flyerModel: flyerModel,
                 bzModel: bzModel,
-                parentFlyerID: parentFlyerID,
+                heroTag: heroTag,
               );
 
             }
