@@ -108,7 +108,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> {
       // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
-        child: MaxBounceNavigator(
+        child: OldMaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
             controller: _scrollController,

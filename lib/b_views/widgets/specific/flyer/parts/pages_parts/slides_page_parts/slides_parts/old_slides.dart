@@ -39,7 +39,7 @@ class OldSlides extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return MaxBounceNavigator(
+    return OldMaxBounceNavigator(
       axis: Axis.horizontal,
       boxDistance: flyerBoxWidth,
       numberOfScreens: superFlyer.numberOfSlides,
@@ -108,7 +108,7 @@ class OldSlides extends StatelessWidget {
                         ),
 
                         if (superFlyer.edit.editMode != true)
-                          FlyerFooter(
+                          OldFlyerFooter(
                             flyerBoxWidth: flyerBoxWidth,
                             saves: superFlyer.edit.firstTimer == true
                                 ? 0

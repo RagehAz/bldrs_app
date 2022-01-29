@@ -18,7 +18,7 @@ class SelectCountryScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaxBounceNavigator(
+    return OldMaxBounceNavigator(
       child: Scroller(
         child: Selector<SearchProvider, bool>(
           selector: (_, SearchProvider searchProvider) => searchProvider.isSearchingCountry,

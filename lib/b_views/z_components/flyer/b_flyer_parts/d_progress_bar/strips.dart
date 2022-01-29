@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strip.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -70,9 +69,12 @@ class Strips extends StatelessWidget {
     return _allStripsOneSideMargin;
   }
 // -----------------------------------------------------------------------------
-  static double oneStripLength({double flyerBoxWidth, int numberOfStrips}) {
+  static double oneStripLength({
+    @required double flyerBoxWidth,
+    @required int numberOfStrips,
+  }) {
     final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    final int _numberOfStrips = numberOfStrips ?? 0;
+    final int _numberOfStrips = numberOfStrips ?? 1;
     final double _oneStripLength = _stripsTotalLength / _numberOfStrips;
     return _oneStripLength;
   }
@@ -184,7 +186,7 @@ class Strips extends StatelessWidget {
     }
     // -----------------------------------------o
 
-    blog('_getNumberOfWhiteStrips : $_numberOfStrips : index : ${currentSlideIndex}');
+    // blog('_getNumberOfWhiteStrips : $_numberOfStrips : index : ${currentSlideIndex}');
 
     return _numberOfStrips;
   }
@@ -209,6 +211,9 @@ class Strips extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
       numberOfStrips: numberOfStrips,
     );
+
+    // blog('flyerBoxWidth * 0.895 = $flyerBoxWidth * 0.895 = ${flyerBoxWidth * 0.895} = _stripsTotalLength = $_stripsTotalLength');
+    // blog('_aStripLength : $_aStripLength');
 // -----------------------------------------------------------------------------
     Tween<double> _tween() {
       Tween<double> _tween;
@@ -231,7 +236,6 @@ class Strips extends StatelessWidget {
       return _tween;
     }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
 
     if (tinyMode == true || barIsOn == false){
       return Container();
@@ -241,7 +245,7 @@ class Strips extends StatelessWidget {
       return ProgressBox(
           flyerBoxWidth: flyerBoxWidth,
           margins: margins,
-          strips: <Widget>[
+          stripsStack: <Widget>[
             Strip(
               flyerBoxWidth: flyerBoxWidth,
               stripWidth: _stripsTotalLength,
@@ -256,23 +260,27 @@ class Strips extends StatelessWidget {
       return ProgressBox(
           flyerBoxWidth: flyerBoxWidth,
           margins: margins,
-          strips: <Widget>[
+          stripsStack: <Widget>[
 
             /// --- BASE STRIP
             Row(
               mainAxisSize: MainAxisSize.min,
-              children:
-              List<Widget>.generate(numberOfStrips, (int index) {
+              children: <Widget>[
 
-                return Strip(
-                  flyerBoxWidth: flyerBoxWidth,
-                  stripWidth: _aStripLength,
-                  numberOfSlides: numberOfStrips,
-                  margins: margins,
-                  isWhite: false,
-                );
-              }
-              ),
+                ...List<Widget>.generate(numberOfStrips, (int index) {
+
+                  return Strip(
+                    flyerBoxWidth: flyerBoxWidth,
+                    stripWidth: _aStripLength,
+                    numberOfSlides: numberOfStrips,
+                    margins: margins,
+                    isWhite: false,
+                  );
+
+                }
+                )
+
+              ],
             ),
 
             /// --- TOP STRIP
@@ -307,7 +315,7 @@ class Strips extends StatelessWidget {
 
                             final double _tweenVal = _swipeDirection == Sliders.SwipeDirection.freeze ? _aStripLength : tweenVal;
 
-                            blog('_numberOfStrips : $_numberOfStrips');
+                            // blog('_numberOfStrips : $_numberOfStrips');
 
                             return
                               Row(

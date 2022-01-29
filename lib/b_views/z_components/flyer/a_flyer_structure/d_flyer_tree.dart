@@ -163,7 +163,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 // -----------------------------------------------------------------------------
   Future<void> _onSlideNextTap() async {
 
-    final int _lastIndex = widget.flyerModel.slides.length - 1;
+    final int _lastIndex = widget.flyerModel.slides.length;
 
     /// WHEN AT LAST INDEX
     if (_currentSlideIndex.value == _lastIndex){
@@ -172,7 +172,13 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 
     /// WHEN AT ANY OTHER INDEX
     else {
-      final int _newIndex = await slideToNextAndGetNewIndex(_horizontalController, widget.flyerModel.slides.length, _currentSlideIndex.value);
+
+      final int _newIndex = await slideToNextAndGetNewIndex(
+        slidingController: _horizontalController,
+        numberOfSlides: widget.flyerModel.slides.length + 1,
+        currentSlide: _currentSlideIndex.value,
+      );
+
       blog('_onSlideNextTap : _newIndex : $_newIndex');
     }
 
@@ -198,7 +204,10 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 
     final double _flyerBoxWidth = FlyerBox.width(context, widget.flyerWidthFactor);
     final double _flyerBoxHeight = FlyerBox.height(context, _flyerBoxWidth);
-    final double _footerHeight = FlyerFooter.boxHeight(context: context, flyerBoxWidth: _flyerBoxWidth);
+    final double _footerHeight = OldFlyerFooter.boxHeight(
+        context: context,
+        flyerBoxWidth: _flyerBoxWidth,
+    );
     final bool _tinyMode = FlyerBox.isTinyMode(context, _flyerBoxWidth);
 
     return FlyerBox(
@@ -210,6 +219,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
         SlidesStack(
           key: const ValueKey<String>('FlyerTree_SlidesStack'),
           flyerModel: widget.flyerModel,
+          bzModel: widget.bzModel,
           flyerBoxWidth: _flyerBoxWidth,
           flyerBoxHeight: _flyerBoxHeight,
           tinyMode: _tinyMode,

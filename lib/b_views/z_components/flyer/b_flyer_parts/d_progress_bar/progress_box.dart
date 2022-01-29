@@ -6,14 +6,14 @@ class ProgressBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ProgressBox({
     @required this.flyerBoxWidth,
-    @required this.strips,
+    @required this.stripsStack,
     this.margins,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final List<Widget> strips;
+  final List<Widget> stripsStack;
   final EdgeInsets margins;
 
   /// --------------------------------------------------------------------------
@@ -29,9 +29,17 @@ class ProgressBox extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: Strips.stripsOneSideMargin(flyerBoxWidth)),
         alignment: Alignment.center,
         // color: Colorz.bloodTest,
-        child: Stack(
-          alignment: Aligners.superCenterAlignment(context),
-          children: strips,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          physics: const NeverScrollableScrollPhysics(),
+          children: <Widget>[
+
+            Stack(
+              alignment: Aligners.superCenterAlignment(context),
+              children: stripsStack,
+            ),
+
+          ],
         ),
       ),
     );

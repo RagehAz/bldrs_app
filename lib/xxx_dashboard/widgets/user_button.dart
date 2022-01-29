@@ -106,7 +106,7 @@ class DashboardUserButton extends StatelessWidget {
               context: context,
             ),
             color: Colorz.bloodTest,
-            child: MaxBounceNavigator(
+            child: OldMaxBounceNavigator(
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[

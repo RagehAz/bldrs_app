@@ -184,7 +184,7 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
             height: _bodyHeight,
             // color: Colorz.BloodTest,
             // padding: const EdgeInsets.only(top: Ratioz.appBarMargin),
-            child: MaxBounceNavigator(
+            child: OldMaxBounceNavigator(
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.only(

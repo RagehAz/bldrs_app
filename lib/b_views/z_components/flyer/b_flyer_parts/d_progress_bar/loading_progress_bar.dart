@@ -17,7 +17,7 @@ class LoadingProgressBar extends StatelessWidget {
 
     return  ProgressBox(
         flyerBoxWidth: flyerBoxWidth,
-        strips: <Widget>[
+        stripsStack: <Widget>[
 
           Container(
             width: OldStrips.stripsTotalLength(flyerBoxWidth),

@@ -29,7 +29,7 @@ class OldFlyerPages extends StatelessWidget {
         tracerIsOn: false
     );
 
-    return MaxBounceNavigator(
+    return OldMaxBounceNavigator(
       notificationListenerKey: ValueKey<String>(
           '${superFlyer.flyerID}_flyerPages_notification_listener_key'),
       child: PageView(

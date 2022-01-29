@@ -52,10 +52,10 @@ class PanelButton extends StatelessWidget {
     // Borderers.superBorderAll(context,  Ratioz.appBarButtonCorner);
     // ;
 
-    final double _height = FlyerFooter.buttonSize(
+    final double _height = OldFlyerFooter.buttonSize(
         buttonIsOn: false, flyerBoxWidth: flyerBoxWidth, context: context);
 
-    final double _margin = FlyerFooter.buttonMargin(
+    final double _margin = OldFlyerFooter.buttonMargin(
         context: context, buttonIsOn: false, flyerBoxWidth: flyerBoxWidth);
     final EdgeInsets _margins = EdgeInsets.symmetric(vertical: _margin);
 

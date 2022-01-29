@@ -97,7 +97,7 @@ class PriceDataCreator extends StatefulWidget {
                     width: _clearWidth,
                     height: BottomDialog.dialogClearHeight(
                         context: context, draggable: true),
-                    child: MaxBounceNavigator(
+                    child: OldMaxBounceNavigator(
                       child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemCount: _allCurrencies.length,

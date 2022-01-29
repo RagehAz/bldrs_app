@@ -9,11 +9,11 @@ enum SwipeDirection {
   freeze,
 }
 // -----------------------------------------------------------------------------
-Future<int> slideToNextAndGetNewIndex(
-    PageController slidingController,
-    int numberOfSlides,
-    int currentSlide,
-    ) async {
+Future<int> slideToNextAndGetNewIndex({
+    @required PageController slidingController,
+    @required int numberOfSlides,
+    @required int currentSlide,
+}) async {
 
   if (currentSlide + 1 == numberOfSlides) {
     blog('Can not slide forward');

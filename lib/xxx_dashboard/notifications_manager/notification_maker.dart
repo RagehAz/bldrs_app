@@ -291,7 +291,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
               SizedBox(
                 width: _dialogClearWidth,
                 height: _dialogClearHeight - _textFieldHeight,
-                child: MaxBounceNavigator(
+                child: OldMaxBounceNavigator(
                   child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.only(bottom: Ratioz.horizon),

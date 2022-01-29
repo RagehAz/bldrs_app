@@ -253,7 +253,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
       layoutWidget: SizedBox(
         width: _screenWidth,
         height: _screenHeight,
-        child: MaxBounceNavigator(
+        child: OldMaxBounceNavigator(
           child: Scroller(
             controller: _scrollController,
             child: ListView.builder(

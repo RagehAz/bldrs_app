@@ -23,7 +23,7 @@ class SearchScreenView extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    return MaxBounceNavigator(
+    return OldMaxBounceNavigator(
       boxDistance: _screenHeight,
       child: SizedBox(
         width: _screenWidth,
