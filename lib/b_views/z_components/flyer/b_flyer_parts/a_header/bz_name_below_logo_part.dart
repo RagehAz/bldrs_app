@@ -12,6 +12,7 @@ class BzNameBelowLogoPart extends StatelessWidget {
     @required this.bzModel,
     @required this.bzCountry,
     @required this.bzCity,
+    @required this.headerIsExpanded,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -19,19 +20,35 @@ class BzNameBelowLogoPart extends StatelessWidget {
   final BzModel bzModel;
   final CountryModel bzCountry;
   final CityModel bzCity;
+  final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      color: Colorz.black80,
-      child: BzPageHeadline(
-        flyerBoxWidth: flyerBoxWidth,
-        bzPageIsOn: true,
-        bzModel: bzModel,
-        country: bzCountry,
-        city: bzCity,
-      ),
+    /// TASK : TEMP
+    return ValueListenableBuilder<bool>(
+        valueListenable: headerIsExpanded,
+        child: Container(
+          color: Colorz.black80,
+          child: BzPageHeadline(
+            flyerBoxWidth: flyerBoxWidth,
+            bzPageIsOn: true,
+            bzModel: bzModel,
+            country: bzCountry,
+            city: bzCity,
+          ),
+        ),
+        builder: (_, bool _headerIsExpanded, Widget child){
+
+          if (_headerIsExpanded == true){
+            return child;
+          }
+
+          else {
+            return const SizedBox();
+          }
+
+        }
     );
 
   }

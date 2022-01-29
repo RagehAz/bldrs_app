@@ -112,11 +112,11 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  int _builds = 0;
-  _traceBuilds(){
-    _builds ++;
-    blog('Builds are : $_builds for flyer : ${widget.flyerModel.id}');
-  }
+//   int _builds = 0;
+//   _traceBuilds(){
+//     _builds ++;
+//     // blog('Builds are : $_builds for flyer : ${widget.flyerModel.id}');
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +130,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 //     final String _activeFlyerID = _activeFlyerProvider.activeFlyerID;
     // final int _progressBarOpacity = _activeFlyerProvider.progressBarOpacity;
 
-    _traceBuilds();
+    // _traceBuilds();
 // -----------------------------------------------------------------------------
 
     /// BACK GROUND COLOR
@@ -308,6 +308,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                   bzModel: widget.bzModel,
                   bzCountry: widget.bzCountry,
                   bzCity: widget.bzCity,
+                  headerIsExpanded: widget.headerIsExpanded,
                 ),
 
                 /// - BZ INFO PART

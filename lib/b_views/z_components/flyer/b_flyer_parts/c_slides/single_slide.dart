@@ -46,7 +46,7 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    blog('single slide title is : ${slideModel?.headline} and tinyMode is : $tinyMode');
+    // blog('single slide title is : ${slideModel?.headline} and tinyMode is : $tinyMode');
 // -----------------------------------------------------------------------------
     final int _slideTitleSize = _getSlideTitleSize(context);
 // -----------------------------------------------------------------------------

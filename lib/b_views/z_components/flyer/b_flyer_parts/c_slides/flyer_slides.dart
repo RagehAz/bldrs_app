@@ -20,6 +20,7 @@ class FlyerSlides extends StatelessWidget {
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
     @required this.currentSlideIndex,
+    this.parentFlyerID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,6 +34,7 @@ class FlyerSlides extends StatelessWidget {
   final Function onSlideNextTap;
   final Function onSlideBackTap;
   final ValueNotifier currentSlideIndex;
+  final String parentFlyerID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,8 @@ class FlyerSlides extends StatelessWidget {
       return HorizontalBouncer(
         numberOfSlides: flyerModel.slides.length + 1,
         child: PageView.builder(
-          key: const ValueKey<String>('FlyerSlides_PageView'),
+          // key: const ValueKey<String>('FlyerSlides_PageView'),
+          key: const PageStorageKey<String>('FlyerSlides_PageView'),
           controller: horizontalController,
           physics: const BouncingScrollPhysics(),
           clipBehavior: Clip.antiAlias,
@@ -110,6 +113,7 @@ class FlyerSlides extends StatelessWidget {
                 flyerBoxHeight: flyerBoxHeight,
                 flyerModel: flyerModel,
                 bzModel: bzModel,
+                parentFlyerID: parentFlyerID,
               );
 
             }

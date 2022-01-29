@@ -27,6 +27,7 @@ class FlyerTree extends StatefulWidget {
     this.flyerWidthFactor = 1,
     this.onTap,
     this.loading = false,
+    this.parentFlyerID,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,6 +38,7 @@ class FlyerTree extends StatefulWidget {
   final CountryModel bzCountry;
   final CityModel bzCity;
   final bool loading;
+  final String parentFlyerID;
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
   /// --------------------------------------------------------------------------
@@ -211,13 +213,13 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     final bool _tinyMode = FlyerBox.isTinyMode(context, _flyerBoxWidth);
 
     return FlyerBox(
-      key: const ValueKey<String>('FlyerTree_FlyerBox'),
+      // key: const ValueKey<String>('FlyerTree_FlyerBox'),
       flyerWidthFactor: widget.flyerWidthFactor,
       stackWidgets: <Widget>[
 
         /// SLIDES
         SlidesStack(
-          key: const ValueKey<String>('FlyerTree_SlidesStack'),
+          // key: const ValueKey<String>('FlyerTree_SlidesStack'),
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
           flyerBoxWidth: _flyerBoxWidth,
@@ -228,11 +230,12 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
           onSwipeSlide: _onSwipeSlide,
           onSlideNextTap: _onSlideNextTap,
           onSlideBackTap: _onSlideBackTap,
+          parentFlyerID: widget.parentFlyerID,
         ),
 
         /// HEADER
         FlyerHeader(
-          key: const ValueKey<String>('FlyerTree_FlyerHeader'),
+          // key: const ValueKey<String>('FlyerTree_FlyerHeader'),
           flyerBoxWidth: _flyerBoxWidth,
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,

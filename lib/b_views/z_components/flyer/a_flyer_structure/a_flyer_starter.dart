@@ -15,6 +15,7 @@ class FlyerStarter extends StatefulWidget {
   const FlyerStarter({
     @required this.flyerModel,
     @required this.minWidthFactor,
+    this.parentFlyerID,
     this.isFullScreen = false,
     Key key
   }) : super(key: key);
@@ -22,6 +23,7 @@ class FlyerStarter extends StatefulWidget {
   final FlyerModel flyerModel;
   final double minWidthFactor;
   final bool isFullScreen;
+  final String parentFlyerID;
   /// --------------------------------------------------------------------------
   @override
   _FlyerStarterState createState() => _FlyerStarterState();
@@ -106,12 +108,15 @@ class _FlyerStarterState extends State<FlyerStarter> {
           minWidthFactor: widget.minWidthFactor,
           bzCountry: _bzCountryNotifier.value,
           bzCity: _bzCityNotifier.value,
+          parentFlyerID: widget.parentFlyerID,
         )
     );
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('flyer ID is ${widget.flyerModel.id} : parentID is ${widget.parentFlyerID?? 'non'}');
 
     return ValueListenableBuilder(
         key: ValueKey<String>('FlyerStarter_${widget.flyerModel.id}'),
@@ -153,6 +158,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
                                     bzCity: bzCity,
                                     minWidthFactor: widget.minWidthFactor,
                                     isFullScreen: widget.isFullScreen,
+                                    parentFlyerID: widget.parentFlyerID,
                                   ),
                                 );
 
