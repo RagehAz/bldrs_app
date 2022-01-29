@@ -96,7 +96,6 @@ bool canSlide({
 
   return _canSlide;
 }
-
 // -----------------------------------------------------------------------------
 Future<void> scrollTo({ScrollController controller, double offset}) async {
   // if (controller.positions.isEmpty == true){

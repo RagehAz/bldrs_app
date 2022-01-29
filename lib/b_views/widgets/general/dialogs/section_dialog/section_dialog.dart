@@ -53,7 +53,7 @@ class SectionDialog extends StatelessWidget {
     final double _bubbleWidth = CenterDialog.dialogWidth(context: context) - Ratioz.appBarMargin * 2;
     final double _buttonWidth = _bubbleWidth * 0.9;
 
-    return MaxBounceNavigator(
+    return OldMaxBounceNavigator(
       boxDistance: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
       child: SizedBox(
         width: BottomDialog.dialogClearWidth(context),

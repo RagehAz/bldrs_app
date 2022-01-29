@@ -130,12 +130,15 @@ class FlyerBox extends StatelessWidget {
     return _headerOffsetHeight;
   }
   //--------------------------------o
-  static double headerAndProgressHeights(double flyerBoxHeight) {
+  static double headerAndProgressHeights({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+  }) {
     final double _headerBoxHeight = headerBoxHeight(
-        flyerBoxWidth: flyerBoxHeight
+        flyerBoxWidth: flyerBoxWidth
     );
-
-    return _headerBoxHeight + flyerBoxHeight * Ratioz.xxProgressBarHeightRatio;
+    final double _flyerBoxHeight = height(context, flyerBoxWidth);
+    return _headerBoxHeight + (_flyerBoxHeight * Ratioz.xxProgressBarHeightRatio);
   }
 // -----------------------------------------------------------------------------
 

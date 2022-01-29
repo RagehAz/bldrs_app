@@ -45,7 +45,7 @@ class OldProgressBar extends StatelessWidget {
         loading == true || numberOfSlides == null ? ProgressBox(
             flyerBoxWidth: flyerBoxWidth,
             margins: margins,
-            strips: <Widget>[
+            stripsStack: <Widget>[
 
               Container(
                 width: OldStrips.stripsTotalLength(flyerBoxWidth),

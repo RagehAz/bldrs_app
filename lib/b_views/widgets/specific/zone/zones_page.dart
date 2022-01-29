@@ -78,7 +78,7 @@ class ZonesPage extends StatelessWidget {
                         (2 * Ratioz.appBarMargin) -
                         50,
                     // color: Colorz.BloodTest,
-                    child: MaxBounceNavigator(
+                    child: OldMaxBounceNavigator(
                       child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         itemCount: countriesIDs.length,

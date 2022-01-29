@@ -36,7 +36,7 @@ class FooterButton extends StatelessWidget {
 
     final double _footerBTMargins = size != null ? 0
         :
-    FlyerFooter.buttonMargin(
+    OldFlyerFooter.buttonMargin(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
         buttonIsOn: isOn
@@ -45,14 +45,14 @@ class FooterButton extends StatelessWidget {
     final double _saveBTRadius = size != null ?
     size / 2
         :
-    FlyerFooter.buttonRadius(
+    OldFlyerFooter.buttonRadius(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
         buttonIsOn: isOn
     );
 
     final double _buttonSize = size ??
-        FlyerFooter.buttonSize(
+        OldFlyerFooter.buttonSize(
             context: context,
             flyerBoxWidth: flyerBoxWidth,
             buttonIsOn: isOn
@@ -75,7 +75,7 @@ class FooterButton extends StatelessWidget {
             width: _buttonSize,
             height: _buttonSize,
             corners: _saveBTRadius,
-            color: FlyerFooter.buttonColor(buttonIsOn: isOn),
+            color: OldFlyerFooter.buttonColor(buttonIsOn: isOn),
             onTap: inActiveMode == true ? null : onTap,
             childAlignment: Alignment.topCenter,
             inActiveMode: inActiveMode,
