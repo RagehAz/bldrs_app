@@ -27,7 +27,7 @@ class FlyerTree extends StatefulWidget {
     this.flyerWidthFactor = 1,
     this.onTap,
     this.loading = false,
-    this.parentFlyerID,
+    this.heroTag,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class FlyerTree extends StatefulWidget {
   final CountryModel bzCountry;
   final CityModel bzCity;
   final bool loading;
-  final String parentFlyerID;
+  final String heroTag;
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
   /// --------------------------------------------------------------------------
@@ -230,7 +230,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
           onSwipeSlide: _onSwipeSlide,
           onSlideNextTap: _onSlideNextTap,
           onSlideBackTap: _onSlideBackTap,
-          parentFlyerID: widget.parentFlyerID,
+          heroTag: widget.heroTag,
         ),
 
         /// HEADER

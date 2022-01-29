@@ -18,7 +18,7 @@ class GallerySlide extends StatefulWidget {
     @required this.flyerBoxHeight,
     @required this.flyerModel,
     @required this.bzModel,
-    this.parentFlyerID,
+    this.heroTag,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,7 +26,7 @@ class GallerySlide extends StatefulWidget {
   final double flyerBoxHeight;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final String parentFlyerID;
+  final String heroTag;
   /// --------------------------------------------------------------------------
   @override
   State<GallerySlide> createState() => _GallerySlideState();
@@ -171,10 +171,23 @@ class _GallerySlideState extends State<GallerySlide> {
           string: _flyerID,
         );
 
+        final List<String> _parentFlyersIDs = _getFlyersIDsFromHeroTag();
+
+        final bool _alreadyAParentFlyer = Mapper.stringsContainString(
+            strings: _parentFlyersIDs,
+            string: _flyerID
+        );
+
         final bool _flyerIsAlreadyActive = _flyerID == widget.flyerModel.id;
 
-        /// B - WHEN ID IS NOT YET LOADED
-        if (_alreadyLoaded == false && _flyerIsAlreadyActive == false){
+        /// B - WHEN ID IS NOT YET LOADED NOR A PARENT
+        if (
+        _alreadyLoaded == false
+            &&
+            _flyerIsAlreadyActive == false
+            &&
+            _alreadyAParentFlyer == false
+        ){
           /// do nothing and go next
           _nextFlyersIDs.add(_flyerID);
         }
@@ -196,8 +209,16 @@ class _GallerySlideState extends State<GallerySlide> {
     return _nextFlyersIDs;
   }
 // -----------------------------------------------------------------------------
-  void _onFlyerTap(FlyerModel flyerModel){
-    blog('tapping on flyer : ${flyerModel.id}');
+  List<String> _getFlyersIDsFromHeroTag(){
+    final List<String> _flyersIDs = widget.heroTag?.split('_');
+
+    List<String> _output = <String>[];
+
+    if (Mapper.canLoopList(_flyersIDs)){
+      _output = [..._flyersIDs];
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -229,7 +250,7 @@ class _GallerySlideState extends State<GallerySlide> {
               flyers: flyers,
               topPadding: _headerAndProgressHeights,
               numberOfColumns: 2,
-              parentFlyerID: widget.parentFlyerID,
+              heroTag: widget.heroTag,
             );
 
           },
