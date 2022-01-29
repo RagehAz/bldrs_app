@@ -11,12 +11,15 @@ import 'package:provider/provider.dart';
 
 /// NOTE : this widget is an exact replica of AnonymousHomeScreen widget
 class UserHomeScreen extends StatefulWidget {
-  const UserHomeScreen({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const UserHomeScreen({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   @override
   _UserHomeScreenState createState() => _UserHomeScreenState();
 }
-
+/// --------------------------------------------------------------------------
 class _UserHomeScreenState extends State<UserHomeScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _canPaginate = true;
@@ -62,10 +65,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
     final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
 
-    return FlyersGrid(
+    return OldFlyersGrid(
       gridZoneWidth: OldFlyerBox.width(context, 1),
       scrollController: _scrollController,
-      stratosphere: true,
       numberOfColumns: 2,
       scrollable: true,
       flyers: _wallFlyers,

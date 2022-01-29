@@ -17,6 +17,7 @@ class SlidesStack extends StatelessWidget {
     @required this.onSwipeSlide,
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
+    this.parentFlyerID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class SlidesStack extends StatelessWidget {
   final ValueChanged<int> onSwipeSlide;
   final Function onSlideNextTap;
   final Function onSlideBackTap;
+  final String parentFlyerID;
   /// --------------------------------------------------------------------------
   bool _canShowSaveButton(){
     bool _canShow = false;
@@ -66,6 +68,7 @@ class SlidesStack extends StatelessWidget {
             onSlideBackTap: onSlideBackTap,
             onSlideNextTap: onSlideNextTap,
             currentSlideIndex: currentSlideIndex,
+            parentFlyerID: parentFlyerID,
           ),
 
         /// PRICE TAG

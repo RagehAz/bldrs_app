@@ -16,6 +16,7 @@ class FlyerHero extends StatelessWidget {
     @required this.bzCity,
     @required this.isFullScreen,
     @required this.minWidthFactor,
+    @required this.parentFlyerID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +26,7 @@ class FlyerHero extends StatelessWidget {
   final CityModel bzCity;
   final bool isFullScreen;
   final double minWidthFactor;
+  final String parentFlyerID;
   /// --------------------------------------------------------------------------
   static double flyerWidthSizeFactor({
     @required double tween,
@@ -107,12 +109,20 @@ class FlyerHero extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
+  String _createHeroTag(){
+    final String _heroTag = '${parentFlyerID}_${flyerModel.id}';
+
+    return _heroTag;
+  }
+
   @override
   Widget build(BuildContext context) {
 
+    final String _heroTag = _createHeroTag();
+
     return Hero(
-      key: const ValueKey<String>('FlyerHero_Hero'),
-      tag: flyerModel.id,
+      key: ValueKey<String>(_heroTag),//const ValueKey<String>('FlyerHero_Hero'),
+      tag: _heroTag,
       flightShuttleBuilder: (
           BuildContext flightContext,
           Animation<double> animation,
@@ -138,6 +148,7 @@ class FlyerHero extends StatelessWidget {
         bzModel: bzModel,
         bzCountry: bzCountry,
         bzCity: bzCity,
+        parentFlyerID: _heroTag,
       ),
 
     );

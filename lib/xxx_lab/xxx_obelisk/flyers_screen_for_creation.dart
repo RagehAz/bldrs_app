@@ -1,11 +1,8 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_initializer.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,18 +15,18 @@ class TheFlyerScreenForCreation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double gridZoneWidth = Scale.superScreenWidth(context);
-    const double spacingRatioToGridWidth = 0.03;
-    const int numberOfColumns = 3;
-    final double gridFlyerWidth = gridZoneWidth / (numberOfColumns + (numberOfColumns * spacingRatioToGridWidth) + spacingRatioToGridWidth);
+    final double _gridZoneWidth = Scale.superScreenWidth(context);
+    const double _spacingRatioToGridWidth = 0.03;
+    const int _numberOfColumns = 3;
+    final double _gridFlyerWidth = _gridZoneWidth / (_numberOfColumns + (_numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
 
-    final double gridSpacing = gridFlyerWidth * spacingRatioToGridWidth;
+    final double _gridSpacing = _gridFlyerWidth * _spacingRatioToGridWidth;
 
-    final EdgeInsets _gridPadding = EdgeInsets.all(gridSpacing);
+    final EdgeInsets _gridPadding = EdgeInsets.all(_gridSpacing);
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
-    final double _minWidthFactor =  gridFlyerWidth / gridZoneWidth;
+    final double _minWidthFactor =  _gridFlyerWidth / _gridZoneWidth;
 
     return MainLayout(
       historyButtonIsOn: false,
@@ -38,35 +35,12 @@ class TheFlyerScreenForCreation extends StatelessWidget {
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
-      layoutWidget: Container(
-        width: Scale.superScreenWidth(context),
-        height: Scale.superScreenHeight(context),
-        padding: const EdgeInsets.only(top: Ratioz.stratosphere),
-        color: Colorz.blue10,
-        child: GridView.builder(
-          physics: const BouncingScrollPhysics(),
-          padding: _gridPadding,
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              crossAxisSpacing: gridSpacing,
-              mainAxisSpacing: gridSpacing,
-              childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
-              maxCrossAxisExtent: gridFlyerWidth,
-            ),
-            itemCount: _flyersProvider.savedFlyers.length,
-            itemBuilder: (BuildContext ctx, int index){
-
-              final FlyerModel _flyer = _flyersProvider.savedFlyers[index];
-
-              return
-                  FlyerStarter(
-                    flyerModel: _flyer,
-                    minWidthFactor: _minWidthFactor,
-                  );
-
-            }
-        ),
-
+      layoutWidget: FlyersGrid(
+        gridWidth: Scale.superScreenWidth(context),
+        gridHeight: Scale.superScreenHeight(context),
+        flyers: _flyersProvider.savedFlyers,
       ),
+
     );
   }
 }
