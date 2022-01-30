@@ -2,7 +2,6 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
 /// GO BACK ON HORIZONTAL MAX BOUNCE
 class HorizontalBouncer extends StatefulWidget {
@@ -28,9 +27,10 @@ class HorizontalBouncer extends StatefulWidget {
 }
 
 class _HorizontalBouncerState extends State<HorizontalBouncer> {
+// -----------------------------------------
   final ValueNotifier<bool> _canNavigate = ValueNotifier(true);
   int _numberOfTimesBack = 0;
-
+// -----------------------------------------
   @override
   void dispose() {
     _canNavigate.dispose();
@@ -48,7 +48,6 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
       _canNavigate.value = false;
 
   }
-
 // -----------------------------------------------------------------------------
   bool _canSlideOnSwipe({
     @required ScrollUpdateNotification details,
@@ -56,9 +55,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
     int numberOfBoxes = 2,
   }) {
 
-
     final double _offset = widget.controller.position.pixels;
-    // blog('horizontalPixels : ${widget.controller.position.pixels} : _offset : $_offset');
 
     const double _limitRatio = 0.1;
 
@@ -73,19 +70,13 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
       _canSlide = false;
     }
 
-    // else if (goesBackOnly == true) {
-    //   _canSlide = _offset < _backLimit;
-    // }
-
     else {
       _canSlide = _offset < _backLimit || _offset > _nextLimit;
     }
 
-    // print('boxDistance * numberOfBoxes = $boxDistance * ${numberOfBoxes - 1} = ${boxDistance * (numberOfBoxes - 1)} : _backLimit : $_backLimit : _offset : $_offset');
-
     return _canSlide;
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final double _width = widget.boxDistance ?? Scale.superScreenWidth(context);
@@ -105,12 +96,10 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
                 numberOfBoxes: widget.numberOfSlides,
               );
 
-
               if (_canSlide == true && canNavigate == true) {
-                // ScrollDirection _direction = details.metrics.;
-
                 navigate();
               }
+
               return true;
             },
             child: child,
