@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 
 class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -39,6 +40,37 @@ class FlyerHero extends StatelessWidget {
     final double _flyerWidthSizeFactor =
         minWidthFactor + (tween * (maxWidthFactor - minWidthFactor));
     return _flyerWidthSizeFactor;
+  }
+// -----------------------------------------------------------------------------
+  static String createHeroTag({
+    @required String heroTag,
+    @required String flyerID
+  }){
+    String _heroTag;
+
+    if (heroTag == null){
+      _heroTag = '${flyerID}_';
+    }
+
+    else {
+      _heroTag = '$heroTag${flyerID}_';
+    }
+
+    return _heroTag;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> splitHeroTagIntoFlyersIDs({
+    @required String heroTag,
+  }){
+    final List<String> _flyersIDs = heroTag?.split('_');
+
+    List<String> _output = <String>[];
+
+    if (Mapper.canLoopList(_flyersIDs)){
+      _output = [..._flyersIDs];
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
   static Widget flyerFlightShuttle({
@@ -109,24 +141,13 @@ class FlyerHero extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
-  String _createHeroTag(){
-    String _heroTag;
-
-    if (heroTag == null){
-      _heroTag = '${flyerModel.id}_';
-    }
-
-    else {
-      _heroTag = '$heroTag${flyerModel.id}_';
-    }
-
-    return _heroTag;
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final String _heroTag = _createHeroTag();
+    final String _heroTag = createHeroTag(
+        heroTag: heroTag,
+        flyerID: flyerModel.id,
+    );
 
     return Hero(
       key: ValueKey<String>(_heroTag),//const ValueKey<String>('FlyerHero_Hero'),

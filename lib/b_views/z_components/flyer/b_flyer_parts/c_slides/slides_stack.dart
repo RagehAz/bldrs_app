@@ -17,6 +17,8 @@ class SlidesStack extends StatelessWidget {
     @required this.onSwipeSlide,
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
+    @required this.canShowGalleryPage,
+    @required this.numberOfSlides,
     this.heroTag,
     Key key
   }) : super(key: key);
@@ -32,6 +34,8 @@ class SlidesStack extends StatelessWidget {
   final Function onSlideNextTap;
   final Function onSlideBackTap;
   final String heroTag;
+  final bool canShowGalleryPage;
+  final int numberOfSlides;
   /// --------------------------------------------------------------------------
   bool _canShowSaveButton(){
     bool _canShow = false;
@@ -69,6 +73,8 @@ class SlidesStack extends StatelessWidget {
             onSlideNextTap: onSlideNextTap,
             currentSlideIndex: currentSlideIndex,
             heroTag: heroTag,
+            canShowGalleryPage : canShowGalleryPage,
+            numberOfSlides: numberOfSlides,
           ),
 
         /// PRICE TAG
