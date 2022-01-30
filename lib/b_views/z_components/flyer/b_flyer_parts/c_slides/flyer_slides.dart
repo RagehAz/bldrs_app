@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/horizontalBouncer.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/gallery_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -40,16 +39,15 @@ class FlyerSlides extends StatefulWidget {
   final String heroTag;
   final bool canShowGalleryPage;
   final int numberOfSlides;
-
+  /// --------------------------------------------------------------------------
   @override
   State<FlyerSlides> createState() => _FlyerSlidesState();
 }
 
 class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClientMixin<FlyerSlides>{
+
   @override
   bool get wantKeepAlive => true;
-
-  /// --------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +70,8 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
           key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
           controller: widget.horizontalController,
           physics: widget.tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
-          clipBehavior: Clip.antiAlias,
-          restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
+          // clipBehavior: Clip.antiAlias,
+          // restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
           onPageChanged: (int i) => widget.onSwipeSlide(i),
           itemCount: widget.numberOfSlides + 1,
           itemBuilder: (_, int index){
