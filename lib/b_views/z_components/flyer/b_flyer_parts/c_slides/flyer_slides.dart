@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_s
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class FlyerSlides extends StatelessWidget {
+class FlyerSlides extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerSlides({
     @required this.flyerBoxWidth,
@@ -40,15 +40,25 @@ class FlyerSlides extends StatelessWidget {
   final String heroTag;
   final bool canShowGalleryPage;
   final int numberOfSlides;
+
+  @override
+  State<FlyerSlides> createState() => _FlyerSlidesState();
+}
+
+class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClientMixin<FlyerSlides>{
+  @override
+  bool get wantKeepAlive => true;
+
   /// --------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
 
-    if (flyerModel.slides.isEmpty){
+    if (widget.flyerModel.slides.isEmpty){
       return Container(
-        width: flyerBoxWidth,
-        height: flyerBoxHeight,
+        width: widget.flyerBoxWidth,
+        height: widget.flyerBoxHeight,
         color: Colorz.white50,
       );
     }
@@ -56,36 +66,34 @@ class FlyerSlides extends StatelessWidget {
     else {
 
       return HorizontalBouncer(
-        numberOfSlides: numberOfSlides,
+        numberOfSlides: widget.numberOfSlides,
+        controller: widget.horizontalController,
         child: PageView.builder(
-          // key: const ValueKey<String>('FlyerSlides_PageView'),
-          key: const PageStorageKey<String>('FlyerSlides_PageView'),
-          controller: horizontalController,
-          physics: tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
+          key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
+          controller: widget.horizontalController,
+          physics: widget.tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
           clipBehavior: Clip.antiAlias,
-          // restorationId: flyerModel.id,
-          onPageChanged: (int i) => onSwipeSlide(i),
-          itemCount: numberOfSlides + 1,
+          restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
+          onPageChanged: (int i) => widget.onSwipeSlide(i),
+          itemCount: widget.numberOfSlides + 1,
           itemBuilder: (_, int index){
 
-            final bool _isRealSlides = index < flyerModel.slides.length;
+            /// WHEN AT FLYER REAL SLIDES
+            if (index < widget.flyerModel.slides.length){
 
-            /// WHEN AT FLYER SLIDES
-            if (_isRealSlides){
-
-              final SlideModel _slide = flyerModel.slides[index];
+              final SlideModel _slide = widget.flyerModel.slides[index];
 
               return Stack(
                 children: <Widget>[
 
                   SingleSlide(
                     key: const ValueKey<String>('slide_key'),
-                    flyerBoxWidth: flyerBoxWidth,
-                    flyerBoxHeight: flyerBoxHeight,
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    flyerBoxHeight: widget.flyerBoxHeight,
                     slideModel: _slide,
-                    tinyMode: tinyMode,
-                    onSlideNextTap: onSlideNextTap,
-                    onSlideBackTap: onSlideBackTap,
+                    tinyMode: widget.tinyMode,
+                    onSlideNextTap: widget.onSlideNextTap,
+                    onSlideBackTap: widget.onSlideBackTap,
                   ),
 
                 /// ---------
@@ -113,19 +121,20 @@ class FlyerSlides extends StatelessWidget {
             );
             }
 
-            else if (index == numberOfSlides){
+            /// WHEN AT FAKE BOUNCER SLIDE
+            else if (index == widget.numberOfSlides){
               return Container();
             }
 
-            /// WHEN AT GALLERY SLIDE
+            /// WHEN AT GALLERY SLIDE IF EXISTED
             else {
 
               return GallerySlide(
-                flyerBoxWidth: flyerBoxWidth,
-                flyerBoxHeight: flyerBoxHeight,
-                flyerModel: flyerModel,
-                bzModel: bzModel,
-                heroTag: heroTag,
+                flyerBoxWidth: widget.flyerBoxWidth,
+                flyerBoxHeight: widget.flyerBoxHeight,
+                flyerModel: widget.flyerModel,
+                bzModel: widget.bzModel,
+                heroTag: widget.heroTag,
               );
 
             }

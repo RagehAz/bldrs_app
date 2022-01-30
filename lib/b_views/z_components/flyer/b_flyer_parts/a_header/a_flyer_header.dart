@@ -10,9 +10,11 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_name_
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/convertible_header_strip_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatefulWidget {
@@ -265,7 +267,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
           children: <Widget>[
 
             ListView(
-              key: const ValueKey<String>('FlyerHeader_ListView'),
+              key: const PageStorageKey<String>('FlyerHeader_ListView'),
               physics: widget.tinyMode == true || widget.headerIsExpanded.value == false ?
               const NeverScrollableScrollPhysics()
                   :
