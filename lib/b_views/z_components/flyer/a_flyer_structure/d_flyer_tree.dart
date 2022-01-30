@@ -264,13 +264,13 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     final int _numberOfSlides = _getNumberOfSlides();
 
     return FlyerBox(
-      // key: const ValueKey<String>('FlyerTree_FlyerBox'),
+      key: const ValueKey<String>('FlyerTree_FlyerBox'),
       flyerWidthFactor: widget.flyerWidthFactor,
       stackWidgets: <Widget>[
 
         /// SLIDES
         SlidesStack(
-          // key: const ValueKey<String>('FlyerTree_SlidesStack'),
+          key: const ValueKey<String>('FlyerTree_SlidesStack'),
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
           flyerBoxWidth: _flyerBoxWidth,
@@ -288,7 +288,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 
         /// HEADER
         FlyerHeader(
-          // key: const ValueKey<String>('FlyerTree_FlyerHeader'),
+          key: const ValueKey<String>('FlyerTree_FlyerHeader'),
           flyerBoxWidth: _flyerBoxWidth,
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
@@ -306,14 +306,14 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
         ),
 
         /// FOOTER
-        Positioned(
-          bottom: 0,
-          child: Container(
-            width: _flyerBoxWidth,
-            height: _footerHeight,
-            color: Colorz.blue20,
-          ),
-        ),
+        // Positioned(
+        //   bottom: 0,
+        //   child: Container(
+        //     width: _flyerBoxWidth,
+        //     height: _footerHeight,
+        //     color: Colorz.blue20,
+        //   ),
+        // ),
 
         /// PROGRESS BAR
         ProgressBar(
