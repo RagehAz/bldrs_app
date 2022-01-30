@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_stack.dart';
@@ -201,6 +202,53 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 
   }
 // -----------------------------------------------------------------------------
+  bool _canShowGalleryPage(){
+    bool _canShowGallery = false;
+
+    /// only CAN SHOW : WHEN BZ FLYERS ARE MORE THAN THE SHOWN FLYER
+    final bool _bzHasMoreThanOneFlyer = widget.bzModel.flyersIDs.length > 1;
+
+    /// & only CAN SHOW : WHEN HERO TAG CONTAINS MORE THAN 1 FLYER ID
+    final List<String> _heroFlyersIDs = FlyerHero.splitHeroTagIntoFlyersIDs(heroTag: widget.heroTag);
+    final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.length > 1;
+
+    /// & only CAN SHOW : WHEN HERO TAG HAS LESS THAN 3 FLYERS IDS
+    final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 3;
+
+    /// so :-
+    if (_bzHasMoreThanOneFlyer == true){
+
+      if (_heroTagHasMoreThanOneFlyerID == true){
+
+        if (_heroTagHasLessThanThreeFlyersIDs == true){
+
+          _canShowGallery = true;
+
+        }
+
+      }
+
+    }
+
+    return _canShowGallery;
+  }
+// -----------------------------------------------------------------------------
+  int _getNumberOfSlides(){
+    int _numberOfSlides;
+
+    final bool _canShowGallery = _canShowGalleryPage();
+
+    if (_canShowGallery == true){
+      _numberOfSlides = widget.flyerModel.slides.length + 1;
+    }
+
+    else {
+      _numberOfSlides = widget.flyerModel.slides.length;
+    }
+
+    return _numberOfSlides;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -211,6 +259,9 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
         flyerBoxWidth: _flyerBoxWidth,
     );
     final bool _tinyMode = FlyerBox.isTinyMode(context, _flyerBoxWidth);
+
+    final bool _canShowGallery = _canShowGalleryPage();
+    final int _numberOfSlides = _getNumberOfSlides();
 
     return FlyerBox(
       // key: const ValueKey<String>('FlyerTree_FlyerBox'),
@@ -231,6 +282,8 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
           onSlideNextTap: _onSlideNextTap,
           onSlideBackTap: _onSlideBackTap,
           heroTag: widget.heroTag,
+          numberOfSlides: _numberOfSlides,
+          canShowGalleryPage: _canShowGallery,
         ),
 
         /// HEADER
@@ -266,7 +319,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
         ProgressBar(
           flyerBoxWidth: _flyerBoxWidth,
           progressBarOpacity: _progressBarOpacity,
-          numberOfSlides: widget.flyerModel.slides.length,
+          numberOfSlides: _numberOfSlides,
           swipeDirection: _swipeDirection,
           currentSlideIndex: _currentSlideIndex,
           tinyMode: _tinyMode,

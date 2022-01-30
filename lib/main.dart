@@ -151,8 +151,7 @@ class _BldrsAppState extends State<BldrsApp> {
           final FirebaseApp _firebaseApp = await Firebase.initializeApp();
 
           blog('_firebaseApp.name : ${_firebaseApp.name}');
-          blog(
-              '_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
+          blog('_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
           blog('_firebaseApp.options :-');
           printMap(_firebaseApp.options.asMap);
         },
@@ -164,9 +163,11 @@ class _BldrsAppState extends State<BldrsApp> {
 
   @override
   Widget build(BuildContext context) {
+
     blog('building Bldrs with _locale : $_locale');
 
     if (_locale == null || _fireError.value != null) {
+
       return ValueListenableBuilder<bool>(
           valueListenable: _loading,
           builder: (_, bool loading, Widget child) {
@@ -179,7 +180,9 @@ class _BldrsAppState extends State<BldrsApp> {
                   );
                 });
           });
-    } else {
+    }
+
+    else {
       return MultiProvider(
         providers: <SingleChildWidget>[
           ChangeNotifierProvider<UiProvider>(
@@ -221,6 +224,7 @@ class _BldrsAppState extends State<BldrsApp> {
           valueListenable: _locale,
           builder: (BuildContext ctx, Locale value, Widget child) {
             return MaterialApp(
+
               /// DEBUG
               debugShowCheckedModeBanner: false,
               // debugShowMaterialGrid: false,
