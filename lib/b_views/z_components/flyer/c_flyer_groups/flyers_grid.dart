@@ -37,7 +37,12 @@ class FlyersGrid extends StatelessWidget {
 
     final double _gridSpacing = _gridFlyerWidth * _spacingRatioToGridWidth;
 
-    final EdgeInsets _gridPadding = EdgeInsets.all(_gridSpacing);
+    final EdgeInsets _gridPadding = EdgeInsets.only(
+      left: _gridSpacing,
+      right: _gridSpacing,
+      top: topPadding,
+      bottom: Ratioz.horizon,
+    );
 
     final double _minWidthFactor =  _gridFlyerWidth / _gridZoneWidth;
 
@@ -48,7 +53,6 @@ class FlyersGrid extends StatelessWidget {
         Container(
           width: gridWidth,
           height: gridHeight,
-          padding: EdgeInsets.only(top: topPadding),
           color: Colorz.blue10,
           child: GridView.builder(
               physics: const BouncingScrollPhysics(),

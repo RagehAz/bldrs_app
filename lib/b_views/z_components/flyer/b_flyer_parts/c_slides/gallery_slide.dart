@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -223,6 +224,7 @@ class _GallerySlideState extends State<GallerySlide> {
       child: Container(
         width: widget.flyerBoxWidth,
         height: widget.flyerBoxHeight,
+        color: Colorz.black80,
         // margin: EdgeInsets.only(top: _headerAndProgressHeights),
         // decoration: const BoxDecoration(
         //   color: Colorz.yellow255,
