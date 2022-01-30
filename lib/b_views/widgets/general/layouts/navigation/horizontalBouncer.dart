@@ -10,8 +10,9 @@ class HorizontalBouncer extends StatefulWidget {
   const HorizontalBouncer({
     @required this.child,
     @required this.numberOfSlides,
+    @required this.controller,
     this.boxDistance,
-   this.notificationListenerKey,
+    this.notificationListenerKey,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -19,6 +20,7 @@ class HorizontalBouncer extends StatefulWidget {
   final int numberOfSlides;
   final Widget child;
   final Key notificationListenerKey;
+  final PageController controller;
   /// --------------------------------------------------------------------------
   @override
   _HorizontalBouncerState createState() => _HorizontalBouncerState();
@@ -53,7 +55,10 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
     @required double boxDistance,
     int numberOfBoxes = 2,
   }) {
-    final double _offset = details.metrics.pixels;
+
+
+    final double _offset = widget.controller.position.pixels;
+    // blog('horizontalPixels : ${widget.controller.position.pixels} : _offset : $_offset');
 
     const double _limitRatio = 0.1;
 
@@ -100,7 +105,6 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
                 numberOfBoxes: widget.numberOfSlides,
               );
 
-              // print('details : ${details.scrollDelta}');
 
               if (_canSlide == true && canNavigate == true) {
                 // ScrollDirection _direction = details.metrics.;
