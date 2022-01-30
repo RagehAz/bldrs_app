@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
@@ -171,7 +172,7 @@ class _GallerySlideState extends State<GallerySlide> {
           string: _flyerID,
         );
 
-        final List<String> _parentFlyersIDs = _getFlyersIDsFromHeroTag();
+        final List<String> _parentFlyersIDs = FlyerHero.splitHeroTagIntoFlyersIDs(heroTag: widget.heroTag);
 
         final bool _alreadyAParentFlyer = Mapper.stringsContainString(
             strings: _parentFlyersIDs,
@@ -207,18 +208,6 @@ class _GallerySlideState extends State<GallerySlide> {
     }
 
     return _nextFlyersIDs;
-  }
-// -----------------------------------------------------------------------------
-  List<String> _getFlyersIDsFromHeroTag(){
-    final List<String> _flyersIDs = widget.heroTag?.split('_');
-
-    List<String> _output = <String>[];
-
-    if (Mapper.canLoopList(_flyersIDs)){
-      _output = [..._flyersIDs];
-    }
-
-    return _output;
   }
 // -----------------------------------------------------------------------------
   @override
