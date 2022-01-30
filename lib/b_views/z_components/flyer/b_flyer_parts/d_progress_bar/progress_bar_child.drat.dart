@@ -44,7 +44,7 @@ class ProgressBarChild extends StatelessWidget {
     else if (Strips.canBuildStrips(numberOfSlides) == true){
       return Strips(
         flyerBoxWidth: flyerBoxWidth,
-        numberOfStrips: numberOfSlides + 1, /// FOR THE EXTRA SLIDE
+        numberOfStrips: numberOfSlides,
         currentSlideIndex: currentSlideIndex,
         swipeDirection: swipeDirection,
         tinyMode: tinyMode,
