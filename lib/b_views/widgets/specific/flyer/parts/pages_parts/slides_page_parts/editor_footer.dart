@@ -116,7 +116,7 @@ class EditorFooter extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 /// ADD IMAGES
-                FooterButton(
+                OldFooterButton(
                   verse: 'Add',
                   icon: Iconz.plus,
                   flyerBoxWidth: flyerBoxWidth,
@@ -126,7 +126,7 @@ class EditorFooter extends StatelessWidget {
                 ),
 
                 /// DELETE SLIDE
-                FooterButton(
+                OldFooterButton(
                   verse: 'Delete',
                   icon: Iconz.xSmall,
                   flyerBoxWidth: flyerBoxWidth,
@@ -136,7 +136,7 @@ class EditorFooter extends StatelessWidget {
                 ),
 
                 /// CROP IMAGE
-                FooterButton(
+                OldFooterButton(
                   verse: 'Crop',
                   icon: Iconz.bxDesignsOff,
                   flyerBoxWidth: flyerBoxWidth,
@@ -146,7 +146,7 @@ class EditorFooter extends StatelessWidget {
                 ),
 
                 /// RESET IMAGE
-                FooterButton(
+                OldFooterButton(
                   verse: 'Reset',
                   icon: Iconz.clock,
                   flyerBoxWidth: flyerBoxWidth,
@@ -156,7 +156,7 @@ class EditorFooter extends StatelessWidget {
                 ),
 
                 /// FIT IMAGES
-                FooterButton(
+                OldFooterButton(
                   verse: 'Fit',
                   icon: currentPicFit == BoxFit.fitWidth
                       ? Iconz.arrowRight

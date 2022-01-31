@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -125,10 +126,12 @@ class FlyerHero extends StatelessWidget {
             // maxWidthFactor: 1, REDUNDANT
           );
 
+          final double _flyerBoxWidth = FlyerBox.width(flightContext, _flyerWidthFactor);
+
           return Scaffold(
             backgroundColor: Colorz.nothing,
             body: FlyerTree(
-              flyerWidthFactor: _flyerWidthFactor,
+              flyerBoxWidth: _flyerBoxWidth,
               flyerModel: flyerModel,
               bzModel: bzModel,
               bzCountry: null,
@@ -148,6 +151,9 @@ class FlyerHero extends StatelessWidget {
         heroTag: heroTag,
         flyerID: flyerModel.id,
     );
+
+    final double _factor = isFullScreen ?  1 : minWidthFactor;
+    final double _flyerBoxWidth = FlyerBox.width(context, _factor);
 
     return Hero(
       key: ValueKey<String>(_heroTag),//const ValueKey<String>('FlyerHero_Hero'),
@@ -172,7 +178,7 @@ class FlyerHero extends StatelessWidget {
       },
 
       child: FlyerTree(
-        flyerWidthFactor: isFullScreen ? 1 : minWidthFactor,
+        flyerBoxWidth: _flyerBoxWidth,
         flyerModel: flyerModel,
         bzModel: bzModel,
         bzCountry: bzCountry,

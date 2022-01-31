@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 class FlyerLoading extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerLoading({
-    @required this.flyerWidthFactor,
+    @required this.flyerBoxWidth,
     this.loadingColor = Colorz.white10,
     this.boxColor = Colorz.white20,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double flyerWidthFactor;
+  final double flyerBoxWidth;
   final Color loadingColor;
   final Color boxColor;
   /// --------------------------------------------------------------------------
@@ -20,7 +20,7 @@ class FlyerLoading extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return FlyerBox(
-      flyerWidthFactor: flyerWidthFactor,
+      flyerBoxWidth: flyerBoxWidth,
       boxColor: boxColor,
       stackWidgets: <Widget>[
 
@@ -29,10 +29,7 @@ class FlyerLoading extends StatelessWidget {
           child: LinearProgressIndicator(
             color: loadingColor,
             backgroundColor: Colorz.nothing,
-            minHeight: FlyerBox.heightByWidthFactor(
-                context: context,
-                flyerWidthFactor: flyerWidthFactor
-            ),
+            minHeight: FlyerBox.height(context, flyerBoxWidth),
           ),
         ),
 
