@@ -15,18 +15,7 @@ class TheFlyerScreenForCreation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _gridZoneWidth = Scale.superScreenWidth(context);
-    const double _spacingRatioToGridWidth = 0.03;
-    const int _numberOfColumns = 3;
-    final double _gridFlyerWidth = _gridZoneWidth / (_numberOfColumns + (_numberOfColumns * _spacingRatioToGridWidth) + _spacingRatioToGridWidth);
-
-    final double _gridSpacing = _gridFlyerWidth * _spacingRatioToGridWidth;
-
-    final EdgeInsets _gridPadding = EdgeInsets.all(_gridSpacing);
-
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-
-    final double _minWidthFactor =  _gridFlyerWidth / _gridZoneWidth;
 
     return MainLayout(
       historyButtonIsOn: false,

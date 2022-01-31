@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/x_3_slide_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide_tap_area.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -46,9 +45,8 @@ class SingleSlideImagePart extends StatelessWidget {
   /// Function(BuildContext, Widget, ImageChunkEvent
   Widget _imageLoadingBuilder(BuildContext context, Widget image, ImageChunkEvent chunkEvent){
 
-    final double flyerWidthFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
     final Widget _widget = FlyerLoading(
-      flyerWidthFactor: flyerWidthFactor,
+      flyerBoxWidth: flyerBoxWidth,
       loadingColor: Colorz.white30,
       boxColor: Colorz.nothing,
     );

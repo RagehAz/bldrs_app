@@ -6,9 +6,9 @@ import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_pa
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class FooterButton extends StatelessWidget {
+class OldFooterButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FooterButton({
+  const OldFooterButton({
     @required this.icon,
     @required this.flyerBoxWidth,
     @required this.onTap,

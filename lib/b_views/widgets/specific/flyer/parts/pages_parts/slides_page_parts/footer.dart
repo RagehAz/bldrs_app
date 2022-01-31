@@ -103,7 +103,6 @@ class OldFlyerFooter extends StatelessWidget {
 
     return _color;
   }
-
 // -----------------------------------------------------------------------------
   static Widget boxShadow({BuildContext context, double flyerBoxWidth}) {
     final double _flyerBottomCorners = boxCorners(flyerBoxWidth);
@@ -128,7 +127,6 @@ class OldFlyerFooter extends StatelessWidget {
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -174,7 +172,7 @@ class OldFlyerFooter extends StatelessWidget {
                 right: Aligners.rightPositionInLeftAlignmentEn(context, 0),
                 left: Aligners.leftPositionInLeftAlignmentEn(context, 0),
                 bottom: 0,
-                child: FooterButton(
+                child: OldFooterButton(
                   icon: Iconz.share,
 
                   /// TASK : let share icon point outwards the flyer pointing to outside the phone
