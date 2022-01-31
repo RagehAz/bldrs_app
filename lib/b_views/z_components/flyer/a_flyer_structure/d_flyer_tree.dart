@@ -2,10 +2,10 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -25,14 +25,14 @@ class FlyerTree extends StatefulWidget {
     @required this.bzModel,
     @required this.bzCountry,
     @required this.bzCity,
-    this.flyerWidthFactor = 1,
+    @required this.flyerBoxWidth,
     this.onTap,
     this.loading = false,
     this.heroTag,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double flyerWidthFactor;
+  final double flyerBoxWidth;
   final Function onTap;
   final FlyerModel flyerModel;
   final BzModel bzModel;
@@ -54,6 +54,8 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
   ScrollController _headerScrollController;
   /// FOR SLIDES
   PageController _horizontalController;
+  /// FOR FOOTER
+  PageController _footerPageController;
 // ----------------------------------------------
   @override
   void initState() {
@@ -74,7 +76,31 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     final _followIsOn = _checkFollowIsOn();
     _setFollowIsOn(_followIsOn);
     // ------------------------------------------
+    /// FOR FOOTER
+    _footerPageController = PageController();
 
+    final int _numberOfSlide = widget.flyerModel.slides.length - 1;
+    final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
+    _horizontalController.addListener(() {
+
+      final bool _reachedGallerySlide = _horizontalController.page > _numberOfSlide;
+      final bool _atBackBounce = _horizontalController.position.pixels < 0;
+
+      /// WHEN AT INITIAL SLIDE
+      if (_atBackBounce == true){
+        final double _correctedPixels = _horizontalController.position.pixels;
+        _footerPageController.position.correctPixels(_correctedPixels);
+        _footerPageController.position.notifyListeners();
+      }
+
+      /// WHEN AT LAST REAL SLIDE
+      if (_reachedGallerySlide == true){
+        final double _correctedPixels = _horizontalController.position.pixels - _totalRealSlidesWidth;
+        _footerPageController.position.correctPixels(_correctedPixels);
+        _footerPageController.position.notifyListeners();
+      }
+
+    });
 
   }
 // -----------------------------------------------------------------------------
@@ -249,23 +275,28 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     return _numberOfSlides;
   }
 // -----------------------------------------------------------------------------
+  final ValueNotifier<bool> _flyerIsSaved = ValueNotifier(false);
+  Future<void> _onSaveFlyer() async {
+
+    await Future.delayed(Ratioz.durationFading200, (){
+      _flyerIsSaved.value = !_flyerIsSaved.value;
+    });
+
+  }
+// -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBoxWidth = FlyerBox.width(context, widget.flyerWidthFactor);
-    final double _flyerBoxHeight = FlyerBox.height(context, _flyerBoxWidth);
-    final double _footerHeight = OldFlyerFooter.boxHeight(
-        context: context,
-        flyerBoxWidth: _flyerBoxWidth,
-    );
-    final bool _tinyMode = FlyerBox.isTinyMode(context, _flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerBox.height(context, widget.flyerBoxWidth);
+    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
     final bool _canShowGallery = _canShowGalleryPage();
     final int _numberOfSlides = _getNumberOfSlides();
 
     return FlyerBox(
       key: const ValueKey<String>('FlyerTree_FlyerBox'),
-      flyerWidthFactor: widget.flyerWidthFactor,
+      flyerBoxWidth: widget.flyerBoxWidth,
       stackWidgets: <Widget>[
 
         /// SLIDES
@@ -273,7 +304,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
           key: const ValueKey<String>('FlyerTree_SlidesStack'),
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
-          flyerBoxWidth: _flyerBoxWidth,
+          flyerBoxWidth: widget.flyerBoxWidth,
           flyerBoxHeight: _flyerBoxHeight,
           tinyMode: _tinyMode,
           currentSlideIndex: _currentSlideIndex,
@@ -289,7 +320,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
         /// HEADER
         FlyerHeader(
           key: const ValueKey<String>('FlyerTree_FlyerHeader'),
-          flyerBoxWidth: _flyerBoxWidth,
+          flyerBoxWidth: widget.flyerBoxWidth,
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
           bzCountry: widget.bzCountry,
@@ -306,18 +337,17 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
         ),
 
         /// FOOTER
-        // Positioned(
-        //   bottom: 0,
-        //   child: Container(
-        //     width: _flyerBoxWidth,
-        //     height: _footerHeight,
-        //     color: Colorz.blue20,
-        //   ),
-        // ),
+        FlyerFooter(
+          flyerBoxWidth: widget.flyerBoxWidth,
+          tinyMode: _tinyMode,
+          flyerIsSaved: _flyerIsSaved,
+          onSaveFlyer: _onSaveFlyer,
+          footerPageController: _footerPageController,
+        ),
 
         /// PROGRESS BAR
         ProgressBar(
-          flyerBoxWidth: _flyerBoxWidth,
+          flyerBoxWidth: widget.flyerBoxWidth,
           progressBarOpacity: _progressBarOpacity,
           numberOfSlides: _numberOfSlides,
           swipeDirection: _swipeDirection,
