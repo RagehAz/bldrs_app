@@ -143,14 +143,14 @@ class _OldAnkhButtonState extends State<OldAnkhButton>
       child: widget.bzPageIsOn
           ? Container()
           : _tinyMode == true && widget.ankhIsOn == true
-              ? FooterButton(
+              ? OldFooterButton(
                   icon: _saveBTIcon,
                   flyerBoxWidth: widget.flyerBoxWidth,
                   verse: _saveBTVerse,
                   onTap: null,
                 )
               : _tinyMode == false && widget.ankhIsOn == false
-                  ? FooterButton(
+                  ? OldFooterButton(
                       icon: _saveBTIcon,
                       flyerBoxWidth: widget.flyerBoxWidth,
                       verse: _saveBTVerse,
@@ -159,7 +159,7 @@ class _OldAnkhButtonState extends State<OldAnkhButton>
                   : _tinyMode == false && widget.ankhIsOn == true
                       ?
                       // (_tinyMode == true && widget.ankhIsOn == false) || widget.bzPageIsOn == true ? Container():
-                      FooterButton(
+                      OldFooterButton(
                           icon: _saveBTIcon,
                           flyerBoxWidth: widget.flyerBoxWidth,
                           isOn: widget.ankhIsOn,

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class FlyerBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerBox({
-    @required this.flyerWidthFactor,
+    @required this.flyerBoxWidth,
     this.stackWidgets,
     this.boxColor = Colorz.white20,
     Key key,
@@ -15,7 +15,7 @@ class FlyerBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   // --- NEAT AND CLEAN
   /// width factor * screenWidth = flyerWidth
-  final double flyerWidthFactor;
+  final double flyerBoxWidth;
   /// internal parts of the flyer
   final List<Widget> stackWidgets;
   final Color boxColor;
@@ -232,14 +232,13 @@ class FlyerBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final double _flyerBoxWidth = width(context, flyerWidthFactor);
-    final double _flyerZoneHeight = FlyerBox.height(context, _flyerBoxWidth);
-    final BorderRadius _flyerBorders = corners(context, _flyerBoxWidth);
+    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final BorderRadius _flyerBorders = corners(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     return Center( /// to prevent flyer stretching out
       key: const ValueKey<String>('flyer_box'),
       child: Container(
-        width: _flyerBoxWidth,
+        width: flyerBoxWidth,
         height: _flyerZoneHeight,
         alignment: Alignment.topCenter,
         decoration: BoxDecoration(
@@ -250,7 +249,7 @@ class FlyerBox extends StatelessWidget {
         child: ClipRRect( /// because I will not pass borders to all children
           borderRadius: _flyerBorders,
           child: Container(
-            width: _flyerBoxWidth,
+            width: flyerBoxWidth,
             height: _flyerZoneHeight,
             alignment: Alignment.topCenter,
             child: Stack(

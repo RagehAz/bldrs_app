@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -118,10 +119,12 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
     blog('flyer ID is ${widget.flyerModel.id} : parentID is ${widget.heroTag?? 'non'}');
 
+    final double _flyerBoxWidth = FlyerBox.width(context, widget.minWidthFactor);
+
     return ValueListenableBuilder(
         key: ValueKey<String>('FlyerStarter_${widget.flyerModel.id}'),
         valueListenable: _loading,
-        child: FlyerLoading(flyerWidthFactor: widget.minWidthFactor,),
+        child: FlyerLoading(flyerBoxWidth: widget.minWidthFactor,),
         builder: (_, bool isLoading, Widget child){
 
           if (isLoading == true){
@@ -143,7 +146,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
                             builder: (_, CityModel bzCity, Widget child){
 
                               if (bzModel == null || widget.flyerModel == null){
-                                return FlyerLoading(flyerWidthFactor: widget.minWidthFactor,);
+                                return FlyerLoading(flyerBoxWidth: _flyerBoxWidth,);
                               }
 
                               else {
