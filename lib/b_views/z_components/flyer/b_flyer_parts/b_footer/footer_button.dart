@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class FooterButton extends StatelessWidget {
     @required double flyerBoxWidth,
     @required bool tinyMode,
   }) {
-    final double _flyerBottomCorners = FlyerFooter.boxCornersValue(flyerBoxWidth);
+    final double _flyerBottomCorners = FooterBox.boxCornersValue(flyerBoxWidth);
     final double _footerBTMargins = buttonMargin(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
@@ -97,7 +97,7 @@ class FooterButton extends StatelessWidget {
     final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
     final Color _splashColor = isOn ? Colorz.black255 : Colorz.white80;
 
-    blog('fuck');
+    // blog('fuck the fucking fuckers');
 
     return SizedBox(
       key: const ValueKey<String>('Footer_button'),
@@ -145,37 +145,6 @@ class FooterButton extends StatelessWidget {
 
         ],
       ),
-    );
-  }
-}
-
-class FooterButtonSpacer extends StatelessWidget {
-
-  const FooterButtonSpacer({
-    @required this.flyerBoxWidth,
-    @required this.tinyMode,
-    Key key
-  }) : super(key: key);
-
-  final double flyerBoxWidth;
-  final bool tinyMode;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-
-      width: FooterButton.buttonMargin(
-          context: context,
-          flyerBoxWidth: flyerBoxWidth,
-          tinyMode: tinyMode
-      ),
-
-      height: FlyerFooter.boxHeight(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth,
-        tinyMode: tinyMode,
-      ),
-
     );
   }
 }

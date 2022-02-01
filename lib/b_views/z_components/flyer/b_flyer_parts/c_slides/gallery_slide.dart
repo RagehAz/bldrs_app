@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -220,7 +220,7 @@ class _GallerySlideState extends State<GallerySlide> {
     );
 
     return ClipRRect(
-      borderRadius: FlyerFooter.corners(context: context, flyerBoxWidth: widget.flyerBoxWidth),
+      borderRadius: FooterBox.corners(context: context, flyerBoxWidth: widget.flyerBoxWidth),
       child: Container(
         width: widget.flyerBoxWidth,
         height: widget.flyerBoxHeight,

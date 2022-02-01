@@ -19,6 +19,7 @@ class FlyerSlides extends StatefulWidget {
     @required this.onSwipeSlide,
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
+    @required this.onDoubleTap,
     @required this.currentSlideIndex,
     @required this.canShowGalleryPage,
     @required this.numberOfSlides,
@@ -35,6 +36,7 @@ class FlyerSlides extends StatefulWidget {
   final ValueChanged<int> onSwipeSlide;
   final Function onSlideNextTap;
   final Function onSlideBackTap;
+  final Function onDoubleTap;
   final ValueNotifier currentSlideIndex;
   final String heroTag;
   final bool canShowGalleryPage;
@@ -81,47 +83,21 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
 
               final SlideModel _slide = widget.flyerModel.slides[index];
 
-              return Stack(
-                children: <Widget>[
-
-                  SingleSlide(
-                    key: const ValueKey<String>('slide_key'),
-                    flyerBoxWidth: widget.flyerBoxWidth,
-                    flyerBoxHeight: widget.flyerBoxHeight,
-                    slideModel: _slide,
-                    tinyMode: widget.tinyMode,
-                    onSlideNextTap: widget.onSlideNextTap,
-                    onSlideBackTap: widget.onSlideBackTap,
-                  ),
-
-                /// ---------
-
-                // FlyerFooter(
-                //   flyerBoxWidth: flyerBoxWidth,
-                //   saves: superFlyer.edit.firstTimer == true ? 0
-                //       :
-                //   superFlyer.mSlides[superFlyer.currentSlideIndex].savesCount,
-                //   shares: superFlyer.edit.firstTimer == true ? 0 : superFlyer
-                //       .mSlides[superFlyer.currentSlideIndex]
-                //       .sharesCount,
-                //   views: superFlyer.edit.firstTimer == true ? 0
-                //       :
-                //   superFlyer.mSlides[superFlyer.currentSlideIndex].viewsCount,
-                //   onShareTap: () => superFlyer.rec.onShareTap(),
-                //   onCountersTap: () => superFlyer.rec
-                //       .onCountersTap(), //onSlideCounterTap(context),
-                // ),
-
-                // /// TAP AREAS
-
-
-              ],
-            );
+              return SingleSlide(
+                key: const ValueKey<String>('slide_key'),
+                flyerBoxWidth: widget.flyerBoxWidth,
+                flyerBoxHeight: widget.flyerBoxHeight,
+                slideModel: _slide,
+                tinyMode: widget.tinyMode,
+                onSlideNextTap: widget.onSlideNextTap,
+                onSlideBackTap: widget.onSlideBackTap,
+                onDoubleTap: widget.onDoubleTap,
+              );
             }
 
             /// WHEN AT FAKE BOUNCER SLIDE
             else if (index == widget.numberOfSlides){
-              return Container();
+              return const SizedBox();
             }
 
             /// WHEN AT GALLERY SLIDE IF EXISTED
