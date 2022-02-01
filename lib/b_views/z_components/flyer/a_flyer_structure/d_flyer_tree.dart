@@ -6,8 +6,10 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/saving_notice.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/e_price_tag/price_tag.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
@@ -47,15 +49,17 @@ class FlyerTree extends StatefulWidget {
   State<FlyerTree> createState() => _FlyerTreeState();
 }
 
-class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMixin {
+class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   /// FOR HEADER
   AnimationController _headerAnimationController;
   ScrollController _headerScrollController;
   /// FOR SLIDES
-  PageController _horizontalController;
+  PageController _horizontalSlidesController;
   /// FOR FOOTER
   PageController _footerPageController;
+  /// FOR SAVING GRAPHIC
+  AnimationController _animationController;
 // ----------------------------------------------
   @override
   void initState() {
@@ -69,8 +73,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     );
     // ------------------------------------------
     /// FOR SLIDES
-    _horizontalController = PageController(); // (initialPage: _initialPage);
-
+    _horizontalSlidesController = PageController(); // (initialPage: _initialPage);
     // ------------------------------------------
     /// FOLLOW IS ON
     final _followIsOn = _checkFollowIsOn();
@@ -81,26 +84,34 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 
     final int _numberOfSlide = widget.flyerModel.slides.length - 1;
     final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
-    _horizontalController.addListener(() {
+    _horizontalSlidesController.addListener(() {
 
-      final bool _reachedGallerySlide = _horizontalController.page > _numberOfSlide;
-      final bool _atBackBounce = _horizontalController.position.pixels < 0;
+      final bool _reachedGallerySlide = _horizontalSlidesController.page > _numberOfSlide;
+      final bool _atBackBounce = _horizontalSlidesController.position.pixels < 0;
 
       /// WHEN AT INITIAL SLIDE
       if (_atBackBounce == true){
-        final double _correctedPixels = _horizontalController.position.pixels;
+        final double _correctedPixels = _horizontalSlidesController.position.pixels;
         _footerPageController.position.correctPixels(_correctedPixels);
         _footerPageController.position.notifyListeners();
       }
 
       /// WHEN AT LAST REAL SLIDE
       if (_reachedGallerySlide == true){
-        final double _correctedPixels = _horizontalController.position.pixels - _totalRealSlidesWidth;
+        final double _correctedPixels = _horizontalSlidesController.position.pixels - _totalRealSlidesWidth;
         _footerPageController.position.correctPixels(_correctedPixels);
         _footerPageController.position.notifyListeners();
       }
 
     });
+    // ------------------------------------------
+    /// FOR SAVING GRAPHIC
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Ratioz.durationFading200,
+      reverseDuration: Ratioz.durationFading200,
+    );
+    // ------------------------------------------
 
   }
 // -----------------------------------------------------------------------------
@@ -124,6 +135,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     super.dispose();
     _headerAnimationController.dispose();
     _headerScrollController.dispose();
+    _animationController.dispose();
   }
 // -----------------------------------------------------------------------------
   /// FOLLOW IS ON
@@ -146,6 +158,8 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
   /// SWIPE DIRECTION
   final ValueNotifier<SwipeDirection> _swipeDirection = ValueNotifier(SwipeDirection.next);
+  /// PRICE TAG IS EXPANDED
+  final ValueNotifier<bool> _priceTagIsExpanded = ValueNotifier(false);
 // -----------------------------------------------------------------------------
   Future<void> _onHeaderTap() async {
 
@@ -203,7 +217,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
     else {
 
       final int _newIndex = await slideToNextAndGetNewIndex(
-        slidingController: _horizontalController,
+        slidingController: _horizontalSlidesController,
         numberOfSlides: widget.flyerModel.slides.length + 1,
         currentSlide: _currentSlideIndex.value,
       );
@@ -222,7 +236,7 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 
     /// WHEN AT ANY OTHER SLIDE
     else {
-      final int _newIndex = await slideToBackAndGetNewIndex(_horizontalController, _currentSlideIndex.value);
+      final int _newIndex = await slideToBackAndGetNewIndex(_horizontalSlidesController, _currentSlideIndex.value);
       blog('onSlideBackTap _newIndex : $_newIndex');
     }
 
@@ -278,9 +292,47 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier(false);
   Future<void> _onSaveFlyer() async {
 
-    await Future.delayed(Ratioz.durationFading200, (){
+    // await Future.delayed(Ratioz.durationFading200, (){
       _flyerIsSaved.value = !_flyerIsSaved.value;
+      await _triggerAnimation(_flyerIsSaved.value);
+    // });
+
+  }
+// -----------------------------------------------------------------------------
+  final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
+  final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
+// -----------------------------------------------------------------------------
+  Future<void> _triggerAnimation(bool isSaved) async {
+
+    if (isSaved == true){
+
+    /// 1 - GRAPHIC IS ALREADY OFF => SWITCH ON
+    _graphicIsOn.value = true;
+    _graphicOpacity.value = 1;
+
+    // blog('-1 - _graphicIsOn => ${_graphicIsOn.value}');
+
+    /// 2 - ANIMATE CONTROLLER
+    await _animationController.forward(from: 0);
+    // blog('-2 - _animatedController => $isSaved');
+
+    /// 3 - START FADE OUT AND WAIT FOR IT
+    _graphicOpacity.value = 0;
+    // blog('-3 - _graphicOpacity => ${_graphicOpacity.value}');
+
+    /// 4 - WAIT FOR FADE THEN SWITCH OFF GRAPHIC
+    await Future.delayed(const Duration(milliseconds: 220), (){
+      _graphicIsOn.value = false;
+      // blog('-4 - _graphicIsOn => ${_graphicIsOn.value}');
     });
+
+    /// 5 - READY THE FADE FOR THE NEXT ANIMATION
+    await Future.delayed(const Duration(milliseconds: 200), (){
+      _graphicOpacity.value = 1;
+    });
+    // blog('-5 - _canStartFadeOut => ${_graphicOpacity.value}');
+
+    }
 
   }
 // -----------------------------------------------------------------------------
@@ -308,10 +360,11 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
           flyerBoxHeight: _flyerBoxHeight,
           tinyMode: _tinyMode,
           currentSlideIndex: _currentSlideIndex,
-          horizontalController: _horizontalController,
+          horizontalController: _horizontalSlidesController,
           onSwipeSlide: _onSwipeSlide,
           onSlideNextTap: _onSlideNextTap,
           onSlideBackTap: _onSlideBackTap,
+          onDoubleTap: _onSaveFlyer,
           heroTag: widget.heroTag,
           numberOfSlides: _numberOfSlides,
           canShowGalleryPage: _canShowGallery,
@@ -338,15 +391,18 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
 
         /// FOOTER
         FlyerFooter(
+          key: const ValueKey<String>('FlyerTree_FlyerFooter'),
           flyerBoxWidth: widget.flyerBoxWidth,
           tinyMode: _tinyMode,
           flyerIsSaved: _flyerIsSaved,
           onSaveFlyer: _onSaveFlyer,
           footerPageController: _footerPageController,
+          headerIsExpanded: _headerIsExpanded,
         ),
 
         /// PROGRESS BAR
         ProgressBar(
+          key: const ValueKey<String>('FlyerTree_ProgressBar'),
           flyerBoxWidth: widget.flyerBoxWidth,
           progressBarOpacity: _progressBarOpacity,
           numberOfSlides: _numberOfSlides,
@@ -356,30 +412,24 @@ class _FlyerTreeState extends State<FlyerTree> with SingleTickerProviderStateMix
           loading: widget.loading,
         ),
 
-        // Consumer<ActiveFlyerProvider>(
-        //   child: Container(),
-        //   builder: (_, ActiveFlyerProvider activeFlyerProvider, Widget child){
-        //
-        //     final int _currentSlideIndex = activeFlyerProvider.currentSlideIndex;
-        //     final double _progressBarOpacity = activeFlyerProvider.progressBarOpacity;
-        //     final SwipeDirection _swipeDirection = activeFlyerProvider.swipeDirection;
-        //
-        //     blog('flyer id : ${widget.flyerModel.id} : _progressBarOpacity : $_progressBarOpacity');
-        //
-        //     return OldProgressBar(
-        //       numberOfSlides: widget.flyerModel?.slides?.length ?? 0,
-        //       index: _currentSlideIndex,
-        //       opacity: _progressBarOpacity,
-        //       flyerBoxWidth: _flyerBoxWidth,
-        //       swipeDirection: _swipeDirection,
-        //       loading: false,
-        //     );
-        //
-        //   },
-        // ),
-
-
         /// PRICE TAG
+        PriceTag(
+          flyerBoxWidth: widget.flyerBoxWidth,
+          tinyMode: _tinyMode,
+          flyerModel: widget.flyerModel,
+        ),
+
+        /// SAVING NOTICE
+        if (_tinyMode == false)
+        SavingNotice(
+          key: const ValueKey<String>('SavingNotice'),
+          flyerBoxWidth: widget.flyerBoxWidth,
+          flyerBoxHeight: _flyerBoxHeight,
+          flyerIsSaved: _flyerIsSaved,
+          animationController: _animationController,
+          graphicIsOn: _graphicIsOn,
+          graphicOpacity: _graphicOpacity,
+        ),
 
       ],
     );

@@ -17,6 +17,7 @@ class SingleSlideImagePart extends StatelessWidget {
     @required this.flyerBoxHeight,
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
+    @required this.onDoubleTap,
     Key key
   }) : super(key: key);
 
@@ -26,6 +27,7 @@ class SingleSlideImagePart extends StatelessWidget {
   final SlideModel slideModel;
   final Function onSlideNextTap;
   final Function onSlideBackTap;
+  final Function onDoubleTap;
   /// --------------------------------------------------------------------------
   Future<void> _onImageDoubleTap(BuildContext context) async {
     final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
@@ -85,6 +87,7 @@ class SingleSlideImagePart extends StatelessWidget {
               flyerBoxHeight: flyerBoxHeight,
               onTapNext: onSlideNextTap,
               onTapBack: onSlideBackTap,
+              onDoubleTap: onDoubleTap,
             ),
 
         ],

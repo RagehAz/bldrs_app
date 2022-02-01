@@ -18,6 +18,7 @@ class SingleSlide extends StatelessWidget {
     @required this.tinyMode,
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
+    @required this.onDoubleTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class SingleSlide extends StatelessWidget {
   final bool tinyMode;
   final Function onSlideNextTap;
   final Function onSlideBackTap;
+  final Function onDoubleTap;
   /// --------------------------------------------------------------------------
   int _getSlideTitleSize(BuildContext context){
     final double _screenWidth = Scale.superScreenWidth(context);
@@ -78,6 +80,7 @@ class SingleSlide extends StatelessWidget {
             slideModel: slideModel,
             onSlideBackTap: onSlideBackTap,
             onSlideNextTap: onSlideNextTap,
+            onDoubleTap: onDoubleTap,
           ),
 
         /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
