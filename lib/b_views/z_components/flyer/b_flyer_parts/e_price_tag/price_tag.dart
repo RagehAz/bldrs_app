@@ -1,8 +1,8 @@
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
@@ -12,46 +12,46 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class OldPriceTag extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const OldPriceTag({
+class PriceTag extends StatelessWidget {
+
+  const PriceTag({
     @required this.flyerBoxWidth,
-    @required this.superFlyer,
-    Key key,
+    @required this.tinyMode,
+    @required this.flyerModel,
+    Key key
   }) : super(key: key);
 
-  /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final SuperFlyer superFlyer;
-
-  /// --------------------------------------------------------------------------
+  final bool tinyMode;
+  final FlyerModel flyerModel;
+// -----------------------------------------------------------------------------
+  String _getCurrentCurrency(BuildContext context){
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+    return _zoneProvider.currentCountry.currency;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _footerHeight =
-        OldFlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
 
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: true);
-    final CountryModel _currentCountry = _zoneProvider.currentCountry;
+    final double _footerHeight = FooterBox.boxHeight(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth
+    );
 
     const double _currentPrice = 14999.99;
-    final String _currency = _currentCountry?.currency;
+    final String _currency = _getCurrentCurrency(context);
     const double _oldPrice = 17800;
     final int _discountPercentage = Numeric.discountPercentage(
       oldPrice: _oldPrice,
       currentPrice: _currentPrice,
     );
 
-    final double _flyerSizeFactor =
-        OldFlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
-    final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
 
-    final double _tinyModePriceSizeMultiplier = _tinyMode == true ? 1.4 : 1;
+    final double _tinyModePriceSizeMultiplier = tinyMode == true ? 1.4 : 1;
 
-    final double _priceTagWidth =
-        _tinyMode == true ? flyerBoxWidth * 0.7 : flyerBoxWidth * 0.55;
-    final double _priceTagHeight =
-        _tinyMode == true ? flyerBoxWidth * 0.3 : flyerBoxWidth * 0.2;
+    final double _priceTagWidth = tinyMode == true ? flyerBoxWidth * 0.7 : flyerBoxWidth * 0.55;
+    final double _priceTagHeight = tinyMode == true ? flyerBoxWidth * 0.3 : flyerBoxWidth * 0.2;
 
     return Container(
       width: flyerBoxWidth,
@@ -85,11 +85,11 @@ class OldPriceTag extends StatelessWidget {
                         price: _currentPrice,
                         currency: _currency,
                         scaleFactor:
-                            _flyerSizeFactor * _tinyModePriceSizeMultiplier,
+                        _flyerSizeFactor * _tinyModePriceSizeMultiplier,
                         color: Colorz.black255),
 
                     /// OLD PRICING
-                    if (_tinyMode == false)
+                    if (tinyMode == false)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[

@@ -99,7 +99,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
       screenTitle: 'Sembast test',
       appbarButtonVerse: 'thing',
       appbarButtonOnTap: () {
-        blog('fuck');
+        blog('fuck this bobo');
       },
       listViewWidgets: <Widget>[
         /// LDB Buttons
