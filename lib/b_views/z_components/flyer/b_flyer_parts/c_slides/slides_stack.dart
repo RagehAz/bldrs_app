@@ -17,6 +17,7 @@ class SlidesStack extends StatelessWidget {
     @required this.onSwipeSlide,
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
+    @required this.onDoubleTap,
     @required this.canShowGalleryPage,
     @required this.numberOfSlides,
     this.heroTag,
@@ -33,6 +34,7 @@ class SlidesStack extends StatelessWidget {
   final ValueChanged<int> onSwipeSlide;
   final Function onSlideNextTap;
   final Function onSlideBackTap;
+  final Function onDoubleTap;
   final String heroTag;
   final bool canShowGalleryPage;
   final int numberOfSlides;
@@ -71,6 +73,7 @@ class SlidesStack extends StatelessWidget {
             onSwipeSlide: onSwipeSlide,
             onSlideBackTap: onSlideBackTap,
             onSlideNextTap: onSlideNextTap,
+            onDoubleTap: onDoubleTap,
             currentSlideIndex: currentSlideIndex,
             heroTag: heroTag,
             canShowGalleryPage : canShowGalleryPage,

@@ -2,20 +2,22 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SingleSlideTapAreas extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const SingleSlideTapAreas({
     @required this.onTapNext,
     @required this.onTapBack,
+    @required this.onDoubleTap,
     @required this.flyerBoxWidth,
     @required this.flyerBoxHeight,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final Function onTapNext;
   final Function onTapBack;
+  final Function onDoubleTap;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -25,6 +27,7 @@ class SingleSlideTapAreas extends StatelessWidget {
         /// BACK
         GestureDetector(
           onTap: onTapBack,
+          onDoubleTap: onDoubleTap,
           child: Container(
             width: flyerBoxWidth * 0.25,
             height: flyerBoxHeight,
@@ -35,6 +38,7 @@ class SingleSlideTapAreas extends StatelessWidget {
         /// NEXT
         GestureDetector(
           onTap: onTapNext,
+          onDoubleTap: onDoubleTap,
           child: Container(
             width: flyerBoxWidth * 0.75,
             height: flyerBoxHeight,

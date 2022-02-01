@@ -23,4 +23,5 @@ class LogoScreenView extends StatelessWidget {
       ),
     );
   }
+
 }
