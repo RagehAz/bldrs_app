@@ -6,10 +6,9 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/saving_notice.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/e_price_tag/price_tag.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/saving_notice.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
