@@ -26,11 +26,11 @@ class FlyerFooter extends StatelessWidget {
   final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
   void _onShareFlyer(){
-    blog('enta feen ya ostaz rashwan');
+    blog('YALLA YA BDAN');
   }
 // -----------------------------------------------------------------------------
   void _onReviewFlyer(){
-    blog('rouuuuuuuge');
+    blog('KOS OMMEK');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -80,6 +80,7 @@ class FlyerFooter extends StatelessWidget {
               if (tinyMode == false)
                 InfoButton(
                   flyerBoxWidth: flyerBoxWidth,
+                  tinyMode: tinyMode,
                 ),
 
               // / FLYER COUNTERS
