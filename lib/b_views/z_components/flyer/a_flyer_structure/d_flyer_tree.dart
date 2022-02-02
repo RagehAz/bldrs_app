@@ -79,7 +79,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     final _followIsOn = _checkFollowIsOn();
     _setFollowIsOn(_followIsOn);
     // ------------------------------------------
-    /// FOR FOOTER
+    /// FOR FOOTER & PRICE TAG
     _footerPageController = PageController();
 
     final int _numberOfSlide = widget.flyerModel.slides.length - 1;
@@ -94,6 +94,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         final double _correctedPixels = _horizontalSlidesController.position.pixels;
         _footerPageController.position.correctPixels(_correctedPixels);
         _footerPageController.position.notifyListeners();
+
       }
 
       /// WHEN AT LAST REAL SLIDE
@@ -101,6 +102,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         final double _correctedPixels = _horizontalSlidesController.position.pixels - _totalRealSlidesWidth;
         _footerPageController.position.correctPixels(_correctedPixels);
         _footerPageController.position.notifyListeners();
+
       }
 
     });
@@ -413,11 +415,13 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         ),
 
         /// PRICE TAG
-        PriceTag(
-          flyerBoxWidth: widget.flyerBoxWidth,
-          tinyMode: _tinyMode,
-          flyerModel: widget.flyerModel,
-        ),
+        // PriceTag(
+        //   flyerBoxWidth: widget.flyerBoxWidth,
+        //   flyerBoxHeight: _flyerBoxHeight,
+        //   tinyMode: _tinyMode,
+        //   flyerModel: widget.flyerModel,
+        //   priceTagePageController: _priceTagPageController,
+        // ),
 
         /// SAVING NOTICE
         if (_tinyMode == false)

@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_shadow.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/price_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +38,10 @@ class FlyerFooter extends StatelessWidget {
 
     return ValueListenableBuilder(
       valueListenable: headerIsExpanded,
-      builder: (_, bool isExpanded, Widget child){
+      builder: (_, bool _headerIsExpanded, Widget child){
 
         return AnimatedOpacity(
-          opacity: isExpanded ? 0 : 1,
+          opacity: _headerIsExpanded ? 0 : 1,
           duration: Ratioz.duration150ms,
           child: child,
         );
@@ -50,7 +51,7 @@ class FlyerFooter extends StatelessWidget {
         key: const ValueKey<String>('Flyer_footer_box'),
         flyerBoxWidth: flyerBoxWidth,
         footerPageController: footerPageController,
-        pageViewChildren: <Widget>[
+        footerPageViewChildren: <Widget>[
 
           /// FOOTER
           Stack(
@@ -73,6 +74,12 @@ class FlyerFooter extends StatelessWidget {
                     onReviewFlyer: _onReviewFlyer,
                     onShareFlyer: _onShareFlyer,
                     flyerIsSaved: flyerIsSaved
+                ),
+
+              /// PRICE BUTTON
+              if (tinyMode == false)
+                InfoButton(
+                  flyerBoxWidth: flyerBoxWidth,
                 ),
 
               // / FLYER COUNTERS
