@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class FlyerFooter extends StatelessWidget {
+class FlyerFooter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerFooter({
     @required this.flyerBoxWidth,
@@ -24,7 +24,13 @@ class FlyerFooter extends StatelessWidget {
   final ValueNotifier<bool> flyerIsSaved;
   final PageController footerPageController;
   final ValueNotifier<bool> headerIsExpanded;
-  /// --------------------------------------------------------------------------
+
+  @override
+  State<FlyerFooter> createState() => _FlyerFooterState();
+}
+
+class _FlyerFooterState extends State<FlyerFooter> {
+// -----------------------------------------------------------------------------
   void _onShareFlyer(){
     blog('YALLA YA BDAN');
   }
@@ -33,11 +39,18 @@ class FlyerFooter extends StatelessWidget {
     blog('KOS OMMEK');
   }
 // -----------------------------------------------------------------------------
+  ValueNotifier<bool> infoButtonExpanded = ValueNotifier(false);
+// ----------------------------------------
+  void onInfoButtonTap(){
+    infoButtonExpanded.value = ! infoButtonExpanded.value;
+  }
+// -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-      valueListenable: headerIsExpanded,
+      valueListenable: widget.headerIsExpanded,
       builder: (_, bool _headerIsExpanded, Widget child){
 
         return AnimatedOpacity(
@@ -49,8 +62,9 @@ class FlyerFooter extends StatelessWidget {
         },
       child: FooterBox(
         key: const ValueKey<String>('Flyer_footer_box'),
-        flyerBoxWidth: flyerBoxWidth,
-        footerPageController: footerPageController,
+        flyerBoxWidth: widget.flyerBoxWidth,
+        footerPageController: widget.footerPageController,
+        infoButtonExpanded: infoButtonExpanded,
         footerPageViewChildren: <Widget>[
 
           /// FOOTER
@@ -61,26 +75,28 @@ class FlyerFooter extends StatelessWidget {
               /// BOTTOM SHADOW
               FooterShadow(
                 key: const ValueKey<String>('FooterShadow'),
-                flyerBoxWidth: flyerBoxWidth,
+                flyerBoxWidth: widget.flyerBoxWidth,
               ),
 
               /// BUTTONS
-              if (tinyMode == false)
+              if (widget.tinyMode == false)
                 FooterButtons(
                     key: const ValueKey<String>('FooterButtons'),
-                    flyerBoxWidth: flyerBoxWidth,
-                    tinyMode: tinyMode,
-                    onSaveFlyer: onSaveFlyer,
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    tinyMode: widget.tinyMode,
+                    onSaveFlyer: widget.onSaveFlyer,
                     onReviewFlyer: _onReviewFlyer,
                     onShareFlyer: _onShareFlyer,
-                    flyerIsSaved: flyerIsSaved
+                    flyerIsSaved: widget.flyerIsSaved
                 ),
 
               /// PRICE BUTTON
-              if (tinyMode == false)
+              if (widget.tinyMode == false)
                 InfoButton(
-                  flyerBoxWidth: flyerBoxWidth,
-                  tinyMode: tinyMode,
+                  flyerBoxWidth: widget.flyerBoxWidth,
+                  tinyMode: widget.tinyMode,
+                  infoButtonExpanded: infoButtonExpanded,
+                  onInfoButtonTap: onInfoButtonTap,
                 ),
 
               // / FLYER COUNTERS

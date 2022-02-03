@@ -30,8 +30,7 @@ class OldPriceTag extends StatelessWidget {
     final double _footerHeight =
         OldFlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
 
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: true);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = _zoneProvider.currentCountry;
 
     const double _currentPrice = 14999.99;
