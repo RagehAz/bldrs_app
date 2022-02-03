@@ -16,26 +16,29 @@ class FooterShadow extends StatelessWidget {
 
     final double _flyerBottomCorners = FooterBox.boxCornersValue(flyerBoxWidth);
 
-    final double _footerHeight = FooterBox.boxHeight(
+    final double _footerHeight = FooterBox.collapsedHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    return Container(
-      width: flyerBoxWidth,
-      height: _footerHeight,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(_flyerBottomCorners),
-          bottomRight: Radius.circular(_flyerBottomCorners),
-        ),
-        gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[Colorz.black0, Colorz.black125, Colorz.black230],
-            stops: <double>[0.35, 0.85, 1]
-        ),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: flyerBoxWidth,
+        height: _footerHeight,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(_flyerBottomCorners),
+            bottomRight: Radius.circular(_flyerBottomCorners),
+          ),
+          gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: <Color>[Colorz.black0, Colorz.black125, Colorz.black230],
+              stops: <double>[0.35, 0.85, 1]
+          ),
 
+        ),
       ),
     );
   }

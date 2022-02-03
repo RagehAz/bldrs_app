@@ -1,8 +1,7 @@
 import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/saving_graphic.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:flutter/material.dart';
 
 class SavingNotice extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -30,8 +29,6 @@ class SavingNotice extends StatefulWidget {
 class _SavingNoticeState extends State<SavingNotice> {
 // -----------------------------------------------------------------------------
   CurvedAnimation _curvedAnimation;
-  ColorTween _colorTween;
-  Tween<double> _scaleTween;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -41,9 +38,6 @@ class _SavingNoticeState extends State<SavingNotice> {
       reverseCurve: Curves.fastOutSlowIn,
       parent: widget.animationController,
     );
-
-    _scaleTween = Tween<double>(begin: 0, end: 1);
-    _colorTween = ColorTween(begin: Colorz.white125, end: Colorz.yellow125);
 
     super.initState();
   }

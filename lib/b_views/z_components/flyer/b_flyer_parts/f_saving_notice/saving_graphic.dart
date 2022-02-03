@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class SavedGraphic extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const SavedGraphic({
     @required this.flyerBoxWidth,
     @required this.flyerBoxHeight,
@@ -10,12 +10,12 @@ class SavedGraphic extends StatelessWidget {
     @required this.ankh,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final bool isSaved;
   final Widget ankh;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
