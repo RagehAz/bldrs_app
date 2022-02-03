@@ -35,7 +35,6 @@ class SuperVerse extends StatelessWidget {
     this.strikethrough = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String verse;
   final int size;
@@ -53,7 +52,6 @@ class SuperVerse extends StatelessWidget {
   final bool leadingDot;
   final bool redDot;
   final bool strikethrough;
-
   /// --------------------------------------------------------------------------
   static Widget dotVerse({String verse}) {
     return SuperVerse(
@@ -73,34 +71,40 @@ class SuperVerse extends StatelessWidget {
 //         SuperVerse();
 //   }
 // -----------------------------------------------------------------------------
-  static Widget priceVerse(
-      {BuildContext context,
-      Color color,
-      double price,
-      double scaleFactor,
-      String currency,
-      bool strikethrough = false}) {
+  static Widget priceVerse({
+    @required BuildContext context,
+    @required double price,
+    Color color,
+    double scaleFactor,
+    String currency,
+    bool strikethrough = false,
+    bool isBold = true,
+  }) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+
         SuperVerse(
           verse: Numeric.separateKilos(number: price, fractions: 3),
           color: color,
-          weight: VerseWeight.black,
+          weight: isBold ? VerseWeight.black : VerseWeight.bold,
           size: 6,
           scaleFactor: scaleFactor,
           shadow: true,
           strikethrough: strikethrough,
         ),
+
+        if (currency != null)
         SuperVerse(
           verse: currency,
+          weight: isBold ? VerseWeight.black : VerseWeight.thin,
           color: color,
           italic: true,
           size: 3,
           margin: scaleFactor * 3,
           scaleFactor: scaleFactor,
         ),
+
       ],
     );
   }
@@ -125,17 +129,13 @@ class SuperVerse extends StatelessWidget {
     double scaleFactor = 1,
     bool strikeThrough = false,
   }) {
-    const double _verseHeight =
-        1.42; //1.48; // The sacred golden reverse engineered factor
+    const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     const Color _boxColor = Colorz.nothing;
     final String _verseFont = superVerseFont(context, weight);
-    final FontStyle _verseStyle =
-        italic == true ? FontStyle.italic : FontStyle.normal;
+    final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     final double _scalingFactor = scaleFactor ?? 1;
-    final double _verseSizeValue =
-        superVerseSizeValue(context, size, _scalingFactor);
-    final double _verseLetterSpacing =
-        superVerseLetterSpacing(weight, _verseSizeValue);
+    final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
+    final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
     final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
     final FontWeight _verseWeight = superVerseWeight(weight);
 
@@ -144,10 +144,8 @@ class SuperVerse extends StatelessWidget {
     const double _shadowYOffset = 0;
     final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    final Color _leftShadow =
-        Colorizer.isBlack(color) == true ? Colorz.white200 : Colorz.black230;
-    final Color _rightShadow =
-        Colorizer.isBlack(color) == true ? Colorz.white80 : Colorz.white20;
+    final Color _leftShadow = Colorizer.isBlack(color) == true ? Colorz.white200 : Colorz.black230;
+    final Color _rightShadow = Colorizer.isBlack(color) == true ? Colorz.white80 : Colorz.white20;
 
     return TextStyle(
         backgroundColor: _boxColor,
@@ -161,17 +159,23 @@ class SuperVerse extends StatelessWidget {
         fontSize: _verseSizeValue,
         fontWeight: _verseWeight,
         decoration: strikeThrough == true ? TextDecoration.lineThrough : null,
+        // decorationStyle: TextDecorationStyle.wavy,
+        decorationColor: Colorz.red255,
         shadows: <Shadow>[
+
           if (shadow)
             Shadow(
               color: _leftShadow,
               offset: Offset(_shadowXOffset, _shadowYOffset),
             ),
+
           Shadow(
             color: _rightShadow,
             offset: Offset(_secondShadowXOffset, _shadowYOffset),
           )
-        ]);
+
+        ]
+    );
   }
 
 // -----------------------------------------------------------------------------
@@ -522,31 +526,37 @@ class SuperVerse extends StatelessWidget {
     final double _dotSize = verseSizeValue * 0.3;
     // --- RED DOT -----------------------------------------------
 
-    return verse == null
-        ? Container()
-        : GestureDetector(
-            onTap: onTap,
-            child: Padding(
-              padding: EdgeInsets.all(_margin),
-              child: Row(
-                mainAxisAlignment: centered == true
-                    ? MainAxisAlignment.center
-                    : MainAxisAlignment.start,
-                crossAxisAlignment: redDot == true
-                    ? CrossAxisAlignment.center
-                    : leadingDot == true
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  if (leadingDot == true)
-                    Container(
+    return verse == null ?
+    const SizedBox()
+        :
+    GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.all(_margin),
+        child: Row(
+          mainAxisAlignment: centered == true ?
+          MainAxisAlignment.center
+              :
+          MainAxisAlignment.start,
+          crossAxisAlignment: redDot == true ?
+          CrossAxisAlignment.center
+              :
+          leadingDot == true ?
+          CrossAxisAlignment.start
+              :
+          CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+
+            if (leadingDot == true)
+              Container(
                       // color: Colorz.BloodTest,
                       padding: EdgeInsets.all(_dotSize),
                       margin: EdgeInsets.only(top: _dotSize),
                       child: _dot(_dotSize, color),
                     ),
-                  Flexible(
+
+            Flexible(
                     child: Container(
                       padding: EdgeInsets.only(
                           right: _sidePaddings, left: _sidePaddings),
@@ -592,8 +602,9 @@ class SuperVerse extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (redDot == true)
-                    Container(
+
+            if (redDot == true)
+              Container(
                       height: _labelHeight,
                       margin: labelColor == null
                           ? EdgeInsets.symmetric(horizontal: _labelHeight * 0.2)
@@ -607,6 +618,7 @@ class SuperVerse extends StatelessWidget {
                         child: _dot(_dotSize, Colorz.red255),
                       ),
                     ),
+
                 ],
               ),
             ),
