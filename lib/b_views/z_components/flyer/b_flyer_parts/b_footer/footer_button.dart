@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -93,11 +92,8 @@ class FooterButton extends StatelessWidget {
       tinyMode: tinyMode,
     );
 
-
     final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
     final Color _splashColor = isOn ? Colorz.black255 : Colorz.white80;
-
-    // blog('fuck the fucking fuckers');
 
     return SizedBox(
       key: const ValueKey<String>('Footer_button'),

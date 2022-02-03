@@ -179,7 +179,7 @@ class _PriceTagState extends State<PriceTag> {
   @override
   Widget build(BuildContext context) {
 
-    final double _footerHeight = FooterBox.boxHeight(
+    final double _footerHeight = FooterBox.collapsedHeight(
         context: context,
         flyerBoxWidth: widget.flyerBoxWidth
     );

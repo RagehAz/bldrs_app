@@ -23,7 +23,7 @@ class FooterButtonSpacer extends StatelessWidget {
           tinyMode: tinyMode
       ),
 
-      height: FooterBox.boxHeight(
+      height: FooterBox.collapsedHeight(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
         tinyMode: tinyMode,
