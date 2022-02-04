@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -14,8 +13,8 @@ class FlyerHero extends StatelessWidget {
   const FlyerHero({
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzCountry,
-    @required this.bzCity,
+    @required this.bzZone,
+    @required this.flyerZone,
     @required this.isFullScreen,
     @required this.minWidthFactor,
     @required this.heroTag,
@@ -24,8 +23,8 @@ class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
+  final ZoneModel bzZone;
+  final ZoneModel flyerZone;
   final bool isFullScreen;
   final double minWidthFactor;
   final String heroTag;
@@ -134,8 +133,8 @@ class FlyerHero extends StatelessWidget {
               flyerBoxWidth: _flyerBoxWidth,
               flyerModel: flyerModel,
               bzModel: bzModel,
-              bzCountry: null,
-              bzCity: null,
+              bzZone: null,
+              flyerZone: null,
               loading: true,
             ),
           );
@@ -181,8 +180,8 @@ class FlyerHero extends StatelessWidget {
         flyerBoxWidth: _flyerBoxWidth,
         flyerModel: flyerModel,
         bzModel: bzModel,
-        bzCountry: bzCountry,
-        bzCity: bzCity,
+        bzZone: bzZone,
+        flyerZone: flyerZone,
         heroTag: _heroTag,
       ),
 

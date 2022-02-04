@@ -268,7 +268,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
     );
 
     _headerLabelsWidthTween = Tween<double>(
-      begin: HeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth),
+      begin: OldHeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth),
       end: 0,
     ).animate(_controller);
 
@@ -386,7 +386,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
                                   children: <Widget>[
-                                    HeaderLabels(
+                                    OldHeaderLabels(
                                       authorID: widget.authorID,
                                       bzCity: widget.bzCity,
                                       bzCountry: widget.bzCountry,
@@ -436,7 +436,7 @@ class _NewHeaderState extends State<NewHeader> with SingleTickerProviderStateMix
                       /// Bz name below logo
                       Container(
                         color: Colorz.black80,
-                        child: BzPageHeadline(
+                        child: OldBzPageHeadline(
                           flyerBoxWidth: widget.flyerBoxWidth,
                           bzPageIsOn: true,
                           bzModel: widget.bzModel,

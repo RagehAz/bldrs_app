@@ -50,35 +50,33 @@ class DashboardUserButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: true);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _country = _zoneProvider.userCountryModel;
     final CityModel _city = _zoneProvider.userCityModel;
 
     final String _countryName = CountryModel.getTranslatedCountryNameByID(
-        context: context, countryID: _country.id);
-    final String _cityName =
-        CityModel.getTranslatedCityNameFromCity(context: context, city: _city);
-    final String _districtName =
-        DistrictModel.getTranslatedDistrictNameFromCity(
+        context: context,
+        countryID: _country.id,
+    );
+
+    final String _cityName = CityModel.getTranslatedCityNameFromCity(
+        context: context,
+        city: _city,
+    );
+
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
       city: _city,
       districtID: userModel.zone.districtID,
     );
 
-    final List<ContactModel> _stringyContacts =
-        ContactModel.getContactsWithStringsFromContacts(userModel.contacts);
-    final List<String> _stringyContactsValues =
-        ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
-    final List<String> _stringyContactsIcons =
-        ContactModel.getListOfIconzFromContactsModelsList(_stringyContacts);
+    final List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(userModel.contacts);
+    final List<String> _stringyContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_stringyContacts);
+    final List<String> _stringyContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_stringyContacts);
 
-    final List<ContactModel> _socialContacts =
-        ContactModel.getSocialMediaContactsFromContacts(userModel.contacts);
-    final List<String> _socialContactsValues =
-        ContactModel.getListOfValuesFromContactsModelsList(_socialContacts);
-    final List<String> _socialContactsIcons =
-        ContactModel.getListOfIconzFromContactsModelsList(_socialContacts);
+    final List<ContactModel> _socialContacts = ContactModel.getSocialMediaContactsFromContacts(userModel.contacts);
+    final List<String> _socialContactsValues = ContactModel.getListOfValuesFromContactsModelsList(_socialContacts);
+    final List<String> _socialContactsIcons = ContactModel.getListOfIconzFromContactsModelsList(_socialContacts);
 
     return DreamBox(
       height: height(),

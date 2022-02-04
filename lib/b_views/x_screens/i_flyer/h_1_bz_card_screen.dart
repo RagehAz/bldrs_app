@@ -72,16 +72,26 @@ class _BzCardScreenState extends State<BzCardScreen> {
   void didChangeDependencies() {
     if (_isInit) {
       _triggerLoading().then((_) async {
+
         final BzModel _bz = await _bzzProvider.fetchBzModel(
-            context: context, bzID: widget.bzID);
+            context: context,
+            bzID: widget.bzID,
+        );
+
         CountryModel _country;
         CityModel _city;
 
         if (_bz != null) {
           _country = await _zoneProvider.fetchCountryByID(
-              context: context, countryID: _bz.zone.countryID);
+              context: context,
+              countryID: _bz.zone.countryID,
+          );
+
           _city = await _zoneProvider.fetchCityByID(
-              context: context, cityID: _bz.zone.cityID);
+              context: context,
+              cityID: _bz.zone.cityID,
+          );
+
         }
 
         unawaited(_triggerLoading(function: () {

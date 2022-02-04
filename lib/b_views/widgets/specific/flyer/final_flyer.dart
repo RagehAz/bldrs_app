@@ -203,9 +203,18 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByFlyerID) {
           final FlyerModel _flyer = await _flyersProvider.fetchFlyerByID(context: context, flyerID: widget.flyerID);
           final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: _flyer.bzID);
-          final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz.zone.countryID);
+          final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+              context: context,
+              countryID: _bz.zone.countryID
+          );
+
           final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bz.zone.cityID);
-          final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _flyer.zone.countryID);
+
+          final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(
+              context: context,
+              countryID: _flyer.zone.countryID,
+          );
+
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(
               context: context, cityID: _flyer.zone.cityID);
 
@@ -220,13 +229,26 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         }
 
         else if (_flyerMode == FlyerMethod.FlyerMode.tinyModeByFlyerModel) {
-          final BzModel _bz = await _bzzProvider.fetchBzModel(context: context, bzID: widget.flyerModel.bzID);
-          final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _bz?.zone?.countryID);
-          final CityModel _bzCity = await _zoneProvider.fetchCityByID(context: context, cityID: _bz?.zone?.cityID);
+
+          final BzModel _bz = await _bzzProvider.fetchBzModel(
+              context: context,
+              bzID: widget.flyerModel.bzID,
+          );
+
+          final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+              context: context,
+              countryID: _bz?.zone?.countryID,
+          );
+
+          final CityModel _bzCity = await _zoneProvider.fetchCityByID(
+              context: context,
+              cityID: _bz?.zone?.cityID,
+          );
 
           final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(
               context: context,
-              countryID: widget.flyerModel.zone.countryID);
+              countryID: widget.flyerModel.zone.countryID
+          );
 
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(
               context: context,
@@ -401,9 +423,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
           );
 
           final CountryModel _flyerCountry = await _zoneProvider.fetchCountryByID(
-                  context: context,
-                  countryID: _originalFlyer.zone.countryID
-              );
+              context: context,
+              countryID: _originalFlyer.zone.countryID
+          );
 
           final CityModel _flyerCity = await _zoneProvider.fetchCityByID(
               context: context,
@@ -2075,21 +2097,34 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onChangeZone() async {
     final ZoneModel _zone = _superFlyer.zone;
 
-    final List<MapModel> _countriesMapModels =
-        CountryModel.getAllCountriesNamesMapModels(context);
+    final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
+
     CountryModel _country = await _zoneProvider.fetchCountryByID(
-        context: context, countryID: _zone.countryID);
+        context: context,
+        countryID: _zone.countryID,
+    );
 
     List<CityModel> _cities = await _zoneProvider.fetchCitiesByIDs(
-        context: context, citiesIDs: _country.citiesIDs);
-    List<MapModel> _citiesMaps =
-        CityModel.getCitiesNamesMapModels(context: context, cities: _cities);
+        context: context,
+        citiesIDs: _country.citiesIDs,
+    );
 
-    final CityModel _city =
-        CityModel.getCityFromCities(cities: _cities, cityID: _zone.cityID);
+    List<MapModel> _citiesMaps = CityModel.getCitiesNamesMapModels(
+        context: context,
+        cities: _cities
+    );
+
+    final CityModel _city = CityModel.getCityFromCities(
+        cities: _cities,
+        cityID: _zone.cityID,
+    );
+
     List<DistrictModel> _districts = _city.districts;
+
     List<MapModel> _districtsMaps = DistrictModel.getDistrictsNamesMapModels(
-        context: context, districts: _districts);
+        context: context,
+        districts: _districts,
+    );
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
@@ -2104,13 +2139,18 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         mapsModels: _countriesMapModels,
         alignment: Alignment.center,
         buttonTap: (String countryID) async {
+
           final String _lastCountryID = _superFlyer.zone.countryID;
 
-          final CountryModel _selectedCountry = await _zoneProvider
-              .fetchCountryByID(context: context, countryID: countryID);
-          final List<CityModel> _selectedCountryCities =
-              await _zoneProvider.fetchCitiesByIDs(
-                  context: context, citiesIDs: _selectedCountry.citiesIDs);
+          final CountryModel _selectedCountry = await _zoneProvider.fetchCountryByID(
+              context: context,
+              countryID: countryID,
+          );
+
+          final List<CityModel> _selectedCountryCities = await _zoneProvider.fetchCitiesByIDs(
+              context: context,
+              citiesIDs: _selectedCountry.citiesIDs
+          );
 
           setState(() {
             _superFlyer.zone.countryID = countryID;
@@ -2149,8 +2189,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
       await BottomDialog.showBottomDialog(
         context: context,
         draggable: true,
-        title:
-            '${CountryModel.getTranslatedCountryNameByID(context: context, countryID: _superFlyer.zone.countryID)} Cities',
+        title: '${CountryModel.getTranslatedCountryNameByID(context: context, countryID: _superFlyer.zone.countryID)} Cities',
         child: BottomDialogButtons(
           mapsModels: _citiesMaps,
           alignment: Alignment.center,
@@ -3041,7 +3080,9 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         widgetName: 'FinalFlyer',
         varName: 'flyerID',
         varValue: _superFlyer.flyerID,
-        tracerIsOn: false);
+        tracerIsOn: false
+    );
+
     // Tracer.traceWidgetBuild(number: 2, widgetName: 'FinalFlyer', varName: 'numberOfSlides', varValue: _superFlyer.numberOfSlides);
     // Tracer.traceWidgetBuild(number: 3, widgetName: 'FinalFlyer', varName: 'midColor', varValue: Colorizer.cipherColor(_superFlyer.mSlides[0].midColor));
     return OldFlyerBox(

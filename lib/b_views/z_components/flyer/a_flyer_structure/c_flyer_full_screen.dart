@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -14,16 +13,16 @@ class FlyerFullScreen extends StatelessWidget {
     @required this.minWidthFactor,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzCountry,
-    @required this.bzCity,
+    @required this.bzZone,
+    @required this.flyerZone,
     @required this.heroTag,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
+  final ZoneModel bzZone;
+  final ZoneModel flyerZone;
   final double minWidthFactor;
   final String heroTag;
   /// --------------------------------------------------------------------------
@@ -50,8 +49,8 @@ class FlyerFullScreen extends StatelessWidget {
         child: FlyerHero(
           flyerModel: flyerModel,
           bzModel: bzModel,
-          bzCountry: bzCountry,
-          bzCity: bzCity,
+          bzZone: bzZone,
+          flyerZone: flyerZone,
           isFullScreen: true,
           minWidthFactor: minWidthFactor,
           heroTag: heroTag,

@@ -85,7 +85,12 @@ class _UserBubbleState extends State<UserBubble> {
             Provider.of<ZoneProvider>(context, listen: false);
 
         final ZoneModel _userZone = widget.user?.zone;
-        final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _userZone.countryID);
+
+        final CountryModel _country = await _zoneProvider.fetchCountryByID(
+            context: context,
+            countryID: _userZone.countryID,
+        );
+
         final CityModel _city = await _zoneProvider.fetchCityByID(
             context: context, cityID: _userZone.cityID);
 

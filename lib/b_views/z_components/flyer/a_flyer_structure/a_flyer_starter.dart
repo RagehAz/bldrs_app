@@ -2,6 +2,8 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/district_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
@@ -42,21 +44,12 @@ class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------------------
   /// --- FLYER BZ MODEL
   final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null);
-  Future<void> _setBz(BzModel bzModel) async {
-    _bzModelNotifier.value = bzModel;
-  }
 // -----------------------------------------------------------------------------
-  /// FLYER BZ COUNTRY
-  final ValueNotifier<CountryModel> _bzCountryNotifier = ValueNotifier(null);
-  void _setBzCountry(CountryModel bzCountry){
-    _bzCountryNotifier.value = bzCountry;
-  }
+  /// FLYER BZ ZONE
+  final ValueNotifier<ZoneModel> _bzZoneNotifier = ValueNotifier(null);
 // -----------------------------------------------------------------------------
-  /// FLYER BZ CITY
-  final ValueNotifier<CityModel> _bzCityNotifier = ValueNotifier(null);
-  void _setBzCity(CityModel bzCity){
-    _bzCityNotifier.value = bzCity;
-  }
+  /// FLYER ZONE
+  final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null);
 // -----------------------------------------------------------------------------
   FlyerModel _flyerModel;
 // -----------------------------------------------------------------------------
@@ -72,11 +65,14 @@ class _FlyerStarterState extends State<FlyerStarter> {
     if (_isInit) {
 
       _triggerLoading(setTo: true).then((_) async {
-
+// -----------------------------------------------------------------
+        /// BZ MODEL
         final BzModel _bzModel = await getFlyerBzModel(
           context: context,
           flyerModel: _flyerModel,
         );
+// ------------------------------------------
+        /// BZ ZONE
         final CountryModel _bzCountry = await getFlyerBzCountry(
           context: context,
           countryID: _bzModel.zone.countryID,
@@ -85,11 +81,33 @@ class _FlyerStarterState extends State<FlyerStarter> {
           context: context,
           cityID: _bzModel.zone.cityID,
         );
+// -----------------------------------------------------------------
+        /// FLYER ZONE
+        final CountryModel _flyerCountry = await getFlyerBzCountry(
+          context: context,
+          countryID: widget.flyerModel.zone.countryID,
+        );
+        final CityModel _flyerCity = await getFlyerBzCity(
+          context: context,
+          cityID: widget.flyerModel.zone.cityID,
+        );
+// -----------------------------------------------------------------
 
-        await _setBz(_bzModel);
-        _setBzCountry(_bzCountry);
-        _setBzCity(_bzCity);
+        /// SETTERS
 
+        _bzModelNotifier.value = _bzModel;
+        _bzZoneNotifier.value = _getZoneModel(
+            countryModel: _bzCountry,
+            cityModel: _bzCity,
+            districtID: _bzModel.zone.districtID,
+        );
+
+        _flyerZoneNotifier.value = _getZoneModel(
+            countryModel: _flyerCountry,
+            cityModel: _flyerCity,
+            districtID: widget.flyerModel.zone.districtID,
+        );
+// -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
 
       });
@@ -97,6 +115,40 @@ class _FlyerStarterState extends State<FlyerStarter> {
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  ZoneModel _getZoneModel({
+    @required CountryModel countryModel,
+    @required CityModel cityModel,
+    @required String districtID,
+}){
+
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(
+        context: context,
+        countryID: countryModel.id,
+    );
+
+    final String _cityName = CityModel.getTranslatedCityNameFromCity(
+      context: context,
+      city: cityModel,
+    );
+
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
+      context: context,
+      city: cityModel,
+      districtID: districtID,
+    );
+
+
+    return ZoneModel(
+      countryID: countryModel.id,
+      cityID: cityModel.cityID,
+      districtID: districtID,
+      countryName: _countryName,
+      cityName: _cityName,
+      districtName: _districtName,
+    );
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {
@@ -107,8 +159,8 @@ class _FlyerStarterState extends State<FlyerStarter> {
           flyerModel: _flyerModel,
           bzModel: _bzModelNotifier.value,
           minWidthFactor: widget.minWidthFactor,
-          bzCountry: _bzCountryNotifier.value,
-          bzCity: _bzCityNotifier.value,
+          bzZone: _bzZoneNotifier.value,
+          flyerZone: _flyerZoneNotifier.value,
           heroTag: widget.heroTag,
         )
     );
@@ -137,13 +189,13 @@ class _FlyerStarterState extends State<FlyerStarter> {
                 valueListenable: _bzModelNotifier,
                 builder: (_, BzModel bzModel, Widget child){
 
-                  return ValueListenableBuilder<CountryModel>(
-                      valueListenable: _bzCountryNotifier,
-                      builder: (_, CountryModel bzCountry, Widget child){
+                  return ValueListenableBuilder<ZoneModel>(
+                      valueListenable: _bzZoneNotifier,
+                      builder: (_, ZoneModel bzCountry, Widget child){
 
-                        return ValueListenableBuilder<CityModel>(
-                            valueListenable: _bzCityNotifier,
-                            builder: (_, CityModel bzCity, Widget child){
+                        return ValueListenableBuilder<ZoneModel>(
+                            valueListenable: _flyerZoneNotifier,
+                            builder: (_, ZoneModel flyerZone, Widget child){
 
                               if (bzModel == null || widget.flyerModel == null){
                                 return FlyerLoading(flyerBoxWidth: _flyerBoxWidth,);
@@ -157,8 +209,8 @@ class _FlyerStarterState extends State<FlyerStarter> {
                                     key: const ValueKey<String>('Flyer_hero'),
                                     flyerModel: _flyerModel,
                                     bzModel: bzModel,
-                                    bzCountry: bzCountry,
-                                    bzCity: bzCity,
+                                    bzZone: bzCountry,
+                                    flyerZone: flyerZone,
                                     minWidthFactor: widget.minWidthFactor,
                                     isFullScreen: widget.isFullScreen,
                                     heroTag: widget.heroTag,
