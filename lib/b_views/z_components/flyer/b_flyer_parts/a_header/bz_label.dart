@@ -47,8 +47,9 @@ class BzLabel extends StatelessWidget {
     /// B.LOCALE
     final String _businessLocale = TextGen.countryStringerByZoneModel(
       context: context,
-      zone: bzModel?.zone,
+      zone: bzZone,
     );
+
 // -----------------------------------------------------------------------------
     final int _bzNameSize = flyerShowsAuthor == true ? 3 : 5;
     final int _bLocaleSize = flyerShowsAuthor == true ? 1 : 1;
