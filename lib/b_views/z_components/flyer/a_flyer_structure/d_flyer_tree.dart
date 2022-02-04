@@ -26,6 +26,7 @@ class FlyerTree extends StatefulWidget {
     @required this.bzZone,
     @required this.flyerZone,
     @required this.flyerBoxWidth,
+    @required this.inFlight,
     this.onTap,
     this.loading = false,
     this.heroTag,
@@ -40,6 +41,7 @@ class FlyerTree extends StatefulWidget {
   final ZoneModel flyerZone;
   final bool loading;
   final String heroTag;
+  final bool inFlight;
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
   /// --------------------------------------------------------------------------
@@ -352,23 +354,25 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       stackWidgets: <Widget>[
 
         /// SLIDES
-        SlidesStack(
-          key: const ValueKey<String>('FlyerTree_SlidesStack'),
-          flyerModel: widget.flyerModel,
-          bzModel: widget.bzModel,
-          flyerBoxWidth: widget.flyerBoxWidth,
-          flyerBoxHeight: _flyerBoxHeight,
-          tinyMode: _tinyMode,
-          currentSlideIndex: _currentSlideIndex,
-          horizontalController: _horizontalSlidesController,
-          onSwipeSlide: _onSwipeSlide,
-          onSlideNextTap: _onSlideNextTap,
-          onSlideBackTap: _onSlideBackTap,
-          onDoubleTap: _onSaveFlyer,
-          heroTag: widget.heroTag,
-          numberOfSlides: _numberOfSlides,
-          canShowGalleryPage: _canShowGallery,
-        ),
+        if (_currentSlideIndex?.value != null)
+          SlidesStack(
+            key: const ValueKey<String>('FlyerTree_SlidesStack'),
+            flyerModel: widget.flyerModel,
+            bzModel: widget.bzModel,
+            flyerBoxWidth: widget.flyerBoxWidth,
+            flyerBoxHeight: _flyerBoxHeight,
+            tinyMode: _tinyMode,
+            currentSlideIndex: _currentSlideIndex,
+            horizontalController: _horizontalSlidesController,
+            onSwipeSlide: _onSwipeSlide,
+            onSlideNextTap: _onSlideNextTap,
+            onSlideBackTap: _onSlideBackTap,
+            onDoubleTap: _onSaveFlyer,
+            heroTag: widget.heroTag,
+            numberOfSlides: _numberOfSlides,
+            canShowGalleryPage: _canShowGallery,
+            inFlight: widget.inFlight,
+          ),
 
         /// HEADER
         FlyerHeader(
@@ -390,6 +394,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         ),
 
         /// FOOTER
+        if (widget.inFlight != true)
         FlyerFooter(
           key: const ValueKey<String>('FlyerTree_FlyerFooter'),
           flyerBoxWidth: widget.flyerBoxWidth,
@@ -403,6 +408,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         ),
 
         /// PROGRESS BAR
+        if (widget.inFlight != true)
         ProgressBar(
           key: const ValueKey<String>('FlyerTree_ProgressBar'),
           flyerBoxWidth: widget.flyerBoxWidth,
@@ -414,17 +420,8 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           loading: widget.loading,
         ),
 
-        /// PRICE TAG
-        // PriceTag(
-        //   flyerBoxWidth: widget.flyerBoxWidth,
-        //   flyerBoxHeight: _flyerBoxHeight,
-        //   tinyMode: _tinyMode,
-        //   flyerModel: widget.flyerModel,
-        //   priceTagePageController: _priceTagPageController,
-        // ),
-
         /// SAVING NOTICE
-        if (_tinyMode == false)
+        if (_tinyMode != true && widget.inFlight != true)
         SavingNotice(
           key: const ValueKey<String>('SavingNotice'),
           flyerBoxWidth: widget.flyerBoxWidth,

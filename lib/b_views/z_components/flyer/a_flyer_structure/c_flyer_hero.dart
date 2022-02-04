@@ -136,6 +136,7 @@ class FlyerHero extends StatelessWidget {
               bzZone: null,
               flyerZone: null,
               loading: true,
+              inFlight: true,
             ),
           );
 
@@ -183,6 +184,7 @@ class FlyerHero extends StatelessWidget {
         bzZone: bzZone,
         flyerZone: flyerZone,
         heroTag: _heroTag,
+        inFlight: false,
       ),
 
     );

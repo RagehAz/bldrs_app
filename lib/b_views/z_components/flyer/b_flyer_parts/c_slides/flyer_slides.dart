@@ -23,6 +23,7 @@ class FlyerSlides extends StatefulWidget {
     @required this.currentSlideIndex,
     @required this.canShowGalleryPage,
     @required this.numberOfSlides,
+    @required this.inFlight,
     this.heroTag,
     Key key
   }) : super(key: key);
@@ -41,6 +42,7 @@ class FlyerSlides extends StatefulWidget {
   final String heroTag;
   final bool canShowGalleryPage;
   final int numberOfSlides;
+  final bool inFlight;
   /// --------------------------------------------------------------------------
   @override
   State<FlyerSlides> createState() => _FlyerSlidesState();
@@ -62,6 +64,19 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
         color: Colorz.white50,
       );
     }
+
+    // else if (widget.inFlight == true){
+    //   return SingleSlide(
+    //     key: const ValueKey<String>('slide_key'),
+    //     flyerBoxWidth: widget.flyerBoxWidth,
+    //     flyerBoxHeight: widget.flyerBoxHeight,
+    //     slideModel: widget.flyerModel.slides[0],
+    //     tinyMode: widget.tinyMode,
+    //     onSlideNextTap: widget.onSlideNextTap,
+    //     onSlideBackTap: widget.onSlideBackTap,
+    //     onDoubleTap: widget.onDoubleTap,
+    //   );
+    // }
 
     else {
 

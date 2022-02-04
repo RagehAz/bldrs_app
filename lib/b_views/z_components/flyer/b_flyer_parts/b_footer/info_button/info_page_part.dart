@@ -57,7 +57,7 @@ class InfoPagePart extends StatelessWidget {
 
           /// ZONE
           StatsLine(
-            verse: 'Targeting : ${flyerZone.cityName} , ${flyerZone.countryName}',
+            verse: 'Targeting : ${flyerZone?.cityName} , ${flyerZone?.countryName}',
             icon: Flag.getFlagIconByCountryID(flyerZone.countryID),
             bubbleWidth: _pageWidth,
           ),
