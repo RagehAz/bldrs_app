@@ -54,7 +54,7 @@ class MiniHeader extends StatelessWidget {
             ),
 
             /// HEADER'S MAX STATE'S HEADLINE : BZ.NAME AND BZ.LOCALE
-            BzPageHeadline(
+            OldBzPageHeadline(
               flyerBoxWidth: flyerBoxWidth,
               bzPageIsOn: superFlyer.nav.bzPageIsOn,
               bzModel: superFlyer.bz,

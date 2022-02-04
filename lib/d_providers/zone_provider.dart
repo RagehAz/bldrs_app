@@ -85,7 +85,10 @@ class ZoneProvider extends ChangeNotifier {
 
       for (final String id in countriesIDs){
 
-        final CountryModel _country = await fetchCountryByID(context: context, countryID: id);
+        final CountryModel _country = await fetchCountryByID(
+            context: context,
+            countryID: id,
+        );
 
         _countries.add(_country);
 
@@ -393,7 +396,10 @@ class ZoneProvider extends ChangeNotifier {
 
     final List<String> _countriesIDs = _currentContinent.activatedCountriesIDs;
 
-    final List<CountryModel> _countries = await fetchCountriesByIDs(context: context, countriesIDs: _countriesIDs);
+    final List<CountryModel> _countries = await fetchCountriesByIDs(
+        context: context,
+        countriesIDs: _countriesIDs,
+    );
 
     return _countries;
   }
@@ -417,8 +423,15 @@ class ZoneProvider extends ChangeNotifier {
     @required ZoneModel zone
   }) async {
 
-    final CountryModel _country = await fetchCountryByID(context: context, countryID: zone.countryID);
-    final CityModel _city = await fetchCityByID(context: context, cityID: zone.cityID);
+    final CountryModel _country = await fetchCountryByID(
+        context: context,
+        countryID: zone.countryID
+    );
+
+    final CityModel _city = await fetchCityByID(
+        context: context,
+        cityID: zone.cityID,
+    );
 
     _setUserCountryAndCityModels(_country, _city);
 
@@ -451,8 +464,15 @@ class ZoneProvider extends ChangeNotifier {
     @required ZoneModel zone
   }) async {
 
-    final CountryModel _country = await fetchCountryByID(context: context, countryID: zone.countryID);
-    final CityModel _city = await fetchCityByID(context: context, cityID: zone.cityID);
+    final CountryModel _country = await fetchCountryByID(
+        context: context,
+        countryID: zone.countryID,
+    );
+
+    final CityModel _city = await fetchCityByID(
+        context: context,
+        cityID: zone.cityID,
+    );
 
     _currentZone = zone;
     _currentCountryModel = _country;

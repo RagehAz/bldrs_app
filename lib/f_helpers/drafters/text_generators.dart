@@ -116,7 +116,12 @@ List<String> bzFormStrings (BuildContext context){
   return _bzFormStrings;
 }
 // -----------------------------------------------------------------------------
-String countryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required ZoneModel zone}){
+String countryStringerByModels ({
+  @required BuildContext context,
+  @required CountryModel country,
+  @required CityModel city,
+  @required ZoneModel zone
+}){
   String _verse = '...';
 
   if (country != null && ZoneModel.zoneHasAllIDs(zone)){
@@ -141,7 +146,36 @@ String countryStringer ({@required BuildContext context, @required CountryModel 
   return _verse;
 }
 // -----------------------------------------------------------------------------
-String cityCountryStringer ({@required BuildContext context, @required CountryModel country, @required CityModel city, @required ZoneModel zone}){
+String countryStringerByZoneModel ({
+  @required BuildContext context,
+  @required ZoneModel zone
+}){
+  String _verse = '...';
+
+  if (zone != null && ZoneModel.zoneHasAllIDs(zone)){
+
+    final String _countryName = zone.countryName;
+
+    final String _cityName = zone.cityName;
+
+    final String _districtName = zone.districtName;
+
+    _verse =
+    zone.countryID == null || zone.cityID == null ? '...' :
+    '${Wordz.inn(context)} $_districtName , $_cityName , $_countryName . ';
+
+  }
+
+
+  return _verse;
+}
+// -----------------------------------------------------------------------------
+String cityCountryStringer ({
+  @required BuildContext context,
+  @required CountryModel country,
+  @required CityModel city,
+  @required ZoneModel zone,
+}){
 
   String _verse = '...';
 

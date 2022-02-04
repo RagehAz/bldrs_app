@@ -1,27 +1,24 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class OldBzPageHeadline extends StatelessWidget {
+class BzPageHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const OldBzPageHeadline({
+  const BzPageHeadline({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
     @required this.bzModel,
-    @required this.country,
-    @required this.city,
+    @required this.bzZone,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool bzPageIsOn;
   final BzModel bzModel;
-  final CountryModel country;
-  final CityModel city;
+  final ZoneModel bzZone;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -47,11 +44,9 @@ class OldBzPageHeadline extends StatelessWidget {
 
           /// BUSINESS LOCALE
           SuperVerse(
-            verse: TextGen.countryStringerByModels(
+            verse: TextGen.countryStringerByZoneModel(
               context: context,
-              zone: bzModel?.zone,
-              country: country,
-              city: city,
+              zone: bzZone,
             ),
             italic: true,
             weight: VerseWeight.regular,

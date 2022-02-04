@@ -46,7 +46,11 @@ Future<List<Continent>> readContinentsOps(
 /// COUNTRY
 
 // ---------------------------------------------------
-Future<CountryModel> readCountryOps({@required BuildContext context, @required String countryID}) async {
+Future<CountryModel> readCountryOps({
+  @required BuildContext context,
+  @required String countryID,
+}) async {
+
   final Map<String, dynamic> _map = await Fire.readSubDoc(
     context: context,
     collName: FireColl.zones,
@@ -87,8 +91,11 @@ Future<List<CityModel>> readCountryCitiesOps({
   @required BuildContext context,
   @required String countryID,
 }) async {
-  final CountryModel _country =
-      await readCountryOps(context: context, countryID: countryID);
+
+  final CountryModel _country = await readCountryOps(
+      context: context,
+      countryID: countryID,
+  );
 
   final List<CityModel> _cities = <CityModel>[];
 
@@ -140,8 +147,12 @@ Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
               _countryID = CountryIso.getCountryIDByIso(_countryISO);
 
               if (_countryID != null) {
-                final CountryModel _country = await _zoneProvider
-                    .fetchCountryByID(context: context, countryID: _countryID);
+
+                final CountryModel _country = await _zoneProvider.fetchCountryByID(
+                    context: context,
+                    countryID: _countryID
+                );
+
                 CityModel _city;
                 if (_cityName != null) {
                   _city = await _zoneProvider.fetchCityByName(
@@ -198,14 +209,18 @@ Future<ZoneModel> _getZoneByIP_ipRegistry({@required BuildContext context}) asyn
             const String _cityName = null;
 
             if (_countryISO != null && _countryISO != '') {
-              final ZoneProvider _zoneProvider =
-                  Provider.of<ZoneProvider>(context, listen: false);
+
+              final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
               _countryID = CountryIso.getCountryIDByIso(_countryISO);
 
               if (_countryID != null) {
-                final CountryModel _country = await _zoneProvider
-                    .fetchCountryByID(context: context, countryID: _countryID);
+
+                final CountryModel _country = await _zoneProvider.fetchCountryByID(
+                    context: context,
+                    countryID: _countryID,
+                );
+
                 final CityModel _city = await _zoneProvider.fetchCityByName(
                     context: context,
                     countryID: _countryID,
