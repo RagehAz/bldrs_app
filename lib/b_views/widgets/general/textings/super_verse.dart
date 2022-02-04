@@ -79,8 +79,10 @@ class SuperVerse extends StatelessWidget {
     String currency,
     bool strikethrough = false,
     bool isBold = true,
+    bool isCentered = false
   }) {
     return Row(
+      mainAxisAlignment: isCentered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
