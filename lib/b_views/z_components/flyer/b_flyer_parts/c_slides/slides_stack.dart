@@ -20,6 +20,7 @@ class SlidesStack extends StatelessWidget {
     @required this.onDoubleTap,
     @required this.canShowGalleryPage,
     @required this.numberOfSlides,
+    @required this.inFlight,
     this.heroTag,
     Key key
   }) : super(key: key);
@@ -38,6 +39,7 @@ class SlidesStack extends StatelessWidget {
   final String heroTag;
   final bool canShowGalleryPage;
   final int numberOfSlides;
+  final bool inFlight;
   /// --------------------------------------------------------------------------
   bool _canShowSaveButton(){
     bool _canShow = false;
@@ -56,50 +58,23 @@ class SlidesStack extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    return Stack(
-      key: const ValueKey<String>('SlidesStack_the_stack'),
-      children: <Widget>[
-
-        /// SLIDES
-        if (currentSlideIndex?.value != null)
-          FlyerSlides(
-            key: const ValueKey<String>('SlidesStack_FlyerSlides'),
-            flyerModel: flyerModel,
-            bzModel: bzModel,
-            flyerBoxWidth: flyerBoxWidth,
-            flyerBoxHeight: flyerBoxHeight,
-            tinyMode: tinyMode,
-            horizontalController: horizontalController,
-            onSwipeSlide: onSwipeSlide,
-            onSlideBackTap: onSlideBackTap,
-            onSlideNextTap: onSlideNextTap,
-            onDoubleTap: onDoubleTap,
-            currentSlideIndex: currentSlideIndex,
-            heroTag: heroTag,
-            canShowGalleryPage : canShowGalleryPage,
-            numberOfSlides: numberOfSlides,
-          ),
-
-        /// PRICE TAG
-        // if (superFlyer.priceTagIsOn == true)
-        //   OldPriceTag(
-        //     flyerBoxWidth: flyerBoxWidth,
-        //     superFlyer: superFlyer,
-        //   ),
-
-        /// SAVE BUTTON
-        // if (_canShowSaveButton() == true)
-        //   Container(),
-        //   SaveButton(
-        //     bzPageIsOn: superFlyer.nav.bzPageIsOn,
-        //     flyerBoxWidth: flyerBoxWidth,
-        //     listenToSwipe: superFlyer.nav.listenToSwipe,
-        //     ankhIsOn: superFlyer.rec.ankhIsOn,
-        //     onAnkhTap: superFlyer.rec.onAnkhTap,
-        //   ),
-
-      ],
-
+    return FlyerSlides(
+      key: const ValueKey<String>('SlidesStack_FlyerSlides'),
+      flyerModel: flyerModel,
+      bzModel: bzModel,
+      flyerBoxWidth: flyerBoxWidth,
+      flyerBoxHeight: flyerBoxHeight,
+      tinyMode: tinyMode,
+      horizontalController: horizontalController,
+      onSwipeSlide: onSwipeSlide,
+      onSlideBackTap: onSlideBackTap,
+      onSlideNextTap: onSlideNextTap,
+      onDoubleTap: onDoubleTap,
+      currentSlideIndex: currentSlideIndex,
+      heroTag: heroTag,
+      canShowGalleryPage : canShowGalleryPage,
+      numberOfSlides: numberOfSlides,
+      inFlight: inFlight,
     );
   }
 }
