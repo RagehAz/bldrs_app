@@ -128,7 +128,7 @@ class AuthorBubble extends StatelessWidget {
                       final AuthorModel _author = bzAuthors[authorIndex];
                       return Row(
                         children: <Widget>[
-                          AuthorLabel(
+                          OldAuthorLabel(
                             showLabel: showFlyers,
                             flyerBoxWidth: flyerBoxWidth,
                             authorID: _author.userID,

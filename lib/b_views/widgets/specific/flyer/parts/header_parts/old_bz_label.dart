@@ -8,9 +8,9 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class BzLabel extends StatelessWidget {
+class OldBzLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BzLabel({
+  const OldBzLabel({
     @required this.flyerBoxWidth,
     @required this.bzModel,
     @required this.headerIsExpanded,
@@ -48,7 +48,7 @@ class BzLabel extends StatelessWidget {
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
 // -----------------------------------------------------------------------------
     /// B.LOCALE
-    final String _businessLocale = TextGen.countryStringer(
+    final String _businessLocale = TextGen.countryStringerByModels(
       context: context,
       zone: bzModel?.zone,
       country: bzCountry,

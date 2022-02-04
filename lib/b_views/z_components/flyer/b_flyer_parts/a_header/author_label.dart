@@ -14,9 +14,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
-class OldAuthorLabel extends StatelessWidget {
+class AuthorLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const OldAuthorLabel({
+  const AuthorLabel({
     @required this.flyerBoxWidth,
     @required this.authorID,
     @required this.bzModel,
@@ -53,10 +53,10 @@ class OldAuthorLabel extends StatelessWidget {
         flyerBoxWidth * Ratioz.xxflyersGridSpacing;
 // -----------------------------------------------------------------------------
     final double _authorDataHeight =
-        // flyerShowsAuthor == true ?
-        flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth
-        //     :
-        // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
+    // flyerShowsAuthor == true ?
+    flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth
+    //     :
+    // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
         ;
 // -----------------------------------------------------------------------------
     final double _authorDataWidth = flyerBoxWidth *
@@ -76,7 +76,7 @@ class OldAuthorLabel extends StatelessWidget {
         :
     showLabel == true ?
     '${Numeric.separateKilos(number: authorGalleryCount)} ${Wordz.flyers(context)}'
-            :
+        :
     '${Numeric.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . $_galleryCountCalibrated ${Wordz.flyers(context)}';
 // -----------------------------------------------------------------------------
     final double _authorImageCorners =
@@ -186,7 +186,7 @@ class AuthorPic extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _authorImageHeight = width;
     final double _authorImageCorners =
-        getCornerValue(width / Ratioz.xxflyerAuthorPicWidth);
+    getCornerValue(width / Ratioz.xxflyerAuthorPicWidth);
 // -----------------------------------------------------------------------------
     final BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,
@@ -211,42 +211,42 @@ class AuthorPic extends StatelessWidget {
             null
         ),
         child: ClipRRect(
-            borderRadius: _authorPicBorders,
-            child: isAddAuthorButton == true ?
+          borderRadius: _authorPicBorders,
+          child: isAddAuthorButton == true ?
 
-            GestureDetector(
-              onTap: () => _tapAddAuthor(context),
-              child: SizedBox(
-                width: width,
-                height: _authorImageHeight,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+          GestureDetector(
+            onTap: () => _tapAddAuthor(context),
+            child: SizedBox(
+              width: width,
+              height: _authorImageHeight,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
 
-                    DreamBox(
-                      width: width * 0.35,
-                      height: _authorImageHeight * 0.35,
-                      icon: Iconz.plus,
-                      bubble: false,
-                      onTap: () => _tapAddAuthor(context),
-                    ),
+                  DreamBox(
+                    width: width * 0.35,
+                    height: _authorImageHeight * 0.35,
+                    icon: Iconz.plus,
+                    bubble: false,
+                    onTap: () => _tapAddAuthor(context),
+                  ),
 
-                    const SuperVerse(
-                      verse: 'Add new Author',
-                      size: 0,
-                      maxLines: 2,
-                    ),
+                  const SuperVerse(
+                    verse: 'Add new Author',
+                    size: 0,
+                    maxLines: 2,
+                  ),
 
-                  ],
-                ),
+                ],
               ),
-            )
-
-                :
-
-            SuperImage(
-                pic: authorPic
             ),
+          )
+
+              :
+
+          SuperImage(
+              pic: authorPic
+          ),
 
         ),
 

@@ -86,29 +86,34 @@ class OldInfoPage extends StatelessWidget {
     final FlyerTypeClass.FlyerType _flyerType = superFlyer.flyerType ??
         FlyerTypeClass.concludeFlyerType(superFlyer.bz.bzType);
 
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
     final CountryModel _currentCountry = _zoneProvider.currentCountry;
     final CityModel _currentCity = _zoneProvider.currentCity;
     // final Zone _currentZone = _zoneProvider.currentZone;
 
     final String _countryName = CountryModel.getTranslatedCountryNameByID(
-        context: context, countryID: _currentCountry.id);
+        context: context,
+        countryID: _currentCountry.id,
+    );
+
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
-        context: context, city: _currentCity);
+        context: context,
+        city: _currentCity,
+    );
 
     // List<TinyUser> _users = TinyUser.dummyTinyUsers();
 
     final bool _editMode = superFlyer.edit.editMode == true;
 
-    final String _flyerInfoParagraph =
-        _editMode == true && superFlyer.infoController.text.isEmpty
-            ? '...'
-            : _editMode == true && superFlyer.infoController.text.isNotEmpty
-                ? superFlyer.infoController.text
-                : _editMode == false
-                    ? superFlyer.flyerInfo
-                    : superFlyer.flyerInfo;
+    final String _flyerInfoParagraph = _editMode == true && superFlyer.infoController.text.isEmpty ?
+    '...'
+        :
+    _editMode == true && superFlyer.infoController.text.isNotEmpty ? superFlyer.infoController.text
+        :
+    _editMode == false ? superFlyer.flyerInfo
+        :
+    superFlyer.flyerInfo;
 
     final bool _flyerInfoExists = _flyerInfoExistsCheck(_flyerInfoParagraph);
 
@@ -120,6 +125,7 @@ class OldInfoPage extends StatelessWidget {
       superFlyer: superFlyer,
       flyerZoneHeight: _flyerZoneHeight,
       children: <Widget>[
+
         /// HEADER FOOTPRINT ZONE
         // if (_editMode == false)
         SizedBox(
@@ -136,6 +142,7 @@ class OldInfoPage extends StatelessWidget {
             margins: _bubbleMargins,
             corners: _bubbleCorners,
             columnChildren: <Widget>[
+
               /// Flyer Type
               StatsLine(
                 verse:
@@ -160,6 +167,7 @@ class OldInfoPage extends StatelessWidget {
                 icon: Flag.getFlagIconByCountryID(superFlyer.zone.countryID),
                 bubbleWidth: _bubbleWidth,
               ),
+
             ],
           ),
 

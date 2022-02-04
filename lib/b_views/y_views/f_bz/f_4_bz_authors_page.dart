@@ -114,7 +114,7 @@ class AuthorCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
 
-          AuthorLabel(
+          OldAuthorLabel(
             flyerBoxWidth: Scale.superScreenWidth(context) * 1.5,
             authorID: author.userID,
             bzModel: bzModel,

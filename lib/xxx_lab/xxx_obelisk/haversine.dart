@@ -37,8 +37,14 @@ class _HaversineState extends State<Haversine> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _fetchSetCountryAndCities() async {
-    final CountryModel _countryModel = await _zoneProvider.fetchCountryByID(context: context, countryID: _theCountryID);
+
+    final CountryModel _countryModel = await _zoneProvider.fetchCountryByID(
+        context: context,
+        countryID: _theCountryID,
+    );
+
     List<CityModel> _cities;
+
     if (Mapper.canLoopList(_countryModel?.citiesIDs)){
       _cities = await _zoneProvider.fetchCitiesByIDs(context: context, citiesIDs: _countryModel.citiesIDs);
     }

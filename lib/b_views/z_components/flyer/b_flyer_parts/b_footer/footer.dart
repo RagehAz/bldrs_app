@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_shadow.dart';
@@ -10,6 +12,8 @@ class FlyerFooter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerFooter({
     @required this.flyerBoxWidth,
+    @required this.flyerModel,
+    @required this.flyerZone,
     @required this.tinyMode,
     @required this.onSaveFlyer,
     @required this.flyerIsSaved,
@@ -19,6 +23,8 @@ class FlyerFooter extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
+  final FlyerModel flyerModel;
+  final ZoneModel flyerZone;
   final bool tinyMode;
   final Function onSaveFlyer;
   final ValueNotifier<bool> flyerIsSaved;
@@ -94,6 +100,8 @@ class _FlyerFooterState extends State<FlyerFooter> {
               if (widget.tinyMode == false)
                 InfoButton(
                   flyerBoxWidth: widget.flyerBoxWidth,
+                  flyerModel: widget.flyerModel,
+                  flyerZone: widget.flyerZone,
                   tinyMode: widget.tinyMode,
                   infoButtonExpanded: infoButtonExpanded,
                   onInfoButtonTap: onInfoButtonTap,

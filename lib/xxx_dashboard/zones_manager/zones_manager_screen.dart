@@ -95,11 +95,12 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
       addDocSnapshotToEachMap: true,
     );
 
-    final List<CountryModel> _countriesModels =
-        CountryModel.decipherCountriesMaps(maps: _maps, fromJSON: false);
+    final List<CountryModel> _countriesModels = CountryModel.decipherCountriesMaps(
+        maps: _maps,
+        fromJSON: false,
+    );
 
-    final QueryDocumentSnapshot<Object> _snap =
-        _maps[_maps.length - 1]['docSnapshot'];
+    final QueryDocumentSnapshot<Object> _snap = _maps[_maps.length - 1]['docSnapshot'];
 
     setState(() {
       _countries = _countriesModels;
@@ -118,32 +119,33 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
         pageTitle: 'Zones Manager',
         // appBarBackButton: true,
         skyType: SkyType.black,
-        layoutWidget: Mapper.canLoopList(_countries) == false
-            ? Container()
-            : ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                controller: _scrollController,
-                padding: const EdgeInsets.only(top: Ratioz.stratosphere),
-                itemCount: _countries?.length,
-                itemBuilder: (BuildContext context, int index) {
+        layoutWidget: Mapper.canLoopList(_countries) == false ?
+        Container()
+            :
+        ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          controller: _scrollController,
+          padding: const EdgeInsets.only(top: Ratioz.stratosphere),
+          itemCount: _countries?.length,
+          itemBuilder: (BuildContext context, int index) {
 
-                  final CountryModel _countryModel = _countries[index];
-                  final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: _countryModel.names)?.value;
+            final CountryModel _countryModel = _countries[index];
+            final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: _countryModel.names)?.value;
 
-                  return DreamBox(
-                    height: 100,
-                    width: _screenWidth - (Ratioz.appBarMargin * 2),
-                    icon: Flag.getFlagIconByCountryID(_countries[index].id),
-                    verse: _countryName,
-                    bubble: false,
-                    color: Colorz.white20,
-                    verseMaxLines: 2,
-                    verseScaleFactor: 0.6,
-                    margins: const EdgeInsets.all(7.5),
-                    onTap: () => Nav.goToNewScreen(context,
-                        CountryEditorScreen(country: _countries[index])),
-                  );
-                },
-              ));
+            return DreamBox(
+              height: 100,
+              width: _screenWidth - (Ratioz.appBarMargin * 2),
+              icon: Flag.getFlagIconByCountryID(_countries[index].id),
+              verse: _countryName,
+              bubble: false,
+              color: Colorz.white20,
+              verseMaxLines: 2,
+              verseScaleFactor: 0.6,
+              margins: const EdgeInsets.all(7.5),
+              onTap: () => Nav.goToNewScreen(context,
+                  CountryEditorScreen(country: _countries[index])),
+            );
+            },
+        ));
   }
 }

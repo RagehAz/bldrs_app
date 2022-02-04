@@ -90,10 +90,16 @@ class _LocaleBubbleState extends State<LocaleBubble> {
     if (_isInit) {
       if (_selectedZone.isNotEmpty()) {
         _triggerLoading().then((_) async {
+
           final CountryModel _country = await _zoneProvider.fetchCountryByID(
-              context: context, countryID: _selectedZone.countryID);
+              context: context,
+              countryID: _selectedZone.countryID,
+          );
+
           final CityModel _city = await _zoneProvider.fetchCityByID(
-              context: context, cityID: _selectedZone.cityID);
+              context: context,
+              cityID: _selectedZone.cityID,
+          );
 
           unawaited(_triggerLoading(function: () {
             _selectedCountry = _country;
@@ -129,8 +135,7 @@ class _LocaleBubbleState extends State<LocaleBubble> {
   Future<void> _tapCountryButton({@required BuildContext context}) async {
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    final List<MapModel> _countriesMapModels =
-        CountryModel.getAllCountriesNamesMapModels(context);
+    final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -139,10 +144,16 @@ class _LocaleBubbleState extends State<LocaleBubble> {
         mapsModels: _countriesMapModels,
         alignment: Alignment.center,
         buttonTap: (String countryID) async {
+
           final CountryModel _country = await _zoneProvider.fetchCountryByID(
-              context: context, countryID: countryID);
+              context: context,
+              countryID: countryID,
+          );
+
           final List<CityModel> _cities = await _zoneProvider.fetchCitiesByIDs(
-              context: context, citiesIDs: _country.citiesIDs);
+              context: context,
+              citiesIDs: _country.citiesIDs,
+          );
 
           setState(() {
             _selectedCountry = _country;
@@ -255,9 +266,12 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final String _selectedCountryName =
-        CountryModel.getTranslatedCountryNameByID(
-            context: context, countryID: _selectedCountry?.id);
+
+    final String _selectedCountryName = CountryModel.getTranslatedCountryNameByID(
+      context: context,
+      countryID: _selectedCountry?.id,
+    );
+
     final String _selectedCountryFlag = _selectedCountry == null
         ? ''
         : Flag.getFlagIconByCountryID(_selectedCountry?.id);

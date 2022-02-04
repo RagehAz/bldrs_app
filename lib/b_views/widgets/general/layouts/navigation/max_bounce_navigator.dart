@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -88,7 +89,7 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
           axis: widget.axis,
         );
 
-        // print('details : ${details.scrollDelta}');
+        blog('_canSlide : $_canSlide : _canNavigate : $_canNavigate');
 
         if (_canSlide == true && _canNavigate == true) {
           // ScrollDirection _direction = details.metrics.;

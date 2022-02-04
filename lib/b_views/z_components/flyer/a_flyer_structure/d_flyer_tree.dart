@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
@@ -24,8 +23,8 @@ class FlyerTree extends StatefulWidget {
   const FlyerTree({
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzCountry,
-    @required this.bzCity,
+    @required this.bzZone,
+    @required this.flyerZone,
     @required this.flyerBoxWidth,
     this.onTap,
     this.loading = false,
@@ -37,8 +36,8 @@ class FlyerTree extends StatefulWidget {
   final Function onTap;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
+  final ZoneModel bzZone;
+  final ZoneModel flyerZone;
   final bool loading;
   final String heroTag;
   /// --------------------------------------------------------------------------
@@ -377,8 +376,8 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           flyerBoxWidth: widget.flyerBoxWidth,
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
-          bzCountry: widget.bzCountry,
-          bzCity: widget.bzCity,
+          bzZone: widget.bzZone,
+          flyerZone: widget.flyerZone,
           onHeaderTap: _onHeaderTap,
           onFollowTap: _onFollowTap,
           onCallTap: _onCallTap,
@@ -394,6 +393,8 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         FlyerFooter(
           key: const ValueKey<String>('FlyerTree_FlyerFooter'),
           flyerBoxWidth: widget.flyerBoxWidth,
+          flyerModel: widget.flyerModel,
+          flyerZone: widget.flyerZone,
           tinyMode: _tinyMode,
           flyerIsSaved: _flyerIsSaved,
           onSaveFlyer: _onSaveFlyer,

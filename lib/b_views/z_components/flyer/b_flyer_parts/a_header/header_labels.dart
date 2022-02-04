@@ -1,18 +1,16 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/old_bz_label.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/author_label.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_label.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class OldHeaderLabels extends StatelessWidget {
+class HeaderLabels extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const OldHeaderLabels({
+  const HeaderLabels({
     @required this.flyerBoxWidth,
     @required this.bzModel,
-    @required this.bzCountry,
-    @required this.bzCity,
+    @required this.bzZone,
     @required this.flyerShowsAuthor,
     @required this.headerIsExpanded,
     @required this.authorID,
@@ -21,8 +19,7 @@ class OldHeaderLabels extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final BzModel bzModel;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
+  final ZoneModel bzZone;
   final bool flyerShowsAuthor;
   final bool headerIsExpanded;
   final String authorID;
@@ -51,18 +48,17 @@ class OldHeaderLabels extends StatelessWidget {
           children: <Widget>[
 
             /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
-            OldBzLabel(
+            BzLabel(
               flyerBoxWidth: flyerBoxWidth,
               bzModel: bzModel,
-              bzCountry: bzCountry,
-              bzCity: bzCity,
+              bzZone: bzZone,
               headerIsExpanded: headerIsExpanded,
               flyerShowsAuthor: flyerShowsAuthor,
             ),
 
             /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
             if (flyerShowsAuthor == true)
-              OldAuthorLabel(
+              AuthorLabel(
                 flyerBoxWidth: flyerBoxWidth,
                 authorID: authorID,
                 bzModel: bzModel,
