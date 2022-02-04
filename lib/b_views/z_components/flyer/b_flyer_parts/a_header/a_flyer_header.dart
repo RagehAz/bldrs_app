@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
@@ -21,8 +20,8 @@ class FlyerHeader extends StatefulWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzCountry,
-    @required this.bzCity,
+    @required this.bzZone,
+    @required this.flyerZone,
     @required this.onHeaderTap,
     @required this.onFollowTap,
     @required this.onCallTap,
@@ -38,8 +37,8 @@ class FlyerHeader extends StatefulWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
+  final ZoneModel bzZone;
+  final ZoneModel flyerZone;
   final Function onHeaderTap;
   final Function onFollowTap;
   final Function onCallTap;
@@ -228,7 +227,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
     //--------------------------------o
     _headerLabelsWidthTween = Tween<double>(
-      begin: HeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth),
+      begin: OldHeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth),
       end: 0,
     ).animate(widget.headerAnimationController);
     //--------------------------------o
@@ -295,8 +294,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                   headerRightSpacerTween: _headerRightSpacerTween,
                   flyerModel: widget.flyerModel,
                   bzModel: widget.bzModel,
-                  bzCountry: widget.bzCountry,
-                  bzCity: widget.bzCity,
+                  bzZone: widget.bzZone,
                 ),
 
                 /// BZ NAME BELOW LOGO
@@ -305,8 +303,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
                   bzModel: widget.bzModel,
-                  bzCountry: widget.bzCountry,
-                  bzCity: widget.bzCity,
+                  bzZone: widget.bzZone,
                   headerIsExpanded: widget.headerIsExpanded,
                 ),
 

@@ -30,7 +30,6 @@ class CountryEditorScreen extends StatefulWidget {
 
   /// --------------------------------------------------------------------------
   final CountryModel country;
-
   /// --------------------------------------------------------------------------
   @override
   _CountryEditorScreenState createState() => _CountryEditorScreenState();

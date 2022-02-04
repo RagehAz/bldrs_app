@@ -1,13 +1,17 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/discount_price_tag.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_graphic.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_page_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/installment_price_tag.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/normal_price_tag.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+
 
 enum InfoButtonType{
   info,
@@ -20,6 +24,8 @@ class InfoButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoButton({
     @required this.flyerBoxWidth,
+    @required this.flyerModel,
+    @required this.flyerZone,
     @required this.tinyMode,
     @required this.infoButtonExpanded,
     @required this.onInfoButtonTap,
@@ -28,6 +34,8 @@ class InfoButton extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
+  final FlyerModel flyerModel;
+  final ZoneModel flyerZone;
   final bool tinyMode;
   final ValueNotifier<bool> infoButtonExpanded;
   final Function onInfoButtonTap;
@@ -78,7 +86,7 @@ class InfoButton extends StatelessWidget {
     return _collapsedWidth;
   }
 // --------------------------------
-  static double _expandedWidth({
+  static double expandedWidth({
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
@@ -261,7 +269,7 @@ class InfoButton extends StatelessWidget {
 
       /// EXPANDED
       if (isExpanded == true){
-        _width = _expandedWidth(
+        _width = expandedWidth(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
         );
@@ -479,40 +487,54 @@ class InfoButton extends StatelessWidget {
                 borderRadius: _borders,
               ),
               margin: _margins,
-              child: child,
+              child: ListView(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.zero, /// ENTA EBN WES5A
+                children: <Widget>[
+
+                  if (_priceTagType == InfoButtonType.info)
+                    InfoGraphic(
+                      flyerBoxWidth: flyerBoxWidth,
+                    ),
+
+                  if (_priceTagType == InfoButtonType.price)
+                    NormalPriceTag(
+                        flyerBoxWidth: flyerBoxWidth
+                    ),
+
+                  if (_priceTagType == InfoButtonType.discount)
+                    DiscountPriceTag(
+                        flyerBoxWidth: flyerBoxWidth
+                    ),
+
+                  if (_priceTagType == InfoButtonType.installments)
+                    InstallmentsPriceTag(
+                      flyerBoxWidth: flyerBoxWidth,
+                    ),
+
+                  // if (buttonExpanded == true)
+                    AnimatedOpacity(
+                      opacity: buttonExpanded == true ? 1 : 0,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeOut,
+                      child: InfoPagePart(
+                        flyerBoxWidth: flyerBoxWidth,
+                        flyerModel: flyerModel,
+                        flyerZone: flyerZone,
+                      ),
+                    ),
+
+
+                ],
+
+              ),
             );
 
           },
 
-          child: ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.zero, /// ENTA EBN WES5A
-            children: <Widget>[
+          child: Container(),
 
-              if (_priceTagType == InfoButtonType.info)
-                InfoGraphic(
-                  flyerBoxWidth: flyerBoxWidth,
-                ),
-
-              if (_priceTagType == InfoButtonType.price)
-                NormalPriceTag(
-                    flyerBoxWidth: flyerBoxWidth
-                ),
-
-              if (_priceTagType == InfoButtonType.discount)
-                DiscountPriceTag(
-                    flyerBoxWidth: flyerBoxWidth
-                ),
-
-              if (_priceTagType == InfoButtonType.installments)
-                InstallmentsPriceTag(
-                  flyerBoxWidth: flyerBoxWidth,
-                ),
-
-            ],
-
-          ),
         ),
       ),
     );

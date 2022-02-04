@@ -27,8 +27,11 @@ class OldPriceTag extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _footerHeight =
-        OldFlyerFooter.boxHeight(context: context, flyerBoxWidth: flyerBoxWidth);
+
+    final double _footerHeight = OldFlyerFooter.boxHeight(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+    );
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = _zoneProvider.currentCountry;

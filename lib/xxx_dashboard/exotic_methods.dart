@@ -157,8 +157,11 @@ Future<List<CountryModel>> fetchAllCountryModels({
   final List<CountryModel> _countries = <CountryModel>[];
 
   for (final String id in _allCountriesIDs) {
-    final CountryModel _country =
-        await zoneProvider.fetchCountryByID(context: context, countryID: id);
+
+    final CountryModel _country = await zoneProvider.fetchCountryByID(
+        context: context,
+        countryID: id,
+    );
 
     if (_country != null) {
       _countries.add(_country);
@@ -171,8 +174,7 @@ Future<List<CountryModel>> fetchAllCountryModels({
 Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
   /// in case any (continent name) or (region name) or (countryID) has changed
 
-  final List<CountryModel> _allCountries =
-      await fetchAllCountryModels(context: context);
+  final List<CountryModel> _allCountries = await fetchAllCountryModels(context: context);
 
   final List<Continent> _continents = <Continent>[];
 
@@ -182,6 +184,7 @@ Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context)
       name: country.continent,
       continents: _continents,
     );
+
     if (_continentIsAddedAlready == false) {
       _continents.add(Continent(
         name: country.continent,
@@ -192,12 +195,13 @@ Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context)
     }
 
     /// add region to continent
-    final int _continentIndex = _continents.indexWhere(
-        (Continent continent) => continent.name == country.continent);
+    final int _continentIndex = _continents.indexWhere((Continent continent) => continent.name == country.continent);
+
     final bool _regionIsAddedAlready = Region.regionsIncludeRegion(
       name: country.region,
       regions: _continents[_continentIndex].regions,
     );
+
     if (_regionIsAddedAlready == false) {
       _continents[_continentIndex].regions.add(Region(
             continent: _continents[_continentIndex].name,
@@ -210,12 +214,12 @@ Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context)
     final int _regionIndex = _continents[_continentIndex]
         .regions
         .indexWhere((Region region) => region.name == country.region);
-    final bool _countryIsAddedAlready =
-        CountryModel.countriesIDsIncludeCountryID(
+
+    final bool _countryIsAddedAlready = CountryModel.countriesIDsIncludeCountryID(
       countryID: country.id,
-      countriesIDs:
-          _continents[_continentIndex].regions[_regionIndex].countriesIDs,
+      countriesIDs: _continents[_continentIndex].regions[_regionIndex].countriesIDs,
     );
+
     if (_countryIsAddedAlready == false) {
       _continents[_continentIndex]
           .regions[_regionIndex]
@@ -226,8 +230,7 @@ Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context)
     blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.names[0].value}');
   }
 
-  final Map<String, dynamic> _contMaps =
-      Continent.cipherContinents(_continents);
+  final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
 
   await Fire.createNamedDoc(
     context: context,
@@ -235,6 +238,7 @@ Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context)
     docName: 'continents',
     input: _contMaps,
   );
+
 }
 
 // -----------------------------------------------------------------------------
@@ -256,12 +260,13 @@ Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 /// super dangerous method,, take care !!
-Future<void> updateAFieldInAllCollDocs(
-    {@required BuildContext context,
-    @required String collName,
-    @required String field,
-    @required dynamic input
-    }) async {
+Future<void> updateAFieldInAllCollDocs({
+  @required BuildContext context,
+  @required String collName,
+  @required String field,
+  @required dynamic input
+}) async {
+
   final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
     limit: 1000,
     collName: collName,
@@ -327,6 +332,7 @@ Future<void> uploadChainKeywords({
   @required Chain chain,
   @required String docName,
 }) async {
+
   Map<String, dynamic> _keywordsMap = <String, dynamic>{};
 
   final List<KW> _allKeywords = KW.getKeywordsFromChain(chain);
@@ -368,6 +374,7 @@ Future<void> uploadChainKeywords({
 // abstract class RagehMethods{
 // -----------------------------------------------------------------------------
 Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) async {
+
   if (FireAuthOps.superUserID() == '60a1SPzftGdH6rt15NF96m0j9Et2') {
     if (Mapper.canLoopList(allKeywords)) {
       final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
