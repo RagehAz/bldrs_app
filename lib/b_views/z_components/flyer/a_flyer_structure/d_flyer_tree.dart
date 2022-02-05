@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -120,10 +122,13 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.flightDirection == FlightDirection.pop && _horizontalSlidesController.hasClients){
 
-        await _horizontalSlidesController.animateToPage(0, duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
-        blog('THE FUCKING INDEX WAS : ${widget.currentSlideIndex.value}');
+        unawaited(
+            _horizontalSlidesController.animateToPage(0, duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
+        );
+        // blog('THE FUCKING INDEX WAS : ${widget.currentSlideIndex.value}');
         widget.currentSlideIndex.value = 0;
-        blog('THE FUCKING INDEX ISSS : ${widget.currentSlideIndex.value}');
+        // blog('THE FUCKING INDEX ISSS : ${widget.currentSlideIndex.value}');
+
       }
     });
 
