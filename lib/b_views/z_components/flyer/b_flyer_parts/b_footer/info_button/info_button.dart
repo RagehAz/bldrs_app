@@ -518,10 +518,24 @@ class InfoButton extends StatelessWidget {
                       opacity: buttonExpanded == true ? 1 : 0,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeOut,
-                      child: InfoPagePart(
-                        flyerBoxWidth: flyerBoxWidth,
-                        flyerModel: flyerModel,
-                        flyerZone: flyerZone,
+                      child: Container(
+                        width: _width,
+                        height: 250,
+                        child: ListView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.zero, /// ENTA EBN WES5A
+                          children: <Widget>[
+
+                            InfoPagePart(
+                              flyerBoxWidth: flyerBoxWidth,
+                              flyerModel: flyerModel,
+                              flyerZone: flyerZone,
+                            ),
+
+                          ],
+                        ),
                       ),
                     ),
 
