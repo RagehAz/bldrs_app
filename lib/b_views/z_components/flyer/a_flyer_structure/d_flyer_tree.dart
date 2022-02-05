@@ -123,7 +123,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       if (widget.flightDirection == FlightDirection.pop && _horizontalSlidesController.hasClients){
 
         unawaited(
-            _horizontalSlidesController.animateToPage(0, duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
+            _horizontalSlidesController.animateToPage(0, duration: const Duration(milliseconds: 200), curve: Curves.easeOut)
         );
         // blog('THE FUCKING INDEX WAS : ${widget.currentSlideIndex.value}');
         widget.currentSlideIndex.value = 0;
