@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_slides.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slides_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/saving_notice.dart';
@@ -27,7 +29,7 @@ class FlyerTree extends StatefulWidget {
     @required this.bzZone,
     @required this.flyerZone,
     @required this.flyerBoxWidth,
-    @required this.inFlight,
+    @required this.flightDirection,
     @required this.currentSlideIndex,
     this.onTap,
     this.loading = false,
@@ -43,7 +45,7 @@ class FlyerTree extends StatefulWidget {
   final ZoneModel flyerZone;
   final bool loading;
   final String heroTag;
-  final bool inFlight;
+  final FlightDirection flightDirection;
   final ValueNotifier<int> currentSlideIndex;
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
@@ -63,10 +65,14 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   PageController _footerPageController;
   /// FOR SAVING GRAPHIC
   AnimationController _animationController;
+
+  bool _canShowGallery;
+  int _numberOfSlides;
 // ----------------------------------------------
   @override
   void initState() {
     super.initState();
+
     // ------------------------------------------
     /// FOR HEADER
     _headerScrollController = ScrollController();
@@ -76,7 +82,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     );
     // ------------------------------------------
     /// FOR SLIDES
-    _horizontalSlidesController = PageController(initialPage: widget.currentSlideIndex.value); // (initialPage: _initialPage);
+    _horizontalSlidesController = PageController(initialPage: widget.currentSlideIndex.value);
     // ------------------------------------------
     /// FOLLOW IS ON
     final _followIsOn = checkFollowIsOn(
@@ -97,6 +103,30 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     );
     // ------------------------------------------
 
+    blog('FLYER IN FLIGHT : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
+
+    _canShowGallery = canShowGalleryPage(
+      bzModel: widget.bzModel,
+      heroTag: widget.heroTag,
+    );
+    _numberOfSlides = getNumberOfSlides(
+      flyerModel: widget.flyerModel,
+      bzModel: widget.bzModel,
+      heroTag: widget.heroTag,
+    );
+
+
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (widget.flightDirection == FlightDirection.pop && _horizontalSlidesController.hasClients){
+
+        await _horizontalSlidesController.animateToPage(0, duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
+        blog('THE FUCKING INDEX WAS : ${widget.currentSlideIndex.value}');
+        widget.currentSlideIndex.value = 0;
+        blog('THE FUCKING INDEX ISSS : ${widget.currentSlideIndex.value}');
+      }
+    });
+
   }
 // -----------------------------------------------------------------------------
 //   bool _isInit = true;
@@ -106,6 +136,13 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 //     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 //     _uiProvider.startController(
 //             () async {
+//
+//               if (widget.currentSlideIndex.value == widget.flyerModel.slides.length && widget.inFlight == true){
+//
+//                 // await _slideToZeroIndex();
+//                 blog('condition ahooooooooooooo is blah blah');
+//
+//               }
 //
 //
 //         }
@@ -149,10 +186,28 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
+  bool _canSlideToZeroOnFlight(){
+    bool _canSlide = false;
+
+    if (_horizontalSlidesController.hasClients == true){
+      if (widget.flightDirection == FlightDirection.pop){
+        if (_canShowGallery == true){
+          if (widget.currentSlideIndex.value == _numberOfSlides){
+            _canSlide = true;
+          }
+        }
+      }
+    }
+
+    return _canSlide;
+  }
+// -----------------------------------------------------------------------------
   /// FOLLOW IS ON
   final ValueNotifier<bool> _followIsOn = ValueNotifier(false);
   void _setFollowIsOn(bool setTo) => _followIsOn.value = setTo;
 // -----------------------------------------------------------------------------
+
+
   /// PROGRESS BAR OPACITY
   final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
   /// HEADER IS EXPANDED
@@ -199,12 +254,16 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   }
 // -----------------------------------------------------------------------------
   void _onSwipeSlide(int index){
+
     onHorizontalSlideSwipe(
       context: context,
       newIndex: index,
       currentSlideIndex: widget.currentSlideIndex,
       swipeDirection: _swipeDirection,
     );
+
+    blog('index has become ${widget.currentSlideIndex.value}');
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSlideNextTap() async {
@@ -248,12 +307,10 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier(false);
   Future<void> _onSaveFlyer() async {
 
-    // // await Future.delayed(Ratioz.durationFading200, (){
-    //   _flyerIsSaved.value = !_flyerIsSaved.value;
-    //   await _triggerAnimation(_flyerIsSaved.value);
-    // // });
-
-    await _slideToZeroIndex();
+    // await Future.delayed(Ratioz.durationFading200, (){
+      _flyerIsSaved.value = !_flyerIsSaved.value;
+      await _triggerAnimation(_flyerIsSaved.value);
+    // });
 
   }
 // -----------------------------------------------------------------------------
@@ -301,24 +358,12 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-    blog('${widget.flyerModel.slides[0].headline} : flight is : ${widget.inFlight}');
-
-    // if(widget.inFlight == true){
-    //   _slideToZeroIndex();
-    // }
+    // blog('${widget.flyerModel.slides[0].headline} : flight is : ${widget.inFlight}');
 
     final double _flyerBoxHeight = FlyerBox.height(context, widget.flyerBoxWidth);
     final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
-    final bool _canShowGallery = canShowGalleryPage(
-      bzModel: widget.bzModel,
-      heroTag: widget.heroTag,
-    );
-    final int _numberOfSlides = getNumberOfSlides(
-      flyerModel: widget.flyerModel,
-      bzModel: widget.bzModel,
-      heroTag: widget.heroTag,
-    );
+    // blog('numberOfSlides : $_numberOfSlides : ')
 
     return FlyerBox(
       key: const ValueKey<String>('FlyerTree_FlyerBox'),
@@ -327,23 +372,23 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
         /// SLIDES
         if (widget.currentSlideIndex?.value != null)
-          SlidesStack(
-            key: const ValueKey<String>('FlyerTree_SlidesStack'),
+          FlyerSlides(
+            key: const ValueKey<String>('FlyerTree_FlyerSlides'),
             flyerModel: widget.flyerModel,
             bzModel: widget.bzModel,
             flyerBoxWidth: widget.flyerBoxWidth,
             flyerBoxHeight: _flyerBoxHeight,
             tinyMode: _tinyMode,
-            currentSlideIndex: widget.currentSlideIndex,
             horizontalController: _horizontalSlidesController,
             onSwipeSlide: _onSwipeSlide,
-            onSlideNextTap: _onSlideNextTap,
             onSlideBackTap: _onSlideBackTap,
+            onSlideNextTap: _onSlideNextTap,
             onDoubleTap: _onSaveFlyer,
+            currentSlideIndex: widget.currentSlideIndex,
             heroTag: widget.heroTag,
+            canShowGalleryPage : _canShowGallery,
             numberOfSlides: _numberOfSlides,
-            canShowGalleryPage: _canShowGallery,
-            inFlight: widget.inFlight,
+            flightDirection: widget.flightDirection,
           ),
 
         /// HEADER
@@ -380,7 +425,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         ),
 
         /// PROGRESS BAR
-        if (widget.inFlight != true)
+        if (widget.flightDirection == FlightDirection.non)
         ProgressBar(
           key: const ValueKey<String>('FlyerTree_ProgressBar'),
           flyerBoxWidth: widget.flyerBoxWidth,
@@ -393,7 +438,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         ),
 
         /// SAVING NOTICE
-        if (_tinyMode != true && widget.inFlight != true)
+        if (_tinyMode != true && widget.flightDirection == FlightDirection.non)
         SavingNotice(
           key: const ValueKey<String>('SavingNotice'),
           flyerBoxWidth: widget.flyerBoxWidth,

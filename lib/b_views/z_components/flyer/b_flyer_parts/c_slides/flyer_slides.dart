@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/horizontal_bouncer.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/gallery_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -23,7 +24,7 @@ class FlyerSlides extends StatefulWidget {
     @required this.currentSlideIndex,
     @required this.canShowGalleryPage,
     @required this.numberOfSlides,
-    @required this.inFlight,
+    @required this.flightDirection,
     this.heroTag,
     Key key
   }) : super(key: key);
@@ -42,7 +43,7 @@ class FlyerSlides extends StatefulWidget {
   final String heroTag;
   final bool canShowGalleryPage;
   final int numberOfSlides;
-  final bool inFlight;
+  final FlightDirection flightDirection;
   /// --------------------------------------------------------------------------
   @override
   State<FlyerSlides> createState() => _FlyerSlidesState();
@@ -52,7 +53,20 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
 
   @override
   bool get wantKeepAlive => true;
+// -----------------------------------------------------------------------------
+  bool _canNavigateOnBounce(){
+    bool _canNavigate;
 
+    if (widget.flightDirection == FlightDirection.pop){
+      _canNavigate = false;
+    }
+    else {
+      _canNavigate = true;
+    }
+
+    return _canNavigate;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -65,24 +79,12 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
       );
     }
 
-    // else if (widget.inFlight == true){
-    //   return SingleSlide(
-    //     key: const ValueKey<String>('slide_key'),
-    //     flyerBoxWidth: widget.flyerBoxWidth,
-    //     flyerBoxHeight: widget.flyerBoxHeight,
-    //     slideModel: widget.flyerModel.slides[0],
-    //     tinyMode: widget.tinyMode,
-    //     onSlideNextTap: widget.onSlideNextTap,
-    //     onSlideBackTap: widget.onSlideBackTap,
-    //     onDoubleTap: widget.onDoubleTap,
-    //   );
-    // }
-
     else {
 
       return HorizontalBouncer(
         numberOfSlides: widget.numberOfSlides,
         controller: widget.horizontalController,
+        canNavigate: _canNavigateOnBounce(),
         child: PageView.builder(
           key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
           controller: widget.horizontalController,
