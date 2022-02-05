@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_slides.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class SlidesStack extends StatelessWidget {
     @required this.onDoubleTap,
     @required this.canShowGalleryPage,
     @required this.numberOfSlides,
-    @required this.inFlight,
+    @required this.flightDirection,
     this.heroTag,
     Key key
   }) : super(key: key);
@@ -39,20 +40,7 @@ class SlidesStack extends StatelessWidget {
   final String heroTag;
   final bool canShowGalleryPage;
   final int numberOfSlides;
-  final bool inFlight;
-  /// --------------------------------------------------------------------------
-  bool _canShowSaveButton(){
-    bool _canShow = false;
-
-    if (
-    currentSlideIndex?.value != null &&
-    canLoopList(flyerModel?.slides) == true
-    ){
-      _canShow = true;
-    }
-
-    return _canShow;
-  }
+  final FlightDirection flightDirection;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -73,7 +61,7 @@ class SlidesStack extends StatelessWidget {
       heroTag: heroTag,
       canShowGalleryPage : canShowGalleryPage,
       numberOfSlides: numberOfSlides,
-      inFlight: inFlight,
+      flightDirection: flightDirection,
     );
   }
 }

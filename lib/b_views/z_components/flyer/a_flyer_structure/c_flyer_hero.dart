@@ -7,6 +7,12 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
 import 'package:flutter/material.dart';
 
+enum FlightDirection{
+  non,
+  push,
+  pop,
+}
+
 class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerHero({
@@ -40,7 +46,7 @@ class FlyerHero extends StatelessWidget {
     final double _factor = isFullScreen ?  1 : minWidthFactor;
     final double _flyerBoxWidth = FlyerBox.width(context, _factor);
 
-    blog('THE FUCKING BITCH ASS FLYER : ${flyerModel.id} SHOULD START AT : ${currentSlideIndex.value}');
+    // blog('THE FUCKING BITCH ASS FLYER : ${flyerModel.id} SHOULD START AT : ${currentSlideIndex.value}');
 
     return Hero(
       key: ValueKey<String>(_heroTag),//const ValueKey<String>('FlyerHero_Hero'),
@@ -73,7 +79,7 @@ class FlyerHero extends StatelessWidget {
         bzZone: bzZone,
         flyerZone: flyerZone,
         heroTag: _heroTag,
-        inFlight: false,
+        flightDirection: FlightDirection.non,
         currentSlideIndex: currentSlideIndex,
       ),
 

@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -302,22 +303,22 @@ Widget flyerFlightShuttle({
 }) {
 
   /*
-                   final Hero toHero = toHeroContext.widget;
-                   final double _flyerBoxWidth = FlyerBox.width(fromHeroContext, 1);
-                   final double _flyerZoneHeight = FlyerBox.height(fromHeroContext, _flyerBoxWidth);
-                   final double _headerHeight = FlyerBox.headerBoxHeight(
-                       bzPageIsOn: false,
-                       flyerBoxWidth: _flyerBoxWidth
-                   );
-                   final double _footerHeight = FlyerFooter.boxHeight(
-                       context: fromHeroContext,
-                       flyerBoxWidth: _flyerBoxWidth
-                   );
-                   final double _flyerSmallWidth = FlyerBox.width(fromHeroContext, 0.4);
-                   final double _flyerSmallHeight = FlyerBox.height(fromHeroContext, _flyerSmallWidth);
-                   final double _flyerBigWidth = Scale.superScreenWidth(fromHeroContext);
-                   final double _flyerBigHeight = FlyerBox.height(fromHeroContext, _flyerBigWidth);
-                */
+      final Hero toHero = toHeroContext.widget;
+      final double _flyerBoxWidth = FlyerBox.width(fromHeroContext, 1);
+      final double _flyerZoneHeight = FlyerBox.height(fromHeroContext, _flyerBoxWidth);
+      final double _headerHeight = FlyerBox.headerBoxHeight(
+          bzPageIsOn: false,
+          flyerBoxWidth: _flyerBoxWidth
+      );
+      final double _footerHeight = FlyerFooter.boxHeight(
+          context: fromHeroContext,
+          flyerBoxWidth: _flyerBoxWidth
+      );
+      final double _flyerSmallWidth = FlyerBox.width(fromHeroContext, 0.4);
+      final double _flyerSmallHeight = FlyerBox.height(fromHeroContext, _flyerSmallWidth);
+      final double _flyerBigWidth = Scale.superScreenWidth(fromHeroContext);
+      final double _flyerBigHeight = FlyerBox.height(fromHeroContext, _flyerBigWidth);
+   */
 
   /// 'push' if expanding --- 'pop' if contracting
   final String _curveName = flightDirection.name;
@@ -344,6 +345,8 @@ Widget flyerFlightShuttle({
 
         final double _flyerBoxWidth = FlyerBox.width(flightContext, _flyerWidthFactor);
 
+        final FlightDirection _flightDirection = getFlightDirection(flightDirection.name);
+
         return Scaffold(
           backgroundColor: Colorz.nothing,
           body: FlyerTree(
@@ -353,13 +356,23 @@ Widget flyerFlightShuttle({
             bzZone: null,
             flyerZone: null,
             loading: true,
-            inFlight: true,
+            flightDirection: _flightDirection,
             currentSlideIndex: currentSlideIndex,
           ),
         );
 
       }
       );
+}
+// -----------------------------------------------------------------------------
+FlightDirection getFlightDirection(String direction){
+
+  switch(direction){
+    case 'push': return FlightDirection.push; break;
+    case 'pop' : return FlightDirection.pop; break;
+    default: return FlightDirection.non;
+  }
+
 }
 // -----------------------------------------------------------------------------
 double flyerWidthSizeFactor({

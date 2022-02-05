@@ -12,6 +12,7 @@ class HorizontalBouncer extends StatefulWidget {
     @required this.controller,
     this.boxDistance,
     this.notificationListenerKey,
+    this.canNavigate = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -20,6 +21,7 @@ class HorizontalBouncer extends StatefulWidget {
   final Widget child;
   final Key notificationListenerKey;
   final PageController controller;
+  final bool canNavigate;
   /// --------------------------------------------------------------------------
   @override
   _HorizontalBouncerState createState() => _HorizontalBouncerState();
@@ -28,9 +30,15 @@ class HorizontalBouncer extends StatefulWidget {
 
 class _HorizontalBouncerState extends State<HorizontalBouncer> {
 // -----------------------------------------
-  final ValueNotifier<bool> _canNavigate = ValueNotifier(true);
+  ValueNotifier<bool> _canNavigate;
   int _numberOfTimesBack = 0;
 // -----------------------------------------
+  @override
+  void initState() {
+    _canNavigate = ValueNotifier(widget.canNavigate);
+    super.initState();
+  }
+
   @override
   void dispose() {
     _canNavigate.dispose();
