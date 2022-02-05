@@ -1,17 +1,15 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class GallerySlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -61,29 +59,9 @@ class _GallerySlideState extends State<GallerySlide> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
     _scrollController = ScrollController();
-
-    _scrollController.addListener(() async {
-
-      final double _maxScroll = _scrollController.position.maxScrollExtent;
-      final double _currentScroll = _scrollController.position.pixels;
-      // final double _screenHeight = Scale.superScreenHeight(context);
-      const double _paginationHeightLight = Ratioz.horizon * 3;
-
-      if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
-
-        // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
-
-        _canPaginate = false;
-
-        await _fetchMoreFlyers();
-
-        _canPaginate = true;
-
-      }
-
-    });
-
+    _scrollController.addListener(_addScrollListener);
 
     super.initState();
   }
@@ -112,6 +90,26 @@ class _GallerySlideState extends State<GallerySlide> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
+  Future<void> _addScrollListener() async {
+  final double _maxScroll = _scrollController.position.maxScrollExtent;
+  final double _currentScroll = _scrollController.position.pixels;
+  // final double _screenHeight = Scale.superScreenHeight(context);
+  const double _paginationHeightLight = Ratioz.horizon * 3;
+
+  if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
+
+    // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
+
+    _canPaginate = false;
+
+    await _fetchMoreFlyers();
+
+    _canPaginate = true;
+
+  }
+
+}
+// -----------------------------------------------------------------------------
 
   /// BZ FLYERS
 
@@ -122,15 +120,13 @@ class _GallerySlideState extends State<GallerySlide> {
 
     unawaited(_triggerLoading(setTo: true));
 
-    final List<String> _loadedFlyersIDs = FlyerModel.getFlyersIDsFromFlyers(_loadedFlyers.value);
-
-    final List<String> _nextFlyersIDs = _getNextFlyersIDs(
-        allFlyersIDs: widget.bzModel.flyersIDs,
-        loadedFlyersIDs: _loadedFlyersIDs,
+    final List<FlyerModel> _moreFlyers = await fetchMoreFlyers(
+      context: context,
+      flyerModel: widget.flyerModel,
+      bzModel: widget.bzModel,
+      loadedFlyers: _loadedFlyers.value,
+      heroTag: widget.heroTag,
     );
-
-
-    final List<FlyerModel> _moreFlyers = await _fetchFlyers(flyersIDs: _nextFlyersIDs);
 
     _addToBzFlyers(_moreFlyers);
 
@@ -141,76 +137,6 @@ class _GallerySlideState extends State<GallerySlide> {
     _loadedFlyers.value = <FlyerModel>[..._loadedFlyers.value, ...flyers];
   }
 // --------------------------------------------
-  Future<List<FlyerModel>> _fetchFlyers({@required List<String> flyersIDs}) async {
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final List<FlyerModel> _flyers = await _flyersProvider.fetchFlyersByIDs(context: context, flyersIDs: flyersIDs);
-    return _flyers;
-  }
-// --------------------------------------------
-  /// GETS ONLY THE NEXT UNLOADED NUMBER OF FLYERS IDS
-  List<String> _getNextFlyersIDs({
-    @required List<String> allFlyersIDs,
-    @required List<String> loadedFlyersIDs,
-    int numberOfFlyers = 4,
-  }){
-    final List<String> _nextFlyersIDs = <String>[];
-
-    /// 1 - check each id in all Ids
-    /// 2 - if id is already inserted in [loadedFlyersIDs], skip
-    /// 3 - if not
-    ///   A - if next flyers IDs reach max count [numberOfFlyers] => break
-    ///   B - if not : insert that id
-
-    for (int i = 0; i < allFlyersIDs.length; i++){
-
-      /// A - WHILE TARGET [numberOfFlyers] NOT YET REACHED
-      if (_nextFlyersIDs.length <= numberOfFlyers){
-
-        final String _flyerID = allFlyersIDs[i];
-
-        final bool _alreadyLoaded = Mapper.stringsContainString(
-          strings: loadedFlyersIDs,
-          string: _flyerID,
-        );
-
-        final List<String> _parentFlyersIDs = FlyerHero.splitHeroTagIntoFlyersIDs(heroTag: widget.heroTag);
-
-        final bool _alreadyAParentFlyer = Mapper.stringsContainString(
-            strings: _parentFlyersIDs,
-            string: _flyerID
-        );
-
-        final bool _flyerIsAlreadyActive = _flyerID == widget.flyerModel.id;
-
-        /// B - WHEN ID IS NOT YET LOADED NOR A PARENT
-        if (
-        _alreadyLoaded == false
-            &&
-            _flyerIsAlreadyActive == false
-            &&
-            _alreadyAParentFlyer == false
-        ){
-          /// do nothing and go next
-          _nextFlyersIDs.add(_flyerID);
-        }
-
-        /// B - WHEN ID IS ALREADY LOADED
-        // else {
-        /// do nothing
-        // }
-
-      }
-
-      /// A - WHEN TARGET [numberOfFlyers] IS REACHED
-      else {
-        break;
-      }
-
-    }
-
-    return _nextFlyersIDs;
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

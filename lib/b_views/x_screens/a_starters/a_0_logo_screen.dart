@@ -71,7 +71,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
 
     _scaleController.repeat(reverse: true, min: 0.97, max: 1);
 
-    traceWidgetBuild(widgetName: 'Logo screen', varName: '_isInit', varValue: _isInit);
+    // traceWidgetBuild(widgetName: 'Logo screen', varName: '_isInit', varValue: _isInit);
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
