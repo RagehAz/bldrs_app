@@ -30,9 +30,8 @@ class FlyerFullScreen extends StatelessWidget {
   final ValueNotifier<int> currentSlideIndex;
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
-    blog('DISMISSING FLYER');
-
     Nav.goBack(context);
+    // currentSlideIndex.value = 0;
   }
 // -----------------------------------------------------------------------------
   @override
