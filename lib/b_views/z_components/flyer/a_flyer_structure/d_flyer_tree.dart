@@ -191,22 +191,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
-  bool _canSlideToZeroOnFlight(){
-    bool _canSlide = false;
-
-    if (_horizontalSlidesController.hasClients == true){
-      if (widget.flightDirection == FlightDirection.pop){
-        if (_canShowGallery == true){
-          if (widget.currentSlideIndex.value == _numberOfSlides){
-            _canSlide = true;
-          }
-        }
-      }
-    }
-
-    return _canSlide;
-  }
-// -----------------------------------------------------------------------------
   /// FOLLOW IS ON
   final ValueNotifier<bool> _followIsOn = ValueNotifier(false);
   void _setFollowIsOn(bool setTo) => _followIsOn.value = setTo;
