@@ -58,8 +58,7 @@ Future<void> slideToNext(PageController slidingController, int numberOfSlides,
 }
 
 // -----------------------------------------------------------------------------
-Future<void> slideToBackFrom(PageController slidingController, int currentSlide,
-    {Curve curve}) async {
+Future<void> slideToBackFrom(PageController slidingController, int currentSlide, {Curve curve}) async {
   final Curve _curve = curve ?? Curves.easeInOutCirc;
 
   if (currentSlide == 0) {
