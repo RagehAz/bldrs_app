@@ -106,7 +106,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
           startFromIndex: widget.startFromIndex,
         );
 
-        blog('POSSIBLE STARTING INDEX IS for ${widget.flyerModel.id}: ${_startingIndex}');
+        // blog('POSSIBLE STARTING INDEX IS for ${widget.flyerModel.id}: $_startingIndex');
 
 // -----------------------------------------------------------------
 
