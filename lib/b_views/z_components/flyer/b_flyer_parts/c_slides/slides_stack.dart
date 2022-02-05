@@ -57,7 +57,6 @@ class SlidesStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return FlyerSlides(
       key: const ValueKey<String>('SlidesStack_FlyerSlides'),
       flyerModel: flyerModel,

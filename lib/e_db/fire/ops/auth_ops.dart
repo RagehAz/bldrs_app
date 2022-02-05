@@ -43,7 +43,7 @@ bool userIsSignedIn() {
     _userIsSignedIn = true;
   }
 
-  blog('_userIsSignedIn() = $_userIsSignedIn');
+  // blog('_userIsSignedIn() = $_userIsSignedIn');
 
   return _userIsSignedIn;
 }

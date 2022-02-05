@@ -48,7 +48,7 @@ class BzzButton extends StatelessWidget {
         Provider.of<BzzProvider>(context, listen: true);
     final List<BzModel> _userBzz = _bzzProvider.myBzz;
 
-    blog('the dude is : _userBzz : ${_userBzz.length} bzz');
+    // blog('the dude is : _userBzz : ${_userBzz.length} bzz');
 
     final double _circleWidth = circleWidth;
     final double _buttonCircleCorner = _circleWidth * 0.5;

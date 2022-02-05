@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
@@ -20,6 +19,7 @@ class FlyerStarter extends StatefulWidget {
     @required this.minWidthFactor,
     this.heroTag,
     this.isFullScreen = false,
+    this.startFromIndex = 0,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +27,7 @@ class FlyerStarter extends StatefulWidget {
   final double minWidthFactor;
   final bool isFullScreen;
   final String heroTag;
+  final int startFromIndex;
   /// --------------------------------------------------------------------------
   @override
   _FlyerStarterState createState() => _FlyerStarterState();
@@ -53,9 +54,14 @@ class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------------------
   FlyerModel _flyerModel;
 // -----------------------------------------------------------------------------
+  /// CURRENT SLIDE INDEX
+  ValueNotifier<int> _currentSlideIndex;
+
   @override
   void initState() {
+
     _flyerModel = widget.flyerModel;
+
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -92,21 +98,37 @@ class _FlyerStarterState extends State<FlyerStarter> {
           cityID: widget.flyerModel.zone.cityID,
         );
 // -----------------------------------------------------------------
+        /// STARTING INDEX
+        final int _startingIndex = getPossibleStartingIndex(
+          flyerModel: widget.flyerModel,
+          bzModel: _bzModel,
+          heroTag: widget.heroTag,
+          startFromIndex: widget.startFromIndex,
+        );
+
+        blog('POSSIBLE STARTING INDEX IS for ${widget.flyerModel.id}: ${_startingIndex}');
+
+// -----------------------------------------------------------------
+
 
         /// SETTERS
 
         _bzModelNotifier.value = _bzModel;
-        _bzZoneNotifier.value = _getZoneModel(
-            countryModel: _bzCountry,
-            cityModel: _bzCity,
-            districtID: _bzModel.zone.districtID,
+        _bzZoneNotifier.value = getZoneModel(
+          context: context,
+          countryModel: _bzCountry,
+          cityModel: _bzCity,
+          districtID: _bzModel.zone.districtID,
         );
 
-        _flyerZoneNotifier.value = _getZoneModel(
-            countryModel: _flyerCountry,
-            cityModel: _flyerCity,
-            districtID: widget.flyerModel.zone.districtID,
+        _flyerZoneNotifier.value = getZoneModel(
+          context: context,
+          countryModel: _flyerCountry,
+          cityModel: _flyerCity,
+          districtID: widget.flyerModel.zone.districtID,
         );
+
+        _currentSlideIndex = ValueNotifier(_startingIndex);
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
 
@@ -117,38 +139,10 @@ class _FlyerStarterState extends State<FlyerStarter> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  ZoneModel _getZoneModel({
-    @required CountryModel countryModel,
-    @required CityModel cityModel,
-    @required String districtID,
-}){
-
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(
-        context: context,
-        countryID: countryModel.id,
-    );
-
-    final String _cityName = CityModel.getTranslatedCityNameFromCity(
-      context: context,
-      city: cityModel,
-    );
-
-    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-      context: context,
-      city: cityModel,
-      districtID: districtID,
-    );
-
-
-    return ZoneModel(
-      countryID: countryModel.id,
-      cityID: cityModel.cityID,
-      districtID: districtID,
-      countryName: _countryName,
-      cityName: _cityName,
-      districtName: _districtName,
-    );
-
+  @override
+  void dispose() {
+    super.dispose();
+    _currentSlideIndex.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {
@@ -162,14 +156,16 @@ class _FlyerStarterState extends State<FlyerStarter> {
           bzZone: _bzZoneNotifier.value,
           flyerZone: _flyerZoneNotifier.value,
           heroTag: widget.heroTag,
+          currentSlideIndex: _currentSlideIndex,
         )
     );
+
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    blog('flyer ID is ${widget.flyerModel.id} : parentID is ${widget.heroTag?? 'non'}');
+    // blog('flyer ID is ${widget.flyerModel.id} : parentID is ${widget.heroTag?? 'non'}');
 
     final double _flyerBoxWidth = FlyerBox.width(context, widget.minWidthFactor);
 
@@ -214,6 +210,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
                                     minWidthFactor: widget.minWidthFactor,
                                     isFullScreen: widget.isFullScreen,
                                     heroTag: widget.heroTag,
+                                    currentSlideIndex: _currentSlideIndex,
                                   ),
                                 );
 

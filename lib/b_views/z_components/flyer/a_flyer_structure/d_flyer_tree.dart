@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
@@ -10,9 +9,11 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/pr
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/saving_notice.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class FlyerTree extends StatefulWidget {
     @required this.flyerZone,
     @required this.flyerBoxWidth,
     @required this.inFlight,
+    @required this.currentSlideIndex,
     this.onTap,
     this.loading = false,
     this.heroTag,
@@ -42,6 +44,7 @@ class FlyerTree extends StatefulWidget {
   final bool loading;
   final String heroTag;
   final bool inFlight;
+  final ValueNotifier<int> currentSlideIndex;
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
   /// --------------------------------------------------------------------------
@@ -73,39 +76,18 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     );
     // ------------------------------------------
     /// FOR SLIDES
-    _horizontalSlidesController = PageController(); // (initialPage: _initialPage);
+    _horizontalSlidesController = PageController(initialPage: widget.currentSlideIndex.value); // (initialPage: _initialPage);
     // ------------------------------------------
     /// FOLLOW IS ON
-    final _followIsOn = _checkFollowIsOn();
+    final _followIsOn = checkFollowIsOn(
+      context: context,
+      bzModel: widget.bzModel,
+    );
     _setFollowIsOn(_followIsOn);
     // ------------------------------------------
     /// FOR FOOTER & PRICE TAG
     _footerPageController = PageController();
-
-    final int _numberOfSlide = widget.flyerModel.slides.length - 1;
-    final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
-    _horizontalSlidesController.addListener(() {
-
-      final bool _reachedGallerySlide = _horizontalSlidesController.page > _numberOfSlide;
-      final bool _atBackBounce = _horizontalSlidesController.position.pixels < 0;
-
-      /// WHEN AT INITIAL SLIDE
-      if (_atBackBounce == true){
-        final double _correctedPixels = _horizontalSlidesController.position.pixels;
-        _footerPageController.position.correctPixels(_correctedPixels);
-        _footerPageController.position.notifyListeners();
-
-      }
-
-      /// WHEN AT LAST REAL SLIDE
-      if (_reachedGallerySlide == true){
-        final double _correctedPixels = _horizontalSlidesController.position.pixels - _totalRealSlidesWidth;
-        _footerPageController.position.correctPixels(_correctedPixels);
-        _footerPageController.position.notifyListeners();
-
-      }
-
-    });
+    _horizontalSlidesController.addListener(_listenToHorizontalController);
     // ------------------------------------------
     /// FOR SAVING GRAPHIC
     _animationController = AnimationController(
@@ -118,19 +100,20 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   }
 // -----------------------------------------------------------------------------
 //   bool _isInit = true;
-  @override
-  void didChangeDependencies() {
-    // if (_isInit) {
-    // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    // _uiProvider.startController(
-    //         () async {
-    //
-    //     }
-    // );
-    // }
-    // _isInit = false;
-    super.didChangeDependencies();
-  }
+//   @override
+//   void didChangeDependencies() {
+//     if (_isInit) {
+//     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+//     _uiProvider.startController(
+//             () async {
+//
+//
+//         }
+//     );
+//     }
+//     _isInit = false;
+//     super.didChangeDependencies();
+//   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
@@ -140,18 +123,36 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     _animationController.dispose();
   }
 // -----------------------------------------------------------------------------
+  void _listenToHorizontalController(){
+
+    final int _numberOfSlide = widget.flyerModel.slides.length - 1;
+    final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
+
+    final bool _reachedGallerySlide = _horizontalSlidesController.page > _numberOfSlide;
+    final bool _atBackBounce = _horizontalSlidesController.position.pixels < 0;
+
+    /// WHEN AT INITIAL SLIDE
+    if (_atBackBounce == true){
+      final double _correctedPixels = _horizontalSlidesController.position.pixels;
+      _footerPageController.position.correctPixels(_correctedPixels);
+      _footerPageController.position.notifyListeners();
+
+    }
+
+    /// WHEN AT LAST REAL SLIDE
+    if (_reachedGallerySlide == true){
+      final double _correctedPixels = _horizontalSlidesController.position.pixels - _totalRealSlidesWidth;
+      _footerPageController.position.correctPixels(_correctedPixels);
+      _footerPageController.position.notifyListeners();
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
   /// FOLLOW IS ON
   final ValueNotifier<bool> _followIsOn = ValueNotifier(false);
   void _setFollowIsOn(bool setTo) => _followIsOn.value = setTo;
-// --------------------------------
-  bool _checkFollowIsOn(){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final _followIsOn = _bzzProvider.checkFollow(context: context, bzID: widget.bzModel.id);
-    return _followIsOn;
-  }
 // -----------------------------------------------------------------------------
-  /// CURRENT SLIDE INDEX
-  final ValueNotifier<int> _currentSlideIndex = ValueNotifier(0);
   /// PROGRESS BAR OPACITY
   final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
   /// HEADER IS EXPANDED
@@ -159,7 +160,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   /// HEADER PAGE OPACITY
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
   /// SWIPE DIRECTION
-  final ValueNotifier<SwipeDirection> _swipeDirection = ValueNotifier(SwipeDirection.next);
+  final ValueNotifier<Sliders.SwipeDirection> _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next);
   /// PRICE TAG IS EXPANDED
   final ValueNotifier<bool> _priceTagIsExpanded = ValueNotifier(false);
 // -----------------------------------------------------------------------------
@@ -201,7 +202,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     onHorizontalSlideSwipe(
       context: context,
       newIndex: index,
-      currentSlideIndex: _currentSlideIndex,
+      currentSlideIndex: widget.currentSlideIndex,
       swipeDirection: _swipeDirection,
     );
   }
@@ -211,17 +212,17 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     final int _lastIndex = widget.flyerModel.slides.length;
 
     /// WHEN AT LAST INDEX
-    if (_currentSlideIndex.value == _lastIndex){
+    if (widget.currentSlideIndex.value == _lastIndex){
       goBack(context);
     }
 
     /// WHEN AT ANY OTHER INDEX
     else {
 
-      final int _newIndex = await slideToNextAndGetNewIndex(
+      final int _newIndex = await Sliders.slideToNextAndGetNewIndex(
         slidingController: _horizontalSlidesController,
         numberOfSlides: widget.flyerModel.slides.length + 1,
-        currentSlide: _currentSlideIndex.value,
+        currentSlide: widget.currentSlideIndex.value,
       );
 
       blog('_onSlideNextTap : _newIndex : $_newIndex');
@@ -232,72 +233,27 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   Future<void> _onSlideBackTap() async {
 
     /// WHEN AT FIRST INDEX
-    if (_currentSlideIndex.value == 0){
+    if (widget.currentSlideIndex.value == 0){
       goBack(context);
     }
 
     /// WHEN AT ANY OTHER SLIDE
     else {
-      final int _newIndex = await slideToBackAndGetNewIndex(_horizontalSlidesController, _currentSlideIndex.value);
+      final int _newIndex = await Sliders.slideToBackAndGetNewIndex(_horizontalSlidesController, widget.currentSlideIndex.value);
       blog('onSlideBackTap _newIndex : $_newIndex');
     }
 
   }
 // -----------------------------------------------------------------------------
-  bool _canShowGalleryPage(){
-    bool _canShowGallery = false;
-
-    /// only CAN SHOW : WHEN BZ FLYERS ARE MORE THAN THE SHOWN FLYER
-    final bool _bzHasMoreThanOneFlyer = widget.bzModel.flyersIDs.length > 1;
-
-    /// & only CAN SHOW : WHEN HERO TAG CONTAINS MORE THAN 1 FLYER ID
-    final List<String> _heroFlyersIDs = FlyerHero.splitHeroTagIntoFlyersIDs(heroTag: widget.heroTag);
-    final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.length > 1;
-
-    /// & only CAN SHOW : WHEN HERO TAG HAS LESS THAN 3 FLYERS IDS
-    final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 3;
-
-    /// so :-
-    if (_bzHasMoreThanOneFlyer == true){
-
-      if (_heroTagHasMoreThanOneFlyerID == true){
-
-        if (_heroTagHasLessThanThreeFlyersIDs == true){
-
-          _canShowGallery = true;
-
-        }
-
-      }
-
-    }
-
-    return _canShowGallery;
-  }
-// -----------------------------------------------------------------------------
-  int _getNumberOfSlides(){
-    int _numberOfSlides;
-
-    final bool _canShowGallery = _canShowGalleryPage();
-
-    if (_canShowGallery == true){
-      _numberOfSlides = widget.flyerModel.slides.length + 1;
-    }
-
-    else {
-      _numberOfSlides = widget.flyerModel.slides.length;
-    }
-
-    return _numberOfSlides;
-  }
-// -----------------------------------------------------------------------------
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier(false);
   Future<void> _onSaveFlyer() async {
 
-    // await Future.delayed(Ratioz.durationFading200, (){
-      _flyerIsSaved.value = !_flyerIsSaved.value;
-      await _triggerAnimation(_flyerIsSaved.value);
-    // });
+    // // await Future.delayed(Ratioz.durationFading200, (){
+    //   _flyerIsSaved.value = !_flyerIsSaved.value;
+    //   await _triggerAnimation(_flyerIsSaved.value);
+    // // });
+
+    await _slideToZeroIndex();
 
   }
 // -----------------------------------------------------------------------------
@@ -338,15 +294,31 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
-
+  Future<void> _slideToZeroIndex() async {
+    await Sliders.slideToBackFrom(_horizontalSlidesController, widget.currentSlideIndex.value);
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('${widget.flyerModel.slides[0].headline} : flight is : ${widget.inFlight}');
+
+    // if(widget.inFlight == true){
+    //   _slideToZeroIndex();
+    // }
 
     final double _flyerBoxHeight = FlyerBox.height(context, widget.flyerBoxWidth);
     final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
-    final bool _canShowGallery = _canShowGalleryPage();
-    final int _numberOfSlides = _getNumberOfSlides();
+    final bool _canShowGallery = canShowGalleryPage(
+      bzModel: widget.bzModel,
+      heroTag: widget.heroTag,
+    );
+    final int _numberOfSlides = getNumberOfSlides(
+      flyerModel: widget.flyerModel,
+      bzModel: widget.bzModel,
+      heroTag: widget.heroTag,
+    );
 
     return FlyerBox(
       key: const ValueKey<String>('FlyerTree_FlyerBox'),
@@ -354,7 +326,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       stackWidgets: <Widget>[
 
         /// SLIDES
-        if (_currentSlideIndex?.value != null)
+        if (widget.currentSlideIndex?.value != null)
           SlidesStack(
             key: const ValueKey<String>('FlyerTree_SlidesStack'),
             flyerModel: widget.flyerModel,
@@ -362,7 +334,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
             flyerBoxWidth: widget.flyerBoxWidth,
             flyerBoxHeight: _flyerBoxHeight,
             tinyMode: _tinyMode,
-            currentSlideIndex: _currentSlideIndex,
+            currentSlideIndex: widget.currentSlideIndex,
             horizontalController: _horizontalSlidesController,
             onSwipeSlide: _onSwipeSlide,
             onSlideNextTap: _onSlideNextTap,
@@ -394,7 +366,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         ),
 
         /// FOOTER
-        if (widget.inFlight != true)
+        // if (widget.inFlight != true)
         FlyerFooter(
           key: const ValueKey<String>('FlyerTree_FlyerFooter'),
           flyerBoxWidth: widget.flyerBoxWidth,
@@ -415,7 +387,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           progressBarOpacity: _progressBarOpacity,
           numberOfSlides: _numberOfSlides,
           swipeDirection: _swipeDirection,
-          currentSlideIndex: _currentSlideIndex,
+          currentSlideIndex: widget.currentSlideIndex,
           tinyMode: _tinyMode,
           loading: widget.loading,
         ),
