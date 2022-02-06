@@ -107,7 +107,7 @@ class InfoButton extends StatelessWidget {
 
 // --------------------------------
   static double _tinyHeight(){
-    double _height = 20;
+    const double _height = 20;
 
     return _height;
   }
@@ -140,7 +140,7 @@ class InfoButton extends StatelessWidget {
 
 // --------------------------------
   static double _tinyMarginValue(){
-    double _margin = 10;
+    const double _margin = 10;
 
     return _margin;
   }
@@ -185,7 +185,7 @@ class InfoButton extends StatelessWidget {
 
 // --------------------------------
   static Color _tinyColor(){
-    Color _color = Colorz.bloodTest;
+    const Color _color = Colorz.bloodTest;
 
     return _color;
   }
@@ -207,7 +207,7 @@ class InfoButton extends StatelessWidget {
 
 // --------------------------------
   static double _tinyCornerValue(){
-    double _corner = 5;
+    const double _corner = 5;
 
     return _corner;
   }
@@ -518,7 +518,7 @@ class InfoButton extends StatelessWidget {
                       opacity: buttonExpanded == true ? 1 : 0,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeOut,
-                      child: Container(
+                      child: SizedBox(
                         width: _width,
                         height: 250,
                         child: ListView(

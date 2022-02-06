@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -26,16 +25,17 @@ class DynamicLinksApi {
     @required FlyerModel flyerModel,
     @required int slideIndex,
   }) async {
+
     final DynamicLinkParameters _parameters = DynamicLinkParameters(
       uriPrefix: 'https://bldrs.page.link',
       link: Uri.parse(
           'https://bldrs.page.link/flyer/${flyerModel.id}/$slideIndex'),
-      androidParameters: AndroidParameters(
+      androidParameters: const AndroidParameters(
         packageName: 'com.bldrs.net',
         minimumVersion: 0,
         // fallbackUrl: null,
       ),
-      iosParameters: IosParameters(
+      iosParameters: const IOSParameters(
         bundleId: 'com.bldrs.net',
         minimumVersion: '0',
       ),
@@ -50,14 +50,14 @@ class DynamicLinksApi {
 
     /// if short link
     if (isShortURL) {
-      final ShortDynamicLink shortLink = await _parameters.buildShortLink();
+      final ShortDynamicLink shortLink = await dynamicLink.buildShortLink(_parameters);
       blog(shortLink.toString());
       _url = shortLink.shortUrl;
     }
 
     /// if long link
     else {
-      _url = await _parameters.buildUrl();
+      _url = await dynamicLink.buildLink(_parameters);
     }
 
     return _url.toString();
@@ -65,33 +65,33 @@ class DynamicLinksApi {
 
 // -----------------------------------------------------------------------------
   Future<void> initializeDynamicLinks(BuildContext context) async {
-    final PendingDynamicLinkData _data =
-        await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri _deepLink = _data?.link;
-
-    /// THIS WORKS WHEN APP IS DEAD
-    if (_deepLink != null) {
-      await goToFlyerScreenByDynamicLink(
-        context: context,
-        link: _deepLink.toString(),
-      );
-    }
-
-    /// THIS WORKS WHEN APP IN BACKGROUND
-    dynamicLink.onLink(onSuccess: (PendingDynamicLinkData data) async {
-      await goToFlyerScreenByDynamicLink(
-        context: context,
-        link: data.link.toString(),
-      );
-    }, onError: (OnLinkErrorException error) async {
-      blog(error.message);
-
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'ERROR',
-        body: 'THERE IS SOME ERROR : $error',
-      );
-    });
+    // final PendingDynamicLinkData _data =
+    //     await FirebaseDynamicLinks.instance.getInitialLink();
+    // final Uri _deepLink = _data?.link;
+    //
+    // /// THIS WORKS WHEN APP IS DEAD
+    // if (_deepLink != null) {
+    //   await goToFlyerScreenByDynamicLink(
+    //     context: context,
+    //     link: _deepLink.toString(),
+    //   );
+    // }
+    //
+    // /// THIS WORKS WHEN APP IN BACKGROUND
+    // dynamicLink.onLink.li(onSuccess: (PendingDynamicLinkData data) async {
+    //   await goToFlyerScreenByDynamicLink(
+    //     context: context,
+    //     link: data.link.toString(),
+    //   );
+    // }, onError: (OnLinkErrorException error) async {
+    //   blog(error.message);
+    //
+    //   await CenterDialog.showCenterDialog(
+    //     context: context,
+    //     title: 'ERROR',
+    //     body: 'THERE IS SOME ERROR : $error',
+    //   );
+    // });
   }
 
 // -----------------------------------------------------------------------------
@@ -150,12 +150,12 @@ class DynamicLinksApi {
     final DynamicLinkParameters _parameters = DynamicLinkParameters(
       uriPrefix: 'https://bldrs.page.link',
       link: Uri.parse('https://bldrs.page.link/flyer'),
-      androidParameters: AndroidParameters(
+      androidParameters: const AndroidParameters(
         packageName: 'com.bldrs.net',
         minimumVersion: 0,
         // fallbackUrl: null,
       ),
-      iosParameters: IosParameters(
+      iosParameters: const IOSParameters(
         bundleId: 'com.bldrs.net',
         minimumVersion: '0',
       ),
@@ -166,7 +166,7 @@ class DynamicLinksApi {
       ),
     );
 
-    final ShortDynamicLink _shortLink = await _parameters.buildShortLink();
+    final ShortDynamicLink _shortLink = await dynamicLink.buildShortLink(_parameters);
 
     final Uri _dynamicUrl = _shortLink.shortUrl;
 
