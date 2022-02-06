@@ -70,7 +70,7 @@ class SlideCounters extends StatelessWidget {
                           blurRadius: footerBTMargins * 0.7,
                           style: BlurStyle.outer),
                     ]),
-                child: Container(
+                child: DecoratedBox(
                   /// GRADIENT
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
