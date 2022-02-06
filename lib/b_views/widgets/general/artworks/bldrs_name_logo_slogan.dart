@@ -38,9 +38,7 @@ class LogoSlogan extends StatelessWidget {
           width: _logoWidth,
           height: _logoHeight,
           margin: EdgeInsets.all(_logoWidth * 0.025),
-          child: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
+          child: SizedBox.expand(
             child: WebsafeSvg.asset(Iconz.bldrsNameEn, fit: BoxFit.fitWidth),
           ),
         ),

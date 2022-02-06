@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/widgets/general/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
