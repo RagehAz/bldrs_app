@@ -31,7 +31,7 @@ class SpecPickerScreen extends StatefulWidget {
 
   /// --------------------------------------------------------------------------
   final SpecList specList;
-  final List<Spec> allSelectedSpecs;
+  final List<SpecModel> allSelectedSpecs;
 
   /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 50;
@@ -45,8 +45,8 @@ class SpecPickerScreen extends StatefulWidget {
 
 class _SpecPickerScreenState extends State<SpecPickerScreen> {
   // List<Spec> _selectedSpecs = [];
-  final ValueNotifier<List<Spec>> _selectedSpecs =
-      ValueNotifier<List<Spec>>(<Spec>[]);
+  final ValueNotifier<List<SpecModel>> _selectedSpecs =
+      ValueNotifier<List<SpecModel>>(<SpecModel>[]);
 
   // -----------------------------------------------------------------------------
   @override
@@ -63,20 +63,20 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     // spec.printSpec();
 
-    final Spec _spec = Spec.getSpecFromKW(
+    final SpecModel _spec = SpecModel.getSpecFromKW(
       specsListID: widget.specList.id,
       kw: kw,
     );
 
-    final bool _alreadySelected = Spec.specsContainThisSpec(specs: _selectedSpecs.value, spec: _spec);
-    final int _specIndex = _selectedSpecs.value.indexWhere((Spec sp) => sp.value == _spec.value);
+    final bool _alreadySelected = SpecModel.specsContainThisSpec(specs: _selectedSpecs.value, spec: _spec);
+    final int _specIndex = _selectedSpecs.value.indexWhere((SpecModel sp) => sp.value == _spec.value);
 
     // ----------------------------------------------------------
     /// A - ALREADY SELECTED SPEC
     if (_alreadySelected == true) {
       /// A1 - CAN PICK MANY
       if (widget.specList.canPickMany == true) {
-        final List<Spec> _specs = [..._selectedSpecs.value];
+        final List<SpecModel> _specs = [..._selectedSpecs.value];
         _specs.removeAt(_specIndex);
         _selectedSpecs.value = _specs;
 
@@ -85,7 +85,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
       /// A2 - CAN NOT PICK MANY
       else {
-        final List<Spec> _specs = [..._selectedSpecs.value];
+        final List<SpecModel> _specs = [..._selectedSpecs.value];
         _specs.removeAt(_specIndex);
         _selectedSpecs.value = _specs;
 
@@ -98,7 +98,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     else {
       /// B1 - WHEN CAN PICK MANY
       if (widget.specList.canPickMany == true) {
-        final List<Spec> _specs = [..._selectedSpecs.value, _spec];
+        final List<SpecModel> _specs = [..._selectedSpecs.value, _spec];
         _selectedSpecs.value = _specs;
 
         // _selectedSpecs.value .add(_spec);
@@ -108,11 +108,11 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       /// B2 - WHEN CAN NOT PICK MANY
       else {
         final int _specIndex = _selectedSpecs.value
-            .indexWhere((Spec spec) => spec.specsListID == widget.specList.id);
+            .indexWhere((SpecModel spec) => spec.specsListID == widget.specList.id);
 
         /// C1 - WHEN NO SPEC OF THIS KIND IS SELECTED
         if (_specIndex == -1) {
-          final List<Spec> _specs = [..._selectedSpecs.value, _spec];
+          final List<SpecModel> _specs = [..._selectedSpecs.value, _spec];
           _selectedSpecs.value = _specs;
 
           // _selectedSpecs.value.add(_spec);
@@ -121,7 +121,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
         /// C2 - WHEN A SPEC OF THIS KIND ALREADY EXISTS TO BE REPLACED
         else {
-          final List<Spec> _specs = [..._selectedSpecs.value];
+          final List<SpecModel> _specs = [..._selectedSpecs.value];
           _specs.removeAt(_specIndex);
           _specs.add(_spec);
           _selectedSpecs.value = _specs;
@@ -139,12 +139,12 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
 // -----------------------------------------------------------------------------
   void _onCurrencyChanged(CurrencyModel currency) {
-    final Spec _currencySpec =
-        Spec(specsListID: 'currency', value: currency.code);
+    final SpecModel _currencySpec =
+        SpecModel(specsListID: 'currency', value: currency.code);
 
-    final List<Spec> _updatedList = Spec.putSpecsInSpecs(
+    final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
-      inputSpecs: <Spec>[_currencySpec],
+      inputSpecs: <SpecModel>[_currencySpec],
       canPickMany: false,
     );
 
@@ -156,12 +156,12 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onPriceChanged(String price) {
     final double _priceDouble = Numeric.stringToDouble(price);
-    final Spec _priceSpec =
-        Spec(specsListID: widget.specList.id, value: _priceDouble);
+    final SpecModel _priceSpec =
+        SpecModel(specsListID: widget.specList.id, value: _priceDouble);
 
-    final List<Spec> _updatedList = Spec.putSpecsInSpecs(
+    final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
-      inputSpecs: <Spec>[_priceSpec],
+      inputSpecs: <SpecModel>[_priceSpec],
       canPickMany: widget.specList.canPickMany,
     );
 
@@ -171,12 +171,12 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onAddInteger(int integer) {
     blog('received integer : $integer');
-    final Spec _integerSpec =
-        Spec(specsListID: widget.specList.id, value: integer);
+    final SpecModel _integerSpec =
+        SpecModel(specsListID: widget.specList.id, value: integer);
 
-    final List<Spec> _updatedList = Spec.putSpecsInSpecs(
+    final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
-      inputSpecs: <Spec>[_integerSpec],
+      inputSpecs: <SpecModel>[_integerSpec],
       canPickMany: widget.specList.canPickMany,
     );
 
@@ -186,11 +186,11 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onAddDouble(double num) {
     blog('received double : $num');
-    final Spec _doubleSpec = Spec(specsListID: widget.specList.id, value: num);
+    final SpecModel _doubleSpec = SpecModel(specsListID: widget.specList.id, value: num);
 
-    final List<Spec> _updatedList = Spec.putSpecsInSpecs(
+    final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
-      inputSpecs: <Spec>[_doubleSpec],
+      inputSpecs: <SpecModel>[_doubleSpec],
       canPickMany: widget.specList.canPickMany,
     );
 
@@ -266,13 +266,13 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
           /// SPECS LIST SELECTOR
           if (widget.specList.specChain.sons.runtimeType != DataCreator)
-            ValueListenableBuilder<List<Spec>>(
+            ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
-                builder: (BuildContext ctx, List<Spec> value, Widget child) {
+                builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
                   return SpecSelectorBubble(
                     bubbleHeight: _listZoneHeight,
                     specList: widget.specList,
-                    selectedSpecs: Spec.getSpecsByListID(
+                    selectedSpecs: SpecModel.getSpecsByListID(
                         specs: value, specsListID: widget.specList.id),
                     onSpecTap: (KW kw) => _onSpecTap(context, kw),
                   );
@@ -280,10 +280,10 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
           /// PRICE SPECS CREATOR
           if (widget.specList.specChain.sons == DataCreator.price)
-            ValueListenableBuilder<List<Spec>>(
+            ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
-                builder: (BuildContext ctx, List<Spec> value, Widget child) {
-                  final List<Spec> _priceSpec = Spec.getSpecsByListID(
+                builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
+                  final List<SpecModel> _priceSpec = SpecModel.getSpecsByListID(
                       specs: value, specsListID: widget.specList.id);
 
                   final double _initialPriceValue =
@@ -302,9 +302,9 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
           /// INTEGER INCREMENTER SPECS CREATOR
           if (widget.specList.specChain.sons == DataCreator.integerIncrementer)
-            ValueListenableBuilder<List<Spec>>(
+            ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
-                builder: (BuildContext ctx, List<Spec> value, Widget child) {
+                builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
                   return IntegerDataCreator(
                     onIntegerChanged: (int integer) => _onAddInteger(integer),
                     initialValue: null,
@@ -315,9 +315,9 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
           /// DOUBLE DATA CREATOR
           if (widget.specList.specChain.sons == DataCreator.doubleCreator)
-            ValueListenableBuilder<List<Spec>>(
+            ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
-                builder: (BuildContext ctx, List<Spec> value, Widget child) {
+                builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
                   return DoubleDataCreator(
                     onDoubleChanged: (double num) => _onAddDouble(num),
                     initialValue: null,

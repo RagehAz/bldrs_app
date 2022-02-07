@@ -22,7 +22,7 @@ class SpecSelectorBubble extends StatelessWidget {
 
   /// --------------------------------------------------------------------------
   final SpecList specList;
-  final List<Spec> selectedSpecs;
+  final List<SpecModel> selectedSpecs;
   final ValueChanged<KW> onSpecTap;
   final double bubbleHeight;
 

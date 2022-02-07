@@ -131,7 +131,7 @@ class SuperFlyer {
 
   /// flyer tags
   String flyerInfo; // MutableFlyer -- ?
-  List<Spec> specs; // MutableFlyer -- ?
+  List<SpecModel> specs; // MutableFlyer -- ?
   List<KW> keywords; // MutableFlyer -- ?
 
   /// flyer location
@@ -587,7 +587,7 @@ class SuperFlyer {
 
       /// flyer tags
       flyerInfo: null,
-      specs: <Spec>[],
+      specs: <SpecModel>[],
       keywords: <KW>[],
 
       /// flyer location
