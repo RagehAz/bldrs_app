@@ -23,7 +23,6 @@ class SpecsBubble extends StatelessWidget {
     this.passKeywordOnTap = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final List<SpecModel> specs;

@@ -1,10 +1,14 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 class KW {
   /// --------------------------------------------------------------------------
@@ -288,25 +292,40 @@ class KW {
     return _keywords;
   }
 // -----------------------------------------------------------------------------
-  static List<KW> dummyKeywords({int length = 4}){
+  static List<KW> dummyKeywords({@required BuildContext context, int length = 4}){
 
     final List<KW> _dummies = <KW>[];
 
-    for (int i = 0; i <= length; i++){
+    // for (int i = 0; i <= length; i++){
+    //
+    //   _dummies.add(
+    //     KW(
+    //       id: 'dummy_keywordID_$i',
+    //       names: <Name>[
+    //         Name(code: 'en', value: 'dummy_keyword_$i'),
+    //         Name(code: 'ar', value: '_${i}_المفتاح_السحري')
+    //       ],
+    //     )
+    //   );
+    //
+    // }
 
-      _dummies.add(
-        KW(
-          id: 'dummy_keywordID_$i',
-          names: <Name>[
-            Name(code: 'en', value: 'dummy_keyword_$i'),
-            Name(code: 'ar', value: '_${i}_المفتاح_السحري')
-          ],
-        )
-      );
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+    final List<KW> _allKeywords = _keywordsProvider.allKeywords;
+
+    final List<int> _randomIndexes = Numeric.getRandomIndexes(
+        numberOfIndexes: length,
+        maxIndex: _allKeywords.length,
+    );
+
+    for (int i = 0; i < _randomIndexes.length; i++){
+
+      final int _randomIndex = _randomIndexes[i];
+      _dummies.add(_allKeywords[_randomIndex]);
 
     }
 
-     return _dummies;
+    return _dummies;
   }
 // -----------------------------------------------------------------------------
 }
