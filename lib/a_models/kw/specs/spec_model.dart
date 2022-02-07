@@ -356,10 +356,14 @@ class SpecModel {
 // -----------------------------------------------------------------------------
   static List<SpecModel> dummySpecs() {
     return <SpecModel>[
-      const SpecModel(specsListID: 'designType', value: 'designType_interior'),
-      const SpecModel(specsListID: 'designSpaces', value: 'space_kitchenette'),
-      const SpecModel(specsListID: 'designSpaces', value: 'space_living'),
-      const SpecModel(specsListID: 'propertyForm', value: 'pf_fullFloor'),
+      const SpecModel(specsListID: 'propertyLicense', value: 'ppt_lic_residential'),
+      const SpecModel(specsListID: 'propertyView', value: 'view_lake'),
+      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_builtinWardrobe'),
+      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_energyEfficient'),
+      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_elevator'),
+      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_intercom'),
+
+      const SpecModel(specsListID: 'propertyForm', value: 'pf_halfFloor'),
     ];
   }
 // -----------------------------------------------------------------------------

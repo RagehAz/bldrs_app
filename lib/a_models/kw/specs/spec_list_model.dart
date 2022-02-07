@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/kw/specs/spec_model.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 
 class SpecList {
@@ -159,6 +160,55 @@ class SpecList {
     <SpecList>[];
 
     return _specList;
+  }
+// -----------------------------------------------------------------------------
+  static bool specsListsContainSpecList({
+    @required SpecList specList,
+    @required List<SpecList> specsLists,
+  }){
+    bool _contains = false;
+
+    if (Mapper.canLoopList(specsLists) == true && specList != null){
+
+      for (int i = 0; i < specsLists.length; i++){
+
+        if (specsLists[i].id == specList.id){
+          _contains = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _contains;
+  }
+// -----------------------------------------------------------------------------
+  void blogSpecList(){
+    blog('SPEC-LIST-PRINT --------------------------------------------------START');
+
+    blog('id : $id');
+    blog('names : $names');
+    blog('range : $range');
+    blog('specChain : $specChain');
+    blog('canPickMany : $canPickMany');
+    blog('isRequired : $isRequired');
+    blog('groupID : $groupID');
+    blog('deactivators : $deactivators');
+
+    blog('SPEC-LIST-PRINT --------------------------------------------------END');
+  }
+// -----------------------------------------------------------------------------
+  static void blogSpecsLists(List<SpecList> specsLists){
+
+    if (Mapper.canLoopList(specsLists)){
+      for (final SpecList _list in specsLists){
+
+        _list.blogSpecList();
+
+      }
+    }
+
   }
 // -----------------------------------------------------------------------------
   static List<SpecList> propertySpecLists = <SpecList>[
