@@ -62,7 +62,7 @@ class FlyerModel with ChangeNotifier{
   final List<SlideModel> slides; // TASK : only 10 max slides per flyer
   // -------------------------
   final bool isBanned;
-  final List<Spec> specs;
+  final List<SpecModel> specs;
   final String info;
   final List<PublishTime> times;
   final bool priceTagIsOn;
@@ -88,7 +88,7 @@ class FlyerModel with ChangeNotifier{
       'slides' : SlideModel.cipherSlides(slides),
       // -------------------------
       'isBanned' : isBanned,
-      'specs' : Spec.cipherSpecs(specs),
+      'specs' : SpecModel.cipherSpecs(specs),
       'info' : info,
       'priceTagIsOn' : priceTagIsOn,
       'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
@@ -117,7 +117,7 @@ class FlyerModel with ChangeNotifier{
         slides: SlideModel.decipherSlides(map['slides']),
         // -------------------------
         isBanned: map['isBanned'],
-        specs: Spec.decipherSpecs(map['specs']),
+        specs: SpecModel.decipherSpecs(map['specs']),
         info: map['info'],
         priceTagIsOn: map['priceTagIsOn'],
         times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
@@ -179,7 +179,7 @@ class FlyerModel with ChangeNotifier{
       position: position,
       slides: SlideModel.cloneSlides(slides),
       isBanned: isBanned,
-      specs: Spec.cloneSpecs(specs),
+      specs: SpecModel.cloneSpecs(specs),
       info: info,
       priceTagIsOn: priceTagIsOn,
       times: PublishTime.cloneTimes(times),
@@ -500,7 +500,7 @@ class FlyerModel with ChangeNotifier{
         SlideModel.dummySlide(),
       ],
       isBanned : false,
-      specs : <Spec>[],
+      specs : <SpecModel>[],
       info : 'Nothing just dummmy',
       times : <PublishTime>[
         PublishTime(state: FlyerState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),

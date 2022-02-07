@@ -134,9 +134,9 @@ enum SpecType {
 }
 
 /// specs are used only to describe and filter flyers or keywords
-class Spec {
+class SpecModel {
   /// --------------------------------------------------------------------------
-  const Spec({
+  const SpecModel({
     @required this.specsListID,
     @required this.value,
   });
@@ -144,8 +144,8 @@ class Spec {
   /// --------------------------------------------------------------------------
   /// specID is the specList's id value, and the key of firebase map
   final String specsListID;
-  final dynamic
-      value; // string, int, double, List<String>, List<double>, list<dynamic>
+  /// string, int, double, List<String>, List<double>, list<dynamic>
+  final dynamic value;
   Map<String, dynamic> toMap() {
     /// shall be saved like this inside flyerModel
     /// specs : {
@@ -170,13 +170,12 @@ class Spec {
       specsListID: value,
     };
   }
-
   /// --------------------------------------------------------------------------
-  static Map<String, dynamic> cipherSpecs(List<Spec> specs) {
+  static Map<String, dynamic> cipherSpecs(List<SpecModel> specs) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
     if (Mapper.canLoopList(specs)) {
-      for (final Spec spec in specs) {
+      for (final SpecModel spec in specs) {
         _map = Mapper.insertPairInMap(
           map: _map,
           key: spec.specsListID,
@@ -187,28 +186,25 @@ class Spec {
 
     return _map;
   }
-
 // -----------------------------------------------------------------------------
-  Spec clone() {
-    return Spec(
+  SpecModel clone() {
+    return SpecModel(
       specsListID: specsListID,
       value: value,
     );
   }
-
 // -----------------------------------------------------------------------------
-  static List<Spec> cloneSpecs(List<Spec> specs) {
-    final List<Spec> _specs = <Spec>[];
+  static List<SpecModel> cloneSpecs(List<SpecModel> specs) {
+    final List<SpecModel> _specs = <SpecModel>[];
 
     if (specs != null) {
-      for (final Spec spec in specs) {
+      for (final SpecModel spec in specs) {
         _specs.add(spec.clone());
       }
     }
 
     return _specs;
   }
-
 // -----------------------------------------------------------------------------
 //   static String cipherSpecType(SpecType specType){
 //     switch (specType) {
@@ -289,15 +285,14 @@ class Spec {
 //     return _output;
 //   }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-  static List<Spec> decipherSpecs(Map<String, dynamic> map) {
-    final List<Spec> _specs = <Spec>[];
+  static List<SpecModel> decipherSpecs(Map<String, dynamic> map) {
+    final List<SpecModel> _specs = <SpecModel>[];
 
     final List<String> _keys = map.keys.toList();
 
     if (Mapper.canLoopList(_keys)) {
       for (final String key in _keys) {
-        final Spec _spec = Spec(
+        final SpecModel _spec = SpecModel(
           specsListID: key,
           value: map[key],
         );
@@ -308,7 +303,6 @@ class Spec {
 
     return _specs;
   }
-
 // -----------------------------------------------------------------------------
 //   static String cipherSpecValue(Spec spec){
 //     final String _dataType = getDataTypeOfSpecType(specType: spec.specType);
@@ -335,7 +329,7 @@ class Spec {
 //
 //   }
 // -----------------------------------------------------------------------------
-  static bool specsAreTheSame(Spec specA, Spec specB) {
+  static bool specsAreTheSame(SpecModel specA, SpecModel specB) {
     bool _areTheSame = false;
 
     if (specA != null && specB != null) {
@@ -348,9 +342,8 @@ class Spec {
 
     return _areTheSame;
   }
-
 // -----------------------------------------------------------------------------
-  static bool specsListsAreTheSame(List<Spec> specsA, List<Spec> specsB) {
+  static bool specsListsAreTheSame(List<SpecModel> specsA, List<SpecModel> specsB) {
     final Map<String, dynamic> specsAMap = cipherSpecs(specsA);
     final Map<String, dynamic> specsBMap = cipherSpecs(specsB);
 
@@ -360,39 +353,38 @@ class Spec {
 
     return _listsAreTheSame;
   }
-
 // -----------------------------------------------------------------------------
-  static List<Spec> dummySpecs() {
-    return <Spec>[
-      const Spec(specsListID: 'style', value: 'arch_style_arabian'),
-      const Spec(specsListID: 'numberOfInstallments', value: 12),
-      const Spec(specsListID: 'propertyForm', value: 'pf_fullFloor'),
+  static List<SpecModel> dummySpecs() {
+    return <SpecModel>[
+      const SpecModel(specsListID: 'designType', value: 'designType_interior'),
+      const SpecModel(specsListID: 'designSpaces', value: 'space_kitchenette'),
+      const SpecModel(specsListID: 'designSpaces', value: 'space_living'),
+      const SpecModel(specsListID: 'propertyForm', value: 'pf_fullFloor'),
     ];
   }
-
 // -----------------------------------------------------------------------------
   void printSpec() {
     blog('spec is : $specsListID : ${value.toString()}');
   }
-
 // -----------------------------------------------------------------------------
-  static void printSpecs(List<Spec> specs) {
+  static void printSpecs(List<SpecModel> specs) {
     blog(
         'SPECS-PRINT -------------------------------------------------- START');
-    for (final Spec spec in specs) {
+    for (final SpecModel spec in specs) {
       blog('${spec.specsListID} : ${spec.value}');
     }
     blog('SPECS-PRINT -------------------------------------------------- END');
   }
-
 // -----------------------------------------------------------------------------
-  static bool specsContainThisSpec(
-      {@required List<Spec> specs, @required Spec spec}) {
+  static bool specsContainThisSpec({
+    @required List<SpecModel> specs,
+    @required SpecModel spec,
+  }) {
     bool _contains = false;
 
     if (Mapper.canLoopList(specs) && spec != null) {
-      final Spec _result = specs.firstWhere(
-          (Spec sp) => Spec.specsAreTheSame(sp, spec) == true,
+      final SpecModel _result = specs.firstWhere(
+          (SpecModel sp) => SpecModel.specsAreTheSame(sp, spec) == true,
           orElse: () => null);
 
       if (_result == null) {
@@ -404,15 +396,16 @@ class Spec {
 
     return _contains;
   }
-
 // -----------------------------------------------------------------------------
-  static bool specsContainThisSpecValue(
-      {@required List<Spec> specs, @required dynamic value}) {
+  static bool specsContainThisSpecValue({
+    @required List<SpecModel> specs,
+    @required dynamic value,
+  }) {
     bool _contains = false;
 
     if (Mapper.canLoopList(specs) && value != null) {
-      final List<Spec> _specs =
-          specs.where((Spec spec) => spec.value == value).toList();
+      final List<SpecModel> _specs =
+          specs.where((SpecModel spec) => spec.value == value).toList();
 
       if (_specs.isNotEmpty) {
         _contains = true;
@@ -421,10 +414,12 @@ class Spec {
 
     return _contains;
   }
-
 // -----------------------------------------------------------------------------
-  static Spec getSpecFromKW({@required KW kw, @required String specsListID}) {
-    final Spec _spec = Spec(
+  static SpecModel getSpecFromKW({
+    @required KW kw,
+    @required String specsListID,
+  }) {
+    final SpecModel _spec = SpecModel(
       value: kw.id,
       specsListID: specsListID,
     );
@@ -433,31 +428,33 @@ class Spec {
 
     return _spec;
   }
-
 // -----------------------------------------------------------------------------
-  static List<Spec> getSpecsByListID(
-      {@required List<Spec> specs, @required String specsListID}) {
-    List<Spec> _result = <Spec>[];
+  static List<SpecModel> getSpecsByListID({
+    @required List<SpecModel> specs,
+    @required String specsListID,
+  }) {
+    List<SpecModel> _result = <SpecModel>[];
 
     if (Mapper.canLoopList(specs) == true && specsListID != null) {
       _result = specs
           .where(
-            (Spec spec) => spec.specsListID == specsListID,
+            (SpecModel spec) => spec.specsListID == specsListID,
           )
           .toList();
     }
 
     return _result;
   }
-
 // -----------------------------------------------------------------------------
-  static bool specsContainOfSameListID(
-      {@required List<Spec> specs, @required String specsListID}) {
+  static bool specsContainOfSameListID({
+    @required List<SpecModel> specs,
+    @required String specsListID,
+  }) {
     bool _contains = false;
 
     if (Mapper.canLoopList(specs) && specsListID != null) {
-      final Spec _result = specs.firstWhere(
-          (Spec sp) => sp.specsListID == specsListID,
+      final SpecModel _result = specs.firstWhere(
+          (SpecModel sp) => sp.specsListID == specsListID,
           orElse: () => null);
 
       if (_result == null) {
@@ -469,17 +466,17 @@ class Spec {
 
     return _contains;
   }
-
 // -----------------------------------------------------------------------------
   /// This considers if the specList can or can't pick many spec of same list, then adds if absent and updates or ignores if exists accordingly
-  static List<Spec> putSpecsInSpecs(
-      {@required List<Spec> parentSpecs,
-      @required List<Spec> inputSpecs,
-      @required bool canPickMany}) {
-    final List<Spec> _specs = parentSpecs;
+  static List<SpecModel> putSpecsInSpecs({
+    @required List<SpecModel> parentSpecs,
+    @required List<SpecModel> inputSpecs,
+    @required bool canPickMany,
+  }) {
+    final List<SpecModel> _specs = parentSpecs;
 
     if (Mapper.canLoopList(inputSpecs)) {
-      for (final Spec inputSpec in inputSpecs) {
+      for (final SpecModel inputSpec in inputSpecs) {
         /// A - CAN PICK MANY "of this list ID"
         if (canPickMany == true) {
           final bool _alreadyThere =
@@ -503,7 +500,7 @@ class Spec {
           /// B1 - LIST ID IS ALREADY THERE in [_specs] => REPLACE
           if (_specsContainOfSameListID == true) {
             final int _specOfSameListIDIndex = _specs.indexWhere(
-                (Spec sp) => sp.specsListID == inputSpec.specsListID);
+                (SpecModel sp) => sp.specsListID == inputSpec.specsListID);
             _specs[_specOfSameListIDIndex] = inputSpec;
           }
 
@@ -525,14 +522,14 @@ class Spec {
       }
     }
 
-    return Spec.cleanSpecs(_specs);
+    return SpecModel.cleanSpecs(_specs);
   }
-
 // -----------------------------------------------------------------------------
-  static String getSpecNameFromSpecsLists(
-      {@required BuildContext context,
-      @required Spec spec,
-      @required List<SpecList> specsLists}) {
+  static String getSpecNameFromSpecsLists({
+    @required BuildContext context,
+    @required SpecModel spec,
+    @required List<SpecList> specsLists,
+  }) {
     final String _specsListID = spec.specsListID;
     String _name = spec.value.toString();
 
@@ -560,13 +557,12 @@ class Spec {
 
     return _name;
   }
-
 // -----------------------------------------------------------------------------
-  static List<Spec> cleanSpecs(List<Spec> specs) {
-    final List<Spec> _output = <Spec>[];
+  static List<SpecModel> cleanSpecs(List<SpecModel> specs) {
+    final List<SpecModel> _output = <SpecModel>[];
 
     if (Mapper.canLoopList(specs)) {
-      for (final Spec spec in specs) {
+      for (final SpecModel spec in specs) {
         if (spec != null &&
             spec.value != null &&
             spec.value != 0 &&
@@ -580,14 +576,14 @@ class Spec {
 
     return _output;
   }
-
 // -----------------------------------------------------------------------------
-  static bool specsContainsNewSale(List<Spec> specs) {
-    const Spec _newSaleSpec =
-        Spec(specsListID: 'propertyContractType', value: RawSpecs.newSaleID);
+  static bool specsContainsNewSale(List<SpecModel> specs) {
+    const SpecModel _newSaleSpec =
+        SpecModel(specsListID: 'propertyContractType', value: RawSpecs.newSaleID);
     final bool _containsNewSale =
-        Spec.specsContainThisSpec(specs: specs, spec: _newSaleSpec);
+        SpecModel.specsContainThisSpec(specs: specs, spec: _newSaleSpec);
     return _containsNewSale;
   }
+// -----------------------------------------------------------------------------
 }
 /// ============================================================================

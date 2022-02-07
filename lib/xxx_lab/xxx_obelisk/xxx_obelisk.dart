@@ -148,7 +148,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
               Iconz.flyer,
               SpecsListsPickersScreen(
                 flyerType: FlyerTypeClass.FlyerType.design,
-                selectedSpecs: <Spec>[],
+                selectedSpecs: <SpecModel>[],
               )),
 
           const ObeliskButton(
