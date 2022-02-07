@@ -425,43 +425,43 @@ void main() {
   });
 // -----------------------------------------------------------------------------
   test('Specs are the same', () async {
-    const List<Spec> specsA = <Spec>[
-      Spec(specsListID: 'x', value: 'x'),
-      Spec(specsListID: 'y', value: 'y'),
-      Spec(specsListID: 'z', value: 'z'),
+    const List<SpecModel> specsA = <SpecModel>[
+      SpecModel(specsListID: 'x', value: 'x'),
+      SpecModel(specsListID: 'y', value: 'y'),
+      SpecModel(specsListID: 'z', value: 'z'),
     ];
 
-    const List<Spec> specsB = <Spec>[
-      Spec(specsListID: 'x', value: 'x'),
-      Spec(specsListID: 'y', value: 'y'),
-      Spec(specsListID: 'z', value: 'z'),
+    const List<SpecModel> specsB = <SpecModel>[
+      SpecModel(specsListID: 'x', value: 'x'),
+      SpecModel(specsListID: 'y', value: 'y'),
+      SpecModel(specsListID: 'z', value: 'z'),
     ];
 
-    final bool _areTheSame = Spec.specsListsAreTheSame(specsA, specsB);
+    final bool _areTheSame = SpecModel.specsListsAreTheSame(specsA, specsB);
 
     expect(_areTheSame, true);
   });
 // -----------------------------------------------------------------------------
   test('Specs are the same', () async {
-    const List<Spec> specsA = <Spec>[
-      Spec(specsListID: 'x', value: 'x'),
-      Spec(specsListID: 'y', value: 'y'),
-      Spec(specsListID: 'z', value: 'z'),
+    const List<SpecModel> specsA = <SpecModel>[
+      SpecModel(specsListID: 'x', value: 'x'),
+      SpecModel(specsListID: 'y', value: 'y'),
+      SpecModel(specsListID: 'z', value: 'z'),
     ];
 
-    const Spec _aSpec = Spec(specsListID: 'z', value: 'v');
+    const SpecModel _aSpec = SpecModel(specsListID: 'z', value: 'v');
 
     final bool _contains =
-        Spec.specsContainThisSpec(specs: specsA, spec: _aSpec);
+        SpecModel.specsContainThisSpec(specs: specsA, spec: _aSpec);
 
     expect(_contains, false);
   });
 // -----------------------------------------------------------------------------
   test('Object is list of specs', () async {
-    const List<Spec> specsA = <Spec>[
-      Spec(specsListID: 'x', value: 'x'),
-      Spec(specsListID: 'y', value: 'y'),
-      Spec(specsListID: 'z', value: 'z'),
+    const List<SpecModel> specsA = <SpecModel>[
+      SpecModel(specsListID: 'x', value: 'x'),
+      SpecModel(specsListID: 'y', value: 'y'),
+      SpecModel(specsListID: 'z', value: 'z'),
     ];
 
     final List<String> things = <String>['d', 'r'];

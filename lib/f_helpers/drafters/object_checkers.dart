@@ -197,7 +197,7 @@ bool objectIsListOfSpecs(dynamic object) {
 
   if (object != null) {
     if (object.length > 0) {
-      if (object[0].runtimeType == Spec) {
+      if (object[0].runtimeType == SpecModel) {
         _objectsListIsSpecs = true;
       }
     }
