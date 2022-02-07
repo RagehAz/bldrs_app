@@ -25,6 +25,7 @@ class KeywordBarButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     const double _corners = Ratioz.boxCorner12;
 
     return GestureDetector(
@@ -33,6 +34,7 @@ class KeywordBarButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+
           IntrinsicWidth(
             child: Container(
               height: 40,
@@ -43,14 +45,17 @@ class KeywordBarButton extends StatelessWidget {
                 color: color,
                 borderRadius: BorderRadius.circular(_corners),
               ),
+
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+
                   if (xIsOn)
                     const SizedBox(
                       width: 10,
                     ),
+
                   if (xIsOn)
                     DreamBox(
                       height: 15,
@@ -62,23 +67,25 @@ class KeywordBarButton extends StatelessWidget {
                       onTap: onTap,
                       splashColor: Colorz.nothing,
                     ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        /// 'Group' TITLE
-                        // if (title != null)
-                        SuperVerse(
-                          // '${Keyword.getSubGroupNameByKeywordID(context, secondKeyword?.keywordID)}'
-                          // '${Keyword.getTranslatedKeywordTitleBySequence(context, sequence)}',
-                          verse: KW.translateKeyword(context, keyword),
-                          size: 1,
-                          italic: true,
-                          weight: VerseWeight.thin,
-                          centered: false,
-                        ),
+
+                        // /// 'Group' TITLE
+                        // // if (title != null)
+                        // SuperVerse(
+                        //   // '${Keyword.getSubGroupNameByKeywordID(context, secondKeyword?.keywordID)}'
+                        //   // '${Keyword.getTranslatedKeywordTitleBySequence(context, sequence)}',
+                        //   verse: KW.translateKeyword(context, keyword),
+                        //   size: 1,
+                        //   italic: true,
+                        //   weight: VerseWeight.thin,
+                        //   centered: false,
+                        // ),
 
                         /// CURRENT SECTION NAME
                         Row(
@@ -86,19 +93,23 @@ class KeywordBarButton extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             SuperVerse(
-                              verse: KW.translateKeyword(context, keyword),
-                              size: 1,
+                              verse: KW.translateKeyword(context, keyword).toUpperCase(),
+                              size: 2,
                               centered: false,
+                              italic: true,
                             ),
                           ],
                         ),
+
                       ],
                     ),
                   ),
+
                 ],
               ),
             ),
           ),
+
         ],
       ),
     );
