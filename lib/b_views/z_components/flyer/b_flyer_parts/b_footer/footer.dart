@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_b
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
