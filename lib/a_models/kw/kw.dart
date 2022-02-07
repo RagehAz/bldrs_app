@@ -7,7 +7,6 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 class KW {

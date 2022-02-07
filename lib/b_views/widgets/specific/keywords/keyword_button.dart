@@ -11,7 +11,7 @@ class KeywordBarButton extends StatelessWidget {
   const KeywordBarButton({
     @required this.keyword,
     @required this.xIsOn,
-    @required this.onTap,
+    this.onTap,
     this.color = Colorz.blue80,
     Key key,
   }) : super(key: key);
@@ -94,7 +94,6 @@ class KeywordBarButton extends StatelessWidget {
                           children: <Widget>[
                             SuperVerse(
                               verse: KW.translateKeyword(context, keyword).toUpperCase(),
-                              size: 2,
                               centered: false,
                               italic: true,
                             ),
