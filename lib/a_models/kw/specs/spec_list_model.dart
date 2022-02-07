@@ -41,9 +41,10 @@ class SpecList {
   final Chain specChain;
 
   /// --------------------------------------------------------------------------
-  static List<SpecList> generateRefinedSpecsLists(
-      {@required List<SpecList> sourceSpecsLists,
-      @required List<Spec> selectedSpecs}) {
+  static List<SpecList> generateRefinedSpecsLists({
+    @required List<SpecList> sourceSpecsLists,
+  @required List<SpecModel> selectedSpecs,
+  }) {
     final List<SpecList> _lists = <SpecList>[];
 
     if (Mapper.canLoopList(sourceSpecsLists)) {
@@ -55,7 +56,7 @@ class SpecList {
 
         if (Mapper.canLoopList(_deactivators)) {
           for (final SpecDeactivator deactivator in _deactivators) {
-            final bool _isSelected = Spec.specsContainThisSpecValue(
+            final bool _isSelected = SpecModel.specsContainThisSpecValue(
                 specs: selectedSpecs, value: deactivator.specValue);
 
             if (_isSelected == true) {
@@ -79,10 +80,12 @@ class SpecList {
 
     return _lists;
   }
-
 // -----------------------------------------------------------------------------
-  static SpecList getSpecListFromSpecsListsByID(
-      {@required List<SpecList> specsLists, @required String specListID}) {
+  static SpecList getSpecListFromSpecsListsByID({
+    @required List<SpecList> specsLists,
+    @required String specListID,
+  }) {
+
     SpecList _specList;
 
     if (Mapper.canLoopList(specsLists) && specListID != null) {
@@ -95,16 +98,20 @@ class SpecList {
   }
 
 // -----------------------------------------------------------------------------
-  static int getSpecsListIndexByID(
-      {@required List<SpecList> specsLists, @required String specsListID}) {
+  static int getSpecsListIndexByID({
+    @required List<SpecList> specsLists,
+    @required String specsListID,
+  }) {
     final int _index =
         specsLists.indexWhere((SpecList list) => list.id == specsListID);
     return _index;
   }
-
 // -----------------------------------------------------------------------------
-  static List<SpecList> getSpecsListsByGroupID(
-      {@required List<SpecList> specsLists, @required String groupID}) {
+  static List<SpecList> getSpecsListsByGroupID({
+    @required List<SpecList> specsLists,
+    @required String groupID,
+  }) {
+
     final List<SpecList> _specsLists = <SpecList>[];
 
     if (Mapper.canLoopList(specsLists)) {
@@ -119,8 +126,9 @@ class SpecList {
   }
 
 // -----------------------------------------------------------------------------
-  static List<String> getGroupsFromSpecsLists(
-      {@required List<SpecList> specsLists}) {
+  static List<String> getGroupsFromSpecsLists({
+    @required List<SpecList> specsLists,
+  }) {
     List<String> _groups = <String>[];
 
     for (final SpecList list in specsLists) {
@@ -134,26 +142,24 @@ class SpecList {
   }
 
 // -----------------------------------------------------------------------------
-  static List<SpecList> getSpecsListsByFlyerType(
-      FlyerTypeClass.FlyerType flyerType) {
+  static List<SpecList> getSpecsListsByFlyerType(FlyerTypeClass.FlyerType flyerType) {
     final List<SpecList> _specList =
-        flyerType == FlyerTypeClass.FlyerType.property
-            ? propertySpecLists
-            : flyerType == FlyerTypeClass.FlyerType.design
-                ? designSpecLists
-                : flyerType == FlyerTypeClass.FlyerType.craft
-                    ? craftSpecLists
-                    : flyerType == FlyerTypeClass.FlyerType.project
-                        ? designSpecLists
-                        : flyerType == FlyerTypeClass.FlyerType.product
-                            ? productSpecLists
-                            : flyerType == FlyerTypeClass.FlyerType.equipment
-                                ? equipmentSpecLists
-                                : <SpecList>[];
+    flyerType == FlyerTypeClass.FlyerType.property ? propertySpecLists
+        :
+    flyerType == FlyerTypeClass.FlyerType.design ? designSpecLists
+        :
+    flyerType == FlyerTypeClass.FlyerType.craft ? craftSpecLists
+        :
+    flyerType == FlyerTypeClass.FlyerType.project ? designSpecLists
+        :
+    flyerType == FlyerTypeClass.FlyerType.product ? productSpecLists
+        :
+    flyerType == FlyerTypeClass.FlyerType.equipment ? equipmentSpecLists
+        :
+    <SpecList>[];
 
     return _specList;
   }
-
 // -----------------------------------------------------------------------------
   static List<SpecList> propertySpecLists = <SpecList>[
     // ------------------------------------------------------------

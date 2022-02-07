@@ -233,11 +233,11 @@ class KW {
     return _contains;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getKeywordsIDsFromSpecs(List<Spec> specs) {
+  static List<String> getKeywordsIDsFromSpecs(List<SpecModel> specs) {
     final List<String> _keywordsIDs = <String>[];
 
     if (Mapper.canLoopList(specs)) {
-      for (final Spec spec in specs) {
+      for (final SpecModel spec in specs) {
         // final SpecList _specList = SpecList.getSpecListFromSpecsListsByID(specsLists: specsLists, specListID: specListID)
         final dynamic _keywordID = spec.value;
 

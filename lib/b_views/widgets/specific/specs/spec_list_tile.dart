@@ -26,7 +26,7 @@ class SpecListTile extends StatelessWidget {
   final Function onTap;
   final SpecList specList;
   final List<SpecList> sourceSpecsLists;
-  final List<Spec> selectedSpecs;
+  final List<SpecModel> selectedSpecs;
   final Function onDeleteSpec;
 
   /// --------------------------------------------------------------------------
@@ -145,10 +145,10 @@ class SpecListTile extends StatelessWidget {
                           children: <Widget>[
                             ...List<Widget>.generate(selectedSpecs.length,
                                 (int index) {
-                              final Spec _spec = selectedSpecs[index];
+                              final SpecModel _spec = selectedSpecs[index];
 
                               final String _specName =
-                                  Spec.getSpecNameFromSpecsLists(
+                                  SpecModel.getSpecNameFromSpecsLists(
                                 context: context,
                                 spec: _spec,
                                 specsLists: sourceSpecsLists,

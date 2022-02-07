@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart'
-    as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';

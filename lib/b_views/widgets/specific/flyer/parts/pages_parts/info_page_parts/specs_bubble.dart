@@ -26,7 +26,7 @@ class SpecsBubble extends StatelessWidget {
 
   /// --------------------------------------------------------------------------
   final String title;
-  final List<Spec> specs;
+  final List<SpecModel> specs;
   final int verseSize;
   final Function onTap;
   final Color bubbleColor;
@@ -58,7 +58,7 @@ class SpecsBubble extends StatelessWidget {
         /// STRINGS
         if (Mapper.canLoopList(specs))
           ...List<Widget>.generate(specs?.length, (int index) {
-            final Spec _spec = specs[index];
+            final SpecModel _spec = specs[index];
 
             return DataStrip(
                 dataKey: _spec.specsListID, dataValue: _spec.value);

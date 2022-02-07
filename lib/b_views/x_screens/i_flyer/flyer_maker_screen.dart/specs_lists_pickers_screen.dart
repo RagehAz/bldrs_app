@@ -31,7 +31,7 @@ class SpecsListsPickersScreen extends StatefulWidget {
 
   /// --------------------------------------------------------------------------
   final FlyerTypeClass.FlyerType flyerType;
-  final List<Spec> selectedSpecs;
+  final List<SpecModel> selectedSpecs;
 
   /// --------------------------------------------------------------------------
   @override
@@ -43,7 +43,7 @@ class SpecsListsPickersScreen extends StatefulWidget {
 
 class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
     with SingleTickerProviderStateMixin {
-  List<Spec> _allSelectedSpecs;
+  List<SpecModel> _allSelectedSpecs;
 
   ScrollController _scrollController;
   // AnimationController _animationController;
@@ -148,7 +148,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
 
 // -----------------------------------------------------------------------------
   Future<void> _goToSpecPickerScreen(SpecList specList) async {
-    final List<Spec> _result = await Nav.goToNewScreen(
+    final List<SpecModel> _result = await Nav.goToNewScreen(
       context,
       SpecPickerScreen(
         specList: specList,
@@ -157,7 +157,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
       transitionType: Nav.superHorizontalTransition(context),
     );
 
-    Spec.printSpecs(_result);
+    SpecModel.printSpecs(_result);
 
     _updateSpecsListsAndGroups(
       specList: specList,
@@ -170,14 +170,14 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
     await PriceDataCreator.showCurrencyDialog(
       context: context,
       onSelectCurrency: (CurrencyModel currency) async {
-        final Spec _currencySpec = Spec(
+        final SpecModel _currencySpec = SpecModel(
           specsListID: specList.id,
           value: currency.code,
         );
 
-        final List<Spec> _result = Spec.putSpecsInSpecs(
+        final List<SpecModel> _result = SpecModel.putSpecsInSpecs(
           parentSpecs: _allSelectedSpecs,
-          inputSpecs: <Spec>[_currencySpec],
+          inputSpecs: <SpecModel>[_currencySpec],
           canPickMany: specList.canPickMany,
         );
 
@@ -225,7 +225,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
   }
 
 // -----------------------------------------------------------------------------
-  void _removeSpec(Spec spec) {
+  void _removeSpec(SpecModel spec) {
     setState(() {
       _allSelectedSpecs.remove(spec);
     });
@@ -306,8 +306,8 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
                                   (int index) {
                                 final SpecList _specList =
                                     _listsOfThisGroup[index];
-                                final List<Spec> _selectedSpecs =
-                                    Spec.getSpecsByListID(
+                                final List<SpecModel> _selectedSpecs =
+                                    SpecModel.getSpecsByListID(
                                   specs: _allSelectedSpecs,
                                   specsListID: _specList.id,
                                 );
@@ -317,7 +317,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
                                   specList: _specList,
                                   sourceSpecsLists: _sourceSpecsLists,
                                   selectedSpecs: _selectedSpecs,
-                                  onDeleteSpec: (Spec spec) =>
+                                  onDeleteSpec: (SpecModel spec) =>
                                       _removeSpec(spec),
                                 );
                               }),

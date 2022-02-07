@@ -22,9 +22,9 @@ class InfoGraphic extends StatelessWidget {
 // ------------------------------------------------------------------
     return Container(
       key: const ValueKey<String>('InfoGraphic'),
-      width: _size,
-      height: _size,
-      alignment: Alignment.center,
+      // width: _size,
+      // height: _size,
+      alignment: Alignment.topLeft,
       child: SuperImage(
         pic: Iconz.info,
         width: _size,

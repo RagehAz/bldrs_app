@@ -324,7 +324,7 @@ class BottomDialog extends StatelessWidget {
               slides: <SlideModel>[],
               isBanned: null,
               keywordsIDs: <String>[],
-              specs: <Spec>[],
+              specs: <SpecModel>[],
               trigram: <String>[],
             ),
             onSwipeFlyer: (Sliders.SwipeDirection direction) {

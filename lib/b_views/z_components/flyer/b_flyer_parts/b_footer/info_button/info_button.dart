@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/discount_price_tag.dart';
@@ -11,7 +12,6 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-
 
 enum InfoButtonType{
   info,
@@ -229,7 +229,7 @@ class InfoButton extends StatelessWidget {
     return _collapsedCornerValue;
   }
 // --------------------------------
-  static double _expandedCornerValue({
+  static double expandedCornerValue({
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
@@ -348,7 +348,7 @@ class InfoButton extends StatelessWidget {
     else {
 
       if (isExpanded == true){
-        _cornersValue = _expandedCornerValue(
+        _cornersValue = expandedCornerValue(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
         );
@@ -432,7 +432,7 @@ class InfoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const InfoButtonType _priceTagType = InfoButtonType.info;
+    const InfoButtonType _infoButtonType = InfoButtonType.info;
 
     return Align(
       key: const ValueKey<String>('info_button'),
@@ -441,7 +441,7 @@ class InfoButton extends StatelessWidget {
         onTap: onInfoButtonTap,
         child: ValueListenableBuilder(
           valueListenable: infoButtonExpanded,
-          builder: (_, bool buttonExpanded, Widget child){
+          builder: (_, bool buttonExpanded, Widget infoButtonContent){
 
             final double _width = InfoButton.getWidth(
               context: context,
@@ -479,6 +479,7 @@ class InfoButton extends StatelessWidget {
             );
 
             return AnimatedContainer(
+              key: const ValueKey<String>('InfoButton_animated_container'),
               width: _width,
               height: _height,
               duration: const Duration(milliseconds: 100),
@@ -487,70 +488,120 @@ class InfoButton extends StatelessWidget {
                 borderRadius: _borders,
               ),
               margin: _margins,
+              child: infoButtonContent,
+            );
+
+          },
+
+          child: InfoButtonContent(
+            flyerModel: flyerModel,
+            flyerZone: flyerZone,
+            flyerBoxWidth: flyerBoxWidth,
+            infoButtonType: _infoButtonType,
+            buttonIsExpanded: infoButtonExpanded,
+          ),
+
+        ),
+      ),
+    );
+  }
+}
+
+class InfoButtonContent extends StatelessWidget {
+
+  const InfoButtonContent({
+    @required this.flyerBoxWidth,
+    @required this.infoButtonType,
+    @required this.buttonIsExpanded,
+    @required this.flyerModel,
+    @required this.flyerZone,
+    Key key
+  }) : super(key: key);
+
+  final double flyerBoxWidth;
+  final InfoButtonType infoButtonType;
+  final ValueNotifier<bool> buttonIsExpanded;
+  final FlyerModel flyerModel;
+  final ZoneModel flyerZone;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final double _cornerValue = InfoButton.expandedCornerValue(context: context, flyerBoxWidth: flyerBoxWidth);
+    final BorderRadius _borders = Borderers.superBorderAll(context, _cornerValue);
+
+
+    return ListView(
+      key: const ValueKey<String>('InfoButtonContent'),
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      children: <Widget>[
+
+        ClipRRect(
+          borderRadius: _borders,
+          child: Container(
+            width: InfoButton.expandedWidth(context: context, flyerBoxWidth: flyerBoxWidth),
+            height: InfoButton._expandedHeight(flyerBoxWidth: flyerBoxWidth),
+            alignment: Alignment.center,
+            child: Scroller(
               child: ListView(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.zero, /// ENTA EBN WES5A
                 children: <Widget>[
 
-                  if (_priceTagType == InfoButtonType.info)
+                  if (infoButtonType == InfoButtonType.info)
                     InfoGraphic(
                       flyerBoxWidth: flyerBoxWidth,
                     ),
 
-                  if (_priceTagType == InfoButtonType.price)
+                  if (infoButtonType == InfoButtonType.price)
                     NormalPriceTag(
                         flyerBoxWidth: flyerBoxWidth
                     ),
 
-                  if (_priceTagType == InfoButtonType.discount)
+                  if (infoButtonType == InfoButtonType.discount)
                     DiscountPriceTag(
                         flyerBoxWidth: flyerBoxWidth
                     ),
 
-                  if (_priceTagType == InfoButtonType.installments)
+                  if (infoButtonType == InfoButtonType.installments)
                     InstallmentsPriceTag(
                       flyerBoxWidth: flyerBoxWidth,
                     ),
 
-                  // if (buttonExpanded == true)
-                    AnimatedOpacity(
-                      opacity: buttonExpanded == true ? 1 : 0,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeOut,
-                      child: SizedBox(
-                        width: _width,
-                        height: 250,
-                        child: ListView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.zero, /// ENTA EBN WES5A
-                          children: <Widget>[
+                  ValueListenableBuilder(
+                      valueListenable: buttonIsExpanded,
+                      builder: (_, bool buttonExpanded, Widget infoPagePart){
 
-                            InfoPagePart(
-                              flyerBoxWidth: flyerBoxWidth,
-                              flyerModel: flyerModel,
-                              flyerZone: flyerZone,
-                            ),
+                        return AnimatedOpacity(
+                          opacity: buttonExpanded == true ? 1 : 0,
+                          duration: const Duration(milliseconds: 400),
+                          curve: Curves.easeOut,
+                          child: infoPagePart,
+                        );
 
-                          ],
-                        ),
-                      ),
+                      },
+
+                    child: InfoPagePart(
+                      flyerBoxWidth: flyerBoxWidth,
+                      flyerModel: flyerModel,
+                      flyerZone: flyerZone,
                     ),
+
+                  ),
+
 
 
                 ],
 
               ),
-            );
-
-          },
-
-          child: Container(),
-
+            ),
+          ),
         ),
-      ),
+
+      ],
     );
   }
 }
