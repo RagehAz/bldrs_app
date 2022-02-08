@@ -2,16 +2,16 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_button.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_content.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/b_info_page_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class InfoButton extends StatelessWidget {
+class InfoButtonStarter extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const InfoButton({
+  const InfoButtonStarter({
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.flyerZone,
@@ -19,6 +19,7 @@ class InfoButton extends StatelessWidget {
     @required this.infoButtonExpanded,
     @required this.onInfoButtonTap,
     @required this.infoButtonType,
+    @required this.infoPageVerticalController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class InfoButton extends StatelessWidget {
   final ValueNotifier<bool> infoButtonExpanded;
   final Function onInfoButtonTap;
   final InfoButtonType infoButtonType;
+  final ScrollController infoPageVerticalController;
   // --------------------------------------------------------------------------
 
   /// WIDTH
@@ -421,8 +423,6 @@ class InfoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const InfoButtonType _infoButtonType = InfoButtonType.info;
-
     return Align(
       key: const ValueKey<String>('info_button'),
       alignment: Aligners.superCenterAlignment(context),
@@ -430,9 +430,9 @@ class InfoButton extends StatelessWidget {
         onTap: onInfoButtonTap,
         child: ValueListenableBuilder(
           valueListenable: infoButtonExpanded,
-          builder: (_, bool buttonExpanded, Widget infoButtonContent){
+          builder: (_, bool buttonExpanded, Widget infoPageTree){
 
-            final double _width = InfoButton.getWidth(
+            final double _width = InfoButtonStarter.getWidth(
               context: context,
               flyerBoxWidth: flyerBoxWidth,
               tinyMode: tinyMode,
@@ -440,27 +440,27 @@ class InfoButton extends StatelessWidget {
               infoButtonType: infoButtonType,
             );
 
-            final double _height = InfoButton.getHeight(
+            final double _height = InfoButtonStarter.getHeight(
               context: context,
               flyerBoxWidth: flyerBoxWidth,
               tinyMode: tinyMode,
               isExpanded: buttonExpanded,
             );
 
-            final EdgeInsets _margins = InfoButton.getMargin(
+            final EdgeInsets _margins = InfoButtonStarter.getMargin(
               context: context,
               flyerBoxWidth: flyerBoxWidth,
               tinyMode: tinyMode,
               isExpanded: buttonExpanded,
             );
 
-            final Color _color = InfoButton.getColor(
+            final Color _color = InfoButtonStarter.getColor(
                 flyerBoxWidth: flyerBoxWidth,
                 tinyMode: tinyMode,
                 isExpanded: buttonExpanded
             );
 
-            final BorderRadius _borders = InfoButton.getBorders(
+            final BorderRadius _borders = InfoButtonStarter.getBorders(
                 context: context,
                 flyerBoxWidth: flyerBoxWidth,
                 tinyMode: tinyMode,
@@ -477,17 +477,19 @@ class InfoButton extends StatelessWidget {
                 borderRadius: _borders,
               ),
               margin: _margins,
-              child: infoButtonContent,
+              child: infoPageTree,
             );
 
-          },
+            },
 
-          child: InfoButtonContent(
+          child: InfoPageTree(
             flyerModel: flyerModel,
             flyerZone: flyerZone,
             flyerBoxWidth: flyerBoxWidth,
-            infoButtonType: _infoButtonType,
+            infoButtonType: infoButtonType,
             buttonIsExpanded: infoButtonExpanded,
+            tinyMode: tinyMode,
+            infoPageVerticalController: infoPageVerticalController,
           ),
 
         ),

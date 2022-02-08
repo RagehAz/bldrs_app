@@ -126,6 +126,7 @@ class InfoPageSpecs extends StatelessWidget {
     // SpecList.blogSpecsLists(_flyerSpecsLists);
 
     return SizedBox(
+      key: const ValueKey<String>('InfoPageSpecs'),
         width: pageWidth,
         child:
 

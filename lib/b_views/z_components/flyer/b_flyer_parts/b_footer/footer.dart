@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_shadow.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -37,6 +37,14 @@ class FlyerFooter extends StatefulWidget {
 }
 
 class _FlyerFooterState extends State<FlyerFooter> {
+
+  ScrollController _infoPageVerticalController;
+
+  @override
+  void initState() {
+    _infoPageVerticalController = ScrollController();
+    super.initState();
+  }
 // -----------------------------------------------------------------------------
   void _onShareFlyer(){
     blog('YALLA YA BDAN');
@@ -50,11 +58,18 @@ class _FlyerFooterState extends State<FlyerFooter> {
 // ----------------------------------------
   void onInfoButtonTap(){
     infoButtonExpanded.value = ! infoButtonExpanded.value;
+
+    _infoPageVerticalController.animateTo(0,
+        duration: const Duration(milliseconds: 100),
+        curve: Curves.easeOut,
+    );
   }
 // -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
+
+    final InfoButtonType _infoButtonType = InfoButtonType.info;
 
     return ValueListenableBuilder(
       valueListenable: widget.headerIsExpanded,
@@ -85,7 +100,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                 flyerBoxWidth: widget.flyerBoxWidth,
               ),
 
-              /// BUTTONS
+              /// FOOTER BUTTONS
               if (widget.tinyMode == false)
                 FooterButtons(
                     key: const ValueKey<String>('FooterButtons'),
@@ -99,14 +114,15 @@ class _FlyerFooterState extends State<FlyerFooter> {
 
               /// PRICE BUTTON
               if (widget.tinyMode == false)
-                InfoButton(
+                InfoButtonStarter(
                   flyerBoxWidth: widget.flyerBoxWidth,
                   flyerModel: widget.flyerModel,
                   flyerZone: widget.flyerZone,
                   tinyMode: widget.tinyMode,
                   infoButtonExpanded: infoButtonExpanded,
                   onInfoButtonTap: onInfoButtonTap,
-                  infoButtonType: InfoButtonType.info,
+                  infoButtonType: _infoButtonType,
+                  infoPageVerticalController: _infoPageVerticalController,
                 ),
 
               // / FLYER COUNTERS

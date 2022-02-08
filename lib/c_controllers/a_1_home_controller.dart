@@ -124,7 +124,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
 // -----------------------------------------------------------------------------
 Future<void> _initializeSavedFlyers(BuildContext context) async {
 
-  if (FireAuthOps.userIsSignedIn() == true){
+  if (FireAuthOps.userIsSignedIn() == true ){
 
     final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _userProvider.myUserModel;

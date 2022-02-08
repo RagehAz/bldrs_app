@@ -142,7 +142,11 @@ class _FlyerStarterState extends State<FlyerStarter> {
   @override
   void dispose() {
     super.dispose();
-    _currentSlideIndex.dispose();
+
+    if (_currentSlideIndex != null){
+      _currentSlideIndex.dispose();
+    }
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {
