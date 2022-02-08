@@ -33,6 +33,7 @@ class InfoPageKeywords extends StatelessWidget {
     );
 
     return Wrap(
+      key: const ValueKey<String>('InfoPageKeywords'),
       children: <Widget>[
         ...List<Widget>.generate(_keywords?.length, (int index) {
 
