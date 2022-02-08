@@ -1,7 +1,9 @@
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -33,11 +35,11 @@ class DiscountPriceTag extends StatelessWidget {
     );
     const String _off = 'OFF';
 // ------------------------------------------------------------------
-    final double _width = InfoButton.collapsedWidth(
+    final double _width = InfoButtonStarter.collapsedWidth(
         context: context,
         flyerBoxWidth: flyerBoxWidth
     );
-    final double _height = InfoButton.collapsedHeight(
+    final double _height = InfoButtonStarter.collapsedHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
@@ -48,16 +50,10 @@ class DiscountPriceTag extends StatelessWidget {
     final Alignment _superCenterAlignment = Aligners.superCenterAlignment(context);
     final double _priceWidth = _width - _height - 1 - _paddingsValue;
 // ------------------------------------------------------------------
-    return Container(
-      key: const ValueKey<String>('discount_price_tag'),
-      width: _width,
-      height: _height,
-      alignment: Alignment.center,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        children: <Widget>[
+    return CollapsedInfoButtonBox(
+        flyerBoxWidth: flyerBoxWidth,
+        infoButtonType: InfoButtonType.discount,
+        horizontalListViewChildren: <Widget>[
 
           /// DISCOUNT PERCENTAGE
           SizedBox(
@@ -187,7 +183,6 @@ class DiscountPriceTag extends StatelessWidget {
           ),
 
         ],
-      ),
     );
   }
 }
