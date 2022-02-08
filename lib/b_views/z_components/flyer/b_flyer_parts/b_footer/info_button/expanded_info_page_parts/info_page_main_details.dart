@@ -25,6 +25,7 @@ class InfoPageMainDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: const ValueKey<String>('InfoPageMainDetails'),
       children: <Widget>[
 
         /// Flyer Type

@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,11 +27,11 @@ class InstallmentsPriceTag extends StatelessWidget {
     const double _currentPrice = 100000000;
     final String _currency = _currentCountry?.currency;
 // ------------------------------------------------------------------
-    final double _width = InfoButton.collapsedWidth(
+    final double _width = InfoButtonStarter.collapsedWidth(
         context: context,
         flyerBoxWidth: flyerBoxWidth
     );
-    final double _height = InfoButton.collapsedHeight(
+    final double _height = InfoButtonStarter.collapsedHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
@@ -38,16 +40,10 @@ class InstallmentsPriceTag extends StatelessWidget {
     final double _paddingsValue = _height * 0.25;
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: _paddingsValue);
 // ------------------------------------------------------------------
-    return Container(
-      key: const ValueKey<String>('normal_price_tag'),
-      width: _width,
-      height: _height,
-      alignment: Alignment.center,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        children: <Widget>[
+    return CollapsedInfoButtonBox(
+      flyerBoxWidth: flyerBoxWidth,
+      infoButtonType: InfoButtonType.installments,
+      horizontalListViewChildren: <Widget>[
 
           Container(
             width: _width,
@@ -62,7 +58,7 @@ class InstallmentsPriceTag extends StatelessWidget {
                   child: Container(
                     width:  _width,
                     height: _height * 0.5,
-                    alignment: superCenterAlignment(context),
+                    alignment: Aligners.superCenterAlignment(context),
                     padding: _paddings,
                     child: FittedBox(
                       fit: BoxFit.fitWidth,
@@ -83,7 +79,7 @@ class InstallmentsPriceTag extends StatelessWidget {
                   child: Container(
                     width:  _width,
                     height: _height * 0.5,
-                    alignment: superCenterAlignment(context),
+                    alignment: Aligners.superCenterAlignment(context),
                     padding: _paddings,
                     child: SuperVerse(
                       verse: '/ 40 Months',
@@ -98,7 +94,6 @@ class InstallmentsPriceTag extends StatelessWidget {
           ),
 
         ],
-      ),
     );
   }
 }
