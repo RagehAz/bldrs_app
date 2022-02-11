@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -430,7 +431,7 @@ class UserModel {
   }
 
 // -----------------------------------------------------------------------------
-  static Future<UserModel> dummyUserModel(BuildContext context) async {
+  static Future<UserModel> futureDummyUserModel(BuildContext context) async {
     final UserModel _user = await UserFireOps.readUser(
       context: context,
       userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
@@ -438,7 +439,34 @@ class UserModel {
 
     return _user;
   }
+// -----------------------------------------------------------------------------
+  static UserModel dummyUserModel(BuildContext context){
 
+    final UserModel _userModel = UserModel(
+        id: 'dummy_user_model',
+        authBy: AuthBy.email,
+        createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
+        status: UserStatus.normal,
+        name: 'Rageh Azzazi',
+        trigram: <String>[],
+        pic: Iconz.dvRageh,
+        title: 'CEO',
+        company: 'Bldrs.LLC',
+        gender: Gender.male,
+        zone: ZoneModel.dummyZone(),
+        language: 'en',
+        position: Atlas.dummyPosition(),
+        contacts: ContactModel.dummyContacts(),
+        myBzzIDs: <String>[],
+        emailIsVerified: true,
+        isAdmin: true,
+        fcmToken: null,
+        savedFlyersIDs: <String>[],
+        followedBzzIDs: <String>[],
+    );
+
+    return _userModel;
+  }
 // -----------------------------------------------------------------------------
   static List<UserModel> dummyUsers({int numberOfUsers}) {
     List<UserModel> _users = <UserModel>[

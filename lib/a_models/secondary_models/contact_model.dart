@@ -396,7 +396,23 @@ class ContactModel {
     return _userContacts;
   }
 // -----------------------------------------------------------------------------
+  static List<ContactModel> dummyContacts(){
 
+    return const <ContactModel>[
+
+      ContactModel(
+          contact: 'rageh@bldrs.net',
+          contactType: ContactType.email
+      ),
+
+      ContactModel(
+          contact: '0123456789',
+          contactType: ContactType.phone
+      ),
+
+    ];
+
+  }
 }
 
 // -----------------------------------------------------------------------------

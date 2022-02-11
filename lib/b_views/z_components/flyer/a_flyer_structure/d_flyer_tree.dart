@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_slides.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/saving_notice.dart';
@@ -340,6 +340,17 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     await Sliders.slideToBackFrom(_horizontalSlidesController, widget.currentSlideIndex.value);
   }
 // -----------------------------------------------------------------------------
+  bool _inFlight(){
+
+    if (widget.flightDirection == FlightDirection.non){
+      return false;
+    }
+    else {
+      return true;
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -407,6 +418,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           onSaveFlyer: _onSaveFlyer,
           footerPageController: _footerPageController,
           headerIsExpanded: _headerIsExpanded,
+          inFlight: _inFlight(),
         ),
 
         /// PROGRESS BAR

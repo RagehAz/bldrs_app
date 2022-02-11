@@ -1,0 +1,45 @@
+
+
+import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
+import 'package:flutter/material.dart';
+
+class FooterPageBox extends StatelessWidget {
+
+  const FooterPageBox({
+    @required this.width,
+    @required this.height,
+    @required this.borders,
+    @required this.child,
+    Key key
+  }) : super(key: key);
+
+  final BorderRadius borders;
+  final double width;
+  final double height;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ListView(
+      padding: EdgeInsets.zero,
+      physics: const NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      children: <Widget>[
+
+        ClipRRect(
+          borderRadius: borders,
+          child: Container(
+            width: width,
+            height: height,
+            alignment: Alignment.center,
+            child: Scroller(
+              child: child,
+            ),
+          ),
+        ),
+
+      ],
+    );
+  }
+}
