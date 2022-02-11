@@ -314,7 +314,7 @@ class KW {
 
     final List<int> _randomIndexes = Numeric.getRandomIndexes(
         numberOfIndexes: length,
-        maxIndex: _allKeywords.length,
+        maxIndex: _allKeywords.length - 1,
     );
 
     for (int i = 0; i < _randomIndexes.length; i++){

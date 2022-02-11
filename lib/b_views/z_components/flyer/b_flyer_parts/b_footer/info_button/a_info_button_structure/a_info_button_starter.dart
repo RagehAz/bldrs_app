@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_button.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/b_info_page_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
@@ -20,6 +20,7 @@ class InfoButtonStarter extends StatelessWidget {
     @required this.onInfoButtonTap,
     @required this.infoButtonType,
     @required this.infoPageVerticalController,
+    @required this.inFlight,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -31,6 +32,7 @@ class InfoButtonStarter extends StatelessWidget {
   final Function onInfoButtonTap;
   final InfoButtonType infoButtonType;
   final ScrollController infoPageVerticalController;
+  final bool inFlight;
   // --------------------------------------------------------------------------
 
   /// WIDTH
@@ -61,7 +63,7 @@ class InfoButtonStarter extends StatelessWidget {
         tinyMode: false
     );
 
-    final double _infoButtonCollapsedMargin = _collapsedMarginValue(
+    final double _infoButtonCollapsedMargin = collapsedMarginValue(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
@@ -136,7 +138,7 @@ class InfoButtonStarter extends StatelessWidget {
     return _margin;
   }
 // --------------------------------
-  static double _collapsedMarginValue({
+  static double collapsedMarginValue({
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
@@ -157,7 +159,7 @@ class InfoButtonStarter extends StatelessWidget {
     return _collapsedMargin;
   }
 // --------------------------------
-  static double _expandedMarginValue({
+  static double expandedMarginValue({
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
@@ -210,7 +212,7 @@ class InfoButtonStarter extends StatelessWidget {
 
     final double _footerBottomCorners = FooterBox.boxCornersValue(flyerBoxWidth);
 
-    final double _infoButtonMargin = _collapsedMarginValue(
+    final double _infoButtonMargin = collapsedMarginValue(
         context: context,
         flyerBoxWidth: flyerBoxWidth
     );
@@ -245,7 +247,6 @@ class InfoButtonStarter extends StatelessWidget {
     @required bool isExpanded,
     @required InfoButtonType infoButtonType,
   }){
-
     double _width;
 
     /// TINY MODE
@@ -392,7 +393,6 @@ class InfoButtonStarter extends StatelessWidget {
     @required bool tinyMode,
     @required bool isExpanded,
   }){
-
     double _marginValue;
 
     if (tinyMode == true){
@@ -402,13 +402,13 @@ class InfoButtonStarter extends StatelessWidget {
     else {
 
       if (isExpanded == true){
-        _marginValue = _expandedMarginValue(
+        _marginValue = expandedMarginValue(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
         );
       }
       else {
-        _marginValue = _collapsedMarginValue(
+        _marginValue = collapsedMarginValue(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
         );
@@ -424,8 +424,8 @@ class InfoButtonStarter extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Align(
-      key: const ValueKey<String>('info_button'),
-      alignment: Aligners.superCenterAlignment(context),
+      key: const ValueKey<String>('InfoButtonStarter'),
+      alignment: Aligners.superBottomAlignment(context),
       child: GestureDetector(
         onTap: onInfoButtonTap,
         child: ValueListenableBuilder(
@@ -468,7 +468,7 @@ class InfoButtonStarter extends StatelessWidget {
             );
 
             return AnimatedContainer(
-              key: const ValueKey<String>('InfoButton_animated_container'),
+              key: const ValueKey<String>('InfoButtonStarter_animated_container'),
               width: _width,
               height: _height,
               duration: const Duration(milliseconds: 100),
@@ -483,6 +483,7 @@ class InfoButtonStarter extends StatelessWidget {
             },
 
           child: InfoPageTree(
+            key: const ValueKey<String>('InfoButtonStarter_InfoPageTree'),
             flyerModel: flyerModel,
             flyerZone: flyerZone,
             flyerBoxWidth: flyerBoxWidth,
@@ -490,6 +491,7 @@ class InfoButtonStarter extends StatelessWidget {
             buttonIsExpanded: infoButtonExpanded,
             tinyMode: tinyMode,
             infoPageVerticalController: infoPageVerticalController,
+            inFlight: inFlight,
           ),
 
         ),

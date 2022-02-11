@@ -284,10 +284,14 @@ class OldInfoPage extends StatelessWidget {
             addButtonIsOn: superFlyer.edit.editMode,
           ),
 
-        ReviewBubble(
+        OldReviewBubble(
           key: const ValueKey<String>('info_page_review_bubble'),
           flyerBoxWidth: flyerBoxWidth,
-          superFlyer: superFlyer,
+          flyerModel: FlyerModel.getFlyerModelFromSuperFlyer(superFlyer),
+          onShowReviewOptions: superFlyer.rec.onShowReviewOptions,
+          reviewTextController: superFlyer.rec.reviewController,
+          onSubmitReview: superFlyer.rec.onSubmitReview,
+          onEditReview: superFlyer.rec.onEditReview,
         ),
 
         SizedBox(

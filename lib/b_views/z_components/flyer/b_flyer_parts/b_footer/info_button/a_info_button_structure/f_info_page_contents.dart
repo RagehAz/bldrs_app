@@ -50,10 +50,9 @@ class InfoPageContents extends StatelessWidget {
         'never lose faith\n'
         'all is good\n'
         '2ool el 7amdolellah';
-
-
+    
     return Container(
-      key: const ValueKey<String>('InfoPagePart'),
+      key: const ValueKey<String>('InfoPageContents'),
       width: _pageWidth,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(

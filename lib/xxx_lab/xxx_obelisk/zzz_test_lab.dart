@@ -24,10 +24,10 @@ class TestLab extends StatefulWidget {
 }
 /// --------------------------------------------------------------------------
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
+
   ScrollController _scrollController;
   AnimationController _animationController;
   UiProvider _uiProvider;
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
