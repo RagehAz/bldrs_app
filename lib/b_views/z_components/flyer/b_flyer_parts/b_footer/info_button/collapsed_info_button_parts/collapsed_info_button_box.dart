@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:flutter/material.dart';
 
 class CollapsedInfoButtonBox extends StatelessWidget {
@@ -33,7 +32,7 @@ class CollapsedInfoButtonBox extends StatelessWidget {
     final double _paddingsValue = _height * 0.25;
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: _paddingsValue);
 // ------------------------------------------------------------------
-    return Container(
+    return SizedBox(
       key: const ValueKey<String>('normal_price_tag'),
       width: _width,
       height: _height,

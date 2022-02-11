@@ -1,6 +1,6 @@
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
-// import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
-// import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_button.dart';
+// import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
+// import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 // import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 // import 'package:bldrs/d_providers/zone_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;

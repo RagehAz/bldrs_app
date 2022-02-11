@@ -30,14 +30,13 @@ double superDeviceRatio(BuildContext context) {
   return _deviceRatio;
 }
 // -----------------------------------------------------------------------------
-EdgeInsets superInsets(
-    BuildContext context,
-    {
-      double enBottom,
-      double enLeft,
-      double enRight,
-      double enTop
-    }) {
+EdgeInsets superInsets({
+  BuildContext context,
+  double enBottom,
+  double enLeft,
+  double enRight,
+  double enTop
+}) {
   final double _enBottom = enBottom ?? 0;
   final double _enLeft = enLeft ?? 0;
   final double _enRight = enRight ?? 0;

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
@@ -13,26 +13,33 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ReviewBubble extends StatefulWidget {
+class OldReviewBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ReviewBubble({
+  const OldReviewBubble({
     @required this.flyerBoxWidth,
-    @required this.superFlyer,
+    @required this.flyerModel,
+    @required this.onEditReview,
+    @required this.onSubmitReview,
+    @required this.reviewTextController,
+    @required this.onShowReviewOptions,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final SuperFlyer superFlyer;
-
+  final FlyerModel flyerModel;
+  final Function onEditReview;
+  final Function onSubmitReview;
+  final TextEditingController reviewTextController;
+  final ValueChanged<ReviewModel> onShowReviewOptions;
   /// --------------------------------------------------------------------------
   @override
-  _ReviewBubbleState createState() => _ReviewBubbleState();
+  _OldReviewBubbleState createState() => _OldReviewBubbleState();
 
   /// --------------------------------------------------------------------------
 }
 
-class _ReviewBubbleState extends State<ReviewBubble> {
+class _OldReviewBubbleState extends State<OldReviewBubble> {
   UserModel _userModel;
   List<ReviewModel> _reviews;
 // -----------------------------------------------------------------------------
@@ -81,7 +88,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 
           _reviews = await FireFlyerOps.readAllReviews(
             context: context,
-            flyerID: widget.superFlyer.flyerID,
+            flyerID: widget.flyerModel.id,
           );
         }
       });
@@ -94,7 +101,7 @@ class _ReviewBubbleState extends State<ReviewBubble> {
     /// TASK : THIS IS SUPER EXPENSIVE
     final List<ReviewModel> reviews = await FireFlyerOps.readAllReviews(
       context: context,
-      flyerID: widget.superFlyer.flyerID,
+      flyerID: widget.flyerModel.id,
     );
 
     setState(() {
@@ -105,15 +112,19 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _bubbleWidth =
-        widget.flyerBoxWidth - (Ratioz.appBarPadding * 2);
+
+    final double _bubbleWidth = widget.flyerBoxWidth - (Ratioz.appBarPadding * 2);
+
     const EdgeInsets _bubbleMargins = EdgeInsets.only(
         top: Ratioz.appBarPadding,
         left: Ratioz.appBarPadding,
-        right: Ratioz.appBarPadding);
+        right: Ratioz.appBarPadding,
+    );
+
     // double _peopleBubbleBoxHeight = widget.flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth * 1.5;
 
     final double _cornerSmall = widget.flyerBoxWidth * Ratioz.xxflyerTopCorners;
+
     final double _cornerBig =
         (widget.flyerBoxWidth - (Ratioz.appBarPadding * 2)) *
             Ratioz.xxflyerBottomCorners;
@@ -137,20 +148,24 @@ class _ReviewBubbleState extends State<ReviewBubble> {
       leadingIcon: Iconz.bxDesignsOn,
       leadingAndActionButtonsSizeFactor: 1,
       columnChildren: <Widget>[
+
         ReviewCreator(
           width: _bubbleWidth,
           corners: _cardCorners,
           userModel: _userModel,
-          superFlyer: widget.superFlyer,
           reloadReviews: _reloadReviews,
+          onEditReview: widget.onEditReview,
+          onSubmitReview: widget.onSubmitReview,
+          reviewTextController: widget.reviewTextController,
         ),
 
         ReviewsStreamBubbles(
-          superFlyer: widget.superFlyer,
+          flyerModel: widget.flyerModel,
           userModel: _userModel,
           bubbleWidth: _bubbleWidth,
           cardCorners: _cardCorners,
           reviews: _reviews,
+          onShowReviewOptions: widget.onShowReviewOptions,
         ),
 
         /// bottom spaced
@@ -166,21 +181,22 @@ class _ReviewBubbleState extends State<ReviewBubble> {
 class ReviewsStreamBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewsStreamBubbles({
-    @required this.superFlyer,
     @required this.bubbleWidth,
     @required this.cardCorners,
     @required this.userModel,
     @required this.reviews,
+    @required this.onShowReviewOptions,
+    @required this.flyerModel,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
-  final SuperFlyer superFlyer;
   final double bubbleWidth;
   final double cardCorners;
   final UserModel userModel;
   final List<ReviewModel> reviews;
-
+  final ValueChanged<ReviewModel> onShowReviewOptions;
+  final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -197,9 +213,8 @@ class ReviewsStreamBubbles extends StatelessWidget {
               corners: cardCorners,
               review: reviews[index],
               userModel: userModel,
-              flyerID: superFlyer.flyerID,
-              onShowReviewOptions: () =>
-                  superFlyer.rec.onShowReviewOptions(reviews[index]),
+              flyerID: flyerModel.id,
+              onShowReviewOptions: () => onShowReviewOptions(reviews[index]),
             ),
           )
         ],

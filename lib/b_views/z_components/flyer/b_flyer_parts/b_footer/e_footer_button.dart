@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +70,7 @@ class FooterButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static Color buttonColor({@required bool buttonIsOn}) {
     const Color _onColor = Colorz.yellow255;
-    const Color _offColor = Colorz.nothing;
+    const Color _offColor = Colorz.black255;
 
     final Color _color = buttonIsOn ? _onColor : _offColor;
 
@@ -93,7 +93,7 @@ class FooterButton extends StatelessWidget {
     );
 
     final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
-    final Color _splashColor = isOn ? Colorz.black255 : Colorz.white80;
+    final Color _splashColor = isOn ? Colorz.black255 : Colorz.yellow255;
 
     return SizedBox(
       key: const ValueKey<String>('Footer_button'),
@@ -113,6 +113,7 @@ class FooterButton extends StatelessWidget {
             onTap: tinyMode == true ? null : onTap,
             childAlignment: Alignment.topCenter,
             splashColor: _splashColor,
+            bubble: false,
             subChild: SizedBox(
               width: _buttonSize * 0.8,
               height: _buttonSize * 0.9,

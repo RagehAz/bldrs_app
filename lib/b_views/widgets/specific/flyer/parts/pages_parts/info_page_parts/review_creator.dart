@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
@@ -17,8 +16,10 @@ class ReviewCreator extends StatelessWidget {
     @required this.width,
     @required this.corners,
     @required this.userModel,
-    @required this.superFlyer,
     @required this.reloadReviews,
+    @required this.onSubmitReview,
+    @required this.reviewTextController,
+    @required this.onEditReview,
     Key key,
   }) : super(key: key);
 
@@ -26,18 +27,19 @@ class ReviewCreator extends StatelessWidget {
   final double width;
   final double corners;
   final UserModel userModel;
-  final SuperFlyer superFlyer;
   final Function reloadReviews;
-
+  final Function onSubmitReview;
+  final TextEditingController reviewTextController;
+  final Function onEditReview;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final bool _reviewControllerHasValue =
-        TextChecker.textControllerIsEmpty(superFlyer.rec.reviewController) ==
+        TextChecker.textControllerIsEmpty(reviewTextController) ==
             false;
 
     return GestureDetector(
-      onTap: superFlyer.rec.onEditReview,
+      onTap: onEditReview,
       child: Container(
         width: width,
         margin: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
@@ -48,6 +50,7 @@ class ReviewCreator extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
+
             /// USER LABEL
             ReviewUserLabel(
               tinyUser: userModel,
@@ -90,7 +93,7 @@ class ReviewCreator extends StatelessWidget {
                   /// REVIEW TEXT
                   if (_reviewControllerHasValue == true)
                     SuperVerse(
-                      verse: superFlyer.rec.reviewController.text.trim(),
+                      verse: reviewTextController.text.trim(),
                       centered: false,
                       maxLines: 2,
                       color: Colorz.yellow255,
@@ -112,7 +115,7 @@ class ReviewCreator extends StatelessWidget {
                         verseColor: Colorz.black255,
                         verseShadow: false,
                         onTap: () {
-                          superFlyer.rec.onSubmitReview();
+                          onSubmitReview();
 
                           reloadReviews();
                         },
