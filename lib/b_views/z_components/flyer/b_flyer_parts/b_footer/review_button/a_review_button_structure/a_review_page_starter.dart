@@ -3,16 +3,16 @@ import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/review_button_structure/b_review_page_tree.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_tree.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class ReviewButtonStarter extends StatelessWidget {
+class ReviewPageStarter extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ReviewButtonStarter({
+  const ReviewPageStarter({
     @required this.flyerBoxWidth,
     @required this.tinyMode,
     @required this.onReviewButtonTap,
@@ -38,7 +38,7 @@ class ReviewButtonStarter extends StatelessWidget {
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;
   final FlyerModel flyerModel;
-  /// --------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   /// WIDTH
 
@@ -500,6 +500,7 @@ class ReviewButtonStarter extends StatelessWidget {
 
           child: ReviewPageTree(
             flyerBoxWidth: flyerBoxWidth,
+            onReviewButtonTap: onReviewButtonTap,
             reviewButtonExpanded: reviewButtonExpanded,
             reviewPageVerticalController: reviewPageVerticalController,
             inFlight: inFlight,
