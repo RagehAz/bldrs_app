@@ -44,6 +44,8 @@ class InfoPageTree extends StatelessWidget {
         width: InfoButtonStarter.expandedWidth(context: context, flyerBoxWidth: flyerBoxWidth),
         height: InfoButtonStarter.expandedHeight(flyerBoxWidth: flyerBoxWidth),
         borders: Borderers.superBorderAll(context, _cornerValue),
+        alignment: Alignment.center,
+        scrollerIsOn: true,
         child: ValueListenableBuilder(
           valueListenable: buttonIsExpanded,
           builder: (_, bool _buttonIsExpanded, Widget child){

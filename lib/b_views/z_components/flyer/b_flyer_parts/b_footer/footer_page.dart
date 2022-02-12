@@ -1,23 +1,25 @@
-
-
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:flutter/material.dart';
 
 class FooterPageBox extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const FooterPageBox({
     @required this.width,
     @required this.height,
     @required this.borders,
     @required this.child,
+    @required this.alignment,
+    @required this.scrollerIsOn,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final BorderRadius borders;
   final double width;
   final double height;
   final Widget child;
-
+  final Alignment alignment;
+  final bool scrollerIsOn;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -32,8 +34,9 @@ class FooterPageBox extends StatelessWidget {
           child: Container(
             width: width,
             height: height,
-            alignment: Alignment.center,
+            alignment: alignment,
             child: Scroller(
+              isOn: scrollerIsOn,
               child: child,
             ),
           ),
