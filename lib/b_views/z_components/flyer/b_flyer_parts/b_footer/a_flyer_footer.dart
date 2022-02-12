@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/d_footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/review_button_structure/a_review_button_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_review_page_starter.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -155,7 +155,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                 ),
 
               /// REVIEW BUTTON
-              ReviewButtonStarter(
+              ReviewPageStarter(
                 flyerBoxWidth: widget.flyerBoxWidth,
                 tinyMode: widget.tinyMode,
                 onReviewButtonTap: onReviewButtonTap,

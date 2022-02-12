@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
@@ -9,11 +8,13 @@ class CollapsedReviewButtonTree extends StatelessWidget {
   const CollapsedReviewButtonTree({
     @required this.reviewButtonExpanded,
     @required this.flyerBoxWidth,
-    Key key
+    @required this.onReviewButtonTap,
+    Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> reviewButtonExpanded;
   final double flyerBoxWidth;
+  final Function onReviewButtonTap;
   /// --------------------------------------------------------------------------
   static double reviewBoxHeight(){
     return 100;
@@ -31,7 +32,7 @@ class CollapsedReviewButtonTree extends StatelessWidget {
     return ValueListenableBuilder(
       key: const ValueKey<String>('COLLAPSED_REVIEW_BUTTON_CONTENT'),
       valueListenable: reviewButtonExpanded,
-      builder: (_, bool _reviewButtonExpanded, Widget collapsedReviewButtonContent){
+      builder: (_, bool _reviewButtonExpanded, Widget footerButton){
 
         final double _paddingValue = _reviewButtonExpanded ? 0 : 0;
 
@@ -41,23 +42,12 @@ class CollapsedReviewButtonTree extends StatelessWidget {
             child: AnimatedPadding(
               duration: const Duration(milliseconds: 100),
               padding: EdgeInsets.only(top: _paddingValue),
-              child: _reviewButtonExpanded ?
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-
-                  collapsedReviewButtonContent,
-
-                  Container(
-                    width: _reviewBoxWidth,
-                    height: _reviewBoxHeight,
-                    color: Colorz.red255,
-                  ),
-
-                ],
-              )
-                  :
-              collapsedReviewButtonContent,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.easeOut,
+                opacity: _reviewButtonExpanded ? 0 : 1,
+                child: footerButton,
+              ),
             )
         );
       },
@@ -68,7 +58,7 @@ class CollapsedReviewButtonTree extends StatelessWidget {
         verse: 'Review',
         isOn: false,
         tinyMode: false,
-        onTap: null,
+        onTap: onReviewButtonTap,
       ),
 
     );
