@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -10,6 +12,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_b
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -67,29 +70,33 @@ class _FlyerFooterState extends State<FlyerFooter> {
     blog('SHARE FLYER NOW');
   }
 // -----------------------------------------------------------------------------
-  void _onReviewFlyer(){
-    blog('START REVIEW STUFF');
-  }
-// -----------------------------------------------------------------------------
   final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
 // ----------------------------------------
-  void onInfoButtonTap(){
+  Future<void> onInfoButtonTap() async {
     _infoButtonExpanded.value = !_infoButtonExpanded.value;
 
     if(_infoButtonExpanded.value == false){
-      _infoPageVerticalController.animateTo(0,
-        duration: const Duration(milliseconds: 100),
-        curve: Curves.easeOut,
+      unawaited(
+          _infoPageVerticalController.animateTo(0,
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.easeOut,
+          )
       );
+
+      await Future.delayed(const Duration(milliseconds: 200), (){
+        _canShowConvertibleReviewButton.value = true;
+      });
     }
 
     if (_infoButtonExpanded.value == true){
       _reviewButtonExpanded.value = false;
+      _canShowConvertibleReviewButton.value = false;
     }
 
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false);
+  final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true);
 // ----------------------------------------
   void onReviewButtonTap(){
     _reviewButtonExpanded.value = !_reviewButtonExpanded.value;
@@ -149,25 +156,10 @@ class _FlyerFooterState extends State<FlyerFooter> {
                     flyerBoxWidth: widget.flyerBoxWidth,
                     tinyMode: widget.tinyMode,
                     onSaveFlyer: widget.onSaveFlyer,
-                    onReviewFlyer: _onReviewFlyer,
+                    onReviewFlyer: onReviewButtonTap,
                     onShareFlyer: _onShareFlyer,
                     flyerIsSaved: widget.flyerIsSaved
                 ),
-
-              /// REVIEW BUTTON
-              ReviewPageStarter(
-                flyerBoxWidth: widget.flyerBoxWidth,
-                tinyMode: widget.tinyMode,
-                onReviewButtonTap: onReviewButtonTap,
-                reviewButtonExpanded: _reviewButtonExpanded,
-                reviewPageVerticalController: _reviewPageVerticalController,
-                inFlight: widget.inFlight,
-                onEditReview: _onEditReview,
-                onSubmitReview: _onSubmitReview,
-                reviewTextController: _reviewTextController,
-                onShowReviewOptions: (ReviewModel reviewModel) => _onShowReviewOptions(reviewModel),
-                flyerModel: widget.flyerModel,
-              ),
 
               /// PRICE BUTTON
               if (widget.tinyMode == false)
@@ -182,6 +174,56 @@ class _FlyerFooterState extends State<FlyerFooter> {
                   infoPageVerticalController: _infoPageVerticalController,
                   inFlight: widget.inFlight,
                 ),
+
+              /// CONVERTIBLE REVIEW BUTTON
+              ValueListenableBuilder(
+                  valueListenable: _infoButtonExpanded,
+                  builder: (_, bool infoButtonExpanded, Widget child){
+
+                    if (infoButtonExpanded == false){
+                      return ValueListenableBuilder(
+                          valueListenable: _canShowConvertibleReviewButton,
+                          builder: (_, bool canShowConvertibleInfoButton, Widget childB){
+
+                            final double _positionFromRight = appIsLeftToRight(context) ? 0 : null;
+                            final double _positionFromLeft = appIsLeftToRight(context) ? null : 0;
+
+                            if (canShowConvertibleInfoButton == true){
+                              return Positioned(
+                                right: _positionFromRight,
+                                left: _positionFromLeft,
+                                bottom: 0,
+                                child: child,
+                              );
+                            }
+                            else {
+                              return const SizedBox();
+                            }
+
+                          }
+                      );
+
+                    }
+
+                    else {
+                      return const SizedBox();
+                    }
+                  },
+
+                  child: ReviewPageStarter(
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    tinyMode: widget.tinyMode,
+                    onReviewButtonTap: onReviewButtonTap,
+                    reviewButtonExpanded: _reviewButtonExpanded,
+                    reviewPageVerticalController: _reviewPageVerticalController,
+                    inFlight: widget.inFlight,
+                    onEditReview: _onEditReview,
+                    onSubmitReview: _onSubmitReview,
+                    reviewTextController: _reviewTextController,
+                    onShowReviewOptions: (ReviewModel reviewModel) => _onShowReviewOptions(reviewModel),
+                    flyerModel: widget.flyerModel,
+                  ),
+              ),
 
             ],
           ),
