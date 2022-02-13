@@ -439,80 +439,74 @@ class ReviewPageStarter extends StatelessWidget {
     final double _positionFromRight = appIsLeftToRight(context) ? 0 : null;
     final double _positionFromLeft = appIsLeftToRight(context) ? null : 0;
 
-    return Positioned(
-      right: _positionFromRight,
-      left: _positionFromLeft,
-      bottom: 0,
-      child: GestureDetector(
-        onTap: onReviewButtonTap,
-        child: ValueListenableBuilder<bool>(
-          valueListenable: reviewButtonExpanded,
-          builder: (_, bool reviewButtonIsExpanded, Widget reviewPageTree){
+    return GestureDetector(
+      onTap: onReviewButtonTap,
+      child: ValueListenableBuilder<bool>(
+        valueListenable: reviewButtonExpanded,
+        builder: (_, bool reviewButtonIsExpanded, Widget reviewPageTree){
 
-            final double _width = getWidth(
-                context: context,
-                tinyMode: tinyMode,
-                flyerBoxWidth: flyerBoxWidth,
-                isExpanded: reviewButtonIsExpanded,
-            );
+          final double _width = getWidth(
+              context: context,
+              tinyMode: tinyMode,
+              flyerBoxWidth: flyerBoxWidth,
+              isExpanded: reviewButtonIsExpanded,
+          );
 
-            final double _height = getHeight(
-                context: context,
-                tinyMode: tinyMode,
-                flyerBoxWidth: flyerBoxWidth,
-                isExpanded: reviewButtonIsExpanded,
-            );
+          final double _height = getHeight(
+              context: context,
+              tinyMode: tinyMode,
+              flyerBoxWidth: flyerBoxWidth,
+              isExpanded: reviewButtonIsExpanded,
+          );
 
-            final EdgeInsets _margins = getMargin(
-                context: context,
-                tinyMode: tinyMode,
-                flyerBoxWidth: flyerBoxWidth,
-                isExpanded: reviewButtonIsExpanded,
-            );
+          final EdgeInsets _margins = getMargin(
+              context: context,
+              tinyMode: tinyMode,
+              flyerBoxWidth: flyerBoxWidth,
+              isExpanded: reviewButtonIsExpanded,
+          );
 
-            final Color _color = getColor(
-                tinyMode: tinyMode,
-                isExpanded: reviewButtonIsExpanded,
-            );
+          final Color _color = getColor(
+              tinyMode: tinyMode,
+              isExpanded: reviewButtonIsExpanded,
+          );
 
-            final BorderRadius _borders = getBorders(
-                context: context,
-                tinyMode: tinyMode,
-                flyerBoxWidth: flyerBoxWidth,
-                isExpanded: reviewButtonIsExpanded,
-            );
+          final BorderRadius _borders = getBorders(
+              context: context,
+              tinyMode: tinyMode,
+              flyerBoxWidth: flyerBoxWidth,
+              isExpanded: reviewButtonIsExpanded,
+          );
 
+          return AnimatedContainer(
+            duration: const Duration(milliseconds: 100),
+            width: _width ,
+            height: _height,
+            decoration: BoxDecoration(
+              borderRadius: _borders,
+              color: _color,
+            ),
+            margin: _margins,
+            alignment: Alignment.center,
+            child: reviewPageTree,
+          );
 
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 100),
-              width: _width ,
-              height: _height,
-              decoration: BoxDecoration(
-                borderRadius: _borders,
-                color: _color,
-              ),
-              margin: _margins,
-              alignment: Alignment.center,
-              child: reviewPageTree,
-            );
+        },
 
-          },
-
-          child: ReviewPageTree(
-            flyerBoxWidth: flyerBoxWidth,
-            onReviewButtonTap: onReviewButtonTap,
-            reviewButtonExpanded: reviewButtonExpanded,
-            reviewPageVerticalController: reviewPageVerticalController,
-            inFlight: inFlight,
-            tinyMode: tinyMode,
-            onEditReview: onEditReview,
-            onSubmitReview: onSubmitReview,
-            reviewTextController: reviewTextController,
-            onShowReviewOptions: onShowReviewOptions,
-            flyerModel: flyerModel,
-          ),
-
+        child: ReviewPageTree(
+          flyerBoxWidth: flyerBoxWidth,
+          onReviewButtonTap: onReviewButtonTap,
+          reviewButtonExpanded: reviewButtonExpanded,
+          reviewPageVerticalController: reviewPageVerticalController,
+          inFlight: inFlight,
+          tinyMode: tinyMode,
+          onEditReview: onEditReview,
+          onSubmitReview: onSubmitReview,
+          reviewTextController: reviewTextController,
+          onShowReviewOptions: onShowReviewOptions,
+          flyerModel: flyerModel,
         ),
+
       ),
     );
 
