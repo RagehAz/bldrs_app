@@ -28,6 +28,7 @@ class TheFlyerScreenForCreation extends StatelessWidget {
         gridWidth: Scale.superScreenWidth(context),
         gridHeight: Scale.superScreenHeight(context),
         flyers: _flyersProvider.savedFlyers,
+        numberOfColumns: 2,
       ),
 
     );
