@@ -11,6 +11,10 @@ class ExpandedReviewPageTree extends StatelessWidget {
     @required this.pageHeight,
     @required this.flyerBoxWidth,
     @required this.reviewPageVerticalController,
+    @required this.isEditingReview,
+    @required this.onEditReview,
+    @required this.reviewTextController,
+    @required this.onSubmitReview,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -19,6 +23,10 @@ class ExpandedReviewPageTree extends StatelessWidget {
   final double pageHeight;
   final double flyerBoxWidth;
   final ScrollController reviewPageVerticalController;
+  final ValueNotifier<bool> isEditingReview;
+  final Function onEditReview;
+  final TextEditingController reviewTextController;
+  final Function onSubmitReview;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -59,6 +67,10 @@ class ExpandedReviewPageTree extends StatelessWidget {
         pageHeight: pageHeight,
         flyerBoxWidth: flyerBoxWidth,
         reviewPageVerticalController: reviewPageVerticalController,
+        onEditReview: onEditReview,
+        isEditingReview: isEditingReview,
+        reviewTextController: reviewTextController,
+        onSubmitReview: onSubmitReview,
      ),
 
     );
