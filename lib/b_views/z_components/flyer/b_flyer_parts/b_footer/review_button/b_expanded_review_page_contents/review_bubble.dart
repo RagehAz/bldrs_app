@@ -17,12 +17,14 @@ class ReviewBubble extends StatelessWidget {
     @required this.pageWidth,
     @required this.flyerBoxWidth,
     @required this.userModel,
+    @required this.pageHeight,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final double flyerBoxWidth;
   final UserModel userModel;
+  final double pageHeight;
   /// --------------------------------------------------------------------------
   static double bubbleMarginValue(){
     return Ratioz.appBarMargin;
@@ -74,6 +76,8 @@ class ReviewBubble extends StatelessWidget {
 
     final DateTime _reviewTime = Timerz.createDate(year: 1987, month: 6, day: 10);
 
+    final double _editableReviewBubbleHeight = pageHeight - (flyerBoxWidth * 0.7);
+
     return Container(
       key: const ValueKey<String>('review_bubble_key'),
       width: pageWidth,
@@ -86,7 +90,7 @@ class ReviewBubble extends StatelessWidget {
           /// USER IMAGE BALLOON PART
           Container(
             width: _imageBoxWidth,
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.topCenter,
             child: UserBalloon(
               userModel: userModel,
               balloonWidth: _imageBoxWidth - (_bubbleMargin * 2),
@@ -133,6 +137,8 @@ class ReviewBubble extends StatelessWidget {
                   weight: VerseWeight.thin,
                   scaleFactor: 1.1,
                 ),
+
+
 
               ],
             ),

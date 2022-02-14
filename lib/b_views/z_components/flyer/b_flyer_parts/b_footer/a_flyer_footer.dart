@@ -55,6 +55,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
   void initState() {
     _infoPageVerticalController = ScrollController();
     _reviewPageVerticalController = ScrollController();
+    _reviewTextController = TextEditingController();
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -102,12 +103,14 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _reviewButtonExpanded.value = !_reviewButtonExpanded.value;
   }
 // -----------------------------------------------------------------------------
+  final ValueNotifier<bool> _isEditingReview = ValueNotifier(false);
   void _onEditReview(){
     blog('onEditReview');
+    _isEditingReview.value = !_isEditingReview.value;
   }
 // -----------------------------------------------------------------------------
   void _onSubmitReview(){
-    blog('_onSubmitReview');
+    blog('_onSubmitReview : ${_reviewTextController.text}');
   }
 // -----------------------------------------------------------------------------
   void _onShowReviewOptions(ReviewModel reviewModel){
@@ -196,6 +199,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                                 child: child,
                               );
                             }
+
                             else {
                               return const SizedBox();
                             }
@@ -218,6 +222,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                     reviewPageVerticalController: _reviewPageVerticalController,
                     inFlight: widget.inFlight,
                     onEditReview: _onEditReview,
+                    isEditingReview: _isEditingReview,
                     onSubmitReview: _onSubmitReview,
                     reviewTextController: _reviewTextController,
                     onShowReviewOptions: (ReviewModel reviewModel) => _onShowReviewOptions(reviewModel),

@@ -20,6 +20,7 @@ class ReviewPageStarter extends StatelessWidget {
     @required this.reviewPageVerticalController,
     @required this.inFlight,
     @required this.onEditReview,
+    @required this.isEditingReview,
     @required this.onSubmitReview,
     @required this.reviewTextController,
     @required this.onShowReviewOptions,
@@ -34,6 +35,7 @@ class ReviewPageStarter extends StatelessWidget {
   final ScrollController reviewPageVerticalController;
   final bool inFlight;
   final Function onEditReview;
+  final ValueNotifier<bool> isEditingReview;
   final Function onSubmitReview;
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;
@@ -501,6 +503,7 @@ class ReviewPageStarter extends StatelessWidget {
           inFlight: inFlight,
           tinyMode: tinyMode,
           onEditReview: onEditReview,
+          isEditingReview: isEditingReview,
           onSubmitReview: onSubmitReview,
           reviewTextController: reviewTextController,
           onShowReviewOptions: onShowReviewOptions,

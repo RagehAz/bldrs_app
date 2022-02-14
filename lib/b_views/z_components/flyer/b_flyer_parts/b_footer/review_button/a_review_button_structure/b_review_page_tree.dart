@@ -16,6 +16,7 @@ class ReviewPageTree extends StatelessWidget {
     @required this.inFlight,
     @required this.tinyMode,
     @required this.onEditReview,
+    @required this.isEditingReview,
     @required this.onSubmitReview,
     @required this.reviewTextController,
     @required this.onShowReviewOptions,
@@ -30,11 +31,13 @@ class ReviewPageTree extends StatelessWidget {
   final bool inFlight;
   final bool tinyMode;
   final Function onEditReview;
+  final ValueNotifier<bool> isEditingReview;
   final Function onSubmitReview;
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;
   final FlyerModel flyerModel;
   final Function onReviewButtonTap;
+
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -85,6 +88,10 @@ class ReviewPageTree extends StatelessWidget {
                 reviewPageVerticalController: reviewPageVerticalController,
                 pageWidth: _pageWidth,
                 pageHeight: _pageHeight,
+                isEditingReview: isEditingReview,
+                onEditReview: onEditReview,
+                reviewTextController: reviewTextController,
+                onSubmitReview: onSubmitReview,
               ),
 
             /// COLLAPSED REVIEW BUTTON TREE
