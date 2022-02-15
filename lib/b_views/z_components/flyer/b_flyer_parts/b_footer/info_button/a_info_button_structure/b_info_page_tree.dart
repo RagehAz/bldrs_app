@@ -73,6 +73,7 @@ class InfoPageTree extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 buttonIsExpanded: buttonIsExpanded,
                 infoButtonType: infoButtonType,
+                tinyMode: tinyMode,
               ),
 
               /// EXPANDED INFO PAGE TREE
