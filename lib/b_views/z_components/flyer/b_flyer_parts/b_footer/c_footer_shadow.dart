@@ -6,10 +6,12 @@ class FooterShadow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterShadow({
     @required this.flyerBoxWidth,
+    @required this.tinyMode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
+  final bool tinyMode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class FooterShadow extends StatelessWidget {
     final double _footerHeight = FooterBox.collapsedHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
+      tinyMode: tinyMode,
     );
 
     return Align(

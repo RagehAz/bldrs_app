@@ -118,7 +118,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
   @override
   Widget build(BuildContext context) {
 
-    const InfoButtonType _infoButtonType = InfoButtonType.discount;
+    const InfoButtonType _infoButtonType = InfoButtonType.price;
 
     return ValueListenableBuilder(
       valueListenable: widget.headerIsExpanded,
@@ -137,6 +137,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
         footerPageController: widget.footerPageController,
         infoButtonExpanded: _infoButtonExpanded,
         reviewButtonIsExpanded: _reviewButtonExpanded,
+        tinyMode: widget.tinyMode,
         footerPageViewChildren: <Widget>[
 
           /// FOOTER
@@ -148,10 +149,11 @@ class _FlyerFooterState extends State<FlyerFooter> {
               FooterShadow(
                 key: const ValueKey<String>('FooterShadow'),
                 flyerBoxWidth: widget.flyerBoxWidth,
+                tinyMode: widget.tinyMode,
               ),
 
               /// FOOTER BUTTONS
-              if (widget.tinyMode == false)
+              // if (widget.tinyMode == false)// && widget.inFlight == false)
                 FooterButtons(
                     key: const ValueKey<String>('FooterButtons'),
                     flyerBoxWidth: widget.flyerBoxWidth,
@@ -163,7 +165,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
                 ),
 
               /// PRICE BUTTON
-              if (widget.tinyMode == false)
                 InfoButtonStarter(
                   flyerBoxWidth: widget.flyerBoxWidth,
                   flyerModel: widget.flyerModel,
@@ -177,6 +178,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                 ),
 
               /// CONVERTIBLE REVIEW BUTTON
+              if (widget.tinyMode == false && widget.inFlight == false)
               ConvertibleReviewPagePreStarter(
                 infoButtonExpanded: _infoButtonExpanded,
                 canShowConvertibleReviewButton: _canShowConvertibleReviewButton,
