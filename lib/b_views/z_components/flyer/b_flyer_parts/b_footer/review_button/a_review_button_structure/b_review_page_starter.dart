@@ -3,10 +3,9 @@ import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_tree.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/c_review_page_tree.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -378,8 +377,7 @@ class ReviewPageStarter extends StatelessWidget {
     @required double flyerBoxWidth,
     @required bool isExpanded,
 }){
-    double _marginValue;
-
+    // double _marginValue;
     // if (tinyMode == true){
     //   _marginValue = _tinyMarginValue(
     //       context: context,
@@ -435,13 +433,8 @@ class ReviewPageStarter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final double _positionFromRight = appIsLeftToRight(context) ? _sideOffset : null;
-    // final double _positionFromLeft = appIsLeftToRight(context) ? null : _sideOffset;
-
-    final double _positionFromRight = appIsLeftToRight(context) ? 0 : null;
-    final double _positionFromLeft = appIsLeftToRight(context) ? null : 0;
-
     return GestureDetector(
+      key: const ValueKey<String>('ReviewPageStarter'),
       onTap: onReviewButtonTap,
       child: ValueListenableBuilder<bool>(
         valueListenable: reviewButtonExpanded,
