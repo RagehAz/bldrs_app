@@ -173,9 +173,9 @@ class ReviewPageStarter extends StatelessWidget {
   /// COLOR
 
 // --------------------------------
-  static Color _tinyColor(){
-    return Colorz.green125;
-  }
+//   static Color _tinyColor(){
+//     return Colorz.green125;
+//   }
 // --------------------------------
   static Color _collapsedColor(){
     return Colorz.black255;
@@ -352,11 +352,11 @@ class ReviewPageStarter extends StatelessWidget {
 }){
     Color _color;
 
-    if (tinyMode == true){
-      _color = _tinyColor();
-    }
+    // if (tinyMode == true){
+    //   _color = _tinyColor();
+    // }
 
-    else {
+    // else {
 
       if (isExpanded == true){
         _color = _expandedColor();
@@ -366,7 +366,7 @@ class ReviewPageStarter extends StatelessWidget {
         _color = _collapsedColor();
       }
 
-    }
+    // }
 
     return _color;
   }

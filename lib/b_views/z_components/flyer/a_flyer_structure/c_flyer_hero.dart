@@ -48,7 +48,7 @@ class FlyerHero extends StatelessWidget {
     // blog('THE FUCKING BITCH ASS FLYER : ${flyerModel.id} SHOULD START AT : ${currentSlideIndex.value}');
 
     return Hero(
-      key: ValueKey<String>(_heroTag),//const ValueKey<String>('FlyerHero_Hero'),
+      key: ValueKey<String>(_heroTag),
       tag: _heroTag,
       flightShuttleBuilder: (
           BuildContext flightContext,
