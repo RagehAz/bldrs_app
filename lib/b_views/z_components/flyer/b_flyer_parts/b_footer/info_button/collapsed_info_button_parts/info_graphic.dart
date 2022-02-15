@@ -29,7 +29,7 @@ class InfoGraphic extends StatelessWidget {
         context: context,
         flyerBoxWidth: flyerBoxWidth
     );
-
+// ------------------------------------------------------------------
 
     return CollapsedInfoButtonBox(
       flyerBoxWidth: flyerBoxWidth,
@@ -61,6 +61,7 @@ class InfoGraphic extends StatelessWidget {
         ),
 
       ],
+
       // child: Container(
       //   key: const ValueKey<String>('InfoGraphic'),
       //   // width: _size,
@@ -73,6 +74,7 @@ class InfoGraphic extends StatelessWidget {
       //     scale: 0.4,
       //   ),
       // ),
+
     );
 
   }
