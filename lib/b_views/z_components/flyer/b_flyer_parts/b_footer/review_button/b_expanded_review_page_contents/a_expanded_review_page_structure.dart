@@ -1,5 +1,6 @@
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/review_creator/review_creator.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/submitted_reviews.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/d_review_creator_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/e_review_creator_tree.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/b_submitted_reviews.dart';
 import 'package:flutter/material.dart';
 
 class ExpandedReviewPageStructure extends StatelessWidget {
@@ -28,11 +29,6 @@ class ExpandedReviewPageStructure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _editableReviewBubbleHeight = ReviewCreator.expandedHeight(
-        pageHeight: pageHeight,
-        flyerBoxWidth: flyerBoxWidth,
-    );
-
     return Stack(
       key: const ValueKey<String>('ReviewPageContents'),
       children: <Widget>[
@@ -46,26 +42,14 @@ class ExpandedReviewPageStructure extends StatelessWidget {
         ),
 
         /// REVIEW CREATOR
-        ValueListenableBuilder<bool>(
-            valueListenable: isEditingReview,
-            builder: (_, bool _isEditingReview, Widget child){
-              return AnimatedPositioned(
-                duration: const Duration(milliseconds: 250),
-                bottom: _isEditingReview ? pageHeight - _editableReviewBubbleHeight : 0,
-                child: child,
-              );
-            },
-
-          child: ReviewCreator(
-            pageWidth : pageWidth,
-            pageHeight: pageHeight,
-            flyerBoxWidth: flyerBoxWidth,
-            isEditingReview: isEditingReview,
-            onEditReview: onEditReview,
-            onSubmitReview: onSubmitReview,
-            reviewTextController: reviewTextController,
-          ),
-
+        ReviewCreatorStarter(
+          isEditingReview: isEditingReview,
+          pageHeight: pageHeight,
+          pageWidth: pageWidth,
+          flyerBoxWidth: flyerBoxWidth,
+          onEditReview: onEditReview,
+          onSubmitReview: onSubmitReview,
+          reviewTextController: reviewTextController,
         ),
 
       ],

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -8,11 +7,10 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/d_footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_review_page_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_convertible_review_page_pre_starter.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -179,55 +177,21 @@ class _FlyerFooterState extends State<FlyerFooter> {
                 ),
 
               /// CONVERTIBLE REVIEW BUTTON
-              ValueListenableBuilder(
-                  valueListenable: _infoButtonExpanded,
-                  builder: (_, bool infoButtonExpanded, Widget child){
-
-                    if (infoButtonExpanded == false){
-                      return ValueListenableBuilder(
-                          valueListenable: _canShowConvertibleReviewButton,
-                          builder: (_, bool canShowConvertibleInfoButton, Widget childB){
-
-                            final double _positionFromRight = appIsLeftToRight(context) ? 0 : null;
-                            final double _positionFromLeft = appIsLeftToRight(context) ? null : 0;
-
-                            if (canShowConvertibleInfoButton == true){
-                              return Positioned(
-                                right: _positionFromRight,
-                                left: _positionFromLeft,
-                                bottom: 0,
-                                child: child,
-                              );
-                            }
-
-                            else {
-                              return const SizedBox();
-                            }
-
-                          }
-                      );
-
-                    }
-
-                    else {
-                      return const SizedBox();
-                    }
-                  },
-
-                  child: ReviewPageStarter(
-                    flyerBoxWidth: widget.flyerBoxWidth,
-                    tinyMode: widget.tinyMode,
-                    onReviewButtonTap: onReviewButtonTap,
-                    reviewButtonExpanded: _reviewButtonExpanded,
-                    reviewPageVerticalController: _reviewPageVerticalController,
-                    inFlight: widget.inFlight,
-                    onEditReview: _onEditReview,
-                    isEditingReview: _isEditingReview,
-                    onSubmitReview: _onSubmitReview,
-                    reviewTextController: _reviewTextController,
-                    onShowReviewOptions: (ReviewModel reviewModel) => _onShowReviewOptions(reviewModel),
-                    flyerModel: widget.flyerModel,
-                  ),
+              ConvertibleReviewPagePreStarter(
+                infoButtonExpanded: _infoButtonExpanded,
+                canShowConvertibleReviewButton: _canShowConvertibleReviewButton,
+                flyerBoxWidth: widget.flyerBoxWidth,
+                tinyMode: widget.tinyMode,
+                onReviewButtonTap: onReviewButtonTap,
+                reviewButtonExpanded: _reviewButtonExpanded,
+                reviewPageVerticalController: _reviewPageVerticalController,
+                inFlight: widget.inFlight,
+                onEditReview: _onEditReview,
+                isEditingReview: _isEditingReview,
+                onSubmitReview: _onSubmitReview,
+                reviewTextController: _reviewTextController,
+                onShowReviewOptions: _onShowReviewOptions,
+                flyerModel: widget.flyerModel,
               ),
 
             ],

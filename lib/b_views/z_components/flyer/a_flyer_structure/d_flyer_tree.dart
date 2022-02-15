@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_slides.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/saving_notice.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
@@ -201,8 +201,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
   /// SWIPE DIRECTION
   final ValueNotifier<Sliders.SwipeDirection> _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next);
-  /// PRICE TAG IS EXPANDED
-  final ValueNotifier<bool> _priceTagIsExpanded = ValueNotifier(false);
 // -----------------------------------------------------------------------------
   Future<void> _onHeaderTap() async {
 

@@ -19,23 +19,15 @@ class CollapsedReviewButtonTree extends StatelessWidget {
   static double reviewBoxHeight(){
     return 100;
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final double _buttonSize = FooterButton.buttonSize(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: false);
-    final double _margin = FooterButton.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: false);
-    final double _reviewBoxWidth = flyerBoxWidth - _buttonSize - (_margin * 2);
-
-    final double _reviewBoxHeight = reviewBoxHeight();
 
     return ValueListenableBuilder(
       key: const ValueKey<String>('COLLAPSED_REVIEW_BUTTON_CONTENT'),
       valueListenable: reviewButtonExpanded,
       builder: (_, bool _reviewButtonExpanded, Widget footerButton){
-
         final double _paddingValue = _reviewButtonExpanded ? 0 : 0;
-
         return AnimatedAlign(
             alignment: _reviewButtonExpanded ? Aligners.superTopAlignment(context) : Aligners.superCenterAlignment(context),
             duration: const Duration(milliseconds: 100),
