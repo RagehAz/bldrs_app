@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/a_flyer_footer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_slides.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
@@ -16,6 +17,7 @@ import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart'
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -405,7 +407,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
         ),
 
         /// FOOTER
-        // if (widget.inFlight != true)
         FlyerFooter(
           key: const ValueKey<String>('FlyerTree_FlyerFooter'),
           flyerBoxWidth: widget.flyerBoxWidth,
@@ -419,8 +420,17 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           inFlight: _inFlight(),
         ),
 
+        // Positioned(
+        //   bottom: 0,
+        //   child: Container(
+        //     width: widget.flyerBoxWidth,
+        //     height: FooterBox.collapsedHeight(context: context, flyerBoxWidth: widget.flyerBoxWidth, tinyMode: _tinyMode),
+        //     color: Colorz.bloodTest,
+        //   ),
+        // ),
+
         /// PROGRESS BAR
-        if (widget.flightDirection == FlightDirection.non)
+        if (_tinyMode != true && widget.flightDirection == FlightDirection.non)
         ProgressBar(
           key: const ValueKey<String>('FlyerTree_ProgressBar'),
           flyerBoxWidth: widget.flyerBoxWidth,

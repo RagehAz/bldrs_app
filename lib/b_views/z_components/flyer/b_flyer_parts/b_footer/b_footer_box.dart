@@ -12,6 +12,7 @@ class FooterBox extends StatelessWidget {
     @required this.footerPageViewChildren,
     @required this.infoButtonExpanded,
     @required this.reviewButtonIsExpanded,
+    @required this.tinyMode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -20,6 +21,7 @@ class FooterBox extends StatelessWidget {
   final List<Widget> footerPageViewChildren;
   final ValueNotifier<bool> infoButtonExpanded;
   final ValueNotifier<bool> reviewButtonIsExpanded;
+  final bool tinyMode;
   /// --------------------------------------------------------------------------
   static double boxCornersValue(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerBottomCorners;
@@ -45,7 +47,7 @@ class FooterBox extends StatelessWidget {
   static double collapsedHeight({
     @required BuildContext context,
     @required double flyerBoxWidth,
-    bool tinyMode,
+    @required bool tinyMode,
   }) {
 
     final double _footerBTMargins = FooterButton.buttonMargin(
@@ -99,11 +101,6 @@ class FooterBox extends StatelessWidget {
 
           return ValueListenableBuilder<bool>(
             valueListenable: infoButtonExpanded,
-            child: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: footerPageController,
-              children: footerPageViewChildren,
-            ),
             builder: (_,bool infoButtonExpanded, Widget childB){
               // -------------------------------------------------------
               final double _footerHeight =
@@ -121,17 +118,23 @@ class FooterBox extends StatelessWidget {
               collapsedHeight(
                 context: context,
                 flyerBoxWidth: flyerBoxWidth,
+                tinyMode: tinyMode,
               );
               // -------------------------------------------------------
               return AnimatedContainer(
                 width: flyerBoxWidth,
                 height: _footerHeight,
-                duration: const Duration(milliseconds: 100),
-                // color: Colorz.yellow125,
+                duration: const Duration(milliseconds: 150),
+                // color: Colorz.bloodTest,
                 child: childB,
               );
 
             },
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: footerPageController,
+              children: footerPageViewChildren,
+            ),
           );
 
         },

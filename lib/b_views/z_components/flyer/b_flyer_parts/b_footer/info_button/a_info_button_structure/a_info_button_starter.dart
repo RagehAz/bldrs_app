@@ -39,9 +39,24 @@ class InfoButtonStarter extends StatelessWidget {
 
 // --------------------------------
   static double _tinyWidth({
+    @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    final double _width = flyerBoxWidth * 0.45;
+    final _footerButtonWidth = FooterButton.buttonSize(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        tinyMode: true,
+    );
+
+    final _footerSpacerWidth = FooterButton.buttonMargin(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        tinyMode: true,
+    );
+
+    final double _width = flyerBoxWidth
+        - (3 * _footerSpacerWidth)
+        - _footerButtonWidth;
 
     return _width;
   }
@@ -99,10 +114,19 @@ class InfoButtonStarter extends StatelessWidget {
   /// HEIGHT
 
 // --------------------------------
-  static double _tinyHeight(){
-    const double _height = 20;
+  static double _tinyHeight({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+}){
+    final double _footerButtonSize = FooterButton.buttonSize(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        tinyMode: true
+    );
 
-    return _height;
+    final _collapsedHeight =  _footerButtonSize;
+
+    return _collapsedHeight;
   }
 // --------------------------------
   static double collapsedHeight({
@@ -132,10 +156,18 @@ class InfoButtonStarter extends StatelessWidget {
   /// MARGIN
 
 // --------------------------------
-  static double _tinyMarginValue(){
-    const double _margin = 10;
+  static double _tinyMarginValue({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+}){
 
-    return _margin;
+    final _marginValue = FooterButton.buttonMargin(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        tinyMode: true,
+    );
+
+    return _marginValue;
   }
 // --------------------------------
   static double collapsedMarginValue({
@@ -178,7 +210,7 @@ class InfoButtonStarter extends StatelessWidget {
 
 // --------------------------------
   static Color _tinyColor(){
-    const Color _color = Colorz.bloodTest;
+    const Color _color = Colorz.black255;
 
     return _color;
   }
@@ -199,10 +231,21 @@ class InfoButtonStarter extends StatelessWidget {
   /// CORNERS
 
 // --------------------------------
-  static double _tinyCornerValue(){
-    const double _corner = 5;
+  static double _tinyCornerValue({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+  }){
 
-    return _corner;
+    final double _footerBottomCorners = FooterBox.boxCornersValue(flyerBoxWidth);
+
+    final double _tinyMargin = _tinyMarginValue(
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
+    );
+
+    final _tinyCornerValue = _footerBottomCorners - _tinyMargin;
+
+    return _tinyCornerValue;
   }
 // --------------------------------
   static double _collapsedCornerValue({
@@ -252,6 +295,7 @@ class InfoButtonStarter extends StatelessWidget {
     /// TINY MODE
     if (tinyMode == true){
       _width = _tinyWidth(
+        context: context,
         flyerBoxWidth: flyerBoxWidth,
       );
     }
@@ -302,7 +346,10 @@ class InfoButtonStarter extends StatelessWidget {
     double _height;
 
     if (tinyMode == true){
-      _height = _tinyHeight();
+      _height = _tinyHeight(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+      );
     }
 
     else {
@@ -334,7 +381,10 @@ class InfoButtonStarter extends StatelessWidget {
     double _cornersValue;
 
     if (tinyMode == true){
-      _cornersValue = _tinyCornerValue();
+      _cornersValue = _tinyCornerValue(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+      );
     }
 
     else {
@@ -396,7 +446,10 @@ class InfoButtonStarter extends StatelessWidget {
     double _marginValue;
 
     if (tinyMode == true){
-      _marginValue = _tinyMarginValue();
+      _marginValue = _tinyMarginValue(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+      );
     }
 
     else {

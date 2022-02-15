@@ -104,7 +104,6 @@ class FooterButton extends StatelessWidget {
         children: <Widget>[
 
           DreamBox(
-            icon: tinyMode ? icon : null,
             iconSizeFactor: 0.4,
             width: _buttonSize,
             height: _buttonSize,
