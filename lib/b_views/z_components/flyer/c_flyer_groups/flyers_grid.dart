@@ -52,6 +52,7 @@ class FlyersGrid extends StatelessWidget {
           height: gridHeight,
           color: Colorz.blue10,
           child: GridView.builder(
+              controller: ScrollController(),
               physics: const BouncingScrollPhysics(),
               padding: _gridPadding,
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

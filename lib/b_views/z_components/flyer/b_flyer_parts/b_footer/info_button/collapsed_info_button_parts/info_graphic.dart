@@ -11,11 +11,13 @@ class InfoGraphic extends StatelessWidget {
   const InfoGraphic({
     @required this.flyerBoxWidth,
     @required this.buttonIsExpanded,
+    @required this.tinyMode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final ValueNotifier<bool> buttonIsExpanded;
+  final bool tinyMode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class InfoGraphic extends StatelessWidget {
     return CollapsedInfoButtonBox(
       flyerBoxWidth: flyerBoxWidth,
       infoButtonType: InfoButtonType.info,
+      tinyMode: tinyMode,
       horizontalListViewChildren: <Widget>[
 
         SuperImage(
