@@ -25,6 +25,7 @@ class FooterPageBox extends StatelessWidget {
 
     return ListView(
       padding: EdgeInsets.zero,
+
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.horizontal,
       children: <Widget>[

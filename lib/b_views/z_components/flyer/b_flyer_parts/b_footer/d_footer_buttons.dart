@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -14,6 +15,8 @@ class FooterButtons extends StatelessWidget {
     @required this.onReviewFlyer,
     @required this.onShareFlyer,
     @required this.flyerIsSaved,
+    @required this.inFlight,
+    @required this.infoButtonType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,7 +26,19 @@ class FooterButtons extends StatelessWidget {
   final Function onReviewFlyer;
   final Function onShareFlyer;
   final ValueNotifier<bool> flyerIsSaved;
+  final bool inFlight;
+  final InfoButtonType infoButtonType;
   /// --------------------------------------------------------------------------
+  bool _canShowElement(){
+    bool _canShow = true;
+    if (tinyMode == true){
+        if (infoButtonType == InfoButtonType.info){
+          _canShow = false;
+        }
+    }
+    return _canShow;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -32,6 +47,8 @@ class FooterButtons extends StatelessWidget {
         tinyMode: tinyMode
     );
 
+    final bool _canShow = _canShowElement();
+
     return Positioned(
       right: Aligners.rightPositionInRightAlignmentEn(context, 0),
       left: Aligners.leftPositionInRightAlignmentEn(context, 0),
@@ -39,10 +56,12 @@ class FooterButtons extends StatelessWidget {
       child: Row(
         children: <Widget>[
 
+          if (_canShow == true)
           _spacer,
 
           /// SHARE
-          FooterButton(
+          if (_canShow == true)
+            FooterButton(
             flyerBoxWidth: flyerBoxWidth,
             icon: Iconz.share,
             verse: Wordz.send(context),
@@ -51,10 +70,12 @@ class FooterButtons extends StatelessWidget {
             onTap: onShareFlyer,
           ),
 
-          _spacer,
+          if (_canShow == true)
+            _spacer,
 
           /// COMMENT
-          FooterButton(
+          if (_canShow == true)
+            FooterButton(
             flyerBoxWidth: flyerBoxWidth,
             icon: Iconz.utPlanning,
             verse: 'Review',
@@ -63,7 +84,8 @@ class FooterButtons extends StatelessWidget {
             onTap: onReviewFlyer,
           ),
 
-          _spacer,
+          if (_canShow == true)
+            _spacer,
 
           /// SAVE BUTTON
           ValueListenableBuilder(
