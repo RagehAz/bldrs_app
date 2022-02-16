@@ -115,10 +115,28 @@ class _FlyerFooterState extends State<FlyerFooter> {
     blog('_onShowReviewOptions : $reviewModel');
   }
 // -----------------------------------------------------------------------------
+  bool _canShowInfoButtonChecker({
+  @required InfoButtonType infoButtonType,
+}){
+    bool _canShow = true;
+
+    if (widget.tinyMode == true || widget.inFlight == true){
+        if (infoButtonType == InfoButtonType.info){
+          _canShow = false;
+        }
+    }
+
+    return _canShow;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    const InfoButtonType _infoButtonType = InfoButtonType.price;
+    const InfoButtonType _infoButtonType = InfoButtonType.info;
+
+    final bool _canShowInfoButton = _canShowInfoButtonChecker(
+      infoButtonType: _infoButtonType
+    );
 
     return ValueListenableBuilder(
       valueListenable: widget.headerIsExpanded,
@@ -155,16 +173,19 @@ class _FlyerFooterState extends State<FlyerFooter> {
               /// FOOTER BUTTONS
               // if (widget.tinyMode == false)// && widget.inFlight == false)
                 FooterButtons(
-                    key: const ValueKey<String>('FooterButtons'),
-                    flyerBoxWidth: widget.flyerBoxWidth,
-                    tinyMode: widget.tinyMode,
-                    onSaveFlyer: widget.onSaveFlyer,
-                    onReviewFlyer: onReviewButtonTap,
-                    onShareFlyer: _onShareFlyer,
-                    flyerIsSaved: widget.flyerIsSaved
+                  key: const ValueKey<String>('FooterButtons'),
+                  flyerBoxWidth: widget.flyerBoxWidth,
+                  tinyMode: widget.tinyMode,
+                  onSaveFlyer: widget.onSaveFlyer,
+                  onReviewFlyer: onReviewButtonTap,
+                  onShareFlyer: _onShareFlyer,
+                  flyerIsSaved: widget.flyerIsSaved,
+                  inFlight: widget.inFlight,
+                  infoButtonType: _infoButtonType,
                 ),
 
-              /// PRICE BUTTON
+              /// INFO BUTTON
+              if (_canShowInfoButton == true)
                 InfoButtonStarter(
                   flyerBoxWidth: widget.flyerBoxWidth,
                   flyerModel: widget.flyerModel,

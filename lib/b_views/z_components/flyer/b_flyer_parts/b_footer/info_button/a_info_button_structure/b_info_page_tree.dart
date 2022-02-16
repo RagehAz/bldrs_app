@@ -1,10 +1,11 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_page.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_page_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/c_collapsed_info_button_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/e_expanded_info_page_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -41,8 +42,15 @@ class InfoPageTree extends StatelessWidget {
     );
 
     return FooterPageBox(
-        width: InfoButtonStarter.expandedWidth(context: context, flyerBoxWidth: flyerBoxWidth),
-        height: InfoButtonStarter.expandedHeight(flyerBoxWidth: flyerBoxWidth),
+        width: InfoButtonStarter.expandedWidth(
+            context: context,
+            flyerBoxWidth: flyerBoxWidth,
+        ),
+        height: InfoButtonStarter.expandedHeight(
+            flyerBoxWidth: flyerBoxWidth,
+        ),
+        // width: InfoButtonStarter.getWidth(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: tinyMode, isExpanded: isExpanded, infoButtonType: infoButtonType),
+        // height: InfoButtonStarter.getHeight(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: tinyMode, isExpanded: isExpanded),
         borders: Borderers.superBorderAll(context, _cornerValue),
         alignment: Alignment.center,
         scrollerIsOn: true,
@@ -52,12 +60,70 @@ class InfoPageTree extends StatelessWidget {
 
             return ListView(
               controller: infoPageVerticalController,
-              shrinkWrap: true,
+              // shrinkWrap: false,
               physics: _buttonIsExpanded == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero, /// ENTA EBN WES5A
               children: <Widget>[
 
-                child
+                // Column(
+                //   // mainAxisAlignment: MainAxisAlignment.start,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: <Widget>[
+                //
+                //
+                //   ],
+                // )
+
+                /// COLLAPSED INFO BUTTON TREE
+                Align(
+                  alignment: superCenterAlignment(context),
+                  child: Container(
+                    width: InfoButtonStarter.getWidth(
+                        context: context,
+                        flyerBoxWidth: flyerBoxWidth,
+                        tinyMode: tinyMode,
+                        isExpanded: _buttonIsExpanded,
+                        infoButtonType: infoButtonType
+                    ),
+                    height:
+                    tinyMode ? InfoButtonStarter.tinyHeight(
+                        context: context,
+                        flyerBoxWidth: flyerBoxWidth
+                    )
+                    :
+                    InfoButtonStarter.collapsedHeight(
+                      context: context,
+                      flyerBoxWidth: flyerBoxWidth,
+                      // tinyMode: tinyMode,
+                      // isExpanded: _buttonIsExpanded,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: InfoButtonStarter.getBorders(
+                        context: context,
+                        flyerBoxWidth: flyerBoxWidth,
+                        tinyMode: tinyMode,
+                        isExpanded: _buttonIsExpanded,
+                      ),
+                      // color: Colorz.blue255,
+                    ),
+                    child: CollapsedInfoButtonTree(
+                      flyerBoxWidth: flyerBoxWidth,
+                      buttonIsExpanded: buttonIsExpanded,
+                      infoButtonType: infoButtonType,
+                      tinyMode: tinyMode,
+                    ),
+                  ),
+                ),
+
+                /// EXPANDED INFO PAGE TREE
+                if (tinyMode == false && inFlight == false)
+                  ExpandedInfoPageTree(
+                    buttonIsExpanded: buttonIsExpanded,
+                    flyerBoxWidth: flyerBoxWidth,
+                    flyerModel: flyerModel,
+                    flyerZone: flyerZone,
+                  ),
+
 
               ],
 
@@ -65,28 +131,7 @@ class InfoPageTree extends StatelessWidget {
 
           },
 
-          child: Column(
-            children: <Widget>[
-
-              /// COLLAPSED INFO BUTTON TREE
-              CollapsedInfoButtonTree(
-                flyerBoxWidth: flyerBoxWidth,
-                buttonIsExpanded: buttonIsExpanded,
-                infoButtonType: infoButtonType,
-                tinyMode: tinyMode,
-              ),
-
-              /// EXPANDED INFO PAGE TREE
-              if (tinyMode == false && inFlight == false)
-                ExpandedInfoPageTree(
-                  buttonIsExpanded: buttonIsExpanded,
-                  flyerBoxWidth: flyerBoxWidth,
-                  flyerModel: flyerModel,
-                  flyerZone: flyerZone,
-                ),
-
-            ],
-          ),
+          child: Container(),
         ),
     );
 
