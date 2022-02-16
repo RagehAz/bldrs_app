@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/d_collapsed_info_button_content.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:flutter/material.dart';
 
 class CollapsedInfoButtonTree extends StatelessWidget {
@@ -25,9 +24,11 @@ class CollapsedInfoButtonTree extends StatelessWidget {
       key: const ValueKey<String>('CollapsedInfoButtonTree'),
       valueListenable: buttonIsExpanded,
       builder: (_, bool _buttonIsExpanded, Widget collapsedInfoButtonContent){
+
         final double _paddingValue = _buttonIsExpanded ? 10 : 0;
+
         return AnimatedAlign(
-            alignment: _buttonIsExpanded ? Alignment.center : Aligners.superCenterAlignment(context),
+            alignment: Alignment.center,
             duration: const Duration(milliseconds: 100),
             child: AnimatedScale(
               duration: const Duration(milliseconds: 100),

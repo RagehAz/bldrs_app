@@ -8,21 +8,36 @@ class CollapsedInfoButtonBox extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.horizontalListViewChildren,
     @required this.infoButtonType,
+    @required this.tinyMode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final List<Widget> horizontalListViewChildren;
   final InfoButtonType infoButtonType;
+  final bool tinyMode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // ------------------------------------------------------------------
-    final double _width = InfoButtonStarter.collapsedWidth(
+    final double _width = tinyMode ?
+    InfoButtonStarter.tinyWidth(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+    )
+    :
+    InfoButtonStarter.collapsedWidth(
         context: context,
         flyerBoxWidth: flyerBoxWidth
     );
-    final double _height = InfoButtonStarter.collapsedHeight(
+// ------------------------------------------------------------------
+    final double _height = tinyMode ?
+    InfoButtonStarter.tinyHeight(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+    )
+    :
+    InfoButtonStarter.collapsedHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
@@ -31,11 +46,12 @@ class CollapsedInfoButtonBox extends StatelessWidget {
 //     final double _paddingsValue = _height * 0.25;
     // final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: _paddingsValue);
 // ------------------------------------------------------------------
-    return SizedBox(
+    return Container(
       key: const ValueKey<String>('normal_price_tag'),
       width: _width,
       height: _height,
       // alignment: infoButtonType == InfoButtonType.info ? Alignment.center : Aligners.superCenterAlignment(context),
+      alignment: Alignment.center,
       child: ListView(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,

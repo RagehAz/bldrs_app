@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/collapsed_info_button_parts/discount_price_tag.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/collapsed_info_button_parts/info_graphic.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/collapsed_info_button_parts/installment_price_tag.dart';
@@ -22,29 +23,68 @@ class CollapsedInfoButtonContent extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+// ------------------------------------------------------------------
+    final double _width = tinyMode ?
+    InfoButtonStarter.tinyWidth(
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
+    )
+        :
+    InfoButtonStarter.collapsedWidth(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth
+    );
+// ------------------------------------------------------------------
+    final double _height = tinyMode ?
+    InfoButtonStarter.tinyHeight(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth
+    )
+        :
+    InfoButtonStarter.collapsedHeight(
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
+    );
+// ------------------------------------------------------------------
+    final double _paddingValue = _height * 0.1;
+// ------------------------------------------------------------------
     if (infoButtonType == InfoButtonType.info){
       return InfoGraphic(
         flyerBoxWidth: flyerBoxWidth,
         buttonIsExpanded: buttonIsExpanded,
+        tinyMode: tinyMode,
       );
     }
 
     else if (infoButtonType == InfoButtonType.price){
       return NormalPriceTag(
-          flyerBoxWidth: flyerBoxWidth
+        flyerBoxWidth: flyerBoxWidth,
+        tinyMode: tinyMode,
+        width: _width,
+        height: _height,
+        paddingValue: _paddingValue,
       );
     }
 
     else if (infoButtonType == InfoButtonType.discount){
       return DiscountPriceTag(
-          flyerBoxWidth: flyerBoxWidth
+        flyerBoxWidth: flyerBoxWidth,
+        tinyMode: tinyMode,
+        width: _width,
+        height: _height,
+        paddingValue: _paddingValue,
+        buttonIsExpanded: buttonIsExpanded,
       );
     }
 
     else if (infoButtonType == InfoButtonType.installments){
       return InstallmentsPriceTag(
         flyerBoxWidth: flyerBoxWidth,
+        tinyMode: tinyMode,
+        width: _width,
+        height: _height,
+        paddingValue: _paddingValue,
+        buttonIsExpanded: buttonIsExpanded,
       );
     }
 

@@ -38,7 +38,7 @@ class InfoButtonStarter extends StatelessWidget {
   /// WIDTH
 
 // --------------------------------
-  static double _tinyWidth({
+  static double tinyWidth({
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
@@ -114,7 +114,7 @@ class InfoButtonStarter extends StatelessWidget {
   /// HEIGHT
 
 // --------------------------------
-  static double _tinyHeight({
+  static double tinyHeight({
     @required BuildContext context,
     @required double flyerBoxWidth,
 }){
@@ -294,7 +294,7 @@ class InfoButtonStarter extends StatelessWidget {
 
     /// TINY MODE
     if (tinyMode == true){
-      _width = _tinyWidth(
+      _width = tinyWidth(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
       );
@@ -346,7 +346,7 @@ class InfoButtonStarter extends StatelessWidget {
     double _height;
 
     if (tinyMode == true){
-      _height = _tinyHeight(
+      _height = tinyHeight(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
       );
@@ -473,14 +473,28 @@ class InfoButtonStarter extends StatelessWidget {
     return _margins;
   }
 // -----------------------------------------------------------------------------
+  bool _canTapInfoButton(){
+    bool _canTap;
+
+    if (tinyMode == true || inFlight == true){
+      _canTap = false;
+    }
+    else {
+      _canTap = true;
+    }
+
+    return _canTap;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return Align(
+      /// ALIGNS THE ENTIRE THING TO THE BOTTOM CORNER
       key: const ValueKey<String>('InfoButtonStarter'),
       alignment: Aligners.superBottomAlignment(context),
       child: GestureDetector(
-        onTap: onInfoButtonTap,
+        onTap: _canTapInfoButton() ? onInfoButtonTap : null,
         child: ValueListenableBuilder(
           valueListenable: infoButtonExpanded,
           builder: (_, bool buttonExpanded, Widget infoPageTree){
@@ -526,10 +540,12 @@ class InfoButtonStarter extends StatelessWidget {
               height: _height,
               duration: const Duration(milliseconds: 100),
               decoration: BoxDecoration(
-                color: _color,
+                // color: _color,
+                color: Colorz.black255,
                 borderRadius: _borders,
               ),
               margin: _margins,
+              alignment: Alignment.center,
               child: infoPageTree,
             );
 
