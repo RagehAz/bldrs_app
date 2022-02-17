@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 import 'package:bldrs/b_views/z_components/tab_bars/bldrs_sliver_tab_bar.dart';
 import 'package:bldrs/c_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -57,7 +57,7 @@ class MyBzScreenTabBar extends StatelessWidget {
           final String _bzTabString = BzModel.bzPagesTabsTitlesInEnglishOnly[index];
 
           return
-            TabButton(
+            FlyerTypeButton(
               key: ValueKey<String>('bz_tab_button_$_bzTabString'),
               verse: _bzTabString,
               icon: _bzTabIcon(_bzTab),
