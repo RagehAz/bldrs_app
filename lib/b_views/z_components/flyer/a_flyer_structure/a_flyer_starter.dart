@@ -81,11 +81,11 @@ class _FlyerStarterState extends State<FlyerStarter> {
         /// BZ ZONE
         final CountryModel _bzCountry = await getFlyerBzCountry(
           context: context,
-          countryID: _bzModel.zone.countryID,
+          countryID: _bzModel?.zone?.countryID,
         );
         final CityModel _bzCity = await getFlyerBzCity(
           context: context,
-          cityID: _bzModel.zone.cityID,
+          cityID: _bzModel?.zone?.cityID,
         );
 // -----------------------------------------------------------------
         /// FLYER ZONE

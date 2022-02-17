@@ -1,13 +1,12 @@
-import 'dart:async';
-
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/c_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 
 /// NOTE : this widget is an exact replica of AnonymousHomeScreen widget
 class UserHomeScreen extends StatefulWidget {
@@ -55,23 +54,18 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onFlyerTap(FlyerModel flyer) async {
-    await onFlyerTap(context: context, flyer: flyer);
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
     final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
 
-    return OldFlyersGrid(
-      gridZoneWidth: OldFlyerBox.width(context, 1),
-      scrollController: _scrollController,
+    return FlyersGrid(
+      gridWidth: Scale.superScreenWidth(context),
+      gridHeight: Scale.superScreenHeight(context),
       numberOfColumns: 2,
-      scrollable: true,
       flyers: _wallFlyers,
-      onFlyerTap: (FlyerModel flyer) => _onFlyerTap(flyer),
+      scrollController: _scrollController,
     );
 
   }
