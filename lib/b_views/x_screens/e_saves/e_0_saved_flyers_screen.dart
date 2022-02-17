@@ -23,10 +23,17 @@ class SavedFlyersScreen extends StatefulWidget {
 class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
 // -----------------------------------------------------------------------------
   ScrollController _flyersGridScrollController;
+  ScrollController _sliverNestedScrollController;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     _flyersGridScrollController = ScrollController();
+    _sliverNestedScrollController = ScrollController();
+
+    // _flyersGridScrollController.addListener(() {
+    //   _sliverNestedScrollController.position.correctPixels(_flyersGridScrollController.position.pixels);
+    // });
+
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -74,6 +81,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
         currentFlyerType : _currentFlyerType,
         onChangeCurrentFlyerType: onChangeCurrentFlyerType,
         flyersGridScrollController: _flyersGridScrollController,
+        sliverNestedScrollController: _sliverNestedScrollController,
       ),
 
     );
