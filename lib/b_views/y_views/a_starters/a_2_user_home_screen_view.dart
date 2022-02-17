@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/c_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -59,6 +60,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
     final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
+
+    _wallFlyers[0].blogFlyer(methodName: ' YABN MAYTEEEEEEN EL KALB');
 
     return FlyersGrid(
       gridWidth: Scale.superScreenWidth(context),

@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -31,8 +32,10 @@ class BldrsSliverAppBarSmall extends StatelessWidget {
   static double getContentHeight({
     double givenContentHeight,
   }){
-    return givenContentHeight ?? Ratioz.appBarSmallHeight;
+    return (givenContentHeight ?? Ratioz.appBarSmallHeight) + _separatorLineThickness;
   }
+  // ---------------------------------------------------------------------------
+  static const double _separatorLineThickness = 0.25;
   // ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -61,12 +64,26 @@ class BldrsSliverAppBarSmall extends StatelessWidget {
           width: _screenWidth,
           height: _collapsedHeight,
           alignment: Alignment.bottomCenter,
-
           /// ONLY THE BOX TO SHOW BENEATH BLDRS STATIC APPBAR
-          child: SizedBox(
-            width: _screenWidth,
-            height: _contentHeight,
-            child: content,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            // crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+
+              SizedBox(
+                  width: _screenWidth,
+                  height: _contentHeight,
+                  child: content
+              ),
+
+              Container(
+                width: _screenWidth - 20,
+                height: _separatorLineThickness,
+                color: Colorz.yellow200,
+              ),
+
+            ],
+
           ),
 
         ),
