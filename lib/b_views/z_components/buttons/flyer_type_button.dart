@@ -3,9 +3,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class TabButton extends StatelessWidget {
+class FlyerTypeButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const TabButton({
+  const FlyerTypeButton({
     @required this.isSelected,
     @required this.icon,
     this.iconSizeFactor = 0.85,
@@ -26,9 +26,10 @@ class TabButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final Color _buttonColor = isSelected == true ? Colorz.yellow255 : null;
     final Color _iconColor = isSelected == true && triggerIconColor == true ? Colorz.black255 : null;
-    final Color _verseColor = isSelected == true ? Colorz.black255 : null;
+    final Color _verseColor = isSelected == true ? Colorz.black255 : Colorz.white255;
 
     return DreamBox(
       height: Ratioz.appBarButtonSize,

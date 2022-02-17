@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/tab_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 import 'package:bldrs/b_views/z_components/tab_bars/bldrs_sliver_tab_bar.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -56,7 +56,7 @@ class UserScreenTabBar extends StatelessWidget {
 
           return
 
-            TabButton(
+            FlyerTypeButton(
               key: ValueKey<String>('user_tab_button_$_userTabString'),
               verse: _userTabString,
               icon: _userTabIcon(_userTab),

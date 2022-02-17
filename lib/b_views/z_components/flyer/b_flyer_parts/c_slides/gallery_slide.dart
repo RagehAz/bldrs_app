@@ -146,6 +146,7 @@ class _GallerySlideState extends State<GallerySlide> {
     );
 
     return ClipRRect(
+      key: const ValueKey<String>('Gallery_slide_of_Flyer'),
       borderRadius: FooterBox.corners(context: context, flyerBoxWidth: widget.flyerBoxWidth),
       child: Container(
         width: widget.flyerBoxWidth,
@@ -168,6 +169,7 @@ class _GallerySlideState extends State<GallerySlide> {
               topPadding: _headerAndProgressHeights,
               numberOfColumns: 2,
               heroTag: widget.heroTag,
+              scrollController: _scrollController,
             );
 
           },
