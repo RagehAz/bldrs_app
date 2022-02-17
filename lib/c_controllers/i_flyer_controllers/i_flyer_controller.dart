@@ -99,26 +99,30 @@ bool canShowGalleryPage({
 }){
   bool _canShowGallery = false;
 
-  if (BzModel != null){
+  if (bzModel != null){
 
-    /// only CAN SHOW : WHEN BZ FLYERS ARE MORE THAN THE SHOWN FLYER
-    final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
+    if (Mapper.canLoopList(bzModel.flyersIDs)){
 
-    /// & only CAN SHOW : WHEN HERO TAG CONTAINS MORE THAN 1 FLYER ID
-    final List<String> _heroFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
-    final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.length > 1;
+      /// only CAN SHOW : WHEN BZ FLYERS ARE MORE THAN THE SHOWN FLYER
+      final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
 
-    /// & only CAN SHOW : WHEN HERO TAG HAS LESS THAN 3 FLYERS IDS
-    final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 3;
+      /// & only CAN SHOW : WHEN HERO TAG CONTAINS MORE THAN 1 FLYER ID
+      final List<String> _heroFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
+      final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.length > 1;
 
-    /// so :-
-    if (_bzHasMoreThanOneFlyer == true){
+      /// & only CAN SHOW : WHEN HERO TAG HAS LESS THAN 3 FLYERS IDS
+      final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 3;
 
-      if (_heroTagHasMoreThanOneFlyerID == true){
+      /// so :-
+      if (_bzHasMoreThanOneFlyer == true){
 
-        if (_heroTagHasLessThanThreeFlyersIDs == true){
+        if (_heroTagHasMoreThanOneFlyerID == true){
 
-          _canShowGallery = true;
+          if (_heroTagHasLessThanThreeFlyersIDs == true){
+
+            _canShowGallery = true;
+
+          }
 
         }
 

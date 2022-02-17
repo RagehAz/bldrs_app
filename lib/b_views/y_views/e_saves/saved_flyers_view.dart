@@ -1,16 +1,14 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/saved_flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/bldrs_sliver_app_bar_small.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/e_saves_controller.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class SavedFlyersScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -19,6 +17,7 @@ class SavedFlyersScreenView extends StatelessWidget {
     @required this.currentFlyerType,
     @required this.onChangeCurrentFlyerType,
     @required this.flyersGridScrollController,
+    @required this.sliverNestedScrollController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,6 +25,7 @@ class SavedFlyersScreenView extends StatelessWidget {
   final ValueNotifier<FlyerType> currentFlyerType;
   final ValueChanged<FlyerType> onChangeCurrentFlyerType;
   final ScrollController flyersGridScrollController;
+  final ScrollController sliverNestedScrollController;
   /// --------------------------------------------------------------------------
   bool _isSelected({
     @required FlyerType flyerType,
@@ -45,10 +45,9 @@ class SavedFlyersScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-
     return NestedScrollView(
       key: const ValueKey<String>('SavedFlyersScreenView'),
+      // controller: sliverNestedScrollController,
       physics: const BouncingScrollPhysics(),
       floatHeaderSlivers: true,
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
