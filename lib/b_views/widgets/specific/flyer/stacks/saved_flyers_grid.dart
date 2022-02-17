@@ -6,8 +6,11 @@ import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/gallery_grid.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/sliver_flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -21,6 +24,7 @@ class SavedFlyersGrid extends StatelessWidget {
     @required this.selectedFlyers,
     @required this.selectionMode,
     @required this.onSelectFlyer,
+    @required this.flyersGridScrollController,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,13 +32,13 @@ class SavedFlyersGrid extends StatelessWidget {
   final List<FlyerModel> selectedFlyers;
   final bool selectionMode;
   final Function onSelectFlyer;
+  final ScrollController flyersGridScrollController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final int _numberOfColumns = GalleryGrid.gridColumnCount(flyers.length);
     const double _spacing = SliverFlyersGrid.spacing;
-
     final double _flyerBoxWidth = SliverFlyersGrid.calculateFlyerBoxWidth(
       flyersLength: flyers.length,
       context: context,
@@ -44,8 +48,11 @@ class SavedFlyersGrid extends StatelessWidget {
     Container()
         :
     Scroller(
+      controller: flyersGridScrollController,
       child: GridView.builder(
+        key: const ValueKey<String>('Saved_Flyers_Grid'),
         itemCount: flyers.length,
+        controller: flyersGridScrollController,
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.only(right: _spacing, left: _spacing, top: _spacing, bottom: Ratioz.horizon),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -71,14 +78,13 @@ class SavedFlyersGrid extends StatelessWidget {
 
                 /// THE FLYER
                 AbsorbPointer(
-                  child: FinalFlyer(
-                    flyerBoxWidth: _flyerBoxWidth,
+                  child: FlyerStarter(
                     flyerModel: flyers[index],
-                    onSwipeFlyer:
-                        (Sliders.SwipeDirection direction) {
-                      // print('Direction is ${direction}');
-                        },
-                  ),
+                    minWidthFactor: FlyersGrid.getFlyerMinWidthFactor(
+                        gridFlyerWidth: _flyerBoxWidth,
+                        gridZoneWidth: superScreenWidth(context)
+                    ),
+                  )
                 ),
 
                 /// BLACK COLOR OVERRIDE
@@ -132,12 +138,12 @@ class SavedFlyersGrid extends StatelessWidget {
           )
               :
           /// NORMAL FLYER
-          FinalFlyer(
-            flyerBoxWidth: _flyerBoxWidth,
+          FlyerStarter(
             flyerModel: flyers[index],
-            onSwipeFlyer: (Sliders.SwipeDirection direction) {
-              // print('Direction is ${direction}');
-            },
+            minWidthFactor: FlyersGrid.getFlyerMinWidthFactor(
+                gridFlyerWidth: _flyerBoxWidth,
+                gridZoneWidth: superScreenWidth(context)
+            ),
           );
           },
       ),
