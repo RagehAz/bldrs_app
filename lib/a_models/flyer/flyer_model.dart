@@ -386,7 +386,12 @@ class FlyerModel with ChangeNotifier{
     return _flyer;
   }
 // -----------------------------------------------------------------------------
-  void blogFlyer(){
+  void blogFlyer({String methodName}){
+
+    if (methodName != null){
+      blog(methodName);
+    }
+
     blog('FLYER-PRINT --------------------------------------------------START');
 
     blog('id : $id');
