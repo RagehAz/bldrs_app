@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 /// FOR ANONYMOUS USER
                 else if (userIsSignedIn() == false){
-                  return const AnonymousHomeScreen();
+                  return const AnonymousHomeScreenView();
                 }
 
                 /// FOR KNOWN SIGNED IN USER

@@ -1,4 +1,6 @@
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
@@ -11,24 +13,42 @@ import 'package:flutter/material.dart';
 class MiniHeaderStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MiniHeaderStrip({
-    @required this.superFlyer,
     @required this.flyerBoxWidth,
+    @required this.bzPageIsOn,
+    @required this.bzModel,
+    @required this.flyerShowsAuthor,
+    @required this.bzCountry,
+    @required this.bzCity,
+    @required this.authorID,
+    @required this.onFollowTap,
+    @required this.onCallTap,
+    @required this.followIsOn,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
-  final SuperFlyer superFlyer;
   final double flyerBoxWidth;
-
+  final bool bzPageIsOn;
+  final BzModel bzModel;
+  final bool flyerShowsAuthor;
+  final CountryModel bzCountry;
+  final CityModel bzCity;
+  final String authorID;
+  final Function onFollowTap;
+  final Function onCallTap;
+  final bool followIsOn;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _stripHeight = FlyerBox.headerStripHeight(
-        headerIsExpanded: superFlyer.nav.bzPageIsOn, flyerBoxWidth: flyerBoxWidth);
+        headerIsExpanded: bzPageIsOn,
+        flyerBoxWidth: flyerBoxWidth,
+    );
+
     final BorderRadius _stripBorders = FlyerBox.superHeaderStripCorners(
       context: context,
-      bzPageIsOn: superFlyer.nav.bzPageIsOn,
+      bzPageIsOn: bzPageIsOn,
       flyerBoxWidth: flyerBoxWidth,
     );
 // -----------------------------------------------------------------------------
@@ -38,8 +58,7 @@ class MiniHeaderStrip extends StatelessWidget {
         // there was Align(Alignment: Alignment.topCenter above this container ,, delete this comment if you see me again
         height: _stripHeight,
         width: flyerBoxWidth,
-        padding:
-            EdgeInsets.all(flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding),
+        padding: EdgeInsets.all(flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding),
         decoration: BoxDecoration(
           borderRadius: _stripBorders,
           gradient: Colorizer.superHeaderStripGradient(Colorz.white50),
@@ -48,40 +67,43 @@ class MiniHeaderStrip extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             /// --- BzLogo
             BzLogo(
               width: FlyerBox.logoWidth(
-                  bzPageIsOn: superFlyer.nav.bzPageIsOn,
+                  bzPageIsOn: bzPageIsOn,
                   flyerBoxWidth: flyerBoxWidth),
-              image: superFlyer.bz.logo,
+              image: bzModel.logo,
               tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
               corners: FlyerBox.superLogoCorner(
                   context: context,
                   flyerBoxWidth: flyerBoxWidth,
-                  zeroCornerIsOn: superFlyer.flyerShowsAuthor),
-              zeroCornerIsOn: superFlyer.flyerShowsAuthor,
+                  zeroCornerIsOn: flyerShowsAuthor
+              ),
+              zeroCornerIsOn: flyerShowsAuthor,
               // onTap: superFlyer.onHeaderTap,
             ),
 
             /// --- B.NAME, B.LOCALE, AUTHOR PICTURE, AUTHOR NAME, AUTHOR TITLE, FOLLOWERS COUNT
             OldHeaderLabels(
               flyerBoxWidth: flyerBoxWidth,
-              authorID: superFlyer.authorID,
-              bzCity: superFlyer.bzCity,
-              bzCountry: superFlyer.bzCountry,
-              bzModel: superFlyer.bz,
-              headerIsExpanded: superFlyer.nav.bzPageIsOn,
-              flyerShowsAuthor: superFlyer.flyerShowsAuthor,
+              authorID: authorID,
+              bzCity: bzCity,
+              bzCountry: bzCountry,
+              bzModel: bzModel,
+              headerIsExpanded: bzPageIsOn,
+              flyerShowsAuthor: flyerShowsAuthor,
             ),
 
             /// --- FOLLOW & Call
             OldFollowAndCallBTs(
               flyerBoxWidth: flyerBoxWidth,
-              onFollowTap: superFlyer.rec.onFollowTap,
-              onCallTap: superFlyer.rec.onCallTap,
-              followIsOn: superFlyer.rec.followIsOn,
-              headerIsExpanded: superFlyer.nav.bzPageIsOn,
+              onFollowTap: onFollowTap,
+              onCallTap: onCallTap,
+              followIsOn: followIsOn,
+              headerIsExpanded: bzPageIsOn,
             ),
+
           ],
         ),
       ),

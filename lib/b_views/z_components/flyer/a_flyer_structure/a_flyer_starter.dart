@@ -174,7 +174,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     final double _flyerBoxWidth = FlyerBox.width(context, widget.minWidthFactor);
 
     return ValueListenableBuilder(
-        key: ValueKey<String>('FlyerStarter_${widget.flyerModel.id}'),
+        key: ValueKey<String>('FlyerStarter_${widget.flyerModel?.id}'),
         valueListenable: _loading,
         child: FlyerLoading(flyerBoxWidth: widget.minWidthFactor,),
         builder: (_, bool isLoading, Widget child){

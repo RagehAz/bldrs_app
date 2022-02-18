@@ -171,6 +171,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
     final List<BzModel> _bzz = _searchedBzz.isEmpty ? _bzzModels : _searchedBzz;
 
+
     return _bzzModels == null ?
     const LoadingFullScreenLayer()
         :
@@ -231,6 +232,15 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                       context: context, cityID: _bz.zone.cityID
                   );
 
+                  final SuperFlyer _superFlyer = SuperFlyer
+                      .getSuperFlyerFromBzModelOnly(
+                    onHeaderTap: () {},
+                    bzModel: _bz,
+                    bzCountry: _bzCountry,
+                    bzCity: _bzCity,
+                  );
+
+
                   await BottomDialog.showBottomDialog(
                     context: context,
                     title: _bzName,
@@ -257,14 +267,16 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                               child: Column(
                                 children: <Widget>[
                                   MiniHeaderStrip(
-                                          superFlyer: SuperFlyer
-                                              .getSuperFlyerFromBzModelOnly(
-                                            onHeaderTap: () {},
-                                            bzModel: _bz,
-                                            bzCountry: _bzCountry,
-                                            bzCity: _bzCity,
-                                          ),
-                                          flyerBoxWidth: _clearDialogWidth,
+                                    bzPageIsOn: _superFlyer.nav.bzPageIsOn,
+                                    flyerBoxWidth: _clearDialogWidth,
+                                    bzModel: _superFlyer.bz,
+                                    bzCity: _superFlyer.bzCity,
+                                    bzCountry: _superFlyer.bzCountry,
+                                    followIsOn: _superFlyer.rec.followIsOn,
+                                    onCallTap: _superFlyer.rec.onCallTap,
+                                    onFollowTap: _superFlyer.rec.onFollowTap,
+                                    authorID: _superFlyer.authorID,
+                                    flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
                                         ),
                                       ],
                                     ),

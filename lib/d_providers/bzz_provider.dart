@@ -290,7 +290,7 @@ class BzzProvider extends ChangeNotifier {
   }
   CountryModel get myActiveBzCountry => _myActiveBzCountry;
   CityModel get myActiveBzCity => _myActiveBzCity;
-  List<FlyerModel> get myActiveBzFlyer{
+  List<FlyerModel> get myActiveBzFlyers{
     return _myActiveBzFlyers;
   }
 // -----------------------------------------------------------------------------

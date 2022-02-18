@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class FlyersGrid extends StatelessWidget {
     this.topPadding = Ratioz.stratosphere,
     this.numberOfColumns = 3,
     this.heroTag,
+    this.addFlyerButtonIsOn = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +28,7 @@ class FlyersGrid extends StatelessWidget {
   final int numberOfColumns;
   /// when grid is inside a flyer
   final String heroTag;
+  final bool addFlyerButtonIsOn;
   /// --------------------------------------------------------------------------
   static double getGridWidth({
     @required BuildContext context,
@@ -81,6 +85,29 @@ class FlyersGrid extends StatelessWidget {
     return gridFlyerWidth / gridZoneWidth;
   }
 // -----------------------------------------------------------------------------
+  static int getNumberOfFlyers({
+    @required List<FlyerModel> flyers,
+    @required bool addFlyerButtonIsOn,
+}){
+    int _numberOfRealFlyers = 0;
+
+    /// WHEN FLYERS HAVE LENGTH
+    if (Mapper.canLoopList(flyers)){
+      _numberOfRealFlyers = flyers.length;
+    }
+
+    /// ADD ONE IF THE THE ADD BUTTON IS ON
+    if (addFlyerButtonIsOn == true){
+      return _numberOfRealFlyers + 1;
+    }
+
+    /// KEEP AS IS
+    else {
+      return _numberOfRealFlyers;
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // ----------------------------------------------------------
@@ -113,6 +140,16 @@ class FlyersGrid extends StatelessWidget {
       gridZoneWidth: _gridZoneWidth,
     );
 // ----------------------------------------------------------
+    final int _numberOfItems = getNumberOfFlyers(
+      flyers: flyers,
+      addFlyerButtonIsOn: addFlyerButtonIsOn,
+    );
+// ----------------------------------------------------------
+
+    if (addFlyerButtonIsOn == true){
+      flyers.insert(0, null);
+    }
+
     return Stack(
       key: const ValueKey<String>('Stack_of_flyers_grid'),
       children: <Widget>[
@@ -120,7 +157,6 @@ class FlyersGrid extends StatelessWidget {
         SizedBox(
           width: _gridZoneWidth,
           height: _gridZoneHeight,
-          // color: Colorz.blue10,
           child: GridView.builder(
               controller: scrollController,
               physics: const BouncingScrollPhysics(),
@@ -131,16 +167,41 @@ class FlyersGrid extends StatelessWidget {
                 childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
                 maxCrossAxisExtent: _gridFlyerWidth,
               ),
-              itemCount: flyers.length,
+              itemCount: _numberOfItems,
               itemBuilder: (BuildContext ctx, int index){
 
-                return
-                  FlyerStarter(
+                /// A - WHEN ADD FLYER BUTTON IS ON
+                if (addFlyerButtonIsOn == true){
+
+                  /// B2 - WHEN AT FIRST ELEMENT
+                  if (index == 0){
+                    return AddFlyerButton(
+                      flyerBoxWidth: _gridFlyerWidth,
+                    );
+                  }
+
+                  /// B3 - WHEN AT ANY ELEMENT AFTER FIRST
+                  else {
+                    return FlyerStarter(
+                      key: const ValueKey<String>('Flyers_grid_FlyerStarter'),
+                      flyerModel: flyers[index],
+                      minWidthFactor: _minWidthFactor,
+                      heroTag: heroTag,
+                    );
+                  }
+
+                }
+
+                /// A - WHEN ONLY SHOWING FLYERS
+                else {
+                  return FlyerStarter(
                     key: const ValueKey<String>('Flyers_grid_FlyerStarter'),
                     flyerModel: flyers[index],
                     minWidthFactor: _minWidthFactor,
                     heroTag: heroTag,
                   );
+                }
+
               }
 
 

@@ -85,7 +85,7 @@ class AuthorCard extends StatelessWidget {
   }){
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final List<FlyerModel> _bzFlyers = _bzzProvider.myActiveBzFlyer;
+    final List<FlyerModel> _bzFlyers = _bzzProvider.myActiveBzFlyers;
 
     final List<FlyerModel> _authorFlyers = FlyerModel.getFlyersFromFlyersByAuthorID(
       flyers: _bzFlyers,
