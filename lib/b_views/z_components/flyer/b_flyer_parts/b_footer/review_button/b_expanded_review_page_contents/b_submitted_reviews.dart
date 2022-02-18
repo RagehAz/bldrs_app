@@ -25,27 +25,24 @@ class SubmittedReviews extends StatelessWidget {
       key: const ValueKey<String>('SubmittedReviews'),
       width: pageWidth,
       height: pageHeight,
-      child: Scroller(
+      child: ListView.builder(
         controller: reviewPageVerticalController,
-        child: ListView.builder(
-          controller: reviewPageVerticalController,
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.only(
-            top: ReviewBubble.bubbleMarginValue(),
-            bottom: 140,
-          ),
-          itemCount: 10,
-          itemBuilder: (_, int index){
-
-            return ReviewBubble(
-              pageWidth : pageWidth,
-              pageHeight: pageHeight,
-              flyerBoxWidth: flyerBoxWidth,
-              userModel: UserModel.dummyUserModel(context),
-            );
-
-          },
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.only(
+          top: ReviewBubble.bubbleMarginValue(),
+          bottom: 140,
         ),
+        itemCount: 10,
+        itemBuilder: (_, int index){
+
+          return ReviewBubble(
+            pageWidth : pageWidth,
+            pageHeight: pageHeight,
+            flyerBoxWidth: flyerBoxWidth,
+            userModel: UserModel.dummyUserModel(context),
+          );
+
+        },
       ),
     );
 

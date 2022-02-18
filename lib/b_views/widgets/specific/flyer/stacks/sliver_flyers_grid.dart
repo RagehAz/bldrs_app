@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/stacks/gallery_grid.dart';
+import 'package:bldrs/xxx_lab/zebala/old_flyer_stuff/old_gallery_grid.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -23,7 +23,7 @@ class SliverFlyersGrid extends StatelessWidget {
       {BuildContext context, int flyersLength}) {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _gridWidth = _screenWidth - (2 * spacing);
-    final int _numberOfColumns = GalleryGrid.gridColumnCount(flyersLength);
+    final int _numberOfColumns = OldGalleryGrid.gridColumnCount(flyersLength);
     final double _flyerBoxWidth =
         (_gridWidth - ((_numberOfColumns - 1) * spacing)) / _numberOfColumns;
     return _flyerBoxWidth;
@@ -37,7 +37,7 @@ class SliverFlyersGrid extends StatelessWidget {
       context: context,
     );
 
-    final int _numberOfColumns = GalleryGrid.gridColumnCount(flyers.length);
+    final int _numberOfColumns = OldGalleryGrid.gridColumnCount(flyers.length);
 
     return SliverPadding(
       padding: const EdgeInsets.all(spacing),

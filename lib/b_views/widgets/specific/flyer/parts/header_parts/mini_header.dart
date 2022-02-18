@@ -49,7 +49,15 @@ class MiniHeader extends StatelessWidget {
 
             /// HEADER COMPONENTS
             MiniHeaderStrip(
-              superFlyer: superFlyer,
+              flyerShowsAuthor: superFlyer.flyerShowsAuthor,
+              authorID: superFlyer.authorID,
+              onFollowTap: superFlyer.rec.onFollowTap,
+              onCallTap: superFlyer.rec.onCallTap,
+              followIsOn: superFlyer.rec.followIsOn,
+              bzCountry: superFlyer.bzCountry,
+              bzCity: superFlyer.bzCity,
+              bzModel: superFlyer.bz,
+              bzPageIsOn: superFlyer.nav.bzPageIsOn,
               flyerBoxWidth: flyerBoxWidth,
             ),
 
@@ -61,6 +69,7 @@ class MiniHeader extends StatelessWidget {
               country: superFlyer.bzCountry,
               city: superFlyer.bzCity,
             ),
+
           ],
         ),
       ),
