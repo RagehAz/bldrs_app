@@ -35,20 +35,16 @@ class OldFlyerHeader extends StatelessWidget {
           physics: Scrollers.superScroller(trigger: superFlyer.nav.bzPageIsOn),
           shrinkWrap: true,
           children: <Widget>[
+
             SizedBox(
               height: OldFlyerBox.headerBoxHeight(
                 bzPageIsOn: superFlyer.nav.bzPageIsOn,
                 flyerBoxWidth: flyerBoxWidth,
               ),
               width: flyerBoxWidth,
+
               child: Stack(
                 children: <Widget>[
-                  // if (stripBlurIsOn)
-                  // BlurLayer(
-                  //   height: Scale.superHeaderHeight(bzPageIsOn, flyerBoxWidth),
-                  //   width: flyerBoxWidth,
-                  //   borders: Borderers.superHeaderStripCorners(context, bzPageIsOn, flyerBoxWidth),
-                  // ),
 
                   /// HEADER SHADOW
                   HeaderShadow(
@@ -58,7 +54,15 @@ class OldFlyerHeader extends StatelessWidget {
 
                   /// HEADER COMPONENTS
                   MiniHeaderStrip(
-                    superFlyer: superFlyer,
+                    flyerShowsAuthor: superFlyer.flyerShowsAuthor,
+                    authorID: superFlyer.authorID,
+                    onFollowTap: superFlyer.rec.onFollowTap,
+                    onCallTap: superFlyer.rec.onCallTap,
+                    followIsOn: superFlyer.rec.followIsOn,
+                    bzCountry: superFlyer.bzCountry,
+                    bzCity: superFlyer.bzCity,
+                    bzModel: superFlyer.bz,
+                    bzPageIsOn: superFlyer.nav.bzPageIsOn,
                     flyerBoxWidth: flyerBoxWidth,
                   ),
 

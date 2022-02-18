@@ -2,11 +2,8 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/gallery.dart';
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
 class BzFlyersPage extends StatelessWidget {
@@ -31,43 +28,15 @@ class BzFlyersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      children: <Widget>[
-
-        if (Mapper.canLoopList(flyers))
-          Gallery(
-            galleryBoxWidth: Bubble.clearWidth(context),
-            bzModel: bzModel,
-            showFlyers: true,
-            // tinyFlyers: tinyFlyers,
-          ),
-
-        if (flyers == null)
-          Container(
-              width: Bubble.clearWidth(context),
-              alignment: Alignment.center,
-              child: const Loading(
-                loading: true,
-              )
-          ),
-
-
-        // /// --- PUBLISHED FLYERS
-        // if (bzModel.flyersIDs != null)
-        //   Bubble(
-        //     title: 'Published Flyers',
-        //     actionBtIcon: Iconz.clock,
-        //     actionBtFunction: () => _showOldFlyersOnTap(context, bzModel),
-        //     columnChildren: <Widget>[
-        //
-        //
-        //     ],
-        //   ),
-
-        const Horizon(),
-
-      ],
+    return FlyersGrid(
+      flyers: flyers,
+      gridWidth: superScreenWidth(context),
+      gridHeight: superScreenHeight(context),
+      scrollController: ScrollController(),
+      numberOfColumns: 2,
+      topPadding: 5,
+      addFlyerButtonIsOn: true,
     );
+
   }
 }

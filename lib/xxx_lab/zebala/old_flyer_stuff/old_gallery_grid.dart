@@ -4,16 +4,16 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/add_flyer_button.dart';
+import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class GalleryGrid extends StatelessWidget {
+class OldGalleryGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const GalleryGrid({
+  const OldGalleryGrid({
     @required this.gridZoneWidth,
     @required this.flyersVisibilities,
     @required this.bzID,
@@ -157,7 +157,7 @@ class GalleryGrid extends StatelessWidget {
             //   maxCrossAxisExtent: _gridFlyerWidth,
             // ),
 
-            SliverGridDelegateWithFixedCrossAxisCount(
+        SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: 1 / (Ratioz.xxflyerZoneHeight),
           crossAxisCount: 2,
           crossAxisSpacing: _gridSpacing,
@@ -169,11 +169,7 @@ class GalleryGrid extends StatelessWidget {
           /// Add new flyer button
           if (_viewerIsAuthor == true && addButtonIsOn == true)
             AddFlyerButton(
-              bzModel: bz,
               flyerBoxWidth: _gridFlyerWidth,
-              addPublishedFlyerToGallery: addPublishedFlyerToGallery,
-              bzCountry: bzCountry,
-              bzCity: bzCity,
             ),
 
           /// GALLERY FLYERS

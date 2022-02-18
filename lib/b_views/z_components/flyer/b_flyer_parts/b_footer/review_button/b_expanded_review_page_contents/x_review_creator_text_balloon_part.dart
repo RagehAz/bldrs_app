@@ -88,7 +88,7 @@ class ReviewCreatorTextBalloonPart extends StatelessWidget {
           children: <Widget>[
 
             SuperVerse(
-              verse: userModel.name,
+              verse: userModel?.name,
               centered: false,
             ),
 
