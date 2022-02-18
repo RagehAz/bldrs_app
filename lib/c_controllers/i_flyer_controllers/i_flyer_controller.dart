@@ -25,7 +25,7 @@ Future<BzModel> getFlyerBzModel({
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
   final BzModel _bzModel = await _bzzProvider.fetchBzModel(
       context: context,
-      bzID: flyerModel.bzID
+      bzID: flyerModel?.bzID
   );
 
   return _bzModel;
