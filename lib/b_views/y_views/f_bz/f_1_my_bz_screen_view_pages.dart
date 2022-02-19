@@ -35,6 +35,7 @@ class MyBzScreenViewPages extends StatelessWidget {
       children: <Widget>[
 
         BzFlyersPage(
+            key: const PageStorageKey('BzFlyersPage'),
             bzModel: bzModel,
             flyers: bzFlyers,
             bzCountry: bzCountry,

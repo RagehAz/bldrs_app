@@ -111,13 +111,13 @@ class ReviewPageStarter extends StatelessWidget {
   /// MARGIN
 
 // --------------------------------
-  static double _tinyMarginValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-}){
-    final double _margin = FooterButton.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: true);
-    return _margin;
-  }
+//   static double _tinyMarginValue({
+//     @required BuildContext context,
+//     @required double flyerBoxWidth,
+// }){
+//     final double _margin = FooterButton.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: true);
+//     return _margin;
+//   }
 // --------------------------------
   static double _collapsedRightEnMargin({
     @required BuildContext context,

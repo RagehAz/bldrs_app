@@ -79,8 +79,7 @@ class OldAuthorLabel extends StatelessWidget {
             :
     '${Numeric.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . $_galleryCountCalibrated ${Wordz.flyers(context)}';
 // -----------------------------------------------------------------------------
-    final double _authorImageCorners =
-        flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
+    final double _authorImageCorners = flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------
     final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, authorID);
 
@@ -150,6 +149,7 @@ class OldAuthorLabel extends StatelessWidget {
                   ],
                 ),
               ),
+
           ],
         ),
       ),
@@ -163,6 +163,7 @@ class AuthorPic extends StatelessWidget {
     this.isAddAuthorButton = false,
     this.width,
     this.authorPic,
+    this.cornerOverride,
     Key key,
   }) : super(key: key);
 
@@ -170,6 +171,7 @@ class AuthorPic extends StatelessWidget {
   final bool isAddAuthorButton;
   final double width;
   final dynamic authorPic;
+  final double cornerOverride;
   /// --------------------------------------------------------------------------
   void _tapAddAuthor(BuildContext context) {
     blog('should go to add new author screen');
@@ -185,7 +187,7 @@ class AuthorPic extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _authorImageHeight = width;
-    final double _authorImageCorners =
+    final double _authorImageCorners = cornerOverride ??
         getCornerValue(width / Ratioz.xxflyerAuthorPicWidth);
 // -----------------------------------------------------------------------------
     final BorderRadius _authorPicBorders = Borderers.superBorderOnly(

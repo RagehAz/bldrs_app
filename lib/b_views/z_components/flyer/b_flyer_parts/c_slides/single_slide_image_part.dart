@@ -1,10 +1,7 @@
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/x_3_slide_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide_tap_area.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -29,20 +26,20 @@ class SingleSlideImagePart extends StatelessWidget {
   final Function onSlideBackTap;
   final Function onDoubleTap;
   /// --------------------------------------------------------------------------
-  Future<void> _onImageDoubleTap(BuildContext context) async {
-    final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
-
-    if (_keyboardIsOn) {
-      Keyboarders.closeKeyboard(context);
-    } else {
-      await Nav.goToNewScreen(
-          context,
-          SlideFullScreen(
-            image: slideModel.pic,
-            imageSize: slideModel.imageSize,
-          ));
-    }
-  }
+  // Future<void> _onImageDoubleTap(BuildContext context) async {
+  //   final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
+  //
+  //   if (_keyboardIsOn) {
+  //     Keyboarders.closeKeyboard(context);
+  //   } else {
+  //     await Nav.goToNewScreen(
+  //         context,
+  //         SlideFullScreen(
+  //           image: slideModel.pic,
+  //           imageSize: slideModel.imageSize,
+  //         ));
+  //   }
+  // }
 // -----------------------------------------------------------------------------
   /// Function(BuildContext, Widget, ImageChunkEvent
   Widget _imageLoadingBuilder(BuildContext context, Widget image, ImageChunkEvent chunkEvent){
