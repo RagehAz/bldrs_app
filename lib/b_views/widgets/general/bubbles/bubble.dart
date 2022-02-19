@@ -47,7 +47,6 @@ class Bubble extends StatelessWidget {
   final Color leadingIconColor;
   final dynamic margins;
   final dynamic corners;
-
   /// --------------------------------------------------------------------------
   static double clearWidth(BuildContext context) {
     final double _bubbleWidth = defaultWidth(context);
@@ -55,7 +54,6 @@ class Bubble extends StatelessWidget {
     final double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
     return _inBubbleClearWidth;
   }
-
 // -----------------------------------------------------------------------------
   static double defaultWidth(BuildContext context) {
     final double _screenWidth = Scale.superScreenWidth(context);
@@ -63,7 +61,6 @@ class Bubble extends StatelessWidget {
     final double _bubbleWidth = _screenWidth - _bubbleMargins;
     return _bubbleWidth;
   }
-
 // -----------------------------------------------------------------------------
   static double bubbleWidth({
     BuildContext context,
@@ -73,38 +70,41 @@ class Bubble extends StatelessWidget {
 
     return _bubbleWidth;
   }
-
 // -----------------------------------------------------------------------------
   static const double cornersValue = Ratioz.appBarCorner;
   static const double _pageMargin = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
-  static const double clearCornersValue =
-      Ratioz.appBarCorner - Ratioz.appBarMargin;
+  static const double clearCornersValue = Ratioz.appBarCorner - Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
   static BorderRadius borders(
     BuildContext context,
   ) {
     return Borderers.superBorder(context: context, corners: cornersValue);
   }
-
 // -----------------------------------------------------------------------------
   static BorderRadius clearBorders(
     BuildContext context,
   ) {
     return Borderers.superBorder(context: context, corners: clearCornersValue);
   }
-
+// -----------------------------------------------------------------------------
+  static double paddingValue(){
+    return _pageMargin;
+  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final EdgeInsets _bubbleMargins = margins == null && stretchy == true
-        ? Scale.superMargins(margins: 0)
-        : margins == null && stretchy == false
-            ? Scale.superMargins(margins: _pageMargin)
-            : margins != null
-                ? Scale.superMargins(margins: margins)
-                : Scale.superMargins(margins: margins);
+    final EdgeInsets _bubbleMargins = margins == null && stretchy == true ?
+    Scale.superMargins(margins: 0)
+        :
+    margins == null && stretchy == false ?
+    Scale.superMargins(margins: _pageMargin)
+        :
+    margins != null ?
+    Scale.superMargins(margins: margins)
+        :
+    Scale.superMargins(margins: margins);
 
     ///////////////////////////////////////////////////////////////////////////
     /// bos keda we need to consider this tree here in this bubble
@@ -117,16 +117,16 @@ class Bubble extends StatelessWidget {
     ///////////////////////////////////////////////////////////////////////////
 
     const int _titleVerseSize = 2;
-    final double _actionBtSize =
-        SuperVerse.superVerseRealHeight(context, _titleVerseSize, 1, null);
+// -----------------------------------------------------------------------------
+    final double _actionBtSize = SuperVerse.superVerseRealHeight(context, _titleVerseSize, 1, null);
+// -----------------------------------------------------------------------------
     final double _actionBtCorner = _actionBtSize * 0.4;
-
+// -----------------------------------------------------------------------------
     final double _bubbleWidth = width ??
         bubbleWidth(
           context: context,
           stretchy: stretchy,
         );
-
 // -----------------------------------------------------------------------------
     final double _titleWidth =
         stretchy == true ? null : _bubbleWidth - _actionBtSize * 2;
@@ -135,7 +135,6 @@ class Bubble extends StatelessWidget {
         ? borders(context)
         : Borderers.superBorder(context: context, corners: corners);
 // -----------------------------------------------------------------------------
-//     Tracer.traceWidgetBuild(widgetName: 'InPyramidsBubble', varName: 'title', varValue: title);
     return Container(
       key: key,
       width: _bubbleWidth,
@@ -145,9 +144,10 @@ class Bubble extends StatelessWidget {
         color: bubbleColor,
         borderRadius: _corners,
       ),
-      alignment: centered == true
-          ? Alignment.center
-          : Aligners.superCenterAlignment(context),
+      alignment: centered == true ?
+      Alignment.center
+          :
+      Aligners.superCenterAlignment(context),
       child: Material(
         color: Colorz.nothing,
         child: InkWell(
@@ -229,9 +229,12 @@ class Bubble extends StatelessWidget {
                           iconSizeFactor: leadingAndActionButtonsSizeFactor,
                           onTap: actionBtFunction,
                         ),
+
                     ],
                   ),
+
                 ...columnChildren,
+
               ],
             ),
           ),

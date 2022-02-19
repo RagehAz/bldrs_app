@@ -41,6 +41,7 @@ class MyBzScreenView extends StatelessWidget {
 
             },
           ),
+          
         ];
 
       },
