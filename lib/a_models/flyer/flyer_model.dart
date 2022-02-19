@@ -535,7 +535,7 @@ class FlyerModel with ChangeNotifier{
 
       for (final FlyerModel flyer in flyers){
 
-        if (flyer.authorID == authorID){
+        if (flyer?.authorID == authorID){
           _authorFlyers.add(flyer);
         }
 

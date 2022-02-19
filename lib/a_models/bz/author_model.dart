@@ -102,7 +102,7 @@ class AuthorModel {
 // -----------------------------------------------------------------------------
   static AuthorModel getAuthorFromBzByAuthorID(BzModel bz, String authorID) {
     final AuthorModel author = bz?.authors?.singleWhere(
-        (AuthorModel au) => au.userID == authorID,
+        (AuthorModel au) => au?.userID == authorID,
         orElse: () => null);
     return author;
   }

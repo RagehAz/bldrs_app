@@ -29,10 +29,11 @@ class BzFlyersPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return FlyersGrid(
+      key: const ValueKey<String>('BzFlyersPage_grid'),
       flyers: flyers,
       gridWidth: superScreenWidth(context),
       gridHeight: superScreenHeight(context),
-      scrollController: ScrollController(),
+      scrollController: null,
       numberOfColumns: 2,
       topPadding: 5,
       addFlyerButtonIsOn: true,
