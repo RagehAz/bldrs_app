@@ -27,10 +27,10 @@ class InfoGraphic extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
 // ------------------------------------------------------------------
-    final double _width = InfoButtonStarter.collapsedWidth(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth
-    );
+//     final double _width = InfoButtonStarter.collapsedWidth(
+//         context: context,
+//         flyerBoxWidth: flyerBoxWidth
+//     );
 // ------------------------------------------------------------------
 
     return CollapsedInfoButtonBox(

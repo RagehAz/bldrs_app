@@ -333,9 +333,9 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _slideToZeroIndex() async {
-    await Sliders.slideToBackFrom(_horizontalSlidesController, widget.currentSlideIndex.value);
-  }
+//   Future<void> _slideToZeroIndex() async {
+//     await Sliders.slideToBackFrom(_horizontalSlidesController, widget.currentSlideIndex.value);
+//   }
 // -----------------------------------------------------------------------------
   bool _inFlight(){
 

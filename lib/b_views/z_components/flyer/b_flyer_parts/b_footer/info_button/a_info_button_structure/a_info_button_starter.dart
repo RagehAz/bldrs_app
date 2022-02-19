@@ -521,11 +521,11 @@ class InfoButtonStarter extends StatelessWidget {
               isExpanded: buttonExpanded,
             );
 
-            final Color _color = InfoButtonStarter.getColor(
-                flyerBoxWidth: flyerBoxWidth,
-                tinyMode: tinyMode,
-                isExpanded: buttonExpanded
-            );
+            // final Color _color = InfoButtonStarter.getColor(
+            //     flyerBoxWidth: flyerBoxWidth,
+            //     tinyMode: tinyMode,
+            //     isExpanded: buttonExpanded
+            // );
 
             final BorderRadius _borders = InfoButtonStarter.getBorders(
                 context: context,
