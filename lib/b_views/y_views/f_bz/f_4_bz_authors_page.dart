@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz/author_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -29,33 +30,38 @@ class BzAuthorsPage extends StatelessWidget {
       itemCount: _numberOfAuthors + 1,
       itemBuilder: (_, index){
 
+        /// ADD AUTHORS BUTTON
         if (index == _numberOfAuthors){
-          return Align(
-            alignment: Aligners.superCenterAlignment(context),
-            child: DreamBox(
-              width: Scale.superScreenWidth(context) - 20,
-              height: 80,
-              bubble: false,
-              color: Colorz.white20,
-              verseCentered: false,
-              verse: 'Add Authors to the team',
-              icon: Iconz.plus,
-              iconSizeFactor: 0.5,
-              verseScaleFactor: 1.4,
-              margins: 10,
-              corners: AuthorCard.bubbleCornerValue(),
-              onTap: (){
-                blog('Should go to add author page naaw');
-              },
-            ),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              const BubblesSeparator(),
+
+              DreamBox(
+                width: Scale.superScreenWidth(context) - 20,
+                height: 80,
+                bubble: false,
+                color: Colorz.white20,
+                verseCentered: false,
+                verse: 'Add Authors to the team',
+                icon: Iconz.plus,
+                iconSizeFactor: 0.5,
+                verseScaleFactor: 1.4,
+                margins: 10,
+                corners: AuthorCard.bubbleCornerValue(),
+                onTap: (){
+                  blog('Should go to add author page naaw');
+                },
+              ),
+
+            ],
           );
         }
 
-        /// ADD AUTHORS BUTTON
+        /// AUTHOR CARDS
         else {
-
           final AuthorModel _author = _authors[index];
-
           return AuthorCard(
             author: _author,
             bzModel: bzModel,
