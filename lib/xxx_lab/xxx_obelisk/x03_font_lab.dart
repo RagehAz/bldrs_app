@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/rageh_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';

@@ -128,23 +128,6 @@ class _SearchScreenState extends State<SearchScreen> {
     return MainLayout(
       appBarType: AppBarType.search,
       searchHint: _getSearchHintText(context),
-      appBarRowWidgets: <Widget>[
-        DreamBox(
-          height: 35,
-          verse: _verse,
-          verseScaleFactor: 0.5,
-          secondLine: '${_records.length} records',
-          onTap: () async {
-
-            // final bool _isOnline = userIsSignedIn();
-
-            final String id = superUserID();
-
-            blog(id);
-
-          },
-        ),
-      ],
       pyramidsAreOn: true,
       searchController: _searchController,
       onSearchSubmit: _onSearchSubmit,

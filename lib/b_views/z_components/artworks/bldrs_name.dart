@@ -9,10 +9,8 @@ class BldrsName extends StatelessWidget {
     @required this.size,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double size;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -24,28 +22,3 @@ class BldrsName extends StatelessWidget {
   }
 }
 
-class BldrsButton extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const BldrsButton({
-    this.onTap,
-    // this.size = 40,
-    Key key,
-  }) : super(key: key);
-
-  /// --------------------------------------------------------------------------
-  final Function onTap;
-  // final double size;
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-        child: BldrsName(
-          size: 40,
-        ),
-      ),
-    );
-  }
-}

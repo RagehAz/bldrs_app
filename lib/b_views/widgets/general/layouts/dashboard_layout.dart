@@ -1,8 +1,9 @@
-import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name.dart';
+import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/artworks/bldrs_name_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -48,7 +49,7 @@ class DashBoardLayout extends StatelessWidget {
       // loading: loading,
       appBarRowWidgets: <Widget>[
         const Expander(),
-        BldrsButton(
+        BldrsNameButton(
           onTap: onBldrsTap,
         ),
       ],

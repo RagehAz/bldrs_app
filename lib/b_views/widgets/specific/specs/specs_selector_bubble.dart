@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/b_views/widgets/general/appbar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/widgets/general/chain_expander/components/bldrs_chains.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

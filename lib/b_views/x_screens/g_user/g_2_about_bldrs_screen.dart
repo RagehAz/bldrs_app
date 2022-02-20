@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/tile_bubble.dart';

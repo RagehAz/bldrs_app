@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/kw/chain/chain_products.dart';
 import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
-import 'package:bldrs/b_views/widgets/general/appbar/search_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';

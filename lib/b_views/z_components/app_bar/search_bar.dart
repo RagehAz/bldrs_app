@@ -1,6 +1,6 @@
-import 'package:bldrs/b_views/widgets/general/appbar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -21,7 +21,6 @@ class SearchBar extends StatefulWidget {
     this.height,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
@@ -30,24 +29,22 @@ class SearchBar extends StatefulWidget {
   final double boxWidth;
   final String hintText;
   final double height;
-
   /// --------------------------------------------------------------------------
   @override
   _SearchBarState createState() => _SearchBarState();
-
   /// --------------------------------------------------------------------------
 }
 
 class _SearchBarState extends State<SearchBar> {
-  TextEditingController _searchTextController;
-  // GlobalKey _key = GlobalKey(debugLabel: 'search_bar');
 
+  TextEditingController _searchTextController;
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _searchTextController = widget.searchController ?? TextEditingController(text: '');
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     if (TextChecker.textControllerIsEmpty(_searchTextController)) {
@@ -55,11 +52,11 @@ class _SearchBarState extends State<SearchBar> {
     }
     super.dispose();
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _appBarClearWidth = BldrsAppBar.width(context, boxWidth: widget.boxWidth);
 
+    final double _appBarClearWidth = BldrsAppBar.width(context, boxWidth: widget.boxWidth);
     const double _padding = Ratioz.appBarPadding;
     final double _historyButtonWidth = widget.historyButtonIsOn == true ? 40 : 0;
     const double _historyButtonHeight = 40;
@@ -77,6 +74,7 @@ class _SearchBarState extends State<SearchBar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
+          /// STARTING SPACER
           const SizedBox(
             width: _padding,
             height: _padding,
@@ -91,9 +89,10 @@ class _SearchBarState extends State<SearchBar> {
               icon: Iconz.search,
               iconSizeFactor: 0.5,
               bubble: false,
-              onTap: (){blog('tapping on search button');},
+              // onTap: (){blog('tapping on search button');},
             ),
 
+          /// MIDDLE SPACER
           if (widget.historyButtonIsOn)
             const SizedBox(
               width: _padding,
@@ -131,10 +130,12 @@ class _SearchBarState extends State<SearchBar> {
             },
           ),
 
+          /// END SPACER
           const SizedBox(
             width: _padding,
             height: _padding,
           ),
+
         ],
       ),
     );
