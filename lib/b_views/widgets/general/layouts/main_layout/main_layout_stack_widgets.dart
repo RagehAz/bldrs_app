@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/widgets/general/appbar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/widgets/general/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';

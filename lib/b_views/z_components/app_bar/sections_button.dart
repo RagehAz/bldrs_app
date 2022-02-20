@@ -36,22 +36,8 @@ class SectionsButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
-    final FlyerType _currentSection = _keywordsProvider.currentSection;
-    final KW _currentKeyword = _keywordsProvider.currentKeyword;
-
-    const double _corners = Ratioz.boxCorner12;
-
-    final String _sectionName = TextGen.flyerTypePluralStringer(context, _currentSection);
-    final String _titleVerse = _currentKeyword == null ? Wordz.section(context) : _sectionName;
-
-    final String _sectionVerse = _currentKeyword == null ?
-    TextGen.flyerTypePluralStringer(context, _currentSection)
-        :
-    Name.getNameByCurrentLingoFromNames(context: context, names: _currentKeyword.names)?.value;
 
     // double _btThirdsOfScreenWidth = (_screenWidth - (6*_abPadding))/3;
-
     // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;
 
     return Builder(
@@ -61,6 +47,7 @@ class SectionsButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+
             IntrinsicWidth(
               child: Container(
                 height: 40,
@@ -69,44 +56,63 @@ class SectionsButton extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: color,
-                  borderRadius: BorderRadius.circular(_corners),
+                  borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    /// 'Section' TITLE
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: SuperVerse(
-                        verse: _titleVerse,
-                        size: 0,
-                        italic: true,
-                        color: Colorz.grey255,
-                        weight: VerseWeight.thin,
-                        centered: false,
-                      ),
-                    ),
+                child: Consumer<KeywordsProvider>(
+                  builder: (_, KeywordsProvider keywordsProvider, Widget child){
 
-                    /// CURRENT SECTION NAME
-                    // MAYBE WE WILL NEED CHANGE NOTIFIER PROVIDER . VALUE HERE TO LISTEN TO CHANGES
-                    //         ChangeNotifierProvider.value(
-                    //           value: _countryPro,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          SuperVerse(
-                            verse: _sectionVerse,
-                            size: 1,
+                    final FlyerType _currentSection = keywordsProvider.currentSection;
+                    final KW _currentKeyword = keywordsProvider.currentKeyword;
+
+                    final String _sectionName = TextGen.flyerTypePluralStringer(context, _currentSection);
+                    final String _titleVerse = _currentKeyword == null ? Wordz.section(context) : _sectionName;
+
+                    final String _sectionVerse = _currentKeyword == null ?
+                    TextGen.flyerTypePluralStringer(context, _currentSection)
+                        :
+                    Name.getNameByCurrentLingoFromNames(context: context, names: _currentKeyword.names)?.value;
+
+
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+
+                        /// 'Section' TITLE
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: SuperVerse(
+                            verse: _titleVerse,
+                            size: 0,
+                            italic: true,
+                            color: Colorz.grey255,
+                            weight: VerseWeight.thin,
                             centered: false,
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
+                        ),
+
+                        /// CURRENT SECTION NAME
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+
+                              SuperVerse(
+                                verse: _sectionVerse,
+                                size: 1,
+                                centered: false,
+                              ),
+
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    );
+
+                  },
                 ),
               ),
             ),

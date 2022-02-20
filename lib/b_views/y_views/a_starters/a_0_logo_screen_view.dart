@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:flutter/material.dart';
 
 class LogoScreenView extends StatelessWidget {

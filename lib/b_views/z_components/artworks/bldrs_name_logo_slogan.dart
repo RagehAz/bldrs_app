@@ -13,15 +13,14 @@ class LogoSlogan extends StatelessWidget {
     this.showSlogan = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double sizeFactor;
   final bool showTagLine;
   final bool showSlogan;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
     final double _logoHeight = _screenHeight * 18 * 0.016 * sizeFactor;
@@ -30,7 +29,11 @@ class LogoSlogan extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        SizedBox(height: _screenHeight * 0.005),
+
+        /// TOP SPACER
+        SizedBox(
+            height: _screenHeight * 0.005,
+        ),
 
         /// NAME & LOGO
         Container(
@@ -43,6 +46,7 @@ class LogoSlogan extends StatelessWidget {
           ),
         ),
 
+        /// SLOGAN
         if (showSlogan == true)
           SizedBox(
             width: _logoWidth,
@@ -76,6 +80,7 @@ class LogoSlogan extends StatelessWidget {
               margin: _logoWidth * 0.025,
             ),
           ),
+
       ],
     );
   }
