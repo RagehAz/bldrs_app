@@ -14,7 +14,6 @@ class BlurLayer extends StatelessWidget {
     this.blurIsOn = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final BorderRadius borders;
   final double blur;
@@ -22,38 +21,40 @@ class BlurLayer extends StatelessWidget {
   final double height;
   final Color color;
   final bool blurIsOn;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: width,
       height: height,
       child: ClipRRect(
         borderRadius: borders,
-        child: blurIsOn == true
-            ? BackdropFilter(
-                filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-                child: Container(
-                  width: width,
-                  height: height,
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: borders,
-                  ),
-                ),
-              )
-            : Container(
-                width: width,
-                height: height,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: borders,
-                ),
-                // child: child,
-              ),
+        child: blurIsOn == true ?
+        BackdropFilter(
+          filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+          child: Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: borders,
+            ),
+          ),
+        )
+            :
+        Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: borders,
+          ),
+          // child: child,
+        ),
       ),
     );
+
   }
 }
 // -----------------------------------------------------------------------------

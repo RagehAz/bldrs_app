@@ -12,13 +12,11 @@ class AppBarButton extends StatelessWidget {
     this.onTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String verse;
   final Color verseColor;
   final Color buttonColor;
   final Function onTap;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
