@@ -145,11 +145,12 @@ class FlyersGrid extends StatelessWidget {
       addFlyerButtonIsOn: addFlyerButtonIsOn,
     );
 // ----------------------------------------------------------
-
     if (addFlyerButtonIsOn == true){
-      flyers.insert(0, null);
+      if (Mapper.canLoopList(flyers)){
+        flyers.insert(0, null);
+      }
     }
-
+// ----------------------------------------------------------
     return Stack(
       key: const ValueKey<String>('Stack_of_flyers_grid'),
       children: <Widget>[
