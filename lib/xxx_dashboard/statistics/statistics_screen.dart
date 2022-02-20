@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name.dart';
+import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
 import 'package:bldrs/b_views/widgets/general/loading/loading.dart';

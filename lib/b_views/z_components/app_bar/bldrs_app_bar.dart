@@ -1,7 +1,7 @@
-import 'package:bldrs/b_views/widgets/general/appbar/search_bar.dart';
-import 'package:bldrs/b_views/widgets/general/appbar/sections_button.dart';
-import 'package:bldrs/b_views/widgets/general/appbar/zone_button.dart';
-import 'package:bldrs/b_views/widgets/general/artworks/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
+import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
+import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
@@ -51,7 +51,6 @@ class BldrsAppBar extends StatelessWidget {
     final double _abWidth = _boxWidth - (2 * Ratioz.appBarMargin);
     return _abWidth;
   }
-
 // -----------------------------------------------------------------------------
   static double height(BuildContext context, AppBarType appBarType) {
     final double _abHeight = appBarType == AppBarType.search ?
@@ -60,7 +59,6 @@ class BldrsAppBar extends StatelessWidget {
     Ratioz.appBarSmallHeight;
     return _abHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double scrollWidth(BuildContext context) {
     final double _appBarScrollWidth = Scale.superScreenWidth(context) -
@@ -70,7 +68,6 @@ class BldrsAppBar extends StatelessWidget {
         Ratioz.appBarPadding;
     return _appBarScrollWidth;
   }
-
 // -----------------------------------------------------------------------------
   bool _backButtonIsOnCheck() {
     bool _isOn;
@@ -93,7 +90,6 @@ class BldrsAppBar extends StatelessWidget {
 
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   bool _searchButtonIsOnCheck() {
     bool _isOn;
@@ -116,7 +112,6 @@ class BldrsAppBar extends StatelessWidget {
 
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   bool _sectionButtonIsOnCheck() {
     bool _isOn;
@@ -143,7 +138,6 @@ class BldrsAppBar extends StatelessWidget {
 
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   bool _zoneButtonIsOnCheck() {
     bool _isOn;
@@ -175,7 +169,6 @@ class BldrsAppBar extends StatelessWidget {
 
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   bool _scrollableCheck() {
     bool _scrollable;
@@ -188,7 +181,6 @@ class BldrsAppBar extends StatelessWidget {
 
     return _scrollable;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -211,6 +203,7 @@ class BldrsAppBar extends StatelessWidget {
     return Column(
       key: key,
       children: <Widget>[
+
         /// MAIN APPBAR
         Container(
           width: _abWidth,
@@ -219,8 +212,7 @@ class BldrsAppBar extends StatelessWidget {
           margin: const EdgeInsets.all(Ratioz.appBarMargin),
           decoration: const BoxDecoration(
             color: Colorz.black230,
-            borderRadius:
-                BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
+            borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
             boxShadow: Shadowz.appBarShadow,
           ),
           child: Stack(
@@ -247,6 +239,8 @@ class BldrsAppBar extends StatelessWidget {
                     /// BACK / SEARCH / SECTION / ZONE
                     Row(
                       children: <Widget>[
+
+                        /// STARTING SPACER
                         const SizedBox(
                           width: Ratioz.appBarPadding,
                         ),
@@ -265,11 +259,10 @@ class BldrsAppBar extends StatelessWidget {
                                 BackAndSearchAction.goToSearchScreen,
                           ),
 
-                        /// Row Widgets
+                        /// CUSTOM APP BAR WIDGETS
                         if (_scrollable == true)
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                                Ratioz.appBarCorner - Ratioz.appBarPadding),
+                            borderRadius: BorderRadius.circular(Ratioz.appBarCorner - Ratioz.appBarPadding),
                             child: Container(
                               width: _screenWidth -
                                   (2 * Ratioz.appBarMargin) -
@@ -285,14 +278,16 @@ class BldrsAppBar extends StatelessWidget {
                             ),
                           ),
 
+                        /// MIDDLE SPACER
                         const SizedBox(
                           width: Ratioz.appBarPadding,
                         ),
 
-                        /// Section Button
-                        if (_sectionButtonIsOn == true) const SectionsButton(),
+                        /// SECTION BUTTON
+                        if (_sectionButtonIsOn == true)
+                          const SectionsButton(),
 
-                        /// Page Title
+                        /// PAGE TITLE
                         if (pageTitle != null)
                           Center(
                             child: Padding(
@@ -311,18 +306,22 @@ class BldrsAppBar extends StatelessWidget {
                             ),
                           ),
 
+                        /// CUSTOM APP BAR WIDGETS
                         if (appBarRowWidgets != null && _scrollable == false)
                           ...appBarRowWidgets,
 
-                        /// Expander
-                        if (_zoneButtonIsOn == true) const Expander(),
+                        /// EXPANDER
+                        if (_zoneButtonIsOn == true)
+                          const Expander(),
 
                         /// --- LOADING INDICATOR
                         // if (loading != null)
                         //   Loading(loading: true),
 
-                        /// Zone button
-                        if (_zoneButtonIsOn == true) const ZoneButton(),
+                        /// ZONE BUTTON
+                        if (_zoneButtonIsOn == true)
+                          const ZoneButton(),
+
                       ],
                     ),
 
@@ -339,6 +338,7 @@ class BldrsAppBar extends StatelessWidget {
                   ],
                 ),
               ),
+
             ],
           ),
         ),

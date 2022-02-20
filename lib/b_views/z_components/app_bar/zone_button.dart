@@ -82,6 +82,7 @@ class ZoneButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
 
     final ZoneModel _currentZone = _buttonZone(context);
@@ -141,6 +142,7 @@ class ZoneButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
+
               /// --- COUNTRY & DISTRICTS NAMES
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2.5),
@@ -168,12 +170,14 @@ class ZoneButton extends StatelessWidget {
               Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
+
                   /// --- FAKE FOOTPRINT to occupy space for flag while loading
                   Container(
                     width: 30,
                     height: 30,
                     margin: const EdgeInsets.symmetric(
-                        horizontal: _flagHorizontalMargins),
+                        horizontal: _flagHorizontalMargins
+                    ),
                   ),
 
                   Center(
@@ -183,10 +187,12 @@ class ZoneButton extends StatelessWidget {
                       icon: _countryFlag,
                       corners: Ratioz.boxCorner8,
                       margins: const EdgeInsets.symmetric(
-                          horizontal: _flagHorizontalMargins),
+                          horizontal: _flagHorizontalMargins
+                      ),
                       onTap: onTap,
                     ),
                   ),
+
                 ],
               ),
             ],

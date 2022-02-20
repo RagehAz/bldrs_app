@@ -11,14 +11,13 @@ class BldrsWelcomeBanner extends StatelessWidget {
     this.corners = 0,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final double corners;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _welcomeBannerHeight = ImageSize.concludeHeightByGraphicSizes(
       width: width,
       graphicWidth: 22,
@@ -38,5 +37,6 @@ class BldrsWelcomeBanner extends StatelessWidget {
         ),
       ),
     );
+
   }
 }
