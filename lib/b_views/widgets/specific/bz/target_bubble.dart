@@ -8,22 +8,23 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class TargetBubble extends StatelessWidget {
+class TargetCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const TargetBubble(
-      {@required this.target, @required this.onClaimTap, Key key})
-      : super(key: key);
-
+  const TargetCard({
+    @required this.target,
+    @required this.onClaimTap,
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TargetModel target;
   final Function onClaimTap;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _bubbleClearWidth = Bubble.clearWidth(context) - 10;
-    final double _titleBoxWidth = _bubbleClearWidth / 2 + 20;
-    const double _titleBoxHeight = 30;
+    // final double _titleBoxWidth = _bubbleClearWidth / 2 + 20;
+    // const double _titleBoxHeight = 30;
 
     final TargetProgress _progress = target.progress;
     final bool _targetReached = _progress.current == _progress.objective;
@@ -31,38 +32,23 @@ class TargetBubble extends StatelessWidget {
     return Container(
       width: _bubbleClearWidth,
       decoration: BoxDecoration(
-        color: Colorz.white10,
-        borderRadius:
-            Borderers.superBorderAll(context, Bubble.clearCornersValue),
+        color: Colorz.white20,
+        borderRadius: Borderers.superBorderAll(context, 20),
       ),
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          /// TITLE AND PROGRESS
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              /// TITLE
-              SizedBox(
-                width: _titleBoxWidth,
-                height: _titleBoxHeight,
-                // color: Colorz.BloodTest,
-                child: SuperVerse(
-                  verse: target.name,
-                  centered: false,
-                  margin: 5,
-                  color: Colorz.yellow255,
-                ),
-              ),
 
-              /// PROGRESS
-              TargetProgressBar(
-                target: target,
-              ),
-            ],
+          /// TITLE
+          SuperVerse(
+            verse: target.name,
+            centered: false,
+            margin: 5,
+            color: Colorz.yellow255,
+            size: 3,
+            maxLines: 2,
           ),
 
           /// DESCRIPTION
@@ -71,42 +57,69 @@ class TargetBubble extends StatelessWidget {
             centered: false,
             weight: VerseWeight.thin,
             maxLines: 10,
+            size: 2,
             margin: 5,
           ),
 
+          /// PROGRESS
+          TargetProgressBar(
+            target: target,
+          ),
+
+
           /// INSTRUCTIONS
-          if (target.instructions != null &&
+          if (
+          target.instructions != null &&
               target.instructions.isNotEmpty &&
-              _targetReached == false)
-            ListView.builder(
-                itemCount: target.instructions.length,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (_, index) {
-                  return SuperVerse(
-                    verse: target.instructions[index],
-                    leadingDot: true,
-                    size: 1,
-                    centered: false,
-                    maxLines: 5,
-                    margin: 2,
-                    weight: VerseWeight.thin,
-                    italic: true,
-                    color: Colorz.blue255,
-                  );
-                }),
+              _targetReached == false
+          )
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+
+                SuperVerse(
+                  verse: 'Instructions',
+                  size: 3,
+                  color: Colorz.blue255,
+                  italic: true,
+                  weight: VerseWeight.thin,
+                  margin: 10,
+                ),
+
+                ListView.builder(
+                    itemCount: target.instructions.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (_, index) {
+                      return SuperVerse(
+                        verse: target.instructions[index],
+                        leadingDot: true,
+                        size: 2,
+                        centered: false,
+                        maxLines: 5,
+                        margin: 2,
+                        weight: VerseWeight.thin,
+                        italic: true,
+                        color: Colorz.blue255,
+                      );
+                    }),
+
+              ],
+            ),
 
           /// CLAIM BUTTON
           if (_targetReached == true)
-            DreamBox(
-              width: _bubbleClearWidth - 10,
-              height: 70,
-              verse: 'CLAIM',
-              verseWeight: VerseWeight.black,
-              verseItalic: true,
-              color: Colorz.yellow255,
-              verseColor: Colorz.black255,
-              onTap: onClaimTap,
+            Align(
+              child: DreamBox(
+                width: _bubbleClearWidth,
+                height: 70,
+                verse: 'CLAIM',
+                verseWeight: VerseWeight.black,
+                verseItalic: true,
+                color: Colorz.yellow255,
+                verseColor: Colorz.black255,
+                onTap: onClaimTap,
+              ),
             ),
         ],
       ),

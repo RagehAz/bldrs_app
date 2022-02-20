@@ -32,7 +32,9 @@ class TargetProgressBar extends StatelessWidget {
       width: _progressBoxWidth,
       height: _titleBoxHeight,
       alignment: Alignment.center,
+      margin: const EdgeInsets.all(5),
       child: Stack(
+
         children: <Widget>[
           /// BAR
           Align(

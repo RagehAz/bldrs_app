@@ -36,10 +36,7 @@ class FooterPageBox extends StatelessWidget {
             width: width,
             height: height,
             alignment: alignment,
-            child: Scroller(
-              isOn: scrollerIsOn,
-              child: child,
-            ),
+            child: child,
           ),
         ),
 
