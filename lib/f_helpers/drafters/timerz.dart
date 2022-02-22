@@ -518,3 +518,193 @@ void blogDateTime(DateTime dateTime){
   blog('BLOGGING DATE TIME : $dateTime');
 }
 // -----------------------------------------------------------------------------
+bool timesAreTheSame({
+  @required String accuracy,
+  @required DateTime timeA,
+  @required DateTime timeB,
+}){
+  bool _areTheSame = false;
+
+  final String _level = accuracy?.toLowerCase()?.trim() ?? 'minute';
+
+  /// XXX - check if both are not nulls
+  if (timeA != null && timeB != null){
+
+    /// A - YEAR
+    if (timeA.year == timeB.year){
+
+      /// A1 - WHEN LEVEL == YEAR
+      if (_level == 'year'){
+        _areTheSame = true;
+      }
+
+      /// A2 - ZOOM IN
+      else {
+
+        /// B - MONTH
+        if (timeA.month == timeB.month){
+
+          /// B1 - LEVEL == MONTH
+          if (_level == 'month'){
+            _areTheSame = true;
+          }
+
+          /// B2 - ZOOM IN
+          else {
+
+            /// C - DAY
+            if (timeA.day == timeB.day){
+
+              /// C1 - LEVEL == DAY
+              if (_level == 'day'){
+                _areTheSame = true;
+              }
+
+              /// C2 - ZOOM IN
+              else {
+
+                /// D - HOUR
+                if (timeA.hour == timeB.hour){
+
+                  /// D1 - LEVEL == HOUR
+                  if (_level == 'hour'){
+                    _areTheSame = true;
+                  }
+
+                  /// D2 - ZOOM IN
+                  else {
+
+                    /// E - MINUTE
+                    if (timeA.minute == timeB.minute){
+
+                      /// E1 - LEVEL == MINUTE
+                      if (_level == 'minute'){
+                        _areTheSame = true;
+                      }
+
+                      /// E2 - ZOOM IN
+                      else {
+
+                        /// F - SECOND
+                        if (timeA.second == timeB.second){
+
+                          /// F1 - LEVEL == SECOND
+                          if (_level == 'second'){
+                            _areTheSame = true;
+                          }
+
+                          /// F2 - ZOOM IN
+                          if (_level == 'millisecond'){
+
+                            /// G - MILLISECOND
+                            if (timeA.millisecond == timeB.millisecond){
+
+                              /// G1 - LEVEL == MILLISECOND
+                              if (_level == 'millisecond'){
+                                _areTheSame = true;
+                              }
+
+                              /// G2 - ZOOM IN
+                              else {
+
+                                /// H - MICROSECOND
+                                if (timeA.microsecond == timeB.microsecond){
+
+                                  /// H1 - LEVEL == MICROSECOND
+                                  if (_level == 'microsecond'){
+                                    _areTheSame = true;
+                                  }
+
+                                }
+
+                              }
+
+                            }
+
+                          }
+
+                        }
+
+                      }
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  // print('timesAreTheSame : $_areTheSame : accuracy : ${accuracy} : timeA ${timeA} : timeB ${timeB}');
+
+  return _areTheSame;
+}
+// -----------------------------------------------------------------------------
+List<DateTime> putTimeInTimes({
+  @required DateTime time,
+  @required List<DateTime> times,
+}){
+  final List<DateTime> _result = times;
+
+  final bool _timesContainIt = timesContainTime(times: times, time: time, accuracy: 'minute');
+
+  if (_timesContainIt == false){
+    _result.add(time);
+  }
+
+  return _result;
+}
+// -----------------------------------------------------------------------------
+bool timesContainTime({
+  @required List<DateTime> times,
+  @required DateTime time,
+  String accuracy = 'minute'
+}){
+  bool _contains = false;
+
+  if (Mapper.canLoopList(times) && time != null){
+
+    for (int i =0; i < times.length; i++){
+
+      if (timesAreTheSame(accuracy: accuracy, timeA: times[i], timeB: time) == true){
+        _contains = true;
+        break;
+      }
+
+    }
+
+  }
+
+  return _contains;
+}
+// -----------------------------------------------------------------------------
+List<DateTime> getHoursAndMinutesFromDateTimes({@required List<DateTime> times,}){
+
+  List<DateTime> _result = <DateTime>[];
+
+  if (Mapper.canLoopList(times)){
+
+    for (var time in times){
+
+      final DateTime _hourMinute = createClock(hour: time.hour, minute: time.minute);
+      _result = putTimeInTimes(time: _hourMinute, times: _result);
+    }
+
+  }
+
+  return _result;
+}
+// -----------------------------------------------------------------------------

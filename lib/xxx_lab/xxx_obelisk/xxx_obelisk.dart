@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/obelisk_button.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';

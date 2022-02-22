@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
