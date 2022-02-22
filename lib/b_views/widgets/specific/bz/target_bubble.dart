@@ -57,7 +57,6 @@ class TargetCard extends StatelessWidget {
             centered: false,
             weight: VerseWeight.thin,
             maxLines: 10,
-            size: 2,
             margin: 5,
           ),
 
@@ -77,7 +76,7 @@ class TargetCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
-                SuperVerse(
+                const SuperVerse(
                   verse: 'Instructions',
                   size: 3,
                   color: Colorz.blue255,
@@ -94,7 +93,6 @@ class TargetCard extends StatelessWidget {
                       return SuperVerse(
                         verse: target.instructions[index],
                         leadingDot: true,
-                        size: 2,
                         centered: false,
                         maxLines: 5,
                         margin: 2,

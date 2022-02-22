@@ -118,14 +118,12 @@ class ImageSize {
   }
 
 // -----------------------------------------------------------------------------
-  void printSize({String methodName}) {
-    blog(
-        'START - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- START ---');
+  void blogSize({String methodName}) {
+    blog('START - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- START ---');
 
     blog('image size: W [ $width ] x H [ $height ]');
 
-    blog(
-        'END - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- END ---');
+    blog('END - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- END ---');
   }
 
 // -----------------------------------------------------------------------------

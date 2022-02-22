@@ -24,7 +24,6 @@ Future<void> maxSlidesReached(BuildContext context, int maxLength) async {
     body: 'Can not add more than $maxLength images in one slide',
   );
 }
-
 // -----------------------------------------------------------------------------
 Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
   final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
@@ -113,7 +112,6 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
     body: _errorReply,
   );
 }
-
 // -----------------------------------------------------------------------------
 Future<bool> bzzDeactivationDialog({
   BuildContext context,
@@ -165,7 +163,6 @@ Future<bool> bzzDeactivationDialog({
 
   return _bzzReviewResult;
 }
-
 // -----------------------------------------------------------------------------
 Future<bool> flyersDeactivationDialog({
   @required BuildContext context,
@@ -217,7 +214,6 @@ Future<bool> flyersDeactivationDialog({
 
   return _flyersReviewResult;
 }
-
 // -----------------------------------------------------------------------------
 Future<CityModel> confirmCityDialog({
   @required BuildContext context,

@@ -110,16 +110,16 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   }
 
 // -----------------------------------------------------------------------------
-  static double verseIconSpacing(
-      {double height,
-      String verse,
-      double iconSizeFactor,
-      double verseScaleFactor}) {
+  static double verseIconSpacing({
+    double height,
+    String verse,
+    double iconSizeFactor,
+    double verseScaleFactor
+  }) {
     final double _verseIconSpacing =
         verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
     return _verseIconSpacing;
   }
-
 // -----------------------------------------------------------------------------
   bool _verseShadowIsOn() {
     bool _isOn;
@@ -134,7 +134,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   bool _verseIsCentered() {
     bool _centered;
@@ -147,7 +146,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     return _centered;
   }
-
 // -----------------------------------------------------------------------------
   bool _secondLineShadowIsOn() {
     bool _isOn;
@@ -160,7 +158,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
