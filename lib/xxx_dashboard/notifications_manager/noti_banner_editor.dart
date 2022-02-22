@@ -17,13 +17,11 @@ class NotiBannerEditor extends StatelessWidget {
     @required this.onDelete,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
   final dynamic attachment;
   final Function onDelete;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

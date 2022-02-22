@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:flutter/material.dart';
 
 class FooterPageBox extends StatelessWidget {

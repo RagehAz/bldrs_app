@@ -1,11 +1,8 @@
 import 'package:bldrs/a_models/bz/target/target_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/dialogs/dialog_of_target_achievement.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/target_bubble.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/targetz.dart' as Targetz;
 import 'package:flutter/material.dart';
 
