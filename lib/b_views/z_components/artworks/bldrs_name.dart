@@ -1,5 +1,4 @@
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -21,4 +20,3 @@ class BldrsName extends StatelessWidget {
     );
   }
 }
-

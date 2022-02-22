@@ -31,7 +31,6 @@ class CustomBoxShadow extends BoxShadow {
     return _result;
   }
 }
-
 // -----------------------------------------------------------------------------
 List<BoxShadow> superFollowBtShadow(double btHeight) {
   // List<BoxShadow> _btShadow = <BoxShadow>[
@@ -50,11 +49,13 @@ List<BoxShadow> superFollowBtShadow(double btHeight) {
   /// TASK : optimize shadows
   return null;
 }
-
 // -----------------------------------------------------------------------------
 const BoxShadow basicOuterShadow = CustomBoxShadow(
-    color: Colorz.black200, blurRadius: 10, style: BlurStyle.outer);
-
+    color: Colorz.black200,
+    blurRadius: 10,
+    style: BlurStyle.outer
+);
+// -----------------------------------------------------------------------------
 const List<BoxShadow> appBarShadow = <BoxShadow>[
   basicOuterShadow,
 ];
@@ -69,7 +70,6 @@ List<BoxShadow> flyerZoneShadow(double flyerBoxWidth) {
 
   return _flyerZoneShadow;
 }
-
 // -----------------------------------------------------------------------------
 List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth) {
   final List<BoxShadow> _shadows = <BoxShadow>[

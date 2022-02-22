@@ -18,7 +18,6 @@ Gradient superSlideGradient() {
       stops: <double>[0, 0.90]);
   return slideGradient;
 }
-
 // -----------------------------------------------------------------------------
 Gradient superHeaderStripGradient(Color color) {
   final Gradient headerStripGradient = LinearGradient(
@@ -28,7 +27,6 @@ Gradient superHeaderStripGradient(Color color) {
       stops: const <double>[0.3, 1]);
   return headerStripGradient;
 }
-
 // -----------------------------------------------------------------------------
 Gradient superFollowBTGradient() {
   const Gradient followBTGradient = LinearGradient(
@@ -38,7 +36,6 @@ Gradient superFollowBTGradient() {
       stops: <double>[0, 0.5]);
   return followBTGradient;
 }
-
 // -----------------------------------------------------------------------------
 ui.ImageFilter superBlur({@required bool trigger}) {
   final double blueValue = trigger == true ? 8 : 0;
@@ -46,7 +43,6 @@ ui.ImageFilter superBlur({@required bool trigger}) {
       ui.ImageFilter.blur(sigmaX: blueValue, sigmaY: blueValue);
   return blur;
 }
-
 // -----------------------------------------------------------------------------
 /// if i want to black and white a widget, put it as child in here
 /// child: ColorFiltered(
@@ -57,7 +53,6 @@ ColorFilter superDesaturation({@required bool isItBlackAndWhite}) {
       isItBlackAndWhite == true ? Colorz.grey255 : Colorz.nothing;
   return ColorFilter.mode(imageSaturationColor, BlendMode.saturation);
 }
-
 // -----------------------------------------------------------------------------
 Future<Color> getAverageColor(dynamic pic) async {
   final File _imageFile = await Imagers.getFileFromDynamic(pic);
@@ -85,7 +80,6 @@ Future<Color> getAverageColor(dynamic pic) async {
 
   return _averageColor;
 }
-
 // -----------------------------------------------------------------------------
 Color decipherColor(String colorString) {
   Color _color;
@@ -119,7 +113,6 @@ Color decipherColor(String colorString) {
 
   return _color;
 }
-
 // -----------------------------------------------------------------------------
 String cipherColor(Color color) {
   final Color _color = color ?? Colorz.nothing;
@@ -132,7 +125,6 @@ String cipherColor(Color color) {
   final String _string = '$_alpha*$_r*$_g*$_b';
   return _string;
 }
-
 // -----------------------------------------------------------------------------
 bool colorsAreTheSame(Color colorA, Color colorB) {
   bool _areTheSame = false;
@@ -146,7 +138,6 @@ bool colorsAreTheSame(Color colorA, Color colorB) {
 
   return _areTheSame;
 }
-
 // -----------------------------------------------------------------------------
 Color getRandomColor() {
   const List<Color> _bldrsColors = Colorz.allColorz;
@@ -154,7 +145,6 @@ Color getRandomColor() {
       Numeric.createRandomIndex(listLength: _bldrsColors.length);
   return _bldrsColors[_randomIndex];
 }
-
 // -----------------------------------------------------------------------------
 bool isBlack(Color color) {
   bool _isBlack = false;
