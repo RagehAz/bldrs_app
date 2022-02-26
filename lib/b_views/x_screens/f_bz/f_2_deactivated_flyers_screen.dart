@@ -108,7 +108,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         /// --- DELETE Flyer
         DreamBox(
           height: _buttonHeight,
-          width: BottomDialog.dialogClearWidth(context),
+          width: BottomDialog.clearWidth(context),
           icon: Iconz.xSmall,
           iconSizeFactor: 0.5,
           iconColor: Colorz.black230,
@@ -123,7 +123,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         /// --- RE-PUBLISH FLYER
         DreamBox(
             height: _buttonHeight,
-            width: BottomDialog.dialogClearWidth(context),
+            width: BottomDialog.clearWidth(context),
             icon: Iconz.xSmall,
             iconSizeFactor: 0.5,
             iconColor: Colorz.red255,
@@ -136,7 +136,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
         /// --- EDIT FLYER
         DreamBox(
           height: _buttonHeight,
-          width: BottomDialog.dialogClearWidth(context),
+          width: BottomDialog.clearWidth(context),
           icon: Iconz.gears,
           iconSizeFactor: 0.5,
           verse: 'Edit flyer',

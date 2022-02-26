@@ -579,6 +579,19 @@ class BzModel{
     return _output;
   }
 // -----------------------------------------------------------------------------
+  static List<BzType> getBzTypesListWithoutOneType(BzType removeThisType){
+    const List<BzType> _allTypes = bzTypesList;
+    final List<BzType> _output = <BzType>[];
+
+    for (final BzType bzType in _allTypes){
+      if (bzType != removeThisType){
+        _output.add(bzType);
+      }
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 }
 
 /*

@@ -113,7 +113,7 @@ class BottomDialog extends StatelessWidget {
   static const EdgeInsets dialogMargins =
       EdgeInsets.symmetric(horizontal: dialogMarginValue);
 // -----------------------------------------------------------------------------
-  static double dialogClearWidth(BuildContext context) {
+  static double clearWidth(BuildContext context) {
     final double _dialogClearWidth =
         Scale.superScreenWidth(context) - (dialogMarginValue * 2);
     return _dialogClearWidth;
@@ -137,7 +137,7 @@ class BottomDialog extends StatelessWidget {
   }
 
 // -----------------------------------------------------------------------------
-  static double dialogClearHeight({
+  static double clearHeight({
     @required BuildContext context,
     @required bool draggable,
     double overridingDialogHeight,
@@ -344,7 +344,7 @@ class BottomDialog extends StatelessWidget {
   }) {
     return DreamBox(
       height: 45,
-      width: dialogClearWidth(context),
+      width: clearWidth(context),
       verse: verse,
       verseScaleFactor: 1.1,
       verseWeight: VerseWeight.thin,
@@ -369,8 +369,8 @@ class BottomDialog extends StatelessWidget {
 
     const double _ratioOfScreenHeight = 0.65;
     final double _overridingDialogHeight = dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
-    final double _clearWidth = dialogClearWidth(context);
-    final double _clearHeight = dialogClearHeight(
+    final double _clearWidth = clearWidth(context);
+    final double _clearHeight = clearHeight(
         context: context,
         overridingDialogHeight: _overridingDialogHeight,
         draggable: true,
@@ -448,8 +448,8 @@ class BottomDialog extends StatelessWidget {
 
     final double _titleZoneHeight = titleZoneHeight(titleIsOn: _titleIsOn);
 
-    final double _dialogClearWidth = dialogClearWidth(context);
-    final double _dialogClearHeight = dialogClearHeight(
+    final double _dialogClearWidth = clearWidth(context);
+    final double _dialogClearHeight = clearHeight(
         context: context,
         titleIsOn: _titleIsOn,
         overridingDialogHeight: height,

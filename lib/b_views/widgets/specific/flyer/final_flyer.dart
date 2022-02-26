@@ -1378,7 +1378,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
 
     final double _dialogHeight =
         BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.8);
-    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    final double _dialogClearWidth = BottomDialog.clearWidth(context);
     final double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
 
     bool _canUploadReview = false;
@@ -1505,8 +1505,8 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
         BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.25);
 
     const int _numberOfButtons = 2;
-    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    final double _dialogClearHeight = BottomDialog.dialogClearHeight(
+    final double _dialogClearWidth = BottomDialog.clearWidth(context);
+    final double _dialogClearHeight = BottomDialog.clearHeight(
         context: context,
         overridingDialogHeight: _dialogHeight,
         titleIsOn: true,
@@ -2253,7 +2253,7 @@ class _FinalFlyerState extends State<FinalFlyer> with AutomaticKeepAliveClientMi
   Future<void> _onMoreInfoTap() async {
     final double _dialogHeight =
         BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.95);
-    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
+    final double _dialogClearWidth = BottomDialog.clearWidth(context);
     final double _dialogInnerCorners = BottomDialog.dialogClearCornerValue();
 
     await BottomDialog.showBottomDialog(

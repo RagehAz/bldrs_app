@@ -197,7 +197,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
       buttonHeight: 40,
       buttons: <Widget>[
         DreamBox(
-          width: BottomDialog.dialogClearWidth(context),
+          width: BottomDialog.clearWidth(context),
           height: 40,
           verse: 'Clear ${widget.ldbDocName} data',
           onTap: _onClearLDB,

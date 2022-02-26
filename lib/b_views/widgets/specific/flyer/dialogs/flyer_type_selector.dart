@@ -37,8 +37,8 @@ class _FlyerTypeSelectorState extends State<FlyerTypeSelector> {
         FlyerTypeClass.concludePossibleFlyerTypesForBz(
             bzType: widget.superFlyer.bz.bzType);
     final int _numberOfButtons = _possibleFlyerTypes.length;
-    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    final double _dialogClearHeight = BottomDialog.dialogClearHeight(
+    final double _dialogClearWidth = BottomDialog.clearWidth(context);
+    final double _dialogClearHeight = BottomDialog.clearHeight(
         context: context,
         overridingDialogHeight: _dialogHeight,
         titleIsOn: true,

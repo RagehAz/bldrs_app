@@ -199,7 +199,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       /// DELETE BZ
       DreamBox(
         height: DialogOfBzOptions.buttonHeight,
-        width: BottomDialog.dialogClearWidth(context),
+        width: BottomDialog.clearWidth(context),
         icon: Iconz.xSmall,
         iconSizeFactor: 0.5,
         iconColor: Colorz.red255,
@@ -214,7 +214,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       /// DEACTIVATE BZ
       DreamBox(
           height: DialogOfBzOptions.buttonHeight,
-          width: BottomDialog.dialogClearWidth(context),
+          width: BottomDialog.clearWidth(context),
           icon: Iconz.xSmall,
           iconSizeFactor: 0.5,
           iconColor: Colorz.red255,
@@ -228,7 +228,7 @@ class _DialogOfBzOptionsState extends State<DialogOfBzOptions> {
       /// EDIT BZ
       DreamBox(
         height: DialogOfBzOptions.buttonHeight,
-        width: BottomDialog.dialogClearWidth(context),
+        width: BottomDialog.clearWidth(context),
         icon: Iconz.gears,
         iconSizeFactor: 0.5,
         verse: 'Edit Business Account info',

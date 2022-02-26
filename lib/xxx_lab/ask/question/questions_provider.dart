@@ -12,8 +12,7 @@ class QuestionsProvider with ChangeNotifier {
   /// --------------------------------------------------------------------------
   final List<Quest> _questions = <Quest>[];
 // ----------------------------------------------------------------------------
-  CollectionReference<Object> questionsFirebase =
-      FirebaseFirestore.instance.collection('questions');
+  CollectionReference<Object> questionsFirebase = FirebaseFirestore.instance.collection('questions');
 // ----------------------------------------------------------------------------
   List<Quest> getQuestionsList() => _questions;
 // ----------------------------------------------------------------------------

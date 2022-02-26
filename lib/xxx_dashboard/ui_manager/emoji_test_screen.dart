@@ -18,8 +18,8 @@ class EmojiTestScreen extends StatelessWidget {
       height: 400,
       draggable: true,
       child: Container(
-        width: BottomDialog.dialogClearWidth(context),
-        height: BottomDialog.dialogClearHeight(
+        width: BottomDialog.clearWidth(context),
+        height: BottomDialog.clearHeight(
             draggable: true,
             context: context,
             titleIsOn: true,
