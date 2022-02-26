@@ -4,8 +4,10 @@ import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/c_review_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -16,6 +18,7 @@ import 'package:bldrs/xxx_lab/ask/new_questions_stuff/components/question_button
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timerz;
+import 'package:provider/provider.dart';
 
 class QuestionReplyButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -118,39 +121,93 @@ class QuestionReplyButtons extends StatelessWidget {
 
     blog('bzType : $bzType has been chosen');
 
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UserModel _myUserModel = _usersProvider.myUserModel;
+
     /// CLOSE PREVIOUS DIALOG
     Nav.goBack(context);
 
     final String _bzTypeString = TextGen.bzTypePluralStringer(context, bzType);
 
+    final double _dialogClearWidth = BottomDialog.clearWidth(context);
+    final double _overridingHeight = _dialogClearWidth * 0.7;
+    final double _dialogClearHeight = BottomDialog.clearHeight(
+        context: context,
+        draggable: true,
+        overridingDialogHeight: _overridingHeight,
+    );
+
+    final double _userImageBoxWidth = FooterButton.buttonSize(
+        context: context,
+        flyerBoxWidth: _dialogClearWidth,
+        tinyMode: false
+    );
+
     await BottomDialog.showBottomDialog(
         context: context,
         draggable: true,
+        height: _overridingHeight,
         child: SizedBox(
-          width: BottomDialog.clearWidth(context),
-          height: BottomDialog.clearHeight(context: context, draggable: true),
+          width: _dialogClearWidth,
+          height: _dialogClearHeight,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
+              /// PADDING
+              const SizedBox(
+                width: 10,
+                height: 10,
+              ),
+
+              /// REVIEW BUBBLE
               ReviewBubble(
-                userModel: UserModel.dummyUserModel(context),
+                userModel: _myUserModel,
                 flyerBoxWidth: BottomDialog.clearWidth(context),
                 pageWidth: BottomDialog.clearWidth(context),
                 reviewText: '"This question should be directed to the $_bzTypeString instead"',
-                reviewTimeStamp: Timerz.createDate(year: 2022, month: 02, day: 25),
+                reviewTimeStamp: DateTime.now(),
+                specialReview: true,
               ),
 
-              DreamBox(
-                height: 40,
-                width: 200,
-                verse: 'Confirm',
-                margins: 10,
-                onTap: () => onConfirmRedirectQuestionTo(
-                  context: context,
-                  bzType: bzType,
-                ),
+              /// CONFIRM AND CANCEL BUTTONS
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+
+                  /// FAKE SPACE UNDER USER IMAGE
+                  SizedBox(
+                    width: _userImageBoxWidth,
+                    height: 40,
+                  ),
+
+                  /// CANCEL BUTTON
+                  DreamBox(
+                    height: 40,
+                    // width: 100,
+                    verse: 'Cancel',
+                    verseScaleFactor: 0.8,
+                    verseWeight: VerseWeight.thin,
+                    onTap: (){Nav.goBack(context);},
+                  ),
+
+                  /// EXPANDER
+                  const Expander(),
+
+                  /// POST BUTTON
+                  DreamBox(
+                    height: 40,
+                    // width: 200,
+                    verse: 'Post',
+                    verseWeight: VerseWeight.thin,
+                    verseScaleFactor: 0.8,
+                    margins: 10,
+                    onTap: () => onConfirmRedirectQuestionTo(
+                      context: context,
+                      bzType: bzType,
+                    ),
+                  ),
+
+                ],
               ),
 
             ],
