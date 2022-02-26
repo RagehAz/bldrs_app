@@ -52,7 +52,7 @@ class PriceDataCreator extends StatefulWidget {
       countryID: 'usa',
     );
 
-    final double _clearWidth = BottomDialog.dialogClearWidth(context);
+    final double _clearWidth = BottomDialog.clearWidth(context);
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -60,7 +60,7 @@ class PriceDataCreator extends StatefulWidget {
       child: SizedBox(
         width: _clearWidth,
         height:
-            BottomDialog.dialogClearHeight(context: context, draggable: true),
+            BottomDialog.clearHeight(context: context, draggable: true),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -95,7 +95,7 @@ class PriceDataCreator extends StatefulWidget {
                   draggable: true,
                   child: SizedBox(
                     width: _clearWidth,
-                    height: BottomDialog.dialogClearHeight(
+                    height: BottomDialog.clearHeight(
                         context: context, draggable: true),
                     child: OldMaxBounceNavigator(
                       child: ListView.builder(

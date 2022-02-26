@@ -11,8 +11,8 @@ class QuesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final QuestionsProvider questionsProvider =
-        Provider.of<QuestionsProvider>(context);
+
+    final QuestionsProvider questionsProvider = Provider.of<QuestionsProvider>(context);
 
     return MainLayout(
       pyramidsAreOn: true,

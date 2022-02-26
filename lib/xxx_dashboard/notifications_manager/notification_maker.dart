@@ -135,7 +135,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
             return DreamBox(
               height: 50,
-              width: BottomDialog.dialogClearWidth(context),
+              width: BottomDialog.clearWidth(context),
               verse: _attachmentTypeString,
               verseScaleFactor: 0.6,
               color: _color,
@@ -232,8 +232,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
     final double _dialogHeight =
         BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.85);
 
-    final double _dialogClearWidth = BottomDialog.dialogClearWidth(context);
-    final double _dialogClearHeight = BottomDialog.dialogClearHeight(
+    final double _dialogClearWidth = BottomDialog.clearWidth(context);
+    final double _dialogClearHeight = BottomDialog.clearHeight(
       context: context,
       draggable: true,
       titleIsOn: true,

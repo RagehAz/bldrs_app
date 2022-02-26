@@ -88,7 +88,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 
           DreamBox(
             height: 80,
-            width: BottomDialog.dialogClearWidth(context),
+            width: BottomDialog.clearWidth(context),
             verse: 'Flyer by ${flyer.bzID}',
             bubble: false,
             verseWeight: VerseWeight.thin,
