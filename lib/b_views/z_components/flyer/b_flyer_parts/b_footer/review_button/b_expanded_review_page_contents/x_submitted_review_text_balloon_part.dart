@@ -15,6 +15,7 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.reviewText,
     @required this.reviewTimeStamp,
+    this.specialReview = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +25,7 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
   final double flyerBoxWidth;
   final String reviewText;
   final DateTime reviewTimeStamp;
+  final bool specialReview;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -64,8 +66,10 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
             verse: reviewText,
             maxLines: 100,
             centered: false,
-            weight: VerseWeight.thin,
+            weight: specialReview ? VerseWeight.bold : VerseWeight.thin,
             scaleFactor: 1.1,
+            italic: specialReview,
+            color: specialReview ? Colorz.yellow255 : Colorz.white255,
           ),
 
         ],

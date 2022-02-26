@@ -15,6 +15,7 @@ class ReviewBubble extends StatelessWidget {
     @required this.userModel,
     @required this.reviewText,
     @required this.reviewTimeStamp,
+    this.specialReview = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,6 +24,7 @@ class ReviewBubble extends StatelessWidget {
   final UserModel userModel;
   final String reviewText;
   final DateTime reviewTimeStamp;
+  final bool specialReview;
   /// --------------------------------------------------------------------------
   static double bubbleMarginValue(){
     return Ratioz.appBarMargin;
@@ -91,6 +93,7 @@ class ReviewBubble extends StatelessWidget {
             reviewBoxWidth: _reviewBoxWidth,
             reviewText: reviewText,
             reviewTimeStamp: reviewTimeStamp,
+            specialReview: specialReview,
           ),
 
         ],
