@@ -13,14 +13,16 @@ class ReviewBubble extends StatelessWidget {
     @required this.pageWidth,
     @required this.flyerBoxWidth,
     @required this.userModel,
-    @required this.pageHeight,
+    @required this.reviewText,
+    @required this.reviewTimeStamp,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final double flyerBoxWidth;
   final UserModel userModel;
-  final double pageHeight;
+  final String reviewText;
+  final DateTime reviewTimeStamp;
   /// --------------------------------------------------------------------------
   static double bubbleMarginValue(){
     return Ratioz.appBarMargin;
@@ -87,6 +89,8 @@ class ReviewBubble extends StatelessWidget {
             bubbleMargin: _bubbleMargin,
             flyerBoxWidth: flyerBoxWidth,
             reviewBoxWidth: _reviewBoxWidth,
+            reviewText: reviewText,
+            reviewTimeStamp: reviewTimeStamp,
           ),
 
         ],

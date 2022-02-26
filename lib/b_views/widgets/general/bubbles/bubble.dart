@@ -57,7 +57,7 @@ class Bubble extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double defaultWidth(BuildContext context) {
     final double _screenWidth = Scale.superScreenWidth(context);
-    const double _bubbleMargins = Ratioz.appBarPadding * 2;
+    const double _bubbleMargins = Ratioz.appBarMargin * 2;
     final double _bubbleWidth = _screenWidth - _bubbleMargins;
     return _bubbleWidth;
   }

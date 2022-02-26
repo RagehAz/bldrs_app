@@ -13,6 +13,8 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
     @required this.bubbleMargin,
     @required this.userModel,
     @required this.flyerBoxWidth,
+    @required this.reviewText,
+    @required this.reviewTimeStamp,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -20,6 +22,8 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
   final double bubbleMargin;
   final UserModel userModel;
   final double flyerBoxWidth;
+  final String reviewText;
+  final DateTime reviewTimeStamp;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -28,8 +32,6 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
-
-    final DateTime _reviewTime = Timerz.createDate(year: 1987, month: 6, day: 10);
 
     return Container(
       width: reviewBoxWidth - bubbleMargin,
@@ -49,7 +51,7 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
 
           SuperVerse(
             verse: Timerz.getSuperTimeDifferenceString(
-              from: _reviewTime,
+              from: reviewTimeStamp,
               to: DateTime.now(),
             ),
             weight: VerseWeight.thin,
@@ -58,8 +60,8 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
             scaleFactor: 0.9,
           ),
 
-          const SuperVerse(
-            verse: 'Wallahy ya fandem elly fih el kheir y2addemo rabbena, mesh keda walla eh ?',
+          SuperVerse(
+            verse: reviewText,
             maxLines: 100,
             centered: false,
             weight: VerseWeight.thin,

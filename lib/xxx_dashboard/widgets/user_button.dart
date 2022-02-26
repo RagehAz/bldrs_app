@@ -90,7 +90,7 @@ class DashboardUserButton extends StatelessWidget {
       secondLineScaleFactor: 0.9,
       margins: const EdgeInsets.symmetric(vertical: 5),
       onTap: () async {
-        final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
+        final double _clearDialogWidth = BottomDialog.clearWidth(context);
 
         await BottomDialog.showBottomDialog(
           context: context,
@@ -98,7 +98,7 @@ class DashboardUserButton extends StatelessWidget {
           draggable: true,
           child: Container(
             width: _clearDialogWidth,
-            height: BottomDialog.dialogClearHeight(
+            height: BottomDialog.clearHeight(
               draggable: true,
               titleIsOn: true,
               context: context,

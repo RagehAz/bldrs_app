@@ -167,7 +167,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     const double _bzButtonHeight = 60;
     const double _bzButtonMargin = Ratioz.appBarPadding;
 
-    final double _clearDialogWidth = BottomDialog.dialogClearWidth(context);
+    final double _clearDialogWidth = BottomDialog.clearWidth(context);
 
     final List<BzModel> _bzz = _searchedBzz.isEmpty ? _bzzModels : _searchedBzz;
 
@@ -248,7 +248,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                     height: _dialogHeight,
                     child: SizedBox(
                       width: _clearDialogWidth,
-                      height: BottomDialog.dialogClearHeight(
+                      height: BottomDialog.clearHeight(
                           draggable: true,
                           titleIsOn: true,
                           context: context,

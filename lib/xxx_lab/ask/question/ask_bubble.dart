@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
@@ -33,15 +31,12 @@ class QuestionBubble extends StatefulWidget {
     this.bzType,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final BzType bzType;
   final Function tappingAskInfo;
-
   /// --------------------------------------------------------------------------
   @override
   _QuestionBubbleState createState() => _QuestionBubbleState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -51,7 +46,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   bool _askButtonInactive = true;
   List<File> _questionPics;
   List<KW> _keywords;
-  FlyerTypeClass.FlyerType _questionType;
+  BzType _questionDirectedTo;
 // -----------------------------------------------------------------------------
 //   /// --- FUTURE LOADING BLOCK
 //   bool _loading = false;
@@ -97,7 +92,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     _titleController.dispose();
     super.dispose();
   }
-
   // ----------------------------------------------------------------------
   void textListener() {
     // blog('ask body text controller value is : ${_askBodyController.text}');
@@ -117,7 +111,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
       });
     }
   }
-
   // ----------------------------------------------------------------------
   Future<void> _addPic() async {
     final File _imageFile =
@@ -126,7 +119,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
       _questionPics.add(File(_imageFile.path));
     });
   }
-
   // ----------------------------------------------------------------------
   void _deletePic(File pic) {
     // int _picFileIndex = _questionPics.indexWhere((p) => p == pic);
@@ -134,7 +126,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
       _questionPics.remove(pic);
     });
   }
-
   // ----------------------------------------------------------------------
   void submitQuestion() {
     // blog(_askBody);
@@ -148,12 +139,16 @@ class _QuestionBubbleState extends State<QuestionBubble> {
           context: context,
           firstLine: 'Question is empty',
           secondLine: 'Please type your question first');
-    } else if (TextChecker.textControllerIsEmpty(_titleController) == true) {
+    }
+
+    else if (TextChecker.textControllerIsEmpty(_titleController) == true) {
       await NavDialog.showNavDialog(
           context: context,
           firstLine: 'Title is empty',
           secondLine: 'Please type question title to proceed');
-    } else {
+    }
+
+    else {
       final QuestionModel _question = QuestionModel(
         questionID: 'mafeesh id',
         body: _bodyController.text,
@@ -163,11 +158,14 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         title: _titleController.text,
         ownerID: FireAuthOps.superUserID(),
         questionIsOpen: true,
-        questionType: _questionType,
+        directedTo: _questionDirectedTo,
         totalChats: 0,
         totalViews: 0,
         userDeletedQuestion: false,
         userSeenAll: true,
+        niceCount: 123,
+        redirectCount: 5143,
+        repliesCount: 54831,
       );
 
       await QuestionOps.createQuestionOps(
@@ -185,7 +183,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
       _bodyController.clear();
     }
   }
-
   // ----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -235,15 +232,17 @@ class _QuestionBubbleState extends State<QuestionBubble> {
       centered: true,
       bubbleColor: Colorz.white10,
       columnChildren: <Widget>[
+
         /// USER LABEL
         SizedBox(
           height: _abButtonsHeight * 1.2,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+
               /// USER PICTURE
               UserBalloon(
-                userModel: UserModel.dummyUsers(numberOfUsers: 1)[0],
+                userModel: UserModel.dummyUserModel(context),
                 balloonType: _userStatus,
                 balloonWidth: _abButtonsHeight,
                 loading: false,
@@ -297,6 +296,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 iconSizeFactor: 0.5,
                 onTap: widget.tappingAskInfo,
               ),
+
             ],
           ),
         ),
@@ -427,6 +427,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             ),
           ],
         ),
+
       ],
     );
   }

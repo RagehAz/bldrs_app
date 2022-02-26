@@ -659,7 +659,11 @@ List<DateTime> putTimeInTimes({
 }){
   final List<DateTime> _result = times;
 
-  final bool _timesContainIt = timesContainTime(times: times, time: time, accuracy: 'minute');
+  final bool _timesContainIt = timesContainTime(
+      times: times,
+      time: time,
+      // accuracy: 'minute',
+  );
 
   if (_timesContainIt == false){
     _result.add(time);
@@ -697,7 +701,7 @@ List<DateTime> getHoursAndMinutesFromDateTimes({@required List<DateTime> times,}
 
   if (Mapper.canLoopList(times)){
 
-    for (var time in times){
+    for (final DateTime time in times){
 
       final DateTime _hourMinute = createClock(hour: time.hour, minute: time.minute);
       _result = putTimeInTimes(time: _hourMinute, times: _result);

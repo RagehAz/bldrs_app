@@ -48,7 +48,7 @@ class UserBalloon extends StatelessWidget {
     return Balloona(
         balloonWidth: balloonWidth,
         onTap: onTap,
-        userStatus: balloonType,
+        userStatus: balloonType ?? UserStatus.normal,
         pic: userModel?.pic,
         shadowIsOn: shadowIsOn,
         loading: loading,

@@ -145,13 +145,17 @@ class QuestionOps {
   }
 
 // -----------------------------------------------------------------------------
-  static Future<void> deleteQuestionOps(
-      {BuildContext context, QuestionModel question}) async {
+  static Future<void> deleteQuestionOps({
+    BuildContext context,
+    QuestionModel question
+  }) async {
+
     await Fire.deleteDoc(
       context: context,
       collName: FireColl.questions,
       docName: question.questionID,
     );
+
   }
 // ----------------------------------------------------------------------
 }

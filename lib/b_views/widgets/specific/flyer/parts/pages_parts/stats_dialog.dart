@@ -132,8 +132,8 @@ class _FlyerStatsDialogState extends State<FlyerStatsDialog> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _clearWidth = BottomDialog.dialogClearWidth(context);
-    final double _clearHeight = BottomDialog.dialogClearHeight(
+    final double _clearWidth = BottomDialog.clearWidth(context);
+    final double _clearHeight = BottomDialog.clearHeight(
         context: context, draggable: true, titleIsOn: false);
     const double _tabsHeight = 50;
     final double _bodyHeight = _clearHeight - _tabsHeight;

@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/c_review_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timerz;
 
 class SubmittedReviews extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -36,9 +37,10 @@ class SubmittedReviews extends StatelessWidget {
 
           return ReviewBubble(
             pageWidth : pageWidth,
-            pageHeight: pageHeight,
             flyerBoxWidth: flyerBoxWidth,
             userModel: UserModel.dummyUserModel(context),
+            reviewText: 'Wallahy ya fandem elly fih el kheir y2addemo rabbena, mesh keda walla eh ?',
+            reviewTimeStamp: Timerz.createDate(year: 1987, month: 6, day: 10),
           );
 
         },
