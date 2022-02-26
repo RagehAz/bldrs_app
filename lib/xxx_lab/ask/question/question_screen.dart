@@ -32,8 +32,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             children: <Widget>[
               /// INSTRUCTIONS
               const Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
+                padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin * 2),
                 child: SuperVerse(
                   verse: 'Ask the Builders in your city.',
                 ),
@@ -64,6 +63,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   blog('Ask info is tapped aho');
                 },
               ),
+
             ],
           ),
 

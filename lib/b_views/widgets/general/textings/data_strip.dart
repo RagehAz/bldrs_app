@@ -48,7 +48,7 @@ class DataStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     const double _rowHeight = 60;
     const double _verticalMargin = 2.5;
-    final double _rowWidth = width ?? BottomDialog.dialogClearWidth(context) - _verticalMargin * 2;
+    final double _rowWidth = width ?? BottomDialog.clearWidth(context) - _verticalMargin * 2;
     const double _keyButtonMargin = Ratioz.appBarMargin;
 
     const double _keyRowHeight = _rowHeight * 0.4;
@@ -87,8 +87,8 @@ class DataStrip extends StatelessWidget {
                     title: '$dataKey : ${dataValue.toString()}',
                     height: 150,
                     child: SizedBox(
-                      width: BottomDialog.dialogClearWidth(context),
-                      height: BottomDialog.dialogClearHeight(
+                      width: BottomDialog.clearWidth(context),
+                      height: BottomDialog.clearHeight(
                         draggable: true,
                         context: context,
                         titleIsOn: true,
