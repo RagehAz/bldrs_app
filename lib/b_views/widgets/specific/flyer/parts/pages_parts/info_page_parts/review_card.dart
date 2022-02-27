@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_user_label.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;

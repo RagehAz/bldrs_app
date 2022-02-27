@@ -12,13 +12,13 @@ import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialo
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/notifications/notification_balloon.dart';
 import 'package:bldrs/b_views/widgets/specific/notifications/notification_card.dart';
 import 'package:bldrs/b_views/widgets/specific/notifications/notification_flyers.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;

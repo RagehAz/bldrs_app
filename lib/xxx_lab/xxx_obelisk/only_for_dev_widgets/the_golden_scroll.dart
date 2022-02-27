@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
@@ -10,18 +10,15 @@ class GoldenScroll extends StatelessWidget {
     @required this.scrollTitle,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String scrollScript;
   final String scrollTitle;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double flyerTagsCornerValue =
-        MediaQuery.of(context).size.height * 0.0073892;
-    final double flyerTagTextPaddingValue =
-        MediaQuery.of(context).size.height * 0.0064542;
+
+    final double flyerTagsCornerValue = MediaQuery.of(context).size.height * 0.0073892;
+    final double flyerTagTextPaddingValue = MediaQuery.of(context).size.height * 0.0064542;
 
     return Container(
       width: MediaQuery.of(context).size.width * 0.7,
@@ -40,6 +37,7 @@ class GoldenScroll extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
+
           SuperVerse(
             verse: scrollTitle,
             color: Colorz.yellow255,
@@ -47,6 +45,7 @@ class GoldenScroll extends StatelessWidget {
             italic: true,
             size: 1,
           ),
+
           SelectableText(
             scrollScript,
             toolbarOptions: const ToolbarOptions(
@@ -63,6 +62,7 @@ class GoldenScroll extends StatelessWidget {
               letterSpacing: 0.75,
             ),
           ),
+
         ],
       ),
     );

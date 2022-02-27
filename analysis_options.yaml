@@ -67,7 +67,6 @@ linter:
     constant_identifier_names: true
     curly_braces_in_flow_control_structures: true
     deprecated_consistency: true
-    directives_ordering: true
     do_not_use_environment: true
     empty_catches: true
     empty_constructor_bodies: true
@@ -174,6 +173,7 @@ linter:
     no_leading_underscores_for_local_identifiers: false # 3000 hints
 
     # JUST BEFORE RELEASE
+    directives_ordering: false
     diagnostic_describe_all_properties: false
 
     # ----- FALSE RULES : defiantly false rules
