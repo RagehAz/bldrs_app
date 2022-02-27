@@ -7,13 +7,13 @@ import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/b_views/widgets/general/nav_bar/bar_button.dart';
-import 'package:bldrs/b_views/widgets/general/nav_bar/bzz_button.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/bar_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/unfinished_bzz_button.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -44,13 +44,12 @@ enum BarType {
 
 class NavBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NavBar(
-      {this.barType = _standardBarType,
-      this.sky = SkyType.night,
-      // this.myBzz,
-      Key key})
-      : super(key: key);
-
+  const NavBar({
+    this.barType = _standardBarType,
+    this.sky = SkyType.night,
+    // this.myBzz,
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BarType barType;
   final SkyType sky;
@@ -80,7 +79,6 @@ class NavBar extends StatelessWidget {
 
     return _boxHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double navBarWidth({
     @required BuildContext context,
@@ -105,7 +103,6 @@ class NavBar extends StatelessWidget {
 
     return _boxWidth;
   }
-
 // -----------------------------------------------------------------------------
   static double navBarTextBoxHeight({
     @required BuildContext context,
@@ -119,7 +116,6 @@ class NavBar extends StatelessWidget {
 
     return _textBoxHeight;
   }
-
 // -----------------------------------------------------------------------------
   static int navBarNumberOfButtons(UserModel userModel) {
     int _numberOfButtons;
@@ -134,7 +130,6 @@ class NavBar extends StatelessWidget {
 
     return _numberOfButtons;
   }
-
 // -----------------------------------------------------------------------------
   static double navBarButtonsSpacing({
     @required BuildContext context,
@@ -145,10 +140,18 @@ class NavBar extends StatelessWidget {
   }) {
 
     final double _spacings =
-        barType == BarType.max || barType == BarType.maxWithText ?
-        ((Scale.superScreenWidth(context) - (navBarButtonWidth * numberOfButtons)) / numberOfSpacings) * spacingFactor
-            :
-        navbarPaddings * 0;
+    barType == BarType.max || barType == BarType.maxWithText ?
+    (
+        (
+            Scale.superScreenWidth(context)
+            -
+            (navBarButtonWidth * numberOfButtons)
+        )
+            /
+            numberOfSpacings
+    ) * spacingFactor
+        :
+    navbarPaddings * 0;
 
     return _spacings;
   }
@@ -168,7 +171,6 @@ class NavBar extends StatelessWidget {
 
     return _halfSpacer;
   }
-
 // -----------------------------------------------------------------------------
   static BorderRadius navBarCorners({
     @required BuildContext context,
@@ -202,7 +204,6 @@ class NavBar extends StatelessWidget {
 
     return _boxBorders;
   }
-
 // -----------------------------------------------------------------------------
   static double navBarBottomOffset({BarType barType = _standardBarType}) {
 
@@ -213,7 +214,6 @@ class NavBar extends StatelessWidget {
 
     return _bottomOffset;
   }
-
 // -----------------------------------------------------------------------------
   double _myBzzListSlideHeight(BuildContext context, List<BzModel> myBzz) {
     final double _wantedHeight = Scale.superScreenWidth(context) * 0.3 * myBzz.length;
@@ -228,7 +228,6 @@ class NavBar extends StatelessWidget {
 
     return _finalHeight;
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _multiBzzSlider(BuildContext context, UserModel userModel, List<BzModel> myBzz) async {
     final double _sliderHeight = _myBzzListSlideHeight(context, myBzz);
@@ -331,7 +330,6 @@ class NavBar extends StatelessWidget {
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -353,15 +351,10 @@ class NavBar extends StatelessWidget {
     Expanded(child: Container(),) : Container();
 // -----------------------------------------------------------------------------
     final double _spacerWidth = navBarSpacerWidth(context, _myUserModel);
-    final Widget _spacer = SizedBox(
-      width: _spacerWidth,
-    );
-    final Widget _halfSpacer = SizedBox(
-      width: _spacerWidth * 0.5,
-    );
+    final Widget _spacer = SizedBox(width: _spacerWidth,);
+    final Widget _halfSpacer = SizedBox(width: _spacerWidth * 0.5,);
 
     final double _navBarWidth = navBarWidth(context: context, userModel: _myUserModel);
-
     final List<String> _userBzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
 
     // List<dynamic> _followedBzzIDs = _myUserModel != null ? _myUserModel?.followedBzzIDs : [];
@@ -525,6 +518,7 @@ class NavBar extends StatelessWidget {
 
                     ],
                   ),
+
                 ],
               ),
             ),
@@ -538,6 +532,7 @@ class NavBar extends StatelessWidget {
                 height: _circleWidth,
                 margin: const EdgeInsets.all(Ratioz.appBarPadding),
               ),
+
           ],
         ),
       ),

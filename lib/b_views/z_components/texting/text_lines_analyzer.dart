@@ -11,19 +11,19 @@ class TextLinesAnalyzer extends StatelessWidget {
     @required this.childIfWithinMaxLines,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String text;
   final TextStyle textStyle;
   final int maxLines;
   final Widget childIfExceededMaxLines;
   final Widget childIfWithinMaxLines;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return LayoutBuilder(
       builder: (BuildContext ctx, BoxConstraints size) {
+
         final TextSpan _span = TextSpan(
           text: text,
           style: textStyle,
@@ -42,10 +42,14 @@ class TextLinesAnalyzer extends StatelessWidget {
 
         if (_textPainter.didExceedMaxLines) {
           return childIfExceededMaxLines;
-        } else {
+        }
+
+        else {
           return childIfWithinMaxLines;
         }
+
       },
     );
+
   }
 }

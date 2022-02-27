@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/side_dialog/section_tile.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';

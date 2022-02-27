@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
