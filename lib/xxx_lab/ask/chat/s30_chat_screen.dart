@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/widgets/general/bubbles/chat_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/d_providers/streamers/questions_streamer.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;

@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/widgets/general/bubbles/contacts_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/flagbox_button.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;

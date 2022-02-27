@@ -1,17 +1,17 @@
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class ButtonNotiCounter extends StatelessWidget {
+class ButtonNotificationDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ButtonNotiCounter({@required this.buttonWidth, this.count, Key key})
-      : super(key: key);
-
+  const ButtonNotificationDot({
+    @required this.buttonWidth,
+    this.count, Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double buttonWidth;
   final int count;
-
   /// --------------------------------------------------------------------------
   String _concludeCount(int count) {
     String _count;
@@ -26,10 +26,10 @@ class ButtonNotiCounter extends StatelessWidget {
 
     return _count;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final String _count = _concludeCount(count);
 
     return Container(
@@ -45,12 +45,12 @@ class ButtonNotiCounter extends StatelessWidget {
         color: Colorz.red255,
       ),
       padding: EdgeInsets.symmetric(horizontal: buttonWidth * 0.08),
-
       child: SuperVerse(
         verse: _count,
         size: 0,
         scaleFactor: buttonWidth * 0.025,
       ),
     );
+
   }
 }
