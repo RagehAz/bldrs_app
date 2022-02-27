@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box_icon.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';

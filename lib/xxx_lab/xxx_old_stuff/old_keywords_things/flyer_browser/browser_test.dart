@@ -21,7 +21,7 @@
 // import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 // import 'package:bldrs/b_views/widgets/general/nav_bar/bar_button.dart';
 // import 'package:bldrs/b_views/widgets/general/nav_bar/nav_bar.dart';
-// import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+// import 'package:bldrs/b_views/widgets/general/textings/unfinished_super_verse.dart';
 // import 'package:bldrs/b_views/widgets/specific/browser/browser_pages.dart';
 // import 'package:bldrs/b_views/widgets/specific/keywords/keyword_button.dart';
 // import 'package:flutter/material.dart';

@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.da
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/specs/price_data_creator.dart';
 import 'package:bldrs/b_views/widgets/specific/specs/spec_list_tile.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/spec_picker_screen.dart';

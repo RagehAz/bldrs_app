@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
 import 'package:bldrs/b_views/z_components/bz/author_card_details.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';

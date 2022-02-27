@@ -1,7 +1,7 @@
-import 'package:bldrs/b_views/widgets/general/buttons/button_noti_counter.dart';
 import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/nav_bar/nav_bar.dart';
-import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/button_notification_dot.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -22,7 +22,6 @@ class BarButton extends StatelessWidget {
     this.notiCount,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String text;
   final String icon;
@@ -34,10 +33,10 @@ class BarButton extends StatelessWidget {
   final double corners;
   final bool notiDotIsOn;
   final int notiCount;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     const double _circleWidth = 40;
     final double _buttonCircleCorner = corners ?? _circleWidth * 0.5;
     const double _paddings = Ratioz.appBarPadding * 1.5;
@@ -46,13 +45,12 @@ class BarButton extends StatelessWidget {
     const int _textSize = 1;
 
     final double _textBoxHeight =
-        barType == BarType.maxWithText || barType == BarType.minWithText
-            ? SuperVerse.superVerseRealHeight(
-                context, _textSize, _textScaleFactor, null)
-            : 0;
+        barType == BarType.maxWithText || barType == BarType.minWithText ?
+        SuperVerse.superVerseRealHeight(context, _textSize, _textScaleFactor, null)
+            :
+        0;
 
-    final double _buttonHeight =
-        _circleWidth + (2 * _paddings) + _textBoxHeight;
+    final double _buttonHeight = _circleWidth + (2 * _paddings) + _textBoxHeight;
     final double _buttonWidth = width;
 
     return GestureDetector(
@@ -67,12 +65,15 @@ class BarButton extends StatelessWidget {
         child: Stack(
           alignment: superInverseTopAlignment(context),
           children: <Widget>[
+
             /// BUTTON
             Column(
               children: <Widget>[
+
                 const SizedBox(
                   height: _paddings,
                 ),
+
                 if (clipperWidget == null)
                   DreamBox(
                     width: _circleWidth,
@@ -82,11 +83,13 @@ class BarButton extends StatelessWidget {
                     corners: _buttonCircleCorner,
                     onTap: onTap,
                   ),
+
                 if (clipperWidget != null)
                   SizedBox(
                       width: _circleWidth,
                       height: _circleWidth,
                       child: clipperWidget),
+
                 if (barType == BarType.maxWithText ||
                     barType == BarType.minWithText)
                   Container(
@@ -103,15 +106,17 @@ class BarButton extends StatelessWidget {
                       scaleFactor: _textScaleFactor,
                     ),
                   ),
+
               ],
             ),
 
             /// RED DOT
             if (notiDotIsOn == true)
-              ButtonNotiCounter(
+              ButtonNotificationDot(
                 buttonWidth: _buttonWidth,
                 count: notiCount,
               ),
+
           ],
         ),
       ),
