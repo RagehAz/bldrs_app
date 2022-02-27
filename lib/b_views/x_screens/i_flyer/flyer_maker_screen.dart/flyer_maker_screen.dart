@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/slides_counter.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/buttons/remaining_slides_counter.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -44,7 +44,7 @@ class FlyerMakerScreen extends StatelessWidget {
       pyramidsAreOn: true,
 
       appBarRowWidgets: const <Widget>[
-        SlidesCounter(),
+        RemainingSlidesCounter(),
 
         Expander(),
 

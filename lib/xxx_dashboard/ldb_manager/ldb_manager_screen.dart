@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
+import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

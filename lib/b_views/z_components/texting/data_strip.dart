@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';

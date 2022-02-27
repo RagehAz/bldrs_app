@@ -1,5 +1,5 @@
 import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
 import 'package:bldrs/d_providers/user_provider.dart';

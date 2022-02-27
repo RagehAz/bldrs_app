@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/obelisk_button.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/xxx_lab/xxx_obelisk/only_for_dev_widgets/obelisk_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/only_for_dev_widgets/the_golden_scroll.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';

@@ -2,7 +2,7 @@
 // import 'package:bldrs/a_models/zone/city_model.dart';
 // import 'package:bldrs/a_models/zone/country_model.dart';
 // import 'package:bldrs/a_models/zone/flag_model.dart';
-// import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+// import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/widgets/general/textings/data_strip.dart';
 // import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 // import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';

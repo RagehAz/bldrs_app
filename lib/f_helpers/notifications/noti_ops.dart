@@ -1,7 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/notification/noti_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -370,17 +370,18 @@ Widget notiStreamBuilder({
     stream: getNotiModelsStream(context, userID),
     initialData: const <NotiModel>[],
     builder: (BuildContext ctx, AsyncSnapshot<List<NotiModel>> snapshot) {
+
       if (StreamChecker.connectionIsLoading(snapshot) == true) {
         blog('the shit is looooooooooooooooooooooooading');
-
         return const LoadingFullScreenLayer();
-      } else {
+      }
+
+      else {
         final List<NotiModel> notiModels = snapshot.data;
-
         blog('the shit is getting reaaaaaaaaaaaaaaaaaaaaaaal');
-
         return builder(ctx, notiModels);
       }
+
     },
   );
 }

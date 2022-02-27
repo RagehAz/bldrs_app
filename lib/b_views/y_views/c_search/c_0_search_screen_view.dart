@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_1_search_result_view.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_2_search_records_view.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
