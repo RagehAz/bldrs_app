@@ -1,9 +1,9 @@
 import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/paragraph_bubble.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/tile_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';

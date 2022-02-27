@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/bz_static_grid.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';

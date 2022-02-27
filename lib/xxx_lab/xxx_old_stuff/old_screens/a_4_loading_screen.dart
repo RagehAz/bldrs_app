@@ -15,7 +15,7 @@
 // import 'package:bldrs/d_providers/user_provider.dart';
 // import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 // import 'package:bldrs/b_views/widgets/general/bubbles/bzz_bubble.dart';
-// import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+// import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/widgets/general/loading/loading_bar.dart';
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';

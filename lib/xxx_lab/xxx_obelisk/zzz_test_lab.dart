@@ -1,11 +1,12 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_shelf.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -71,8 +72,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-//     double _screenWidth = Scale.superScreenWidth(context);
-    // double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
 
     // double _gWidth = _screenWidth * 0.4;
@@ -162,6 +163,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 },
               ),
 
+              Container(
+                width: _screenWidth,
+                height: _screenHeight,
+                color: Colorz.bloodTest,
+              ),
 
             ],
           ),

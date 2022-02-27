@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
+import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
@@ -19,6 +18,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/floating_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -57,21 +57,18 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
   }
-
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
-
   // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -88,7 +85,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot<Object> _lastSnapshot;
   Future<void> _readMoreFlyers() async {
@@ -122,10 +118,11 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       _pagesOpacities = _createPagesOpacities(_numberOfStrips);
     });
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onSwipeFlyer(
-      Sliders.SwipeDirection direction, int pageIndex) async {
+      Sliders.SwipeDirection direction,
+      int pageIndex
+      ) async {
     _lastSwipeDirection = direction;
 
     if (direction == Sliders.SwipeDirection.next) {
@@ -138,7 +135,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       }
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onVerify() async {
     blog('currentFlyer : ${_currentFlyer.slides.length} slides');
@@ -170,7 +166,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       );
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onAudit() async {}
 // -----------------------------------------------------------------------------
@@ -208,7 +203,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       _canDelete = true;
     }
   }
-
 // -----------------------------------------------------o
   Future<void> _deleteFirstPage() async {
     blog(
@@ -320,7 +314,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     // blog('DELETING ENDS AT (FIRST) : index : ${_currentPageIndex}, numberOfSlides : ${_flyers.length} ------------------------------------');
   }
-
 // -----------------------------------------------------o
   Future<void> _deleteMiddleOrLastSlide() async {
     blog(
@@ -362,7 +355,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     blog(
         'XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
   }
-
 // -----------------------------------------------------o
   void _statelessTriggerPageVisibility(int index) {
     if (index != null) {
@@ -383,7 +375,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       }
     }
   }
-
 // -----------------------------------------------------o
   void _statelessTriggerProgressOpacity({int verticalIndex}) {
     blog('triggering progress bar opacity');
@@ -402,7 +393,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       }
     }
   }
-
 // -----------------------------------------------------o
   void _statelessFlyerRemove(int index) {
     blog(
@@ -428,7 +418,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     blog(
         'after stateless delete index is $index, _draft.numberOfSlides is : ${_flyers.length}');
   }
-
 // -----------------------------------------------------o
   List<double> _createPagesOpacities(int numberOfPages) {
     final List<double> _opacities = <double>[];
@@ -439,7 +428,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     return _opacities;
   }
-
 // -----------------------------------------------------o
   void _onPageChange(int newIndex) {
     // blog('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
@@ -493,17 +481,15 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
     // }
   }
-
 // -----------------------------------------------------o
   @override
   Widget build(BuildContext context) {
+
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _clearScreenHeight =
-        DashBoardLayout.clearScreenHeight(context);
+    final double _clearScreenHeight = DashBoardLayout.clearScreenHeight(context);
     const double _footerZoneHeight = 70;
     final double _progressBarHeight = OldStrips.boxHeight(_screenWidth);
-    final double _bodyZoneHeight =
-        _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
+    final double _bodyZoneHeight = _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
     const double _flyerSizeFactor = 0.7;
 
     return DashBoardLayout(
@@ -512,6 +498,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         blog('aho');
       },
       listWidgets: <Widget>[
+
         FloatingLayout(
           child: Column(
             children: <Widget>[
@@ -593,6 +580,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
             ],
           ),
         ),
+
       ],
     );
   }

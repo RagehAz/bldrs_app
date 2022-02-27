@@ -1,7 +1,6 @@
 import 'dart:async';
-
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_1_select_country_screen_view.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
 import 'package:flutter/material.dart';

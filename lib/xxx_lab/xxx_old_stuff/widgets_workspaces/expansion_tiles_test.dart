@@ -1,8 +1,7 @@
 // import 'dart:async';
-//
 // import 'package:bldrs/b_views/widgets/general/chain_expander/components/bldrs_chains.dart';
-// import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-// import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+// import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+// import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 // import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 // import 'package:bldrs/f_helpers/drafters/tracers.dart';
 // import 'package:bldrs/f_helpers/theme/colorz.dart';

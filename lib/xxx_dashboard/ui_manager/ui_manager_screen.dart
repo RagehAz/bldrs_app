@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
+import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/ui_manager/emoji_test_screen.dart';

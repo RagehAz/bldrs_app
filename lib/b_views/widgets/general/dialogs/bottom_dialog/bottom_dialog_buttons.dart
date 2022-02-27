@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
