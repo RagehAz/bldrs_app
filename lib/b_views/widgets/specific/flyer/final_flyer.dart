@@ -18,7 +18,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';

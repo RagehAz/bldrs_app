@@ -4,11 +4,11 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_wrapper.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/xxx_dashboard/b_views/c_components/dream_wrapper.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -155,7 +155,7 @@ class DashboardUserButton extends StatelessWidget {
                   // DataRow(dataKey: 'followedBzz', value: '${userModel.followedBzzIDs.length} Businesses'),
 
                   _titleVerse('Main Contacts'),
-                  DreamWrapper(
+                   DreamWrapper(
                       boxWidth: 250,
                       boxHeight: 100,
                       verses: _stringyContactsValues,

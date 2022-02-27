@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/notification/noti_model.dart';
 import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/notifications/notification_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';

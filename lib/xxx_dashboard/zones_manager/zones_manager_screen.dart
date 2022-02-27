@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;

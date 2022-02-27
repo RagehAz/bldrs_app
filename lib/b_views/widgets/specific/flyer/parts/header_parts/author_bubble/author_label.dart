@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;

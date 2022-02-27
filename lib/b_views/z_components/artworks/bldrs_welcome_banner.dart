@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
-import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';

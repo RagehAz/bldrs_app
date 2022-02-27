@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/widgets/specific/notifications/notification_card.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;

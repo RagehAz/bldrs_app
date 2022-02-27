@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;

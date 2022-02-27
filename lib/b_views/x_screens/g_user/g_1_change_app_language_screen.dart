@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/list_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/list_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;

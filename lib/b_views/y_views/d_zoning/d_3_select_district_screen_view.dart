@@ -1,10 +1,10 @@
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
-import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_3a_all_districts_buttons.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_3b_searched_districts_buttons.dart';
+import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +37,7 @@ class SelectDistrictScreenView extends StatelessWidget {
 
     /// WHEN LOADING
     if (_uiProvider.isLoading){
-
       return const LoadingFullScreenLayer();
-
     }
 
     /// WHEN SHOWING ALL CITY DISTRICTS

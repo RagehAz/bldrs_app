@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/editor/panel_button.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';

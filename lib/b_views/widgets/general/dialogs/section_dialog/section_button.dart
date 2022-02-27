@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
