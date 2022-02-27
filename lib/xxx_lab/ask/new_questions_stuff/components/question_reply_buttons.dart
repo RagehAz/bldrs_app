@@ -17,7 +17,6 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_lab/ask/new_questions_stuff/components/question_button.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timerz;
 import 'package:provider/provider.dart';
 
 class QuestionReplyButtons extends StatelessWidget {
@@ -81,7 +80,7 @@ class QuestionReplyButtons extends StatelessWidget {
               SuperVerse(
                 verse: 'You can suggest to $_askerName to redirect this question to other types of businesses instead of $_bzTypeString',
                 maxLines: 3,
-                size: 2,
+                // size: 2,
                 weight: VerseWeight.thin,
                 margin: 5,
               ),
@@ -171,7 +170,7 @@ class QuestionReplyButtons extends StatelessWidget {
 
               /// CONFIRM AND CANCEL BUTTONS
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
 
                   /// FAKE SPACE UNDER USER IMAGE
@@ -183,7 +182,7 @@ class QuestionReplyButtons extends StatelessWidget {
                   /// CANCEL BUTTON
                   DreamBox(
                     height: 40,
-                    // width: 100,
+                    width: 100,
                     verse: 'Cancel',
                     verseScaleFactor: 0.8,
                     verseWeight: VerseWeight.thin,
@@ -196,7 +195,7 @@ class QuestionReplyButtons extends StatelessWidget {
                   /// POST BUTTON
                   DreamBox(
                     height: 40,
-                    // width: 200,
+                    width: 100,
                     verse: 'Post',
                     verseWeight: VerseWeight.thin,
                     verseScaleFactor: 0.8,
