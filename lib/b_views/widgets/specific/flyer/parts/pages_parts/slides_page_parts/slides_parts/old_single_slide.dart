@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
-import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/x_3_slide_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -100,18 +100,24 @@ class OldSingleSlide extends StatelessWidget {
     final bool _tinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
 // -----------------------------------------------------------------------------
     final int _slideTitleSize =
-        flyerBoxWidth <= _screenWidth && flyerBoxWidth > (_screenWidth * 0.75)
-            ? 4
-            : flyerBoxWidth <= (_screenWidth * 0.75) &&
-                    flyerBoxWidth > (_screenWidth * 0.5)
-                ? 3
-                : flyerBoxWidth <= (_screenWidth * 0.5) &&
-                        flyerBoxWidth > (_screenWidth * 0.25)
-                    ? 2
-                    : flyerBoxWidth <= (_screenWidth * 0.25) &&
-                            flyerBoxWidth > (_screenWidth * 0.1)
-                        ? 1
-                        : 0;
+        flyerBoxWidth <= _screenWidth
+            && flyerBoxWidth > (_screenWidth * 0.75) ?
+        4
+            :
+        flyerBoxWidth <= (_screenWidth * 0.75)
+            && flyerBoxWidth > (_screenWidth * 0.5) ?
+        3
+            :
+        flyerBoxWidth <= (_screenWidth * 0.5)
+            && flyerBoxWidth > (_screenWidth * 0.25) ?
+        2
+            :
+        flyerBoxWidth <= (_screenWidth * 0.25)
+            && flyerBoxWidth > (_screenWidth * 0.1)
+            ?
+        1
+            :
+        0;
 // -----------------------------------------------------------------------------
 //     double _blurImageScale = 1.5;
     // -----------------------------o
@@ -127,12 +133,13 @@ class OldSingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final DecorationImage _slidePic = picture == null ||
             ObjectChecker.objectIsURL(picture) == true ||
-            ObjectChecker.objectIsFile(picture) == true
-        ? null
-        : SuperImage.decorationImage(
-            picture: picture,
-            boxFit: boxFit,
-          );
+            ObjectChecker.objectIsFile(picture) == true ?
+    null
+        :
+    SuperImage.decorationImage(
+      picture: picture,
+      boxFit: boxFit,
+    );
 // -----------------------------------------------------------------------------
 
     final double _flyerZoneHeight = OldFlyerBox.height(context, flyerBoxWidth);

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/big_mac.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/dashboard_layout.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

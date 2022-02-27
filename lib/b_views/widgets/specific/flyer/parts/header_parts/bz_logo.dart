@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;

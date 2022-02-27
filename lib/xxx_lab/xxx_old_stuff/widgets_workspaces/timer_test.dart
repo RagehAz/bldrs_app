@@ -1,5 +1,5 @@
 // import 'package:bldrs/a_models/secondary_models/map_model.dart';
-// import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
+// import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/widgets/general/textings/data_strip.dart';
 // import 'package:bldrs/b_views/widgets/general/textings/unfinished_super_verse.dart';
 // import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

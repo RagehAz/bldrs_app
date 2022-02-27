@@ -1,7 +1,6 @@
 import 'dart:async';
-
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/y_views/b_auth/b_1_email_auth_screen_view.dart';
 import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';

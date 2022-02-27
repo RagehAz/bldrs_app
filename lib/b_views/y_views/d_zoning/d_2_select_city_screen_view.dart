@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/navigation/scroller.dart';
-import 'package:bldrs/b_views/widgets/general/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_2a_all_cities_buttons.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_2b_searched_cities_buttons.dart';
+import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:flutter/material.dart';

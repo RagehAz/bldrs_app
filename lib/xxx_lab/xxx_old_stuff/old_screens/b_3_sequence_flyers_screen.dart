@@ -5,7 +5,7 @@
 // import 'package:bldrs/a_models/keywords/sequence_model.dart';
 // import 'package:bldrs/d_providers/general_provider.dart';
 // import 'package:bldrs/b_views/widgets/general/appbar/sections_button.dart';
-// import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+// import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/main_layout.dart';
 // import 'package:bldrs/b_views/widgets/specific/keywords/keyword_button.dart';
 // import 'package:flutter/material.dart';

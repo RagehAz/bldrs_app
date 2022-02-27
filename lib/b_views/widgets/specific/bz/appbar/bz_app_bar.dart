@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/widgets/general/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/appbar/bz_credits_counter.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/dialogs/dialog_of_bz_options.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';

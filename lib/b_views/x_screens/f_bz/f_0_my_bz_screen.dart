@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/general/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/widgets/specific/bz/appbar/bz_app_bar.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_0_my_bz_screen_view.dart';
 import 'package:bldrs/c_controllers/f_my_bz_screen_controller.dart';
