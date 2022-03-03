@@ -13,16 +13,15 @@ class SectionBubble extends StatelessWidget {
     @required this.buttons,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final double bubbleWidth;
   final String icon;
   final List<Widget> buttons;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Bubble(
       title: title,
       // actionBtIcon: Iconz.BxPropertiesOn,
@@ -38,6 +37,7 @@ class SectionBubble extends StatelessWidget {
       titleColor: Colorz.white50,
       corners: ExpandingTile.cornersValue + Ratioz.appBarMargin,
       columnChildren: <Widget>[
+
         /// Section buttons
         SizedBox(
           width: bubbleWidth,
@@ -46,6 +46,7 @@ class SectionBubble extends StatelessWidget {
             children: buttons,
           ),
         ),
+
       ],
     );
   }

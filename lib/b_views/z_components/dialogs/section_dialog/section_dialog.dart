@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/section_dialog/section_bubble.dart';
+import 'package:bldrs/b_views/z_components/dialogs/section_dialog/section_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -15,7 +15,6 @@ class SectionDialog extends StatelessWidget {
     @required this.dialogHeight,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double dialogHeight;
   /// --------------------------------------------------------------------------
@@ -45,7 +44,6 @@ class SectionDialog extends StatelessWidget {
 
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
