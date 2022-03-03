@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/dialogs/side_dialog/drawer_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/side_dialog/drawer_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';

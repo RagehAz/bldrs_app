@@ -20,7 +20,6 @@ class TopDialog extends StatelessWidget {
     // @required this.duration,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String verse;
   final Function onTap;
@@ -33,8 +32,8 @@ class TopDialog extends StatelessWidget {
     Color color,
     Function onTap,
   }) async {
-    final Color _dialogColor = color ?? Colorz.yellow255;
 
+    final Color _dialogColor = color ?? Colorz.yellow255;
     final double _screenWidth = Scale.superScreenWidth(context);
 
     await Flushbar(
@@ -145,6 +144,7 @@ class TopDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return Flushbar(
@@ -210,5 +210,6 @@ class TopDialog extends StatelessWidget {
         margins: EdgeInsets.zero,
       ),
     )..show(context);
+
   }
 }

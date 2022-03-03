@@ -15,12 +15,10 @@ class NavDialog extends StatelessWidget {
     this.color = Colorz.darkRed255,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String firstLine;
   final String secondLine;
   final Color color;
-
   /// --------------------------------------------------------------------------
   static Future<void> showNavDialog({
     @required BuildContext context,
@@ -28,6 +26,7 @@ class NavDialog extends StatelessWidget {
     String secondLine,
     Color color = Colorz.black255,
   }) async {
+
     final Color _color = color ?? Colorz.darkRed255;
 
     // double _screenWidth = Scale.superScreenWidth(context);
@@ -65,7 +64,6 @@ class NavDialog extends StatelessWidget {
       secondLine: 'Check your connection',
     );
   }
-
 // -----------------------------------------------------------------------------
   bool _verseIsCentered() {
     bool _isCentered;
@@ -77,10 +75,10 @@ class NavDialog extends StatelessWidget {
 
     return _isCentered;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _screenWidth = Scale.superScreenWidth(context);
     // const BarType _barType = BarType.minWithText;
 
@@ -103,6 +101,7 @@ class NavDialog extends StatelessWidget {
             borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
           ),
           alignment: Alignment.center,
+
           child: Column(
             crossAxisAlignment: secondLine == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
             children: <Widget>[

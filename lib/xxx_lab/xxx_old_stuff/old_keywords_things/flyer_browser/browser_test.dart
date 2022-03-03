@@ -16,7 +16,7 @@
 // import 'package:bldrs/d_providers/general_provider.dart';
 // import 'package:bldrs/b_views/screens/c_search/search_result_wall.dart';
 // import 'package:bldrs/b_views/screens/keywords_picker_screen.dart';
-// import 'package:bldrs/b_views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
+// import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/main_layout.dart';
 // import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 // import 'package:bldrs/b_views/widgets/general/nav_bar/bar_button.dart';

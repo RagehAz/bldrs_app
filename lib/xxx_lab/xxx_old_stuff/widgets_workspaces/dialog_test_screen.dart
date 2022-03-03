@@ -3,7 +3,7 @@
 // import 'package:bldrs/a_models/user/user_model.dart';
 // import 'package:bldrs/b_views/widgets/general/bubbles/flyers_bubble.dart';
 // import 'package:bldrs/b_views/widgets/general/buttons/main_button.dart';
-// import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
+// import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 // import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/unfinished_night_sky.dart';
