@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';

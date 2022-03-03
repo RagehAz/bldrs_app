@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/text_lines_analyzer.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
@@ -24,7 +24,6 @@ class ParagraphBubble extends StatefulWidget {
     this.onParagraphTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final String paragraph;
@@ -36,11 +35,9 @@ class ParagraphBubble extends StatefulWidget {
   final dynamic corners;
   final bool editMode;
   final Function onParagraphTap;
-
   /// --------------------------------------------------------------------------
   @override
   _ParagraphBubbleState createState() => _ParagraphBubbleState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -55,7 +52,6 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
     _maxLines = widget.maxLines;
     _canExpand = widget.paragraph.length > 100;
   }
-
 // -----------------------------------------------------------------------------
   void _onParagraphTap() {
     if (widget.editMode == true) {
@@ -79,7 +75,6 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
     }
   }
 // -----------------------------------------------------------------------------
-
   @override
   void didUpdateWidget(covariant ParagraphBubble oldWidget) {
     if (widget.editMode != oldWidget.editMode) {
@@ -111,10 +106,12 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         title: widget.title,
         centered: widget.centered,
         actionBtIcon: widget.actionBtIcon,
-        bubbleOnTap: widget.editMode == true || _canExpand == true
-            ? _onParagraphTap
-            : null,
+        bubbleOnTap: widget.editMode == true || _canExpand == true ?
+        _onParagraphTap
+            :
+        null,
         columnChildren: <Widget>[
+
           /// PARAGRAPH TEXT
           if (widget.paragraph != null && widget.paragraph != '')
             Padding(
@@ -148,6 +145,8 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
                 ),
               ),
             )
-        ]);
+
+        ]
+    );
   }
 }

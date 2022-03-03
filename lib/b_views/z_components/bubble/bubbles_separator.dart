@@ -3,16 +3,17 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class BubblesSeparator extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const BubblesSeparator({
     this.bottomMarginIsOn = true,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final bool bottomMarginIsOn;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double screenWidth = Scale.superScreenWidth(context);
 
     return Container(

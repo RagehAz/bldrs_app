@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/z_components/user_status/unfinished_fields_row.dart';
+import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_fields_row.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

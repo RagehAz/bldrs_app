@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/xxx_lab/ask/new_questions_stuff/components/question_picture.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';

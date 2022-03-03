@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/add_gallery_pic_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/contact_field_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/locale_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/locale_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

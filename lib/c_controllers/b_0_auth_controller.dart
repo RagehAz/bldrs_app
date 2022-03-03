@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
+import 'package:bldrs/b_views/widgets/general/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_1_email_auth_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';

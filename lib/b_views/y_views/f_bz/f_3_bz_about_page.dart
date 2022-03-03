@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/paragraph_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/stats_line.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;

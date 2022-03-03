@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/xxx_lab/ask/new_questions_stuff/components/asker_label.dart';

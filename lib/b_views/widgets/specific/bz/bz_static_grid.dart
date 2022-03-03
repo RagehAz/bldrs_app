@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/z_components/bz/bz_box.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/bz_box.dart';
 import 'package:flutter/material.dart';
 
 class BzStaticGrid extends StatelessWidget {

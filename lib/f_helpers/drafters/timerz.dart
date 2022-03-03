@@ -600,23 +600,28 @@ bool timesAreTheSame({
                             if (timeA.millisecond == timeB.millisecond){
 
                               /// G1 - LEVEL == MILLISECOND
-                              if (_level == 'millisecond'){
+                              // if (_level == 'millisecond'){
                                 _areTheSame = true;
-                              }
+                              // }
 
-                              /// G2 - ZOOM IN
-                              else {
+                              // /// G2 - ZOOM IN
+                              // if (_level != 'millisecond') {
+                              //
+                              //
+                              // }
 
-                                /// H - MICROSECOND
-                                if (timeA.microsecond == timeB.microsecond){
+                            }
 
-                                  /// H1 - LEVEL == MICROSECOND
-                                  if (_level == 'microsecond'){
-                                    _areTheSame = true;
-                                  }
+                          }
 
-                                }
+                          else {
 
+                            /// H - MICROSECOND
+                            if (timeA.microsecond == timeB.microsecond){
+
+                              /// H1 - LEVEL == MICROSECOND
+                              if (_level == 'microsecond'){
+                                _areTheSame = true;
                               }
 
                             }
