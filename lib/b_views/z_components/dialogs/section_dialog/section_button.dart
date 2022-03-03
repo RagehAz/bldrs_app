@@ -1,68 +1,64 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
-import 'package:bldrs/b_views/z_components/chain_expander/chain_expander.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/dialog_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SectionTile extends StatelessWidget {
+class SectionDialogButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SectionTile({
-    @required this.bubbleWidth,
+  const SectionDialogButton({
+    @required this.dialogHeight,
     @required this.flyerType,
     @required this.inActiveMode,
-    @required this.chain,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
-  final double bubbleWidth;
+  final double dialogHeight;
   final FlyerType flyerType;
   final bool inActiveMode;
-  final Chain chain;
-
   /// --------------------------------------------------------------------------
   String _sectionIcon({
-    @required FlyerType section,
-    @required bool inActiveMode
-  }){
-
+    @required FlyerType flyerType,
+    @required bool inActiveMode,
+  }) {
     String _icon;
 
     if (inActiveMode == true) {
-      _icon = Iconizer.flyerTypeIconOff(section);
+      _icon = Iconizer.flyerTypeIconOff(flyerType);
     } else {
-      _icon = Iconizer.flyerTypeIconOn(section);
+      _icon = Iconizer.flyerTypeIconOn(flyerType);
     }
 
     return _icon;
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _onKeywordTap(BuildContext context, KW kw) async {
+  Future<void> _onSectionTap({
+    BuildContext context,
+    FlyerType flyerType,
+    bool inActiveMode,
+  }) async {
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+    final String _currentCityID = _zoneProvider.currentZone.cityID;
 
     /// A - if section is not active * if user is author or not
     if (inActiveMode == true) {
-
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-      final String _currentCityID = _zoneProvider.currentZone.cityID;
-
       await CenterDialog.showCenterDialog(
         context: context,
         title: 'Section "${TextGen.flyerTypePluralStringer(context, flyerType)}" is\nTemporarily closed in $_currentCityID',
         body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
-        height: 400,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -90,41 +86,37 @@ class SectionTile extends StatelessWidget {
     /// A - if section is active
     else {
 
-      final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+      blog('the weird _onSectionTap function is firing here,, dunno what to do,, im lost here');
 
       await _keywordsProvider.changeSection(
         context: context,
         section: flyerType,
-        kw: kw,
+        kw: null,
       );
 
       /// B - close dialog
       Nav.goBack(context);
     }
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _tileWidth = bubbleWidth - (Ratioz.appBarMargin * 2);
-    // final double _itemWidth = _tileWidth - (Ratioz.appBarMargin * 2);
-
-    // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-    // final Section _currentSection = _generalProvider.currentSection;
-
-    // final List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: section);
-
-    return ChainExpander(
-      key: PageStorageKey<String>(flyerType.toString()),
-      chain: chain,
-      width: _tileWidth,
-      // onTap: (bool isExpanded) => _onKeywordTap(context, isExpanded),
-      icon: _sectionIcon(section: flyerType, inActiveMode: inActiveMode),
-      firstHeadline: TextGen.flyerTypePluralStringer(context, flyerType),
-      secondHeadline: TextGen.flyerTypeDescriptionStringer(context, flyerType),
+    return DreamBox(
+      height: dialogHeight * 0.06,
+      // width: _buttonWidth,
+      icon: _sectionIcon(flyerType: flyerType, inActiveMode: inActiveMode),
+      verse: TextGen.flyerTypePluralStringer(context, flyerType),
+      verseScaleFactor: 0.55,
+      secondLine: TextGen.flyerTypeDescriptionStringer(context, flyerType),
+      secondLineColor: Colorz.white200,
+      margins: Ratioz.appBarPadding,
       inActiveMode: inActiveMode,
-      onKeywordTap: (KW kw) => _onKeywordTap(context, kw),
+      onTap: () => _onSectionTap(
+          context: context,
+          flyerType: flyerType,
+          inActiveMode: inActiveMode
+      ),
     );
 
   }

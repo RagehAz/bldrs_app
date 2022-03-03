@@ -14,7 +14,6 @@ class DialogButton extends StatelessWidget {
     this.onTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String verse;
   final Color verseColor;
@@ -22,7 +21,6 @@ class DialogButton extends StatelessWidget {
   final Color color;
   final Function onTap;
   static const double height = 50;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

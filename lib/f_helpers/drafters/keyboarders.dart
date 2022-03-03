@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
