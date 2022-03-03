@@ -1,12 +1,11 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
@@ -30,18 +29,15 @@ class LocaleBubble extends StatefulWidget {
     this.title = 'Preferred Location',
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final ValueChanged<String> changeCountry;
   final ValueChanged<String> changeCity;
   final ValueChanged<String> changeDistrict;
   final ZoneModel currentZone;
   final String title;
-
   /// --------------------------------------------------------------------------
   @override
   _LocaleBubbleState createState() => _LocaleBubbleState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -170,7 +166,6 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _tapCityButton({@required BuildContext context}) async {
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
@@ -204,7 +199,6 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _tapDistrictButton({@required BuildContext context}) async {
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
@@ -237,7 +231,6 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   String _getSelectedCityName() {
     final String _selectedCityName = _selectedZone?.cityID == null
@@ -249,20 +242,19 @@ class _LocaleBubbleState extends State<LocaleBubble> {
 
     return _selectedCityName;
   }
-
 // -----------------------------------------------------------------------------
   String _getSelectedDistrictName() {
-    final String _selectedDistrictName = _selectedZone?.districtID == null
-        ? '...'
-        : DistrictModel.getTranslatedDistrictNameFromCity(
-            context: context,
-            city: _selectedCity,
-            districtID: _selectedZone.districtID,
-          );
+    final String _selectedDistrictName = _selectedZone?.districtID == null ?
+    '...'
+        :
+    DistrictModel.getTranslatedDistrictNameFromCity(
+      context: context,
+      city: _selectedCity,
+      districtID: _selectedZone.districtID,
+    );
 
     return _selectedDistrictName;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -272,40 +264,47 @@ class _LocaleBubbleState extends State<LocaleBubble> {
       countryID: _selectedCountry?.id,
     );
 
-    final String _selectedCountryFlag = _selectedCountry == null
-        ? ''
-        : Flag.getFlagIconByCountryID(_selectedCountry?.id);
+    final String _selectedCountryFlag = _selectedCountry == null ?
+    ''
+        :
+    Flag.getFlagIconByCountryID(_selectedCountry?.id);
 
     final String _selectedCityName = _getSelectedCityName();
     final String _selectedDistrictName = _getSelectedDistrictName();
 
-    return Bubble(title: widget.title, redDot: true, columnChildren: <Widget>[
-      Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          /// COUNTRY BUTTON
-          LocaleButton(
-            title: Wordz.country(context),
-            icon: _selectedCountryFlag, //geebCountryFlagByCountryName(context),
-            verse: _selectedCountryName,
-            onTap: () => _tapCountryButton(context: context),
-          ),
+    return Bubble(
+        title: widget.title,
+        redDot: true,
+        columnChildren: <Widget>[
 
-          /// PROVINCE BUTTON
-          LocaleButton(
-            title: 'City', //Wordz.province(context),
-            verse: _selectedCityName,
-            onTap: () => _tapCityButton(context: context),
-          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
 
-          /// AREA BUTTON
-          LocaleButton(
-            title: 'Area', //Wordz.area(context),
-            verse: _selectedDistrictName,
-            onTap: () => _tapDistrictButton(context: context),
-          ),
-        ],
+              /// COUNTRY BUTTON
+              LocaleButton(
+                title: Wordz.country(context),
+                icon: _selectedCountryFlag, //geebCountryFlagByCountryName(context),
+                verse: _selectedCountryName,
+                onTap: () => _tapCountryButton(context: context),
+              ),
+
+              /// PROVINCE BUTTON
+              LocaleButton(
+                title: 'City', //Wordz.province(context),
+                verse: _selectedCityName,
+                onTap: () => _tapCityButton(context: context),
+              ),
+
+              /// AREA BUTTON
+              LocaleButton(
+                title: 'Area', //Wordz.area(context),
+                verse: _selectedDistrictName,
+                onTap: () => _tapDistrictButton(context: context),
+              ),
+
+            ],
       ),
     ]);
   }
@@ -320,26 +319,24 @@ class LocaleButton extends StatelessWidget {
     this.icon,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final String verse;
   final String icon;
   final Function onTap;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final double _bubbleClearWidth = Bubble.clearWidth(context);
     const double _buttonsSpacing = Ratioz.appBarPadding;
-    final double _buttonWidth =
-        (_bubbleClearWidth / 3) - ((2 * _buttonsSpacing) / 3);
+    final double _buttonWidth = (_bubbleClearWidth / 3) - ((2 * _buttonsSpacing) / 3);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: _buttonsSpacing),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           /// TITLE
           SizedBox(
             width: _buttonWidth,
@@ -365,6 +362,7 @@ class LocaleButton extends StatelessWidget {
             color: Colorz.white10,
             onTap: onTap,
           ),
+
         ],
       ),
     );

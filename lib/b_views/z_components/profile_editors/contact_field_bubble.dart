@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
@@ -35,7 +35,6 @@ class ContactFieldBubble extends StatefulWidget {
     this.keyboardTextInputType = TextInputType.url,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final String hintText;

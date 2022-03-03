@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/only_for_dev_widgets/obelisk_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -122,6 +124,13 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
 
           const ObeliskButton('New ASKs', Iconz.utPlanning, NewAsks()),
+
+          ObeliskButton('BzEditor', Iconz.bz, BzEditorScreen(
+            userModel: UserModel.dummyUserModel(context),
+            // bzModel: null,
+            firstTimer: true,
+          )
+          ),
 
           const ObeliskButton('VideoPlayer', Iconz.play, VideoPlayerScreen()),
 

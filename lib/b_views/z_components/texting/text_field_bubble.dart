@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
@@ -40,7 +40,6 @@ class TextFieldBubble extends StatelessWidget {
     this.fieldOnTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final String hintText;
@@ -67,22 +66,22 @@ class TextFieldBubble extends StatelessWidget {
   final TextDirection textDirection;
   final Color bubbleColor;
   final Function fieldOnTap;
-
   /// --------------------------------------------------------------------------
   static double _leadingIconSizeFactor(String leadingIcon){
     final double _sizeFactor =
     leadingIcon == Iconz.comWebsite ||
         leadingIcon == Iconz.comEmail ||
-        leadingIcon == Iconz.comPhone ?
+        leadingIcon == Iconz.comPhone
+        ?
     0.6
         :
     1;
-
     return _sizeFactor;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     // int titleVerseSize = 2;
     // double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     // double actionBtCorner = actionBtSize * 0.4;
