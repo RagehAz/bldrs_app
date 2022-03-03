@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';

@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -26,7 +26,6 @@ class TileBubble extends StatelessWidget {
     this.child,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String verse;
   final dynamic icon;
@@ -42,34 +41,33 @@ class TileBubble extends StatelessWidget {
   final Function moreBtOnTap;
   final Widget child;
   static const double iconBoxWidth = 30;
-
   /// --------------------------------------------------------------------------
   static double childWidth(BuildContext context) {
     return Bubble.bubbleWidth(context: context, stretchy: false) - iconBoxWidth;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double iconWidth = iconSizeFactor * iconBoxWidth;
     final double iconBoxPadding = iconBoxWidth - iconWidth;
 
-    final double _switchButtonWidth =
-        switchIsOn == null && moreBtOnTap == null ? 0 : 50;
+    final double _switchButtonWidth = switchIsOn == null && moreBtOnTap == null ?
+    0 : 50;
 
-    final double _verseWidth = insideDialog == true
-        ? CenterDialog.dialogWidth(context: context) -
-            30 -
-            50 -
-            _switchButtonWidth
-        : Bubble.clearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth;
+    final double _verseWidth = insideDialog == true ?
+    CenterDialog.dialogWidth(context: context) - 30 - 50 - _switchButtonWidth
+        :
+    Bubble.clearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth;
 
     return Bubble(
       bubbleOnTap: btOnTap,
       columnChildren: <Widget>[
+
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             /// --- LEADING ICON
             if (icon is String)
               DreamBox(
@@ -101,6 +99,7 @@ class TileBubble extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+
                   SuperVerse(
                     verse: verse,
                     margin: 5,
@@ -108,6 +107,7 @@ class TileBubble extends StatelessWidget {
                     maxLines: 2,
                     centered: false,
                   ),
+
                   if (secondLine != null)
                     SuperVerse(
                       verse: secondLine,
@@ -119,6 +119,7 @@ class TileBubble extends StatelessWidget {
                       weight: VerseWeight.thin,
                       margin: 5,
                     ),
+
                 ],
               ),
             ),
@@ -148,8 +149,10 @@ class TileBubble extends StatelessWidget {
                 iconSizeFactor: 0.6,
                 onTap: moreBtOnTap,
               ),
+
           ],
         ),
+
         if (child != null)
           SizedBox(
             width: Bubble.bubbleWidth(context: context, stretchy: false),
@@ -158,6 +161,7 @@ class TileBubble extends StatelessWidget {
             // color: Colorz.Yellow255,
             child: Row(
               children: <Widget>[
+
                 /// under leading icon area
                 Container(
                   width: iconBoxWidth,
@@ -176,9 +180,11 @@ class TileBubble extends StatelessWidget {
                   alignment: Alignment.center,
                   child: child,
                 ),
+
               ],
             ),
           ),
+
       ],
     );
   }

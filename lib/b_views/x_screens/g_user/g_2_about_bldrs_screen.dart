@@ -1,6 +1,6 @@
-import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/paragraph_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/tile_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';

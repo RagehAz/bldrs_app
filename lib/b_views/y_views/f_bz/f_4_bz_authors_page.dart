@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/bz/author_card.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/author_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';

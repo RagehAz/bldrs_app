@@ -29,7 +29,6 @@ class Bubble extends StatelessWidget {
     this.corners,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<Widget> columnChildren;
   final bool centered;
@@ -67,7 +66,6 @@ class Bubble extends StatelessWidget {
     bool stretchy,
   }) {
     final double _bubbleWidth = stretchy == true ? null : clearWidth(context);
-
     return _bubbleWidth;
   }
 // -----------------------------------------------------------------------------

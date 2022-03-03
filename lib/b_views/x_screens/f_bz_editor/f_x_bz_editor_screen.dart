@@ -7,11 +7,11 @@ import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/add_gallery_pic_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/locale_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/multiple_choice_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/locale_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/center_dialog.dart';
@@ -83,12 +83,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   bool _currentBzShowsTeam;
   // -------------------------
   AuthorModel _currentAuthor;
-  final TextEditingController _authorNameTextController =
-      TextEditingController();
+  final TextEditingController _authorNameTextController = TextEditingController();
   File _currentAuthorPicFile;
   String _currentAuthorPicURL;
-  final TextEditingController _authorTitleTextController =
-      TextEditingController();
+  final TextEditingController _authorTitleTextController = TextEditingController();
   List<ContactModel> _currentAuthorContacts;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -151,7 +149,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _currentAuthorContacts = _currentAuthor.contacts;
     // -------------------------
   }
-
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
@@ -173,7 +170,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     super.dispose();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _showBzCard() async {
     setState(() {});
@@ -222,7 +218,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
   void _selectASection(int index) {
     setState(() {

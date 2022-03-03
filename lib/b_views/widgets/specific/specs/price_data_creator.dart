@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/zone/currency_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/widgets/general/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
@@ -29,25 +29,23 @@ class PriceDataCreator extends StatefulWidget {
       @required this.onSubmitted,
       Key key})
       : super(key: key);
-
   /// --------------------------------------------------------------------------
   final ValueChanged<CurrencyModel> onCurrencyChanged;
   final ValueChanged<String> onValueChanged;
   final double initialPriceValue;
   final Function onSubmitted;
-
   /// --------------------------------------------------------------------------
   static Future<void> showCurrencyDialog({
     @required BuildContext context,
     @required ValueChanged<CurrencyModel> onSelectCurrency,
     // @required
   }) async {
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: false);
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
     final CurrencyModel _currentCurrency = _zoneProvider.currentCurrency;
     final CurrencyModel _usdCurrency =
-        CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+    CurrencyModel.getCurrencyFromCurrenciesByCountryID(
       currencies: _allCurrencies,
       countryID: 'usa',
     );
@@ -59,24 +57,28 @@ class PriceDataCreator extends StatefulWidget {
       draggable: true,
       child: SizedBox(
         width: _clearWidth,
-        height:
-            BottomDialog.clearHeight(context: context, draggable: true),
+        height: BottomDialog.clearHeight(context: context, draggable: true),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             CurrencyButton(
               width: _clearWidth,
               currency: _currentCurrency,
               countryID: _currentCurrency.countriesIDs[0],
               onTap: () => onSelectCurrency(_currentCurrency),
             ),
+
             CurrencyButton(
               width: _clearWidth,
               currency: _usdCurrency,
               countryID: 'USA',
               onTap: () => onSelectCurrency(_usdCurrency),
             ),
+
             const BubblesSeparator(),
+
             DreamBox(
               height: 60,
               width: _clearWidth,
@@ -123,6 +125,7 @@ class PriceDataCreator extends StatefulWidget {
                 );
               },
             ),
+
           ],
         ),
       ),

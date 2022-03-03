@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/general/bubbles/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_shelf.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,6 @@ class FlyersBubble extends StatelessWidget {
     this.bubbleWidth,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<FlyerModel> flyers;
   final double flyerSizeFactor;
@@ -27,7 +26,6 @@ class FlyersBubble extends StatelessWidget {
   final Axis scrollDirection;
   final ValueChanged<String> onTap;
   final double bubbleWidth;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -36,6 +34,7 @@ class FlyersBubble extends StatelessWidget {
       title: title,
       width: bubbleWidth,
       columnChildren: <Widget>[
+
         FlyersShelf(
           flyerSizeFactor: flyerSizeFactor,
           flyers: flyers,
@@ -65,6 +64,7 @@ class FlyersBubble extends StatelessWidget {
         //     }
         //   },
         // ),
+
       ],
     );
   }
