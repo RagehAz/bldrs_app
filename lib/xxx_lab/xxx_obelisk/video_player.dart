@@ -80,12 +80,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                     elevation: 20,
-                    child: _value.isBuffering ?
+                    child: _value == null || _value.isBuffering ?
                     const Center(child: Icon(Icons.close, size: 50))
                         :
                     VideoPlayer(_videoPlayerController),
                   ),
-                  if (!_value.isPlaying)
+                  if (!_value?.isPlaying)
                     const Center(
                         child: Icon(Icons.play_arrow,
                             size: 50,

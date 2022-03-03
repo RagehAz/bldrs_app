@@ -417,15 +417,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           inFlight: _inFlight(),
         ),
 
-        // Positioned(
-        //   bottom: 0,
-        //   child: Container(
-        //     width: widget.flyerBoxWidth,
-        //     height: FooterBox.collapsedHeight(context: context, flyerBoxWidth: widget.flyerBoxWidth, tinyMode: _tinyMode),
-        //     color: Colorz.bloodTest,
-        //   ),
-        // ),
-
         /// PROGRESS BAR
         if (_tinyMode != true && widget.flightDirection == FlightDirection.non)
         ProgressBar(

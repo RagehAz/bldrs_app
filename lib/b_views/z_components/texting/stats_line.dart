@@ -15,7 +15,6 @@ class StatsLine extends StatelessWidget {
     this.bubbleWidth,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String icon;
   final double iconSizeFactor;
@@ -23,10 +22,10 @@ class StatsLine extends StatelessWidget {
   final String verse;
   final Function onTap;
   final double bubbleWidth;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     const String _spaces = '   ';
     final double _height = onTap == null ? 25 : 40;
 
@@ -46,6 +45,7 @@ class StatsLine extends StatelessWidget {
         color: onTap == null ? null : Colorz.white20,
         onTap: onTap,
       ),
+
     );
   }
 }
