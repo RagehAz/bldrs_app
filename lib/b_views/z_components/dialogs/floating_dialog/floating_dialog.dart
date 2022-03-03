@@ -18,7 +18,6 @@ class FloatingDialog extends StatefulWidget {
     this.actionBtFunction,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final List<String> list;
@@ -26,15 +25,14 @@ class FloatingDialog extends StatefulWidget {
   final String actionBtIcon;
   final Color actionBtColor;
   final Function actionBtFunction;
-
   /// --------------------------------------------------------------------------
   @override
   _FloatingDialogState createState() => _FloatingDialogState();
-
   /// --------------------------------------------------------------------------
 }
 
 class _FloatingDialogState extends State<FloatingDialog> {
+
   int selectedIndex;
 
   @override

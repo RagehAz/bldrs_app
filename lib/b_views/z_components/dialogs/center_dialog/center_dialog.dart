@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/general/dialogs/center_dialog/dialog_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -19,7 +19,6 @@ class CenterDialog extends StatelessWidget {
     this.child,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final dynamic body;
   final String title;
@@ -27,7 +26,6 @@ class CenterDialog extends StatelessWidget {
   final double height;
   final Widget child;
   final String confirmButtonText;
-
   /// --------------------------------------------------------------------------
   static Future<bool> showCenterDialog({
     @required BuildContext context,
@@ -38,6 +36,7 @@ class CenterDialog extends StatelessWidget {
     Widget child,
     String confirmButtonText = 'Ok',
   }) async {
+
     final bool _result = await showDialog(
       context: context,
       builder: (BuildContext ctx) => CenterDialog(
@@ -54,21 +53,18 @@ class CenterDialog extends StatelessWidget {
 
     return _result;
   }
-
 // -----------------------------------------------------------------------------
   static double dialogWidth({
     BuildContext context,
   }) {
     return Scale.superScreenWidth(context) * 0.85;
   }
-
 // -----------------------------------------------------------------------------
   static const double dialogCornerValue = 20;
 // -----------------------------------------------------------------------------
   static BorderRadius dialogBorders(BuildContext context) {
     return Borderers.superBorderAll(context, dialogCornerValue);
   }
-
 // -----------------------------------------------------------------------------
 //   static double dialogVerticalMargin({BuildContext context, double dialogHeight}){
 //     double _screenHeight = Scale.superScreenHeight(context);
@@ -85,10 +81,10 @@ class CenterDialog extends StatelessWidget {
     final double _height = heightOverride ?? _screenHeight * 0.4;
     return _height;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 
@@ -145,6 +141,7 @@ class CenterDialog extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+
                       Container(
                         width: _dialogWidth,
                         height: _contentZoneHeight,
@@ -228,6 +225,7 @@ class CenterDialog extends StatelessWidget {
                             ],
                           ),
                         ),
+
                     ],
                   ),
                 ),

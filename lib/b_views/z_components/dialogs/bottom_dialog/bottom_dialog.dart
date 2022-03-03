@@ -41,13 +41,11 @@ class BottomDialog extends StatelessWidget {
     this.title,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double height;
   final bool draggable;
   final Widget child;
   final String title;
-
   /// --------------------------------------------------------------------------
   /// one side value only
   static double draggerMarginValue({@required bool draggable}) {
@@ -57,34 +55,29 @@ class BottomDialog extends StatelessWidget {
         draggable != true ? 0 : (_draggerZoneHeight - _draggerHeight) / 2;
     return _draggerMarginValue;
   }
-
 // -----------------------------------------------------------------------------
   static EdgeInsets draggerMargins({@required bool draggable}) {
     final EdgeInsets _draggerMargins = EdgeInsets.symmetric(
         vertical: draggerMarginValue(draggable: draggable));
     return _draggerMargins;
   }
-
 // -----------------------------------------------------------------------------
   static double draggerZoneHeight({@required bool draggable}) {
     final double _draggerZoneHeight =
         draggable == true ? Ratioz.appBarMargin * 3 : 0;
     return _draggerZoneHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double draggerHeight({@required bool draggable}) {
     final double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
     final double _draggerHeight = _draggerZoneHeight * 0.35 * 0.5;
     return _draggerHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double draggerWidth(BuildContext context) {
     final double _draggerWidth = Scale.superScreenWidth(context) * 0.35;
     return _draggerWidth;
   }
-
 // -----------------------------------------------------------------------------
   static double titleZoneHeight({@required bool titleIsOn}) {
     bool _titleIsOn;
@@ -100,42 +93,45 @@ class BottomDialog extends StatelessWidget {
 
     return _titleZoneHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double dialogWidth(BuildContext context) {
     return Scale.superScreenWidth(context);
   }
-
 // -----------------------------------------------------------------------------
-  static const double dialogMarginValue =
-      Ratioz.appBarMargin + Ratioz.appBarPadding;
+  static const double dialogMarginValue = Ratioz.appBarMargin + Ratioz.appBarPadding;
 // -----------------------------------------------------------------------------
   static const EdgeInsets dialogMargins =
-      EdgeInsets.symmetric(horizontal: dialogMarginValue);
+  EdgeInsets.symmetric(horizontal: dialogMarginValue);
 // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context) {
     final double _dialogClearWidth =
-        Scale.superScreenWidth(context) - (dialogMarginValue * 2);
+        Scale.superScreenWidth(context)
+            - (dialogMarginValue * 2);
+
     return _dialogClearWidth;
   }
-
 // -----------------------------------------------------------------------------
-  static double dialogHeight(BuildContext context,
-      {double overridingDialogHeight, double ratioOfScreenHeight}) {
-    double _dialogHeight;
-    final double _screenHeight = Scale.superScreenHeight(context);
+  static double dialogHeight(
+      BuildContext context,
+      {
+        double overridingDialogHeight,
+        double ratioOfScreenHeight
+      }) {
+
+    double _dialogHeight;final double _screenHeight = Scale.superScreenHeight(context);
 
     final double _ratioOfScreenHeight = ratioOfScreenHeight ?? 0.5;
 
     if (overridingDialogHeight == null) {
       _dialogHeight = _screenHeight * _ratioOfScreenHeight;
-    } else {
+    }
+
+    else {
       _dialogHeight = overridingDialogHeight;
     }
 
     return _dialogHeight;
   }
-
 // -----------------------------------------------------------------------------
   static double clearHeight({
     @required BuildContext context,
@@ -143,18 +139,16 @@ class BottomDialog extends StatelessWidget {
     double overridingDialogHeight,
     bool titleIsOn,
   }) {
+
     // bool _draggable = draggable == null ? false : draggable;
 
-    final double _dialogHeight =
-        dialogHeight(context, overridingDialogHeight: overridingDialogHeight);
+    final double _dialogHeight = dialogHeight(context, overridingDialogHeight: overridingDialogHeight);
     final double _titleZoneHeight = titleZoneHeight(titleIsOn: titleIsOn);
     final double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
 
-    final double _dialogClearHeight =
-        _dialogHeight - _titleZoneHeight - _draggerZoneHeight;
+    final double _dialogClearHeight = _dialogHeight - _titleZoneHeight - _draggerZoneHeight;
     return _dialogClearHeight;
   }
-
 // -----------------------------------------------------------------------------
   static BorderRadius dialogCorners(BuildContext context) {
     final BorderRadius _dialogCorners = Borderers.superBorderOnly(
@@ -165,12 +159,10 @@ class BottomDialog extends StatelessWidget {
         enTopRight: Ratioz.bottomSheetCorner);
     return _dialogCorners;
   }
-
 // -----------------------------------------------------------------------------
   static double dialogClearCornerValue({double corner}) {
     return corner ?? Ratioz.appBarCorner;
   }
-
 // -----------------------------------------------------------------------------
   static BorderRadius dialogClearCorners(BuildContext context) {
     final BorderRadius _corners = Borderers.superBorderOnly(
@@ -182,7 +174,6 @@ class BottomDialog extends StatelessWidget {
     );
     return _corners;
   }
-
 // -----------------------------------------------------------------------------
   static Future<void> showBottomDialog({
     @required BuildContext context,
@@ -191,8 +182,8 @@ class BottomDialog extends StatelessWidget {
     double height,
     String title,
   }) async {
-    final double _height =
-        height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
+
+    final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
@@ -211,6 +202,7 @@ class BottomDialog extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         builder: (BuildContext bCtx) {
+
           return SizedBox(
             height: _height,
             width: Scale.superScreenWidth(context),
@@ -225,9 +217,10 @@ class BottomDialog extends StatelessWidget {
               ),
             ),
           );
-        });
-  }
 
+        }
+        );
+  }
 // -----------------------------------------------------------------------------
   static Future<void> showButtonsBottomDialog({
     @required BuildContext context,
@@ -260,14 +253,15 @@ class BottomDialog extends StatelessWidget {
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
-  static Future<void> showStatefulBottomDialog(
-      {@required BuildContext context,
-      @required double height,
-      @required bool draggable,
-      @required Widget Function(BuildContext, String) builder,
-      @required String title}) async {
+  static Future<void> showStatefulBottomDialog({
+    @required BuildContext context,
+    @required double height,
+    @required bool draggable,
+    @required Widget Function(BuildContext, String) builder,
+    @required String title
+  }) async {
+
     final double _height =
         height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
@@ -295,12 +289,13 @@ class BottomDialog extends StatelessWidget {
           )),
     );
   }
-
 // -----------------------------------------------------------------------------
-  static Future<void> slideBzBottomDialog(
-      {@required BuildContext context,
-      @required BzModel bz,
-      @required AuthorModel author}) async {
+  static Future<void> slideBzBottomDialog({
+    @required BuildContext context,
+    @required BzModel bz,
+    @required AuthorModel author,
+  }) async {
+
     final double _flyerBoxWidth = OldFlyerBox.width(context, 0.71);
 
     await BottomDialog.showBottomDialog(
@@ -333,7 +328,6 @@ class BottomDialog extends StatelessWidget {
           ),
         ));
   }
-
 // -----------------------------------------------------------------------------
   static Widget wideButton({
     @required BuildContext context,
@@ -342,6 +336,7 @@ class BottomDialog extends StatelessWidget {
     String icon,
     bool verseCentered = false,
   }) {
+
     return DreamBox(
       height: 45,
       width: clearWidth(context),
@@ -355,14 +350,15 @@ class BottomDialog extends StatelessWidget {
       verseMaxLines: 2,
       onTap: onTap,
     );
-  }
 
+  }
 // -----------------------------------------------------------------------------
   static Future<String> keyboardDialog({
     @required BuildContext context,
     @required String countryID,
     String hintText,
   }) async {
+
     /// TASK flag is temp
 
     final TextEditingController _textController = TextEditingController();
@@ -416,7 +412,6 @@ class BottomDialog extends StatelessWidget {
 
     return _textController.text;
   }
-
 // -----------------------------------------------------------------------------
   bool _titleIsOnCheck() {
     bool _isOn;
@@ -429,13 +424,12 @@ class BottomDialog extends StatelessWidget {
 
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _dialogWidth = dialogWidth(context);
-    final double _dialogHeight =
-        dialogHeight(context, overridingDialogHeight: height);
+    final double _dialogHeight = dialogHeight(context, overridingDialogHeight: height);
     final BorderRadius _dialogCorners = dialogCorners(context);
 
     final double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
@@ -453,7 +447,9 @@ class BottomDialog extends StatelessWidget {
         context: context,
         titleIsOn: _titleIsOn,
         overridingDialogHeight: height,
-        draggable: draggable);
+        draggable: draggable
+    );
+
     final BorderRadius _dialogClearCorners = dialogClearCorners(context);
 
     return Container(
@@ -466,6 +462,7 @@ class BottomDialog extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
+
           /// --- SHADOW LAYER
           Container(
             width: _dialogWidth,
@@ -534,6 +531,7 @@ class BottomDialog extends StatelessWidget {
               ],
             ),
           ),
+
         ],
       ),
     );

@@ -9,8 +9,8 @@ import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/section_dialog/section_bubble.dart';
-import 'package:bldrs/b_views/widgets/general/dialogs/side_dialog/section_tile.dart';
+import 'package:bldrs/b_views/z_components/dialogs/section_dialog/section_bubble.dart';
+import 'package:bldrs/b_views/z_components/dialogs/side_dialog/section_tile.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
@@ -35,19 +35,15 @@ class DrawerDialog extends StatefulWidget {
     this.width,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
-
   /// --------------------------------------------------------------------------
   static const double drawerEdgeDragWidth = 15;
   static const bool drawerEnableOpenDragGesture = true;
   static const Color drawerScrimColor = Colorz.black125;
-
   /// --------------------------------------------------------------------------
   @override
   State<DrawerDialog> createState() => _DrawerDialogState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -59,14 +55,12 @@ class _DrawerDialogState extends State<DrawerDialog> {
     _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
     super.initState();
   }
-
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose();
     // TextChecker.disposeControllerIfNotEmpty(_searchController);
   }
-
 // -----------------------------------------------------------------------------
 //   TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
@@ -114,12 +108,10 @@ class _DrawerDialogState extends State<DrawerDialog> {
       }
     }
   }
-
 // ---------------------------
   Future<void> _onSearchSubmit(String text) async {
     await _searchKeywords(text);
   }
-
 // -----------------------------------------------------------------------------
   List<KW> _foundKeywords = <KW>[];
   Future<List<KW>> _searchKeywords(String text) async {
@@ -138,7 +130,6 @@ class _DrawerDialogState extends State<DrawerDialog> {
 
     return _results;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
