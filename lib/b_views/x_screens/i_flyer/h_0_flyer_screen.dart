@@ -1,7 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -85,17 +83,15 @@ class FlyerScreen extends StatelessWidget {
 
               ///
 
-              FinalFlyer(
-            flyerBoxWidth: OldFlyerBox.width(context, 1),
+          FlyerStarter(
+            key: PageStorageKey<String>(_flyerID),
+            minWidthFactor: 1,
+            isFullScreen: true,
             flyerModel: flyerModel,
-            flyerID: flyerID,
-            initialSlideIndex: initialSlideIndex ?? 0,
-            flyerKey: PageStorageKey<String>(_flyerID),
-            isSponsored: isSponsored,
-            onSwipeFlyer: (Sliders.SwipeDirection direction) {
-              // blog('Direction is $direction');
-            },
+            startFromIndex: initialSlideIndex ?? 0,
+            // isSponsored: isSponsored,
           ),
+
         ),
       ),
     );

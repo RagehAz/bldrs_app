@@ -3,11 +3,10 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/old_strips.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
@@ -119,22 +118,22 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     });
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSwipeFlyer(
-      Sliders.SwipeDirection direction,
-      int pageIndex
-      ) async {
-    _lastSwipeDirection = direction;
-
-    if (direction == Sliders.SwipeDirection.next) {
-      if (pageIndex + 1 != _flyers.length) {
-        await Sliders.slideToNext(_pageController, _flyers.length, pageIndex);
-      }
-    } else if (direction == Sliders.SwipeDirection.back) {
-      if (pageIndex != 0) {
-        await Sliders.slideToBackFrom(_pageController, pageIndex);
-      }
-    }
-  }
+//   Future<void> _onSwipeFlyer(
+//       Sliders.SwipeDirection direction,
+//       int pageIndex
+//       ) async {
+//     _lastSwipeDirection = direction;
+//
+//     if (direction == Sliders.SwipeDirection.next) {
+//       if (pageIndex + 1 != _flyers.length) {
+//         await Sliders.slideToNext(_pageController, _flyers.length, pageIndex);
+//       }
+//     } else if (direction == Sliders.SwipeDirection.back) {
+//       if (pageIndex != 0) {
+//         await Sliders.slideToBackFrom(_pageController, pageIndex);
+//       }
+//     }
+//   }
 // -----------------------------------------------------------------------------
   Future<void> _onVerify() async {
     blog('currentFlyer : ${_currentFlyer.slides.length} slides');
@@ -488,7 +487,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _clearScreenHeight = DashBoardLayout.clearScreenHeight(context);
     const double _footerZoneHeight = 70;
-    final double _progressBarHeight = OldStrips.boxHeight(_screenWidth);
+    final double _progressBarHeight = StaticStrips.boxHeight(_screenWidth);
     final double _bodyZoneHeight = _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
     const double _flyerSizeFactor = 0.7;
 
@@ -508,7 +507,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 height: _progressBarHeight,
                 // color: Colorz.BloodTest,
                 // alignment: Alignment.center,
-                child: OldProgressBar(
+                child: StaticProgressBar(
                   index: _currentPageIndex,
                   numberOfSlides: _numberOfStrips,
                   opacity: _progressBarOpacity,
@@ -524,29 +523,31 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 width: _screenWidth,
                 height: _bodyZoneHeight,
                 alignment: Alignment.center,
-                child: Mapper.canLoopList(_flyers) == true
-                    ? PageView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: _flyers.length,
-                        controller: _pageController,
-                        allowImplicitScrolling: true,
-                        onPageChanged: (int i) => _onPageChange(i),
-                        // scrollBehavior: ScrollBehavior().,
-                        itemBuilder: (BuildContext ctx, int index) {
+                child: Mapper.canLoopList(_flyers) == true ?
+                PageView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: _flyers.length,
+                    controller: _pageController,
+                    allowImplicitScrolling: true,
+                    onPageChanged: (int i) => _onPageChange(i),
+                    // scrollBehavior: ScrollBehavior().,
+                    itemBuilder: (BuildContext ctx, int index) {
                           return AnimatedOpacity(
                             opacity: _pagesOpacities[index],
                             duration: Ratioz.durationFading200,
-                            child: FinalFlyer(
-                              flyerBoxWidth:
-                                  OldFlyerBox.width(context, _flyerSizeFactor),
+                            child: FlyerStarter(
+                              minWidthFactor: _flyerSizeFactor,
                               flyerModel: _flyers[index],
-                              onSwipeFlyer:
-                                  (Sliders.SwipeDirection direction) =>
-                                      _onSwipeFlyer(direction, index),
+                              // onSwipeFlyer: (Sliders.SwipeDirection direction) => _onSwipeFlyer(direction, index),
                             ),
                           );
-                        })
-                    : Container(),
+                        }
+                        )
+
+                    :
+
+                Container(),
+
               ),
 
               /// BUTTONS

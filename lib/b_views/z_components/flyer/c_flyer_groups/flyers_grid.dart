@@ -108,6 +108,25 @@ class FlyersGrid extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
+  static double calculateFlyerBoxWidth({
+    BuildContext context,
+    int flyersLength
+  }) {
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _gridWidth = _screenWidth - (2 * Ratioz.appBarMargin);
+    final int _numberOfColumns = gridColumnCount(flyersLength);
+    final double _flyerBoxWidth =
+        (_gridWidth - ((_numberOfColumns - 1) * Ratioz.appBarMargin)) / _numberOfColumns;
+    return _flyerBoxWidth;
+  }
+// -----------------------------------------------------------------------------
+  static int gridColumnCount(int flyersLength) {
+    final int _gridColumnsCount = flyersLength > 12 ? 3 :
+    flyersLength > 6 ?
+    2 : 2;
+    return _gridColumnsCount;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // ----------------------------------------------------------

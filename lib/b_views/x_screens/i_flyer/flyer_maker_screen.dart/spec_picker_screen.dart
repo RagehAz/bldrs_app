@@ -6,11 +6,11 @@ import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/specs/price_data_creator.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/widgets/specific/specs/double_data_creator.dart';
-import 'package:bldrs/b_views/widgets/specific/specs/integer_data_creator.dart';
-import 'package:bldrs/b_views/widgets/specific/specs/price_data_creator.dart';
-import 'package:bldrs/b_views/widgets/specific/specs/specs_selector_bubble.dart';
+import 'package:bldrs/b_views/z_components/specs/double_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/integer_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/specs_selector_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -28,26 +28,22 @@ class SpecPickerScreen extends StatefulWidget {
     @required this.allSelectedSpecs,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final SpecList specList;
   final List<SpecModel> allSelectedSpecs;
-
   /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 50;
-
   /// --------------------------------------------------------------------------
   @override
   State<SpecPickerScreen> createState() => _SpecPickerScreenState();
-
   /// --------------------------------------------------------------------------
 }
 
 class _SpecPickerScreenState extends State<SpecPickerScreen> {
+
   // List<Spec> _selectedSpecs = [];
   final ValueNotifier<List<SpecModel>> _selectedSpecs =
       ValueNotifier<List<SpecModel>>(<SpecModel>[]);
-
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -56,7 +52,6 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     super.initState();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onSpecTap(BuildContext context, KW kw) async {
     blog('received kw : ${kw.id}');

@@ -1,26 +1,18 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/kw/specs/spec_model.dart';
+import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
-import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
 enum BottomDialogType {
   countries,
@@ -296,37 +288,39 @@ class BottomDialog extends StatelessWidget {
     @required AuthorModel author,
   }) async {
 
-    final double _flyerBoxWidth = OldFlyerBox.width(context, 0.71);
+    // final double _flyerBoxWidth = FlyerBox.width(context, 0.71);
 
     await BottomDialog.showBottomDialog(
         context: context,
         height: Scale.superScreenHeight(context) - 100,
         draggable: true,
-        child: Center(
-          child: FinalFlyer(
-            flyerBoxWidth: _flyerBoxWidth,
-            flyerModel: FlyerModel(
-              id: null,
-              title: '',
-              bzID: bz.id,
-              authorID: author.userID,
-              zone: bz.zone,
-              info: '',
-              priceTagIsOn: false,
-              position: null,
-              flyerType: null,
-              times: <PublishTime>[],
-              slides: <SlideModel>[],
-              isBanned: null,
-              keywordsIDs: <String>[],
-              specs: <SpecModel>[],
-              trigram: <String>[],
-            ),
-            onSwipeFlyer: (Sliders.SwipeDirection direction) {
-              // print('Direction is ${direction}');
-            },
-          ),
-        ));
+        child: Container(),
+        // child: Center(
+          // child: FinalFlyer(
+          //   flyerBoxWidth: _flyerBoxWidth,
+          //   flyerModel: FlyerModel(
+          //     id: null,
+          //     title: '',
+          //     bzID: bz.id,
+          //     authorID: author.userID,
+          //     zone: bz.zone,
+          //     info: '',
+          //     priceTagIsOn: false,
+          //     position: null,
+          //     flyerType: null,
+          //     times: <PublishTime>[],
+          //     slides: <SlideModel>[],
+          //     isBanned: null,
+          //     keywordsIDs: <String>[],
+          //     specs: <SpecModel>[],
+          //     trigram: <String>[],
+          //   ),
+          //   onSwipeFlyer: (Sliders.SwipeDirection direction) {
+          //     // print('Direction is ${direction}');
+          //   },
+          // ),
+        // )
+    );
   }
 // -----------------------------------------------------------------------------
   static Widget wideButton({

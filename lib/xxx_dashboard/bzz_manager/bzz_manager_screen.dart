@@ -1,14 +1,10 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_strip.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
@@ -220,26 +216,23 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                 onTap: () async {
 
                   final double _dialogHeight = _screenHeight * 0.8;
-                  final CountryModel _bzCountry =
 
-                  await _zoneProvider.fetchCountryByID(
-                      context: context,
-                      countryID: _bz.zone.countryID
-                  );
+                  // final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+                  //     context: context,
+                  //     countryID: _bz.zone.countryID
+                  // );
 
-                  final CityModel _bzCity =
-                  await _zoneProvider.fetchCityByID(
-                      context: context, cityID: _bz.zone.cityID
-                  );
+                  // final CityModel _bzCity =
+                  // await _zoneProvider.fetchCityByID(
+                  //     context: context, cityID: _bz.zone.cityID
+                  // );
 
-                  final SuperFlyer _superFlyer = SuperFlyer
-                      .getSuperFlyerFromBzModelOnly(
-                    onHeaderTap: () {},
-                    bzModel: _bz,
-                    bzCountry: _bzCountry,
-                    bzCity: _bzCity,
-                  );
-
+                  // final SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
+                  //   onHeaderTap: () {},
+                  //   bzModel: _bz,
+                  //   bzCountry: _bzCountry,
+                  //   bzCity: _bzCity,
+                  // );
 
                   await BottomDialog.showBottomDialog(
                     context: context,
@@ -261,123 +254,152 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                             SizedBox(
                               width: _clearDialogWidth,
-                              height: OldFlyerBox.headerStripHeight(
+                              height: FlyerBox.headerStripHeight(
                                   headerIsExpanded: false,
-                                  flyerBoxWidth: _clearDialogWidth),
+                                  flyerBoxWidth: _clearDialogWidth,
+                              ),
                               child: Column(
                                 children: <Widget>[
-                                  MiniHeaderStrip(
-                                    bzPageIsOn: _superFlyer.nav.bzPageIsOn,
-                                    flyerBoxWidth: _clearDialogWidth,
-                                    bzModel: _superFlyer.bz,
-                                    bzCity: _superFlyer.bzCity,
-                                    bzCountry: _superFlyer.bzCountry,
-                                    followIsOn: _superFlyer.rec.followIsOn,
-                                    onCallTap: _superFlyer.rec.onCallTap,
-                                    onFollowTap: _superFlyer.rec.onFollowTap,
-                                    authorID: _superFlyer.authorID,
-                                    flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+
+                                  Container(),
+
+                                  // MiniHeaderStrip(
+                                  //   bzPageIsOn: _superFlyer.nav.bzPageIsOn,
+                                  //   flyerBoxWidth: _clearDialogWidth,
+                                  //   bzModel: _superFlyer.bz,
+                                  //   bzCity: _superFlyer.bzCity,
+                                  //   bzCountry: _superFlyer.bzCountry,
+                                  //   followIsOn: _superFlyer.rec.followIsOn,
+                                  //   onCallTap: _superFlyer.rec.onCallTap,
+                                  //   onFollowTap: _superFlyer.rec.onFollowTap,
+                                  //   authorID: _superFlyer.authorID,
+                                  //   flyerShowsAuthor: _superFlyer.flyerShowsAuthor,
+                                  //       ),
+
+                                ],
+                              ),
+                            ),
 
                             DataStrip(
                               dataKey: 'bzName',
                               dataValue: _bz.name,
                             ),
+
                             DataStrip(
                               dataKey: 'bzLogo',
                               dataValue: _bz.logo,
                             ),
+
                             DataStrip(
                               dataKey: 'bzID',
                               dataValue: _bz.id,
                             ),
+
                             DataStrip(
                               dataKey: 'bzType',
                               dataValue: _bz.bzType,
                             ),
+
                             DataStrip(
                               dataKey: 'bzForm',
                               dataValue: _bz.bzForm,
                             ),
+
                             DataStrip(
                               dataKey: 'createdAt',
                               dataValue: _bz.createdAt,
                             ),
+
                             DataStrip(
                               dataKey: 'accountType',
                               dataValue: _bz.accountType,
                             ),
+
                             DataStrip(
                               dataKey: 'bzScope',
                               dataValue: _bz.scope,
                             ),
+
                             DataStrip(
                               dataKey: 'bzZone',
                               dataValue: _bz.zone,
                             ),
+
                             DataStrip(
                               dataKey: 'bzAbout',
                               dataValue: _bz.about,
                             ),
+
                             DataStrip(
                               dataKey: 'bzPosition',
                               dataValue: _bz.position,
                             ),
+
                             DataStrip(
                               dataKey: 'bzContacts',
                               dataValue: _bz.contacts,
                             ),
+
                             DataStrip(
                               dataKey: 'bzAuthors',
                               dataValue: _bz.authors,
                             ),
+
                             DataStrip(
                               dataKey: 'bzShowsTeam',
                               dataValue: _bz.showsTeam,
                             ),
+
                             DataStrip(
                               dataKey: 'bzIsVerified',
                               dataValue: _bz.isVerified,
                             ),
+
                             DataStrip(
                               dataKey: 'bzState',
                               dataValue: _bz.bzState,
                             ),
+
                             DataStrip(
                               dataKey: 'bzTotalFollowers',
                               dataValue: _bz.totalFollowers,
                             ),
+
                             DataStrip(
                               dataKey: 'bzTotalSaves',
                               dataValue: _bz.totalSaves,
                             ),
+
                             DataStrip(
                               dataKey: 'bzTotalShares',
                               dataValue: _bz.totalShares,
                             ),
+
                             DataStrip(
                               dataKey: 'bzTotalSlides',
                               dataValue: _bz.totalSlides,
                             ),
+
                             DataStrip(
                               dataKey: 'bzTotalViews',
                               dataValue: _bz.totalViews,
                             ),
+
                             DataStrip(
                               dataKey: 'bzTotalCalls',
                               dataValue: _bz.totalCalls,
                             ),
+
                             DataStrip(
                               dataKey: 'flyersIDs,',
                               dataValue: _bz.flyersIDs,
                             ),
+
                             DataStrip(
                               dataKey: 'bzTotalFlyers',
                               dataValue: _bz.totalFlyers,
                             ),
+
                             // Container(
                             //     width: _clearDialogWidth,
                             //     height: 100,
@@ -397,6 +419,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                             //       ],
                             //     )
                             // )
+
                           ],
                         ),
                       ),

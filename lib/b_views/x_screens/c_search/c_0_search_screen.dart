@@ -1,11 +1,9 @@
 import 'dart:async';
-
-import 'package:bldrs/a_models/flyer/records/record_model.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/c_0_search_controller.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
@@ -117,12 +115,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
-    final List<RecordModel> _records = _searchProvider.searchRecords;
+    // final List<RecordModel> _records = _searchProvider.searchRecords;
 
-    final String _verse =
-        _uiProvider.isLoading ? 'loading' :
-        _searchProvider.isSearchingFlyersAndBzz ? 'searching' :
-                'default';
+    // final String _verse =
+    //     _uiProvider.isLoading ? 'loading' :
+    //     _searchProvider.isSearchingFlyersAndBzz ? 'searching' :
+    //             'default';
 
     return MainLayout(
       appBarType: AppBarType.search,
