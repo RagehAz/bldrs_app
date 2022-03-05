@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/stacks/saved_flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/saved_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_sliver_app_bar_small.dart';
 import 'package:bldrs/c_controllers/e_saves_controller.dart';

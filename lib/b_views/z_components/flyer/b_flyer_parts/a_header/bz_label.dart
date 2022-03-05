@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -30,7 +30,7 @@ class BzLabel extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // const bool versesShadow = false;
 // -----------------------------------------------------------------------------
-    final double _headerMainHeight = OldFlyerBox.headerStripHeight(
+    final double _headerMainHeight = FlyerBox.headerStripHeight(
         headerIsExpanded: headerIsExpanded,
         flyerBoxWidth: flyerBoxWidth
     );

@@ -1,13 +1,12 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_header_labels.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_info_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_name_below_logo_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/convertible_header_strip_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -227,7 +226,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
     //--------------------------------o
     _headerLabelsWidthTween = Tween<double>(
-      begin: OldHeaderLabels.getHeaderLabelWidth(widget.flyerBoxWidth),
+      begin: HeaderBox.getHeaderLabelWidth(widget.flyerBoxWidth),
       end: 0,
     ).animate(widget.headerAnimationController);
     //--------------------------------o

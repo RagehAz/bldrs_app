@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_shelf.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_shelf.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';

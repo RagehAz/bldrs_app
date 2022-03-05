@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/stacks/flyers_shelf.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_shelf.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';

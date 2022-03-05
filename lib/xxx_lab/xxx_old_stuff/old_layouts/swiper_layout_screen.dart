@@ -1,6 +1,6 @@
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-// import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar.dart';
+// import 'package:bldrs/b_views/widgets/specific/flyer/parts/static_progress_bar.dart';
 // import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 // import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 // import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
