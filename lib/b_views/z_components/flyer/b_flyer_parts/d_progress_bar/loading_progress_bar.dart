@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/old_strips.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -20,17 +20,17 @@ class LoadingProgressBar extends StatelessWidget {
         stripsStack: <Widget>[
 
           Container(
-            width: OldStrips.stripsTotalLength(flyerBoxWidth),
-            height: OldStrips.stripThickness(flyerBoxWidth),
+            width: StaticStrips.stripsTotalLength(flyerBoxWidth),
+            height: StaticStrips.stripThickness(flyerBoxWidth),
             decoration: BoxDecoration(
-              color: OldStrips.stripOffColor,
-              borderRadius: OldStrips.stripBorders(
+              color: StaticStrips.stripOffColor,
+              borderRadius: StaticStrips.stripBorders(
                   context: context, flyerBoxWidth: flyerBoxWidth),
             ),
             child: LinearProgressIndicator(
               backgroundColor: Colorz.nothing,
-              minHeight: OldStrips.stripThickness(flyerBoxWidth),
-              valueColor: const AlwaysStoppedAnimation(OldStrips.stripFadedColor),
+              minHeight: StaticStrips.stripThickness(flyerBoxWidth),
+              valueColor: const AlwaysStoppedAnimation(StaticStrips.stripFadedColor),
             ),
           ),
 

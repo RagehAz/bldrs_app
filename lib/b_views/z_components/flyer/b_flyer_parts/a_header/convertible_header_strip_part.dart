@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/bz_logo.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_and_call_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_labels_part.dart';

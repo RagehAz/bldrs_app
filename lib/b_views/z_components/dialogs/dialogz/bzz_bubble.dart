@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/widgets/specific/bz/bz_static_grid.dart';
+import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/bz_static_grid.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_1_bz_card_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;

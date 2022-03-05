@@ -76,7 +76,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final User _firebaseUser = FireAuthOps.superFirebaseUser();
+//     final User _firebaseUser = FireAuthOps.superFirebaseUser();
 // ---------------------------------------------------------------------------
     return MainLayout(
       pyramidsAreOn: true,

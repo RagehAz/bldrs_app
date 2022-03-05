@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/mini_follow_and_call_bts.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_button.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';

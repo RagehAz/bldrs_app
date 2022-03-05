@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/flyer_maker_screen.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/d_variants/abstract_header.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -78,8 +77,8 @@ class AddFlyerButton extends StatelessWidget {
 
               /// --- FAKE HEADER FOOTPRINT
               SizedBox(
-                height: OldFlyerBox.headerBoxHeight(
-                    bzPageIsOn: false,
+                height: FlyerBox.headerBoxHeight(
+                    // bzPageIsOn: false,
                     flyerBoxWidth: flyerBoxWidth
                 ),
               ),
