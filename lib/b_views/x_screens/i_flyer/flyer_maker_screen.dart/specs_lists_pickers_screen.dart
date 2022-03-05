@@ -10,8 +10,8 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bou
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/widgets/specific/specs/price_data_creator.dart';
-import 'package:bldrs/b_views/widgets/specific/specs/spec_list_tile.dart';
+import 'package:bldrs/b_views/z_components/specs/price_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/spec_list_tile.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/spec_picker_screen.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

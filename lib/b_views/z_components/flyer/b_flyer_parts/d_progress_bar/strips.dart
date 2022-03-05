@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/progress_bar_parts/strip.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -246,7 +246,7 @@ class Strips extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           margins: margins,
           stripsStack: <Widget>[
-            Strip(
+            StaticStrip(
               flyerBoxWidth: flyerBoxWidth,
               stripWidth: _stripsTotalLength,
               numberOfSlides: 1,
@@ -269,7 +269,7 @@ class Strips extends StatelessWidget {
 
                 ...List<Widget>.generate(numberOfStrips, (int index) {
 
-                  return Strip(
+                  return StaticStrip(
                     flyerBoxWidth: flyerBoxWidth,
                     stripWidth: _aStripLength,
                     numberOfSlides: numberOfStrips,
@@ -305,7 +305,7 @@ class Strips extends StatelessWidget {
                           duration: Ratioz.duration150ms,
                           tween: _tween(),
                           curve: Curves.easeOut,
-                          child: Strip(
+                          child: StaticStrip(
                             flyerBoxWidth: flyerBoxWidth,
                             stripWidth: _aStripLength,
                             numberOfSlides: numberOfStrips,
@@ -326,7 +326,7 @@ class Strips extends StatelessWidget {
 
                                     /// IF ITS LAST STRIP
                                     if (index + 1 == _numberOfStrips){
-                                      return Strip(
+                                      return StaticStrip(
                                         flyerBoxWidth: flyerBoxWidth,
                                         stripWidth: _tweenVal,
                                         numberOfSlides: numberOfStrips,

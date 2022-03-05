@@ -8,11 +8,12 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
@@ -126,10 +127,9 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
           const Stratosphere(),
 
-          FinalFlyer(
+          FlyerStarter(
+            minWidthFactor: FlyerBox.sizeFactorByWidth(context, _screenWidth * 0.7),
             flyerModel: widget.flyer,
-            flyerBoxWidth: _screenWidth * 0.7,
-            onSwipeFlyer: (){},
           ),
 
           const Expander(),

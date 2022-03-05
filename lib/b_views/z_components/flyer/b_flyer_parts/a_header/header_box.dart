@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class HeaderBox extends StatelessWidget {
@@ -21,6 +22,11 @@ class HeaderBox extends StatelessWidget {
   final BorderRadius headerBorders;
   final List<Widget> children;
   /// --------------------------------------------------------------------------
+  static double getHeaderLabelWidth(double flyerBoxWidth) {
+    return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+  }
+// -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 

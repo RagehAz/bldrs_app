@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/author_card_details.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/author_label.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

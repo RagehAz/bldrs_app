@@ -2,12 +2,9 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/remaining_slides_counter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/final_flyer.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +25,9 @@ class FlyerMakerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _flyerBoxWidth = _screenWidth - (Ratioz.appBarMargin * 3) - OldFlyerBox.editorPanelWidth;
+
+    // final double _screenWidth = Scale.superScreenWidth(context);
+    // final double _flyerBoxWidth = _screenWidth - (Ratioz.appBarMargin * 3) - FlyerBox.editorPanelWidth;
 
     // double _panelWidth = _screenWidth - _flyerBoxWidth - (Ratioz.appBarMargin * 3);
     // AuthorModel _author = widget.firstTimer ?
@@ -71,16 +69,16 @@ class FlyerMakerScreen extends StatelessWidget {
             height: Scale.superScreenHeightWithoutSafeArea(context) -
                 Ratioz.stratosphere,
             alignment: Alignment.center,
-            child: FinalFlyer(
-              flyerBoxWidth: _flyerBoxWidth,
-              flyerModel: firstTimer == true ? null : flyerModel,
-              goesToEditor: true,
-              inEditor: true,
-              bzModel: bzModel,
-              onSwipeFlyer: (Sliders.SwipeDirection direction) {
-                // print('Direction is $direction');
-              },
-            ),
+            // child: FinalFlyer(
+            //   flyerBoxWidth: _flyerBoxWidth,
+            //   flyerModel: firstTimer == true ? null : flyerModel,
+            //   goesToEditor: true,
+            //   inEditor: true,
+            //   bzModel: bzModel,
+            //   onSwipeFlyer: (Sliders.SwipeDirection direction) {
+            //     // print('Direction is $direction');
+            //   },
+            // ),
           ),
         ],
       ),

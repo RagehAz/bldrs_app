@@ -51,11 +51,11 @@ class FlyerBox extends StatelessWidget {
     return sizeFactorByWidth(context, _flyerBoxWidth);
   }
   //--------------------------------o
-  static double heightByWidthFactor({
+  static double heightBySizeFactor({
     @required BuildContext context,
-    @required double flyerWidthFactor,
+    @required double flyerSizeFactor,
   }) {
-    final double _flyerBoxWidth = width(context, flyerWidthFactor);
+    final double _flyerBoxWidth = width(context, flyerSizeFactor);
     return height(context, _flyerBoxWidth);
   }
   //--------------------------------o

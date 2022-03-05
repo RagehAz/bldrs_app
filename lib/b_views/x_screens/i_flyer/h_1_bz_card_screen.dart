@@ -1,14 +1,9 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_header.dart';
-import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +27,12 @@ class BzCardScreen extends StatefulWidget {
 }
 
 class _BzCardScreenState extends State<BzCardScreen> {
-  ZoneProvider _zoneProvider;
+  // ZoneProvider _zoneProvider;
   BzzProvider _bzzProvider;
 
-  BzModel _bzModel;
-  CountryModel _bzCountry;
-  CityModel _bzCity;
+  // BzModel _bzModel;
+  // CountryModel _bzCountry;
+  // CityModel _bzCity;
   // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -78,28 +73,26 @@ class _BzCardScreenState extends State<BzCardScreen> {
             bzID: widget.bzID,
         );
 
-        CountryModel _country;
-        CityModel _city;
+        // CountryModel _country;
+        // CityModel _city;
 
         if (_bz != null) {
-          _country = await _zoneProvider.fetchCountryByID(
-              context: context,
-              countryID: _bz.zone.countryID,
-          );
 
-          _city = await _zoneProvider.fetchCityByID(
-              context: context,
-              cityID: _bz.zone.cityID,
-          );
+          // _country = await _zoneProvider.fetchCountryByID(
+          //     context: context,
+          //     countryID: _bz.zone.countryID,
+          // );
+
+          // _city = await _zoneProvider.fetchCityByID(
+          //     context: context,
+          //     cityID: _bz.zone.cityID,
+          // );
 
         }
 
-        unawaited(_triggerLoading(function: () {
-          _bzModel = _bz;
-          _bzCountry = _country;
-          _bzCity = _city;
-        }));
-      });
+
+      }
+      );
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -115,16 +108,16 @@ class _BzCardScreenState extends State<BzCardScreen> {
 
     const double flyerSizeFactor = 0.8;
 
-    final double _flyerBoxWidth = OldFlyerBox.width(context, flyerSizeFactor);
+    final double _flyerBoxWidth = FlyerBox.width(context, flyerSizeFactor);
 
-    final SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
-      bzModel: _bzModel,
-      onHeaderTap: () {
-        blog('onHeader tap in h 1 bz card screen');
-      },
-      bzCountry: _bzCountry,
-      bzCity: _bzCity,
-    );
+    // final SuperFlyer _superFlyer = SuperFlyer.getSuperFlyerFromBzModelOnly(
+    //   bzModel: _bzModel,
+    //   onHeaderTap: () {
+    //     blog('onHeader tap in h 1 bz card screen');
+    //   },
+    //   bzCountry: _bzCountry,
+    //   bzCity: _bzCity,
+    // );
 
     return MainLayout(
       pyramidsAreOn: true,
@@ -157,17 +150,17 @@ class _BzCardScreenState extends State<BzCardScreen> {
       //   ),
       // ),
 
-      layoutWidget: OldFlyerBox(
+      layoutWidget: FlyerBox(
         flyerBoxWidth: _flyerBoxWidth,
-        superFlyer: _superFlyer,
-        onFlyerZoneTap: () {
-          blog('tapping flyer zone in h 1 bz card screen ');
-        },
         stackWidgets: <Widget>[
-          OldFlyerHeader(
-            superFlyer: _superFlyer,
-            flyerBoxWidth: widget.flyerBoxWidth,
-          ),
+          // FlyerHeader(
+          //   superFlyer: _superFlyer,
+          //
+          //   flyerBoxWidth: widget.flyerBoxWidth,
+          // ),
+
+          Container(),
+
         ],
       ),
     );
