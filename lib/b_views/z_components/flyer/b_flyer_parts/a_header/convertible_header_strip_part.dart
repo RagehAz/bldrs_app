@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_and_call_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_labels_part.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_labels_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_left_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_middle_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_right_spacer_part.dart';
@@ -103,7 +103,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
         ),
 
         /// HEADER LABELS
-        HeaderLabelsPart(
+        HeaderLabelsTree(
           key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderLabelsPart'),
           headerLabelsWidthTween: headerLabelsWidthTween,
           logoMinWidth: logoMinWidth,
