@@ -169,7 +169,7 @@ class QuestionModel {
 
     return QuestionModel(
       id: questionID,
-      ownerID: 'userID',
+      ownerID: 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2',
       body: 'This is a dummy question baby,, are you okey ? \n Lorum Ipsum gowa loa7 Gypsum',
       directedTo: BzType.developer,
       time: Timers.createDateAndClock(year: 1987, month: 06, day: 10, hour: 12, minute: 05),

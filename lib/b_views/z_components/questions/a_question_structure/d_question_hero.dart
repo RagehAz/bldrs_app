@@ -1,8 +1,5 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/e_question_tree.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
@@ -14,6 +11,7 @@ class QuestionHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const QuestionHero({
     @required this.questionModel,
+    @required this.userModel,
     @required this.isFullScreen,
     @required this.minWidthFactor,
     @required this.heroTag,
@@ -21,6 +19,7 @@ class QuestionHero extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final QuestionModel questionModel;
+  final UserModel userModel;
   final bool isFullScreen;
   final double minWidthFactor;
   final String heroTag;
@@ -50,6 +49,7 @@ class QuestionHero extends StatelessWidget {
 
         return questionFlightShuttle(
           questionModel: questionModel,
+          userModel: userModel,
           minWidthFactor: minWidthFactor,
           animation: animation,
           flightContext: flightContext,
@@ -65,6 +65,7 @@ class QuestionHero extends StatelessWidget {
         questionModel: questionModel,
         heroTag: _heroTag,
         flightDirection: FlightDirection.non,
+        userModel: userModel,
       ),
 
     );
