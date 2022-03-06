@@ -1,19 +1,14 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/c_question_full_screen.dart';
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/d_question_hero.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class QuestionStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -44,20 +39,9 @@ class _QuestionStarterState extends State<QuestionStarter> {
     blogLoading(loading: _loading.value);
   }
 // -----------------------------------------------------------------------------
-//   /// --- FLYER BZ MODEL
-//   final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null);
-// -----------------------------------------------------------------------------
-//   /// FLYER BZ ZONE
-//   final ValueNotifier<ZoneModel> _bzZoneNotifier = ValueNotifier(null);
-// -----------------------------------------------------------------------------
-//   /// FLYER ZONE
-//   final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null);
-// -----------------------------------------------------------------------------
   QuestionModel _questionModel;
+  UserModel _userModel;
 // -----------------------------------------------------------------------------
-//   /// CURRENT SLIDE INDEX
-//   ValueNotifier<int> _currentSlideIndex;
-
   @override
   void initState() {
     _questionModel = widget.questionModel;
@@ -71,63 +55,12 @@ class _QuestionStarterState extends State<QuestionStarter> {
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
-//         /// BZ MODEL
-//         final BzModel _bzModel = await getFlyerBzModel(
-//           context: context,
-//           flyerModel: _questionModel,
-//         );
-// ------------------------------------------
-//         /// BZ ZONE
-//         final CountryModel _bzCountry = await getFlyerBzCountry(
-//           context: context,
-//           countryID: _bzModel?.zone?.countryID,
-//         );
-//         final CityModel _bzCity = await getFlyerBzCity(
-//           context: context,
-//           cityID: _bzModel?.zone?.cityID,
-//         );
-// -----------------------------------------------------------------
-//         /// FLYER ZONE
-//         final CountryModel _flyerCountry = await getFlyerBzCountry(
-//           context: context,
-//           countryID: widget.flyerModel.zone.countryID,
-//         );
-//         final CityModel _flyerCity = await getFlyerBzCity(
-//           context: context,
-//           cityID: widget.flyerModel.zone.cityID,
-//         );
-// -----------------------------------------------------------------
-//         /// STARTING INDEX
-//         final int _startingIndex = getPossibleStartingIndex(
-//           flyerModel: widget.flyerModel,
-//           bzModel: _bzModel,
-//           heroTag: widget.heroTag,
-//           startFromIndex: widget.startFromIndex,
-//         );
-
-        // blog('POSSIBLE STARTING INDEX IS for ${widget.flyerModel.id}: $_startingIndex');
-
-// -----------------------------------------------------------------
-
-
-        /// SETTERS
-
-        // _bzModelNotifier.value = _bzModel;
-        // _bzZoneNotifier.value = getZoneModel(
-        //   context: context,
-        //   countryModel: _bzCountry,
-        //   cityModel: _bzCity,
-        //   districtID: _bzModel.zone.districtID,
-        // );
-
-        // _flyerZoneNotifier.value = getZoneModel(
-        //   context: context,
-        //   countryModel: _flyerCountry,
-        //   cityModel: _flyerCity,
-        //   districtID: widget.flyerModel.zone.districtID,
-        // );
-
-        // _currentSlideIndex = ValueNotifier(_startingIndex);
+        /// USER MODEL
+        final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+        _userModel = await _usersProvider.fetchUserByID(
+            context: context,
+            userID: _questionModel.ownerID,
+        );
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
 
@@ -154,6 +87,7 @@ class _QuestionStarterState extends State<QuestionStarter> {
         QuestionFullScreen(
           key: const ValueKey<String>('Flyer_Full_Screen'),
           questionModel: _questionModel,
+          userModel: _userModel,
           minWidthFactor: widget.minWidthFactor,
           heroTag: widget.heroTag,
         )
@@ -181,8 +115,9 @@ class _QuestionStarterState extends State<QuestionStarter> {
             return GestureDetector(
               onTap: _openFullScreenFlyer,
               child: QuestionHero(
-                key: const ValueKey<String>('Flyer_hero'),
+                key: const ValueKey<String>('Question_hero'),
                 questionModel: _questionModel,
+                userModel: _userModel,
                 minWidthFactor: widget.minWidthFactor,
                 isFullScreen: widget.isFullScreen,
                 heroTag: widget.heroTag,
