@@ -77,7 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
       await ChatOps.createChatOps(
         context: context,
         chatModel: _chatModel,
-        questionID: widget.question.questionID,
+        questionID: widget.question.id,
       );
 
       _msgController.clear();
@@ -105,7 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ],
       layoutWidget: chatStreamBuilder(
           context: context,
-          questionID: widget.question.questionID,
+          questionID: widget.question.id,
           bzID: widget.bzID,
           builder: (BuildContext xxx, ChatModel chatModel) {
             return Column(
