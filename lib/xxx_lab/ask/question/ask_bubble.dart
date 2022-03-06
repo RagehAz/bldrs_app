@@ -150,7 +150,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
     else {
       final QuestionModel _question = QuestionModel(
-        questionID: 'mafeesh id',
+        id: 'mafeesh id',
         body: _bodyController.text,
         pics: _questionPics,
         time: DateTime.now(),

@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -121,11 +122,11 @@ class NavBar extends StatelessWidget {
     int _numberOfButtons;
 
     if (FireAuthOps.userIsSignedIn() == false) {
-      _numberOfButtons = 1;
-    } else if (UserModel.userIsAuthor(userModel)) {
-      _numberOfButtons = 3;
-    } else {
       _numberOfButtons = 2;
+    } else if (UserModel.userIsAuthor(userModel)) {
+      _numberOfButtons = 4;
+    } else {
+      _numberOfButtons = 3;
     }
 
     return _numberOfButtons;
@@ -424,21 +425,21 @@ class NavBar extends StatelessWidget {
                               Nav.goToRoute(context, Routez.savedFlyers),
                         ),
 
-                      // _spacer,
-                      //
-                      // /// MORE
-                      // BarButton(
-                      //   width: navBarButtonWidth,
-                      //   text: Wordz.more(context),
-                      //   icon: Iconz.more,
-                      //   iconSizeFactor: 0.45,
-                      //   barType: barType,
-                      //   onTap: () {
-                      //     blog('fish');
-                      //     Nav.goToNewScreen(
-                      //         context, MoreScreen(userModel: _myUserModel));
-                      //   },
-                      // ),
+                      _spacer,
+
+                      /// MORE
+                      BarButton(
+                        width: navBarButtonWidth,
+                        text: Wordz.question(context),
+                        icon: Iconz.utPlanning,
+                        iconSizeFactor: 0.45,
+                        barType: barType,
+                        onTap: () {
+                          blog('fish');
+                          Nav.goToNewScreen(
+                              context, const QScreen());
+                        },
+                      ),
 
                       _spacer,
 

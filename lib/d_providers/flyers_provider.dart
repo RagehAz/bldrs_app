@@ -184,7 +184,10 @@ class FlyersProvider extends ChangeNotifier {
     return _ankhIsOn;
   }
 // -------------------------------------
-  Future<void> saveOrUnSaveFlyer({@required BuildContext context, @required FlyerModel inputFlyer,}) async {
+  Future<void> saveOrUnSaveFlyer({
+    @required BuildContext context,
+    @required FlyerModel inputFlyer,
+  }) async {
 
     final FlyerModel _savedFlyer =
     _savedFlyers.singleWhere((FlyerModel tf) => tf.id == inputFlyer.id, orElse: ()=> null);
@@ -312,7 +315,7 @@ class FlyersProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -------------------------------------
-  void _setLastWallFlyer(List<FlyerModel> flyers){
+  void _setLastWallFlyer(List<FlyerModel> flyers) {
 
     if (Mapper.canLoopList(flyers)){
 

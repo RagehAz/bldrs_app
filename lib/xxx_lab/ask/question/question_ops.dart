@@ -136,7 +136,7 @@ class QuestionOps {
       await Fire.updateDoc(
         context: context,
         collName: FireColl.questions,
-        docName: updatedQuestion.questionID,
+        docName: updatedQuestion.id,
         input: updatedQuestion.toMap(),
       );
     }
@@ -153,7 +153,7 @@ class QuestionOps {
     await Fire.deleteDoc(
       context: context,
       collName: FireColl.questions,
-      docName: question.questionID,
+      docName: question.id,
     );
 
   }
