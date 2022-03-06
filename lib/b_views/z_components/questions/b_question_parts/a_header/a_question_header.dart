@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_fol
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/b_convertible_question_header_strip_part.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
@@ -129,11 +130,13 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
     /// HEADER CORNERS
 
     //--------------------------------o
-    final BorderRadius _headerMinCorners = FlyerBox.superHeaderCorners(
-      context: context,
-      bzPageIsOn: false,
-      flyerBoxWidth: widget.flyerBoxWidth,
+    final double _minHeaderHeight = FlyerBox.headerBoxHeight(
+        flyerBoxWidth: widget.flyerBoxWidth
     );
+    //--------------------------------o
+    final double _headerMinCornersValue = _minHeaderHeight * 0.5;
+    //--------------------------------o
+    final BorderRadius _headerMinCorners = superBorderAll(context, _headerMinCornersValue);
     //--------------------------------o
     _headerCornerTween
       ..begin = _headerMinCorners
@@ -196,10 +199,6 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
 
     /// HEADER HEIGHT
 
-    //--------------------------------o
-    final double _minHeaderHeight = FlyerBox.headerBoxHeight(
-        flyerBoxWidth: widget.flyerBoxWidth
-    );
     //--------------------------------o
     _headerHeightTween = Tween<double>(
       begin: _minHeaderHeight,

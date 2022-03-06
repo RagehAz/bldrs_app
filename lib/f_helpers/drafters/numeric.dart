@@ -129,11 +129,12 @@ int createRandomIndex({int listLength}) {
 // -----------------------------------------------------------------------------
 int createUniqueIndex({
   @required List<int> existingIndexes,
-  int maxIndex = 999999
+  int maxIndex = 999999,
 }) {
+
   final math.Random _random = math.Random();
 
-  /// from 0 up to 999'999 included
+  /// from 0 up to 999'999 included if max index is not defined
   int _randomNumber = _random.nextInt(maxIndex + 1);
 
   // blog('random number is : $_randomNumber');
@@ -141,7 +142,9 @@ int createUniqueIndex({
   if (Mapper.canLoopList(existingIndexes)) {
     if (existingIndexes.contains(_randomNumber)) {
       _randomNumber = createUniqueIndex(
-          existingIndexes: existingIndexes, maxIndex: maxIndex);
+          existingIndexes: existingIndexes,
+          maxIndex: maxIndex
+      );
     }
   }
 
