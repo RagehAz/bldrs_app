@@ -70,8 +70,8 @@ void main() {
     bool _allLoopsAreGood;
 
     for (int i = 0; i <= 1000; i++) {
-      final int _uniqueVal =
-          Numeric.createUniqueIndex(existingIndexes: _numbers);
+
+      final int _uniqueVal = Numeric.createUniqueIndex(existingIndexes: _numbers);
 
       if (_numbers.contains(_uniqueVal)) {
         _allLoopsAreGood = false;

@@ -4,11 +4,12 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_and_call_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_labels_part.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_labels_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_left_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_middle_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_right_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_header_strip_box_part.dart';
+import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/c_question_header_labels_tree.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +76,7 @@ class ConvertibleQuestionHeaderStripPart extends StatelessWidget {
         /// LOGO
         UserBalloon(
           key: const ValueKey<String>('ConvertibleHeaderStripPart_UserBalloon'),
-          balloonWidth: logoMinWidth * logoSizeRatioTween.value,
+          balloonWidth: minHeaderHeight * logoSizeRatioTween.value,
           userModel: userModel,
           loading: false,
           shadowIsOn: false,
@@ -91,17 +92,16 @@ class ConvertibleQuestionHeaderStripPart extends StatelessWidget {
         ),
 
         /// HEADER LABELS
-        HeaderLabelsPart(
+        QuestionHeaderLabelsTree(
           key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderLabelsPart'),
           headerLabelsWidthTween: headerLabelsWidthTween,
           logoMinWidth: logoMinWidth,
           logoSizeRatioTween: logoSizeRatioTween,
           flyerBoxWidth: flyerBoxWidth,
-          flyerModel: FlyerModel.dummyFlyer(),
-          bzModel: BzModel.dummyBz('fuck you'),
-          bzZone: ZoneModel.dummyZone(),
           tinyMode: tinyMode,
           headerIsExpanded: headerIsExpanded,
+          userModel: userModel,
+          questionModel: questionModel,
         ),
 
         /// FOLLOW AND CALL
