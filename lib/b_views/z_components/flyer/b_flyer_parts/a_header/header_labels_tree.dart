@@ -5,9 +5,9 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_l
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class HeaderLabelsPart extends StatelessWidget {
+class HeaderLabelsTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const HeaderLabelsPart({
+  const HeaderLabelsTree({
     @required this.headerLabelsWidthTween,
     @required this.logoMinWidth,
     @required this.logoSizeRatioTween,
