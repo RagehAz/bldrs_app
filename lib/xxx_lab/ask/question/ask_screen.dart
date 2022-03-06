@@ -6,7 +6,6 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/xxx_lab/ask/enum_lister/enum_lister.dart';
-import 'package:bldrs/xxx_lab/ask/quest/quests_screen.dart';
 import 'package:bldrs/xxx_lab/ask/question/ask_bubble.dart';
 import 'package:flutter/material.dart';
 
@@ -89,13 +88,6 @@ class _OldAskScreenState extends State<OldAskScreen> {
                     width: 200,
                     verse: 'tap me',
                     onTap: () => _openEnumLister(bzTypesMap),
-                  ),
-
-                  DreamBox(
-                    height: 80,
-                    width: Scale.superScreenWidth(context),
-                    verse: 'Go to Questions Screen',
-                    onTap: () => Nav.goToNewScreen(context, const QuesScreen()),
                   ),
 
                   const Horizon(),

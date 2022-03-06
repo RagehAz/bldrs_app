@@ -41,7 +41,6 @@ class SavedFlyersScreenView extends StatelessWidget {
     return _isSelected;
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 

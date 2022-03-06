@@ -29,11 +29,6 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
   void initState() {
     _flyersGridScrollController = ScrollController();
     _sliverNestedScrollController = ScrollController();
-
-    // _flyersGridScrollController.addListener(() {
-    //   _sliverNestedScrollController.position.correctPixels(_flyersGridScrollController.position.pixels);
-    // });
-
     super.initState();
   }
 // -----------------------------------------------------------------------------

@@ -5,12 +5,11 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
 class QuestionModel {
   /// --------------------------------------------------------------------------
   QuestionModel({
-    @required this.questionID,
+    @required this.id,
     @required this.ownerID,
     @required this.body,
     @required this.directedTo,
@@ -28,7 +27,7 @@ class QuestionModel {
     @required this.redirectCount,
   });
   /// --------------------------------------------------------------------------
-  final String questionID;
+  final String id;
   final String ownerID;
   final BzType directedTo;
   final DateTime time;
@@ -47,7 +46,7 @@ class QuestionModel {
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({bool toJSON = false}) {
     return <String, dynamic>{
-      'questionID': questionID,
+      'id': id,
       'userID': ownerID,
       'directedTo': BzModel.cipherBzType(directedTo),
       'askTime': Timers.cipherTime(time: time, toJSON: toJSON),
@@ -75,7 +74,7 @@ class QuestionModel {
 
     if (map != null) {
       _question = QuestionModel(
-        questionID: map['askID'],
+        id: map['askID'],
         ownerID: map['userID'],
         body: map['body'],
         directedTo: BzModel.decipherBzType(map['directedTo']),
@@ -106,7 +105,7 @@ class QuestionModel {
 
     if (Mapper.canLoopList(picsURLS)) {
       _question = QuestionModel(
-        questionID: question.questionID,
+        id: question.id,
         ownerID: question.ownerID,
         body: question.body,
         directedTo: question.directedTo,
@@ -143,7 +142,7 @@ class QuestionModel {
         Imagers.picturesURLsAreTheSame(
                 urlsA: originalQuestion.pics, urlsB: updateQuestion.pics) ==
             true &&
-        originalQuestion.questionID == updateQuestion.questionID &&
+        originalQuestion.id == updateQuestion.id &&
         originalQuestion.body == updateQuestion.body &&
         originalQuestion.title == updateQuestion.title &&
         originalQuestion.ownerID == updateQuestion.ownerID &&
@@ -163,13 +162,16 @@ class QuestionModel {
     return _questionIsUpdated;
   }
 // -----------------------------------------------------------------------------
-  static QuestionModel dummyQuestion(BuildContext context){
+  static QuestionModel dummyQuestion({
+    @required BuildContext context,
+    @required String questionID,
+  }){
 
     return QuestionModel(
-      questionID: 'questionID',
+      id: questionID,
       ownerID: 'userID',
       body: 'This is a dummy question baby,, are you okey ? \n Lorum Ipsum gowa loa7 Gypsum',
-      directedTo: BzType.contractor,
+      directedTo: BzType.developer,
       time: Timers.createDateAndClock(year: 1987, month: 06, day: 10, hour: 12, minute: 05),
       keywords: KW.dummyKeywords(context: context),
       pics: <String>[
@@ -192,4 +194,31 @@ class QuestionModel {
 
   }
 // -----------------------------------------------------------------------------
+  static List<QuestionModel> filterQuestionsByBzType({
+    List<QuestionModel> questions,
+    BzType bzType,
+  }){
+
+    List<QuestionModel> _filteredQuestions = <QuestionModel>[];
+
+    if(Mapper.canLoopList(questions)){
+
+      if (bzType == null){
+        _filteredQuestions = questions;
+      }
+
+      else {
+        for (final QuestionModel question in questions){
+          if (question.directedTo == bzType){
+            _filteredQuestions.add(question);
+          }
+        }
+      }
+
+    }
+
+    return _filteredQuestions;
+  }
+// -----------------------------------------------------------------------------
+
 }

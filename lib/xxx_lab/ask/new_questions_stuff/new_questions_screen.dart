@@ -18,7 +18,10 @@ class NewQuestionsHome extends StatelessWidget {
 
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _currentUserModel = _usersProvider.myUserModel;
-    final QuestionModel _questionModel = QuestionModel.dummyQuestion(context);
+    final QuestionModel _questionModel = QuestionModel.dummyQuestion(
+      context: context,
+      questionID: 'randomThing',
+    );
 
     return MainLayout(
       pyramidsAreOn: true,
