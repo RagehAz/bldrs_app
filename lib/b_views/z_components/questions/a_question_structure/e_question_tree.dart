@@ -1,24 +1,13 @@
 import 'dart:async';
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/a_flyer_footer.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_slides.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
+import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/a_question_header.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
-import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +16,7 @@ class QuestionTree extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const QuestionTree({
     @required this.questionModel,
+    @required this.userModel,
     @required this.flyerBoxWidth,
     @required this.flightDirection,
     this.onTap,
@@ -36,6 +26,7 @@ class QuestionTree extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final QuestionModel questionModel;
+  final UserModel userModel;
   final double flyerBoxWidth;
   final FlightDirection flightDirection;
   final Function onTap;
@@ -140,7 +131,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
 // -----------------------------------------------------------------------------
   void _listenToHorizontalController(){
 
-    final int _numberOfSlide = 1;
+    const int _numberOfSlide = 1;
     final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
 
     final bool _reachedGallerySlide = _horizontalSlidesController.page > _numberOfSlide;
@@ -327,24 +318,20 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
         //     flightDirection: widget.flightDirection,
         //   ),
 
-        // /// HEADER
-        // FlyerHeader(
-        //   key: const ValueKey<String>('FlyerTree_FlyerHeader'),
-        //   flyerBoxWidth: widget.flyerBoxWidth,
-        //   flyerModel: widget.flyerModel,
-        //   bzModel: widget.bzModel,
-        //   bzZone: widget.bzZone,
-        //   flyerZone: widget.flyerZone,
-        //   onHeaderTap: _onHeaderTap,
-        //   onFollowTap: _onFollowTap,
-        //   onCallTap: _onCallTap,
-        //   headerAnimationController: _headerAnimationController,
-        //   headerScrollController: _headerScrollController,
-        //   tinyMode: _tinyMode,
-        //   headerIsExpanded: _headerIsExpanded,
-        //   followIsOn: _followIsOn,
-        //   headerPageOpacity: _headerPageOpacity,
-        // ),
+        /// HEADER
+        QuestionHeader(
+          key: const ValueKey<String>('FlyerTree_FlyerHeader'),
+          flyerBoxWidth: widget.flyerBoxWidth,
+          onHeaderTap: _onHeaderTap,
+          headerAnimationController: _headerAnimationController,
+          headerScrollController: _headerScrollController,
+          tinyMode: _tinyMode,
+          headerIsExpanded: _headerIsExpanded,
+          followIsOn: _followIsOn,
+          headerPageOpacity: _headerPageOpacity,
+          questionModel: widget.questionModel,
+          userModel: widget.userModel,
+        ),
 
         /// FOOTER
         // FlyerFooter(
