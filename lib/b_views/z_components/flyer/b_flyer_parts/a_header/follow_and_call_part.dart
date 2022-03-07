@@ -13,6 +13,7 @@ class FollowAndCallPart extends StatelessWidget {
     @required this.onCallTap,
     @required this.onFollowTap,
     @required this.logoMinWidth,
+    this.showButtons = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +25,7 @@ class FollowAndCallPart extends StatelessWidget {
   final Function onCallTap;
   final Function onFollowTap;
   final double logoMinWidth;
+  final bool showButtons;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class FollowAndCallPart extends StatelessWidget {
         height: logoMinWidth * logoSizeRatioTween.value,
         alignment: Alignment.topCenter,
         // color: Colorz.BloodTest,
-        child: tinyMode == true ?
+        child: tinyMode == true || showButtons == false?
 
         Container()
             :
