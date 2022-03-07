@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_name_below_logo_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_follow_and_call_bts.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/b_convertible_question_header_strip_part.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -224,12 +224,14 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
     return AnimatedBuilder(
       key: const ValueKey<String>('FlyerHeader_AnimationBuilder'),
       animation: widget.headerAnimationController.view,
-      child: XButtonPart(
-        key: const ValueKey<String>('FlyerHeader_XButtonPart'),
-        headerBorders: _headerMinCorners,
-        onHeaderTap: widget.onHeaderTap,
-        headerIsExpanded: widget.headerIsExpanded,
-      ),
+      child:
+          Container(),
+      // XButtonPart(
+      //   key: const ValueKey<String>('FlyerHeader_XButtonPart'),
+      //   headerBorders: _headerMinCorners,
+      //   onHeaderTap: widget.onHeaderTap,
+      //   headerIsExpanded: widget.headerIsExpanded,
+      // ),
       builder: (_, Widget child) {
 
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
@@ -277,15 +279,15 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
                   userModel: widget.userModel,
                 ),
 
-                // /// BZ NAME BELOW LOGO
-                // // if (_activeFlyerID == widget.flyerModel.id)
-                // BzNameBelowLogoPart(
-                //   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
-                //   flyerBoxWidth: widget.flyerBoxWidth,
-                //   bzModel: widget.bzModel,
-                //   bzZone: widget.bzZone,
-                //   headerIsExpanded: widget.headerIsExpanded,
-                // ),
+                /// BZ NAME BELOW LOGO
+                // if (_activeFlyerID == widget.flyerModel.id)
+                LinesBelowLogoPart(
+                  key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
+                  flyerBoxWidth: widget.flyerBoxWidth,
+                  firstLine: widget.userModel.name,
+                  secondLine: UserModel.userJobLine(widget.userModel),
+                  headerIsExpanded: widget.headerIsExpanded,
+                ),
                 //
                 // /// - BZ INFO PART
                 // // if (_activeFlyerID == widget.flyerModel.id)

@@ -1,24 +1,21 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class BzPageHeadline extends StatelessWidget {
+class MaxHeaderHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BzPageHeadline({
+  const MaxHeaderHeadline({
     @required this.flyerBoxWidth,
     @required this.bzPageIsOn,
-    @required this.bzModel,
-    @required this.bzZone,
+    @required this.firstLine,
+    @required this.secondLine,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool bzPageIsOn;
-  final BzModel bzModel;
-  final ZoneModel bzZone;
+  final String firstLine;
+  final String secondLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,8 @@ class BzPageHeadline extends StatelessWidget {
 
           /// BUSINESS NAME
           SuperVerse(
-            verse: bzModel?.name,
+            verse: firstLine,
+            // verse: bzModel?.name,
             size: 5,
             shadow: true,
             maxLines: 2,
@@ -44,10 +42,11 @@ class BzPageHeadline extends StatelessWidget {
 
           /// BUSINESS LOCALE
           SuperVerse(
-            verse: TextGen.countryStringerByZoneModel(
-              context: context,
-              zone: bzZone,
-            ),
+            verse: secondLine,
+            // verse: TextGen.countryStringerByZoneModel(
+            //   context: context,
+            //   zone: bzZone,
+            // ),
             italic: true,
             weight: VerseWeight.regular,
             color: Colorz.white200,
