@@ -41,7 +41,6 @@ class UserModel {
     @required this.savedFlyersIDs,
     @required this.followedBzzIDs,
   });
-
   /// --------------------------------------------------------------------------
   final String id;
   final AuthBy authBy;
@@ -66,7 +65,6 @@ class UserModel {
   final FCMToken fcmToken;
   final List<String> savedFlyersIDs;
   final List<String> followedBzzIDs;
-
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
     return <String, dynamic>{
@@ -94,9 +92,11 @@ class UserModel {
     };
   }
 
-// -----------------------------------------------------------------------------
-  static UserModel decipherUserMap(
-      {@required Map<String, dynamic> map, @required bool fromJSON}) {
+// ----------------------------------------------------------------------------
+  static UserModel decipherUserMap({
+    @required Map<String, dynamic> map,
+    @required bool fromJSON,
+  }) {
     return map == null
         ? null
         : UserModel(
@@ -129,10 +129,11 @@ class UserModel {
                 Mapper.getStringsFromDynamics(dynamics: map['followedBzzIDs']),
           );
   }
-
 // -----------------------------------------------------------------------------
-  static List<UserModel> decipherUsersMaps(
-      {@required List<Map<String, dynamic>> maps, @required bool fromJSON}) {
+  static List<UserModel> decipherUsersMaps({
+    @required List<Map<String, dynamic>> maps,
+    @required bool fromJSON,
+  }) {
     final List<UserModel> _users = <UserModel>[];
 
     if (Mapper.canLoopList(maps)) {
@@ -142,7 +143,6 @@ class UserModel {
     }
     return _users;
   }
-
 // -----------------------------------------------------------------------------
   static UserStatus decipherUserStatus(String status) {
     switch (status) {
@@ -174,7 +174,6 @@ class UserModel {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static String cipherUserStatus(UserStatus status) {
     switch (status) {
@@ -206,7 +205,6 @@ class UserModel {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static Gender decipherGender(String gender) {
     switch (gender) {
@@ -223,7 +221,6 @@ class UserModel {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static String cipherGender(Gender gender) {
     switch (gender) {
@@ -240,7 +237,6 @@ class UserModel {
         return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static AuthBy decipherAuthBy(String authBy) {
     switch (authBy) {
@@ -251,7 +247,6 @@ class UserModel {
       default: return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   static String cipherAuthBy(AuthBy authBy) {
     switch (authBy) {
@@ -272,7 +267,6 @@ class UserModel {
 
     return _userIsAuthor;
   }
-
 // -----------------------------------------------------------------------------
   static const List<UserStatus> userTypesList = <UserStatus>[
     UserStatus.normal,
@@ -295,7 +289,6 @@ class UserModel {
       return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   /// create user object based on firebase user
   static UserModel initializeUserModelStreamFromUser() {
@@ -328,7 +321,6 @@ class UserModel {
             followedBzzIDs: <String>[],
           );
   }
-
 // -----------------------------------------------------------------------------
   static Future<UserModel> createInitialUserModelFromUser({
     BuildContext context,
@@ -373,7 +365,6 @@ class UserModel {
 
     return _userModel;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> missingFields(UserModel userModel) {
     final List<String> _missingFields = <String>[];
@@ -405,7 +396,6 @@ class UserModel {
 
     return _missingFields;
   }
-
 // -----------------------------------------------------------------------------
   void printUserModel({String methodName = 'PRINTING USER MODEL'}) {
     blog('$methodName : ---------------- START -- ');
@@ -429,7 +419,6 @@ class UserModel {
 
     blog('$methodName : ---------------- END -- ');
   }
-
 // -----------------------------------------------------------------------------
   static Future<UserModel> futureDummyUserModel(BuildContext context) async {
     final UserModel _user = await UserFireOps.readUser(
@@ -518,6 +507,10 @@ class UserModel {
     }
 
     return _users;
+  }
+// -----------------------------------------------------------------------------
+  static String userJobLine(UserModel userModel){
+    return '${userModel.title} @ ${userModel.company}';
   }
 // -----------------------------------------------------------------------------
 }

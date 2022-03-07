@@ -1,10 +1,6 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_and_call_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_labels_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_left_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_middle_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_right_spacer_part.dart';
@@ -115,6 +111,7 @@ class ConvertibleQuestionHeaderStripPart extends StatelessWidget {
           onCallTap: null,
           onFollowTap: null,
           logoMinWidth: logoMinWidth,
+          showButtons: false,
         ),
 
         /// HEADER RIGHT SPACER

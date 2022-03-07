@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 
 class FlyerHeader extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -298,11 +299,14 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
                 /// BZ NAME BELOW LOGO
                 // if (_activeFlyerID == widget.flyerModel.id)
-                BzNameBelowLogoPart(
+                LinesBelowLogoPart(
                   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
-                  bzModel: widget.bzModel,
-                  bzZone: widget.bzZone,
+                  firstLine: widget.bzModel.name,
+                  secondLine: TextGen.countryStringerByZoneModel(
+                    context: context,
+                    zone: widget.bzZone,
+                  ),
                   headerIsExpanded: widget.headerIsExpanded,
                 ),
 
