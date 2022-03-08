@@ -155,7 +155,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         pics: _questionPics,
         time: DateTime.now(),
         keywords: _keywords,
-        title: _titleController.text,
+        headline: _titleController.text,
         ownerID: FireAuthOps.superUserID(),
         questionIsOpen: true,
         directedTo: _questionDirectedTo,
