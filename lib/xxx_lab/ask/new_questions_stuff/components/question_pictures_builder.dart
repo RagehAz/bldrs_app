@@ -7,20 +7,21 @@ class QuestionPicturesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const QuestionPicturesBuilder({
     @required this.questionModel,
+    @required this.height,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final QuestionModel questionModel;
+  final double height;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _bubbleClearWidth = Bubble.clearWidth(context);
-    const double _height = 200;
 
     return SizedBox(
       width: _bubbleClearWidth,
-      height: _height,
+      height: height,
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
@@ -29,7 +30,7 @@ class QuestionPicturesBuilder extends StatelessWidget {
 
             return QuestionPictureThumbnail(
                 picture: questionModel.pics[index],
-                picHeight: _height,
+                picHeight: height,
             );
 
           }
