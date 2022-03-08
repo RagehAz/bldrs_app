@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_page_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
@@ -20,7 +19,6 @@ class ReviewPageTree extends StatelessWidget {
     @required this.onSubmitReview,
     @required this.reviewTextController,
     @required this.onShowReviewOptions,
-    @required this.flyerModel,
     @required this.onReviewButtonTap,
     Key key
   }) : super(key: key);
@@ -35,7 +33,6 @@ class ReviewPageTree extends StatelessWidget {
   final Function onSubmitReview;
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;
-  final FlyerModel flyerModel;
   final Function onReviewButtonTap;
 
   /// --------------------------------------------------------------------------
