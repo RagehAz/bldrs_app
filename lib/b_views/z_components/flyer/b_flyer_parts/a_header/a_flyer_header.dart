@@ -110,25 +110,9 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-//   int _builds = 0;
-//   _traceBuilds(){
-//     _builds ++;
-//     // blog('Builds are : $_builds for flyer : ${widget.flyerModel.id}');
-//   }
 
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-//     final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: _listenToActiveFlyerProvider);
-//     final int _currentSlideIndex = _activeFlyerProvider.currentSlideIndex;
-//     final bool _headerIsExpanded = _activeFlyerProvider.headerIsExpanded;
-//     final CountryModel _bzCountry = _activeFlyerProvider.activeFlyerBzCountry;
-//     final CityModel _bzCity = _activeFlyerProvider.activeFlyerBzCity;
-//     final bool _followIsOn = _activeFlyerProvider.followIsOn;
-//     final String _activeFlyerID = _activeFlyerProvider.activeFlyerID;
-    // final int _progressBarOpacity = _activeFlyerProvider.progressBarOpacity;
-
-    // _traceBuilds();
 // -----------------------------------------------------------------------------
 
     /// BACK GROUND COLOR
@@ -298,7 +282,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 ),
 
                 /// BZ NAME BELOW LOGO
-                // if (_activeFlyerID == widget.flyerModel.id)
                 LinesBelowLogoPart(
                   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
@@ -311,7 +294,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 ),
 
                 /// - BZ INFO PART
-                // if (_activeFlyerID == widget.flyerModel.id)
                 BzInfoPart(
                   key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
@@ -322,15 +304,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
               ],
             ),
-
-            // ValueListenableBuilder<bool>(
-            //     valueListenable: widget.headerIsExpanded,
-            //     builder: (_, bool headerIsExpanded, Widget child){
-            //
-            //       return ;
-            //
-            //     }
-            // ),
 
             /// --- CORNER X BUTTON
             child,
