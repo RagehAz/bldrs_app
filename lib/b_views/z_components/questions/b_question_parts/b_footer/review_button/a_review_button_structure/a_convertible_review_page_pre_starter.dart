@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
+import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
 
-class ConvertibleReviewPagePreStarter extends StatelessWidget {
+class QuestionConvertibleReviewPagePreStarter extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ConvertibleReviewPagePreStarter({
+  const QuestionConvertibleReviewPagePreStarter({
     @required this.infoButtonExpanded,
     @required this.canShowConvertibleReviewButton,
     @required this.flyerBoxWidth,
@@ -43,17 +43,17 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
     @required BuildContext context,
     @required double flyerBoxWidth,
     @required bool tinyMode,
-}){
+  }){
     final double _buttonSize = FooterButton.buttonSize(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth,
-        tinyMode: tinyMode,
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
+      tinyMode: tinyMode,
     );
 
     final double _spacing = FooterButton.buttonMargin(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth,
-        tinyMode: tinyMode,
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
+      tinyMode: tinyMode,
     );
 
     return _buttonSize + _spacing;
@@ -79,7 +79,7 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
 
     /// WHEN INFO BUTTON EXPANDS, THE CONVERTIBLE REVIEW BUTTON SHOULD HIDE
     return ValueListenableBuilder(
-      key: const ValueKey<String>('ConvertibleReviewPagePreStarter'),
+      key: const ValueKey<String>('QuestionConvertibleReviewPagePreStarter'),
       valueListenable: infoButtonExpanded,
       builder: (_, bool infoButtonExpanded, Widget reviewPageStarter){
 
@@ -89,11 +89,11 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
               builder: (_, bool canShowConvertibleInfoButton, Widget childB){
 
                 final double _positionFromRight = _getPositionFromRight(
-                    context: context,
+                  context: context,
                 );
 
                 final double _positionFromLeft = _getPositionFromLeft(
-                    context: context,
+                  context: context,
                 );
 
                 if (canShowConvertibleInfoButton == true){
@@ -119,7 +119,7 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
         }
       },
 
-      child: ReviewPageStarter(
+      child: QuestionReviewPageStarter(
         flyerBoxWidth: flyerBoxWidth,
         tinyMode: tinyMode,
         onReviewButtonTap: onReviewButtonTap,
@@ -132,6 +132,7 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
         reviewTextController: reviewTextController,
         onShowReviewOptions: (ReviewModel reviewModel) => onShowReviewOptions(reviewModel),
       ),
+
     );
   }
 }
