@@ -21,7 +21,6 @@ class QuestionFooter extends StatefulWidget {
     @required this.tinyMode,
     @required this.onNiceQuestion,
     @required this.questionIsNice,
-    @required this.footerPageController,
     @required this.headerIsExpanded,
     @required this.inFlight,
     Key key
@@ -32,7 +31,6 @@ class QuestionFooter extends StatefulWidget {
   final bool tinyMode;
   final Function onNiceQuestion;
   final ValueNotifier<bool> questionIsNice;
-  final PageController footerPageController;
   final ValueNotifier<bool> headerIsExpanded;
   final bool inFlight;
 
@@ -129,34 +127,24 @@ class _QuestionFooterState extends State<QuestionFooter> {
   @override
   Widget build(BuildContext context) {
 
-    const InfoButtonType _infoButtonType = InfoButtonType.info;
+    return Positioned(
+      bottom: 0,
+      child: ValueListenableBuilder(
+        valueListenable: widget.headerIsExpanded,
+        builder: (_, bool _headerIsExpanded, Widget child){
 
-    final bool _canShowInfoButton = _canShowInfoButtonChecker(
-        infoButtonType: _infoButtonType
-    );
+          return AnimatedOpacity(
+            opacity: _headerIsExpanded ? 0 : 1,
+            duration: Ratioz.duration150ms,
+            child: child,
+          );
 
-    return ValueListenableBuilder(
-      valueListenable: widget.headerIsExpanded,
-      builder: (_, bool _headerIsExpanded, Widget child){
-
-        return AnimatedOpacity(
-          opacity: _headerIsExpanded ? 0 : 1,
-          duration: Ratioz.duration150ms,
-          child: child,
-        );
-
-      },
-      child: FooterBox(
-        key: const ValueKey<String>('question_footer_box'),
-        flyerBoxWidth: widget.flyerBoxWidth,
-        footerPageController: widget.footerPageController,
-        infoButtonExpanded: _infoButtonExpanded,
-        reviewButtonIsExpanded: _reviewButtonExpanded,
-        tinyMode: widget.tinyMode,
-        footerPageViewChildren: <Widget>[
-
-          /// FOOTER
-          Stack(
+        },
+        child: SizedBox(
+          key: const ValueKey<String>('question_footer_box'),
+          width: widget.flyerBoxWidth,
+          height: FooterBox.collapsedHeight(context: context, flyerBoxWidth: widget.flyerBoxWidth, tinyMode: widget.tinyMode),
+          child: Stack(
             alignment: Alignment.bottomCenter,
             children: <Widget>[
 
@@ -177,7 +165,6 @@ class _QuestionFooterState extends State<QuestionFooter> {
                 onShareFlyer: _onShareQuestion,
                 flyerIsSaved: widget.questionIsNice,
                 inFlight: widget.inFlight,
-                infoButtonType: _infoButtonType,
               ),
 
               // /// INFO BUTTON
@@ -215,11 +202,7 @@ class _QuestionFooterState extends State<QuestionFooter> {
 
             ],
           ),
-
-          /// FAKE PAGE TO SLIDE FOOTER WHEN OUT OF SLIDES EXTENTS
-          const SizedBox(),
-
-        ],
+        ),
       ),
     );
 
