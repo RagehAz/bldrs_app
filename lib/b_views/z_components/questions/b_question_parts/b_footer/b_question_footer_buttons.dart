@@ -53,8 +53,8 @@ class QuestionFooterButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
 
-        if (_canShow == true)
-          _spacer,
+        // if (_canShow == true)
+        //   _spacer,
 
         /// SHARE
         if (_canShow == true)
@@ -101,7 +101,7 @@ class QuestionFooterButtons extends StatelessWidget {
           },
         ),
 
-        _spacer,
+        // _spacer,
 
       ],
     );

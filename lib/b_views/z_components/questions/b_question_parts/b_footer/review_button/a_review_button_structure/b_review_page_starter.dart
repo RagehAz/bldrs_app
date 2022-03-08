@@ -135,7 +135,7 @@ class QuestionReviewPageStarter extends StatelessWidget {
 
     final double _rightEnMargin = _buttonCollapsedSize + (_footerButtonMargin * 2);
 
-    return _rightEnMargin;
+    return _rightEnMargin * 0;
   }
 // --------------------------------
   static double _expandedRightEnMargin({
@@ -374,30 +374,6 @@ class QuestionReviewPageStarter extends StatelessWidget {
     @required double flyerBoxWidth,
     @required bool isExpanded,
   }){
-    // double _marginValue;
-    // if (tinyMode == true){
-    //   _marginValue = _tinyMarginValue(
-    //       context: context,
-    //       flyerBoxWidth: flyerBoxWidth,
-    //   );
-    // }
-    //
-    // else {
-    //
-    //   if (isExpanded == true){
-    //     _marginValue = _expandedMarginValue(
-    //       context: context,
-    //       flyerBoxWidth: flyerBoxWidth,
-    //     );
-    //   }
-    //
-    //   else {
-    //     _marginValue = _collapsedMarginValue(
-    //       context: context,
-    //       flyerBoxWidth: flyerBoxWidth,
-    //     );
-    //   }
-    // }
 
     final double _leftMargin = _leftEnMargin(
       context: context,
@@ -420,8 +396,8 @@ class QuestionReviewPageStarter extends StatelessWidget {
       context: context,
       enBottom: _leftMargin,
       enTop: 0,
-      enRight: isExpanded ? _expandedRightMargin : _collapsedRightMargin,
-      enLeft: _leftMargin,
+      enRight: 0,
+      enLeft: 0,
     );
 
     return _margins;
