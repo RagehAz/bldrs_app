@@ -24,7 +24,7 @@ class QuestionBody extends StatelessWidget {
         children: <Widget>[
 
           SuperVerse(
-            verse: questionModel.title,
+            verse: questionModel.headline,
             size: 4,
             margin: 5,
             maxLines: 3,

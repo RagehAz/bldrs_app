@@ -2,11 +2,14 @@ import 'dart:async';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/f_question_box.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/a_question_header.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_footer/a_question_footer.dart';
+import 'package:bldrs/b_views/z_components/questions/b_question_parts/c_question_body/a_question_body.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
@@ -275,56 +278,23 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     final double _flyerBoxHeight = FlyerBox.height(context, widget.flyerBoxWidth);
     final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
-    // blog('numberOfSlides : $_numberOfSlides : ')
-
     return QuestionBox(
-      key: const ValueKey<String>('QuestionTree_FlyerBox'),
+      key: const ValueKey<String>('QuestionTree_QuestionBox'),
       boxWidth: widget.flyerBoxWidth,
       boxColor: Colorz.yellow125,
       stackWidgets: <Widget>[
 
-        // SingleSlideBox(
-        //   flyerBoxWidth: widget.flyerBoxWidth,
-        //   flyerBoxHeight: _flyerBoxHeight,
-        //   tinyMode: _tinyMode,
-        //   slideMidColor: Colorz.yellow20,
-        //   children: <Widget>[
-        //
-        //     SuperVerse(
-        //       verse: widget.questionModel.title,
-        //     ),
-        //
-        //     SuperVerse(
-        //       verse: widget.questionModel.body,
-        //     ),
-        //
-        //   ],
-        // ),
-
-        // /// SLIDES
-        // if (widget.currentSlideIndex?.value != null)
-        //   FlyerSlides(
-        //     key: const ValueKey<String>('FlyerTree_FlyerSlides'),
-        //     flyerModel: widget.flyerModel,
-        //     bzModel: widget.bzModel,
-        //     flyerBoxWidth: widget.flyerBoxWidth,
-        //     flyerBoxHeight: _flyerBoxHeight,
-        //     tinyMode: _tinyMode,
-        //     horizontalController: _horizontalSlidesController,
-        //     onSwipeSlide: _onSwipeSlide,
-        //     onSlideBackTap: _onSlideBackTap,
-        //     onSlideNextTap: _onSlideNextTap,
-        //     onDoubleTap: _onSaveFlyer,
-        //     currentSlideIndex: widget.currentSlideIndex,
-        //     heroTag: widget.heroTag,
-        //     canShowGalleryPage : _canShowGallery,
-        //     numberOfSlides: _numberOfSlides,
-        //     flightDirection: widget.flightDirection,
-        //   ),
+        /// BODY
+        QuestionBody(
+          flyerBoxWidth: widget.flyerBoxWidth,
+          flyerBoxHeight: _flyerBoxHeight,
+          tinyMode: _tinyMode,
+          questionModel: widget.questionModel,
+        ),
 
         /// HEADER
         QuestionHeader(
-          key: const ValueKey<String>('FlyerTree_FlyerHeader'),
+          key: const ValueKey<String>('QuestionTree_QuestionHeader'),
           flyerBoxWidth: widget.flyerBoxWidth,
           onHeaderTap: _onHeaderTap,
           headerAnimationController: _headerAnimationController,
@@ -339,7 +309,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
 
         /// FOOTER
         QuestionFooter(
-          key: const ValueKey<String>('FlyerTree_FlyerFooter'),
+          key: const ValueKey<String>('QuestionTree_QuestionFooter'),
           flyerBoxWidth: widget.flyerBoxWidth,
           questionModel: widget.questionModel,
           tinyMode: _tinyMode,
@@ -350,17 +320,17 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
           inFlight: _inFlight(),
         ),
 
-        /// SAVING NOTICE
+        /// NICE NOTICE
         if (_tinyMode != true && widget.flightDirection == FlightDirection.non)
           SavingNotice(
-            key: const ValueKey<String>('SavingNotice'),
+            isStarGraphic: true,
+            key: const ValueKey<String>('NICE_NOTICE'),
             flyerBoxWidth: widget.flyerBoxWidth,
             flyerBoxHeight: _flyerBoxHeight,
             flyerIsSaved: _flyerIsSaved,
             animationController: _animationController,
             graphicIsOn: _graphicIsOn,
             graphicOpacity: _graphicOpacity,
-            isStarGraphic: true,
           ),
 
       ],
