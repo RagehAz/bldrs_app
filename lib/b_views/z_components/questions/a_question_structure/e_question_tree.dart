@@ -52,8 +52,6 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
   ScrollController _headerScrollController;
   /// FOR SLIDES
   PageController _horizontalSlidesController;
-  /// FOR FOOTER
-  PageController _footerPageController;
   /// FOR SAVING GRAPHIC
   AnimationController _animationController;
 // ----------------------------------------------
@@ -72,10 +70,6 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     /// FOR SLIDES
     _horizontalSlidesController = PageController();
     // ------------------------------------------
-    /// FOR FOOTER & PRICE TAG
-    _footerPageController = PageController();
-    _horizontalSlidesController.addListener(_listenToHorizontalController);
-    // ------------------------------------------
     /// FOR SAVING GRAPHIC
     _animationController = AnimationController(
       vsync: this,
@@ -84,10 +78,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     );
     // ------------------------------------------
 
-    blog('FLYER IN FLIGHT : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
-
-
-
+    // blog('FLYER IN FLIGHT : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.flightDirection == FlightDirection.pop && _horizontalSlidesController.hasClients){
@@ -133,32 +124,6 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     _headerAnimationController.dispose();
     _headerScrollController.dispose();
     _animationController.dispose();
-  }
-// -----------------------------------------------------------------------------
-  void _listenToHorizontalController(){
-
-    const int _numberOfSlide = 1;
-    final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
-
-    final bool _reachedGallerySlide = _horizontalSlidesController.page > _numberOfSlide;
-    final bool _atBackBounce = _horizontalSlidesController.position.pixels < 0;
-
-    /// WHEN AT INITIAL SLIDE
-    if (_atBackBounce == true){
-      final double _correctedPixels = _horizontalSlidesController.position.pixels;
-      _footerPageController.position.correctPixels(_correctedPixels);
-      _footerPageController.position.notifyListeners();
-
-    }
-
-    /// WHEN AT LAST REAL SLIDE
-    if (_reachedGallerySlide == true){
-      final double _correctedPixels = _horizontalSlidesController.position.pixels - _totalRealSlidesWidth;
-      _footerPageController.position.correctPixels(_correctedPixels);
-      _footerPageController.position.notifyListeners();
-
-    }
-
   }
 // -----------------------------------------------------------------------------
   /// FOLLOW IS ON
@@ -281,7 +246,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     return QuestionBox(
       key: const ValueKey<String>('QuestionTree_QuestionBox'),
       boxWidth: widget.flyerBoxWidth,
-      boxColor: Colorz.yellow125,
+      boxColor: Colorz.blue80,
       stackWidgets: <Widget>[
 
         /// BODY
@@ -315,7 +280,6 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
           tinyMode: _tinyMode,
           questionIsNice: _flyerIsSaved,
           onNiceQuestion: _onSaveFlyer,
-          footerPageController: _footerPageController,
           headerIsExpanded: _headerIsExpanded,
           inFlight: _inFlight(),
         ),

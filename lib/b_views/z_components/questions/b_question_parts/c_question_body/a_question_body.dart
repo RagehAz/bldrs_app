@@ -1,11 +1,8 @@
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
-import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/a_question_header.dart';
-import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_footer/a_question_footer.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/xxx_lab/ask/new_questions_stuff/components/question_pictures_builder.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 
@@ -53,36 +50,54 @@ class QuestionBody extends StatelessWidget {
             height: _headerHeight,
           ),
 
-          Container(
+          SizedBox(
             width: flyerBoxWidth,
             height: _bodyHeight,
-            color: Colorz.bloodTest,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
 
                 /// HEADLINE
                 Container(
                   width: flyerBoxWidth,
                   height: _bodyHeight * 0.2,
-                  color: Colorz.yellow125,
+                  padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.05),
                   child: SuperVerse(
-                    verse: '${questionModel.id} fuck',
+                    verse: questionModel.headline,
                     maxLines: 3,
+                    scaleFactor: flyerBoxWidth * 0.004,
+                    size: 3,
                   ),
                 ),
 
                 /// QUESTION ITSELF
                 Container(
                   width: flyerBoxWidth,
-                  height: _bodyHeight * 0.5,
-                  color: Colorz.white20,
-                  child: SuperVerse(
-                    verse: questionModel.body,
-                    maxLines: 1000,
+                  height: _bodyHeight * 0.4,
+                  padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.01),
+                  child: ListView(
+                    physics: tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    children: <Widget>[
+
+                      SuperVerse(
+                        verse: questionModel.body,
+                        maxLines: 1000,
+                        size: 2,
+                        weight: VerseWeight.thin,
+                        scaleFactor: flyerBoxWidth * 0.004,
+                      ),
+
+                    ],
                   ),
                 ),
 
+
+                /// QUESTION PICTURES
+                if (canLoopList(questionModel?.pics))
+                  QuestionPicturesBuilder(
+                    questionModel: questionModel,
+                    height: _bodyHeight * 0.4,
+                  ),
 
 
               ],
