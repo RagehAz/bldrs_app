@@ -157,7 +157,7 @@ class _QuestionFooterState extends State<QuestionFooter> {
 
           /// FOOTER
           Stack(
-            alignment: Alignment.center,
+            alignment: Alignment.bottomCenter,
             children: <Widget>[
 
               /// BOTTOM SHADOW
