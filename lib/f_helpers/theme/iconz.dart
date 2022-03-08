@@ -143,6 +143,7 @@
   const String phone =  '$_iconsPath/gi_phone.svg' ;
   const String users =  '$_iconsPath/gi_users.svg' ;
   const String star =  '$_iconsPath/gi_star.svg' ;
+  const String sexyStar = '$_iconsPath/gi_sexy_star.svg' ;
   const String emoji =  '$_iconsPath/gi_emoji.svg' ;
   const String keyword =  '$_iconsPath/gi_keyword.svg' ;
   const String mobilePhone =  '$_iconsPath/gi_phone.svg' ;

@@ -6,9 +6,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
-class FooterButtons extends StatelessWidget {
+class QuestionFooterButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FooterButtons({
+  const QuestionFooterButtons({
     @required this.flyerBoxWidth,
     @required this.tinyMode,
     @required this.onSaveFlyer,
@@ -32,9 +32,9 @@ class FooterButtons extends StatelessWidget {
   bool _canShowElement(){
     bool _canShow = true;
     if (tinyMode == true){
-        if (infoButtonType == InfoButtonType.info){
-          _canShow = false;
-        }
+      if (infoButtonType == InfoButtonType.info){
+        _canShow = false;
+      }
     }
     return _canShow;
   }
@@ -57,18 +57,18 @@ class FooterButtons extends StatelessWidget {
         children: <Widget>[
 
           if (_canShow == true)
-          _spacer,
+            _spacer,
 
           /// SHARE
           if (_canShow == true)
             FooterButton(
-            flyerBoxWidth: flyerBoxWidth,
-            icon: Iconz.share,
-            verse: Wordz.send(context),
-            isOn: false,
-            tinyMode: tinyMode,
-            onTap: onShareFlyer,
-          ),
+              flyerBoxWidth: flyerBoxWidth,
+              icon: Iconz.share,
+              verse: Wordz.send(context),
+              isOn: false,
+              tinyMode: tinyMode,
+              onTap: onShareFlyer,
+            ),
 
           if (_canShow == true)
             _spacer,
@@ -76,26 +76,26 @@ class FooterButtons extends StatelessWidget {
           /// COMMENT
           if (_canShow == true)
             FooterButton(
-            flyerBoxWidth: flyerBoxWidth,
-            icon: Iconz.utPlanning,
-            verse: 'Review',
-            isOn: false,
-            tinyMode: tinyMode,
-            onTap: onReviewFlyer,
-          ),
+              flyerBoxWidth: flyerBoxWidth,
+              icon: Iconz.utPlanning,
+              verse: 'Review',
+              isOn: false,
+              tinyMode: tinyMode,
+              onTap: onReviewFlyer,
+            ),
 
           if (_canShow == true)
             _spacer,
 
-          /// SAVE BUTTON
+          /// NICE
           ValueListenableBuilder(
             valueListenable: flyerIsSaved,
             builder: (_, bool isSaved, Widget child){
 
               return FooterButton(
                 flyerBoxWidth: flyerBoxWidth,
-                icon: Iconz.save,
-                verse: isSaved == true ? Wordz.saved(context) : Wordz.save(context),
+                icon: Iconz.star,
+                verse: 'Nice',
                 isOn: isSaved,
                 tinyMode: tinyMode,
                 onTap: onSaveFlyer,

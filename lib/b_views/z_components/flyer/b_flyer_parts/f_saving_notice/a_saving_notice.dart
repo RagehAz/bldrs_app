@@ -12,6 +12,7 @@ class SavingNotice extends StatefulWidget {
     @required this.animationController,
     @required this.graphicIsOn,
     @required this.graphicOpacity,
+    this.isStarGraphic = false, // if not star would be Ankh
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -21,6 +22,7 @@ class SavingNotice extends StatefulWidget {
   final AnimationController animationController;
   final ValueNotifier<bool> graphicIsOn;
   final ValueNotifier<double> graphicOpacity;
+  final bool isStarGraphic;
   /// --------------------------------------------------------------------------
   @override
   State<SavingNotice> createState() => _SavingNoticeState();
@@ -84,9 +86,9 @@ class _SavingNoticeState extends State<SavingNotice> {
                 /// FADE OUT CHILD
               child: ValueListenableBuilder(
                 valueListenable: widget.flyerIsSaved,
-                child: const SuperImage(
-                  pic: Iconz.saveOn,
-                  scale: 10,
+                child: SuperImage(
+                  pic: widget.isStarGraphic ? Iconz.sexyStar : Iconz.saveOn,
+                  scale: widget.isStarGraphic ? 7 : 10,
                 ),
                 builder: (_, bool isSaved, Widget ankhChild){
 
@@ -100,6 +102,7 @@ class _SavingNoticeState extends State<SavingNotice> {
                           flyerBoxWidth: widget.flyerBoxWidth,
                           flyerBoxHeight: widget.flyerBoxHeight,
                           isSaved: isSaved,
+                          isStarGraphic: widget.isStarGraphic,
                           ankh: ankhChild,
                         ),
                       ),

@@ -1,28 +1,26 @@
 import 'dart:async';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
+
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/d_flyer_footer_buttons.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_convertible_review_page_pre_starter.dart';
+import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_question_footer/b_question_footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 
-class FlyerFooter extends StatefulWidget {
+class QuestionFooter extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FlyerFooter({
+  const QuestionFooter({
     @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.flyerZone,
+    @required this.questionModel,
     @required this.tinyMode,
-    @required this.onSaveFlyer,
-    @required this.flyerIsSaved,
+    @required this.onNiceQuestion,
+    @required this.questionIsNice,
     @required this.footerPageController,
     @required this.headerIsExpanded,
     @required this.inFlight,
@@ -30,20 +28,19 @@ class FlyerFooter extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
-  final ZoneModel flyerZone;
+  final QuestionModel questionModel;
   final bool tinyMode;
-  final Function onSaveFlyer;
-  final ValueNotifier<bool> flyerIsSaved;
+  final Function onNiceQuestion;
+  final ValueNotifier<bool> questionIsNice;
   final PageController footerPageController;
   final ValueNotifier<bool> headerIsExpanded;
   final bool inFlight;
 
   @override
-  State<FlyerFooter> createState() => _FlyerFooterState();
+  State<QuestionFooter> createState() => _QuestionFooterState();
 }
 
-class _FlyerFooterState extends State<FlyerFooter> {
+class _QuestionFooterState extends State<QuestionFooter> {
 
   ScrollController _infoPageVerticalController;
   ScrollController _reviewPageVerticalController;
@@ -65,8 +62,8 @@ class _FlyerFooterState extends State<FlyerFooter> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  void _onShareFlyer(){
-    blog('SHARE FLYER NOW');
+  void _onShareQuestion(){
+    blog('SHARE QUESTION NOW');
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
@@ -116,14 +113,14 @@ class _FlyerFooterState extends State<FlyerFooter> {
   }
 // -----------------------------------------------------------------------------
   bool _canShowInfoButtonChecker({
-  @required InfoButtonType infoButtonType,
-}){
+    @required InfoButtonType infoButtonType,
+  }){
     bool _canShow = true;
 
     if (widget.tinyMode == true || widget.inFlight == true){
-        if (infoButtonType == InfoButtonType.info){
-          _canShow = false;
-        }
+      if (infoButtonType == InfoButtonType.info){
+        _canShow = false;
+      }
     }
 
     return _canShow;
@@ -135,7 +132,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     const InfoButtonType _infoButtonType = InfoButtonType.info;
 
     final bool _canShowInfoButton = _canShowInfoButtonChecker(
-      infoButtonType: _infoButtonType
+        infoButtonType: _infoButtonType
     );
 
     return ValueListenableBuilder(
@@ -148,9 +145,9 @@ class _FlyerFooterState extends State<FlyerFooter> {
           child: child,
         );
 
-        },
+      },
       child: FooterBox(
-        key: const ValueKey<String>('Flyer_footer_box'),
+        key: const ValueKey<String>('question_footer_box'),
         flyerBoxWidth: widget.flyerBoxWidth,
         footerPageController: widget.footerPageController,
         infoButtonExpanded: _infoButtonExpanded,
@@ -171,50 +168,49 @@ class _FlyerFooterState extends State<FlyerFooter> {
               ),
 
               /// FOOTER BUTTONS
-              // if (widget.tinyMode == false)// && widget.inFlight == false)
-                FlyerFooterButtons(
-                  key: const ValueKey<String>('FooterButtons'),
-                  flyerBoxWidth: widget.flyerBoxWidth,
-                  tinyMode: widget.tinyMode,
-                  onSaveFlyer: widget.onSaveFlyer,
-                  onReviewFlyer: onReviewButtonTap,
-                  onShareFlyer: _onShareFlyer,
-                  flyerIsSaved: widget.flyerIsSaved,
-                  inFlight: widget.inFlight,
-                  infoButtonType: _infoButtonType,
-                ),
+              QuestionFooterButtons(
+                key: const ValueKey<String>('FooterButtons'),
+                flyerBoxWidth: widget.flyerBoxWidth,
+                tinyMode: widget.tinyMode,
+                onSaveFlyer: widget.onNiceQuestion,
+                onReviewFlyer: onReviewButtonTap,
+                onShareFlyer: _onShareQuestion,
+                flyerIsSaved: widget.questionIsNice,
+                inFlight: widget.inFlight,
+                infoButtonType: _infoButtonType,
+              ),
 
-              /// INFO BUTTON
-              if (_canShowInfoButton == true)
-                InfoButtonStarter(
-                  flyerBoxWidth: widget.flyerBoxWidth,
-                  flyerModel: widget.flyerModel,
-                  flyerZone: widget.flyerZone,
-                  tinyMode: widget.tinyMode,
-                  infoButtonExpanded: _infoButtonExpanded,
-                  onInfoButtonTap: onInfoButtonTap,
-                  infoButtonType: _infoButtonType,
-                  infoPageVerticalController: _infoPageVerticalController,
-                  inFlight: widget.inFlight,
-                ),
+              // /// INFO BUTTON
+              // if (_canShowInfoButton == true)
+              //   InfoButtonStarter(
+              //     flyerBoxWidth: widget.flyerBoxWidth,
+              //     flyerModel: widget.questionModel,
+              //     flyerZone: widget.flyerZone,
+              //     tinyMode: widget.tinyMode,
+              //     infoButtonExpanded: _infoButtonExpanded,
+              //     onInfoButtonTap: onInfoButtonTap,
+              //     infoButtonType: _infoButtonType,
+              //     infoPageVerticalController: _infoPageVerticalController,
+              //     inFlight: widget.inFlight,
+              //   ),
 
               /// CONVERTIBLE REVIEW BUTTON
               if (widget.tinyMode == false && widget.inFlight == false)
-              ConvertibleReviewPagePreStarter(
-                infoButtonExpanded: _infoButtonExpanded,
-                canShowConvertibleReviewButton: _canShowConvertibleReviewButton,
-                flyerBoxWidth: widget.flyerBoxWidth,
-                tinyMode: widget.tinyMode,
-                onReviewButtonTap: onReviewButtonTap,
-                reviewButtonExpanded: _reviewButtonExpanded,
-                reviewPageVerticalController: _reviewPageVerticalController,
-                inFlight: widget.inFlight,
-                onEditReview: _onEditReview,
-                isEditingReview: _isEditingReview,
-                onSubmitReview: _onSubmitReview,
-                reviewTextController: _reviewTextController,
-                onShowReviewOptions: _onShowReviewOptions,
-              ),
+                ConvertibleReviewPagePreStarter(
+                  infoButtonExpanded: _infoButtonExpanded,
+                  canShowConvertibleReviewButton: _canShowConvertibleReviewButton,
+                  flyerBoxWidth: widget.flyerBoxWidth,
+                  tinyMode: widget.tinyMode,
+                  onReviewButtonTap: onReviewButtonTap,
+                  reviewButtonExpanded: _reviewButtonExpanded,
+                  reviewPageVerticalController: _reviewPageVerticalController,
+                  inFlight: widget.inFlight,
+                  onEditReview: _onEditReview,
+                  isEditingReview: _isEditingReview,
+                  onSubmitReview: _onSubmitReview,
+                  reviewTextController: _reviewTextController,
+                  onShowReviewOptions: _onShowReviewOptions,
+                ),
 
             ],
           ),

@@ -8,6 +8,7 @@ class SavedGraphic extends StatelessWidget {
     @required this.flyerBoxHeight,
     @required this.isSaved,
     @required this.ankh,
+    this.isStarGraphic = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -15,11 +16,12 @@ class SavedGraphic extends StatelessWidget {
   final double flyerBoxHeight;
   final bool isSaved;
   final Widget ankh;
+  final bool isStarGraphic;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final String _verse = isSaved ? 'saved' : 'unSaved';
+    final String _verse = isStarGraphic ? 'Nice' : isSaved ? 'saved' : 'unSaved';
 
     return SizedBox(
       width: flyerBoxWidth,
