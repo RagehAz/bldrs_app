@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/f_question_box.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/a_question_header.dart';
-import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_question_footer/a_question_footer.dart';
+import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_footer/a_question_footer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
