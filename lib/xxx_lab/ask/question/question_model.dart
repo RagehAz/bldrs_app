@@ -16,7 +16,7 @@ class QuestionModel {
     @required this.time,
     @required this.keywords,
     @required this.pics,
-    @required this.title,
+    @required this.headline,
     @required this.totalViews,
     @required this.totalChats,
     @required this.userSeenAll,
@@ -34,7 +34,7 @@ class QuestionModel {
   final List<KW> keywords;
   final List<dynamic> pics;
   final String body;
-  final String title;
+  final String headline;
   int totalViews;
   int totalChats;
   bool userSeenAll;
@@ -53,7 +53,7 @@ class QuestionModel {
       'keywords': keywords,
       'pics': pics,
       'body': body,
-      'title': title,
+      'headline': headline,
       'totalViews': totalViews,
       'totalChats': totalChats,
       'userSeenAll': userSeenAll,
@@ -81,7 +81,7 @@ class QuestionModel {
         time: Timers.decipherTime(time: map['askTime'], fromJSON: fromJSON),
         keywords: map['keywords'],
         pics: map['pics'],
-        title: map['title'],
+        headline: map['headline'],
         totalViews: map['totalViews'],
         totalChats: map['totalChats'],
         userSeenAll: map['userSeenAll'],
@@ -112,7 +112,7 @@ class QuestionModel {
         time: question.time,
         keywords: question.keywords,
         pics: picsURLS,
-        title: question.title,
+        headline: question.headline,
         totalViews: question.totalViews,
         totalChats: question.totalChats,
         userSeenAll: question.userSeenAll,
@@ -144,7 +144,7 @@ class QuestionModel {
             true &&
         originalQuestion.id == updateQuestion.id &&
         originalQuestion.body == updateQuestion.body &&
-        originalQuestion.title == updateQuestion.title &&
+        originalQuestion.headline == updateQuestion.headline &&
         originalQuestion.ownerID == updateQuestion.ownerID &&
         KW.keywordsListsAreTheSame(
               originalQuestion.keywords,
@@ -170,7 +170,8 @@ class QuestionModel {
     return QuestionModel(
       id: questionID,
       ownerID: 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2',
-      body: 'This is a dummy question baby,, are you okey ? \n Lorum Ipsum gowa loa7 Gypsum',
+      headline: 'Dummy Question Headline',
+      body: 'This is a dummy question baby,, are you okey dude ? \n Lorum Ipsum gowa loa7 Gypsum',
       directedTo: BzType.developer,
       time: Timers.createDateAndClock(year: 1987, month: 06, day: 10, hour: 12, minute: 05),
       keywords: KW.dummyKeywords(context: context),
@@ -181,7 +182,6 @@ class QuestionModel {
         Iconz.dumSlide3,
         Iconz.dumSlide4,
       ],
-      title: 'Dummy Question',
       totalViews: 123,
       totalChats: 12,
       userSeenAll: false,

@@ -68,7 +68,7 @@ class SingleSlide extends StatelessWidget {
       flyerBoxHeight: flyerBoxHeight,
       tinyMode: tinyMode,
       slideMidColor: slideModel.midColor,
-      children: <Widget>[
+      stackChildren: <Widget>[
 
         /// --- IMAGE NETWORK
         if (ObjectChecker.objectIsURL(slideModel.pic))

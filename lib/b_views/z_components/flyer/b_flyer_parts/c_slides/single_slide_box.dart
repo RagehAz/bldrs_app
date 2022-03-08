@@ -8,7 +8,7 @@ class SingleSlideBox extends StatelessWidget {
     @required this.flyerBoxHeight,
     @required this.tinyMode,
     @required this.slideMidColor,
-    @required this.children,
+    @required this.stackChildren,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -16,7 +16,7 @@ class SingleSlideBox extends StatelessWidget {
   final double flyerBoxHeight;
   final bool tinyMode;
   final Color slideMidColor;
-  final List<Widget> children;
+  final List<Widget> stackChildren;
 // -----------------------------------------------------------------------------
   bool _canTapSlide(){
     bool _canTap = false;
@@ -50,7 +50,7 @@ class SingleSlideBox extends StatelessWidget {
               borderRadius: FlyerBox.corners(context, flyerBoxWidth),
               child: Stack(
                 alignment: Alignment.topCenter,
-                children: children,
+                children: stackChildren,
               ),
             ),
           ),
