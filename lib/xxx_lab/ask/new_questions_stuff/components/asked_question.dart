@@ -51,6 +51,7 @@ class AskedQuestion extends StatelessWidget {
         if (canLoopList(questionModel?.pics))
         QuestionPicturesBuilder(
           questionModel: questionModel,
+          height: 200,
         ),
 
         /// QUESTION SEPARATOR LINE

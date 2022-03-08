@@ -174,7 +174,7 @@ class QuestionModel {
       body: 'This is a dummy question baby,, are you okey dude ? \n Lorum Ipsum gowa loa7 Gypsum',
       directedTo: BzType.developer,
       time: Timers.createDateAndClock(year: 1987, month: 06, day: 10, hour: 12, minute: 05),
-      keywords: KW.dummyKeywords(context: context),
+      keywords: KW.dummyKeywords(context: context, length: 5),
       pics: <String>[
         Iconz.dumSlide6,
         Iconz.dumSlide1,

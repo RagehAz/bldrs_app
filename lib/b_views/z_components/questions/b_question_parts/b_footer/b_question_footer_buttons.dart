@@ -15,7 +15,6 @@ class QuestionFooterButtons extends StatelessWidget {
     @required this.onShareFlyer,
     @required this.flyerIsSaved,
     @required this.inFlight,
-    @required this.infoButtonType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,14 +25,11 @@ class QuestionFooterButtons extends StatelessWidget {
   final Function onShareFlyer;
   final ValueNotifier<bool> flyerIsSaved;
   final bool inFlight;
-  final InfoButtonType infoButtonType;
   /// --------------------------------------------------------------------------
   bool _canShowElement(){
     bool _canShow = true;
     if (tinyMode == true){
-      if (infoButtonType == InfoButtonType.info){
         _canShow = false;
-      }
     }
     return _canShow;
   }
@@ -48,61 +44,67 @@ class QuestionFooterButtons extends StatelessWidget {
 
     final bool _canShow = _canShowElement();
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+    return Container(
+      width: flyerBoxWidth,
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        // padding: EdgeInsets.zero,
+        // scrollDirection: Axis.horizontal,
+        children: <Widget>[
 
-        // if (_canShow == true)
-        //   _spacer,
+          // if (_canShow == true)
+          //   _spacer,
 
-        /// SHARE
-        if (_canShow == true)
-          FooterButton(
-            flyerBoxWidth: flyerBoxWidth,
-            icon: Iconz.share,
-            verse: Wordz.send(context),
-            isOn: false,
-            tinyMode: tinyMode,
-            onTap: onShareFlyer,
-          ),
-
-        if (_canShow == true)
-          _spacer,
-
-        /// COMMENT
-        if (_canShow == true)
-          FooterButton(
-            flyerBoxWidth: flyerBoxWidth,
-            icon: Iconz.utPlanning,
-            verse: 'Review',
-            isOn: false,
-            tinyMode: tinyMode,
-            onTap: onReviewFlyer,
-          ),
-
-        if (_canShow == true)
-          _spacer,
-
-        /// NICE
-        ValueListenableBuilder(
-          valueListenable: flyerIsSaved,
-          builder: (_, bool isSaved, Widget child){
-
-            return FooterButton(
+          /// SHARE
+          if (_canShow == true)
+            FooterButton(
               flyerBoxWidth: flyerBoxWidth,
-              icon: Iconz.star,
-              verse: 'Nice',
-              isOn: isSaved,
+              icon: Iconz.share,
+              verse: Wordz.send(context),
+              isOn: false,
               tinyMode: tinyMode,
-              onTap: onSaveFlyer,
-            );
+              onTap: onShareFlyer,
+            ),
 
-          },
-        ),
+          if (_canShow == true)
+            _spacer,
 
-        // _spacer,
+          /// COMMENT
+          if (_canShow == true)
+            FooterButton(
+              flyerBoxWidth: flyerBoxWidth,
+              icon: Iconz.utPlanning,
+              verse: 'Review',
+              isOn: false,
+              tinyMode: tinyMode,
+              onTap: onReviewFlyer,
+            ),
 
-      ],
+          if (_canShow == true)
+            _spacer,
+
+          /// NICE
+          ValueListenableBuilder(
+            valueListenable: flyerIsSaved,
+            builder: (_, bool isSaved, Widget child){
+
+              return FooterButton(
+                flyerBoxWidth: flyerBoxWidth,
+                icon: Iconz.star,
+                verse: 'Nice',
+                isOn: isSaved,
+                tinyMode: tinyMode,
+                onTap: onSaveFlyer,
+              );
+
+            },
+          ),
+
+          // _spacer,
+
+        ],
+      ),
     );
   }
 }
