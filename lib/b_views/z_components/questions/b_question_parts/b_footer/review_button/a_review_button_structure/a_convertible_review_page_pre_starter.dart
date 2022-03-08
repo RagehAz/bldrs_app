@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
 
 class QuestionConvertibleReviewPagePreStarter extends StatelessWidget {
@@ -59,20 +58,6 @@ class QuestionConvertibleReviewPagePreStarter extends StatelessWidget {
     return _buttonSize + _spacing;
   }
 // -----------------------------------------------------------------------------
-  static double _getPositionFromRight({
-    @required BuildContext context,
-  }){
-    return appIsLeftToRight(context) ? 0 : null;
-  }
-// -----------------------------------------------------------------------------
-  static double _getPositionFromLeft({
-    @required BuildContext context,
-  }){
-
-    return appIsLeftToRight(context) ? null : 0;
-  }
-// -----------------------------------------------------------------------------
-
 
   @override
   Widget build(BuildContext context) {
@@ -88,18 +73,8 @@ class QuestionConvertibleReviewPagePreStarter extends StatelessWidget {
               valueListenable: canShowConvertibleReviewButton,
               builder: (_, bool canShowConvertibleInfoButton, Widget childB){
 
-                final double _positionFromRight = _getPositionFromRight(
-                  context: context,
-                );
-
-                final double _positionFromLeft = _getPositionFromLeft(
-                  context: context,
-                );
-
                 if (canShowConvertibleInfoButton == true){
                   return Positioned(
-                    right: _positionFromRight,
-                    left: _positionFromLeft,
                     bottom: 0,
                     child: reviewPageStarter,
                   );

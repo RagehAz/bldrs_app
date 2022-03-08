@@ -40,13 +40,13 @@ class QuestionBox extends StatelessWidget {
   static BorderRadius corners(BuildContext context, double flyerBoxWidth) {
 
     final double _questionToCorners = topCornerValue(flyerBoxWidth);
-    // final double _questionBottomCorners = bottomCornerValue(flyerBoxWidth);
+    final double _questionBottomCorners = FlyerBox.bottomCornerValue(flyerBoxWidth);
 
     return Borderers.superBorderOnly(
         context: context,
         enTopLeft: _questionToCorners,
-        enBottomLeft: _questionToCorners,
-        enBottomRight: _questionToCorners,
+        enBottomLeft: _questionBottomCorners,
+        enBottomRight: _questionBottomCorners,
         enTopRight: _questionToCorners
     );
   }

@@ -160,7 +160,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
 
           /// FOOTER
           Stack(
-            alignment: Alignment.center,
+            alignment: Alignment.bottomCenter,
             children: <Widget>[
 
               /// BOTTOM SHADOW
