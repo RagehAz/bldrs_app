@@ -5,10 +5,12 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/f_question_box.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/a_question_header.dart';
+import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_question_footer/a_question_footer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
@@ -278,6 +280,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     return QuestionBox(
       key: const ValueKey<String>('QuestionTree_FlyerBox'),
       boxWidth: widget.flyerBoxWidth,
+      boxColor: Colorz.yellow125,
       stackWidgets: <Widget>[
 
         // SingleSlideBox(
@@ -335,18 +338,17 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
         ),
 
         /// FOOTER
-        // FlyerFooter(
-        //   key: const ValueKey<String>('FlyerTree_FlyerFooter'),
-        //   flyerBoxWidth: widget.flyerBoxWidth,
-        //   flyerModel: widget.flyerModel,
-        //   flyerZone: widget.flyerZone,
-        //   tinyMode: _tinyMode,
-        //   flyerIsSaved: _flyerIsSaved,
-        //   onSaveFlyer: _onSaveFlyer,
-        //   footerPageController: _footerPageController,
-        //   headerIsExpanded: _headerIsExpanded,
-        //   inFlight: _inFlight(),
-        // ),
+        QuestionFooter(
+          key: const ValueKey<String>('FlyerTree_FlyerFooter'),
+          flyerBoxWidth: widget.flyerBoxWidth,
+          questionModel: widget.questionModel,
+          tinyMode: _tinyMode,
+          questionIsNice: _flyerIsSaved,
+          onNiceQuestion: _onSaveFlyer,
+          footerPageController: _footerPageController,
+          headerIsExpanded: _headerIsExpanded,
+          inFlight: _inFlight(),
+        ),
 
         /// SAVING NOTICE
         if (_tinyMode != true && widget.flightDirection == FlightDirection.non)
@@ -358,6 +360,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
             animationController: _animationController,
             graphicIsOn: _graphicIsOn,
             graphicOpacity: _graphicOpacity,
+            isStarGraphic: true,
           ),
 
       ],

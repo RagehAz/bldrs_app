@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 class MiniHeaderStripBoxPart extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const MiniHeaderStripBoxPart({
     @required this.flyerBoxWidth,
     @required this.minHeaderHeight,
@@ -15,7 +15,7 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
     @required this.children,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double minHeaderHeight;
   final Animation<double> logoSizeRatioTween;
@@ -23,7 +23,7 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
   final bool tinyMode;
   final BorderRadius headerBorders;
   final List<Widget> children;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

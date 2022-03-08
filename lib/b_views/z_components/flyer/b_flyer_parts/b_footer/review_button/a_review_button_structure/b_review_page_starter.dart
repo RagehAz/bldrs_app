@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
@@ -23,7 +22,6 @@ class ReviewPageStarter extends StatelessWidget {
     @required this.onSubmitReview,
     @required this.reviewTextController,
     @required this.onShowReviewOptions,
-    @required this.flyerModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,7 +36,6 @@ class ReviewPageStarter extends StatelessWidget {
   final Function onSubmitReview;
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;
-  final FlyerModel flyerModel;
 // -----------------------------------------------------------------------------
 
   /// WIDTH
@@ -500,7 +497,6 @@ class ReviewPageStarter extends StatelessWidget {
           onSubmitReview: onSubmitReview,
           reviewTextController: reviewTextController,
           onShowReviewOptions: onShowReviewOptions,
-          flyerModel: flyerModel,
         ),
 
       ),
