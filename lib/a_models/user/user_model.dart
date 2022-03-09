@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
@@ -70,7 +71,7 @@ class UserModel {
   Map<String, dynamic> toMap({@required bool toJSON}) {
     return <String, dynamic>{
       'id': id,
-      'authBy': cipherAuthBy(authBy),
+      'authBy': AuthModel.cipherAuthBy(authBy),
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: toJSON),
       'status': cipherUserStatus(status),
 // -------------------------
@@ -92,43 +93,55 @@ class UserModel {
       'followedBzzIDs': followedBzzIDs ?? <String>[],
     };
   }
-
 // ----------------------------------------------------------------------------
   static UserModel decipherUserMap({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
   }) {
-    return map == null
-        ? null
-        : UserModel(
-            id: map['id'],
-            authBy: decipherAuthBy(map['authBy']),
-            createdAt:
-                Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
-            status: decipherUserStatus(map['status']),
-            // -------------------------
-            name: map['name'],
-            trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
-            pic: map['pic'],
-            title: map['title'],
-            company: map['company'],
-            gender: decipherGender(map['gender']),
-            zone: ZoneModel.decipherZoneMap(map['zone']),
-            language: map['language'] ?? 'en',
-            position: Atlas.decipherGeoPoint(
-                point: map['position'], fromJSON: fromJSON),
-            contacts: ContactModel.decipherContacts(map['contacts']),
-            // -------------------------
-            myBzzIDs: Mapper.getStringsFromDynamics(dynamics: map['myBzzIDs']),
-            emailIsVerified: map['emailIsVerified'],
-            isAdmin: map['isAdmin'],
-            fcmToken: FCMToken.decipherFCMToken(
-                map: map['fcmToken'], fromJSON: fromJSON),
-            savedFlyersIDs:
-                Mapper.getStringsFromDynamics(dynamics: map['savedFlyersIDs']),
-            followedBzzIDs:
-                Mapper.getStringsFromDynamics(dynamics: map['followedBzzIDs']),
-          );
+    return map == null ? null :
+    UserModel(
+      id: map['id'],
+      authBy: AuthModel.decipherAuthBy(map['authBy']),
+      createdAt:
+      Timers.decipherTime(
+          time: map['createdAt'],
+          fromJSON: fromJSON
+      ),
+      status: decipherUserStatus(map['status']),
+      // -------------------------
+      name: map['name'],
+      trigram: Mapper.getStringsFromDynamics(
+          dynamics: map['trigram'],
+      ),
+      pic: map['pic'],
+      title: map['title'],
+      company: map['company'],
+      gender: decipherGender(map['gender']),
+      zone: ZoneModel.decipherZoneMap(map['zone']),
+      language: map['language'] ?? 'en',
+      position: Atlas.decipherGeoPoint(
+          point: map['position'],
+          fromJSON: fromJSON
+      ),
+      contacts: ContactModel.decipherContacts(map['contacts']),
+      // -------------------------
+      myBzzIDs: Mapper.getStringsFromDynamics(
+          dynamics: map['myBzzIDs'],
+      ),
+      emailIsVerified: map['emailIsVerified'],
+      isAdmin: map['isAdmin'],
+      fcmToken: FCMToken.decipherFCMToken(
+          map: map['fcmToken'],
+          fromJSON: fromJSON,
+      ),
+      savedFlyersIDs: Mapper.getStringsFromDynamics(
+          dynamics: map['savedFlyersIDs'],
+      ),
+      followedBzzIDs: Mapper.getStringsFromDynamics(
+          dynamics: map['followedBzzIDs'],
+      ),
+    );
+
   }
 // -----------------------------------------------------------------------------
   static List<UserModel> decipherUsersMaps({
@@ -139,69 +152,41 @@ class UserModel {
 
     if (Mapper.canLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
-        _users.add(decipherUserMap(map: map, fromJSON: fromJSON));
+        _users.add(decipherUserMap(
+            map: map,
+            fromJSON: fromJSON
+        )
+        );
       }
     }
+
     return _users;
   }
 // -----------------------------------------------------------------------------
   static UserStatus decipherUserStatus(String status) {
     switch (status) {
-      case 'normal':
-        return UserStatus.normal;
-        break;
-      case 'searching':
-        return UserStatus.searching;
-        break;
-      case 'finishing':
-        return UserStatus.finishing;
-        break;
-      case 'planning':
-        return UserStatus.planning;
-        break;
-      case 'building':
-        return UserStatus.building;
-        break;
-      case 'selling':
-        return UserStatus.selling;
-        break;
-      case 'bzAuthor':
-        return UserStatus.bzAuthor;
-        break;
-      case 'deactivated':
-        return UserStatus.deactivated;
-        break;
-      default:
-        return null;
+      case 'normal':      return UserStatus.normal;       break;
+      case 'searching':   return UserStatus.searching;    break;
+      case 'finishing':   return UserStatus.finishing;    break;
+      case 'planning':    return UserStatus.planning;     break;
+      case 'building':    return UserStatus.building;     break;
+      case 'selling':     return UserStatus.selling;      break;
+      case 'bzAuthor':    return UserStatus.bzAuthor;     break;
+      case 'deactivated': return UserStatus.deactivated;  break;
+      default :           return null;
     }
   }
 // -----------------------------------------------------------------------------
   static String cipherUserStatus(UserStatus status) {
     switch (status) {
-      case UserStatus.normal:
-        return 'normal';
-        break;
-      case UserStatus.searching:
-        return 'searching';
-        break;
-      case UserStatus.finishing:
-        return 'finishing';
-        break;
-      case UserStatus.planning:
-        return 'planning';
-        break;
-      case UserStatus.building:
-        return 'building';
-        break;
-      case UserStatus.selling:
-        return 'selling';
-        break;
-      case UserStatus.bzAuthor:
-        return 'bzAuthor';
-        break;
-      case UserStatus.deactivated:
-        return 'deactivated';
-        break;
+      case UserStatus.normal:       return 'normal';      break;
+      case UserStatus.searching:    return 'searching';   break;
+      case UserStatus.finishing:    return 'finishing';   break;
+      case UserStatus.planning:     return 'planning';    break;
+      case UserStatus.building:     return 'building';    break;
+      case UserStatus.selling:      return 'selling';     break;
+      case UserStatus.bzAuthor:     return 'bzAuthor';    break;
+      case UserStatus.deactivated:  return 'deactivated'; break;
       default:
         return null;
     }
@@ -209,53 +194,19 @@ class UserModel {
 // -----------------------------------------------------------------------------
   static Gender decipherGender(String gender) {
     switch (gender) {
-      case 'female':
-        return Gender.female;
-        break;
-      case 'male':
-        return Gender.male;
-        break;
-      case 'Gender.any':
-        return Gender.any;
-        break;
-      default:
-        return null;
+      case 'female':      return Gender.female; break;
+      case 'male':        return Gender.male;   break;
+      case 'any':  return Gender.any;    break;
+      default:return null;
     }
   }
 // -----------------------------------------------------------------------------
   static String cipherGender(Gender gender) {
     switch (gender) {
-      case Gender.female:
-        return 'female';
-        break;
-      case Gender.male:
-        return 'male';
-        break;
-      case Gender.any:
-        return 'any';
-        break;
-      default:
-        return null;
-    }
-  }
-// -----------------------------------------------------------------------------
-  static AuthBy decipherAuthBy(String authBy) {
-    switch (authBy) {
-      case 'email': return AuthBy.email; break;
-      case 'facebook': return AuthBy.facebook; break;
-      case 'apple': return AuthBy.apple; break;
-      case 'google': return AuthBy.google; break;
-      default: return null;
-    }
-  }
-// -----------------------------------------------------------------------------
-  static String cipherAuthBy(AuthBy authBy) {
-    switch (authBy) {
-      case AuthBy.email: return 'email'; break;
-      case AuthBy.facebook: return 'facebook'; break;
-      case AuthBy.apple: return 'apple'; break;
-      case AuthBy.google: return 'google'; break;
-      default: return null;
+      case Gender.female: return 'female';  break;
+      case Gender.male:   return 'male';    break;
+      case Gender.any:    return 'any';     break;
+      default:            return null;
     }
   }
 // -----------------------------------------------------------------------------
@@ -286,41 +237,43 @@ class UserModel {
     if (_idIndex != null) {
       ids.removeAt(_idIndex);
       return ids;
-    } else {
+    }
+
+    else {
       return null;
     }
+
   }
 // -----------------------------------------------------------------------------
   /// create user object based on firebase user
   static UserModel initializeUserModelStreamFromUser() {
     final User _user = FireAuthOps.superFirebaseUser();
 
-    return _user == null
-        ? null
-        : UserModel(
-            id: _user.uid,
-            authBy: null,
-            createdAt: DateTime.now(),
-            status: UserStatus.normal,
-            // -------------------------
-            name: _user.displayName,
-            trigram: TextGen.createTrigram(input: _user.displayName),
-            pic: _user.photoURL,
-            title: '',
-            gender: Gender.any,
-            zone: null,
-            language: 'en',
-            position: const GeoPoint(0, 0),
-            contacts: <ContactModel>[],
-            // -------------------------
-            myBzzIDs: <String>[],
-            emailIsVerified: _user.emailVerified,
-            isAdmin: false,
-            fcmToken: null,
-            company: null,
-            savedFlyersIDs: <String>[],
-            followedBzzIDs: <String>[],
-          );
+    return _user == null ? null :
+    UserModel(
+      id: _user.uid,
+      authBy: null,
+      createdAt: DateTime.now(),
+      status: UserStatus.normal,
+      // -------------------------
+      name: _user.displayName,
+      trigram: TextGen.createTrigram(input: _user.displayName),
+      pic: _user.photoURL,
+      title: '',
+      gender: Gender.any,
+      zone: null,
+      language: 'en',
+      position: const GeoPoint(0, 0),
+      contacts: <ContactModel>[],
+      // -------------------------
+      myBzzIDs: <String>[],
+      emailIsVerified: _user.emailVerified,
+      isAdmin: false,
+      fcmToken: null,
+      company: null,
+      savedFlyersIDs: <String>[],
+      followedBzzIDs: <String>[],
+    );
   }
 // -----------------------------------------------------------------------------
   static Future<UserModel> createInitialUserModelFromUser({
@@ -329,13 +282,12 @@ class UserModel {
     ZoneModel zone,
     AuthBy authBy,
   }) async {
+
     assert(!user.isAnonymous, 'user must not be anonymous');
-    blog(
-        'createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
+    blog('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
 
     assert(await user.getIdToken() != null, 'user token must not be null');
-    blog(
-        'createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
+    blog('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
 
     final UserModel _userModel = UserModel(
       id: user.uid,
@@ -451,6 +403,7 @@ class UserModel {
   }
 // -----------------------------------------------------------------------------
   static Future<UserModel> futureDummyUserModel(BuildContext context) async {
+
     final UserModel _user = await UserFireOps.readUser(
       context: context,
       userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
@@ -487,7 +440,10 @@ class UserModel {
     return _userModel;
   }
 // -----------------------------------------------------------------------------
-  static List<UserModel> dummyUsers({int numberOfUsers}) {
+  static List<UserModel> dummyUsers({
+    int numberOfUsers
+  }) {
+
     List<UserModel> _users = <UserModel>[
       // UserModel(
       //   authBy: AuthBy.email,
@@ -525,8 +481,12 @@ class UserModel {
     ];
 
     if (numberOfUsers != null) {
+
       final List<int> _randomIndexes = Numeric.getRandomIndexes(
-          numberOfIndexes: numberOfUsers, maxIndex: _users.length - 1);
+          numberOfIndexes: numberOfUsers,
+          maxIndex: _users.length - 1,
+      );
+
       final List<UserModel> _finalList = <UserModel>[];
 
       for (int i = 0; i < _randomIndexes.length; i++) {
@@ -560,13 +520,6 @@ enum Gender {
   male,
   female,
   any,
-}
-// -----------------------------------------------------------------------------
-enum AuthBy {
-  email,
-  facebook,
-  google,
-  apple,
 }
 // -----------------------------------------------------------------------------
 enum UserTab {

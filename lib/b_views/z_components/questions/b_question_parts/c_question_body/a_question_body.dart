@@ -82,7 +82,7 @@ class QuestionBody extends StatelessWidget {
                       SuperVerse(
                         verse: questionModel.body,
                         maxLines: 1000,
-                        size: 2,
+                        // size: 2,
                         weight: VerseWeight.thin,
                         scaleFactor: flyerBoxWidth * 0.004,
                       ),
