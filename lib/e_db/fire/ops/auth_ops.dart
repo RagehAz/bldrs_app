@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
@@ -144,6 +145,7 @@ Future<dynamic> emailSignInOps({
   @required String email,
   @required String password,
 }) async {
+
   UserCredential _userCredential;
   String _error;
 
@@ -152,24 +154,32 @@ Future<dynamic> emailSignInOps({
       context: context,
       methodName: 'signInWithEmailAndPassword in emailSignInOps',
       functions: () async {
+
         final FirebaseAuth _auth = FirebaseAuth?.instance;
 
         _userCredential = await _auth.signInWithEmailAndPassword(
-            email: email.trim(), password: password);
+            email: email.trim(),
+            password: password,
+        );
+
         blog('_userCredential : $_userCredential');
+
       },
+
       onError: (String error) async {
         {
           blog('emailSignInOps returns error : $error');
           _error = error;
         }
-      });
+      }
+      );
 
   blog('_signInResult : $_signInResult');
   blog('_userCredential : $_userCredential');
 
   /// if sign in results user credentials and not an error string, get user id and read user ops
   if (_signInResult == true) {
+
     /// get user ID
     final User _user = _userCredential.user;
     final String _userID = _user.uid;
@@ -180,18 +190,24 @@ Future<dynamic> emailSignInOps({
     blog('x2 - emailSignInOps _userModel : $_userModel');
 
     return _userModel;
-  } else {
+  }
+
+  else {
     return _error;
   }
+
 }
 // -----------------------------------------------------------------------------
 /// register with email & password
+/// return String error if fails
+/// return UserModel is succeeds
 Future<dynamic> emailRegisterOps({
   @required BuildContext context,
   @required ZoneModel currentZone,
   @required String email,
   @required String password,
 }) async {
+
   User _user;
   String _error;
 
@@ -211,8 +227,8 @@ Future<dynamic> emailRegisterOps({
   blog('_user : $_user');
 
   if (_registerResult == true) {
-    final UserModel _initialUserModel =
-        await UserModel.createInitialUserModelFromUser(
+
+    final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
       context: context,
       user: _user,
       zone: currentZone,
@@ -227,9 +243,12 @@ Future<dynamic> emailRegisterOps({
     );
 
     return _finalUserModel;
-  } else {
+  }
+
+  else {
     return _error;
   }
+
 }
 // -----------------------------------------------------------------------------
 
@@ -237,11 +256,14 @@ Future<dynamic> emailRegisterOps({
 
 // ---------------------------------------------------
 Future<void> emailSignOutOps(BuildContext context) async {
+
   try {
     final FirebaseAuth _auth = FirebaseAuth?.instance;
 
     return await _auth.signOut();
-  } on Exception catch (error) {
+  }
+
+  on Exception catch (error) {
     await CenterDialog.showCenterDialog(
       context: context,
       title: 'Trouble Signing out',
@@ -250,6 +272,7 @@ Future<void> emailSignOutOps(BuildContext context) async {
   }
 }
 // -----------------------------------------------------------------------------
+/// returns error string or AuthModel
 Future<dynamic> facebookSignInOps({
   @required BuildContext context,
   @required ZoneModel currentZone,
@@ -282,6 +305,7 @@ Future<dynamic> facebookSignInOps({
       context: context,
       methodName: 'facebookSignInOps',
       functions: () async {
+
         // blog('1 language: ${Wordz.languageCode(context)},');
 
         /// B - get [accessToken]
@@ -290,21 +314,24 @@ Future<dynamic> facebookSignInOps({
         blog('facebookSignInOps : _accessToken : $_accessToken');
 
         if (_accessToken != null) {
+
           /// C - Create [credential] from the [access token]
-          final FacebookAuthCredential _credential =
-              FacebookAuthProvider.credential(
+          final FacebookAuthCredential _credential = FacebookAuthProvider.credential(
             _accessToken.token,
           );
+
           blog('facebookSignInOps : _credential : $_credential');
 
           /// D - get [user credential] by [credential]
-          final UserCredential _userCredential =
-              await _auth.signInWithCredential(_credential);
+          final UserCredential _userCredential = await _auth.signInWithCredential(_credential);
+
           blog('facebookSignInOps : _userCredential : $_userCredential');
 
           /// E - get firebase [user] from [user credential]
           _user = _userCredential.user;
+
           blog('facebookSignInOps : _user : $_user');
+
         }
 
         /// B - [accessToken] is null
@@ -312,9 +339,11 @@ Future<dynamic> facebookSignInOps({
           blog('Facebook Access token is null');
         }
       },
+
       onError: (String error) async {
         _error = error;
-      });
+      }
+      );
 
   blog('facebookSignInOps : _signInResult : $_signInResult');
   // ==============================================================
@@ -329,21 +358,20 @@ Future<dynamic> facebookSignInOps({
 
   /// xx - return firebase user : if auth succeeds
   else {
-    // blog('2 language: ${Wordz.languageCode(context)},');
 
     /// E - get Or Create UserModel From User
-    final Map<String, dynamic> _userModelMap =
-        await UserFireOps.getOrCreateUserModelFromUser(
+    final AuthModel _userAuthModel = await UserFireOps.getOrCreateUserModelFromUser(
       context: context,
       zone: currentZone,
       user: _user,
       authBy: AuthBy.facebook,
     );
 
-    return _userModelMap;
+    return _userAuthModel;
   }
 }
 // -----------------------------------------------------------------------------
+/// returns error string or AuthModel
 Future<dynamic> googleSignInOps({
   @required BuildContext context,
   @required ZoneModel currentZone,
@@ -427,16 +455,14 @@ Future<dynamic> googleSignInOps({
             /// B - get [auth credential] from [google sign in auth]
             // TASK : signInMethod: google.com, can be found here
             /// AuthCredential(providerId: google.com, signInMethod: google.com, token: null)
-            final AuthCredential _authCredential =
-                GoogleAuthProvider.credential(
+            final AuthCredential _authCredential = GoogleAuthProvider.credential(
               accessToken: _googleAuth.accessToken,
               idToken: _googleAuth.idToken,
             );
             blog('googleSignInOps : _authCredential : $_authCredential');
 
             /// C - get [user credential] from [auth credential]
-            final UserCredential _userCredential =
-                await _auth.signInWithCredential(_authCredential);
+            final UserCredential _userCredential = await _auth.signInWithCredential(_authCredential);
             blog('googleSignInOps : _authResult : $_userCredential');
 
             /// D - get firebase user from user credential
@@ -466,14 +492,14 @@ Future<dynamic> googleSignInOps({
     blog('2 language: ${Wordz.languageCode(context)},');
 
     /// E - get Or Create UserModel From User
-    final Map<String, dynamic> _userModelMap =
-        await UserFireOps.getOrCreateUserModelFromUser(
-            context: context,
-            zone: currentZone,
-            user: _user,
-            authBy: AuthBy.google);
+    final AuthModel _userAuthModel = await UserFireOps.getOrCreateUserModelFromUser(
+        context: context,
+        zone: currentZone,
+        user: _user,
+        authBy: AuthBy.google,
+    );
 
-    return _userModelMap;
+    return _userAuthModel;
 
     // /// E - read user ops if existed
     // UserModel _existingUserModel = await UserOps().readUserOps(
