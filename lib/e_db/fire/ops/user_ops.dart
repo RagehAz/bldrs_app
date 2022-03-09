@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -135,7 +136,7 @@ Future<UserModel> createUser({
 }
 
 // ---------------------------------------------------
-Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
+Future<AuthModel> getOrCreateUserModelFromUser({
   @required BuildContext context,
   @required User user,
   @required ZoneModel zone,
@@ -146,9 +147,9 @@ Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
   ///    Ex - if new user (userModel == null)
   ///       E1 - create initial user model
   ///       E2 - create user ops
-  ///       E3 - return new userModel inside userModel-firstTimer map
+  ///       E3 - return new userModel in AuthModel
   ///    Ex - if user has existing user model
-  ///       E3 - return existing userMode inside userModel-firstTimer map
+  ///       E3 - return existing userMode in AuthModel
   // ----------
 
   /// E - read user ops if existed
@@ -163,8 +164,7 @@ Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
     // blog('lng : ${Wordz.languageCode(context)}');
 
     /// E1 - create initial user model
-    final UserModel _initialUserModel =
-        await UserModel.createInitialUserModelFromUser(
+    final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
       context: context,
       user: user,
       zone: zone,
@@ -179,23 +179,25 @@ Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
       authBy: authBy,
     );
 
-    blog(
-        'googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
+    blog('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
 
     /// E3 - return new userModel inside userModel-firstTimer map
-    return <String, dynamic>{
-      'userModel': _finalUserModel,
-      'firstTimer': true,
-    };
+    return AuthModel(
+      userModel: _finalUserModel,
+      firstTimer: true,
+    );
+
   }
 
   /// Ex - if user has existing user model
   else {
+
     /// E3 - return existing userMode inside userModel-firstTimer map
-    return <String, dynamic>{
-      'userModel': _existingUserModel,
-      'firstTimer': false,
-    };
+    return AuthModel(
+      userModel: _existingUserModel,
+      firstTimer: false,
+    );
+
   }
 }
 // -----------------------------------------------------------------------------
@@ -203,8 +205,11 @@ Future<Map<String, dynamic>> getOrCreateUserModelFromUser({
 /// READ
 
 // ---------------------------------------------------
-Future<UserModel> readUser(
-    {@required BuildContext context, @required String userID}) async {
+Future<UserModel> readUser({
+  @required BuildContext context,
+  @required String userID,
+}) async {
+
   UserModel _user;
 
   blog('readUserOps : Start reading user $userID,');
@@ -219,12 +224,12 @@ Future<UserModel> readUser(
     blog("readUserOps : _userMap _userMap['userID'] is : ${_userMap['id']}");
     // blog('lng : ${Wordz.languageCode(context)}');
 
-    _user = _userMap == null
-        ? null
-        : UserModel.decipherUserMap(
-            map: _userMap,
-            fromJSON: false,
-          );
+    _user = _userMap == null ? null :
+    UserModel.decipherUserMap(
+      map: _userMap,
+      fromJSON: false,
+    );
+
   }
 
   // blog('_userModel is : $_user');
@@ -236,6 +241,7 @@ Future<UserModel> readUser(
 // -----------------------------------------------------------------------------
 /// auth change user stream
 Stream<UserModel> streamInitialUser() {
+
   final FirebaseAuth _auth = FirebaseAuth?.instance;
 
   return _auth
@@ -250,10 +256,11 @@ Stream<UserModel> streamInitialUser() {
 /// UPDATE
 
 // ---------------------------------------------------
-Future<void> updateUser(
-    {@required BuildContext context,
-    @required UserModel oldUserModel,
-    @required UserModel updatedUserModel}) async {
+Future<void> updateUser({
+  @required BuildContext context,
+  @required UserModel oldUserModel,
+  @required UserModel updatedUserModel,
+}) async {
   // ----------
   /// UPDATE USER OPS
   /// A - if user pic changed
@@ -305,8 +312,8 @@ Future<void> updateUser(
     docName: updatedUserModel.id,
     input: _finalUserModel.toMap(toJSON: false),
   );
-}
 
+}
 // -----------------------------------------------------------------------------
 /// returns new pic url
 Future<String> updateUserPic({
@@ -315,8 +322,12 @@ Future<String> updateUserPic({
   @required File newPic,
   @required String userID,
 }) async {
-  final String _newURL =
-      await Storage.updatePic(context: context, oldURL: oldURL, newPic: newPic);
+
+  final String _newURL = await Storage.updatePic(
+      context: context,
+      oldURL: oldURL,
+      newPic: newPic,
+  );
 
   await Fire.updateDocField(
     context: context,
@@ -328,13 +339,14 @@ Future<String> updateUserPic({
 
   return _newURL;
 }
-
 // ---------------------------------------------------
-Future<void> addFlyerIDToSavedFlyersIDs(
-    {@required BuildContext context,
-    @required String flyerID,
-    @required List<String> savedFlyersIDs,
-    @required String userID}) async {
+Future<void> addFlyerIDToSavedFlyersIDs({
+  @required BuildContext context,
+  @required String flyerID,
+  @required List<String> savedFlyersIDs,
+  @required String userID,
+}) async {
+
   final List<String> _savedFlyersIDs = <String>[];
 
   if (Mapper.canLoopList(savedFlyersIDs)) {
@@ -350,14 +362,16 @@ Future<void> addFlyerIDToSavedFlyersIDs(
     field: 'savedFlyersIDs',
     input: _savedFlyersIDs,
   );
-}
 
+}
 // ---------------------------------------------------
-Future<void> removeFlyerIDFromSavedFlyersIDs(
-    {@required BuildContext context,
-    @required String flyerID,
-    @required String userID,
-    @required List<String> savedFlyersIDs}) async {
+Future<void> removeFlyerIDFromSavedFlyersIDs({
+  @required BuildContext context,
+  @required String flyerID,
+  @required String userID,
+   @required List<String> savedFlyersIDs,
+}) async {
+
   final int _index = savedFlyersIDs.indexWhere((String id) => id == flyerID);
 
   if (_index >= 0) {
@@ -433,11 +447,11 @@ Future<dynamic> deactivateUser({
       ));
 
       /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-      final Map<String, dynamic> _userBzzMap =
-          await FireBzOps.readAndFilterTeamlessBzzByUserModel(
+      final Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
         context: context,
         userModel: userModel,
       );
+
       final List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
       final List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
 
@@ -510,7 +524,9 @@ Future<dynamic> deactivateUser({
 
           ///   J - SIGN OUT
           await FireAuthOps.signOut(
-              context: context, routeToUserChecker: false);
+              context: context,
+              routeToUserChecker: false,
+          );
 
           /// CLOSE WAITING DIALOG
           Nav.goBack(context);
@@ -528,6 +544,7 @@ Future<dynamic> deactivateUser({
 
     /// B - if user in not Author
     else {
+
       /// H - change user status in user doc to deactivated
       await Fire.updateDocField(
         context: context,
@@ -594,8 +611,7 @@ Future<dynamic> deleteUser({
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     title: 'This will Delete all your data',
-    body:
-        'all pictures, flyers, businesses, your user records will be deleted for good\nDo you want to proceed ?',
+    body: 'all pictures, flyers, businesses, your user records will be deleted for good\nDo you want to proceed ?',
     boolDialog: true,
   );
 
@@ -611,6 +627,7 @@ Future<dynamic> deleteUser({
 
     /// B - if user is author
     if (UserModel.userIsAuthor(userModel) == true) {
+
       /// WAITING DIALOG
       unawaited(CenterDialog.showCenterDialog(
         context: context,
@@ -623,8 +640,7 @@ Future<dynamic> deleteUser({
       ));
 
       /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-      final Map<String, dynamic> _userBzzMap =
-          await FireBzOps.readAndFilterTeamlessBzzByUserModel(
+      final Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
         context: context,
         userModel: userModel,
       );
@@ -688,8 +704,7 @@ Future<dynamic> deleteUser({
               bzModel: bz,
             );
 
-            blog(
-                'G - DELETED : from ${userModel.id} : bz :  ${bz.id} successfully');
+            blog('G - DELETED : from ${userModel.id} : bz :  ${bz.id} successfully');
           }
 
           /// I - DELETE user image : storage/usersPics/userID
@@ -713,12 +728,16 @@ Future<dynamic> deleteUser({
 
           /// TASK : NEED TO MANAGE IF THIS FAILS
           await FireAuthOps.deleteFirebaseUser(
-              context: context, userID: userModel.id);
+              context: context,
+              userID: userModel.id,
+          );
 
           /// K - SIGN OUT
           blog('K - user is signing out');
           await FireAuthOps.signOut(
-              context: context, routeToUserChecker: false);
+              context: context,
+              routeToUserChecker: false,
+          );
 
           /// CLOSE WAITING DIALOG
           Nav.goBack(context);
@@ -763,11 +782,16 @@ Future<dynamic> deleteUser({
 
       /// TASK : NEED TO MANAGE IF THIS FAILS
       await FireAuthOps.deleteFirebaseUser(
-          context: context, userID: userModel.id);
+          context: context,
+          userID: userModel.id,
+      );
 
       /// K - SIGN OUT
       blog('K - user is signing out');
-      await FireAuthOps.signOut(context: context, routeToUserChecker: false);
+      await FireAuthOps.signOut(
+          context: context,
+          routeToUserChecker: false,
+      );
 
       /// CLOSE WAITING DIALOG
       Nav.goBack(context);

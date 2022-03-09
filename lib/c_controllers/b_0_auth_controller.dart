@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_1_email_auth_screen.dart';
@@ -116,7 +118,7 @@ Future<void> _goToEmailAuth(BuildContext context) async {
 // -------------------------------------
 Future<void> _controlAuthResult({
   @required BuildContext context,
-  @required dynamic authResult
+  @required dynamic authResult,
 }) async {
 
   blog('_controlAuthResult : authResult : $authResult');
@@ -133,57 +135,62 @@ Future<void> _controlAuthResult({
   /// 2 - WHEN SIGN IN SUCCEEDS
   else {
 
+    final AuthModel _authModel = authResult;
+
     /// B.1 - get UserModel from auth result
-    final UserModel _userModel = _getUserModelFromAuthResult(authResult);
+    final UserModel _userModel = _authModel.userModel;
 
     /// B.2 check if UserModel requires missing fields completion
     final bool _noMissingFieldsFound = _checkMissingFieldsAndHandle(_userModel);
 
+    /// B.3 so user model is complete and we can proceed
     if (_noMissingFieldsFound == true){
-
-      /// B.3 - so sign in succeeded returning a userModel, then set it in provider
-      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-      final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _userModel.zone.countryID);
-      final CityModel _userCity = await _zoneProvider.fetchCityByID(context: context, cityID: _userModel.zone.cityID);
-
-      _usersProvider.setMyUserModelAndCountryAndCity(
+      await _setCompleteUserModelAndStartOverFromLogoScreen(
+        context: context,
         userModel: _userModel,
-        countryModel: _userCountry,
-        cityModel: _userCity,
       );
+    }
 
-      _uiProvider.triggerLoading(setLoadingTo: false);
-
-      /// B.3 - go back to logo screen
-      Nav.goBackToLogoScreen(context);
-      /// B.4 - then restart it
-      await Nav.replaceScreen(context, const LogoScreen());
-
-
+    /// B.3 user model is missing fields and need to go to user editor
+    else {
+      await Nav.goToNewScreen(context, EditProfileScreen(
+        user: _userModel,
+        firstTimer: _authModel.firstTimer,
+      )
+      );
     }
 
   }
 
 }
 // -------------------------------------
-UserModel _getUserModelFromAuthResult(dynamic authResult){
-  UserModel _userModel;
+Future<void> _setCompleteUserModelAndStartOverFromLogoScreen({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
 
-  if (authResult != null){
+  /// B.3 - so sign in succeeded returning a userModel, then set it in provider
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: userModel.zone.countryID);
+  final CityModel _userCity = await _zoneProvider.fetchCityByID(context: context, cityID: userModel.zone.cityID);
 
-    if (authResult is Map<String, dynamic>){
-      /// receives : Map<String, dynamic> authResult = { 'userModel' : userModel, 'firstTimer' : true or false, };
-      _userModel = authResult['userModel'];
-    }
-    else if (authResult is UserModel){
-      _userModel = authResult;
-    }
+  _usersProvider.setMyUserModelAndCountryAndCity(
+    userModel: userModel,
+    countryModel: _userCountry,
+    cityModel: _userCity,
+  );
 
-  }
+  _uiProvider.triggerLoading(setLoadingTo: false);
 
-  return _userModel;
+  /// B.3 - go back to logo screen
+  Nav.goBackToLogoScreen(context);
+  /// B.4 - then restart it
+  await Nav.replaceScreen(context, const LogoScreen());
+
 }
+// -------------------------------------
 
 bool _checkMissingFieldsAndHandle(UserModel userModel){
   bool _noMissingFieldsFound;
@@ -233,8 +240,8 @@ Future<void> controlEmailSignin({
 
     /// D - RESULT
     await _controlAuthResult(
-        context: context,
-        authResult: _result,
+      context: context,
+      authResult: _result,
     );
 
   }
@@ -250,7 +257,10 @@ Future<void> controlEmailSignup({
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
-  final bool _allFieldsAreValid = _prepareForEmailAuthOps(context: context, formKey: formKey);
+  final bool _allFieldsAreValid = _prepareForEmailAuthOps(
+      context: context,
+      formKey: formKey,
+  );
 
   if (_allFieldsAreValid == true) {
 
@@ -271,6 +281,7 @@ Future<void> controlEmailSignup({
     await _controlAuthResult(
       context: context,
       authResult: _result,
+      firstTimer: true,
     );
 
   }

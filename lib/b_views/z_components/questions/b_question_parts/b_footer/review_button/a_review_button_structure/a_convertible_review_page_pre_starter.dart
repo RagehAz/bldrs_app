@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/flyer/records/review_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
 import 'package:flutter/material.dart';
 
@@ -38,25 +37,25 @@ class QuestionConvertibleReviewPagePreStarter extends StatelessWidget {
   final ValueChanged<ReviewModel> onShowReviewOptions;
   final bool centeredInFooter;
   /// --------------------------------------------------------------------------
-  static double _offsetFixToCenter({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool tinyMode,
-  }){
-    final double _buttonSize = FooterButton.buttonSize(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
-    );
-
-    final double _spacing = FooterButton.buttonMargin(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
-    );
-
-    return _buttonSize + _spacing;
-  }
+  // static double _offsetFixToCenter({
+  //   @required BuildContext context,
+  //   @required double flyerBoxWidth,
+  //   @required bool tinyMode,
+  // }){
+  //   final double _buttonSize = FooterButton.buttonSize(
+  //     context: context,
+  //     flyerBoxWidth: flyerBoxWidth,
+  //     tinyMode: tinyMode,
+  //   );
+  //
+  //   final double _spacing = FooterButton.buttonMargin(
+  //     context: context,
+  //     flyerBoxWidth: flyerBoxWidth,
+  //     tinyMode: tinyMode,
+  //   );
+  //
+  //   return _buttonSize + _spacing;
+  // }
 // -----------------------------------------------------------------------------
 
   @override
