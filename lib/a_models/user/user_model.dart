@@ -6,6 +6,7 @@ import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -369,28 +370,57 @@ class UserModel {
   static List<String> missingFields(UserModel userModel) {
     final List<String> _missingFields = <String>[];
 
-    if (userModel?.name == null || userModel?.name == '') {
+    /*
+    -> NOT required : status,
+    -> NOT required : position,
+    -> NOT required : contacts,
+    -> NOT required : myBzzIDs,
+    -> NOT required : savedFlyersIDs,
+    -> NOT required : followedBzzIDs,
+    ---------------------------------->
+    -> generated : id,
+    -> generated : authBy,
+    -> generated : createdAt,
+    -> generated : trigram,
+    -> generated : language,
+    -> generated : emailIsVerified,
+    -> generated : isAdmin,
+    -> generated : fcmToken,
+    ---------------------------------->
+    -> required : name,
+    -> required : pic,
+    -> required : title,
+    -> required : company,
+    -> required : gender,
+    -> required : zone,
+    ---------------------------------->
+    */
+
+    if (stringIsEmpty(userModel?.name) == true) {
       _missingFields.add('name');
     }
 
-    if (userModel?.pic == null || userModel?.pic == '') {
+    if (stringIsEmpty(userModel?.pic) == true) {
       _missingFields.add('pic');
     }
 
-    if (userModel?.title == null || userModel?.title == '') {
+    if (stringIsEmpty(userModel?.title) == true) {
       _missingFields.add('title');
     }
 
-    if (userModel?.company == null || userModel?.company == '') {
+    if (stringIsEmpty(userModel?.company) == true) {
       _missingFields.add('company');
     }
 
-    if (userModel?.zone?.countryID == null ||
-        userModel?.zone?.countryID == '') {
+    if (userModel?.gender == null) {
+      _missingFields.add('gender');
+    }
+
+    if (stringIsEmpty(userModel?.zone?.countryID) == true) {
       _missingFields.add('country');
     }
 
-    if (userModel?.zone?.cityID == null || userModel?.zone?.cityID == '') {
+    if (stringIsEmpty(userModel?.zone?.cityID) == true) {
       _missingFields.add('city');
     }
 
