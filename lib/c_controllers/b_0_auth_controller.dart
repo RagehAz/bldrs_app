@@ -12,6 +12,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -135,24 +136,32 @@ Future<void> _controlAuthResult({
     /// B.1 - get UserModel from auth result
     final UserModel _userModel = _getUserModelFromAuthResult(authResult);
 
-    /// B.2 - so sign in succeeded returning a userModel, then set it in provider
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _userModel.zone.countryID);
-    final CityModel _userCity = await _zoneProvider.fetchCityByID(context: context, cityID: _userModel.zone.cityID);
+    /// B.2 check if UserModel requires missing fields completion
+    final bool _noMissingFieldsFound = _checkMissingFieldsAndHandle(_userModel);
 
-    _usersProvider.setMyUserModelAndCountryAndCity(
-      userModel: _userModel,
-      countryModel: _userCountry,
-      cityModel: _userCity,
-    );
+    if (_noMissingFieldsFound == true){
 
-    _uiProvider.triggerLoading(setLoadingTo: false);
+      /// B.3 - so sign in succeeded returning a userModel, then set it in provider
+      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+      final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _userModel.zone.countryID);
+      final CityModel _userCity = await _zoneProvider.fetchCityByID(context: context, cityID: _userModel.zone.cityID);
 
-    /// B.3 - go back to logo screen
-    Nav.goBackToLogoScreen(context);
-    /// B.4 - then restart it
-    await Nav.replaceScreen(context, const LogoScreen());
+      _usersProvider.setMyUserModelAndCountryAndCity(
+        userModel: _userModel,
+        countryModel: _userCountry,
+        cityModel: _userCity,
+      );
+
+      _uiProvider.triggerLoading(setLoadingTo: false);
+
+      /// B.3 - go back to logo screen
+      Nav.goBackToLogoScreen(context);
+      /// B.4 - then restart it
+      await Nav.replaceScreen(context, const LogoScreen());
+
+
+    }
 
   }
 
@@ -174,6 +183,25 @@ UserModel _getUserModelFromAuthResult(dynamic authResult){
   }
 
   return _userModel;
+}
+
+bool _checkMissingFieldsAndHandle(UserModel userModel){
+  bool _noMissingFieldsFound;
+
+  final List<String> _missingFields = UserModel.missingFields(userModel);
+
+  if (Mapper.canLoopList(_missingFields) == true){
+    _noMissingFieldsFound = false;
+
+
+
+  }
+
+  else {
+    _noMissingFieldsFound = true;
+  }
+
+  return _noMissingFieldsFound;
 }
 // -----------------------------------------------------------------------------
 
