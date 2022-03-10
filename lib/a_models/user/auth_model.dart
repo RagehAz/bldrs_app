@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/e_db/fire/ops/auth_api.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 // -----------------------------------------------------------------------------
 enum AuthBy {
@@ -24,6 +24,11 @@ class AuthModel {
     this.authSucceeds,
     this.facebookLoginResult,
     this.facebookAuthCredential,
+    this.googleAuthProvider,
+    this.googleSignIn,
+    this.googleSignInAccount,
+    this.googleSignInAuthentication,
+    this.authCredential,
   });
   /// --------------------------------------------------------------------------
   UserModel userModel;
@@ -34,6 +39,11 @@ class AuthModel {
   FirebaseAuth firebaseAuth;
   LoginResult facebookLoginResult;
   FacebookAuthCredential facebookAuthCredential;
+  GoogleAuthProvider googleAuthProvider;
+  GoogleSignIn googleSignIn;
+  GoogleSignInAccount googleSignInAccount;
+  GoogleSignInAuthentication googleSignInAuthentication;
+  AuthCredential authCredential;
 // -----------------------------------------------------------------------------
   static AuthBy decipherAuthBy(String authBy) {
     switch (authBy) {
@@ -58,7 +68,7 @@ class AuthModel {
   static bool userIsSignedIn() {
     bool _userIsSignedIn = false;
 
-    if (getFirebaseUser() == null) {
+    if (FireAuthOps.superFirebaseUser() == null) {
       _userIsSignedIn = false;
     } else {
       _userIsSignedIn = true;
@@ -127,6 +137,35 @@ class AuthModel {
     blog('facebookAuthCredential.signInMethod : ${facebookAuthCredential?.signInMethod}');
     blog('facebookAuthCredential.token : ${facebookAuthCredential?.token}');
     blog('facebookAuthCredential.providerId : ${facebookAuthCredential?.providerId}');
+    blog('-------------------------------------------');
+    blog('googleAuthProvider.parameters : ${googleAuthProvider?.parameters}');
+    blog('googleAuthProvider.scopes : ${googleAuthProvider?.scopes?.toString()}');
+    blog('googleAuthProvider.providerId : ${googleAuthProvider?.providerId}');
+    blog('googleAuthProvider.providerId : ${googleAuthProvider?.providerId}');
+    blog('-------------------------------------------');
+    blog('googleAuthProvider.scopes : ${googleSignIn?.scopes.toString()}');
+    blog('googleAuthProvider.currentUser.id : ${googleSignIn?.currentUser?.id}');
+    blog('googleAuthProvider.currentUser.displayName : ${googleSignIn?.currentUser?.displayName}');
+    blog('googleAuthProvider.currentUser.email : ${googleSignIn?.currentUser?.email}');
+    blog('googleAuthProvider.currentUser.photoUrl : ${googleSignIn?.currentUser?.photoUrl}');
+    blog('googleAuthProvider.currentUser.serverAuthCode : ${googleSignIn?.currentUser?.serverAuthCode}');
+    blog('googleAuthProvider.clientId: ${googleSignIn?.clientId}');
+    blog('googleAuthProvider.hostedDomain: ${googleSignIn?.hostedDomain}');
+    blog('googleAuthProvider.hostedDomain.index: ${googleSignIn?.signInOption?.index}');
+    blog('googleAuthProvider.hostedDomain.name: ${googleSignIn?.signInOption?.name}');
+    blog('-------------------------------------------');
+    blog('googleSignInAccount.serverAuthCode: ${googleSignInAccount?.serverAuthCode}');
+    blog('googleSignInAccount.photoUrl: ${googleSignInAccount?.photoUrl}');
+    blog('googleSignInAccount.email: ${googleSignInAccount?.email}');
+    blog('googleSignInAccount.displayName: ${googleSignInAccount?.displayName}');
+    blog('googleSignInAccount.id: ${googleSignInAccount?.id}');
+    blog('-------------------------------------------');
+    blog('googleSignInAuthentication.idToken: ${googleSignInAuthentication?.idToken}');
+    blog('googleSignInAuthentication.accessToken: ${googleSignInAuthentication?.accessToken}');
+    blog('-------------------------------------------');
+    blog('authCredential.providerId: ${authCredential?.providerId}');
+    blog('authCredential.token: ${authCredential?.token}');
+    blog('authCredential.token: ${authCredential?.signInMethod}');
     blog('================================================================');
 
   }

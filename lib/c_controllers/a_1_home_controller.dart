@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
@@ -8,7 +10,6 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -47,7 +48,9 @@ Future<void> initializeHomeScreen(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeUserModel(BuildContext context) async {
-  if (FireAuthOps.userIsSignedIn() == true) {
+
+  if (AuthModel.userIsSignedIn() == true) {
+
     final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _userProvider.myUserModel;
 
@@ -124,7 +127,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
 // -----------------------------------------------------------------------------
 Future<void> _initializeSavedFlyers(BuildContext context) async {
 
-  if (FireAuthOps.userIsSignedIn() == true ){
+  if (AuthModel.userIsSignedIn() == true ){
 
     final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _userProvider.myUserModel;

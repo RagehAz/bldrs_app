@@ -3,7 +3,7 @@
 // import 'package:bldrs/b_views/widgets/general/artworks/bldrs_name_logo_slogan.dart';
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/d_providers/ui_provider.dart';
-// import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+// import 'package:bldrs/e_db/fire/ops/old_auth_ops.dart' as FireAuthOps;
 // import 'package:bldrs/f_helpers/drafters/tracers.dart' as Tracer;
 // import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 // import 'package:flutter/material.dart';

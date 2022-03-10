@@ -1,24 +1,24 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
+import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
+import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
-import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
-import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/bar_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/unfinished_bzz_button.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
@@ -121,7 +121,7 @@ class NavBar extends StatelessWidget {
   static int navBarNumberOfButtons(UserModel userModel) {
     int _numberOfButtons;
 
-    if (FireAuthOps.userIsSignedIn() == false) {
+    if (AuthModel.userIsSignedIn() == false) {
       _numberOfButtons = 2;
     } else if (UserModel.userIsAuthor(userModel)) {
       _numberOfButtons = 4;
@@ -362,7 +362,7 @@ class NavBar extends StatelessWidget {
     // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
     // String _bzLogo = prof.getBzByBzID(_bzID)?.bzLogo;
 
-    final bool _userIsSignedIn = FireAuthOps.userIsSignedIn();
+    final bool _userIsSignedIn = AuthModel.userIsSignedIn();
 
     return Positioned(
       key: key,

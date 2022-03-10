@@ -1,11 +1,12 @@
 import 'dart:async';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
+
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_1_anonymous_home_screen_view.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,6 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
 
     // traceWidgetBuild(widgetName: 'Home screen', varName: '_isInit', varValue: _isInit);
+
+    final bool _userIsSignedIn = AuthModel.userIsSignedIn();
+
     return WillPopScope(
       onWillPop: () async {
 
@@ -81,12 +85,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 /// FOR ANONYMOUS USER
-                else if (userIsSignedIn() == false){
+                else if (_userIsSignedIn == false){
                   return const AnonymousHomeScreenView();
                 }
 
                 /// FOR KNOWN SIGNED IN USER
-                else if (userIsSignedIn() == true){
+                else if (_userIsSignedIn == true){
                   return const UserHomeScreen();
                 }
 
