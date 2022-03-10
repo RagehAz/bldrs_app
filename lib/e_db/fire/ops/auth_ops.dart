@@ -61,7 +61,9 @@ Future<User> _createFirebaseUser({
   final FirebaseAuth _auth = FirebaseAuth?.instance;
 
   final UserCredential _result = await _auth.createUserWithEmailAndPassword(
-      email: email.trim(), password: password);
+      email: email.trim(),
+      password: password,
+  );
 
   final User _user = _result.user;
 
@@ -81,13 +83,14 @@ Future<bool> deleteFirebaseUser({
   blog('deleting firebase user');
   // String _error;
 
-  final bool _result = await tryCatchAndReturn(
+  final bool _result = await tryCatchAndReturnBool(
       context: context,
       methodName: 'deleteFirebaseUser',
       functions: () async {
-        final FirebaseAuth _auth = FirebaseAuth?.instance;
 
+        final FirebaseAuth _auth = FirebaseAuth?.instance;
         await _auth.currentUser.delete();
+
       },
       onError: (String error) {
         // String _error = error.toString();
@@ -150,7 +153,7 @@ Future<dynamic> emailSignInOps({
   String _error;
 
   /// try sign in and check result
-  final bool _signInResult = await tryCatchAndReturn(
+  final bool _signInResult = await tryCatchAndReturnBool(
       context: context,
       methodName: 'signInWithEmailAndPassword in emailSignInOps',
       functions: () async {
@@ -212,7 +215,7 @@ Future<dynamic> emailRegisterOps({
   String _error;
 
   /// try register and check result
-  final bool _registerResult = await tryCatchAndReturn(
+  final bool _registerResult = await tryCatchAndReturnBool(
       context: context,
       methodName: 'emailRegisterOps',
       functions: () async {
@@ -301,7 +304,7 @@ Future<dynamic> facebookSignInOps({
   /// X1 - try get firebase user or return error
   // -------------------------------------------------------
   /// xx - try catch return facebook auth
-  final bool _signInResult = await tryCatchAndReturn(
+  final bool _signInResult = await tryCatchAndReturnBool(
       context: context,
       methodName: 'facebookSignInOps',
       functions: () async {
@@ -412,7 +415,7 @@ Future<dynamic> googleSignInOps({
   /// X1 - try get firebase user or return error
   // -------------------------------------------------------
   /// xx - try catch return google auth
-  final bool _signInResult = await tryCatchAndReturn(
+  final bool _signInResult = await tryCatchAndReturnBool(
       context: context,
       methodName: 'googleSignInOps',
       functions: () async {

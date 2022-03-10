@@ -401,7 +401,7 @@ Future<void> deleteStoragePic({
   @required String docName,
   @required String picName,
 }) async {
-  final dynamic _result = await tryCatchAndReturn(
+  final dynamic _result = await tryCatchAndReturnBool(
       context: context,
       methodName: 'deleteStoragePic',
       functions: () async {
