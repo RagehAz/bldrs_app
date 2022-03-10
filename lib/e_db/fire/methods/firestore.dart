@@ -313,7 +313,7 @@ Future<Map<String, dynamic>> readDoc({
 
   // blog('readDoc() : _map starts as : $_map');
 
-  final dynamic _result = await tryCatchAndReturn(
+  final dynamic _result = await tryCatchAndReturnBool(
     context: context,
     methodName: 'readDoc',
     functions: () async {

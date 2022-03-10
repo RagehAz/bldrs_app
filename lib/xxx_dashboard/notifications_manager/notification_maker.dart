@@ -411,7 +411,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
       // _newNoti.printNotiModel(methodName: '_onSendNotification');
 
-      final bool result = await tryCatchAndReturn(
+      final bool result = await tryCatchAndReturnBool(
         context: context,
         methodName: '_onSendNotification',
         functions: () async {

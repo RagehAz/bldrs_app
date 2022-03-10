@@ -10,7 +10,9 @@ import 'package:provider/provider.dart';
 
 class EmailAuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const EmailAuthScreen({Key key}) : super(key: key);
+  const EmailAuthScreen({
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
   _EmailAuthScreenState createState() => _EmailAuthScreenState();

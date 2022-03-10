@@ -193,7 +193,7 @@ class Localizer {
     String _jsonStringValues;
     String _output;
 
-    final bool _result = await tryCatchAndReturn(
+    final bool _result = await tryCatchAndReturnBool(
       context: context,
       methodName: 'getCountryNameByLingo',
       functions: () async {
