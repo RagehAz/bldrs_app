@@ -1,6 +1,6 @@
 // import 'dart:async';
 //
-// import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+// import 'package:bldrs/e_db/fire/ops/old_auth_ops.dart' as FireAuthOps;
 // import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 // import 'package:bldrs/f_helpers/router/route_names.dart';
 // import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;

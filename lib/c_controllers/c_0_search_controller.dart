@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/flyer/records/record_model.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -14,7 +15,7 @@ import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
@@ -324,7 +325,7 @@ Future<void> _createFireSearchRecord({
 
     final RecordModel _record = RecordModel(
       recordID: null, /// will be defined as docID and injected into retrieved map
-      userID: superUserID(),
+      userID: FireAuthOps.superUserID(),
       timeStamp: DateTime.now(),
       activityType: ActivityType.search,
       modelType: null, /// only used to trace model id
@@ -333,7 +334,7 @@ Future<void> _createFireSearchRecord({
       recordDetails: searchText,
     );
 
-    if (userIsSignedIn() == true){
+    if (AuthModel.userIsSignedIn() == true){
       await RecordOps.createRecord(
         context: context,
         record: _record,

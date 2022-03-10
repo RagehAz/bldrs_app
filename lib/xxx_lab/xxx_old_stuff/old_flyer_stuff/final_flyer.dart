@@ -42,7 +42,7 @@
 // import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
 // import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 // import 'package:bldrs/e_db/fire/methods/paths.dart';
-// import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+// import 'package:bldrs/e_db/fire/ops/old_auth_ops.dart' as FireAuthOps;
 // import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 // import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 // import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
