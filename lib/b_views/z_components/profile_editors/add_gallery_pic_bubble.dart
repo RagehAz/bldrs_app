@@ -20,17 +20,17 @@ enum BubbleType {
 class AddGalleryPicBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AddGalleryPicBubble({
-    @required this.addBtFunction,
-    @required this.pic,
-    @required this.deletePicFunction,
+    @required this.picture,
+    @required this.onAddPicture,
+    @required this.onDeletePicture,
     this.title = '',
     this.bubbleType = BubbleType.none,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final Function addBtFunction;
-  final dynamic pic;
-  final Function deletePicFunction;
+  final Function onAddPicture;
+  final ValueNotifier<dynamic> picture;
+  final Function onDeletePicture;
   final String title;
   final BubbleType bubbleType;
   /// --------------------------------------------------------------------------
@@ -119,7 +119,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                           height: btWidth,
                           icon: Iconz.phoneGallery,
                           iconSizeFactor: 0.6,
-                          onTap: addBtFunction,
+                          onTap: onAddPicture,
                         ),
 
                         /// DELETE pic
@@ -128,7 +128,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                           height: btWidth,
                           icon: Iconz.xLarge,
                           iconSizeFactor: 0.5,
-                          onTap: deletePicFunction,
+                          onTap: onDeletePicture,
                         ),
 
                       ],
@@ -138,38 +138,58 @@ class AddGalleryPicBubble extends StatelessWidget {
               ),
 
               /// PICTURE LAYER
-              GestureDetector(
-                onTap: pic == null ? () {} : addBtFunction,
-                child: bubbleType == BubbleType.bzLogo
-                    ||
-                    bubbleType == BubbleType.authorPic ?
-                BzLogo(
-                  width: picWidth,
-                  image: pic,
-                  margins: const EdgeInsets.all(10),
-                  corners: _picBorders,
-                )
-                    :
-                bubbleType == BubbleType.userPic ?
-                Balloona(
-                  balloonWidth: picWidth,
-                  loading: false,
-                  pic: pic,
-                  userStatus: UserStatus.searching,
-                )
-                    :
-                DreamBox(
-                  width: picWidth,
-                  height: picWidth,
-                  icon: pic,
-                  bubble: false,
-                ),
+              ValueListenableBuilder(
+                  valueListenable: picture,
+                  builder: (_, dynamic pic, Widget child){
 
+                    return GestureDetector(
+                      onTap: pic == null ? () {} : onAddPicture,
+                      child: bubbleType == BubbleType.bzLogo
+                          ||
+                          bubbleType == BubbleType.authorPic ?
+                      BzLogo(
+                        width: picWidth,
+                        image: pic,
+                        margins: const EdgeInsets.all(10),
+                        corners: _picBorders,
+                      )
+                          :
+                      bubbleType == BubbleType.userPic ?
+                      Balloona(
+                        balloonWidth: picWidth,
+                        loading: false,
+                        pic: pic,
+                        userStatus: UserStatus.searching,
+                      )
+                          :
+                      DreamBox(
+                        width: picWidth,
+                        height: picWidth,
+                        icon: pic,
+                        bubble: false,
+                      ),
+
+                    );
+
+                  }
               ),
 
               /// PLUS ICON LAYER
-              if (pic == null)
-                DreamBox(
+              ValueListenableBuilder(
+                valueListenable: picture,
+                builder: (_, dynamic pic, Widget child){
+
+                  if (pic == null){
+                    return const SizedBox();
+                  }
+
+                  else {
+                    return child;
+                  }
+
+                  },
+
+                child: DreamBox(
                   height: picWidth,
                   width: picWidth,
                   icon: Iconz.plus,
@@ -177,8 +197,10 @@ class AddGalleryPicBubble extends StatelessWidget {
                   bubble: false,
                   opacity: 0.9,
                   iconColor: Colorz.white255,
-                  onTap: addBtFunction,
+                  onTap: onAddPicture,
                 ),
+
+              )
 
             ],
           ),
