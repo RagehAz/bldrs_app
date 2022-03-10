@@ -3,7 +3,7 @@
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
 // import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
-// import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+// import 'package:bldrs/e_db/fire/ops/old_auth_ops.dart' as FireAuthOps;
 // import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 // import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 // import 'package:bldrs/f_helpers/theme/colorz.dart';
