@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -100,10 +101,12 @@ class UsersProvider extends ChangeNotifier {
   UserModel _myUserModel; //UserModel.initializeUserModelStreamFromUser(superFirebaseUser()); needs to be null if didn't find the userModel
   CountryModel _myUserCountry;
   CityModel _myUserCity;
+  AuthModel _myAuthModel;
 // -------------------------------------
   UserModel get myUserModel =>_myUserModel;
   CountryModel get myUserCountry => _myUserCountry;
   CityModel get myUserCity => _myUserCity;
+  AuthModel get myAuthModel => _myAuthModel;
 // -------------------------------------
   Future<void> getsetMyUserModelAndCountryAndCity(BuildContext context) async {
     UserModel _userModel;
@@ -136,19 +139,44 @@ class UsersProvider extends ChangeNotifier {
     @required UserModel userModel,
     @required CountryModel countryModel,
     @required CityModel cityModel,
+    @required bool notify,
   }){
     _myUserModel = userModel;
     _myUserCountry = countryModel;
     _myUserCity = cityModel;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -------------------------------------
-  void clearMyUserModelAndCountryAndCity(){
+  void setMyAuthModel({
+    @required AuthModel authModel,
+    @required bool notify,
+}){
+
+    _myAuthModel = authModel;
+
+    if (notify == true){
+      notifyListeners();
+    }
+}
+// -------------------------------------
+  void clearMyUserModelAndCountryAndCityAndAuthModel(){
+
     setMyUserModelAndCountryAndCity(
       userModel: null,
       countryModel: null,
       cityModel: null,
+      notify: false,
     );
+
+    setMyAuthModel(
+        authModel: null,
+        notify: true
+    );
+
   }
 // -----------------------------------------------------------------------------
 
