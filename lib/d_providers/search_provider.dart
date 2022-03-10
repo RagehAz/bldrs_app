@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/records/record_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -181,7 +181,7 @@ class SearchProvider extends ChangeNotifier {
 
     final List<RecordModel> _records = await RecordOps.paginateRecords(
       context: context,
-      userID: superUserID(),
+      userID: FireAuthOps.superUserID(),
       activityType: ActivityType.search,
       limit: 5,
       startAfter: _lastRecordSnapshot,

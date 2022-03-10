@@ -11,7 +11,7 @@
 // import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
 // import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 // import 'package:bldrs/e_db/fire/methods/paths.dart';
-// import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+// import 'package:bldrs/e_db/fire/ops/old_auth_ops.dart' as FireAuthOps;
 // import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 // import 'package:bldrs/f_helpers/drafters/tracers.dart';
 // import 'package:bldrs/f_helpers/theme/colorz.dart';

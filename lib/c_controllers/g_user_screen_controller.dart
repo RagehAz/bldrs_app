@@ -251,7 +251,10 @@ Future<void> _onSignOut(BuildContext context) async {
   _zoneProvider.clearSelectedCityDistricts();
   _zoneProvider.clearSearchedDistricts();
 
-  await FireAuthOps.signOut(context: context, routeToUserChecker: true);
+  await FireAuthOps.signOut(
+      context: context,
+      routeToUserChecker: true
+  );
 
 
 }

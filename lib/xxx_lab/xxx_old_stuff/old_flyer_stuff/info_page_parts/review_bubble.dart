@@ -4,7 +4,7 @@
 // import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_card.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/info_page_parts/review_creator.dart';
-// import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+// import 'package:bldrs/e_db/fire/ops/old_auth_ops.dart' as FireAuthOps;
 // import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 // import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 // import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;

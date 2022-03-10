@@ -72,7 +72,7 @@ Future<dynamic> _controlGoogleAuth(BuildContext context) async {
   final ZoneModel _currentZone = _zoneProvider.currentZone;
 
   /// start google auth ops,
-  final dynamic _authResult = await FireAuthOps.googleSignInOps(
+  final dynamic _authResult = await FireAuthOps.signInByGoogle(
     context: context,
     currentZone: _currentZone,
   );
@@ -85,7 +85,7 @@ Future<dynamic> _controlFacebookAuth(BuildContext context) async {
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final ZoneModel _currentZone = _zoneProvider.currentZone;
 
-  final dynamic _authResult = FireAuthOps.facebookSignInOps(
+  final dynamic _authResult = FireAuthOps.signInByFacebook(
     context: context,
     currentZone: _currentZone,
   );
@@ -98,7 +98,7 @@ Future<dynamic> _controlAppleAuth(BuildContext context) async {
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final ZoneModel _currentZone = _zoneProvider.currentZone;
 
-  final dynamic _authResult = FireAuthOps.appleAuthOps(
+  final dynamic _authResult = FireAuthOps.signInByApple(
     context: context,
     currentZone: _currentZone,
   );
@@ -232,7 +232,7 @@ Future<void> controlEmailSignin({
     _uiProvider.triggerLoading(setLoadingTo: true);
 
     /// C - FIRE SIGN IN OPS
-    final dynamic _result = await FireAuthOps.emailSignInOps(
+    final dynamic _result = await FireAuthOps.signInByEmailAndPassword(
       context: context,
       email: email,
       password: password,
@@ -270,7 +270,7 @@ Future<void> controlEmailSignup({
 
     /// C - START REGISTER OPS
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final dynamic _result = await FireAuthOps.emailRegisterOps(
+    final dynamic _result = await FireAuthOps.registerByEmailAndPassword(
         context: context,
         currentZone: _zoneProvider.currentZone,
         email: email,
@@ -281,7 +281,6 @@ Future<void> controlEmailSignup({
     await _controlAuthResult(
       context: context,
       authResult: _result,
-      firstTimer: true,
     );
 
   }

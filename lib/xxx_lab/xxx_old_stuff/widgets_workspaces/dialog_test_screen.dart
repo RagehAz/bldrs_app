@@ -10,7 +10,7 @@
 // import 'package:bldrs/b_views/widgets/general/textings/unfinished_super_verse.dart';
 // import 'package:bldrs/d_providers/flyers_provider.dart';
 // import 'package:bldrs/d_providers/streamers/user_streamer.dart';
-// import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+// import 'package:bldrs/e_db/fire/ops/old_auth_ops.dart' as FireAuthOps;
 // import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
 // import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 // import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
@@ -9,7 +11,6 @@ import 'package:bldrs/c_controllers/c_0_search_controller.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -58,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      if (userIsSignedIn()){
+      if (AuthModel.userIsSignedIn()){
 
         final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
         _uiProvider.startController(()async{
