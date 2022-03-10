@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/locale_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -654,8 +654,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               /// --- ADD LOGO
               AddGalleryPicBubble(
                 pic: _currentBzLogoFile ?? _currentBzLogoURL,
-                addBtFunction: _takeBzLogo,
-                deletePicFunction: () => setState(() {
+                onAddPicture: _takeBzLogo,
+                onDeletePicture: () => setState(() {
                   _currentBzLogoFile = null;
                 }),
                 title: Wordz.businessLogo(context),
@@ -704,7 +704,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               const BubblesSeparator(),
 
               /// --- bzLocale
-              LocaleBubble(
+              ZoneSelectionBubble(
                 changeCountry: (String countryID) => setState(() {
                   _currentBzCountry = countryID;
                 }),
@@ -750,8 +750,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
               /// --- ADD AUTHOR PIC
               AddGalleryPicBubble(
                 pic: _currentAuthorPicFile ?? _currentAuthorPicURL,
-                addBtFunction: _takeAuthorPicture,
-                deletePicFunction: () => setState(() {
+                onAddPicture: _takeAuthorPicture,
+                onDeletePicture: () => setState(() {
                   _currentAuthorPicFile = null;
                 }),
                 title: 'Add a professional picture of yourself',

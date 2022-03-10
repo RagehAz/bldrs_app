@@ -118,55 +118,58 @@ Future<void> _goToEmailAuth(BuildContext context) async {
 // -------------------------------------
 Future<void> _controlAuthResult({
   @required BuildContext context,
-  @required dynamic authResult,
+  @required AuthModel authModel,
 }) async {
 
-  blog('_controlAuthResult : authResult : $authResult');
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  /// 1 - WHEN SIGN IN FAILS
-  if (authResult is String || authResult == null) {
+  /// 1 - WHEN SIGN IN FAILS => show error dialog
+  if (authModel.authSucceeds == false) {
+
     _uiProvider.triggerLoading(setLoadingTo: false);
 
-    final String _errorMessage = authResult ?? 'Something went wrong, please try again';
-    await Dialogz.authErrorDialog(context: context, result: _errorMessage);
+    final String _errorMessage = authModel.authError ??
+        'Something went wrong, please try again';
+
+    await Dialogz.authErrorDialog(
+        context: context,
+        result: _errorMessage
+    );
+
   }
 
-  /// 2 - WHEN SIGN IN SUCCEEDS
+  /// 2 - WHEN SIGN IN SUCCEEDS => check missing fields then go home
   else {
 
-    final AuthModel _authModel = authResult;
-
-    /// B.1 - get UserModel from auth result
-    final UserModel _userModel = _authModel.userModel;
-
     /// B.2 check if UserModel requires missing fields completion
-    final bool _noMissingFieldsFound = _checkMissingFieldsAndHandle(_userModel);
+    final bool _noMissingFieldsFound = _checkUserModelMissingFields(authModel.userModel);
 
     /// B.3 so user model is complete and we can proceed
     if (_noMissingFieldsFound == true){
-      await _setCompleteUserModelAndStartOverFromLogoScreen(
+      await _setUserModelLocallyAndStartOverFromLogoScreen(
         context: context,
-        userModel: _userModel,
+        userModel: authModel.userModel,
       );
     }
 
     /// B.3 user model is missing fields and need to go to user editor
     else {
+
       await Nav.goToNewScreen(context, EditProfileScreen(
-        user: _userModel,
-        firstTimer: _authModel.firstTimer,
-      )
-      );
+        userModel: authModel.userModel,
+      ));
+
+
     }
 
   }
 
 }
 // -------------------------------------
-Future<void> _setCompleteUserModelAndStartOverFromLogoScreen({
+Future<void> _setUserModelLocallyAndStartOverFromLogoScreen({
   @required BuildContext context,
   @required UserModel userModel,
+  @required AuthModel authModel,
 }) async {
 
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
@@ -180,6 +183,12 @@ Future<void> _setCompleteUserModelAndStartOverFromLogoScreen({
     userModel: userModel,
     countryModel: _userCountry,
     cityModel: _userCity,
+    notify: false,
+  );
+
+  _usersProvider.setMyAuthModel(
+    authModel: authModel,
+    notify: true,
   );
 
   _uiProvider.triggerLoading(setLoadingTo: false);
@@ -191,17 +200,13 @@ Future<void> _setCompleteUserModelAndStartOverFromLogoScreen({
 
 }
 // -------------------------------------
-
-bool _checkMissingFieldsAndHandle(UserModel userModel){
+bool _checkUserModelMissingFields(UserModel userModel){
   bool _noMissingFieldsFound;
 
   final List<String> _missingFields = UserModel.missingFields(userModel);
 
   if (Mapper.canLoopList(_missingFields) == true){
     _noMissingFieldsFound = false;
-
-
-
   }
 
   else {
@@ -232,7 +237,7 @@ Future<void> controlEmailSignin({
     _uiProvider.triggerLoading(setLoadingTo: true);
 
     /// C - FIRE SIGN IN OPS
-    final dynamic _result = await FireAuthOps.signInByEmailAndPassword(
+    final AuthModel _authModel = await FireAuthOps.signInByEmailAndPassword(
       context: context,
       email: email,
       password: password,
@@ -241,7 +246,7 @@ Future<void> controlEmailSignin({
     /// D - RESULT
     await _controlAuthResult(
       context: context,
-      authResult: _result,
+      authModel: _authModel,
     );
 
   }
@@ -270,7 +275,7 @@ Future<void> controlEmailSignup({
 
     /// C - START REGISTER OPS
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final dynamic _result = await FireAuthOps.registerByEmailAndPassword(
+    final AuthModel _authModel = await FireAuthOps.registerByEmailAndPassword(
         context: context,
         currentZone: _zoneProvider.currentZone,
         email: email,
@@ -280,7 +285,7 @@ Future<void> controlEmailSignup({
     /// D - AUTH RESULT
     await _controlAuthResult(
       context: context,
-      authResult: _result,
+      authModel: _authModel,
     );
 
   }

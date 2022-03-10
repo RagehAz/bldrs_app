@@ -19,9 +19,9 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LocaleBubble extends StatefulWidget {
+class ZoneSelectionBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const LocaleBubble({
+  const ZoneSelectionBubble({
     @required this.changeCountry,
     @required this.changeCity,
     @required this.changeDistrict,
@@ -33,15 +33,15 @@ class LocaleBubble extends StatefulWidget {
   final ValueChanged<String> changeCountry;
   final ValueChanged<String> changeCity;
   final ValueChanged<String> changeDistrict;
-  final ZoneModel currentZone;
+  final ValueNotifier<ZoneModel> currentZone;
   final String title;
   /// --------------------------------------------------------------------------
   @override
-  _LocaleBubbleState createState() => _LocaleBubbleState();
+  _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
   /// --------------------------------------------------------------------------
 }
 
-class _LocaleBubbleState extends State<LocaleBubble> {
+class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   CountryModel _selectedCountry;
   List<CityModel> _countryCities;
   CityModel _selectedCity;

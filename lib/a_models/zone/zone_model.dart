@@ -43,13 +43,12 @@ class ZoneModel {
   }
 // -----------------------------------------------------------------------------
   static ZoneModel decipherZoneMap(Map<String, dynamic> map) {
-    final ZoneModel _zone = map == null
-        ? null
-        : ZoneModel(
-            countryID: map['countryID'],
-            cityID: map['cityID'],
-            districtID: map['districtID'],
-          );
+    final ZoneModel _zone = map == null ? null :
+    ZoneModel(
+      countryID: map['countryID'],
+      cityID: map['cityID'],
+      districtID: map['districtID'],
+    );
 
     return _zone;
   }
@@ -59,11 +58,17 @@ class ZoneModel {
 
     if (finalZone.countryID != originalZone.countryID) {
       _zonesAreTheSame = false;
-    } else if (finalZone.cityID != originalZone.cityID) {
+    }
+
+    else if (finalZone.cityID != originalZone.cityID) {
       _zonesAreTheSame = false;
-    } else if (finalZone.districtID != originalZone.districtID) {
+    }
+
+    else if (finalZone.districtID != originalZone.districtID) {
       _zonesAreTheSame = false;
-    } else {
+    }
+
+    else {
       _zonesAreTheSame = true;
     }
 
@@ -83,16 +88,13 @@ class ZoneModel {
   }
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToCountryID(String zoneString) {
-    final String _countryID =
-        TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
+    final String _countryID = TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
     return _countryID;
   }
 // -----------------------------------------------------------------------------
   static String decipherZoneStringToCityID(String zoneString) {
-    final String _cityAndDistrict =
-        TextMod.removeTextBeforeFirstSpecialCharacter(zoneString, '/');
-    final String _cityID =
-        TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
+    final String _cityAndDistrict = TextMod.removeTextBeforeFirstSpecialCharacter(zoneString, '/');
+    final String _cityID = TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
     return _cityID;
   }
 // -----------------------------------------------------------------------------

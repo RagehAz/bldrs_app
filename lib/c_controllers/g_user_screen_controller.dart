@@ -237,7 +237,7 @@ Future<void> _onSignOut(BuildContext context) async {
 
   /// CLEAR USER
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  _usersProvider.clearMyUserModelAndCountryAndCity();
+  _usersProvider.clearMyUserModelAndCountryAndCityAndAuthModel();
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   // _zoneProvider.clearAllSearchesAndSelections();
