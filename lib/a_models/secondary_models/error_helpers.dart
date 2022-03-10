@@ -47,16 +47,20 @@ Future<void> tryAndCatch({
 }
 
 // -----------------------------------------------------------------------------
-Future<bool> tryCatchAndReturn({
+/// RETURNS TRUE IF SUCCESS AND FALSE ON FAILURE
+Future<bool> tryCatchAndReturnBool({
   @required BuildContext context,
   @required Function functions,
   ValueChanged<String> onError,
   String methodName,
 }) async {
+
   try {
     await functions();
     return true;
-  } on Exception catch (error) {
+  }
+
+  on Exception catch (error) {
     blog('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null) {

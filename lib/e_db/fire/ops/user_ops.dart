@@ -136,7 +136,7 @@ Future<UserModel> createUser({
 }
 
 // ---------------------------------------------------
-Future<AuthModel> getOrCreateUserModelFromUser({
+Future<UserModel> getOrCreateUserModelFromUser({
   @required BuildContext context,
   @required User user,
   @required ZoneModel zone,
@@ -182,10 +182,7 @@ Future<AuthModel> getOrCreateUserModelFromUser({
     blog('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
 
     /// E3 - return new userModel inside userModel-firstTimer map
-    return AuthModel(
-      userModel: _finalUserModel,
-      firstTimer: true,
-    );
+    return _finalUserModel;
 
   }
 
@@ -193,10 +190,7 @@ Future<AuthModel> getOrCreateUserModelFromUser({
   else {
 
     /// E3 - return existing userMode inside userModel-firstTimer map
-    return AuthModel(
-      userModel: _existingUserModel,
-      firstTimer: false,
-    );
+    return _existingUserModel;
 
   }
 }
