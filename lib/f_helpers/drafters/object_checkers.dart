@@ -33,7 +33,9 @@ bool objectIsURL(dynamic file) {
 
   if (file is String) {
     _validURL = Uri.parse(file).isAbsolute;
-  } else {
+  }
+
+  else {
     _validURL = false;
   }
 

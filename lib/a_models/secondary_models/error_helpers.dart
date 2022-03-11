@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 class HttpException implements Exception {
   /// --------------------------------------------------------------------------
   HttpException(this.message);
-
   /// --------------------------------------------------------------------------
   final String message;
-
   /// --------------------------------------------------------------------------
   @override
   String toString() {
@@ -16,7 +14,6 @@ class HttpException implements Exception {
     // return super.toString(); // instance of HttpException
   }
 }
-
 // -----------------------------------------------------------------------------
 Future<void> tryAndCatch({
   @required BuildContext context,
@@ -25,9 +22,12 @@ Future<void> tryAndCatch({
   ValueChanged<String> onError,
   bool showErrorDialog = false,
 }) async {
+
   try {
     await functions();
-  } on Exception catch (error) {
+  }
+
+  on Exception catch (error) {
     blog('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null) {
@@ -43,9 +43,9 @@ Future<void> tryAndCatch({
     }
 
     // throw(error);
+
   }
 }
-
 // -----------------------------------------------------------------------------
 /// RETURNS TRUE IF SUCCESS AND FALSE ON FAILURE
 Future<bool> tryCatchAndReturnBool({

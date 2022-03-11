@@ -253,34 +253,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   /// update user
   Future<void> _updateUserModel() async {
-    /// validate all required fields are valid
-    if (_inputsAreValid() == false) {
-      /// TASK : add error missing data indicator in UI bubbles
-    }
 
-    else {
-      unawaited(_triggerLoading(setTo: true));
+    unawaited(_triggerLoading(setTo: true));
 
-      /// create new updated user model
-      final UserModel _updatedModel = _createUserModelFromLocalVariables();
+    /// create new updated user model
+    final UserModel _updatedModel = _createUserModelFromLocalVariables();
 
-      /// start create user ops
-      await UserFireOps.updateUser(
-        context: context,
-        oldUserModel: widget.userModel,
-        updatedUserModel: _updatedModel,
-      );
+    /// start create user ops
+    await UserFireOps.updateUser(
+      context: context,
+      oldUserModel: widget.userModel,
+      updatedUserModel: _updatedModel,
+    );
 
-      unawaited(_triggerLoading(setTo: false));
+    unawaited(_triggerLoading(setTo: false));
 
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'Great !',
-        body: 'Successfully updated your user account',
-      );
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Great !',
+      body: 'Successfully updated your user account',
+    );
 
-      Nav.goBack(context);
-    }
+    Nav.goBack(context);
+
   }
 // -----------------------------------------------------------------------------
   UserModel _createUserModelFromLocalVariables(){
@@ -325,7 +320,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
       pageTitle: Wordz.updateProfile(context),
+      appBarRowWidgets: [
 
+        DreamBox(
+          height: 40,
+          width: 100,
+          verse: 'do the thing',
+          onTap: () async {
+            blog('picture is : ${widget.userModel.pic}');
+          },
+        )
+
+      ],
       layoutWidget: ValueListenableBuilder(
         valueListenable: _loading,
         builder: (_, bool _isLoading, Widget child){
