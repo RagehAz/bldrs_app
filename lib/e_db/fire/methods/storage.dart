@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -372,8 +373,7 @@ Future<File> getFileByPath(
 /// UPDATE
 
 // ------------------------------------------------
-/// returns updated pic new URL
-Future<String> updatePic({
+Future<String> updateExistingPic({
   @required BuildContext context,
   @required String oldURL,
   @required File newPic,
@@ -383,13 +383,54 @@ Future<String> updatePic({
   final Map<String, dynamic> _existingMetaData = _fullMeta.customMetadata;
 
   final SettableMetadata metaData =
-      SettableMetadata(customMetadata: _existingMetaData);
+  SettableMetadata(customMetadata: _existingMetaData);
 
   await _ref.putFile(newPic, metaData);
 
   final String _newURL = await _ref.getDownloadURL();
 
   return _newURL;
+}
+// ------------------------------------------------
+/// returns updated pic new URL
+Future<String> createOrUpdatePic({
+  @required BuildContext context,
+  @required String oldURL,
+  @required File newPic,
+  @required String ownerID,
+  @required String docName,
+  @required String picName,
+}) async {
+
+  String _outputURL;
+
+  final bool _oldURLIsValid = ObjectChecker.objectIsURL(oldURL);
+
+  /// when old url exists
+  if (_oldURLIsValid == true){
+
+    _outputURL = await updateExistingPic(
+        context: context,
+        oldURL: oldURL,
+        newPic: newPic,
+    );
+
+  }
+
+  /// when no existing image url
+  else {
+
+    _outputURL = await createStoragePicAndGetURL(
+      context: context,
+      inputFile: newPic,
+      ownerID: ownerID,
+      docName: docName,
+      picName: picName,
+    );
+
+  }
+
+  return _outputURL;
 }
 // -----------------------------------------------------------------------------
 

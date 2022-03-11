@@ -266,12 +266,17 @@ Future<void> updateUser({
   /// A - if user pic changed
   String _userPicURL;
   if (ObjectChecker.objectIsFile(updatedUserModel.pic) == true) {
+
     /// A1 - update pic to fireStorage/usersPics/userID and get new URL
-    _userPicURL = await Storage.updatePic(
+    _userPicURL = await Storage.createOrUpdatePic(
       context: context,
       oldURL: oldUserModel.pic,
       newPic: updatedUserModel.pic,
+      picName: updatedUserModel.id,
+      ownerID: updatedUserModel.id,
+      docName: StorageDoc.users,
     );
+
   }
 
   /// B - create final UserModel
@@ -317,7 +322,7 @@ Future<String> updateUserPic({
   @required String userID,
 }) async {
 
-  final String _newURL = await Storage.updatePic(
+  final String _newURL = await Storage.updateExistingPic(
       context: context,
       oldURL: oldURL,
       newPic: newPic,
