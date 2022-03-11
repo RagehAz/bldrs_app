@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -22,18 +23,14 @@ import 'package:provider/provider.dart';
 class ZoneSelectionBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ZoneSelectionBubble({
-    @required this.changeCountry,
-    @required this.changeCity,
-    @required this.changeDistrict,
     @required this.currentZone,
+    @required this.onZoneChanged,
     this.title = 'Preferred Location',
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueChanged<String> changeCountry;
-  final ValueChanged<String> changeCity;
-  final ValueChanged<String> changeDistrict;
-  final ValueNotifier<ZoneModel> currentZone;
+  final ZoneModel currentZone;
+  final ValueChanged<ZoneModel> onZoneChanged;
   final String title;
   /// --------------------------------------------------------------------------
   @override
@@ -42,93 +39,67 @@ class ZoneSelectionBubble extends StatefulWidget {
 }
 
 class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
-  CountryModel _selectedCountry;
-  List<CityModel> _countryCities;
-  CityModel _selectedCity;
+// -----------------------------------------------------------------------------
+  final ValueNotifier<CountryModel> _selectedCountry = ValueNotifier(null);
+  final ValueNotifier<List<CityModel>> _selectedCountryCities = ValueNotifier(null);
+// ------------------------------------------
+  final ValueNotifier<CityModel> _selectedCity = ValueNotifier(null);
+// ------------------------------------------
+  final ValueNotifier<DistrictModel> _selectedDistrict = ValueNotifier(null);
+// ------------------------------------------
   ZoneModel _selectedZone;
   ZoneProvider _zoneProvider;
 // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(true);
+// -----------------------------------
+  Future<void> _triggerLoading({@required setTo}) async {
+    _loading.value = setTo;
+    blogLoading(loading: _loading.value);
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _selectedZone = widget.currentZone;
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-    _selectedCountry = _zoneProvider.userCountryModel;
   }
-
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      if (_selectedZone.isNotEmpty()) {
-        _triggerLoading().then((_) async {
 
-          final CountryModel _country = await _zoneProvider.fetchCountryByID(
-              context: context,
-              countryID: _selectedZone.countryID,
-          );
+      _triggerLoading(setTo: true).then((_) async {
+// -----------------------------------------------------------------
+        _selectedCountry.value = await _zoneProvider.fetchCountryByID(
+          context: context,
+          countryID: _selectedZone.countryID,
+        );
 
-          final CityModel _city = await _zoneProvider.fetchCityByID(
-              context: context,
-              cityID: _selectedZone.cityID,
-          );
+        _selectedCity.value = await _zoneProvider.fetchCityByID(
+          context: context,
+          cityID: _selectedZone.cityID,
+        );
 
-          unawaited(_triggerLoading(function: () {
-            _selectedCountry = _country;
-            _selectedCity = _city;
-          }));
-        });
-      }
+        _selectedDistrict.value = DistrictModel.getDistrictFromDistricts(
+            districts: _selectedCity.value.districts,
+            districtID: _selectedZone.districtID,
+        );
+
+// -----------------------------------------------------------------
+        await _triggerLoading(setTo: false);
+      });
+
     }
     _isInit = false;
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-//   @override
-//   void didUpdateWidget(covariant LocaleBubble oldBubble) {
-//     if(oldBubble.currentZone != widget.currentZone){
-//       setState(() {
-//
-//       });
-//
-//       // _isInit = true;
-//       // didChangeDependencies();
-//     }
-//     super.didUpdateWidget(oldBubble);
-//   }
-// // -----------------------------------------------------------------------------
+  Future<void> _onShowCountriesTap({
+    @required BuildContext context
+  }) async {
 
-  void _closeBottomSheet() {
-    Navigator.of(context).pop();
-    // await null;
-  }
-
-// -----------------------------------------------------------------------------
-  Future<void> _tapCountryButton({@required BuildContext context}) async {
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
     final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
@@ -139,40 +110,42 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       child: BottomDialogButtons(
         mapsModels: _countriesMapModels,
         alignment: Alignment.center,
-        buttonTap: (String countryID) async {
-
-          final CountryModel _country = await _zoneProvider.fetchCountryByID(
-              context: context,
-              countryID: countryID,
-          );
-
-          final List<CityModel> _cities = await _zoneProvider.fetchCitiesByIDs(
-              context: context,
-              citiesIDs: _country.citiesIDs,
-          );
-
-          setState(() {
-            _selectedCountry = _country;
-            _countryCities = _cities;
-            _selectedZone.cityID = null;
-            _selectedZone.districtID = null;
-          });
-
-          widget.changeCountry(countryID);
-          blog('_currentCountryID : $_selectedCountry');
-
-          _closeBottomSheet();
-        },
+        buttonTap: _onSelectCountry,
       ),
     );
+
+  }
+// ----------------------------------------
+  Future<void> _onSelectCountry(String countryID) async {
+
+    _selectedCountry.value = await _zoneProvider.fetchCountryByID(
+      context: context,
+      countryID: countryID,
+    );
+
+    _selectedCountryCities.value = await _zoneProvider.fetchCitiesByIDs(
+      context: context,
+      citiesIDs: _selectedCountry.value.citiesIDs,
+    );
+
+    _selectedZone.countryID = countryID;
+    _selectedZone.cityID = null;
+    _selectedZone.districtID = null;
+
+    widget.onZoneChanged(_selectedZone);
+
+    Nav.goBack(context);
   }
 // -----------------------------------------------------------------------------
-  Future<void> _tapCityButton({@required BuildContext context}) async {
+  Future<void> _onShowCitiesTap({
+    @required BuildContext context
+  }) async {
+
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
     final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(
       context: context,
-      cities: _countryCities,
+      cities: _selectedCountryCities.value,
     );
 
     await BottomDialog.showBottomDialog(
@@ -182,33 +155,36 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         mapsModels: _citiesMapModels,
         alignment: Alignment.center,
         bottomDialogType: BottomDialogType.cities,
-        buttonTap: (String cityID) async {
-          final CityModel _city = await _zoneProvider.fetchCityByID(
-              context: context, cityID: cityID);
-
-          setState(() {
-            _selectedZone.cityID = cityID;
-            _selectedCity = _city;
-            _selectedZone.districtID = null;
-          });
-
-          widget.changeCity(cityID);
-          blog('_currentProvince : ${_selectedZone.cityID}');
-          _closeBottomSheet();
-        },
+        buttonTap: _noSelectCity,
       ),
     );
   }
+// ----------------------------------------
+  Future<void> _noSelectCity(String cityID) async {
+
+    _selectedCity.value = await _zoneProvider.fetchCityByID(
+        context: context,
+        cityID: cityID
+    );
+
+    _selectedZone.cityID = cityID;
+    _selectedZone.districtID = null;
+
+    widget.onZoneChanged(_selectedZone);
+
+    Nav.goBack(context);
+
+  }
 // -----------------------------------------------------------------------------
-  Future<void> _tapDistrictButton({@required BuildContext context}) async {
+  Future<void> _onShowDistricts({
+    @required BuildContext context,
+  }) async {
+
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    final List<DistrictModel> _selectedCityDistricts = _selectedCity.districts;
-
-    final List<MapModel> _districtsMapModels =
-        DistrictModel.getDistrictsNamesMapModels(
+    final List<MapModel> _districtsMapModels = DistrictModel.getDistrictsNamesMapModels(
       context: context,
-      districts: _selectedCityDistricts,
+      districts: _selectedCity.value.districts,
     );
 
     await BottomDialog.showBottomDialog(
@@ -218,59 +194,31 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         mapsModels: _districtsMapModels,
         alignment: Alignment.center,
         bottomDialogType: BottomDialogType.districts,
-        buttonTap: (String districtID) {
-          setState(() {
-            _selectedZone.districtID = districtID;
-          });
-
-          widget.changeDistrict(districtID);
-          blog('_current districtID : $districtID');
-
-          _closeBottomSheet();
-        },
+        buttonTap: _onSelectDistrict,
       ),
     );
-  }
-// -----------------------------------------------------------------------------
-  String _getSelectedCityName() {
-    final String _selectedCityName = _selectedZone?.cityID == null
-        ? '...'
-        : CityModel.getTranslatedCityNameFromCity(
-            context: context,
-            city: _selectedCity,
-          );
 
-    return _selectedCityName;
   }
-// -----------------------------------------------------------------------------
-  String _getSelectedDistrictName() {
-    final String _selectedDistrictName = _selectedZone?.districtID == null ?
-    '...'
-        :
-    DistrictModel.getTranslatedDistrictNameFromCity(
-      context: context,
-      city: _selectedCity,
-      districtID: _selectedZone.districtID,
+// ----------------------------------------
+  void _onSelectDistrict(String districtID) {
+
+    final DistrictModel _district = DistrictModel.getDistrictFromDistricts(
+        districts: _selectedCity.value.districts,
+        districtID: districtID
     );
 
-    return _selectedDistrictName;
+    _selectedDistrict.value = _district;
+
+    _selectedZone.districtID = districtID;
+
+    widget.onZoneChanged(_selectedZone);
+
+    Nav.goBack(context);
+
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final String _selectedCountryName = CountryModel.getTranslatedCountryNameByID(
-      context: context,
-      countryID: _selectedCountry?.id,
-    );
-
-    final String _selectedCountryFlag = _selectedCountry == null ?
-    ''
-        :
-    Flag.getFlagIconByCountryID(_selectedCountry?.id);
-
-    final String _selectedCityName = _getSelectedCityName();
-    final String _selectedDistrictName = _getSelectedDistrictName();
 
     return Bubble(
         title: widget.title,
@@ -283,36 +231,84 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             children: <Widget>[
 
               /// COUNTRY BUTTON
-              LocaleButton(
-                title: Wordz.country(context),
-                icon: _selectedCountryFlag, //geebCountryFlagByCountryName(context),
-                verse: _selectedCountryName,
-                onTap: () => _tapCountryButton(context: context),
+              ValueListenableBuilder(
+                  valueListenable: _selectedCountry,
+                  builder: (_, CountryModel selectedCountry, Widget child){
+
+                    final String _countryName = CountryModel.getTranslatedCountryNameByID(
+                      context: context,
+                      countryID: selectedCountry?.id,
+                    );
+
+                    final String _countryFlag =
+                    selectedCountry == null ? ''
+                        :
+                    Flag.getFlagIconByCountryID(selectedCountry?.id);
+
+                    return ZoneSelectionButton(
+                      title: Wordz.country(context),
+                      icon: _countryFlag,
+                      verse: _countryName,
+                      onTap: () => _onShowCountriesTap(context: context),
+                    );
+
+                  }
               ),
 
-              /// PROVINCE BUTTON
-              LocaleButton(
-                title: 'City', //Wordz.province(context),
-                verse: _selectedCityName,
-                onTap: () => _tapCityButton(context: context),
+              /// City BUTTON
+              ValueListenableBuilder(
+                valueListenable: _selectedCity,
+                builder: (_, CityModel selectedCity, Widget child){
+
+                  final String _cityName =
+                  selectedCity?.cityID == null ? '...'
+                      :
+                  CityModel.getTranslatedCityNameFromCity(
+                    context: context,
+                    city: selectedCity,
+                  );
+
+                  return ZoneSelectionButton(
+                    title: 'City',
+                    verse: _cityName,
+                    onTap: () => _onShowCitiesTap(context: context),
+                  );
+
+                },
               ),
 
               /// AREA BUTTON
-              LocaleButton(
-                title: 'Area', //Wordz.area(context),
-                verse: _selectedDistrictName,
-                onTap: () => _tapDistrictButton(context: context),
-              ),
+              ValueListenableBuilder(
+                  valueListenable: _selectedDistrict,
+                  builder: (_, DistrictModel district, Widget child){
+
+                    final String _districtName =
+                    district?.districtID == null ? '...'
+                        :
+                    DistrictModel.getTranslatedDistrictNameFromDistrict(
+                      context: context,
+                      district: district,
+                    );
+
+                    return ZoneSelectionButton(
+                      title: 'District',
+                      verse: _districtName,
+                      onTap: () => _onShowDistricts(context: context),
+                    );
+
+                  }
+                  ),
 
             ],
-      ),
-    ]);
+          ),
+        ]
+    );
   }
 }
 
-class LocaleButton extends StatelessWidget {
+class ZoneSelectionButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const LocaleButton({
+  const ZoneSelectionButton({
     @required this.title,
     @required this.verse,
     @required this.onTap,
@@ -327,6 +323,7 @@ class LocaleButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _bubbleClearWidth = Bubble.clearWidth(context);
     const double _buttonsSpacing = Ratioz.appBarPadding;
     final double _buttonWidth = (_bubbleClearWidth / 3) - ((2 * _buttonsSpacing) / 3);
