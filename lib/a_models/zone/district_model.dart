@@ -101,18 +101,23 @@ class DistrictModel{
         _districtsMapModels.add(
             MapModel(
                 key: district.districtID,
-                value: Name.getNameByCurrentLingoFromNames(
+                value: DistrictModel.getTranslatedDistrictNameFromDistrict(
                     context: context,
-                    names: district.names
-                )
+                    district: district
+                ),
+
+                // Name.getNameByCurrentLingoFromNames(
+                //     context: context,
+                //     names: district.names
+                // )
+
             )
         );
       }
 
     }
 
-    return _districtsMapModels;
-
+    return MapModel.sortValuesAlphabetically(_districtsMapModels);
   }
 // -----------------------------------------------------------------------------
   static DistrictModel getDistrictFromDistricts({

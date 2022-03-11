@@ -19,6 +19,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -109,7 +110,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _gender.value             = widget.userModel.gender;
     _zone.value               = widget.userModel.zone;
 
-    _currentLanguageCode      = Wordz.languageCode(context);
+    // _currentLanguageCode      = Wordz.languageCode(context);
 
     _nameController.text      = widget.userModel.name;
     _companyController.text   = widget.userModel.company;
@@ -174,6 +175,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   void _onZoneChanged(ZoneModel zoneModel) {
     _zone.value = zoneModel;
+
+    zoneModel.blogZone(methodName: 'recieved this zone ahoo');
   }
 // -----------------------------------------------------------------------------
   // void _changePosition(GeoPoint geoPoint){
@@ -214,10 +217,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// A - IF ALL REQUIRED FIELDS ARE NOT VALID
     if (_inputsAreValid() == false){
 
+      final UserModel _updatedModel = _createUserModelFromLocalVariables();
+      final List<String> _missingFields = UserModel.missingFields(_updatedModel);
+      final String _missingFieldsString = TextGen.generateStringFromStrings(_missingFields);
+
       await CenterDialog.showCenterDialog(
         context: context,
-        title: '',
-        body: 'Please add all required fields',
+        title: 'Please add all required fields',
+        body:
+            'Missing fields :\n'
+            '$_missingFieldsString',
       );
 
     }
@@ -306,6 +315,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
+
     return MainLayout(
       pyramidsAreOn: true,
       skyType: SkyType.black,
@@ -314,6 +325,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
       pageTitle: Wordz.updateProfile(context),
+
       layoutWidget: ValueListenableBuilder(
         valueListenable: _loading,
         builder: (_, bool _isLoading, Widget child){
@@ -330,147 +342,164 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
         child: Form(
           key: _formKey,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.zero,
+          child: Stack(
+            alignment: Alignment.topCenter,
             children: <Widget>[
 
-              const Stratosphere(),
+              ListView(
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+
+                  const Stratosphere(),
 
 
-              AddGalleryPicBubble(
-                picture: _picture,
-                onAddPicture: _takeGalleryPicture,
-                onDeletePicture: _deleteLogo,
-                bubbleType: BubbleType.userPic,
-              ),
+                  AddGalleryPicBubble(
+                    picture: _picture,
+                    onAddPicture: _takeGalleryPicture,
+                    onDeletePicture: _deleteLogo,
+                    bubbleType: BubbleType.userPic,
+                  ),
 
-              /// --- EDIT NAME
-              TextFieldBubble(
-                textController: _nameController,
-                key: const Key('name'),
-                fieldIsFormField: true,
-                title: Wordz.name(context),
-                keyboardTextInputType: TextInputType.name,
-                keyboardTextInputAction: TextInputAction.next,
-                fieldIsRequired: true,
-                validator: (String val) =>
-                val.isEmpty ? Wordz.enterName(context) : null,
-              ),
+                  /// --- EDIT NAME
+                  TextFieldBubble(
+                    textController: _nameController,
+                    key: const Key('name'),
+                    fieldIsFormField: true,
+                    title: Wordz.name(context),
+                    keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
+                    fieldIsRequired: true,
+                    validator: (String val) =>
+                    val.isEmpty ? Wordz.enterName(context) : null,
+                  ),
 
-              /// --- EDIT JOB TITLE
-              TextFieldBubble(
-                textController: _titleController,
-                key: const Key('title'),
-                fieldIsFormField: true,
-                title: Wordz.jobTitle(context),
-                keyboardTextInputType: TextInputType.name,
-                keyboardTextInputAction: TextInputAction.next,
-                fieldIsRequired: true,
-                validator: (String val) =>
-                val.isEmpty ? Wordz.enterJobTitle(context) : null,
-              ),
+                  /// --- EDIT JOB TITLE
+                  TextFieldBubble(
+                    textController: _titleController,
+                    key: const Key('title'),
+                    fieldIsFormField: true,
+                    title: Wordz.jobTitle(context),
+                    keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
+                    fieldIsRequired: true,
+                    validator: (String val) =>
+                    val.isEmpty ? Wordz.enterJobTitle(context) : null,
+                  ),
 
-              /// --- EDIT COMPANY NAME
-              TextFieldBubble(
-                textController: _companyController,
-                key: const Key('company'),
-                fieldIsFormField: true,
-                title: Wordz.companyName(context),
-                keyboardTextInputType: TextInputType.name,
-                keyboardTextInputAction: TextInputAction.next,
-                fieldIsRequired: true,
-                validator: (String val) =>
-                val.isEmpty ? Wordz.enterCompanyName(context) : null,
-              ),
+                  /// --- EDIT COMPANY NAME
+                  TextFieldBubble(
+                    textController: _companyController,
+                    key: const Key('company'),
+                    fieldIsFormField: true,
+                    title: Wordz.companyName(context),
+                    keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
+                    fieldIsRequired: true,
+                    validator: (String val) =>
+                    val.isEmpty ? Wordz.enterCompanyName(context) : null,
+                  ),
 
-              /// --- EDIT ZONE
-                ValueListenableBuilder(
-                    valueListenable: _zone,
-                    builder: (_, ZoneModel _zoneModel, Widget child){
+                  /// --- EDIT ZONE
+                  ValueListenableBuilder(
+                      valueListenable: _zone,
+                      builder: (_, ZoneModel _zoneModel, Widget child){
 
-                      return ZoneSelectionBubble(
-                        currentZone: _zoneModel,
-                        onZoneChanged: (ZoneModel zoneModel) => _onZoneChanged(zoneModel),
-                      );
+                        return ZoneSelectionBubble(
+                          currentZone: _zoneModel,
+                          onZoneChanged: (ZoneModel zoneModel) => _onZoneChanged(zoneModel),
+                        );
 
-                    }
-                ),
+                      }
+                  ),
 
-              /// --- EDIT EMAIL
-              ContactFieldBubble(
-                textController: _emailController,
-                fieldIsFormField: true,
-                title: Wordz.emailAddress(context),
-                leadingIcon: Iconz.comEmail,
-                keyboardTextInputAction: TextInputAction.next,
-                fieldIsRequired: true,
-                keyboardTextInputType: TextInputType.emailAddress,
-              ),
+                  /// --- EDIT EMAIL
+                  ContactFieldBubble(
+                    textController: _emailController,
+                    fieldIsFormField: true,
+                    title: Wordz.emailAddress(context),
+                    leadingIcon: Iconz.comEmail,
+                    keyboardTextInputAction: TextInputAction.next,
+                    fieldIsRequired: true,
+                    keyboardTextInputType: TextInputType.emailAddress,
+                  ),
 
-              /// --- EDIT PHONE
-              ContactFieldBubble(
-                textController: _phoneController,
-                fieldIsFormField: true,
-                title: Wordz.phone(context),
-                leadingIcon: Iconz.comPhone,
-                keyboardTextInputAction: TextInputAction.next,
-                keyboardTextInputType: TextInputType.phone,
-              ),
+                  /// --- EDIT PHONE
+                  ContactFieldBubble(
+                    textController: _phoneController,
+                    fieldIsFormField: true,
+                    title: Wordz.phone(context),
+                    leadingIcon: Iconz.comPhone,
+                    keyboardTextInputAction: TextInputAction.next,
+                    keyboardTextInputType: TextInputType.phone,
+                  ),
 
-              /// --- EDIT FACEBOOK
-              ContactFieldBubble(
-                textController: _facebookController,
-                fieldIsFormField: true,
-                title: Wordz.facebookLink(context),
-                leadingIcon: Iconz.comFacebook,
-                keyboardTextInputAction: TextInputAction.next,
-              ),
+                  /// --- EDIT FACEBOOK
+                  ContactFieldBubble(
+                    textController: _facebookController,
+                    fieldIsFormField: true,
+                    title: Wordz.facebookLink(context),
+                    leadingIcon: Iconz.comFacebook,
+                    keyboardTextInputAction: TextInputAction.next,
+                  ),
 
-              /// --- EDIT INSTAGRAM
-              ContactFieldBubble(
-                textController: _instagramController,
-                fieldIsFormField: true,
-                title: Wordz.instagramLink(context),
-                leadingIcon: Iconz.comInstagram,
-                keyboardTextInputAction: TextInputAction.next,
-              ),
+                  /// --- EDIT INSTAGRAM
+                  ContactFieldBubble(
+                    textController: _instagramController,
+                    fieldIsFormField: true,
+                    title: Wordz.instagramLink(context),
+                    leadingIcon: Iconz.comInstagram,
+                    keyboardTextInputAction: TextInputAction.next,
+                  ),
 
-              /// --- EDIT LINKEDIN
-              ContactFieldBubble(
-                textController: _linkedInController,
-                fieldIsFormField: true,
-                title: Wordz.linkedinLink(context),
-                leadingIcon: Iconz.comLinkedin,
-                keyboardTextInputAction: TextInputAction.next,
-              ),
+                  /// --- EDIT LINKEDIN
+                  ContactFieldBubble(
+                    textController: _linkedInController,
+                    fieldIsFormField: true,
+                    title: Wordz.linkedinLink(context),
+                    leadingIcon: Iconz.comLinkedin,
+                    keyboardTextInputAction: TextInputAction.next,
+                  ),
 
-              /// --- EDIT TWITTER
-              ContactFieldBubble(
-                textController: _twitterController,
-                fieldIsFormField: true,
-                title: 'Twitter link', //Wordz.twitterLink(context),
-                leadingIcon: Iconz.comTwitter,
-                keyboardTextInputAction: TextInputAction.done,
+                  /// --- EDIT TWITTER
+                  ContactFieldBubble(
+                    textController: _twitterController,
+                    fieldIsFormField: true,
+                    title: 'Twitter link', //Wordz.twitterLink(context),
+                    leadingIcon: Iconz.comTwitter,
+                    keyboardTextInputAction: TextInputAction.done,
+                  ),
+
+                  const Horizon(),
+
+                  if (_keyboardIsOn == true)
+                    const SizedBox(
+                      width: 20,
+                      height: 150,
+                    ),
+
+                ],
               ),
 
               /// --- CONFIRM BUTTON
-              DreamBox(
-                height: 50,
-                width: Bubble.clearWidth(context),
-                color: Colorz.yellow255,
-                // icon: Iconz.Check,
-                // iconColor: Colorz.Black225,
-                // iconSizeFactor: 0.5,
-                verse: Wordz.updateProfile(context),
-                verseColor: Colorz.black230,
-                verseScaleFactor: 0.9,
-                verseWeight: VerseWeight.black,
-                margins: const EdgeInsets.all(20),
-                onTap: _confirmEdits,
+              Positioned(
+                bottom: 0,
+                child: DreamBox(
+                  height: 50,
+                  width: Bubble.clearWidth(context),
+                  color: Colorz.yellow255,
+                  // icon: Iconz.Check,
+                  // iconColor: Colorz.Black225,
+                  // iconSizeFactor: 0.5,
+                  verse: Wordz.updateProfile(context),
+                  verseColor: Colorz.black230,
+                  verseScaleFactor: 0.9,
+                  verseWeight: VerseWeight.black,
+                  margins: const EdgeInsets.all(10),
+                  onTap: _confirmEdits,
+                ),
               ),
 
-              const Horizon(),
             ],
           ),
         ),

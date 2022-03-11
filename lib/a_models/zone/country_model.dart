@@ -147,18 +147,25 @@ class CountryModel {
   }
 // -----------------------------------------------------------------------------
   static List<MapModel> getAllCountriesNamesMapModels(BuildContext context) {
+
     final List<MapModel> _mapModels = <MapModel>[];
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
 
     for (final String id in _allCountriesIDs) {
-      final String _countryName =
-          getTranslatedCountryNameByID(context: context, countryID: id);
 
-      _mapModels.add(MapModel(
-        key: id,
-        value: _countryName,
-      ));
+      final String _countryName = getTranslatedCountryNameByID(
+          context: context,
+          countryID: id,
+      );
+
+      _mapModels.add(
+          MapModel(
+            key: id,
+            value: _countryName,
+          )
+      );
+
     }
 
     return _mapModels;

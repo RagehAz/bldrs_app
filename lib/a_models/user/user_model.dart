@@ -349,31 +349,31 @@ class UserModel {
     */
 
     if (stringIsEmpty(userModel?.name) == true) {
-      _missingFields.add('name');
+      _missingFields.add('Name');
     }
 
-    if (stringIsEmpty(userModel?.pic) == true) {
-      _missingFields.add('pic');
+    if (userModel?.pic == null) {
+      _missingFields.add('Picture');
     }
 
     if (stringIsEmpty(userModel?.title) == true) {
-      _missingFields.add('title');
+      _missingFields.add('Job Title');
     }
 
     if (stringIsEmpty(userModel?.company) == true) {
-      _missingFields.add('company');
+      _missingFields.add('Company');
     }
 
     if (userModel?.gender == null) {
-      _missingFields.add('gender');
+      _missingFields.add('Gender');
     }
 
     if (stringIsEmpty(userModel?.zone?.countryID) == true) {
-      _missingFields.add('country');
+      _missingFields.add('Country');
     }
 
     if (stringIsEmpty(userModel?.zone?.cityID) == true) {
-      _missingFields.add('city');
+      _missingFields.add('City');
     }
 
     return _missingFields;
