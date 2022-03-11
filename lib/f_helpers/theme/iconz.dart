@@ -149,6 +149,7 @@
   const String mobilePhone =  '$_iconsPath/gi_phone.svg' ;
   const String target =  '$_iconsPath/gi_target.svg' ;
   const String power =  '$_iconsPath/gi_power.svg' ;
+  const String circleDot =  '$_iconsPath/gi_circle_dot.svg' ;
     // -----------------------------------------------------------------------------
   /// PYRAMIDS
   const String pyramidsYellow = '$_iconsPath/pyramids_yellow.svg' ;

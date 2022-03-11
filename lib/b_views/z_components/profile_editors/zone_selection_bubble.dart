@@ -12,9 +12,10 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog_b
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
@@ -51,11 +52,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   ZoneProvider _zoneProvider;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(true);
+  final ValueNotifier<bool> _isLoadingCountries = ValueNotifier(false);
+  final ValueNotifier<bool> _isLoadingCities = ValueNotifier(false);
+  final ValueNotifier<bool> _isLoadingDistricts = ValueNotifier(false);
 // -----------------------------------
-  Future<void> _triggerLoading({@required setTo}) async {
-    _loading.value = setTo;
-    blogLoading(loading: _loading.value);
+  Future<void> _triggerAllLoading({@required setTo}) async {
+    _isLoadingCountries.value = setTo;
+    _isLoadingCities.value = setTo;
+    _isLoadingDistricts.value = setTo;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -70,7 +74,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   void didChangeDependencies() {
     if (_isInit) {
 
-      _triggerLoading(setTo: true).then((_) async {
+      _triggerAllLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
         _selectedCountry.value = await _zoneProvider.fetchCountryByID(
           context: context,
@@ -88,7 +92,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         );
 
 // -----------------------------------------------------------------
-        await _triggerLoading(setTo: false);
+        await _triggerAllLoading(setTo: false);
       });
 
     }
@@ -107,6 +111,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
+      title: 'Select a Country',
       child: BottomDialogButtons(
         mapsModels: _countriesMapModels,
         alignment: Alignment.center,
@@ -118,6 +123,16 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 // ----------------------------------------
   Future<void> _onSelectCountry(String countryID) async {
 
+    _isLoadingCities.value = true;
+
+    _selectedCity.value = null;
+    _selectedDistrict.value = null;
+    _selectedZone.countryID = countryID;
+    _selectedZone.cityID = null;
+    _selectedZone.districtID = null;
+    widget.onZoneChanged(_selectedZone);
+    Nav.goBack(context);
+
     _selectedCountry.value = await _zoneProvider.fetchCountryByID(
       context: context,
       countryID: countryID,
@@ -125,16 +140,12 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     _selectedCountryCities.value = await _zoneProvider.fetchCitiesByIDs(
       context: context,
-      citiesIDs: _selectedCountry.value.citiesIDs,
+      citiesIDs: _selectedCountry.value?.citiesIDs,
     );
 
-    _selectedZone.countryID = countryID;
-    _selectedZone.cityID = null;
-    _selectedZone.districtID = null;
+    _isLoadingCities.value = false;
 
-    widget.onZoneChanged(_selectedZone);
-
-    Nav.goBack(context);
+    await _onShowCitiesTap(context: context);
   }
 // -----------------------------------------------------------------------------
   Future<void> _onShowCitiesTap({
@@ -151,28 +162,37 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
+      title: 'Select a City',
       child: BottomDialogButtons(
         mapsModels: _citiesMapModels,
         alignment: Alignment.center,
         bottomDialogType: BottomDialogType.cities,
-        buttonTap: _noSelectCity,
+        buttonTap: _onSelectCity,
       ),
     );
+
   }
 // ----------------------------------------
-  Future<void> _noSelectCity(String cityID) async {
+  Future<void> _onSelectCity(String cityID) async {
+
+    _isLoadingDistricts.value = true;
+
+    _selectedDistrict.value = null;
+    _selectedZone.cityID = cityID;
+    _selectedZone.districtID = null;
+    widget.onZoneChanged(_selectedZone);
+    Nav.goBack(context);
 
     _selectedCity.value = await _zoneProvider.fetchCityByID(
         context: context,
         cityID: cityID
     );
 
-    _selectedZone.cityID = cityID;
-    _selectedZone.districtID = null;
+    _isLoadingDistricts.value = false;
 
-    widget.onZoneChanged(_selectedZone);
-
-    Nav.goBack(context);
+    if (Mapper.canLoopList(_selectedCity.value?.districts) == true){
+      await _onShowDistricts(context: context);
+    }
 
   }
 // -----------------------------------------------------------------------------
@@ -190,6 +210,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
+      title: 'Select a district',
       child: BottomDialogButtons(
         mapsModels: _districtsMapModels,
         alignment: Alignment.center,
@@ -225,82 +246,116 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         redDot: true,
         columnChildren: <Widget>[
 
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+          /// COUNTRY BUTTON
+          ValueListenableBuilder(
+              valueListenable: _selectedCountry,
+              builder: (_, CountryModel selectedCountry, Widget child){
 
-              /// COUNTRY BUTTON
-              ValueListenableBuilder(
-                  valueListenable: _selectedCountry,
-                  builder: (_, CountryModel selectedCountry, Widget child){
+                final String _countryName = CountryModel.getTranslatedCountryNameByID(
+                  context: context,
+                  countryID: selectedCountry?.id,
+                );
 
-                    final String _countryName = CountryModel.getTranslatedCountryNameByID(
-                      context: context,
-                      countryID: selectedCountry?.id,
-                    );
+                final String _countryFlag =
+                selectedCountry == null ? ''
+                    :
+                Flag.getFlagIconByCountryID(selectedCountry?.id);
 
-                    final String _countryFlag =
-                    selectedCountry == null ? ''
-                        :
-                    Flag.getFlagIconByCountryID(selectedCountry?.id);
+                return ValueListenableBuilder(
+                    valueListenable: _isLoadingCountries,
+                    builder: (_, bool loadingCountries, Widget child){
 
-                    return ZoneSelectionButton(
-                      title: Wordz.country(context),
-                      icon: _countryFlag,
-                      verse: _countryName,
-                      onTap: () => _onShowCountriesTap(context: context),
-                    );
+                      return ZoneSelectionButton(
+                        title: Wordz.country(context),
+                        icon: _countryFlag,
+                        verse: _countryName,
+                        onTap: () => _onShowCountriesTap(context: context),
+                        loading: loadingCountries,
+                      );
 
-                  }
-              ),
+                    }
+                );
 
-              /// City BUTTON
-              ValueListenableBuilder(
-                valueListenable: _selectedCity,
-                builder: (_, CityModel selectedCity, Widget child){
-
-                  final String _cityName =
-                  selectedCity?.cityID == null ? '...'
-                      :
-                  CityModel.getTranslatedCityNameFromCity(
-                    context: context,
-                    city: selectedCity,
-                  );
-
-                  return ZoneSelectionButton(
-                    title: 'City',
-                    verse: _cityName,
-                    onTap: () => _onShowCitiesTap(context: context),
-                  );
-
-                },
-              ),
-
-              /// AREA BUTTON
-              ValueListenableBuilder(
-                  valueListenable: _selectedDistrict,
-                  builder: (_, DistrictModel district, Widget child){
-
-                    final String _districtName =
-                    district?.districtID == null ? '...'
-                        :
-                    DistrictModel.getTranslatedDistrictNameFromDistrict(
-                      context: context,
-                      district: district,
-                    );
-
-                    return ZoneSelectionButton(
-                      title: 'District',
-                      verse: _districtName,
-                      onTap: () => _onShowDistricts(context: context),
-                    );
-
-                  }
-                  ),
-
-            ],
+              }
           ),
+
+          /// City BUTTON
+          ValueListenableBuilder(
+            valueListenable: _selectedCity,
+            builder: (_, CityModel selectedCity, Widget child){
+
+              final String _cityName =
+              selectedCity?.cityID == null ? '...'
+                  :
+              CityModel.getTranslatedCityNameFromCity(
+                context: context,
+                city: selectedCity,
+              );
+
+              return ValueListenableBuilder(
+                  valueListenable: _isLoadingCities,
+                  builder: (_, bool _loadingCities, Widget child){
+
+                    return ZoneSelectionButton(
+                      title: 'City',
+                      verse: _cityName,
+                      onTap: () => _onShowCitiesTap(context: context),
+                      loading: _loadingCities,
+                    );
+
+                  }
+              );
+
+            },
+          ),
+
+          /// DISTRICT BUTTON
+          ValueListenableBuilder(
+              valueListenable: _selectedCity,
+              builder: (_, CityModel cityModel, Widget districtButton){
+
+                final List<DistrictModel> _cityDistricts = cityModel?.districts;
+
+                if (Mapper.canLoopList(_cityDistricts) == true){
+                  return districtButton;
+                }
+
+                else {
+                  return const SizedBox();
+                }
+              },
+
+            child: ValueListenableBuilder(
+                valueListenable: _selectedDistrict,
+                builder: (_, DistrictModel district, Widget child){
+
+                  final String _districtName =
+                  district?.districtID == null ? '...'
+                      :
+                  DistrictModel.getTranslatedDistrictNameFromDistrict(
+                    context: context,
+                    district: district,
+                  );
+
+                  return ValueListenableBuilder(
+                      valueListenable: _isLoadingDistricts,
+                      builder: (_, bool loadingDistricts, Widget child){
+
+                        return  ZoneSelectionButton(
+                          title: 'District',
+                          verse: _districtName,
+                          onTap: () => _onShowDistricts(context: context),
+                          loading: loadingDistricts,
+                        );
+
+                      }
+                  );
+
+                }
+            ),
+
+          ),
+
         ]
     );
   }
@@ -312,7 +367,8 @@ class ZoneSelectionButton extends StatelessWidget {
     @required this.title,
     @required this.verse,
     @required this.onTap,
-    this.icon,
+    this.icon = Iconz.circleDot,
+    this.loading = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -320,48 +376,48 @@ class ZoneSelectionButton extends StatelessWidget {
   final String verse;
   final String icon;
   final Function onTap;
+  final bool loading;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _bubbleClearWidth = Bubble.clearWidth(context);
     const double _buttonsSpacing = Ratioz.appBarPadding;
-    final double _buttonWidth = (_bubbleClearWidth / 3) - ((2 * _buttonsSpacing) / 3);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: _buttonsSpacing),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+    final String _buttonVerse = loading ? 'Loading ...'
+        :
+    verse == null ? ''
+        :
+    ' $verse    ';
 
-          /// TITLE
-          SizedBox(
-            width: _buttonWidth,
-            child: SuperVerse(
-              verse: title,
-              centered: false,
-              italic: true,
-              weight: VerseWeight.thin,
-              color: Colorz.white80,
-            ),
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
 
-          /// BUTTON CONTENTS
-          DreamBox(
-            height: 40,
-            // width: _buttonWidth,
-            verseScaleFactor: 0.8,
-            iconSizeFactor: 0.8,
-            icon: icon,
-            bubble: false,
-            verse: verse == null ? '' : '$verse    ',
-            verseMaxLines: 2,
-            color: Colorz.white10,
-            onTap: onTap,
-          ),
+        /// TITLE
+        SuperVerse(
+          verse: title,
+          centered: false,
+          italic: true,
+          weight: VerseWeight.thin,
+          color: Colorz.white80,
+          margin: 5,
+        ),
 
-        ],
-      ),
+        /// BUTTON CONTENTS
+        DreamBox(
+          height: 50,
+          verseScaleFactor: 0.8,
+          icon: icon,
+          bubble: false,
+          verse: _buttonVerse,
+          verseMaxLines: 2,
+          color: Colorz.white10,
+          onTap: onTap,
+          loading: loading,
+        ),
+
+      ],
     );
   }
 }

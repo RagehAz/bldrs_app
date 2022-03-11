@@ -180,11 +180,11 @@ class AddGalleryPicBubble extends StatelessWidget {
                 builder: (_, dynamic pic, Widget child){
 
                   if (pic == null){
-                    return const SizedBox();
+                    return child;
                   }
 
                   else {
-                    return child;
+                    return const SizedBox();
                   }
 
                   },
