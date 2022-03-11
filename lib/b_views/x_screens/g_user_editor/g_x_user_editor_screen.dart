@@ -134,7 +134,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     TextChecker.disposeControllerIfPossible(_twitterController);
   }
 // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _canPickImage = ValueNotifier(true);
+  final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
 // -----------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
 
@@ -172,34 +172,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _gender.value = gender;
   }
 // -----------------------------------------------------------------------------
-  void _changeCountry(String countryID) {
-    _zone.value = ZoneModel(
-      countryID: countryID,
-    );
-  }
-// -----------------------------------------------------------------------------
-  void _changeCity(String cityID) {
-
-    final String _countryID = _zone.value.countryID;
-
-    _zone.value = ZoneModel(
-      countryID: _countryID,
-      cityID: cityID,
-    );
-
-  }
-// -----------------------------------------------------------------------------
-  void _changeDistrict(String districtID) {
-
-    final String _countryID = _zone.value.countryID;
-    final String _cityID = _zone.value.cityID;
-
-    _zone.value = ZoneModel(
-      countryID: _countryID,
-      cityID: _cityID,
-      districtID: districtID,
-    );
-
+  void _onZoneChanged(ZoneModel zoneModel) {
+    _zone.value = zoneModel;
   }
 // -----------------------------------------------------------------------------
   // void _changePosition(GeoPoint geoPoint){
@@ -331,6 +305,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return MainLayout(
       pyramidsAreOn: true,
       skyType: SkyType.black,
@@ -348,9 +323,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           }
 
           else {
-
             return child;
-
           }
 
         },
@@ -412,11 +385,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
 
               /// --- EDIT ZONE
-                ZoneSelectionBubble(
-                  changeCountry: (String countryID) => _changeCountry(countryID),
-                  changeCity: (String cityID) => _changeCity(cityID),
-                  changeDistrict: (String districtID) => _changeDistrict(districtID),
-                  currentZone: _zone,
+                ValueListenableBuilder(
+                    valueListenable: _zone,
+                    builder: (_, ZoneModel _zoneModel, Widget child){
+
+                      return ZoneSelectionBubble(
+                        currentZone: _zoneModel,
+                        onZoneChanged: (ZoneModel zoneModel) => _onZoneChanged(zoneModel),
+                      );
+
+                    }
                 ),
 
               /// --- EDIT EMAIL
@@ -466,9 +444,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 leadingIcon: Iconz.comLinkedin,
                 keyboardTextInputAction: TextInputAction.next,
               ),
-
-
-
 
               /// --- EDIT TWITTER
               ContactFieldBubble(

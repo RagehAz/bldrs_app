@@ -38,18 +38,18 @@ Future<void> controlOnAuth(BuildContext context, AuthBy authBy) async {
   ///    'userModel' : _existingUserModel or new _finalUserModel
   ///    'firstTimer' : false or true
   ///  };
-  dynamic _authResult;
+  AuthModel _authModel;
 
   if (authBy == AuthBy.google) {
-    _authResult = await _controlGoogleAuth(context);
+    _authModel = await _controlGoogleAuth(context);
   }
 
   else if (authBy == AuthBy.facebook) {
-    _authResult = await _controlFacebookAuth(context);
+    _authModel = await _controlFacebookAuth(context);
   }
 
   else if (authBy == AuthBy.apple) {
-    _authResult = await _controlAppleAuth(context);
+    _authModel = await _controlAppleAuth(context);
   }
 
   else if (authBy == AuthBy.email){
@@ -57,10 +57,10 @@ Future<void> controlOnAuth(BuildContext context, AuthBy authBy) async {
     await _goToEmailAuth(context);
   }
 
-  if (_authResult != null){
+  if (_authModel != null){
     await _controlAuthResult(
       context: context,
-      authResult: _authResult,
+      authModel: _authModel,
     );
   }
 
@@ -149,6 +149,7 @@ Future<void> _controlAuthResult({
       await _setUserModelLocallyAndStartOverFromLogoScreen(
         context: context,
         userModel: authModel.userModel,
+        authModel: authModel,
       );
     }
 
