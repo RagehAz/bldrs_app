@@ -39,6 +39,7 @@ class DistrictModel{
   }
 // -----------------------------------------------------------------------------
   static Map<String,dynamic> cipherDistricts(List<DistrictModel> districts){
+
     Map<String, dynamic> _districtsMap = <String, dynamic>{};
 
     for (final DistrictModel district in districts){
@@ -66,6 +67,7 @@ class DistrictModel{
   }
 // -----------------------------------------------------------------------------
   static List<DistrictModel> decipherDistrictsMap(Map<String, dynamic> map){
+
     final List<DistrictModel> _districts = <DistrictModel>[];
 
     final List<String> _keys = map.keys.toList();
@@ -90,6 +92,7 @@ class DistrictModel{
     @required BuildContext context,
     @required List<DistrictModel> districts
   }){
+
     final List<MapModel> _districtsMapModels = <MapModel>[];
 
     if (Mapper.canLoopList(districts)){
@@ -98,7 +101,10 @@ class DistrictModel{
         _districtsMapModels.add(
             MapModel(
                 key: district.districtID,
-                value: Name.getNameByCurrentLingoFromNames(context: context, names: district.names)
+                value: Name.getNameByCurrentLingoFromNames(
+                    context: context,
+                    names: district.names
+                )
             )
         );
       }
@@ -116,7 +122,10 @@ class DistrictModel{
     DistrictModel _district;
     if (Mapper.canLoopList(districts)){
 
-      _district = districts.firstWhere((DistrictModel district) => district.districtID == districtID, orElse: () => null);
+      _district = districts.firstWhere(
+              (DistrictModel district) => district.districtID == districtID,
+          orElse: () => null
+      );
 
     }
     return _district;
@@ -131,13 +140,33 @@ class DistrictModel{
     String _districtName = '...';
 
     if (city != null && districtID != null){
-      final DistrictModel _district = DistrictModel.getDistrictFromDistricts(districts: city.districts, districtID: districtID);
+
+      final DistrictModel _district = DistrictModel.getDistrictFromDistricts(
+          districts: city.districts,
+          districtID: districtID,
+      );
+
       _districtName = Name.getNameByCurrentLingoFromNames(
           context: context,
           names: _district?.names)?.value;
     }
 
     return _districtName;
+  }
+// -----------------------------------------------------------------------------
+  static String getTranslatedDistrictNameFromDistrict({
+    @required BuildContext context,
+    @required DistrictModel district,
+}){
+
+    final Name _districtName = Name.getNameByCurrentLingoFromNames(
+        context: context,
+        names: district?.names
+    );
+
+    final String _nameString = _districtName?.value;
+
+    return _nameString;
   }
 // -----------------------------------------------------------------------------
   static List<DistrictModel> searchDistrictsByCurrentLingoName({
@@ -148,12 +177,16 @@ class DistrictModel{
 
     /// CREATE NAMES LIST
     final List<Name> _districtsNames = <Name>[];
+
     for (final DistrictModel district in sourceDistricts){
+
       final Name _nameInLingo = Name.getNameByCurrentLingoFromNames(
         context: context,
         names: district.names,
       );
+
       _districtsNames.add(_nameInLingo);
+
     }
 
     /// SEARCH NAMES
