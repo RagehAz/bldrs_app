@@ -490,4 +490,12 @@ void main() {
     expect(_index, 10);
   });
 // -----------------------------------------------------------------------------
+  test('objectIsURL', () async {
+    const String _thing = null;
+
+    final bool _isURL = ObjectChecker.objectIsURL(_thing);
+
+    expect(_isURL, false);
+  });
+// -----------------------------------------------------------------------------
 }

@@ -221,7 +221,7 @@ Future<BzModel> updateBz({
   if (bzLogoFile == null) {
     // do Nothing, bzLogo was not changed, will keep as
   } else {
-    _bzLogoURL = await Storage.updatePic(
+    _bzLogoURL = await Storage.updateExistingPic(
       context: context,
       newPic: bzLogoFile,
       oldURL: originalBz.logo,
