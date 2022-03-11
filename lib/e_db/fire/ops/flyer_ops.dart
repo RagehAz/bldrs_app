@@ -356,8 +356,7 @@ Future<FlyerModel> updateFlyerOps({
         final String _newPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           docName: StorageDoc.slides,
-          picName:
-              SlideModel.generateSlideID(updatedFlyer.id, slide.slideIndex),
+          picName: SlideModel.generateSlideID(updatedFlyer.id, slide.slideIndex),
           inputFile: slide.pic,
           ownerID: originalFlyer.authorID,
         );
