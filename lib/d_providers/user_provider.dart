@@ -129,6 +129,7 @@ class UsersProvider extends ChangeNotifier {
         userModel: _userModel,
         countryModel: _userCountry,
         cityModel: _userCity,
+        notify: true,
       );
 
     }
