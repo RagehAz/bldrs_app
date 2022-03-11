@@ -1,6 +1,5 @@
-
-
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/foundation.dart';
 
 class MapModel{
@@ -51,4 +50,10 @@ class MapModel{
     }
   }
 // -----------------------------------------------------------------------------
+  static List<MapModel> sortValuesAlphabetically(List<MapModel> mapModels){
+    mapModels.sort((MapModel a, MapModel b) => a?.value?.compareTo(b?.value));
+    return mapModels;
+  }
+// -----------------------------------------------------------------------------
+
 }

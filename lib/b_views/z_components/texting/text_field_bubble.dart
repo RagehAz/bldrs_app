@@ -38,6 +38,7 @@ class TextFieldBubble extends StatelessWidget {
     this.textDirection,
     this.bubbleColor = Colorz.white20,
     this.fieldOnTap,
+    this.isLoading = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -66,6 +67,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextDirection textDirection;
   final Color bubbleColor;
   final Function fieldOnTap;
+  final bool isLoading;
   /// --------------------------------------------------------------------------
   static double _leadingIconSizeFactor(String leadingIcon){
     final double _sizeFactor =
@@ -144,6 +146,7 @@ class TextFieldBubble extends StatelessWidget {
                       initialValue: initialTextValue,
                       validator: validator,
                       key: key,
+
                     ),
                   ),
 
@@ -169,24 +172,9 @@ class TextFieldBubble extends StatelessWidget {
               ),
 
               /// LOADING INDICATOR
-              Selector<UiProvider, bool>(
-                selector: (_, UiProvider uiProvider) => uiProvider.isLoading,
-                child: const Loading(
-                  size: 35,
-                  loading: true,
-                ),
-                // shouldRebuild: ,
-                builder: (BuildContext context, bool loading, Widget child){
-
-                  if (loading == true) {
-                    return child;
-                  }
-
-                  else {
-                    return const SizedBox();
-                  }
-
-                  },
+              Loading(
+                size: 35,
+                loading: isLoading,
               ),
 
               /// PASTE BUTTON
