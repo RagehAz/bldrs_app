@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -321,7 +322,35 @@ List<String> createTrigram({@required String input}){
 
   return _trigram;
 }
+// -----------------------------------------------------------------------------
+String generateStringFromStrings(List<String> strings){
 
+  String _output = '';
+
+  if (Mapper.canLoopList(strings) == true){
+
+    for (final String _string in strings){
+
+
+      if (_output == ''){
+        _output = _string;
+      }
+
+      else {
+        _output = '$_output, $_string';
+      }
+
+    }
+
+  }
+
+  if (_output == ''){
+    _output = null;
+  }
+
+  return _output;
+}
+// -----------------------------------------------------------------------------
 /*
 
 String sectionStringer (BuildContext context, SectionClass.Section section){

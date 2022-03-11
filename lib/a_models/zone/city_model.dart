@@ -213,18 +213,24 @@ class CityModel {
 
     if (Mapper.canLoopList(cities)) {
       for (final CityModel city in cities) {
+
         _citiesMapModels.add(MapModel(
             key: city.cityID,
-            value: Name.getNameByCurrentLingoFromNames(
+            value: CityModel.getTranslatedCityNameFromCity(
                 context: context,
-                names: city.names
+                city: city
             )
+
+            // Name.getNameByCurrentLingoFromNames(
+            //     context: context,
+            //     names: city.names
+            // )
         )
         );
       }
     }
 
-    return _citiesMapModels;
+    return MapModel.sortValuesAlphabetically(_citiesMapModels);
   }
 // -----------------------------------------------------------------------------
   static CityModel getCityFromCities({

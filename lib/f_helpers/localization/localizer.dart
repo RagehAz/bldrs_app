@@ -67,8 +67,8 @@ class Localizer {
   }
 
 // -----------------------------------------------------------------------------
-  static Future<void> changeAppLanguage(
-      BuildContext context, String code) async {
+  static Future<void> changeAppLanguage(BuildContext context, String code) async {
+
     final Locale _temp = await setLocale(code);
 
     BldrsApp.setLocale(context, _temp);
