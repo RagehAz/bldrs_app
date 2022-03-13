@@ -5,183 +5,233 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
-import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
-import 'package:bldrs/b_views/x_screens/b_auth/b_1_email_auth_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
-  /// AUTH MAIN CONTROLLERS
+/// AUTHENTICATORS
 
-// -------------------------------------
-Future<void> controlOnAuth(BuildContext context, AuthBy authBy) async {
+// ------------------------------------------------------
+Future<void> authByGoogle(BuildContext context) async {
 
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-  _uiProvider.triggerLoading();
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final ZoneModel _currentZone = _zoneProvider.currentZone;
+  final AuthModel _authModel = await FireAuthOps.signInByGoogle(
+    context: context,
+    currentZone: _currentZone,
+  );
 
-  blog('starting controlAuth');
+  await _controlAuthResult(
+    context: context,
+    authModel: _authModel,
+  );
 
-  /// start auth to return String error or return Map<String,dynamic>
-  ///  {
-  ///    'userModel' : _existingUserModel or new _finalUserModel
-  ///    'firstTimer' : false or true
-  ///  };
+}
+// ------------------------------------------------------
+Future<void> authByFacebook(BuildContext context) async {
+
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final ZoneModel _currentZone = _zoneProvider.currentZone;
+  final AuthModel _authModel = await FireAuthOps.signInByFacebook(
+    context: context,
+    currentZone: _currentZone,
+  );
+
+  await _controlAuthResult(
+    context: context,
+    authModel: _authModel,
+  );
+
+}
+// ------------------------------------------------------
+Future<void> authByApple(BuildContext context) async {
+
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final ZoneModel _currentZone = _zoneProvider.currentZone;
+  final AuthModel _authModel = await FireAuthOps.signInByApple(
+    context: context,
+    currentZone: _currentZone,
+  );
+
+  await _controlAuthResult(
+    context: context,
+    authModel: _authModel,
+  );
+
+}
+// ------------------------------------------------------
+Future<void> authByEmailSignIn({
+  @required BuildContext context,
+  @required String email,
+  @required String password,
+  @required GlobalKey<FormState> formKey,
+}) async {
+
+  /// A - PREPARE FOR AUTH AND CHECK VALIDITY
+  final bool _allFieldsAreValid = _prepareForEmailAuthOps(
+    context: context,
+    formKey: formKey,
+  );
+
   AuthModel _authModel;
 
-  if (authBy == AuthBy.google) {
-    _authModel = await _controlGoogleAuth(context);
-  }
+  if (_allFieldsAreValid == true) {
 
-  else if (authBy == AuthBy.facebook) {
-    _authModel = await _controlFacebookAuth(context);
-  }
+    /// C - FIRE SIGN IN OPS
+    _authModel = await FireAuthOps.signInByEmailAndPassword(
+      context: context,
+      email: email,
+      password: password,
+    );
 
-  else if (authBy == AuthBy.apple) {
-    _authModel = await _controlAppleAuth(context);
-  }
-
-  else if (authBy == AuthBy.email){
-    _uiProvider.triggerLoading(setLoadingTo: false);
-    await _goToEmailAuth(context);
-  }
-
-  if (_authModel != null){
     await _controlAuthResult(
       context: context,
       authModel: _authModel,
     );
+
+  }
+
+  else {
+    blog('controlEmailSignin : _allFieldsAreValid : $_allFieldsAreValid');
   }
 
 }
-// -------------------------------------
-Future<dynamic> _controlGoogleAuth(BuildContext context) async {
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final ZoneModel _currentZone = _zoneProvider.currentZone;
-
-  /// start google auth ops,
-  final dynamic _authResult = await FireAuthOps.signInByGoogle(
-    context: context,
-    currentZone: _currentZone,
-  );
-
-  return _authResult;
-}
-// -------------------------------------
-Future<dynamic> _controlFacebookAuth(BuildContext context) async {
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final ZoneModel _currentZone = _zoneProvider.currentZone;
-
-  final dynamic _authResult = FireAuthOps.signInByFacebook(
-    context: context,
-    currentZone: _currentZone,
-  );
-
-  return _authResult;
-}
-// -------------------------------------
-Future<dynamic> _controlAppleAuth(BuildContext context) async {
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final ZoneModel _currentZone = _zoneProvider.currentZone;
-
-  final dynamic _authResult = FireAuthOps.signInByApple(
-    context: context,
-    currentZone: _currentZone,
-  );
-
-  return _authResult;
-}
-// -------------------------------------
-Future<void> _goToEmailAuth(BuildContext context) async {
-
-  await Nav.goToNewScreen(context, const EmailAuthScreen());
-
-}
-// -----------------------------------------------------------------------------
-
-/// AUTH RESULT
-
-// -------------------------------------
-Future<void> _controlAuthResult({
+// ------------------------------------------------------
+Future<void> authByEmailRegister({
   @required BuildContext context,
-  @required AuthModel authModel,
+  @required String email,
+  @required String password,
+  @required String passwordConfirmation,
+  @required GlobalKey<FormState> formKey,
 }) async {
 
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  /// A - PREPARE FOR AUTH AND CHECK VALIDITY
+  final bool _allFieldsAreValid = _prepareForEmailAuthOps(
+    context: context,
+    formKey: formKey,
+  );
 
-  /// 1 - WHEN SIGN IN FAILS => show error dialog
-  if (authModel.authSucceeds == false) {
+  AuthModel _authModel;
 
-    _uiProvider.triggerLoading(setLoadingTo: false);
+  if (_allFieldsAreValid == true) {
 
-    final String _errorMessage = authModel.authError ??
-        'Something went wrong, please try again';
+    // /// B - LOADING
+    // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    // _uiProvider.triggerLoading(setLoadingTo: true);
 
-    await Dialogz.authErrorDialog(
+    /// C - START REGISTER OPS
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    _authModel = await FireAuthOps.registerByEmailAndPassword(
         context: context,
-        result: _errorMessage
+        currentZone: _zoneProvider.currentZone,
+        email: email,
+        password: password
+    );
+
+    await _controlAuthResult(
+        context: context,
+        authModel: _authModel
     );
 
   }
 
-  /// 2 - WHEN SIGN IN SUCCEEDS => check missing fields then go home
+  ///
+  else {
+    blog('_allFieldsAreValid : controlEmailRegister : $_allFieldsAreValid');
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// CONTROLLING AUTH RESULT
+
+// ------------------------------------------------------
+Future<void> _controlAuthResult({
+  @required BuildContext context,
+@required AuthModel authModel,
+}) async {
+
+  /// B1. IF AUTH FAILS
+  if (authModel.authSucceeds == false){
+    await _controlAuthFailure(
+      context: context,
+      authModel: authModel,
+    );
+  }
+
+  /// B2. IF AUTH SUCCEEDS
   else {
 
-    /// B.2 check if UserModel requires missing fields completion
-    final bool _noMissingFieldsFound = _checkUserModelMissingFields(authModel.userModel);
+    final bool _thereAreMissingFields = UserModel.thereAreMissingFields(authModel.userModel);
 
-    /// B.3 so user model is complete and we can proceed
-    if (_noMissingFieldsFound == true){
-      await _setUserModelLocallyAndStartOverFromLogoScreen(
-        context: context,
-        userModel: authModel.userModel,
-        authModel: authModel,
+    /// B. USER MODEL REQUIRED FIELDS ARE MISSING
+    if (_thereAreMissingFields == true){
+      await _controlMissingFieldsCase(
+          context: context,
+          authModel: authModel,
       );
     }
 
-    /// B.3 user model is missing fields and need to go to user editor
+    /// C. ALL USER MODEL REQUIRED FIELDS ARE COMPLETE
     else {
-
-      await Nav.goToNewScreen(context, EditProfileScreen(
-        userModel: authModel.userModel,
-      ));
-
-
+      await _goToHomeScreen(context);
     }
 
   }
 
 }
-// -------------------------------------
-Future<void> _setUserModelLocallyAndStartOverFromLogoScreen({
+// ------------------------------------------------------
+Future<void> _controlAuthFailure({
   @required BuildContext context,
-  @required UserModel userModel,
   @required AuthModel authModel,
 }) async {
 
+  final String _errorMessage = authModel.authError ??
+      'Something went wrong, please try again';
+
+  await Dialogz.authErrorDialog(
+      context: context,
+      result: _errorMessage
+  );
+
+}
+// ------------------------------------------------------
+Future<void> _setUserModelLocally({
+  @required BuildContext context,
+  @required AuthModel authModel,
+}) async {
+
+  final UserModel _userModel = authModel.userModel;
+
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: userModel.zone.countryID);
-  final CityModel _userCity = await _zoneProvider.fetchCityByID(context: context, cityID: userModel.zone.cityID);
+  final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(
+      context: context,
+      countryID: _userModel.zone.countryID
+  );
+
+  final CityModel _userCity = await _zoneProvider.fetchCityByID(
+      context: context,
+      cityID: _userModel.zone.cityID
+  );
 
   _usersProvider.setMyUserModelAndCountryAndCity(
-    userModel: userModel,
+    userModel: _userModel,
     countryModel: _userCountry,
     cityModel: _userCity,
     notify: false,
@@ -192,106 +242,64 @@ Future<void> _setUserModelLocallyAndStartOverFromLogoScreen({
     notify: true,
   );
 
-  _uiProvider.triggerLoading(setLoadingTo: false);
+}
+// ------------------------------------------------------
+Future<void> _controlMissingFieldsCase({
+  @required BuildContext context,
+  @required AuthModel authModel,
+}) async {
 
-  /// B.3 - go back to logo screen
-  Nav.goBackToLogoScreen(context);
-  /// B.4 - then restart it
-  await Nav.replaceScreen(context, const LogoScreen());
+  await showMissingFieldsDialog(
+    context: context,
+    userModel: authModel.userModel,
+  );
+
+  await Nav.goToNewScreen(context,
+
+      EditProfileScreen(
+        userModel: authModel.userModel,
+        onFinish: (UserModel updatedUserModel) async {
+
+          authModel.userModel = updatedUserModel;
+
+          await _setUserModelLocally(
+            context: context,
+            authModel: authModel,
+          );
+
+          await _goToHomeScreen(context);
+
+        },
+      )
+  );
 
 }
-// -------------------------------------
-bool _checkUserModelMissingFields(UserModel userModel){
-  bool _noMissingFieldsFound;
+// ------------------------------------------------------
+Future<void> showMissingFieldsDialog({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
 
   final List<String> _missingFields = UserModel.missingFields(userModel);
+  final String _missingFieldsString = TextGen.generateStringFromStrings(_missingFields);
 
-  if (Mapper.canLoopList(_missingFields) == true){
-    _noMissingFieldsFound = false;
-  }
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Please add all required fields',
+    body:
+    'Missing fields :\n'
+        '$_missingFieldsString',
+  );
 
-  else {
-    _noMissingFieldsFound = true;
-  }
-
-  return _noMissingFieldsFound;
+}
+// ------------------------------------------------------
+Future<void> _goToHomeScreen(BuildContext context) async {
+  await Nav.pushNamedAndRemoveAllBelow(context, Routez.home);
 }
 // -----------------------------------------------------------------------------
 
-/// EMAIL AUTH CONTROLLERS
+/// EMAIL AUTH VALIDATION
 
-// -------------------------------------
-Future<void> controlEmailSignin({
-  @required BuildContext context,
-  @required String email,
-  @required String password,
-  @required GlobalKey<FormState> formKey,
-}) async {
-
-  /// A - PREPARE FOR AUTH AND CHECK VALIDITY
-  final bool _allFieldsAreValid = _prepareForEmailAuthOps(context: context, formKey: formKey);
-
-  if (_allFieldsAreValid == true) {
-
-    /// B - LOADING
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    _uiProvider.triggerLoading(setLoadingTo: true);
-
-    /// C - FIRE SIGN IN OPS
-    final AuthModel _authModel = await FireAuthOps.signInByEmailAndPassword(
-      context: context,
-      email: email,
-      password: password,
-    );
-
-    /// D - RESULT
-    await _controlAuthResult(
-      context: context,
-      authModel: _authModel,
-    );
-
-  }
-
-}
-// -------------------------------------
-Future<void> controlEmailSignup({
-  @required BuildContext context,
-  @required String email,
-  @required String password,
-  @required String passwordConfirmation,
-  @required GlobalKey<FormState> formKey,
-}) async {
-
-  /// A - PREPARE FOR AUTH AND CHECK VALIDITY
-  final bool _allFieldsAreValid = _prepareForEmailAuthOps(
-      context: context,
-      formKey: formKey,
-  );
-
-  if (_allFieldsAreValid == true) {
-
-    /// B - LOADING
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    _uiProvider.triggerLoading(setLoadingTo: true);
-
-    /// C - START REGISTER OPS
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final AuthModel _authModel = await FireAuthOps.registerByEmailAndPassword(
-        context: context,
-        currentZone: _zoneProvider.currentZone,
-        email: email,
-        password: password
-    );
-
-    /// D - AUTH RESULT
-    await _controlAuthResult(
-      context: context,
-      authModel: _authModel,
-    );
-
-  }
-
-}
 // -------------------------------------
 bool _prepareForEmailAuthOps({
   @required BuildContext context,
@@ -306,14 +314,10 @@ bool _prepareForEmailAuthOps({
   Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
   /// C - CHECK VALIDITY
-  final bool _allFieldsAreValid = _formStateValidation(formKey: formKey);
+  final bool _allFieldsAreValid = formKey.currentState.validate();
 
   return _allFieldsAreValid;
 }
-// -----------------------------------------------------------------------------
-
-/// EMAIL AUTH VALIDATION
-
 // -------------------------------------
 String emailValidation({
   @required BuildContext context,
@@ -377,10 +381,85 @@ String passwordConfirmationValidation({
 
   return _output;
 }
-// -------------------------------------
-bool _formStateValidation({@required GlobalKey<FormState> formKey}){
-  final bool _areValid = formKey.currentState.validate();
-  blog('_allFieldsAreValid() = $_areValid');
-  return _areValid;
-}
+
 // -----------------------------------------------------------------------------
+
+// / DIALOGS
+//
+// -------------------------------------
+// -----------------------------------------------------------------------------
+
+// Future<void> startOverFromLogoScreen(BuildContext context) async {
+//   /// B.3 - go back to logo screen
+//   Nav.goBackToLogoScreen(context);
+//   /// B.4 - then restart it
+//   await Nav.replaceScreen(context, const LogoScreen());
+// }
+// -------------------------------------
+// Future<void> controlOnAuth(BuildContext context, AuthType authType) async {
+//
+//   // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+//   // _uiProvider.triggerLoading();
+//   // _uiProvider.triggerLoading(setLoadingTo: false);
+//
+//   /// A. AUTHENTICATE THEN RETURN AUTH MODEL
+//   final AuthModel _authModel = await _authenticateAndGetAuthModel(
+//     context: context,
+//     authType: authType,
+//   );
+//
+//
+// }
+// // -------------------------------------
+// Future<AuthModel> _authenticateAndGetAuthModel({
+//   @required BuildContext context,
+//   @required AuthType authType,
+//   GlobalKey<FormState> formKey,
+//   String password,
+//   String passwordConfirmation,
+//   String email,
+// }) async {
+//
+//   AuthModel _authModel;
+//
+//   if (authType == AuthType.google) {
+//     _authModel = await _authByGoogle(context);
+//   }
+//
+//   else if (authType == AuthType.facebook) {
+//     _authModel = await _authByFacebook(context);
+//   }
+//
+//   else if (authType == AuthType.apple) {
+//     _authModel = await _authByApple(context);
+//   }
+//
+//   else if (authType == AuthType.emailRegister){
+//     _authModel = await _controlEmailRegister(
+//       context: context,
+//       formKey: formKey,
+//       password: password,
+//       passwordConfirmation: passwordConfirmation,
+//       email: email,
+//     );
+//   }
+//
+//   else if (authType == AuthType.emailSignIn){
+//     _authModel = await _controlEmailSignin(
+//       context: context,
+//       formKey: formKey,
+//       email: email,
+//       password: password,
+//     );
+//   }
+//
+//   return _authModel;
+// }
+// -------------------------------------
+// Future<void> _controlEmailAuth(BuildContext context) async {
+//
+//   await Nav.goToNewScreen(context, const EmailAuthScreen(
+//
+//   ));
+//
+// }

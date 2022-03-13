@@ -45,7 +45,7 @@ class UserModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final AuthBy authBy;
+  final AuthType authBy;
   final DateTime createdAt;
   final UserStatus status;
   // -------------------------
@@ -54,8 +54,7 @@ class UserModel {
   final dynamic pic;
   final String title;
   final String company;
-  final Gender
-      gender; // should be both gender and name tittle Mr, Mrs, Ms, Dr, Eng, Arch, ...
+  final Gender gender;
   final ZoneModel zone;
   final String language;
   final GeoPoint position;
@@ -192,11 +191,26 @@ class UserModel {
     }
   }
 // -----------------------------------------------------------------------------
+  static const List<Gender> gendersList = <Gender>[
+    Gender.male,
+    Gender.female,
+    Gender.any,
+  ];
+// -----------------------------------------------------------------------------
+  static String translateGender(Gender gender) {
+    switch (gender) {
+      case Gender.female: return 'Female';  break;
+      case Gender.male:   return 'Male';    break;
+      case Gender.any:    return 'Any';     break;
+      default:            return null;
+    }
+  }
+// -----------------------------------------------------------------------------
   static Gender decipherGender(String gender) {
     switch (gender) {
-      case 'female':      return Gender.female; break;
-      case 'male':        return Gender.male;   break;
-      case 'any':  return Gender.any;    break;
+      case 'female' :   return Gender.female; break;
+      case 'male'   :   return Gender.male;   break;
+      case 'any'    :   return Gender.any;    break;
       default:return null;
     }
   }
@@ -280,7 +294,7 @@ class UserModel {
     BuildContext context,
     User user,
     ZoneModel zone,
-    AuthBy authBy,
+    AuthType authBy,
   }) async {
 
     assert(!user.isAnonymous, 'user must not be anonymous');
@@ -379,6 +393,22 @@ class UserModel {
     return _missingFields;
   }
 // -----------------------------------------------------------------------------
+  static bool thereAreMissingFields(UserModel userModel){
+    bool _thereAreMissingFields;
+
+    final List<String> _missingFields = UserModel.missingFields(userModel);
+
+    if (Mapper.canLoopList(_missingFields) == true){
+      _thereAreMissingFields = true;
+    }
+
+    else {
+      _thereAreMissingFields = false;
+    }
+
+    return _thereAreMissingFields;
+  }
+// -----------------------------------------------------------------------------
   void printUserModel({String methodName = 'PRINTING USER MODEL'}) {
     blog('$methodName : ---------------- START -- ');
 
@@ -416,7 +446,7 @@ class UserModel {
 
     final UserModel _userModel = UserModel(
         id: 'dummy_user_model',
-        authBy: AuthBy.email,
+        authBy: AuthType.emailSignIn,
         createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
         status: UserStatus.normal,
         name: 'Donald duck',
