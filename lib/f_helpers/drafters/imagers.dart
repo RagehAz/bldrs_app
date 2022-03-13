@@ -115,7 +115,9 @@ Future<List<Asset>> takeGalleryMultiPictures({
         // okButtonDrawable: 'dunno okButtonDrawable',
       ),
     );
-  } on Exception catch (e) {
+  }
+
+  on Exception catch (e) {
     _error = e.toString();
 
     if (_error != 'The user has cancelled the selection') {
@@ -132,11 +134,13 @@ Future<List<Asset>> takeGalleryMultiPictures({
   /// setState to update our non-existent appearance.
   if (!mounted) {
     return null;
-  } else {
+  }
+
+  else {
     return _resultList;
   }
-}
 
+}
 // ---------------------------------------------------
 Future<File> cropImage({
   @required BuildContext context,
