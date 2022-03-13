@@ -147,8 +147,7 @@ Future<File> cropImage({
   const double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
   const double _maxWidth = 1000;
 
-  /// WHILE image_cropper: ^1.5.0 aho static aho in window,, but in mac its instance access => YASALAAAAM !
-  final File _croppedFile = await ImageCropper.cropImage(
+  final File _croppedFile = await ImageCropper().cropImage(
     sourcePath: file.path,
     aspectRatio: const CropAspectRatio(
         ratioX: 1,
