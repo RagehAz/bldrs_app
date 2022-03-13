@@ -1,4 +1,4 @@
-package bldrs.bldrs
+package com.bldrs.net
 
 import io.flutter.embedding.android.FlutterActivity
 
