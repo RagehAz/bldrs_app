@@ -1,8 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
@@ -23,14 +21,14 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
 // -----------------------------------------------------------------------------
 
 /// CONTINENT
 
 // ---------------------------------------------------
-Future<List<Continent>> readContinentsOps(
-    {@required BuildContext context}) async {
+Future<List<Continent>> readContinentsOps({
+  @required BuildContext context,
+}) async {
   final Map<String, dynamic> _map = await Fire.readDoc(
     context: context,
     collName: FireColl.zones,
@@ -59,7 +57,10 @@ Future<CountryModel> readCountryOps({
     subDocName: countryID,
   );
 
-  final CountryModel _countryModel = CountryModel.decipherCountryMap(map: _map, fromJSON: false);
+  final CountryModel _countryModel = CountryModel.decipherCountryMap(
+      map: _map,
+      fromJSON: false,
+  );
 
   return _countryModel;
 }
@@ -72,6 +73,7 @@ Future<CityModel> readCityOps({
   @required BuildContext context,
   @required String cityID,
 }) async {
+
   final Map<String, dynamic> _map = await Fire.readSubDoc(
     context: context,
     collName: FireColl.zones,
@@ -80,12 +82,13 @@ Future<CityModel> readCityOps({
     subDocName: cityID,
   );
 
-  final CityModel _cityModel =
-      CityModel.decipherCityMap(map: _map, fromJSON: false);
+  final CityModel _cityModel = CityModel.decipherCityMap(
+      map: _map,
+      fromJSON: false,
+  );
 
   return _cityModel;
 }
-
 // -----------------------------------------------------------------------------
 Future<List<CityModel>> readCountryCitiesOps({
   @required BuildContext context,
@@ -104,7 +107,11 @@ Future<List<CityModel>> readCountryCitiesOps({
 
     if (Mapper.canLoopList(_citiesIDs)) {
       for (final String id in _citiesIDs) {
-        final CityModel _city = await readCityOps(context: context, cityID: id);
+
+        final CityModel _city = await readCityOps(
+            context: context,
+            cityID: id,
+        );
 
         if (_city != null) {
           _cities.add(_city);
@@ -121,7 +128,10 @@ Future<List<CityModel>> readCountryCitiesOps({
 
 // ---------------------------------------------------
 /// this is limited and needs paid subscription
-Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
+Future<ZoneModel> _getZoneByIP_ipApi({
+  @required BuildContext context
+}) async {
+
   String _countryID;
   String _cityID;
 
@@ -132,9 +142,11 @@ Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
       context: context,
       methodName: 'get Country by IP',
       functions: () async {
+
         final http.Response _response = await http.get(_uri);
 
         if (_response.statusCode == 200) {
+
           final Map<String, dynamic> _countryData = json.decode(_response.body);
 
           if (_countryData != null) {
@@ -155,38 +167,51 @@ Future<ZoneModel> _getZoneByIP_ipApi({@required BuildContext context}) async {
 
                 CityModel _city;
                 if (_cityName != null) {
+
                   _city = await _zoneProvider.fetchCityByName(
                       context: context,
                       countryID: _countryID,
                       cityName: _cityName,
-                      lingoCode: 'en');
+                      lingoCode: 'en',
+                  );
+
                   _cityID = CityModel.createCityID(
                       countryID: _country?.id,
                       cityEnName: Name.getNameByLingoFromNames(names: _city?.names, lingoCode: 'en')?.value
                   );
+
                 }
               }
             }
           }
 
           blog('response body is : ${_response.body}');
-        } else {
+        }
+
+        else {
           blog('response is : ${_response.body}');
         }
-      });
 
-  return ZoneModel(countryID: _countryID, cityID: _cityID);
+      }
+      );
+
+  return ZoneModel(
+      countryID: _countryID,
+      cityID: _cityID,
+  );
+
 }
-
 // ---------------------------------------------------
 /// this needs subscription after first 100'000 requests
-Future<ZoneModel> _getZoneByIP_ipRegistry({@required BuildContext context}) async {
+Future<ZoneModel> _getZoneByIP_ipRegistry({
+  @required BuildContext context
+}) async {
+
   /// Note that on Android it requires the android.permission.INTERNET permission.
   String _countryID;
   String _cityID;
 
-  const String _url =
-      'https://api.ipregistry.co?key=${Standards.ipRegistryAPIKey}';
+  const String _url = 'https://api.ipregistry.co?key=${Standards.ipRegistryAPIKey}';
   final Uri _uri = Uri.parse(_url);
 
   await tryAndCatch(
@@ -196,11 +221,13 @@ Future<ZoneModel> _getZoneByIP_ipRegistry({@required BuildContext context}) asyn
         final http.Response _response = await http.get(_uri);
 
         if (_response.statusCode == 200) {
+
           final Map<String, dynamic> _countryData = json.decode(_response.body);
 
           Mapper.printMap(_countryData);
 
           if (_countryData != null) {
+
             final String _countryISO =
                 _countryData['location']['country']['code'];
 
@@ -231,39 +258,49 @@ Future<ZoneModel> _getZoneByIP_ipRegistry({@required BuildContext context}) asyn
                   _cityID = CityModel.createCityID(
                       countryID: _country.id,
                       cityEnName: Name.getNameByLingoFromNames(
-                          names: _city.names, lingoCode: 'en')?.value);
+                          names: _city.names, lingoCode: 'en')?.value,
+                  );
                 }
               }
             }
           }
 
           blog('response body is : ${_response.body}');
-        } else {
+        }
+
+        else {
           blog('nothing found : ${_response.body}');
         }
-      });
 
-  return ZoneModel(countryID: _countryID, cityID: _cityID);
+      }
+      );
+
+  return ZoneModel(
+      countryID: _countryID,
+      cityID: _cityID,
+  );
 }
-
 // ---------------------------------------------------
-Future<ZoneModel> _getZoneByGeoLocator({@required BuildContext context}) async {
+Future<ZoneModel> _getZoneByGeoLocator({
+  @required BuildContext context
+}) async {
   ZoneModel _zoneModel;
 
   final Position _position = await getGeoLocatorCurrentPosition();
 
   if (_position != null) {
-    final GeoPoint _geoPoint =
-        GeoPoint(_position?.latitude, _position?.longitude);
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: false);
+    final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
     _zoneModel = await _zoneProvider.getZoneModelByGeoPoint(
-        context: context, geoPoint: _geoPoint);
+        context: context,
+        geoPoint: _geoPoint
+    );
+
   }
 
   return _zoneModel;
 }
-
 // ---------------------------------------------------
 Future<ZoneModel> superGetZone(BuildContext context) async {
   /// trial 1
@@ -312,6 +349,7 @@ Future<Position> getGeoLocatorCurrentPosition() async {
   }
 
   permission = await Geolocator.checkPermission();
+
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
@@ -341,18 +379,21 @@ Future<Position> getGeoLocatorCurrentPosition() async {
 
   return _result;
 }
-
 // ---------------------------------------------------
-Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) async {
+Future<List<Placemark>> getAddressFromPosition({@
+required GeoPoint geoPoint
+}) async {
+
   List<Placemark> _placeMarks = <Placemark>[];
 
   blog('getAddressFromPosition :starting getAddressFromPosition');
 
   if (geoPoint != null) {
-    _placeMarks =
-        await placemarkFromCoordinates(geoPoint.latitude, geoPoint.longitude);
+    _placeMarks = await placemarkFromCoordinates(geoPoint.latitude, geoPoint.longitude);
     blog('getAddressFromPosition :found placemarks aho $_placeMarks');
-  } else {
+  }
+
+  else {
     blog('getAddressFromPosition : could not get this position placeMarks');
   }
 
@@ -364,14 +405,14 @@ Future<List<Placemark>> getAddressFromPosition({@required GeoPoint geoPoint}) as
 
 // ---------------------------------------------------
 Future<List<CurrencyModel>> readCurrencies(BuildContext context) async {
+
   final Map<String, dynamic> _map = await Fire.readDoc(
     context: context,
     collName: FireColl.zones,
     docName: FireDoc.zones_currencies,
   );
 
-  final List<CurrencyModel> _currencies =
-      CurrencyModel.decipherCurrencies(_map);
+  final List<CurrencyModel> _currencies = CurrencyModel.decipherCurrencies(_map);
 
   return _currencies;
 }
