@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
@@ -89,6 +90,14 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
       buttonHeight: _buttonHeight,
       title: 'Profile options',
       buttons: <Widget>[
+
+        /// CHANGE APP LANGUAGE
+        BottomDialog.wideButton(
+          context: context,
+          verse: Wordz.editProfile(context),
+          icon: Iconz.gears,
+          onTap: () => onEditProfileTap(context),
+        ),
 
         /// CHANGE APP LANGUAGE
         BottomDialog.wideButton(
@@ -259,8 +268,18 @@ Future<void> _onSignOut(BuildContext context) async {
 
 }
 // -----------------------------------------------------------------------------
-void onEditProfileTap(){
-  blog('edit profile');
+Future<void> onEditProfileTap(BuildContext context) async {
+
+  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
+  final UserModel _myUserModel = _userProvider.myUserModel;
+
+  await Nav.goToNewScreen(context,
+      EditProfileScreen(
+        userModel: _myUserModel,
+        onFinish: (UserModel updatedUserModel){},
+      )
+  );
+
 }
 // -----------------------------------------------------------------------------
 void onUserPicTap(){

@@ -1,7 +1,9 @@
-import 'package:bldrs/a_models/user/auth_model.dart';
+import 'package:bldrs/b_views/x_screens/b_auth/b_1_email_auth_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
+import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -12,11 +14,8 @@ import 'package:flutter/material.dart';
 class AuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthScreenView({
-    this.onAuthTap,
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final ValueChanged<AuthBy> onAuthTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -52,7 +51,7 @@ class AuthScreenView extends StatelessWidget {
             buttonIcon: Iconz.comGooglePlus,
             buttonColor: Colorz.googleRed,
             buttonVerseShadow: false,
-            function: () => onAuthTap(AuthBy.google),
+            function: () => authByGoogle(context),
           ),
 
         /// --- CONTINUE WITH FACEBOOK
@@ -61,7 +60,7 @@ class AuthScreenView extends StatelessWidget {
           buttonIcon: Iconz.comFacebookWhite,
           buttonColor: Colorz.facebook,
           buttonVerseShadow: false,
-          function: () => onAuthTap(AuthBy.facebook),
+          function: () => authByFacebook(context),
         ),
 
         /// --- CONTINUE WITH EMAIL
@@ -70,7 +69,11 @@ class AuthScreenView extends StatelessWidget {
           buttonIcon: Iconz.comEmail,
           buttonColor: Colorz.white10,
           buttonVerseShadow: false,
-          function: () => onAuthTap(AuthBy.email),
+          function: () async {
+
+              await Nav.goToNewScreen(context, const EmailAuthScreen());
+
+          },
         ),
 
       ],

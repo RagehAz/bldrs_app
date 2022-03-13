@@ -6,8 +6,9 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 // -----------------------------------------------------------------------------
-enum AuthBy {
-  email,
+enum AuthType {
+  emailSignIn,
+  emailRegister,
   facebook,
   google,
   apple,
@@ -45,22 +46,24 @@ class AuthModel {
   GoogleSignInAuthentication googleSignInAuthentication;
   AuthCredential authCredential;
 // -----------------------------------------------------------------------------
-  static AuthBy decipherAuthBy(String authBy) {
+  static AuthType decipherAuthBy(String authBy) {
     switch (authBy) {
-      case 'email':     return AuthBy.email;    break;
-      case 'facebook':  return AuthBy.facebook; break;
-      case 'apple':     return AuthBy.apple;    break;
-      case 'google':    return AuthBy.google;   break;
+      case 'emailRegister':     return AuthType.emailRegister;    break;
+      case 'emailSignIn':       return AuthType.emailSignIn;      break;
+      case 'facebook':          return AuthType.facebook;         break;
+      case 'apple':             return AuthType.apple;            break;
+      case 'google':            return AuthType.google;           break;
       default: return null;
     }
   }
 // -----------------------------------------------------------------------------
-  static String cipherAuthBy(AuthBy authBy) {
+  static String cipherAuthBy(AuthType authBy) {
     switch (authBy) {
-      case AuthBy.email:    return 'email';     break;
-      case AuthBy.facebook: return 'facebook';  break;
-      case AuthBy.apple:    return 'apple';     break;
-      case AuthBy.google:   return 'google';    break;
+      case AuthType.emailRegister:    return 'emailRegister';     break;
+      case AuthType.emailSignIn:      return 'emailSignIn';       break;
+      case AuthType.facebook:         return 'facebook';          break;
+      case AuthType.apple:            return 'apple';             break;
+      case AuthType.google:           return 'google';            break;
       default: return null;
     }
   }

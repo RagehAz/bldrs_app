@@ -2,16 +2,13 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
-import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/c_controllers/g_user_screen_controller.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
+import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
@@ -50,17 +47,9 @@ class UserProfilePage extends StatelessWidget {
     return Column(
       children: <Widget>[
 
-        /// EDIT BUTTON
-        Container(
-          height: 30,
-          alignment: Aligners.superInverseCenterAlignment(context),
-          child: const DreamBox(
-            height: 30,
-            width: 30,
-            icon: Iconz.gears,
-            iconSizeFactor: 0.6,
-            onTap: onEditProfileTap,
-          ),
+        const SizedBox(
+          width: 20,
+          height: 20,
         ),
 
         /// USER PIC
