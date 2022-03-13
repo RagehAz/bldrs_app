@@ -142,17 +142,22 @@ Future<File> cropImage({
   @required BuildContext context,
   @required File file,
 }) async {
+
   /// flyer ratio is : (1 x 1.74)
   const double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
   const double _maxWidth = 1000;
 
+  /// aho static aho
   final File _croppedFile = await ImageCropper.cropImage(
     sourcePath: file.path,
-    aspectRatio:
-        const CropAspectRatio(ratioX: 1, ratioY: Ratioz.xxflyerZoneHeight),
-    aspectRatioPresets: Platform.isAndroid
-        ? getAndroidCropAspectRatioPresets()
-        : getIOSCropAspectRatioPresets(),
+    aspectRatio: const CropAspectRatio(
+        ratioX: 1,
+        ratioY: Ratioz.xxflyerZoneHeight,
+    ),
+    aspectRatioPresets: Platform.isAndroid ?
+    getAndroidCropAspectRatioPresets()
+        :
+    getIOSCropAspectRatioPresets(),
     maxWidth: _maxWidth.toInt(),
     compressFormat: ImageCompressFormat.jpg,
 
