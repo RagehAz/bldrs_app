@@ -235,6 +235,8 @@ Future<AuthModel> signInByFacebook({
       methodName: 'signInByFacebook',
       functions: () async {
 
+        _authModel.firebaseAuth = FirebaseAuth?.instance;
+
         /// get [accessToken]
         _authModel.facebookLoginResult = await FacebookAuth.instance.login();
         final AccessToken _accessToken = _authModel.facebookLoginResult?.accessToken;
@@ -250,7 +252,7 @@ Future<AuthModel> signInByFacebook({
           /// D - get [user credential] by [credential]
           _authModel.userCredential = await _authModel
               .firebaseAuth
-              .signInWithCredential(_authModel.facebookAuthCredential);
+              .signInWithCredential(_authModel.authCredential);
 
         }
 
