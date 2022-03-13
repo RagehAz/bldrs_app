@@ -189,14 +189,14 @@ Future<AuthModel> registerByEmailAndPassword({
       context: context,
       user: _authModel.userCredential.user,
       zone: currentZone,
-      authBy: AuthBy.email,
+      authBy: AuthType.emailSignIn,
     );
 
     /// create a new firestore document for the user with the userID
     _authModel.userModel = await UserFireOps.createUser(
       context: context,
       userModel: _initialUserModel,
-      authBy: AuthBy.email,
+      authBy: AuthType.emailSignIn,
     );
 
   }
@@ -275,7 +275,7 @@ Future<AuthModel> signInByFacebook({
       context: context,
       zone: currentZone,
       user: _authModel.userCredential.user,
-      authBy: AuthBy.facebook,
+      authBy: AuthType.facebook,
     );
 
   }
@@ -361,7 +361,7 @@ Future<AuthModel> signInByGoogle({
       context: context,
       zone: currentZone,
       user: _authModel.userCredential.user,
-      authBy: AuthBy.google,
+      authBy: AuthType.google,
     );
 
   }

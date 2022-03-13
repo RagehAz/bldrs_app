@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loadi
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/i_flyer_controller.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';

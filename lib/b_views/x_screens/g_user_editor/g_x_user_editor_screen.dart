@@ -1,21 +1,24 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/gender_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -24,7 +27,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -35,10 +37,12 @@ class EditProfileScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const EditProfileScreen({
     @required this.userModel,
+    @required this.onFinish,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
+  final ValueChanged<UserModel> onFinish;
   /// --------------------------------------------------------------------------
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -169,7 +173,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _picture.value = null;
   }
 // -----------------------------------------------------------------------------
-  void _changeGender(Gender gender){
+  void _onGenderTap(Gender gender){
     _gender.value = gender;
   }
 // -----------------------------------------------------------------------------
@@ -214,19 +218,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _confirmEdits() async {
 
+    final UserModel _updatedModel = _createUserModelFromLocalVariables();
+
     /// A - IF ALL REQUIRED FIELDS ARE NOT VALID
     if (_inputsAreValid() == false){
 
-      final UserModel _updatedModel = _createUserModelFromLocalVariables();
-      final List<String> _missingFields = UserModel.missingFields(_updatedModel);
-      final String _missingFieldsString = TextGen.generateStringFromStrings(_missingFields);
-
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'Please add all required fields',
-        body:
-            'Missing fields :\n'
-            '$_missingFieldsString',
+      await showMissingFieldsDialog(
+          context: context,
+          userModel: _updatedModel
       );
 
     }
@@ -244,26 +243,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       /// B2 - IF USER CONFIRMS
       if (_continueOps == true) {
-        await _updateUserModel();
+        await _updateUserModel(
+          updatedUserModel: _updatedModel,
+        );
       }
 
     }
 
+    widget.onFinish(_updatedModel);
   }
 // -----------------------------------------------------------------------------
   /// update user
-  Future<void> _updateUserModel() async {
+  Future<void> _updateUserModel({
+    @required UserModel updatedUserModel,
+  }) async {
 
     unawaited(_triggerLoading(setTo: true));
-
-    /// create new updated user model
-    final UserModel _updatedModel = _createUserModelFromLocalVariables();
 
     /// start create user ops
     await UserFireOps.updateUser(
       context: context,
       oldUserModel: widget.userModel,
-      updatedUserModel: _updatedModel,
+      updatedUserModel: updatedUserModel,
     );
 
     unawaited(_triggerLoading(setTo: false));
@@ -273,8 +274,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       title: 'Great !',
       body: 'Successfully updated your user account',
     );
-
-    Nav.goBack(context);
 
   }
 // -----------------------------------------------------------------------------
@@ -378,6 +377,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     fieldIsRequired: true,
                     validator: (String val) =>
                     val.isEmpty ? Wordz.enterName(context) : null,
+                  ),
+
+                  GenderBubble(
+                    selectedGender: _gender,
+                    onTap: (Gender gender) => _onGenderTap(gender),
                   ),
 
                   /// --- EDIT JOB TITLE

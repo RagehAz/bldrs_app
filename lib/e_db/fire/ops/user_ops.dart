@@ -64,7 +64,7 @@ Future<void> _createOrUpdateUserDoc(
 Future<UserModel> createUser({
   @required BuildContext context,
   @required UserModel userModel,
-  @required AuthBy authBy,
+  @required AuthType authBy,
 }) async {
   // ----------
   /// this creates :-
@@ -88,7 +88,7 @@ Future<UserModel> createUser({
   /// if from google or facebook url pics
   else if (ObjectChecker.objectIsURL(userModel.pic) == true) {
     /// TASK : this facebook / google image thing is not tested
-    if (authBy == AuthBy.facebook || authBy == AuthBy.google) {
+    if (authBy == AuthType.facebook || authBy == AuthType.google) {
       final File _picFile = await Imagers.getFileFromURL(userModel.pic);
       _userPicURL = await Storage.createStoragePicAndGetURL(
         context: context,
@@ -140,7 +140,7 @@ Future<UserModel> getOrCreateUserModelFromUser({
   @required BuildContext context,
   @required User user,
   @required ZoneModel zone,
-  @required AuthBy authBy,
+  @required AuthType authBy,
 }) async {
   // ----------
   /// E - read user ops if existed

@@ -1,8 +1,11 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -143,58 +146,72 @@ class EmailAuthScreenView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
 
-                    /// (SWITCH TO SIGN-IN) => CREATE NEW ACCOUNT
-                    if (isSigningIn == true)
+                    DreamBox(
+                      height: _buttonHeight,
+                      verse: 'Back',
+                      icon: Iconizer.superBackIcon(context),
+                      iconSizeFactor: 0.7,
+                      margins: 10,
+                      color: Colorz.white20,
+                      onTap: () => Nav.goBack(context),
+                    ),
+
+                    const Expander(),
+
+                    /// REGISTER BUTTON
+                    // if (isSigningIn == true)
                       DreamBox(
                         height: _buttonHeight,
                         width: 150,
                         verseScaleFactor: _verseScaleFactor,
                         verseMaxLines: 2,
-                        verse: 'Create',
+                        verse: isSigningIn ? 'Create' : Wordz.register(context),
+                        verseColor: isSigningIn ? Colorz.white255 : Colorz.black255,
                         secondLine: 'New Account',
-                        color: Colorz.white20,
+                        secondLineColor: isSigningIn ? Colorz.white255 : Colorz.black255,
+                        color: isSigningIn ? Colorz.white20 : Colorz.yellow255,
                         margins: EdgeInsets.zero,
-                        onTap: switchSignIn,
+                        onTap: isSigningIn ? switchSignIn : onSignup,
                       ),
 
                     /// SIGN IN BUTTON
-                    if (isSigningIn == true)
+                    // if (isSigningIn == true)
                       DreamBox(
                         height: _buttonHeight,
                         verseScaleFactor: _verseScaleFactor,
-                        color: Colorz.yellow255,
+                        color: isSigningIn ? Colorz.yellow255 : Colorz.white20,
                         verse: Wordz.signIn(context),
+                        verseColor: isSigningIn ? Colorz.black255 : Colorz.white255,
                         verseWeight: VerseWeight.black,
-                        verseColor: Colorz.black230,
                         margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                        onTap: onSignin,
+                        onTap: isSigningIn ? onSignin : switchSignIn,
                       ),
 
-                    /// (SWITCH TO SIGN-UP) => SIGN IN EXISTING ACCOUNT BUTTON
-                    if (isSigningIn == false)
-                      DreamBox(
-                        height: _buttonHeight,
-                        verseScaleFactor: _verseScaleFactor,
-                        width: 150,
-                        verse: 'Sign in',
-                        secondLine: 'Existing account',
-                        verseMaxLines: 2,
-                        color: Colorz.white20,
-                        onTap: switchSignIn,
-                      ),
-
-                    /// SIGN-UP BUTTON
-                    if (isSigningIn == false)
-                      DreamBox(
-                        height: _buttonHeight,
-                        verseScaleFactor: _verseScaleFactor,
-                        color: Colorz.yellow255,
-                        verse: Wordz.register(context),
-                        verseColor: Colorz.black230,
-                        verseWeight: VerseWeight.black,
-                        margins: const EdgeInsets.all(10),
-                        onTap: onSignup,
-                      ),
+                    // /// (SWITCH TO SIGN-UP) => SIGN IN EXISTING ACCOUNT BUTTON
+                    // if (isSigningIn == false)
+                    //   DreamBox(
+                    //     height: _buttonHeight,
+                    //     verseScaleFactor: _verseScaleFactor,
+                    //     width: 150,
+                    //     verse: 'Sign in',
+                    //     secondLine: 'Existing account',
+                    //     verseMaxLines: 2,
+                    //     color: Colorz.white20,
+                    //     onTap: switchSignIn,
+                    //   ),
+                    //
+                    // /// SIGN-UP BUTTON
+                    // if (isSigningIn == false)
+                    //   DreamBox(
+                    //     height: _buttonHeight,
+                    //     verseScaleFactor: _verseScaleFactor,
+                    //     color: Colorz.yellow255,
+                    //     verse: Wordz.register(context),
+                    //     verseColor: Colorz.black230,
+                    //     verseWeight: VerseWeight.black,
+                    //     margins: const EdgeInsets.all(10),
+                    //     onTap: onSignup,
+                    //   ),
 
                   ],
                 );

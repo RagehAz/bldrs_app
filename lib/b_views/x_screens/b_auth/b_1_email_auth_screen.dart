@@ -79,7 +79,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSignin() async {
-    await controlEmailSignin(
+    await authByEmailSignIn(
       context: context,
       email: _emailController.text,
       password: _passwordController.text,
@@ -88,7 +88,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSignup() async {
-    await controlEmailSignup(
+    await authByEmailRegister(
       context: context,
       email: _emailController.text,
       password: _passwordController.text,
