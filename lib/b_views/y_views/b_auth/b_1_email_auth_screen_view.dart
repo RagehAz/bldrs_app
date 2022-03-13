@@ -148,7 +148,8 @@ class EmailAuthScreenView extends StatelessWidget {
 
                     DreamBox(
                       height: _buttonHeight,
-                      verse: 'Back',
+                      width: _buttonHeight,
+                      // verse: 'Back',
                       icon: Iconizer.superBackIcon(context),
                       iconSizeFactor: 0.7,
                       margins: 10,
