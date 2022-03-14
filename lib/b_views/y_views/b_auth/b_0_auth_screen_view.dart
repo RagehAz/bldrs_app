@@ -34,34 +34,36 @@ class AuthScreenView extends StatelessWidget {
           height: Ratioz.appBarMargin,
         ),
 
-        /// --- CONTINUE WITH APPLE
-        if (DeviceChecker.deviceIsIOS() == true)
-          MainButton(
-            buttonVerse: Wordz.continueApple(context),
-            buttonIcon: Iconz.comApple,
-            buttonColor: Colorz.black230,
-            buttonVerseShadow: false,
-            function: Routez.home,
-          ),
-
-        /// --- CONTINUE WITH GOOGLE
-        if (DeviceChecker.deviceIsAndroid() == true)
-          MainButton(
-            buttonVerse: 'Continue with Google',
-            buttonIcon: Iconz.comGooglePlus,
-            buttonColor: Colorz.googleRed,
-            buttonVerseShadow: false,
-            function: () => authByGoogle(context),
-          ),
-
-        /// --- CONTINUE WITH FACEBOOK
-        MainButton(
-          buttonVerse: Wordz.continueFacebook(context),
-          buttonIcon: Iconz.comFacebookWhite,
-          buttonColor: Colorz.facebook,
-          buttonVerseShadow: false,
-          function: () => authByFacebook(context),
-        ),
+        /// TASK : - FACEBOOK - GOOGLE - APPLE AUTH WILL BE IN V1.1
+        // /// --- CONTINUE WITH APPLE
+        // if (DeviceChecker.deviceIsIOS() == true)
+        //   MainButton(
+        //     buttonVerse: Wordz.continueApple(context),
+        //     buttonIcon: Iconz.comApple,
+        //     buttonColor: Colorz.black230,
+        //     buttonVerseShadow: false,
+        //     function: Routez.home,
+        //
+        //   ),
+        //
+        // /// --- CONTINUE WITH GOOGLE
+        // if (DeviceChecker.deviceIsAndroid() == true)
+        //   MainButton(
+        //     buttonVerse: 'Continue with Google',
+        //     buttonIcon: Iconz.comGooglePlus,
+        //     buttonColor: Colorz.googleRed,
+        //     buttonVerseShadow: false,
+        //     function: () => authByGoogle(context),
+        //   ),
+        //
+        // /// --- CONTINUE WITH FACEBOOK
+        // MainButton(
+        //   buttonVerse: Wordz.continueFacebook(context),
+        //   buttonIcon: Iconz.comFacebookWhite,
+        //   buttonColor: Colorz.facebook,
+        //   buttonVerseShadow: false,
+        //   function: () => authByFacebook(context),
+        // ),
 
         /// --- CONTINUE WITH EMAIL
         MainButton(
