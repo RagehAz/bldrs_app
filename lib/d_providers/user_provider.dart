@@ -103,7 +103,7 @@ class UsersProvider extends ChangeNotifier {
   CityModel _myUserCity;
   AuthModel _myAuthModel;
 // -------------------------------------
-  UserModel get myUserModel =>_myUserModel;
+  UserModel get myUserModel => _myUserModel;
   CountryModel get myUserCountry => _myUserCountry;
   CityModel get myUserCity => _myUserCity;
   AuthModel get myAuthModel => _myAuthModel;
@@ -142,6 +142,7 @@ class UsersProvider extends ChangeNotifier {
     @required CityModel cityModel,
     @required bool notify,
   }){
+
     _myUserModel = userModel;
     _myUserCountry = countryModel;
     _myUserCity = cityModel;
