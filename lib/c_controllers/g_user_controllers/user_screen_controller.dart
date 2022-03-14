@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/b_views/x_screens/g_user/g_3_feedback_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_4_terms_and_regulations_screen.dart';
 import 'package:bldrs/b_views/y_views/g_user/b_4_invite_businesses_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
@@ -91,7 +93,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
       title: 'Profile options',
       buttons: <Widget>[
 
-        /// CHANGE APP LANGUAGE
+        /// EDIT PROFILE
         BottomDialog.wideButton(
           context: context,
           verse: Wordz.editProfile(context),
@@ -276,7 +278,14 @@ Future<void> onEditProfileTap(BuildContext context) async {
   await Nav.goToNewScreen(context,
       EditProfileScreen(
         userModel: _myUserModel,
-        onFinish: (UserModel updatedUserModel){},
+        onFinish: () async {
+
+          // updatedUserModel.blogUserModel(methodName: 'After editing from profile screen aho');
+
+          blog('tamam keda ya m3allem isa');
+
+          Nav.goBack(context);
+        },
       )
   );
 

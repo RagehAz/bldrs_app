@@ -250,7 +250,7 @@ Stream<UserModel> streamInitialUser() {
 /// UPDATE
 
 // ---------------------------------------------------
-Future<void> updateUser({
+Future<UserModel> updateUser({
   @required BuildContext context,
   @required UserModel oldUserModel,
   @required UserModel updatedUserModel,
@@ -312,6 +312,7 @@ Future<void> updateUser({
     input: _finalUserModel.toMap(toJSON: false),
   );
 
+  return _finalUserModel;
 }
 // -----------------------------------------------------------------------------
 /// returns new pic url

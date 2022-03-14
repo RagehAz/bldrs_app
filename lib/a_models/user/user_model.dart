@@ -328,7 +328,7 @@ class UserModel {
       followedBzzIDs: <String>[],
     );
 
-    _userModel.printUserModel(methodName: 'createInitialUserModelFromUser');
+    _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
 
     return _userModel;
   }
@@ -409,7 +409,7 @@ class UserModel {
     return _thereAreMissingFields;
   }
 // -----------------------------------------------------------------------------
-  void printUserModel({String methodName = 'PRINTING USER MODEL'}) {
+  void blogUserModel({String methodName = 'PRINTING USER MODEL'}) {
     blog('$methodName : ---------------- START -- ');
 
     blog('id : $id');
@@ -424,7 +424,7 @@ class UserModel {
     zone.blogZone();
     blog('language : $language');
     blog('position : $position');
-    blog('contacts : $contacts');
+    ContactModel.blogContacts(contacts);
     blog('myBzzIDs : $myBzzIDs');
     blog('emailIsVerified : $emailIsVerified');
     blog('fcmToken : ${fcmToken?.createdAt}');

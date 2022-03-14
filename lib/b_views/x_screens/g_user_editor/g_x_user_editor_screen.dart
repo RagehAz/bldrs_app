@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -19,6 +20,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -32,6 +34,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -42,7 +45,7 @@ class EditProfileScreen extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
-  final ValueChanged<UserModel> onFinish;
+  final Function onFinish;
   /// --------------------------------------------------------------------------
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -222,12 +225,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     /// A - IF ALL REQUIRED FIELDS ARE NOT VALID
     if (_inputsAreValid() == false){
-
       await showMissingFieldsDialog(
           context: context,
           userModel: _updatedModel
       );
-
     }
 
     /// A - IF ALL REQUIRED FIELDS ARE VALID
@@ -243,25 +244,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       /// B2 - IF USER CONFIRMS
       if (_continueOps == true) {
-        await _updateUserModel(
+        final UserModel _uploadedUserModel = await _updateUserModel(
           updatedUserModel: _updatedModel,
         );
+
+        blog('finished updating the user Model ahoooooo');
+
+        widget.onFinish(_uploadedUserModel);
+
       }
 
     }
 
-    widget.onFinish(_updatedModel);
   }
 // -----------------------------------------------------------------------------
   /// update user
-  Future<void> _updateUserModel({
+  Future<UserModel> _updateUserModel({
     @required UserModel updatedUserModel,
   }) async {
 
     unawaited(_triggerLoading(setTo: true));
 
     /// start create user ops
-    await UserFireOps.updateUser(
+    final UserModel _uploadedUserModel = await UserFireOps.updateUser(
       context: context,
       oldUserModel: widget.userModel,
       updatedUserModel: updatedUserModel,
@@ -275,6 +280,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: 'Successfully updated your user account',
     );
 
+    return _uploadedUserModel;
   }
 // -----------------------------------------------------------------------------
   UserModel _createUserModelFromLocalVariables(){
