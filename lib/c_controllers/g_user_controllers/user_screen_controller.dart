@@ -280,10 +280,6 @@ Future<void> onEditProfileTap(BuildContext context) async {
         userModel: _myUserModel,
         onFinish: () async {
 
-          // updatedUserModel.blogUserModel(methodName: 'After editing from profile screen aho');
-
-          blog('tamam keda ya m3allem isa');
-
           Nav.goBack(context);
         },
       )
