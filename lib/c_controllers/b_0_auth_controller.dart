@@ -176,6 +176,11 @@ Future<void> _controlAuthResult({
   /// B2. IF AUTH SUCCEEDS
   else {
 
+    await setUserModelLocally(
+      context: context,
+      authModel: authModel,
+    );
+
     final bool _thereAreMissingFields = UserModel.thereAreMissingFields(authModel.userModel);
 
     /// B. USER MODEL REQUIRED FIELDS ARE MISSING
@@ -188,11 +193,6 @@ Future<void> _controlAuthResult({
 
     /// C. ALL USER MODEL REQUIRED FIELDS ARE COMPLETE
     else {
-
-      await setUserModelLocally(
-        context: context,
-        authModel: authModel,
-      );
 
       await _goToHomeScreen(context);
     }
@@ -293,7 +293,7 @@ Future<void> showMissingFieldsDialog({
     context: context,
     title: 'Please add all required fields',
     body:
-    'Missing fields :\n'
+    'Required fields :\n'
         '$_missingFieldsString',
   );
 
