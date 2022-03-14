@@ -188,6 +188,12 @@ Future<void> _controlAuthResult({
 
     /// C. ALL USER MODEL REQUIRED FIELDS ARE COMPLETE
     else {
+
+      await setUserModelLocally(
+        context: context,
+        authModel: authModel,
+      );
+
       await _goToHomeScreen(context);
     }
 
@@ -210,7 +216,7 @@ Future<void> _controlAuthFailure({
 
 }
 // ------------------------------------------------------
-Future<void> _setUserModelLocally({
+Future<void> setUserModelLocally({
   @required BuildContext context,
   @required AuthModel authModel,
 }) async {
@@ -262,7 +268,7 @@ Future<void> _controlMissingFieldsCase({
 
           authModel.userModel = updatedUserModel;
 
-          await _setUserModelLocally(
+          await setUserModelLocally(
             context: context,
             authModel: authModel,
           );
