@@ -336,18 +336,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
       pageTitle: Wordz.updateProfile(context),
-      appBarRowWidgets: [
-
-        DreamBox(
-          height: 40,
-          width: 100,
-          verse: 'do the thing',
-          onTap: () async {
-            blog('picture is : ${widget.userModel.pic}');
-          },
-        )
-
-      ],
       layoutWidget: ValueListenableBuilder(
         valueListenable: _loading,
         builder: (_, bool _isLoading, Widget child){

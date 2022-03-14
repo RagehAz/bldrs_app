@@ -264,19 +264,13 @@ Future<void> _controlMissingFieldsCase({
 
       EditProfileScreen(
         userModel: authModel.userModel,
-        onFinish: (UserModel updatedUserModel) async {
-
-          authModel.userModel = updatedUserModel;
-
-          await setUserModelLocally(
-            context: context,
-            authModel: authModel,
-          );
+        onFinish: () async {
 
           await _goToHomeScreen(context);
 
         },
       )
+
   );
 
 }
@@ -291,7 +285,7 @@ Future<void> showMissingFieldsDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Please add all required fields',
+    title: 'Complete Your profile',
     body:
     'Required fields :\n'
         '$_missingFieldsString',
