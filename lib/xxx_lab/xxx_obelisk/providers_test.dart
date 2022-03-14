@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
@@ -110,6 +111,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 // -----------------------------------------------------------------------------
 
     final UserModel _myUserModel = _usersProvider?.myUserModel;
+    final AuthModel _myAuthModel = _usersProvider?.myAuthModel;
+
     final CountryModel _myUserCountry = _usersProvider?.myUserCountry;
     final CityModel _myUserCity = _usersProvider?.myUserCity;
     // final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
@@ -143,7 +146,19 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   onTap: () async {
                     unawaited(_triggerLoading());
 
-                    _myUserModel.printUserModel();
+                    _myUserModel.blogUserModel();
+
+                    unawaited(_triggerLoading());
+                  }),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _usersProvider._myAuthModel',
+                  icon: Iconizer.valueIsNotNull(_myAuthModel),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    _myAuthModel.blogAuthModel();
 
                     unawaited(_triggerLoading());
                   }),
