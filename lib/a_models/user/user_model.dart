@@ -67,7 +67,9 @@ class UserModel {
   final List<String> savedFlyersIDs;
   final List<String> followedBzzIDs;
   /// --------------------------------------------------------------------------
-  Map<String, dynamic> toMap({@required bool toJSON}) {
+  Map<String, dynamic> toMap({
+    @required bool toJSON,
+  }) {
     return <String, dynamic>{
       'id': id,
       'authBy': AuthModel.cipherAuthBy(authBy),
@@ -194,15 +196,15 @@ class UserModel {
   static const List<Gender> gendersList = <Gender>[
     Gender.male,
     Gender.female,
-    Gender.any,
+    Gender.other,
   ];
 // -----------------------------------------------------------------------------
   static String translateGender(Gender gender) {
     switch (gender) {
-      case Gender.female: return 'Female';  break;
-      case Gender.male:   return 'Male';    break;
-      case Gender.any:    return 'Any';     break;
-      default:            return null;
+      case Gender.female:   return 'Female';    break;
+      case Gender.male:     return 'Male';      break;
+      case Gender.other:    return 'Other';     break;
+      default:              return null;
     }
   }
 // -----------------------------------------------------------------------------
@@ -210,17 +212,17 @@ class UserModel {
     switch (gender) {
       case 'female' :   return Gender.female; break;
       case 'male'   :   return Gender.male;   break;
-      case 'any'    :   return Gender.any;    break;
+      case 'other'    :   return Gender.other;    break;
       default:return null;
     }
   }
 // -----------------------------------------------------------------------------
   static String cipherGender(Gender gender) {
     switch (gender) {
-      case Gender.female: return 'female';  break;
-      case Gender.male:   return 'male';    break;
-      case Gender.any:    return 'any';     break;
-      default:            return null;
+      case Gender.female:   return 'female';    break;
+      case Gender.male:     return 'male';      break;
+      case Gender.other:    return 'other';     break;
+      default:              return null;
     }
   }
 // -----------------------------------------------------------------------------
@@ -274,7 +276,7 @@ class UserModel {
       trigram: TextGen.createTrigram(input: _user.displayName),
       pic: _user.photoURL,
       title: '',
-      gender: Gender.any,
+      gender: Gender.other,
       zone: null,
       language: 'en',
       position: const GeoPoint(0, 0),
@@ -313,7 +315,7 @@ class UserModel {
       trigram: TextGen.createTrigram(input: user.displayName),
       pic: user.photoURL,
       title: '',
-      gender: Gender.any,
+      gender: Gender.other,
       zone: zone,
       language: '', //Wordz.languageCode(context),
       position: null,
@@ -549,7 +551,7 @@ enum UserStatus {
 enum Gender {
   male,
   female,
-  any,
+  other,
 }
 // -----------------------------------------------------------------------------
 enum UserTab {
