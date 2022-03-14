@@ -81,6 +81,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
           countryID: _selectedZone.countryID,
         );
 
+        _selectedCountryCities.value = await _zoneProvider.fetchCitiesByIDs(
+          context: context,
+          citiesIDs: _selectedCountry.value?.citiesIDs,
+        );
+
         _selectedCity.value = await _zoneProvider.fetchCityByID(
           context: context,
           cityID: _selectedZone.cityID,
