@@ -244,13 +244,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       /// B2 - IF USER CONFIRMS
       if (_continueOps == true) {
+
         final UserModel _uploadedUserModel = await _updateUserModel(
           updatedUserModel: _updatedModel,
         );
 
+        final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+        final AuthModel _authModel = _usersProvider.myAuthModel;
+
+        _authModel.userModel = _uploadedUserModel;
+
+        await setUserModelLocally(
+          context: context,
+          authModel: _authModel,
+        );
+
         blog('finished updating the user Model ahoooooo');
 
-        widget.onFinish(_uploadedUserModel);
+        widget.onFinish();
 
       }
 
@@ -363,7 +374,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: <Widget>[
 
                   const Stratosphere(),
-
 
                   AddGalleryPicBubble(
                     picture: _picture,

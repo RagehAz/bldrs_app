@@ -24,7 +24,7 @@ class LogoSlogan extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
     final double _logoHeight = _screenHeight * 18 * 0.016 * sizeFactor;
-    const String _slogan = 'Real Estate\nConstruction\nSupplies';
+    const String _slogan = "The Builder's Network" ;//'Real Estate\nConstruction\nSupplies';
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +69,7 @@ class LogoSlogan extends StatelessWidget {
             width: _logoWidth,
             // height: _logoHeight * 0.7,
             child: SuperVerse(
-              verse: Wordz.bldrsDescription(context),
+              verse: 'Connect with\nArchitects,\nInterior designers, Contractors\nAnd Craftsmen', // Wordz.bldrsDescription(context),
               size: 3,
               weight: VerseWeight.thin,
               shadow: true,
