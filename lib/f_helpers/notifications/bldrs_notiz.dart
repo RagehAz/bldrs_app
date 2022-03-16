@@ -795,7 +795,7 @@ NotiModel monthlyBzStatistics({
     title: '${bzModel.name} statistics for $monthName',
     timeStamp: DateTime.now(),
     body:
-        'on $monthName you have got $followers followers, $calls calls, $saves saves, $views views, $shares shares while $competitors new businesses specialized in ${bzModel.bzType.toString()} have joined Bldrs.net this month',
+        'on $monthName you have got $followers followers, $calls calls, $saves saves, $views views, $shares shares while $competitors new businesses specialized in ${bzModel.bzTypes.toString()} have joined Bldrs.net this month',
     attachment: null,
     attachmentType: null,
     sendFCM: true,

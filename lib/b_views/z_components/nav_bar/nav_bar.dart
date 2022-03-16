@@ -25,7 +25,6 @@ import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
@@ -245,6 +244,7 @@ class NavBar extends StatelessWidget {
         titleIsOn: true,
         draggable: true);
 
+
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
@@ -274,7 +274,13 @@ class NavBar extends StatelessWidget {
               // controller: _myBzzListController,
               itemCount: myBzz.length,
               itemBuilder: (BuildContext context, int index) {
+
                 final BzModel _bzModel = myBzz[index];
+
+                final String _bzTypesString = BzModel.generateTranslatedBzTypesString(
+                  context: context,
+                  bzTypes: _bzModel.bzTypes,
+                );
 
                 return Align(
                   alignment: Aligners.superCenterAlignment(context),
@@ -284,8 +290,7 @@ class NavBar extends StatelessWidget {
                     margins: const EdgeInsets.all(Ratioz.appBarPadding),
                     icon: _bzModel.logo,
                     verse: _bzModel.name,
-                    secondLine:
-                        TextGen.bzTypeSingleStringer(context, _bzModel.bzType),
+                    secondLine: _bzTypesString,
                     verseScaleFactor: 0.7,
                     verseCentered: false,
                     onTap: () async {

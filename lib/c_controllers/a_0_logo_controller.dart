@@ -41,7 +41,6 @@ Future<bool> _initializeAppState(BuildContext context) async {
   if (_appState.termsUpdateRequired == true) {}
   if (_appState.aboutBldrsUpdateRequired == true) {}
   if (_appState.notificationsUpdateRequired == true) {}
-  if (_appState.sectionsUpdateRequired == true) {}
   if (_appState.keywordsUpdateRequired == true) {}
   if (_appState.zonesUpdateRequired == true) {}
 

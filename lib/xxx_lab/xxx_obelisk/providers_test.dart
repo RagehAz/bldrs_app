@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bou
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -35,6 +37,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
   UsersProvider _usersProvider;
   ZoneProvider _zoneProvider;
   FlyersProvider _flyersProvider;
+  GeneralProvider _generalProvider;
   AnimationController _animationController;
   UiProvider _uiProvider;
 // -----------------------------------------------------------------------------
@@ -66,6 +69,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -121,6 +125,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     final CountryModel _currentCountry = _zoneProvider?.currentCountry;
     final CityModel _currentCity = _zoneProvider?.currentCity;
     final List<FlyerModel> _promotedFlyers = _flyersProvider?.promotedFlyers;
+
+    final List<FlyerType> _activeSections = _generalProvider?.appState?.activeSections;
 
     // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     // final List<BzModel> _userBzz = _bzzProvider.myBzz;
@@ -247,6 +253,18 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   }),
 
               const BubblesSeparator(),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _activeSections',
+                  icon: Iconizer.valueIsNotNull(_activeSections),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    blog('Active sections : $_activeSections');
+
+                    unawaited(_triggerLoading());
+                  }),
 
               WideButton(
                   color: Colorz.black255,

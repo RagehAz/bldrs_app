@@ -1,12 +1,11 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/following_bzz_grid.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/following_bzz_grid.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -44,7 +43,10 @@ class UserFollowingPage extends StatelessWidget {
 
             final BzType _bzType = _bzTypes[index];
 
-            final String _bzTypeString = TextGen.bzTypePluralStringer(context, _bzType);
+            final String _bzTypeString = BzModel.translateBzType(
+                context: context,
+                bzType: _bzType
+            );
 
             final List<BzModel> _bzzOfThisType = BzModel.getBzzFromBzzByBzType(
                 bzz: _followedBzz,

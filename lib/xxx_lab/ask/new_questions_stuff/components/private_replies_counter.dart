@@ -1,8 +1,8 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,10 @@ class PrivateRepliesCounter extends StatelessWidget {
     final double _bubbleClearWidth = Bubble.clearWidth(context);
 
     const int _numberOfBzReplies = 123;
-    final String _bzTypeString = bzTypePluralStringer(context, questionModel.directedTo);
+    final String _bzTypeString = BzModel.translateBzType(
+      context: context,
+      bzType: questionModel.directedTo,
+    );
     final String _icon = Iconizer.bzTypeIconOff(questionModel.directedTo);
 
     return DreamBox(

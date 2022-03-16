@@ -161,7 +161,7 @@ class AuthorModel {
 
     return BzModel(
       id: bzModel.id,
-      bzType: bzModel.bzType,
+      bzTypes: bzModel.bzTypes,
       bzForm: bzModel.bzForm,
       createdAt: bzModel.createdAt,
       accountType: bzModel.accountType,

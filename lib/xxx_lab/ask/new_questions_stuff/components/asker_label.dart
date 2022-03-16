@@ -1,8 +1,8 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
@@ -27,6 +27,11 @@ class AskerLabel extends StatelessWidget {
     final double _userNameBoxWidth = _bubbleClearWidth - _userLabelBoxHeight;
 
     final String _superTimeDifferenceString = Timers.getSuperTimeDifferenceString(from: questionModel.time, to: DateTime.now());
+
+    final String _bzTypeString = BzModel.translateBzType(
+        context: context,
+        bzType: questionModel.directedTo,
+    );
 
     return SizedBox(
       key: const ValueKey('Asker_Label'),
@@ -73,7 +78,7 @@ class AskerLabel extends StatelessWidget {
                 ),
 
                 SuperVerse(
-                  verse: 'Directed to ${TextGen.bzTypePluralStringer(context, questionModel.directedTo)}',
+                  verse: 'Directed to $_bzTypeString',
                   weight: VerseWeight.thin,
                   italic: true,
                 ),
