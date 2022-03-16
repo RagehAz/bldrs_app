@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 
@@ -11,12 +12,11 @@ class AppState {
     @required this.aboutBldrsUpdateRequired,
     @required this.notificationsUpdateRequired,
     @required this.sponsors,
-    @required this.sectionsUpdateRequired,
+    @required this.activeSections,
     @required this.keywordsUpdateRequired,
     @required this.numberOfKeywords,
     @required this.zonesUpdateRequired,
   });
-
   /// --------------------------------------------------------------------------
   /// app update
   final bool appUpdateRequired;
@@ -36,7 +36,7 @@ class AppState {
   final List<String> sponsors;
 
   /// keywords
-  final bool sectionsUpdateRequired; // sequences and groups
+  final List<FlyerType> activeSections;
   final bool keywordsUpdateRequired;
   final int numberOfKeywords;
 
@@ -53,7 +53,7 @@ class AppState {
       'aboutBldrsUpdateRequired': aboutBldrsUpdateRequired,
       'notificationsUpdateRequired': notificationsUpdateRequired,
       'sponsors': sponsors,
-      'sectionsUpdateRequired': sectionsUpdateRequired,
+      'activeSections': cipherFlyersTypes(activeSections),
       'keywordsUpdateRequired': keywordsUpdateRequired,
       'numberOfKeywords': numberOfKeywords,
       'zonesUpdateRequired': zonesUpdateRequired,
@@ -70,7 +70,7 @@ class AppState {
       aboutBldrsUpdateRequired: map['aboutBldrsUpdateRequired'],
       notificationsUpdateRequired: map['notificationsUpdateRequired'],
       sponsors: Mapper.getStringsFromDynamics(dynamics: map['sponsors']),
-      sectionsUpdateRequired: map['sectionsUpdateRequired'],
+      activeSections: decipherFlyersTypes(map['activeSections']),
       keywordsUpdateRequired: map['keywordsUpdateRequired'],
       numberOfKeywords: map['numberOfKeywords'],
       zonesUpdateRequired: map['zonesUpdateRequired'],
@@ -88,7 +88,7 @@ class AppState {
       aboutBldrsUpdateRequired: false,
       notificationsUpdateRequired: false,
       sponsors: <String>[],
-      sectionsUpdateRequired: false,
+      activeSections: <FlyerType>[],
       keywordsUpdateRequired: false,
       numberOfKeywords: 0,
       zonesUpdateRequired: false,

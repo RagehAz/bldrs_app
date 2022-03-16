@@ -72,6 +72,11 @@ class BzAppBar extends StatelessWidget {
       city: _bzCity,
     );
 
+    final String _bzTypesString = BzModel.generateTranslatedBzTypesString(
+      context: context,
+      bzTypes: _bzModel.bzTypes,
+    );
+
     return Row(
       children: <Widget>[
 
@@ -85,7 +90,7 @@ class BzAppBar extends StatelessWidget {
           bubble: false,
           verseScaleFactor: 0.65,
           color: Colorz.white20,
-          secondLine: '${TextGen.bzTypeSingleStringer(context, _bzModel.bzType)} $_zoneString',
+          secondLine: '$_bzTypesString :  $_zoneString',
           secondLineColor: Colorz.white200,
           secondLineScaleFactor: 0.7,
         ),

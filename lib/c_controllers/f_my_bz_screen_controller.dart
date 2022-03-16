@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 int getInitialMyBzScreenTabIndex(BuildContext context){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final BzTab _currentTab = _uiProvider.currentBzTab;
-  final int _index = getBzTabIndex(_currentTab);
+  final int _index = BzModel.getBzTabIndex(_currentTab);
   return _index;
 }
 // -----------------------------------------------------------------------------
@@ -37,7 +37,7 @@ void onChangeMyBzScreenTabIndex({
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  final BzTab _newBzTab = bzTabsList[index];
+  final BzTab _newBzTab = BzModel.bzTabsList[index];
   final BzTab _previousBzTab = _uiProvider.currentBzTab;
 
   /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS

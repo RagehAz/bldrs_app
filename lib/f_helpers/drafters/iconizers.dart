@@ -56,7 +56,7 @@ String bzTypeIconOff(BzType bzType) {
       :
   bzType == BzType.contractor ? Iconz.bxProjectsOff
       :
-  bzType == BzType.artisan ? Iconz.bxCraftsOff
+  bzType == BzType.craftsman ? Iconz.bxCraftsOff
       :
   null;
 
@@ -78,7 +78,7 @@ String bzTypeIconOn(BzType bzType) {
       :
   bzType == BzType.contractor ? Iconz.bxProjectsOn
       :
-  bzType == BzType.artisan ? Iconz.bxCraftsOn
+  bzType == BzType.craftsman ? Iconz.bxCraftsOn
       :
   null;
 

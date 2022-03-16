@@ -1,5 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:flutter/foundation.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:flutter/material.dart';
+
 // -----------------------------------------------------------------------------
 enum FlyerType {
   all,
@@ -77,13 +80,40 @@ String cipherFlyerType(FlyerType x) {
   }
 }
 // -----------------------------------------------------------------------------
+List<String> cipherFlyersTypes(List<FlyerType> flyersTypes){
+
+  final List<String> _strings = <String>[];
+
+  if (Mapper.canLoopList(flyersTypes) == true){
+
+    for (final FlyerType type in flyersTypes){
+      _strings.add(cipherFlyerType(type));
+    }
+
+  }
+  return _strings;
+}
+// -----------------------------------------------------------------------------
+List<FlyerType> decipherFlyersTypes(List<dynamic> strings){
+
+  final List<FlyerType> _flyersTypes = <FlyerType>[];
+
+  if (Mapper.canLoopList(strings) == true){
+    for (final String str in strings){
+      _flyersTypes.add(decipherFlyerType(str));
+    }
+  }
+
+  return _flyersTypes;
+}
+// -----------------------------------------------------------------------------
 FlyerType concludeFlyerType(BzType bzType) {
   switch (bzType) {
     case BzType.developer: return FlyerType.property; break;
     case BzType.broker: return FlyerType.property; break;
     case BzType.designer: return FlyerType.design; break;
     case BzType.contractor: return FlyerType.project; break;
-    case BzType.artisan: return FlyerType.craft; break;
+    case BzType.craftsman: return FlyerType.craft; break;
     case BzType.manufacturer: return FlyerType.product; break; // product or equipment for author to choose while creating flyer
     case BzType.supplier: return FlyerType.product; break; // product or equipment for author to choose while creating flyer
     default: return null;
@@ -96,13 +126,103 @@ List<FlyerType> concludePossibleFlyerTypesForBz({@required BzType bzType}) {
     case BzType.broker: return <FlyerType>[FlyerType.property]; break;
     case BzType.designer: return <FlyerType>[FlyerType.design]; break;
     case BzType.contractor: return <FlyerType>[FlyerType.project]; break;
-    case BzType.artisan: return <FlyerType>[FlyerType.craft]; break;
+    case BzType.craftsman: return <FlyerType>[FlyerType.craft]; break;
     case BzType.manufacturer: return <FlyerType>[FlyerType.product, FlyerType.equipment]; break; // product or equipment for author to choose while creating flyer
     case BzType.supplier: return <FlyerType>[FlyerType.product, FlyerType.equipment]; break; // product or equipment for author to choose while creating flyer
     default: return null;
   }
 }
 // -----------------------------------------------------------------------------
+bool flyerTypesIncludeThisType({
+  @required FlyerType flyerType,
+  @required List<FlyerType> flyerTypes,
+}){
+  bool _includes = false;
+
+  if (Mapper.canLoopList(flyerTypes) == true){
+    if (flyerTypes.contains(flyerType) == true){
+      _includes = true;
+    }
+  }
+
+  return _includes;
+}
+// -----------------------------------------------------------------------------
+String translateFlyerType({
+  @required BuildContext context,
+  @required FlyerType flyerType,
+  bool pluralTranslation = true,
+}){
+
+  /// PLURAL
+  if (pluralTranslation == true){
+    return
+      flyerType == FlyerType.all         ? 'All Flyers' :
+      flyerType == FlyerType.property    ? Wordz.properties(context)  :
+      flyerType == FlyerType.design      ? Wordz.designs(context)  :
+      flyerType == FlyerType.product     ? Wordz.products(context)  :
+      flyerType == FlyerType.project     ? Wordz.projects(context)  :
+      flyerType == FlyerType.equipment   ? Wordz.equipments(context)  :
+      flyerType == FlyerType.craft       ? Wordz.crafts(context)  :
+      Wordz.general(context);
+  }
+
+  /// SINGLE
+  else {
+    return
+      flyerType == FlyerType.property         ? Wordz.property(context)  :
+      flyerType == FlyerType.design           ? Wordz.design(context)  :
+      flyerType == FlyerType.product          ? Wordz.product(context)  :
+      flyerType == FlyerType.project          ? Wordz.project(context)  :
+      flyerType == FlyerType.equipment        ? Wordz.equipment(context)  :
+      flyerType == FlyerType.craft            ? Wordz.craft(context)  :
+      Wordz.general(context);
+  }
+
+}
+// -----------------------------------------------------------------------------
+List<String> translateFlyerTypes({
+  @required BuildContext context,
+  @required List<FlyerType> flyerTypes,
+  bool pluralTranslation = true,
+}){
+  final List<String> _strings = <String>[];
+
+  if (Mapper.canLoopList(flyerTypes) == true){
+
+    for (final FlyerType type in flyerTypes){
+
+      final String _translation = translateFlyerType(
+        context: context,
+        flyerType: type,
+        pluralTranslation: pluralTranslation,
+      );
+
+      _strings.add(_translation);
+
+    }
+
+  }
+
+  return _strings;
+}
+// -----------------------------------------------------------------------------
+String translateFlyerTypeByBzType({
+  @required BuildContext context,
+  @required BzType bzType,
+  bool pluralTranslation = true,
+}){
+
+  final FlyerType _concludedFlyerType = concludeFlyerType(bzType);
+
+  final String _translation = translateFlyerType(
+    context: context,
+    flyerType: _concludedFlyerType,
+    pluralTranslation: pluralTranslation,
+  );
+
+  return _translation;
+}
 
 /*
 

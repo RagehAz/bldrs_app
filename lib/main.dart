@@ -80,7 +80,6 @@ class _BldrsAppState extends State<BldrsApp> {
       blog('LOADING COMPLETE -----------------------------');
     }
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {

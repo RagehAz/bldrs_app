@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
+import 'package:flutter/foundation.dart';
 
 // -----------------------------------------------------------------------------
 const int maxFlyerSlidesFreeAccount = 50;
@@ -43,32 +43,32 @@ int getMaxSlidesCount(BzAccountType accountType) {
 }
 
 // -----------------------------------------------------------------------------
-bool canAddMoreSlides({SuperFlyer superFlyer}) {
+bool canAddMoreSlides({
+  @required BzAccountType bzAccountType,
+  @required int numberOfSlide,
+}) {
   bool _canAdd = false;
 
-  if (superFlyer != null) {
-    final int _maxSlides = getMaxSlidesCount(superFlyer.bz.accountType);
-    final int _numberOfSlides = superFlyer.mSlides.length;
+    final int _maxSlides = getMaxSlidesCount(bzAccountType);
 
-    if (_numberOfSlides < _maxSlides) {
+    if (numberOfSlide < _maxSlides) {
       _canAdd = true;
     }
-  }
 
   return _canAdd;
 }
 
 // -----------------------------------------------------------------------------
-bool canDeleteSlide({SuperFlyer superFlyer}) {
+bool canDeleteSlide({
+  @required int numberOfSlides,
+}) {
   bool _canDelete = false;
 
-  if (superFlyer != null) {
-    if (superFlyer.numberOfSlides != 0) {
+    if (numberOfSlides != 0) {
       // if(superFlyer.firstTimer == true){
       _canDelete = true;
       // }
     }
-  }
 
   return _canDelete;
 }
