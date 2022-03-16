@@ -108,7 +108,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _disposeControllers();
+    TextChecker.disposeControllerIfPossible(_nameController);
+    TextChecker.disposeControllerIfPossible(_titleController);
+    TextChecker.disposeControllerIfPossible(_companyController);
+    TextChecker.disposeControllerIfPossible(_phoneController);
+    TextChecker.disposeControllerIfPossible(_emailController);
+    TextChecker.disposeControllerIfPossible(_facebookController);
+    TextChecker.disposeControllerIfPossible(_linkedInController);
+    TextChecker.disposeControllerIfPossible(_instagramController);
+    TextChecker.disposeControllerIfPossible(_twitterController);
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -128,18 +136,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _linkedInController.text  = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.linkedIn);
     _instagramController.text = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.instagram);
     _twitterController.text   = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.twitter);
-  }
-// -----------------------------------------------------------------------------
-  void _disposeControllers(){
-    TextChecker.disposeControllerIfPossible(_nameController);
-    TextChecker.disposeControllerIfPossible(_titleController);
-    TextChecker.disposeControllerIfPossible(_companyController);
-    TextChecker.disposeControllerIfPossible(_phoneController);
-    TextChecker.disposeControllerIfPossible(_emailController);
-    TextChecker.disposeControllerIfPossible(_facebookController);
-    TextChecker.disposeControllerIfPossible(_linkedInController);
-    TextChecker.disposeControllerIfPossible(_instagramController);
-    TextChecker.disposeControllerIfPossible(_twitterController);
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);

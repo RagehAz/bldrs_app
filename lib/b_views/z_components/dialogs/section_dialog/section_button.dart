@@ -53,11 +53,17 @@ class SectionDialogButton extends StatelessWidget {
     final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
     final String _currentCityID = _zoneProvider.currentZone.cityID;
 
+    final String _flyerTypeString = translateFlyerType(
+      context: context,
+      flyerType: flyerType,
+      pluralTranslation: false,
+    );
+
     /// A - if section is not active * if user is author or not
     if (inActiveMode == true) {
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Section "${TextGen.flyerTypePluralStringer(context, flyerType)}" is\nTemporarily closed in $_currentCityID',
+        title: 'Section "$_flyerTypeString" is\nTemporarily closed in $_currentCityID',
         body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +112,10 @@ class SectionDialogButton extends StatelessWidget {
       height: dialogHeight * 0.06,
       // width: _buttonWidth,
       icon: _sectionIcon(flyerType: flyerType, inActiveMode: inActiveMode),
-      verse: TextGen.flyerTypePluralStringer(context, flyerType),
+      verse: translateFlyerType(
+        context: context,
+        flyerType: flyerType,
+      ),
       verseScaleFactor: 0.55,
       secondLine: TextGen.flyerTypeDescriptionStringer(context, flyerType),
       secondLineColor: Colorz.white200,

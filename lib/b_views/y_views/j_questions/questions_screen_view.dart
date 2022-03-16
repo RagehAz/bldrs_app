@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/app_bar/bldrs_sliver_app_bar_small.da
 import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 import 'package:bldrs/b_views/z_components/questions/questions_grid.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:bldrs/xxx_lab/ask/question/questions_provider.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +66,10 @@ class QuestionsScreenView extends StatelessWidget {
                   itemBuilder: (_, index){
 
                     final BzType _bzType = BzModel.bzTypesList[index];
-                    final String _flyerTypeString = BzModel.cipherBzType(_bzType);
+                    final String _flyerTypeString = BzModel.translateBzType(
+                      context: context,
+                      bzType: _bzType,
+                    );
 
                     final bool _typeIsSelected = _isSelected(
                       questionType: _bzType,
@@ -79,7 +81,10 @@ class QuestionsScreenView extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 2.5),
                         child: FlyerTypeButton(
                           key: ValueKey<String>('questions_bzType_tab_button_$_flyerTypeString'),
-                          verse: TextGen.bzTypePluralStringer(context, _bzType),
+                          verse: BzModel.translateBzType(
+                              context: context,
+                              bzType: _bzType
+                          ),
                           icon: Iconizer.bzTypeIconOff(_bzType),
                           isSelected: _typeIsSelected,
                           onTap: () => onChangeCurrentFlyerType(_bzType),
