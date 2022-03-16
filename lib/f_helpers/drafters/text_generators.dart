@@ -26,97 +26,6 @@ String flyerTypeDescriptionStringer(BuildContext context, FlyerTypeClass.FlyerTy
   return _description;
 }
 // -----------------------------------------------------------------------------
-List<String> flyerTypesListStrings (BuildContext context){
-
-  const List<FlyerTypeClass.FlyerType> _flyerTypes = FlyerTypeClass.flyerTypesList;
-
-  final List<String> _sectionsStrings = <String>[];
-  for(final FlyerTypeClass.FlyerType bs in _flyerTypes){
-    _sectionsStrings.add(flyerTypePluralStringer(context, bs));
-  }
-  return _sectionsStrings;
-}
-// -----------------------------------------------------------------------------
-List<String> bzTypesStrings (BuildContext context){
-  final List<String> _bzTypesStrings = <String>[];
-
-  for(final BzType bt in BzModel.bzTypesList){
-    _bzTypesStrings.add(bzTypeSingleStringer(context, bt));
-  }
-  return _bzTypesStrings;
-}
-// -----------------------------------------------------------------------------
-String bzTypeSingleStringer (BuildContext context, BzType bzType){
-  return
-    bzType == BzType.developer ? Wordz.realEstateDeveloper(context) :
-    bzType == BzType.broker ? Wordz.realEstateBroker(context) :
-    bzType == BzType.designer ? Wordz.designer(context) :
-    bzType == BzType.contractor ? Wordz.contractor(context) :
-    bzType == BzType.artisan ? Wordz.craftsman(context) :
-    bzType == BzType.manufacturer ? Wordz.manufacturer(context) :
-    bzType == BzType.supplier ? Wordz.supplier(context) :
-    'Builder';
-}
-// -----------------------------------------------------------------------------
-String bzTypePluralStringer (BuildContext context, BzType bzType){
-  return
-    bzType == BzType.developer ? Wordz.realEstateDevelopers(context) :
-    bzType == BzType.broker ? Wordz.brokers(context) :
-    bzType == BzType.designer ? Wordz.designers(context) :
-    bzType == BzType.contractor ? Wordz.contractors(context) :
-    bzType == BzType.artisan ? Wordz.craftsmen(context) :
-    bzType == BzType.manufacturer ? Wordz.manufacturers(context) :
-    bzType == BzType.supplier ? Wordz.suppliers(context) :
-    'Builders';
-}
-// -----------------------------------------------------------------------------
-String flyerTypeSingleStringer (BuildContext context, FlyerTypeClass.FlyerType flyerType){
-
-  return
-    flyerType == FlyerTypeClass.FlyerType.property         ?  Wordz.property(context)  :
-    flyerType == FlyerTypeClass.FlyerType.design           ? Wordz.design(context)  :
-    flyerType == FlyerTypeClass.FlyerType.product          ? Wordz.product(context)  :
-    flyerType == FlyerTypeClass.FlyerType.project          ? Wordz.project(context)  :
-    flyerType == FlyerTypeClass.FlyerType.equipment        ? Wordz.equipment(context)  :
-    flyerType == FlyerTypeClass.FlyerType.craft            ? Wordz.craft(context)  :
-    Wordz.general(context);
-}
-// -----------------------------------------------------------------------------
-String flyerTypeSingleStringerByBzType(BuildContext context, BzType bzType){
-  final FlyerTypeClass.FlyerType _defaultFlyerType = FlyerTypeClass.concludeFlyerType(bzType);
-  final String _string = flyerTypeSingleStringer(context, _defaultFlyerType);
-  return _string;
-}
-// -----------------------------------------------------------------------------
-String flyerTypePluralStringer (BuildContext context, FlyerTypeClass.FlyerType flyerType){
-  return
-    flyerType == FlyerTypeClass.FlyerType.all         ? 'All Flyers' :
-    flyerType == FlyerTypeClass.FlyerType.property    ? Wordz.properties(context)  :
-    flyerType == FlyerTypeClass.FlyerType.design      ? Wordz.designs(context)  :
-    flyerType == FlyerTypeClass.FlyerType.product     ? Wordz.products(context)  :
-    flyerType == FlyerTypeClass.FlyerType.project     ? Wordz.projects(context)  :
-    flyerType == FlyerTypeClass.FlyerType.equipment   ? Wordz.equipments(context)  :
-    flyerType == FlyerTypeClass.FlyerType.craft       ? Wordz.crafts(context)  :
-    Wordz.general(context);
-}
-// -----------------------------------------------------------------------------
-String bzFormStringer (BuildContext context, BzForm bzForm){
-  return
-    bzForm == BzForm.company ? Wordz.company(context) :
-    bzForm == BzForm.individual ? Wordz.individual(context) :
-    Wordz.company(context);
-
-}
-// -----------------------------------------------------------------------------
-List<String> bzFormStrings (BuildContext context){
-  final List<String> _bzFormStrings = <String>[];
-
-  for(final BzForm bt in BzModel.bzFormsList){
-    _bzFormStrings.add(bzFormStringer(context, bt));
-  }
-  return _bzFormStrings;
-}
-// -----------------------------------------------------------------------------
 String countryStringerByModels ({
   @required BuildContext context,
   @required CountryModel country,
@@ -127,9 +36,15 @@ String countryStringerByModels ({
 
   if (country != null && ZoneModel.zoneHasAllIDs(zone)){
 
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(context: context, countryID: country.id);
+    final String _countryName = CountryModel.getTranslatedCountryNameByID(
+        context: context,
+        countryID: country.id,
+    );
 
-    final String _cityName = CityModel.getTranslatedCityNameFromCity(context: context, city: city,);
+    final String _cityName = CityModel.getTranslatedCityNameFromCity(
+      context: context,
+      city: city,
+    );
 
     final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
@@ -212,7 +127,7 @@ String askHinter (BuildContext context, BzType bzType){
   bzType == BzType.supplier ? "I'm searching for a product ..." :
   bzType == BzType.designer ? 'I need consultation from a designer ...' :
   bzType == BzType.contractor ? "I'm Looking for a contractor to build a project ..." :
-  bzType == BzType.artisan ? 'I want a craftsman to fix or build something ...' :
+  bzType == BzType.craftsman ? 'I want a craftsman to fix or build something ...' :
   Wordz.askHint(context);
   return _askHint;
 }
@@ -225,7 +140,7 @@ String bldrsTypePageTitle(BuildContext context, BzType bzType) {
     bzType == BzType.supplier ? Wordz.suppliers(context) : // and distributors
     bzType == BzType.designer ? Wordz.constructionTagLine(context) :
     bzType == BzType.contractor ? Wordz.contractors(context) :
-    bzType == BzType.artisan ? Wordz.craftsmen(context) :
+    bzType == BzType.craftsman ? Wordz.craftsmen(context) :
     Wordz.bldrsShortName(context);
 }
 // -----------------------------------------------------------------------------
@@ -323,6 +238,7 @@ List<String> createTrigram({@required String input}){
   return _trigram;
 }
 // -----------------------------------------------------------------------------
+/// CREATES ONE STRING OF ALL STRINGS IN LIST AND SEPARATES THEM WITH ', '
 String generateStringFromStrings(List<String> strings){
 
   String _output = '';

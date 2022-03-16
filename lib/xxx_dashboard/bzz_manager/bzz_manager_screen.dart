@@ -297,7 +297,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
                             DataStrip(
                               dataKey: 'bzType',
-                              dataValue: _bz.bzType,
+                              dataValue: _bz.bzTypes,
                             ),
 
                             DataStrip(

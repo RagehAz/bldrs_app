@@ -398,8 +398,10 @@ Future<FlyerModel> updateFlyerOps({
     }
 
     /// A2 - replace slides in updatedFlyer with the finalSlides
-    final FlyerModel _updatedFlyer =
-        FlyerModel.replaceSlides(updatedFlyer, _finalSlides);
+    final FlyerModel _updatedFlyer = FlyerModel.replaceSlides(
+      updatedSlides: _finalSlides,
+      flyer: updatedFlyer,
+    );
 
     /// A3 - clone updatedFlyer into finalFlyer
     _finalFlyer = _updatedFlyer.clone();

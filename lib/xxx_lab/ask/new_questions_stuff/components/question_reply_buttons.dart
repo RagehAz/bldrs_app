@@ -3,14 +3,13 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/c_review_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -54,7 +53,10 @@ class QuestionReplyButtons extends StatelessWidget {
     blog('tapping on redirect question');
 
     final double _dialogHeight = superScreenHeight(context) * 0.75;
-    final String _bzTypeString = TextGen.bzTypePluralStringer(context, questionModel.directedTo);
+    final String _bzTypeString = BzModel.translateBzType(
+      context: context,
+      bzType: questionModel.directedTo,
+    );
 
     final String _askerName = askerUserModel.name;
 
@@ -96,7 +98,10 @@ class QuestionReplyButtons extends StatelessWidget {
                       child: BottomDialog.wideButton(
                         context: context,
                         icon: Iconizer.bzTypeIconOff(_bzType),
-                        verse: TextGen.bzTypePluralStringer(context, _bzType),
+                        verse: BzModel.translateBzType(
+                          context: context,
+                          bzType: _bzType,
+                        ),
                         onTap: () => onChooseBzTypeToRedirectTo(
                           context: context,
                           bzType: _bzType,
@@ -126,7 +131,10 @@ class QuestionReplyButtons extends StatelessWidget {
     /// CLOSE PREVIOUS DIALOG
     Nav.goBack(context);
 
-    final String _bzTypeString = TextGen.bzTypePluralStringer(context, bzType);
+    final String _bzTypeString = BzModel.translateBzType(
+        context: context,
+        bzType: bzType,
+    );
 
     final double _dialogClearWidth = BottomDialog.clearWidth(context);
     final double _overridingHeight = _dialogClearWidth * 0.7;

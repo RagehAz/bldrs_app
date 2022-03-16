@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -40,7 +40,11 @@ class DynamicLinksApi {
         minimumVersion: '0',
       ),
       socialMetaTagParameters: SocialMetaTagParameters(
-        title: TextGen.flyerTypeSingleStringer(context, flyerModel.flyerType),
+        title: translateFlyerType(
+          context: context,
+          flyerType: flyerModel.flyerType,
+          pluralTranslation: false,
+        ),
         description: flyerModel.slides[slideIndex].headline,
         imageUrl: Uri.parse(flyerModel.slides[slideIndex].pic),
       ),

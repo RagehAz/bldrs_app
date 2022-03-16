@@ -51,9 +51,9 @@ class MyBzScreenTabBar extends StatelessWidget {
       tabs: <Widget>[
 
         /// IT HAS TO BE LIST.GENERATE ma3lesh
-        ...List.generate(bzTabsList.length, (index){
+        ...List.generate(BzModel.bzTabsList.length, (index){
 
-          final BzTab _bzTab = bzTabsList[index];
+          final BzTab _bzTab = BzModel.bzTabsList[index];
           final String _bzTabString = BzModel.bzPagesTabsTitlesInEnglishOnly[index];
 
           return

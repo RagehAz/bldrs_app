@@ -94,7 +94,7 @@ Future<BzModel> createBz(
   final BzModel _outputBz = BzModel(
     id: _bzID,
     // -------------------------
-    bzType: inputBz.bzType,
+    bzTypes: inputBz.bzTypes,
     bzForm: inputBz.bzForm,
     createdAt: DateTime.now(),
     accountType: inputBz.accountType,
@@ -270,7 +270,7 @@ Future<BzModel> updateBz({
   final BzModel _finalBz = BzModel(
     id: modifiedBz.id,
     // -------------------------
-    bzType: modifiedBz.bzType,
+    bzTypes: modifiedBz.bzTypes,
     bzForm: modifiedBz.bzForm,
     createdAt: modifiedBz.createdAt,
     accountType: modifiedBz.accountType,

@@ -55,9 +55,14 @@ class SectionTile extends StatelessWidget {
       final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
       final String _currentCityID = _zoneProvider.currentZone.cityID;
 
+      final String _flyerTypeString = translateFlyerType(
+          context: context,
+          flyerType: flyerType
+      );
+
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Section "${TextGen.flyerTypePluralStringer(context, flyerType)}" is\nTemporarily closed in $_currentCityID',
+        title: 'Section "$_flyerTypeString" is\nTemporarily closed in $_currentCityID',
         body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         height: 400,
         child: Row(
@@ -104,12 +109,13 @@ class SectionTile extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _tileWidth = bubbleWidth - (Ratioz.appBarMargin * 2);
-    // final double _itemWidth = _tileWidth - (Ratioz.appBarMargin * 2);
 
+    // final double _itemWidth = _tileWidth - (Ratioz.appBarMargin * 2);
     // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
     // final Section _currentSection = _generalProvider.currentSection;
-
     // final List<Sequence> _sequences = Sequence.getActiveSequencesBySection(context: context,section: section);
+
+
 
     return ChainExpander(
       key: PageStorageKey<String>(flyerType.toString()),
@@ -117,7 +123,10 @@ class SectionTile extends StatelessWidget {
       width: _tileWidth,
       // onTap: (bool isExpanded) => _onKeywordTap(context, isExpanded),
       icon: _sectionIcon(section: flyerType, inActiveMode: inActiveMode),
-      firstHeadline: TextGen.flyerTypePluralStringer(context, flyerType),
+      firstHeadline: translateFlyerType(
+        context: context,
+        flyerType: flyerType,
+      ),
       secondHeadline: TextGen.flyerTypeDescriptionStringer(context, flyerType),
       inActiveMode: inActiveMode,
       onKeywordTap: (KW kw) => _onKeywordTap(context, kw),
