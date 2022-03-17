@@ -11,6 +11,7 @@ import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/xxx_dashboard/exotic_methods.dart' as RagehMethods;
+import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class KeywordsProvider extends ChangeNotifier {
     /// 2 - if found on firebase, store in ldb keywords
     if (Mapper.canLoopList(_allKeywords) == true) {
       /// TASK : temp until release
-      await RagehMethods.updateNumberOfKeywords(context, _allKeywords);
+      await ExoticMethods.updateNumberOfKeywords(context, _allKeywords);
 
       /// 2.1 - assure that LDB is clean first
       await LDBOps.deleteAllMaps(docName: LDBDoc.keywords);

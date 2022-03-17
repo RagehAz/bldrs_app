@@ -111,7 +111,7 @@ class BzModel{
   /// --------------------------------------------------------------------------
   final String id;
   // -------------------------
-  final List<BzType> bzTypes;
+  List<BzType> bzTypes;
   final BzForm bzForm;
   final DateTime createdAt;
   final BzAccountType accountType;
@@ -876,7 +876,7 @@ class BzModel{
     blog('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
 
     blog('id : $id');
-    blog('bzType : $bzTypes');
+    blog('bzTypes : $bzTypes');
     blog('bzForm : $bzForm');
     blog('createdAt : $createdAt');
     blog('accountType : $accountType');
