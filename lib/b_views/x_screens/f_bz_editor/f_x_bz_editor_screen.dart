@@ -63,6 +63,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _initializeBzModelVariables();
     _initializeHelperVariables();
+
+    blog('at start : ${widget.bzModel.bzTypes} : ${_initialBzModel.bzTypes} : ${_selectedBzTypes.value} : ${_selectedBzSection.value}');
   }
 // -----------------------------------------------------------------------------
 
@@ -142,6 +144,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -----------------------------------------------------------------------------
   void _onSelectSection(int index){
     final BzSection _selectedSection = BzModel.bzSectionsList[index];
+
     final List<BzType> _generatedInactiveBzTypes = BzModel.generateInactiveBzTypes(_selectedSection);
 
     _selectedBzSection.value = _selectedSection;
@@ -154,24 +157,44 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     final BzType _selectedBzType = BzModel.bzTypesList[index];
 
     final bool _alreadySelected = BzModel.bzTypesContainThisType(
-      bzTypes: BzModel.bzTypesList,
+      bzTypes: _selectedBzTypes.value,
+      bzType: _selectedBzType,
+    );
+
+    final bool _canMixWithSelectedTypes = BzModel.canMixWithSelectedTypes(
+      bzTypes: _selectedBzTypes.value,
       bzType: _selectedBzType,
     );
 
     if (_alreadySelected == true){
-      final List<BzType> _bzTypes = _selectedBzTypes.value;
+      final List<BzType> _bzTypes = <BzType>[..._selectedBzTypes.value];
       _bzTypes.remove(_selectedBzType);
       _selectedBzTypes.value = _bzTypes;
+
+      // _selectedBzTypes.value.remove(_selectedBzType);
     }
 
     else {
-      final List<BzType> _bzTypes = _selectedBzTypes.value;
+      final List<BzType> _bzTypes = <BzType>[..._selectedBzTypes.value];
       _bzTypes.add(_selectedBzType);
       _selectedBzTypes.value = _bzTypes;
+
+      // _selectedBzTypes.value.add(_selectedBzType);
+    }
+
+    if (_selectedBzSection.value == BzSection.construction){
+      final List<BzType> _newInactiveBzTypes = BzModel.inactivateCraftsmenCondition(
+        selectedBzTypes: _selectedBzTypes.value,
+        inactiveBzTypes: _inactiveBzTypes.value,
+      );
+      _inactiveBzTypes.value = _newInactiveBzTypes;
     }
 
     final List<BzForm> _generatedInactiveBzForms = BzModel.generateInactiveBzForms(_selectedBzTypes.value);
     _inactiveBzForms.value = _generatedInactiveBzForms;
+
+    blog('_selectedBzTypes.value : ${_selectedBzTypes.value} : _inactiveBzTypes.value : ${_inactiveBzTypes.value}');
+
   }
 // -------------------------------------
   void _onSelectBzForm(int index){
@@ -528,12 +551,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       final List<String> _selectedButtons = BzModel.translateBzTypes(
                           context: context,
                           bzTypes: selectedBzTypes,
-                          pluralTranslation: false
+                          pluralTranslation: false,
                       );
 
                       final List<String> _allButtons = BzModel.translateBzTypes(
                         context: context,
                         bzTypes: BzModel.bzTypesList,
+                        pluralTranslation: false,
                       );
 
                       return ValueListenableBuilder(
@@ -543,6 +567,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             final List<String> _inactiveButtons = BzModel.translateBzTypes(
                               context: context,
                               bzTypes: inactiveBzTypes,
+                              pluralTranslation: false,
                             );
 
                             return MultipleChoiceBubble(

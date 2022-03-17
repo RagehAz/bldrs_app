@@ -361,7 +361,7 @@ class DreamBox extends StatelessWidget {
             ),
 
           /// --- RIPPLE & TAP LAYER
-          if (onTap != null)
+          if (onTap != null && inActiveMode == false)
             DreamBoxTapLayer(
                 key: const ValueKey<String>('DreamBoxTapLayer'),
                 width: width,
