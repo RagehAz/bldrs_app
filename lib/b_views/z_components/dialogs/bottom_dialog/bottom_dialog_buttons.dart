@@ -37,6 +37,8 @@ class BottomDialogButtons extends StatelessWidget {
         overridingDialogHeight: dialogHeight);
     final BorderRadius _dialogClearCorners = BottomDialog.dialogClearCorners(context);
 
+    final double _buttonWidth = _dialogClearWidth - 20;
+
     return Container(
       height: _dialogCleanHeight,
       width: _dialogClearWidth,
@@ -62,6 +64,7 @@ class BottomDialogButtons extends StatelessWidget {
             alignment: alignment,
             child: DreamBox(
               height: buttonHeight,
+              width: _buttonWidth,
               icon: _icon,
               iconSizeFactor: 0.8,
               verse: _value.toString(),
@@ -69,10 +72,12 @@ class BottomDialogButtons extends StatelessWidget {
               margins: const EdgeInsets.all(Ratioz.appBarPadding),
               verseScaleFactor: 0.8,
               color: Colorz.white10,
-              textDirection: bottomDialogType == BottomDialogType.bottomSheet ?
-              textDirectionAsPerAppDirection(context)
-                  :
-              superInverseTextDirection(context),
+              textDirection: textDirectionAsPerAppDirection(context),
+              // bottomDialogType == BottomDialogType.bottomSheet ?
+              // textDirectionAsPerAppDirection(context)
+              //     :
+              // superInverseTextDirection(context),
+
               onTap: () => buttonTap(_id),
             ),
           );

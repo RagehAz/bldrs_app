@@ -497,7 +497,10 @@ class BzModel{
     return _bzTypes;
   }
 // ------------------------------------------
-  static List<BzType> generateInactiveBzTypes(BzSection bzSection){
+  static List<BzType> generateInactiveBzTypesBySection({
+    @required BzSection bzSection,
+    List<BzType> initialBzTypes,
+  }){
 
     /// INITIAL LIST OF ALL BZ TYPES
     final List<BzType> _bzTypes = <BzType>[...BzModel.bzTypesList];
@@ -510,55 +513,144 @@ class BzModel{
       _bzTypes.remove(bzType);
     }
 
+    /// ADD CRAFTSMEN IF STARTING WITH DESIGNERS OR CONTRACTORS
+    if (Mapper.canLoopList(initialBzTypes) == true){
+      if (bzSection == BzSection.construction){
+        if (
+        initialBzTypes.contains(BzType.designer)
+        ||
+        initialBzTypes.contains(BzType.contractor)
+        ){
+          _bzTypes.add(BzType.craftsman);
+        }
+      }
+    }
+
     return _bzTypes;
   }
 // ------------------------------------------
-  static bool canMixWithSelectedTypes({
-    @required List<BzType> bzTypes,
+  static List<BzType> getMixableBzTypes({
     @required BzType bzType,
 }){
 
-    /// ------------> CONTINUE HERE TOMORROW WHEN U HAVE A BRAIN BITCH
+    List<BzType> _mixableTypes;
 
-}
+    /// DEVELOPER
+    if (bzType == BzType.developer){
+      _mixableTypes = <BzType>[
+        BzType.broker
+      ];
+    }
 
-  static List<BzType> inactivateCraftsmenCondition({
+    /// BROKER
+    if (bzType == BzType.broker){
+      _mixableTypes = <BzType>[
+        BzType.developer
+      ];
+    }
+
+    /// DESIGNER
+    if (bzType == BzType.designer){
+      _mixableTypes = <BzType>[
+        BzType.contractor
+      ];
+    }
+
+    /// CONTRACTOR
+    if (bzType == BzType.contractor){
+      _mixableTypes = <BzType>[
+        BzType.designer
+      ];
+    }
+
+    /// CRAFTSMAN
+    if (bzType == BzType.craftsman){
+      _mixableTypes = <BzType>[];
+    }
+
+    /// SUPPLIER
+    if (bzType == BzType.supplier){
+      _mixableTypes = <BzType>[
+        BzType.manufacturer,
+      ];
+    }
+
+    /// MANUFACTURER
+    if (bzType == BzType.manufacturer){
+      _mixableTypes = <BzType>[
+        BzType.supplier,
+      ];
+    }
+
+    return _mixableTypes;
+  }
+// ------------------------------------------
+  static List<BzType> generateInactiveBzTypesBySelectedType({
+  @required BzType selectedBzType,
+}){
+
+    final List<BzType> _mixableTypes = getMixableBzTypes(
+        bzType: selectedBzType
+    );
+
+    final List<BzType> _inactiveTypes = <BzType>[...bzTypesList];
+    _inactiveTypes.remove(selectedBzType);
+
+    /// REMOVE MIXABLE TYPES FROM ALL TYPE TO GET INACTIVE TYPES
+    for (final BzType type in _mixableTypes){
+      _inactiveTypes.remove(type);
+    }
+
+    return _inactiveTypes;
+  }
+// ------------------------------------------
+  static List<BzType> generateInactiveBzTypesBasedOnCurrentSituation({
+    @required BzType newSelectedType,
     @required List<BzType> selectedBzTypes,
-    @required List<BzType> inactiveBzTypes,
+    @required BzSection selectedBzSection,
   }){
 
-    final List<BzType> _inActiveBzTypes = <BzType>[...inactiveBzTypes];
+    List<BzType> _inactiveBzTypes;
 
-    // if (
-    // selectedBzTypes.contains(BzType.contractor)
-    // ||
-    // selectedBzTypes.contains(BzType.designer)
-    // ){
-    //   _inActiveBzTypes.add(BzType.craftsman);
-    // }
-    //
-    // if (
-    // (selectedBzTypes.contains(BzType.contractor) == false
-    // &&
-    // selectedBzTypes.contains(BzType.designer) == false
-    // &&
-    // inactiveBzTypes.contains(BzType.craftsman) == true
-    // )
-    // ||
-    //     selectedBzTypes == []
-    // ){
-    //   _inActiveBzTypes.removeWhere((BzType type){
-    //     return type == BzType.craftsman;
-    //   });
-    // }
-    //
-    // if (
-    // selectedBzTypes.contains(BzType.craftsman) == true
-    // ){
-    //   _inActiveBzTypes
-    // }
-    //
-    return _inActiveBzTypes;
+    /// INACTIVATE BZ TYPES ACCORDING TO SECTION WHEN NOTHING IS SELECTED
+    if (selectedBzTypes.isEmpty){
+      _inactiveBzTypes = BzModel.generateInactiveBzTypesBySection(
+          bzSection: selectedBzSection,
+      );
+
+    }
+
+    /// INACTIVATE BZ TYPES ACCORDING TO SELECTION
+    else {
+      _inactiveBzTypes = BzModel.generateInactiveBzTypesBySelectedType(
+        selectedBzType: newSelectedType,
+      );
+    }
+
+    return _inactiveBzTypes;
+  }
+// ------------------------------------------
+  static List<BzType> editSelectedBzTypes({
+    @required BzType newSelectedBzType,
+    @required List<BzType> selectedBzTypes,
+}){
+
+    final List<BzType> _outputTypes = <BzType>[...selectedBzTypes];
+
+    final bool _alreadySelected = BzModel.bzTypesContainThisType(
+      bzTypes: selectedBzTypes,
+      bzType: newSelectedBzType,
+    );
+
+    if (_alreadySelected == true){
+      _outputTypes.remove(newSelectedBzType);
+    }
+
+    else {
+      _outputTypes.add(newSelectedBzType);
+    }
+
+    return _outputTypes;
   }
 // ------------------------------------------
   static const List<BzType> bzTypesList = <BzType>[
@@ -689,7 +781,7 @@ class BzModel{
       }
 
       /// IF ONLY ONE BZ TYPE
-      else if (bzTypes.length == 1){
+      else {
 
         /// BZ FORMS BY SECTION
         final List<BzForm> _bzFormsBySection = concludeBzFormsByBzType(bzTypes[0]);
@@ -701,11 +793,11 @@ class BzModel{
 
       }
 
-      /// IF NO BZ TYPES SELECTED
-      else {
-        _bzForms = <BzForm>[];
-      }
+    }
 
+    /// IF NO BZ TYPES SELECTED
+    else {
+      _bzForms = null;
     }
 
     return _bzForms;

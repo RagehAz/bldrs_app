@@ -10,7 +10,9 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
@@ -64,7 +66,17 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _initializeBzModelVariables();
     _initializeHelperVariables();
 
-    blog('at start : ${widget.bzModel.bzTypes} : ${_initialBzModel.bzTypes} : ${_selectedBzTypes.value} : ${_selectedBzSection.value}');
+    _blogCurrentStates();
+  }
+// -----------------------------------------------------------------------------
+  void _blogCurrentStates(){
+    blog('at START : ------------------------------------------ >');
+    blog('_selectedBzSection : ${_selectedBzSection.value}');
+    blog('_selectedBzTypes : ${_selectedBzTypes.value}');
+    blog('_selectedBzForm : ${_selectedBzForm.value}');
+    blog('_inactiveBzTypes : ${_inactiveBzTypes.value}');
+    blog('_inactiveBzForms : ${_inactiveBzForms.value}');
+    blog('at END : ------------------------------------------ EH EL KALAM>');
   }
 // -----------------------------------------------------------------------------
 
@@ -123,7 +135,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -------------------------------------
   void _initializeHelperVariables(){
     final BzSection _concludedBzSection = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
-    final List<BzType> _concludedInactiveBzTypes = BzModel.generateInactiveBzTypes(_concludedBzSection);
+    final List<BzType> _concludedInactiveBzTypes = BzModel.generateInactiveBzTypesBySection(
+      bzSection: _concludedBzSection,
+      initialBzTypes: _initialBzModel.bzTypes,
+    );
     final List<BzForm> _concludedInactiveBzForms = BzModel.generateInactiveBzForms(_concludedInactiveBzTypes);
     _selectedBzSection  = ValueNotifier(_concludedBzSection);
     _inactiveBzTypes = ValueNotifier(_concludedInactiveBzTypes);
@@ -143,62 +158,51 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   }
 // -----------------------------------------------------------------------------
   void _onSelectSection(int index){
-    final BzSection _selectedSection = BzModel.bzSectionsList[index];
 
-    final List<BzType> _generatedInactiveBzTypes = BzModel.generateInactiveBzTypes(_selectedSection);
+    final BzSection _selectedSection = BzModel.bzSectionsList[index];
+    final List<BzType> _generatedInactiveBzTypes = BzModel.generateInactiveBzTypesBySection(
+      bzSection: _selectedSection,
+    );
 
     _selectedBzSection.value = _selectedSection;
     _inactiveBzTypes.value = _generatedInactiveBzTypes;
     _selectedBzTypes.value = <BzType>[];
+    _selectedBzForm.value = null;
+    _inactiveBzForms.value = null;
+
+    _blogCurrentStates();
   }
 // -------------------------------------
   void _onSelectBzType(int index){
 
     final BzType _selectedBzType = BzModel.bzTypesList[index];
 
-    final bool _alreadySelected = BzModel.bzTypesContainThisType(
-      bzTypes: _selectedBzTypes.value,
-      bzType: _selectedBzType,
+    /// UPDATE SELECTED BZ TYPES
+    _selectedBzTypes.value = BzModel.editSelectedBzTypes(
+      selectedBzTypes: _selectedBzTypes.value,
+      newSelectedBzType: _selectedBzType,
     );
 
-    final bool _canMixWithSelectedTypes = BzModel.canMixWithSelectedTypes(
-      bzTypes: _selectedBzTypes.value,
-      bzType: _selectedBzType,
+    /// INACTIVE OTHER BZ TYPES
+    _inactiveBzTypes.value = BzModel.generateInactiveBzTypesBasedOnCurrentSituation(
+      newSelectedType: _selectedBzType,
+      selectedBzTypes: _selectedBzTypes.value,
+      selectedBzSection: _selectedBzSection.value,
     );
 
-    if (_alreadySelected == true){
-      final List<BzType> _bzTypes = <BzType>[..._selectedBzTypes.value];
-      _bzTypes.remove(_selectedBzType);
-      _selectedBzTypes.value = _bzTypes;
+    /// INACTIVATE BZ FORMS
+    _inactiveBzForms.value = BzModel.generateInactiveBzForms(_selectedBzTypes.value);
 
-      // _selectedBzTypes.value.remove(_selectedBzType);
-    }
+    /// UN SELECT BZ FORM
+    _selectedBzForm.value = null;
 
-    else {
-      final List<BzType> _bzTypes = <BzType>[..._selectedBzTypes.value];
-      _bzTypes.add(_selectedBzType);
-      _selectedBzTypes.value = _bzTypes;
-
-      // _selectedBzTypes.value.add(_selectedBzType);
-    }
-
-    if (_selectedBzSection.value == BzSection.construction){
-      final List<BzType> _newInactiveBzTypes = BzModel.inactivateCraftsmenCondition(
-        selectedBzTypes: _selectedBzTypes.value,
-        inactiveBzTypes: _inactiveBzTypes.value,
-      );
-      _inactiveBzTypes.value = _newInactiveBzTypes;
-    }
-
-    final List<BzForm> _generatedInactiveBzForms = BzModel.generateInactiveBzForms(_selectedBzTypes.value);
-    _inactiveBzForms.value = _generatedInactiveBzForms;
-
-    blog('_selectedBzTypes.value : ${_selectedBzTypes.value} : _inactiveBzTypes.value : ${_inactiveBzTypes.value}');
-
+    _blogCurrentStates();
   }
 // -------------------------------------
   void _onSelectBzForm(int index){
     _selectedBzForm.value = BzModel.bzFormsList[index];
+
+    _blogCurrentStates();
   }
 // -----------------------------------------------------------------------------
   Future<void> _takeBzLogo() async {
@@ -209,6 +213,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     _bzLogo.value = _imageFile;
 
+  }
+// -------------------------------------
+  void _onDeleteLogo(){
+    _bzLogo.value = null;
+  }
+// -----------------------------------------------------------------------------
+  void _onBzZoneChanged(ZoneModel zoneModel){
+    _bzZone.value = zoneModel;
   }
 // -----------------------------------------------------------------------------
   /// TASK : create bzEditors validators for bubbles instead of this basic null checker
@@ -492,6 +504,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     final String _bzAboutBubbleTitle = Wordz.about(context);
 
     return MainLayout(
+      key: const ValueKey<String>('BzEditorScreen'),
       // loading: _loading,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
@@ -544,7 +557,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                 /// --- BZ TYPE SELECTION
                 ValueListenableBuilder(
-                    key: const ValueKey<String>('bzType _selection_bubble'),
+                    key: const ValueKey<String>('bzType_selection_bubble'),
                     valueListenable: _selectedBzTypes,
                     builder: (_, List<BzType> selectedBzTypes, Widget child){
 
@@ -586,6 +599,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                 /// --- BZ FORM SELECTION
                 ValueListenableBuilder(
+                    key: const ValueKey<String>('bzForm_selection_bubble'),
                     valueListenable: _selectedBzForm,
                     builder: (_, BzForm selectedBzForm, Widget child){
 
@@ -625,18 +639,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 const BubblesSeparator(),
 
                 /// --- ADD LOGO
-                // AddGalleryPicBubble(
-                //   pic: _currentBzLogoFile ?? _currentBzLogoURL,
-                //   onAddPicture: _takeBzLogo,
-                //   onDeletePicture: () => setState(() {
-                //     _currentBzLogoFile = null;
-                //   }),
-                //   title: Wordz.businessLogo(context),
-                //   bubbleType: BubbleType.bzLogo,
-                // ),
+                AddGalleryPicBubble(
+                  key: const ValueKey<String>('add_logo_bubble'),
+                  picture: _bzLogo,
+                  onAddPicture: _takeBzLogo,
+                  onDeletePicture: _onDeleteLogo,
+                  title: Wordz.businessLogo(context),
+                  bubbleType: BubbleType.bzLogo,
+                ),
 
                 /// --- BZ NAME
                 ValueListenableBuilder(
+                  key: const ValueKey<String>('bz_name_bubble'),
                   valueListenable: _selectedBzForm,
                   builder: (_, BzForm selectedBzForm, Widget child){
 
@@ -662,8 +676,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                 /// --- BZ SCOPE
                 TextFieldBubble(
+                  key: const ValueKey<String>('bz_scope_bubble'),
                   textController: _bzScopeTextController,
-                  key: const Key('bzScope'),
                   title: '${Wordz.scopeOfServices(context)} :',
                   counterIsOn: true,
                   maxLength: 500,
@@ -675,45 +689,49 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                 /// --- BZ ABOUT
                 TextFieldBubble(
+                  key: const ValueKey<String>('bz_about_bubble'),
                   textController: _bzAboutTextController,
-                  key: const Key('bzAbout'),
                   title: _bzAboutBubbleTitle,
                   counterIsOn: true,
-                  maxLength: 193,
-                  maxLines: 4,
+                  maxLength: 1000,
+                  maxLines: 20,
                   keyboardTextInputType: TextInputType.multiline,
                 ),
 
                 const BubblesSeparator(),
 
-                /// --- bzLocale
-                // ZoneSelectionBubble(
-                //   changeCountry: (String countryID) => setState(() {
-                //     _currentBzCountry = countryID;
-                //   }),
-                //   changeCity: (String cityID) => setState(() {
-                //     _currentBzCity = cityID;
-                //   }),
-                //   changeDistrict: (String districtID) => setState(() {
-                //     _currentBzDistrict = districtID;
-                //   }),
-                //   currentZone: ZoneModel(
-                //       countryID: _currentBzCountry,
-                //       cityID: _currentBzCity,
-                //       districtID: _currentBzDistrict),
-                //   title: 'Headquarters District', //Wordz.hqCity(context),
-                // ),
+                /// --- BZ ZONE
+                ValueListenableBuilder(
+                    key: const ValueKey<String>('bz_zone_bubble'),
+                    valueListenable: _bzZone,
+                    builder: (_, ZoneModel bzZone, Widget child){
+
+                      return ZoneSelectionBubble(
+                        title: 'Headquarters zone', //Wordz.hqCity(context),
+                        onZoneChanged: _onBzZoneChanged,
+                        currentZone: bzZone,
+                      );
+
+                    }
+                ),
 
                 const BubblesSeparator(),
 
-
                 const Horizon(),
+
+                if (Keyboarders.keyboardIsOn(context))
+                  const SizedBox(
+                    width: 20,
+                    height: 150,
+                  ),
+
               ],
             ),
           ),
 
           /// ---  BOTTOM BUTTONS
           Positioned(
+            key: const ValueKey<String>('confirm_button'),
             bottom: 0,
             left: 0,
             child: DreamBox(
