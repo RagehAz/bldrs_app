@@ -29,11 +29,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ExoticMethods {
-  final dynamic bitch;
 
   const ExoticMethods({
    @required this.bitch,
 });
+
+  final dynamic bitch;
 // -----------------------------------------------------------------------------
   static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
     @required String collName,
