@@ -513,6 +513,54 @@ class BzModel{
     return _bzTypes;
   }
 // ------------------------------------------
+  static bool canMixWithSelectedTypes({
+    @required List<BzType> bzTypes,
+    @required BzType bzType,
+}){
+
+    /// ------------> CONTINUE HERE TOMORROW WHEN U HAVE A BRAIN BITCH
+
+}
+
+  static List<BzType> inactivateCraftsmenCondition({
+    @required List<BzType> selectedBzTypes,
+    @required List<BzType> inactiveBzTypes,
+  }){
+
+    final List<BzType> _inActiveBzTypes = <BzType>[...inactiveBzTypes];
+
+    // if (
+    // selectedBzTypes.contains(BzType.contractor)
+    // ||
+    // selectedBzTypes.contains(BzType.designer)
+    // ){
+    //   _inActiveBzTypes.add(BzType.craftsman);
+    // }
+    //
+    // if (
+    // (selectedBzTypes.contains(BzType.contractor) == false
+    // &&
+    // selectedBzTypes.contains(BzType.designer) == false
+    // &&
+    // inactiveBzTypes.contains(BzType.craftsman) == true
+    // )
+    // ||
+    //     selectedBzTypes == []
+    // ){
+    //   _inActiveBzTypes.removeWhere((BzType type){
+    //     return type == BzType.craftsman;
+    //   });
+    // }
+    //
+    // if (
+    // selectedBzTypes.contains(BzType.craftsman) == true
+    // ){
+    //   _inActiveBzTypes
+    // }
+    //
+    return _inActiveBzTypes;
+  }
+// ------------------------------------------
   static const List<BzType> bzTypesList = <BzType>[
     BzType.developer,
     BzType.broker,
@@ -637,7 +685,7 @@ class BzModel{
 
       /// MORE THAN ONE BZ TYPE
       if (bzTypes.length > 1){
-
+        _bzForms.remove(BzForm.company);
       }
 
       /// IF ONLY ONE BZ TYPE
