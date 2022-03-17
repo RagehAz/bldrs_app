@@ -16,6 +16,7 @@ import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/search/fire_search.dart' as FireSearch;
@@ -26,8 +27,31 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+class ExoticMethods {
+  final dynamic bitch;
+
+  const ExoticMethods({
+   @required this.bitch,
+});
 // -----------------------------------------------------------------------------
-Future<List<UserModel>> readAllUserModels({@required int limit}) async {
+  static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
+    @required String collName,
+    @required String orderBy,
+    bool addDocsIDs = true,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await readCollectionDocs(
+      limit: 1000,
+      collName: collName,
+      orderBy: orderBy,
+      addDocsIDs: addDocsIDs,
+    );
+
+    return _maps;
+  }
+// -----------------------------------------------------------------------------
+  static Future<List<UserModel>> readAllUserModels({@required int limit}) async {
   // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
   List<UserModel> _allUserModels = <UserModel>[];
@@ -63,7 +87,7 @@ Future<List<UserModel>> readAllUserModels({@required int limit}) async {
   return _allUserModels;
 }
 // -----------------------------------------------------------------------------
-Future<List<NotiModel>> readAllNotiModels({
+  static Future<List<NotiModel>> readAllNotiModels({
   @required BuildContext context,
   @required String userID,
 }) async {
@@ -90,7 +114,7 @@ Future<List<NotiModel>> readAllNotiModels({
   return _allModels;
 }
 // -----------------------------------------------------------------------------
-Future<List<BzModel>> readAllBzzModels({
+  static Future<List<BzModel>> readAllBzzModels({
   @required BuildContext context,
   @required int limit,
 }) async {
@@ -110,7 +134,7 @@ Future<List<BzModel>> readAllBzzModels({
   return _allModels;
 }
 // -----------------------------------------------------------------------------
-Future<List<FeedbackModel>> readAllFeedbacks({
+  static Future<List<FeedbackModel>> readAllFeedbacks({
   @required BuildContext context,
   @required int limit,
 }) async {
@@ -128,7 +152,7 @@ Future<List<FeedbackModel>> readAllFeedbacks({
   return _allModels;
 }
 // -----------------------------------------------------------------------------
-Future<List<FlyerModel>> readAllFlyers({
+  static Future<List<FlyerModel>> readAllFlyers({
   @required BuildContext context,
   @required int limit,
 }) async {
@@ -146,7 +170,7 @@ Future<List<FlyerModel>> readAllFlyers({
   return _allModels;
 }
 // -----------------------------------------------------------------------------
-Future<List<CountryModel>> fetchAllCountryModels({
+  static Future<List<CountryModel>> fetchAllCountryModels({
   @required BuildContext context,
 }) async {
   final ZoneProvider zoneProvider =
@@ -171,7 +195,7 @@ Future<List<CountryModel>> fetchAllCountryModels({
   return _countries;
 }
 // -----------------------------------------------------------------------------
-Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
+  static Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
   /// in case any (continent name) or (region name) or (countryID) has changed
 
   final List<CountryModel> _allCountries = await fetchAllCountryModels(context: context);
@@ -240,9 +264,8 @@ Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context)
   );
 
 }
-
 // -----------------------------------------------------------------------------
-Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
+  static Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
   final List<dynamic> _allMaps = await Fire.readSubCollectionDocs(
     context: context,
     addDocsIDs: false,
@@ -260,7 +283,7 @@ Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 /// super dangerous method,, take care !!
-Future<void> updateAFieldInAllCollDocs({
+  static Future<void> updateAFieldInAllCollDocs({
   @required BuildContext context,
   @required String collName,
   @required String field,
@@ -286,7 +309,7 @@ Future<void> updateAFieldInAllCollDocs({
   blog('Tamam with : ${_maps.length} flyers updated their [$field] field');
 }
 // -----------------------------------------------------------------------------
-Future<void> changeFieldName({
+  static Future<void> changeFieldName({
   @required BuildContext context,
 }) async {
   blog('LET THE GAMES BEGIN');
@@ -327,7 +350,7 @@ Future<void> changeFieldName({
   // }
 }
 // -----------------------------------------------------------------------------
-Future<void> uploadChainKeywords({
+  static Future<void> uploadChainKeywords({
   @required BuildContext context,
   @required Chain chain,
   @required String docName,
@@ -373,7 +396,7 @@ Future<void> uploadChainKeywords({
 
 // abstract class RagehMethods{
 // -----------------------------------------------------------------------------
-Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) async {
+  static Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) async {
 
   if (FireAuthOps.superUserID() == '60a1SPzftGdH6rt15NF96m0j9Et2') {
     if (Mapper.canLoopList(allKeywords)) {
@@ -391,7 +414,7 @@ Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) 
   }
 }
 // -----------------------------------------------------------------------------
-Future<void> takeOwnerShip({
+  static Future<void> takeOwnerShip({
   @required BuildContext context,
   @required String oldUserID, // '60a1SPzftGdH6rt15NF96m0j9Et2'
   @required String newUserID, // 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2'
@@ -416,7 +439,7 @@ Future<void> takeOwnerShip({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> _takeOverBz({
+  static Future<void> _takeOverBz({
   @required BuildContext context,
   @required String oldUserID, // '60a1SPzftGdH6rt15NF96m0j9Et2'
   @required String newUserID, // 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2'
@@ -467,7 +490,7 @@ Future<void> _takeOverBz({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> takeOverFlyers({
+  static Future<void> takeOverFlyers({
   @required BuildContext context,
   @required String newUserID,
   @required List<String> flyersIDs,
@@ -489,7 +512,7 @@ Future<void> takeOverFlyers({
 
 }
 /// ----------------------------------------------------------------------------
-Future<void> assignBzzOwnership({
+  static Future<void> assignBzzOwnership({
   @required BuildContext context,
   @required String userID,
   @required List<String> bzzIDs,
@@ -505,7 +528,7 @@ Future<void> assignBzzOwnership({
 
 }
 /// ----------------------------------------------------------------------------
-Future<List<BzModel>> searchBzzByAuthorID({
+  static Future<List<BzModel>> searchBzzByAuthorID({
   @required BuildContext context,
   @required String authorID,
 }) async {
@@ -563,3 +586,4 @@ Future<List<BzModel>> searchBzzByAuthorID({
   //
   //   return _currencies;
   // }
+}
