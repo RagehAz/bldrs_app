@@ -1,25 +1,24 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainEquipment {
+
   static const Chain chain = Chain(
     id: 'equipment',
     icon: Iconz.bxEquipmentOff,
-    names: <Name>[
-      Name(code: 'en', value: 'Equipment'),
-      Name(code: 'ar', value: '')
-    ],
+    names: 'k_0006_equipment_keywords',
     sons: <Chain>[
+
+      /*
+
       // -----------------------------------------------
       /// Handheld equipment & tools
       Chain(
         id: 'group_equip_handheld',
         icon: null,
-        names: <Name>[
-          Name(code: 'en', value: 'Handheld equipment & tools'),
-          Name(code: 'ar', value: 'معدات و أدوات خفيفة')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Handheld equipment & tools'),
+          Phrase(langCode: 'ar', value: 'معدات و أدوات خفيفة')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -27,58 +26,58 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_handheld_power',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Power tools'),
-              Name(code: 'ar', value: 'أدوات كهربية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Power tools'),
+              Phrase(langCode: 'ar', value: 'أدوات كهربية')
             ],
             sons: <KW>[
               KW(
                 id: 'equip_tool_power_drill',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drills'),
-                  Name(code: 'ar', value: 'ثاقب كهربائي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drills'),
+                  Phrase(langCode: 'ar', value: 'ثاقب كهربائي')
                 ],
               ),
               KW(
                 id: 'equip_tool_power_saw',
-                names: <Name>[
-                  Name(code: 'en', value: 'Electric saw'),
-                  Name(code: 'ar', value: 'منشار كهربائي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Electric saw'),
+                  Phrase(langCode: 'ar', value: 'منشار كهربائي')
                 ],
               ),
               KW(
                 id: 'equip_tool_power_router',
-                names: <Name>[
-                  Name(code: 'en', value: 'Router'),
-                  Name(code: 'ar', value: 'راوتر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Router'),
+                  Phrase(langCode: 'ar', value: 'راوتر')
                 ],
               ),
               KW(
                 id: 'equip_tool_power_grinder',
-                names: <Name>[
-                  Name(code: 'en', value: 'Grinder'),
-                  Name(code: 'ar', value: 'صاروخ جارش')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Grinder'),
+                  Phrase(langCode: 'ar', value: 'صاروخ جارش')
                 ],
               ),
               KW(
                 id: 'equip_tool_power_compressor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Air compressors'),
-                  Name(code: 'ar', value: 'كباس هوائي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Air compressors'),
+                  Phrase(langCode: 'ar', value: 'كباس هوائي')
                 ],
               ),
               KW(
                 id: 'equip_tool_power_sander',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sanders'),
-                  Name(code: 'ar', value: 'ماكينات صنفرة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sanders'),
+                  Phrase(langCode: 'ar', value: 'ماكينات صنفرة')
                 ],
               ),
               KW(
                 id: 'equip_tool_power_heatGun',
-                names: <Name>[
-                  Name(code: 'en', value: 'Heat guns'),
-                  Name(code: 'ar', value: 'مسدسات حرارية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Heat guns'),
+                  Phrase(langCode: 'ar', value: 'مسدسات حرارية')
                 ],
               ),
             ],
@@ -88,30 +87,30 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_handheld_measure',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Measurement tools'),
-              Name(code: 'ar', value: 'أدوات قياسس')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Measurement tools'),
+              Phrase(langCode: 'ar', value: 'أدوات قياسس')
             ],
             sons: <KW>[
               KW(
                 id: 'equip_tool_measure_lasermeter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Laser meters'),
-                  Name(code: 'ar', value: 'متر قياس ليزر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Laser meters'),
+                  Phrase(langCode: 'ar', value: 'متر قياس ليزر')
                 ],
               ),
               KW(
                 id: 'equip_tool_measure_tapMeasure',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tape measure'),
-                  Name(code: 'ar', value: 'متر شريط قياس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tape measure'),
+                  Phrase(langCode: 'ar', value: 'متر شريط قياس')
                 ],
               ),
               KW(
                 id: 'equip_tool_measure_theodolite',
-                names: <Name>[
-                  Name(code: 'en', value: 'Theodolite & Total stations'),
-                  Name(code: 'ar', value: 'تيدوليت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Theodolite & Total stations'),
+                  Phrase(langCode: 'ar', value: 'تيدوليت')
                 ],
               ),
             ],
@@ -121,44 +120,44 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_handheld_machinery',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Handheld machinery'),
-              Name(code: 'ar', value: 'ماكينات يدوية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Handheld machinery'),
+              Phrase(langCode: 'ar', value: 'ماكينات يدوية')
             ],
             sons: <KW>[
               KW(
                 id: 'equip_handheld_paver',
-                names: <Name>[
-                  Name(code: 'en', value: 'Roller Pavers'),
-                  Name(code: 'ar', value: 'آلة رصف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Roller Pavers'),
+                  Phrase(langCode: 'ar', value: 'آلة رصف')
                 ],
               ),
               KW(
                 id: 'equip_handheld_rammer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tamper rammers'),
-                  Name(code: 'ar', value: 'ماكينات دك هزاز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tamper rammers'),
+                  Phrase(langCode: 'ar', value: 'ماكينات دك هزاز')
                 ],
               ),
               KW(
                 id: 'equip_handheld_jack',
-                names: <Name>[
-                  Name(code: 'en', value: 'Jack Hammers'),
-                  Name(code: 'ar', value: 'مطرقة ثاقبة هيلتي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Jack Hammers'),
+                  Phrase(langCode: 'ar', value: 'مطرقة ثاقبة هيلتي')
                 ],
               ),
               KW(
                 id: 'equip_handheld_troweller',
-                names: <Name>[
-                  Name(code: 'en', value: 'Trowellers'),
-                  Name(code: 'ar', value: 'مجرفة أرض هليكوبتر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Trowellers'),
+                  Phrase(langCode: 'ar', value: 'مجرفة أرض هليكوبتر')
                 ],
               ),
               KW(
                 id: 'equip_handheld_spray',
-                names: <Name>[
-                  Name(code: 'en', value: 'Plaster spray unit'),
-                  Name(code: 'ar', value: 'وحدة رش محارة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Plaster spray unit'),
+                  Phrase(langCode: 'ar', value: 'وحدة رش محارة')
                 ],
               ),
             ],
@@ -168,58 +167,58 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_handheld_handTools',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Hand tools'),
-              Name(code: 'ar', value: 'أدوات يدوية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Hand tools'),
+              Phrase(langCode: 'ar', value: 'أدوات يدوية')
             ],
             sons: <KW>[
               KW(
                 id: 'equip_tool_hand_workbench',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tool storage & work benches'),
-                  Name(code: 'ar', value: 'مخازن عدد و أسطح عمل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tool storage & work benches'),
+                  Phrase(langCode: 'ar', value: 'مخازن عدد و أسطح عمل')
                 ],
               ),
               KW(
                 id: 'equip_tool_hand_bits',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wood drill bits'),
-                  Name(code: 'ar', value: 'بنط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wood drill bits'),
+                  Phrase(langCode: 'ar', value: 'بنط')
                 ],
               ),
               KW(
                 id: 'equip_tool_hand_screws',
-                names: <Name>[
-                  Name(code: 'en', value: 'Screws, nuts & bolts, fishers'),
-                  Name(code: 'ar', value: 'براغي و صواميل و مسامير و فيشر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Screws, nuts & bolts, fishers'),
+                  Phrase(langCode: 'ar', value: 'براغي و صواميل و مسامير و فيشر')
                 ],
               ),
               KW(
                 id: 'equip_tool_hand_ladder',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ladders & step stools'),
-                  Name(code: 'ar', value: 'سلالم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ladders & step stools'),
+                  Phrase(langCode: 'ar', value: 'سلالم')
                 ],
               ),
               KW(
                 id: 'equip_tool_hand_paint',
-                names: <Name>[
-                  Name(code: 'en', value: 'Paint tools'),
-                  Name(code: 'ar', value: 'أدوات دهانات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Paint tools'),
+                  Phrase(langCode: 'ar', value: 'أدوات دهانات')
                 ],
               ),
               KW(
                 id: 'equip_tool_hand_screwDriver',
-                names: <Name>[
-                  Name(code: 'en', value: 'Screw drivers'),
-                  Name(code: 'ar', value: 'مفكات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Screw drivers'),
+                  Phrase(langCode: 'ar', value: 'مفكات')
                 ],
               ),
               KW(
                 id: 'equip_tool_hand_clamp',
-                names: <Name>[
-                  Name(code: 'en', value: 'Clamps'),
-                  Name(code: 'ar', value: 'مشابك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Clamps'),
+                  Phrase(langCode: 'ar', value: 'مشابك')
                 ],
               ),
             ],
@@ -229,74 +228,74 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_handheld_gardenTools',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Garden Tools'),
-              Name(code: 'ar', value: 'أدوات زراعة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Garden Tools'),
+              Phrase(langCode: 'ar', value: 'أدوات زراعة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_tool_garden_fork',
-                names: <Name>[
-                  Name(
-                      code: 'en',
+                names: <Phrase>[
+                  Phrase(
+                      langCode: 'en',
                       value: 'Forks, Rakes, Hoes, Shovels & Spades'),
-                  Name(code: 'ar', value: 'شوك و مجارف و معاول')
+                  Phrase(langCode: 'ar', value: 'شوك و مجارف و معاول')
                 ],
               ),
               KW(
                 id: 'prd_tool_garden_pruning',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pruning tools'),
-                  Name(code: 'ar', value: 'أدوات تقليم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pruning tools'),
+                  Phrase(langCode: 'ar', value: 'أدوات تقليم')
                 ],
               ),
               KW(
                 id: 'prd_tool_garden_wheel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wheelbarrows'),
-                  Name(code: 'ar', value: 'عربة ركام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wheelbarrows'),
+                  Phrase(langCode: 'ar', value: 'عربة ركام')
                 ],
               ),
               KW(
                 id: 'prd_tool_garden_barrel',
-                names: <Name>[
-                  Name(code: 'en', value: 'barrels & cans'),
-                  Name(code: 'ar', value: 'براميل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'barrels & cans'),
+                  Phrase(langCode: 'ar', value: 'براميل')
                 ],
               ),
               KW(
                 id: 'prd_tool_garden_sprayer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sprayers & spreaders'),
-                  Name(code: 'ar', value: 'رشاشات و موزعات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sprayers & spreaders'),
+                  Phrase(langCode: 'ar', value: 'رشاشات و موزعات')
                 ],
               ),
               KW(
                 id: 'prd_tool_garden_hose',
-                names: <Name>[
-                  Name(code: 'en', value: 'Garden hoses'),
-                  Name(code: 'ar', value: 'خراطيم ري')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Garden hoses'),
+                  Phrase(langCode: 'ar', value: 'خراطيم ري')
                 ],
               ),
               KW(
                 id: 'prd_tool_garden_hoseReel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Garden hose reels'),
-                  Name(code: 'ar', value: 'بكرات خراطيم ري')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Garden hose reels'),
+                  Phrase(langCode: 'ar', value: 'بكرات خراطيم ري')
                 ],
               ),
               KW(
                 id: 'prd_tool_garden_sprinkler',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sprinklers'),
-                  Name(code: 'ar', value: 'مرشات ري أرضية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sprinklers'),
+                  Phrase(langCode: 'ar', value: 'مرشات ري أرضية')
                 ],
               ),
               KW(
                 id: 'prd_tool_garden_glove',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gardening gloves'),
-                  Name(code: 'ar', value: 'قفازات زراعة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gardening gloves'),
+                  Phrase(langCode: 'ar', value: 'قفازات زراعة')
                 ],
               ),
             ],
@@ -306,23 +305,23 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_handheld_cleaning',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Cleaning Tools'),
-              Name(code: 'ar', value: 'أدوات نظافة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Cleaning Tools'),
+              Phrase(langCode: 'ar', value: 'أدوات نظافة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_tool_hk_floorcare',
-                names: <Name>[
-                  Name(code: 'en', value: 'Floor care Accessories'),
-                  Name(code: 'ar', value: 'أدوات عناية بالأرضيات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Floor care Accessories'),
+                  Phrase(langCode: 'ar', value: 'أدوات عناية بالأرضيات')
                 ],
               ),
               KW(
                 id: 'prd_tool_hk_mop',
-                names: <Name>[
-                  Name(code: 'en', value: 'Mops, Brooms & dustpans'),
-                  Name(code: 'ar', value: 'مماسح و مكانس و مجارف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Mops, Brooms & dustpans'),
+                  Phrase(langCode: 'ar', value: 'مماسح و مكانس و مجارف')
                 ],
               ),
             ],
@@ -335,37 +334,37 @@ abstract class ChainEquipment {
       Chain(
         id: 'group_equip_handling',
         icon: null,
-        names: <Name>[
-          Name(code: 'en', value: 'Material handling equipment'),
-          Name(code: 'ar', value: 'معدات نقل و تحميل')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Material handling equipment'),
+          Phrase(langCode: 'ar', value: 'معدات نقل و تحميل')
         ],
         sons: <KW>[
           KW(
             id: 'equip_mat_crane',
-            names: <Name>[
-              Name(code: 'en', value: 'Cranes'),
-              Name(code: 'ar', value: 'رافعات')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Cranes'),
+              Phrase(langCode: 'ar', value: 'رافعات')
             ],
           ),
           KW(
             id: 'equip_mat_conveyor',
-            names: <Name>[
-              Name(code: 'en', value: 'Conveyors'),
-              Name(code: 'ar', value: 'ناقلات')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Conveyors'),
+              Phrase(langCode: 'ar', value: 'ناقلات')
             ],
           ),
           KW(
             id: 'equip_mat_forklift',
-            names: <Name>[
-              Name(code: 'en', value: 'Forklifts'),
-              Name(code: 'ar', value: 'عربة رافعة شوكية')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Forklifts'),
+              Phrase(langCode: 'ar', value: 'عربة رافعة شوكية')
             ],
           ),
           KW(
             id: 'equip_mat_hoist',
-            names: <Name>[
-              Name(code: 'en', value: 'Hoists'),
-              Name(code: 'ar', value: 'ألات رافعة')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Hoists'),
+              Phrase(langCode: 'ar', value: 'ألات رافعة')
             ],
           ),
         ],
@@ -375,37 +374,37 @@ abstract class ChainEquipment {
       Chain(
         id: 'group_equip_heavy',
         icon: null,
-        names: <Name>[
-          Name(code: 'en', value: 'Heavy machinery'),
-          Name(code: 'ar', value: 'معدات ثقيلة')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Heavy machinery'),
+          Phrase(langCode: 'ar', value: 'معدات ثقيلة')
         ],
         sons: <KW>[
           KW(
             id: 'equip_machinery_stoneCrusher',
-            names: <Name>[
-              Name(code: 'en', value: 'Stone crushers'),
-              Name(code: 'ar', value: 'كسارة حجر')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Stone crushers'),
+              Phrase(langCode: 'ar', value: 'كسارة حجر')
             ],
           ),
           KW(
             id: 'equip_machinery_tunneling',
-            names: <Name>[
-              Name(code: 'en', value: 'Tunneling boring machine'),
-              Name(code: 'ar', value: 'ألة حفر أنفاق')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Tunneling boring machine'),
+              Phrase(langCode: 'ar', value: 'ألة حفر أنفاق')
             ],
           ),
           KW(
             id: 'equip_machinery_mixer',
-            names: <Name>[
-              Name(code: 'en', value: 'Concrete mixers'),
-              Name(code: 'ar', value: 'خلاطات خرسانة')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Concrete mixers'),
+              Phrase(langCode: 'ar', value: 'خلاطات خرسانة')
             ],
           ),
           KW(
             id: 'equip_machinery_mixPlant',
-            names: <Name>[
-              Name(code: 'en', value: 'Hot mix plants'),
-              Name(code: 'ar', value: 'محطات خلط ساخنة')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Hot mix plants'),
+              Phrase(langCode: 'ar', value: 'محطات خلط ساخنة')
             ],
           ),
         ],
@@ -415,30 +414,30 @@ abstract class ChainEquipment {
       Chain(
         id: 'group_equip_prep',
         icon: null,
-        names: <Name>[
-          Name(code: 'en', value: 'Construction preparations'),
-          Name(code: 'ar', value: 'تجهيزات الموقع')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Construction preparations'),
+          Phrase(langCode: 'ar', value: 'تجهيزات الموقع')
         ],
         sons: <KW>[
           KW(
             id: 'equip_prep_scaffold',
-            names: <Name>[
-              Name(code: 'en', value: 'Scaffold'),
-              Name(code: 'ar', value: 'سقالات')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Scaffold'),
+              Phrase(langCode: 'ar', value: 'سقالات')
             ],
           ),
           KW(
             id: 'equip_prep_cone',
-            names: <Name>[
-              Name(code: 'en', value: 'Cones & Barriers'),
-              Name(code: 'ar', value: 'أقماع و حواجز')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Cones & Barriers'),
+              Phrase(langCode: 'ar', value: 'أقماع و حواجز')
             ],
           ),
           KW(
             id: 'equip_prep_signage',
-            names: <Name>[
-              Name(code: 'en', value: 'Safety signage'),
-              Name(code: 'ar', value: 'لافتات أمان')
+            names: <Phrase>[
+              Phrase(langCode: 'en', value: 'Safety signage'),
+              Phrase(langCode: 'ar', value: 'لافتات أمان')
             ],
           ),
         ],
@@ -448,9 +447,9 @@ abstract class ChainEquipment {
       Chain(
         id: 'group_equip_vehicle',
         icon: null,
-        names: <Name>[
-          Name(code: 'en', value: 'Vehicles'),
-          Name(code: 'ar', value: 'عربات')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Vehicles'),
+          Phrase(langCode: 'ar', value: 'عربات')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -458,79 +457,79 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_vehicle_earthmoving',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Earth moving vehicles'),
-              Name(code: 'ar', value: 'عربات تحريك الأرض')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Earth moving vehicles'),
+              Phrase(langCode: 'ar', value: 'عربات تحريك الأرض')
             ],
             sons: <KW>[
               KW(
                 id: 'equip_earth_excavator',
-                names: <Name>[
-                  Name(code: 'en', value: 'Excavators'),
-                  Name(code: 'ar', value: 'حفارات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Excavators'),
+                  Phrase(langCode: 'ar', value: 'حفارات')
                 ],
               ),
               KW(
                 id: 'equip_earth_backhoe',
-                names: <Name>[
-                  Name(code: 'en', value: 'Backhoe'),
-                  Name(code: 'ar', value: 'جراف حفار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Backhoe'),
+                  Phrase(langCode: 'ar', value: 'جراف حفار')
                 ],
               ),
               KW(
                 id: 'equip_earth_loader',
-                names: <Name>[
-                  Name(code: 'en', value: 'Loaders'),
-                  Name(code: 'ar', value: 'عربة تحميل لودر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Loaders'),
+                  Phrase(langCode: 'ar', value: 'عربة تحميل لودر')
                 ],
               ),
               KW(
                 id: 'equip_earth_bulldozer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bulldozers'),
-                  Name(code: 'ar', value: 'جرافات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bulldozers'),
+                  Phrase(langCode: 'ar', value: 'جرافات')
                 ],
               ),
               KW(
                 id: 'equip_earth_trencher',
-                names: <Name>[
-                  Name(code: 'en', value: 'Trenchers'),
-                  Name(code: 'ar', value: 'حفارات خنادق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Trenchers'),
+                  Phrase(langCode: 'ar', value: 'حفارات خنادق')
                 ],
               ),
               KW(
                 id: 'equip_earth_grader',
-                names: <Name>[
-                  Name(code: 'en', value: 'Graders'),
-                  Name(code: 'ar', value: 'ممهدات طرق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Graders'),
+                  Phrase(langCode: 'ar', value: 'ممهدات طرق')
                 ],
               ),
               KW(
                 id: 'equip_earth_scrapper',
-                names: <Name>[
-                  Name(code: 'en', value: 'Scrappers'),
-                  Name(code: 'ar', value: 'جرارات كاشطة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Scrappers'),
+                  Phrase(langCode: 'ar', value: 'جرارات كاشطة')
                 ],
               ),
               KW(
                 id: 'equip_earth_crawlerLoader',
-                names: <Name>[
-                  Name(code: 'en', value: 'Crawler loader'),
-                  Name(code: 'ar', value: 'محمل زاحف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Crawler loader'),
+                  Phrase(langCode: 'ar', value: 'محمل زاحف')
                 ],
               ),
               KW(
                 id: 'equip_earth_crawler',
-                names: <Name>[
-                  Name(code: 'en', value: 'Crawlers'),
-                  Name(code: 'ar', value: 'حفار زاحف صغير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Crawlers'),
+                  Phrase(langCode: 'ar', value: 'حفار زاحف صغير')
                 ],
               ),
               KW(
                 id: 'equip_earth_excavator',
-                names: <Name>[
-                  Name(code: 'en', value: 'Excavators'),
-                  Name(code: 'ar', value: 'حفار زاحف كبير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Excavators'),
+                  Phrase(langCode: 'ar', value: 'حفار زاحف كبير')
                 ],
               ),
             ],
@@ -540,30 +539,30 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_vehicle_transport',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Transporting vehicles'),
-              Name(code: 'ar', value: 'عربات ناقلة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Transporting vehicles'),
+              Phrase(langCode: 'ar', value: 'عربات ناقلة')
             ],
             sons: <KW>[
               KW(
                 id: 'equip_vehicle_dumper',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dumpers & Tippers'),
-                  Name(code: 'ar', value: 'شاحنات قلابة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dumpers & Tippers'),
+                  Phrase(langCode: 'ar', value: 'شاحنات قلابة')
                 ],
               ),
               KW(
                 id: 'equip_vehicle_tanker',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tankers'),
-                  Name(code: 'ar', value: 'شاحنات سوائل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tankers'),
+                  Phrase(langCode: 'ar', value: 'شاحنات سوائل')
                 ],
               ),
               KW(
                 id: 'equip_vehicle_mixer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Mixer truck'),
-                  Name(code: 'ar', value: 'شاحناط خلاط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Mixer truck'),
+                  Phrase(langCode: 'ar', value: 'شاحناط خلاط')
                 ],
               ),
             ],
@@ -573,30 +572,30 @@ abstract class ChainEquipment {
           Chain(
             id: 'sub_vehicle_paving',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Paving vehicles'),
-              Name(code: 'ar', value: 'عربات تمهيد طرق')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Paving vehicles'),
+              Phrase(langCode: 'ar', value: 'عربات تمهيد طرق')
             ],
             sons: <KW>[
               KW(
                 id: 'equip_paving_roller',
-                names: <Name>[
-                  Name(code: 'en', value: 'Road Rollers'),
-                  Name(code: 'ar', value: 'مدحلة أسفلت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Road Rollers'),
+                  Phrase(langCode: 'ar', value: 'مدحلة أسفلت')
                 ],
               ),
               KW(
                 id: 'equip_paving_asphalt',
-                names: <Name>[
-                  Name(code: 'en', value: 'Road making machine'),
-                  Name(code: 'ar', value: 'ماكينات صناعة الطرق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Road making machine'),
+                  Phrase(langCode: 'ar', value: 'ماكينات صناعة الطرق')
                 ],
               ),
               KW(
                 id: 'equip_paving_slurry',
-                names: <Name>[
-                  Name(code: 'en', value: 'Slurry seal machine'),
-                  Name(code: 'ar', value: 'ماكينات أسفلت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Slurry seal machine'),
+                  Phrase(langCode: 'ar', value: 'ماكينات أسفلت')
                 ],
               ),
             ],
@@ -604,6 +603,10 @@ abstract class ChainEquipment {
         ],
       ),
       // -----------------------------------------------
+
+  */
+
     ],
   );
+
 }

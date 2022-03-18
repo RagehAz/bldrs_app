@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/kw/chain/chain_products.dart';
 import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/foundation.dart';
@@ -16,14 +15,14 @@ class Chain {
   const Chain({
     @required this.id,
     @required this.icon,
-    @required this.names,
+    @required this.names, // TASK : should end as String titlePhraseID
     @required this.sons,
   });
 
   /// --------------------------------------------------------------------------
   final String id;
   final String icon;
-  final List<Name> names;
+  final dynamic names;
   final dynamic sons;
 
   /// --------------------------------------------------------------------------
@@ -56,10 +55,7 @@ class Chain {
   static const Chain bldrsChain = Chain(
     id: 'bldrs',
     icon: Iconz.bldrsNameEn,
-    names: <Name>[
-      Name(code: 'en', value: 'Bldrs.net'),
-      Name(code: 'ar', value: 'بلدرز.نت')
-    ],
+    names: '0100_bldrsChain',
     sons: <Chain>[
       /// PROPERTIES
       ChainProperties.chain,

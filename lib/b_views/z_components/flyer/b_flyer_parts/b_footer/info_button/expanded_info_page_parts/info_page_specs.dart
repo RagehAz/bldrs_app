@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -139,7 +139,7 @@ class InfoPageSpecs extends StatelessWidget {
 
               final SpecList _specList = _flyerSpecsLists[index];
 
-              final Name _specListName = Name.getNameByCurrentLingoFromNames(context: context, names: _specList.names);
+              final Phrase _specListName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _specList.names);
 
               blog('_specListName is : ${_specListName.value}');
 

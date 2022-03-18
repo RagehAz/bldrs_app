@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/specs/data_creator.dart';
 import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -226,9 +226,9 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     final String _instructions = _getInstructions();
 
-    final String _pageTitle = Name.getNameByCurrentLingoFromNames(
+    final String _pageTitle = Phrase.getPhraseByCurrentLandFromPhrases(
         context: context,
-        names: widget.specList.names)?.value;
+        phrases: widget.specList.names)?.value;
 
     return MainLayout(
       appBarType: AppBarType.basic,

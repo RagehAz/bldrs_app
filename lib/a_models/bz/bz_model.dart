@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
+import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -9,9 +10,9 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 
 /// ---------------------
 //
@@ -1169,8 +1170,8 @@ class BzModel{
   /// BZ VALIDATION
 
 // ------------------------------------------
-  static List<String> requiredFields(BzModel bzModel){
-    final List<String> _invalidFields = <String>[];
+  static List<AlertModel> requiredFields(BzModel bzModel){
+    final List<AlertModel> _invalidFields = <AlertModel>[];
 
     //     _bzNameTextController.text.length < 3 ||
     //     _bzScopeTextController.text.length < 3 ||
@@ -1179,35 +1180,83 @@ class BzModel{
     //     // _currentBzContacts.length == 0 ||
 
     if (Mapper.canLoopList(bzModel?.bzTypes) == false){
-      _invalidFields.add('Business Type');
+      _invalidFields.add(
+          const AlertModel(
+            alertID: 'bzType',
+            titlePhraseID: 'a_0001_bzTypeMissing_title',
+            messagePhraseID:'a_0002_bzTypeMissing_message',
+          )
+      );
     }
 
     if (bzModel?.bzForm == null){
-      _invalidFields.add('Business Form');
+      _invalidFields.add(
+          const AlertModel(
+            alertID: 'bzForm',
+            titlePhraseID: 'a_0003_bzFormMissing_title',
+            messagePhraseID: 'a_0004_bzFormMissing_message',
+          )
+      );
     }
 
     if (stringIsEmpty(bzModel?.name) == true){
-      _invalidFields.add('Business Name');
+      _invalidFields.add(
+          const AlertModel(
+            alertID: 'bzName',
+            titlePhraseID: 'a_0005_bzNameMissing_title',
+            messagePhraseID: 'a_0006_bzNameMissing_message',
+          )
+      );
     }
 
     if (bzModel?.logo == null){
-      _invalidFields.add('Business Logo');
+      _invalidFields.add(
+          const AlertModel(
+          alertID: 'bzLogo',
+          titlePhraseID: 'a_0007_bzLogoMissing_title',
+            messagePhraseID: 'a_0008_bzLogoMissing_message',
+        )
+      );
     }
 
     if (stringIsEmpty(bzModel?.scope) == true){
-      _invalidFields.add('Business Scope');
+      _invalidFields.add(
+          const AlertModel(
+          alertID: 'bzScope',
+          titlePhraseID: 'a_0009_bzScopeMissing_title',
+            messagePhraseID: 'a_0010_bzScopeMissing_message',
+        )
+      );
     }
 
     if (stringIsEmpty(bzModel?.zone?.countryID) == true){
-      _invalidFields.add('Business Country');
+      _invalidFields.add(
+          const AlertModel(
+            alertID: 'bzCountry',
+            titlePhraseID: 'a_0011_bzCountryMissing_title',
+            messagePhraseID: 'a_0012_bzCountryMissing_message',
+          )
+      );
     }
 
     if (stringIsEmpty(bzModel?.zone?.cityID) == true){
-      _invalidFields.add('Business City');
+      _invalidFields.add(
+          const AlertModel(
+            alertID: 'bzCity',
+            titlePhraseID: 'a_0013_bzCityMissing_title',
+            messagePhraseID: 'a_0014_bzCityMissing_message',
+          )
+      );
     }
 
     if (stringIsEmpty(bzModel?.about) == true){
-      _invalidFields.add('About Business');
+      _invalidFields.add(
+          const AlertModel(
+            alertID: 'bzAbout',
+            titlePhraseID: 'a_0015_bzAboutMissing_title',
+            messagePhraseID: 'a_0016_bzAboutMissing_message',
+          )
+      );
     }
 
     return _invalidFields;

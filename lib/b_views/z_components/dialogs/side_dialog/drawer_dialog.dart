@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/kw/chain/chain_equipment.dart';
 import 'package:bldrs/a_models/kw/chain/chain_products.dart';
 import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/section_dialog/section_bubble.dart';
@@ -212,9 +212,9 @@ class _DrawerDialogState extends State<DrawerDialog> {
                                       width: _bubbleWidth,
                                       color: Colorz.white20,
                                       verse:
-                                      Name.getNameByCurrentLingoFromNames(
+                                      Phrase.getPhraseByCurrentLandFromPhrases(
                                           context: context,
-                                          names: _keyword.names
+                                          phrases: _keyword.names
                                       )?.value,
                                       // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
                                       icon: _keywordsProvider.getKeywordIcon(

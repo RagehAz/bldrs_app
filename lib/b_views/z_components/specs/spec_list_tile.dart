@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -90,8 +90,8 @@ class SpecListTile extends StatelessWidget {
                             SizedBox(
                               width: _specNameBoxWidth,
                               child: SuperVerse(
-                                verse: Name.getNameByCurrentLingoFromNames(
-                                    context: context, names: specList.names)?.value,
+                                verse: Phrase.getPhraseByCurrentLandFromPhrases(
+                                    context: context, phrases: specList.names)?.value,
                                 centered: false,
                                 margin: 10,
                                 maxLines: 2,

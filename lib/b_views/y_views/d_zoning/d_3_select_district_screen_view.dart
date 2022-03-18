@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
@@ -26,8 +26,8 @@ class SelectDistrictScreenView extends StatelessWidget {
 
     districts.sort((DistrictModel a, DistrictModel b){
 
-      final String _nameA = Name.getNameByCurrentLingoFromNames(context: context, names: a.names).value;
-      final String _nameB = Name.getNameByCurrentLingoFromNames(context: context, names: b.names).value;
+      final String _nameA = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: a.names).value;
+      final String _nameB = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: b.names).value;
 
       return _nameA.compareTo(_nameB);
     });

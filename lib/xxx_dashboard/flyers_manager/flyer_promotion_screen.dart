@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
@@ -55,8 +55,8 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
       _selectedZone.value = ZoneModel(
         countryID: _zone.countryID,
         cityID: _zone.cityID,
-        countryName: Name.getNameByCurrentLingoFromNames(context: context, names: _country.names)?.value,
-        cityName: Name.getNameByCurrentLingoFromNames(context: context, names: _city.names)?.value,
+        countryName: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _country.names)?.value,
+        cityName: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _city.names)?.value,
       );
 
     }

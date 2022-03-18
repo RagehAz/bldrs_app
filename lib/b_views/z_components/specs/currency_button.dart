@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -48,7 +48,7 @@ class CurrencyButton extends StatelessWidget {
             verseScaleFactor: 0.9,
             verseCentered: false,
             verseMaxLines: 2,
-            secondLine: Name.getNameByLingoFromNames(names: currency.names, lingoCode: 'en')?.value,
+            secondLine: Phrase.getPhraseByLangFromPhrases(phrases: currency.names, langCode: 'en')?.value,
             bubble: false,
             onTap: onTap,
           ),

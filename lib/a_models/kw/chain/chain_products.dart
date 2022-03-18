@@ -1,25 +1,24 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainProducts {
+
   static const Chain chain = Chain(
     id: 'products',
     icon: Iconz.bxProductsOff,
-    names: <Name>[
-      Name(code: 'en', value: 'Products'),
-      Name(code: 'ar', value: '')
-    ],
+    names: 'k_0005_products_keywords',
     sons: <Chain>[
+
+      /*
+
       // -----------------------------------------------
       /// Appliances
       Chain(
         id: 'group_prd_appliances',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Appliances'),
-          Name(code: 'ar', value: 'أجهزة كهربائية')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Appliances'),
+          Phrase(langCode: 'ar', value: 'أجهزة كهربائية')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -27,23 +26,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_wasteDisposal',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Waste Disposal Appliances'),
-              Name(code: 'ar', value: 'أجهزة تخلص من النفايات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Waste Disposal Appliances'),
+              Phrase(langCode: 'ar', value: 'أجهزة تخلص من النفايات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_waste_compactor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Trash compactor'),
-                  Name(code: 'ar', value: 'حاويات ضغط قمامة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Trash compactor'),
+                  Phrase(langCode: 'ar', value: 'حاويات ضغط قمامة')
                 ],
               ),
               KW(
                 id: 'prd_app_waste_disposer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Food waste disposers'),
-                  Name(code: 'ar', value: 'مطاحن فضلات طعام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Food waste disposers'),
+                  Phrase(langCode: 'ar', value: 'مطاحن فضلات طعام')
                 ],
               ),
             ],
@@ -53,51 +52,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_snacks',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Snacks Appliances'),
-              Name(code: 'ar', value: 'أجهزة تحضير وجبات خفيفة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Snacks Appliances'),
+              Phrase(langCode: 'ar', value: 'أجهزة تحضير وجبات خفيفة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_snack_icecream',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ice cream makers'),
-                  Name(code: 'ar', value: 'ماكينات آيس كريم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ice cream makers'),
+                  Phrase(langCode: 'ar', value: 'ماكينات آيس كريم')
                 ],
               ),
               KW(
                 id: 'prd_app_snack_popcorn',
-                names: <Name>[
-                  Name(code: 'en', value: 'Popcorn makers'),
-                  Name(code: 'ar', value: 'ماكينات فشار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Popcorn makers'),
+                  Phrase(langCode: 'ar', value: 'ماكينات فشار')
                 ],
               ),
               KW(
                 id: 'prd_app_snack_toaster',
-                names: <Name>[
-                  Name(code: 'en', value: 'Toasters'),
-                  Name(code: 'ar', value: 'محمصة خبز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Toasters'),
+                  Phrase(langCode: 'ar', value: 'محمصة خبز')
                 ],
               ),
               KW(
                 id: 'prd_app_snack_waffle',
-                names: <Name>[
-                  Name(code: 'en', value: 'Waffle makers'),
-                  Name(code: 'ar', value: 'ماكينات وافل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Waffle makers'),
+                  Phrase(langCode: 'ar', value: 'ماكينات وافل')
                 ],
               ),
               KW(
                 id: 'prd_app_snack_bread',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bread machine'),
-                  Name(code: 'ar', value: 'ماكينات خبز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bread machine'),
+                  Phrase(langCode: 'ar', value: 'ماكينات خبز')
                 ],
               ),
               KW(
                 id: 'prd_app_snack_canOpener',
-                names: <Name>[
-                  Name(code: 'en', value: 'Can opener'),
-                  Name(code: 'ar', value: 'فواتح معلبات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Can opener'),
+                  Phrase(langCode: 'ar', value: 'فواتح معلبات')
                 ],
               ),
             ],
@@ -107,37 +106,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_refrigeration',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Refrigeration'),
-              Name(code: 'ar', value: 'مبردات و ثلاجات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Refrigeration'),
+              Phrase(langCode: 'ar', value: 'مبردات و ثلاجات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_ref_fridge',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fridges'),
-                  Name(code: 'ar', value: 'ثلاجات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fridges'),
+                  Phrase(langCode: 'ar', value: 'ثلاجات')
                 ],
               ),
               KW(
                 id: 'prd_app_ref_freezer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Freezers'),
-                  Name(code: 'ar', value: 'ثلاجات تجميد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Freezers'),
+                  Phrase(langCode: 'ar', value: 'ثلاجات تجميد')
                 ],
               ),
               KW(
                 id: 'prd_app_ref_icemaker',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ice makers'),
-                  Name(code: 'ar', value: 'ماكينات ثلج')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ice makers'),
+                  Phrase(langCode: 'ar', value: 'ماكينات ثلج')
                 ],
               ),
               KW(
                 id: 'prd_app_ref_water',
-                names: <Name>[
-                  Name(code: 'en', value: 'Water Dispensers'),
-                  Name(code: 'ar', value: 'كولدير مياه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Water Dispensers'),
+                  Phrase(langCode: 'ar', value: 'كولدير مياه')
                 ],
               ),
             ],
@@ -147,37 +146,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_outdoorCooking',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Outdoor Cooking'),
-              Name(code: 'ar', value: 'أجهزة طبخ خارجي')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Outdoor Cooking'),
+              Phrase(langCode: 'ar', value: 'أجهزة طبخ خارجي')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_outcook_grill',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Grills'),
-                  Name(code: 'ar', value: 'شوايات و أفران خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Grills'),
+                  Phrase(langCode: 'ar', value: 'شوايات و أفران خارجية')
                 ],
               ),
               KW(
                 id: 'prd_app_outcook_grillTools',
-                names: <Name>[
-                  Name(code: 'en', value: 'Grill tools and accessories'),
-                  Name(code: 'ar', value: 'أدوات و اكسسوارات شوي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Grill tools and accessories'),
+                  Phrase(langCode: 'ar', value: 'أدوات و اكسسوارات شوي')
                 ],
               ),
               KW(
                 id: 'prd_app_outcook_oven',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoors Ovens'),
-                  Name(code: 'ar', value: 'أفران خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoors Ovens'),
+                  Phrase(langCode: 'ar', value: 'أفران خارجية')
                 ],
               ),
               KW(
                 id: 'prd_app_outcook_smoker',
-                names: <Name>[
-                  Name(code: 'en', value: 'Smokers'),
-                  Name(code: 'ar', value: 'أفران مدخنة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Smokers'),
+                  Phrase(langCode: 'ar', value: 'أفران مدخنة')
                 ],
               ),
             ],
@@ -187,23 +186,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_media',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Media Appliances'),
-              Name(code: 'ar', value: 'أجهزة ميديا')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Media Appliances'),
+              Phrase(langCode: 'ar', value: 'أجهزة ميديا')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_media_tv',
-                names: <Name>[
-                  Name(code: 'en', value: 'Televisions'),
-                  Name(code: 'ar', value: 'تلفزيونات و شاشات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Televisions'),
+                  Phrase(langCode: 'ar', value: 'تلفزيونات و شاشات')
                 ],
               ),
               KW(
                 id: 'prd_app_media_soundSystem',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sound systems'),
-                  Name(code: 'ar', value: 'أنظمة صوت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sound systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة صوت')
                 ],
               ),
             ],
@@ -213,79 +212,79 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_indoorCooking',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Indoor Cooking'),
-              Name(code: 'ar', value: 'أجهزة طبخ داخلي')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Indoor Cooking'),
+              Phrase(langCode: 'ar', value: 'أجهزة طبخ داخلي')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_incook_microwave',
-                names: <Name>[
-                  Name(code: 'en', value: 'Microwave ovens'),
-                  Name(code: 'ar', value: 'فرن مايكرويف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Microwave ovens'),
+                  Phrase(langCode: 'ar', value: 'فرن مايكرويف')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_fryer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fryers'),
-                  Name(code: 'ar', value: 'قلايات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fryers'),
+                  Phrase(langCode: 'ar', value: 'قلايات')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_elecGrill',
-                names: <Name>[
-                  Name(code: 'en', value: 'Electric grills'),
-                  Name(code: 'ar', value: 'شوايات كهربائية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Electric grills'),
+                  Phrase(langCode: 'ar', value: 'شوايات كهربائية')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_cooktop',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cooktops'),
-                  Name(code: 'ar', value: 'بوتاجاز سطحي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cooktops'),
+                  Phrase(langCode: 'ar', value: 'بوتاجاز سطحي')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_range',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gas & Electric ranges'),
-                  Name(code: 'ar', value: 'بوتاجاز كهربائي أو غاز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gas & Electric ranges'),
+                  Phrase(langCode: 'ar', value: 'بوتاجاز كهربائي أو غاز')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_oven',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gas & Electric Ovens'),
-                  Name(code: 'ar', value: 'فرن كهربائي أو غاز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gas & Electric Ovens'),
+                  Phrase(langCode: 'ar', value: 'فرن كهربائي أو غاز')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_hood',
-                names: <Name>[
-                  Name(code: 'en', value: 'Range hoods & vents'),
-                  Name(code: 'ar', value: 'شفاطات بوتاجاز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Range hoods & vents'),
+                  Phrase(langCode: 'ar', value: 'شفاطات بوتاجاز')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_skillet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Electric skillets'),
-                  Name(code: 'ar', value: 'مقلاه كهربائية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Electric skillets'),
+                  Phrase(langCode: 'ar', value: 'مقلاه كهربائية')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_rooster',
-                names: <Name>[
-                  Name(code: 'en', value: 'Electric roaster ovens'),
-                  Name(code: 'ar', value: 'فرن شواء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Electric roaster ovens'),
+                  Phrase(langCode: 'ar', value: 'فرن شواء')
                 ],
               ),
               KW(
                 id: 'prd_app_incook_hotPlate',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hot plates & burners'),
-                  Name(code: 'ar', value: 'مواقد و لوحات ساخنة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hot plates & burners'),
+                  Phrase(langCode: 'ar', value: 'مواقد و لوحات ساخنة')
                 ],
               ),
             ],
@@ -295,65 +294,65 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_housekeeping',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'HouseKeeping Appliances'),
-              Name(code: 'ar', value: 'أجهزة غسيل و نظافة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'HouseKeeping Appliances'),
+              Phrase(langCode: 'ar', value: 'أجهزة غسيل و نظافة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_hk_washingMachine',
-                names: <Name>[
-                  Name(code: 'en', value: 'Washing & Drying machines'),
-                  Name(code: 'ar', value: 'مغاسل و مناشف ملابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Washing & Drying machines'),
+                  Phrase(langCode: 'ar', value: 'مغاسل و مناشف ملابس')
                 ],
               ),
               KW(
                 id: 'prd_app_hk_dishWasher',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dish washer'),
-                  Name(code: 'ar', value: 'مغسلة صحون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dish washer'),
+                  Phrase(langCode: 'ar', value: 'مغسلة صحون')
                 ],
               ),
               KW(
                 id: 'prd_app_hk_warmingDrawers',
-                names: <Name>[
-                  Name(code: 'en', value: 'Warming drawers'),
-                  Name(code: 'ar', value: 'أدراج تدفئة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Warming drawers'),
+                  Phrase(langCode: 'ar', value: 'أدراج تدفئة')
                 ],
               ),
               KW(
                 id: 'prd_app_hk_vacuum',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vacuum cleaner'),
-                  Name(code: 'ar', value: 'مكانس كهربائية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vacuum cleaner'),
+                  Phrase(langCode: 'ar', value: 'مكانس كهربائية')
                 ],
               ),
               KW(
                 id: 'prd_app_hk_iron',
-                names: <Name>[
-                  Name(code: 'en', value: 'Irons'),
-                  Name(code: 'ar', value: 'مكواه ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Irons'),
+                  Phrase(langCode: 'ar', value: 'مكواه ')
                 ],
               ),
               KW(
                 id: 'prd_app_hk_steamer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Garment steamers'),
-                  Name(code: 'ar', value: 'مكواه بخارية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Garment steamers'),
+                  Phrase(langCode: 'ar', value: 'مكواه بخارية')
                 ],
               ),
               KW(
                 id: 'prd_app_hk_carpet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Carpet cleaners'),
-                  Name(code: 'ar', value: 'مغاسل سجاد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Carpet cleaners'),
+                  Phrase(langCode: 'ar', value: 'مغاسل سجاد')
                 ],
               ),
               KW(
                 id: 'prd_app_hk_sewing',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sewing machines'),
-                  Name(code: 'ar', value: 'ماكينات خياطة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sewing machines'),
+                  Phrase(langCode: 'ar', value: 'ماكينات خياطة')
                 ],
               ),
             ],
@@ -363,51 +362,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_foodProcessors',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Food Processors'),
-              Name(code: 'ar', value: 'محضرات طعام')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Food Processors'),
+              Phrase(langCode: 'ar', value: 'محضرات طعام')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_pro_slowCooker',
-                names: <Name>[
-                  Name(code: 'en', value: 'Slow cookers'),
-                  Name(code: 'ar', value: 'مواقد بطيئة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Slow cookers'),
+                  Phrase(langCode: 'ar', value: 'مواقد بطيئة')
                 ],
               ),
               KW(
                 id: 'prd_app_pro_pro',
-                names: <Name>[
-                  Name(code: 'en', value: 'Food processor'),
-                  Name(code: 'ar', value: 'أجهزة معالجة للطعام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Food processor'),
+                  Phrase(langCode: 'ar', value: 'أجهزة معالجة للطعام')
                 ],
               ),
               KW(
                 id: 'prd_app_pro_meat',
-                names: <Name>[
-                  Name(code: 'en', value: 'Meat grinders'),
-                  Name(code: 'ar', value: 'مطاحن لحوم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Meat grinders'),
+                  Phrase(langCode: 'ar', value: 'مطاحن لحوم')
                 ],
               ),
               KW(
                 id: 'prd_app_pro_rice',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rice cookers & steamers'),
-                  Name(code: 'ar', value: 'حلل طهي أرز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rice cookers & steamers'),
+                  Phrase(langCode: 'ar', value: 'حلل طهي أرز')
                 ],
               ),
               KW(
                 id: 'prd_app_pro_dehydrator',
-                names: <Name>[
-                  Name(code: 'en', value: 'Food Dehydrators'),
-                  Name(code: 'ar', value: 'مجففات طعام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Food Dehydrators'),
+                  Phrase(langCode: 'ar', value: 'مجففات طعام')
                 ],
               ),
               KW(
                 id: 'prd_app_pro_mixer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Food Mixers'),
-                  Name(code: 'ar', value: 'آلة عجن و خلط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Food Mixers'),
+                  Phrase(langCode: 'ar', value: 'آلة عجن و خلط')
                 ],
               ),
             ],
@@ -417,51 +416,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_drinks',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Drinks Appliances'),
-              Name(code: 'ar', value: 'أجهزة تحضير مشروبات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Drinks Appliances'),
+              Phrase(langCode: 'ar', value: 'أجهزة تحضير مشروبات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_drink_coffeeMaker',
-                names: <Name>[
-                  Name(code: 'en', value: 'Coffee maker'),
-                  Name(code: 'ar', value: 'ماكينات قهوة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Coffee maker'),
+                  Phrase(langCode: 'ar', value: 'ماكينات قهوة')
                 ],
               ),
               KW(
                 id: 'prd_app_drink_coffeeGrinder',
-                names: <Name>[
-                  Name(code: 'en', value: 'Coffee grinder'),
-                  Name(code: 'ar', value: 'مطاحن قهوة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Coffee grinder'),
+                  Phrase(langCode: 'ar', value: 'مطاحن قهوة')
                 ],
               ),
               KW(
                 id: 'prd_app_drink_espresso',
-                names: <Name>[
-                  Name(code: 'en', value: 'Espresso machine'),
-                  Name(code: 'ar', value: 'ماكينات اسبريسو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Espresso machine'),
+                  Phrase(langCode: 'ar', value: 'ماكينات اسبريسو')
                 ],
               ),
               KW(
                 id: 'prd_app_drink_blender',
-                names: <Name>[
-                  Name(code: 'en', value: 'Blender'),
-                  Name(code: 'ar', value: 'خلاطات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Blender'),
+                  Phrase(langCode: 'ar', value: 'خلاطات')
                 ],
               ),
               KW(
                 id: 'prd_app_drink_juicer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Juicers'),
-                  Name(code: 'ar', value: 'عصارات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Juicers'),
+                  Phrase(langCode: 'ar', value: 'عصارات')
                 ],
               ),
               KW(
                 id: 'prd_app_drink_kettle',
-                names: <Name>[
-                  Name(code: 'en', value: 'Boilers / Kettles'),
-                  Name(code: 'ar', value: 'غلايات و سخانات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Boilers / Kettles'),
+                  Phrase(langCode: 'ar', value: 'غلايات و سخانات')
                 ],
               ),
             ],
@@ -471,23 +470,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_app_bathroom',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Bathroom Appliances'),
-              Name(code: 'ar', value: 'أجهزة حمام كهربائية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Bathroom Appliances'),
+              Phrase(langCode: 'ar', value: 'أجهزة حمام كهربائية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_app_bath_handDryer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hand dryer'),
-                  Name(code: 'ar', value: 'منشفة أيدي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hand dryer'),
+                  Phrase(langCode: 'ar', value: 'منشفة أيدي')
                 ],
               ),
               KW(
                 id: 'prd_app_bath_hairDryer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hair dryer'),
-                  Name(code: 'ar', value: 'سشوار شعر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hair dryer'),
+                  Phrase(langCode: 'ar', value: 'سشوار شعر')
                 ],
               ),
             ],
@@ -499,9 +498,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_doors',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Doors & Windows'),
-          Name(code: 'ar', value: 'أبواب و شبابيك')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Doors & Windows'),
+          Phrase(langCode: 'ar', value: 'أبواب و شبابيك')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -509,23 +508,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_door_windows',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Windows'),
-              Name(code: 'ar', value: 'شبابيك')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Windows'),
+              Phrase(langCode: 'ar', value: 'شبابيك')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_doors_win_glassPanel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Window panels'),
-                  Name(code: 'ar', value: 'قطاعات شبابيك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Window panels'),
+                  Phrase(langCode: 'ar', value: 'قطاعات شبابيك')
                 ],
               ),
               KW(
                 id: 'prd_doors_win_skyLight',
-                names: <Name>[
-                  Name(code: 'en', value: 'Skylights'),
-                  Name(code: 'ar', value: 'قطاعات شبابيك سقفية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Skylights'),
+                  Phrase(langCode: 'ar', value: 'قطاعات شبابيك سقفية')
                 ],
               ),
             ],
@@ -535,23 +534,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_doors_shutters',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Shutters'),
-              Name(code: 'ar', value: 'شيش حصيرة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Shutters'),
+              Phrase(langCode: 'ar', value: 'شيش حصيرة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_doors_shutters_metal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Metal shutters'),
-                  Name(code: 'ar', value: 'شيش حصيرة معدني')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Metal shutters'),
+                  Phrase(langCode: 'ar', value: 'شيش حصيرة معدني')
                 ],
               ),
               KW(
                 id: 'prd_doors_shutters_aluminum',
-                names: <Name>[
-                  Name(code: 'en', value: 'Aluminum shutters'),
-                  Name(code: 'ar', value: 'شيش حصيرة ألومنيوم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Aluminum shutters'),
+                  Phrase(langCode: 'ar', value: 'شيش حصيرة ألومنيوم')
                 ],
               ),
             ],
@@ -561,114 +560,114 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_door_hardware',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Hardware'),
-              Name(code: 'ar', value: 'اكسسوارات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Hardware'),
+              Phrase(langCode: 'ar', value: 'اكسسوارات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_doors_hardware_hinges',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hinges & Accessories'),
-                  Name(code: 'ar', value: 'مفصلات و اكسسوارات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hinges & Accessories'),
+                  Phrase(langCode: 'ar', value: 'مفصلات و اكسسوارات')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_doorbell',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door Chimes'),
-                  Name(code: 'ar', value: 'أجراس أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door Chimes'),
+                  Phrase(langCode: 'ar', value: 'أجراس أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_entrySet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door Entry sets'),
-                  Name(code: 'ar', value: 'أطقم مقابض أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door Entry sets'),
+                  Phrase(langCode: 'ar', value: 'أطقم مقابض أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_lever',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door levers'),
-                  Name(code: 'ar', value: 'أكر أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door levers'),
+                  Phrase(langCode: 'ar', value: 'أكر أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_knob',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door knobs'),
-                  Name(code: 'ar', value: 'مقابض أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door knobs'),
+                  Phrase(langCode: 'ar', value: 'مقابض أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_knocker',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door knockers'),
-                  Name(code: 'ar', value: 'مطارق أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door knockers'),
+                  Phrase(langCode: 'ar', value: 'مطارق أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_lock',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door locks'),
-                  Name(code: 'ar', value: 'أقفال أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door locks'),
+                  Phrase(langCode: 'ar', value: 'أقفال أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_stop',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door stops & bumpers'),
-                  Name(code: 'ar', value: 'مصدات أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door stops & bumpers'),
+                  Phrase(langCode: 'ar', value: 'مصدات أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_sliding',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sliding doors systems'),
-                  Name(code: 'ar', value: 'مجاري أبواب منزلقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sliding doors systems'),
+                  Phrase(langCode: 'ar', value: 'مجاري أبواب منزلقة')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_hook',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door hooks'),
-                  Name(code: 'ar', value: 'كلّاب أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door hooks'),
+                  Phrase(langCode: 'ar', value: 'كلّاب أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_eye',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door eye'),
-                  Name(code: 'ar', value: 'عيون أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door eye'),
+                  Phrase(langCode: 'ar', value: 'عيون أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_sign',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door signs'),
-                  Name(code: 'ar', value: 'لافتات أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door signs'),
+                  Phrase(langCode: 'ar', value: 'لافتات أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_dust',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door dust draught'),
-                  Name(code: 'ar', value: 'فرشاة تراب ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door dust draught'),
+                  Phrase(langCode: 'ar', value: 'فرشاة تراب ')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_closer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door closers'),
-                  Name(code: 'ar', value: 'غالقات أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door closers'),
+                  Phrase(langCode: 'ar', value: 'غالقات أبواب')
                 ],
               ),
               KW(
                 id: 'prd_doors_hardware_tint',
-                names: <Name>[
-                  Name(code: 'en', value: 'Window tint films'),
-                  Name(code: 'ar', value: 'أفلام زجاج شبابيك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Window tint films'),
+                  Phrase(langCode: 'ar', value: 'أفلام زجاج شبابيك')
                 ],
               ),
             ],
@@ -678,79 +677,79 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_door_doors',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Doors'),
-              Name(code: 'ar', value: 'أبواب')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Doors'),
+              Phrase(langCode: 'ar', value: 'أبواب')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_doors_doors_front',
-                names: <Name>[
-                  Name(code: 'en', value: 'Front doors'),
-                  Name(code: 'ar', value: 'أبواب أمامية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Front doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب أمامية')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_interior',
-                names: <Name>[
-                  Name(code: 'en', value: 'Interior doors'),
-                  Name(code: 'ar', value: 'أبواب داخلية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Interior doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب داخلية')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_folding',
-                names: <Name>[
-                  Name(code: 'en', value: 'Folding &  Accordion doors'),
-                  Name(code: 'ar', value: 'أبواب قابلة للطي و أكورديون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Folding &  Accordion doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب قابلة للطي و أكورديون')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_shower',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shower doors'),
-                  Name(code: 'ar', value: 'أبواب دش استحمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shower doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب دش استحمام')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_patio',
-                names: <Name>[
-                  Name(code: 'en', value: 'Patio & Sliding doors'),
-                  Name(code: 'ar', value: 'أبواب تراس منزلقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Patio & Sliding doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب تراس منزلقة')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_screen',
-                names: <Name>[
-                  Name(code: 'en', value: 'Screen & Mesh doors'),
-                  Name(code: 'ar', value: 'أبواب سلك شبكي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Screen & Mesh doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب سلك شبكي')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_garage',
-                names: <Name>[
-                  Name(code: 'en', value: 'Garage doors'),
-                  Name(code: 'ar', value: 'أبواب جراج')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Garage doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب جراج')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_metalGate',
-                names: <Name>[
-                  Name(code: 'en', value: 'Metal gates'),
-                  Name(code: 'ar', value: 'بوابات معدنية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Metal gates'),
+                  Phrase(langCode: 'ar', value: 'بوابات معدنية')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_escape',
-                names: <Name>[
-                  Name(code: 'en', value: 'Escape doors'),
-                  Name(code: 'ar', value: 'أبواب هروب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Escape doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب هروب')
                 ],
               ),
               KW(
                 id: 'prd_doors_doors_blast',
-                names: <Name>[
-                  Name(code: 'en', value: 'Blast proof doors'),
-                  Name(code: 'ar', value: 'أبواب مقاومة للإنفجار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Blast proof doors'),
+                  Phrase(langCode: 'ar', value: 'أبواب مقاومة للإنفجار')
                 ],
               ),
             ],
@@ -762,9 +761,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_electricity',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Electricity'),
-          Name(code: 'ar', value: 'كهرباء')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Electricity'),
+          Phrase(langCode: 'ar', value: 'كهرباء')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -772,37 +771,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_elec_powerStorage',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Power Storage'),
-              Name(code: 'ar', value: 'تخزين كهرباء')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Power Storage'),
+              Phrase(langCode: 'ar', value: 'تخزين كهرباء')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_elec_storage_rechargeable',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rechargeable batteries'),
-                  Name(code: 'ar', value: 'بطاريات قابلة للشحن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rechargeable batteries'),
+                  Phrase(langCode: 'ar', value: 'بطاريات قابلة للشحن')
                 ],
               ),
               KW(
                 id: 'prd_elec_storage_nonRechargeable',
-                names: <Name>[
-                  Name(code: 'en', value: 'Non Rechargeable batteries'),
-                  Name(code: 'ar', value: 'بطاريات غير قابلة للشحن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Non Rechargeable batteries'),
+                  Phrase(langCode: 'ar', value: 'بطاريات غير قابلة للشحن')
                 ],
               ),
               KW(
                 id: 'prd_elec_storage_accessories',
-                names: <Name>[
-                  Name(code: 'en', value: 'Battery accessories'),
-                  Name(code: 'ar', value: 'اكسسوارات بطاريات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Battery accessories'),
+                  Phrase(langCode: 'ar', value: 'اكسسوارات بطاريات')
                 ],
               ),
               KW(
                 id: 'prd_elec_storage_portable',
-                names: <Name>[
-                  Name(code: 'en', value: 'Portable power storage'),
-                  Name(code: 'ar', value: 'تخزين طاقة متنقل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Portable power storage'),
+                  Phrase(langCode: 'ar', value: 'تخزين طاقة متنقل')
                 ],
               ),
             ],
@@ -812,37 +811,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_elec_organization',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Electricity Organizers'),
-              Name(code: 'ar', value: 'منسقات كهربائية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Electricity Organizers'),
+              Phrase(langCode: 'ar', value: 'منسقات كهربائية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_elec_org_load',
-                names: <Name>[
-                  Name(code: 'en', value: 'Load centers'),
-                  Name(code: 'ar', value: 'مراكز حمل كهربي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Load centers'),
+                  Phrase(langCode: 'ar', value: 'مراكز حمل كهربي')
                 ],
               ),
               KW(
                 id: 'prd_elec_org_conduit',
-                names: <Name>[
-                  Name(code: 'en', value: 'Conduit & fittings'),
-                  Name(code: 'ar', value: 'خراطيم كهرباء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Conduit & fittings'),
+                  Phrase(langCode: 'ar', value: 'خراطيم كهرباء')
                 ],
               ),
               KW(
                 id: 'prd_elec_org_junction',
-                names: <Name>[
-                  Name(code: 'en', value: 'Junction boxes & covers'),
-                  Name(code: 'ar', value: 'بواط توزيع كهرباء و أغطيتها')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Junction boxes & covers'),
+                  Phrase(langCode: 'ar', value: 'بواط توزيع كهرباء و أغطيتها')
                 ],
               ),
               KW(
                 id: 'prd_elec_org_hook',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hooks & cable organizers'),
-                  Name(code: 'ar', value: 'خطافات و منظمات أسلاك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hooks & cable organizers'),
+                  Phrase(langCode: 'ar', value: 'خطافات و منظمات أسلاك')
                 ],
               ),
             ],
@@ -852,86 +851,86 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_elec_instruments',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Electricity Instruments'),
-              Name(code: 'ar', value: 'أجهزة كهربائية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Electricity Instruments'),
+              Phrase(langCode: 'ar', value: 'أجهزة كهربائية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_elec_instr_factor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Power factor controllers'),
-                  Name(code: 'ar', value: 'منظمات عامل طاقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Power factor controllers'),
+                  Phrase(langCode: 'ar', value: 'منظمات عامل طاقة')
                 ],
               ),
               KW(
                 id: 'prd_elec_instr_measure',
-                names: <Name>[
-                  Name(code: 'en', value: 'Power measurement devices'),
-                  Name(code: 'ar', value: 'أجهزة قياس كهرباء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Power measurement devices'),
+                  Phrase(langCode: 'ar', value: 'أجهزة قياس كهرباء')
                 ],
               ),
               KW(
                 id: 'prd_elec_instr_clamp',
-                names: <Name>[
-                  Name(code: 'en', value: 'Power clamp meters'),
-                  Name(code: 'ar', value: 'أجهزة قياس كهرباء كلّابة معلقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Power clamp meters'),
+                  Phrase(langCode: 'ar', value: 'أجهزة قياس كهرباء كلّابة معلقة')
                 ],
               ),
               KW(
                 id: 'prd_elec_instr_powerMeter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Power meters'),
-                  Name(code: 'ar', value: 'عداد كهرباء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Power meters'),
+                  Phrase(langCode: 'ar', value: 'عداد كهرباء')
                 ],
               ),
               KW(
                 id: 'prd_elec_instr_resistance',
-                names: <Name>[
-                  Name(code: 'en', value: 'Resistance testers'),
-                  Name(code: 'ar', value: 'فاحص مقاومة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Resistance testers'),
+                  Phrase(langCode: 'ar', value: 'فاحص مقاومة')
                 ],
               ),
               KW(
                 id: 'prd_elec_instr_transformer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Transformers'),
-                  Name(code: 'ar', value: 'محولات كهربائية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Transformers'),
+                  Phrase(langCode: 'ar', value: 'محولات كهربائية')
                 ],
               ),
               KW(
                 id: 'prd_elec_instr_frequency',
-                names: <Name>[
-                  Name(code: 'en', value: 'Frequency inverters'),
-                  Name(code: 'ar', value: 'عاكس تردد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Frequency inverters'),
+                  Phrase(langCode: 'ar', value: 'عاكس تردد')
                 ],
               ),
               KW(
                 id: 'prd_elec_instr_relay',
-                names: <Name>[
-                  Name(code: 'en', value: 'Current relays'),
-                  Name(code: 'ar', value: 'ممررات تيار كهربي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Current relays'),
+                  Phrase(langCode: 'ar', value: 'ممررات تيار كهربي')
                 ],
               ),
               KW(
                 id: 'prd_elec_inst_dc',
-                names: <Name>[
-                  Name(code: 'en', value: 'Power supplies'),
-                  Name(code: 'ar', value: 'مزودات طاقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Power supplies'),
+                  Phrase(langCode: 'ar', value: 'مزودات طاقة')
                 ],
               ),
               KW(
                 id: 'prd_elec_inst_inverter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Power inverters'),
-                  Name(code: 'ar', value: 'محولات طاقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Power inverters'),
+                  Phrase(langCode: 'ar', value: 'محولات طاقة')
                 ],
               ),
               KW(
                 id: 'prd_elec_inst_regulator',
-                names: <Name>[
-                  Name(code: 'en', value: 'Voltage regulators'),
-                  Name(code: 'ar', value: 'منظمات جهد كهربي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Voltage regulators'),
+                  Phrase(langCode: 'ar', value: 'منظمات جهد كهربي')
                 ],
               ),
             ],
@@ -941,65 +940,65 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_elec_generators',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Electricity Generators'),
-              Name(code: 'ar', value: 'مولدات كهرباء')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Electricity Generators'),
+              Phrase(langCode: 'ar', value: 'مولدات كهرباء')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_elec_gen_solar',
-                names: <Name>[
-                  Name(code: 'en', value: 'Solar power'),
-                  Name(code: 'ar', value: 'طاقة شمسية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Solar power'),
+                  Phrase(langCode: 'ar', value: 'طاقة شمسية')
                 ],
               ),
               KW(
                 id: 'prd_elec_gen_wind',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wind power'),
-                  Name(code: 'ar', value: 'طاقة رياح')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wind power'),
+                  Phrase(langCode: 'ar', value: 'طاقة رياح')
                 ],
               ),
               KW(
                 id: 'prd_elec_gen_hydro',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hydro power'),
-                  Name(code: 'ar', value: 'طاقة تيارات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hydro power'),
+                  Phrase(langCode: 'ar', value: 'طاقة تيارات')
                 ],
               ),
               KW(
                 id: 'prd_elec_gen_steam',
-                names: <Name>[
-                  Name(code: 'en', value: 'Steam power'),
-                  Name(code: 'ar', value: 'طاقة بخار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Steam power'),
+                  Phrase(langCode: 'ar', value: 'طاقة بخار')
                 ],
               ),
               KW(
                 id: 'prd_elec_gen_diesel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Diesel power'),
-                  Name(code: 'ar', value: 'طاقة ديزل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Diesel power'),
+                  Phrase(langCode: 'ar', value: 'طاقة ديزل')
                 ],
               ),
               KW(
                 id: 'prd_elec_gen_gasoline',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gasoline power'),
-                  Name(code: 'ar', value: 'طاقة بنزين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gasoline power'),
+                  Phrase(langCode: 'ar', value: 'طاقة بنزين')
                 ],
               ),
               KW(
                 id: 'prd_elec_gen_gas',
-                names: <Name>[
-                  Name(code: 'en', value: 'Natural gas power'),
-                  Name(code: 'ar', value: 'طاقة غاز طبيعي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Natural gas power'),
+                  Phrase(langCode: 'ar', value: 'طاقة غاز طبيعي')
                 ],
               ),
               KW(
                 id: 'prd_elec_gen_hydrogen',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hydrogen power'),
-                  Name(code: 'ar', value: 'طاقة هيدروجين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hydrogen power'),
+                  Phrase(langCode: 'ar', value: 'طاقة هيدروجين')
                 ],
               ),
             ],
@@ -1009,51 +1008,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_elec_switches',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Electrical Switches'),
-              Name(code: 'ar', value: 'مفاتيح كهربائية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Electrical Switches'),
+              Phrase(langCode: 'ar', value: 'مفاتيح كهربائية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_elec_switches_outlet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall switches & Outlets'),
-                  Name(code: 'ar', value: 'مفاتيح كهربائية و إضاءة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall switches & Outlets'),
+                  Phrase(langCode: 'ar', value: 'مفاتيح كهربائية و إضاءة')
                 ],
               ),
               KW(
                 id: 'prd_elec_switches_thermostat',
-                names: <Name>[
-                  Name(code: 'en', value: 'Thermostats'),
-                  Name(code: 'ar', value: 'ترموستات منظم حرارة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Thermostats'),
+                  Phrase(langCode: 'ar', value: 'ترموستات منظم حرارة')
                 ],
               ),
               KW(
                 id: 'prd_elec_switches_dimmer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dimmers'),
-                  Name(code: 'ar', value: 'متحكم و معتم قوة الإضاءة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dimmers'),
+                  Phrase(langCode: 'ar', value: 'متحكم و معتم قوة الإضاءة')
                 ],
               ),
               KW(
                 id: 'prd_elec_switches_plate',
-                names: <Name>[
-                  Name(code: 'en', value: 'Switch plates & outlet covers'),
-                  Name(code: 'ar', value: 'لوحات و أغطية كهربائية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Switch plates & outlet covers'),
+                  Phrase(langCode: 'ar', value: 'لوحات و أغطية كهربائية')
                 ],
               ),
               KW(
                 id: 'prd_elec_switches_circuit',
-                names: <Name>[
-                  Name(code: 'en', value: 'Circuit breakers & fuses'),
-                  Name(code: 'ar', value: 'قواطع و فيوزات كهربائية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Circuit breakers & fuses'),
+                  Phrase(langCode: 'ar', value: 'قواطع و فيوزات كهربائية')
                 ],
               ),
               KW(
                 id: 'prd_elec_switches_doorbell',
-                names: <Name>[
-                  Name(code: 'en', value: 'Doorbells'),
-                  Name(code: 'ar', value: 'أجراس أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Doorbells'),
+                  Phrase(langCode: 'ar', value: 'أجراس أبواب')
                 ],
               ),
             ],
@@ -1063,44 +1062,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_elec_motors',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Electrical Motors'),
-              Name(code: 'ar', value: 'مواتير كهربائية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Electrical Motors'),
+              Phrase(langCode: 'ar', value: 'مواتير كهربائية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_elec_motor_ac',
-                names: <Name>[
-                  Name(code: 'en', value: 'AC motors'),
-                  Name(code: 'ar', value: 'مواتير تيار متردد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'AC motors'),
+                  Phrase(langCode: 'ar', value: 'مواتير تيار متردد')
                 ],
               ),
               KW(
                 id: 'prd_elec_motor_dc',
-                names: <Name>[
-                  Name(code: 'en', value: 'DC motors'),
-                  Name(code: 'ar', value: 'مواتير تيار ثابت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'DC motors'),
+                  Phrase(langCode: 'ar', value: 'مواتير تيار ثابت')
                 ],
               ),
               KW(
                 id: 'prd_elec_motor_vibro',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vibration motors'),
-                  Name(code: 'ar', value: 'مواتير اهتزاز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vibration motors'),
+                  Phrase(langCode: 'ar', value: 'مواتير اهتزاز')
                 ],
               ),
               KW(
                 id: 'prd_elec_motor_controller',
-                names: <Name>[
-                  Name(code: 'en', value: 'Motor controllers & drivers'),
-                  Name(code: 'ar', value: 'متحكمات مواتير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Motor controllers & drivers'),
+                  Phrase(langCode: 'ar', value: 'متحكمات مواتير')
                 ],
               ),
               KW(
                 id: 'prd_elec_motor_part',
-                names: <Name>[
-                  Name(code: 'en', value: 'Motor parts'),
-                  Name(code: 'ar', value: 'أجزاء مواتير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Motor parts'),
+                  Phrase(langCode: 'ar', value: 'أجزاء مواتير')
                 ],
               ),
             ],
@@ -1110,51 +1109,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_elec_connectors',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Electrical Connectors'),
-              Name(code: 'ar', value: 'وصلات كهربائية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Electrical Connectors'),
+              Phrase(langCode: 'ar', value: 'وصلات كهربائية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_elec_connectors_alligator',
-                names: <Name>[
-                  Name(code: 'en', value: 'Alligator clips'),
-                  Name(code: 'ar', value: 'مقلمة تمساح')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Alligator clips'),
+                  Phrase(langCode: 'ar', value: 'مقلمة تمساح')
                 ],
               ),
               KW(
                 id: 'prd_elec_connectors_connector',
-                names: <Name>[
-                  Name(code: 'en', value: 'Power connectors'),
-                  Name(code: 'ar', value: 'لقم توصيل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Power connectors'),
+                  Phrase(langCode: 'ar', value: 'لقم توصيل')
                 ],
               ),
               KW(
                 id: 'prd_elec_connectors_terminal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Terminals & accessories'),
-                  Name(code: 'ar', value: 'أقطاب و اكسسوارات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Terminals & accessories'),
+                  Phrase(langCode: 'ar', value: 'أقطاب و اكسسوارات')
                 ],
               ),
               KW(
                 id: 'prd_elec_connectors_strip',
-                names: <Name>[
-                  Name(code: 'en', value: 'Power strips'),
-                  Name(code: 'ar', value: 'مشترك كهربائي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Power strips'),
+                  Phrase(langCode: 'ar', value: 'مشترك كهربائي')
                 ],
               ),
               KW(
                 id: 'prd_elec_connectors_socket',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sockets & plugs'),
-                  Name(code: 'ar', value: 'مقابس كهرباء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sockets & plugs'),
+                  Phrase(langCode: 'ar', value: 'مقابس كهرباء')
                 ],
               ),
               KW(
                 id: 'prd_elec_connectors_adapter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Adapters'),
-                  Name(code: 'ar', value: 'محولات كهربائية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Adapters'),
+                  Phrase(langCode: 'ar', value: 'محولات كهربائية')
                 ],
               ),
             ],
@@ -1164,23 +1163,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_elec_cables',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Cables & Wires'),
-              Name(code: 'ar', value: 'كابلات أسلاك')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Cables & Wires'),
+              Phrase(langCode: 'ar', value: 'كابلات أسلاك')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_elec_cables_wire',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cables & Wires'),
-                  Name(code: 'ar', value: 'أسلاك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cables & Wires'),
+                  Phrase(langCode: 'ar', value: 'أسلاك')
                 ],
               ),
               KW(
                 id: 'prd_elec_cables_extension',
-                names: <Name>[
-                  Name(code: 'en', value: 'Extension cables'),
-                  Name(code: 'ar', value: 'أسلاك إطالة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Extension cables'),
+                  Phrase(langCode: 'ar', value: 'أسلاك إطالة')
                 ],
               ),
             ],
@@ -1192,9 +1191,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_fireFighting',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Fire Fighting'),
-          Name(code: 'ar', value: 'مقاومة حريق')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Fire Fighting'),
+          Phrase(langCode: 'ar', value: 'مقاومة حريق')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -1202,44 +1201,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_fire_pumpsCont',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Pumps & Controllers'),
-              Name(code: 'ar', value: 'مضخات و متحكمات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Pumps & Controllers'),
+              Phrase(langCode: 'ar', value: 'مضخات و متحكمات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_fireFighting_pump_pump',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire pumps'),
-                  Name(code: 'ar', value: 'مضخات حريق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire pumps'),
+                  Phrase(langCode: 'ar', value: 'مضخات حريق')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_pump_filter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Filtration systems'),
-                  Name(code: 'ar', value: 'أنظمة تصفية مياه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Filtration systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة تصفية مياه')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_pump_system',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wet systems'),
-                  Name(code: 'ar', value: 'أنظمة إطفاء سائلة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wet systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة إطفاء سائلة')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_pump_foamSystems',
-                names: <Name>[
-                  Name(code: 'en', value: 'Foam & Powder based systems'),
-                  Name(code: 'ar', value: 'أنظمة إطفاء فوم و بودرة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Foam & Powder based systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة إطفاء فوم و بودرة')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_pump_gasSystems',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gas based systems'),
-                  Name(code: 'ar', value: 'أنظمة إطفاء غازية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gas based systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة إطفاء غازية')
                 ],
               ),
             ],
@@ -1249,51 +1248,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_fire_equip',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Fire Fighting Equipment'),
-              Name(code: 'ar', value: 'معدات مكافحة حريق')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Fire Fighting Equipment'),
+              Phrase(langCode: 'ar', value: 'معدات مكافحة حريق')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_fireFighting_equip_hydrant',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire hydrants'),
-                  Name(code: 'ar', value: 'صنبور إطفاء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire hydrants'),
+                  Phrase(langCode: 'ar', value: 'صنبور إطفاء')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_extinguisher',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire Extinguishers'),
-                  Name(code: 'ar', value: 'طفاية حريق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire Extinguishers'),
+                  Phrase(langCode: 'ar', value: 'طفاية حريق')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_pipe',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pipes, Valves & Risers'),
-                  Name(code: 'ar', value: 'مواسير، مفاتيح، صواعد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pipes, Valves & Risers'),
+                  Phrase(langCode: 'ar', value: 'مواسير، مفاتيح، صواعد')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_reel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Reels & Cabinets'),
-                  Name(code: 'ar', value: 'بكرة خرطوم حريق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Reels & Cabinets'),
+                  Phrase(langCode: 'ar', value: 'بكرة خرطوم حريق')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_hose',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hoses & Accessories'),
-                  Name(code: 'ar', value: 'خراطيم حريق و اكسسوارات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hoses & Accessories'),
+                  Phrase(langCode: 'ar', value: 'خراطيم حريق و اكسسوارات')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_curtains',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire curtains'),
-                  Name(code: 'ar', value: 'ستائر حريق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire curtains'),
+                  Phrase(langCode: 'ar', value: 'ستائر حريق')
                 ],
               ),
             ],
@@ -1303,51 +1302,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_fire_clothes',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Fire Fighting Cloth'),
-              Name(code: 'ar', value: 'ملابس مكافحة حريق')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Fire Fighting Cloth'),
+              Phrase(langCode: 'ar', value: 'ملابس مكافحة حريق')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_fireFighting_equip_suit',
-                names: <Name>[
-                  Name(code: 'en', value: 'Suits'),
-                  Name(code: 'ar', value: 'بدلة إطفاء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Suits'),
+                  Phrase(langCode: 'ar', value: 'بدلة إطفاء')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_helmet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Helmets & hoods'),
-                  Name(code: 'ar', value: 'خوذة و أوشحة إطفاء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Helmets & hoods'),
+                  Phrase(langCode: 'ar', value: 'خوذة و أوشحة إطفاء')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_glove',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gloves'),
-                  Name(code: 'ar', value: 'قفازات إطفاء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gloves'),
+                  Phrase(langCode: 'ar', value: 'قفازات إطفاء')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_boots',
-                names: <Name>[
-                  Name(code: 'en', value: 'Boots'),
-                  Name(code: 'ar', value: 'أحذية إطفاء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Boots'),
+                  Phrase(langCode: 'ar', value: 'أحذية إطفاء')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_torches',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drip torches'),
-                  Name(code: 'ar', value: 'شعلة تنقيط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drip torches'),
+                  Phrase(langCode: 'ar', value: 'شعلة تنقيط')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_equip_breathing',
-                names: <Name>[
-                  Name(code: 'en', value: 'Breathing apparatus'),
-                  Name(code: 'ar', value: 'جهاز تنفس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Breathing apparatus'),
+                  Phrase(langCode: 'ar', value: 'جهاز تنفس')
                 ],
               ),
             ],
@@ -1357,23 +1356,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_fire_detectors',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Fire Detectors'),
-              Name(code: 'ar', value: 'كاشفات حريق')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Fire Detectors'),
+              Phrase(langCode: 'ar', value: 'كاشفات حريق')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_fireFighting_detectors_alarm',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire detection & Alarm systems'),
-                  Name(code: 'ar', value: 'أنظمة كشف و إنذار حرائق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire detection & Alarm systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة كشف و إنذار حرائق')
                 ],
               ),
               KW(
                 id: 'prd_fireFighting_detectors_control',
-                names: <Name>[
-                  Name(code: 'en', value: 'Extinguishing control systems'),
-                  Name(code: 'ar', value: 'أنظمة تحكم إطفاء حرائق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Extinguishing control systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة تحكم إطفاء حرائق')
                 ],
               ),
             ],
@@ -1385,9 +1384,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_floors',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Floors & ٍSkirting'),
-          Name(code: 'ar', value: 'أرضيات و وزر')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Floors & ٍSkirting'),
+          Phrase(langCode: 'ar', value: 'أرضيات و وزر')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -1395,16 +1394,16 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_floors_skirting',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Skirting'),
-              Name(code: 'ar', value: 'وزر')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Skirting'),
+              Phrase(langCode: 'ar', value: 'وزر')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_floors_skirting_skirting',
-                names: <Name>[
-                  Name(code: 'en', value: 'Floor skirting'),
-                  Name(code: 'ar', value: 'وزر أرضيات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Floor skirting'),
+                  Phrase(langCode: 'ar', value: 'وزر أرضيات')
                 ],
               ),
             ],
@@ -1414,107 +1413,107 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_floors_tiles',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Floor Tiles'),
-              Name(code: 'ar', value: 'بلاط أرضيات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Floor Tiles'),
+              Phrase(langCode: 'ar', value: 'بلاط أرضيات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_floors_tiles_ceramic',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ceramic'),
-                  Name(code: 'ar', value: 'سيراميك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ceramic'),
+                  Phrase(langCode: 'ar', value: 'سيراميك')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_porcelain',
-                names: <Name>[
-                  Name(code: 'en', value: 'Porcelain'),
-                  Name(code: 'ar', value: 'بورسلين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Porcelain'),
+                  Phrase(langCode: 'ar', value: 'بورسلين')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_mosaic',
-                names: <Name>[
-                  Name(code: 'en', value: 'Mosaic'),
-                  Name(code: 'ar', value: 'موزاييك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Mosaic'),
+                  Phrase(langCode: 'ar', value: 'موزاييك')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_stones',
-                names: <Name>[
-                  Name(code: 'en', value: 'Stones'),
-                  Name(code: 'ar', value: 'حجر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Stones'),
+                  Phrase(langCode: 'ar', value: 'حجر')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_marble',
-                names: <Name>[
-                  Name(code: 'en', value: 'Marble'),
-                  Name(code: 'ar', value: 'رخام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Marble'),
+                  Phrase(langCode: 'ar', value: 'رخام')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_granite',
-                names: <Name>[
-                  Name(code: 'en', value: 'Granite'),
-                  Name(code: 'ar', value: 'جرانيت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Granite'),
+                  Phrase(langCode: 'ar', value: 'جرانيت')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_interlock',
-                names: <Name>[
-                  Name(code: 'en', value: 'Interlock & brick tiles'),
-                  Name(code: 'ar', value: 'إنترلوك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Interlock & brick tiles'),
+                  Phrase(langCode: 'ar', value: 'إنترلوك')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_cork',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cork tiles'),
-                  Name(code: 'ar', value: 'كورك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cork tiles'),
+                  Phrase(langCode: 'ar', value: 'كورك')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_parquet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Parquet'),
-                  Name(code: 'ar', value: 'باركيه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Parquet'),
+                  Phrase(langCode: 'ar', value: 'باركيه')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_glass',
-                names: <Name>[
-                  Name(code: 'en', value: 'Acrylic & Glass tiles'),
-                  Name(code: 'ar', value: 'زجاج و أكريليك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Acrylic & Glass tiles'),
+                  Phrase(langCode: 'ar', value: 'زجاج و أكريليك')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_grc',
-                names: <Name>[
-                  Name(code: 'en', value: 'GRC tiles'),
-                  Name(code: 'ar', value: 'جي آر سي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'GRC tiles'),
+                  Phrase(langCode: 'ar', value: 'جي آر سي')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_metal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Metal tiles'),
-                  Name(code: 'ar', value: 'معادن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Metal tiles'),
+                  Phrase(langCode: 'ar', value: 'معادن')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_terrazzo',
-                names: <Name>[
-                  Name(code: 'en', value: 'Terrazzo tiles'),
-                  Name(code: 'ar', value: 'تيرازو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Terrazzo tiles'),
+                  Phrase(langCode: 'ar', value: 'تيرازو')
                 ],
               ),
               KW(
                 id: 'prd_floors_tiles_medallions',
-                names: <Name>[
-                  Name(code: 'en', value: 'Floor Medallion & Inlays'),
-                  Name(code: 'ar', value: 'ميدالية أرض')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Floor Medallion & Inlays'),
+                  Phrase(langCode: 'ar', value: 'ميدالية أرض')
                 ],
               ),
             ],
@@ -1524,44 +1523,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_floors_planks',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Floor Planks'),
-              Name(code: 'ar', value: 'ألواح أرضيات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Floor Planks'),
+              Phrase(langCode: 'ar', value: 'ألواح أرضيات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_floors_planks_bamboo',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bamboo flooring'),
-                  Name(code: 'ar', value: 'بامبو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bamboo flooring'),
+                  Phrase(langCode: 'ar', value: 'بامبو')
                 ],
               ),
               KW(
                 id: 'prd_floors_planks_engineered',
-                names: <Name>[
-                  Name(code: 'en', value: 'Engineered wood plank'),
-                  Name(code: 'ar', value: 'ألواح خشب هندسية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Engineered wood plank'),
+                  Phrase(langCode: 'ar', value: 'ألواح خشب هندسية')
                 ],
               ),
               KW(
                 id: 'prd_floors_planks_hardwood',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hardwood plank'),
-                  Name(code: 'ar', value: 'ألواح خب صلب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hardwood plank'),
+                  Phrase(langCode: 'ar', value: 'ألواح خب صلب')
                 ],
               ),
               KW(
                 id: 'prd_floors_planks_laminate',
-                names: <Name>[
-                  Name(code: 'en', value: 'Laminate plank'),
-                  Name(code: 'ar', value: 'قشرة خشب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Laminate plank'),
+                  Phrase(langCode: 'ar', value: 'قشرة خشب')
                 ],
               ),
               KW(
                 id: 'prd_floors_planks_wpc',
-                names: <Name>[
-                  Name(code: 'en', value: 'WPC plank'),
-                  Name(code: 'ar', value: 'ألواح دبليو بي سي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'WPC plank'),
+                  Phrase(langCode: 'ar', value: 'ألواح دبليو بي سي')
                 ],
               ),
             ],
@@ -1571,30 +1570,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_floors_paving',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Floor Paving'),
-              Name(code: 'ar', value: 'تمهيد أرضيات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Floor Paving'),
+              Phrase(langCode: 'ar', value: 'تمهيد أرضيات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_floors_paving_screed',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cement screed'),
-                  Name(code: 'ar', value: 'أرضية أسمنتية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cement screed'),
+                  Phrase(langCode: 'ar', value: 'أرضية أسمنتية')
                 ],
               ),
               KW(
                 id: 'prd_floors_paving_epoxy',
-                names: <Name>[
-                  Name(code: 'en', value: 'Epoxy coating'),
-                  Name(code: 'ar', value: 'إيبوكسي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Epoxy coating'),
+                  Phrase(langCode: 'ar', value: 'إيبوكسي')
                 ],
               ),
               KW(
                 id: 'prd_floors_paving_asphalt',
-                names: <Name>[
-                  Name(code: 'en', value: 'Asphalt flooring'),
-                  Name(code: 'ar', value: 'أسفلت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Asphalt flooring'),
+                  Phrase(langCode: 'ar', value: 'أسفلت')
                 ],
               ),
             ],
@@ -1604,37 +1603,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_floors_covering',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Floor Covering'),
-              Name(code: 'ar', value: 'تغطيات أرضيات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Floor Covering'),
+              Phrase(langCode: 'ar', value: 'تغطيات أرضيات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_floors_covering_vinyl',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vinyl flooring'),
-                  Name(code: 'ar', value: 'فينيل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vinyl flooring'),
+                  Phrase(langCode: 'ar', value: 'فينيل')
                 ],
               ),
               KW(
                 id: 'prd_floors_covering_carpet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Carpet flooring'),
-                  Name(code: 'ar', value: 'سجاد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Carpet flooring'),
+                  Phrase(langCode: 'ar', value: 'سجاد')
                 ],
               ),
               KW(
                 id: 'prd_floors_covering_raised',
-                names: <Name>[
-                  Name(code: 'en', value: 'Raised flooring'),
-                  Name(code: 'ar', value: 'أرضية مرتفعة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Raised flooring'),
+                  Phrase(langCode: 'ar', value: 'أرضية مرتفعة')
                 ],
               ),
               KW(
                 id: 'prd_floors_covering_rubber',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rubber mats'),
-                  Name(code: 'ar', value: 'أرضية مطاط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rubber mats'),
+                  Phrase(langCode: 'ar', value: 'أرضية مطاط')
                 ],
               ),
             ],
@@ -1646,9 +1645,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_furniture',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Furniture'),
-          Name(code: 'ar', value: 'أثاث و مفروشات')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Furniture'),
+          Phrase(langCode: 'ar', value: 'أثاث و مفروشات')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -1656,30 +1655,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_wasteDisposal',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Waste Disposal'),
-              Name(code: 'ar', value: 'تخلص من النفايات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Waste Disposal'),
+              Phrase(langCode: 'ar', value: 'تخلص من النفايات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_waste_small',
-                names: <Name>[
-                  Name(code: 'en', value: 'Small trash cans'),
-                  Name(code: 'ar', value: 'سلات قمامة صغيرة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Small trash cans'),
+                  Phrase(langCode: 'ar', value: 'سلات قمامة صغيرة')
                 ],
               ),
               KW(
                 id: 'prd_furn_waste_large',
-                names: <Name>[
-                  Name(code: 'en', value: 'Large trash cans'),
-                  Name(code: 'ar', value: 'سلات قمامة كبيرة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Large trash cans'),
+                  Phrase(langCode: 'ar', value: 'سلات قمامة كبيرة')
                 ],
               ),
               KW(
                 id: 'prd_furn_waste_pull',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pullout trash bins'),
-                  Name(code: 'ar', value: 'سلات قمامة منزلقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pullout trash bins'),
+                  Phrase(langCode: 'ar', value: 'سلات قمامة منزلقة')
                 ],
               ),
             ],
@@ -1689,23 +1688,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_tops',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Vanity Tops'),
-              Name(code: 'ar', value: 'أسطح وحدات حمام و مطبخ')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Vanity Tops'),
+              Phrase(langCode: 'ar', value: 'أسطح وحدات حمام و مطبخ')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_tops_bathVanity',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom vanity tops'),
-                  Name(code: 'ar', value: 'مسطحات وحدات حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom vanity tops'),
+                  Phrase(langCode: 'ar', value: 'مسطحات وحدات حمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_tops_kit',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen counter tops'),
-                  Name(code: 'ar', value: 'مسطحات و جوانب وحدات مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen counter tops'),
+                  Phrase(langCode: 'ar', value: 'مسطحات و جوانب وحدات مطبخ')
                 ],
               ),
             ],
@@ -1715,58 +1714,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_tables',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Tables'),
-              Name(code: 'ar', value: 'طاولات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Tables'),
+              Phrase(langCode: 'ar', value: 'طاولات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_tables_dining',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dining tables'),
-                  Name(code: 'ar', value: 'طاولات طعام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dining tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات طعام')
                 ],
               ),
               KW(
                 id: 'prd_furn_tables_bistro',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pub & Bistro table'),
-                  Name(code: 'ar', value: 'طاولات مقاهي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pub & Bistro table'),
+                  Phrase(langCode: 'ar', value: 'طاولات مقاهي')
                 ],
               ),
               KW(
                 id: 'prd_furn_tables_coffee',
-                names: <Name>[
-                  Name(code: 'en', value: 'Coffee table'),
-                  Name(code: 'ar', value: 'طاولات قهوة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Coffee table'),
+                  Phrase(langCode: 'ar', value: 'طاولات قهوة')
                 ],
               ),
               KW(
                 id: 'prd_furn_tables_folding',
-                names: <Name>[
-                  Name(code: 'en', value: 'Folding table'),
-                  Name(code: 'ar', value: 'طاولات قابلة للطي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Folding table'),
+                  Phrase(langCode: 'ar', value: 'طاولات قابلة للطي')
                 ],
               ),
               KW(
                 id: 'prd_furn_tables_console',
-                names: <Name>[
-                  Name(code: 'en', value: 'Console'),
-                  Name(code: 'ar', value: 'كونسول')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Console'),
+                  Phrase(langCode: 'ar', value: 'كونسول')
                 ],
               ),
               KW(
                 id: 'prd_furn_tables_meeting',
-                names: <Name>[
-                  Name(code: 'en', value: 'Meeting tables'),
-                  Name(code: 'ar', value: 'طاولات اجتماعات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Meeting tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات اجتماعات')
                 ],
               ),
               KW(
                 id: 'prd_furn_tables_side',
-                names: <Name>[
-                  Name(code: 'en', value: 'Side & End tables'),
-                  Name(code: 'ar', value: 'طاولات جانبية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Side & End tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات جانبية')
                 ],
               ),
             ],
@@ -1776,37 +1775,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_seatingBench',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Seating Benches'),
-              Name(code: 'ar', value: 'مجالس')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Seating Benches'),
+              Phrase(langCode: 'ar', value: 'مجالس')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_bench_shower',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shower benches & seats'),
-                  Name(code: 'ar', value: 'مجالس دش استحمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shower benches & seats'),
+                  Phrase(langCode: 'ar', value: 'مجالس دش استحمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_bench_bedVanity',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vanity stools & benches'),
-                  Name(code: 'ar', value: 'كراسي وحدة حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vanity stools & benches'),
+                  Phrase(langCode: 'ar', value: 'كراسي وحدة حمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_bench_bedBench',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bedroom benches'),
-                  Name(code: 'ar', value: 'مجالس غرفة نوم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bedroom benches'),
+                  Phrase(langCode: 'ar', value: 'مجالس غرفة نوم')
                 ],
               ),
               KW(
                 id: 'prd_furn_bench_storage',
-                names: <Name>[
-                  Name(code: 'en', value: 'Accent & storage benches'),
-                  Name(code: 'ar', value: 'مجالس تخزين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Accent & storage benches'),
+                  Phrase(langCode: 'ar', value: 'مجالس تخزين')
                 ],
               ),
             ],
@@ -1816,37 +1815,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_planting',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Planting'),
-              Name(code: 'ar', value: 'زراعة منزلية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Planting'),
+              Phrase(langCode: 'ar', value: 'زراعة منزلية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_planting_stand',
-                names: <Name>[
-                  Name(code: 'en', value: 'Plant stands'),
-                  Name(code: 'ar', value: 'منصة نباتات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Plant stands'),
+                  Phrase(langCode: 'ar', value: 'منصة نباتات')
                 ],
               ),
               KW(
                 id: 'prd_furn_planting_potting',
-                names: <Name>[
-                  Name(code: 'en', value: 'Potting tables'),
-                  Name(code: 'ar', value: 'طاولات أصيص نبات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Potting tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات أصيص نبات')
                 ],
               ),
               KW(
                 id: 'prd_furn_planting_pot',
-                names: <Name>[
-                  Name(code: 'en', value: 'Plants pots'),
-                  Name(code: 'ar', value: 'أصيص نبات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Plants pots'),
+                  Phrase(langCode: 'ar', value: 'أصيص نبات')
                 ],
               ),
               KW(
                 id: 'prd_furn_planting_vase',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vases'),
-                  Name(code: 'ar', value: 'مزهريات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vases'),
+                  Phrase(langCode: 'ar', value: 'مزهريات')
                 ],
               ),
             ],
@@ -1856,37 +1855,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_outTables',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Outdoor Tables'),
-              Name(code: 'ar', value: 'طاولات خارجية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Outdoor Tables'),
+              Phrase(langCode: 'ar', value: 'طاولات خارجية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_outTable_coffee',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Coffee tables'),
-                  Name(code: 'ar', value: 'طاولات قهوة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Coffee tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات قهوة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outTable_side',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor side tables'),
-                  Name(code: 'ar', value: 'طاولات جانبية خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor side tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات جانبية خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outTable_dining',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor dining tables'),
-                  Name(code: 'ar', value: 'طاولات طعام خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor dining tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات طعام خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outTable_cart',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor serving carts'),
-                  Name(code: 'ar', value: 'عربة تقديم خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor serving carts'),
+                  Phrase(langCode: 'ar', value: 'عربة تقديم خارجية')
                 ],
               ),
             ],
@@ -1896,93 +1895,93 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_outSeating',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Outdoor Seating'),
-              Name(code: 'ar', value: 'مقاعد خارجية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Outdoor Seating'),
+              Phrase(langCode: 'ar', value: 'مقاعد خارجية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_outSeat_lounge',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor lounge chairs'),
-                  Name(code: 'ar', value: 'كراسي معيشة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor lounge chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي معيشة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_dining',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor dining chairs'),
-                  Name(code: 'ar', value: 'كراسي مائدة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor dining chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي مائدة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_bar',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor bar stools'),
-                  Name(code: 'ar', value: 'كراسي بار خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor bar stools'),
+                  Phrase(langCode: 'ar', value: 'كراسي بار خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_chaise',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Chaise Lounges'),
-                  Name(code: 'ar', value: 'شيزلونج خارجي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Chaise Lounges'),
+                  Phrase(langCode: 'ar', value: 'شيزلونج خارجي')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_glider',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor gliders'),
-                  Name(code: 'ar', value: 'جلايدر خارجي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor gliders'),
+                  Phrase(langCode: 'ar', value: 'جلايدر خارجي')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_rocking',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Rocking chairs'),
-                  Name(code: 'ar', value: 'كراسي هزازة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Rocking chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي هزازة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_adirondack',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Adirondack chairs'),
-                  Name(code: 'ar', value: 'كراسي أديرونداك خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Adirondack chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي أديرونداك خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_love',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor love seats'),
-                  Name(code: 'ar', value: 'مجالس ثنائية خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor love seats'),
+                  Phrase(langCode: 'ar', value: 'مجالس ثنائية خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_poolLounger',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pool lounger'),
-                  Name(code: 'ar', value: 'سرائر حمام سباحة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pool lounger'),
+                  Phrase(langCode: 'ar', value: 'سرائر حمام سباحة')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_bench',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor benches'),
-                  Name(code: 'ar', value: 'مجالس مسطحة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor benches'),
+                  Phrase(langCode: 'ar', value: 'مجالس مسطحة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_swing',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor porch swings'),
-                  Name(code: 'ar', value: 'كنب هزاز خارجي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor porch swings'),
+                  Phrase(langCode: 'ar', value: 'كنب هزاز خارجي')
                 ],
               ),
               KW(
                 id: 'prd_furn_outSeat_sofa',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor sofas'),
-                  Name(code: 'ar', value: 'أريكة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor sofas'),
+                  Phrase(langCode: 'ar', value: 'أريكة خارجية')
                 ],
               ),
             ],
@@ -1992,30 +1991,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_organizers',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Organizers'),
-              Name(code: 'ar', value: 'منظمات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Organizers'),
+              Phrase(langCode: 'ar', value: 'منظمات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_org_shelf',
-                names: <Name>[
-                  Name(code: 'en', value: 'Display & wall shelves'),
-                  Name(code: 'ar', value: 'أرفف عرض حائطي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Display & wall shelves'),
+                  Phrase(langCode: 'ar', value: 'أرفف عرض حائطي')
                 ],
               ),
               KW(
                 id: 'prd_furn_org_drawer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drawer organizers'),
-                  Name(code: 'ar', value: 'منظمات أدراج')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drawer organizers'),
+                  Phrase(langCode: 'ar', value: 'منظمات أدراج')
                 ],
               ),
               KW(
                 id: 'prd_furn_org_closet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Closet Organizers'),
-                  Name(code: 'ar', value: 'منظمات دولاب ملابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Closet Organizers'),
+                  Phrase(langCode: 'ar', value: 'منظمات دولاب ملابس')
                 ],
               ),
             ],
@@ -2025,44 +2024,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_office',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Office Furniture'),
-              Name(code: 'ar', value: 'أثاث مكاتب')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Office Furniture'),
+              Phrase(langCode: 'ar', value: 'أثاث مكاتب')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_office_desk',
-                names: <Name>[
-                  Name(code: 'en', value: 'Office desks'),
-                  Name(code: 'ar', value: 'مكاتب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Office desks'),
+                  Phrase(langCode: 'ar', value: 'مكاتب')
                 ],
               ),
               KW(
                 id: 'prd_furn_office_deskAccess',
-                names: <Name>[
-                  Name(code: 'en', value: 'Desk accessories'),
-                  Name(code: 'ar', value: 'اكسسوارات مكاتب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Desk accessories'),
+                  Phrase(langCode: 'ar', value: 'اكسسوارات مكاتب')
                 ],
               ),
               KW(
                 id: 'prd_furn_office_drafting',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drafting tables'),
-                  Name(code: 'ar', value: 'طاولات رسم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drafting tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات رسم')
                 ],
               ),
               KW(
                 id: 'prd_furn_officeStore_filing',
-                names: <Name>[
-                  Name(code: 'en', value: 'Filing cabinets'),
-                  Name(code: 'ar', value: 'كابينات ملفات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Filing cabinets'),
+                  Phrase(langCode: 'ar', value: 'كابينات ملفات')
                 ],
               ),
               KW(
                 id: 'prd_furn_officeStore_cart',
-                names: <Name>[
-                  Name(code: 'en', value: 'Office carts & stands'),
-                  Name(code: 'ar', value: 'عربات مكاتب و منصات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Office carts & stands'),
+                  Phrase(langCode: 'ar', value: 'عربات مكاتب و منصات')
                 ],
               ),
             ],
@@ -2072,65 +2071,65 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_livingStorage',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Living Storage'),
-              Name(code: 'ar', value: 'خزائن غرفة معيشة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Living Storage'),
+              Phrase(langCode: 'ar', value: 'خزائن غرفة معيشة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_living_blanket',
-                names: <Name>[
-                  Name(code: 'en', value: 'Blanket & Quilt racks'),
-                  Name(code: 'ar', value: 'وحدات بطانية و لحاف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Blanket & Quilt racks'),
+                  Phrase(langCode: 'ar', value: 'وحدات بطانية و لحاف')
                 ],
               ),
               KW(
                 id: 'prd_furn_living_chest',
-                names: <Name>[
-                  Name(code: 'en', value: 'Accent chests'),
-                  Name(code: 'ar', value: 'وحدات صندوقية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Accent chests'),
+                  Phrase(langCode: 'ar', value: 'وحدات صندوقية')
                 ],
               ),
               KW(
                 id: 'prd_furn_living_bookcase',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bookcases'),
-                  Name(code: 'ar', value: 'مكاتب كتب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bookcases'),
+                  Phrase(langCode: 'ar', value: 'مكاتب كتب')
                 ],
               ),
               KW(
                 id: 'prd_furn_living_media',
-                names: <Name>[
-                  Name(code: 'en', value: 'Media cabinets & TV tables'),
-                  Name(code: 'ar', value: 'وحدات تلفزيون و ميديا')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Media cabinets & TV tables'),
+                  Phrase(langCode: 'ar', value: 'وحدات تلفزيون و ميديا')
                 ],
               ),
               KW(
                 id: 'prd_furn_living_mediaRack',
-                names: <Name>[
-                  Name(code: 'en', value: 'Media racks'),
-                  Name(code: 'ar', value: 'أرفف ميديا')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Media racks'),
+                  Phrase(langCode: 'ar', value: 'أرفف ميديا')
                 ],
               ),
               KW(
                 id: 'prd_furn_living_hallTree',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hall trees'),
-                  Name(code: 'ar', value: 'شماعات القاعة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hall trees'),
+                  Phrase(langCode: 'ar', value: 'شماعات القاعة')
                 ],
               ),
               KW(
                 id: 'prd_furn_living_barCart',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bar carts'),
-                  Name(code: 'ar', value: 'عربات بار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bar carts'),
+                  Phrase(langCode: 'ar', value: 'عربات بار')
                 ],
               ),
               KW(
                 id: 'prd_furn_living_umbrella',
-                names: <Name>[
-                  Name(code: 'en', value: 'Coat racks & umbrella stands'),
-                  Name(code: 'ar', value: 'شماعات معاطف و شمسيات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Coat racks & umbrella stands'),
+                  Phrase(langCode: 'ar', value: 'شماعات معاطف و شمسيات')
                 ],
               ),
             ],
@@ -2140,30 +2139,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_laundry',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Laundry'),
-              Name(code: 'ar', value: 'تجهيزات مغسلة ملابس')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Laundry'),
+              Phrase(langCode: 'ar', value: 'تجهيزات مغسلة ملابس')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_laundry_dryingRack',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drying racks'),
-                  Name(code: 'ar', value: 'أرفف تجفيف ملابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drying racks'),
+                  Phrase(langCode: 'ar', value: 'أرفف تجفيف ملابس')
                 ],
               ),
               KW(
                 id: 'prd_furn_laundry_ironingTable',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ironing table'),
-                  Name(code: 'ar', value: 'طاولات كي ملابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ironing table'),
+                  Phrase(langCode: 'ar', value: 'طاولات كي ملابس')
                 ],
               ),
               KW(
                 id: 'prd_furn_laundry_hamper',
-                names: <Name>[
-                  Name(code: 'en', value: 'Laundry hampers'),
-                  Name(code: 'ar', value: 'سلات غسيل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Laundry hampers'),
+                  Phrase(langCode: 'ar', value: 'سلات غسيل')
                 ],
               ),
             ],
@@ -2173,58 +2172,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_kitchenStorage',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Kitchen Storage'),
-              Name(code: 'ar', value: 'خزائن مطبخ')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Kitchen Storage'),
+              Phrase(langCode: 'ar', value: 'خزائن مطبخ')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_kitStore_cabinet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen cabinet'),
-                  Name(code: 'ar', value: 'كابينات مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen cabinet'),
+                  Phrase(langCode: 'ar', value: 'كابينات مطبخ')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitStore_pantry',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pantry cabinet'),
-                  Name(code: 'ar', value: 'كابينات تخزين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pantry cabinet'),
+                  Phrase(langCode: 'ar', value: 'كابينات تخزين')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitStore_baker',
-                names: <Name>[
-                  Name(code: 'en', value: "Baker's racks"),
-                  Name(code: 'ar', value: 'وحدة أرفف خباز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: "Baker's racks"),
+                  Phrase(langCode: 'ar', value: 'وحدة أرفف خباز')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitStore_island',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen island'),
-                  Name(code: 'ar', value: 'وحدات جزيرة مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen island'),
+                  Phrase(langCode: 'ar', value: 'وحدات جزيرة مطبخ')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitStore_utilityShelf',
-                names: <Name>[
-                  Name(code: 'en', value: 'Utility shelves'),
-                  Name(code: 'ar', value: 'أرفف خدمية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Utility shelves'),
+                  Phrase(langCode: 'ar', value: 'أرفف خدمية')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitStore_utilityCart',
-                names: <Name>[
-                  Name(code: 'en', value: 'Utility carts'),
-                  Name(code: 'ar', value: 'عربات خدمية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Utility carts'),
+                  Phrase(langCode: 'ar', value: 'عربات خدمية')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitStore_kitCart',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen carts'),
-                  Name(code: 'ar', value: 'عربات مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen carts'),
+                  Phrase(langCode: 'ar', value: 'عربات مطبخ')
                 ],
               ),
             ],
@@ -2234,44 +2233,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_Kitchen Accessories',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Kitchen Accessories'),
-              Name(code: 'ar', value: 'اكسسوارات مطبخ')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Kitchen Accessories'),
+              Phrase(langCode: 'ar', value: 'اكسسوارات مطبخ')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_kitaccess_rack',
-                names: <Name>[
-                  Name(code: 'en', value: 'Holders and racks'),
-                  Name(code: 'ar', value: 'وحدات تنظيم مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Holders and racks'),
+                  Phrase(langCode: 'ar', value: 'وحدات تنظيم مطبخ')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitaccess_drawerOrg',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drawer organizers'),
-                  Name(code: 'ar', value: 'وحدات تنظيم أدراج مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drawer organizers'),
+                  Phrase(langCode: 'ar', value: 'وحدات تنظيم أدراج مطبخ')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitaccess_paperHolder',
-                names: <Name>[
-                  Name(code: 'en', value: 'Paper towel holders'),
-                  Name(code: 'ar', value: 'حاملات مناديل مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Paper towel holders'),
+                  Phrase(langCode: 'ar', value: 'حاملات مناديل مطبخ')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitaccess_shelfLiner',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drawer & shelf liners'),
-                  Name(code: 'ar', value: 'بطانة أدراج و أرفف مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drawer & shelf liners'),
+                  Phrase(langCode: 'ar', value: 'بطانة أدراج و أرفف مطبخ')
                 ],
               ),
               KW(
                 id: 'prd_furn_kitaccess_bookstand',
-                names: <Name>[
-                  Name(code: 'en', value: 'Book stands'),
-                  Name(code: 'ar', value: 'منصات كتب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Book stands'),
+                  Phrase(langCode: 'ar', value: 'منصات كتب')
                 ],
               ),
             ],
@@ -2281,93 +2280,93 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_kids',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Kids Furniture'),
-              Name(code: 'ar', value: 'أثاث أطفال')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Kids Furniture'),
+              Phrase(langCode: 'ar', value: 'أثاث أطفال')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_kids_set',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids bedroom sets'),
-                  Name(code: 'ar', value: 'أطقم نوم أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids bedroom sets'),
+                  Phrase(langCode: 'ar', value: 'أطقم نوم أطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_vanity',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids Vanities'),
-                  Name(code: 'ar', value: 'تسريحات أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids Vanities'),
+                  Phrase(langCode: 'ar', value: 'تسريحات أطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_highChair',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids high chairs'),
-                  Name(code: 'ar', value: 'كراسي مرتفعة للأطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids high chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي مرتفعة للأطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_chair',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids seating & chairs'),
-                  Name(code: 'ar', value: 'كراسي أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids seating & chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي أطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_dresser',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids Dressers'),
-                  Name(code: 'ar', value: 'وحدات تخزين أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids Dressers'),
+                  Phrase(langCode: 'ar', value: 'وحدات تخزين أطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_bookcase',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids Bookcases'),
-                  Name(code: 'ar', value: 'مكاتب كتب أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids Bookcases'),
+                  Phrase(langCode: 'ar', value: 'مكاتب كتب أطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_nightstand',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids nightstands'),
-                  Name(code: 'ar', value: 'وحدات سرير أطفال جانبية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids nightstands'),
+                  Phrase(langCode: 'ar', value: 'وحدات سرير أطفال جانبية')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_box',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids boxes & organizers'),
-                  Name(code: 'ar', value: 'صناديق أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids boxes & organizers'),
+                  Phrase(langCode: 'ar', value: 'صناديق أطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_rug',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids rugs'),
-                  Name(code: 'ar', value: 'سجاد أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids rugs'),
+                  Phrase(langCode: 'ar', value: 'سجاد أطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_bed',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids beds'),
-                  Name(code: 'ar', value: 'سرير أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids beds'),
+                  Phrase(langCode: 'ar', value: 'سرير أطفال')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_cradle',
-                names: <Name>[
-                  Name(code: 'en', value: 'Toddler beds & cradles'),
-                  Name(code: 'ar', value: 'سرير و مهد رضيع')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Toddler beds & cradles'),
+                  Phrase(langCode: 'ar', value: 'سرير و مهد رضيع')
                 ],
               ),
               KW(
                 id: 'prd_furn_kids_desk',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids desks'),
-                  Name(code: 'ar', value: 'مكاتب أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids desks'),
+                  Phrase(langCode: 'ar', value: 'مكاتب أطفال')
                 ],
               ),
             ],
@@ -2377,23 +2376,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_parts',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Furniture Parts'),
-              Name(code: 'ar', value: 'أجزاء أثاث')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Furniture Parts'),
+              Phrase(langCode: 'ar', value: 'أجزاء أثاث')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_parts_tableLeg',
-                names: <Name>[
-                  Name(code: 'en', value: 'Table legs'),
-                  Name(code: 'ar', value: 'أرجل طاولات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Table legs'),
+                  Phrase(langCode: 'ar', value: 'أرجل طاولات')
                 ],
               ),
               KW(
                 id: 'prd_furn_parts_tableTop',
-                names: <Name>[
-                  Name(code: 'en', value: 'Table tops'),
-                  Name(code: 'ar', value: 'أسطح طاولات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Table tops'),
+                  Phrase(langCode: 'ar', value: 'أسطح طاولات')
                 ],
               ),
             ],
@@ -2403,58 +2402,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_accessories',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Furniture Accessories'),
-              Name(code: 'ar', value: 'اكسسوارات أثاث')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Furniture Accessories'),
+              Phrase(langCode: 'ar', value: 'اكسسوارات أثاث')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_access_mirror',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall Mirrors'),
-                  Name(code: 'ar', value: 'مرايا حائط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall Mirrors'),
+                  Phrase(langCode: 'ar', value: 'مرايا حائط')
                 ],
               ),
               KW(
                 id: 'prd_furn_access_clock',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall clocks'),
-                  Name(code: 'ar', value: 'ساعات حائط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall clocks'),
+                  Phrase(langCode: 'ar', value: 'ساعات حائط')
                 ],
               ),
               KW(
                 id: 'prd_furn_access_step',
-                names: <Name>[
-                  Name(code: 'en', value: 'Step ladders & stools'),
-                  Name(code: 'ar', value: 'عتبات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Step ladders & stools'),
+                  Phrase(langCode: 'ar', value: 'عتبات')
                 ],
               ),
               KW(
                 id: 'prd_furn_access_charging',
-                names: <Name>[
-                  Name(code: 'en', value: 'Charging station'),
-                  Name(code: 'ar', value: 'محطات شحن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Charging station'),
+                  Phrase(langCode: 'ar', value: 'محطات شحن')
                 ],
               ),
               KW(
                 id: 'prd_furn_access_magazine',
-                names: <Name>[
-                  Name(code: 'en', value: 'Magazine racks'),
-                  Name(code: 'ar', value: 'أرفف مجلات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Magazine racks'),
+                  Phrase(langCode: 'ar', value: 'أرفف مجلات')
                 ],
               ),
               KW(
                 id: 'prd_furn_org_wall',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall Organizers'),
-                  Name(code: 'ar', value: 'منظمات حائطية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall Organizers'),
+                  Phrase(langCode: 'ar', value: 'منظمات حائطية')
                 ],
               ),
               KW(
                 id: 'prd_furn_access_furnProtector',
-                names: <Name>[
-                  Name(code: 'en', value: 'Furniture protectors'),
-                  Name(code: 'ar', value: 'حاميات أثاث')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Furniture protectors'),
+                  Phrase(langCode: 'ar', value: 'حاميات أثاث')
                 ],
               ),
             ],
@@ -2464,51 +2463,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_dressingStorage',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Dressing Storage'),
-              Name(code: 'ar', value: 'خزائن ملابس')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Dressing Storage'),
+              Phrase(langCode: 'ar', value: 'خزائن ملابس')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_dressStore_wardrobe',
-                names: <Name>[
-                  Name(code: 'en', value: 'Armories & Wardrobes'),
-                  Name(code: 'ar', value: 'دواليب ملابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Armories & Wardrobes'),
+                  Phrase(langCode: 'ar', value: 'دواليب ملابس')
                 ],
               ),
               KW(
                 id: 'prd_furn_dressStore_dresser',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dresser'),
-                  Name(code: 'ar', value: 'تسريحات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dresser'),
+                  Phrase(langCode: 'ar', value: 'تسريحات')
                 ],
               ),
               KW(
                 id: 'prd_furn_dressStore_shoe',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shoes closet'),
-                  Name(code: 'ar', value: 'دولاب أحذية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shoes closet'),
+                  Phrase(langCode: 'ar', value: 'دولاب أحذية')
                 ],
               ),
               KW(
                 id: 'prd_furn_dressStore_clothRack',
-                names: <Name>[
-                  Name(code: 'en', value: 'Clothes racks'),
-                  Name(code: 'ar', value: 'شماعات ملابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Clothes racks'),
+                  Phrase(langCode: 'ar', value: 'شماعات ملابس')
                 ],
               ),
               KW(
                 id: 'prd_furn_dressStore_valet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Clothes Valets'),
-                  Name(code: 'ar', value: 'فاليه ملابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Clothes Valets'),
+                  Phrase(langCode: 'ar', value: 'فاليه ملابس')
                 ],
               ),
               KW(
                 id: 'prd_furn_dressStore_jewelry',
-                names: <Name>[
-                  Name(code: 'en', value: 'Jewelry armories'),
-                  Name(code: 'ar', value: 'وحدات مجوهرات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Jewelry armories'),
+                  Phrase(langCode: 'ar', value: 'وحدات مجوهرات')
                 ],
               ),
             ],
@@ -2518,23 +2517,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_diningStorage',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Dining Storage'),
-              Name(code: 'ar', value: 'خزائن غرفة طعام')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Dining Storage'),
+              Phrase(langCode: 'ar', value: 'خزائن غرفة طعام')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_dinStore_china',
-                names: <Name>[
-                  Name(code: 'en', value: 'China cabinet & Hutches'),
-                  Name(code: 'ar', value: 'نيش')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'China cabinet & Hutches'),
+                  Phrase(langCode: 'ar', value: 'نيش')
                 ],
               ),
               KW(
                 id: 'prd_furn_dinStore_buffet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Buffet & sideboards'),
-                  Name(code: 'ar', value: 'بوفيه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Buffet & sideboards'),
+                  Phrase(langCode: 'ar', value: 'بوفيه')
                 ],
               ),
             ],
@@ -2544,79 +2543,79 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_cushions',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Cushions & Pillows'),
-              Name(code: 'ar', value: 'وسائد و مساند')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Cushions & Pillows'),
+              Phrase(langCode: 'ar', value: 'وسائد و مساند')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_cush_pillow',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pillows'),
-                  Name(code: 'ar', value: 'مخدات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pillows'),
+                  Phrase(langCode: 'ar', value: 'مخدات')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_seat',
-                names: <Name>[
-                  Name(code: 'en', value: 'Seats cushions'),
-                  Name(code: 'ar', value: 'وسائد مقاعد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Seats cushions'),
+                  Phrase(langCode: 'ar', value: 'وسائد مقاعد')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_throw',
-                names: <Name>[
-                  Name(code: 'en', value: 'Throws'),
-                  Name(code: 'ar', value: 'أغطية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Throws'),
+                  Phrase(langCode: 'ar', value: 'أغطية')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_floorPillow',
-                names: <Name>[
-                  Name(code: 'en', value: 'Floor Pillows'),
-                  Name(code: 'ar', value: 'وسائد أرضية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Floor Pillows'),
+                  Phrase(langCode: 'ar', value: 'وسائد أرضية')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_pouf',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pouf'),
-                  Name(code: 'ar', value: 'بوف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pouf'),
+                  Phrase(langCode: 'ar', value: 'بوف')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_cush',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cushions'),
-                  Name(code: 'ar', value: 'وسائد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cushions'),
+                  Phrase(langCode: 'ar', value: 'وسائد')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_ottoman',
-                names: <Name>[
-                  Name(code: 'en', value: 'Foot stools & Ottomans'),
-                  Name(code: 'ar', value: 'مساند أقدام عثمانية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Foot stools & Ottomans'),
+                  Phrase(langCode: 'ar', value: 'مساند أقدام عثمانية')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_beanbag',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bean bags'),
-                  Name(code: 'ar', value: 'بين باج')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bean bags'),
+                  Phrase(langCode: 'ar', value: 'بين باج')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_outOttoman',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Ottomans'),
-                  Name(code: 'ar', value: 'مساند عثمانية خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Ottomans'),
+                  Phrase(langCode: 'ar', value: 'مساند عثمانية خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_cush_outCushion',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor cushions & pillows'),
-                  Name(code: 'ar', value: 'مخدات و وسائد خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor cushions & pillows'),
+                  Phrase(langCode: 'ar', value: 'مخدات و وسائد خارجية')
                 ],
               ),
             ],
@@ -2626,58 +2625,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_couch',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Couches'),
-              Name(code: 'ar', value: 'أرائك و كنب')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Couches'),
+              Phrase(langCode: 'ar', value: 'أرائك و كنب')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_couch_chaise',
-                names: <Name>[
-                  Name(code: 'en', value: 'Chaise lounge'),
-                  Name(code: 'ar', value: 'شيزلونج')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Chaise lounge'),
+                  Phrase(langCode: 'ar', value: 'شيزلونج')
                 ],
               ),
               KW(
                 id: 'prd_furn_couch_banquette',
-                names: <Name>[
-                  Name(code: 'en', value: 'Banquettes'),
-                  Name(code: 'ar', value: 'بانكيت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Banquettes'),
+                  Phrase(langCode: 'ar', value: 'بانكيت')
                 ],
               ),
               KW(
                 id: 'prd_furn_couch_sofa',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sofas'),
-                  Name(code: 'ar', value: 'أرائك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sofas'),
+                  Phrase(langCode: 'ar', value: 'أرائك')
                 ],
               ),
               KW(
                 id: 'prd_furn_couch_sectional',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sectional sofas'),
-                  Name(code: 'ar', value: 'أرائك منفصلة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sectional sofas'),
+                  Phrase(langCode: 'ar', value: 'أرائك منفصلة')
                 ],
               ),
               KW(
                 id: 'prd_furn_couch_futon',
-                names: <Name>[
-                  Name(code: 'en', value: 'Futons'),
-                  Name(code: 'ar', value: 'فوتون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Futons'),
+                  Phrase(langCode: 'ar', value: 'فوتون')
                 ],
               ),
               KW(
                 id: 'prd_furn_couch_love',
-                names: <Name>[
-                  Name(code: 'en', value: 'Love seats'),
-                  Name(code: 'ar', value: 'أرائك مزدوجة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Love seats'),
+                  Phrase(langCode: 'ar', value: 'أرائك مزدوجة')
                 ],
               ),
               KW(
                 id: 'prd_furn_couch_sleeper',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sleeper sofas'),
-                  Name(code: 'ar', value: 'أرائك سرير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sleeper sofas'),
+                  Phrase(langCode: 'ar', value: 'أرائك سرير')
                 ],
               ),
             ],
@@ -2687,79 +2686,79 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_sets',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Complete Sets'),
-              Name(code: 'ar', value: 'أطقم متكااملة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Complete Sets'),
+              Phrase(langCode: 'ar', value: 'أطقم متكااملة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_sets_dining',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dining set'),
-                  Name(code: 'ar', value: 'أطقم غرفة طعام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dining set'),
+                  Phrase(langCode: 'ar', value: 'أطقم غرفة طعام')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_bistro',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pub & Bistro set'),
-                  Name(code: 'ar', value: 'أطقم مقاهي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pub & Bistro set'),
+                  Phrase(langCode: 'ar', value: 'أطقم مقاهي')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_living',
-                names: <Name>[
-                  Name(code: 'en', value: 'Living room set'),
-                  Name(code: 'ar', value: 'أطقم غرفة معيشة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Living room set'),
+                  Phrase(langCode: 'ar', value: 'أطقم غرفة معيشة')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_tv',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tv set'),
-                  Name(code: 'ar', value: 'أطقم تلفزيون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tv set'),
+                  Phrase(langCode: 'ar', value: 'أطقم تلفزيون')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_bathVanity',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom vanities'),
-                  Name(code: 'ar', value: 'وحدات حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom vanities'),
+                  Phrase(langCode: 'ar', value: 'وحدات حمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_bedroom',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bedroom sets'),
-                  Name(code: 'ar', value: 'أطقم غرف نوم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bedroom sets'),
+                  Phrase(langCode: 'ar', value: 'أطقم غرف نوم')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_bedVanity',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bedroom vanities'),
-                  Name(code: 'ar', value: 'أطقم تسريحة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bedroom vanities'),
+                  Phrase(langCode: 'ar', value: 'أطقم تسريحة')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_outLounge',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor lounge sets'),
-                  Name(code: 'ar', value: 'أطقم معيشة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor lounge sets'),
+                  Phrase(langCode: 'ar', value: 'أطقم معيشة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_outDining',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Dining sets'),
-                  Name(code: 'ar', value: 'أطقم غرفة طعام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Dining sets'),
+                  Phrase(langCode: 'ar', value: 'أطقم غرفة طعام')
                 ],
               ),
               KW(
                 id: 'prd_furn_sets_outBistro',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor pub & bistro sets'),
-                  Name(code: 'ar', value: 'أطقم مقاهي خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor pub & bistro sets'),
+                  Phrase(langCode: 'ar', value: 'أطقم مقاهي خارجية')
                 ],
               ),
             ],
@@ -2769,114 +2768,114 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_chairs',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Chairs'),
-              Name(code: 'ar', value: 'كراسي')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Chairs'),
+              Phrase(langCode: 'ar', value: 'كراسي')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_chair_bar',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bar & Counter stools'),
-                  Name(code: 'ar', value: 'كراسي بار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bar & Counter stools'),
+                  Phrase(langCode: 'ar', value: 'كراسي بار')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_dining',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dining Chairs'),
-                  Name(code: 'ar', value: 'كراسي مائدة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dining Chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي مائدة')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_diningBench',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dining Benches'),
-                  Name(code: 'ar', value: 'مجالس مائدة منبسطة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dining Benches'),
+                  Phrase(langCode: 'ar', value: 'مجالس مائدة منبسطة')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_arm',
-                names: <Name>[
-                  Name(code: 'en', value: 'Arm chairs'),
-                  Name(code: 'ar', value: 'كراسي بذراع')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Arm chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي بذراع')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_recliner',
-                names: <Name>[
-                  Name(code: 'en', value: 'Recliner chairs'),
-                  Name(code: 'ar', value: 'كراسي ريكلاينر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Recliner chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي ريكلاينر')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_glider',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gliders'),
-                  Name(code: 'ar', value: 'كراسي جلايدر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gliders'),
+                  Phrase(langCode: 'ar', value: 'كراسي جلايدر')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_rocking',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rocking chairs'),
-                  Name(code: 'ar', value: 'كراسي هزازة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rocking chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي هزازة')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_hanging',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hammock & Swing chairs'),
-                  Name(code: 'ar', value: 'كراسي متدلية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hammock & Swing chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي متدلية')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_lift',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lift chairs'),
-                  Name(code: 'ar', value: 'كراسي رفع')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lift chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي رفع')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_massage',
-                names: <Name>[
-                  Name(code: 'en', value: 'Massage chairs'),
-                  Name(code: 'ar', value: 'كراسي تدليك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Massage chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي تدليك')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_sleeper',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sleeper chairs'),
-                  Name(code: 'ar', value: 'كراسي سرير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sleeper chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي سرير')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_theatre',
-                names: <Name>[
-                  Name(code: 'en', value: 'Theatre seating'),
-                  Name(code: 'ar', value: 'كراسي مسرح')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Theatre seating'),
+                  Phrase(langCode: 'ar', value: 'كراسي مسرح')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_folding',
-                names: <Name>[
-                  Name(code: 'en', value: 'Folding chairs & stools'),
-                  Name(code: 'ar', value: 'كراسي قابلة للطي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Folding chairs & stools'),
+                  Phrase(langCode: 'ar', value: 'كراسي قابلة للطي')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_office',
-                names: <Name>[
-                  Name(code: 'en', value: 'Office chairs'),
-                  Name(code: 'ar', value: 'كراسي مكتب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Office chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي مكتب')
                 ],
               ),
               KW(
                 id: 'prd_furn_chair_gaming',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gaming chairs'),
-                  Name(code: 'ar', value: 'كراسي ألعاب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gaming chairs'),
+                  Phrase(langCode: 'ar', value: 'كراسي ألعاب')
                 ],
               ),
             ],
@@ -2886,65 +2885,65 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_carpetsRugs',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Carpets & Rugs'),
-              Name(code: 'ar', value: 'سجاد')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Carpets & Rugs'),
+              Phrase(langCode: 'ar', value: 'سجاد')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_carpet_bathMat',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom Mats'),
-                  Name(code: 'ar', value: 'سجاد حمامات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom Mats'),
+                  Phrase(langCode: 'ar', value: 'سجاد حمامات')
                 ],
               ),
               KW(
                 id: 'prd_furn_carpet_rug',
-                names: <Name>[
-                  Name(code: 'en', value: 'Area rugs'),
-                  Name(code: 'ar', value: 'بساط مساحات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Area rugs'),
+                  Phrase(langCode: 'ar', value: 'بساط مساحات')
                 ],
               ),
               KW(
                 id: 'prd_furn_carpet_doorMat',
-                names: <Name>[
-                  Name(code: 'en', value: 'Door mats'),
-                  Name(code: 'ar', value: 'حصيرة أبواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Door mats'),
+                  Phrase(langCode: 'ar', value: 'حصيرة أبواب')
                 ],
               ),
               KW(
                 id: 'prd_furn_carpet_runner',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hall & stairs runners'),
-                  Name(code: 'ar', value: 'بساط سلالم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hall & stairs runners'),
+                  Phrase(langCode: 'ar', value: 'بساط سلالم')
                 ],
               ),
               KW(
                 id: 'prd_furn_carpet_kitchen',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen mats'),
-                  Name(code: 'ar', value: 'سجاد مطابخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen mats'),
+                  Phrase(langCode: 'ar', value: 'سجاد مطابخ')
                 ],
               ),
               KW(
                 id: 'prd_furn_carpet_outdoor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor rugs'),
-                  Name(code: 'ar', value: 'سجاد خارجي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor rugs'),
+                  Phrase(langCode: 'ar', value: 'سجاد خارجي')
                 ],
               ),
               KW(
                 id: 'prd_furn_carpet_pad',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rug pads'),
-                  Name(code: 'ar', value: 'بطانة سجاد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rug pads'),
+                  Phrase(langCode: 'ar', value: 'بطانة سجاد')
                 ],
               ),
               KW(
                 id: 'prd_furn_carpet_handmade',
-                names: <Name>[
-                  Name(code: 'en', value: 'Handmade rugs'),
-                  Name(code: 'ar', value: 'سجاد يدوي الصنع')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Handmade rugs'),
+                  Phrase(langCode: 'ar', value: 'سجاد يدوي الصنع')
                 ],
               ),
             ],
@@ -2954,37 +2953,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_cabinetHardware',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Cabinet Hardware'),
-              Name(code: 'ar', value: 'اكسسوارات كابينات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Cabinet Hardware'),
+              Phrase(langCode: 'ar', value: 'اكسسوارات كابينات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_cabhard_pull',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cabinet & drawers pulls'),
-                  Name(code: 'ar', value: 'أكر أدراج و كابينات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cabinet & drawers pulls'),
+                  Phrase(langCode: 'ar', value: 'أكر أدراج و كابينات')
                 ],
               ),
               KW(
                 id: 'prd_furn_cabhard_knob',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cabinet & drawers knobs'),
-                  Name(code: 'ar', value: 'مقابض أدراج و كابينات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cabinet & drawers knobs'),
+                  Phrase(langCode: 'ar', value: 'مقابض أدراج و كابينات')
                 ],
               ),
               KW(
                 id: 'prd_furn_cabhard_hook',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall Cloth hooks'),
-                  Name(code: 'ar', value: 'معلاق ملابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall Cloth hooks'),
+                  Phrase(langCode: 'ar', value: 'معلاق ملابس')
                 ],
               ),
               KW(
                 id: 'prd_furn_cabhard_hinge',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cabinet hinges'),
-                  Name(code: 'ar', value: 'مفصلات ضلف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cabinet hinges'),
+                  Phrase(langCode: 'ar', value: 'مفصلات ضلف')
                 ],
               ),
             ],
@@ -2994,37 +2993,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_boxes',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Boxes'),
-              Name(code: 'ar', value: 'صناديق ')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Boxes'),
+              Phrase(langCode: 'ar', value: 'صناديق ')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_boxes_bin',
-                names: <Name>[
-                  Name(code: 'en', value: 'Storage bins & boxes'),
-                  Name(code: 'ar', value: 'سلات و صناديق تخزين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Storage bins & boxes'),
+                  Phrase(langCode: 'ar', value: 'سلات و صناديق تخزين')
                 ],
               ),
               KW(
                 id: 'prd_furn_boxes_outdoor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor boxes'),
-                  Name(code: 'ar', value: 'صناديق تخزين خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor boxes'),
+                  Phrase(langCode: 'ar', value: 'صناديق تخزين خارجية')
                 ],
               ),
               KW(
                 id: 'prd_furn_boxes_ice',
-                names: <Name>[
-                  Name(code: 'en', value: 'Coolers & ice chests'),
-                  Name(code: 'ar', value: 'صناديق ثلج')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Coolers & ice chests'),
+                  Phrase(langCode: 'ar', value: 'صناديق ثلج')
                 ],
               ),
               KW(
                 id: 'prd_furn_boxes_basket',
-                names: <Name>[
-                  Name(code: 'en', value: 'Baskets'),
-                  Name(code: 'ar', value: 'سلات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Baskets'),
+                  Phrase(langCode: 'ar', value: 'سلات')
                 ],
               ),
             ],
@@ -3034,72 +3033,72 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_blindsCurtains',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Blinds & Curtains'),
-              Name(code: 'ar', value: 'ستائر')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Blinds & Curtains'),
+              Phrase(langCode: 'ar', value: 'ستائر')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_curtain_shower',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom shower curtains'),
-                  Name(code: 'ar', value: 'ستائر دش استحمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom shower curtains'),
+                  Phrase(langCode: 'ar', value: 'ستائر دش استحمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_curtain_shade',
-                names: <Name>[
-                  Name(code: 'en', value: 'Blinds & shades'),
-                  Name(code: 'ar', value: 'سواتر و ستائر شفافة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Blinds & shades'),
+                  Phrase(langCode: 'ar', value: 'سواتر و ستائر شفافة')
                 ],
               ),
               KW(
                 id: 'prd_furn_curtain_horizontal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Horizontal shades'),
-                  Name(code: 'ar', value: 'ستائر شريطية عرضية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Horizontal shades'),
+                  Phrase(langCode: 'ar', value: 'ستائر شريطية عرضية')
                 ],
               ),
               KW(
                 id: 'prd_furn_curtain_vertical',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vertical blinds'),
-                  Name(code: 'ar', value: 'ستائر شريطية طولية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vertical blinds'),
+                  Phrase(langCode: 'ar', value: 'ستائر شريطية طولية')
                 ],
               ),
               KW(
                 id: 'prd_furn_curtain_rod',
-                names: <Name>[
-                  Name(code: 'en', value: 'Curtain rods'),
-                  Name(code: 'ar', value: 'قضبان ستائر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Curtain rods'),
+                  Phrase(langCode: 'ar', value: 'قضبان ستائر')
                 ],
               ),
               KW(
                 id: 'prd_furn_curtain_valance',
-                names: <Name>[
-                  Name(code: 'en', value: 'Valances'),
-                  Name(code: 'ar', value: 'كرانيش ستائر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Valances'),
+                  Phrase(langCode: 'ar', value: 'كرانيش ستائر')
                 ],
               ),
               KW(
                 id: 'prd_furn_curtain_curtain',
-                names: <Name>[
-                  Name(code: 'en', value: 'Curtains'),
-                  Name(code: 'ar', value: 'ستائر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Curtains'),
+                  Phrase(langCode: 'ar', value: 'ستائر')
                 ],
               ),
               KW(
                 id: 'prd_furn_curtain_tassel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tassels'),
-                  Name(code: 'ar', value: 'شرابات ستائر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tassels'),
+                  Phrase(langCode: 'ar', value: 'شرابات ستائر')
                 ],
               ),
               KW(
                 id: 'prd_furn_curtain_bendRail',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bendable curtain rails'),
-                  Name(code: 'ar', value: 'قضبان ستائر قابلة للطي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bendable curtain rails'),
+                  Phrase(langCode: 'ar', value: 'قضبان ستائر قابلة للطي')
                 ],
               ),
             ],
@@ -3109,107 +3108,107 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_beds',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Beds & Headboards'),
-              Name(code: 'ar', value: 'سرائر و ظهور سرائر')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Beds & Headboards'),
+              Phrase(langCode: 'ar', value: 'سرائر و ظهور سرائر')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_beds_bed',
-                names: <Name>[
-                  Name(code: 'en', value: 'Beds'),
-                  Name(code: 'ar', value: 'سرائر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_board',
-                names: <Name>[
-                  Name(code: 'en', value: 'Headboards'),
-                  Name(code: 'ar', value: 'ألواح سرائر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Headboards'),
+                  Phrase(langCode: 'ar', value: 'ألواح سرائر')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_mattress',
-                names: <Name>[
-                  Name(code: 'en', value: 'Mattresses & Pads'),
-                  Name(code: 'ar', value: 'مراتب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Mattresses & Pads'),
+                  Phrase(langCode: 'ar', value: 'مراتب')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_frame',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bed Frames'),
-                  Name(code: 'ar', value: 'هياكل سرائر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bed Frames'),
+                  Phrase(langCode: 'ar', value: 'هياكل سرائر')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_blanket',
-                names: <Name>[
-                  Name(code: 'en', value: 'Blankets, pillows & covers'),
-                  Name(code: 'ar', value: 'بطانيات و مخدات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Blankets, pillows & covers'),
+                  Phrase(langCode: 'ar', value: 'بطانيات و مخدات')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_panel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Panel beds'),
-                  Name(code: 'ar', value: 'سرائر بظهر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Panel beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر بظهر')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_platform',
-                names: <Name>[
-                  Name(code: 'en', value: 'Platform beds'),
-                  Name(code: 'ar', value: 'سرائر على منصة منبسطة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Platform beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر على منصة منبسطة')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_sleigh',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sleigh beds'),
-                  Name(code: 'ar', value: 'سرائر سلاي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sleigh beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر سلاي')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_bunk',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bunk beds'),
-                  Name(code: 'ar', value: 'سرائر دورين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bunk beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر دورين')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_loft',
-                names: <Name>[
-                  Name(code: 'en', value: 'Loft beds'),
-                  Name(code: 'ar', value: 'سرائر لوفت مرتفعة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Loft beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر لوفت مرتفعة')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_day',
-                names: <Name>[
-                  Name(code: 'en', value: 'Day beds'),
-                  Name(code: 'ar', value: 'سرائر النهار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Day beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر النهار')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_murphy',
-                names: <Name>[
-                  Name(code: 'en', value: 'Murphy beds'),
-                  Name(code: 'ar', value: 'سرائر ميرفي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Murphy beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر ميرفي')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_folding',
-                names: <Name>[
-                  Name(code: 'en', value: 'Folding beds'),
-                  Name(code: 'ar', value: 'سرائر قابلة للطي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Folding beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر قابلة للطي')
                 ],
               ),
               KW(
                 id: 'prd_furn_beds_adjustable',
-                names: <Name>[
-                  Name(code: 'en', value: 'Adjustable beds'),
-                  Name(code: 'ar', value: 'سرائر قابلة للضبط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Adjustable beds'),
+                  Phrase(langCode: 'ar', value: 'سرائر قابلة للضبط')
                 ],
               ),
             ],
@@ -3219,44 +3218,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_bathStorage',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Bathroom Storage'),
-              Name(code: 'ar', value: 'خزائن حمام')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Bathroom Storage'),
+              Phrase(langCode: 'ar', value: 'خزائن حمام')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_bathStore_medicine',
-                names: <Name>[
-                  Name(code: 'en', value: 'Medicine cabinet'),
-                  Name(code: 'ar', value: 'كابينات دواء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Medicine cabinet'),
+                  Phrase(langCode: 'ar', value: 'كابينات دواء')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathStore_cabinet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom cabinet'),
-                  Name(code: 'ar', value: 'كابينات حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom cabinet'),
+                  Phrase(langCode: 'ar', value: 'كابينات حمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathStore_shelf',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom shelves'),
-                  Name(code: 'ar', value: 'أرفف حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom shelves'),
+                  Phrase(langCode: 'ar', value: 'أرفف حمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathStore_sink',
-                names: <Name>[
-                  Name(code: 'en', value: 'Under sink cabinets'),
-                  Name(code: 'ar', value: 'كابينات حمام سفلية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Under sink cabinets'),
+                  Phrase(langCode: 'ar', value: 'كابينات حمام سفلية')
                 ],
               ),
               KW(
                 id: 'prd_furn_bedStore_nightstand',
-                names: <Name>[
-                  Name(code: 'en', value: 'Nightstands & bedside tables'),
-                  Name(code: 'ar', value: 'طاولات سرير جانبية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Nightstands & bedside tables'),
+                  Phrase(langCode: 'ar', value: 'طاولات سرير جانبية')
                 ],
               ),
             ],
@@ -3266,72 +3265,72 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_bathHardware',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Bathroom Hardware'),
-              Name(code: 'ar', value: 'اكسسوارات حمامات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Bathroom Hardware'),
+              Phrase(langCode: 'ar', value: 'اكسسوارات حمامات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_bathHard_towelBar',
-                names: <Name>[
-                  Name(code: 'en', value: 'Towel bars & holders'),
-                  Name(code: 'ar', value: 'قضيب فوط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Towel bars & holders'),
+                  Phrase(langCode: 'ar', value: 'قضيب فوط')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathHard_mirror',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom mirrors'),
-                  Name(code: 'ar', value: 'مرايا حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom mirrors'),
+                  Phrase(langCode: 'ar', value: 'مرايا حمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathHard_makeup',
-                names: <Name>[
-                  Name(code: 'en', value: 'Makeup mirrors'),
-                  Name(code: 'ar', value: 'مرايا مكياج')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Makeup mirrors'),
+                  Phrase(langCode: 'ar', value: 'مرايا مكياج')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathHard_rack',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom racks'),
-                  Name(code: 'ar', value: 'أرفف حمامات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom racks'),
+                  Phrase(langCode: 'ar', value: 'أرفف حمامات')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathHard_grab',
-                names: <Name>[
-                  Name(code: 'en', value: 'Grab bars'),
-                  Name(code: 'ar', value: 'قضبان اتكاء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Grab bars'),
+                  Phrase(langCode: 'ar', value: 'قضبان اتكاء')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathHard_caddy',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shower Caddies'),
-                  Name(code: 'ar', value: 'أرفف دش استحمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shower Caddies'),
+                  Phrase(langCode: 'ar', value: 'أرفف دش استحمام')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathHard_safetyRail',
-                names: <Name>[
-                  Name(code: 'en', value: 'Toilet safety rails'),
-                  Name(code: 'ar', value: 'قضبان أمان مرحاض')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Toilet safety rails'),
+                  Phrase(langCode: 'ar', value: 'قضبان أمان مرحاض')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathHard_toiletHolder',
-                names: <Name>[
-                  Name(code: 'en', value: 'Toilet paper holder'),
-                  Name(code: 'ar', value: 'حاملة مناديل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Toilet paper holder'),
+                  Phrase(langCode: 'ar', value: 'حاملة مناديل')
                 ],
               ),
               KW(
                 id: 'prd_furn_bathHard_commode',
-                names: <Name>[
-                  Name(code: 'en', value: 'Toilet Commode'),
-                  Name(code: 'ar', value: 'مرحاض متنقل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Toilet Commode'),
+                  Phrase(langCode: 'ar', value: 'مرحاض متنقل')
                 ],
               ),
             ],
@@ -3341,79 +3340,79 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_furn_artworks',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Artworks'),
-              Name(code: 'ar', value: 'أعمال فنية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Artworks'),
+              Phrase(langCode: 'ar', value: 'أعمال فنية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_furn_art_painting',
-                names: <Name>[
-                  Name(code: 'en', value: 'Paintings'),
-                  Name(code: 'ar', value: 'رسومات فنية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Paintings'),
+                  Phrase(langCode: 'ar', value: 'رسومات فنية')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_photo',
-                names: <Name>[
-                  Name(code: 'en', value: 'Photographs'),
-                  Name(code: 'ar', value: 'صور')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Photographs'),
+                  Phrase(langCode: 'ar', value: 'صور')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_illustration',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drawings & Illustrations'),
-                  Name(code: 'ar', value: 'تصاميم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drawings & Illustrations'),
+                  Phrase(langCode: 'ar', value: 'تصاميم')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_print',
-                names: <Name>[
-                  Name(code: 'en', value: 'Prints & posters'),
-                  Name(code: 'ar', value: 'مطبوعات و ملصقات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Prints & posters'),
+                  Phrase(langCode: 'ar', value: 'مطبوعات و ملصقات')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_sculpture',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sculptures'),
-                  Name(code: 'ar', value: 'تماثيل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sculptures'),
+                  Phrase(langCode: 'ar', value: 'تماثيل')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_letter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall Letters'),
-                  Name(code: 'ar', value: 'حروف حائطية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall Letters'),
+                  Phrase(langCode: 'ar', value: 'حروف حائطية')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_frame',
-                names: <Name>[
-                  Name(code: 'en', value: 'Picture frames & accents'),
-                  Name(code: 'ar', value: 'إطارات صور ز هياكل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Picture frames & accents'),
+                  Phrase(langCode: 'ar', value: 'إطارات صور ز هياكل')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_bulletin',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bulletin boards'),
-                  Name(code: 'ar', value: 'لوحات دبابيس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bulletin boards'),
+                  Phrase(langCode: 'ar', value: 'لوحات دبابيس')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_decals',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall Decals'),
-                  Name(code: 'ar', value: 'ملصقات حائطية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall Decals'),
+                  Phrase(langCode: 'ar', value: 'ملصقات حائطية')
                 ],
               ),
               KW(
                 id: 'prd_furn_art_tapestry',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tapestries'),
-                  Name(code: 'ar', value: 'بساط و أنسجة حائطية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tapestries'),
+                  Phrase(langCode: 'ar', value: 'بساط و أنسجة حائطية')
                 ],
               ),
             ],
@@ -3425,9 +3424,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_hvac',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Heating Ventilation Air Conditioning'),
-          Name(code: 'ar', value: 'تدفئة تهوية تكييف')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Heating Ventilation Air Conditioning'),
+          Phrase(langCode: 'ar', value: 'تدفئة تهوية تكييف')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -3435,37 +3434,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_hvac_ventilation',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Ventilation'),
-              Name(code: 'ar', value: 'تهوية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Ventilation'),
+              Phrase(langCode: 'ar', value: 'تهوية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_hvac_vent_fan',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fans'),
-                  Name(code: 'ar', value: 'مراوح')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fans'),
+                  Phrase(langCode: 'ar', value: 'مراوح')
                 ],
               ),
               KW(
                 id: 'prd_hvac_vent_exhaust',
-                names: <Name>[
-                  Name(code: 'en', value: 'Exhaust fans'),
-                  Name(code: 'ar', value: 'مراوح شفط و شفاطات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Exhaust fans'),
+                  Phrase(langCode: 'ar', value: 'مراوح شفط و شفاطات')
                 ],
               ),
               KW(
                 id: 'prd_hvac_vent_curtain',
-                names: <Name>[
-                  Name(code: 'en', value: 'Air curtains'),
-                  Name(code: 'ar', value: 'ستائر هوائية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Air curtains'),
+                  Phrase(langCode: 'ar', value: 'ستائر هوائية')
                 ],
               ),
               KW(
                 id: 'prd_hvac_vent_ceilingFan',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ceiling fan'),
-                  Name(code: 'ar', value: 'مراوح سقف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ceiling fan'),
+                  Phrase(langCode: 'ar', value: 'مراوح سقف')
                 ],
               ),
             ],
@@ -3475,30 +3474,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_hvac_heating',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Heating'),
-              Name(code: 'ar', value: 'تدفئة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Heating'),
+              Phrase(langCode: 'ar', value: 'تدفئة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_hvac_heating_electric',
-                names: <Name>[
-                  Name(code: 'en', value: 'Electric heaters'),
-                  Name(code: 'ar', value: 'أجهزة تدفئة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Electric heaters'),
+                  Phrase(langCode: 'ar', value: 'أجهزة تدفئة')
                 ],
               ),
               KW(
                 id: 'prd_hvac_heating_radiators',
-                names: <Name>[
-                  Name(code: 'en', value: 'Radiators'),
-                  Name(code: 'ar', value: 'مشعاع حراري')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Radiators'),
+                  Phrase(langCode: 'ar', value: 'مشعاع حراري')
                 ],
               ),
               KW(
                 id: 'prd_hvac_heating_floor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Floor heating systems'),
-                  Name(code: 'ar', value: 'أنظمة تدفئة أرضية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Floor heating systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة تدفئة أرضية')
                 ],
               ),
             ],
@@ -3508,51 +3507,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_hvac_fireplaces',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Fireplaces'),
-              Name(code: 'ar', value: 'مواقد نار')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Fireplaces'),
+              Phrase(langCode: 'ar', value: 'مواقد نار')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_fireplace_fire_mantle',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fireplace mantels'),
-                  Name(code: 'ar', value: 'دفايات نار مبنية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fireplace mantels'),
+                  Phrase(langCode: 'ar', value: 'دفايات نار مبنية')
                 ],
               ),
               KW(
                 id: 'prd_fireplace_fire_tabletop',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tabletop fireplaces'),
-                  Name(code: 'ar', value: 'دفايات نار طاولة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tabletop fireplaces'),
+                  Phrase(langCode: 'ar', value: 'دفايات نار طاولة')
                 ],
               ),
               KW(
                 id: 'prd_fireplace_fire_freeStove',
-                names: <Name>[
-                  Name(code: 'en', value: 'Freestanding stoves'),
-                  Name(code: 'ar', value: 'مواقد قائمة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Freestanding stoves'),
+                  Phrase(langCode: 'ar', value: 'مواقد قائمة')
                 ],
               ),
               KW(
                 id: 'prd_fireplace_fire_outdoor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor fireplaces'),
-                  Name(code: 'ar', value: 'دفايات نار خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor fireplaces'),
+                  Phrase(langCode: 'ar', value: 'دفايات نار خارجية')
                 ],
               ),
               KW(
                 id: 'prd_fireplace_fire_chiminea',
-                names: <Name>[
-                  Name(code: 'en', value: 'Chimineas'),
-                  Name(code: 'ar', value: 'مداخن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Chimineas'),
+                  Phrase(langCode: 'ar', value: 'مداخن')
                 ],
               ),
               KW(
                 id: 'prd_fireplace_fire_pit',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire pits'),
-                  Name(code: 'ar', value: 'حفرة نار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire pits'),
+                  Phrase(langCode: 'ar', value: 'حفرة نار')
                 ],
               ),
             ],
@@ -3562,37 +3561,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_hvac_fireplaceEquip',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Fireplace Equipment'),
-              Name(code: 'ar', value: 'أدوات مواقد نار')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Fireplace Equipment'),
+              Phrase(langCode: 'ar', value: 'أدوات مواقد نار')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_fireplace_equip_tools',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fireplace tools'),
-                  Name(code: 'ar', value: 'أدوات دفايات نار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fireplace tools'),
+                  Phrase(langCode: 'ar', value: 'أدوات دفايات نار')
                 ],
               ),
               KW(
                 id: 'prd_fireplace_equip_rack',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire wood racks'),
-                  Name(code: 'ar', value: 'أرفف حطب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire wood racks'),
+                  Phrase(langCode: 'ar', value: 'أرفف حطب')
                 ],
               ),
               KW(
                 id: 'prd_fireplace_equip_fuel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire starters & fuel'),
-                  Name(code: 'ar', value: 'مساعدات اشتعال و وقود')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire starters & fuel'),
+                  Phrase(langCode: 'ar', value: 'مساعدات اشتعال و وقود')
                 ],
               ),
               KW(
                 id: 'prd_fireplace_equip_grate',
-                names: <Name>[
-                  Name(code: 'en', value: 'fireplace grates & Andirons'),
-                  Name(code: 'ar', value: 'فواصل و حوامل حطب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'fireplace grates & Andirons'),
+                  Phrase(langCode: 'ar', value: 'فواصل و حوامل حطب')
                 ],
               ),
             ],
@@ -3602,51 +3601,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_hvac_ac',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Air Conditioning'),
-              Name(code: 'ar', value: 'تكييف هواء')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Air Conditioning'),
+              Phrase(langCode: 'ar', value: 'تكييف هواء')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_hvac_ac_chiller',
-                names: <Name>[
-                  Name(code: 'en', value: 'Chillers'),
-                  Name(code: 'ar', value: 'مبردات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Chillers'),
+                  Phrase(langCode: 'ar', value: 'مبردات')
                 ],
               ),
               KW(
                 id: 'prd_hvac_ac_ac',
-                names: <Name>[
-                  Name(code: 'en', value: 'Indoor AC units'),
-                  Name(code: 'ar', value: 'تكييفات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Indoor AC units'),
+                  Phrase(langCode: 'ar', value: 'تكييفات')
                 ],
               ),
               KW(
                 id: 'prd_hvac_ac_vent',
-                names: <Name>[
-                  Name(code: 'en', value: 'Registers, grills & vents'),
-                  Name(code: 'ar', value: 'فتحات تكييف، هوايات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Registers, grills & vents'),
+                  Phrase(langCode: 'ar', value: 'فتحات تكييف، هوايات')
                 ],
               ),
               KW(
                 id: 'prd_hvac_ac_humidifier',
-                names: <Name>[
-                  Name(code: 'en', value: 'Humidifiers'),
-                  Name(code: 'ar', value: 'مرطبات هواء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Humidifiers'),
+                  Phrase(langCode: 'ar', value: 'مرطبات هواء')
                 ],
               ),
               KW(
                 id: 'prd_hvac_ac_dehumidifier',
-                names: <Name>[
-                  Name(code: 'en', value: 'Dehumidifiers'),
-                  Name(code: 'ar', value: 'مجففات هواء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Dehumidifiers'),
+                  Phrase(langCode: 'ar', value: 'مجففات هواء')
                 ],
               ),
               KW(
                 id: 'prd_hvac_ac_purifier',
-                names: <Name>[
-                  Name(code: 'en', value: 'Air purifiers'),
-                  Name(code: 'ar', value: 'منقيات هواء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Air purifiers'),
+                  Phrase(langCode: 'ar', value: 'منقيات هواء')
                 ],
               ),
             ],
@@ -3658,9 +3657,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_landscape',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Planting & Landscape'),
-          Name(code: 'ar', value: 'زراعات و لاندسكيب')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Planting & Landscape'),
+          Phrase(langCode: 'ar', value: 'زراعات و لاندسكيب')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -3668,37 +3667,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_scape_potsVases',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Pots & Vases'),
-              Name(code: 'ar', value: 'أواني و مزهريات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Pots & Vases'),
+              Phrase(langCode: 'ar', value: 'أواني و مزهريات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_landscape_pots_vase',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vases'),
-                  Name(code: 'ar', value: 'مزاهر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vases'),
+                  Phrase(langCode: 'ar', value: 'مزاهر')
                 ],
               ),
               KW(
                 id: 'prd_landscape_pots_indoorPlanter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Indoor pots & planters'),
-                  Name(code: 'ar', value: 'أصيص زراعة داخلي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Indoor pots & planters'),
+                  Phrase(langCode: 'ar', value: 'أصيص زراعة داخلي')
                 ],
               ),
               KW(
                 id: 'prd_landscape_pots_outdoorPlanter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor pots & planters'),
-                  Name(code: 'ar', value: 'أصيص زراعة خارجي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor pots & planters'),
+                  Phrase(langCode: 'ar', value: 'أصيص زراعة خارجي')
                 ],
               ),
               KW(
                 id: 'prd_landscape_pots_bin',
-                names: <Name>[
-                  Name(code: 'en', value: 'Composite bins'),
-                  Name(code: 'ar', value: 'براميل و صناديق سماد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Composite bins'),
+                  Phrase(langCode: 'ar', value: 'براميل و صناديق سماد')
                 ],
               ),
             ],
@@ -3708,30 +3707,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_scape_livePlants',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Live Plants'),
-              Name(code: 'ar', value: 'نباتات حية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Live Plants'),
+              Phrase(langCode: 'ar', value: 'نباتات حية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_landscape_live_tree',
-                names: <Name>[
-                  Name(code: 'en', value: 'Live Trees'),
-                  Name(code: 'ar', value: 'شجر طبيعي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Live Trees'),
+                  Phrase(langCode: 'ar', value: 'شجر طبيعي')
                 ],
               ),
               KW(
                 id: 'prd_landscape_live_grass',
-                names: <Name>[
-                  Name(code: 'en', value: 'Live Grass lawn'),
-                  Name(code: 'ar', value: 'نجيلة طبيعية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Live Grass lawn'),
+                  Phrase(langCode: 'ar', value: 'نجيلة طبيعية')
                 ],
               ),
               KW(
                 id: 'prd_landscape_live_bush',
-                names: <Name>[
-                  Name(code: 'en', value: 'Plants, Bushes & Flowers'),
-                  Name(code: 'ar', value: 'مزروعات، نباتات و ورود')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Plants, Bushes & Flowers'),
+                  Phrase(langCode: 'ar', value: 'مزروعات، نباتات و ورود')
                 ],
               ),
             ],
@@ -3741,23 +3740,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_scape_hardscape',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Hardscape'),
-              Name(code: 'ar', value: 'هاردسكيب')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Hardscape'),
+              Phrase(langCode: 'ar', value: 'هاردسكيب')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_landscape_hardscape_trellis',
-                names: <Name>[
-                  Name(code: 'en', value: 'Garden Trellises'),
-                  Name(code: 'ar', value: 'تعريشات حديقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Garden Trellises'),
+                  Phrase(langCode: 'ar', value: 'تعريشات حديقة')
                 ],
               ),
               KW(
                 id: 'prd_landscape_hardscape_flag',
-                names: <Name>[
-                  Name(code: 'en', value: 'Flags & Poles'),
-                  Name(code: 'ar', value: 'أعلام و عواميدها')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Flags & Poles'),
+                  Phrase(langCode: 'ar', value: 'أعلام و عواميدها')
                 ],
               ),
             ],
@@ -3767,23 +3766,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_scape_fountainsPonds',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Fountains & Ponds'),
-              Name(code: 'ar', value: 'نوافير و برك')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Fountains & Ponds'),
+              Phrase(langCode: 'ar', value: 'نوافير و برك')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_landscape_fountain_indoor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor fountains'),
-                  Name(code: 'ar', value: 'نافورة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor fountains'),
+                  Phrase(langCode: 'ar', value: 'نافورة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_landscape_fountain_outdoor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Indoor fountains'),
-                  Name(code: 'ar', value: 'نافورة داخلية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Indoor fountains'),
+                  Phrase(langCode: 'ar', value: 'نافورة داخلية')
                 ],
               ),
             ],
@@ -3793,30 +3792,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_scape_birds',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Birds fixtures'),
-              Name(code: 'ar', value: 'تجهيزات عصافير')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Birds fixtures'),
+              Phrase(langCode: 'ar', value: 'تجهيزات عصافير')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_landscape_birds_feeder',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bird feeders'),
-                  Name(code: 'ar', value: 'مغذيات عصافير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bird feeders'),
+                  Phrase(langCode: 'ar', value: 'مغذيات عصافير')
                 ],
               ),
               KW(
                 id: 'prd_landscape_birds_bath',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bird baths'),
-                  Name(code: 'ar', value: 'أحواض عصافير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bird baths'),
+                  Phrase(langCode: 'ar', value: 'أحواض عصافير')
                 ],
               ),
               KW(
                 id: 'prd_landscape_birds_house',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bird houses'),
-                  Name(code: 'ar', value: 'بيوت عصافير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bird houses'),
+                  Phrase(langCode: 'ar', value: 'بيوت عصافير')
                 ],
               ),
             ],
@@ -3826,30 +3825,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_scape_artificial',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Artificial plants'),
-              Name(code: 'ar', value: 'نباتات صناعية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Artificial plants'),
+              Phrase(langCode: 'ar', value: 'نباتات صناعية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_landscape_artificial_tree',
-                names: <Name>[
-                  Name(code: 'en', value: 'Artificial Trees'),
-                  Name(code: 'ar', value: 'شجر صناعي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Artificial Trees'),
+                  Phrase(langCode: 'ar', value: 'شجر صناعي')
                 ],
               ),
               KW(
                 id: 'prd_landscape_artificial_plant',
-                names: <Name>[
-                  Name(code: 'en', value: 'Artificial Plants'),
-                  Name(code: 'ar', value: 'نباتات صناعية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Artificial Plants'),
+                  Phrase(langCode: 'ar', value: 'نباتات صناعية')
                 ],
               ),
               KW(
                 id: 'prd_landscape_artificial_grass',
-                names: <Name>[
-                  Name(code: 'en', value: 'Artificial grass'),
-                  Name(code: 'ar', value: 'نجيلة صناعية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Artificial grass'),
+                  Phrase(langCode: 'ar', value: 'نجيلة صناعية')
                 ],
               ),
             ],
@@ -3861,9 +3860,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_lighting',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Lighting'),
-          Name(code: 'ar', value: 'إضاءة')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Lighting'),
+          Phrase(langCode: 'ar', value: 'إضاءة')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -3871,37 +3870,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_light_wall',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Wall Lighting'),
-              Name(code: 'ar', value: 'إضاءة حائطية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Wall Lighting'),
+              Phrase(langCode: 'ar', value: 'إضاءة حائطية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_lighting_wall_applique',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sconces & Appliques'),
-                  Name(code: 'ar', value: 'أباليك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sconces & Appliques'),
+                  Phrase(langCode: 'ar', value: 'أباليك')
                 ],
               ),
               KW(
                 id: 'prd_lighting_wall_vanity',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom vanity lighting'),
-                  Name(code: 'ar', value: 'مصابيح وحدات حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom vanity lighting'),
+                  Phrase(langCode: 'ar', value: 'مصابيح وحدات حمام')
                 ],
               ),
               KW(
                 id: 'prd_lighting_wall_picture',
-                names: <Name>[
-                  Name(code: 'en', value: 'Display & Picture lighting'),
-                  Name(code: 'ar', value: 'مصابيح عرض و صور')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Display & Picture lighting'),
+                  Phrase(langCode: 'ar', value: 'مصابيح عرض و صور')
                 ],
               ),
               KW(
                 id: 'prd_lighting_wall_swing',
-                names: <Name>[
-                  Name(code: 'en', value: 'Swing arm wall lamps'),
-                  Name(code: 'ar', value: 'مصابيح ذراع متحرك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Swing arm wall lamps'),
+                  Phrase(langCode: 'ar', value: 'مصابيح ذراع متحرك')
                 ],
               ),
             ],
@@ -3911,107 +3910,107 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_light_outdoor',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Outdoor Lighting'),
-              Name(code: 'ar', value: 'إضاءة خارجية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Outdoor Lighting'),
+              Phrase(langCode: 'ar', value: 'إضاءة خارجية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_lighting_outdoor_wall',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor wall lights'),
-                  Name(code: 'ar', value: 'مصابيح حوائط خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor wall lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح حوائط خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_flush',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Flush mounts'),
-                  Name(code: 'ar', value: 'مصابيح ملتصقة بالسقف خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Flush mounts'),
+                  Phrase(langCode: 'ar', value: 'مصابيح ملتصقة بالسقف خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_hanging',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor Hanging lights'),
-                  Name(code: 'ar', value: 'مصابيح خارجية متدلية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor Hanging lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح خارجية متدلية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_deck',
-                names: <Name>[
-                  Name(code: 'en', value: 'Deck post caps'),
-                  Name(code: 'ar', value: 'أغطية مصابيح خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Deck post caps'),
+                  Phrase(langCode: 'ar', value: 'أغطية مصابيح خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_inground',
-                names: <Name>[
-                  Name(code: 'en', value: 'Inground & well lights'),
-                  Name(code: 'ar', value: 'مصابيح مدفونة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Inground & well lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح مدفونة')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_path',
-                names: <Name>[
-                  Name(code: 'en', value: 'Path lights'),
-                  Name(code: 'ar', value: 'مصابيح ممرات خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Path lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح ممرات خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_step',
-                names: <Name>[
-                  Name(code: 'en', value: 'Stairs and step lights'),
-                  Name(code: 'ar', value: 'مصابيح سلالم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Stairs and step lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح سلالم')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_floorSpot',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor floor & spot lights'),
-                  Name(code: 'ar', value: 'مصابيح سبوت أرضية خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor floor & spot lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح سبوت أرضية خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_lamp',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor lamps'),
-                  Name(code: 'ar', value: 'مصابيح خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor lamps'),
+                  Phrase(langCode: 'ar', value: 'مصابيح خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_table',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor table lamps'),
-                  Name(code: 'ar', value: 'مصابيح طاولة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor table lamps'),
+                  Phrase(langCode: 'ar', value: 'مصابيح طاولة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_string',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor String lights'),
-                  Name(code: 'ar', value: 'مصابيح سلسلة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor String lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح سلسلة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_post',
-                names: <Name>[
-                  Name(code: 'en', value: 'Post lights'),
-                  Name(code: 'ar', value: 'عواميد إضاءة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Post lights'),
+                  Phrase(langCode: 'ar', value: 'عواميد إضاءة')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_torch',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor torches'),
-                  Name(code: 'ar', value: 'شعلات إضاءة خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor torches'),
+                  Phrase(langCode: 'ar', value: 'شعلات إضاءة خارجية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_outdoor_gardenSpot',
-                names: <Name>[
-                  Name(code: 'en', value: 'Graden spotlights'),
-                  Name(code: 'ar', value: 'إضاءات حدائق سبوت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Graden spotlights'),
+                  Phrase(langCode: 'ar', value: 'إضاءات حدائق سبوت')
                 ],
               ),
             ],
@@ -4021,44 +4020,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_light_access',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Lighting Accessories'),
-              Name(code: 'ar', value: 'اكسسوارات إضاءة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Lighting Accessories'),
+              Phrase(langCode: 'ar', value: 'اكسسوارات إضاءة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_lighting_accessories_shade',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lamp shades & bases'),
-                  Name(code: 'ar', value: 'قواعد و أغطية مصابيح')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lamp shades & bases'),
+                  Phrase(langCode: 'ar', value: 'قواعد و أغطية مصابيح')
                 ],
               ),
               KW(
                 id: 'prd_lighting_accessories_timer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Timers & lighting controls'),
-                  Name(code: 'ar', value: 'مواقيت و ضوابط إضاءة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Timers & lighting controls'),
+                  Phrase(langCode: 'ar', value: 'مواقيت و ضوابط إضاءة')
                 ],
               ),
               KW(
                 id: 'prd_lighting_accessories_lightingHardware',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lighting hardware & accessories'),
-                  Name(code: 'ar', value: 'اكسسوارات إضاءة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lighting hardware & accessories'),
+                  Phrase(langCode: 'ar', value: 'اكسسوارات إضاءة')
                 ],
               ),
               KW(
                 id: 'prd_lighting_accessories_flash',
-                names: <Name>[
-                  Name(code: 'en', value: 'Flash lights'),
-                  Name(code: 'ar', value: 'كشافات يدوية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Flash lights'),
+                  Phrase(langCode: 'ar', value: 'كشافات يدوية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_accessories_diffuser',
-                names: <Name>[
-                  Name(code: 'en', value: 'Light diffusers'),
-                  Name(code: 'ar', value: 'مبددات أضواء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Light diffusers'),
+                  Phrase(langCode: 'ar', value: 'مبددات أضواء')
                 ],
               ),
             ],
@@ -4068,51 +4067,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_light_bulbs',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Light bulbs'),
-              Name(code: 'ar', value: 'لمبات إضاءة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Light bulbs'),
+              Phrase(langCode: 'ar', value: 'لمبات إضاءة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_lighting_bulbs_fluorescent',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fluorescent bulbs'),
-                  Name(code: 'ar', value: 'لمبة فلوريسينت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fluorescent bulbs'),
+                  Phrase(langCode: 'ar', value: 'لمبة فلوريسينت')
                 ],
               ),
               KW(
                 id: 'prd_lighting_bulbs_led',
-                names: <Name>[
-                  Name(code: 'en', value: 'Led bulbs'),
-                  Name(code: 'ar', value: 'لمبة ليد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Led bulbs'),
+                  Phrase(langCode: 'ar', value: 'لمبة ليد')
                 ],
               ),
               KW(
                 id: 'prd_lighting_bulbs_halogen',
-                names: <Name>[
-                  Name(code: 'en', value: 'Halogen bulbs'),
-                  Name(code: 'ar', value: 'لمبة هالوجين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Halogen bulbs'),
+                  Phrase(langCode: 'ar', value: 'لمبة هالوجين')
                 ],
               ),
               KW(
                 id: 'prd_lighting_bulbs_incandescent',
-                names: <Name>[
-                  Name(code: 'en', value: 'Incandescent bulbs'),
-                  Name(code: 'ar', value: 'لمبة متوهجة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Incandescent bulbs'),
+                  Phrase(langCode: 'ar', value: 'لمبة متوهجة')
                 ],
               ),
               KW(
                 id: 'prd_lighting_bulbs_tube',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fluorescent tubes'),
-                  Name(code: 'ar', value: 'عود نيون فلوريسينت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fluorescent tubes'),
+                  Phrase(langCode: 'ar', value: 'عود نيون فلوريسينت')
                 ],
               ),
               KW(
                 id: 'prd_lighting_bulbs_krypton',
-                names: <Name>[
-                  Name(code: 'en', value: 'Krypton & xenon bulbs'),
-                  Name(code: 'ar', value: 'لمبة كريبتون و زينون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Krypton & xenon bulbs'),
+                  Phrase(langCode: 'ar', value: 'لمبة كريبتون و زينون')
                 ],
               ),
             ],
@@ -4122,58 +4121,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_light_lamps',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Lamps'),
-              Name(code: 'ar', value: 'مصابيح')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Lamps'),
+              Phrase(langCode: 'ar', value: 'مصابيح')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_lighting_lamp_table',
-                names: <Name>[
-                  Name(code: 'en', value: 'Table lamps'),
-                  Name(code: 'ar', value: 'مصابيح طاولة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Table lamps'),
+                  Phrase(langCode: 'ar', value: 'مصابيح طاولة')
                 ],
               ),
               KW(
                 id: 'prd_lighting_lamp_floor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Floor lamps'),
-                  Name(code: 'ar', value: 'مصابيح أرضية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Floor lamps'),
+                  Phrase(langCode: 'ar', value: 'مصابيح أرضية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_lamp_desk',
-                names: <Name>[
-                  Name(code: 'en', value: 'Desk lamps'),
-                  Name(code: 'ar', value: 'مصابيح مكتب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Desk lamps'),
+                  Phrase(langCode: 'ar', value: 'مصابيح مكتب')
                 ],
               ),
               KW(
                 id: 'prd_lighting_lamp_set',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lamp sets'),
-                  Name(code: 'ar', value: 'أطقم مصابيح')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lamp sets'),
+                  Phrase(langCode: 'ar', value: 'أطقم مصابيح')
                 ],
               ),
               KW(
                 id: 'prd_lighting_lamp_piano',
-                names: <Name>[
-                  Name(code: 'en', value: 'Piano table Lights'),
-                  Name(code: 'ar', value: 'مصباح بيانو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Piano table Lights'),
+                  Phrase(langCode: 'ar', value: 'مصباح بيانو')
                 ],
               ),
               KW(
                 id: 'prd_lighting_lamp_kids',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids lamps'),
-                  Name(code: 'ar', value: 'مصابيح أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids lamps'),
+                  Phrase(langCode: 'ar', value: 'مصابيح أطفال')
                 ],
               ),
               KW(
                 id: 'prd_lighting_lamp_emergency',
-                names: <Name>[
-                  Name(code: 'en', value: 'Emergency lights'),
-                  Name(code: 'ar', value: 'مصابيح طوارئ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Emergency lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح طوارئ')
                 ],
               ),
             ],
@@ -4183,79 +4182,79 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_light_ceiling',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Ceiling Lighting'),
-              Name(code: 'ar', value: 'إضاءة أسقف')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Ceiling Lighting'),
+              Phrase(langCode: 'ar', value: 'إضاءة أسقف')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_lighting_ceiling_chandelier',
-                names: <Name>[
-                  Name(code: 'en', value: 'Chandeliers'),
-                  Name(code: 'ar', value: 'نجف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Chandeliers'),
+                  Phrase(langCode: 'ar', value: 'نجف')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_pendant',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pendant lighting'),
-                  Name(code: 'ar', value: 'مصابيح معلقة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pendant lighting'),
+                  Phrase(langCode: 'ar', value: 'مصابيح معلقة')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_flush',
-                names: <Name>[
-                  Name(code: 'en', value: 'Flush mount lighting'),
-                  Name(code: 'ar', value: 'مصابيح ملتصقة بالسقف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Flush mount lighting'),
+                  Phrase(langCode: 'ar', value: 'مصابيح ملتصقة بالسقف')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_kitchenIsland',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen Island lighting'),
-                  Name(code: 'ar', value: 'مصابيح جزيرة مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen Island lighting'),
+                  Phrase(langCode: 'ar', value: 'مصابيح جزيرة مطبخ')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_underCabinet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Under cabinet lighting'),
-                  Name(code: 'ar', value: 'مصابيح مطبخ سفلية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Under cabinet lighting'),
+                  Phrase(langCode: 'ar', value: 'مصابيح مطبخ سفلية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_track',
-                names: <Name>[
-                  Name(code: 'en', value: 'Track lighting'),
-                  Name(code: 'ar', value: 'مصابيح مضمار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Track lighting'),
+                  Phrase(langCode: 'ar', value: 'مصابيح مضمار')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_recessed',
-                names: <Name>[
-                  Name(code: 'en', value: 'Recessed lighting'),
-                  Name(code: 'ar', value: 'مصابيح مخفية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Recessed lighting'),
+                  Phrase(langCode: 'ar', value: 'مصابيح مخفية')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_pool',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pool table lighting'),
-                  Name(code: 'ar', value: 'مصباح طاولة بلياردو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pool table lighting'),
+                  Phrase(langCode: 'ar', value: 'مصباح طاولة بلياردو')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_spot',
-                names: <Name>[
-                  Name(code: 'en', value: 'Spot lights'),
-                  Name(code: 'ar', value: 'مصابيح سبوت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Spot lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح سبوت')
                 ],
               ),
               KW(
                 id: 'prd_lighting_ceiling_kids',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids ceiling lights'),
-                  Name(code: 'ar', value: 'مصابيح سقف أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids ceiling lights'),
+                  Phrase(langCode: 'ar', value: 'مصابيح سقف أطفال')
                 ],
               ),
             ],
@@ -4267,9 +4266,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_materials',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Construction Materials'),
-          Name(code: 'ar', value: 'مواد بناء')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Construction Materials'),
+          Phrase(langCode: 'ar', value: 'مواد بناء')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -4277,44 +4276,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_woodCoats',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Wood Coats'),
-              Name(code: 'ar', value: 'دهانات خشب')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Wood Coats'),
+              Phrase(langCode: 'ar', value: 'دهانات خشب')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_woodPaint_lacquer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lacquer'),
-                  Name(code: 'ar', value: 'لاكيه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lacquer'),
+                  Phrase(langCode: 'ar', value: 'لاكيه')
                 ],
               ),
               KW(
                 id: 'prd_mat_woodPaint_polyurethane',
-                names: <Name>[
-                  Name(code: 'en', value: 'Polyurethane'),
-                  Name(code: 'ar', value: 'بولي يوريثان')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Polyurethane'),
+                  Phrase(langCode: 'ar', value: 'بولي يوريثان')
                 ],
               ),
               KW(
                 id: 'prd_mat_woodPaint_polycrylic',
-                names: <Name>[
-                  Name(code: 'en', value: 'Polycrylic'),
-                  Name(code: 'ar', value: 'بوليكريليك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Polycrylic'),
+                  Phrase(langCode: 'ar', value: 'بوليكريليك')
                 ],
               ),
               KW(
                 id: 'prd_mat_woodPaint_varnish',
-                names: <Name>[
-                  Name(code: 'en', value: 'Varnish & Shellacs'),
-                  Name(code: 'ar', value: 'ورنيش')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Varnish & Shellacs'),
+                  Phrase(langCode: 'ar', value: 'ورنيش')
                 ],
               ),
               KW(
                 id: 'prd_mat_woodPaint_polyester',
-                names: <Name>[
-                  Name(code: 'en', value: 'Polyester Urethane'),
-                  Name(code: 'ar', value: 'بولي استر ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Polyester Urethane'),
+                  Phrase(langCode: 'ar', value: 'بولي استر ')
                 ],
               ),
             ],
@@ -4324,60 +4323,60 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_waterProofing',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Water Proofing'),
-              Name(code: 'ar', value: 'عوازل رطوبة و مياه')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Water Proofing'),
+              Phrase(langCode: 'ar', value: 'عوازل رطوبة و مياه')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_waterProof_rubber',
-                names: <Name>[
-                  Name(code: 'en', value: 'EPDM Rubber membranes'),
-                  Name(code: 'ar', value: 'عزل ماء و رطوبة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'EPDM Rubber membranes'),
+                  Phrase(langCode: 'ar', value: 'عزل ماء و رطوبة')
                 ],
               ),
               KW(
                 id: 'prd_mat_waterProof_bitumen',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bitumen membranes'),
-                  Name(code: 'ar', value: 'لفائف بيتومين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bitumen membranes'),
+                  Phrase(langCode: 'ar', value: 'لفائف بيتومين')
                 ],
               ),
               KW(
                 id: 'prd_mat_waterProof_pvc',
-                names: <Name>[
-                  Name(
-                      code: 'en',
+                names: <Phrase>[
+                  Phrase(
+                      langCode: 'en',
                       value: 'PVC membranes (Thermoplastic polyolefin)'),
-                  Name(code: 'ar', value: 'لفائف بوليفيلين بي في سي')
+                  Phrase(langCode: 'ar', value: 'لفائف بوليفيلين بي في سي')
                 ],
               ),
               KW(
                 id: 'prd_mat_waterProof_tpo',
-                names: <Name>[
-                  Name(code: 'en', value: 'TPO membranes'),
-                  Name(code: 'ar', value: 'لفائف تي بي أو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'TPO membranes'),
+                  Phrase(langCode: 'ar', value: 'لفائف تي بي أو')
                 ],
               ),
               KW(
                 id: 'prd_mat_waterProof_polyurethane',
-                names: <Name>[
-                  Name(code: 'en', value: 'Polyurethane coating'),
-                  Name(code: 'ar', value: 'طلاء بولي يوريثان')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Polyurethane coating'),
+                  Phrase(langCode: 'ar', value: 'طلاء بولي يوريثان')
                 ],
               ),
               KW(
                 id: 'prd_mat_waterProof_acrylic',
-                names: <Name>[
-                  Name(code: 'en', value: 'Acrylic coating'),
-                  Name(code: 'ar', value: 'طلاء أكريليك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Acrylic coating'),
+                  Phrase(langCode: 'ar', value: 'طلاء أكريليك')
                 ],
               ),
               KW(
                 id: 'prd_mat_waterProof_cementitious',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cementitious coating'),
-                  Name(code: 'ar', value: 'طلاء أسمنتي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cementitious coating'),
+                  Phrase(langCode: 'ar', value: 'طلاء أسمنتي')
                 ],
               ),
             ],
@@ -4387,65 +4386,65 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_heatSynth',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Synthetic Heat Insulation'),
-              Name(code: 'ar', value: 'عوازل حرارية مصنوعة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Synthetic Heat Insulation'),
+              Phrase(langCode: 'ar', value: 'عوازل حرارية مصنوعة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_heatSynth_reflective',
-                names: <Name>[
-                  Name(code: 'en', value: 'Reflective foam sheets'),
-                  Name(code: 'ar', value: 'ألواح فوم عاكس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Reflective foam sheets'),
+                  Phrase(langCode: 'ar', value: 'ألواح فوم عاكس')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatSynth_polystyrene',
-                names: <Name>[
-                  Name(code: 'en', value: 'EPS Polystyrene sheets'),
-                  Name(code: 'ar', value: 'ألواح إي بي إس بولي ستيرين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'EPS Polystyrene sheets'),
+                  Phrase(langCode: 'ar', value: 'ألواح إي بي إس بولي ستيرين')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatSynth_styro',
-                names: <Name>[
-                  Name(code: 'en', value: 'XPS Styrofoam'),
-                  Name(code: 'ar', value: 'ستايروفوم إكس بي إس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'XPS Styrofoam'),
+                  Phrase(langCode: 'ar', value: 'ستايروفوم إكس بي إس')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatSynth_purSheet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Polyurethane Foam sheets'),
-                  Name(code: 'ar', value: 'ألواح فوم بولي يوريثان')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Polyurethane Foam sheets'),
+                  Phrase(langCode: 'ar', value: 'ألواح فوم بولي يوريثان')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatSynth_purSpray',
-                names: <Name>[
-                  Name(code: 'en', value: 'Polyurethane Foam spray'),
-                  Name(code: 'ar', value: 'بولي يووريثان رش')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Polyurethane Foam spray'),
+                  Phrase(langCode: 'ar', value: 'بولي يووريثان رش')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatSynth_purSection',
-                names: <Name>[
-                  Name(code: 'en', value: 'Polyurethane piping sections'),
-                  Name(code: 'ar', value: 'قطاعات عزل بولي يوريثان')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Polyurethane piping sections'),
+                  Phrase(langCode: 'ar', value: 'قطاعات عزل بولي يوريثان')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatSynth_phenolic',
-                names: <Name>[
-                  Name(code: 'en', value: 'Phenolic foam boards'),
-                  Name(code: 'ar', value: 'ألواح فوم فينول')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Phenolic foam boards'),
+                  Phrase(langCode: 'ar', value: 'ألواح فوم فينول')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatSynth_aerogel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Aerogel blankets'),
-                  Name(code: 'ar', value: 'بطانية عزل إيرو جيل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Aerogel blankets'),
+                  Phrase(langCode: 'ar', value: 'بطانية عزل إيرو جيل')
                 ],
               ),
             ],
@@ -4455,51 +4454,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_stones',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Stones'),
-              Name(code: 'ar', value: 'حجر')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Stones'),
+              Phrase(langCode: 'ar', value: 'حجر')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_stone_marble',
-                names: <Name>[
-                  Name(code: 'en', value: 'Marble'),
-                  Name(code: 'ar', value: 'رخام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Marble'),
+                  Phrase(langCode: 'ar', value: 'رخام')
                 ],
               ),
               KW(
                 id: 'prd_mat_stone_granite',
-                names: <Name>[
-                  Name(code: 'en', value: 'Granite'),
-                  Name(code: 'ar', value: 'جرانيت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Granite'),
+                  Phrase(langCode: 'ar', value: 'جرانيت')
                 ],
               ),
               KW(
                 id: 'prd_mat_stone_slate',
-                names: <Name>[
-                  Name(code: 'en', value: 'Slate'),
-                  Name(code: 'ar', value: 'شرائح حجر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Slate'),
+                  Phrase(langCode: 'ar', value: 'شرائح حجر')
                 ],
               ),
               KW(
                 id: 'prd_mat_stone_quartzite',
-                names: <Name>[
-                  Name(code: 'en', value: 'Quartzite'),
-                  Name(code: 'ar', value: 'كوارتزيت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Quartzite'),
+                  Phrase(langCode: 'ar', value: 'كوارتزيت')
                 ],
               ),
               KW(
                 id: 'prd_mat_stone_soap',
-                names: <Name>[
-                  Name(code: 'en', value: 'Soap stone'),
-                  Name(code: 'ar', value: 'حجر أملس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Soap stone'),
+                  Phrase(langCode: 'ar', value: 'حجر أملس')
                 ],
               ),
               KW(
                 id: 'prd_mat_stone_travertine',
-                names: <Name>[
-                  Name(code: 'en', value: 'Travertine'),
-                  Name(code: 'ar', value: 'حجر جيري ترافنتين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Travertine'),
+                  Phrase(langCode: 'ar', value: 'حجر جيري ترافنتين')
                 ],
               ),
             ],
@@ -4509,23 +4508,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_steel',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Steel'),
-              Name(code: 'ar', value: 'حديد مسلح')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Steel'),
+              Phrase(langCode: 'ar', value: 'حديد مسلح')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_steel_rebar',
-                names: <Name>[
-                  Name(code: 'en', value: 'Steel rebar'),
-                  Name(code: 'ar', value: 'حديد تسليح')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Steel rebar'),
+                  Phrase(langCode: 'ar', value: 'حديد تسليح')
                 ],
               ),
               KW(
                 id: 'prd_mat_steel_section',
-                names: <Name>[
-                  Name(code: 'en', value: 'Steel sections'),
-                  Name(code: 'ar', value: 'قطاعات معدنية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Steel sections'),
+                  Phrase(langCode: 'ar', value: 'قطاعات معدنية')
                 ],
               ),
             ],
@@ -4535,107 +4534,107 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_solidWood',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Solid Wood'),
-              Name(code: 'ar', value: 'أخشاب طبيعية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Solid Wood'),
+              Phrase(langCode: 'ar', value: 'أخشاب طبيعية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_wood_oak',
-                names: <Name>[
-                  Name(code: 'en', value: 'Oak'),
-                  Name(code: 'ar', value: 'خشب أرو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Oak'),
+                  Phrase(langCode: 'ar', value: 'خشب أرو')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_beech',
-                names: <Name>[
-                  Name(code: 'en', value: 'Beech'),
-                  Name(code: 'ar', value: 'خشب زان')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Beech'),
+                  Phrase(langCode: 'ar', value: 'خشب زان')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_mahogany',
-                names: <Name>[
-                  Name(code: 'en', value: 'Mahogany'),
-                  Name(code: 'ar', value: 'خشب ماهوجني')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Mahogany'),
+                  Phrase(langCode: 'ar', value: 'خشب ماهوجني')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_beechPine',
-                names: <Name>[
-                  Name(code: 'en', value: 'Beech pine'),
-                  Name(code: 'ar', value: 'خشب موسكي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Beech pine'),
+                  Phrase(langCode: 'ar', value: 'خشب موسكي')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_ash',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ash'),
-                  Name(code: 'ar', value: 'خشب بلوط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ash'),
+                  Phrase(langCode: 'ar', value: 'خشب بلوط')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_walnut',
-                names: <Name>[
-                  Name(code: 'en', value: 'Walnut'),
-                  Name(code: 'ar', value: 'خشب الجوز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Walnut'),
+                  Phrase(langCode: 'ar', value: 'خشب الجوز')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_pine',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pine'),
-                  Name(code: 'ar', value: 'خشب العزيزي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pine'),
+                  Phrase(langCode: 'ar', value: 'خشب العزيزي')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_teak',
-                names: <Name>[
-                  Name(code: 'en', value: 'Teak'),
-                  Name(code: 'ar', value: 'خشب تك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Teak'),
+                  Phrase(langCode: 'ar', value: 'خشب تك')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_rose',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rosewood'),
-                  Name(code: 'ar', value: 'خشب الورد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rosewood'),
+                  Phrase(langCode: 'ar', value: 'خشب الورد')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_palisander',
-                names: <Name>[
-                  Name(code: 'en', value: 'Palisander'),
-                  Name(code: 'ar', value: 'خشب البليسندر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Palisander'),
+                  Phrase(langCode: 'ar', value: 'خشب البليسندر')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_sandal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sandalwood'),
-                  Name(code: 'ar', value: 'خشب الصندل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sandalwood'),
+                  Phrase(langCode: 'ar', value: 'خشب الصندل')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_cherry',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cherry wood'),
-                  Name(code: 'ar', value: 'خشب الكريز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cherry wood'),
+                  Phrase(langCode: 'ar', value: 'خشب الكريز')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_ebony',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ebony wood'),
-                  Name(code: 'ar', value: 'خشب الابنوس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ebony wood'),
+                  Phrase(langCode: 'ar', value: 'خشب الابنوس')
                 ],
               ),
               KW(
                 id: 'prd_mat_wood_maple',
-                names: <Name>[
-                  Name(code: 'en', value: 'Maple wood'),
-                  Name(code: 'ar', value: 'خشب الحور، القيقب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Maple wood'),
+                  Phrase(langCode: 'ar', value: 'خشب الحور، القيقب')
                 ],
               ),
             ],
@@ -4645,16 +4644,16 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_sandRubble',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Sand & Rubble'),
-              Name(code: 'ar', value: 'رمل و زلط')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Sand & Rubble'),
+              Phrase(langCode: 'ar', value: 'رمل و زلط')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_sand_sand',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sand & Rubble'),
-                  Name(code: 'ar', value: 'رمل و حصى')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sand & Rubble'),
+                  Phrase(langCode: 'ar', value: 'رمل و حصى')
                 ],
               ),
             ],
@@ -4664,58 +4663,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_paints',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Paints'),
-              Name(code: 'ar', value: 'دهانات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Paints'),
+              Phrase(langCode: 'ar', value: 'دهانات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_paint_cement',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cement paints'),
-                  Name(code: 'ar', value: 'دهانات أسمنتية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cement paints'),
+                  Phrase(langCode: 'ar', value: 'دهانات أسمنتية')
                 ],
               ),
               KW(
                 id: 'prd_mat_paint_outdoor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor paints'),
-                  Name(code: 'ar', value: 'دهانات خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor paints'),
+                  Phrase(langCode: 'ar', value: 'دهانات خارجية')
                 ],
               ),
               KW(
                 id: 'prd_mat_paint_primer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Primer & sealer'),
-                  Name(code: 'ar', value: 'معجون و سيلر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Primer & sealer'),
+                  Phrase(langCode: 'ar', value: 'معجون و سيلر')
                 ],
               ),
               KW(
                 id: 'prd_mat_paint_acrylic',
-                names: <Name>[
-                  Name(code: 'en', value: 'Acrylic'),
-                  Name(code: 'ar', value: 'أكريليك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Acrylic'),
+                  Phrase(langCode: 'ar', value: 'أكريليك')
                 ],
               ),
               KW(
                 id: 'prd_mat_paint_duco',
-                names: <Name>[
-                  Name(code: 'en', value: 'Spray & Duco'),
-                  Name(code: 'ar', value: 'رش و دوكو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Spray & Duco'),
+                  Phrase(langCode: 'ar', value: 'رش و دوكو')
                 ],
               ),
               KW(
                 id: 'prd_mat_paint_heatproof',
-                names: <Name>[
-                  Name(code: 'en', value: 'Thermal insulation paints'),
-                  Name(code: 'ar', value: 'دهانات حرارية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Thermal insulation paints'),
+                  Phrase(langCode: 'ar', value: 'دهانات حرارية')
                 ],
               ),
               KW(
                 id: 'prd_mat_paint_fire',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire retardant paints'),
-                  Name(code: 'ar', value: 'دهانات مضادة للحريق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire retardant paints'),
+                  Phrase(langCode: 'ar', value: 'دهانات مضادة للحريق')
                 ],
               ),
             ],
@@ -4725,58 +4724,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_heatIMin',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Mineral Heat Insulation'),
-              Name(code: 'ar', value: 'عوازل حرارية من ألياف معدنية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Mineral Heat Insulation'),
+              Phrase(langCode: 'ar', value: 'عوازل حرارية من ألياف معدنية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_heatmin_vermiculite',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vermiculite Asbestos'),
-                  Name(code: 'ar', value: 'أسبستوس فيرميكوليت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vermiculite Asbestos'),
+                  Phrase(langCode: 'ar', value: 'أسبستوس فيرميكوليت')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatmin_cellulose',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cellulose fibre'),
-                  Name(code: 'ar', value: 'ألياف سيليولوز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cellulose fibre'),
+                  Phrase(langCode: 'ar', value: 'ألياف سيليولوز')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatmin_perlite',
-                names: <Name>[
-                  Name(code: 'en', value: 'Perlite insulation boards'),
-                  Name(code: 'ar', value: 'ألواح بيرلايت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Perlite insulation boards'),
+                  Phrase(langCode: 'ar', value: 'ألواح بيرلايت')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatmin_foamGlass',
-                names: <Name>[
-                  Name(code: 'en', value: 'Foam glass boards'),
-                  Name(code: 'ar', value: 'ألواح فوم زجاجي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Foam glass boards'),
+                  Phrase(langCode: 'ar', value: 'ألواح فوم زجاجي')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatmin_fiberglassWool',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fiberglass wool'),
-                  Name(code: 'ar', value: 'صوف زجاجي فايبر جلاس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fiberglass wool'),
+                  Phrase(langCode: 'ar', value: 'صوف زجاجي فايبر جلاس')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatmin_fiberglassPipe',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fiberglass piping insulation'),
-                  Name(code: 'ar', value: 'عزل صوف زجاجي خراطيم فايبر جلاس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fiberglass piping insulation'),
+                  Phrase(langCode: 'ar', value: 'عزل صوف زجاجي خراطيم فايبر جلاس')
                 ],
               ),
               KW(
                 id: 'prd_mat_heatmin_rockWool',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rock wool'),
-                  Name(code: 'ar', value: 'صوف صخري')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rock wool'),
+                  Phrase(langCode: 'ar', value: 'صوف صخري')
                 ],
               ),
             ],
@@ -4786,72 +4785,72 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_metals',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Metals'),
-              Name(code: 'ar', value: 'معادن')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Metals'),
+              Phrase(langCode: 'ar', value: 'معادن')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_metal_iron',
-                names: <Name>[
-                  Name(code: 'en', value: 'Iron'),
-                  Name(code: 'ar', value: 'حديد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Iron'),
+                  Phrase(langCode: 'ar', value: 'حديد')
                 ],
               ),
               KW(
                 id: 'prd_mat_metal_steel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Steel'),
-                  Name(code: 'ar', value: 'حديد مسلح')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Steel'),
+                  Phrase(langCode: 'ar', value: 'حديد مسلح')
                 ],
               ),
               KW(
                 id: 'prd_mat_metal_aluminum',
-                names: <Name>[
-                  Name(code: 'en', value: 'Aluminum'),
-                  Name(code: 'ar', value: 'ألمنيوم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Aluminum'),
+                  Phrase(langCode: 'ar', value: 'ألمنيوم')
                 ],
               ),
               KW(
                 id: 'prd_mat_metal_copper',
-                names: <Name>[
-                  Name(code: 'en', value: 'Copper'),
-                  Name(code: 'ar', value: 'نحاس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Copper'),
+                  Phrase(langCode: 'ar', value: 'نحاس')
                 ],
               ),
               KW(
                 id: 'prd_mat_metal_silver',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sliver'),
-                  Name(code: 'ar', value: 'فضة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sliver'),
+                  Phrase(langCode: 'ar', value: 'فضة')
                 ],
               ),
               KW(
                 id: 'prd_mat_metal_gold',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gold'),
-                  Name(code: 'ar', value: 'ذهب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gold'),
+                  Phrase(langCode: 'ar', value: 'ذهب')
                 ],
               ),
               KW(
                 id: 'prd_mat_metal_bronze',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bronze'),
-                  Name(code: 'ar', value: 'برونز')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bronze'),
+                  Phrase(langCode: 'ar', value: 'برونز')
                 ],
               ),
               KW(
                 id: 'prd_mat_metal_stainless',
-                names: <Name>[
-                  Name(code: 'en', value: 'Stainless steel'),
-                  Name(code: 'ar', value: 'ستانلس ستيل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Stainless steel'),
+                  Phrase(langCode: 'ar', value: 'ستانلس ستيل')
                 ],
               ),
               KW(
                 id: 'prd_mat_metal_chrome',
-                names: <Name>[
-                  Name(code: 'en', value: 'Chrome'),
-                  Name(code: 'ar', value: 'كروم')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Chrome'),
+                  Phrase(langCode: 'ar', value: 'كروم')
                 ],
               ),
             ],
@@ -4861,58 +4860,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_manuWood',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Manufactured Wood'),
-              Name(code: 'ar', value: 'أخشاب مصنعة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Manufactured Wood'),
+              Phrase(langCode: 'ar', value: 'أخشاب مصنعة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_manWood_mdf',
-                names: <Name>[
-                  Name(code: 'en', value: 'MDF'),
-                  Name(code: 'ar', value: 'خشب مضغوط إم دي إف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'MDF'),
+                  Phrase(langCode: 'ar', value: 'خشب مضغوط إم دي إف')
                 ],
               ),
               KW(
                 id: 'prd_mat_manWood_veneer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Veneer wood'),
-                  Name(code: 'ar', value: 'قشرة خشب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Veneer wood'),
+                  Phrase(langCode: 'ar', value: 'قشرة خشب')
                 ],
               ),
               KW(
                 id: 'prd_mat_manWood_compressed',
-                names: <Name>[
-                  Name(code: 'en', value: 'Compressed chip & fire board wood'),
-                  Name(code: 'ar', value: 'خشب حبيبي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Compressed chip & fire board wood'),
+                  Phrase(langCode: 'ar', value: 'خشب حبيبي')
                 ],
               ),
               KW(
                 id: 'prd_mat_manWood_formica',
-                names: <Name>[
-                  Name(code: 'en', value: 'Formica'),
-                  Name(code: 'ar', value: 'خشب فروميكا')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Formica'),
+                  Phrase(langCode: 'ar', value: 'خشب فروميكا')
                 ],
               ),
               KW(
                 id: 'prd_mat_manWood_engineered',
-                names: <Name>[
-                  Name(code: 'en', value: 'Engineered wood'),
-                  Name(code: 'ar', value: 'خشب كونتر طبقات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Engineered wood'),
+                  Phrase(langCode: 'ar', value: 'خشب كونتر طبقات')
                 ],
               ),
               KW(
                 id: 'prd_mat_manWood_ply',
-                names: <Name>[
-                  Name(code: 'en', value: 'Plywood'),
-                  Name(code: 'ar', value: 'خشب أبلكاش')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Plywood'),
+                  Phrase(langCode: 'ar', value: 'خشب أبلكاش')
                 ],
               ),
               KW(
                 id: 'prd_mat_manWood_cork',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cork wood'),
-                  Name(code: 'ar', value: 'خشب فلين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cork wood'),
+                  Phrase(langCode: 'ar', value: 'خشب فلين')
                 ],
               ),
             ],
@@ -4922,23 +4921,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_gypsum',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Gypsum'),
-              Name(code: 'ar', value: 'جبس')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Gypsum'),
+              Phrase(langCode: 'ar', value: 'جبس')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_gypsum_board',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gypsum boards & accessories'),
-                  Name(code: 'ar', value: 'ألواح جبسية و اكسسوارات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gypsum boards & accessories'),
+                  Phrase(langCode: 'ar', value: 'ألواح جبسية و اكسسوارات')
                 ],
               ),
               KW(
                 id: 'prd_mat_gypsum_powder',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gypsum powder'),
-                  Name(code: 'ar', value: 'جبس أبيض')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gypsum powder'),
+                  Phrase(langCode: 'ar', value: 'جبس أبيض')
                 ],
               ),
             ],
@@ -4948,65 +4947,65 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_glass',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Glass'),
-              Name(code: 'ar', value: 'زجاج')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Glass'),
+              Phrase(langCode: 'ar', value: 'زجاج')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_glass_float',
-                names: <Name>[
-                  Name(code: 'en', value: 'Float glass'),
-                  Name(code: 'ar', value: 'زجاج مصقول')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Float glass'),
+                  Phrase(langCode: 'ar', value: 'زجاج مصقول')
                 ],
               ),
               KW(
                 id: 'prd_mat_glass_bullet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bullet proof glass'),
-                  Name(code: 'ar', value: 'زجاج مضاد للرصاص')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bullet proof glass'),
+                  Phrase(langCode: 'ar', value: 'زجاج مضاد للرصاص')
                 ],
               ),
               KW(
                 id: 'prd_mat_glass_block',
-                names: <Name>[
-                  Name(code: 'en', value: 'Glass blocks'),
-                  Name(code: 'ar', value: 'طوب زجاجي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Glass blocks'),
+                  Phrase(langCode: 'ar', value: 'طوب زجاجي')
                 ],
               ),
               KW(
                 id: 'prd_mat_glass_tempered',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tempered & Laminated glass'),
-                  Name(code: 'ar', value: 'زجاج سيكوريت مقوى')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tempered & Laminated glass'),
+                  Phrase(langCode: 'ar', value: 'زجاج سيكوريت مقوى')
                 ],
               ),
               KW(
                 id: 'prd_mat_glass_obscured',
-                names: <Name>[
-                  Name(code: 'en', value: 'Obscured glass'),
-                  Name(code: 'ar', value: 'زجاج منقوش')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Obscured glass'),
+                  Phrase(langCode: 'ar', value: 'زجاج منقوش')
                 ],
               ),
               KW(
                 id: 'prd_mat_glass_mirrored',
-                names: <Name>[
-                  Name(code: 'en', value: 'Mirrored glass'),
-                  Name(code: 'ar', value: 'زجاج عاكس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Mirrored glass'),
+                  Phrase(langCode: 'ar', value: 'زجاج عاكس')
                 ],
               ),
               KW(
                 id: 'prd_mat_glass_tinted',
-                names: <Name>[
-                  Name(code: 'en', value: ' Tinted glass'),
-                  Name(code: 'ar', value: 'زجاج ملون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: ' Tinted glass'),
+                  Phrase(langCode: 'ar', value: 'زجاج ملون')
                 ],
               ),
               KW(
                 id: 'prd_mat_glass_wired',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wired glass'),
-                  Name(code: 'ar', value: 'زجاج سلكي و شبكي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wired glass'),
+                  Phrase(langCode: 'ar', value: 'زجاج سلكي و شبكي')
                 ],
               ),
             ],
@@ -5016,93 +5015,93 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_fabrics',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Fabrics'),
-              Name(code: 'ar', value: 'أنسجة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Fabrics'),
+              Phrase(langCode: 'ar', value: 'أنسجة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_fabric_wool',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wool'),
-                  Name(code: 'ar', value: 'صوف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wool'),
+                  Phrase(langCode: 'ar', value: 'صوف')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_moquette',
-                names: <Name>[
-                  Name(code: 'en', value: 'Carpets'),
-                  Name(code: 'ar', value: 'موكيت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Carpets'),
+                  Phrase(langCode: 'ar', value: 'موكيت')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_leather',
-                names: <Name>[
-                  Name(code: 'en', value: 'Leather'),
-                  Name(code: 'ar', value: 'جلود')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Leather'),
+                  Phrase(langCode: 'ar', value: 'جلود')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_upholstery',
-                names: <Name>[
-                  Name(code: 'en', value: 'Upholstery fabric'),
-                  Name(code: 'ar', value: 'أنسجة تنجيد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Upholstery fabric'),
+                  Phrase(langCode: 'ar', value: 'أنسجة تنجيد')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_polyester',
-                names: <Name>[
-                  Name(code: 'en', value: 'Polyester'),
-                  Name(code: 'ar', value: 'بوليستر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Polyester'),
+                  Phrase(langCode: 'ar', value: 'بوليستر')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_silk',
-                names: <Name>[
-                  Name(code: 'en', value: 'Silk'),
-                  Name(code: 'ar', value: 'حرير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Silk'),
+                  Phrase(langCode: 'ar', value: 'حرير')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_rayon',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rayon'),
-                  Name(code: 'ar', value: 'رايون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rayon'),
+                  Phrase(langCode: 'ar', value: 'رايون')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_cotton',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cotton'),
-                  Name(code: 'ar', value: 'قطن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cotton'),
+                  Phrase(langCode: 'ar', value: 'قطن')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_linen',
-                names: <Name>[
-                  Name(code: 'en', value: 'Linen'),
-                  Name(code: 'ar', value: 'كتان')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Linen'),
+                  Phrase(langCode: 'ar', value: 'كتان')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_velvet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Velvet'),
-                  Name(code: 'ar', value: 'فيلفيت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Velvet'),
+                  Phrase(langCode: 'ar', value: 'فيلفيت')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_voile',
-                names: <Name>[
-                  Name(code: 'en', value: 'Voile'),
-                  Name(code: 'ar', value: 'فوال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Voile'),
+                  Phrase(langCode: 'ar', value: 'فوال')
                 ],
               ),
               KW(
                 id: 'prd_mat_fabric_lace',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lace'),
-                  Name(code: 'ar', value: 'دانتيل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lace'),
+                  Phrase(langCode: 'ar', value: 'دانتيل')
                 ],
               ),
             ],
@@ -5112,30 +5111,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_cement',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Cement'),
-              Name(code: 'ar', value: 'أسمنت')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Cement'),
+              Phrase(langCode: 'ar', value: 'أسمنت')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_cement_white',
-                names: <Name>[
-                  Name(code: 'en', value: 'White cement'),
-                  Name(code: 'ar', value: 'أسمنت أبيض')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'White cement'),
+                  Phrase(langCode: 'ar', value: 'أسمنت أبيض')
                 ],
               ),
               KW(
                 id: 'prd_mat_cement_portland',
-                names: <Name>[
-                  Name(code: 'en', value: 'Portland'),
-                  Name(code: 'ar', value: 'أسمنت بورتلاندي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Portland'),
+                  Phrase(langCode: 'ar', value: 'أسمنت بورتلاندي')
                 ],
               ),
               KW(
                 id: 'prd_mat_cement_board',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cement boards'),
-                  Name(code: 'ar', value: 'ألواح أسمنتية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cement boards'),
+                  Phrase(langCode: 'ar', value: 'ألواح أسمنتية')
                 ],
               ),
             ],
@@ -5145,30 +5144,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_bricks',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Bricks'),
-              Name(code: 'ar', value: 'طوب')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Bricks'),
+              Phrase(langCode: 'ar', value: 'طوب')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_brick_cement',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cement brick'),
-                  Name(code: 'ar', value: 'طوب أسمنتي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cement brick'),
+                  Phrase(langCode: 'ar', value: 'طوب أسمنتي')
                 ],
               ),
               KW(
                 id: 'prd_mat_brick_red',
-                names: <Name>[
-                  Name(code: 'en', value: 'Red brick'),
-                  Name(code: 'ar', value: 'طوب أحمر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Red brick'),
+                  Phrase(langCode: 'ar', value: 'طوب أحمر')
                 ],
               ),
               KW(
                 id: 'prd_mat_brick_white',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lightweight White brick'),
-                  Name(code: 'ar', value: 'طوب أبيض')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lightweight White brick'),
+                  Phrase(langCode: 'ar', value: 'طوب أبيض')
                 ],
               ),
             ],
@@ -5178,30 +5177,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_mat_acrylic',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Acrylic'),
-              Name(code: 'ar', value: 'أكريليك')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Acrylic'),
+              Phrase(langCode: 'ar', value: 'أكريليك')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_mat_acrylic_tinted',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tinted acrylic'),
-                  Name(code: 'ar', value: 'أكريليك شفاف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tinted acrylic'),
+                  Phrase(langCode: 'ar', value: 'أكريليك شفاف')
                 ],
               ),
               KW(
                 id: 'prd_mat_acrylic_frosted',
-                names: <Name>[
-                  Name(code: 'en', value: 'Frosted acrylic'),
-                  Name(code: 'ar', value: 'أكريليك نصف شفاف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Frosted acrylic'),
+                  Phrase(langCode: 'ar', value: 'أكريليك نصف شفاف')
                 ],
               ),
               KW(
                 id: 'prd_mat_acrylic_opaque',
-                names: <Name>[
-                  Name(code: 'en', value: 'Opaque acrylic'),
-                  Name(code: 'ar', value: 'أكريليك غير شفاف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Opaque acrylic'),
+                  Phrase(langCode: 'ar', value: 'أكريليك غير شفاف')
                 ],
               ),
             ],
@@ -5213,9 +5212,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_plumbing',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Plumbing & Sanitary ware'),
-          Name(code: 'ar', value: 'سباكة و أدوات صحية')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Plumbing & Sanitary ware'),
+          Phrase(langCode: 'ar', value: 'سباكة و أدوات صحية')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -5223,37 +5222,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_plumb_treatment',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Water Treatment'),
-              Name(code: 'ar', value: 'معالجة مياه')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Water Treatment'),
+              Phrase(langCode: 'ar', value: 'معالجة مياه')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_plumbing_treatment_filter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Water filters'),
-                  Name(code: 'ar', value: 'فلاتر مياه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Water filters'),
+                  Phrase(langCode: 'ar', value: 'فلاتر مياه')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_treatment_system',
-                names: <Name>[
-                  Name(code: 'en', value: 'Water treatment systems'),
-                  Name(code: 'ar', value: 'أنظمة معالجة مياه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Water treatment systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة معالجة مياه')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_treatment_tank',
-                names: <Name>[
-                  Name(code: 'en', value: 'Water tanks'),
-                  Name(code: 'ar', value: 'خزانات مياه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Water tanks'),
+                  Phrase(langCode: 'ar', value: 'خزانات مياه')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_treatment_heater',
-                names: <Name>[
-                  Name(code: 'en', value: 'Water Heater'),
-                  Name(code: 'ar', value: 'سخانات مياه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Water Heater'),
+                  Phrase(langCode: 'ar', value: 'سخانات مياه')
                 ],
               ),
             ],
@@ -5263,23 +5262,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_plumb_tub',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Tub Sanitary ware'),
-              Name(code: 'ar', value: 'أدوات بانيو صحية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Tub Sanitary ware'),
+              Phrase(langCode: 'ar', value: 'أدوات بانيو صحية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_plumbing_tub_bathTubs',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathtubs'),
-                  Name(code: 'ar', value: ' بانيوهات استحمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathtubs'),
+                  Phrase(langCode: 'ar', value: ' بانيوهات استحمام')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_tub_faucet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathtub faucets'),
-                  Name(code: 'ar', value: 'صنابير بانيوهات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathtub faucets'),
+                  Phrase(langCode: 'ar', value: 'صنابير بانيوهات')
                 ],
               ),
             ],
@@ -5289,51 +5288,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_plumb_toilet',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Toilet Sanitary ware'),
-              Name(code: 'ar', value: 'أدوات مراحيض صحية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Toilet Sanitary ware'),
+              Phrase(langCode: 'ar', value: 'أدوات مراحيض صحية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_plumbing_toilet_floorDrain',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom floor drains'),
-                  Name(code: 'ar', value: 'مصارف و بلاعات أرضية للحمامات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom floor drains'),
+                  Phrase(langCode: 'ar', value: 'مصارف و بلاعات أرضية للحمامات')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_toilet_urinal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Urinals'),
-                  Name(code: 'ar', value: 'مباول')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Urinals'),
+                  Phrase(langCode: 'ar', value: 'مباول')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_toilet_bidet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bidet'),
-                  Name(code: 'ar', value: 'بيديه شطاف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bidet'),
+                  Phrase(langCode: 'ar', value: 'بيديه شطاف')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_toilet_bidetFaucet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bidet faucets'),
-                  Name(code: 'ar', value: 'صنابير بيديه')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bidet faucets'),
+                  Phrase(langCode: 'ar', value: 'صنابير بيديه')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_toilet_toilet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Toilets & toilet seats'),
-                  Name(code: 'ar', value: 'مراحيض و مجالس مراحيض')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Toilets & toilet seats'),
+                  Phrase(langCode: 'ar', value: 'مراحيض و مجالس مراحيض')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_toilet_rinser',
-                names: <Name>[
-                  Name(code: 'en', value: 'Toilet rinsers'),
-                  Name(code: 'ar', value: 'شطافات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Toilet rinsers'),
+                  Phrase(langCode: 'ar', value: 'شطافات')
                 ],
               ),
             ],
@@ -5343,51 +5342,51 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_plumb_shower',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Shower Sanitary ware'),
-              Name(code: 'ar', value: 'أدوات استحمام صحية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Shower Sanitary ware'),
+              Phrase(langCode: 'ar', value: 'أدوات استحمام صحية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_plumbing_shower_head',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shower heads & Body sprays'),
-                  Name(code: 'ar', value: 'دش و رشاشات دش')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shower heads & Body sprays'),
+                  Phrase(langCode: 'ar', value: 'دش و رشاشات دش')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_shower_panel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shower panels'),
-                  Name(code: 'ar', value: 'وحدات دش متكاملة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shower panels'),
+                  Phrase(langCode: 'ar', value: 'وحدات دش متكاملة')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_shower_steam',
-                names: <Name>[
-                  Name(code: 'en', value: 'Steam shower cabins'),
-                  Name(code: 'ar', value: 'كابينات دش بخار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Steam shower cabins'),
+                  Phrase(langCode: 'ar', value: 'كابينات دش بخار')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_shower_faucet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tub & shower faucet sets'),
-                  Name(code: 'ar', value: 'أطقم صنابير بانيوهات و دش')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tub & shower faucet sets'),
+                  Phrase(langCode: 'ar', value: 'أطقم صنابير بانيوهات و دش')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_shower_base',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shower pans & bases'),
-                  Name(code: 'ar', value: 'وحدات دش قدم و قواعد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shower pans & bases'),
+                  Phrase(langCode: 'ar', value: 'وحدات دش قدم و قواعد')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_shower_accessory',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shower accessories'),
-                  Name(code: 'ar', value: 'اكسسوارات دش استحمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shower accessories'),
+                  Phrase(langCode: 'ar', value: 'اكسسوارات دش استحمام')
                 ],
               ),
             ],
@@ -5397,23 +5396,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_plumb_sanitary',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Sanitary ware'),
-              Name(code: 'ar', value: 'أدوات صحية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Sanitary ware'),
+              Phrase(langCode: 'ar', value: 'أدوات صحية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_plumbing_sanitary_drain',
-                names: <Name>[
-                  Name(code: 'en', value: 'Drains'),
-                  Name(code: 'ar', value: 'بلاعات / مصارف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Drains'),
+                  Phrase(langCode: 'ar', value: 'بلاعات / مصارف')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_sanitary_bibbs',
-                names: <Name>[
-                  Name(code: 'en', value: 'Hose bibbs'),
-                  Name(code: 'ar', value: 'حنفيات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Hose bibbs'),
+                  Phrase(langCode: 'ar', value: 'حنفيات')
                 ],
               ),
             ],
@@ -5423,58 +5422,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_plumb_kitchen',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Kitchen Sanitary ware'),
-              Name(code: 'ar', value: 'أدوات مطبخ صحية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Kitchen Sanitary ware'),
+              Phrase(langCode: 'ar', value: 'أدوات مطبخ صحية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_plumbing_kitchen_rinser',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rinsers'),
-                  Name(code: 'ar', value: 'مغسلة أكواب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rinsers'),
+                  Phrase(langCode: 'ar', value: 'مغسلة أكواب')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_kitchen_sink',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen sinks'),
-                  Name(code: 'ar', value: 'أحواض مطابخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen sinks'),
+                  Phrase(langCode: 'ar', value: 'أحواض مطابخ')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_kitchen_faucet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen faucets'),
-                  Name(code: 'ar', value: 'صنابير مطابخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen faucets'),
+                  Phrase(langCode: 'ar', value: 'صنابير مطابخ')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_kitchen_potFiller',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen pot fillers'),
-                  Name(code: 'ar', value: 'صنابير ملئ وعاء')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen pot fillers'),
+                  Phrase(langCode: 'ar', value: 'صنابير ملئ وعاء')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_kitchen_barSink',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bar sinks'),
-                  Name(code: 'ar', value: 'أحواض بار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bar sinks'),
+                  Phrase(langCode: 'ar', value: 'أحواض بار')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_kitchen_barFaucet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bar faucets'),
-                  Name(code: 'ar', value: 'صنابير بار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bar faucets'),
+                  Phrase(langCode: 'ar', value: 'صنابير بار')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_kitchen_floorDrain',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kitchen floor drains'),
-                  Name(code: 'ar', value: 'مصارف أرضية مطبخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kitchen floor drains'),
+                  Phrase(langCode: 'ar', value: 'مصارف أرضية مطبخ')
                 ],
               ),
             ],
@@ -5484,37 +5483,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_plumb_handwash',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Handwash Sanitary ware'),
-              Name(code: 'ar', value: 'أدوات غسيل أيدي صحية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Handwash Sanitary ware'),
+              Phrase(langCode: 'ar', value: 'أدوات غسيل أيدي صحية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_plumbing_handwash_washBasins',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wash basins'),
-                  Name(code: 'ar', value: 'أحواض أيدي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wash basins'),
+                  Phrase(langCode: 'ar', value: 'أحواض أيدي')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_handwash_faucet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom faucets'),
-                  Name(code: 'ar', value: 'صنابير حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom faucets'),
+                  Phrase(langCode: 'ar', value: 'صنابير حمام')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_handwash_accessories',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bathroom accessories'),
-                  Name(code: 'ar', value: 'اكسسوارات حمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bathroom accessories'),
+                  Phrase(langCode: 'ar', value: 'اكسسوارات حمام')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_handwash_soap',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lotion & soap dispensers'),
-                  Name(code: 'ar', value: 'حاوية صابون و لوشن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lotion & soap dispensers'),
+                  Phrase(langCode: 'ar', value: 'حاوية صابون و لوشن')
                 ],
               ),
             ],
@@ -5524,30 +5523,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_plumb_connections',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Connections'),
-              Name(code: 'ar', value: 'وصلات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Connections'),
+              Phrase(langCode: 'ar', value: 'وصلات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_plumbing_connections_pipes',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pipes'),
-                  Name(code: 'ar', value: 'مواسير صرف و تغذية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pipes'),
+                  Phrase(langCode: 'ar', value: 'مواسير صرف و تغذية')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_connections_fittings',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fittings'),
-                  Name(code: 'ar', value: 'أكواع و وصلات مواسير')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fittings'),
+                  Phrase(langCode: 'ar', value: 'أكواع و وصلات مواسير')
                 ],
               ),
               KW(
                 id: 'prd_plumbing_connections_valve',
-                names: <Name>[
-                  Name(code: 'en', value: 'Valves'),
-                  Name(code: 'ar', value: 'محابس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Valves'),
+                  Phrase(langCode: 'ar', value: 'محابس')
                 ],
               ),
             ],
@@ -5559,9 +5558,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_poolSpa',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Pools & Spa'),
-          Name(code: 'ar', value: 'حمامات سباحة و حمامات صحية')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Pools & Spa'),
+          Phrase(langCode: 'ar', value: 'حمامات سباحة و حمامات صحية')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -5569,30 +5568,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_pool_pools',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Swimming Pools'),
-              Name(code: 'ar', value: 'حمامات سباحة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Swimming Pools'),
+              Phrase(langCode: 'ar', value: 'حمامات سباحة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_poolSpa_pools_fiberglass',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fiberglass pools'),
-                  Name(code: 'ar', value: 'حمامات سباحة فايبرجلاس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fiberglass pools'),
+                  Phrase(langCode: 'ar', value: 'حمامات سباحة فايبرجلاس')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_pools_above',
-                names: <Name>[
-                  Name(code: 'en', value: 'Above ground  pools'),
-                  Name(code: 'ar', value: 'حمامات سباحة فوق الأرض')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Above ground  pools'),
+                  Phrase(langCode: 'ar', value: 'حمامات سباحة فوق الأرض')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_pools_inflatable',
-                names: <Name>[
-                  Name(code: 'en', value: 'Inflatable pools'),
-                  Name(code: 'ar', value: 'حمامات سباحة قابلة للنفخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Inflatable pools'),
+                  Phrase(langCode: 'ar', value: 'حمامات سباحة قابلة للنفخ')
                 ],
               ),
             ],
@@ -5602,37 +5601,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_pool_spa',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Spa'),
-              Name(code: 'ar', value: 'حمامات صحية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Spa'),
+              Phrase(langCode: 'ar', value: 'حمامات صحية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_poolSpa_spa_sauna',
-                names: <Name>[
-                  Name(code: 'en', value: 'Sauna rooms'),
-                  Name(code: 'ar', value: 'غرف ساونا')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Sauna rooms'),
+                  Phrase(langCode: 'ar', value: 'غرف ساونا')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_spa_steam',
-                names: <Name>[
-                  Name(code: 'en', value: 'Steam rooms'),
-                  Name(code: 'ar', value: 'غرف بخار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Steam rooms'),
+                  Phrase(langCode: 'ar', value: 'غرف بخار')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_spa_steamShower',
-                names: <Name>[
-                  Name(code: 'en', value: 'Steam shower cabins'),
-                  Name(code: 'ar', value: 'وحدات دش استحمام بخار')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Steam shower cabins'),
+                  Phrase(langCode: 'ar', value: 'وحدات دش استحمام بخار')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_spa_jacuzzi',
-                names: <Name>[
-                  Name(code: 'en', value: 'Jacuzzi & Hot tubs'),
-                  Name(code: 'ar', value: 'جاكوزي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Jacuzzi & Hot tubs'),
+                  Phrase(langCode: 'ar', value: 'جاكوزي')
                 ],
               ),
             ],
@@ -5642,30 +5641,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_pool_equipment',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Pools Equipment'),
-              Name(code: 'ar', value: 'عدات حمامات سباحة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Pools Equipment'),
+              Phrase(langCode: 'ar', value: 'عدات حمامات سباحة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_poolSpa_equip_cleaning',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cleaning supplies'),
-                  Name(code: 'ar', value: 'أدوات تنظيف حمام سباحة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cleaning supplies'),
+                  Phrase(langCode: 'ar', value: 'أدوات تنظيف حمام سباحة')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_equip_pump',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pumps'),
-                  Name(code: 'ar', value: 'مضخات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pumps'),
+                  Phrase(langCode: 'ar', value: 'مضخات')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_equip_filter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Filters'),
-                  Name(code: 'ar', value: 'فلاتر')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Filters'),
+                  Phrase(langCode: 'ar', value: 'فلاتر')
                 ],
               ),
             ],
@@ -5675,37 +5674,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_pool_accessories',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Pool Accessories'),
-              Name(code: 'ar', value: 'اكسسوارات حمامات سباحة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Pool Accessories'),
+              Phrase(langCode: 'ar', value: 'اكسسوارات حمامات سباحة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_poolSpa_access_handrail',
-                names: <Name>[
-                  Name(code: 'en', value: 'Handrails'),
-                  Name(code: 'ar', value: 'درابزين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Handrails'),
+                  Phrase(langCode: 'ar', value: 'درابزين')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_access_grate',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gutters & Grating'),
-                  Name(code: 'ar', value: 'مصارف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gutters & Grating'),
+                  Phrase(langCode: 'ar', value: 'مصارف')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_access_light',
-                names: <Name>[
-                  Name(code: 'en', value: 'Lighting'),
-                  Name(code: 'ar', value: 'إضاءة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Lighting'),
+                  Phrase(langCode: 'ar', value: 'إضاءة')
                 ],
               ),
               KW(
                 id: 'prd_poolSpa_access_shower',
-                names: <Name>[
-                  Name(code: 'en', value: 'Outdoor showers'),
-                  Name(code: 'ar', value: 'وحدات دش استحمام خارجية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Outdoor showers'),
+                  Phrase(langCode: 'ar', value: 'وحدات دش استحمام خارجية')
                 ],
               ),
             ],
@@ -5717,9 +5716,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_roofing',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Roofing'),
-          Name(code: 'ar', value: 'أسطح')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Roofing'),
+          Phrase(langCode: 'ar', value: 'أسطح')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -5727,16 +5726,16 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_roof_drainage',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Roof Drainage'),
-              Name(code: 'ar', value: 'صرف أسطح')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Roof Drainage'),
+              Phrase(langCode: 'ar', value: 'صرف أسطح')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_roof_drainage_gutter',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gutters'),
-                  Name(code: 'ar', value: 'مصارف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gutters'),
+                  Phrase(langCode: 'ar', value: 'مصارف')
                 ],
               ),
             ],
@@ -5746,30 +5745,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_roof_cladding',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Roof Cladding'),
-              Name(code: 'ar', value: 'تجاليد أسطح')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Roof Cladding'),
+              Phrase(langCode: 'ar', value: 'تجاليد أسطح')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_roof_cladding_brick',
-                names: <Name>[
-                  Name(code: 'en', value: 'Roof bricks & tiles'),
-                  Name(code: 'ar', value: 'قرميد')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Roof bricks & tiles'),
+                  Phrase(langCode: 'ar', value: 'قرميد')
                 ],
               ),
               KW(
                 id: 'prd_roof_cladding_bitumen',
-                names: <Name>[
-                  Name(code: 'en', value: 'Corrugatedbitumen sheets'),
-                  Name(code: 'ar', value: 'صفائح بيتومينية مموجة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Corrugatedbitumen sheets'),
+                  Phrase(langCode: 'ar', value: 'صفائح بيتومينية مموجة')
                 ],
               ),
               KW(
                 id: 'prd_roof_cladding_metal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Corrugated metal sheets'),
-                  Name(code: 'ar', value: 'صفائح معدنية مموجة شينكو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Corrugated metal sheets'),
+                  Phrase(langCode: 'ar', value: 'صفائح معدنية مموجة شينكو')
                 ],
               ),
             ],
@@ -5781,9 +5780,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_safety',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Safety'),
-          Name(code: 'ar', value: 'أمن و سلامة')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Safety'),
+          Phrase(langCode: 'ar', value: 'أمن و سلامة')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -5791,30 +5790,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_safety_equip',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Safety Equipment'),
-              Name(code: 'ar', value: 'معدات سلامة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Safety Equipment'),
+              Phrase(langCode: 'ar', value: 'معدات سلامة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_safety_equip_gasDetector',
-                names: <Name>[
-                  Name(code: 'en', value: 'Portable gas detectors'),
-                  Name(code: 'ar', value: 'كاشف غاز يدوي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Portable gas detectors'),
+                  Phrase(langCode: 'ar', value: 'كاشف غاز يدوي')
                 ],
               ),
               KW(
                 id: 'prd_safety_equip_rescue',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rescue tools & devices'),
-                  Name(code: 'ar', value: 'أدوات و أجهزة إنقاذ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rescue tools & devices'),
+                  Phrase(langCode: 'ar', value: 'أدوات و أجهزة إنقاذ')
                 ],
               ),
               KW(
                 id: 'prd_safety_equip_firstAid',
-                names: <Name>[
-                  Name(code: 'en', value: 'Emergency & first aid kits'),
-                  Name(code: 'ar', value: 'أدوات طوارئ و إعافات أولية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Emergency & first aid kits'),
+                  Phrase(langCode: 'ar', value: 'أدوات طوارئ و إعافات أولية')
                 ],
               ),
             ],
@@ -5824,65 +5823,65 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_safety_clothes',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Safety Clothes'),
-              Name(code: 'ar', value: 'ملابس أمن و سلامة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Safety Clothes'),
+              Phrase(langCode: 'ar', value: 'ملابس أمن و سلامة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_safety_clothes_coverall',
-                names: <Name>[
-                  Name(code: 'en', value: 'Coveralls'),
-                  Name(code: 'ar', value: 'معاطف عمل')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Coveralls'),
+                  Phrase(langCode: 'ar', value: 'معاطف عمل')
                 ],
               ),
               KW(
                 id: 'prd_safety_clothes_chemicalSuit',
-                names: <Name>[
-                  Name(code: 'en', value: 'Chemical protection suits'),
-                  Name(code: 'ar', value: 'بدلة واقية من الكيماويات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Chemical protection suits'),
+                  Phrase(langCode: 'ar', value: 'بدلة واقية من الكيماويات')
                 ],
               ),
               KW(
                 id: 'prd_safety_clothes_eyeProtection',
-                names: <Name>[
-                  Name(code: 'en', value: 'Eye protectors'),
-                  Name(code: 'ar', value: 'واقيات عيون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Eye protectors'),
+                  Phrase(langCode: 'ar', value: 'واقيات عيون')
                 ],
               ),
               KW(
                 id: 'prd_safety_clothes_earProtection',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ear protectors'),
-                  Name(code: 'ar', value: 'واقيات أذن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ear protectors'),
+                  Phrase(langCode: 'ar', value: 'واقيات أذن')
                 ],
               ),
               KW(
                 id: 'prd_safety_clothes_helmet',
-                names: <Name>[
-                  Name(code: 'en', value: 'Helmets'),
-                  Name(code: 'ar', value: 'خوذ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Helmets'),
+                  Phrase(langCode: 'ar', value: 'خوذ')
                 ],
               ),
               KW(
                 id: 'prd_safety_clothes_glove',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gloves'),
-                  Name(code: 'ar', value: 'قفازات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gloves'),
+                  Phrase(langCode: 'ar', value: 'قفازات')
                 ],
               ),
               KW(
                 id: 'prd_safety_clothes_shoe',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shoes'),
-                  Name(code: 'ar', value: 'أحذية حامية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shoes'),
+                  Phrase(langCode: 'ar', value: 'أحذية حامية')
                 ],
               ),
               KW(
                 id: 'prd_safety_clothes_respirator',
-                names: <Name>[
-                  Name(code: 'en', value: 'Respirators'),
-                  Name(code: 'ar', value: 'كمامات تنفس')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Respirators'),
+                  Phrase(langCode: 'ar', value: 'كمامات تنفس')
                 ],
               ),
             ],
@@ -5892,23 +5891,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_safety_floorProtection',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Floor Protection'),
-              Name(code: 'ar', value: 'حماية أرضيات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Floor Protection'),
+              Phrase(langCode: 'ar', value: 'حماية أرضيات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_safety_floorProtection_cardboard',
-                names: <Name>[
-                  Name(code: 'en', value: 'Cardboard roll'),
-                  Name(code: 'ar', value: 'لفة كرتون')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Cardboard roll'),
+                  Phrase(langCode: 'ar', value: 'لفة كرتون')
                 ],
               ),
               KW(
                 id: 'prd_safety_floorProtection_plastic',
-                names: <Name>[
-                  Name(code: 'en', value: 'plastic roll'),
-                  Name(code: 'ar', value: 'لفة بلاستيك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'plastic roll'),
+                  Phrase(langCode: 'ar', value: 'لفة بلاستيك')
                 ],
               ),
             ],
@@ -5920,9 +5919,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_security',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Security'),
-          Name(code: 'ar', value: 'الحماية و الأمان')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Security'),
+          Phrase(langCode: 'ar', value: 'الحماية و الأمان')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -5930,30 +5929,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_security_surveillance',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Surveillance Systems'),
-              Name(code: 'ar', value: 'أنظمة مراقبة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Surveillance Systems'),
+              Phrase(langCode: 'ar', value: 'أنظمة مراقبة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_security_surv_camera',
-                names: <Name>[
-                  Name(code: 'en', value: 'Video surveillance systems'),
-                  Name(code: 'ar', value: 'أنظمة مراقبة فيديو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Video surveillance systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة مراقبة فيديو')
                 ],
               ),
               KW(
                 id: 'prd_security_surv_thermal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Thermal imaging systems'),
-                  Name(code: 'ar', value: 'أنظمة تصوير حراري')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Thermal imaging systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة تصوير حراري')
                 ],
               ),
               KW(
                 id: 'prd_security_surv_motion',
-                names: <Name>[
-                  Name(code: 'en', value: 'Motion sensors'),
-                  Name(code: 'ar', value: 'حساسات حركة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Motion sensors'),
+                  Phrase(langCode: 'ar', value: 'حساسات حركة')
                 ],
               ),
             ],
@@ -5963,44 +5962,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_security_safes',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Security Safes'),
-              Name(code: 'ar', value: 'خزائن أمان')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Security Safes'),
+              Phrase(langCode: 'ar', value: 'خزائن أمان')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_security_safes_wall',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall safes'),
-                  Name(code: 'ar', value: 'خزن حائطية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall safes'),
+                  Phrase(langCode: 'ar', value: 'خزن حائطية')
                 ],
               ),
               KW(
                 id: 'prd_security_safes_portable',
-                names: <Name>[
-                  Name(code: 'en', value: 'Portable safes'),
-                  Name(code: 'ar', value: 'خزن متنقلة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Portable safes'),
+                  Phrase(langCode: 'ar', value: 'خزن متنقلة')
                 ],
               ),
               KW(
                 id: 'prd_security_safes_mini',
-                names: <Name>[
-                  Name(code: 'en', value: 'Mini safes'),
-                  Name(code: 'ar', value: 'خزن صغيرة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Mini safes'),
+                  Phrase(langCode: 'ar', value: 'خزن صغيرة')
                 ],
               ),
               KW(
                 id: 'prd_security_safes_vault',
-                names: <Name>[
-                  Name(code: 'en', value: 'Vaults'),
-                  Name(code: 'ar', value: 'خزن سرداب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Vaults'),
+                  Phrase(langCode: 'ar', value: 'خزن سرداب')
                 ],
               ),
               KW(
                 id: 'prd_security_safes_fire',
-                names: <Name>[
-                  Name(code: 'en', value: 'Fire proof safes'),
-                  Name(code: 'ar', value: 'خزن مضادة للحريق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Fire proof safes'),
+                  Phrase(langCode: 'ar', value: 'خزن مضادة للحريق')
                 ],
               ),
             ],
@@ -6010,30 +6009,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_security_roadControl',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Road Control'),
-              Name(code: 'ar', value: 'تحكم في الطرق')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Road Control'),
+              Phrase(langCode: 'ar', value: 'تحكم في الطرق')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_security_road_bollard',
-                names: <Name>[
-                  Name(code: 'en', value: 'Bollards'),
-                  Name(code: 'ar', value: 'بولارد فاصل حركة أرضي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Bollards'),
+                  Phrase(langCode: 'ar', value: 'بولارد فاصل حركة أرضي')
                 ],
               ),
               KW(
                 id: 'prd_security_road_tire',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tire killers'),
-                  Name(code: 'ar', value: 'قاتل إطارات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tire killers'),
+                  Phrase(langCode: 'ar', value: 'قاتل إطارات')
                 ],
               ),
               KW(
                 id: 'prd_security_road_barrier',
-                names: <Name>[
-                  Name(code: 'en', value: 'Road barriers'),
-                  Name(code: 'ar', value: 'فاصل طريق')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Road barriers'),
+                  Phrase(langCode: 'ar', value: 'فاصل طريق')
                 ],
               ),
             ],
@@ -6043,37 +6042,37 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_security_accessibility',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Accessibility Systems'),
-              Name(code: 'ar', value: 'أنظمة دخول')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Accessibility Systems'),
+              Phrase(langCode: 'ar', value: 'أنظمة دخول')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_security_access_accessControl',
-                names: <Name>[
-                  Name(code: 'en', value: 'Access control systems'),
-                  Name(code: 'ar', value: 'أنظمة دخول')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Access control systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة دخول')
                 ],
               ),
               KW(
                 id: 'prd_security_access_eas',
-                names: <Name>[
-                  Name(code: 'en', value: 'EAS systems'),
-                  Name(code: 'ar', value: 'أنظمة أمن هوائي EAS')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'EAS systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة أمن هوائي EAS')
                 ],
               ),
               KW(
                 id: 'prd_security_access_detector',
-                names: <Name>[
-                  Name(code: 'en', value: 'Metal detector portals'),
-                  Name(code: 'ar', value: 'بوابات كشف معادن')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Metal detector portals'),
+                  Phrase(langCode: 'ar', value: 'بوابات كشف معادن')
                 ],
               ),
               KW(
                 id: 'prd_security_access_turnstile',
-                names: <Name>[
-                  Name(code: 'en', value: 'Turnstiles'),
-                  Name(code: 'ar', value: 'بوابات مرور فردية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Turnstiles'),
+                  Phrase(langCode: 'ar', value: 'بوابات مرور فردية')
                 ],
               ),
             ],
@@ -6085,9 +6084,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_smartHome',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Smart home'),
-          Name(code: 'ar', value: 'تجهيزات المنازل الذكية')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Smart home'),
+          Phrase(langCode: 'ar', value: 'تجهيزات المنازل الذكية')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -6095,23 +6094,23 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_smart_automation',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Automation Systems'),
-              Name(code: 'ar', value: 'أنظمة أوتوماتية')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Automation Systems'),
+              Phrase(langCode: 'ar', value: 'أنظمة أوتوماتية')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_smart_auto_center',
-                names: <Name>[
-                  Name(code: 'en', value: 'Home automation centers'),
-                  Name(code: 'ar', value: 'أنظمة تحكم منزلي آلية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Home automation centers'),
+                  Phrase(langCode: 'ar', value: 'أنظمة تحكم منزلي آلية')
                 ],
               ),
               KW(
                 id: 'prd_smart_auto_system',
-                names: <Name>[
-                  Name(code: 'en', value: 'Automation systems'),
-                  Name(code: 'ar', value: 'لوحات تحكم منزلي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Automation systems'),
+                  Phrase(langCode: 'ar', value: 'لوحات تحكم منزلي')
                 ],
               ),
             ],
@@ -6121,44 +6120,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_smart_audio',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Audio Systems'),
-              Name(code: 'ar', value: 'أنظمة صوت')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Audio Systems'),
+              Phrase(langCode: 'ar', value: 'أنظمة صوت')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_smart_audio_system',
-                names: <Name>[
-                  Name(code: 'en', value: 'Audio systems'),
-                  Name(code: 'ar', value: 'أنظمة صوتية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Audio systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة صوتية')
                 ],
               ),
               KW(
                 id: 'prd_smart_audio_theatre',
-                names: <Name>[
-                  Name(code: 'en', value: 'Home theatre systems'),
-                  Name(code: 'ar', value: 'أنظمة مسرح منزلي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Home theatre systems'),
+                  Phrase(langCode: 'ar', value: 'أنظمة مسرح منزلي')
                 ],
               ),
               KW(
                 id: 'prd_smart_audio_speaker',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall & ceiling speakers'),
-                  Name(code: 'ar', value: 'سماعات حوائط و أسقف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall & ceiling speakers'),
+                  Phrase(langCode: 'ar', value: 'سماعات حوائط و أسقف')
                 ],
               ),
               KW(
                 id: 'prd_smart_audio_wirelessSpeaker',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wireless speakers'),
-                  Name(code: 'ar', value: 'سماعات لاسلكية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wireless speakers'),
+                  Phrase(langCode: 'ar', value: 'سماعات لاسلكية')
                 ],
               ),
               KW(
                 id: 'prd_smart_audio_controller',
-                names: <Name>[
-                  Name(code: 'en', value: 'Audio controllers'),
-                  Name(code: 'ar', value: 'متحكمات صوت')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Audio controllers'),
+                  Phrase(langCode: 'ar', value: 'متحكمات صوت')
                 ],
               ),
             ],
@@ -6170,9 +6169,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_stairs',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Stairs'),
-          Name(code: 'ar', value: 'سلالم')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Stairs'),
+          Phrase(langCode: 'ar', value: 'سلالم')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -6180,30 +6179,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_stairs_handrails',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Handrails'),
-              Name(code: 'ar', value: 'درابزين سلالم')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Handrails'),
+              Phrase(langCode: 'ar', value: 'درابزين سلالم')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_stairs_handrails_wood',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wooden handrails'),
-                  Name(code: 'ar', value: 'درابزين خشبي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wooden handrails'),
+                  Phrase(langCode: 'ar', value: 'درابزين خشبي')
                 ],
               ),
               KW(
                 id: 'prd_stairs_handrails_metal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Metal handrails'),
-                  Name(code: 'ar', value: 'درابزين معدني')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Metal handrails'),
+                  Phrase(langCode: 'ar', value: 'درابزين معدني')
                 ],
               ),
               KW(
                 id: 'prd_stairs_handrails_parts',
-                names: <Name>[
-                  Name(code: 'en', value: 'Handrail parts'),
-                  Name(code: 'ar', value: 'أجزاء درابزين')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Handrail parts'),
+                  Phrase(langCode: 'ar', value: 'أجزاء درابزين')
                 ],
               ),
             ],
@@ -6215,9 +6214,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_structure',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Light Structures'),
-          Name(code: 'ar', value: 'هياكل و منشآت خفيفة')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Light Structures'),
+          Phrase(langCode: 'ar', value: 'هياكل و منشآت خفيفة')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -6225,58 +6224,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_struc_shades',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Shades'),
-              Name(code: 'ar', value: 'مظلات')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Shades'),
+              Phrase(langCode: 'ar', value: 'مظلات')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_structure_shades_pergola',
-                names: <Name>[
-                  Name(code: 'en', value: 'Pergola'),
-                  Name(code: 'ar', value: 'برجولة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Pergola'),
+                  Phrase(langCode: 'ar', value: 'برجولة')
                 ],
               ),
               KW(
                 id: 'prd_structure_shades_gazebo',
-                names: <Name>[
-                  Name(code: 'en', value: 'Gazebos'),
-                  Name(code: 'ar', value: 'جازيبو')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Gazebos'),
+                  Phrase(langCode: 'ar', value: 'جازيبو')
                 ],
               ),
               KW(
                 id: 'prd_structure_shades_sail',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shade sails'),
-                  Name(code: 'ar', value: 'تغطيات شراعية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shade sails'),
+                  Phrase(langCode: 'ar', value: 'تغطيات شراعية')
                 ],
               ),
               KW(
                 id: 'prd_structure_shades_canopy',
-                names: <Name>[
-                  Name(code: 'en', value: 'Canopy'),
-                  Name(code: 'ar', value: 'مظلة أرضية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Canopy'),
+                  Phrase(langCode: 'ar', value: 'مظلة أرضية')
                 ],
               ),
               KW(
                 id: 'prd_structure_shades_awning',
-                names: <Name>[
-                  Name(code: 'en', value: 'Awning'),
-                  Name(code: 'ar', value: 'مظلة حائطية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Awning'),
+                  Phrase(langCode: 'ar', value: 'مظلة حائطية')
                 ],
               ),
               KW(
                 id: 'prd_structure_shades_tent',
-                names: <Name>[
-                  Name(code: 'en', value: 'tent'),
-                  Name(code: 'ar', value: 'خيمة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'tent'),
+                  Phrase(langCode: 'ar', value: 'خيمة')
                 ],
               ),
               KW(
                 id: 'prd_structure_shades_umbrella',
-                names: <Name>[
-                  Name(code: 'en', value: 'Umbrella'),
-                  Name(code: 'ar', value: 'شمسية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Umbrella'),
+                  Phrase(langCode: 'ar', value: 'شمسية')
                 ],
               ),
             ],
@@ -6286,58 +6285,58 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_struc_light',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Light Structures'),
-              Name(code: 'ar', value: 'منشآت خفيفة')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Light Structures'),
+              Phrase(langCode: 'ar', value: 'منشآت خفيفة')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_structure_light_arbor',
-                names: <Name>[
-                  Name(code: 'en', value: 'Garden Arbor'),
-                  Name(code: 'ar', value: 'معرش شجري')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Garden Arbor'),
+                  Phrase(langCode: 'ar', value: 'معرش شجري')
                 ],
               ),
               KW(
                 id: 'prd_structure_light_shed',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shed'),
-                  Name(code: 'ar', value: 'كوخ')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shed'),
+                  Phrase(langCode: 'ar', value: 'كوخ')
                 ],
               ),
               KW(
                 id: 'prd_structure_light_kiosk',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kiosk'),
-                  Name(code: 'ar', value: 'كشك')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kiosk'),
+                  Phrase(langCode: 'ar', value: 'كشك')
                 ],
               ),
               KW(
                 id: 'prd_structure_light_playhouse',
-                names: <Name>[
-                  Name(code: 'en', value: 'Kids playhouse'),
-                  Name(code: 'ar', value: 'بيت لعب أطفال')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Kids playhouse'),
+                  Phrase(langCode: 'ar', value: 'بيت لعب أطفال')
                 ],
               ),
               KW(
                 id: 'prd_structure_light_greenHouse',
-                names: <Name>[
-                  Name(code: 'en', value: 'Greenhouse'),
-                  Name(code: 'ar', value: 'صوبة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Greenhouse'),
+                  Phrase(langCode: 'ar', value: 'صوبة')
                 ],
               ),
               KW(
                 id: 'prd_structure_light_glassHouse',
-                names: <Name>[
-                  Name(code: 'en', value: 'Glass house'),
-                  Name(code: 'ar', value: 'بيت زجاجي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Glass house'),
+                  Phrase(langCode: 'ar', value: 'بيت زجاجي')
                 ],
               ),
               KW(
                 id: 'prd_structure_light_trailer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Construction trailers & Caravans'),
-                  Name(code: 'ar', value: 'كارافان و مقطورات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Construction trailers & Caravans'),
+                  Phrase(langCode: 'ar', value: 'كارافان و مقطورات')
                 ],
               ),
             ],
@@ -6349,9 +6348,9 @@ abstract class ChainProducts {
       Chain(
         id: 'group_prd_walls',
         icon: 'id',
-        names: <Name>[
-          Name(code: 'en', value: 'Walls & Room Partitions'),
-          Name(code: 'ar', value: 'حوائط و فواصل غرف')
+        titlePhraseID: <Phrase>[
+          Phrase(langCode: 'en', value: 'Walls & Room Partitions'),
+          Phrase(langCode: 'ar', value: 'حوائط و فواصل غرف')
         ],
         sons: <Chain>[
           // ----------------------------------
@@ -6359,72 +6358,72 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_walls_cladding',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Wall Cladding'),
-              Name(code: 'ar', value: 'تبليط و تجلاليد حوائط')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Wall Cladding'),
+              Phrase(langCode: 'ar', value: 'تبليط و تجلاليد حوائط')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_walls_cladding_mosaic',
-                names: <Name>[
-                  Name(code: 'en', value: 'Mosaic tiling'),
-                  Name(code: 'ar', value: 'موزايك حائط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Mosaic tiling'),
+                  Phrase(langCode: 'ar', value: 'موزايك حائط')
                 ],
               ),
               KW(
                 id: 'prd_walls_cladding_murals',
-                names: <Name>[
-                  Name(code: 'en', value: 'Tile mural'),
-                  Name(code: 'ar', value: 'جدارية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Tile mural'),
+                  Phrase(langCode: 'ar', value: 'جدارية')
                 ],
               ),
               KW(
                 id: 'prd_walls_cladding_borders',
-                names: <Name>[
-                  Name(code: 'en', value: 'Accent, trim & border tiles'),
-                  Name(code: 'ar', value: 'حليات و زوايا')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Accent, trim & border tiles'),
+                  Phrase(langCode: 'ar', value: 'حليات و زوايا')
                 ],
               ),
               KW(
                 id: 'prd_walls_cladding_tiles',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall tiles'),
-                  Name(code: 'ar', value: 'بلاطات حائط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall tiles'),
+                  Phrase(langCode: 'ar', value: 'بلاطات حائط')
                 ],
               ),
               KW(
                 id: 'prd_walls_cladding_veneer',
-                names: <Name>[
-                  Name(code: 'en', value: 'Siding & stone veneer slices'),
-                  Name(code: 'ar', value: 'شرائح صخرية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Siding & stone veneer slices'),
+                  Phrase(langCode: 'ar', value: 'شرائح صخرية')
                 ],
               ),
               KW(
                 id: 'prd_walls_cladding_panels',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall panels'),
-                  Name(code: 'ar', value: 'بانوهات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall panels'),
+                  Phrase(langCode: 'ar', value: 'بانوهات')
                 ],
               ),
               KW(
                 id: 'prd_walls_cladding_wood',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wood wall panels'),
-                  Name(code: 'ar', value: 'تجاليد خشب')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wood wall panels'),
+                  Phrase(langCode: 'ar', value: 'تجاليد خشب')
                 ],
               ),
               KW(
                 id: 'prd_walls_cladding_metal',
-                names: <Name>[
-                  Name(code: 'en', value: 'Metal cladding'),
-                  Name(code: 'ar', value: 'تجاليد معدنية')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Metal cladding'),
+                  Phrase(langCode: 'ar', value: 'تجاليد معدنية')
                 ],
               ),
               KW(
                 id: 'prd_walls_cladding_wallpaper',
-                names: <Name>[
-                  Name(code: 'en', value: 'Wall paper'),
-                  Name(code: 'ar', value: 'ورق حائط')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Wall paper'),
+                  Phrase(langCode: 'ar', value: 'ورق حائط')
                 ],
               ),
             ],
@@ -6434,30 +6433,30 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_walls_partitions',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Room Partitions'),
-              Name(code: 'ar', value: 'فواصل غرف')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Room Partitions'),
+              Phrase(langCode: 'ar', value: 'فواصل غرف')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_walls_partitions_screens',
-                names: <Name>[
-                  Name(code: 'en', value: 'Screens & room divider'),
-                  Name(code: 'ar', value: 'فاصل غرفة')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Screens & room divider'),
+                  Phrase(langCode: 'ar', value: 'فاصل غرفة')
                 ],
               ),
               KW(
                 id: 'prd_walls_partitions_showerStalls',
-                names: <Name>[
-                  Name(code: 'en', value: 'Shower cabinet'),
-                  Name(code: 'ar', value: 'وحدة دش استحمام')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Shower cabinet'),
+                  Phrase(langCode: 'ar', value: 'وحدة دش استحمام')
                 ],
               ),
               KW(
                 id: 'prd_walls_partitions_doubleWalls',
-                names: <Name>[
-                  Name(code: 'en', value: 'Double wall section'),
-                  Name(code: 'ar', value: 'قطاع حائط مزدوج')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Double wall section'),
+                  Phrase(langCode: 'ar', value: 'قطاع حائط مزدوج')
                 ],
               ),
             ],
@@ -6467,44 +6466,44 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_walls_moldings',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Moldings & Millwork'),
-              Name(code: 'ar', value: 'قوالب و عواميد')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Moldings & Millwork'),
+              Phrase(langCode: 'ar', value: 'قوالب و عواميد')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_walls_molding_rail',
-                names: <Name>[
-                  Name(code: 'en', value: 'Rails & trims'),
-                  Name(code: 'ar', value: 'وزر حائطي')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Rails & trims'),
+                  Phrase(langCode: 'ar', value: 'وزر حائطي')
                 ],
               ),
               KW(
                 id: 'prd_walls_molding_onlay',
-                names: <Name>[
-                  Name(code: 'en', value: 'Onlays & Appliques'),
-                  Name(code: 'ar', value: 'منحوتات و زخرفيات')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Onlays & Appliques'),
+                  Phrase(langCode: 'ar', value: 'منحوتات و زخرفيات')
                 ],
               ),
               KW(
                 id: 'prd_walls_molding_column',
-                names: <Name>[
-                  Name(code: 'en', value: 'Columns & Capitals'),
-                  Name(code: 'ar', value: 'أعمدة و تيجان')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Columns & Capitals'),
+                  Phrase(langCode: 'ar', value: 'أعمدة و تيجان')
                 ],
               ),
               KW(
                 id: 'prd_walls_molding_medallion',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ceiling Medallions'),
-                  Name(code: 'ar', value: 'مدالية سقف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ceiling Medallions'),
+                  Phrase(langCode: 'ar', value: 'مدالية سقف')
                 ],
               ),
               KW(
                 id: 'prd_walls_molding_corbel',
-                names: <Name>[
-                  Name(code: 'en', value: 'Corbels'),
-                  Name(code: 'ar', value: 'كرابيل أسقف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Corbels'),
+                  Phrase(langCode: 'ar', value: 'كرابيل أسقف')
                 ],
               ),
             ],
@@ -6514,16 +6513,16 @@ abstract class ChainProducts {
           Chain(
             id: 'sub_prd_walls_ceiling',
             icon: null,
-            names: <Name>[
-              Name(code: 'en', value: 'Ceiling Cladding'),
-              Name(code: 'ar', value: 'تجاليد أسقف')
+            titlePhraseID: <Phrase>[
+              Phrase(langCode: 'en', value: 'Ceiling Cladding'),
+              Phrase(langCode: 'ar', value: 'تجاليد أسقف')
             ],
             sons: <KW>[
               KW(
                 id: 'prd_walls_ceiling_tiles',
-                names: <Name>[
-                  Name(code: 'en', value: 'Ceiling tiles'),
-                  Name(code: 'ar', value: 'بلاطات تجليد أسقف')
+                names: <Phrase>[
+                  Phrase(langCode: 'en', value: 'Ceiling tiles'),
+                  Phrase(langCode: 'ar', value: 'بلاطات تجليد أسقف')
                 ],
               ),
             ],
@@ -6531,6 +6530,9 @@ abstract class ChainProducts {
         ],
       ),
       // -----------------------------------------------
+
+       */
+
     ],
   );
 }

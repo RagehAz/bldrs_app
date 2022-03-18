@@ -1,12 +1,13 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+
 
 class Bubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -90,6 +91,7 @@ class Bubble extends StatelessWidget {
     return _pageMargin;
   }
 // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -126,12 +128,15 @@ class Bubble extends StatelessWidget {
           stretchy: stretchy,
         );
 // -----------------------------------------------------------------------------
-    final double _titleWidth =
-        stretchy == true ? null : _bubbleWidth - _actionBtSize * 2;
+    final double _titleWidth = stretchy == true ?
+    null
+        :
+    _bubbleWidth - _actionBtSize * 2;
 // -----------------------------------------------------------------------------
-    final BorderRadius _corners = corners == null
-        ? borders(context)
-        : Borderers.superBorder(context: context, corners: corners);
+    final BorderRadius _corners = corners == null ?
+    borders(context)
+        :
+    Borderers.superBorder(context: context, corners: corners);
 // -----------------------------------------------------------------------------
     return Container(
       key: key,
