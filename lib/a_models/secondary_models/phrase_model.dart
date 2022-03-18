@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -264,7 +265,51 @@ class Phrase {
 
     return _phraseInclude;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
+  static bool phrasesIncludeThisID({
+    @required List<Phrase> phrases,
+    @required String id,
+}){
+    bool _include = false;
+
+    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(id) == true){
+
+      for (final Phrase phrase in phrases){
+
+        if (phrase.id == id){
+          _include = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _include;
+  }
+// -------------------------------------
+  static bool phrasesIncludeThisValue({
+    @required List<Phrase> phrases,
+    @required String value,
+  }){
+    bool _include = false;
+
+    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(value) == true){
+
+      for (final Phrase phrase in phrases){
+
+        if (phrase.value == value){
+          _include = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _include;
+  }
+// -------------------------------------
   /// TASK : TEST THIS
   static bool phrasesAreTheSame({
     @required Phrase firstName,
@@ -293,7 +338,7 @@ class Phrase {
 
     return _namesAreTheSame;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   /// TASK : TEST THIS
   static bool phrasesListsAreTheSame({
     @required List<Phrase> firstPhrases,
@@ -359,4 +404,50 @@ class Phrase {
     return phrases;
   }
 // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// -------------------------------------
+  static List<Phrase> insertPhrase({
+    @required List<Phrase> phrases,
+    @required Phrase phrase,
+}){
+
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.canLoopList(phrases) == true && phrase != null){
+
+      final bool _idIsTaken = phrasesIncludeThisID(
+          phrases: phrases,
+          id: phrase.id,
+      );
+
+      final bool _valueHasDuplicate = phrasesIncludeThisValue(
+        phrases: phrases,
+        value: phrase.value,
+      );
+
+      if (_idIsTaken == false && _valueHasDuplicate == false){
+        _output.add(phrase);
+      }
+
+      else {
+
+        blog('xxxxxxxxx 5od balak : insertPhrase : '
+            '_idIsTaken : $_idIsTaken : '
+            '_valueHasDuplicate : $_valueHasDuplicate'
+        );
+      }
+
+    }
+
+    if (_output.isEmpty){
+      return null;
+    }
+    else {
+      return _output;
+    }
+
+}
+
 }

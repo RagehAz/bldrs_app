@@ -21,12 +21,12 @@ class Scroller extends StatelessWidget {
     }
 
     else {
-      final ScrollController _controller = controller ?? ScrollController();
+
       return Scrollbar(
         thickness: 3,
         radius: const Radius.circular(1.5),
         isAlwaysShown: false,
-        controller: _controller,
+        controller: controller ?? ScrollController(),
         interactive: false,
         // hoverThickness: 40,
         // showTrackOnHover: false,

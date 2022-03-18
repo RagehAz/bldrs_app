@@ -16,10 +16,9 @@ import 'package:flutter/material.dart';
     return _isWaiting;
   }
 // -----------------------------------------------------------------------------
-//   bool _connectionHasNoData(AsyncSnapshot<dynamic> snapshot){
-//     return
-//       snapshot.hasData == false ? true : false;
-//   }
+  bool _connectionHasData(AsyncSnapshot<dynamic> snapshot){
+    return snapshot?.hasData ;
+  }
 // -----------------------------------------------------------------------------
   bool valueIsLoading(dynamic value){
 
@@ -40,9 +39,9 @@ import 'package:flutter/material.dart';
     bool _isLoading;
 
     if (
-    // _connectionHasNoData(snapshot) == true
-    //     ||
     _connectionIsWaiting(snapshot) == true
+        ||
+    _connectionHasData(snapshot) == false
     //     ||
     // snapshot.error == null
     ){
