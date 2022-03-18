@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/chain/chain_crafts.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/specs/data_creator.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 
 const String newSaleID = 'contractType_NewSale';
 const String resaleID = 'contractType_Resale';
@@ -13,233 +13,233 @@ const String rentID = 'contractType_Rent';
 const Chain style = Chain(
   id: 'style',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Design Style'),
-    Name(code: 'ar', value: 'الطراز التصميمي')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Design Style'),
+    Phrase(langCode: 'ar', value: 'الطراز التصميمي')
   ],
   sons: <KW>[
     KW(
       id: 'arch_style_arabian',
-      names: <Name>[
-        Name(code: 'en', value: 'Arabian'),
-        Name(code: 'ar', value: 'عربي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Arabian'),
+        Phrase(langCode: 'ar', value: 'عربي')
       ],
     ),
     KW(
       id: 'arch_style_andalusian',
-      names: <Name>[
-        Name(code: 'en', value: 'Andalusian'),
-        Name(code: 'ar', value: 'أندلسي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Andalusian'),
+        Phrase(langCode: 'ar', value: 'أندلسي')
       ],
     ),
     KW(
       id: 'arch_style_asian',
-      names: <Name>[
-        Name(code: 'en', value: 'Asian'),
-        Name(code: 'ar', value: 'آسيوي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Asian'),
+        Phrase(langCode: 'ar', value: 'آسيوي')
       ],
     ),
     KW(
       id: 'arch_style_chinese',
-      names: <Name>[
-        Name(code: 'en', value: 'Chinese'),
-        Name(code: 'ar', value: 'صيني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Chinese'),
+        Phrase(langCode: 'ar', value: 'صيني')
       ],
     ),
     KW(
       id: 'arch_style_contemporary',
-      names: <Name>[
-        Name(code: 'en', value: 'Contemporary'),
-        Name(code: 'ar', value: 'معاصر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Contemporary'),
+        Phrase(langCode: 'ar', value: 'معاصر')
       ],
     ),
     KW(
       id: 'arch_style_classic',
-      names: <Name>[
-        Name(code: 'en', value: 'Classic'),
-        Name(code: 'ar', value: 'كلاسيكي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Classic'),
+        Phrase(langCode: 'ar', value: 'كلاسيكي')
       ],
     ),
     KW(
       id: 'arch_style_eclectic',
-      names: <Name>[
-        Name(code: 'en', value: 'Eclectic'),
-        Name(code: 'ar', value: 'انتقائي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Eclectic'),
+        Phrase(langCode: 'ar', value: 'انتقائي')
       ],
     ),
     KW(
       id: 'arch_style_english',
-      names: <Name>[
-        Name(code: 'en', value: 'English'),
-        Name(code: 'ar', value: 'إنجليزي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'English'),
+        Phrase(langCode: 'ar', value: 'إنجليزي')
       ],
     ),
     KW(
       id: 'arch_style_farmhouse',
-      names: <Name>[
-        Name(code: 'en', value: 'Farmhouse'),
-        Name(code: 'ar', value: 'ريفي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Farmhouse'),
+        Phrase(langCode: 'ar', value: 'ريفي')
       ],
     ),
     KW(
       id: 'arch_style_french',
-      names: <Name>[
-        Name(code: 'en', value: 'French'),
-        Name(code: 'ar', value: 'فرنساوي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'French'),
+        Phrase(langCode: 'ar', value: 'فرنساوي')
       ],
     ),
     KW(
       id: 'arch_style_gothic',
-      names: <Name>[
-        Name(code: 'en', value: 'Gothic'),
-        Name(code: 'ar', value: 'قوطي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Gothic'),
+        Phrase(langCode: 'ar', value: 'قوطي')
       ],
     ),
     KW(
       id: 'arch_style_greek',
-      names: <Name>[
-        Name(code: 'en', value: 'Greek'),
-        Name(code: 'ar', value: 'يوناني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Greek'),
+        Phrase(langCode: 'ar', value: 'يوناني')
       ],
     ),
     KW(
       id: 'arch_style_indian',
-      names: <Name>[
-        Name(code: 'en', value: 'Indian'),
-        Name(code: 'ar', value: 'هندي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Indian'),
+        Phrase(langCode: 'ar', value: 'هندي')
       ],
     ),
     KW(
       id: 'arch_style_industrial',
-      names: <Name>[
-        Name(code: 'en', value: 'Industrial'),
-        Name(code: 'ar', value: 'صناعي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Industrial'),
+        Phrase(langCode: 'ar', value: 'صناعي')
       ],
     ),
     KW(
       id: 'arch_style_japanese',
-      names: <Name>[
-        Name(code: 'en', value: 'Japanese'),
-        Name(code: 'ar', value: 'ياباني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Japanese'),
+        Phrase(langCode: 'ar', value: 'ياباني')
       ],
     ),
     KW(
       id: 'arch_style_mediterranean',
-      names: <Name>[
-        Name(code: 'en', value: 'Mediterranean'),
-        Name(code: 'ar', value: 'البحر المتوسط')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Mediterranean'),
+        Phrase(langCode: 'ar', value: 'البحر المتوسط')
       ],
     ),
     KW(
       id: 'arch_style_midcentury',
-      names: <Name>[
-        Name(code: 'en', value: 'Mid century modern'),
-        Name(code: 'ar', value: 'منتصف القرن الحديث')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Mid century modern'),
+        Phrase(langCode: 'ar', value: 'منتصف القرن الحديث')
       ],
     ),
     KW(
       id: 'arch_style_medieval',
-      names: <Name>[
-        Name(code: 'en', value: 'Medieval'),
-        Name(code: 'ar', value: 'القرون الوسطى')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Medieval'),
+        Phrase(langCode: 'ar', value: 'القرون الوسطى')
       ],
     ),
     KW(
       id: 'arch_style_minimalist',
-      names: <Name>[
-        Name(code: 'en', value: 'Minimalist'),
-        Name(code: 'ar', value: 'مينيماليزم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Minimalist'),
+        Phrase(langCode: 'ar', value: 'مينيماليزم')
       ],
     ),
     KW(
       id: 'arch_style_modern',
-      names: <Name>[
-        Name(code: 'en', value: 'Modern'),
-        Name(code: 'ar', value: 'حديث')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Modern'),
+        Phrase(langCode: 'ar', value: 'حديث')
       ],
     ),
     KW(
       id: 'arch_style_moroccan',
-      names: <Name>[
-        Name(code: 'en', value: 'Moroccan'),
-        Name(code: 'ar', value: 'مغربي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Moroccan'),
+        Phrase(langCode: 'ar', value: 'مغربي')
       ],
     ),
     KW(
       id: 'arch_style_rustic',
-      names: <Name>[
-        Name(code: 'en', value: 'Rustic'),
-        Name(code: 'ar', value: 'فلاحي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Rustic'),
+        Phrase(langCode: 'ar', value: 'فلاحي')
       ],
     ),
     KW(
       id: 'arch_style_scandinavian',
-      names: <Name>[
-        Name(code: 'en', value: 'Scandinavian'),
-        Name(code: 'ar', value: 'إسكاندنيفي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Scandinavian'),
+        Phrase(langCode: 'ar', value: 'إسكاندنيفي')
       ],
     ),
     KW(
       id: 'arch_style_shabbyChic',
-      names: <Name>[
-        Name(code: 'en', value: 'Shabby Chic'),
-        Name(code: 'ar', value: 'مهترئ أنيق')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Shabby Chic'),
+        Phrase(langCode: 'ar', value: 'مهترئ أنيق')
       ],
     ),
     KW(
       id: 'arch_style_american',
-      names: <Name>[
-        Name(code: 'en', value: 'American'),
-        Name(code: 'ar', value: 'أمريكي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'American'),
+        Phrase(langCode: 'ar', value: 'أمريكي')
       ],
     ),
     KW(
       id: 'arch_style_spanish',
-      names: <Name>[
-        Name(code: 'en', value: 'Spanish'),
-        Name(code: 'ar', value: 'أسباني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Spanish'),
+        Phrase(langCode: 'ar', value: 'أسباني')
       ],
     ),
     KW(
       id: 'arch_style_traditional',
-      names: <Name>[
-        Name(code: 'en', value: 'Traditional'),
-        Name(code: 'ar', value: 'تقليدي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Traditional'),
+        Phrase(langCode: 'ar', value: 'تقليدي')
       ],
     ),
     KW(
       id: 'arch_style_transitional',
-      names: <Name>[
-        Name(code: 'en', value: 'Transitional'),
-        Name(code: 'ar', value: 'انتقالي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Transitional'),
+        Phrase(langCode: 'ar', value: 'انتقالي')
       ],
     ),
     KW(
       id: 'arch_style_tuscan',
-      names: <Name>[
-        Name(code: 'en', value: 'Tuscan'),
-        Name(code: 'ar', value: 'توسكاني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Tuscan'),
+        Phrase(langCode: 'ar', value: 'توسكاني')
       ],
     ),
     KW(
       id: 'arch_style_tropical',
-      names: <Name>[
-        Name(code: 'en', value: 'Tropical'),
-        Name(code: 'ar', value: 'استوائي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Tropical'),
+        Phrase(langCode: 'ar', value: 'استوائي')
       ],
     ),
     KW(
       id: 'arch_style_victorian',
-      names: <Name>[
-        Name(code: 'en', value: 'Victorian'),
-        Name(code: 'ar', value: 'فيكتوريان')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Victorian'),
+        Phrase(langCode: 'ar', value: 'فيكتوريان')
       ],
     ),
     KW(
       id: 'arch_style_vintage',
-      names: <Name>[
-        Name(code: 'en', value: 'Vintage'),
-        Name(code: 'ar', value: 'عتيق')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Vintage'),
+        Phrase(langCode: 'ar', value: 'عتيق')
       ],
     ),
   ],
@@ -247,79 +247,79 @@ const Chain style = Chain(
 const Chain color = Chain(
   id: 'color',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Color'),
-    Name(code: 'ar', value: 'اللون')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Color'),
+    Phrase(langCode: 'ar', value: 'اللون')
   ],
   sons: <KW>[
     KW(
       id: 'red',
-      names: <Name>[
-        Name(code: 'en', value: 'Red'),
-        Name(code: 'ar', value: 'أحمر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Red'),
+        Phrase(langCode: 'ar', value: 'أحمر')
       ],
     ),
     KW(
       id: 'orange',
-      names: <Name>[
-        Name(code: 'en', value: 'Orange'),
-        Name(code: 'ar', value: 'برتقالي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Orange'),
+        Phrase(langCode: 'ar', value: 'برتقالي')
       ],
     ),
     KW(
       id: 'yellow',
-      names: <Name>[
-        Name(code: 'en', value: 'Yellow'),
-        Name(code: 'ar', value: 'أصفر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Yellow'),
+        Phrase(langCode: 'ar', value: 'أصفر')
       ],
     ),
     KW(
       id: 'green',
-      names: <Name>[
-        Name(code: 'en', value: 'Green'),
-        Name(code: 'ar', value: 'أخضر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Green'),
+        Phrase(langCode: 'ar', value: 'أخضر')
       ],
     ),
     KW(
       id: 'blue',
-      names: <Name>[
-        Name(code: 'en', value: 'Blue'),
-        Name(code: 'ar', value: 'أزرق')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Blue'),
+        Phrase(langCode: 'ar', value: 'أزرق')
       ],
     ),
     KW(
       id: 'indigo',
-      names: <Name>[
-        Name(code: 'en', value: 'Indigo'),
-        Name(code: 'ar', value: 'نيلي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Indigo'),
+        Phrase(langCode: 'ar', value: 'نيلي')
       ],
     ),
     KW(
       id: 'violet',
-      names: <Name>[
-        Name(code: 'en', value: 'Violet'),
-        Name(code: 'ar', value: 'بنفسجي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Violet'),
+        Phrase(langCode: 'ar', value: 'بنفسجي')
       ],
     ),
     KW(
       id: 'black',
-      names: <Name>[
-        Name(code: 'en', value: 'Black'),
-        Name(code: 'ar', value: 'أسود')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Black'),
+        Phrase(langCode: 'ar', value: 'أسود')
       ],
     ),
     KW(
       id: 'white',
-      names: <Name>[
-        Name(code: 'en', value: 'White'),
-        Name(code: 'ar', value: 'أبيض')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'White'),
+        Phrase(langCode: 'ar', value: 'أبيض')
       ],
     ),
     KW(
       id: 'grey',
-      names: <Name>[
-        Name(code: 'en', value: 'Grey'),
-        Name(code: 'ar', value: 'رمادي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Grey'),
+        Phrase(langCode: 'ar', value: 'رمادي')
       ],
     ),
   ],
@@ -329,30 +329,30 @@ const Chain color = Chain(
 const Chain contractType = Chain(
   id: 'contractType',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Contract Type'),
-    Name(code: 'ar', value: 'نوع التعاقد')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Contract Type'),
+    Phrase(langCode: 'ar', value: 'نوع التعاقد')
   ],
   sons: <KW>[
     KW(
       id: newSaleID,
-      names: <Name>[
-        Name(code: 'en', value: 'New Sale'),
-        Name(code: 'ar', value: 'للبيع جديد')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'New Sale'),
+        Phrase(langCode: 'ar', value: 'للبيع جديد')
       ],
     ), // if you change ID revise specs_picker_screen
     KW(
       id: resaleID,
-      names: <Name>[
-        Name(code: 'en', value: 'Resale'),
-        Name(code: 'ar', value: 'لإعادة البيع')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Resale'),
+        Phrase(langCode: 'ar', value: 'لإعادة البيع')
       ],
     ), // if you change ID revise specs_picker_screen
     KW(
       id: rentID,
-      names: <Name>[
-        Name(code: 'en', value: 'Rent'),
-        Name(code: 'ar', value: 'للإيجار')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Rent'),
+        Phrase(langCode: 'ar', value: 'للإيجار')
       ],
     ), // if you change ID revise specs_picker_screen
   ],
@@ -360,23 +360,23 @@ const Chain contractType = Chain(
 const Chain paymentMethod = Chain(
   id: 'paymentMethod',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Payment Method'),
-    Name(code: 'ar', value: 'طريقة السداد')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Payment Method'),
+    Phrase(langCode: 'ar', value: 'طريقة السداد')
   ],
   sons: <KW>[
     KW(
       id: 'payment_cash',
-      names: <Name>[
-        Name(code: 'en', value: 'Cash'),
-        Name(code: 'ar', value: 'دفعة واحدة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Cash'),
+        Phrase(langCode: 'ar', value: 'دفعة واحدة')
       ],
     ),
     KW(
       id: 'payment_installments',
-      names: <Name>[
-        Name(code: 'en', value: 'Installments'),
-        Name(code: 'ar', value: 'على دفعات')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Installments'),
+        Phrase(langCode: 'ar', value: 'على دفعات')
       ],
     ),
   ],
@@ -384,62 +384,62 @@ const Chain paymentMethod = Chain(
 const Chain price = Chain(
   id: 'price',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'price'),
-    Name(code: 'ar', value: 'السعر')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'price'),
+    Phrase(langCode: 'ar', value: 'السعر')
   ],
   sons: DataCreator.price,
 );
 const Chain currency = Chain(
   id: 'currency',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Currency'),
-    Name(code: 'ar', value: 'العملة')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Currency'),
+    Phrase(langCode: 'ar', value: 'العملة')
   ],
   sons: DataCreator.currency,
 );
 const Chain unitPriceInterval = Chain(
   id: 'unitPriceInterval',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Standard interval'),
-    Name(code: 'ar', value: 'مقياس الفترة')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Standard interval'),
+    Phrase(langCode: 'ar', value: 'مقياس الفترة')
   ],
   sons: <KW>[
     KW(
       id: 'perHour',
-      names: <Name>[
-        Name(code: 'en', value: 'Per Hour'),
-        Name(code: 'ar', value: 'في الساعة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Per Hour'),
+        Phrase(langCode: 'ar', value: 'في الساعة')
       ],
     ),
     KW(
       id: 'perDay',
-      names: <Name>[
-        Name(code: 'en', value: 'per day'),
-        Name(code: 'ar', value: 'في اليوم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'per day'),
+        Phrase(langCode: 'ar', value: 'في اليوم')
       ],
     ),
     KW(
       id: 'perWeek',
-      names: <Name>[
-        Name(code: 'en', value: 'per week'),
-        Name(code: 'ar', value: 'في الأسبوع')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'per week'),
+        Phrase(langCode: 'ar', value: 'في الأسبوع')
       ],
     ),
     KW(
       id: 'perMonth',
-      names: <Name>[
-        Name(code: 'en', value: 'per month'),
-        Name(code: 'ar', value: 'في الشهر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'per month'),
+        Phrase(langCode: 'ar', value: 'في الشهر')
       ],
     ),
     KW(
       id: 'perYear',
-      names: <Name>[
-        Name(code: 'en', value: 'per year'),
-        Name(code: 'ar', value: 'في السنة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'per year'),
+        Phrase(langCode: 'ar', value: 'في السنة')
       ],
     ),
   ],
@@ -447,55 +447,55 @@ const Chain unitPriceInterval = Chain(
 const Chain numberOfInstallments = Chain(
   id: 'numberOfInstallments',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Number of Installments'),
-    Name(code: 'ar', value: 'عدد الدفعات')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Number of Installments'),
+    Phrase(langCode: 'ar', value: 'عدد الدفعات')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain installmentsDuration = Chain(
   id: 'installmentsDuration',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Installments duration'),
-    Name(code: 'ar', value: 'مدة الدفعات')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Installments duration'),
+    Phrase(langCode: 'ar', value: 'مدة الدفعات')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain installmentsDurationUnit = Chain(
   id: 'installmentsDurationUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Installments duration unit'),
-    Name(code: 'ar', value: 'مقياس مدة الدفعات')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Installments duration unit'),
+    Phrase(langCode: 'ar', value: 'مقياس مدة الدفعات')
   ],
   sons: <KW>[
     KW(
       id: 'installmentsDurationUnit_day',
-      names: <Name>[
-        Name(code: 'en', value: 'day'),
-        Name(code: 'ar', value: 'يوم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'day'),
+        Phrase(langCode: 'ar', value: 'يوم')
       ],
     ),
     KW(
       id: 'installmentsDurationUnit_week',
-      names: <Name>[
-        Name(code: 'en', value: 'week'),
-        Name(code: 'ar', value: 'أسبوع')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'week'),
+        Phrase(langCode: 'ar', value: 'أسبوع')
       ],
     ),
     KW(
       id: 'installmentsDurationUnit_month',
-      names: <Name>[
-        Name(code: 'en', value: 'month'),
-        Name(code: 'ar', value: 'شهر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'month'),
+        Phrase(langCode: 'ar', value: 'شهر')
       ],
     ),
     KW(
       id: 'installmentsDurationUnit_year',
-      names: <Name>[
-        Name(code: 'en', value: 'year'),
-        Name(code: 'ar', value: 'سنة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'year'),
+        Phrase(langCode: 'ar', value: 'سنة')
       ],
     ),
   ],
@@ -505,60 +505,60 @@ const Chain installmentsDurationUnit = Chain(
 const Chain duration = Chain(
   id: 'duration',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Duration'),
-    Name(code: 'ar', value: 'الزمن')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Duration'),
+    Phrase(langCode: 'ar', value: 'الزمن')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain durationUnit = Chain(
   id: 'durationUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Duration unit'),
-    Name(code: 'ar', value: 'مقياس الزمن')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Duration unit'),
+    Phrase(langCode: 'ar', value: 'مقياس الزمن')
   ],
   sons: <KW>[
     KW(
       id: 'minute',
-      names: <Name>[
-        Name(code: 'en', value: 'minute'),
-        Name(code: 'ar', value: 'دقيقة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'minute'),
+        Phrase(langCode: 'ar', value: 'دقيقة')
       ],
     ),
     KW(
       id: 'hour',
-      names: <Name>[
-        Name(code: 'en', value: 'hour'),
-        Name(code: 'ar', value: 'ساعة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'hour'),
+        Phrase(langCode: 'ar', value: 'ساعة')
       ],
     ),
     KW(
       id: 'day',
-      names: <Name>[
-        Name(code: 'en', value: 'day'),
-        Name(code: 'ar', value: 'يوم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'day'),
+        Phrase(langCode: 'ar', value: 'يوم')
       ],
     ),
     KW(
       id: 'week',
-      names: <Name>[
-        Name(code: 'en', value: 'week'),
-        Name(code: 'ar', value: 'أسبوع')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'week'),
+        Phrase(langCode: 'ar', value: 'أسبوع')
       ],
     ),
     KW(
       id: 'month',
-      names: <Name>[
-        Name(code: 'en', value: 'month'),
-        Name(code: 'ar', value: 'شهر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'month'),
+        Phrase(langCode: 'ar', value: 'شهر')
       ],
     ),
     KW(
       id: 'year',
-      names: <Name>[
-        Name(code: 'en', value: 'year'),
-        Name(code: 'ar', value: 'سنة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'year'),
+        Phrase(langCode: 'ar', value: 'سنة')
       ],
     ),
   ],
@@ -568,93 +568,93 @@ const Chain durationUnit = Chain(
 const Chain propertyArea = Chain(
   id: 'propertyArea',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property Area'),
-    Name(code: 'ar', value: 'مساحة العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property Area'),
+    Phrase(langCode: 'ar', value: 'مساحة العقار')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain propertyAreaUnit = Chain(
   id: 'propertyAreaUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property Area Unit'),
-    Name(code: 'ar', value: 'وحدة قياس مساحة العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property Area Unit'),
+    Phrase(langCode: 'ar', value: 'وحدة قياس مساحة العقار')
   ],
   sons: <KW>[
     KW(
       id: 'square_meter',
-      names: <Name>[
-        Name(code: 'en', value: 'm²'),
-        Name(code: 'ar', value: 'م²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'm²'),
+        Phrase(langCode: 'ar', value: 'م²')
       ],
     ),
     KW(
       id: 'square_feet',
-      names: <Name>[
-        Name(code: 'en', value: 'ft²'),
-        Name(code: 'ar', value: 'قدم²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'ft²'),
+        Phrase(langCode: 'ar', value: 'قدم²')
       ],
     ),
   ],
 );
 const Chain lotArea = Chain(
   id: 'plotArea',
-  names: <Name>[
-    Name(code: 'en', value: 'Lot Area'),
-    Name(code: 'ar', value: 'مساحة قطعة الأرض')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Lot Area'),
+    Phrase(langCode: 'ar', value: 'مساحة قطعة الأرض')
   ],
   icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain lotAreaUnit = Chain(
   id: 'lotAreaUnit',
-  names: <Name>[
-    Name(code: 'en', value: 'Lot Area Unit'),
-    Name(code: 'ar', value: 'وحدة قياس مساحة أرض العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Lot Area Unit'),
+    Phrase(langCode: 'ar', value: 'وحدة قياس مساحة أرض العقار')
   ],
   icon: null,
   sons: <KW>[
     KW(
       id: 'square_meter',
-      names: <Name>[
-        Name(code: 'en', value: 'm²'),
-        Name(code: 'ar', value: 'م²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'm²'),
+        Phrase(langCode: 'ar', value: 'م²')
       ],
     ),
     KW(
       id: 'square_Kilometer',
-      names: <Name>[
-        Name(code: 'en', value: 'Km²'),
-        Name(code: 'ar', value: 'كم²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Km²'),
+        Phrase(langCode: 'ar', value: 'كم²')
       ],
     ),
     KW(
       id: 'square_feet',
-      names: <Name>[
-        Name(code: 'en', value: 'ft²'),
-        Name(code: 'ar', value: 'قدم²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'ft²'),
+        Phrase(langCode: 'ar', value: 'قدم²')
       ],
     ),
     KW(
       id: 'square_yard',
-      names: <Name>[
-        Name(code: 'en', value: 'yd²'),
-        Name(code: 'ar', value: 'ياردة²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'yd²'),
+        Phrase(langCode: 'ar', value: 'ياردة²')
       ],
     ),
     KW(
       id: 'acre',
-      names: <Name>[
-        Name(code: 'en', value: 'Acre'),
-        Name(code: 'ar', value: 'فدان')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Acre'),
+        Phrase(langCode: 'ar', value: 'فدان')
       ],
     ),
     KW(
       id: 'hectare',
-      names: <Name>[
-        Name(code: 'en', value: 'Hectare'),
-        Name(code: 'ar', value: 'هكتار')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Hectare'),
+        Phrase(langCode: 'ar', value: 'هكتار')
       ],
     ),
   ],
@@ -664,51 +664,51 @@ const Chain lotAreaUnit = Chain(
 const Chain propertyForm = Chain(
   id: 'propertyForm',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property Form'),
-    Name(code: 'ar', value: 'هيئة العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property Form'),
+    Phrase(langCode: 'ar', value: 'هيئة العقار')
   ],
   sons: <KW>[
     KW(
       id: 'pf_fullFloor',
-      names: <Name>[
-        Name(code: 'en', value: 'Full floor'),
-        Name(code: 'ar', value: 'دور كامل')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Full floor'),
+        Phrase(langCode: 'ar', value: 'دور كامل')
       ],
     ),
     KW(
       id: 'pf_halfFloor',
-      names: <Name>[
-        Name(code: 'en', value: 'Half floor'),
-        Name(code: 'ar', value: 'نصف دور')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Half floor'),
+        Phrase(langCode: 'ar', value: 'نصف دور')
       ],
     ),
     KW(
       id: 'pf_partFloor',
-      names: <Name>[
-        Name(code: 'en', value: 'Part of floor'),
-        Name(code: 'ar', value: 'جزء من دور')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Part of floor'),
+        Phrase(langCode: 'ar', value: 'جزء من دور')
       ],
     ),
     KW(
       id: 'pf_building',
-      names: <Name>[
-        Name(code: 'en', value: 'Whole building'),
-        Name(code: 'ar', value: 'مبنى كامل')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Whole building'),
+        Phrase(langCode: 'ar', value: 'مبنى كامل')
       ],
     ),
     KW(
       id: 'pf_land',
-      names: <Name>[
-        Name(code: 'en', value: 'Land'),
-        Name(code: 'ar', value: 'أرض')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Land'),
+        Phrase(langCode: 'ar', value: 'أرض')
       ],
     ),
     KW(
       id: 'pf_mobile',
-      names: <Name>[
-        Name(code: 'en', value: 'Mobile'),
-        Name(code: 'ar', value: 'منشأ متنقل')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Mobile'),
+        Phrase(langCode: 'ar', value: 'منشأ متنقل')
       ],
     ),
   ],
@@ -716,79 +716,79 @@ const Chain propertyForm = Chain(
 const Chain propertyLicense = Chain(
   id: 'propertyLicense',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property License'),
-    Name(code: 'ar', value: 'رخصة العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property License'),
+    Phrase(langCode: 'ar', value: 'رخصة العقار')
   ],
   sons: <KW>[
     KW(
       id: 'ppt_lic_residential',
-      names: <Name>[
-        Name(code: 'en', value: 'Residential'),
-        Name(code: 'ar', value: 'سكني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Residential'),
+        Phrase(langCode: 'ar', value: 'سكني')
       ],
     ),
     KW(
       id: 'ppt_lic_administration',
-      names: <Name>[
-        Name(code: 'en', value: 'Administration'),
-        Name(code: 'ar', value: 'إداري')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Administration'),
+        Phrase(langCode: 'ar', value: 'إداري')
       ],
     ),
     KW(
       id: 'ppt_lic_educational',
-      names: <Name>[
-        Name(code: 'en', value: 'Educational'),
-        Name(code: 'ar', value: 'تعليمي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Educational'),
+        Phrase(langCode: 'ar', value: 'تعليمي')
       ],
     ),
     KW(
       id: 'ppt_lic_utilities',
-      names: <Name>[
-        Name(code: 'en', value: 'Utilities'),
-        Name(code: 'ar', value: 'خدمات')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Utilities'),
+        Phrase(langCode: 'ar', value: 'خدمات')
       ],
     ),
     KW(
       id: 'ppt_lic_sports',
-      names: <Name>[
-        Name(code: 'en', value: 'Sports'),
-        Name(code: 'ar', value: 'رياضي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Sports'),
+        Phrase(langCode: 'ar', value: 'رياضي')
       ],
     ),
     KW(
       id: 'ppt_lic_entertainment',
-      names: <Name>[
-        Name(code: 'en', value: 'Entertainment'),
-        Name(code: 'ar', value: 'ترفيهي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Entertainment'),
+        Phrase(langCode: 'ar', value: 'ترفيهي')
       ],
     ),
     KW(
       id: 'ppt_lic_medical',
-      names: <Name>[
-        Name(code: 'en', value: 'Medical'),
-        Name(code: 'ar', value: 'طبي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Medical'),
+        Phrase(langCode: 'ar', value: 'طبي')
       ],
     ),
     KW(
       id: 'ppt_lic_retail',
-      names: <Name>[
-        Name(code: 'en', value: 'Retail'),
-        Name(code: 'ar', value: 'تجاري')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Retail'),
+        Phrase(langCode: 'ar', value: 'تجاري')
       ],
     ),
     KW(
       id: 'ppt_lic_hotel',
-      names: <Name>[
-        Name(code: 'en', value: 'Hotel'),
-        Name(code: 'ar', value: 'فندقي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Hotel'),
+        Phrase(langCode: 'ar', value: 'فندقي')
       ],
     ),
     KW(
       id: 'ppt_lic_industrial',
-      names: <Name>[
-        Name(code: 'en', value: 'Industrial'),
-        Name(code: 'ar', value: 'صناعي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Industrial'),
+        Phrase(langCode: 'ar', value: 'صناعي')
       ],
     ),
   ],
@@ -798,9 +798,9 @@ const Chain propertyLicense = Chain(
 const Chain propertySpaces = Chain(
   id: 'group_space_type',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Space Type'),
-    Name(code: 'ar', value: 'نوع الفراغ')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Space Type'),
+    Phrase(langCode: 'ar', value: 'نوع الفراغ')
   ],
   sons: <Chain>[
     // ----------------------------------
@@ -808,51 +808,51 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_administration',
       icon: null,
-      names: <Name>[
-        Name(code: 'en', value: 'Administration'),
-        Name(code: 'ar', value: 'إداري')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Administration'),
+        Phrase(langCode: 'ar', value: 'إداري')
       ],
       sons: <KW>[
         KW(
           id: 'pt_office',
-          names: <Name>[
-            Name(code: 'en', value: 'Office'),
-            Name(code: 'ar', value: 'مكتب إداري')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Office'),
+            Phrase(langCode: 'ar', value: 'مكتب إداري')
           ],
         ),
         KW(
           id: 'space_office',
-          names: <Name>[
-            Name(code: 'en', value: 'Office'),
-            Name(code: 'ar', value: 'مكتب')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Office'),
+            Phrase(langCode: 'ar', value: 'مكتب')
           ],
         ),
         KW(
           id: 'space_kitchenette',
-          names: <Name>[
-            Name(code: 'en', value: 'Office Kitchenette'),
-            Name(code: 'ar', value: 'أوفيس / مطبخ صغير')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Office Kitchenette'),
+            Phrase(langCode: 'ar', value: 'أوفيس / مطبخ صغير')
           ],
         ),
         KW(
           id: 'space_meetingRoom',
-          names: <Name>[
-            Name(code: 'en', value: 'Meeting room'),
-            Name(code: 'ar', value: 'غرفة اجتماعات')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Meeting room'),
+            Phrase(langCode: 'ar', value: 'غرفة اجتماعات')
           ],
         ),
         KW(
           id: 'space_seminarHall',
-          names: <Name>[
-            Name(code: 'en', value: 'Seminar hall'),
-            Name(code: 'ar', value: 'قاعة سمينار')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Seminar hall'),
+            Phrase(langCode: 'ar', value: 'قاعة سمينار')
           ],
         ),
         KW(
           id: 'space_conventionHall',
-          names: <Name>[
-            Name(code: 'en', value: 'Convention hall'),
-            Name(code: 'ar', value: 'قاعة عرض')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Convention hall'),
+            Phrase(langCode: 'ar', value: 'قاعة عرض')
           ],
         ),
       ],
@@ -862,23 +862,23 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_educational',
       icon: null,
-      names: <Name>[
-        Name(code: 'en', value: 'Educational'),
-        Name(code: 'ar', value: 'تعليمي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Educational'),
+        Phrase(langCode: 'ar', value: 'تعليمي')
       ],
       sons: <KW>[
         KW(
           id: 'space_lectureRoom',
-          names: <Name>[
-            Name(code: 'en', value: 'Lecture room'),
-            Name(code: 'ar', value: 'غرفة محاضرات')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Lecture room'),
+            Phrase(langCode: 'ar', value: 'غرفة محاضرات')
           ],
         ),
         KW(
           id: 'space_library',
-          names: <Name>[
-            Name(code: 'en', value: 'Library'),
-            Name(code: 'ar', value: 'مكتبة')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Library'),
+            Phrase(langCode: 'ar', value: 'مكتبة')
           ],
         ),
       ],
@@ -888,30 +888,30 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_entertainment',
       icon: null,
-      names: <Name>[
-        Name(code: 'en', value: 'Entertainment'),
-        Name(code: 'ar', value: 'ترفيهي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Entertainment'),
+        Phrase(langCode: 'ar', value: 'ترفيهي')
       ],
       sons: <KW>[
         KW(
           id: 'space_theatre',
-          names: <Name>[
-            Name(code: 'en', value: 'Theatre'),
-            Name(code: 'ar', value: 'مسرح')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Theatre'),
+            Phrase(langCode: 'ar', value: 'مسرح')
           ],
         ),
         KW(
           id: 'space_concertHall',
-          names: <Name>[
-            Name(code: 'en', value: 'Concert hall'),
-            Name(code: 'ar', value: 'قاعة موسيقية')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Concert hall'),
+            Phrase(langCode: 'ar', value: 'قاعة موسيقية')
           ],
         ),
         KW(
           id: 'space_homeCinema',
-          names: <Name>[
-            Name(code: 'en', value: 'Home Cinema'),
-            Name(code: 'ar', value: 'مسرح منزلي')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Home Cinema'),
+            Phrase(langCode: 'ar', value: 'مسرح منزلي')
           ],
         ),
       ],
@@ -921,16 +921,16 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_medical',
       icon: null,
-      names: <Name>[
-        Name(code: 'en', value: 'Medical'),
-        Name(code: 'ar', value: 'طبي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Medical'),
+        Phrase(langCode: 'ar', value: 'طبي')
       ],
       sons: <KW>[
         KW(
           id: 'space_spa',
-          names: <Name>[
-            Name(code: 'en', value: 'Spa'),
-            Name(code: 'ar', value: 'منتجع صحي')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Spa'),
+            Phrase(langCode: 'ar', value: 'منتجع صحي')
           ],
         ),
       ],
@@ -940,156 +940,156 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_residential',
       icon: null,
-      names: <Name>[
-        Name(code: 'en', value: 'Residential'),
-        Name(code: 'ar', value: 'سكني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Residential'),
+        Phrase(langCode: 'ar', value: 'سكني')
       ],
       sons: <KW>[
         KW(
           id: 'space_lobby',
-          names: <Name>[
-            Name(code: 'en', value: 'Lobby'),
-            Name(code: 'ar', value: 'ردهة')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Lobby'),
+            Phrase(langCode: 'ar', value: 'ردهة')
           ],
         ),
         KW(
           id: 'space_living',
-          names: <Name>[
-            Name(code: 'en', value: 'Living room'),
-            Name(code: 'ar', value: 'غرفة معيشة')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Living room'),
+            Phrase(langCode: 'ar', value: 'غرفة معيشة')
           ],
         ),
         KW(
           id: 'space_bedroom',
-          names: <Name>[
-            Name(code: 'en', value: 'Bedroom'),
-            Name(code: 'ar', value: 'غرفة نوم')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Bedroom'),
+            Phrase(langCode: 'ar', value: 'غرفة نوم')
           ],
         ),
         KW(
           id: 'space_kitchen',
-          names: <Name>[
-            Name(code: 'en', value: 'Home Kitchen'),
-            Name(code: 'ar', value: 'مطبخ')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Home Kitchen'),
+            Phrase(langCode: 'ar', value: 'مطبخ')
           ],
         ),
         KW(
           id: 'space_bathroom',
-          names: <Name>[
-            Name(code: 'en', value: 'Bathroom'),
-            Name(code: 'ar', value: 'حمام')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Bathroom'),
+            Phrase(langCode: 'ar', value: 'حمام')
           ],
         ),
         KW(
           id: 'space_reception',
-          names: <Name>[
-            Name(code: 'en', value: 'Reception'),
-            Name(code: 'ar', value: 'استقبال')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Reception'),
+            Phrase(langCode: 'ar', value: 'استقبال')
           ],
         ),
         KW(
           id: 'space_salon',
-          names: <Name>[
-            Name(code: 'en', value: 'Salon'),
-            Name(code: 'ar', value: 'صالون')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Salon'),
+            Phrase(langCode: 'ar', value: 'صالون')
           ],
         ),
         KW(
           id: 'space_laundry',
-          names: <Name>[
-            Name(code: 'en', value: 'Laundry room'),
-            Name(code: 'ar', value: 'غرفة غسيل')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Laundry room'),
+            Phrase(langCode: 'ar', value: 'غرفة غسيل')
           ],
         ),
         KW(
           id: 'space_balcony',
-          names: <Name>[
-            Name(code: 'en', value: 'Balcony'),
-            Name(code: 'ar', value: 'تراس')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Balcony'),
+            Phrase(langCode: 'ar', value: 'تراس')
           ],
         ),
         KW(
           id: 'space_toilet',
-          names: <Name>[
-            Name(code: 'en', value: 'Toilet'),
-            Name(code: 'ar', value: 'دورة مياه')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Toilet'),
+            Phrase(langCode: 'ar', value: 'دورة مياه')
           ],
         ),
         KW(
           id: 'space_dining',
-          names: <Name>[
-            Name(code: 'en', value: 'Dining room'),
-            Name(code: 'ar', value: 'غرفة طعام')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Dining room'),
+            Phrase(langCode: 'ar', value: 'غرفة طعام')
           ],
         ),
         KW(
           id: 'space_stairs',
-          names: <Name>[
-            Name(code: 'en', value: 'Stairs'),
-            Name(code: 'ar', value: 'سلالم')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Stairs'),
+            Phrase(langCode: 'ar', value: 'سلالم')
           ],
         ),
         KW(
           id: 'space_attic',
-          names: <Name>[
-            Name(code: 'en', value: 'Attic'),
-            Name(code: 'ar', value: 'علية / صندرة')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Attic'),
+            Phrase(langCode: 'ar', value: 'علية / صندرة')
           ],
         ),
         KW(
           id: 'space_corridor',
-          names: <Name>[
-            Name(code: 'en', value: 'Corridor'),
-            Name(code: 'ar', value: 'رواق / طرقة')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Corridor'),
+            Phrase(langCode: 'ar', value: 'رواق / طرقة')
           ],
         ),
         KW(
           id: 'space_garage',
-          names: <Name>[
-            Name(code: 'en', value: 'Garage'),
-            Name(code: 'ar', value: 'جراج')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Garage'),
+            Phrase(langCode: 'ar', value: 'جراج')
           ],
         ),
         KW(
           id: 'space_storage',
-          names: <Name>[
-            Name(code: 'en', value: 'Storage room'),
-            Name(code: 'ar', value: 'مخزن')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Storage room'),
+            Phrase(langCode: 'ar', value: 'مخزن')
           ],
         ),
         KW(
           id: 'space_maid',
-          names: <Name>[
-            Name(code: 'en', value: 'Maid room'),
-            Name(code: 'ar', value: 'غرفة مربية')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Maid room'),
+            Phrase(langCode: 'ar', value: 'غرفة مربية')
           ],
         ),
         KW(
           id: 'space_walkInCloset',
-          names: <Name>[
-            Name(code: 'en', value: 'Walk In closet'),
-            Name(code: 'ar', value: 'غرفة ملابس')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Walk In closet'),
+            Phrase(langCode: 'ar', value: 'غرفة ملابس')
           ],
         ),
         KW(
           id: 'space_barbecue',
-          names: <Name>[
-            Name(code: 'en', value: 'Barbecue area'),
-            Name(code: 'ar', value: 'مساحة شواية')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Barbecue area'),
+            Phrase(langCode: 'ar', value: 'مساحة شواية')
           ],
         ),
         KW(
           id: 'space_garden',
-          names: <Name>[
-            Name(code: 'en', value: 'Private garden'),
-            Name(code: 'ar', value: 'حديقة خاصة')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Private garden'),
+            Phrase(langCode: 'ar', value: 'حديقة خاصة')
           ],
         ),
         KW(
           id: 'space_privatePool',
-          names: <Name>[
-            Name(code: 'en', value: 'Private pool'),
-            Name(code: 'ar', value: 'حمام سباحة خاص')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Private pool'),
+            Phrase(langCode: 'ar', value: 'حمام سباحة خاص')
           ],
         ),
       ],
@@ -1099,16 +1099,16 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_retail',
       icon: null,
-      names: <Name>[
-        Name(code: 'en', value: 'Retail'),
-        Name(code: 'ar', value: 'تجاري')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Retail'),
+        Phrase(langCode: 'ar', value: 'تجاري')
       ],
       sons: <KW>[
         KW(
           id: 'space_store',
-          names: <Name>[
-            Name(code: 'en', value: 'Store / Shop'),
-            Name(code: 'ar', value: 'محل / متجر')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Store / Shop'),
+            Phrase(langCode: 'ar', value: 'محل / متجر')
           ],
         ),
       ],
@@ -1118,30 +1118,30 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_sports',
       icon: null,
-      names: <Name>[
-        Name(code: 'en', value: 'Sports'),
-        Name(code: 'ar', value: 'رياضي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Sports'),
+        Phrase(langCode: 'ar', value: 'رياضي')
       ],
       sons: <KW>[
         KW(
           id: 'space_gymnasium',
-          names: <Name>[
-            Name(code: 'en', value: 'Gymnasium'),
-            Name(code: 'ar', value: 'جيمنازيوم')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Gymnasium'),
+            Phrase(langCode: 'ar', value: 'جيمنازيوم')
           ],
         ),
         KW(
           id: 'space_sportsCourt',
-          names: <Name>[
-            Name(code: 'en', value: 'Sports court'),
-            Name(code: 'ar', value: 'ملعب رياضي')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Sports court'),
+            Phrase(langCode: 'ar', value: 'ملعب رياضي')
           ],
         ),
         KW(
           id: 'space_sportStadium',
-          names: <Name>[
-            Name(code: 'en', value: 'Stadium'),
-            Name(code: 'ar', value: 'استاد رياضي')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Stadium'),
+            Phrase(langCode: 'ar', value: 'استاد رياضي')
           ],
         ),
       ],
@@ -1151,37 +1151,37 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_utilities',
       icon: null,
-      names: <Name>[
-        Name(code: 'en', value: 'Utilities'),
-        Name(code: 'ar', value: 'خدمات')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Utilities'),
+        Phrase(langCode: 'ar', value: 'خدمات')
       ],
       sons: <KW>[
         KW(
           id: 'pFeature_elevator',
-          names: <Name>[
-            Name(code: 'en', value: 'Elevator'),
-            Name(code: 'ar', value: 'مصعد')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Elevator'),
+            Phrase(langCode: 'ar', value: 'مصعد')
           ],
         ),
         KW(
           id: 'space_electricityRoom',
-          names: <Name>[
-            Name(code: 'en', value: 'Electricity rooms'),
-            Name(code: 'ar', value: 'غرفة كهرباء')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Electricity rooms'),
+            Phrase(langCode: 'ar', value: 'غرفة كهرباء')
           ],
         ),
         KW(
           id: 'space_plumbingRoom',
-          names: <Name>[
-            Name(code: 'en', value: 'Plumbing rooms'),
-            Name(code: 'ar', value: 'غرفة صحي و صرف')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Plumbing rooms'),
+            Phrase(langCode: 'ar', value: 'غرفة صحي و صرف')
           ],
         ),
         KW(
           id: 'space_mechanicalRoom',
-          names: <Name>[
-            Name(code: 'en', value: 'Mechanical rooms'),
-            Name(code: 'ar', value: 'غرفة ميكانيكية')
+          names: <Phrase>[
+            Phrase(langCode: 'en', value: 'Mechanical rooms'),
+            Phrase(langCode: 'ar', value: 'غرفة ميكانيكية')
           ],
         ),
       ],
@@ -1191,36 +1191,36 @@ const Chain propertySpaces = Chain(
 const Chain propertyFloorNumber = Chain(
   id: 'propertyFloorNumber',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property Floor Number'),
-    Name(code: 'ar', value: 'رقم دور العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property Floor Number'),
+    Phrase(langCode: 'ar', value: 'رقم دور العقار')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain propertyDedicatedParkingLotsCount = Chain(
   id: 'propertyDedicatedParkingSpaces',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Number of property dedicated parking lots'),
-    Name(code: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Number of property dedicated parking lots'),
+    Phrase(langCode: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain propertyNumberOfBedrooms = Chain(
   id: 'propertyNumberOfBedrooms',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property Number of Bedrooms'),
-    Name(code: 'ar', value: 'عدد غرف نوم العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property Number of Bedrooms'),
+    Phrase(langCode: 'ar', value: 'عدد غرف نوم العقار')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain propertyNumberOfBathrooms = Chain(
   id: 'propertyNumberOfBathrooms',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property Number of bathrooms'),
-    Name(code: 'ar', value: 'عدد حمامات العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property Number of bathrooms'),
+    Phrase(langCode: 'ar', value: 'عدد حمامات العقار')
   ],
   sons: DataCreator.integerIncrementer,
 );
@@ -1229,100 +1229,100 @@ const Chain propertyNumberOfBathrooms = Chain(
 const Chain propertyView = Chain(
   id: 'propertyView',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property View'),
-    Name(code: 'ar', value: 'المنظر المطل عليه  العقار')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property View'),
+    Phrase(langCode: 'ar', value: 'المنظر المطل عليه  العقار')
   ],
   sons: <KW>[
     KW(
       id: 'view_golf',
-      names: <Name>[
-        Name(code: 'en', value: 'Golf course view'),
-        Name(code: 'ar', value: 'مضمار جولف')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Golf course view'),
+        Phrase(langCode: 'ar', value: 'مضمار جولف')
       ],
     ),
     KW(
       id: 'view_hill',
-      names: <Name>[
-        Name(code: 'en', value: 'Hill or Mountain view'),
-        Name(code: 'ar', value: 'تل أو جبل')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Hill or Mountain view'),
+        Phrase(langCode: 'ar', value: 'تل أو جبل')
       ],
     ),
     KW(
       id: 'view_ocean',
-      names: <Name>[
-        Name(code: 'en', value: 'Ocean view'),
-        Name(code: 'ar', value: 'محيط')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Ocean view'),
+        Phrase(langCode: 'ar', value: 'محيط')
       ],
     ),
     KW(
       id: 'view_city',
-      names: <Name>[
-        Name(code: 'en', value: 'City view'),
-        Name(code: 'ar', value: 'مدينة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'City view'),
+        Phrase(langCode: 'ar', value: 'مدينة')
       ],
     ),
     KW(
       id: 'view_lake',
-      names: <Name>[
-        Name(code: 'en', value: 'Lake view'),
-        Name(code: 'ar', value: 'بحيرة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Lake view'),
+        Phrase(langCode: 'ar', value: 'بحيرة')
       ],
     ),
     KW(
       id: 'view_lagoon',
-      names: <Name>[
-        Name(code: 'en', value: 'Lagoon view'),
-        Name(code: 'ar', value: 'لاجون')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Lagoon view'),
+        Phrase(langCode: 'ar', value: 'لاجون')
       ],
     ),
     KW(
       id: 'view_river',
-      names: <Name>[
-        Name(code: 'en', value: 'River view'),
-        Name(code: 'ar', value: 'نهر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'River view'),
+        Phrase(langCode: 'ar', value: 'نهر')
       ],
     ),
     KW(
       id: 'view_mainStreet',
-      names: <Name>[
-        Name(code: 'en', value: 'Main street view'),
-        Name(code: 'ar', value: 'شارع رئيسي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Main street view'),
+        Phrase(langCode: 'ar', value: 'شارع رئيسي')
       ],
     ),
     KW(
       id: 'view_sideStreet',
-      names: <Name>[
-        Name(code: 'en', value: 'Side street view'),
-        Name(code: 'ar', value: 'شارع جانبي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Side street view'),
+        Phrase(langCode: 'ar', value: 'شارع جانبي')
       ],
     ),
     KW(
       id: 'view_corner',
-      names: <Name>[
-        Name(code: 'en', value: 'Corner view'),
-        Name(code: 'ar', value: 'ناصية الشارع')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Corner view'),
+        Phrase(langCode: 'ar', value: 'ناصية الشارع')
       ],
     ),
     KW(
       id: 'view_back',
-      names: <Name>[
-        Name(code: 'en', value: 'Back view'),
-        Name(code: 'ar', value: 'خلفي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Back view'),
+        Phrase(langCode: 'ar', value: 'خلفي')
       ],
     ),
     KW(
       id: 'view_garden',
-      names: <Name>[
-        Name(code: 'en', value: 'Garden view'),
-        Name(code: 'ar', value: 'حديقة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Garden view'),
+        Phrase(langCode: 'ar', value: 'حديقة')
       ],
     ),
     KW(
       id: 'view_pool',
-      names: <Name>[
-        Name(code: 'en', value: 'Pool view'),
-        Name(code: 'ar', value: 'حمام سباحة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Pool view'),
+        Phrase(langCode: 'ar', value: 'حمام سباحة')
       ],
     ),
   ],
@@ -1330,93 +1330,93 @@ const Chain propertyView = Chain(
 const Chain propertyIndoorFeatures = Chain(
   id: 'sub_ppt_feat_indoor',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Property Indoor Features'),
-    Name(code: 'ar', value: 'خواص العقار الداخلية')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Property Indoor Features'),
+    Phrase(langCode: 'ar', value: 'خواص العقار الداخلية')
   ],
   sons: <KW>[
     KW(
       id: 'pFeature_disabilityFeatures',
-      names: <Name>[
-        Name(code: 'en', value: 'Disability features'),
-        Name(code: 'ar', value: 'خواص معتبرة للإعاقة و المقعدين')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Disability features'),
+        Phrase(langCode: 'ar', value: 'خواص معتبرة للإعاقة و المقعدين')
       ],
     ),
     KW(
       id: 'pFeature_fireplace',
-      names: <Name>[
-        Name(code: 'en', value: 'Fireplace'),
-        Name(code: 'ar', value: 'مدفأة حطب')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Fireplace'),
+        Phrase(langCode: 'ar', value: 'مدفأة حطب')
       ],
     ),
     KW(
       id: 'pFeature_energyEfficient',
-      names: <Name>[
-        Name(code: 'en', value: 'Energy efficient'),
-        Name(code: 'ar', value: 'موفر للطاقة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Energy efficient'),
+        Phrase(langCode: 'ar', value: 'موفر للطاقة')
       ],
     ),
     KW(
       id: 'pFeature_electricityBackup',
-      names: <Name>[
-        Name(code: 'en', value: 'Electricity backup'),
-        Name(code: 'ar', value: 'دعم كهرباء احتياطي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Electricity backup'),
+        Phrase(langCode: 'ar', value: 'دعم كهرباء احتياطي')
       ],
     ),
     KW(
       id: 'pFeature_centralAC',
-      names: <Name>[
-        Name(code: 'en', value: 'Central AC'),
-        Name(code: 'ar', value: 'تكييف مركزي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Central AC'),
+        Phrase(langCode: 'ar', value: 'تكييف مركزي')
       ],
     ),
     KW(
       id: 'pFeature_centralHeating',
-      names: <Name>[
-        Name(code: 'en', value: 'Central heating'),
-        Name(code: 'ar', value: 'تدفئة مركزية')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Central heating'),
+        Phrase(langCode: 'ar', value: 'تدفئة مركزية')
       ],
     ),
     KW(
       id: 'pFeature_builtinWardrobe',
-      names: <Name>[
-        Name(code: 'en', value: 'Built-in wardrobes'),
-        Name(code: 'ar', value: 'دواليب داخل الحوائط')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Built-in wardrobes'),
+        Phrase(langCode: 'ar', value: 'دواليب داخل الحوائط')
       ],
     ),
     KW(
       id: 'pFeature_kitchenAppliances',
-      names: <Name>[
-        Name(code: 'en', value: 'Kitchen Appliances'),
-        Name(code: 'ar', value: 'أجهزة مطبخ')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Kitchen Appliances'),
+        Phrase(langCode: 'ar', value: 'أجهزة مطبخ')
       ],
     ),
     KW(
       id: 'pFeature_elevator',
-      names: <Name>[
-        Name(code: 'en', value: 'Elevator'),
-        Name(code: 'ar', value: 'مصعد')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Elevator'),
+        Phrase(langCode: 'ar', value: 'مصعد')
       ],
     ),
     KW(
       id: 'pFeature_intercom',
-      names: <Name>[
-        Name(code: 'en', value: 'Intercom'),
-        Name(code: 'ar', value: 'إنتركوم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Intercom'),
+        Phrase(langCode: 'ar', value: 'إنتركوم')
       ],
     ),
     KW(
       id: 'pFeature_internet',
-      names: <Name>[
-        Name(code: 'en', value: 'Broadband internet'),
-        Name(code: 'ar', value: 'إنترنت')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Broadband internet'),
+        Phrase(langCode: 'ar', value: 'إنترنت')
       ],
     ),
     KW(
       id: 'pFeature_tv',
-      names: <Name>[
-        Name(code: 'en', value: 'Satellite / Cable TV'),
-        Name(code: 'ar', value: 'قمر صناعي / تلفزيون مركزي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Satellite / Cable TV'),
+        Phrase(langCode: 'ar', value: 'قمر صناعي / تلفزيون مركزي')
       ],
     ),
   ],
@@ -1424,51 +1424,51 @@ const Chain propertyIndoorFeatures = Chain(
 const Chain propertyFinishingLevel = Chain(
   id: 'sub_ppt_feat_finishing',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Finishing level'),
-    Name(code: 'ar', value: 'مستوى التشطيب')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Finishing level'),
+    Phrase(langCode: 'ar', value: 'مستوى التشطيب')
   ],
   sons: <KW>[
     KW(
       id: 'finish_coreAndShell',
-      names: <Name>[
-        Name(code: 'en', value: 'Core and shell'),
-        Name(code: 'ar', value: 'خرسانات و حوائط خارجية')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Core and shell'),
+        Phrase(langCode: 'ar', value: 'خرسانات و حوائط خارجية')
       ],
     ),
     KW(
       id: 'finish_withoutFinishing',
-      names: <Name>[
-        Name(code: 'en', value: 'Without finishing'),
-        Name(code: 'ar', value: 'غير متشطب')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Without finishing'),
+        Phrase(langCode: 'ar', value: 'غير متشطب')
       ],
     ),
     KW(
       id: 'finish_semiFinished',
-      names: <Name>[
-        Name(code: 'en', value: 'Semi finished'),
-        Name(code: 'ar', value: 'نصف تشطيب')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Semi finished'),
+        Phrase(langCode: 'ar', value: 'نصف تشطيب')
       ],
     ),
     KW(
       id: 'finish_lux',
-      names: <Name>[
-        Name(code: 'en', value: 'Lux'),
-        Name(code: 'ar', value: 'تشطيب لوكس')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Lux'),
+        Phrase(langCode: 'ar', value: 'تشطيب لوكس')
       ],
     ),
     KW(
       id: 'finish_superLux',
-      names: <Name>[
-        Name(code: 'en', value: 'Super lux'),
-        Name(code: 'ar', value: 'تشطيب سوبر لوكس')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Super lux'),
+        Phrase(langCode: 'ar', value: 'تشطيب سوبر لوكس')
       ],
     ),
     KW(
       id: 'finish_extraSuperLux',
-      names: <Name>[
-        Name(code: 'en', value: 'Extra super lux'),
-        Name(code: 'ar', value: 'تشطيب إكسترا سوبر لوكس')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Extra super lux'),
+        Phrase(langCode: 'ar', value: 'تشطيب إكسترا سوبر لوكس')
       ],
     ),
   ],
@@ -1478,36 +1478,36 @@ const Chain propertyFinishingLevel = Chain(
 const Chain buildingNumberOfFloors = Chain(
   id: 'buildingNumberOfFloors',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Building number of floors'),
-    Name(code: 'ar', value: 'عدد أدوار المبنى')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Building number of floors'),
+    Phrase(langCode: 'ar', value: 'عدد أدوار المبنى')
   ],
   sons: DataCreator.integerIncrementer, // TASK : define range 0 - g163
 );
 const Chain buildingAgeInYears = Chain(
   id: 'buildingAge',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Building Age'),
-    Name(code: 'ar', value: 'عمر المنشأ')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Building Age'),
+    Phrase(langCode: 'ar', value: 'عمر المنشأ')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain buildingTotalParkingLotsCount = Chain(
   id: 'buildingTotalParkingLotsCount',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Total Building parking lots count'),
-    Name(code: 'ar', value: 'مجموع عدد مواقف السيارات للمبنى')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Total Building parking lots count'),
+    Phrase(langCode: 'ar', value: 'مجموع عدد مواقف السيارات للمبنى')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain buildingTotalUnitsCount = Chain(
   id: 'buildingTotalPropertiesCount',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Total Building units count'),
-    Name(code: 'ar', value: 'مجموع عدد وحدات المبنى')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Total Building units count'),
+    Phrase(langCode: 'ar', value: 'مجموع عدد وحدات المبنى')
   ],
   sons: DataCreator.integerIncrementer,
 );
@@ -1516,23 +1516,23 @@ const Chain buildingTotalUnitsCount = Chain(
 const Chain inACompound = Chain(
   id: 'sub_ppt_feat_compound',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'In a Compound'),
-    Name(code: 'ar', value: 'في مجمع سكني')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'In a Compound'),
+    Phrase(langCode: 'ar', value: 'في مجمع سكني')
   ],
   sons: <KW>[
     KW(
       id: 'in_compound',
-      names: <Name>[
-        Name(code: 'en', value: 'In a compound'),
-        Name(code: 'ar', value: 'في مجمع سكني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'In a compound'),
+        Phrase(langCode: 'ar', value: 'في مجمع سكني')
       ],
     ),
     KW(
       id: 'not_in_compound',
-      names: <Name>[
-        Name(code: 'en', value: 'Not in a compound'),
-        Name(code: 'ar', value: 'ليست في مجمع سكني')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Not in a compound'),
+        Phrase(langCode: 'ar', value: 'ليست في مجمع سكني')
       ],
     ),
   ],
@@ -1540,114 +1540,114 @@ const Chain inACompound = Chain(
 const Chain amenities = Chain(
   id: 'sub_ppt_feat_amenities',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Amenities'),
-    Name(code: 'ar', value: 'منشآت خدمية ملحقة')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Amenities'),
+    Phrase(langCode: 'ar', value: 'منشآت خدمية ملحقة')
   ],
   sons: <KW>[
     KW(
       id: 'am_laundry',
-      names: <Name>[
-        Name(code: 'en', value: 'Laundry'),
-        Name(code: 'ar', value: 'مغسلة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Laundry'),
+        Phrase(langCode: 'ar', value: 'مغسلة')
       ],
     ),
     KW(
       id: 'am_swimmingPool',
-      names: <Name>[
-        Name(code: 'en', value: 'Swimming pool'),
-        Name(code: 'ar', value: 'حمام سباحة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Swimming pool'),
+        Phrase(langCode: 'ar', value: 'حمام سباحة')
       ],
     ),
     KW(
       id: 'am_kidsPool',
-      names: <Name>[
-        Name(code: 'en', value: 'Kids pool'),
-        Name(code: 'ar', value: 'حمام سباحة أطفال')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Kids pool'),
+        Phrase(langCode: 'ar', value: 'حمام سباحة أطفال')
       ],
     ),
     KW(
       id: 'am_boatFacilities',
-      names: <Name>[
-        Name(code: 'en', value: 'Boat facilities'),
-        Name(code: 'ar', value: 'خدمات مراكب مائية')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Boat facilities'),
+        Phrase(langCode: 'ar', value: 'خدمات مراكب مائية')
       ],
     ),
     KW(
       id: 'am_gymFacilities',
-      names: <Name>[
-        Name(code: 'en', value: 'Gym'),
-        Name(code: 'ar', value: 'صالة جيمنازيوم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Gym'),
+        Phrase(langCode: 'ar', value: 'صالة جيمنازيوم')
       ],
     ),
     KW(
       id: 'am_clubHouse',
-      names: <Name>[
-        Name(code: 'en', value: 'Clubhouse'),
-        Name(code: 'ar', value: 'كلاب هاوس')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Clubhouse'),
+        Phrase(langCode: 'ar', value: 'كلاب هاوس')
       ],
     ),
     KW(
       id: 'am_horseFacilities',
-      names: <Name>[
-        Name(code: 'en', value: 'Horse facilities'),
-        Name(code: 'ar', value: 'خدمات خيول')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Horse facilities'),
+        Phrase(langCode: 'ar', value: 'خدمات خيول')
       ],
     ),
     KW(
       id: 'am_sportsCourts',
-      names: <Name>[
-        Name(code: 'en', value: 'Sports courts'),
-        Name(code: 'ar', value: 'ملاعب رياضية')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Sports courts'),
+        Phrase(langCode: 'ar', value: 'ملاعب رياضية')
       ],
     ),
     KW(
       id: 'am_park',
-      names: <Name>[
-        Name(code: 'en', value: 'Park / garden'),
-        Name(code: 'ar', value: 'حديقة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Park / garden'),
+        Phrase(langCode: 'ar', value: 'حديقة')
       ],
     ),
     KW(
       id: 'am_golfCourse',
-      names: <Name>[
-        Name(code: 'en', value: 'Golf course'),
-        Name(code: 'ar', value: 'مضمار جولف')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Golf course'),
+        Phrase(langCode: 'ar', value: 'مضمار جولف')
       ],
     ),
     KW(
       id: 'am_spa',
-      names: <Name>[
-        Name(code: 'en', value: 'Spa'),
-        Name(code: 'ar', value: 'منتجع صحي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Spa'),
+        Phrase(langCode: 'ar', value: 'منتجع صحي')
       ],
     ),
     KW(
       id: 'am_kidsArea',
-      names: <Name>[
-        Name(code: 'en', value: 'Kids Area'),
-        Name(code: 'ar', value: 'منطقة أطفال')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Kids Area'),
+        Phrase(langCode: 'ar', value: 'منطقة أطفال')
       ],
     ),
     KW(
       id: 'am_cafeteria',
-      names: <Name>[
-        Name(code: 'en', value: 'Cafeteria'),
-        Name(code: 'ar', value: 'كافيتيريا')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Cafeteria'),
+        Phrase(langCode: 'ar', value: 'كافيتيريا')
       ],
     ),
     KW(
       id: 'am_businessCenter',
-      names: <Name>[
-        Name(code: 'en', value: 'Business center'),
-        Name(code: 'ar', value: 'مقر أعمال')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Business center'),
+        Phrase(langCode: 'ar', value: 'مقر أعمال')
       ],
     ),
     KW(
       id: 'am_lobby',
-      names: <Name>[
-        Name(code: 'en', value: 'Building lobby'),
-        Name(code: 'ar', value: 'ردهة مدخل للمبنى')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Building lobby'),
+        Phrase(langCode: 'ar', value: 'ردهة مدخل للمبنى')
       ],
     ),
   ],
@@ -1655,79 +1655,79 @@ const Chain amenities = Chain(
 const Chain communityServices = Chain(
   id: 'sub_ppt_feat_services',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Community Services'),
-    Name(code: 'ar', value: 'خدمات المجتمع')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Community Services'),
+    Phrase(langCode: 'ar', value: 'خدمات المجتمع')
   ],
   sons: <KW>[
     KW(
       id: 'pService_houseKeeping',
-      names: <Name>[
-        Name(code: 'en', value: 'Housekeeping'),
-        Name(code: 'ar', value: 'خدمة تنظيف منزلي')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Housekeeping'),
+        Phrase(langCode: 'ar', value: 'خدمة تنظيف منزلي')
       ],
     ),
     KW(
       id: 'pService_laundryService',
-      names: <Name>[
-        Name(code: 'en', value: 'LaundryService'),
-        Name(code: 'ar', value: 'خدمة غسيل ملابس')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'LaundryService'),
+        Phrase(langCode: 'ar', value: 'خدمة غسيل ملابس')
       ],
     ),
     KW(
       id: 'pService_concierge',
-      names: <Name>[
-        Name(code: 'en', value: 'Concierge'),
-        Name(code: 'ar', value: 'خدمة استقبال')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Concierge'),
+        Phrase(langCode: 'ar', value: 'خدمة استقبال')
       ],
     ),
     KW(
       id: 'pService_securityStaff',
-      names: <Name>[
-        Name(code: 'en', value: 'Security  staff'),
-        Name(code: 'ar', value: 'فريق حراسة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Security  staff'),
+        Phrase(langCode: 'ar', value: 'فريق حراسة')
       ],
     ),
     KW(
       id: 'pService_securityCCTV',
-      names: <Name>[
-        Name(code: 'en', value: 'CCTV security'),
-        Name(code: 'ar', value: 'كاميرات مراقبة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'CCTV security'),
+        Phrase(langCode: 'ar', value: 'كاميرات مراقبة')
       ],
     ),
     KW(
       id: 'pService_petsAllowed',
-      names: <Name>[
-        Name(code: 'en', value: 'Pets allowed'),
-        Name(code: 'ar', value: 'مسموح بالحيوانات الأليفة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Pets allowed'),
+        Phrase(langCode: 'ar', value: 'مسموح بالحيوانات الأليفة')
       ],
     ),
     KW(
       id: 'pService_doorMan',
-      names: <Name>[
-        Name(code: 'en', value: 'Doorman'),
-        Name(code: 'ar', value: 'حاجب العقار')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Doorman'),
+        Phrase(langCode: 'ar', value: 'حاجب العقار')
       ],
     ),
     KW(
       id: 'pService_maintenance',
-      names: <Name>[
-        Name(code: 'en', value: 'Maintenance staff'),
-        Name(code: 'ar', value: 'فريق صيانة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Maintenance staff'),
+        Phrase(langCode: 'ar', value: 'فريق صيانة')
       ],
     ),
     KW(
       id: 'pService_wasteDisposal',
-      names: <Name>[
-        Name(code: 'en', value: 'Waste disposal'),
-        Name(code: 'ar', value: 'خدمة رفع القمامة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Waste disposal'),
+        Phrase(langCode: 'ar', value: 'خدمة رفع القمامة')
       ],
     ),
     KW(
       id: 'pFeature_atm',
-      names: <Name>[
-        Name(code: 'en', value: 'ATM'),
-        Name(code: 'ar', value: 'ماكينة سحب أموال ATM')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'ATM'),
+        Phrase(langCode: 'ar', value: 'ماكينة سحب أموال ATM')
       ],
     ),
   ],
@@ -1744,60 +1744,60 @@ const Chain communityServices = Chain(
 Chain constructionActivities = Chain(
   id: 'constructionActivities',
   icon: null,
-  names: const <Name>[
-    Name(code: 'en', value: 'Project construction activities'),
-    Name(code: 'ar', value: 'بنود تنفيذ المشروع')
+  names: const <Phrase>[
+    Phrase(langCode: 'en', value: 'Project construction activities'),
+    Phrase(langCode: 'ar', value: 'بنود تنفيذ المشروع')
   ],
   sons: ChainCrafts.chain.sons,
 );
 const Chain constructionActivityMeasurementMethod = Chain(
   id: 'constructionActivityMeasurementMethod',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Measurement unit'),
-    Name(code: 'ar', value: 'أسلوب القياس')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Measurement unit'),
+    Phrase(langCode: 'ar', value: 'أسلوب القياس')
   ],
   sons: <KW>[
     KW(
       id: 'byLength',
-      names: <Name>[
-        Name(code: 'en', value: 'by Length'),
-        Name(code: 'ar', value: 'بالأطوال')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'by Length'),
+        Phrase(langCode: 'ar', value: 'بالأطوال')
       ],
     ),
     KW(
       id: 'byArea',
-      names: <Name>[
-        Name(code: 'en', value: 'by Area'),
-        Name(code: 'ar', value: 'بالمساحة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'by Area'),
+        Phrase(langCode: 'ar', value: 'بالمساحة')
       ],
     ),
     KW(
       id: 'byVolume',
-      names: <Name>[
-        Name(code: 'en', value: 'by Volume'),
-        Name(code: 'ar', value: 'بالحجم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'by Volume'),
+        Phrase(langCode: 'ar', value: 'بالحجم')
       ],
     ),
     KW(
       id: 'byCount',
-      names: <Name>[
-        Name(code: 'en', value: 'by Count'),
-        Name(code: 'ar', value: 'بالعدد')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'by Count'),
+        Phrase(langCode: 'ar', value: 'بالعدد')
       ],
     ),
     KW(
       id: 'byTime',
-      names: <Name>[
-        Name(code: 'en', value: 'by Time'),
-        Name(code: 'ar', value: 'بالفترة الزمنية')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'by Time'),
+        Phrase(langCode: 'ar', value: 'بالفترة الزمنية')
       ],
     ),
     KW(
       id: 'byLove',
-      names: <Name>[
-        Name(code: 'en', value: 'by Love'),
-        Name(code: 'ar', value: 'بالحب')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'by Love'),
+        Phrase(langCode: 'ar', value: 'بالحب')
       ],
     ),
   ],
@@ -1807,126 +1807,126 @@ const Chain constructionActivityMeasurementMethod = Chain(
 const Chain width = Chain(
   id: 'width',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Width'),
-    Name(code: 'ar', value: 'العرض')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Width'),
+    Phrase(langCode: 'ar', value: 'العرض')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain length = Chain(
   id: 'length',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Length'),
-    Name(code: 'ar', value: 'الطول')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Length'),
+    Phrase(langCode: 'ar', value: 'الطول')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain height = Chain(
   id: 'height',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Height'),
-    Name(code: 'ar', value: 'الارتفاع')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Height'),
+    Phrase(langCode: 'ar', value: 'الارتفاع')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain thickness = Chain(
   id: 'thickness',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Thickness'),
-    Name(code: 'ar', value: 'السمك')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Thickness'),
+    Phrase(langCode: 'ar', value: 'السمك')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain diameter = Chain(
   id: 'diameter',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Diameter'),
-    Name(code: 'ar', value: 'القطر')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Diameter'),
+    Phrase(langCode: 'ar', value: 'القطر')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain radius = Chain(
   id: 'radius',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Radius'),
-    Name(code: 'ar', value: 'نصف القطر')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Radius'),
+    Phrase(langCode: 'ar', value: 'نصف القطر')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain linearMeasurementUnit = Chain(
   id: 'linearMeasureUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Linear measurement unit'),
-    Name(code: 'ar', value: 'وحدة القياس الطولي')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Linear measurement unit'),
+    Phrase(langCode: 'ar', value: 'وحدة القياس الطولي')
   ],
   sons: <KW>[
     KW(
       id: 'micron',
-      names: <Name>[
-        Name(code: 'en', value: 'micron'),
-        Name(code: 'ar', value: 'ميكرون')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'micron'),
+        Phrase(langCode: 'ar', value: 'ميكرون')
       ],
     ),
     KW(
       id: 'millimeter',
-      names: <Name>[
-        Name(code: 'en', value: 'millimetre'),
-        Name(code: 'ar', value: 'ملليمتر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'millimetre'),
+        Phrase(langCode: 'ar', value: 'ملليمتر')
       ],
     ),
     KW(
       id: 'centimeter',
-      names: <Name>[
-        Name(code: 'en', value: 'centimeter'),
-        Name(code: 'ar', value: 'سنتيمتر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'centimeter'),
+        Phrase(langCode: 'ar', value: 'سنتيمتر')
       ],
     ),
     KW(
       id: 'meter',
-      names: <Name>[
-        Name(code: 'en', value: 'meter'),
-        Name(code: 'ar', value: 'متر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'meter'),
+        Phrase(langCode: 'ar', value: 'متر')
       ],
     ),
     KW(
       id: 'kilometer',
-      names: <Name>[
-        Name(code: 'en', value: 'Kilometer'),
-        Name(code: 'ar', value: 'كيلومتر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Kilometer'),
+        Phrase(langCode: 'ar', value: 'كيلومتر')
       ],
     ),
     KW(
       id: 'inch',
-      names: <Name>[
-        Name(code: 'en', value: 'inch'),
-        Name(code: 'ar', value: 'بوصة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'inch'),
+        Phrase(langCode: 'ar', value: 'بوصة')
       ],
     ),
     KW(
       id: 'feet',
-      names: <Name>[
-        Name(code: 'en', value: 'feet'),
-        Name(code: 'ar', value: 'قدم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'feet'),
+        Phrase(langCode: 'ar', value: 'قدم')
       ],
     ),
     KW(
       id: 'yard',
-      names: <Name>[
-        Name(code: 'en', value: 'yard'),
-        Name(code: 'ar', value: 'ياردة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'yard'),
+        Phrase(langCode: 'ar', value: 'ياردة')
       ],
     ),
     KW(
       id: 'mile',
-      names: <Name>[
-        Name(code: 'en', value: 'mile'),
-        Name(code: 'ar', value: 'ميل')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'mile'),
+        Phrase(langCode: 'ar', value: 'ميل')
       ],
     ),
   ],
@@ -1934,60 +1934,60 @@ const Chain linearMeasurementUnit = Chain(
 const Chain footPrint = Chain(
   id: 'footPrint',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Footprint'),
-    Name(code: 'ar', value: 'مساحة الأرضية')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Footprint'),
+    Phrase(langCode: 'ar', value: 'مساحة الأرضية')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain areaMeasureUnit = Chain(
   id: 'areaMeasureUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Area measurement unit'),
-    Name(code: 'ar', value: 'وحدة القياس المساحة')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Area measurement unit'),
+    Phrase(langCode: 'ar', value: 'وحدة القياس المساحة')
   ],
   sons: <KW>[
     KW(
       id: 'square_meter',
-      names: <Name>[
-        Name(code: 'en', value: 'm²'),
-        Name(code: 'ar', value: 'م²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'm²'),
+        Phrase(langCode: 'ar', value: 'م²')
       ],
     ),
     KW(
       id: 'square_Kilometer',
-      names: <Name>[
-        Name(code: 'en', value: 'Km²'),
-        Name(code: 'ar', value: 'كم²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Km²'),
+        Phrase(langCode: 'ar', value: 'كم²')
       ],
     ),
     KW(
       id: 'square_feet',
-      names: <Name>[
-        Name(code: 'en', value: 'ft²'),
-        Name(code: 'ar', value: 'قدم²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'ft²'),
+        Phrase(langCode: 'ar', value: 'قدم²')
       ],
     ),
     KW(
       id: 'square_yard',
-      names: <Name>[
-        Name(code: 'en', value: 'yd²'),
-        Name(code: 'ar', value: 'ياردة²')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'yd²'),
+        Phrase(langCode: 'ar', value: 'ياردة²')
       ],
     ),
     KW(
       id: 'acre',
-      names: <Name>[
-        Name(code: 'en', value: 'Acre'),
-        Name(code: 'ar', value: 'فدان')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Acre'),
+        Phrase(langCode: 'ar', value: 'فدان')
       ],
     ),
     KW(
       id: 'hectare',
-      names: <Name>[
-        Name(code: 'en', value: 'Hectare'),
-        Name(code: 'ar', value: 'هكتار')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'Hectare'),
+        Phrase(langCode: 'ar', value: 'هكتار')
       ],
     ),
   ],
@@ -1995,74 +1995,74 @@ const Chain areaMeasureUnit = Chain(
 const Chain volume = Chain(
   id: 'volume',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Volume'),
-    Name(code: 'ar', value: 'الحجم')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Volume'),
+    Phrase(langCode: 'ar', value: 'الحجم')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain volumeMeasurementUnit = Chain(
   id: 'volumeMeasurementUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Volume measurement unit'),
-    Name(code: 'ar', value: 'وحدة قياس الحجم')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Volume measurement unit'),
+    Phrase(langCode: 'ar', value: 'وحدة قياس الحجم')
   ],
   sons: <KW>[
     KW(
       id: 'cubic_cm',
-      names: <Name>[
-        Name(code: 'en', value: 'cm³'),
-        Name(code: 'ar', value: 'سم³')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'cm³'),
+        Phrase(langCode: 'ar', value: 'سم³')
       ],
     ),
     KW(
       id: 'cubic_m',
-      names: <Name>[
-        Name(code: 'en', value: 'm³'),
-        Name(code: 'ar', value: 'م³')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'm³'),
+        Phrase(langCode: 'ar', value: 'م³')
       ],
     ),
     KW(
       id: 'millilitre',
-      names: <Name>[
-        Name(code: 'en', value: 'ml'),
-        Name(code: 'ar', value: 'مم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'ml'),
+        Phrase(langCode: 'ar', value: 'مم')
       ],
     ),
     KW(
       id: 'litre',
-      names: <Name>[
-        Name(code: 'en', value: 'L'),
-        Name(code: 'ar', value: 'لتر')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'L'),
+        Phrase(langCode: 'ar', value: 'لتر')
       ],
     ),
     KW(
       id: 'fluidOunce',
-      names: <Name>[
-        Name(code: 'en', value: 'fl oz'),
-        Name(code: 'ar', value: 'أونصة سائلة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'fl oz'),
+        Phrase(langCode: 'ar', value: 'أونصة سائلة')
       ],
     ),
     KW(
       id: 'gallon',
-      names: <Name>[
-        Name(code: 'en', value: 'gal'),
-        Name(code: 'ar', value: 'جالون')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'gal'),
+        Phrase(langCode: 'ar', value: 'جالون')
       ],
     ),
     KW(
       id: 'cubic_inch',
-      names: <Name>[
-        Name(code: 'en', value: 'inch³'),
-        Name(code: 'ar', value: 'بوصة مكعبة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'inch³'),
+        Phrase(langCode: 'ar', value: 'بوصة مكعبة')
       ],
     ),
     KW(
       id: 'cubic_feet',
-      names: <Name>[
-        Name(code: 'en', value: 'feet³'),
-        Name(code: 'ar', value: 'قدم مكعب')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'feet³'),
+        Phrase(langCode: 'ar', value: 'قدم مكعب')
       ],
     ),
   ],
@@ -2070,53 +2070,53 @@ const Chain volumeMeasurementUnit = Chain(
 const Chain weight = Chain(
   id: 'weight',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Weight'),
-    Name(code: 'ar', value: 'الوزن')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Weight'),
+    Phrase(langCode: 'ar', value: 'الوزن')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain weightMeasurementUnit = Chain(
   id: 'weightMeasurementUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Weight measurement unit'),
-    Name(code: 'ar', value: 'وحدة قياس الوزن')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Weight measurement unit'),
+    Phrase(langCode: 'ar', value: 'وحدة قياس الوزن')
   ],
   sons: <KW>[
     KW(
       id: 'ounce',
-      names: <Name>[
-        Name(code: 'en', value: 'oz'),
-        Name(code: 'ar', value: 'أونصة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'oz'),
+        Phrase(langCode: 'ar', value: 'أونصة')
       ],
     ),
     KW(
       id: 'pound',
-      names: <Name>[
-        Name(code: 'en', value: 'lb'),
-        Name(code: 'ar', value: 'رطل')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'lb'),
+        Phrase(langCode: 'ar', value: 'رطل')
       ],
     ),
     KW(
       id: 'ton',
-      names: <Name>[
-        Name(code: 'en', value: 'ton'),
-        Name(code: 'ar', value: 'طن')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'ton'),
+        Phrase(langCode: 'ar', value: 'طن')
       ],
     ),
     KW(
       id: 'gram',
-      names: <Name>[
-        Name(code: 'en', value: 'gm'),
-        Name(code: 'ar', value: 'جرام')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'gm'),
+        Phrase(langCode: 'ar', value: 'جرام')
       ],
     ),
     KW(
       id: 'kilogram',
-      names: <Name>[
-        Name(code: 'en', value: 'kg'),
-        Name(code: 'ar', value: 'كج')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'kg'),
+        Phrase(langCode: 'ar', value: 'كج')
       ],
     ),
   ],
@@ -2124,72 +2124,72 @@ const Chain weightMeasurementUnit = Chain(
 const Chain count = Chain(
   id: 'count',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Count'),
-    Name(code: 'ar', value: 'العدد')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Count'),
+    Phrase(langCode: 'ar', value: 'العدد')
   ],
   sons: DataCreator.integerIncrementer,
 );
 const Chain size = Chain(
   id: 'size',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Size'),
-    Name(code: 'ar', value: 'المقاس')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Size'),
+    Phrase(langCode: 'ar', value: 'المقاس')
   ],
   sons: <KW>[
     KW(
       id: 'xxxSmall',
-      names: <Name>[
-        Name(code: 'en', value: '3xs'),
-        Name(code: 'ar', value: '3xs')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: '3xs'),
+        Phrase(langCode: 'ar', value: '3xs')
       ],
     ),
     KW(
       id: 'xxSmall',
-      names: <Name>[
-        Name(code: 'en', value: '2xs'),
-        Name(code: 'ar', value: '2xs')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: '2xs'),
+        Phrase(langCode: 'ar', value: '2xs')
       ],
     ),
     KW(
       id: 'xSmall',
-      names: <Name>[
-        Name(code: 'en', value: 'xs'),
-        Name(code: 'ar', value: 'xs')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'xs'),
+        Phrase(langCode: 'ar', value: 'xs')
       ],
     ),
     KW(
       id: 'small',
-      names: <Name>[Name(code: 'en', value: 's'), Name(code: 'ar', value: 's')],
+      names: <Phrase>[Phrase(langCode: 'en', value: 's'), Phrase(langCode: 'ar', value: 's')],
     ),
     KW(
       id: 'medium',
-      names: <Name>[Name(code: 'en', value: 'm'), Name(code: 'ar', value: 'm')],
+      names: <Phrase>[Phrase(langCode: 'en', value: 'm'), Phrase(langCode: 'ar', value: 'm')],
     ),
     KW(
       id: 'large',
-      names: <Name>[Name(code: 'en', value: 'L'), Name(code: 'ar', value: 'L')],
+      names: <Phrase>[Phrase(langCode: 'en', value: 'L'), Phrase(langCode: 'ar', value: 'L')],
     ),
     KW(
       id: 'xLarge',
-      names: <Name>[
-        Name(code: 'en', value: 'xL'),
-        Name(code: 'ar', value: 'xL')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'xL'),
+        Phrase(langCode: 'ar', value: 'xL')
       ],
     ),
     KW(
       id: 'xxLarge',
-      names: <Name>[
-        Name(code: 'en', value: 'xxL'),
-        Name(code: 'ar', value: 'xxL')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'xxL'),
+        Phrase(langCode: 'ar', value: 'xxL')
       ],
     ),
     KW(
       id: 'xxxLarge',
-      names: <Name>[
-        Name(code: 'en', value: 'xxxL'),
-        Name(code: 'ar', value: 'xxxL')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'xxxL'),
+        Phrase(langCode: 'ar', value: 'xxxL')
       ],
     ),
   ],
@@ -2199,27 +2199,27 @@ const Chain size = Chain(
 const Chain wattage = Chain(
   id: 'wattage',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Watt'),
-    Name(code: 'ar', value: 'وات')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Watt'),
+    Phrase(langCode: 'ar', value: 'وات')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain voltage = Chain(
   id: 'voltage',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'volt'),
-    Name(code: 'ar', value: 'فولت')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'volt'),
+    Phrase(langCode: 'ar', value: 'فولت')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain ampere = Chain(
   id: 'ampere',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'amps'),
-    Name(code: 'ar', value: 'أمبير')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'amps'),
+    Phrase(langCode: 'ar', value: 'أمبير')
   ],
   sons: DataCreator.doubleCreator,
 );
@@ -2228,57 +2228,57 @@ const Chain ampere = Chain(
 const Chain inStock = Chain(
   id: 'inStock',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'In Stock'),
-    Name(code: 'ar', value: 'متوفر في المخزون')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'In Stock'),
+    Phrase(langCode: 'ar', value: 'متوفر في المخزون')
   ],
   sons: DataCreator.boolSwitch,
 );
 const Chain deliveryAvailable = Chain(
   id: 'deliveryAvailable',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Available delivery'),
-    Name(code: 'ar', value: 'التوصيل متوفر')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Available delivery'),
+    Phrase(langCode: 'ar', value: 'التوصيل متوفر')
   ],
   sons: DataCreator.boolSwitch,
 );
 const Chain deliveryDuration = Chain(
   id: 'deliveryMinDuration',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Delivery duration'),
-    Name(code: 'ar', value: 'فترة التوصيل')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Delivery duration'),
+    Phrase(langCode: 'ar', value: 'فترة التوصيل')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain deliveryDurationUnit = Chain(
   id: 'deliveryDurationUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Delivery duration unit'),
-    Name(code: 'ar', value: 'مقياس فترة التوصيل')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Delivery duration unit'),
+    Phrase(langCode: 'ar', value: 'مقياس فترة التوصيل')
   ],
   sons: <KW>[
     KW(
       id: 'hour',
-      names: <Name>[
-        Name(code: 'en', value: 'hour'),
-        Name(code: 'ar', value: 'ساعة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'hour'),
+        Phrase(langCode: 'ar', value: 'ساعة')
       ],
     ),
     KW(
       id: 'day',
-      names: <Name>[
-        Name(code: 'en', value: 'day'),
-        Name(code: 'ar', value: 'يوم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'day'),
+        Phrase(langCode: 'ar', value: 'يوم')
       ],
     ),
     KW(
       id: 'week',
-      names: <Name>[
-        Name(code: 'en', value: 'week'),
-        Name(code: 'ar', value: 'أسبوع')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'week'),
+        Phrase(langCode: 'ar', value: 'أسبوع')
       ],
     ),
   ],
@@ -2288,55 +2288,55 @@ const Chain deliveryDurationUnit = Chain(
 const Chain madeIn = Chain(
   id: 'madeIn',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Made in'),
-    Name(code: 'ar', value: 'صنع في')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Made in'),
+    Phrase(langCode: 'ar', value: 'صنع في')
   ],
   sons: null, // getCountriesAsKeywords()
 );
 const Chain warrantyDuration = Chain(
   id: 'insuranceDuration',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Warranty duration'),
-    Name(code: 'ar', value: 'مدة الضمان')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Warranty duration'),
+    Phrase(langCode: 'ar', value: 'مدة الضمان')
   ],
   sons: DataCreator.doubleCreator,
 );
 const Chain warrantyDurationUnit = Chain(
   id: 'warrantyDurationUnit',
   icon: null,
-  names: <Name>[
-    Name(code: 'en', value: 'Warranty duration unit'),
-    Name(code: 'ar', value: 'وحدة قياس مدة الضمان')
+  names: <Phrase>[
+    Phrase(langCode: 'en', value: 'Warranty duration unit'),
+    Phrase(langCode: 'ar', value: 'وحدة قياس مدة الضمان')
   ],
   sons: <KW>[
     KW(
       id: 'hour',
-      names: <Name>[
-        Name(code: 'en', value: 'hour'),
-        Name(code: 'ar', value: 'ساعة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'hour'),
+        Phrase(langCode: 'ar', value: 'ساعة')
       ],
     ),
     KW(
       id: 'day',
-      names: <Name>[
-        Name(code: 'en', value: 'day'),
-        Name(code: 'ar', value: 'يوم')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'day'),
+        Phrase(langCode: 'ar', value: 'يوم')
       ],
     ),
     KW(
       id: 'week',
-      names: <Name>[
-        Name(code: 'en', value: 'week'),
-        Name(code: 'ar', value: 'أسبوع')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'week'),
+        Phrase(langCode: 'ar', value: 'أسبوع')
       ],
     ),
     KW(
       id: 'year',
-      names: <Name>[
-        Name(code: 'en', value: 'year'),
-        Name(code: 'ar', value: 'سنة')
+      names: <Phrase>[
+        Phrase(langCode: 'en', value: 'year'),
+        Phrase(langCode: 'ar', value: 'سنة')
       ],
     ),
   ],

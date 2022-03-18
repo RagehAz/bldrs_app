@@ -1,10 +1,8 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart'
     as FlyerTypeClass;
 import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/chain/chain_designs.dart';
-import 'package:bldrs/a_models/kw/specs/raw_specs.dart' as RawSpecs;
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -22,10 +20,9 @@ class SpecList {
     @required this.specChain,
     this.deactivators,
   });
-
   /// --------------------------------------------------------------------------
   final String id;
-  final List<Name> names;
+  final List<Phrase> names;
   final String groupID;
 
   /// can pick many allows selecting either only 1 value from the chain or multiple values
@@ -211,7 +208,11 @@ class SpecList {
 
   }
 // -----------------------------------------------------------------------------
+
   static List<SpecList> propertySpecLists = <SpecList>[
+
+   /*
+
     // ------------------------------------------------------------
     /// - MAIN SPECIFICATIONS
     // ----------------------------
@@ -219,7 +220,7 @@ class SpecList {
     SpecList(
         id: 'propertyForm',
         groupID: 'Main Specifications',
-        names: RawSpecs.propertyForm.names,
+        names: RawSpecs.propertyForm.titlePhraseID,
         canPickMany: false,
         isRequired: true,
         deactivators: <SpecDeactivator>[
@@ -247,7 +248,7 @@ class SpecList {
     SpecList(
         id: 'propertyLicense',
         groupID: 'Main Specifications',
-        names: RawSpecs.propertyLicense.names,
+        names: RawSpecs.propertyLicense.titlePhraseID,
         canPickMany: true,
         isRequired: true,
         range: null,
@@ -259,9 +260,9 @@ class SpecList {
     SpecList(
         id: 'propertyContractType',
         groupID: 'Pricing',
-        names: const <Name>[
-          Name(code: 'en', value: 'Property contract Type'),
-          Name(code: 'ar', value: 'نوع التعاقد على الغقار')
+        names: const <Phrase>[
+          Phrase(langCode: 'en', value: 'Property contract Type'),
+          Phrase(langCode: 'ar', value: 'نوع التعاقد على الغقار')
         ],
         canPickMany: false,
         isRequired: true,
@@ -289,7 +290,7 @@ class SpecList {
     SpecList(
         id: 'propertyPaymentMethod',
         groupID: 'Pricing',
-        names: RawSpecs.paymentMethod.names,
+        names: RawSpecs.paymentMethod.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -308,9 +309,9 @@ class SpecList {
     SpecList(
         id: 'PropertySalePrice',
         groupID: 'Pricing',
-        names: const <Name>[
-          Name(code: 'en', value: 'Property sale price'),
-          Name(code: 'ar', value: 'سعر بيع العقار')
+        names: const <Phrase>[
+          Phrase(langCode: 'en', value: 'Property sale price'),
+          Phrase(langCode: 'ar', value: 'سعر بيع العقار')
         ],
         canPickMany: false,
         isRequired: false,
@@ -321,9 +322,9 @@ class SpecList {
     SpecList(
         id: 'propertyRentPrice',
         groupID: 'Pricing',
-        names: const <Name>[
-          Name(code: 'en', value: 'Property rent price'),
-          Name(code: 'ar', value: 'سعر إيجار العقار')
+        names: const <Phrase>[
+          Phrase(langCode: 'en', value: 'Property rent price'),
+          Phrase(langCode: 'ar', value: 'سعر إيجار العقار')
         ],
         canPickMany: false,
         isRequired: false,
@@ -334,7 +335,7 @@ class SpecList {
     SpecList(
         id: 'currency',
         groupID: 'Pricing',
-        names: RawSpecs.currency.names,
+        names: RawSpecs.currency.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -346,7 +347,7 @@ class SpecList {
     SpecList(
         id: 'propertyNumberOfInstallments',
         groupID: 'Installments',
-        names: RawSpecs.numberOfInstallments.names,
+        names: RawSpecs.numberOfInstallments.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -356,7 +357,7 @@ class SpecList {
     SpecList(
         id: 'propertyInstallmentsDuration',
         groupID: 'Installments',
-        names: RawSpecs.installmentsDuration.names,
+        names: RawSpecs.installmentsDuration.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -366,7 +367,7 @@ class SpecList {
     SpecList(
         id: 'propertyInstallmentsDurationUnit',
         groupID: 'Installments',
-        names: RawSpecs.installmentsDurationUnit.names,
+        names: RawSpecs.installmentsDurationUnit.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -378,7 +379,7 @@ class SpecList {
     SpecList(
         id: 'propertyArea',
         groupID: 'Property Area',
-        names: RawSpecs.propertyArea.names,
+        names: RawSpecs.propertyArea.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -388,7 +389,7 @@ class SpecList {
     SpecList(
         id: 'propertyAreaUnit',
         groupID: 'Property Area',
-        names: RawSpecs.propertyAreaUnit.names,
+        names: RawSpecs.propertyAreaUnit.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -400,7 +401,7 @@ class SpecList {
     SpecList(
         id: 'lotArea',
         groupID: 'Lot Area',
-        names: RawSpecs.lotArea.names,
+        names: RawSpecs.lotArea.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -410,7 +411,7 @@ class SpecList {
     SpecList(
         id: 'lotAreaUnit',
         groupID: 'Lot Area',
-        names: RawSpecs.lotAreaUnit.names,
+        names: RawSpecs.lotAreaUnit.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -422,7 +423,7 @@ class SpecList {
     SpecList(
         id: 'propertySpaces',
         groupID: 'Spatial Specifications',
-        names: RawSpecs.propertySpaces.names,
+        names: RawSpecs.propertySpaces.titlePhraseID,
         canPickMany: true,
         isRequired: false,
         range: null,
@@ -432,7 +433,7 @@ class SpecList {
     SpecList(
         id: 'propertyFloorNumber',
         groupID: 'Spatial Specifications',
-        names: RawSpecs.propertyFloorNumber.names,
+        names: RawSpecs.propertyFloorNumber.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -442,7 +443,7 @@ class SpecList {
     SpecList(
         id: 'propertyDedicatedParkingLotsCount',
         groupID: 'Spatial Specifications',
-        names: RawSpecs.propertyDedicatedParkingLotsCount.names,
+        names: RawSpecs.propertyDedicatedParkingLotsCount.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -452,7 +453,7 @@ class SpecList {
     SpecList(
       id: 'propertyNumberOfBedrooms',
       groupID: 'Spatial Specifications',
-      names: RawSpecs.propertyNumberOfBedrooms.names,
+      names: RawSpecs.propertyNumberOfBedrooms.titlePhraseID,
       canPickMany: false,
       isRequired: false,
       range: null,
@@ -463,7 +464,7 @@ class SpecList {
     SpecList(
       id: 'propertyNumberOfBathrooms',
       groupID: 'Spatial Specifications',
-      names: RawSpecs.propertyNumberOfBathrooms.names,
+      names: RawSpecs.propertyNumberOfBathrooms.titlePhraseID,
       canPickMany: false,
       isRequired: false,
       range: null,
@@ -476,7 +477,7 @@ class SpecList {
     SpecList(
         id: 'propertyView',
         groupID: 'Property Features',
-        names: RawSpecs.propertyView.names,
+        names: RawSpecs.propertyView.titlePhraseID,
         canPickMany: true,
         isRequired: false,
         range: null,
@@ -486,7 +487,7 @@ class SpecList {
     SpecList(
         id: 'propertyIndoorFeatures',
         groupID: 'Property Features',
-        names: RawSpecs.propertyIndoorFeatures.names,
+        names: RawSpecs.propertyIndoorFeatures.titlePhraseID,
         canPickMany: true,
         isRequired: false,
         range: null,
@@ -496,7 +497,7 @@ class SpecList {
     SpecList(
         id: 'propertyFinishingLevel',
         groupID: 'Property Features',
-        names: RawSpecs.propertyFinishingLevel.names,
+        names: RawSpecs.propertyFinishingLevel.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -506,9 +507,9 @@ class SpecList {
     SpecList(
       id: 'propertyDecorationStyle',
       groupID: 'Property Features',
-      names: const <Name>[
-        Name(code: 'en', value: 'Property decoration style'),
-        Name(code: 'ar', value: 'الطراز التصميمي لديكور العقار')
+      names: const <Phrase>[
+        Phrase(langCode: 'en', value: 'Property decoration style'),
+        Phrase(langCode: 'ar', value: 'الطراز التصميمي لديكور العقار')
       ],
       canPickMany: false,
       isRequired: false,
@@ -522,7 +523,7 @@ class SpecList {
     SpecList(
         id: 'propertyInACompound',
         groupID: 'Community Features',
-        names: RawSpecs.inACompound.names,
+        names: RawSpecs.inACompound.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -532,7 +533,7 @@ class SpecList {
     SpecList(
         id: 'propertyAmenities',
         groupID: 'Community Features',
-        names: RawSpecs.amenities.names,
+        names: RawSpecs.amenities.titlePhraseID,
         canPickMany: true,
         isRequired: false,
         range: null,
@@ -542,7 +543,7 @@ class SpecList {
     SpecList(
         id: 'communityServices',
         groupID: 'Community Features',
-        names: RawSpecs.communityServices.names,
+        names: RawSpecs.communityServices.titlePhraseID,
         canPickMany: true,
         isRequired: false,
         range: null,
@@ -554,7 +555,7 @@ class SpecList {
     SpecList(
         id: 'buildingNumberOfFloors',
         groupID: 'Building Specifications',
-        names: RawSpecs.buildingNumberOfFloors.names,
+        names: RawSpecs.buildingNumberOfFloors.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -564,7 +565,7 @@ class SpecList {
     SpecList(
         id: 'buildingAgeInYears',
         groupID: 'Building Specifications',
-        names: RawSpecs.buildingAgeInYears.names,
+        names: RawSpecs.buildingAgeInYears.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -574,7 +575,7 @@ class SpecList {
     SpecList(
         id: 'buildingTotalUnitsCount',
         groupID: 'Building Specifications',
-        names: RawSpecs.buildingTotalUnitsCount.names,
+        names: RawSpecs.buildingTotalUnitsCount.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -584,15 +585,21 @@ class SpecList {
     SpecList(
         id: 'buildingTotalParkingLotsCount',
         groupID: 'Building Specifications',
-        names: RawSpecs.buildingTotalParkingLotsCount.names,
+        names: RawSpecs.buildingTotalParkingLotsCount.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
         specChain: RawSpecs.buildingTotalParkingLotsCount),
     // ------------------------------------------------------------
+
+    */
+
   ];
 
   static List<SpecList> designSpecLists = <SpecList>[
+
+    /*
+
     // ------------------------------------------------------------
     /// - DESIGN SPECIFICATIONS
     // ----------------------------
@@ -600,9 +607,9 @@ class SpecList {
     SpecList(
         id: 'designType',
         groupID: 'Design Specifications',
-        names: const <Name>[
-          Name(code: 'en', value: 'Design type'),
-          Name(code: 'ar', value: 'نوع التصميم')
+        names: const <Phrase>[
+          Phrase(langCode: 'en', value: 'Design type'),
+          Phrase(langCode: 'ar', value: 'نوع التصميم')
         ],
         canPickMany: true,
         isRequired: true,
@@ -613,9 +620,9 @@ class SpecList {
     SpecList(
         id: 'designSpaces',
         groupID: 'Design Specifications',
-        names: const <Name>[
-          Name(code: 'en', value: 'Design spaces'),
-          Name(code: 'ar', value: 'فراغات التصميم')
+        names: const <Phrase>[
+          Phrase(langCode: 'en', value: 'Design spaces'),
+          Phrase(langCode: 'ar', value: 'فراغات التصميم')
         ],
         canPickMany: true,
         isRequired: true,
@@ -626,7 +633,7 @@ class SpecList {
     SpecList(
         id: 'designStyle',
         groupID: 'Design Specifications',
-        names: RawSpecs.style.names,
+        names: RawSpecs.style.titlePhraseID,
         canPickMany: true,
         isRequired: false,
         range: null,
@@ -638,7 +645,7 @@ class SpecList {
     SpecList(
         id: 'propertyForm',
         groupID: 'Property Specifications',
-        names: RawSpecs.propertyForm.names,
+        names: RawSpecs.propertyForm.titlePhraseID,
         canPickMany: false,
         isRequired: true,
         range: null,
@@ -648,7 +655,7 @@ class SpecList {
     SpecList(
         id: 'propertyLicense',
         groupID: 'Property Specifications',
-        names: RawSpecs.propertyLicense.names,
+        names: RawSpecs.propertyLicense.titlePhraseID,
         canPickMany: true,
         isRequired: true,
         range: null,
@@ -660,9 +667,9 @@ class SpecList {
     SpecList(
         id: 'projectCost',
         groupID: 'Construction Cost',
-        names: const <Name>[
-          Name(code: 'en', value: 'Project cost'),
-          Name(code: 'ar', value: 'تكلفة المشروع')
+        names: const <Phrase>[
+          Phrase(langCode: 'en', value: 'Project cost'),
+          Phrase(langCode: 'ar', value: 'تكلفة المشروع')
         ],
         canPickMany: false,
         isRequired: false,
@@ -673,9 +680,9 @@ class SpecList {
     SpecList(
       id: 'currency',
       groupID: 'Construction Cost',
-      names: const <Name>[
-        Name(code: 'en', value: 'Project cost currency'),
-        Name(code: 'ar', value: 'عملة تكلفة المشروع')
+      names: const <Phrase>[
+        Phrase(langCode: 'en', value: 'Project cost currency'),
+        Phrase(langCode: 'ar', value: 'عملة تكلفة المشروع')
       ],
       canPickMany: false,
       isRequired: false,
@@ -689,9 +696,9 @@ class SpecList {
     SpecList(
       id: 'constructionDuration',
       groupID: 'Construction Duration',
-      names: const <Name>[
-        Name(code: 'en', value: 'Project duration'),
-        Name(code: 'ar', value: 'زمن تنفيذ المشروع')
+      names: const <Phrase>[
+        Phrase(langCode: 'en', value: 'Project duration'),
+        Phrase(langCode: 'ar', value: 'زمن تنفيذ المشروع')
       ],
       canPickMany: false,
       isRequired: false,
@@ -703,9 +710,9 @@ class SpecList {
     SpecList(
       id: 'constructionDurationUnit',
       groupID: 'Construction Duration',
-      names: const <Name>[
-        Name(code: 'en', value: 'Project duration unit'),
-        Name(code: 'ar', value: 'وحدة قياس زمن تنفيذ المشروع')
+      names: const <Phrase>[
+        Phrase(langCode: 'en', value: 'Project duration unit'),
+        Phrase(langCode: 'ar', value: 'وحدة قياس زمن تنفيذ المشروع')
       ],
       canPickMany: false,
       isRequired: false,
@@ -719,7 +726,7 @@ class SpecList {
     SpecList(
       id: 'constructionActivities',
       groupID: 'Construction Activities',
-      names: RawSpecs.constructionActivities.names,
+      names: RawSpecs.constructionActivities.titlePhraseID,
       canPickMany: true,
       isRequired: false,
       range: null,
@@ -732,7 +739,7 @@ class SpecList {
     SpecList(
         id: 'propertyArea',
         groupID: 'Property Area',
-        names: RawSpecs.propertyArea.names,
+        names: RawSpecs.propertyArea.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -742,7 +749,7 @@ class SpecList {
     SpecList(
         id: 'propertyAreaUnit',
         groupID: 'Property Area',
-        names: RawSpecs.propertyAreaUnit.names,
+        names: RawSpecs.propertyAreaUnit.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -754,7 +761,7 @@ class SpecList {
     SpecList(
         id: 'lotArea',
         groupID: 'Lot Area',
-        names: RawSpecs.lotArea.names,
+        names: RawSpecs.lotArea.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -764,20 +771,26 @@ class SpecList {
     SpecList(
         id: 'lotAreaUnit',
         groupID: 'Lot Area',
-        names: RawSpecs.lotAreaUnit.names,
+        names: RawSpecs.lotAreaUnit.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
         specChain: RawSpecs.lotAreaUnit),
     // ------------------------------------------------------------
+
+     */
+
   ];
 
   static List<SpecList> craftSpecLists = <SpecList>[
+
+    /*
+
     /// CONSTRUCTION ACTIVITY PRICE
     SpecList(
         id: 'constructionActivityPrice',
         groupID: 'Cost',
-        names: RawSpecs.price.names,
+        names: RawSpecs.price.titlePhraseID,
         canPickMany: false,
         isRequired: false,
         range: null,
@@ -787,7 +800,7 @@ class SpecList {
     SpecList(
       id: 'currency',
       groupID: 'Cost',
-      names: RawSpecs.currency.names,
+      names: RawSpecs.currency.titlePhraseID,
       canPickMany: false,
       isRequired: false,
       range: null,
@@ -798,17 +811,21 @@ class SpecList {
     SpecList(
       id: 'constructionActivityMeasurementMethod',
       groupID: 'Cost',
-      names: RawSpecs.constructionActivityMeasurementMethod.names,
+      names: RawSpecs.constructionActivityMeasurementMethod.titlePhraseID,
       canPickMany: false,
       isRequired: false,
       range: null,
       specChain: RawSpecs.constructionActivityMeasurementMethod,
     ),
+
+  */
+
   ];
 
   static List<SpecList> productSpecLists = <SpecList>[];
 
   static List<SpecList> equipmentSpecLists = <SpecList>[];
+
 }
 
 class SpecDeactivator {

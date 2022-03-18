@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/specs/data_creator.dart';
 import 'package:bldrs/a_models/kw/specs/raw_specs.dart' as RawSpecs;
 import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -554,7 +554,7 @@ class SpecModel {
             _kws.singleWhere((KW kw) => kw.id == _kwID, orElse: () => null);
 
         if (_kw != null) {
-          _name = Name.getNameByCurrentLingoFromNames(context: context, names: _kw.names)?.value;
+          _name = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _kw.names)?.value;
         }
       }
     }
@@ -582,10 +582,16 @@ class SpecModel {
   }
 // -----------------------------------------------------------------------------
   static bool specsContainsNewSale(List<SpecModel> specs) {
-    const SpecModel _newSaleSpec =
-        SpecModel(specsListID: 'propertyContractType', value: RawSpecs.newSaleID);
-    final bool _containsNewSale =
-        SpecModel.specsContainThisSpec(specs: specs, spec: _newSaleSpec);
+    const SpecModel _newSaleSpec = SpecModel(
+        specsListID: 'propertyContractType',
+        value: RawSpecs.newSaleID
+    );
+
+    final bool _containsNewSale = SpecModel.specsContainThisSpec(
+        specs: specs,
+        spec: _newSaleSpec,
+    );
+
     return _containsNewSale;
   }
 // -----------------------------------------------------------------------------

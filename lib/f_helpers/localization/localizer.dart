@@ -90,9 +90,9 @@ class Localizer {
 // -----------------------------------------------------------------------------
   static Future<void> switchBetweenArabicAndEnglish(
       BuildContext context) async {
-    Wordz.languageCode(context) == Lingo.englishLingo.code
-        ? await changeAppLanguage(context, Lingo.arabicLingo.code)
-        : await changeAppLanguage(context, Lingo.englishLingo.code);
+    Wordz.languageCode(context) == Lang.englishLingo.code
+        ? await changeAppLanguage(context, Lang.arabicLingo.code)
+        : await changeAppLanguage(context, Lang.englishLingo.code);
   }
 
 // -----------------------------------------------------------------------------
@@ -107,29 +107,29 @@ class Localizer {
   static Locale _concludeLocaleByLingoCode(String lingoCode) {
     Locale _temp;
     switch (lingoCode) {
-      case Lingo.englishCode:
+      case Lang.englishCode:
         _temp = Locale(lingoCode, 'US');
         break;
-      case Lingo.arabicCode:
+      case Lang.arabicCode:
         _temp = Locale(lingoCode, 'EG');
         break;
-      case Lingo.spanishCode:
+      case Lang.spanishCode:
         _temp = Locale(lingoCode, 'ES');
         break;
-      case Lingo.frenchCode:
+      case Lang.frenchCode:
         _temp = Locale(lingoCode, 'FR');
         break;
-      case Lingo.chineseCode:
+      case Lang.chineseCode:
         _temp = Locale(lingoCode, 'CN');
         break;
-      case Lingo.germanCode:
+      case Lang.germanCode:
         _temp = Locale(lingoCode, 'DE');
         break;
-      case Lingo.italianCode:
+      case Lang.italianCode:
         _temp = Locale(lingoCode, 'IT');
         break;
       default:
-        _temp = Locale(Lingo.englishLingo.code, 'US');
+        _temp = Locale(Lang.englishLingo.code, 'US');
     }
     return _temp;
   }
@@ -138,7 +138,7 @@ class Localizer {
   static Future<Locale> getLocaleFromSharedPref() async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
     final String _languageCode =
-        _prefs.getString('languageCode') ?? Lingo.englishLingo.code;
+        _prefs.getString('languageCode') ?? Lang.englishLingo.code;
     return _concludeLocaleByLingoCode(_languageCode);
 //  await _prefs.setString(Language_Code, languageCode);
   }
@@ -147,7 +147,7 @@ class Localizer {
   static bool appIsArabic(BuildContext context) {
     bool _isArabic;
 
-    if (Wordz.languageCode(context) == Lingo.arabicLingo.code) {
+    if (Wordz.languageCode(context) == Lang.arabicLingo.code) {
       _isArabic = true;
     } else {
       _isArabic = false;

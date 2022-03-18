@@ -26,9 +26,9 @@ import 'package:flutter/material.dart';
 /// UK:Ukrainian, PL:Polish, NL:Dutch, MS:Malay, PA:Punjabi,
 /// E:-
 /// TL:Tagalog, TE:Telugu, MR:Marathi, KO:Korean,
-class Lingo {
+class Lang {
   /// --------------------------------------------------------------------------
-  const Lingo({
+  const Lang({
     @required this.code,
     @required this.name,
   });
@@ -38,11 +38,11 @@ class Lingo {
   final String name;
 
   /// --------------------------------------------------------------------------
-  static List<MapModel> getLingoNamesMapModels(List<Lingo> lingos) {
+  static List<MapModel> getLingoNamesMapModels(List<Lang> lingos) {
     final List<MapModel> _lingosMapModels = <MapModel>[];
 
     if (Mapper.canLoopList(lingos)) {
-      for (final Lingo lingo in lingos) {
+      for (final Lang lingo in lingos) {
         _lingosMapModels.add(MapModel(
           key: lingo.code,
           value: lingo.name,
@@ -54,7 +54,7 @@ class Lingo {
   }
 
 // -----------------------------------------------------------------------------
-  static const List<Lingo> allLanguages = <Lingo>[
+  static const List<Lang> allLanguages = <Lang>[
     englishLingo,
     arabicLingo,
     spanishLingo,
@@ -65,33 +65,33 @@ class Lingo {
   ];
 // -----------------------------------------------------------------------------
   static const String englishCode = 'en';
-  static const Lingo englishLingo = Lingo(code: englishCode, name: 'English');
+  static const Lang englishLingo = Lang(code: englishCode, name: 'English');
 
   static const String arabicCode = 'ar';
-  static const Lingo arabicLingo = Lingo(code: arabicCode, name: 'عربي');
+  static const Lang arabicLingo = Lang(code: arabicCode, name: 'عربي');
 
   static const String spanishCode = 'es';
-  static const Lingo spanishLingo = Lingo(code: spanishCode, name: 'Español');
+  static const Lang spanishLingo = Lang(code: spanishCode, name: 'Español');
 
   static const String frenchCode = 'fr';
-  static const Lingo frenchLingo = Lingo(code: frenchCode, name: 'Française');
+  static const Lang frenchLingo = Lang(code: frenchCode, name: 'Française');
 
   // static const String russianCode = 'ru';
   // static const Lingo russianLingo = Lingo(code: russianCode, name: 'русский');
 
   static const String chineseCode = 'zh';
-  static const Lingo chineseLingo = Lingo(code: chineseCode, name: '中文');
+  static const Lang chineseLingo = Lang(code: chineseCode, name: '中文');
 
   static const String germanCode = 'de';
-  static const Lingo germanLingo = Lingo(code: germanCode, name: 'Deutsche');
+  static const Lang germanLingo = Lang(code: germanCode, name: 'Deutsche');
 
   static const String italianCode = 'it';
-  static const Lingo italianLingo = Lingo(code: italianCode, name: 'Italiano');
+  static const Lang italianLingo = Lang(code: italianCode, name: 'Italiano');
 // -----------------------------------------------------------------------------
   static List<String> getAllLingoCodes() {
     final List<String> _codes = <String>[];
 
-    for (final Lingo lingo in allLanguages) {
+    for (final Lang lingo in allLanguages) {
       _codes.add(lingo.code);
     }
 

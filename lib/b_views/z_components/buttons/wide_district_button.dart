@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -19,7 +19,7 @@ class WideDistrictButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Name _districtName = Name.getNameByCurrentLingoFromNames(context: context, names: district?.names);
+    final Phrase _districtName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: district?.names);
     final String _districtNameValue = _districtName?.value ?? district.districtID;
 
     return DreamBox(

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -20,7 +20,7 @@ class DistrictModel{
   final String countryID;
   final String cityID;
   final String districtID;
-  final List<Name> names;
+  final List<Phrase> names;
   /// dashboard manual switch to deactivate entire cities.
   final bool isActivated;
   /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
@@ -32,7 +32,7 @@ class DistrictModel{
       'countryID' : countryID,
       'cityID' : cityID,
       'districtID' : TextMod.fixCountryName(districtID),
-      'names' : Name.cipherNames(names: names),
+      'names' : Phrase.cipherPhrases(phrases: names),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
     };
@@ -60,7 +60,7 @@ class DistrictModel{
       countryID : map['countryID'],
       cityID : map['cityID'],
       districtID : map['districtID'],
-      names : Name.decipherNames(map['names']),
+      names : Phrase.decipherPhrases(map['names']),
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
     );
@@ -151,9 +151,9 @@ class DistrictModel{
           districtID: districtID,
       );
 
-      _districtName = Name.getNameByCurrentLingoFromNames(
+      _districtName = Phrase.getPhraseByCurrentLandFromPhrases(
           context: context,
-          names: _district?.names)?.value;
+          phrases: _district?.names)?.value;
     }
 
     return _districtName;
@@ -164,9 +164,9 @@ class DistrictModel{
     @required DistrictModel district,
 }){
 
-    final Name _districtName = Name.getNameByCurrentLingoFromNames(
+    final Phrase _districtName = Phrase.getPhraseByCurrentLandFromPhrases(
         context: context,
-        names: district?.names
+        phrases: district?.names
     );
 
     final String _nameString = _districtName?.value;
@@ -181,13 +181,13 @@ class DistrictModel{
   }){
 
     /// CREATE NAMES LIST
-    final List<Name> _districtsNames = <Name>[];
+    final List<Phrase> _districtsNames = <Phrase>[];
 
     for (final DistrictModel district in sourceDistricts){
 
-      final Name _nameInLingo = Name.getNameByCurrentLingoFromNames(
+      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLandFromPhrases(
         context: context,
-        names: district.names,
+        phrases: district.names,
       );
 
       _districtsNames.add(_nameInLingo);
@@ -195,8 +195,8 @@ class DistrictModel{
     }
 
     /// SEARCH NAMES
-    final List<Name> _foundNames = Name.searchNamesTrigrams(
-      sourceNames: _districtsNames,
+    final List<Phrase> _foundNames = Phrase.searchPhrasesTrigrams(
+      sourcePhrases: _districtsNames,
       inputText: inputText,
     );
 
@@ -211,14 +211,14 @@ class DistrictModel{
   }
 // -----------------------------------------------------------------------------
   static List<DistrictModel> _getDistrictsFromNames({
-    @required List<Name> names,
+    @required List<Phrase> names,
     @required List<DistrictModel> sourceDistricts,
   }){
     final List<DistrictModel> _foundDistricts = <DistrictModel>[];
 
     if (Mapper.canLoopList(sourceDistricts) && Mapper.canLoopList(names)){
 
-      for (final Name name in names){
+      for (final Phrase name in names){
 
         for (final DistrictModel district in sourceDistricts){
 

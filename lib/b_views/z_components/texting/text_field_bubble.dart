@@ -37,6 +37,7 @@ class TextFieldBubble extends StatelessWidget {
     this.bubbleColor = Colorz.white20,
     this.fieldOnTap,
     this.isLoading = false,
+    this.isError = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -66,6 +67,7 @@ class TextFieldBubble extends StatelessWidget {
   final Color bubbleColor;
   final Function fieldOnTap;
   final bool isLoading;
+  final bool isError;
   /// --------------------------------------------------------------------------
   static double _leadingIconSizeFactor(String leadingIcon){
     final double _sizeFactor =

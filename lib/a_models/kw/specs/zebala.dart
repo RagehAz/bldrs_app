@@ -1,4 +1,4 @@
-// import 'package:bldrs/a_models/secondary_models/name_model.dart';
+// import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 // import 'package:bldrs/a_models/kw/chain.dart';
 // import 'package:bldrs/a_models/kw/kw.dart';
 //
