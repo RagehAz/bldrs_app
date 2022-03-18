@@ -13,7 +13,7 @@ const String rentID = 'contractType_Rent';
 const Chain style = Chain(
   id: 'style',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Design Style'),
     Phrase(langCode: 'ar', value: 'الطراز التصميمي')
   ],
@@ -247,7 +247,7 @@ const Chain style = Chain(
 const Chain color = Chain(
   id: 'color',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Color'),
     Phrase(langCode: 'ar', value: 'اللون')
   ],
@@ -329,7 +329,7 @@ const Chain color = Chain(
 const Chain contractType = Chain(
   id: 'contractType',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Contract Type'),
     Phrase(langCode: 'ar', value: 'نوع التعاقد')
   ],
@@ -360,7 +360,7 @@ const Chain contractType = Chain(
 const Chain paymentMethod = Chain(
   id: 'paymentMethod',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Payment Method'),
     Phrase(langCode: 'ar', value: 'طريقة السداد')
   ],
@@ -384,7 +384,7 @@ const Chain paymentMethod = Chain(
 const Chain price = Chain(
   id: 'price',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'price'),
     Phrase(langCode: 'ar', value: 'السعر')
   ],
@@ -393,7 +393,7 @@ const Chain price = Chain(
 const Chain currency = Chain(
   id: 'currency',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Currency'),
     Phrase(langCode: 'ar', value: 'العملة')
   ],
@@ -402,7 +402,7 @@ const Chain currency = Chain(
 const Chain unitPriceInterval = Chain(
   id: 'unitPriceInterval',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Standard interval'),
     Phrase(langCode: 'ar', value: 'مقياس الفترة')
   ],
@@ -447,7 +447,7 @@ const Chain unitPriceInterval = Chain(
 const Chain numberOfInstallments = Chain(
   id: 'numberOfInstallments',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Number of Installments'),
     Phrase(langCode: 'ar', value: 'عدد الدفعات')
   ],
@@ -456,7 +456,7 @@ const Chain numberOfInstallments = Chain(
 const Chain installmentsDuration = Chain(
   id: 'installmentsDuration',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Installments duration'),
     Phrase(langCode: 'ar', value: 'مدة الدفعات')
   ],
@@ -465,7 +465,7 @@ const Chain installmentsDuration = Chain(
 const Chain installmentsDurationUnit = Chain(
   id: 'installmentsDurationUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Installments duration unit'),
     Phrase(langCode: 'ar', value: 'مقياس مدة الدفعات')
   ],
@@ -505,7 +505,7 @@ const Chain installmentsDurationUnit = Chain(
 const Chain duration = Chain(
   id: 'duration',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Duration'),
     Phrase(langCode: 'ar', value: 'الزمن')
   ],
@@ -514,7 +514,7 @@ const Chain duration = Chain(
 const Chain durationUnit = Chain(
   id: 'durationUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Duration unit'),
     Phrase(langCode: 'ar', value: 'مقياس الزمن')
   ],
@@ -568,7 +568,7 @@ const Chain durationUnit = Chain(
 const Chain propertyArea = Chain(
   id: 'propertyArea',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property Area'),
     Phrase(langCode: 'ar', value: 'مساحة العقار')
   ],
@@ -577,7 +577,7 @@ const Chain propertyArea = Chain(
 const Chain propertyAreaUnit = Chain(
   id: 'propertyAreaUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property Area Unit'),
     Phrase(langCode: 'ar', value: 'وحدة قياس مساحة العقار')
   ],
@@ -600,7 +600,7 @@ const Chain propertyAreaUnit = Chain(
 );
 const Chain lotArea = Chain(
   id: 'plotArea',
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Lot Area'),
     Phrase(langCode: 'ar', value: 'مساحة قطعة الأرض')
   ],
@@ -609,7 +609,7 @@ const Chain lotArea = Chain(
 );
 const Chain lotAreaUnit = Chain(
   id: 'lotAreaUnit',
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Lot Area Unit'),
     Phrase(langCode: 'ar', value: 'وحدة قياس مساحة أرض العقار')
   ],
@@ -664,7 +664,7 @@ const Chain lotAreaUnit = Chain(
 const Chain propertyForm = Chain(
   id: 'propertyForm',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property Form'),
     Phrase(langCode: 'ar', value: 'هيئة العقار')
   ],
@@ -716,7 +716,7 @@ const Chain propertyForm = Chain(
 const Chain propertyLicense = Chain(
   id: 'propertyLicense',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property License'),
     Phrase(langCode: 'ar', value: 'رخصة العقار')
   ],
@@ -798,7 +798,7 @@ const Chain propertyLicense = Chain(
 const Chain propertySpaces = Chain(
   id: 'group_space_type',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Space Type'),
     Phrase(langCode: 'ar', value: 'نوع الفراغ')
   ],
@@ -808,7 +808,7 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_administration',
       icon: null,
-      names: <Phrase>[
+      phraseID: <Phrase>[
         Phrase(langCode: 'en', value: 'Administration'),
         Phrase(langCode: 'ar', value: 'إداري')
       ],
@@ -862,7 +862,7 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_educational',
       icon: null,
-      names: <Phrase>[
+      phraseID: <Phrase>[
         Phrase(langCode: 'en', value: 'Educational'),
         Phrase(langCode: 'ar', value: 'تعليمي')
       ],
@@ -888,7 +888,7 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_entertainment',
       icon: null,
-      names: <Phrase>[
+      phraseID: <Phrase>[
         Phrase(langCode: 'en', value: 'Entertainment'),
         Phrase(langCode: 'ar', value: 'ترفيهي')
       ],
@@ -921,7 +921,7 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_medical',
       icon: null,
-      names: <Phrase>[
+      phraseID: <Phrase>[
         Phrase(langCode: 'en', value: 'Medical'),
         Phrase(langCode: 'ar', value: 'طبي')
       ],
@@ -940,7 +940,7 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_residential',
       icon: null,
-      names: <Phrase>[
+      phraseID: <Phrase>[
         Phrase(langCode: 'en', value: 'Residential'),
         Phrase(langCode: 'ar', value: 'سكني')
       ],
@@ -1099,7 +1099,7 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_retail',
       icon: null,
-      names: <Phrase>[
+      phraseID: <Phrase>[
         Phrase(langCode: 'en', value: 'Retail'),
         Phrase(langCode: 'ar', value: 'تجاري')
       ],
@@ -1118,7 +1118,7 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_sports',
       icon: null,
-      names: <Phrase>[
+      phraseID: <Phrase>[
         Phrase(langCode: 'en', value: 'Sports'),
         Phrase(langCode: 'ar', value: 'رياضي')
       ],
@@ -1151,7 +1151,7 @@ const Chain propertySpaces = Chain(
     Chain(
       id: 'ppt_lic_utilities',
       icon: null,
-      names: <Phrase>[
+      phraseID: <Phrase>[
         Phrase(langCode: 'en', value: 'Utilities'),
         Phrase(langCode: 'ar', value: 'خدمات')
       ],
@@ -1191,7 +1191,7 @@ const Chain propertySpaces = Chain(
 const Chain propertyFloorNumber = Chain(
   id: 'propertyFloorNumber',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property Floor Number'),
     Phrase(langCode: 'ar', value: 'رقم دور العقار')
   ],
@@ -1200,7 +1200,7 @@ const Chain propertyFloorNumber = Chain(
 const Chain propertyDedicatedParkingLotsCount = Chain(
   id: 'propertyDedicatedParkingSpaces',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Number of property dedicated parking lots'),
     Phrase(langCode: 'ar', value: 'عدد مواقف السيارات المخصصة للعقار')
   ],
@@ -1209,7 +1209,7 @@ const Chain propertyDedicatedParkingLotsCount = Chain(
 const Chain propertyNumberOfBedrooms = Chain(
   id: 'propertyNumberOfBedrooms',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property Number of Bedrooms'),
     Phrase(langCode: 'ar', value: 'عدد غرف نوم العقار')
   ],
@@ -1218,7 +1218,7 @@ const Chain propertyNumberOfBedrooms = Chain(
 const Chain propertyNumberOfBathrooms = Chain(
   id: 'propertyNumberOfBathrooms',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property Number of bathrooms'),
     Phrase(langCode: 'ar', value: 'عدد حمامات العقار')
   ],
@@ -1229,7 +1229,7 @@ const Chain propertyNumberOfBathrooms = Chain(
 const Chain propertyView = Chain(
   id: 'propertyView',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property View'),
     Phrase(langCode: 'ar', value: 'المنظر المطل عليه  العقار')
   ],
@@ -1330,7 +1330,7 @@ const Chain propertyView = Chain(
 const Chain propertyIndoorFeatures = Chain(
   id: 'sub_ppt_feat_indoor',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Property Indoor Features'),
     Phrase(langCode: 'ar', value: 'خواص العقار الداخلية')
   ],
@@ -1424,7 +1424,7 @@ const Chain propertyIndoorFeatures = Chain(
 const Chain propertyFinishingLevel = Chain(
   id: 'sub_ppt_feat_finishing',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Finishing level'),
     Phrase(langCode: 'ar', value: 'مستوى التشطيب')
   ],
@@ -1478,7 +1478,7 @@ const Chain propertyFinishingLevel = Chain(
 const Chain buildingNumberOfFloors = Chain(
   id: 'buildingNumberOfFloors',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Building number of floors'),
     Phrase(langCode: 'ar', value: 'عدد أدوار المبنى')
   ],
@@ -1487,7 +1487,7 @@ const Chain buildingNumberOfFloors = Chain(
 const Chain buildingAgeInYears = Chain(
   id: 'buildingAge',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Building Age'),
     Phrase(langCode: 'ar', value: 'عمر المنشأ')
   ],
@@ -1496,7 +1496,7 @@ const Chain buildingAgeInYears = Chain(
 const Chain buildingTotalParkingLotsCount = Chain(
   id: 'buildingTotalParkingLotsCount',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Total Building parking lots count'),
     Phrase(langCode: 'ar', value: 'مجموع عدد مواقف السيارات للمبنى')
   ],
@@ -1505,7 +1505,7 @@ const Chain buildingTotalParkingLotsCount = Chain(
 const Chain buildingTotalUnitsCount = Chain(
   id: 'buildingTotalPropertiesCount',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Total Building units count'),
     Phrase(langCode: 'ar', value: 'مجموع عدد وحدات المبنى')
   ],
@@ -1516,7 +1516,7 @@ const Chain buildingTotalUnitsCount = Chain(
 const Chain inACompound = Chain(
   id: 'sub_ppt_feat_compound',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'In a Compound'),
     Phrase(langCode: 'ar', value: 'في مجمع سكني')
   ],
@@ -1540,7 +1540,7 @@ const Chain inACompound = Chain(
 const Chain amenities = Chain(
   id: 'sub_ppt_feat_amenities',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Amenities'),
     Phrase(langCode: 'ar', value: 'منشآت خدمية ملحقة')
   ],
@@ -1655,7 +1655,7 @@ const Chain amenities = Chain(
 const Chain communityServices = Chain(
   id: 'sub_ppt_feat_services',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Community Services'),
     Phrase(langCode: 'ar', value: 'خدمات المجتمع')
   ],
@@ -1744,7 +1744,7 @@ const Chain communityServices = Chain(
 Chain constructionActivities = Chain(
   id: 'constructionActivities',
   icon: null,
-  names: const <Phrase>[
+  phraseID: const <Phrase>[
     Phrase(langCode: 'en', value: 'Project construction activities'),
     Phrase(langCode: 'ar', value: 'بنود تنفيذ المشروع')
   ],
@@ -1753,7 +1753,7 @@ Chain constructionActivities = Chain(
 const Chain constructionActivityMeasurementMethod = Chain(
   id: 'constructionActivityMeasurementMethod',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Measurement unit'),
     Phrase(langCode: 'ar', value: 'أسلوب القياس')
   ],
@@ -1807,7 +1807,7 @@ const Chain constructionActivityMeasurementMethod = Chain(
 const Chain width = Chain(
   id: 'width',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Width'),
     Phrase(langCode: 'ar', value: 'العرض')
   ],
@@ -1816,7 +1816,7 @@ const Chain width = Chain(
 const Chain length = Chain(
   id: 'length',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Length'),
     Phrase(langCode: 'ar', value: 'الطول')
   ],
@@ -1825,7 +1825,7 @@ const Chain length = Chain(
 const Chain height = Chain(
   id: 'height',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Height'),
     Phrase(langCode: 'ar', value: 'الارتفاع')
   ],
@@ -1834,7 +1834,7 @@ const Chain height = Chain(
 const Chain thickness = Chain(
   id: 'thickness',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Thickness'),
     Phrase(langCode: 'ar', value: 'السمك')
   ],
@@ -1843,7 +1843,7 @@ const Chain thickness = Chain(
 const Chain diameter = Chain(
   id: 'diameter',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Diameter'),
     Phrase(langCode: 'ar', value: 'القطر')
   ],
@@ -1852,7 +1852,7 @@ const Chain diameter = Chain(
 const Chain radius = Chain(
   id: 'radius',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Radius'),
     Phrase(langCode: 'ar', value: 'نصف القطر')
   ],
@@ -1861,7 +1861,7 @@ const Chain radius = Chain(
 const Chain linearMeasurementUnit = Chain(
   id: 'linearMeasureUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Linear measurement unit'),
     Phrase(langCode: 'ar', value: 'وحدة القياس الطولي')
   ],
@@ -1934,7 +1934,7 @@ const Chain linearMeasurementUnit = Chain(
 const Chain footPrint = Chain(
   id: 'footPrint',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Footprint'),
     Phrase(langCode: 'ar', value: 'مساحة الأرضية')
   ],
@@ -1943,7 +1943,7 @@ const Chain footPrint = Chain(
 const Chain areaMeasureUnit = Chain(
   id: 'areaMeasureUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Area measurement unit'),
     Phrase(langCode: 'ar', value: 'وحدة القياس المساحة')
   ],
@@ -1995,7 +1995,7 @@ const Chain areaMeasureUnit = Chain(
 const Chain volume = Chain(
   id: 'volume',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Volume'),
     Phrase(langCode: 'ar', value: 'الحجم')
   ],
@@ -2004,7 +2004,7 @@ const Chain volume = Chain(
 const Chain volumeMeasurementUnit = Chain(
   id: 'volumeMeasurementUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Volume measurement unit'),
     Phrase(langCode: 'ar', value: 'وحدة قياس الحجم')
   ],
@@ -2070,7 +2070,7 @@ const Chain volumeMeasurementUnit = Chain(
 const Chain weight = Chain(
   id: 'weight',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Weight'),
     Phrase(langCode: 'ar', value: 'الوزن')
   ],
@@ -2079,7 +2079,7 @@ const Chain weight = Chain(
 const Chain weightMeasurementUnit = Chain(
   id: 'weightMeasurementUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Weight measurement unit'),
     Phrase(langCode: 'ar', value: 'وحدة قياس الوزن')
   ],
@@ -2124,7 +2124,7 @@ const Chain weightMeasurementUnit = Chain(
 const Chain count = Chain(
   id: 'count',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Count'),
     Phrase(langCode: 'ar', value: 'العدد')
   ],
@@ -2133,7 +2133,7 @@ const Chain count = Chain(
 const Chain size = Chain(
   id: 'size',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Size'),
     Phrase(langCode: 'ar', value: 'المقاس')
   ],
@@ -2199,7 +2199,7 @@ const Chain size = Chain(
 const Chain wattage = Chain(
   id: 'wattage',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Watt'),
     Phrase(langCode: 'ar', value: 'وات')
   ],
@@ -2208,7 +2208,7 @@ const Chain wattage = Chain(
 const Chain voltage = Chain(
   id: 'voltage',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'volt'),
     Phrase(langCode: 'ar', value: 'فولت')
   ],
@@ -2217,7 +2217,7 @@ const Chain voltage = Chain(
 const Chain ampere = Chain(
   id: 'ampere',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'amps'),
     Phrase(langCode: 'ar', value: 'أمبير')
   ],
@@ -2228,7 +2228,7 @@ const Chain ampere = Chain(
 const Chain inStock = Chain(
   id: 'inStock',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'In Stock'),
     Phrase(langCode: 'ar', value: 'متوفر في المخزون')
   ],
@@ -2237,7 +2237,7 @@ const Chain inStock = Chain(
 const Chain deliveryAvailable = Chain(
   id: 'deliveryAvailable',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Available delivery'),
     Phrase(langCode: 'ar', value: 'التوصيل متوفر')
   ],
@@ -2246,7 +2246,7 @@ const Chain deliveryAvailable = Chain(
 const Chain deliveryDuration = Chain(
   id: 'deliveryMinDuration',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Delivery duration'),
     Phrase(langCode: 'ar', value: 'فترة التوصيل')
   ],
@@ -2255,7 +2255,7 @@ const Chain deliveryDuration = Chain(
 const Chain deliveryDurationUnit = Chain(
   id: 'deliveryDurationUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Delivery duration unit'),
     Phrase(langCode: 'ar', value: 'مقياس فترة التوصيل')
   ],
@@ -2288,7 +2288,7 @@ const Chain deliveryDurationUnit = Chain(
 const Chain madeIn = Chain(
   id: 'madeIn',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Made in'),
     Phrase(langCode: 'ar', value: 'صنع في')
   ],
@@ -2297,7 +2297,7 @@ const Chain madeIn = Chain(
 const Chain warrantyDuration = Chain(
   id: 'insuranceDuration',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Warranty duration'),
     Phrase(langCode: 'ar', value: 'مدة الضمان')
   ],
@@ -2306,7 +2306,7 @@ const Chain warrantyDuration = Chain(
 const Chain warrantyDurationUnit = Chain(
   id: 'warrantyDurationUnit',
   icon: null,
-  names: <Phrase>[
+  phraseID: <Phrase>[
     Phrase(langCode: 'en', value: 'Warranty duration unit'),
     Phrase(langCode: 'ar', value: 'وحدة قياس مدة الضمان')
   ],

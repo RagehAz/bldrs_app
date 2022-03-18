@@ -52,7 +52,7 @@ class KeywordsBubble extends StatelessWidget {
       corners: corners,
       title: title,
       width: bubbleWidth,
-      bubbleOnTap: passKeywordOnTap == true ? null : onTap,
+      onBubbleTap: passKeywordOnTap == true ? null : onTap,
       columnChildren: <Widget>[
 
         /// STRINGS

@@ -7,7 +7,7 @@ abstract class ChainDesigns {
   static const Chain chain = Chain(
     id: 'designs',
     icon: Iconz.bxDesignsOff,
-    names: 'k_0003_designs_keywords',
+    phraseID: 'phid_k_designs_keywords',
     sons: <KW>[
 
   /*
