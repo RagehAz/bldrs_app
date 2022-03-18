@@ -15,14 +15,14 @@ class Chain {
   const Chain({
     @required this.id,
     @required this.icon,
-    @required this.names, // TASK : should end as String titlePhraseID
+    @required this.phraseID, // TASK : should end as String titlePhraseID
     @required this.sons,
   });
 
   /// --------------------------------------------------------------------------
   final String id;
   final String icon;
-  final dynamic names;
+  final dynamic phraseID;
   final dynamic sons;
 
   /// --------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class Chain {
       _filteredChain = Chain(
         id: specList.specChain.id,
         icon: specList.specChain.icon,
-        names: specList.specChain.names,
+        phraseID: specList.specChain.phraseID,
         sons: _filteredSons,
       );
     }
@@ -55,7 +55,7 @@ class Chain {
   static const Chain bldrsChain = Chain(
     id: 'bldrs',
     icon: Iconz.bldrsNameEn,
-    names: '0100_bldrsChain',
+    phraseID: '0100_bldrsChain',
     sons: <Chain>[
       /// PROPERTIES
       ChainProperties.chain,

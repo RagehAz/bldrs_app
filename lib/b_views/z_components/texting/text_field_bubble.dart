@@ -35,7 +35,7 @@ class TextFieldBubble extends StatelessWidget {
     this.pasteFunction,
     this.textDirection,
     this.bubbleColor = Colorz.white20,
-    this.fieldOnTap,
+    this.onBubbleTap,
     this.isLoading = false,
     this.isError = false,
     Key key,
@@ -65,7 +65,7 @@ class TextFieldBubble extends StatelessWidget {
   final Function pasteFunction;
   final TextDirection textDirection;
   final Color bubbleColor;
-  final Function fieldOnTap;
+  final Function onBubbleTap;
   final bool isLoading;
   final bool isError;
   /// --------------------------------------------------------------------------
@@ -101,6 +101,7 @@ class TextFieldBubble extends StatelessWidget {
         actionBtIcon: actionBtIcon,
         actionBtFunction: actionBtFunction,
         width: Bubble.defaultWidth(context),
+        onBubbleTap: onBubbleTap,
         columnChildren: <Widget>[
 
           /// TEXT FIELD ROW
@@ -130,7 +131,6 @@ class TextFieldBubble extends StatelessWidget {
                   SizedBox(
                     width: fieldWidth,
                     child: SuperTextField(
-                      onTap: fieldOnTap,
                       textDirection: textDirection,
                       fieldIsFormField: fieldIsFormField,
                       hintText: hintText,
@@ -178,7 +178,7 @@ class TextFieldBubble extends StatelessWidget {
               ),
 
               /// PASTE BUTTON
-              if (keyboardTextInputType == TextInputType.url)
+              if (pasteFunction != null)
                 DreamBox(
                   height: 35,
                   verse: 'paste  ',

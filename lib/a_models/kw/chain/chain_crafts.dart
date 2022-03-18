@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainCrafts {
@@ -7,10 +8,8 @@ abstract class ChainCrafts {
   static const Chain chain = Chain(
     id: 'crafts',
     icon: Iconz.bxCraftsOff,
-    names: 'k_0004_crafts_keywords',
+    phraseID: 'phid_k_crafts_keywords',
     sons: <KW>[
-
-      /*
 
       KW(
         id: 'con_trade_carpentry',
@@ -131,8 +130,6 @@ abstract class ChainCrafts {
           Phrase(langCode: 'ar', value: 'خرسانة')
         ],
       ),
-
-      */
 
     ],
   );
