@@ -16,6 +16,7 @@ class DashBoardLayout extends StatelessWidget {
     this.pageTitle,
     this.loading = false,
     this.onBldrsTap,
+    this.scrollable = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,6 +24,7 @@ class DashBoardLayout extends StatelessWidget {
   final String pageTitle;
   final bool loading;
   final Function onBldrsTap;
+  final bool scrollable;
   /// --------------------------------------------------------------------------
   static double clearScreenHeight(BuildContext context) {
     return Scale.superScreenHeight(context) -
@@ -52,10 +54,16 @@ class DashBoardLayout extends StatelessWidget {
       ],
 
       layoutWidget: OldMaxBounceNavigator(
+        isOn: scrollable,
         child: Scroller(
+          isOn: scrollable,
           controller: _controller,
           child: ListView(
-            physics: const BouncingScrollPhysics(),
+            physics: scrollable ?
+            const BouncingScrollPhysics()
+                :
+            const NeverScrollableScrollPhysics(),
+
             controller: _controller,
             children: <Widget>[
 
