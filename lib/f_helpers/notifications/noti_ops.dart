@@ -36,7 +36,6 @@ Future<void> preInitializeNoti() async {
     ],
   );
 }
-
 // -----------------------------------------------------------------------------
 /// THIS GOES IN MAIN WIDGET INIT
 Future<void> initializeNoti() async {
@@ -95,8 +94,11 @@ Future<void> initializeNoti() async {
 }
 
 // -----------------------------------------------------------------------------
-Future<NotiModel> receiveAndActUponNoti(
-    {BuildContext context, dynamic msgMap, NotiType notiType}) async {
+Future<NotiModel> receiveAndActUponNoti({
+  BuildContext context,
+  dynamic msgMap,
+  NotiType notiType,
+}) async {
   blog('receiveAndActUponNoti : notiType : $notiType');
 
   NotiModel _noti;
@@ -166,14 +168,9 @@ Future<void> fcmPushHandler(RemoteMessage message) async {
 // -----------------------------------------------------------------------------
 String getNotiChannelName(NotiChannel channel) {
   switch (channel) {
-    case NotiChannel.basic:
-      return 'Basic Notifications';
-      break;
-    case NotiChannel.scheduled:
-      return 'Scheduled Notifications';
-      break;
-    default:
-      return 'Basic Notifications';
+    case NotiChannel.basic: return 'Basic Notifications';break;
+    case NotiChannel.scheduled: return 'Scheduled Notifications';break;
+    default: return 'Basic Notifications';
   }
 }
 
@@ -388,8 +385,7 @@ Widget notiStreamBuilder({
 
 // -----------------------------------------------------------------------------
 /// get NotiModels stream
-Stream<List<NotiModel>> getNotiModelsStream(
-    BuildContext context, String userID) {
+Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID) {
   Stream<List<NotiModel>> _notiModelsStream;
 
   tryAndCatch(
@@ -401,11 +397,9 @@ Stream<List<NotiModel>> getNotiModelsStream(
           collName: FireColl.users,
           docName: userID,
           subCollName: FireSubColl.users_user_notifications,
-          orderBy:
-              'timeStamp', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
+          orderBy: 'timeStamp', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
           descending: true,
-          field:
-              'dismissed', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
+          field: 'dismissed', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
           compareValue: false,
         );
 

@@ -102,7 +102,7 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
 }
 // -----------------------------------------------------------------------------
 Map<String, dynamic> getMapFromDocumentSnapshot(
-    DocumentSnapshot<Object> documentSnapshot) {
+    dynamic documentSnapshot) {
   final Map<String, dynamic> _map = documentSnapshot.data();
   return _map;
 }

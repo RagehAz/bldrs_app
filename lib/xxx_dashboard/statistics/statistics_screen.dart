@@ -39,15 +39,22 @@ class GeneralStatistics extends StatelessWidget {
       layoutWidget:
 
           /// STREAM : DB / admin / statistics
-          StreamBuilder(
-        stream: Fire.streamDoc(FireColl.admin, 'statistics'),
+      StreamBuilder(
+        stream: Fire.streamDoc(
+          collName: FireColl.admin,
+          docName: 'statistics',
+        ),
         initialData: null,
         builder: (BuildContext context, AsyncSnapshot<Object> snapshot) {
+
           if (StreamChecker.connectionIsLoading(snapshot) == true) {
             return const Loading(
               loading: true,
             );
-          } else {
+          }
+
+          else {
+
             final dynamic map = snapshot.data;
 
             final int _numberOfUsers = map['numberOfUsers'];
