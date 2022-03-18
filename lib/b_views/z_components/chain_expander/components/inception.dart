@@ -78,7 +78,7 @@ class Inception extends StatelessWidget {
         icon: _keywordsProvider.getKeywordIcon(son: son, context: context),
         width: _buttonWidth,
         collapsedHeight: _buttonHeight,
-        firstHeadline: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: son.names)?.value,
+        firstHeadline: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: son.phrases)?.value,
         secondHeadline: null,
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
         child: Column(

@@ -48,7 +48,7 @@ class CurrencyButton extends StatelessWidget {
             verseScaleFactor: 0.9,
             verseCentered: false,
             verseMaxLines: 2,
-            secondLine: Phrase.getPhraseByLangFromPhrases(phrases: currency.names, langCode: 'en')?.value,
+            secondLine: Phrase.getPhraseByLangFromPhrases(phrases: currency.phrases, langCode: 'en')?.value,
             bubble: false,
             onTap: onTap,
           ),
