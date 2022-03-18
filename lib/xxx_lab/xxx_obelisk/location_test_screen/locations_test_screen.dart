@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -265,32 +265,32 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                 },
               ),
 
-              DataStrip(
+              DataStripWithHeadline(
                 dataKey: 'geo point',
                 dataValue:
                     'LAT : ${_point?.latitude} : LNG : ${_point?.longitude}',
               ),
 
-              DataStrip(
+              DataStripWithHeadline(
                 dataKey: 'ID',
                 dataValue: _countryID,
               ),
 
-              DataStrip(
+              DataStripWithHeadline(
                 dataKey: 'Country Name (EN)',
                 dataValue: Phrase.getPhraseByLangFromPhrases(
                     phrases: _countryModel?.names, langCode: 'en'),
               ),
 
-              DataStrip(
+              DataStripWithHeadline(
                 dataKey: 'Country Name (AR)',
                 dataValue: Phrase.getPhraseByLangFromPhrases(
                     phrases: _countryModel?.names, langCode: 'ar'),
               ),
 
-              DataStrip(dataKey: 'City ID', dataValue: _cityModel?.cityID),
+              DataStripWithHeadline(dataKey: 'City ID', dataValue: _cityModel?.cityID),
 
-              DataStrip(
+              DataStripWithHeadline(
                 dataKey: 'City Name (EN)',
                 dataValue: Phrase.getPhraseByLangFromPhrases(
                     phrases: _cityModel?.names, langCode: 'en'),

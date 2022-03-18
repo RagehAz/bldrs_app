@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -119,36 +119,36 @@ class DashboardUserButton extends StatelessWidget {
                     verse: 'is admin or not ? ,, work this out please',
                   ),
 
-                  DataStrip(dataKey: 'userID', dataValue: userModel.id),
-                  DataStrip(dataKey: 'authBy', dataValue: userModel.authBy),
-                  DataStrip(
+                  DataStripWithHeadline(dataKey: 'userID', dataValue: userModel.id),
+                  DataStripWithHeadline(dataKey: 'authBy', dataValue: userModel.authBy),
+                  DataStripWithHeadline(
                       dataKey: 'createdAt', dataValue: userModel.createdAt),
-                  DataStrip(
+                  DataStripWithHeadline(
                       dataKey: 'timeString',
                       dataValue: Timers.dayMonthYearStringer(
                           context, userModel.createdAt)),
-                  DataStrip(dataKey: 'userStatus', dataValue: userModel.status),
-                  DataStrip(dataKey: 'name', dataValue: userModel.name),
-                  DataStrip(dataKey: 'pic', dataValue: userModel.pic),
-                  DataStrip(dataKey: 'title', dataValue: userModel.title),
-                  DataStrip(dataKey: 'company', dataValue: userModel.company),
-                  DataStrip(dataKey: 'gender', dataValue: userModel.gender),
-                  DataStrip(dataKey: 'zone', dataValue: userModel.zone),
-                  DataStrip(
+                  DataStripWithHeadline(dataKey: 'userStatus', dataValue: userModel.status),
+                  DataStripWithHeadline(dataKey: 'name', dataValue: userModel.name),
+                  DataStripWithHeadline(dataKey: 'pic', dataValue: userModel.pic),
+                  DataStripWithHeadline(dataKey: 'title', dataValue: userModel.title),
+                  DataStripWithHeadline(dataKey: 'company', dataValue: userModel.company),
+                  DataStripWithHeadline(dataKey: 'gender', dataValue: userModel.gender),
+                  DataStripWithHeadline(dataKey: 'zone', dataValue: userModel.zone),
+                  DataStripWithHeadline(
                       dataKey: 'zone String',
                       dataValue:
                           'in [ $_districtName ] - [ $_cityName ] - [ $_countryName ]'),
-                  DataStrip(dataKey: 'language', dataValue: userModel.language),
-                  DataStrip(dataKey: 'position', dataValue: userModel.position),
-                  DataStrip(dataKey: 'contacts', dataValue: userModel.contacts),
-                  DataStrip(
+                  DataStripWithHeadline(dataKey: 'language', dataValue: userModel.language),
+                  DataStripWithHeadline(dataKey: 'position', dataValue: userModel.position),
+                  DataStripWithHeadline(dataKey: 'contacts', dataValue: userModel.contacts),
+                  DataStripWithHeadline(
                       dataKey: 'Stringy contacts',
                       dataValue: '$_stringyContactsValues'),
-                  DataStrip(
+                  DataStripWithHeadline(
                       dataKey: 'Social Contacts',
                       dataValue: '$_socialContactsValues'),
-                  DataStrip(dataKey: 'myBzzIDs', dataValue: userModel.myBzzIDs),
-                  DataStrip(
+                  DataStripWithHeadline(dataKey: 'myBzzIDs', dataValue: userModel.myBzzIDs),
+                  DataStripWithHeadline(
                       dataKey: 'emailIsVerified',
                       dataValue: userModel.emailIsVerified),
                   // DataRow(dataKey: 'SavedFlyers', value: '${userModel.savedFlyersIDs.length} flyers')

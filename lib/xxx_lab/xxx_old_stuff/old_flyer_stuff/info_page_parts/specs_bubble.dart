@@ -1,6 +1,6 @@
 // import 'package:bldrs/a_models/kw/specs/spec_model.dart';
 // import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-// import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
+// import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 // import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 // import 'package:bldrs/f_helpers/theme/colorz.dart';
 // import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
