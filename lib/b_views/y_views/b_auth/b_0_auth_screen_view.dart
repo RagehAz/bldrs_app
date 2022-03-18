@@ -64,11 +64,11 @@ class AuthScreenView extends StatelessWidget {
 
         /// --- CONTINUE WITH EMAIL
         MainButton(
-          buttonVerse: Wordz.continueEmail(context),
-          buttonIcon: Iconz.comEmail,
+          verse: Wordz.continueEmail(context),
+          icon: Iconz.comEmail,
           buttonColor: Colorz.white10,
           buttonVerseShadow: false,
-          function: () async {
+          onTap: () async {
 
               await Nav.goToNewScreen(context, const EmailAuthScreen());
 

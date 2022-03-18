@@ -106,7 +106,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         title: widget.title,
         centered: widget.centered,
         actionBtIcon: widget.actionBtIcon,
-        bubbleOnTap: widget.editMode == true || _canExpand == true ?
+        onBubbleTap: widget.editMode == true || _canExpand == true ?
         _onParagraphTap
             :
         null,

@@ -183,7 +183,8 @@ class Phrase {
 
       if (_foundPhrase == null){
         _phrase = phrases.singleWhere(
-                (Phrase name) => name.langCode == Lang.englishCode
+                (Phrase name) => name.langCode == Lang.englishCode,
+          orElse: () => const Phrase(value: '...'),
         );
       }
 

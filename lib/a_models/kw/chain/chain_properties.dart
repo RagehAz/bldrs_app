@@ -1,4 +1,6 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/kw/kw.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainProperties {
@@ -6,17 +8,16 @@ abstract class ChainProperties {
   static const Chain chain = Chain(
     id: 'properties',
     icon: Iconz.bxPropertiesOff,
-    names: 'k_0002_properties_keywords',
+    phraseID: 'phid_k_properties_keywords',
     sons: <Chain>[
 
-      /*
 
       // -----------------------------------------------
       /// Industrial
       Chain(
         id: 'ppt_lic_industrial',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Industrial'),
           Phrase(langCode: 'ar', value: 'صناعي')
         ],
@@ -35,7 +36,7 @@ abstract class ChainProperties {
       Chain(
         id: 'ppt_lic_educational',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Educational'),
           Phrase(langCode: 'ar', value: 'تعليمي')
         ],
@@ -54,7 +55,7 @@ abstract class ChainProperties {
       Chain(
         id: 'ppt_lic_hotel',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Hotel'),
           Phrase(langCode: 'ar', value: 'فندقي')
         ],
@@ -73,7 +74,7 @@ abstract class ChainProperties {
       Chain(
         id: 'ppt_lic_entertainment',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Entertainment'),
           Phrase(langCode: 'ar', value: 'ترفيهي')
         ],
@@ -99,7 +100,7 @@ abstract class ChainProperties {
       Chain(
         id: 'ppt_lic_medical',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Medical'),
           Phrase(langCode: 'ar', value: 'طبي')
         ],
@@ -125,7 +126,7 @@ abstract class ChainProperties {
       Chain(
         id: 'ppt_lic_sports',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Sports'),
           Phrase(langCode: 'ar', value: 'رياضي')
         ],
@@ -165,7 +166,7 @@ abstract class ChainProperties {
       Chain(
         id: 'ppt_lic_residential',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Residential'),
           Phrase(langCode: 'ar', value: 'سكني')
         ],
@@ -282,7 +283,7 @@ abstract class ChainProperties {
       Chain(
         id: 'ppt_lic_retail',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Retail'),
           Phrase(langCode: 'ar', value: 'تجاري')
         ],
@@ -350,7 +351,7 @@ abstract class ChainProperties {
       Chain(
         id: 'ppt_lic_administration',
         icon: null,
-        titlePhraseID: <Phrase>[
+        phraseID: <Phrase>[
           Phrase(langCode: 'en', value: 'Administration'),
           Phrase(langCode: 'ar', value: 'إداري')
         ],
@@ -366,7 +367,6 @@ abstract class ChainProperties {
       ),
       // -----------------------------------------------
 
-      */
 
     ],
   );

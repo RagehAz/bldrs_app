@@ -31,26 +31,26 @@ class NewAsks extends StatelessWidget {
         children: <Widget>[
 
           MainButton(
-              buttonVerse: 'Go to old Questions screen',
-              buttonIcon: Iconz.utPlanning,
-              function: () async {
+              verse: 'Go to old Questions screen',
+              icon: Iconz.utPlanning,
+              onTap: () async {
                 await goToNewScreen(context, const QuestionScreen());
               }
           ),
 
           MainButton(
-              buttonVerse: 'Go to old Ask screen',
-              buttonIcon: Iconz.utPlanning,
-              function: () async {
+              verse: 'Go to old Ask screen',
+              icon: Iconz.utPlanning,
+              onTap: () async {
                 await goToNewScreen(context, const OldAskScreen());
               }
           ),
 
           MainButton(
-              buttonVerse: 'NEW QUESTIONS HOME',
-              buttonIcon: Iconz.utPlanning,
+              verse: 'NEW QUESTIONS HOME',
+              icon: Iconz.utPlanning,
               buttonColor: Colorz.red125,
-              function: () async {
+              onTap: () async {
                 await goToNewScreen(context, const NewQuestionsHome());
               }
           ),

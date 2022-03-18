@@ -25,10 +25,10 @@ class ObeliskButton extends StatelessWidget {
     final Color _color = color ?? Colorz.black125;
 
     return MainButton(
-      buttonVerse: title,
+      verse: title,
       buttonColor: _color,
-      buttonIcon: icon,
-      function: () => Nav.goToNewScreen(context, screen),
+      icon: icon,
+      onTap: () => Nav.goToNewScreen(context, screen),
     );
   }
 }
