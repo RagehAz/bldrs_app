@@ -72,9 +72,12 @@ Widget bzModelBuilder({
 /// get bz doc stream
 Stream<BzModel> getBzStream(String bzID) {
   final Stream<DocumentSnapshot<Object>> _bzSnapshot =
-      Fire.streamDoc(FireColl.bzz, bzID);
-  final Stream<BzModel> _bzStream =
-      _bzSnapshot.map(BzModel.getBzModelFromSnapshot);
+      Fire.streamDoc(
+          collName: FireColl.bzz,
+          docName: bzID
+      );
+
+  final Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.getBzModelFromSnapshot);
 
   return _bzStream;
 }
