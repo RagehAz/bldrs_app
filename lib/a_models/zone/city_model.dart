@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -30,7 +30,7 @@ class CityModel {
   final int population;
   final bool isActivated;
   final bool isPublic;
-  final List<Name> names;
+  final List<Phrase> names;
   final GeoPoint position;
   final String state; // only for USA
   /// --------------------------------------------------------------------------
@@ -42,7 +42,7 @@ class CityModel {
       'population': population,
       'isActivated': isActivated,
       'isPublic': isPublic,
-      'names': Name.cipherNames(names: names),
+      'names': Phrase.cipherPhrases(phrases: names),
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON)
     };
   }
@@ -80,7 +80,7 @@ class CityModel {
         population: map['population'],
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
-        names: Name.decipherNames(map['names']),
+        names: Phrase.decipherPhrases(map['names']),
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
       );
     }
@@ -135,7 +135,7 @@ class CityModel {
 
     if (Mapper.canLoopList(cities)) {
       for (final CityModel city in cities) {
-        final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: city.names)?.value;
+        final String _cityName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: city.names)?.value;
         _citiesNames.add(_cityName);
       }
     }
@@ -252,9 +252,9 @@ class CityModel {
     String _cityName = '...';
 
     if (city != null) {
-      _cityName = Name.getNameByCurrentLingoFromNames(
+      _cityName = Phrase.getPhraseByCurrentLandFromPhrases(
           context: context,
-          names: city.names)?.value;
+          phrases: city.names)?.value;
     }
 
     return _cityName;
@@ -282,7 +282,7 @@ class CityModel {
   }
 // -----------------------------------------------------------------------------
   static String getCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
-    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(context: context, names: cityModel?.names)?.value;
+    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: cityModel?.names)?.value;
     return _nameInCurrentLanguage ?? cityModel?.cityID;
   }
 // -----------------------------------------------------------------------------
@@ -293,19 +293,19 @@ class CityModel {
   }){
 
     /// CREATE NAMES LIST
-    final List<Name> _citiesNames = <Name>[];
+    final List<Phrase> _citiesNames = <Phrase>[];
     for (final CityModel city in sourceCities){
-      final Name _nameInLingo = Name.getNameByCurrentLingoFromNames(
+      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLandFromPhrases(
         context: context,
-        names: city.names,
+        phrases: city.names,
       );
       _citiesNames.add(_nameInLingo);
     }
 
 
     /// SEARCH NAMES
-    final List<Name> _foundNames = Name.searchNamesTrigrams(
-      sourceNames: _citiesNames,
+    final List<Phrase> _foundNames = Phrase.searchPhrasesTrigrams(
+      sourcePhrases: _citiesNames,
       inputText: inputText,
     );
 
@@ -321,14 +321,14 @@ class CityModel {
   }
 // -----------------------------------------------------------------------------
   static List<CityModel> _getCitiesFromNames({
-  @required List<Name> names,
+  @required List<Phrase> names,
     @required List<CityModel> sourceCities,
 }){
     final List<CityModel> _foundCities = <CityModel>[];
 
     if (Mapper.canLoopList(sourceCities) && Mapper.canLoopList(names)){
 
-      for (final Name name in names){
+      for (final Phrase name in names){
 
         for (final CityModel city in sourceCities){
 

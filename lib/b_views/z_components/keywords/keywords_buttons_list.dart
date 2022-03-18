@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/components/unfinished_expanding_tile.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
@@ -41,7 +41,7 @@ class KeywordsButtonsList extends StatelessWidget {
           final KW _keyword = keywords[keyIndex];
           final String _icon = _keywordsProvider.getKeywordIcon(context: context, son: _keyword);
           final String _keywordName = KW.translateKeyword(context, _keyword);
-          final String _keywordNameArabic = Name.getNameByLingoFromNames(names: _keyword.names, lingoCode: 'ar')?.value;
+          final String _keywordNameArabic = Phrase.getPhraseByLangFromPhrases(phrases: _keyword.names, langCode: 'ar')?.value;
 
           return DreamBox(
             height: ExpandingTile.collapsedTileHeight,

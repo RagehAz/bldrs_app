@@ -1,87 +1,91 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainDesigns {
+
   static const Chain chain = Chain(
     id: 'designs',
     icon: Iconz.bxDesignsOff,
-    names: <Name>[
-      Name(code: 'en', value: 'Designs'),
-      Name(code: 'ar', value: '')
-    ],
+    names: 'k_0003_designs_keywords',
     sons: <KW>[
-      KW(
-        id: 'designType_architecture',
-        names: <Name>[
-          Name(code: 'en', value: 'Architectural design'),
-          Name(code: 'ar', value: 'تصميم معماري')
-        ],
-      ),
-      KW(
-        id: 'designType_interior',
-        names: <Name>[
-          Name(code: 'en', value: 'Interior design & Décor'),
-          Name(code: 'ar', value: 'تصميم داخلي و ديكور')
-        ],
-      ),
-      KW(
-        id: 'designType_facade',
-        names: <Name>[
-          Name(code: 'en', value: 'Façade exterior design'),
-          Name(code: 'ar', value: 'تصميم واجهات خارجية')
-        ],
-      ),
-      KW(
-        id: 'designType_urban',
-        names: <Name>[
-          Name(code: 'en', value: 'Urban design'),
-          Name(code: 'ar', value: 'تصميم حضري')
-        ],
-      ),
-      KW(
-        id: 'designType_furniture',
-        names: <Name>[
-          Name(code: 'en', value: 'Furniture design'),
-          Name(code: 'ar', value: 'تصميم مفروشات')
-        ],
-      ),
-      KW(
-        id: 'designType_lighting',
-        names: <Name>[
-          Name(code: 'en', value: 'Lighting design'),
-          Name(code: 'ar', value: 'تصميم إضاءة')
-        ],
-      ),
-      KW(
-        id: 'designType_landscape',
-        names: <Name>[
-          Name(code: 'en', value: 'Landscape design'),
-          Name(code: 'ar', value: 'تصميم لاندسكيب')
-        ],
-      ),
-      KW(
-        id: 'designType_structural',
-        names: <Name>[
-          Name(code: 'en', value: 'Structural design'),
-          Name(code: 'ar', value: 'تصميم إنشائي')
-        ],
-      ),
-      KW(
-        id: 'designType_infrastructure',
-        names: <Name>[
-          Name(code: 'en', value: 'Infrastructure design'),
-          Name(code: 'ar', value: 'تصميم بنية تحتية')
-        ],
-      ),
-      KW(
-        id: 'designType_kiosk',
-        names: <Name>[
-          Name(code: 'en', value: 'Kiosk design'),
-          Name(code: 'ar', value: 'تصميم كشك')
-        ],
-      ),
+
+  /*
+
+  //     KW(
+  //       id: 'designType_architecture',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Architectural design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم معماري')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_interior',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Interior design & Décor'),
+  //         Phrase(langCode: 'ar', value: 'تصميم داخلي و ديكور')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_facade',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Façade exterior design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم واجهات خارجية')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_urban',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Urban design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم حضري')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_furniture',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Furniture design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم مفروشات')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_lighting',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Lighting design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم إضاءة')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_landscape',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Landscape design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم لاندسكيب')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_structural',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Structural design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم إنشائي')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_infrastructure',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Infrastructure design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم بنية تحتية')
+  //       ],
+  //     ),
+  //     KW(
+  //       id: 'designType_kiosk',
+  //       names: <Phrase>[
+  //         Phrase(langCode: 'en', value: 'Kiosk design'),
+  //         Phrase(langCode: 'ar', value: 'تصميم كشك')
+  //       ],
+  //     ),
+
+  */
+
     ],
   );
+
 }

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
@@ -35,7 +35,7 @@ class CountryModel {
   final bool isGlobal;
   final List<String> citiesIDs;
   final String language;
-  final List<Name> names;
+  final List<Phrase> names;
   final String currency;
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
@@ -47,7 +47,7 @@ class CountryModel {
       'isGlobal': isGlobal,
       'citiesIDs': citiesIDs,
       'language': language,
-      'names': Name.cipherNames(names: names),
+      'names': Phrase.cipherPhrases(phrases: names),
       'currency': currency,
     };
   }
@@ -59,7 +59,7 @@ class CountryModel {
     CountryModel _countryModel;
 
     if (map != null) {
-      final List<Name> _names = Name.decipherNames(map['names']);
+      final List<Phrase> _names = Phrase.decipherPhrases(map['names']);
 
       _countryModel = CountryModel(
         id: map['id'],
@@ -202,14 +202,14 @@ class CountryModel {
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
 
-    final List<Name> _allCountriesNamesInCurrentLanguage = <Name>[];
+    final List<Phrase> _allCountriesNamesInCurrentLanguage = <Phrase>[];
 
     for (final String id in _allCountriesIDs){
 
       final String _countryName = getTranslatedCountryNameByID(context: context, countryID: id);
 
-      final Name _name = Name(
-          code: id,
+      final Phrase _name = Phrase(
+          langCode: id,
           value: _countryName,
       );
 
@@ -218,13 +218,13 @@ class CountryModel {
       }
     }
 
-    final List<Name> _namesSorted = Name.sortNamesAlphabetically(_allCountriesNamesInCurrentLanguage);
+    final List<Phrase> _namesSorted = Phrase.sortNamesAlphabetically(_allCountriesNamesInCurrentLanguage);
 
     final List<String> _sortedCountriesIDs = <String>[];
 
-    for (final Name name in _namesSorted){
+    for (final Phrase name in _namesSorted){
 
-      _sortedCountriesIDs.add(name.code);
+      _sortedCountriesIDs.add(name.langCode);
 
     }
 

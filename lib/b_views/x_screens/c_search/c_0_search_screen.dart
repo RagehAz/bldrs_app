@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -104,8 +104,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final CountryModel _country = _zoneProvider.currentCountry;
     final CityModel _city = _zoneProvider.currentCity;
-    final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: _country.names)?.value;
-    final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: _city.names)?.value;
+    final String _countryName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _country.names)?.value;
+    final String _cityName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _city.names)?.value;
 
     final String _hintText = 'Search flyers in $_cityName, $_countryName';
     return _hintText;

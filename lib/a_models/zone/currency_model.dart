@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +17,7 @@ class CurrencyModel {
 
   /// --------------------------------------------------------------------------
   final String code;
-  final List<Name> names;
+  final List<Phrase> names;
   final List<String> countriesIDs;
   final String symbol;
   final String nativeSymbol;
@@ -28,7 +28,7 @@ class CurrencyModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'code': code,
-      'names': Name.cipherNames(names: names, addTrigrams: false),
+      'names': Phrase.cipherPhrases(phrases: names,),
       'countriesIDs': countriesIDs,
       'symbol': symbol,
       'nativeSymbol': nativeSymbol,
@@ -42,7 +42,7 @@ class CurrencyModel {
     blog(
         'code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
     blog('countries : $countriesIDs');
-    Name.printNames(names);
+    Phrase.blogPhrases(names);
     blog('CURRENCY PRINT ----------------------------------------- END ');
   }
 
@@ -70,7 +70,7 @@ class CurrencyModel {
     if (map != null) {
       _currency = CurrencyModel(
         code: map['code'],
-        names: Name.decipherNames(map['names']),
+        names: Phrase.decipherPhrases(map['names']),
         countriesIDs:
             Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
         symbol: map['symbol'],

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -129,7 +129,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
           itemBuilder: (BuildContext context, int index) {
 
             final CountryModel _countryModel = _countries[index];
-            final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: _countryModel.names)?.value;
+            final String _countryName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _countryModel.names)?.value;
 
             return DreamBox(
               height: 100,

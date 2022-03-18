@@ -1,4 +1,4 @@
-// import 'package:bldrs/a_models/secondary_models/name_model.dart';
+// import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 // import 'package:bldrs/a_models/zone/city_model.dart';
 // import 'package:bldrs/a_models/zone/country_model.dart';
 // import 'package:bldrs/a_models/zone/flag_model.dart';
