@@ -1172,6 +1172,12 @@ class BzModel{
   static List<String> requiredFields(BzModel bzModel){
     final List<String> _invalidFields = <String>[];
 
+    //     _bzNameTextController.text.length < 3 ||
+    //     _bzScopeTextController.text.length < 3 ||
+    //     _currentBzDistrict == null ||
+    //     _bzAboutTextController.text.length < 6
+    //     // _currentBzContacts.length == 0 ||
+
     if (Mapper.canLoopList(bzModel?.bzTypes) == false){
       _invalidFields.add('Business Type');
     }
