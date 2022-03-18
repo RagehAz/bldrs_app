@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
@@ -278,22 +278,22 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               DataStrip(
                 dataKey: 'Country Name (EN)',
-                dataValue: Name.getNameByLingoFromNames(
-                    names: _countryModel?.names, lingoCode: 'en'),
+                dataValue: Phrase.getPhraseByLangFromPhrases(
+                    phrases: _countryModel?.names, langCode: 'en'),
               ),
 
               DataStrip(
                 dataKey: 'Country Name (AR)',
-                dataValue: Name.getNameByLingoFromNames(
-                    names: _countryModel?.names, lingoCode: 'ar'),
+                dataValue: Phrase.getPhraseByLangFromPhrases(
+                    phrases: _countryModel?.names, langCode: 'ar'),
               ),
 
               DataStrip(dataKey: 'City ID', dataValue: _cityModel?.cityID),
 
               DataStrip(
                 dataKey: 'City Name (EN)',
-                dataValue: Name.getNameByLingoFromNames(
-                    names: _cityModel?.names, lingoCode: 'en'),
+                dataValue: Phrase.getPhraseByLangFromPhrases(
+                    phrases: _cityModel?.names, langCode: 'en'),
               ),
 
             ],

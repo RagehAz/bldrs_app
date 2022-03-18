@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/components/unfinished_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
@@ -57,7 +57,7 @@ class Inception extends StatelessWidget {
         width: _buttonWidth,
         height: _buttonHeight,
         icon: _keywordsProvider.getKeywordIcon(son: _kw, context: context),
-        verse: Name.getNameByCurrentLingoFromNames(context: context, names: _kw.names)?.value,
+        verse: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _kw.names)?.value,
         verseScaleFactor: 0.7,
         verseCentered: false,
         color: _color,
@@ -78,7 +78,7 @@ class Inception extends StatelessWidget {
         icon: _keywordsProvider.getKeywordIcon(son: son, context: context),
         width: _buttonWidth,
         collapsedHeight: _buttonHeight,
-        firstHeadline: Name.getNameByCurrentLingoFromNames(context: context, names: son.names)?.value,
+        firstHeadline: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: son.names)?.value,
         secondHeadline: null,
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
         child: Column(

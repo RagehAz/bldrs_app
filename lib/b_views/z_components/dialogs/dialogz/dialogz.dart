@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -232,7 +232,7 @@ Future<CityModel> confirmCityDialog({
       ...List<Widget>.generate(cities.length, (int index) {
         final CityModel _foundCity = cities[index];
         final String _foundCityName =
-            Name.getNameByCurrentLingoFromNames(context: context, names: _foundCity.names)?.value;
+            Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _foundCity.names)?.value;
 
         return BottomDialog.wideButton(
             context: context,

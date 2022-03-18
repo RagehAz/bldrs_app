@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -177,7 +177,7 @@ Future<ZoneModel> _getZoneByIP_ipApi({
 
                   _cityID = CityModel.createCityID(
                       countryID: _country?.id,
-                      cityEnName: Name.getNameByLingoFromNames(names: _city?.names, lingoCode: 'en')?.value
+                      cityEnName: Phrase.getPhraseByLangFromPhrases(phrases: _city?.names, langCode: 'en')?.value
                   );
 
                 }
@@ -257,8 +257,8 @@ Future<ZoneModel> _getZoneByIP_ipRegistry({
                 if (_city != null) {
                   _cityID = CityModel.createCityID(
                       countryID: _country.id,
-                      cityEnName: Name.getNameByLingoFromNames(
-                          names: _city.names, lingoCode: 'en')?.value,
+                      cityEnName: Phrase.getPhraseByLangFromPhrases(
+                          phrases: _city.names, langCode: 'en')?.value,
                   );
                 }
               }

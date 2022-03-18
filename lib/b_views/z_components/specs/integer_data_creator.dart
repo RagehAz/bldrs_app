@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -123,7 +123,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
 
     const double _buttonSize = _buttonsBoxWidth - 25;
 
-    final String _hintText = Name.getNameByCurrentLingoFromNames(context: context, names: widget.specList.names)?.value;
+    final String _hintText = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: widget.specList.names)?.value;
 
     return Container(
       width: _screenWidth,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -18,9 +19,10 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -30,6 +32,7 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 
 /// PLAN : SAVE CURRENT STATES IN LDB IN CASE USER DIDN'T FINISH IN ONE SESSION
 class BzEditorScreen extends StatefulWidget {
@@ -227,20 +230,22 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _bzZone.value = zoneModel;
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<List<String>> _missingFields = ValueNotifier(<String>[]);
+  final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]);
 // -------------------------------------
   Future<bool> _validateInputs(BzModel bzModel) async {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    final bool _inputsAreValid = _formKey.currentState.validate();
-    final List<String> _missingFieldsFound = BzModel.requiredFields(bzModel);
+    bool _inputsAreValid = _formKey.currentState.validate();
+    final List<AlertModel> _missingFieldsFound = BzModel.requiredFields(bzModel);
 
     if (_missingFieldsFound.isNotEmpty == true){
 
       _missingFields.value = _missingFieldsFound;
 
-      final String _missingFieldsString = TextGen.generateStringFromStrings(_missingFieldsFound);
+      final List<String> _missingFieldsValues = AlertModel.getAlertsIDs(_missingFieldsFound);
+      final List<String> _missingFieldsStrings = getStringsFromDynamics(dynamics: _missingFieldsValues);
+      final String _missingFieldsString = TextGen.generateStringFromStrings(_missingFieldsStrings);
 
       await CenterDialog.showCenterDialog(
         context: context,
@@ -250,6 +255,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
             '$_missingFieldsString',
       );
 
+      _inputsAreValid = false;
     }
 
     return _inputsAreValid;
@@ -289,7 +295,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   }
 // -------------------------------------
   Future<BzModel> _uploadBzModel(BzModel bzModel) async {
-    BzModel _uploadedBzModel = bzModel; /// TEMP
+    final BzModel _uploadedBzModel = bzModel; /// TEMP
 
     // /// FIRST TIME TO CREATE BZ MODEL
     // if (widget.firstTimer == true){
@@ -411,6 +417,19 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
   }
 // -----------------------------------------------------------------------------
+  bool errorIsOn({
+    @required List<String> missingFieldsKeys,
+    @required String fieldKey,
+  }){
+
+    final bool _isError = Mapper.stringsContainString(
+      strings: missingFieldsKeys,
+      string: fieldKey,
+    );
+
+    return _isError;
+  }
+// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -439,7 +458,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
             key: _formKey,
             child: ValueListenableBuilder(
               valueListenable: _missingFields,
-              builder: (_, List<String> missingFields, Widget child){
+              builder: (_, List<AlertModel> missingFields, Widget child){
+
+                // final List<String> _missingFieldsKeys = MapModel.getKeysFromMapModels(missingFields);
+
 
                 return ListView(
                   physics: const BouncingScrollPhysics(),
@@ -468,6 +490,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             buttonsList: _allSections,
                             selectedButtons: <String>[_selectedButton],
                             onButtonTap: _onSelectSection,
+                            isInError: false,
                           );
 
                         }
@@ -507,6 +530,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                   onButtonTap: _onSelectBzType,
                                   selectedButtons: _selectedButtons,
                                   inactiveButtons: _inactiveButtons,
+                                  isInError: false,
                                 );
 
                               }
@@ -546,6 +570,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 onButtonTap: _onSelectBzForm,
                                 selectedButtons: <String>[_selectedButton],
                                 inactiveButtons: _inactiveButtons,
+                                isInError: false,
                               );
 
                             },
@@ -603,6 +628,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       keyboardTextInputType: TextInputType.multiline,
                       fieldIsRequired: true,
                       fieldIsFormField: true,
+                      // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
                     ),
 
                     /// --- BZ ABOUT

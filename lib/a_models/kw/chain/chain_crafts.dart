@@ -1,136 +1,140 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainCrafts {
+
   static const Chain chain = Chain(
     id: 'crafts',
     icon: Iconz.bxCraftsOff,
-    names: <Name>[
-      Name(code: 'en', value: 'Crafts'),
-      Name(code: 'ar', value: '')
-    ],
+    names: 'k_0004_crafts_keywords',
     sons: <KW>[
+
+      /*
+
       KW(
         id: 'con_trade_carpentry',
-        names: <Name>[
-          Name(code: 'en', value: 'Carpentry'),
-          Name(code: 'ar', value: 'نجارة')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Carpentry'),
+          Phrase(langCode: 'ar', value: 'نجارة')
         ],
       ),
       KW(
         id: 'con_trade_electricity',
-        names: <Name>[
-          Name(code: 'en', value: 'Electricity'),
-          Name(code: 'ar', value: 'كهرباء')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Electricity'),
+          Phrase(langCode: 'ar', value: 'كهرباء')
         ],
       ),
       KW(
         id: 'con_trade_insulation',
-        names: <Name>[
-          Name(code: 'en', value: 'Insulation'),
-          Name(code: 'ar', value: 'عزل')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Insulation'),
+          Phrase(langCode: 'ar', value: 'عزل')
         ],
       ),
       KW(
         id: 'con_trade_masonry',
-        names: <Name>[
-          Name(code: 'en', value: 'Masonry'),
-          Name(code: 'ar', value: 'مباني')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Masonry'),
+          Phrase(langCode: 'ar', value: 'مباني')
         ],
       ),
       KW(
         id: 'con_trade_plumbing',
-        names: <Name>[
-          Name(code: 'en', value: 'Plumbing'),
-          Name(code: 'ar', value: 'صحي و سباكة')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Plumbing'),
+          Phrase(langCode: 'ar', value: 'صحي و سباكة')
         ],
       ),
       KW(
         id: 'con_trade_blacksmithing',
-        names: <Name>[
-          Name(code: 'en', value: 'Blacksmithing'),
-          Name(code: 'ar', value: 'حدادة')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Blacksmithing'),
+          Phrase(langCode: 'ar', value: 'حدادة')
         ],
       ),
       KW(
         id: 'con_trade_labor',
-        names: <Name>[
-          Name(code: 'en', value: 'Site labor'),
-          Name(code: 'ar', value: 'عمالة موقع')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Site labor'),
+          Phrase(langCode: 'ar', value: 'عمالة موقع')
         ],
       ),
       KW(
         id: 'con_trade_painting',
-        names: <Name>[
-          Name(code: 'en', value: 'Painting'),
-          Name(code: 'ar', value: 'نقاشة')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Painting'),
+          Phrase(langCode: 'ar', value: 'نقاشة')
         ],
       ),
       KW(
         id: 'con_trade_plaster',
-        names: <Name>[
-          Name(code: 'en', value: 'Plaster'),
-          Name(code: 'ar', value: 'محارة')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Plaster'),
+          Phrase(langCode: 'ar', value: 'محارة')
         ],
       ),
       KW(
         id: 'con_trade_landscape',
-        names: <Name>[
-          Name(code: 'en', value: 'Landscape'),
-          Name(code: 'ar', value: 'لاندسكيب')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Landscape'),
+          Phrase(langCode: 'ar', value: 'لاندسكيب')
         ],
       ),
       KW(
         id: 'con_trade_hardscape',
-        names: <Name>[
-          Name(code: 'en', value: 'Hardscape'),
-          Name(code: 'ar', value: 'هاردسكيب')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Hardscape'),
+          Phrase(langCode: 'ar', value: 'هاردسكيب')
         ],
       ),
       KW(
         id: 'con_trade_hvac',
-        names: <Name>[
-          Name(code: 'en', value: 'HVAC'),
-          Name(code: 'ar', value: 'تدفئة، تهوية و تكيفات')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'HVAC'),
+          Phrase(langCode: 'ar', value: 'تدفئة، تهوية و تكيفات')
         ],
       ),
       KW(
         id: 'con_trade_firefighting',
-        names: <Name>[
-          Name(code: 'en', value: 'Fire fighting'),
-          Name(code: 'ar', value: 'مقاومة جرائق')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Fire fighting'),
+          Phrase(langCode: 'ar', value: 'مقاومة جرائق')
         ],
       ),
       KW(
         id: 'con_trade_elevators',
-        names: <Name>[
-          Name(code: 'en', value: 'Elevators / Escalators'),
-          Name(code: 'ar', value: 'مصاعد / مدارج متحركة')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Elevators / Escalators'),
+          Phrase(langCode: 'ar', value: 'مصاعد / مدارج متحركة')
         ],
       ),
       KW(
         id: 'con_trade_tiling',
-        names: <Name>[
-          Name(code: 'en', value: 'Tiling'),
-          Name(code: 'ar', value: 'تبليط')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Tiling'),
+          Phrase(langCode: 'ar', value: 'تبليط')
         ],
       ),
       KW(
         id: 'con_trade_transportation',
-        names: <Name>[
-          Name(code: 'en', value: 'Transportation'),
-          Name(code: 'ar', value: 'نقل')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Transportation'),
+          Phrase(langCode: 'ar', value: 'نقل')
         ],
       ),
       KW(
         id: 'con_trade_concrete',
-        names: <Name>[
-          Name(code: 'en', value: 'Concrete'),
-          Name(code: 'ar', value: 'خرسانة')
+        names: <Phrase>[
+          Phrase(langCode: 'en', value: 'Concrete'),
+          Phrase(langCode: 'ar', value: 'خرسانة')
         ],
       ),
+
+      */
+
     ],
   );
+
 }

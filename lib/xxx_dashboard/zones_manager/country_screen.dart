@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
@@ -114,7 +114,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     // );
 
     final String _countryName =
-        Name.getNameByCurrentLingoFromNames(context: context, names: widget.country.names)?.value;
+        Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: widget.country.names)?.value;
 
     return MainLayout(
       skyType: SkyType.black,

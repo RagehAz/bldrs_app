@@ -12,6 +12,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     @required this.buttonsList,
     @required this.onButtonTap,
     @required this.selectedButtons,
+    @required this.isInError,
     this.inactiveButtons,
     Key key,
   }) : super(key: key);
@@ -21,9 +22,13 @@ class MultipleChoiceBubble extends StatelessWidget {
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtons;
   final List<String> inactiveButtons;
+  final bool isInError;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+
+
     return Bubble(
         bubbleColor: Colorz.white10,
         columnChildren: <Widget>[

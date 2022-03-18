@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -17,12 +17,12 @@ class KW {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final List<Name> names;
+  final List<Phrase> names;
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
     return <String, dynamic>{
       'id': id,
-      'names': Name.cipherNames(names: names, addTrigrams: toJSON),
+      'names': Phrase.cipherPhrases(phrases: names, addTrigrams: toJSON),
     };
   }
 // -----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class KW {
     if (map != null) {
       _keyword = KW(
         id: map['id'],
-        names: Name.decipherNames(map['names']),
+        names: Phrase.decipherPhrases(map['names']),
       );
     }
 
@@ -110,16 +110,16 @@ class KW {
     blog('$methodName ------------------------------- START');
 
     blog('id : $id');
-    Name.printNames(names);
+    Phrase.blogPhrases(names);
 
     blog('$methodName ------------------------------- END');
   }
 // -----------------------------------------------------------------------------
   static String getKeywordArabicName(KW keyword) {
-    final List<Name> _names = keyword.names;
+    final List<Phrase> _names = keyword.names;
 
-    final Name _arabicName = _names.firstWhere(
-        (Name name) => name.code == Lingo.arabicLingo.code,
+    final Phrase _arabicName = _names.firstWhere(
+        (Phrase name) => name.langCode == Lang.arabicLingo.code,
         orElse: () => null);
     final String _name = _arabicName?.value;
 
@@ -144,9 +144,9 @@ class KW {
     if (_firstKeyword == null || _secondKeyword == null) {
       _keywordsAreTheSame = false;
     } else if (_firstKeyword.id == _secondKeyword.id &&
-        Name.namesListsAreTheSame(
-                firstNames: _firstKeyword.names,
-                secondNames: _secondKeyword.names) ==
+        Phrase.phrasesListsAreTheSame(
+                firstPhrases: _firstKeyword.names,
+                secondPhrases: _secondKeyword.names) ==
             true) {
       _keywordsAreTheSame = true;
     } else {
@@ -205,9 +205,9 @@ class KW {
   }
 // -----------------------------------------------------------------------------
   static String translateKeyword(BuildContext context, KW kw) {
-    final String _name = Name.getNameByCurrentLingoFromNames(
+    final String _name = Phrase.getPhraseByCurrentLandFromPhrases(
         context: context,
-        names: kw.names)?.value;
+        phrases: kw.names)?.value;
 
     return _name;
   }

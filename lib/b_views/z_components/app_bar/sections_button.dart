@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -79,9 +79,9 @@ class SectionsButton extends StatelessWidget {
                       flyerType: _currentSection,
                     )
                         :
-                    Name.getNameByCurrentLingoFromNames(
+                    Phrase.getPhraseByCurrentLandFromPhrases(
                         context: context,
-                        names: _currentKeyword.names
+                        phrases: _currentKeyword.names
                     )?.value;
 
                     return Column(

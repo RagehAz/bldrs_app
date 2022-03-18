@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/record_model.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -165,7 +165,7 @@ Future<List<SearchResult>> _searchKeywords({
 
       if (_flyersByKeyword.isNotEmpty) {
         _results.add(SearchResult(
-          title: Name.getNameByCurrentLingoFromNames(context: context, names: kw.names)?.value,
+          title: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: kw.names)?.value,
           icon: _keywordsProvider.getKeywordIcon(context: context, son: kw),
           flyers: _flyersByKeyword,
         ));

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
@@ -97,9 +97,9 @@ String cityCountryStringer ({
 
   if (country != null && ZoneModel.zoneHasAllIDs(zone)){
 
-    final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: country.names)?.value;
+    final String _countryName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: country.names)?.value;
 
-    final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: city.names)?.value;
+    final String _cityName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: city.names)?.value;
 
     _verse =
     zone.countryID == null || zone.cityID == null ? '...' :

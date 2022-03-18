@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -98,7 +98,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
       countryID: widget.country.id,
     );
 
-    final String _countryName = Name.getNameByCurrentLingoFromNames(context: context, names: widget.country.names)?.value;
+    final String _countryName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: widget.country.names)?.value;
 
     return MainLayout(
       skyType: SkyType.black,

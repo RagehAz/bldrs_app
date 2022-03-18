@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/name_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -515,7 +515,7 @@ class ZoneProvider extends ChangeNotifier {
 
 // -------------------------------------
   String getCurrentCountryNameByCurrentLingo(BuildContext context) {
-    final String _name = Name.getNameByCurrentLingoFromNames(context: context, names: _currentCountryModel.names)?.value;
+    final String _name = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _currentCountryModel.names)?.value;
     return _name;
   }
 // -------------------------------------
@@ -526,9 +526,9 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   String getCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
 
-    final String _nameInCurrentLanguage = Name.getNameByCurrentLingoFromNames(
+    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLandFromPhrases(
         context: context,
-        names: _currentCityModel?.names
+        phrases: _currentCityModel?.names
     )?.value;
 
     return _nameInCurrentLanguage ?? cityID;
