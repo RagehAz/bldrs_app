@@ -18,6 +18,58 @@ class BzAuthorsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
+
+  /*
+
+  OLD AUTHOR EDITING METHODS IN OLD BZ EDITOR FOR YOUR REFERENCE
+
+    // ---------------------------------------------------------------
+
+
+  /// IN ON CREATE
+
+    //   /// create new master AuthorModel
+    //   final AuthorModel _firstMasterAuthor = AuthorModel(
+    //     userID: widget.userModel.id,
+    //     name: _authorNameTextController.text,
+    //     pic: _currentAuthorPicFile, // if null createBzOps uses user.pic URL instead
+    //     title: _authorTitleTextController.text,
+    //     isMaster: true,
+    //     contacts: _currentAuthorContacts,
+    //   );
+
+
+    //   final List<AuthorModel> _firstTimeAuthorsList = <AuthorModel>[
+    //     _firstMasterAuthor,
+    //   ];
+
+    // ---------------------------------------------------------------
+
+  /// IN ON UPDATE
+
+    //   /// create modified authorModel
+    //   final AuthorModel _newAuthor = AuthorModel(
+    //     userID: widget.userModel.id,
+    //     name: _authorNameTextController.text,
+    //     pic: _currentAuthorPicFile ?? _currentAuthorPicURL,
+    //     title: _authorTitleTextController.text,
+    //     isMaster: _currentAuthor.isMaster,
+    //     contacts: _currentAuthorContacts,
+    //   );
+    //
+    //   final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
+    //       widget.bzModel, widget.userModel.id);
+    //
+    //   final List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
+    //     originalAuthors: _currentBzAuthors,
+    //     oldAuthor: _oldAuthor,
+    //     newAuthor: _newAuthor,
+    //   );
+
+    // ---------------------------------------------------------------
+
+   */
+
   @override
   Widget build(BuildContext context) {
 

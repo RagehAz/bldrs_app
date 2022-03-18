@@ -10,7 +10,6 @@ import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/xxx_dashboard/exotic_methods.dart' as RagehMethods;
 import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
