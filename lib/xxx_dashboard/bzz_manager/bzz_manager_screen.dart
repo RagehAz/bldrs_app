@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bou
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
@@ -280,122 +280,122 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
                               ),
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzName',
                               dataValue: _bz.name,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzLogo',
                               dataValue: _bz.logo,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzID',
                               dataValue: _bz.id,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzType',
                               dataValue: _bz.bzTypes,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzForm',
                               dataValue: _bz.bzForm,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'createdAt',
                               dataValue: _bz.createdAt,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'accountType',
                               dataValue: _bz.accountType,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzScope',
                               dataValue: _bz.scope,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzZone',
                               dataValue: _bz.zone,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzAbout',
                               dataValue: _bz.about,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzPosition',
                               dataValue: _bz.position,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzContacts',
                               dataValue: _bz.contacts,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzAuthors',
                               dataValue: _bz.authors,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzShowsTeam',
                               dataValue: _bz.showsTeam,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzIsVerified',
                               dataValue: _bz.isVerified,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzState',
                               dataValue: _bz.bzState,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzTotalFollowers',
                               dataValue: _bz.totalFollowers,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzTotalSaves',
                               dataValue: _bz.totalSaves,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzTotalShares',
                               dataValue: _bz.totalShares,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzTotalSlides',
                               dataValue: _bz.totalSlides,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzTotalViews',
                               dataValue: _bz.totalViews,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzTotalCalls',
                               dataValue: _bz.totalCalls,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'flyersIDs,',
                               dataValue: _bz.flyersIDs,
                             ),
 
-                            DataStrip(
+                            DataStripWithHeadline(
                               dataKey: 'bzTotalFlyers',
                               dataValue: _bz.totalFlyers,
                             ),

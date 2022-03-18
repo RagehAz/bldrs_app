@@ -15,9 +15,9 @@ class OldMaxBounceNavigator extends StatefulWidget {
     this.onNavigate,
     this.notificationListenerKey,
     this.axis = Axis.vertical,
+    this.isOn = true,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double boxDistance;
   final int numberOfScreens;
@@ -25,7 +25,7 @@ class OldMaxBounceNavigator extends StatefulWidget {
   final Function onNavigate;
   final Key notificationListenerKey;
   final Axis axis;
-
+  final bool isOn;
   /// --------------------------------------------------------------------------
   @override
   _OldMaxBounceNavigatorState createState() => _OldMaxBounceNavigatorState();
@@ -70,35 +70,46 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _height = widget.boxDistance ?? Scale.superScreenHeight(context);
-    final double _width = widget.boxDistance ?? Scale.superScreenHeight(context);
 
-    final double _boxDistance = widget.axis == Axis.vertical ? _height : _width;
+    if (widget.isOn == true){
 
-    final bool _goesBackOnly = _goesBackOnlyCheck();
+      final double _height = widget.boxDistance ?? Scale.superScreenHeight(context);
+      final double _width = widget.boxDistance ?? Scale.superScreenHeight(context);
 
-    return NotificationListener<ScrollUpdateNotification>(
-      key: widget.notificationListenerKey,
-      onNotification: (ScrollUpdateNotification details) {
+      final double _boxDistance = widget.axis == Axis.vertical ? _height : _width;
 
-        final bool _canSlide = Scrollers.canSlide(
-          details: details,
-          boxDistance: _boxDistance,
-          numberOfBoxes: widget.numberOfScreens,
-          goesBackOnly: _goesBackOnly,
-          axis: widget.axis,
-        );
+      final bool _goesBackOnly = _goesBackOnlyCheck();
 
-        blog('_canSlide : $_canSlide : _canNavigate : $_canNavigate');
+      return NotificationListener<ScrollUpdateNotification>(
+        key: widget.notificationListenerKey,
+        onNotification: (ScrollUpdateNotification details) {
 
-        if (_canSlide == true && _canNavigate == true) {
-          // ScrollDirection _direction = details.metrics.;
+          final bool _canSlide = Scrollers.canSlide(
+            details: details,
+            boxDistance: _boxDistance,
+            numberOfBoxes: widget.numberOfScreens,
+            goesBackOnly: _goesBackOnly,
+            axis: widget.axis,
+          );
 
-          navigate();
-        }
-        return true;
-      },
-      child: widget.child,
-    );
+          blog('_canSlide : $_canSlide : _canNavigate : $_canNavigate');
+
+          if (_canSlide == true && _canNavigate == true) {
+            // ScrollDirection _direction = details.metrics.;
+
+            navigate();
+          }
+          return true;
+        },
+        child: widget.child,
+      );
+
+
+    }
+
+    else {
+      return widget.child;
+    }
+
   }
 }
