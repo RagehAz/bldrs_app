@@ -19,6 +19,7 @@ abstract class FireColl{
   static const String keys = 'keys';
   static const String records = 'records';
 
+  static const String translations = 'translations';
 }
 // -----------------------------------------------------------------------------
 abstract class FireDoc {
@@ -39,6 +40,9 @@ abstract class FireDoc {
   static const String keys_craftsKeywords = 'craftsKeywords';
   static const String keys_productsKeywords = 'productsKeywords';
   static const String keys_equipmentKeywords = 'equipmentKeywords';
+
+  static const String trans_en = 'en';
+  static const String trans_ar = 'ar';
 
 }
 // -----------------------------------------------------------------------------
@@ -69,6 +73,7 @@ abstract class FireSubColl {
   static const String zones_cities_cities = 'cities';
   static const String zones_countries_countries = 'countries';
 
+  static const String trans_xx_groups = 'keywords_and_specs';
 }
 // -----------------------------------------------------------------------------
 abstract class FireSubDoc{
@@ -78,6 +83,7 @@ abstract class FireSubDoc{
   static const String bzz_bz_credits_log = 'log';
   static const String bzz_bz_credits_balance = 'balance';
 
+  static const String trans_xx_groups_keywords_and_Specs = 'keywords_and_specs';
 }
 // -----------------------------------------------------------------------------
 abstract class StorageDoc{

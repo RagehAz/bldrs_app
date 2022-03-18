@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class DashBoardLayout extends StatelessWidget {
+class DashBoardLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const DashBoardLayout({
     @required this.listWidgets,
@@ -17,6 +17,7 @@ class DashBoardLayout extends StatelessWidget {
     this.loading = false,
     this.onBldrsTap,
     this.scrollable = true,
+    this.scrollerIsOn = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,17 +26,32 @@ class DashBoardLayout extends StatelessWidget {
   final bool loading;
   final Function onBldrsTap;
   final bool scrollable;
+  final bool scrollerIsOn;
   /// --------------------------------------------------------------------------
   static double clearScreenHeight(BuildContext context) {
     return Scale.superScreenHeight(context) -
         Ratioz.stratosphere -
         (2 * Ratioz.appBarMargin);
   }
+
+  @override
+  State<DashBoardLayout> createState() => _DashBoardLayoutState();
+}
+
+class _DashBoardLayoutState extends State<DashBoardLayout> {
+
+  ScrollController _controller;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
+  }
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final ScrollController _controller = ScrollController();
 
     return MainLayout(
       // scaffoldKey: _globalKey,
@@ -44,22 +60,23 @@ class DashBoardLayout extends StatelessWidget {
       zoneButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      pageTitle: pageTitle,
+      pageTitle: widget.pageTitle,
       // loading: loading,
       appBarRowWidgets: <Widget>[
         const Expander(),
         BldrsNameButton(
-          onTap: onBldrsTap,
+          onTap: widget.onBldrsTap,
         ),
       ],
 
       layoutWidget: OldMaxBounceNavigator(
-        isOn: scrollable,
+        isOn: widget.scrollable,
         child: Scroller(
-          isOn: scrollable,
+          key: const ValueKey<String>('dashboard_scroller'),
+          isOn: widget.scrollerIsOn,
           controller: _controller,
           child: ListView(
-            physics: scrollable ?
+            physics: widget.scrollable ?
             const BouncingScrollPhysics()
                 :
             const NeverScrollableScrollPhysics(),
@@ -69,7 +86,7 @@ class DashBoardLayout extends StatelessWidget {
 
               const Stratosphere(),
 
-              ...listWidgets,
+              ...widget.listWidgets,
 
             ],
           ),

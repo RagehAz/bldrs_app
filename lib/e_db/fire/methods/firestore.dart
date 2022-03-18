@@ -526,10 +526,18 @@ Stream<QuerySnapshot<Object>> streamSubCollection({
   return _snapshots;
 }
 // ---------------------------------------------------
-Stream<DocumentSnapshot<Object>> streamDoc(String collectionName, String documentName) {
-  final DocumentReference<Object> _document =
-      getDocRef(collName: collectionName, docName: documentName);
+Stream<DocumentSnapshot<Object>> streamDoc({
+  @required String collName,
+  @required String docName,
+}) {
+
+  final DocumentReference<Object> _document = getDocRef(
+      collName: collName,
+      docName: docName,
+  );
+
   final Stream<DocumentSnapshot<Object>> _snapshots = _document.snapshots();
+
   return _snapshots;
 }
 // ---------------------------------------------------
