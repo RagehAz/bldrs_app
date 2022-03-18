@@ -1183,8 +1183,8 @@ class BzModel{
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzType',
-            titlePhraseID: 'a_0001_bzTypeMissing_title',
-            messagePhraseID:'a_0002_bzTypeMissing_message',
+            titlePhraseID: 'phid_a_1_bzTypeMissing_title',
+            messagePhraseID:'phid_a_bzTypeMissing_message',
           )
       );
     }
@@ -1193,8 +1193,8 @@ class BzModel{
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzForm',
-            titlePhraseID: 'a_0003_bzFormMissing_title',
-            messagePhraseID: 'a_0004_bzFormMissing_message',
+            titlePhraseID: 'phid_a_bzFormMissing_title',
+            messagePhraseID: 'phid_a_bzFormMissing_message',
           )
       );
     }
@@ -1203,8 +1203,8 @@ class BzModel{
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzName',
-            titlePhraseID: 'a_0005_bzNameMissing_title',
-            messagePhraseID: 'a_0006_bzNameMissing_message',
+            titlePhraseID: 'phid_a_bzNameMissing_title',
+            messagePhraseID: 'phid_a_bzNameMissing_message',
           )
       );
     }
@@ -1213,8 +1213,8 @@ class BzModel{
       _invalidFields.add(
           const AlertModel(
           alertID: 'bzLogo',
-          titlePhraseID: 'a_0007_bzLogoMissing_title',
-            messagePhraseID: 'a_0008_bzLogoMissing_message',
+          titlePhraseID: 'phid_a_bzLogoMissing_title',
+            messagePhraseID: 'phid_a_bzLogoMissing_message',
         )
       );
     }
@@ -1223,8 +1223,8 @@ class BzModel{
       _invalidFields.add(
           const AlertModel(
           alertID: 'bzScope',
-          titlePhraseID: 'a_0009_bzScopeMissing_title',
-            messagePhraseID: 'a_0010_bzScopeMissing_message',
+          titlePhraseID: 'phid_a_bzScopeMissing_title',
+            messagePhraseID: 'phid_a_bzScopeMissing_message',
         )
       );
     }

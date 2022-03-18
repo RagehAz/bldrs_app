@@ -61,7 +61,7 @@ class TileBubble extends StatelessWidget {
     Bubble.clearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth;
 
     return Bubble(
-      bubbleOnTap: btOnTap,
+      onBubbleTap: btOnTap,
       columnChildren: <Widget>[
 
         Row(

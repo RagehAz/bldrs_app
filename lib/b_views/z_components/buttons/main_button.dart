@@ -10,9 +10,9 @@ import 'package:websafe_svg/websafe_svg.dart';
 class MainButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MainButton({
-    @required this.buttonVerse,
-    @required this.buttonIcon,
-    @required this.function,
+    @required this.verse,
+    @required this.icon,
+    @required this.onTap,
     this.buttonColor = Colorz.white50,
     this.splashColor = Colorz.yellow255,
     this.buttonVerseShadow = true,
@@ -24,12 +24,12 @@ class MainButton extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String buttonVerse;
-  final dynamic buttonIcon;
+  final String verse;
+  final dynamic icon;
   final Color buttonColor;
   final Color splashColor;
   final bool buttonVerseShadow;
-  final dynamic function;
+  final dynamic onTap;
   final bool stretched;
   final double iconSizeFactor;
   final Color verseColor;
@@ -74,20 +74,20 @@ class MainButton extends StatelessWidget {
         ),
         child: ElevatedButton(
           onPressed: () async {
-            if (function.runtimeType != String) {
+            if (onTap.runtimeType != String) {
 
               await Future.delayed( const Duration(milliseconds: 200),
 
-                  () => function()
+                  () => onTap()
 
               );
 
 
             } else {
-              if (function == 'GoBackFucker') {
+              if (onTap == 'GoBackFucker') {
                 Navigator.pop(context);
               } else {
-                await Navigator.pushNamed(context, function);
+                await Navigator.pushNamed(context, onTap);
               }
             }
           },
@@ -143,7 +143,7 @@ class MainButton extends StatelessWidget {
               ),
 
               /// BUTTON COMPONENTS
-              if (buttonIcon == '')
+              if (icon == '')
 
                 /// --- WHEN BUTTON DOES NOT HAVE AN ICON
                 Row(
@@ -153,7 +153,7 @@ class MainButton extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(_buttonZonePaddings),
                       child: SuperVerse(
-                        verse: buttonVerse,
+                        verse: verse,
                         color: verseColor,
                         weight: verseWeight,
                         shadow: buttonVerseShadow,
@@ -162,7 +162,7 @@ class MainButton extends StatelessWidget {
                   ],
                 ),
 
-              if (buttonIcon != '')
+              if (icon != '')
 
                 /// --- WHEN BUTTON HAS AN ICON
                 Padding(
@@ -182,22 +182,22 @@ class MainButton extends StatelessWidget {
                           alignment: Alignment.center,
                           margin: EdgeInsets.all(_buttonZoneHeight * 0.1),
                           // padding: EdgeInsets.all(_buttonHeight * 0),
-                          child: buttonIcon.runtimeType != String ? buttonIcon
+                          child: icon.runtimeType != String ? icon
                               :
-                          ObjectChecker.fileExtensionOf(buttonIcon) == 'jpg' ||
-                              ObjectChecker.fileExtensionOf(buttonIcon) == 'jpeg' ||
-                              ObjectChecker.fileExtensionOf(buttonIcon) == 'png' ? Container(
+                          ObjectChecker.fileExtensionOf(icon) == 'jpg' ||
+                              ObjectChecker.fileExtensionOf(icon) == 'jpeg' ||
+                              ObjectChecker.fileExtensionOf(icon) == 'png' ? Container(
                             width: _buttonZoneHeight * 0.4,
                             height: _buttonZoneHeight * 0.4,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(buttonIcon),
+                                image: AssetImage(icon),
                                 fit: BoxFit.cover,
                               ),
                             ),
                           )
                               :
-                          WebsafeSvg.asset(buttonIcon,
+                          WebsafeSvg.asset(icon,
                               fit: BoxFit.fill,
                               color: iconColor
                           ),
@@ -211,7 +211,7 @@ class MainButton extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: _buttonZonePaddings),
                           child: SuperVerse(
-                            verse: buttonVerse,
+                            verse: verse,
                             color: verseColor,
                             weight: verseWeight,
                             centered: false,

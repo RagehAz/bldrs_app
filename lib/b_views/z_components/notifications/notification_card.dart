@@ -64,7 +64,7 @@ class NotificationCard extends StatelessWidget {
           horizontal: Ratioz.appBarMargin,
           vertical: Ratioz.appBarPadding,
       ),
-      bubbleOnTap: _notiHasButtons ? null : _onBubbleTap,
+      onBubbleTap: _notiHasButtons ? null : _onBubbleTap,
       columnChildren: <Widget>[
 
         Row(

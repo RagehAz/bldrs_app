@@ -24,6 +24,7 @@ import 'package:bldrs/xxx_lab/xxx_obelisk/cloud_functions_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/providers_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/slider_test.dart';
+import 'package:bldrs/xxx_lab/xxx_obelisk/translations_lab.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/video_player.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/zzz_test_lab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -124,6 +125,8 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
 
           const ObeliskButton('New ASKs', Iconz.utPlanning, NewAsks()),
+
+          const ObeliskButton('Translations Lab', Iconz.language, TranslationsLab()),
 
           ObeliskButton('BzEditor', Iconz.bz, BzEditorScreen(
             userModel: UserModel.dummyUserModel(context),

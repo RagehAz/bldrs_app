@@ -22,7 +22,7 @@ class Bubble extends StatelessWidget {
     this.actionBtIcon,
     this.actionBtFunction,
     this.width,
-    this.bubbleOnTap,
+    this.onBubbleTap,
     this.leadingAndActionButtonsSizeFactor = 0.6,
     this.leadingIcon,
     this.leadingIconColor,
@@ -41,7 +41,7 @@ class Bubble extends StatelessWidget {
   final String actionBtIcon;
   final Function actionBtFunction;
   final double width;
-  final Function bubbleOnTap;
+  final Function onBubbleTap;
   final double leadingAndActionButtonsSizeFactor;
   final String leadingIcon;
   final Color leadingIconColor;
@@ -154,86 +154,99 @@ class Bubble extends StatelessWidget {
       child: Material(
         color: Colorz.nothing,
         child: InkWell(
-          onTap: bubbleOnTap,
+          onTap: onBubbleTap,
           splashColor: Colorz.yellow255,
           borderRadius: _corners,
           child: Padding(
             padding: const EdgeInsets.all(_pageMargin),
             child: Column(
               mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
-              mainAxisAlignment: centered == true
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.start,
-              crossAxisAlignment: centered == true
-                  ? CrossAxisAlignment.center
-                  : CrossAxisAlignment.start,
+              mainAxisAlignment: centered == true ?
+              MainAxisAlignment.center
+                  :
+              MainAxisAlignment.start,
+              crossAxisAlignment: centered == true ?
+              CrossAxisAlignment.center
+                  :
+              CrossAxisAlignment.start,
               children: <Widget>[
+
                 if (title != null || actionBtIcon != null)
-                  Row(
-                    mainAxisAlignment: centered == true
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize:
-                        centered == true ? MainAxisSize.min : MainAxisSize.max,
-                    children: <Widget>[
-                      /// --- ACTION BUTTON
-                      if (centered == true && actionBtIcon != null)
-                        SizedBox(
-                          height: _actionBtSize,
-                          width: _actionBtSize,
-                        ),
+                  Container(
+                    width: clearWidth(context),
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      mainAxisAlignment: centered == true ?
+                      MainAxisAlignment.start
+                          :
+                      MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: centered == true ?
+                      MainAxisSize.min
+                          :
+                      MainAxisSize.max,
+                      children: <Widget>[
 
-                      /// --- EXPANDER
-                      if (centered == true) const Expander(),
-
-                      /// --- LEADING BUTTON
-                      if (leadingIcon != null)
-                        DreamBox(
-                          height: _actionBtSize,
-                          width: _actionBtSize,
-                          corners: _actionBtCorner,
-                          // color: actionBtColor,
-                          icon: leadingIcon,
-                          iconColor: leadingIconColor,
-                          iconSizeFactor: leadingAndActionButtonsSizeFactor,
-                          onTap: actionBtFunction,
-                          bubble: false,
-                        ),
-
-                      /// --- BUBBLE TITLE
-                      if (title != null)
-                        Container(
-                          width: _titleWidth,
-                          padding: const EdgeInsets.only(
-                              bottom: Ratioz.appBarMargin,
-                              left: Ratioz.appBarPadding,
-                              right: Ratioz.appBarPadding),
-                          child: SuperVerse(
-                            verse: title,
-                            redDot: redDot,
-                            centered: centered,
-                            color: titleColor,
-                            italic: true,
+                        /// --- ACTION BUTTON
+                        if (centered == true && actionBtIcon != null)
+                          SizedBox(
+                            height: _actionBtSize,
+                            width: _actionBtSize,
                           ),
-                        ),
 
-                      /// --- EXPANDER
-                      if (centered == true) const Expander(),
+                        /// --- EXPANDER
+                        if (centered == true) const Expander(),
 
-                      /// --- ACTION BUTTON
-                      if (actionBtIcon != null)
-                        DreamBox(
-                          height: _actionBtSize,
-                          width: _actionBtSize,
-                          corners: _actionBtCorner,
-                          // color: actionBtColor,
-                          icon: actionBtIcon,
-                          iconSizeFactor: leadingAndActionButtonsSizeFactor,
-                          onTap: actionBtFunction,
-                        ),
+                        /// --- LEADING BUTTON
+                        if (leadingIcon != null)
+                          DreamBox(
+                            height: _actionBtSize,
+                            width: _actionBtSize,
+                            corners: _actionBtCorner,
+                            // color: actionBtColor,
+                            icon: leadingIcon,
+                            iconColor: leadingIconColor,
+                            iconSizeFactor: leadingAndActionButtonsSizeFactor,
+                            onTap: actionBtFunction,
+                            bubble: false,
+                          ),
 
-                    ],
+                        /// --- BUBBLE TITLE
+                        if (title != null)
+                          Container(
+                            // width: _titleWidth - (_actionBtSize * 0.5),
+                            padding: const EdgeInsets.only(
+                                bottom: Ratioz.appBarMargin,
+                                left: Ratioz.appBarPadding,
+                                right: Ratioz.appBarPadding
+                            ),
+                            child: SuperVerse(
+                              verse: title,
+                              redDot: redDot,
+                              centered: centered,
+                              color: titleColor,
+                              italic: true,
+                            ),
+                          ),
+
+                        /// --- EXPANDER
+                        // if (centered == true)
+                          const Expander(),
+
+                        /// --- ACTION BUTTON
+                        if (actionBtIcon != null)
+                          DreamBox(
+                            height: _actionBtSize * 1.25,
+                            width: _actionBtSize * 1.25,
+                            corners: _actionBtCorner,
+                            // color: actionBtColor,
+                            icon: actionBtIcon,
+                            iconSizeFactor: leadingAndActionButtonsSizeFactor,
+                            onTap: actionBtFunction,
+                          ),
+
+                      ],
+                    ),
                   ),
 
                 ...columnChildren,
