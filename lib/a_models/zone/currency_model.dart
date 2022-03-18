@@ -8,7 +8,7 @@ class CurrencyModel {
   /// --------------------------------------------------------------------------
   CurrencyModel({
     @required this.code,
-    @required this.names,
+    @required this.phrases,
     @required this.countriesIDs,
     @required this.symbol,
     @required this.nativeSymbol,
@@ -17,7 +17,7 @@ class CurrencyModel {
 
   /// --------------------------------------------------------------------------
   final String code;
-  final List<Phrase> names;
+  final List<Phrase> phrases;
   final List<String> countriesIDs;
   final String symbol;
   final String nativeSymbol;
@@ -28,7 +28,7 @@ class CurrencyModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'code': code,
-      'names': Phrase.cipherPhrases(phrases: names,),
+      'names': Phrase.cipherPhrases(phrases: phrases,),
       'countriesIDs': countriesIDs,
       'symbol': symbol,
       'nativeSymbol': nativeSymbol,
@@ -42,7 +42,7 @@ class CurrencyModel {
     blog(
         'code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
     blog('countries : $countriesIDs');
-    Phrase.blogPhrases(names);
+    Phrase.blogPhrases(phrases);
     blog('CURRENCY PRINT ----------------------------------------- END ');
   }
 
@@ -70,7 +70,7 @@ class CurrencyModel {
     if (map != null) {
       _currency = CurrencyModel(
         code: map['code'],
-        names: Phrase.decipherPhrases(map['names']),
+        phrases: Phrase.decipherPhrases(map['names']),
         countriesIDs:
             Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
         symbol: map['symbol'],
