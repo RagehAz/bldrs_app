@@ -130,13 +130,15 @@ class AuthorModel {
       pic: userModel.pic,
       title: userModel.title,
       contacts: userModel.contacts,
-      isMaster: true, // need to make sure about this
+      isMaster: true,
     );
   }
 // -----------------------------------------------------------------------------
   static int getAuthorIndexByAuthorID(List<AuthorModel> authors, String authorID) {
-    final int _currentAuthorIndex =
-        authors.indexWhere((AuthorModel au) => authorID == au.userID);
+    final int _currentAuthorIndex = authors.indexWhere(
+            (AuthorModel au) => authorID == au.userID
+    );
+
     return _currentAuthorIndex;
   }
 // -----------------------------------------------------------------------------
@@ -145,6 +147,7 @@ class AuthorModel {
     @required AuthorModel oldAuthor,
     @required AuthorModel newAuthor
   }) {
+
     final List<AuthorModel> _modifiedAuthorsList =
         replaceAuthorModelInAuthorsList(
       originalAuthors: bzModel.authors,
@@ -194,9 +197,10 @@ class AuthorModel {
     @required AuthorModel newAuthor
   }) {
     List<AuthorModel> _modifiedAuthorsList;
+
     final List<AuthorModel> _originalAuthors = originalAuthors;
-    final int _indexOfOldAuthor =
-        getAuthorIndexByAuthorID(_originalAuthors, oldAuthor.userID);
+
+    final int _indexOfOldAuthor = getAuthorIndexByAuthorID(_originalAuthors, oldAuthor.userID);
 
     if (_indexOfOldAuthor != -1) {
       _originalAuthors.removeAt(_indexOfOldAuthor);
@@ -213,12 +217,12 @@ class AuthorModel {
     @required AuthorModel newAuthor
   }) {
     List<String> _modifiedAuthorsIDsList;
-    final List<String> _originalAuthorsIDs =
-        getAuthorsIDsFromAuthors(originalAuthors);
-    blog(
-        'getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
-    final int _indexOfOldAuthor =
-        getAuthorIndexByAuthorID(originalAuthors, oldAuthor.userID);
+
+    final List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(originalAuthors);
+
+    blog('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
+
+    final int _indexOfOldAuthor = getAuthorIndexByAuthorID(originalAuthors, oldAuthor.userID);
 
     if (_indexOfOldAuthor != -1) {
       _originalAuthorsIDs.removeAt(_indexOfOldAuthor);
