@@ -219,6 +219,28 @@ class Phrase {
     return _phrase;
   }
 // -------------------------------------
+  static Phrase getPhraseFromPhrasesByValue({
+    @required List<Phrase> phrases,
+    @required String value,
+  }){
+    Phrase _phrase;
+
+    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(value) == true){
+
+      for (final Phrase phrase in phrases){
+
+        if (phrase.value == value){
+          _phrase = phrase;
+          break;
+        }
+
+      }
+
+    }
+
+    return _phrase;
+  }
+// -------------------------------------
   static List<String> _getLingCodesFromPhrases(List<Phrase> phrases){
 
     final List<String> _langCodes = <String>[];
@@ -333,19 +355,19 @@ class Phrase {
 // -------------------------------------
   /// TASK : TEST THIS
   static bool phrasesAreTheSame({
-    @required Phrase firstName,
-    @required Phrase secondName,
+    @required Phrase firstPhrase,
+    @required Phrase secondPhrase,
   }){
 
     bool _namesAreTheSame = false;
 
-    if (firstName != null && secondName != null){
+    if (firstPhrase != null && secondPhrase != null){
 
-      if (firstName.langCode == secondName.langCode){
+      if (firstPhrase.langCode == secondPhrase.langCode){
 
-        if (firstName.value == secondName.value){
+        if (firstPhrase.value == secondPhrase.value){
 
-          if (Mapper.listsAreTheSame(list1: firstName.trigram, list2: secondName.trigram)){
+          if (Mapper.listsAreTheSame(list1: firstPhrase.trigram, list2: secondPhrase.trigram)){
 
             _namesAreTheSame = true;
 
