@@ -135,7 +135,7 @@ class CityModel {
 
     if (Mapper.canLoopList(cities)) {
       for (final CityModel city in cities) {
-        final String _cityName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: city.names)?.value;
+        final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city.names)?.value;
         _citiesNames.add(_cityName);
       }
     }
@@ -252,7 +252,7 @@ class CityModel {
     String _cityName = '...';
 
     if (city != null) {
-      _cityName = Phrase.getPhraseByCurrentLandFromPhrases(
+      _cityName = Phrase.getPhraseByCurrentLangFromPhrases(
           context: context,
           phrases: city.names)?.value;
     }
@@ -282,7 +282,7 @@ class CityModel {
   }
 // -----------------------------------------------------------------------------
   static String getCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
-    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: cityModel?.names)?.value;
+    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: cityModel?.names)?.value;
     return _nameInCurrentLanguage ?? cityModel?.cityID;
   }
 // -----------------------------------------------------------------------------
@@ -295,7 +295,7 @@ class CityModel {
     /// CREATE NAMES LIST
     final List<Phrase> _citiesNames = <Phrase>[];
     for (final CityModel city in sourceCities){
-      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLandFromPhrases(
+      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLangFromPhrases(
         context: context,
         phrases: city.names,
       );

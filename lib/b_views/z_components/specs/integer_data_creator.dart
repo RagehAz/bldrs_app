@@ -123,7 +123,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
 
     const double _buttonSize = _buttonsBoxWidth - 25;
 
-    final String _hintText = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: widget.specList.names)?.value;
+    final String _hintText = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: widget.specList.names)?.value;
 
     return Container(
       width: _screenWidth,

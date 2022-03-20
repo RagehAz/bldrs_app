@@ -57,7 +57,7 @@ class Inception extends StatelessWidget {
         width: _buttonWidth,
         height: _buttonHeight,
         icon: _keywordsProvider.getKeywordIcon(son: _kw, context: context),
-        verse: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _kw.names)?.value,
+        verse: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _kw.names)?.value,
         verseScaleFactor: 0.7,
         verseCentered: false,
         color: _color,
@@ -78,7 +78,7 @@ class Inception extends StatelessWidget {
         icon: _keywordsProvider.getKeywordIcon(son: son, context: context),
         width: _buttonWidth,
         collapsedHeight: _buttonHeight,
-        firstHeadline: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: son.translations)?.value,
+        firstHeadline: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: son.translations)?.value,
         secondHeadline: null,
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
         child: Column(

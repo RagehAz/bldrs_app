@@ -91,7 +91,7 @@ class Phrase {
   static List<Phrase> decipherPhrases(Map<String, dynamic> map){
     final List<Phrase> _phrases = <Phrase>[];
 
-    final List<String> _keys = map.keys.toList();
+    final List<String> _keys = map?.keys?.toList();
 
     if (Mapper.canLoopList(_keys)){
 
@@ -146,7 +146,7 @@ class Phrase {
 
 // -------------------------------------
   /// Searches list of phrases of different lang codes by current the lang code
-  static Phrase getPhraseByCurrentLandFromPhrases({
+  static Phrase getPhraseByCurrentLangFromPhrases({
     @required BuildContext context,
     @required List<Phrase> phrases,
   }) {
@@ -183,14 +183,35 @@ class Phrase {
       );
 
       if (_foundPhrase == null){
-        _phrase = phrases.singleWhere(
-                (Phrase name) => name.langCode == Lang.englishCode,
+        _phrase = phrases.singleWhere((Phrase name) => name.langCode == Lang.englishCode,
           orElse: () => const Phrase(value: '...'),
         );
       }
 
       else {
         _phrase = _foundPhrase;
+      }
+
+    }
+
+    return _phrase;
+  }
+// -------------------------------------
+  static Phrase getPhraseFromPhrasesByID({
+  @required List<Phrase> phrases,
+    @required String id,
+}){
+    Phrase _phrase;
+
+    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(id) == true){
+
+      for (final Phrase phrase in phrases){
+
+        if (phrase.id == id){
+          _phrase = phrase;
+          break;
+        }
+
       }
 
     }
@@ -411,9 +432,12 @@ class Phrase {
   static List<Phrase> insertPhrase({
     @required List<Phrase> phrases,
     @required Phrase phrase,
+    @required bool forceUpdate,
 }){
 
-    final List<Phrase> _output = <Phrase>[];
+    final List<Phrase> _output = <Phrase>[...phrases];
+
+    int _existingPhraseIndex;
 
     if (Mapper.canLoopList(phrases) == true && phrase != null){
 
@@ -422,26 +446,28 @@ class Phrase {
           id: phrase.id,
       );
 
-      final bool _valueHasDuplicate = phrasesIncludeThisValue(
-        phrases: phrases,
-        value: phrase.value,
-      );
-
-      if (_idIsTaken == false && _valueHasDuplicate == false){
+      if (_idIsTaken == false){
         _output.add(phrase);
       }
 
       else {
 
-        blog('xxxxxxxxx 5od balak : insertPhrase : '
-            '_idIsTaken : $_idIsTaken : '
-            '_valueHasDuplicate : $_valueHasDuplicate'
-        );
+        if (forceUpdate == true){
+
+          if (_idIsTaken == true){
+            _existingPhraseIndex = phrases.indexWhere((ph) => ph.id == phrase.id);
+          }
+
+          if (_existingPhraseIndex != -1){
+            _output.insert(_existingPhraseIndex, phrase);
+          }
+        }
+
       }
 
     }
 
-    if (_output.isEmpty){
+    if (_output.isEmpty || _existingPhraseIndex == -1){
       return null;
     }
     else {
