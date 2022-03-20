@@ -554,7 +554,7 @@ class SpecModel {
             _kws.singleWhere((KW kw) => kw.id == _kwID, orElse: () => null);
 
         if (_kw != null) {
-          _name = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _kw.names)?.value;
+          _name = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _kw.names)?.value;
         }
       }
     }

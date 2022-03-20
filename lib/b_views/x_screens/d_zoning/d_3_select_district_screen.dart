@@ -131,7 +131,7 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       cityID: widget.city.cityID,
     );
 
-    final String _cityName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: widget.city.names)?.value;
+    final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: widget.city.names)?.value;
 
     return MainLayout(
       skyType: SkyType.black,

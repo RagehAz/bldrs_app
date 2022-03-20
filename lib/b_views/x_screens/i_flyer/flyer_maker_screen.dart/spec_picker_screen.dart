@@ -226,7 +226,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     final String _instructions = _getInstructions();
 
-    final String _pageTitle = Phrase.getPhraseByCurrentLandFromPhrases(
+    final String _pageTitle = Phrase.getPhraseByCurrentLangFromPhrases(
         context: context,
         phrases: widget.specList.names)?.value;
 

@@ -139,7 +139,7 @@ class InfoPageSpecs extends StatelessWidget {
 
               final SpecList _specList = _flyerSpecsLists[index];
 
-              final Phrase _specListName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _specList.names);
+              final Phrase _specListName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _specList.names);
 
               blog('_specListName is : ${_specListName.value}');
 

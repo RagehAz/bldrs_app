@@ -19,7 +19,7 @@ class WideDistrictButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Phrase _districtName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: district?.names);
+    final Phrase _districtName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: district?.names);
     final String _districtNameValue = _districtName?.value ?? district.districtID;
 
     return DreamBox(
