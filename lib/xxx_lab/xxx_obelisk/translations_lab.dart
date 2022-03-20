@@ -122,69 +122,86 @@ class _TranslationsLabState extends State<TranslationsLab> {
 
     String _alertMessage;
     bool _continueOps;
+    bool _idIsTakenEn;
+    bool _idIsTakenAr;
+    bool _valueHasDuplicateEn;
+    bool _valueHasDuplicateAr;
+    Phrase _phrase;
 
     /// EN ID TAKEN
-    final bool _idIsTakenEn = Phrase.phrasesIncludeThisID(
+    _idIsTakenEn = Phrase.phrasesIncludeThisID(
       phrases: enTransModel.phrases,
       id: _keyController.text,
     );
     if (_idIsTakenEn == true){
-      final Phrase _phrase = Phrase.getPhraseFromPhrasesByID(
+      _phrase = Phrase.getPhraseFromPhrasesByID(
           phrases: enTransModel.phrases,
           id: _keyController.text,
       );
-      _alertMessage = 'ID is Taken : ${_phrase.id} : value : ${_phrase.value} : langCode : ${_phrase.langCode}';
+      _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
     }
-
-    /// EN VALUE DUPLICATE
-    final bool _valueHasDuplicateEn = Phrase.phrasesIncludeThisValue(
-      phrases: enTransModel.phrases,
-      value: _englishController.text,
-    );
-    if (_valueHasDuplicateEn == true){
-      final Phrase _phrase = Phrase.getPhraseFromPhrasesByID(
-        phrases: enTransModel.phrases,
-        id: _englishController.text,
-      );
-      _alertMessage = 'VALUE is Taken : ${_phrase.id} : value : ${_phrase.value} : langCode : ${_phrase.langCode}';
-    }
-
 
     /// AR ID TAKEN
-    final bool _idIsTakenAr = Phrase.phrasesIncludeThisID(
+    _idIsTakenAr = Phrase.phrasesIncludeThisID(
       phrases: arTransModel.phrases,
       id: _keyController.text,
     );
     if (_idIsTakenAr == true){
-      final Phrase _phrase = Phrase.getPhraseFromPhrasesByID(
+      _phrase = Phrase.getPhraseFromPhrasesByID(
         phrases: arTransModel.phrases,
         id: _keyController.text,
       );
-      _alertMessage = 'ID is Taken : ${_phrase.id} : value : ${_phrase.value} : langCode : ${_phrase.langCode}';
+      _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
     }
 
-    /// EN VALUE DUPLICATE
-    final bool _valueHasDuplicateAr = Phrase.phrasesIncludeThisValue(
-      phrases: arTransModel.phrases,
-      value: _arabicController.text,
-    );
-    if (_valueHasDuplicateAr == true){
-      final Phrase _phrase = Phrase.getPhraseFromPhrasesByID(
-        phrases: arTransModel.phrases,
-        id: _arabicController.text,
+    if (_idIsTakenAr == false && _idIsTakenEn == false){
+
+      /// EN VALUE DUPLICATE
+      _valueHasDuplicateEn = Phrase.phrasesIncludeThisValue(
+        phrases: enTransModel.phrases,
+        value: _englishController.text,
       );
-      _alertMessage = 'VALUE is Taken : ${_phrase.id} : value : ${_phrase.value} : langCode : ${_phrase.langCode}';
+      if (_valueHasDuplicateEn == true){
+        _phrase = Phrase.getPhraseFromPhrasesByValue(
+          phrases: enTransModel.phrases,
+          value: _englishController.text,
+        );
+        _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
+      }
+
+      /// EN VALUE DUPLICATE
+      _valueHasDuplicateAr = Phrase.phrasesIncludeThisValue(
+        phrases: arTransModel.phrases,
+        value: _arabicController.text,
+      );
+      if (_valueHasDuplicateAr == true){
+        _phrase = Phrase.getPhraseFromPhrasesByValue(
+          phrases: arTransModel.phrases,
+          value: _arabicController.text,
+        );
+        _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
+      }
+
     }
 
     // so ..
 
     if (_alertMessage != null){
 
+      final String _actionTypeMessage =
+          _idIsTakenEn == true || _idIsTakenAr == true ? 'This will override this Phrase'
+          :
+          _valueHasDuplicateAr == true || _valueHasDuplicateEn == true ? 'This will add New Phrase'
+          :
+          'This Will Upload';
+
       _continueOps = await CenterDialog.showCenterDialog(
         context: context,
         title: '7aseb !',
         boolDialog: true,
-        body: '$_alertMessage\n Wanna continue uploading ?',
+        body: '$_alertMessage\n'
+            '$_actionTypeMessage\n'
+            'Wanna continue uploading ?',
       );
 
     }
@@ -278,18 +295,20 @@ class _TranslationsLabState extends State<TranslationsLab> {
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _fieldWidth = _screenWidth - 20;
+    // final double _fieldWidth = _screenWidth - 20;
 
     final double _clearWidth = Bubble.clearWidth(context);
 
     return DashBoardLayout(
-        pageTitle: 'Translations Lab',
+      key: const ValueKey<String>('DashBoardLayout_translations_lab'),
+      pageTitle: 'Translations Lab',
         onBldrsTap: _onBldrsTap,
         scrollerIsOn: false,
         listWidgets: <Widget>[
 
           /// DATA ENTRY
           ValueListenableBuilder(
+            key: const ValueKey<String>('phrases_data_entry'),
             valueListenable: _phrasesExpanded,
             child: Column(
               children: <Widget>[
@@ -342,6 +361,7 @@ class _TranslationsLabState extends State<TranslationsLab> {
 
           /// PHRASES BUBBLE
           ValueListenableBuilder(
+              key: const ValueKey<String>('phrases_bubble'),
               valueListenable: _phrasesExpanded,
               child: transModelStreamBuilder(
                 context: context,
