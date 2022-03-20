@@ -19,7 +19,7 @@ class WideCityButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Phrase _cityName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: city?.names);
+    final Phrase _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city?.names);
     final String _cityNameValue = _cityName?.value ?? city.cityID;
 
     return DreamBox(

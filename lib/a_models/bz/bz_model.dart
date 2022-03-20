@@ -296,8 +296,10 @@ class BzModel{
   }
 // ------------------------------------------
   static BzModel getBzModelFromSnapshot(DocumentSnapshot<Object> doc) {
+
     final DocumentSnapshot<Object> _docSnap = doc.data();
     final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(_docSnap);
+
     final BzModel _bzModel = BzModel.decipherBz(
       map: _map,
       fromJSON: false,
