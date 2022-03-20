@@ -26,8 +26,8 @@ class SelectDistrictScreenView extends StatelessWidget {
 
     districts.sort((DistrictModel a, DistrictModel b){
 
-      final String _nameA = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: a.names).value;
-      final String _nameB = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: b.names).value;
+      final String _nameA = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: a.names).value;
+      final String _nameB = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: b.names).value;
 
       return _nameA.compareTo(_nameB);
     });

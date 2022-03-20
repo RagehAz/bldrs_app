@@ -97,9 +97,9 @@ String cityCountryStringer ({
 
   if (country != null && ZoneModel.zoneHasAllIDs(zone)){
 
-    final String _countryName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: country.names)?.value;
+    final String _countryName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: country.names)?.value;
 
-    final String _cityName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: city.names)?.value;
+    final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city.names)?.value;
 
     _verse =
     zone.countryID == null || zone.cityID == null ? '...' :

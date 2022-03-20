@@ -151,7 +151,7 @@ class DistrictModel{
           districtID: districtID,
       );
 
-      _districtName = Phrase.getPhraseByCurrentLandFromPhrases(
+      _districtName = Phrase.getPhraseByCurrentLangFromPhrases(
           context: context,
           phrases: _district?.names)?.value;
     }
@@ -164,7 +164,7 @@ class DistrictModel{
     @required DistrictModel district,
 }){
 
-    final Phrase _districtName = Phrase.getPhraseByCurrentLandFromPhrases(
+    final Phrase _districtName = Phrase.getPhraseByCurrentLangFromPhrases(
         context: context,
         phrases: district?.names
     );
@@ -185,7 +185,7 @@ class DistrictModel{
 
     for (final DistrictModel district in sourceDistricts){
 
-      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLandFromPhrases(
+      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLangFromPhrases(
         context: context,
         phrases: district.names,
       );

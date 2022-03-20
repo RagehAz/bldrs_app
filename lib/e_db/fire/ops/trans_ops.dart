@@ -18,16 +18,13 @@ typedef TransWidgetBuilder = Widget Function(
 Widget transModelStreamBuilder({
   @required BuildContext context,
   @required TransWidgetBuilder builder,
-  @required String langCode,
+  @required Stream<TransModel> stream,
 }){
 
   return
 
   StreamBuilder(
-      stream: getTransModelStream(
-          context: context,
-          langCode: langCode,
-      ),
+      stream: stream,
       initialData: null,
       builder: (BuildContext ctx, AsyncSnapshot<TransModel> snapshot){
 

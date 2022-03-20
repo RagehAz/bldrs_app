@@ -212,7 +212,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                                       width: _bubbleWidth,
                                       color: Colorz.white20,
                                       verse:
-                                      Phrase.getPhraseByCurrentLandFromPhrases(
+                                      Phrase.getPhraseByCurrentLangFromPhrases(
                                           context: context,
                                           phrases: _keyword.names
                                       )?.value,

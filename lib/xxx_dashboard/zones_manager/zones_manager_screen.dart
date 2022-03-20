@@ -129,7 +129,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
           itemBuilder: (BuildContext context, int index) {
 
             final CountryModel _countryModel = _countries[index];
-            final String _countryName = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _countryModel.names)?.value;
+            final String _countryName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _countryModel.names)?.value;
 
             return DreamBox(
               height: 100,

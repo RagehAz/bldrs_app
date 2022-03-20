@@ -90,7 +90,7 @@ class SpecListTile extends StatelessWidget {
                             SizedBox(
                               width: _specNameBoxWidth,
                               child: SuperVerse(
-                                verse: Phrase.getPhraseByCurrentLandFromPhrases(
+                                verse: Phrase.getPhraseByCurrentLangFromPhrases(
                                     context: context, phrases: specList.names)?.value,
                                 centered: false,
                                 margin: 10,

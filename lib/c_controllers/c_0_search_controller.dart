@@ -165,7 +165,7 @@ Future<List<SearchResult>> _searchKeywords({
 
       if (_flyersByKeyword.isNotEmpty) {
         _results.add(SearchResult(
-          title: Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: kw.names)?.value,
+          title: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: kw.names)?.value,
           icon: _keywordsProvider.getKeywordIcon(context: context, son: kw),
           flyers: _flyersByKeyword,
         ));

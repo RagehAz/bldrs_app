@@ -515,7 +515,7 @@ class ZoneProvider extends ChangeNotifier {
 
 // -------------------------------------
   String getCurrentCountryNameByCurrentLingo(BuildContext context) {
-    final String _name = Phrase.getPhraseByCurrentLandFromPhrases(context: context, phrases: _currentCountryModel.names)?.value;
+    final String _name = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _currentCountryModel.names)?.value;
     return _name;
   }
 // -------------------------------------
@@ -526,7 +526,7 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   String getCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
 
-    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLandFromPhrases(
+    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
         context: context,
         phrases: _currentCityModel?.names
     )?.value;

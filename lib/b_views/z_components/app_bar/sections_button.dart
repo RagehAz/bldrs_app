@@ -79,7 +79,7 @@ class SectionsButton extends StatelessWidget {
                       flyerType: _currentSection,
                     )
                         :
-                    Phrase.getPhraseByCurrentLandFromPhrases(
+                    Phrase.getPhraseByCurrentLangFromPhrases(
                         context: context,
                         phrases: _currentKeyword.names
                     )?.value;

@@ -205,7 +205,7 @@ class KW {
   }
 // -----------------------------------------------------------------------------
   static String translateKeyword(BuildContext context, KW kw) {
-    final String _name = Phrase.getPhraseByCurrentLandFromPhrases(
+    final String _name = Phrase.getPhraseByCurrentLangFromPhrases(
         context: context,
         phrases: kw.names)?.value;
 
