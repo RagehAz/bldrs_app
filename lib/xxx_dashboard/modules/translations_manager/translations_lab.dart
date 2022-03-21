@@ -18,6 +18,8 @@ import 'package:bldrs/b_views/z_components/streamers/trans_mdel_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
@@ -26,6 +28,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -39,6 +42,7 @@ import 'package:bldrs/xxx_dashboard/modules/translations_manager/widgets/transla
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
+import 'package:provider/provider.dart';
 
 
 class TranslationsLab extends StatefulWidget {
@@ -62,6 +66,8 @@ class _TranslationsLabState extends State<TranslationsLab> {
   final TextEditingController _searchController = TextEditingController();
   PageController _pageController;
   final ValueNotifier<String> _newID = ValueNotifier('');
+  final ValueNotifier<bool> _isSearching = ValueNotifier(false);
+  final ValueNotifier<List<Phrase>> _mixedSearchedPhrases = ValueNotifier(<Phrase>[]);
   // ---------------------------------------------------------------------------
   Stream<TransModel> _arStream;
   Stream<TransModel> _enStream;
@@ -93,6 +99,8 @@ class _TranslationsLabState extends State<TranslationsLab> {
 
   // -----------------------------
   Future<void> _onBldrsTap() async {
+
+    await _createNewTransModel(context: context, enDocName: 'en', arDocName: 'ar');
 
   }
   // -----------------------------
@@ -144,9 +152,59 @@ class _TranslationsLabState extends State<TranslationsLab> {
                   zoneButtonIsOn: false,
                   appBarType: AppBarType.search,
                   searchController: _searchController,
-                  onSearchChanged: (String value){},
-                  onSearchSubmit: (String value){},
-                  searchHint: 'Search ${_enPhrases.length} phrases',
+                  onSearchChanged: (String text){
+
+                    blog('text : $text');
+
+                    _isSearching.value = TextChecker.triggerIsSearching(
+                      text: _searchController.text,
+                      isSearching: _isSearching.value,
+                    );
+
+                    if (_isSearching.value == true){
+
+                      List<Phrase> _foundPhrases = <Phrase>[];
+
+                      final List<Phrase> _enResults = Phrase.searchPhrases(
+                        phrases: _enPhrases,
+                        text: _searchController.text,
+                        byValue: true,
+                      );
+
+                      final List<Phrase> _arResults = Phrase.searchPhrases(
+                        phrases: _arPhrases,
+                        text: _searchController.text,
+                        byValue: true,
+                      );
+
+                      _foundPhrases = Phrase.insertPhrases(
+                        insertIn: _foundPhrases,
+                        phrasesToInsert: _enResults,
+                        forceUpdate: false,
+                        addLanguageCode: 'en',
+                        allowDuplicateIDs: true,
+                      );
+
+                      _foundPhrases = Phrase.insertPhrases(
+                        insertIn: _foundPhrases,
+                        phrasesToInsert: _arResults,
+                        forceUpdate: false,
+                        addLanguageCode: 'ar',
+                        allowDuplicateIDs: true,
+                      );
+
+                      blog('mixed phrase are : ');
+                      Phrase.blogPhrases(_foundPhrases);
+
+                      _mixedSearchedPhrases.value = _foundPhrases;
+                    }
+
+                    else {
+                      _mixedSearchedPhrases.value = <Phrase>[];
+                    }
+
+                  },
+                  searchHint: 'Search ${_enPhrases.length} phrases by ID only',
                   appBarRowWidgets: <Widget>[
 
                     const Expander(),
@@ -189,7 +247,7 @@ class _TranslationsLabState extends State<TranslationsLab> {
                             verseScaleFactor: 0.6,
                             onTap: () async {
 
-                              if (stringIsNotEmpty(_idController.text) == true){
+                              if (TextChecker.stringIsNotEmpty(_idController.text) == true){
                                 await _onUploadPhrase(
                                   context: context,
                                   enOldPhrases: _enPhrases,
@@ -231,27 +289,88 @@ class _TranslationsLabState extends State<TranslationsLab> {
                     physics: const BouncingScrollPhysics(),
                     children: <Widget>[
 
-                      /// TRANSLATIONS
-                      TranslationsPage(
-                        scrollController: _docScrollController,
-                        arPhrases: _arPhrases,
-                        enPhrases: _enPhrases,
-                        onCopyValue: (String value) => _onCopyText(value),
-                        onEditPhrase: (String phraseID) => _onEditPhrase(
-                          context: context,
-                          pageController: _pageController,
-                          enPhrases: _enPhrases,
+                      /// TRANSLATION PAGE
+                      ValueListenableBuilder(
+                          valueListenable: _isSearching,
+                          builder: (_, bool isSearching, Widget child){
+
+                            /// SEARCHING PAGE
+                            if (isSearching == true){
+
+                              return ValueListenableBuilder(
+                                valueListenable: _mixedSearchedPhrases,
+                                builder: (_, List<Phrase> mixedPhrases, Widget child){
+
+                                  final List<Phrase> _enSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
+                                    phrases: mixedPhrases,
+                                    langCode: 'en',
+                                  );
+
+                                  final List<Phrase> _arSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
+                                    phrases: mixedPhrases,
+                                    langCode: 'ar',
+                                  );
+
+                                  return TranslationsPage(
+                                    enPhrases: _enSearchedPhrases,
+                                    arPhrases: _arSearchedPhrases,
+                                    scrollController: _docScrollController,
+                                    onCopyValue: (String value) => _onCopyText(value),
+                                    onDeletePhrase: (String phraseID) => _onDeletePhrase(
+                                      context: context,
+                                      phraseID: phraseID,
+                                      enPhrases: _enPhrases,
+                                      arPhrases: _arPhrases,
+                                    ),
+                                    onEditPhrase: (String phraseID) async {
+
+                                      await _onEditPhrase(
+                                        context: context,
+                                        pageController: _pageController,
+                                        enPhrases: _enPhrases,
+                                        arPhrases: _arPhrases,
+                                        phraseID: phraseID,
+                                        enTextController: _englishController,
+                                        arTextController: _arabicController,
+                                        idTextController: _idController,
+                                      );
+
+                                    },
+                                  );
+
+                                },
+                              );
+
+
+                            }
+
+                            /// VIEW PAGE
+                            else {
+                              return child;
+                            }
+
+                          },
+                        child: TranslationsPage(
+                          scrollController: _docScrollController,
                           arPhrases: _arPhrases,
-                          phraseID: phraseID,
-                          enTextController: _englishController,
-                          arTextController: _arabicController,
-                          idTextController: _idController,
-                        ),
-                        onDeletePhrase: (String phraseID) => _onDeletePhrase(
+                          enPhrases: _enPhrases,
+                          onCopyValue: (String value) => _onCopyText(value),
+                          onEditPhrase: (String phraseID) => _onEditPhrase(
+                            context: context,
+                            pageController: _pageController,
+                            enPhrases: _enPhrases,
+                            arPhrases: _arPhrases,
+                            phraseID: phraseID,
+                            enTextController: _englishController,
+                            arTextController: _arabicController,
+                            idTextController: _idController,
+                          ),
+                          onDeletePhrase: (String phraseID) => _onDeletePhrase(
                             context: context,
                             phraseID: phraseID,
                             enPhrases: _enPhrases,
                             arPhrases: _arPhrases,
+                          ),
                         ),
                       ),
 
@@ -359,7 +478,7 @@ Future<void> _addWordsFromJSONToFirebaseForTheFirstTime({
     _enPhrases = Phrase.insertPhrase(
         phrases: _enPhrases,
         phrase: _enPhrase,
-        forceUpdate: true,
+        forceUpdateDuplicate: true,
     );
 
     final Phrase _arPhrase = Phrase(
@@ -373,7 +492,7 @@ Future<void> _addWordsFromJSONToFirebaseForTheFirstTime({
     _arPhrases = Phrase.insertPhrase(
       phrases: _arPhrases,
       phrase: _arPhrase,
-      forceUpdate: true,
+      forceUpdateDuplicate: true,
     );
 
   }
@@ -533,7 +652,7 @@ Future<void> _onUploadPhrase({
 
 
     final List<Phrase> _enPhrases = Phrase.insertPhrase(
-      forceUpdate: true,
+      forceUpdateDuplicate: true,
       phrases: enOldPhrases,
       phrase: Phrase(
         id: phraseID,
@@ -544,7 +663,7 @@ Future<void> _onUploadPhrase({
     blog('4');
 
     final List<Phrase> _arPhrases = Phrase.insertPhrase(
-      forceUpdate: true,
+      forceUpdateDuplicate: true,
       phrases: arOldPhrases,
       phrase:Phrase(
         id: phraseID,
@@ -702,7 +821,7 @@ Future<void> _createNewTransModel({
   @required String arDocName,
 }) async {
 
-  if (enDocName != 'en' && arDocName != 'ar'){
+  // if (enDocName != 'en' && arDocName != 'ar'){
 
     const TransModel _enModel = TransModel(
       langCode: 'en',
@@ -732,9 +851,9 @@ Future<void> _createNewTransModel({
       input: _arModel.toMap(),
     );
 
-  }
+  // }
 
-  else {
-    blog('BITCH YOU CAN NOT DO THIS SHIT OR YOU RUINE EVERYTHING');
-  }
+  // else {
+  //   blog('BITCH YOU CAN NOT DO THIS SHIT OR YOU RUINE EVERYTHING');
+  // }
 }
