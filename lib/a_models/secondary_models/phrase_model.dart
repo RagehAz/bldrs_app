@@ -130,11 +130,17 @@ class Phrase {
     if (Mapper.canLoopList(phrases)){
 
       for (final Phrase phrase in phrases){
-        blog('langCode : [ ${phrase.langCode} ] : '
+        blog(
+            'id : [ ${phrase.id} ] : '
+            'langCode : [ ${phrase.langCode} ] : '
             'name : [ ${phrase.value} ] : '
             'trigramLength : ${phrase.trigram?.length}'
         );
       }
+
+    } else {
+
+      blog('phrases ARE FUCKING NULL');
 
     }
 
@@ -198,6 +204,19 @@ class Phrase {
     return _phrase;
   }
 // -------------------------------------
+  static List<Phrase> getPhrasesByLangFromPhrases({
+    @required List<Phrase> phrases,
+    @required String langCode,
+}){
+    List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.canLoopList(phrases) == true){
+      _output = phrases.where((phr) => phr.langCode == langCode).toList();
+    }
+
+    return _output;
+  }
+// -------------------------------------
   static Phrase getPhraseFromPhrasesByID({
   @required List<Phrase> phrases,
     @required String id,
@@ -257,6 +276,54 @@ class Phrase {
     return _langCodes;
   }
 // -------------------------------------
+  static List<Phrase> searchPhrases({
+    @required List<Phrase> phrases,
+    @required String text,
+    bool byID = true,
+    bool byValue = false,
+}){
+    final List<Phrase> _result = <Phrase>[];
+
+    if (Mapper.canLoopList(phrases) && text.isNotEmpty){
+
+      if (byID == true){
+
+        final List<Phrase> _byID = phrases.where((ph){
+
+          return
+            stringContainsSubStringRegExp(
+              string: ph.id,
+              subString: text,
+            ) == true;
+
+        }).toList();
+
+        _result.addAll(_byID);
+      }
+
+      if (byValue == true){
+
+        final List<Phrase> _byValue = phrases.where((ph){
+
+          return
+            stringContainsSubStringRegExp(
+              string: ph.value,
+              subString: text,
+            ) == true;
+
+        }).toList();
+
+        _result.addAll(_byValue);
+      }
+
+    }
+
+    blog('found those phrases');
+    Phrase.blogPhrases(_result,);
+
+    return _result;
+  }
+// -------------------------------------
   static List<Phrase> searchPhrasesTrigrams({
     @required List<Phrase> sourcePhrases,
     @required String inputText,
@@ -280,6 +347,46 @@ class Phrase {
 
   /// CHECKERS
 
+// -------------------------------------
+  static bool phrasesIncludeIdenticalPhrases({
+  @required List<Phrase> phrases,
+}){
+    bool _include = false;
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        final Phrase _found = phrases.firstWhere((ph){
+
+          final bool _condition =
+          ph.id == phrase.id
+          &&
+          ph.value == phrase.value
+          &&
+          ph.langCode == phrase.langCode
+          &&
+          Mapper.listsAreTheSame(list1: ph.trigram, list2: phrase.trigram) == true
+          ;
+
+          return _condition;
+        }, orElse: () => null);
+
+        if (_found != null){
+          _include = true;
+          break;
+        }
+
+      }
+
+    }
+
+    else {
+      _include = false;
+    }
+
+    return _include;
+  }
 // -------------------------------------
   /// loops phrases for any phrase of this lang code
   static bool phrasesIncludeValueForThisLanguage({
@@ -465,15 +572,31 @@ class Phrase {
   static List<Phrase> insertPhrase({
     @required List<Phrase> phrases,
     @required Phrase phrase,
-    @required bool forceUpdate,
+    @required bool forceUpdateDuplicate,
+    String addLanguageCode,
   }){
 
-    final List<Phrase> _phr = Mapper.canLoopList(phrases) == true ? phrases : <Phrase>[];
-    final List<Phrase> _output = <Phrase>[..._phr];
+    final List<Phrase> _output =
+    phrases == null ? <Phrase>[]
+        :
+
+    phrases.isNotEmpty ? phrases
+        :
+    <Phrase>[];
+
 
     int _existingPhraseIndex;
+    Phrase _phraseToInsert = phrase;
+    if (stringIsNotEmpty(addLanguageCode)){
+      _phraseToInsert = Phrase(
+        id: phrase.id,
+        value: phrase.value,
+        langCode: addLanguageCode,
+        trigram: phrase.trigram,
+      );
+    }
 
-    if (Mapper.canLoopList(phrases) == true && phrase != null){
+    if (phrases != null && phrase != null){
 
       final bool _idIsTaken = phrasesIncludeThisID(
         phrases: phrases,
@@ -481,33 +604,183 @@ class Phrase {
       );
 
       if (_idIsTaken == false){
-        _output.add(phrase);
+        _output.add(_phraseToInsert);
       }
 
       else {
 
-        if (forceUpdate == true){
+        if (forceUpdateDuplicate == true){
 
-          if (_idIsTaken == true){
-            _existingPhraseIndex = phrases.indexWhere((ph) => ph.id == phrase.id);
-          }
-
+          _existingPhraseIndex = phrases.indexWhere((ph) => ph.id == phrase.id);
           if (_existingPhraseIndex != -1){
-            _output.insert(_existingPhraseIndex, phrase);
+            _output.insert(_existingPhraseIndex, _phraseToInsert);
           }
+
         }
 
       }
 
     }
 
-    if (_output.isEmpty || _existingPhraseIndex == -1){
-      return null;
-    }
-    else {
+    blog('after adding one phrase : ${phrase.id} ,, this list is :-');
+    blogPhrases(_output);
+
+    // if (_output.isEmpty || _existingPhraseIndex == -1){
+    //   return null;
+    // }
+    // else {
       return _output;
+    // }
+
+  }
+// -------------------------------------
+  static List<Phrase> insertPhrases({
+    @required List<Phrase> insertIn,
+    @required List<Phrase> phrasesToInsert,
+    @required bool forceUpdate,
+    String addLanguageCode,
+    bool allowDuplicateIDs,
+}){
+
+    List<Phrase> _output;
+
+    if (allowDuplicateIDs == true){
+      _output = _combinePhrasesListsAndAllowDuplicateIDs(
+        insertIn: insertIn,
+        phrasesToInsert: phrasesToInsert,
+        addLanguageCodeToInsertedPhrases: addLanguageCode,
+      );
     }
 
+    else {
+      _output = _combinePhrasesWithoutDuplicateIDs(
+        phrasesToInsert: phrasesToInsert,
+        insertIn: insertIn,
+        forceUpdate: forceUpdate,
+        addLanguageCode: addLanguageCode,
+      );
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  static List<Phrase> _combinePhrasesListsAndAllowDuplicateIDs({
+    @required List<Phrase> insertIn,
+    @required List<Phrase> phrasesToInsert,
+    String addLanguageCodeToInsertedPhrases,
+  }){
+
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.canLoopList(insertIn) == true){
+      _output.addAll(insertIn);
+    }
+
+    if (Mapper.canLoopList(phrasesToInsert) == true){
+
+      List<Phrase> _phrasesToInsert = phrasesToInsert;
+
+      if (stringIsNotEmpty(addLanguageCodeToInsertedPhrases) == true){
+        _phrasesToInsert = _addLangCodeToPhrases(
+          phrases: phrasesToInsert,
+          langCode: addLanguageCodeToInsertedPhrases,
+        );
+      }
+
+      _output.addAll(_phrasesToInsert);
+    }
+
+    blog('THE FUCKINGGGGGGGGGGG THING IS :');
+    blogPhrases(_output);
+
+    return _cleanIdenticalPhrases(_output);
+  }
+// -------------------------------------
+  static List<Phrase> _addLangCodeToPhrases({
+    @required String langCode,
+    @required List<Phrase> phrases,
+}){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        final Phrase _phrase = Phrase(
+          value: phrase.value,
+          id: phrase.id,
+          langCode: langCode,
+          trigram: phrase.trigram,
+        );
+
+        _output.add(_phrase);
+
+      }
+
+    }
+
+    return _output;
+  }
+
+  static List<Phrase> _combinePhrasesWithoutDuplicateIDs({
+    @required List<Phrase> insertIn,
+    @required List<Phrase> phrasesToInsert,
+    @required bool forceUpdate,
+    String addLanguageCode,
+  }){
+
+    List<Phrase> _output = insertIn == null ? <Phrase>[]
+        :
+    insertIn.isNotEmpty ? insertIn
+        :
+    <Phrase>[]
+    ;
+
+    if (Mapper.canLoopList(phrasesToInsert)){
+
+      for (final Phrase phrase in phrasesToInsert){
+
+        _output = insertPhrase(
+          phrases: _output,
+          phrase: phrase,
+          forceUpdateDuplicate: forceUpdate,
+          addLanguageCode: addLanguageCode,
+        );
+
+      }
+
+    }
+
+    blog('output phrases inserted are : -');
+    Phrase.blogPhrases(_output);
+
+    return _output;
+
+  }
+// -------------------------------------
+  static List<Phrase> _cleanIdenticalPhrases(List<Phrase> phrases){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase firstPhrase in phrases){
+
+        final bool _contains = phrasesIncludeIdenticalPhrases(
+          phrases: phrases,
+        );
+
+        if (_contains == false){
+          _output.add(firstPhrase);
+        }
+
+      }
+
+    }
+
+    blog('phrases have become this after clean up');
+      blogPhrases(_output);
+
+    return _output;
   }
 // -------------------------------------
   static List<Phrase> deletePhraseFromPhrases({

@@ -48,7 +48,7 @@ class TranslationsPage extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Container(
         width: Scale.appBarWidth(context),
-        height: _screenHeight - Ratioz.appBarBigHeight - 30,
+        height: _screenHeight - Ratioz.appBarBigHeight  - 50,
         decoration: BoxDecoration(
           color: Colorz.black255,
           borderRadius: superBorderAll(context, 30),

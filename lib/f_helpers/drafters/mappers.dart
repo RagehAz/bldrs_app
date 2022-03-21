@@ -164,8 +164,10 @@ bool listOfMapsContainMap(
 }
 
 // -----------------------------------------------------------------------------
-bool listsAreTheSame(
-    {@required List<dynamic> list1, @required List<dynamic> list2}) {
+bool listsAreTheSame({
+  @required List<dynamic> list1,
+  @required List<dynamic> list2
+}) {
   bool listsAreTheSame;
 
   if (list1.length != list2.length) {
@@ -183,7 +185,6 @@ bool listsAreTheSame(
 
   return listsAreTheSame;
 }
-
 // -----------------------------------------------------------------------------
 bool mapsAreTheSame(Map<String, dynamic> map1, Map<String, dynamic> map2) {
   bool _mapsAreTheSame;
