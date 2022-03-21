@@ -242,3 +242,38 @@ String concludeEnglishOrArabicLingo(String text) {
   return _lingoCode;
 }
 // -----------------------------------------------------------------------------
+bool triggerIsSearching({
+  @required String text,
+  @required bool isSearching,
+  int minCharLimit = 3,
+}){
+
+  bool _output;
+
+      if (text.length >= minCharLimit){
+
+
+        _output = true;
+
+        // /// while searching
+        // if (isSearching == true){
+        //   if (text.isEmpty){
+        //     _output = false;
+        //   }
+        // }
+        //
+        // /// while not searching
+        // else {
+        //   if (text.isNotEmpty == true){
+        //     _output = true;
+        //   }
+        // }
+
+      }
+      else {
+        _output = false;
+      }
+
+  return  _output;
+}
+// -----------------------------------------------------------------------------
