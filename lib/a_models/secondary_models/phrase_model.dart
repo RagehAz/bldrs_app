@@ -447,6 +447,16 @@ class Phrase {
 
     return phrases;
   }
+// -------------------------------------
+  static List<Phrase> sortPhrasesByID({@required List<Phrase> phrases}){
+
+    if (Mapper.canLoopList(phrases)){
+      phrases.sort((Phrase a, Phrase b) => a.id.compareTo(b.id));
+    }
+
+    return phrases;
+
+  }
 // -----------------------------------------------------------------------------
 
   /// MODIFIERS

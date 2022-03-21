@@ -84,26 +84,21 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   }) {
 
     final CrossAxisAlignment _versesCrossAlignment =
-    icon == null
-        &&
-        textDirection == null
-        &&
-        secondLine == null ?
+    verseCentered ? CrossAxisAlignment.center
+    :
+    icon == null && textDirection == null && secondLine == null ?
     CrossAxisAlignment.center
         :
     textDirection != null ?
     CrossAxisAlignment.start // dunno why
         :
-    (icon != null && secondLine != null)
-        ||
-        (verseCentered == false) ?
+    (icon != null && secondLine != null) || (verseCentered == false) ?
     CrossAxisAlignment.start
         :
     CrossAxisAlignment.center; // verseCentered
 
     return _versesCrossAlignment;
   }
-
 // -----------------------------------------------------------------------------
   static double verseWidth({
     double width,
@@ -349,7 +344,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     maxLines: 10,
                     italic: true,
                     shadow: _secondLineShadowIsOn(),
-                    centered: false,
+                    centered: _verseIsCentered(),
                     scaleFactor: secondLineScaleFactor,
                   ),
               ],

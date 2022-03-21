@@ -56,7 +56,7 @@ class TransModel {
 
     final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(doc);
 
-    blog('map is $_map');
+    // blog('map is $_map');
 
     final TransModel _model = TransModel.decipher(_map);
     return _model;
