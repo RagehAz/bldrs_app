@@ -116,6 +116,7 @@ class Phrase {
 
     blog('PHRASE ------------------------------------- START');
 
+    blog('id : $id');
     blog('langCode : $langCode');
     blog('value : $value');
 
@@ -457,7 +458,8 @@ class Phrase {
     @required bool forceUpdate,
   }){
 
-    final List<Phrase> _output = <Phrase>[...phrases];
+    final List<Phrase> _phr = Mapper.canLoopList(phrases) == true ? phrases : <Phrase>[];
+    final List<Phrase> _output = <Phrase>[..._phr];
 
     int _existingPhraseIndex;
 
