@@ -20,8 +20,11 @@ import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/wordz.dart';
 import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +45,7 @@ class _TranslationsLabState extends State<TranslationsLab> {
   // ---------------------------------------------------------------------------
   // const List<KW> _keywords = ChainProperties.chain.sons;
   // ---------------------------------------------------------------------------
-  final TextEditingController _keyController = TextEditingController();
+  final TextEditingController _idController = TextEditingController();
   final TextEditingController _englishController = TextEditingController();
   final TextEditingController _arabicController = TextEditingController();
   ScrollController _docScrollController;
@@ -72,22 +75,6 @@ class _TranslationsLabState extends State<TranslationsLab> {
   // -----------------------------
   Future<void> _onBldrsTap() async {
 
-    const String _langCode = 'en';
-
-    const TransModel _model = TransModel(
-      langCode: _langCode,
-      phrases: [
-        Phrase(id: 'inTheNameOfAllah', value: 'In the name of Allah'),
-      ],
-    );
-
-    await createNamedDoc(
-        context: context,
-        collName: FireColl.translations,
-        docName: _langCode,
-        input: _model.toMap(),
-    );
-
   }
   // -----------------------------
   void _onClearText(TextEditingController controller){
@@ -106,258 +93,9 @@ class _TranslationsLabState extends State<TranslationsLab> {
     );
   }
   // -----------------------------------------------------------------------
-  final String _collName = FireColl.translations;
-  // -----------------------------
   Future<void> _onChangeDoc() async {
 
   }
-  // ---------------------------------------------------------------------------
-
-  /// FIRE OPS
-
-  // -----------------------------
-  Future<bool> _preUploadCheck({
-    @required TransModel arTransModel,
-    @required TransModel enTransModel,
-  }) async {
-
-    bool _continueOps = true;
-    String _alertMessage;
-    bool _idIsTakenEn;
-    bool _idIsTakenAr;
-    bool _valueHasDuplicateEn;
-    bool _valueHasDuplicateAr;
-    Phrase _phrase;
-
-    /// EN ID TAKEN
-    _idIsTakenEn = Phrase.phrasesIncludeThisID(
-      phrases: enTransModel.phrases,
-      id: _keyController.text,
-    );
-    if (_idIsTakenEn == true){
-      _phrase = Phrase.getPhraseFromPhrasesByID(
-          phrases: enTransModel.phrases,
-          id: _keyController.text,
-      );
-      _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
-    }
-
-    /// AR ID TAKEN
-    _idIsTakenAr = Phrase.phrasesIncludeThisID(
-      phrases: arTransModel.phrases,
-      id: _keyController.text,
-    );
-    if (_idIsTakenAr == true){
-      _phrase = Phrase.getPhraseFromPhrasesByID(
-        phrases: arTransModel.phrases,
-        id: _keyController.text,
-      );
-      _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
-    }
-
-    if (_idIsTakenAr == false && _idIsTakenEn == false){
-
-      /// EN VALUE DUPLICATE
-      _valueHasDuplicateEn = Phrase.phrasesIncludeThisValue(
-        phrases: enTransModel.phrases,
-        value: _englishController.text,
-      );
-      if (_valueHasDuplicateEn == true){
-        _phrase = Phrase.getPhraseFromPhrasesByValue(
-          phrases: enTransModel.phrases,
-          value: _englishController.text,
-        );
-        _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
-      }
-
-      /// EN VALUE DUPLICATE
-      _valueHasDuplicateAr = Phrase.phrasesIncludeThisValue(
-        phrases: arTransModel.phrases,
-        value: _arabicController.text,
-      );
-      if (_valueHasDuplicateAr == true){
-        _phrase = Phrase.getPhraseFromPhrasesByValue(
-          phrases: arTransModel.phrases,
-          value: _arabicController.text,
-        );
-        _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
-      }
-
-    }
-
-    // so ..
-
-    if (_alertMessage != null){
-
-      final String _actionTypeMessage =
-          _idIsTakenEn == true || _idIsTakenAr == true ? 'This will override this Phrase'
-          :
-          _valueHasDuplicateAr == true || _valueHasDuplicateEn == true ? 'This will add New Phrase'
-          :
-          'This Will Upload';
-
-      _continueOps = await CenterDialog.showCenterDialog(
-        context: context,
-        title: '7aseb !',
-        boolDialog: true,
-        body: '$_alertMessage\n'
-            '$_actionTypeMessage\n'
-            'Wanna continue uploading ?',
-      );
-
-    }
-
-    return _continueOps;
-  }
-  // -----------------------------
-  Future<void> _onUploadPhrase({
-    @required TransModel arTransModel,
-    @required TransModel enTransModel,
-  }) async {
-
-    blog('1');
-
-    final bool _continueOps = await _preUploadCheck(
-        arTransModel: arTransModel,
-        enTransModel: enTransModel
-    );
-
-    blog('_continueOps : $_continueOps');
-
-    if (_continueOps == true){
-
-      blog('3');
-
-      final List<Phrase> _enPhrases = Phrase.insertPhrase(
-        forceUpdate: true,
-        phrases: enTransModel.phrases,
-        phrase: Phrase(
-          id: _keyController.text,
-          value: _englishController.text,
-        ),
-      );
-
-      blog('4');
-
-      final List<Phrase> _arPhrases = Phrase.insertPhrase(
-        forceUpdate: true,
-        phrases: arTransModel.phrases,
-        phrase:Phrase(
-          id: _keyController.text,
-          value: _arabicController.text,
-        ),
-      );
-
-      blog('5');
-
-      if (_enPhrases == null || _arPhrases == null){
-
-        await CenterDialog.showCenterDialog(
-          context: context,
-          title: 'Obaaaaa',
-          body: 'Keda fi 7aga mesh mazboota \n could not upload or update',
-        );
-
-      }
-
-      else {
-
-        await updateDocField(
-          context: context,
-          collName: _collName,
-          docName: 'en',
-          field: 'phrases',
-          input: Phrase.cipherPhrases(phrases: _enPhrases),
-        );
-
-        await updateDocField(
-          context: context,
-          collName: _collName,
-          docName: 'ar',
-          field: 'phrases',
-          input:  Phrase.cipherPhrases(phrases: _arPhrases),
-        );
-
-        await TopDialog.showTopDialog(
-          context: context,
-          verse: 'Added : ${_keyController.text}',
-          secondLine: '${_englishController.text} : ${_arabicController.text}',
-        );
-
-      }
-
-    }
-
-  }
-  // -----------------------------
-  Future<void> _onDeletePhrase({
-    @required String phraseID,
-    @required TransModel arTransModel,
-    @required TransModel enTransModel,
-}) async {
-
-    final bool _continue = await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Bgad ?',
-      body: 'Delete This Phras ?\nID : $phraseID',
-      boolDialog: true,
-    );
-
-    if (_continue == true){
-
-      final List<Phrase> _enPhrases = Phrase.deletePhraseFromPhrases(
-        phrases: enTransModel.phrases,
-        phraseID: phraseID,
-      );
-
-      final List<Phrase> _arPhrases = Phrase.deletePhraseFromPhrases(
-        phrases: arTransModel.phrases,
-        phraseID: phraseID,
-      );
-
-      final bool _enPhrasesListsAreTheSame = Phrase.phrasesListsAreTheSame(
-          firstPhrases: _enPhrases,
-          secondPhrases: enTransModel.phrases,
-      );
-
-      final bool _arPhrasesAreTheSame = Phrase.phrasesListsAreTheSame(
-        firstPhrases: _enPhrases,
-        secondPhrases: arTransModel.phrases,
-      );
-
-      if (_enPhrasesListsAreTheSame != true && _arPhrasesAreTheSame != true){
-
-        await updateDocField(
-          context: context,
-          collName: _collName,
-          docName: 'en',
-          field: 'phrases',
-          input: Phrase.cipherPhrases(phrases: _enPhrases),
-        );
-
-        await updateDocField(
-          context: context,
-          collName: _collName,
-          docName: 'ar',
-          field: 'phrases',
-          input:  Phrase.cipherPhrases(phrases: _arPhrases),
-        );
-
-      }
-
-      else {
-
-        await CenterDialog.showCenterDialog(
-          context: context,
-          title: 'EH DAH !!',
-          body: 'CAN NOT DELETE THIS\n id : $phraseID',
-        );
-
-      }
-
-    }
-
-}
   // ---------------------------------------------------------------------------
 
   /// EXPANDING BUBBLE
@@ -450,19 +188,45 @@ class _TranslationsLabState extends State<TranslationsLab> {
                                           ),
 
                                           DreamBox(
-                                            width: 270,
+                                            width: 100,
                                             height: _buttonsHeight,
-                                            color: Colorz.yellow255,
-                                            verse: 'Upload Phrase to\nfirebaseDB / CollName / DocName',
+                                            color: Colorz.red255,
                                             verseColor: Colorz.black255,
                                             secondLineColor: Colorz.black255,
                                             verseShadow: false,
                                             verseMaxLines: 2,
                                             verseScaleFactor: 0.6,
-                                            verseCentered: false,
+                                            verseCentered: true,
+                                            verse: 'Upload group',
+                                            onTap: () async {
+
+                                              await _addWordsFromJSONToFirebaseForTheFirstTime(
+                                                context: context,
+                                                arOldPhrases: _arPhrases,
+                                                enOldPhrases: _enPhrases,
+                                              );
+
+                                            },
+                                          ),
+
+                                          DreamBox(
+                                            width: 150,
+                                            height: _buttonsHeight,
+                                            color: Colorz.yellow255,
+                                            verse: 'Upload',
+                                            verseColor: Colorz.black255,
+                                            secondLineColor: Colorz.black255,
+                                            verseShadow: false,
+                                            verseMaxLines: 2,
+                                            verseScaleFactor: 0.6,
+                                            verseCentered: true,
                                             onTap: () => _onUploadPhrase(
-                                              enTransModel: enTransModel,
-                                              arTransModel: arTransModel,
+                                              context: context,
+                                              enOldPhrases: _enPhrases,
+                                              arOldPhrases: _arPhrases,
+                                              enValue: _englishController.text,
+                                              arValue: _arabicController.text,
+                                              phraseID: _idController.text,
                                             ),
                                           ),
 
@@ -509,9 +273,10 @@ class _TranslationsLabState extends State<TranslationsLab> {
                                       onTap: () async {
 
                                         await _onDeletePhrase(
+                                          context: context,
                                           phraseID: _dataKey,
-                                          arTransModel: arTransModel,
-                                          enTransModel: enTransModel,
+                                          arPhrases: _arPhrases,
+                                          enPhrases: _enPhrases,
                                         );
 
                                       },
@@ -551,10 +316,10 @@ class _TranslationsLabState extends State<TranslationsLab> {
                 TextFieldBubble(
                   title: 'Key',
                   hintText: 'Phrase key',
-                  textController: _keyController,
-                  onBubbleTap: () => _onCopyText(_keyController),
-                  pasteFunction: () => _onPasteText(_keyController),
-                  actionBtFunction: () => _onClearText(_keyController),
+                  textController: _idController,
+                  onBubbleTap: () => _onCopyText(_idController),
+                  pasteFunction: () => _onPasteText(_idController),
+                  actionBtFunction: () => _onClearText(_idController),
                   actionBtIcon: Iconz.xLarge,
                   columnChildren: <Widget>[
 
@@ -567,7 +332,7 @@ class _TranslationsLabState extends State<TranslationsLab> {
                           verse: 'Add [phid_] to ID',
                           verseScaleFactor: 0.6,
                           onTap: (){
-                            _keyController.text = 'phid_${_keyController.text}';
+                            _idController.text = 'phid_${_idController.text}';
                           },
                         ),
 
@@ -616,5 +381,382 @@ class _TranslationsLabState extends State<TranslationsLab> {
 
         ],
     );
+  }
+}
+// ---------------------------------------------------------------------------
+Future<void> _addWordsFromJSONToFirebaseForTheFirstTime({
+  @required BuildContext context,
+  @required List<Phrase> enOldPhrases,
+  @required List<Phrase> arOldPhrases,
+}) async {
+
+  const List<String> _jsonIDs = superJSONWords;
+
+  List<Phrase> _enPhrases = <Phrase>[
+    ...enOldPhrases ?? []
+  ];
+  List<Phrase> _arPhrases = <Phrase>[
+    ...arOldPhrases ?? []
+  ];
+
+  for (final String id in _jsonIDs){
+
+    final Phrase _enPhrase = Phrase(
+      id: 'phid_$id',
+      value: await Localizer.getTranslationFromJSONByLangCode(
+        context: context,
+        jsonKey: id,
+        langCode: 'en',
+      ),
+    );
+    _enPhrases = Phrase.insertPhrase(
+        phrases: _enPhrases,
+        phrase: _enPhrase,
+        forceUpdate: true,
+    );
+
+    final Phrase _arPhrase = Phrase(
+      id: 'phid_$id',
+      value: await Localizer.getTranslationFromJSONByLangCode(
+        context: context,
+        jsonKey: id,
+        langCode: 'ar',
+      ),
+    );
+    _arPhrases = Phrase.insertPhrase(
+      phrases: _arPhrases,
+      phrase: _arPhrase,
+      forceUpdate: true,
+    );
+
+  }
+
+  await updateDocField(
+    context: context,
+    collName: FireColl.translations,
+    docName: 'en',
+    field: 'phrases',
+    input: Phrase.cipherPhrases(phrases: _enPhrases),
+  );
+
+  await updateDocField(
+    context: context,
+    collName: FireColl.translations,
+    docName: 'ar',
+    field: 'phrases',
+    input:  Phrase.cipherPhrases(phrases: _arPhrases),
+  );
+
+}
+
+// ---------------------------------------------------------------------------
+
+/// FIRE OPS
+
+// -----------------------------
+Future<bool> _preUploadCheck({
+  @required List<Phrase> arOldPhrases,
+  @required List<Phrase> enOldPhrases,
+  @required String phraseID,
+  @required String enValue,
+  @required String arValue,
+  @required BuildContext context,
+}) async {
+
+  bool _continueOps = true;
+  String _alertMessage;
+  bool _idIsTakenEn;
+  bool _idIsTakenAr;
+  bool _valueHasDuplicateEn;
+  bool _valueHasDuplicateAr;
+  Phrase _phrase;
+
+  /// EN ID TAKEN
+  _idIsTakenEn = Phrase.phrasesIncludeThisID(
+    phrases: enOldPhrases,
+    id: phraseID,
+  );
+  if (_idIsTakenEn == true){
+    _phrase = Phrase.getPhraseFromPhrasesByID(
+      phrases: enOldPhrases,
+      id: phraseID,
+    );
+    _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
+  }
+
+  /// AR ID TAKEN
+  _idIsTakenAr = Phrase.phrasesIncludeThisID(
+    phrases: arOldPhrases,
+    id: phraseID,
+  );
+  if (_idIsTakenAr == true){
+    _phrase = Phrase.getPhraseFromPhrasesByID(
+      phrases: arOldPhrases,
+      id: phraseID,
+    );
+    _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
+  }
+
+  if (_idIsTakenAr == false && _idIsTakenEn == false){
+
+    /// EN VALUE DUPLICATE
+    _valueHasDuplicateEn = Phrase.phrasesIncludeThisValue(
+      phrases: enOldPhrases,
+      value: enValue,
+    );
+    if (_valueHasDuplicateEn == true){
+      _phrase = Phrase.getPhraseFromPhrasesByValue(
+        phrases: enOldPhrases,
+        value: enValue,
+      );
+      _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
+    }
+
+    /// EN VALUE DUPLICATE
+    _valueHasDuplicateAr = Phrase.phrasesIncludeThisValue(
+      phrases: arOldPhrases,
+      value: arValue,
+    );
+    if (_valueHasDuplicateAr == true){
+      _phrase = Phrase.getPhraseFromPhrasesByValue(
+        phrases: arOldPhrases,
+        value: arValue,
+      );
+      _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
+    }
+
+  }
+
+  // so ..
+
+  if (_alertMessage != null){
+
+    final String _actionTypeMessage =
+    _idIsTakenEn == true || _idIsTakenAr == true ? 'This will override this Phrase'
+        :
+    _valueHasDuplicateAr == true || _valueHasDuplicateEn == true ? 'This will add New Phrase'
+        :
+    'This Will Upload';
+
+    _continueOps = await CenterDialog.showCenterDialog(
+      context: context,
+      title: '7aseb !',
+      boolDialog: true,
+      body: '$_alertMessage\n'
+          '$_actionTypeMessage\n'
+          'Wanna continue uploading ?',
+    );
+
+  }
+
+  return _continueOps;
+}
+// -----------------------------
+Future<void> _onUploadPhrases({
+  @required List<Phrase> arOldPhrases,
+  @required List<Phrase> enOldPhrases,
+  @required BuildContext context,
+  @required List<Phrase> arNewPhrases,
+  @required List<Phrase> enNewPhrases,
+}) async {
+
+
+}
+// -----------------------------
+Future<void> _onUploadPhrase({
+  @required List<Phrase> arOldPhrases,
+  @required List<Phrase> enOldPhrases,
+  @required BuildContext context,
+  @required String phraseID,
+  @required String enValue,
+  @required String arValue,
+}) async {
+
+
+  final bool _continueOps = await _preUploadCheck(
+    arOldPhrases: arOldPhrases,
+    enOldPhrases: enOldPhrases,
+    context: context,
+    phraseID: phraseID,
+    arValue: arValue,
+    enValue: enValue,
+  );
+
+  if (_continueOps == true){
+
+
+    final List<Phrase> _enPhrases = Phrase.insertPhrase(
+      forceUpdate: true,
+      phrases: enOldPhrases,
+      phrase: Phrase(
+        id: phraseID,
+        value: enValue,
+      ),
+    );
+
+    blog('4');
+
+    final List<Phrase> _arPhrases = Phrase.insertPhrase(
+      forceUpdate: true,
+      phrases: arOldPhrases,
+      phrase:Phrase(
+        id: phraseID,
+        value: arValue,
+      ),
+    );
+
+    blog('5');
+
+    if (_enPhrases == null || _arPhrases == null){
+
+      await CenterDialog.showCenterDialog(
+        context: context,
+        title: 'Obaaaaa',
+        body: 'Keda fi 7aga mesh mazboota \n could not upload or update',
+      );
+
+    }
+
+    else {
+
+      await updateDocField(
+        context: context,
+        collName: FireColl.translations,
+        docName: 'en',
+        field: 'phrases',
+        input: Phrase.cipherPhrases(phrases: _enPhrases),
+      );
+
+      await updateDocField(
+        context: context,
+        collName: FireColl.translations,
+        docName: 'ar',
+        field: 'phrases',
+        input:  Phrase.cipherPhrases(phrases: _arPhrases),
+      );
+
+      await TopDialog.showTopDialog(
+        context: context,
+        verse: 'Added id :$phraseID',
+        secondLine: '$enValue : $arValue',
+      );
+
+    }
+
+  }
+
+}
+// -----------------------------
+Future<void> _onDeletePhrase({
+  @required String phraseID,
+  @required List<Phrase> arPhrases,
+  @required List<Phrase> enPhrases,
+  @required BuildContext context,
+}) async {
+
+  final bool _continue = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Bgad ?',
+    body: 'Delete This Phras ?\nID : $phraseID',
+    boolDialog: true,
+  );
+
+  if (_continue == true){
+
+    final List<Phrase> _enPhrases = Phrase.deletePhraseFromPhrases(
+      phrases: enPhrases,
+      phraseID: phraseID,
+    );
+
+    final List<Phrase> _arPhrases = Phrase.deletePhraseFromPhrases(
+      phrases: arPhrases,
+      phraseID: phraseID,
+    );
+
+    final bool _enPhrasesListsAreTheSame = Phrase.phrasesListsAreTheSame(
+      firstPhrases: _enPhrases,
+      secondPhrases: enPhrases,
+    );
+
+    final bool _arPhrasesAreTheSame = Phrase.phrasesListsAreTheSame(
+      firstPhrases: _enPhrases,
+      secondPhrases: arPhrases,
+    );
+
+    if (_enPhrasesListsAreTheSame != true && _arPhrasesAreTheSame != true){
+
+      await updateDocField(
+        context: context,
+        collName: FireColl.translations,
+        docName: 'en',
+        field: 'phrases',
+        input: Phrase.cipherPhrases(phrases: _enPhrases),
+      );
+
+      await updateDocField(
+        context: context,
+        collName: FireColl.translations,
+        docName: 'ar',
+        field: 'phrases',
+        input:  Phrase.cipherPhrases(phrases: _arPhrases),
+      );
+
+    }
+
+    else {
+
+      await CenterDialog.showCenterDialog(
+        context: context,
+        title: 'EH DAH !!',
+        body: 'CAN NOT DELETE THIS\n id : $phraseID',
+      );
+
+    }
+
+  }
+
+}
+// ---------------------------------------------------------------------------
+/// DANGEROUS
+Future<void> _createNewTransModel({
+  @required BuildContext context,
+  @required String enDocName,
+  @required String arDocName,
+}) async {
+
+  if (enDocName != 'en' && arDocName != 'ar'){
+
+    const TransModel _enModel = TransModel(
+      langCode: 'en',
+      phrases: [
+        Phrase(id: 'phid_inTheNameOfAllah', value: 'In the name of Allah'),
+      ],
+    );
+
+    const TransModel _arModel = TransModel(
+      langCode: 'ar',
+      phrases: [
+        Phrase(id: 'phid_inTheNameOfAllah', value: 'بسم اللّه الرحمن الرحيم'),
+      ],
+    );
+
+    await createNamedDoc(
+      context: context,
+      collName: FireColl.translations,
+      docName: enDocName,
+      input: _enModel.toMap(),
+    );
+
+    await createNamedDoc(
+      context: context,
+      collName: FireColl.translations,
+      docName: arDocName,
+      input: _arModel.toMap(),
+    );
+
+  }
+
+  else {
+    blog('BITCH YOU CAN NOT DO THIS SHIT OR YOU RUINE EVERYTHING');
   }
 }

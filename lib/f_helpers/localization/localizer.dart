@@ -86,13 +86,13 @@ class Localizer {
           "changed local language and firestore.user['language']  updated to $code");
     }
   }
-
 // -----------------------------------------------------------------------------
   static Future<void> switchBetweenArabicAndEnglish(
       BuildContext context) async {
-    Wordz.languageCode(context) == Lang.englishLingo.code
-        ? await changeAppLanguage(context, Lang.arabicLingo.code)
-        : await changeAppLanguage(context, Lang.englishLingo.code);
+    Wordz.languageCode(context) == Lang.englishLingo.code ?
+    await changeAppLanguage(context, Lang.arabicLingo.code)
+        :
+    await changeAppLanguage(context, Lang.englishLingo.code);
   }
 
 // -----------------------------------------------------------------------------
@@ -107,29 +107,14 @@ class Localizer {
   static Locale _concludeLocaleByLingoCode(String lingoCode) {
     Locale _temp;
     switch (lingoCode) {
-      case Lang.englishCode:
-        _temp = Locale(lingoCode, 'US');
-        break;
-      case Lang.arabicCode:
-        _temp = Locale(lingoCode, 'EG');
-        break;
-      case Lang.spanishCode:
-        _temp = Locale(lingoCode, 'ES');
-        break;
-      case Lang.frenchCode:
-        _temp = Locale(lingoCode, 'FR');
-        break;
-      case Lang.chineseCode:
-        _temp = Locale(lingoCode, 'CN');
-        break;
-      case Lang.germanCode:
-        _temp = Locale(lingoCode, 'DE');
-        break;
-      case Lang.italianCode:
-        _temp = Locale(lingoCode, 'IT');
-        break;
-      default:
-        _temp = Locale(Lang.englishLingo.code, 'US');
+      case Lang.englishCode:_temp = Locale(lingoCode, 'US');break;
+      case Lang.arabicCode:_temp = Locale(lingoCode, 'EG');break;
+      case Lang.spanishCode:_temp = Locale(lingoCode, 'ES');break;
+      case Lang.frenchCode:_temp = Locale(lingoCode, 'FR');break;
+      case Lang.chineseCode:_temp = Locale(lingoCode, 'CN');break;
+      case Lang.germanCode:_temp = Locale(lingoCode, 'DE');break;
+      case Lang.italianCode:_temp = Locale(lingoCode, 'IT');break;
+      default:_temp = Locale(Lang.englishLingo.code, 'US');
     }
     return _temp;
   }
@@ -155,9 +140,9 @@ class Localizer {
 
     return _isArabic;
   }
-
 // -----------------------------------------------------------------------------
   static List<Locale> getSupportedLocales() {
+
     final List<Locale> _supportedLocales = <Locale>[
       const Locale('en', 'US'),
       const Locale('ar', 'EG'),
@@ -170,9 +155,9 @@ class Localizer {
 
     return _supportedLocales;
   }
-
 // -----------------------------------------------------------------------------
   static List<LocalizationsDelegate> getLocalizationDelegates() {
+
     final List<LocalizationsDelegate> _localizationDelegates =
         <LocalizationsDelegate>[
       Localizer.delegate,
@@ -183,12 +168,13 @@ class Localizer {
 
     return _localizationDelegates;
   }
-
 // -----------------------------------------------------------------------------
-  static Future<String> getCountryNameByLingo(
-      {@required BuildContext context,
-      @required String countryID,
-      @required String lingoCode}) async {
+  static Future<String> getTranslationFromJSONByLangCode({
+    @required BuildContext context,
+    @required String jsonKey,
+    @required String langCode,
+  }) async {
+
     String _jsonStringValues;
     String _output;
 
@@ -196,28 +182,33 @@ class Localizer {
       context: context,
       methodName: 'getCountryNameByLingo',
       functions: () async {
+
         _jsonStringValues =
-            await rootBundle.loadString('assets/languages/$lingoCode.json');
+            await rootBundle.loadString('assets/languages/$langCode.json');
+
       },
       onError: (String error) {},
     );
 
     if (_result == true) {
+
       final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
 
       final Map<String, dynamic> _map = _mappedJson
           .map((String key, value) => MapEntry(key, value.toString()));
 
-      _output = _map[countryID];
+      _output = _map[jsonKey];
     }
 
     return _output;
   }
 
 // -----------------------------------------------------------------------------
-  static Locale localeResolutionCallback(
-      {@required Locale deviceLocale,
-      @required Iterable<Locale> supportedLocales}) {
+  static Locale localeResolutionCallback({
+    @required Locale deviceLocale,
+    @required Iterable<Locale> supportedLocales,
+  }) {
+
     for (final Locale locale in supportedLocales) {
       if (locale.languageCode == deviceLocale.languageCode &&
           locale.countryCode == deviceLocale.countryCode) {
