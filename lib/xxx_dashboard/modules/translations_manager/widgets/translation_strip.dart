@@ -30,7 +30,7 @@ class TranslationStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _idsAreTheSame = enPhrase.id == arPhrase.id;
+    final bool _idsAreTheSame = enPhrase?.id == arPhrase?.id;
 
     return Container(
       width: width,
