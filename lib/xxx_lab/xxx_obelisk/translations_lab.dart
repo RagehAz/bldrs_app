@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
@@ -76,7 +77,7 @@ class _TranslationsLabState extends State<TranslationsLab> {
     const TransModel _model = TransModel(
       langCode: _langCode,
       phrases: [
-        Phrase(id: 'xxx', value: 'blah'),
+        Phrase(id: 'inTheNameOfAllah', value: 'In the name of Allah'),
       ],
     );
 
@@ -112,7 +113,7 @@ class _TranslationsLabState extends State<TranslationsLab> {
   }
   // ---------------------------------------------------------------------------
 
-  /// UPLOADING
+  /// FIRE OPS
 
   // -----------------------------
   Future<bool> _preUploadCheck({
@@ -120,8 +121,8 @@ class _TranslationsLabState extends State<TranslationsLab> {
     @required TransModel enTransModel,
   }) async {
 
+    bool _continueOps = true;
     String _alertMessage;
-    bool _continueOps;
     bool _idIsTakenEn;
     bool _idIsTakenAr;
     bool _valueHasDuplicateEn;
@@ -214,32 +215,40 @@ class _TranslationsLabState extends State<TranslationsLab> {
     @required TransModel enTransModel,
   }) async {
 
+    blog('1');
+
     final bool _continueOps = await _preUploadCheck(
         arTransModel: arTransModel,
         enTransModel: enTransModel
     );
 
+    blog('_continueOps : $_continueOps');
+
     if (_continueOps == true){
+
+      blog('3');
 
       final List<Phrase> _enPhrases = Phrase.insertPhrase(
         forceUpdate: true,
         phrases: enTransModel.phrases,
         phrase: Phrase(
           id: _keyController.text,
-          langCode: 'en',
           value: _englishController.text,
         ),
       );
+
+      blog('4');
 
       final List<Phrase> _arPhrases = Phrase.insertPhrase(
         forceUpdate: true,
         phrases: arTransModel.phrases,
         phrase:Phrase(
           id: _keyController.text,
-          langCode: 'ar',
           value: _arabicController.text,
         ),
       );
+
+      blog('5');
 
       if (_enPhrases == null || _arPhrases == null){
 
@@ -280,6 +289,75 @@ class _TranslationsLabState extends State<TranslationsLab> {
     }
 
   }
+  // -----------------------------
+  Future<void> _onDeletePhrase({
+    @required String phraseID,
+    @required TransModel arTransModel,
+    @required TransModel enTransModel,
+}) async {
+
+    final bool _continue = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Bgad ?',
+      body: 'Delete This Phras ?\nID : $phraseID',
+      boolDialog: true,
+    );
+
+    if (_continue == true){
+
+      final List<Phrase> _enPhrases = Phrase.deletePhraseFromPhrases(
+        phrases: enTransModel.phrases,
+        phraseID: phraseID,
+      );
+
+      final List<Phrase> _arPhrases = Phrase.deletePhraseFromPhrases(
+        phrases: arTransModel.phrases,
+        phraseID: phraseID,
+      );
+
+      final bool _enPhrasesListsAreTheSame = Phrase.phrasesListsAreTheSame(
+          firstPhrases: _enPhrases,
+          secondPhrases: enTransModel.phrases,
+      );
+
+      final bool _arPhrasesAreTheSame = Phrase.phrasesListsAreTheSame(
+        firstPhrases: _enPhrases,
+        secondPhrases: arTransModel.phrases,
+      );
+
+      if (_enPhrasesListsAreTheSame != true && _arPhrasesAreTheSame != true){
+
+        await updateDocField(
+          context: context,
+          collName: _collName,
+          docName: 'en',
+          field: 'phrases',
+          input: Phrase.cipherPhrases(phrases: _enPhrases),
+        );
+
+        await updateDocField(
+          context: context,
+          collName: _collName,
+          docName: 'ar',
+          field: 'phrases',
+          input:  Phrase.cipherPhrases(phrases: _arPhrases),
+        );
+
+      }
+
+      else {
+
+        await CenterDialog.showCenterDialog(
+          context: context,
+          title: 'EH DAH !!',
+          body: 'CAN NOT DELETE THIS\n id : $phraseID',
+        );
+
+      }
+
+    }
+
+}
   // ---------------------------------------------------------------------------
 
   /// EXPANDING BUBBLE
@@ -305,59 +383,6 @@ class _TranslationsLabState extends State<TranslationsLab> {
         onBldrsTap: _onBldrsTap,
         scrollerIsOn: false,
         listWidgets: <Widget>[
-
-          /// DATA ENTRY
-          ValueListenableBuilder(
-            key: const ValueKey<String>('phrases_data_entry'),
-            valueListenable: _phrasesExpanded,
-            child: Column(
-              children: <Widget>[
-
-                TextFieldBubble(
-                  title: 'Key',
-                  hintText: 'Phrase key',
-                  textController: _keyController,
-                  onBubbleTap: () => _onCopyText(_keyController),
-                  pasteFunction: () => _onPasteText(_keyController),
-                  actionBtFunction: () => _onClearText(_keyController),
-                  actionBtIcon: Iconz.xLarge,
-
-                ),
-
-                TextFieldBubble(
-                  title: 'English',
-                  hintText: 'English phrase',
-                  textController: _englishController,
-                  onBubbleTap: () => _onCopyText(_englishController),
-                  pasteFunction: () => _onPasteText(_englishController),
-                  actionBtFunction: () => _onClearText(_englishController),
-                  actionBtIcon: Iconz.xLarge,
-                ),
-
-                TextFieldBubble(
-                  title: 'عربي',
-                  hintText: 'مصطلح عربي',
-                  textController: _arabicController,
-                  onBubbleTap: () => _onCopyText(_arabicController),
-                  pasteFunction: () => _onPasteText(_arabicController),
-                  actionBtFunction: () => _onClearText(_arabicController),
-                  actionBtIcon: Iconz.xLarge,
-                ),
-
-              ],
-            ),
-            builder: (_, expanded, Widget child){
-
-              if (expanded == true){
-                return const SizedBox();
-              }
-
-              else {
-                return child;
-              }
-
-            },
-          ),
 
           /// PHRASES BUBBLE
           ValueListenableBuilder(
@@ -391,10 +416,20 @@ class _TranslationsLabState extends State<TranslationsLab> {
 
                             return SizedBox(
                               width: _clearWidth,
-                              height: _phrasesHeight + _buttonsHeight,
+                              // height: _phrasesHeight + _buttonsHeight,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
+
+                                  SuperVerse(
+                                    verse: '${_enPhrases.length} phrases',
+                                    size: 2,
+                                    centered: false,
+                                    weight: VerseWeight.thin,
+                                    margin: 5,
+                                    italic: true,
+                                  ),
 
                                   Align(
                                     alignment: Alignment.bottomCenter,
@@ -453,24 +488,32 @@ class _TranslationsLabState extends State<TranslationsLab> {
                             child: ListView.builder(
                                 controller: _docScrollController,
                                 physics: const BouncingScrollPhysics(),
-                                itemCount: _enPhrases.length,
+                                itemCount: _arPhrases.length,
                                 itemBuilder: (_, index){
 
                                   final int _number = index + 1;
 
-                                  final Phrase _enPhrase = _enPhrases[index];
-                                  final Phrase _arPhrase = _arPhrases[index];
+                                  final bool _canBuild = _number <= _arPhrases.length && _number <= _enPhrases.length;
 
-                                  final String _dataKey = _enPhrase.id;
-                                  final String _enValue = _enPhrase.value;
-                                  final String _arValue = _arPhrase.value;
+                                  final Phrase _enPhrase = _canBuild  ? _enPhrases[index]  : null;
+                                  final Phrase _arPhrase = _canBuild  ? _arPhrases[index] : null;
+
+                                  final String _dataKey = _enPhrase?.id;
+                                  final String _enValue = _enPhrase?.value;
+                                  final String _arValue = _arPhrase?.value;
 
                                   return
                                     DataStrip(
                                       dataKey: '$_number : $_dataKey',
                                       dataValue: '$_enValue : $_arValue',
-                                      onTap: (){
-                                        blog('wtf');
+                                      onTap: () async {
+
+                                        await _onDeletePhrase(
+                                          phraseID: _dataKey,
+                                          arTransModel: arTransModel,
+                                          enTransModel: enTransModel,
+                                        );
+
                                       },
                                       withHeadline: true,
                                     );
@@ -498,7 +541,78 @@ class _TranslationsLabState extends State<TranslationsLab> {
               }
           ),
 
-          const Horizon(),
+          /// DATA ENTRY
+          ValueListenableBuilder(
+            key: const ValueKey<String>('phrases_data_entry'),
+            valueListenable: _phrasesExpanded,
+            child: Column(
+              children: <Widget>[
+
+                TextFieldBubble(
+                  title: 'Key',
+                  hintText: 'Phrase key',
+                  textController: _keyController,
+                  onBubbleTap: () => _onCopyText(_keyController),
+                  pasteFunction: () => _onPasteText(_keyController),
+                  actionBtFunction: () => _onClearText(_keyController),
+                  actionBtIcon: Iconz.xLarge,
+                  columnChildren: <Widget>[
+
+                    Row(
+                      children: <Widget>[
+
+                        DreamBox(
+                          height: 35,
+                          width: 150,
+                          verse: 'Add [phid_] to ID',
+                          verseScaleFactor: 0.6,
+                          onTap: (){
+                            _keyController.text = 'phid_${_keyController.text}';
+                          },
+                        ),
+
+                      ],
+                    ),
+
+                  ],
+                ),
+
+                TextFieldBubble(
+                  title: 'English',
+                  hintText: 'English phrase',
+                  textController: _englishController,
+                  onBubbleTap: () => _onCopyText(_englishController),
+                  pasteFunction: () => _onPasteText(_englishController),
+                  actionBtFunction: () => _onClearText(_englishController),
+                  actionBtIcon: Iconz.xLarge,
+                ),
+
+                TextFieldBubble(
+                  title: 'عربي',
+                  hintText: 'مصطلح عربي',
+                  textController: _arabicController,
+                  onBubbleTap: () => _onCopyText(_arabicController),
+                  pasteFunction: () => _onPasteText(_arabicController),
+                  actionBtFunction: () => _onClearText(_arabicController),
+                  actionBtIcon: Iconz.xLarge,
+                ),
+
+              ],
+            ),
+            builder: (_, expanded, Widget child){
+
+              if (expanded == true){
+                return const SizedBox();
+              }
+
+              else {
+                return child;
+              }
+
+            },
+          ),
+
+          const Horizon(heightFactor: 5),
 
         ],
     );
