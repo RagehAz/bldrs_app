@@ -533,71 +533,77 @@ class SuperVerse extends StatelessWidget {
                     ),
 
             Flexible(
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          right: _sidePaddings, left: _sidePaddings),
-                      margin: EdgeInsets.all(_sidePaddings * 0.25),
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(_labelCorner)),
-                          color: labelColor),
-                      child: Text(
-                        verse,
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: maxLines,
-                        textAlign: getTextAlign(centered: centered),
-                        textScaleFactor: 1,
-                        style: createStyle(
-                          context: context,
-                          color: color,
-                          weight: weight,
-                          italic: italic,
-                          size: size,
-                          shadow: shadow,
-                          scaleFactor: scaleFactor,
-                          strikeThrough: strikethrough,
-                        ),
-
-                        // TextStyle(
-                        //     fontWeight: verseWeight,
-                        //     shadows: <Shadow>[
-                        //       if (shadow)
-                        //         Shadow(
-                        //           blurRadius: _shadowBlur,
-                        //           color: _leftShadow,
-                        //           offset: Offset(_shadowXOffset, _shadowYOffset),
-                        //         ),
-                        //       Shadow(
-                        //         blurRadius: _shadowBlur,
-                        //         color: _rightShadow,
-                        //         offset: Offset(_secondShadowXOffset, _shadowYOffset),
-                        //       ),
-                        //     ]
-                        // ),
-                      ),
-                    ),
+              child: Container(
+                padding: EdgeInsets.only(
+                    right: _sidePaddings,
+                    left: _sidePaddings,
+                ),
+                margin: EdgeInsets.all(_sidePaddings * 0.25),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
+                    color: labelColor,
+                ),
+                child: Text(
+                  verse,
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: maxLines,
+                  textAlign: getTextAlign(centered: centered),
+                  textScaleFactor: 1,
+                  style: createStyle(
+                    context: context,
+                    color: color,
+                    weight: weight,
+                    italic: italic,
+                    size: size,
+                    shadow: shadow,
+                    scaleFactor: scaleFactor,
+                    strikeThrough: strikethrough,
                   ),
+
+                  // TextStyle(
+                  //     fontWeight: verseWeight,
+                  //     shadows: <Shadow>[
+                  //       if (shadow)
+                  //         Shadow(
+                  //           blurRadius: _shadowBlur,
+                  //           color: _leftShadow,
+                  //           offset: Offset(_shadowXOffset, _shadowYOffset),
+                  //         ),
+                  //       Shadow(
+                  //         blurRadius: _shadowBlur,
+                  //         color: _rightShadow,
+                  //         offset: Offset(_secondShadowXOffset, _shadowYOffset),
+                  //       ),
+                  //     ]
+                  // ),
+
+                ),
+              ),
+            ),
 
             if (redDot == true)
               Container(
-                      height: _labelHeight,
-                      margin: labelColor == null
-                          ? EdgeInsets.symmetric(horizontal: _labelHeight * 0.2)
-                          : EdgeInsets.symmetric(
-                              horizontal: _labelHeight * 0.05),
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: labelColor == null
-                            ? EdgeInsets.only(top: _labelHeight * 0.2)
-                            : EdgeInsets.only(top: _labelHeight * 0.05),
-                        child: _dot(_dotSize, Colorz.red255),
-                      ),
-                    ),
-
-                ],
+                height: _labelHeight,
+                margin: labelColor == null ?
+                EdgeInsets.symmetric(horizontal: _labelHeight * 0.2)
+                    :
+                EdgeInsets.symmetric(
+                    horizontal: _labelHeight * 0.05
+                ),
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: labelColor == null ?
+                  EdgeInsets.only(top: _labelHeight * 0.2)
+                      :
+                  EdgeInsets.only(top: _labelHeight * 0.05),
+                  child: _dot(_dotSize, Colorz.red255),
+                ),
               ),
-            ),
-          );
+
+          ],
+        ),
+      ),
+    );
   }
 }
