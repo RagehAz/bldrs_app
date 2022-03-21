@@ -80,6 +80,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 //     final User _firebaseUser = FireAuthOps.superFirebaseUser();
 // ---------------------------------------------------------------------------
     return MainLayout(
+      key: const ValueKey<String>('obelisk'),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       zoneButtonIsOn: false,

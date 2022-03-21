@@ -69,27 +69,24 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
         ),
       ],
 
-      layoutWidget: OldMaxBounceNavigator(
-        isOn: widget.scrollable,
-        child: Scroller(
-          key: const ValueKey<String>('dashboard_scroller'),
-          isOn: widget.scrollerIsOn,
+      layoutWidget: Scroller(
+        key: const ValueKey<String>('dashboard_scroller'),
+        isOn: widget.scrollerIsOn,
+        controller: _controller,
+        child: ListView(
+          physics: widget.scrollable ?
+          const BouncingScrollPhysics()
+              :
+          const NeverScrollableScrollPhysics(),
+
           controller: _controller,
-          child: ListView(
-            physics: widget.scrollable ?
-            const BouncingScrollPhysics()
-                :
-            const NeverScrollableScrollPhysics(),
+          children: <Widget>[
 
-            controller: _controller,
-            children: <Widget>[
+            const Stratosphere(),
 
-              const Stratosphere(),
+            ...widget.listWidgets,
 
-              ...widget.listWidgets,
-
-            ],
-          ),
+          ],
         ),
       ),
     );

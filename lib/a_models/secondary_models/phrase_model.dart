@@ -455,7 +455,7 @@ class Phrase {
     @required List<Phrase> phrases,
     @required Phrase phrase,
     @required bool forceUpdate,
-}){
+  }){
 
     final List<Phrase> _output = <Phrase>[...phrases];
 
@@ -464,8 +464,8 @@ class Phrase {
     if (Mapper.canLoopList(phrases) == true && phrase != null){
 
       final bool _idIsTaken = phrasesIncludeThisID(
-          phrases: phrases,
-          id: phrase.id,
+        phrases: phrases,
+        id: phrase.id,
       );
 
       if (_idIsTaken == false){
@@ -496,6 +496,23 @@ class Phrase {
       return _output;
     }
 
-}
+  }
+// -------------------------------------
+  static List<Phrase> deletePhraseFromPhrases({
+    @required List<Phrase> phrases,
+    @required String phraseID,
+  }){
+
+    final List<Phrase> _output = <Phrase>[...phrases];
+
+    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(phraseID) == true){
+
+      _output.removeWhere((ph) => ph.id == phraseID);
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
 
 }
