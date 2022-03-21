@@ -10,44 +10,6 @@ import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 
 // -----------------------------------------------------------------------------
-typedef TransWidgetBuilder = Widget Function(
-    BuildContext context,
-    TransModel transModel,
-    );
-// -----------------------------------------------------------------------------
-Widget transModelStreamBuilder({
-  @required BuildContext context,
-  @required TransWidgetBuilder builder,
-  @required Stream<TransModel> stream,
-}){
-
-  return
-
-  StreamBuilder(
-      stream: stream,
-      initialData: null,
-      builder: (BuildContext ctx, AsyncSnapshot<TransModel> snapshot){
-
-        blog('snapshot is : $snapshot');
-
-        if (StreamChecker.connectionIsLoading(snapshot) == true) {
-
-          return const Center(
-            child: Loading(loading: true),
-          );
-
-        }
-
-        else {
-          final TransModel _transModel = snapshot.data;
-          return builder(ctx, _transModel);
-        }
-
-      }
-  );
-
-}
-// -----------------------------------------------------------------------------
 Stream<TransModel> getTransModelStream({
   @required BuildContext context,
   @required String langCode,

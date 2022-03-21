@@ -4,28 +4,38 @@ import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/secondary_models/translation_model.dart';
+import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/streamers/trans_mdel_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/f_helpers/theme/wordz.dart';
 import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
+import 'package:bldrs/xxx_dashboard/modules/translations_manager/widgets/translations_page.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
@@ -49,12 +59,21 @@ class _TranslationsLabState extends State<TranslationsLab> {
   final TextEditingController _englishController = TextEditingController();
   final TextEditingController _arabicController = TextEditingController();
   ScrollController _docScrollController;
+  final TextEditingController _searchController = TextEditingController();
+  PageController _pageController;
+  final ValueNotifier<String> _newID = ValueNotifier('');
   // ---------------------------------------------------------------------------
   Stream<TransModel> _arStream;
   Stream<TransModel> _enStream;
   @override
   void initState() {
     super.initState();
+
+    _pageController = PageController();
+
+    _idController.addListener(() {
+      _newID.value = _idController.text;
+    });
 
     _arStream = getTransModelStream(
       context: context,
@@ -86,301 +105,229 @@ class _TranslationsLabState extends State<TranslationsLab> {
     controller.text = value;
   }
   // -----------------------------
-  Future<void> _onCopyText(TextEditingController controller) async {
+  Future<void> _onCopyText(String value) async {
     await Keyboarders.copyToClipboard(
       context: context,
-      copy: controller.text,
+      copy: value,
     );
-  }
-  // -----------------------------------------------------------------------
-  Future<void> _onChangeDoc() async {
-
-  }
-  // ---------------------------------------------------------------------------
-
-  /// EXPANDING BUBBLE
-
-  // -----------------------------
-  final ValueNotifier<bool> _phrasesExpanded = ValueNotifier(false);
-  // ---------------------------------
-  void _triggerPhrasesExpansion(){
-    _phrasesExpanded.value = !_phrasesExpanded.value;
   }
   // -----------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    // final double _fieldWidth = _screenWidth - 20;
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    const double _buttonsHeight = 40;
 
-    final double _clearWidth = Bubble.clearWidth(context);
+    return TransModelStreamer(
+        stream: _arStream,
+        builder: (_, TransModel arTransModel) {
 
-    return DashBoardLayout(
-      key: const ValueKey<String>('DashBoardLayout_translations_lab'),
-      pageTitle: 'Translations Lab',
-        onBldrsTap: _onBldrsTap,
-        scrollerIsOn: false,
-        listWidgets: <Widget>[
+          final List<Phrase> _arPhrases = Phrase.sortPhrasesByID(
+            phrases: arTransModel?.phrases,
+          );
 
-          /// PHRASES BUBBLE
-          ValueListenableBuilder(
-              key: const ValueKey<String>('phrases_bubble'),
-              valueListenable: _phrasesExpanded,
-              child: transModelStreamBuilder(
-                context: context,
-                stream: _arStream,
-                builder: (_, TransModel arTransModel){
+          return TransModelStreamer(
+              stream: _enStream,
+              builder: (_, TransModel enTransModel) {
 
-                  final List<Phrase> _arPhrases = arTransModel?.phrases;
+                final List<Phrase> _enPhrases = Phrase.sortPhrasesByID(
+                  phrases: enTransModel?.phrases,
+                );
 
-                  return transModelStreamBuilder(
-                      context: context,
-                      stream: _enStream,
-                      builder: (_, TransModel enTransModel){
+                return MainLayout(
+                  key: const ValueKey<String>('DashBoardLayout_translations_lab'),
+                  historyButtonIsOn: false,
+                  skyType: SkyType.black,
+                  pyramidsAreOn: true,
+                  sectionButtonIsOn: false,
+                  zoneButtonIsOn: false,
+                  appBarType: AppBarType.search,
+                  searchController: _searchController,
+                  onSearchChanged: (String value){},
+                  onSearchSubmit: (String value){},
+                  searchHint: 'Search ${_enPhrases.length} phrases',
+                  appBarRowWidgets: <Widget>[
 
-                        final List<Phrase> _enPhrases = enTransModel?.phrases;
+                    const Expander(),
 
-                        final bool _canBuildPhrases =
-                            canLoopList(_enPhrases) == true
-                                &&
-                                canLoopList(_arPhrases) == true;
+                    /// UPLOAD GROUP
+                    DreamBox(
+                      height: _buttonsHeight,
+                      color: Colorz.red255,
+                      verseShadow: false,
+                      verseMaxLines: 2,
+                      verseScaleFactor: 0.6,
+                      verse: 'Upload',
+                      secondLine: 'group',
+                      margins: const EdgeInsets.symmetric(horizontal: 5),
+                      onTap: () async {
 
-                        return ValueListenableBuilder(
-                          valueListenable: _phrasesExpanded,
-                          builder: (_, bool expanded, Widget child){
-
-                            final double _phrasesHeight = expanded ? 500 : 200;
-                            const double _buttonsHeight = 40;
-
-                            return SizedBox(
-                              width: _clearWidth,
-                              // height: _phrasesHeight + _buttonsHeight,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-
-                                  SuperVerse(
-                                    verse: '${_enPhrases.length} phrases',
-                                    size: 2,
-                                    centered: false,
-                                    weight: VerseWeight.thin,
-                                    margin: 5,
-                                    italic: true,
-                                  ),
-
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-
-                                          DreamBox(
-                                            height: _buttonsHeight,
-                                            verse: 'Change',
-                                            secondLine: 'Doc.',
-                                            verseMaxLines: 2,
-                                            verseScaleFactor: 0.6,
-                                            color: Colorz.blue125,
-                                            onTap: _onChangeDoc,
-                                          ),
-
-                                          DreamBox(
-                                            width: 100,
-                                            height: _buttonsHeight,
-                                            color: Colorz.red255,
-                                            verseColor: Colorz.black255,
-                                            secondLineColor: Colorz.black255,
-                                            verseShadow: false,
-                                            verseMaxLines: 2,
-                                            verseScaleFactor: 0.6,
-                                            verseCentered: true,
-                                            verse: 'Upload group',
-                                            onTap: () async {
-
-                                              await _addWordsFromJSONToFirebaseForTheFirstTime(
-                                                context: context,
-                                                arOldPhrases: _arPhrases,
-                                                enOldPhrases: _enPhrases,
-                                              );
-
-                                            },
-                                          ),
-
-                                          DreamBox(
-                                            width: 150,
-                                            height: _buttonsHeight,
-                                            color: Colorz.yellow255,
-                                            verse: 'Upload',
-                                            verseColor: Colorz.black255,
-                                            secondLineColor: Colorz.black255,
-                                            verseShadow: false,
-                                            verseMaxLines: 2,
-                                            verseScaleFactor: 0.6,
-                                            verseCentered: true,
-                                            onTap: () => _onUploadPhrase(
-                                              context: context,
-                                              enOldPhrases: _enPhrases,
-                                              arOldPhrases: _arPhrases,
-                                              enValue: _englishController.text,
-                                              arValue: _arabicController.text,
-                                              phraseID: _idController.text,
-                                            ),
-                                          ),
-
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-
-                                  SizedBox(
-                                    width: _clearWidth,
-                                    height: _phrasesHeight,
-                                    child: _canBuildPhrases == true ? child : null,
-                                  ),
-
-                                ],
-                              ),
-                            );
-
-                          },
-
-                          child: Scroller(
-                            controller: _docScrollController,
-                            child: ListView.builder(
-                                controller: _docScrollController,
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: _arPhrases.length,
-                                itemBuilder: (_, index){
-
-                                  final int _number = index + 1;
-
-                                  final bool _canBuild = _number <= _arPhrases.length && _number <= _enPhrases.length;
-
-                                  final Phrase _enPhrase = _canBuild  ? _enPhrases[index]  : null;
-                                  final Phrase _arPhrase = _canBuild  ? _arPhrases[index] : null;
-
-                                  final String _dataKey = _enPhrase?.id;
-                                  final String _enValue = _enPhrase?.value;
-                                  final String _arValue = _arPhrase?.value;
-
-                                  return
-                                    DataStrip(
-                                      dataKey: '$_number : $_dataKey',
-                                      dataValue: '$_enValue : $_arValue',
-                                      onTap: () async {
-
-                                        await _onDeletePhrase(
-                                          context: context,
-                                          phraseID: _dataKey,
-                                          arPhrases: _arPhrases,
-                                          enPhrases: _enPhrases,
-                                        );
-
-                                      },
-                                      withHeadline: true,
-                                    );
-
-                                }
-                            ),
-                          ),
-
+                        await _addWordsFromJSONToFirebaseForTheFirstTime(
+                          context: context,
+                          arOldPhrases: _arPhrases,
+                          enOldPhrases: _enPhrases,
                         );
 
-                      }
-                  );
+                        },
+                    ),
 
-                },
-              ),
+                    /// UPLOAD BUTTON
+                    ValueListenableBuilder(
+                        valueListenable: _newID,
+                        builder: (_, String newID, Widget child){
 
-              builder: (_, bool expanded, Widget widgets){
-                return Bubble(
-                  title: 'English doc',
-                  bubbleColor: Colorz.black255,
-                  actionBtIcon: expanded ? Iconz.arrowDown : Iconz.arrowUp,
-                  actionBtFunction: _triggerPhrasesExpansion,
-                  columnChildren: <Widget>[widgets],
-                );
-              }
-          ),
+                          return DreamBox(
+                            height: _buttonsHeight,
+                            color: Colorz.yellow255,
+                            verse: 'Upload',
+                            verseColor: Colorz.black255,
+                            secondLineColor: Colorz.black255,
+                            secondLine: newID,
+                            verseShadow: false,
+                            verseMaxLines: 2,
+                            verseScaleFactor: 0.6,
+                            onTap: () async {
 
-          /// DATA ENTRY
-          ValueListenableBuilder(
-            key: const ValueKey<String>('phrases_data_entry'),
-            valueListenable: _phrasesExpanded,
-            child: Column(
-              children: <Widget>[
+                              if (stringIsNotEmpty(_idController.text) == true){
+                                await _onUploadPhrase(
+                                  context: context,
+                                  enOldPhrases: _enPhrases,
+                                  arOldPhrases: _arPhrases,
+                                  enValue: _englishController.text,
+                                  arValue: _arabicController.text,
+                                  phraseID: _idController.text,
+                                );
+                              }
 
-                TextFieldBubble(
-                  title: 'Key',
-                  hintText: 'Phrase key',
-                  textController: _idController,
-                  onBubbleTap: () => _onCopyText(_idController),
-                  pasteFunction: () => _onPasteText(_idController),
-                  actionBtFunction: () => _onClearText(_idController),
-                  actionBtIcon: Iconz.xLarge,
-                  columnChildren: <Widget>[
+                              else {
+                                await TopDialog.showTopDialog(
+                                    context: context,
+                                    verse: 'ID is Empty',
+                                );
+                              }
 
-                    Row(
-                      children: <Widget>[
+                            },
+                          );
 
-                        DreamBox(
-                          height: 35,
-                          width: 150,
-                          verse: 'Add [phid_] to ID',
-                          verseScaleFactor: 0.6,
-                          onTap: (){
-                            _idController.text = 'phid_${_idController.text}';
-                          },
+                        }
+                    ),
+
+                    /// BLDRS BUTTON
+                    GestureDetector(
+                      onTap: _onBldrsTap,
+                      child: const Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: BldrsName(
+                          size: 40,
                         ),
-
-                      ],
+                      ),
                     ),
 
                   ],
-                ),
 
-                TextFieldBubble(
-                  title: 'English',
-                  hintText: 'English phrase',
-                  textController: _englishController,
-                  onBubbleTap: () => _onCopyText(_englishController),
-                  pasteFunction: () => _onPasteText(_englishController),
-                  actionBtFunction: () => _onClearText(_englishController),
-                  actionBtIcon: Iconz.xLarge,
-                ),
+                  layoutWidget: PageView(
+                    controller: _pageController,
+                    physics: const BouncingScrollPhysics(),
+                    children: <Widget>[
 
-                TextFieldBubble(
-                  title: 'عربي',
-                  hintText: 'مصطلح عربي',
-                  textController: _arabicController,
-                  onBubbleTap: () => _onCopyText(_arabicController),
-                  pasteFunction: () => _onPasteText(_arabicController),
-                  actionBtFunction: () => _onClearText(_arabicController),
-                  actionBtIcon: Iconz.xLarge,
-                ),
+                      /// TRANSLATIONS
+                      TranslationsPage(
+                        scrollController: _docScrollController,
+                        arPhrases: _arPhrases,
+                        enPhrases: _enPhrases,
+                        onCopyValue: (String value) => _onCopyText(value),
+                        onEditPhrase: (String phraseID) => _onEditPhrase(
+                          context: context,
+                          pageController: _pageController,
+                          enPhrases: _enPhrases,
+                          arPhrases: _arPhrases,
+                          phraseID: phraseID,
+                          enTextController: _englishController,
+                          arTextController: _arabicController,
+                          idTextController: _idController,
+                        ),
+                        onDeletePhrase: (String phraseID) => _onDeletePhrase(
+                            context: context,
+                            phraseID: phraseID,
+                            enPhrases: _enPhrases,
+                            arPhrases: _arPhrases,
+                        ),
+                      ),
 
-              ],
-            ),
-            builder: (_, expanded, Widget child){
+                      /// CREATOR
+                      Container(
+                        key: const ValueKey<String>('translations_creator_page'),
+                        width: _screenWidth,
+                        height: _screenHeight,
+                        padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + 10),
+                        child: Column(
+                          children: <Widget>[
 
-              if (expanded == true){
-                return const SizedBox();
+                            TextFieldBubble(
+                              title: 'Key',
+                              hintText: 'Phrase key',
+                              textController: _idController,
+                              onBubbleTap: () => _onCopyText(_idController.text),
+                              pasteFunction: () => _onPasteText(_idController),
+                              actionBtFunction: () => _onClearText(_idController),
+                              actionBtIcon: Iconz.xLarge,
+                              columnChildren: <Widget>[
+
+                                Row(
+                                  children: <Widget>[
+
+                                    DreamBox(
+                                      height: 35,
+                                      width: 150,
+                                      verse: 'Add [phid_] to ID',
+                                      verseScaleFactor: 0.6,
+                                      onTap: (){
+                                        _idController.text = 'phid_${_idController.text}';
+                                      },
+                                    ),
+
+                                  ],
+                                ),
+
+                              ],
+                            ),
+
+                            TextFieldBubble(
+                              title: 'English',
+                              hintText: 'English phrase',
+                              textController: _englishController,
+                              onBubbleTap: () => _onCopyText(_englishController.text),
+                              pasteFunction: () => _onPasteText(_englishController),
+                              actionBtFunction: () => _onClearText(_englishController),
+                              actionBtIcon: Iconz.xLarge,
+                            ),
+
+                            TextFieldBubble(
+                              title: 'عربي',
+                              hintText: 'مصطلح عربي',
+                              textController: _arabicController,
+                              onBubbleTap: () => _onCopyText(_arabicController.text),
+                              pasteFunction: () => _onPasteText(_arabicController),
+                              actionBtFunction: () => _onClearText(_arabicController),
+                              actionBtIcon: Iconz.xLarge,
+                            ),
+
+                          ],
+                        ),
+                      ),
+
+                      // const Horizon(heightFactor: 5),
+
+                    ],
+                  ),
+
+                );
               }
+              );
+        }
+        );
 
-              else {
-                return child;
-              }
-
-            },
-          ),
-
-          const Horizon(heightFactor: 5),
-
-        ],
-    );
   }
 }
 // ---------------------------------------------------------------------------
@@ -714,6 +661,37 @@ Future<void> _onDeletePhrase({
     }
 
   }
+
+}
+
+Future<void> _onEditPhrase({
+  @required BuildContext context,
+  @required String phraseID,
+  @required List<Phrase> arPhrases,
+  @required List<Phrase> enPhrases,
+  @required PageController pageController,
+  @required TextEditingController enTextController,
+  @required TextEditingController arTextController,
+  @required TextEditingController idTextController,
+}) async {
+
+  goBack(context);
+
+  final Phrase _enPhrase = Phrase.getPhraseFromPhrasesByID(
+      phrases: enPhrases,
+      id: phraseID,
+  );
+
+  final Phrase _arPhrase = Phrase.getPhraseFromPhrasesByID(
+      phrases: arPhrases,
+      id: phraseID,
+  );
+
+  enTextController.text = _enPhrase.value;
+  arTextController.text = _arPhrase.value;
+  idTextController.text = _enPhrase.id;
+
+  await slideToNext(pageController, 2, 0);
 
 }
 // ---------------------------------------------------------------------------
