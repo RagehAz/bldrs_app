@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class TextFieldBubble extends StatelessWidget {
     this.onBubbleTap,
     this.isLoading = false,
     this.isError = false,
+    this.columnChildren,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -68,6 +70,7 @@ class TextFieldBubble extends StatelessWidget {
   final Function onBubbleTap;
   final bool isLoading;
   final bool isError;
+  final List<Widget> columnChildren;
   /// --------------------------------------------------------------------------
   static double _leadingIconSizeFactor(String leadingIcon){
     final double _sizeFactor =
@@ -201,6 +204,9 @@ class TextFieldBubble extends StatelessWidget {
               weight: VerseWeight.thin,
               leadingDot: true,
             ),
+
+          if (canLoopList(columnChildren) == true)
+          ...columnChildren,
 
         ]
     );
