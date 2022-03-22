@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -9,9 +8,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_dashboard/modules/translations_manager/widgets/translation_strip.dart';
 import 'package:flutter/material.dart';
 
-class TranslationsPage extends StatelessWidget {
+class TranslationsBubble extends StatelessWidget {
 
-  const TranslationsPage({
+  const TranslationsBubble({
     @required this.enPhrases,
     @required this.arPhrases,
     @required this.scrollController,

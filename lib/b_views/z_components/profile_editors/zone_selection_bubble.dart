@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -16,7 +17,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -386,8 +386,8 @@ class ZoneSelectionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bubbleClearWidth = Bubble.clearWidth(context);
-    const double _buttonsSpacing = Ratioz.appBarPadding;
+    // final double _bubbleClearWidth = Bubble.clearWidth(context);
+    // const double _buttonsSpacing = Ratioz.appBarPadding;
 
     final String _buttonVerse = loading ? 'Loading ...'
         :
