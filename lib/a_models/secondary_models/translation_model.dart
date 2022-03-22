@@ -3,8 +3,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../f_helpers/drafters/tracers.dart';
-
 enum TransDoc{
   general,
   keywordsAndSpecs,

@@ -251,23 +251,8 @@ bool triggerIsSearching({
   bool _output;
 
       if (text.length >= minCharLimit){
-
-
+        
         _output = true;
-
-        // /// while searching
-        // if (isSearching == true){
-        //   if (text.isEmpty){
-        //     _output = false;
-        //   }
-        // }
-        //
-        // /// while not searching
-        // else {
-        //   if (text.isNotEmpty == true){
-        //     _output = true;
-        //   }
-        // }
 
       }
       else {

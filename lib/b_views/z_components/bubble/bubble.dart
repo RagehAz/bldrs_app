@@ -128,10 +128,10 @@ class Bubble extends StatelessWidget {
           stretchy: stretchy,
         );
 // -----------------------------------------------------------------------------
-    final double _titleWidth = stretchy == true ?
-    null
-        :
-    _bubbleWidth - _actionBtSize * 2;
+//     final double _titleWidth = stretchy == true ?
+//     null
+//         :
+//     _bubbleWidth - _actionBtSize * 2;
 // -----------------------------------------------------------------------------
     final BorderRadius _corners = corners == null ?
     borders(context)
