@@ -107,13 +107,22 @@ class _TranslationsLabState extends State<TranslationsLab> {
                   appBarType: AppBarType.search,
                   searchHint: 'Search ${_enPhrases.length} phrases by ID only',
                   searchController: _searchController,
-                  onSearchChanged: (String text) => onSearchChanged(
+                  onSearchChanged: (String text) => onSearchPhrases(
                     text: text,
                     arPhrases: _arPhrases,
                     enPhrase: _enPhrases,
                     isSearching: _isSearching,
                     mixedSearchResult: _mixedSearchedPhrases,
                     searchController: _searchController,
+                  ),
+                  onSearchSubmit: (String text) => onSearchPhrases(
+                    text: text,
+                    arPhrases: _arPhrases,
+                    enPhrase: _enPhrases,
+                    isSearching: _isSearching,
+                    mixedSearchResult: _mixedSearchedPhrases,
+                    searchController: _searchController,
+                    forceSearch: true,
                   ),
                   appBarRowWidgets: <Widget>[
 
