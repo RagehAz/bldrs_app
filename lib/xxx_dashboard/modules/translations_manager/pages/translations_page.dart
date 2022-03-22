@@ -42,13 +42,19 @@ class TranslationsPage extends StatelessWidget {
             valueListenable: mixedSearchedPhrases,
             builder: (_, List<Phrase> mixedPhrases, Widget child){
 
+              final List<Phrase> _allLanguagesPhrasesOfAllMixedPhrases = Phrase.getAllLanguagesPhrasesOfMixedPhrases(
+                enPhrases : enPhrases,
+                arPhrases : arPhrases,
+                mixedPhrases : mixedPhrases,
+              );
+
               final List<Phrase> _enSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
-                phrases: mixedPhrases,
+                phrases: _allLanguagesPhrasesOfAllMixedPhrases,
                 langCode: 'en',
               );
 
               final List<Phrase> _arSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
-                phrases: mixedPhrases,
+                phrases: _allLanguagesPhrasesOfAllMixedPhrases,
                 langCode: 'ar',
               );
 

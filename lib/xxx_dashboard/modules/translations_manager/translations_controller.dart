@@ -4,14 +4,15 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/ops/trans_ops.dart' as TransOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-
-void onSearchChanged({
+// -----------------------------
+void onSearchPhrases({
   @required String text,
   @required ValueNotifier<bool> isSearching,
   @required TextEditingController searchController,
@@ -19,6 +20,7 @@ void onSearchChanged({
   @required List<Phrase> arPhrases,
   /// mixes between en & ar values in one list
   @required ValueNotifier<List<Phrase>> mixedSearchResult,
+  bool forceSearch = false,
 }){
 
   blog('text : $text');
@@ -26,6 +28,7 @@ void onSearchChanged({
   isSearching.value = TextChecker.triggerIsSearching(
     text: searchController.text,
     isSearching: isSearching.value,
+    minCharLimit: forceSearch ? 1 : 3,
   );
 
   if (isSearching.value == true){
@@ -60,8 +63,8 @@ void onSearchChanged({
       allowDuplicateIDs: true,
     );
 
-    blog('mixed phrase are : ');
-    Phrase.blogPhrases(_foundPhrases);
+    // blog('mixed phrase are : ');
+    // Phrase.blogPhrases(_foundPhrases);
 
     mixedSearchResult.value = _foundPhrases;
   }
@@ -71,7 +74,7 @@ void onSearchChanged({
   }
 
 }
-
+// -----------------------------
 void onClearText(TextEditingController controller){
   controller.text = '';
 }
@@ -282,7 +285,6 @@ Future<void> onUploadPhrase({
   @required String arValue,
 }) async {
 
-
   final bool _continueOps = await _preUploadCheck(
     arOldPhrases: arOldPhrases,
     enOldPhrases: enOldPhrases,
@@ -309,7 +311,7 @@ Future<void> onUploadPhrase({
     final List<Phrase> _arPhrases = Phrase.insertPhrase(
       forceUpdateDuplicate: true,
       phrases: arOldPhrases,
-      phrase:Phrase(
+      phrase: Phrase(
         id: phraseID,
         value: arValue,
       ),
@@ -329,20 +331,10 @@ Future<void> onUploadPhrase({
 
     else {
 
-      await updateDocField(
-        context: context,
-        collName: FireColl.translations,
-        docName: 'en',
-        field: 'phrases',
-        input: Phrase.cipherPhrases(phrases: _enPhrases),
-      );
-
-      await updateDocField(
-        context: context,
-        collName: FireColl.translations,
-        docName: 'ar',
-        field: 'phrases',
-        input:  Phrase.cipherPhrases(phrases: _arPhrases),
+      await TransOps.updatePhrases(
+          context: context,
+          enPhrases: _enPhrases,
+          arPhrases: _arPhrases,
       );
 
       await TopDialog.showTopDialog(
@@ -395,20 +387,10 @@ Future<void> onDeletePhrase({
 
     if (_enPhrasesListsAreTheSame != true && _arPhrasesAreTheSame != true){
 
-      await updateDocField(
+      await TransOps.updatePhrases(
         context: context,
-        collName: FireColl.translations,
-        docName: 'en',
-        field: 'phrases',
-        input: Phrase.cipherPhrases(phrases: _enPhrases),
-      );
-
-      await updateDocField(
-        context: context,
-        collName: FireColl.translations,
-        docName: 'ar',
-        field: 'phrases',
-        input:  Phrase.cipherPhrases(phrases: _arPhrases),
+        enPhrases: _enPhrases,
+        arPhrases: _arPhrases,
       );
 
     }
