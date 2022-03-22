@@ -140,7 +140,7 @@ class Phrase {
 
     } else {
 
-      blog('phrases ARE FUCKING NULL');
+      // blog('phrases ARE FUCKING NULL');
 
     }
 
@@ -218,8 +218,9 @@ class Phrase {
   }
 // -------------------------------------
   static Phrase getPhraseFromPhrasesByID({
-  @required List<Phrase> phrases,
+    @required List<Phrase> phrases,
     @required String id,
+    String addLangCode,
 }){
     Phrase _phrase;
 
@@ -228,7 +229,14 @@ class Phrase {
       for (final Phrase phrase in phrases){
 
         if (phrase.id == id){
-          _phrase = phrase;
+
+          _phrase = Phrase(
+            id: id,
+            value: phrase.value,
+            trigram: phrase.trigram,
+            langCode: addLangCode ?? phrase.langCode,
+          );
+
           break;
         }
 
@@ -274,6 +282,40 @@ class Phrase {
     }
 
     return _langCodes;
+  }
+// -------------------------------------
+  static List<Phrase> getAllLanguagesPhrasesOfMixedPhrases({
+    @required List<Phrase> enPhrases,
+    @required List<Phrase> arPhrases,
+    @required List<Phrase> mixedPhrases,
+}){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.canLoopList(mixedPhrases) == true){
+
+      for (final Phrase phrase in mixedPhrases){
+
+        final Phrase _en = getPhraseFromPhrasesByID(
+          phrases: enPhrases,
+          id: phrase.id,
+          addLangCode: 'en',
+        );
+
+        final Phrase _ar = getPhraseFromPhrasesByID(
+          phrases: arPhrases,
+          id: phrase.id,
+          addLangCode: 'ar',
+        );
+
+        _output.addAll(<Phrase>[_en, _ar]);
+      }
+
+    }
+
+    // blog('all mixed shit kollo fba3don in the blender keda ');
+    // blogPhrases(_output);
+
+    return _output;
   }
 // -------------------------------------
   static List<Phrase> searchPhrases({
@@ -690,8 +732,8 @@ class Phrase {
       _output.addAll(_phrasesToInsert);
     }
 
-    blog('THE FUCKINGGGGGGGGGGG THING IS :');
-    blogPhrases(_output);
+    // blog('THE FUCKINGGGGGGGGGGG THING IS :');
+    // blogPhrases(_output);
 
     return _cleanIdenticalPhrases(_output);
   }
@@ -777,8 +819,8 @@ class Phrase {
 
     }
 
-    blog('phrases have become this after clean up');
-      blogPhrases(_output);
+    // blog('phrases have become this after clean up');
+    //   blogPhrases(_output);
 
     return _output;
   }
