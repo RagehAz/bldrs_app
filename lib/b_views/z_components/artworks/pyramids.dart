@@ -1,6 +1,8 @@
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/xxx_dashboard/modules/translations_manager/translations_lab.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -50,7 +52,12 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
         width: Ratioz.pyramidsWidth,
         height: Ratioz.pyramidsHeight,
         child: GestureDetector(
-          onLongPress: () {Navigator.pushNamed(context, Routez.obelisk);}, /// TASK : REMOVE THIS ON RELEASE
+          onLongPress: () async {
+            await Navigator.pushNamed(context, Routez.obelisk);
+            }, /// TASK : REMOVE THIS ON RELEASE
+          onDoubleTap: () async {
+            await goToNewScreen(context, const TranslationsLab());
+          },
           child: Selector<UiProvider, bool>(
             selector: (_, UiProvider uiProvider) => uiProvider.isLoading,
             child: WebsafeSvg.asset(widget.pyramidsIcon),
