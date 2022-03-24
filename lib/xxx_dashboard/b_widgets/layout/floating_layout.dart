@@ -1,5 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
 class FloatingLayout extends StatelessWidget {

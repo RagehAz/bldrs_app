@@ -9,7 +9,7 @@ import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/widgets/user_button.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/user_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

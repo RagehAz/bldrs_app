@@ -8,7 +8,7 @@ import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/notifications_manager/noti_banner_editor.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/notifications_manager/noti_banner_editor.dart';
 import 'package:flutter/material.dart';
 
 class NotificationCard extends StatelessWidget {

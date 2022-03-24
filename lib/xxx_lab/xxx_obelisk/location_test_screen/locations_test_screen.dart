@@ -19,7 +19,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/location_test_screen/google_map_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
