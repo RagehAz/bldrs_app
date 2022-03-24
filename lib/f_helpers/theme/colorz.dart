@@ -158,7 +158,6 @@ abstract class Colorz {
         bzPageBGColor,
     ];
 
-
 }
 
 /*
