@@ -570,6 +570,7 @@ Future<void> updateDoc({
   @required String docName,
   @required Map<String, dynamic> input,
 }) async {
+
   await createNamedDoc(
     context: context,
     collName: collName,

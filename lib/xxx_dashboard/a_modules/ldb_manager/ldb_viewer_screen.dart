@@ -2,8 +2,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
-import 'package:bldrs/xxx_dashboard/ldb_manager/value_box.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -11,6 +10,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/xxx_dashboard/a_modules/ldb_manager/value_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

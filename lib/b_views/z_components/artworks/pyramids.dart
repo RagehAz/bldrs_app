@@ -2,7 +2,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/modules/translations_manager/translations_lab.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_lab.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';

@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/ldb_manager/ldb_viewer_screen.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/xxx_dashboard/ldb_manager/ldb_viewer_screen.dart';
-import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +19,9 @@ class LDBViewersScreen extends StatelessWidget {
         context,
         LDBViewerScreen(
           ldbDocName: ldbDocName,
-        ));
+        )
+    );
   }
-
 // -----------------------------------------------------------------------------
 //   Future<void> _goToAnActivityLog(BuildContext context) async {
 //

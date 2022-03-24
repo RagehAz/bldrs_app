@@ -1,7 +1,8 @@
 import 'package:bldrs/a_models/secondary_models/translation_model.dart';
-import 'package:bldrs/f_helpers/translations/ar.dart';
-import 'package:bldrs/f_helpers/translations/en.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations/ar.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations/en.dart';
+
 
 class PhraseProvider extends ChangeNotifier {
 

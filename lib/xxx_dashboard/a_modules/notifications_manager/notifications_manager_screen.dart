@@ -1,8 +1,8 @@
-import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/xxx_dashboard/notifications_manager/notification_maker.dart';
-import 'package:bldrs/xxx_dashboard/notifications_manager/notification_templates_screen.dart';
-import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/notifications_manager/notification_maker.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/notifications_manager/notification_templates_screen.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsManager extends StatefulWidget {

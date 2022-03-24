@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
-import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
