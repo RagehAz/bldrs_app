@@ -1,19 +1,19 @@
-import 'package:bldrs/xxx_dashboard/b_views/c_components/layout/dashboard_layout.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/xxx_dashboard/auditor/flyers_auditor_screen.dart';
-import 'package:bldrs/xxx_dashboard/bzz_manager/bzz_manager_screen.dart';
-import 'package:bldrs/xxx_dashboard/flyers_manager/all_flyers_screen.dart';
-import 'package:bldrs/xxx_dashboard/keywords/keywords_manager_screen.dart';
-import 'package:bldrs/xxx_dashboard/ldb_manager/ldb_manager_screen.dart';
-import 'package:bldrs/xxx_dashboard/notifications_manager/notifications_manager_screen.dart';
-import 'package:bldrs/xxx_dashboard/pricing_manager/pricing_screen.dart';
-import 'package:bldrs/xxx_dashboard/statistics/statistics_screen.dart';
-import 'package:bldrs/xxx_dashboard/ui_manager/ui_manager_screen.dart';
-import 'package:bldrs/xxx_dashboard/users_manager/users_manager_screen.dart';
-import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
-import 'package:bldrs/xxx_dashboard/zones_manager/zones_manager_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/bzz_manager/bzz_manager_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/flyers_manager/all_flyers_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/flyers_manager/auditor/flyers_auditor_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/keywords/keywords_manager_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/ldb_manager/ldb_manager_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/notifications_manager/notifications_manager_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/pricing_manager/pricing_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/statistics/statistics_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/ui_manager/ui_manager_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/users_manager/users_manager_screen.dart';
+import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/zones_manager/zones_manager_screen.dart';
 import 'package:flutter/material.dart';
 
 class DashBoard extends StatefulWidget {

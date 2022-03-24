@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/modules/translations_manager/widgets/translation_strip.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/widgets/translation_strip.dart';
 import 'package:flutter/material.dart';
 
 class TranslationsBubble extends StatelessWidget {
