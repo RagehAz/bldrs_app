@@ -52,16 +52,28 @@ class TranslationStrip extends StatelessWidget {
             width: width,
             height: 30,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+
               children: <Widget>[
 
-                SuperVerse(
-                  verse: 'en ID : ${enPhrase.id}',
-                  labelColor: Colorz.white20,
-                  size: 1,
-                  scaleFactor: 1.1,
-                  italic: true,
-                  weight: VerseWeight.thin,
-                  onTap: () => onCopyValue(enPhrase.id),
+                SizedBox(
+                  width: width - 30 - 15,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    children: <Widget>[
+                      SuperVerse(
+                        verse: 'en ID : ${enPhrase.id}',
+                        labelColor: Colorz.white20,
+                        size: 1,
+                        scaleFactor: 1.1,
+                        italic: true,
+                        centered: false,
+                        weight: VerseWeight.thin,
+                        onTap: () => onCopyValue(enPhrase.id),
+                      ),
+                    ],
+                  ),
                 ),
 
                 const Expander(),

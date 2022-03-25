@@ -371,7 +371,7 @@ bool canLoopList(List<dynamic> list) {
 }
 
 // -----------------------------------------------------------------------------
-void printMap(Map<String, dynamic> map) {
+void blogMap(Map<String, dynamic> map) {
   blog('MAP-PRINT --------------------------------------------------START');
 
   final List<String> _keys = map.keys.toList();
@@ -385,10 +385,10 @@ void printMap(Map<String, dynamic> map) {
 }
 
 // -----------------------------------------------------------------------------
-void printMaps(List<Map<String, dynamic>> maps) {
+void blogMaps(List<Map<String, dynamic>> maps) {
   if (canLoopList(maps)) {
     for (final Map<String, dynamic> map in maps) {
-      printMap(map);
+      blogMap(map);
     }
   }
 }

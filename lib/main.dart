@@ -153,7 +153,7 @@ class _BldrsAppState extends State<BldrsApp> {
           blog('_firebaseApp.name : ${_firebaseApp.name}');
           blog('_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
           blog('_firebaseApp.options :-');
-          printMap(_firebaseApp.options.asMap);
+          blogMap(_firebaseApp.options.asMap);
         },
         onError: (String error) {
           _fireError.value = error;

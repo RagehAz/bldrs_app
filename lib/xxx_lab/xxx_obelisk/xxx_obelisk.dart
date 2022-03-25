@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/kw/specs/spec_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_lab.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_manager.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/only_for_dev_widgets/obelisk_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/only_for_dev_widgets/the_golden_scroll.dart';
@@ -127,7 +127,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
 
           const ObeliskButton('New ASKs', Iconz.utPlanning, NewAsks()),
 
-          const ObeliskButton('Translations Lab', Iconz.language, TranslationsLab()),
+          const ObeliskButton('Translations Lab', Iconz.language, TranslationsManager()),
 
           ObeliskButton('BzEditor', Iconz.bz, BzEditorScreen(
             userModel: UserModel.dummyUserModel(context),
