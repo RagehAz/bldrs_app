@@ -224,7 +224,7 @@ Future<ZoneModel> _getZoneByIP_ipRegistry({
 
           final Map<String, dynamic> _countryData = json.decode(_response.body);
 
-          Mapper.printMap(_countryData);
+          Mapper.blogMap(_countryData);
 
           if (_countryData != null) {
 

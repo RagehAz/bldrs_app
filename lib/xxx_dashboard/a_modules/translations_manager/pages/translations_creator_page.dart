@@ -1,5 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -25,12 +27,13 @@ class TranslationsCreatorPage extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
-    return Container(
+    return SizedBox(
       key: const ValueKey<String>('translations_creator_page'),
       width: _screenWidth,
       height: _screenHeight,
-      padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + 10),
-      child: Column(
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + 10),
         children: <Widget>[
 
           TextFieldBubble(
@@ -81,6 +84,11 @@ class TranslationsCreatorPage extends StatelessWidget {
             actionBtFunction: () => onClearText(arController),
             actionBtIcon: Iconz.xLarge,
           ),
+
+          if (keyboardIsOn(context) == true)
+            const Horizon(
+              heightFactor: 3,
+            ),
 
         ],
       ),
