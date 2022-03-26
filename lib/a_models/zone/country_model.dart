@@ -19,7 +19,7 @@ class CountryModel {
     @required this.isGlobal,
     @required this.citiesIDs,
     @required this.language,
-    @required this.names,
+    @required this.phrases,
     @required this.currency,
   });
   /// --------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class CountryModel {
   final bool isGlobal;
   final List<String> citiesIDs;
   final String language;
-  final List<Phrase> names;
+  final List<Phrase> phrases;
   final String currency;
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap({@required bool toJSON}) {
@@ -47,7 +47,7 @@ class CountryModel {
       'isGlobal': isGlobal,
       'citiesIDs': citiesIDs,
       'language': language,
-      'names': Phrase.cipherPhrases(phrases: names),
+      'phrases': Phrase.cipherPhrases(phrases: phrases),
       'currency': currency,
     };
   }
@@ -59,11 +59,12 @@ class CountryModel {
     CountryModel _countryModel;
 
     if (map != null) {
-      final List<Phrase> _names = Phrase.decipherPhrases(map['names']);
+
+      final List<Phrase> _phrases = Phrase.decipherPhrases(map['names']);
 
       _countryModel = CountryModel(
         id: map['id'],
-        names: _names,
+        phrases: _phrases,
         region: map['region'],
         continent: map['continent'],
         isActivated: map['isActivated'],
@@ -181,7 +182,7 @@ class CountryModel {
     blog('isGlobal : $isGlobal');
     blog('citiesIDs : $citiesIDs');
     blog('language : $language');
-    blog('names : $names');
+    blog('phrases : $phrases');
 
     blog('$methodName ------------------------------------------- END');
   }

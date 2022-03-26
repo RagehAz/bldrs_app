@@ -2,6 +2,8 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/trans_ops.dart' as TransOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
@@ -88,8 +90,6 @@ Future<void> onCopyText(BuildContext context, String value) async {
     copy: value,
   );
 }
-// -----------------------------------------------------------------------
-
 // ---------------------------------------------------------------------------
 /// DONE
 /*
@@ -157,6 +157,84 @@ Future<void> _addWordsFromJSONToFirebaseForTheFirstTime({
   );
 
 }
+// -----------------------------
+Future<void> _onAddKeywordsToOriginalPhrases({
+  @required BuildContext context,
+  @required List<Phrase> originalEnPhrases,
+  @required List<Phrase> originalArPhrases,
+}) async {
+
+  const String _docName = FireDoc.keys_propertiesKeywords; // <----------------------
+
+  final Map<String, dynamic> _docMap = await readDoc(
+    context: context,
+    collName: FireColl.keys,
+    docName: _docName,
+  );
+
+
+  final List<String> _keys = _docMap.keys.toList();
+
+  final List<Phrase> _enPhrasesToAdd = <Phrase>[];
+  final List<Phrase> _arPhrasesToAdd = <Phrase>[];
+  final List<String> _keywordsIDs = <String>[];
+
+  for (final String key in _keys){
+
+    final Map<String, dynamic> _keywordMap = _docMap[key];
+    final String _keywordID = 'phid_k_${_keywordMap['id']}';
+
+    final Phrase _enPhrase = Phrase(
+      id: _keywordID,
+      value: _keywordMap['names']['en']['value'],
+    );
+
+    final Phrase _arPhrase = Phrase(
+      id: _keywordID,
+      value: _keywordMap['names']['ar']['value'],
+    );
+
+    _enPhrasesToAdd.add(_enPhrase);
+    _arPhrasesToAdd.add(_arPhrase);
+    _keywordsIDs.add(_keywordID);
+  }
+
+  final List<Phrase> _enResult = <Phrase>[...originalEnPhrases, ..._enPhrasesToAdd];
+  final List<Phrase> _arResult = <Phrase>[...originalArPhrases, ..._arPhrasesToAdd];
+
+  /// update english translations
+  await updateDocField(
+    context: context,
+    collName: FireColl.translations,
+    docName: 'en',
+    field: 'phrases',
+    input: Phrase.cipherPhrases(phrases: _enResult),
+  );
+
+  /// update arabic translations
+  await updateDocField(
+    context: context,
+    collName: FireColl.translations,
+    docName: 'ar',
+    field: 'phrases',
+    input: Phrase.cipherPhrases(phrases: _arResult),
+  );
+
+  await updateDocField(
+    context: context,
+    collName: FireColl.keys,
+    docName: 'keywords',
+    field: _docName,
+    input: _keywordsIDs,
+  );
+
+  Phrase.blogPhrases(_enResult);
+  Phrase.blogPhrases(_arResult);
+  blog('number of keywords = ${_keys.length} + ${originalEnPhrases.length} existing = ${_keys.length + originalEnPhrases.length} TOTAL');
+  blog('final list is ${_enResult.length} english : ${_arResult.length} arabic');
+
+}
+// -----------------------------
 */
 // ---------------------------------------------------------------------------
 
