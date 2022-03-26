@@ -98,7 +98,7 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
       countryID: widget.country.id,
     );
 
-    final String _countryName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: widget.country.names)?.value;
+    final String _countryName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: widget.country.phrases)?.value;
 
     return MainLayout(
       skyType: SkyType.black,

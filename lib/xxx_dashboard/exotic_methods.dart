@@ -252,7 +252,7 @@ class ExoticMethods {
           .add(country.id);
     }
 
-    blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.names[0].value}');
+    blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.phrases[0].value}');
   }
 
   final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);

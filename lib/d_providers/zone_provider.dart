@@ -44,7 +44,10 @@ class ZoneProvider extends ChangeNotifier {
     );
     if (_map != null && _map != <String, Object>{}){
       blog('fetchCountryByID : country found in local db : ${LDBDoc.countries}');
-      _countryModel = CountryModel.decipherCountryMap(map: _map, fromJSON: true);
+      _countryModel = CountryModel.decipherCountryMap(
+          map: _map,
+          fromJSON: true
+      );
     }
 
     /// 2 - if not found, search firebase
@@ -515,7 +518,11 @@ class ZoneProvider extends ChangeNotifier {
 
 // -------------------------------------
   String getCurrentCountryNameByCurrentLingo(BuildContext context) {
-    final String _name = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _currentCountryModel.names)?.value;
+    final String _name = Phrase.getPhraseByCurrentLangFromPhrases(
+        context: context,
+        phrases: _currentCountryModel.phrases
+    )?.value;
+
     return _name;
   }
 // -------------------------------------
@@ -558,18 +565,33 @@ class ZoneProvider extends ChangeNotifier {
 
         /// try by sub admin area
         final String _subAdministrativeArea = _mark.subAdministrativeArea;
-        CityModel _foundCity = await fetchCityByName(context: context, countryID: _countryID, cityName: _subAdministrativeArea, lingoCode: 'en');
+        CityModel _foundCity = await fetchCityByName(
+            context: context,
+            countryID: _countryID,
+            cityName: _subAdministrativeArea,
+            lingoCode: 'en',
+        );
 
         /// try by admin area
         if (_foundCity == null){
           final String _administrativeArea = _mark.administrativeArea;
-          _foundCity = await fetchCityByName(context: context, countryID: _countryID, cityName: _administrativeArea, lingoCode: 'en');
+          _foundCity = await fetchCityByName(
+              context: context,
+              countryID: _countryID,
+              cityName: _administrativeArea,
+              lingoCode: 'en',
+          );
         }
 
         /// try by locality
         if (_foundCity == null){
           final String _locality = _mark.locality;
-          _foundCity = await fetchCityByName(context: context, countryID: _countryID, cityName: _locality, lingoCode: 'en');
+          _foundCity = await fetchCityByName(
+              context: context,
+              countryID: _countryID,
+              cityName: _locality,
+              lingoCode: 'en',
+          );
         }
 
         _zoneModel = ZoneModel(
