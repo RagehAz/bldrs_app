@@ -362,13 +362,13 @@ Future<dynamic> readDocField({
 // ---------------------------------------------------
 Future<List<Map<String, dynamic>>> readSubCollectionDocs({
   @required BuildContext context,
-  @required bool addDocsIDs,
   @required String collName,
   @required String docName,
   @required String subCollName,
   @required int limit,
   @required String orderBy,
-  @required bool addDocSnapshotToEachMap,
+  bool addDocsIDs = false,
+  bool addDocSnapshotToEachMap = false,
   QueryDocumentSnapshot<Object> startAfter,
 }) async {
   /*
@@ -430,6 +430,7 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
       context: context,
       methodName: 'readSubCollectionDocs',
       functions: () async {
+
         final CollectionReference<Object> _subCollection = getSubCollectionRef(
           collName: collName,
           docName: docName,
@@ -441,9 +442,13 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
         final QueryDocumentSnapshot<Object> _startAfter = startAfter;
 
         if (_startAfter == null) {
-          _collectionSnapshot =
-              await _subCollection.orderBy(orderBy).limit(limit).get();
-        } else {
+          _collectionSnapshot = await _subCollection
+              .orderBy(orderBy)
+              .limit(limit)
+              .get();
+        }
+
+        else {
           _collectionSnapshot = await _subCollection
               .orderBy(orderBy)
               .limit(limit)
@@ -456,7 +461,8 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
           addDocsIDs: addDocsIDs,
           addDocSnapshotToEachMap: addDocSnapshotToEachMap,
         );
-      });
+      }
+      );
 
   return _maps;
 }

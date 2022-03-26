@@ -29,10 +29,17 @@ class Phrase {
 
     /// START MAP
     Map<String, dynamic> _map = <String, dynamic>{
-      'id' : id,
       'value': value,
     };
 
+    /// ADD ID IF EXISTED
+    if (id != null){
+      _map = Mapper.insertPairInMap(
+        map: _map,
+        key: 'id',
+        value: id,
+      );
+    }
 
     /// ADD LANG CODE IF EXISTED
     if (langCode != null){
@@ -59,6 +66,7 @@ class Phrase {
   static Map<String, dynamic> cipherPhrases({
     @required List<Phrase> phrases,
     bool addTrigrams = false,
+    bool useLangCodeAsKeys = false,
   }) {
     Map<String, dynamic> _phrasesMap = <String, dynamic>{};
 
@@ -67,7 +75,7 @@ class Phrase {
       for (final Phrase phrase in phrases){
         _phrasesMap = Mapper.insertPairInMap(
           map: _phrasesMap,
-          key: phrase.id,
+          key: useLangCodeAsKeys ? phrase.langCode : phrase.id,
           value: phrase.toMap(addTrigram: addTrigrams),
         );
       }
