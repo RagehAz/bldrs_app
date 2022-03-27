@@ -73,7 +73,7 @@ class QuestionBody extends StatelessWidget {
                 Container(
                   width: flyerBoxWidth,
                   height: _bodyHeight * 0.4,
-                  padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.01),
+                  padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.05),
                   child: ListView(
                     physics: tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
                     padding: EdgeInsets.zero,
