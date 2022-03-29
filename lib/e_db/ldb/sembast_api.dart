@@ -113,7 +113,11 @@ class Sembast  {
     @required List<Map<String, Object>> inputs,
     @required String docName,
   }) async {
-    await deleteAll(docName: docName, primaryKey: primaryKey);
+
+    await deleteAll(
+        docName: docName,
+        primaryKey: primaryKey,
+    );
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -264,17 +268,24 @@ class Sembast  {
     @required String searchPrimaryValue,
     @required String docName,
   }) async {
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName
+    );
+
     final Database _db = await _getDB();
 
     final Finder _finder = Finder(
       filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
     );
 
-    await _doc.delete(
-      _db,
-      finder: _finder,
-    );
+    if (_db != null && _doc != null){
+      await _doc.delete(
+        _db,
+        finder: _finder,
+      );
+    }
+
   }
 
 // ---------------------------------------------------
@@ -282,18 +293,28 @@ class Sembast  {
     @required String docName,
     @required String primaryKey,
   }) async {
-    final List<Map<String, Object>> _allMaps = await readAll(docName: docName);
 
-    for (final Map<String, Object> map in _allMaps) {
-      final String _id = map[primaryKey];
+    final List<Map<String, Object>> _allMaps = await readAll(
+        docName: docName,
+    );
 
-      await delete(
-          searchPrimaryKey: primaryKey,
-          searchPrimaryValue: _id,
-          docName: docName);
+    if (Mapper.canLoopList(_allMaps) == true){
 
-      blog('Sembast : deleteAll : $docName : _id : $_id');
+      for (final Map<String, Object> map in _allMaps) {
+
+        final String _id = map[primaryKey];
+
+        await delete(
+            searchPrimaryKey: primaryKey,
+            searchPrimaryValue: _id,
+            docName: docName,
+        );
+
+        blog('Sembast : deleteAll : $docName : _id : $_id');
+      }
+
     }
+
 // -----------------------------------------------------------------------------
   }
 // -----------------------------------------------------------------------------

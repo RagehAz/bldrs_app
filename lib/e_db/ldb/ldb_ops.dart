@@ -27,6 +27,8 @@ String getPrimaryKey(String docName) {
     case LDBDoc.cities: return 'cityID';
     case LDBDoc.continents: return 'name';
     case LDBDoc.currencies: return 'currencies';
+    case LDBDoc.enPhrases: return 'id';
+    case LDBDoc.arPhrases: return 'id';
     default: return null;
   }
 }
@@ -174,11 +176,17 @@ Future<void> deleteMap({
 }
 
 // ---------------------------------------------------
-Future<void> deleteAllMaps({@required String docName}) async {
+Future<void> deleteAllMaps({
+  @required String docName,
+}) async {
+
+  // Sembast.;
+
   await Sembast.deleteAll(
     docName: docName,
     primaryKey: getPrimaryKey(docName),
   );
+
 }
 // -----------------------------------------------------------------------------
 
