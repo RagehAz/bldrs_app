@@ -18,7 +18,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 /// fetch : a method that returns searched value in LDB, then in firebase, and stores in LDB if found
 /// get : a method that returns processed inputs with provider global variables
 /// getset : a method that fetches a value then sets it in a provider global variable

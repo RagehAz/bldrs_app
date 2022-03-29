@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/y_views/g_user/a_user_screen_view.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SingleTicker
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      pageTitle: 'My Profile',
+      pageTitle: superPhrase(context, 'phid_my_account'),
       appBarRowWidgets: <Widget>[
 
         const Expander(),

@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/trans_mdel_streamer.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
@@ -23,6 +24,7 @@ import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/transla
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_page.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TranslationsManager extends StatefulWidget {
 
@@ -184,7 +186,11 @@ class _TranslationsManagerState extends State<TranslationsManager> {
 
   }
   // -----------------------------
-
+  Future<void> _updatePhrases() async {
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    await _phraseProvider.updatePhrases(context);
+  }
+  // -----------------------------
   Future<void> _doTheThingForCities(List<Map<String, dynamic>> citiesMaps) async {
 
     int count = 1;
@@ -300,6 +306,20 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                   appBarRowWidgets: <Widget>[
 
                     const Expander(),
+
+                    /// UPLOAD GROUP
+                    DreamBox(
+                      height: _buttonsHeight,
+                      color: Colorz.green255,
+                      verseShadow: false,
+                      verseMaxLines: 2,
+                      verseScaleFactor: 0.6,
+                      verse: 'UPDATE',
+                      secondLine: 'PHRASES',
+                      margins: const EdgeInsets.symmetric(horizontal: 5),
+                      onTap: () => _updatePhrases(),
+                    ),
+
 
                     /// UPLOAD GROUP
                     DreamBox(

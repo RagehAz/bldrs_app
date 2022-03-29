@@ -50,4 +50,6 @@
     continents,
     currencies,
     searches,
+    enPhrases,
+    arPhrases,
   ];
