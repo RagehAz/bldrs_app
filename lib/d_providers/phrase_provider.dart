@@ -24,10 +24,10 @@ class PhraseProvider extends ChangeNotifier {
 
     await Localizer.changeAppLanguage(context, langCode);
 
-    await setCurrentLangAndTransModel(context);
+    await getSetCurrentLangAndTransModel(context);
   }
 // -------------------------------------
-  Future<void> setCurrentLangAndTransModel(BuildContext context) async {
+  Future<void> getSetCurrentLangAndTransModel(BuildContext context) async {
 
     await getSetCurrentLangCode(
       context: context,
@@ -98,6 +98,17 @@ class PhraseProvider extends ChangeNotifier {
       langCode: langCode,
       phrases: _phrases,
     );
+
+  }
+// -------------------------------------
+  Future<void> updatePhrases(BuildContext context) async {
+
+    /// delete LDB phrases
+    await LDBOps.deleteAllMaps(docName: LDBDoc.enPhrases);
+    await LDBOps.deleteAllMaps(docName: LDBDoc.arPhrases);
+
+    /// reload all phrases by current langCode
+    await getSetCurrentLangAndTransModel(context);
 
   }
 // -----------------------------------------------------------------------------
