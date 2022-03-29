@@ -111,7 +111,7 @@ class TargetCard extends StatelessWidget {
               child: DreamBox(
                 width: _bubbleClearWidth,
                 height: 70,
-                verse: 'CLAIM',
+                verse: 'CLAIM ${target.reward.slides} Slides ',
                 verseWeight: VerseWeight.black,
                 verseItalic: true,
                 color: Colorz.yellow255,

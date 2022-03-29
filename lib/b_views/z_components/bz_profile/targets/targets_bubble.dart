@@ -7,8 +7,10 @@ import 'package:bldrs/f_helpers/theme/targetz.dart' as Targetz;
 import 'package:flutter/material.dart';
 
 class TargetsBubble extends StatelessWidget {
-  const TargetsBubble({Key key}) : super(key: key);
 
+  const TargetsBubble({
+    Key key
+  }) : super(key: key);
 // -----------------------------------------------------------------------------
   static List<TargetModel> getAllTargets() {
     final List<TargetModel> _allTargets =
@@ -62,8 +64,10 @@ class TargetsBubble extends StatelessWidget {
 
                 return TargetCard(
                   target: _target,
-                  onClaimTap: () =>
-                      _onClaimTap(context: context, target: _target),
+                  onClaimTap: () => _onClaimTap(
+                      context: context,
+                      target: _target
+                  ),
                 );
 
               }),
