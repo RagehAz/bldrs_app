@@ -57,11 +57,11 @@ class Lang {
   static const List<Lang> allLanguages = <Lang>[
     englishLingo,
     arabicLingo,
-    spanishLingo,
-    frenchLingo,
+    // spanishLingo,
+    // frenchLingo,
     // russianLingo,
-    chineseLingo,
-    germanLingo,
+    // chineseLingo,
+    // germanLingo,
   ];
 // -----------------------------------------------------------------------------
   static const String englishCode = 'en';

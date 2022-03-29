@@ -94,6 +94,7 @@ class LDBViewersScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return DashBoardLayout(
       pageTitle: 'LDB viewers',
       onBldrsTap: () async {
@@ -108,6 +109,7 @@ class LDBViewersScreen extends StatelessWidget {
         _flyer.blogFlyer();
       },
       listWidgets: <Widget>[
+
         ...List<Widget>.generate(LDBDoc.allDocs.length, (int index) {
           final String ldbDoc = LDBDoc.allDocs[index];
 
@@ -116,7 +118,9 @@ class LDBViewersScreen extends StatelessWidget {
             onTap: () => goToLDBViewer(context, ldbDoc),
             icon: Iconz.info,
           );
-        }),
+
+        }
+        ),
       ],
     );
   }

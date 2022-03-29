@@ -52,7 +52,10 @@ class UserScreenTabBar extends StatelessWidget {
         ...List.generate(userProfileTabsList.length, (index){
 
           final UserTab _userTab = userProfileTabsList[index];
-          final String _userTabString = cipherUserTabInEnglishOnly(_userTab);
+          final String _userTabString = translateUserTab(
+            context: context,
+            userTab: _userTab,
+          );
 
           return
 
