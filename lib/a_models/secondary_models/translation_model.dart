@@ -28,7 +28,7 @@ class TransModel {
   Map<String, dynamic> toMap(){
     return {
       'langCode' : langCode,
-      'phrases' : Phrase.cipherPhrases(
+      'phrases' : Phrase.cipherPhrasesToMap(
         phrases: phrases,
       ),
     };
@@ -41,7 +41,7 @@ class TransModel {
     if (map != null){
       _model = TransModel(
           langCode: map['lang'],
-          phrases: Phrase.decipherPhrases(map['phrases']),
+          phrases: Phrase.decipherPhrasesMap(map['phrases']),
       );
     }
 

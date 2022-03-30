@@ -28,7 +28,7 @@ class CurrencyModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'code': code,
-      'names': Phrase.cipherPhrases(phrases: phrases,),
+      'names': Phrase.cipherPhrasesToMap(phrases: phrases,),
       'countriesIDs': countriesIDs,
       'symbol': symbol,
       'nativeSymbol': nativeSymbol,
@@ -70,7 +70,7 @@ class CurrencyModel {
     if (map != null) {
       _currency = CurrencyModel(
         code: map['code'],
-        phrases: Phrase.decipherPhrases(map['names']),
+        phrases: Phrase.decipherPhrasesMap(map['names']),
         countriesIDs:
             Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
         symbol: map['symbol'],

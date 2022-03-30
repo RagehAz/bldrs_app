@@ -54,7 +54,10 @@ class FlyersProvider extends ChangeNotifier {
 
       if (_map != null && _map != <String, dynamic>{}){
         blog('fetchFlyerByID : flyer found in local db : $doc');
-        _flyer = FlyerModel.decipherFlyer(map: _map, fromJSON: true);
+        _flyer = FlyerModel.decipherFlyer(
+            map: _map,
+            fromJSON: true,
+        );
         break;
       }
 

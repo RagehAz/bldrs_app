@@ -22,7 +22,7 @@ class KW {
   Map<String, dynamic> toMap({@required bool toJSON}) {
     return <String, dynamic>{
       'id': id,
-      'names': Phrase.cipherPhrases(phrases: names, addTrigrams: toJSON),
+      'names': Phrase.cipherPhrasesToMap(phrases: names, addTrigrams: toJSON),
     };
   }
 // -----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class KW {
     if (map != null) {
       _keyword = KW(
         id: map['id'],
-        names: Phrase.decipherPhrases(map['names']),
+        names: Phrase.decipherPhrasesMap(map['names']),
       );
     }
 

@@ -17,6 +17,8 @@
   const String cities = 'sessionCities';
   const String continents = 'continents';
   const String currencies = 'currencies';
+  const String enPhrases = 'enPhrases';
+  const String arPhrases = 'arPhrases';
 
   const List<String> bzModelsDocs = <String>[
     bzz,
