@@ -47,7 +47,7 @@ class CountryModel {
       'isGlobal': isGlobal,
       'citiesIDs': citiesIDs,
       'language': language,
-      'phrases': Phrase.cipherPhrases(phrases: phrases),
+      'phrases': Phrase.cipherPhrasesToMap(phrases: phrases),
       'currency': currency,
     };
   }
@@ -60,7 +60,7 @@ class CountryModel {
 
     if (map != null) {
 
-      final List<Phrase> _phrases = Phrase.decipherPhrases(map['names']);
+      final List<Phrase> _phrases = Phrase.decipherPhrasesMap(map['names']);
 
       _countryModel = CountryModel(
         id: map['id'],

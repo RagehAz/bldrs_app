@@ -32,7 +32,7 @@ class DistrictModel{
       'countryID' : countryID,
       'cityID' : cityID,
       'districtID' : TextMod.fixCountryName(districtID),
-      'names' : Phrase.cipherPhrases(phrases: names),
+      'names' : Phrase.cipherPhrasesToMap(phrases: names),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
     };
@@ -60,7 +60,7 @@ class DistrictModel{
       countryID : map['countryID'],
       cityID : map['cityID'],
       districtID : map['districtID'],
-      names : Phrase.decipherPhrases(map['names']),
+      names : Phrase.decipherPhrasesMap(map['names']),
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
     );

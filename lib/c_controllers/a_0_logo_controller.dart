@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/app_updates.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
@@ -8,6 +9,8 @@ import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 Future<void> initializeLogoScreen(BuildContext context) async {
 
+  /// A - APP LANGUAGE
+  await _initializeAppLanguage(context);
 
   /// B - APP STATE
   final bool _canContinue = await _initializeAppState(context);
@@ -47,3 +50,9 @@ Future<bool> _initializeAppState(BuildContext context) async {
   return _canContinue;
 }
 // -----------------------------------------------------------------------------
+Future<void> _initializeAppLanguage(BuildContext context) async {
+
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+  await _phraseProvider.setCurrentLangAndTransModel(context);
+
+}
