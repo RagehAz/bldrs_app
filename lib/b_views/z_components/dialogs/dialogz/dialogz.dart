@@ -232,7 +232,7 @@ Future<CityModel> confirmCityDialog({
       ...List<Widget>.generate(cities.length, (int index) {
         final CityModel _foundCity = cities[index];
         final String _foundCityName =
-            Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _foundCity.names)?.value;
+            Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _foundCity.phrases)?.value;
 
         return BottomDialog.wideButton(
             context: context,
