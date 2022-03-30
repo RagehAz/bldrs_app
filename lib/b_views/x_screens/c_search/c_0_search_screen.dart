@@ -104,8 +104,16 @@ class _SearchScreenState extends State<SearchScreen> {
 
     final CountryModel _country = _zoneProvider.currentCountry;
     final CityModel _city = _zoneProvider.currentCity;
-    final String _countryName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _country.phrases)?.value;
-    final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _city.names)?.value;
+
+    final String _countryName = Phrase.getPhraseByCurrentLangFromPhrases(
+        context: context,
+        phrases: _country.phrases
+    )?.value;
+
+    final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(
+        context: context,
+        phrases: _city.phrases
+    )?.value;
 
     final String _hintText = 'Search flyers in $_cityName, $_countryName';
     return _hintText;

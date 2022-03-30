@@ -293,7 +293,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               DataStripWithHeadline(
                 dataKey: 'City Name (EN)',
                 dataValue: Phrase.getPhraseByLangFromPhrases(
-                    phrases: _cityModel?.names, langCode: 'en'),
+                    phrases: _cityModel?.phrases, langCode: 'en'),
               ),
 
             ],

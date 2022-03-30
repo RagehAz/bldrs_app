@@ -98,6 +98,7 @@ class LDBViewersScreen extends StatelessWidget {
     return DashBoardLayout(
       pageTitle: 'LDB viewers',
       onBldrsTap: () async {
+
         blog('starting the thing');
 
         final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
@@ -111,6 +112,7 @@ class LDBViewersScreen extends StatelessWidget {
       listWidgets: <Widget>[
 
         ...List<Widget>.generate(LDBDoc.allDocs.length, (int index) {
+
           final String ldbDoc = LDBDoc.allDocs[index];
 
           return WideButton(

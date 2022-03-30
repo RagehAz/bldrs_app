@@ -27,6 +27,7 @@ import 'package:bldrs/xxx_lab/xxx_obelisk/providers_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/slider_test.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/video_player.dart';
 import 'package:bldrs/xxx_lab/xxx_obelisk/zzz_test_lab.dart';
+import 'package:bldrs/xxx_lab/xxx_old_stuff/old_ldb_tests/sembast_test_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -124,6 +125,7 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
             margin: 10,
           ),
 
+          const ObeliskButton('SEMBAST', Iconz.terms, SembastReaderTestScreen()),
 
           const ObeliskButton('New ASKs', Iconz.utPlanning, NewAsks()),
 
