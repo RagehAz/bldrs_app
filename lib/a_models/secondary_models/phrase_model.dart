@@ -50,7 +50,7 @@ class Phrase {
       );
     }
 
-    /// ADD TRIGRAM IF WANTED
+    /// CREATE TRIGRAM IF WANTED
     if (addTrigram == true){
       _map = Mapper.insertPairInMap(
         map: _map,
@@ -58,12 +58,20 @@ class Phrase {
         value: TextGen.createTrigram(input: value),
       );
     }
+    /// OTHERWISE ADD TRIGRAM IF ALREADY EXISTS AND NOT REQUIRED TO BE CREATED
+    else if (Mapper.canLoopList(trigram) == true){
+      _map = Mapper.insertPairInMap(
+        map: _map,
+        key: 'trigram',
+        value: trigram,
+      );
+    }
 
     return _map;
   }
 // -------------------------------------
     /// uses lang codes as sub maps keys otherwise uses phrase ids as sub maps keys
-  static Map<String, dynamic> cipherPhrases({
+  static Map<String, dynamic> cipherPhrasesToMap({
     @required List<Phrase> phrases,
     bool addTrigrams = false,
     bool useLangCodeAsKeys = false,
@@ -85,6 +93,30 @@ class Phrase {
     return _phrasesMap;
   }
 // -------------------------------------
+  static List<Map<String, dynamic>> cipherPhrasesToMaps({
+  @required List<Phrase> phrases,
+    bool addTrigrams = false,
+}){
+
+    final List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        final Map<String, dynamic> _map = phrase.toMap(
+          addTrigram: addTrigrams,
+        );
+
+        _maps.add(_map);
+
+      }
+
+    }
+
+    return _maps;
+}
+// -------------------------------------
   static Phrase decipherPhrase(Map<String, dynamic> map) {
 
     return Phrase(
@@ -96,7 +128,7 @@ class Phrase {
 
   }
 // -------------------------------------
-  static List<Phrase> decipherPhrases(Map<String, dynamic> map){
+  static List<Phrase> decipherPhrasesMap(Map<String, dynamic> map,){
     final List<Phrase> _phrases = <Phrase>[];
 
     final List<String> _keys = map?.keys?.toList();
@@ -107,6 +139,27 @@ class Phrase {
 
         final String _key = _keys[i];
         final Phrase _phrase = decipherPhrase(map[_key]);
+        _phrases.add(_phrase);
+
+      }
+
+    }
+
+    return _phrases;
+  }
+// -------------------------------------
+  static List<Phrase> decipherPhrasesMaps({
+    @required List<Map<String, dynamic>> maps,
+  }){
+
+    final List<Phrase> _phrases = <Phrase>[];
+
+    if (Mapper.canLoopList(maps) == true){
+
+      for (int i = 0; i< maps.length; i++){
+
+        final Map<String, dynamic> _map = maps[i];
+        final Phrase _phrase = decipherPhrase(_map);
         _phrases.add(_phrase);
 
       }

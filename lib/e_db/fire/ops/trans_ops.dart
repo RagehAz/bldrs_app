@@ -32,6 +32,30 @@ Stream<TransModel> getTransModelStream({
   return _stream;
 
 }
+// -----------------------------
+Future<List<Phrase>> readPhrases({
+  @required BuildContext context,
+  @required String langCode,
+}) async {
+
+  final Map<String, dynamic> _transMap = await Fire.readDoc(
+      context: context,
+      collName: FireColl.translations,
+      docName: langCode,
+  );
+
+  if (_transMap != null){
+
+    final TransModel _transModel = TransModel.decipher(_transMap);
+
+    return _transModel.phrases;
+  }
+
+  else {
+    return null;
+  }
+
+}
 // ---------------------------------------------------------------------------
 
 /// UPDATE
@@ -48,7 +72,7 @@ Future<void> updatePhrases({
     collName: FireColl.translations,
     docName: 'en',
     field: 'phrases',
-    input: Phrase.cipherPhrases(phrases: enPhrases),
+    input: Phrase.cipherPhrasesToMap(phrases: enPhrases),
   );
 
   await Fire.updateDocField(
@@ -56,7 +80,7 @@ Future<void> updatePhrases({
       collName: FireColl.translations,
       docName: 'ar',
       field: 'phrases',
-      input:  Phrase.cipherPhrases(phrases: arPhrases),
+      input:  Phrase.cipherPhrasesToMap(phrases: arPhrases),
   );
 
 }

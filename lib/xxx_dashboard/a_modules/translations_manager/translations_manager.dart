@@ -213,7 +213,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
         _mixedPhrases.add(_phrase);
       }
 
-      final Map<String, dynamic> _mixedPhrasesMap = Phrase.cipherPhrases(
+      final Map<String, dynamic> _mixedPhrasesMap = Phrase.cipherPhrasesToMap(
         phrases: _mixedPhrases,
         useLangCodeAsKeys: true,
         addTrigrams: true,

@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/y_views/e_saves/saved_flyers_view.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidsAreOn: true,
-      pageTitle: 'Saved flyers',
+      pageTitle: superPhrase(context, 'phid_savedFlyers'),
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       onBack: widget.selectionMode ? _passSelectedFlyersBack : null,
