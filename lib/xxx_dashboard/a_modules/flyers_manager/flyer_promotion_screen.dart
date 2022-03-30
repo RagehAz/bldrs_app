@@ -56,7 +56,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
         countryID: _zone.countryID,
         cityID: _zone.cityID,
         countryName: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _country.phrases)?.value,
-        cityName: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _city.names)?.value,
+        cityName: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _city.phrases)?.value,
       );
 
     }

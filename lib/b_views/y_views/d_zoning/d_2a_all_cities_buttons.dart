@@ -20,8 +20,8 @@ class AllCitiesButtons extends StatelessWidget {
 
     cities.sort((CityModel a, CityModel b){
 
-      final String _nameA = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: a.names).value;
-      final String _nameB = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: b.names).value;
+      final String _nameA = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: a.phrases).value;
+      final String _nameB = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: b.phrases).value;
 
       return _nameA.compareTo(_nameB);
     });

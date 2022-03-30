@@ -535,7 +535,7 @@ class ZoneProvider extends ChangeNotifier {
 
     final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
         context: context,
-        phrases: _currentCityModel?.names
+        phrases: _currentCityModel?.phrases
     )?.value;
 
     return _nameInCurrentLanguage ?? cityID;

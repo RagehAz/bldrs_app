@@ -99,7 +99,7 @@ String cityCountryStringer ({
 
     final String _countryName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: country.phrases)?.value;
 
-    final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city.names)?.value;
+    final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city.phrases)?.value;
 
     _verse =
     zone.countryID == null || zone.cityID == null ? '...' :
