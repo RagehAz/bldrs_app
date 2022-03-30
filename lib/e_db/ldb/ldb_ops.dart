@@ -42,6 +42,7 @@ Future<void> insertMap({
   @required Map<String, Object> input,
   @required String docName,
 }) async {
+
   await Sembast.insertAll(
     inputs: <Map<String, Object>>[input], //_cipherFirebaseMapsToSembastMaps(<Map<String, Object>>[input]),
     docName: docName,
@@ -50,7 +51,6 @@ Future<void> insertMap({
 
   blog('LDBOps inserted in $docName');
 }
-
 // ---------------------------------------------------
 Future<void> insertMaps({
   @required String primaryKey,

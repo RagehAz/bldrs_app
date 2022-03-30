@@ -19,7 +19,7 @@ class CityModel {
     this.population,
     this.isActivated,
     this.isPublic,
-    this.names,
+    this.phrases,
     this.position,
     this.state,
   });
@@ -30,7 +30,7 @@ class CityModel {
   final int population;
   final bool isActivated;
   final bool isPublic;
-  final List<Phrase> names;
+  final List<Phrase> phrases;
   final GeoPoint position;
   final String state; // only for USA
   /// --------------------------------------------------------------------------
@@ -42,7 +42,7 @@ class CityModel {
       'population': population,
       'isActivated': isActivated,
       'isPublic': isPublic,
-      'names': Phrase.cipherPhrasesToMap(phrases: names),
+      'phrases': Phrase.cipherPhrasesToMap(phrases: phrases),
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON)
     };
   }
@@ -80,7 +80,7 @@ class CityModel {
         population: map['population'],
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
-        names: Phrase.decipherPhrasesMap(map['names']),
+        phrases: Phrase.decipherPhrasesMap(map['phrases']),
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
       );
     }
@@ -135,7 +135,7 @@ class CityModel {
 
     if (Mapper.canLoopList(cities)) {
       for (final CityModel city in cities) {
-        final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city.names)?.value;
+        final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city.phrases)?.value;
         _citiesNames.add(_cityName);
       }
     }
@@ -153,7 +153,7 @@ class CityModel {
 
     final KW _keyword = KW(
       id: city.cityID,
-      names: city.names,
+      names: city.phrases,
     );
 
     return _keyword;
@@ -185,7 +185,7 @@ class CityModel {
     blog('population : $population');
     blog('isActivated : $isActivated');
     blog('isPublic : $isPublic');
-    blog('names : $names');
+    blog('phrases : $phrases');
     blog('position : $position');
 
     blog('CITY - PRINT --------------------------------------- END');
@@ -254,13 +254,16 @@ class CityModel {
     if (city != null) {
       _cityName = Phrase.getPhraseByCurrentLangFromPhrases(
           context: context,
-          phrases: city.names)?.value;
+          phrases: city.phrases)?.value;
     }
 
     return _cityName;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getCitiesIDsFromCities({@required List<CityModel> cities}) {
+  static List<String> getCitiesIDsFromCities({
+    @required List<CityModel> cities,
+  }) {
+
     final List<String> _citiesIDs = <String>[];
 
     if (Mapper.canLoopList(cities)) {
@@ -268,6 +271,7 @@ class CityModel {
         _citiesIDs.add(city.cityID);
       }
     }
+
     return _citiesIDs;
   }
 // -----------------------------------------------------------------------------
@@ -275,6 +279,7 @@ class CityModel {
     @required String countryID,
     @required String cityEnName,
   }) {
+
     final String _fixedCityEnName = TextMod.fixCountryName(cityEnName);
     final String _cityID = '${countryID}_$_fixedCityEnName';
 
@@ -282,7 +287,11 @@ class CityModel {
   }
 // -----------------------------------------------------------------------------
   static String getCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
-    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: cityModel?.names)?.value;
+    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
+        context: context,
+        phrases: cityModel?.phrases
+    )?.value;
+
     return _nameInCurrentLanguage ?? cityModel?.cityID;
   }
 // -----------------------------------------------------------------------------
@@ -297,11 +306,10 @@ class CityModel {
     for (final CityModel city in sourceCities){
       final Phrase _nameInLingo = Phrase.getPhraseByCurrentLangFromPhrases(
         context: context,
-        phrases: city.names,
+        phrases: city.phrases,
       );
       _citiesNames.add(_nameInLingo);
     }
-
 
     /// SEARCH NAMES
     final List<Phrase> _foundNames = Phrase.searchPhrasesTrigrams(
@@ -332,7 +340,7 @@ class CityModel {
 
         for (final CityModel city in sourceCities){
 
-          if (city.names.contains(name)){
+          if (city.phrases.contains(name)){
 
             if (!_foundCities.contains(city)){
               _foundCities.add(city);

@@ -177,7 +177,7 @@ Future<ZoneModel> _getZoneByIP_ipApi({
 
                   _cityID = CityModel.createCityID(
                       countryID: _country?.id,
-                      cityEnName: Phrase.getPhraseByLangFromPhrases(phrases: _city?.names, langCode: 'en')?.value
+                      cityEnName: Phrase.getPhraseByLangFromPhrases(phrases: _city?.phrases, langCode: 'en')?.value
                   );
 
                 }
@@ -258,7 +258,7 @@ Future<ZoneModel> _getZoneByIP_ipRegistry({
                   _cityID = CityModel.createCityID(
                       countryID: _country.id,
                       cityEnName: Phrase.getPhraseByLangFromPhrases(
-                          phrases: _city.names, langCode: 'en')?.value,
+                          phrases: _city.phrases, langCode: 'en')?.value,
                   );
                 }
               }

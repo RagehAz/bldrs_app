@@ -122,7 +122,7 @@ int lastTwoIntegersFromAString(String string) {
   return _asIntegers;
 }
 // -----------------------------------------------------------------------------
-int createRandomIndex({int listLength}) {
+int createRandomIndex({int listLength = 999}) {
   final math.Random _random = math.Random();
   return _random.nextInt(listLength);
 }
