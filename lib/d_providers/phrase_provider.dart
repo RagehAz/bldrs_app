@@ -1,17 +1,45 @@
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/secondary_models/translation_model.dart';
+import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations/ar.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations/en.dart';
+import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 
-
+// final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 class PhraseProvider extends ChangeNotifier {
 
   /// CHANGE APP LANGUAGE
 
-  Future<void> changeAppLanguage(BuildContext context) async {
+  Future<void> changeAppLang({
+    @required BuildContext context,
+    @required String langCode,
+  }) async {
+
+    await Localizer.changeAppLanguage(context, langCode);
+
+    await setCurrentLangAndTransModel(context);
+  }
+// -------------------------------------
+  Future<void> setCurrentLangAndTransModel(BuildContext context) async {
+
+    await getSetCurrentLangCode(
+      context: context,
+      notify: false,
+    );
+
+    await getSetTranslations(
+        context: context,
+        notify: true
+    );
 
   }
-
 // -------------------------------------
 
   /// FETCHING PHRASES
@@ -19,53 +47,90 @@ class PhraseProvider extends ChangeNotifier {
 // -------------------------------------
   Future<TransModel> fetchPhrasesByLangCode({
     @required BuildContext context,
-    @required String languageCode,
+    @required String langCode,
 }) async {
 
-    /// TEMP SHIT
-    if (languageCode == 'en'){
-      return bldrsTranslationsEnglish;
+    List<Phrase> _phrases;
+    final String _ldbDocName = langCode == 'ar' ? LDBDoc.arPhrases : LDBDoc.enPhrases;
+
+    /// 1- get phrases from LDB
+    final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
+      docName: _ldbDocName,
+    );
+
+    if (Mapper.canLoopList(_maps) == true){
+      blog('fetchPhrasesByLangCode : phrases found in local db : langCode : $langCode');
+      _phrases = Phrase.decipherPhrasesMaps(
+        maps: _maps,
+      );
     }
 
-    else if (languageCode == 'ar'){
-      return bldrsTranslationsArabic;
+    /// 2 - if not found in LDB , read from firebase
+    if (Mapper.canLoopList(_phrases) == false){
+      blog('fetchPhrasesByLangCode : phrases NOT found in local db : langCode : $langCode');
+
+      /// 2.1 read from firebase
+      _phrases = await readPhrases(
+          context: context,
+          langCode: langCode,
+      );
+
+      /// 2.2 if found on firebase, store in LDB
+      if (Mapper.canLoopList(_phrases) == true){
+        blog('fetchPhrasesByLangCode : phrases found in Firestore : langCode : $langCode');
+
+        final List<Map<String, dynamic>> _maps = Phrase.cipherPhrasesToMaps(
+          phrases: _phrases,
+          addTrigrams: true,
+        );
+
+        await LDBOps.insertMaps(
+            primaryKey: 'id',
+            inputs: _maps,
+            docName: _ldbDocName
+        );
+
+      }
+
     }
 
-    else {
-      return null;
-    }
+    return TransModel(
+      langCode: langCode,
+      phrases: _phrases,
+    );
+
   }
 // -----------------------------------------------------------------------------
 
 /// CURRENT LANGUAGE
 
 // -------------------------------------
-  String _currentLanguage = 'en';
+  String _currentLangCode = 'en';
 // -------------------------------------
-  String get currentLanguage => _currentLanguage;
+  String get currentLangCode => _currentLangCode;
 // -------------------------------------
-  Future<void> getSetCurrentLanguage(BuildContext context) async {
-
-    const String _code = 'en';
+  Future<void> getSetCurrentLangCode({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
 
     /// A. DETECT DEVICE LANGUAGE
-
-    /// B. ??
+    final String _langCode = Wordz.languageCode(context);
 
     /// C. SET CURRENT LANGUAGE
-    setCurrentLanguage(
-      code: _code,
-      notify: true,
+    _setCurrentLanguage(
+      code: _langCode,
+      notify: notify,
     );
 
   }
 // -------------------------------------
-  void setCurrentLanguage({
+  void _setCurrentLanguage({
     @required String code,
     @required bool notify,
   }){
 
-    _currentLanguage = code;
+    _currentLangCode = code;
 
     if (notify == true){
       notifyListeners();
@@ -77,19 +142,18 @@ class PhraseProvider extends ChangeNotifier {
 /// CURRENT TRANSLATIONS
 
 // -------------------------------------
-  TransModel _translations;
+  TransModel _currentTransModel;
 // -------------------------------------
-  TransModel get translations  => _translations;
+  TransModel get translations  => _currentTransModel;
 // -------------------------------------
   Future<void> getSetTranslations({
     @required BuildContext context,
-    @required String languageCode,
     @required bool notify,
 }) async {
 
     final TransModel _translations = await fetchPhrasesByLangCode(
         context: context,
-        languageCode: languageCode
+        langCode: _currentLangCode,
     );
 
     _setTranslations(
@@ -103,7 +167,7 @@ class PhraseProvider extends ChangeNotifier {
     @required TransModel translations,
     @required bool notify,
 }){
-    _translations = translations;
+    _currentTransModel = translations;
 
     if (notify == true){
       notifyListeners();
@@ -111,4 +175,32 @@ class PhraseProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  String getTranslatedPhraseByID(String id){
+
+    String _translation = '...';
+
+    if (
+    _currentTransModel != null
+        &&
+    Mapper.canLoopList(_currentTransModel.phrases) == true
+    ){
+
+      final Phrase _phrase = _currentTransModel.phrases.singleWhere(
+              (phrase) => phrase.id == id,
+          orElse: ()=> null
+      );
+
+      if (_phrase != null){
+        _translation = _phrase.value;
+      }
+    }
+
+    return _translation;
+  }
+// -----------------------------------------------------------------------------
+}
+
+String superPhrase(BuildContext context, String id){
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+  return _phraseProvider.getTranslatedPhraseByID(id);
 }

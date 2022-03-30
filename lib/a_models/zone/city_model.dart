@@ -42,7 +42,7 @@ class CityModel {
       'population': population,
       'isActivated': isActivated,
       'isPublic': isPublic,
-      'names': Phrase.cipherPhrases(phrases: names),
+      'names': Phrase.cipherPhrasesToMap(phrases: names),
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON)
     };
   }
@@ -80,7 +80,7 @@ class CityModel {
         population: map['population'],
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
-        names: Phrase.decipherPhrases(map['names']),
+        names: Phrase.decipherPhrasesMap(map['names']),
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
       );
     }

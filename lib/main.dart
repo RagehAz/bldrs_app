@@ -11,6 +11,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/noti_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -185,6 +186,9 @@ class _BldrsAppState extends State<BldrsApp> {
     else {
       return MultiProvider(
         providers: <SingleChildWidget>[
+          ChangeNotifierProvider<PhraseProvider>(
+            create: (BuildContext ctx) => PhraseProvider(),
+          ),
           ChangeNotifierProvider<UiProvider>(
             create: (BuildContext ctx) => UiProvider(),
           ),
