@@ -8,7 +8,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-
+// -----------------------------------------------------------------------------
 class CountryModel {
   /// --------------------------------------------------------------------------
   const CountryModel({
@@ -37,8 +37,14 @@ class CountryModel {
   final String language;
   final List<Phrase> phrases;
   final String currency;
-  /// --------------------------------------------------------------------------
-  Map<String, dynamic> toMap({@required bool toJSON}) {
+// -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+// -------------------------------------
+  Map<String, dynamic> toMap({
+    @required bool toJSON,
+  }) {
     return <String, dynamic>{
       'id': id,
       'region': region,
@@ -51,7 +57,7 @@ class CountryModel {
       'currency': currency,
     };
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static CountryModel decipherCountryMap({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -60,7 +66,7 @@ class CountryModel {
 
     if (map != null) {
 
-      final List<Phrase> _phrases = Phrase.decipherPhrasesMap(map['names']);
+      final List<Phrase> _phrases = Phrase.decipherPhrasesMap(map['phrases']);
 
       _countryModel = CountryModel(
         id: map['id'],
@@ -77,7 +83,7 @@ class CountryModel {
 
     return _countryModel;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<CountryModel> decipherCountriesMaps({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -86,17 +92,22 @@ class CountryModel {
 
     if (Mapper.canLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
-        _countries.add(decipherCountryMap(
-          map: map,
-          fromJSON: fromJSON,
-        ));
+        _countries.add(
+            decipherCountryMap(
+              map: map,
+              fromJSON: fromJSON,
+            )
+        );
       }
     }
 
     return _countries;
   }
+// -----------------------------------------------------------------------------
 
-// ----------------------------------------------------------------------------
+  /// CHECKERS
+
+// -------------------------------------
   static bool countriesIDsIncludeCountryID({
     @required List<String> countriesIDs,
     @required String countryID,
@@ -112,7 +123,23 @@ class CountryModel {
 
     return _includes;
   }
+// -------------------------------------
+  static bool countriesAreTheSame(CountryModel countryA, CountryModel countryB) {
+    bool _areTheSame = false;
+
+    if (countryA != null && countryB != null) {
+      if (countryA.id == countryB.id) {
+        _areTheSame = true;
+      }
+    }
+
+    return _areTheSame;
+  }
 // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// -------------------------------------
   static String getTranslatedCountryNameByID({
     @required BuildContext context,
     @required String countryID
@@ -126,7 +153,7 @@ class CountryModel {
 
     return _countryName;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<String> getCountriesIDsOfContinent(Continent continent) {
     final List<String> _countriesIDs = <String>[];
 
@@ -136,7 +163,7 @@ class CountryModel {
 
     return _countriesIDs;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<String> getAllCountriesIDs() {
     final List<String> _ids = <String>[];
 
@@ -146,7 +173,7 @@ class CountryModel {
 
     return _ids;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<MapModel> getAllCountriesNamesMapModels(BuildContext context) {
 
     final List<MapModel> _mapModels = <MapModel>[];
@@ -171,34 +198,7 @@ class CountryModel {
 
     return _mapModels;
   }
-// -----------------------------------------------------------------------------
-  void blogCountry({String methodName = 'PRINTING COUNTRY'}) {
-    blog('$methodName ------------------------------------------- START');
-
-    blog('id : $id');
-    blog('region : $region');
-    blog('continent : $continent');
-    blog('isActivated : $isActivated');
-    blog('isGlobal : $isGlobal');
-    blog('citiesIDs : $citiesIDs');
-    blog('language : $language');
-    blog('phrases : $phrases');
-
-    blog('$methodName ------------------------------------------- END');
-  }
-// -----------------------------------------------------------------------------
-  static bool countriesAreTheSame(CountryModel countryA, CountryModel countryB) {
-    bool _areTheSame = false;
-
-    if (countryA != null && countryB != null) {
-      if (countryA.id == countryB.id) {
-        _areTheSame = true;
-      }
-    }
-
-    return _areTheSame;
-  }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<String> getAllCountriesIDsSortedByName(BuildContext context){
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
@@ -210,8 +210,8 @@ class CountryModel {
       final String _countryName = getTranslatedCountryNameByID(context: context, countryID: id);
 
       final Phrase _name = Phrase(
-          langCode: id,
-          value: _countryName,
+        langCode: id,
+        value: _countryName,
       );
 
       if (_countryName != null){
@@ -231,10 +231,42 @@ class CountryModel {
 
     return _sortedCountriesIDs;
   }
+// -----------------------------------------------------------------------------
 
+  /// BLOGGERS
 
+// -------------------------------------
+  void blogCountry({String methodName = 'PRINTING COUNTRY'}) {
+    blog('$methodName ------------------------------------------- START');
+
+    blog('id : $id');
+    blog('region : $region');
+    blog('continent : $continent');
+    blog('isActivated : $isActivated');
+    blog('isGlobal : $isGlobal');
+    blog('citiesIDs : $citiesIDs');
+    blog('language : $language');
+    // blog('phrases : $phrases');
+    Phrase.blogPhrases(phrases);
+
+    blog('$methodName ------------------------------------------- END');
+  }
+// -------------------------------------
+  static void blogCountries(List<CountryModel> countries){
+
+    if (Mapper.canLoopList(countries) == true){
+
+      for (final CountryModel country in countries){
+
+        country.blogCountry();
+
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
 }
-
 // -----------------------------------------------------------------------------
 class AmericanState extends CountryModel {
   /// --------------------------------------------------------------------------
@@ -249,3 +281,4 @@ class AmericanState extends CountryModel {
 
   /// --------------------------------------------------------------------------
 }
+// -----------------------------------------------------------------------------

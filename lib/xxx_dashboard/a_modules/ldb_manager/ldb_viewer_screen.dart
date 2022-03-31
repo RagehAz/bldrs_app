@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
@@ -20,10 +21,8 @@ class LDBViewerScreen extends StatefulWidget {
     @required this.ldbDocName,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String ldbDocName;
-
   /// --------------------------------------------------------------------------
   static List<Widget> rows({
     @required BuildContext context,
@@ -93,18 +92,15 @@ class LDBViewerScreen extends StatefulWidget {
       );
     });
   }
-
   /// --------------------------------------------------------------------------
   @override
   State<LDBViewerScreen> createState() => _LDBViewerScreenState();
-
   /// --------------------------------------------------------------------------
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(StringProperty('ldbDocName', ldbDocName));
   }
-
   /// --------------------------------------------------------------------------
 }
 
@@ -130,13 +126,11 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -150,7 +144,6 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
     }
     _isInit = false;
   }
-
 // -----------------------------------------------------------------------------
   List<Map<String, Object>> _maps;
   Future<void> _readSembast() async {
@@ -163,56 +156,62 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
       _loading = false;
     });
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onRowTap(String id) async {
-    blog(
-        'Bldrs local data base : _bldbName : ${widget.ldbDocName} : row id : $id');
+    blog('Bldrs local data base : _bldbName : ${widget.ldbDocName} : row id : $id');
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onClearLDB() async {
+
     final bool _result = await CenterDialog.showCenterDialog(
       title: 'Confirm ?',
       boolDialog: true,
-      body:
-          'you will never see this data here again,, you can search for it elsewhere,, but never here, do you Understand ?',
+      body: 'you will never see this data here again,, you can search for it elsewhere,, but never here, do you Understand ?',
       context: context,
     );
 
     if (_result == true) {
-      await LDBOps.deleteAllMaps(docName: widget.ldbDocName);
+      await LDBOps.deleteAllAtOnce(docName: widget.ldbDocName);
       await _readSembast();
-    } else {
-      await TopDialog.showTopDialog(
-          context: context, verse: 'Ana 2olt keda bardo');
     }
-  }
 
+    else {
+      await TopDialog.showTopDialog(
+          context: context,
+          verse: 'Ana 2olt keda bardo',
+      );
+    }
+
+  }
 // -----------------------------------------------------------------------------
   Future<void> _onBldrsTap() async {
+
     await BottomDialog.showButtonsBottomDialog(
       context: context,
       draggable: true,
       buttonHeight: 40,
       buttons: <Widget>[
+
         DreamBox(
           width: BottomDialog.clearWidth(context),
           height: 40,
           verse: 'Clear ${widget.ldbDocName} data',
+          verseWeight: VerseWeight.thin,
+          verseScaleFactor: 0.7,
           onTap: _onClearLDB,
         ),
+
       ],
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return DashBoardLayout(
-      pageTitle: 'Local db :\n${widget.ldbDocName}',
+      pageTitle: 'Tap Bldrs.net to wipe this:\n${widget.ldbDocName}',
       onBldrsTap: _onBldrsTap,
       listWidgets: <Widget>[
+
         if (Mapper.canLoopList(_maps))
           ...LDBViewerScreen.rows(
             context: context,
@@ -221,7 +220,9 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
             maps: _maps,
             onRowTap: _onRowTap,
           ),
+
         const Horizon(),
+
       ],
     );
   }

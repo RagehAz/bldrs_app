@@ -222,7 +222,7 @@ class BottomDialog extends StatelessWidget {
     String title,
   }) async {
 
-    final double _spacing = buttonHeight * 0.1;
+    final double _spacing = buttonHeight;
     final double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length);
 
     await showBottomDialog(
@@ -259,7 +259,8 @@ class BottomDialog extends StatelessWidget {
 
     await showModalBottomSheet(
       shape: RoundedRectangleBorder(
-          borderRadius: BottomDialog.dialogCorners(context)),
+          borderRadius: BottomDialog.dialogCorners(context),
+      ),
       backgroundColor: Colorz.blackSemi255,
       barrierColor: Colorz.black150,
       enableDrag: draggable,

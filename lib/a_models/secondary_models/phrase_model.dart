@@ -11,7 +11,7 @@ class Phrase {
   /// --------------------------------------------------------------------------
   const Phrase({
     @required this.value,
-    this.id,
+    this.id, /// TASK SHOULD BE REQUIRED
     this.langCode,
     this.trigram,
   });
@@ -25,7 +25,7 @@ class Phrase {
   /// CYPHERS
 
 // -------------------------------------
-  Map<String, dynamic> toMap({bool addTrigram = true}) {
+  Map<String, dynamic> toMap({bool addTrigram = false}) {
 
     /// START MAP
     Map<String, dynamic> _map = <String, dynamic>{
@@ -245,20 +245,11 @@ class Phrase {
 
     if (Mapper.canLoopList(phrases)) {
 
-      final Phrase _foundPhrase = phrases.singleWhere(
+      _phrase = phrases.singleWhere(
               (Phrase phrase) => phrase.langCode == langCode,
           orElse: () => null
       );
 
-      if (_foundPhrase == null){
-        _phrase = phrases.singleWhere((Phrase name) => name.langCode == Lang.englishCode,
-          orElse: () => const Phrase(value: '...'),
-        );
-      }
-
-      else {
-        _phrase = _foundPhrase;
-      }
 
     }
 

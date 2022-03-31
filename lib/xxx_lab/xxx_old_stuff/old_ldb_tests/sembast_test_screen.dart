@@ -8,6 +8,7 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/ldb_manager/ldb_manager_screen.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/ldb_manager/ldb_viewer_screen.dart';
 import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/foundation.dart';
@@ -125,7 +126,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
               onTap: _search,
             ),
 
-            /// REPLACE FROM LDB
+            /// INSERT FROM LDB
             SmallFuckingButton(
               verse: 'insert',
               onTap: () async {
@@ -137,6 +138,20 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
                       'id' : '${createRandomIndex()}',
                       'data' : 'bitch',
                 },
+                );
+
+                await _readSembast();
+
+              },
+            ),
+
+            /// DELETE ALL LDB
+            SmallFuckingButton(
+              verse: 'DELETE ALL AT ONCE',
+              onTap: () async {
+
+                await Sembast.deleteAllAtOnce(
+                  docName: _docName,
                 );
 
                 await _readSembast();
@@ -161,43 +176,3 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
   }
 }
 
-class SmallFuckingButton extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const SmallFuckingButton({
-    @required this.verse,
-    @required this.onTap,
-    Key key,
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final String verse;
-  final Function onTap;
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _buttonWidth = _screenWidth / 8;
-
-    return DreamBox(
-      height: 30,
-      width: _buttonWidth,
-      color: Colorz.blue80,
-      margins: const EdgeInsets.symmetric(horizontal: 1),
-      verse: verse,
-      verseScaleFactor: 0.4,
-      verseWeight: VerseWeight.thin,
-      verseMaxLines: 2,
-      onTap: onTap,
-    );
-  }
-
-  /// --------------------------------------------------------------------------
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('verse', verse));
-    properties.add(DiagnosticsProperty<Function>('onTap', onTap));
-  }
-
-  /// --------------------------------------------------------------------------
-}

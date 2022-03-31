@@ -104,8 +104,8 @@ class PhraseProvider extends ChangeNotifier {
   Future<void> updatePhrases(BuildContext context) async {
 
     /// delete LDB phrases
-    await LDBOps.deleteAllMaps(docName: LDBDoc.enPhrases);
-    await LDBOps.deleteAllMaps(docName: LDBDoc.arPhrases);
+    await LDBOps.deleteAllAtOnce(docName: LDBDoc.enPhrases);
+    await LDBOps.deleteAllAtOnce(docName: LDBDoc.arPhrases);
 
     /// reload all phrases by current langCode
     await getSetCurrentLangAndTransModel(context);
