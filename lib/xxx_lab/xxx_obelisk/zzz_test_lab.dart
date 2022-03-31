@@ -1,8 +1,17 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
+import 'package:bldrs/e_db/ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -101,45 +110,88 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                final List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(
-                    context: context,
-                    limit: 200,
-                );
-
-                // blog('count is ${_allBzz.length}');
-
-                for (int i =0; i < _allBzz.length; i++){
-
-                  final BzModel bzModel = _allBzz[i];
-                  final int count = i+1;
-
-                  blog('$count : ${bzModel.id} : bzTypes : ${bzModel.bzTypes}');
-                }
+                // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
                 //
+                // final List<CountryModel> _allCountries = <CountryModel>[];
                 //
+                // final CountryModel _egypt = await _zoneProvider.fetchCountryByID(
+                //     context: context,
+                //     countryID: 'egy',
+                // );
                 //
-                //   // final dynamic shit = BzModel.decipherBzTypes(bzModel.bzTypes);
-                //   //
-                //   // blog('shit : $shit');
-                //   //
-                //   // if (shit == [null]){
-                //   //
-                //   //
-                //   //   final List<BzType> _bzTypes = <BzType>[BzType.designer, BzType.contractor];
-                //   //
-                //   //   await updateDocField(
-                //   //     context: context,
-                //   //     collName: FireColl.bzz,
-                //   //     docName: bzModel.id,
-                //   //     field: 'bzTypes',
-                //   //     input: BzModel.cipherBzTypes(_bzTypes),
-                //   //   );
-                //   //
-                //   // }
+                // final CountryModel _sau = await _zoneProvider.fetchCountryByID(
+                //     context: context,
+                //     countryID: 'sau',
+                // );
+                //
+                // _allCountries.add(_egypt);
+                // _allCountries.add(_sau);
+                //
+                // int _count = 0;
+                // for (final CountryModel country in _allCountries){
+                //
+                //   final List<String> citiesIDs = country.citiesIDs;
+                //
+                //   for (final String cityID in citiesIDs){
+                //
+                //     final CityModel _cityModel = await readCityOps(
+                //         context: context,
+                //         cityID: cityID
+                //     );
+                //
+                //     final _enPhrase = Phrase.getPhraseByLangFromPhrases(
+                //       phrases: _cityModel.phrases,
+                //       langCode: 'en',
+                //     );
+                //
+                //     final _arPhrase = Phrase.getPhraseByLangFromPhrases(
+                //       phrases: _cityModel.phrases,
+                //       langCode: 'ar',
+                //     );
+                //
+                //     if (_enPhrase != null){
+                //
+                //       final Phrase _enPhraseAdjusted = Phrase(
+                //         id: cityID,
+                //         value: _enPhrase.value,
+                //         trigram: createTrigram(input: _enPhrase.value),
+                //       );
+                //
+                //       await createNamedSubDoc(
+                //         context: context,
+                //         collName: FireColl.translations,
+                //         docName: 'en',
+                //         subCollName: FireSubColl.translations_xx_cities,
+                //         subDocName: cityID,
+                //         input: _enPhraseAdjusted.toMap(addTrigram: true),
+                //       );
+                //
+                //     }
+                //
+                //     if (_arPhrase != null){
+                //
+                //       final Phrase _arPhraseAdjusted = Phrase(
+                //         id: cityID,
+                //         value: _arPhrase.value,
+                //         trigram: createTrigram(input: _arPhrase.value),
+                //       );
+                //
+                //       await createNamedSubDoc(
+                //         context: context,
+                //         collName: FireColl.translations,
+                //         docName: 'ar',
+                //         subCollName: FireSubColl.translations_xx_cities,
+                //         subDocName: cityID,
+                //         input: _arPhraseAdjusted.toMap(addTrigram: true),
+                //       );
+                //
+                //     }
+                //
+                //     blog('done with $_count cities');
+                //     _count ++;
+                //   }
                 //
                 // }
-
-                blog('TAMAAAAM SHA2AWAAA xx');
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
@@ -199,7 +251,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           //   },
           // ),
 
-
           Container(
             width: _screenWidth,
             height: _screenHeight,
@@ -212,3 +263,45 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     );
   }
 }
+
+// Future<void> createCountriesPhrases() async {
+//
+//   final Phrase _enPhrase = Phrase.getPhraseByLangFromPhrases(
+//     phrases: country.phrases,
+//     langCode: 'en',
+//   );
+//   final Phrase _arPhrase = Phrase.getPhraseByLangFromPhrases(
+//     phrases: country.phrases,
+//     langCode: 'ar',
+//   );
+//
+//   final Phrase _enPhraseAdjusted = Phrase(
+//     id: country.id,
+//     value: _enPhrase.value,
+//     trigram: createTrigram(input: _enPhrase.value),
+//   );
+//   final Phrase _arPhraseAdjusted = Phrase(
+//     id: country.id,
+//     value: _arPhrase.value,
+//     trigram: createTrigram(input: _arPhrase.value),
+//   );
+//
+//   await createNamedSubDoc(
+//     context: context,
+//     collName: FireColl.translations,
+//     docName: 'en',
+//     subCollName: FireSubColl.translations_xx_countries,
+//     subDocName: country.id,
+//     input: _enPhraseAdjusted.toMap(addTrigram: true),
+//   );
+//
+//   await createNamedSubDoc(
+//     context: context,
+//     collName: FireColl.translations,
+//     docName: 'ar',
+//     subCollName: FireSubColl.translations_xx_countries,
+//     subDocName: country.id,
+//     input: _arPhraseAdjusted.toMap(addTrigram: true),
+//   );
+//
+// }

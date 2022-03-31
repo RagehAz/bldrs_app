@@ -73,7 +73,8 @@ abstract class FireSubColl {
   static const String zones_cities_cities = 'cities';
   static const String zones_countries_countries = 'countries';
 
-  static const String trans_xx_groups = 'keywords_and_specs';
+  static const String translations_xx_countries = 'countries';
+  static const String translations_xx_cities = 'cities';
 }
 // -----------------------------------------------------------------------------
 abstract class FireSubDoc{
