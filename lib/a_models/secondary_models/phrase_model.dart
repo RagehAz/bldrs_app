@@ -11,7 +11,7 @@ class Phrase {
   /// --------------------------------------------------------------------------
   const Phrase({
     @required this.value,
-    this.id, /// TASK SHOULD BE REQUIRED
+    @required this.id,
     this.langCode,
     this.trigram,
   });
