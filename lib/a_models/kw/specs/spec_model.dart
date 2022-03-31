@@ -584,7 +584,7 @@ class SpecModel {
   static bool specsContainsNewSale(List<SpecModel> specs) {
     const SpecModel _newSaleSpec = SpecModel(
         specsListID: 'propertyContractType',
-        value: RawSpecs.newSaleID
+        value: null,//RawSpecs.newSaleID
     );
 
     final bool _containsNewSale = SpecModel.specsContainThisSpec(

@@ -22,20 +22,33 @@ class Chain {
   /// --------------------------------------------------------------------------
   final String id;
   final String icon;
-  final dynamic phraseID;
+  final String phraseID;
   final dynamic sons;
 
   /// --------------------------------------------------------------------------
   static Chain filterSpecListChainRange(SpecList specList) {
+
     final List<KW> _filteredSons = <KW>[];
     Chain _filteredChain = specList.specChain;
 
-    if (Mapper.canLoopList(_filteredChain.sons) &&
-        Mapper.canLoopList(specList.range)) {
+    if (
+    Mapper.canLoopList(_filteredChain.sons)
+        &&
+        Mapper.canLoopList(specList.range)
+    ) {
+
       for (final KW kw in specList.specChain.sons) {
-        final List<String> _strings =
-            Mapper.getStringsFromDynamics(dynamics: specList.range);
-        if (Mapper.stringsContainString(strings: _strings, string: kw.id)) {
+
+        final List<String> _strings = Mapper.getStringsFromDynamics(
+            dynamics: specList.range,
+        );
+
+        if (
+        Mapper.stringsContainString(
+          strings: _strings,
+          string: kw.id,
+        ) == true
+        ) {
           _filteredSons.add(kw);
         }
       }
