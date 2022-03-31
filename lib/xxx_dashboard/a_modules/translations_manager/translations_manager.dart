@@ -78,44 +78,6 @@ class _TranslationsManagerState extends State<TranslationsManager> {
 
   // -----------------------------
   Future<void> _onBldrsTap() async {
-    blog('Blogging BLDRS.net ahooo');
-
-    final Map<String, dynamic> _map = await readSubDoc(
-        context: context,
-        collName: FireColl.zones,
-        docName: FireDoc.zones_countries,
-        subCollName: FireSubColl.zones_countries_countries,
-        subDocName: 'xks',
-    );
-
-    final Map<String,dynamic> _namesMap = _map['names'];
-
-    Mapper.blogMap(_namesMap);
-
-    final Map<String, dynamic> _arNameMapToAdd = {
-      'trigram' : createTrigram(input: 'كوسوفو',),
-      'code' : 'ar',
-      'value' : 'كوسوفو',
-    };
-
-    final Map<String, dynamic> _updated = Mapper.insertPairInMap(
-        map: _namesMap,
-        key: 'ar',
-        value: _arNameMapToAdd,
-    );
-
-    Mapper.blogMap(_updated);
-
-    await updateSubDocField(
-        context: context,
-        collName: FireColl.zones,
-        docName: FireDoc.zones_countries,
-        subCollName: FireSubColl.zones_countries_countries,
-        subDocName: 'xks',
-        field: 'names',
-        input: _updated,
-    );
-
 
 
   }
@@ -191,67 +153,67 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     await _phraseProvider.updatePhrases(context);
   }
   // -----------------------------
-  Future<void> _doTheThingForCities(List<Map<String, dynamic>> citiesMaps) async {
-
-    int count = 1;
-
-    for (final Map<String, dynamic> cityMap in citiesMaps) {
-
-      // Mapper.blogMap(cityMap);
-
-      final Map<String, dynamic> _namesMap = cityMap['names'];
-
-      final List<String> _keys = _namesMap.keys.toList();
-
-      final List<Phrase> _mixedPhrases = <Phrase>[];
-
-      for (final String _key in _keys){
-
-        final Map<String, dynamic> nameMap = _namesMap[_key];
-
-        final Phrase _phrase = Phrase(
-          langCode: _key,
-          trigram: Mapper.getStringsFromDynamics(dynamics: nameMap['trigram']),
-          value: nameMap['value'],
-        );
-        // _phrase.blogPhrase();
-
-        _mixedPhrases.add(_phrase);
-      }
-
-      final Map<String, dynamic> _mixedPhrasesMap = Phrase.cipherPhrasesToMap(
-        phrases: _mixedPhrases,
-        useLangCodeAsKeys: true,
-        addTrigrams: true,
-      );
-
-      Mapper.blogMap(_mixedPhrasesMap);
-
-      await updateSubDocField(
-          context: context,
-          collName: FireColl.zones,
-          docName: FireDoc.zones_cities,
-          subCollName: FireSubColl.zones_cities_cities,
-          subDocName: cityMap['cityID'],
-          field: 'phrases',
-          input: _mixedPhrasesMap,
-      );
-
-      await deleteSubDocField(
-        context: context,
-        collName: FireColl.zones,
-        docName: FireDoc.zones_cities,
-        subCollName: FireSubColl.zones_cities_cities,
-        subDocName: cityMap['cityID'],
-        field: 'names',
-      );
-
-      blog('$count : tamam with ${cityMap['cityID']} : remaining ${citiesMaps.length - count} cities in ${cityMap['countryID']}');
-      count++;
-    }
-
-
-  }
+  // Future<void> _doTheThingForCities(List<Map<String, dynamic>> citiesMaps) async {
+  //
+  //   int count = 1;
+  //
+  //   for (final Map<String, dynamic> cityMap in citiesMaps) {
+  //
+  //     // Mapper.blogMap(cityMap);
+  //
+  //     final Map<String, dynamic> _namesMap = cityMap['names'];
+  //
+  //     final List<String> _keys = _namesMap.keys.toList();
+  //
+  //     final List<Phrase> _mixedPhrases = <Phrase>[];
+  //
+  //     for (final String _key in _keys){
+  //
+  //       final Map<String, dynamic> nameMap = _namesMap[_key];
+  //
+  //       final Phrase _phrase = Phrase(
+  //         langCode: _key,
+  //         trigram: Mapper.getStringsFromDynamics(dynamics: nameMap['trigram']),
+  //         value: nameMap['value'],
+  //       );
+  //       // _phrase.blogPhrase();
+  //
+  //       _mixedPhrases.add(_phrase);
+  //     }
+  //
+  //     final Map<String, dynamic> _mixedPhrasesMap = Phrase.cipherPhrasesToMap(
+  //       phrases: _mixedPhrases,
+  //       useLangCodeAsKeys: true,
+  //       addTrigrams: true,
+  //     );
+  //
+  //     Mapper.blogMap(_mixedPhrasesMap);
+  //
+  //     await updateSubDocField(
+  //         context: context,
+  //         collName: FireColl.zones,
+  //         docName: FireDoc.zones_cities,
+  //         subCollName: FireSubColl.zones_cities_cities,
+  //         subDocName: cityMap['cityID'],
+  //         field: 'phrases',
+  //         input: _mixedPhrasesMap,
+  //     );
+  //
+  //     await deleteSubDocField(
+  //       context: context,
+  //       collName: FireColl.zones,
+  //       docName: FireDoc.zones_cities,
+  //       subCollName: FireSubColl.zones_cities_cities,
+  //       subDocName: cityMap['cityID'],
+  //       field: 'names',
+  //     );
+  //
+  //     blog('$count : tamam with ${cityMap['cityID']} : remaining ${citiesMaps.length - count} cities in ${cityMap['countryID']}');
+  //     count++;
+  //   }
+  //
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -286,14 +248,14 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                   appBarType: AppBarType.search,
                   searchHint: 'Search ${_enPhrases.length} phrases by ID only',
                   searchController: _searchController,
-                  onSearchChanged: (String text) => onSearchPhrases(
-                    text: text,
-                    arPhrases: _arPhrases,
-                    enPhrase: _enPhrases,
-                    isSearching: _isSearching,
-                    mixedSearchResult: _mixedSearchedPhrases,
-                    searchController: _searchController,
-                  ),
+                  // onSearchChanged: (String text) => onSearchPhrases(
+                  //   text: text,
+                  //   arPhrases: _arPhrases,
+                  //   enPhrase: _enPhrases,\
+                  //   isSearching: _isSearching,
+                  //   mixedSearchResult: _mixedSearchedPhrases,
+                  //   searchController: _searchController,
+                  // ),
                   onSearchSubmit: (String text) => onSearchPhrases(
                     text: text,
                     arPhrases: _arPhrases,
