@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 class CountryModel {
@@ -207,10 +208,14 @@ class CountryModel {
 
     for (final String id in _allCountriesIDs){
 
-      final String _countryName = getTranslatedCountryNameByID(context: context, countryID: id);
+      final String _countryName = getTranslatedCountryNameByID(
+          context: context,
+          countryID: id,
+      );
 
       final Phrase _name = Phrase(
-        langCode: id,
+        id: id,
+        langCode: Wordz.languageCode(context),
         value: _countryName,
       );
 
