@@ -30,7 +30,7 @@ class KeywordsProvider extends ChangeNotifier {
       await ExoticMethods.updateNumberOfKeywords(context, _allKeywords);
 
       /// 2.1 - assure that LDB is clean first
-      await LDBOps.deleteAllMaps(docName: LDBDoc.keywords);
+      await LDBOps.deleteAllMapsOneByOne(docName: LDBDoc.keywords);
 
       /// 2.2 insert all keywords to LDB
       await LDBOps.insertMaps(

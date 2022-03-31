@@ -114,7 +114,7 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    await deleteAll(
+    await deleteAllOneByOne(
         docName: docName,
         primaryKey: primaryKey,
     );
@@ -287,9 +287,8 @@ class Sembast  {
     }
 
   }
-
 // ---------------------------------------------------
-  static Future<void> deleteAll({
+  static Future<void> deleteAllOneByOne({
     @required String docName,
     @required String primaryKey,
   }) async {
@@ -318,5 +317,18 @@ class Sembast  {
 // -----------------------------------------------------------------------------
   }
 // -----------------------------------------------------------------------------
+  static Future<void> deleteAllAtOnce({
+  @required String docName,
+}) async {
 
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName
+    );
+
+    final Database _db = await _getDB();
+
+    await _doc.delete(_db,);
+
+  }
+// -----------------------------------------------------------------------------
 }

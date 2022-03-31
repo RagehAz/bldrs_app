@@ -52,6 +52,27 @@ class ExoticMethods {
     return _maps;
   }
 // -----------------------------------------------------------------------------
+  static Future<List<Map<String, dynamic>>> readAllSubCollectionDocs({
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String subCollName,
+    @required String orderBy,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
+      context: context,
+      limit: 1000,
+      collName: FireColl.zones,
+      docName: docName,
+      subCollName: subCollName,
+      orderBy: orderBy,
+    );
+
+    return _maps;
+
+  }
+// -----------------------------------------------------------------------------
   static Future<List<UserModel>> readAllUserModels({@required int limit}) async {
   // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
@@ -587,4 +608,25 @@ class ExoticMethods {
   //
   //   return _currencies;
   // }
+/// ----------------------------------------------------------------------------
+  static Future<List<CountryModel>> readAllCountries({
+    @required BuildContext context,
+  }) async {
+
+    final List<Map<String, dynamic>> allMaps = await readAllSubCollectionDocs(
+      context: context,
+      collName: FireColl.zones,
+      docName: FireDoc.zones_countries,
+      subCollName: FireSubColl.zones_countries_countries,
+      orderBy: 'id',
+    );
+
+    final List<CountryModel> _countries = CountryModel.decipherCountriesMaps(
+        maps: allMaps,
+        fromJSON: false
+    );
+
+    return _countries;
+  }
+/// ----------------------------------------------------------------------------
 }

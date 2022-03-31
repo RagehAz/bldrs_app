@@ -214,8 +214,7 @@ Future<DocumentReference<Object>> createNamedSubDoc({
 
         await _subDocRef.set(input);
 
-        blog(
-            'createNamedSubDoc : CREATED $collName/$docName/$subCollName/$subDocName/');
+        blog('createNamedSubDoc : CREATED $collName/$docName/$subCollName/$subDocName/');
       });
 
   return _subDocRef;
