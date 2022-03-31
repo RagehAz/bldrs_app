@@ -174,18 +174,23 @@ Future<void> deleteMap({
   );
 
 }
-
 // ---------------------------------------------------
-Future<void> deleteAllMaps({
+Future<void> deleteAllMapsOneByOne({
   @required String docName,
 }) async {
 
-  // Sembast.;
-
-  await Sembast.deleteAll(
+  await Sembast.deleteAllOneByOne(
     docName: docName,
     primaryKey: getPrimaryKey(docName),
   );
+
+}
+// ---------------------------------------------------
+Future<void> deleteAllAtOnce({
+  @required String docName,
+}) async {
+
+  await Sembast.deleteAllAtOnce(docName: docName);
 
 }
 // -----------------------------------------------------------------------------
