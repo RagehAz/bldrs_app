@@ -1,7 +1,8 @@
 
+// ignore_for_file: constant_identifier_names, prefer_interpolation_to_compose_strings
+
 abstract class Dumz {
   static const String _dumzPath = 'assets/dum/xx/';
-
 
 
   // XX DUMBS

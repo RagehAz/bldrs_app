@@ -52,8 +52,6 @@ class TranslationStrip extends StatelessWidget {
             width: width,
             height: 30,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-
               children: <Widget>[
 
                 SizedBox(
