@@ -125,7 +125,6 @@ class ExoticMethods {
 
     /// TASK : CHECK NOTI LIMIT WHILE READING THEM
     orderBy: 'id',
-    addDocSnapshotToEachMap: false,
   );
 
   final List<NotiModel> _allModels = NotiModel.decipherNotiModels(
@@ -290,13 +289,11 @@ class ExoticMethods {
   static Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
   final List<dynamic> _allMaps = await Fire.readSubCollectionDocs(
     context: context,
-    addDocsIDs: false,
     collName: 'admin',
     docName: 'bigMac',
     subCollName: 'bigMacs',
     limit: 250,
     orderBy: 'countryID',
-    addDocSnapshotToEachMap: false,
   );
 
   final List<BigMac> _allBigMacs = BigMac.decipherBigMacs(_allMaps);
