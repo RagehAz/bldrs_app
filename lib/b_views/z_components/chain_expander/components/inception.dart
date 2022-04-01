@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/components/unfinished_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -26,7 +27,7 @@ class Inception extends StatelessWidget {
   final dynamic son;
   final int level;
   final double boxWidth;
-  final ValueChanged<KW> onKeywordTap;
+  final ValueChanged<String> onKeywordTap;
   final List<String> selectedKeywordsIDs;
   static const double buttonHeight = 60;
   /// --------------------------------------------------------------------------
@@ -42,13 +43,13 @@ class Inception extends StatelessWidget {
     final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
 
     /// IF SON IS A KEYWORD
-    if (son.runtimeType == KW) {
+    if (son is String) {
 
-      final KW _kw = son;
+      final String _keywordID = son;
 
       final bool _isSelected = Mapper.stringsContainString(
           strings: selectedKeywordsIDs,
-          string: _kw.id,
+          string: _keywordID,
       );
 
       final Color _color = _isSelected == true ? Colorz.green255 : Colorz.white20;
@@ -56,13 +57,13 @@ class Inception extends StatelessWidget {
       return DreamBox(
         width: _buttonWidth,
         height: _buttonHeight,
-        icon: _keywordsProvider.getKeywordIcon(son: _kw, context: context),
-        verse: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _kw.names)?.value,
+        icon: _keywordsProvider.getKeywordIcon(son: _keywordID, context: context),
+        verse: superPhrase(context, _keywordID),
         verseScaleFactor: 0.7,
         verseCentered: false,
         color: _color,
         margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-        onTap: () => onKeywordTap(_kw),
+        onTap: () => onKeywordTap(_keywordID),
       );
 
     }
@@ -117,6 +118,10 @@ class Inception extends StatelessWidget {
           ],
         ),
       );
+    }
+
+    else if (son is String){
+
     }
 
     /// OTHERWISE

@@ -17,7 +17,7 @@ class BldrsChain extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double boxWidth;
   final Chain chain;
-  final ValueChanged<KW> onKeywordTap;
+  final ValueChanged<String> onKeywordTap;
   final List<String> selectedKeywordsIDs;
   /// --------------------------------------------------------------------------
   @override
