@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/kw/chain/chain_products_sons.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/xxx_lab/cleaning_space.dart';
 
 abstract class ChainProducts {
 

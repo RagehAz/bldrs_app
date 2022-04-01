@@ -9,7 +9,6 @@ abstract class ChainEquipment {
     phraseID: 'phid_k_equipment_keywords',
     sons: <Chain>[
 
-
       // -----------------------------------------------
       /// Handheld equipment & tools
       Chain(
