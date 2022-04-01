@@ -70,6 +70,7 @@ class Chain {
     icon: Iconz.bldrsNameEn,
     phraseID: '0100_bldrsChain',
     sons: <Chain>[
+
       /// PROPERTIES
       ChainProperties.chain,
 
@@ -84,6 +85,7 @@ class Chain {
 
       /// EQUIPMENT
       ChainEquipment.chain,
+
     ],
   );
 // -----------------------------------------------------------------------------

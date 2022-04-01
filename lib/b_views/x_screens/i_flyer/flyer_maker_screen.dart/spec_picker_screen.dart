@@ -53,14 +53,13 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSpecTap(BuildContext context, KW kw) async {
-    blog('received kw : ${kw.id}');
+  Future<void> _onSpecTap(BuildContext context, String keywordID) async {
+    blog('received kw id : $keywordID');
 
     // spec.printSpec();
-
-    final SpecModel _spec = SpecModel.getSpecFromKW(
+    final SpecModel _spec = SpecModel(
       specsListID: widget.specList.id,
-      kw: kw,
+      value: keywordID,
     );
 
     final bool _alreadySelected = SpecModel.specsContainThisSpec(specs: _selectedSpecs.value, spec: _spec);
@@ -269,7 +268,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                     specList: widget.specList,
                     selectedSpecs: SpecModel.getSpecsByListID(
                         specs: value, specsListID: widget.specList.id),
-                    onSpecTap: (KW kw) => _onSpecTap(context, kw),
+                    onSpecTap: (String keywordID) => _onSpecTap(context, keywordID),
                   );
                 }),
 

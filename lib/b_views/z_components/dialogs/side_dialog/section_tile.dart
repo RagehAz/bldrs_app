@@ -47,7 +47,7 @@ class SectionTile extends StatelessWidget {
     return _icon;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onKeywordTap(BuildContext context, KW kw) async {
+  Future<void> _onKeywordTap(BuildContext context, String _keywordID) async {
 
     /// A - if section is not active * if user is author or not
     if (inActiveMode == true) {
@@ -97,7 +97,7 @@ class SectionTile extends StatelessWidget {
       await _keywordsProvider.changeSection(
         context: context,
         section: flyerType,
-        kw: kw,
+        keywordID: _keywordID,
       );
 
       /// B - close dialog
@@ -129,7 +129,7 @@ class SectionTile extends StatelessWidget {
       ),
       secondHeadline: TextGen.flyerTypeDescriptionStringer(context, flyerType),
       inActiveMode: inActiveMode,
-      onKeywordTap: (KW kw) => _onKeywordTap(context, kw),
+      onKeywordTap: (String keywordID) => _onKeywordTap(context, keywordID),
     );
 
   }
