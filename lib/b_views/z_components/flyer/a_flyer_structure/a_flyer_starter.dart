@@ -110,7 +110,6 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
 // -----------------------------------------------------------------
 
-
         /// SETTERS
 
         _bzModelNotifier.value = _bzModel;

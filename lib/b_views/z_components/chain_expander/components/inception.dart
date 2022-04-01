@@ -78,7 +78,7 @@ class Inception extends StatelessWidget {
         icon: _keywordsProvider.getKeywordIcon(son: son, context: context),
         width: _buttonWidth,
         collapsedHeight: _buttonHeight,
-        firstHeadline: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: son.translations)?.value,
+        firstHeadline: superPhrase(context, _chain.id),
         secondHeadline: null,
         margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
         child: Column(
@@ -117,10 +117,6 @@ class Inception extends StatelessWidget {
           ],
         ),
       );
-    }
-
-    else if (son is String){
-
     }
 
     /// OTHERWISE

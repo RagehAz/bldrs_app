@@ -365,7 +365,7 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
   @required String docName,
   @required String subCollName,
   @required int limit,
-  @required String orderBy,
+  String orderBy,
   bool addDocsIDs = false,
   bool addDocSnapshotToEachMap = false,
   QueryDocumentSnapshot<Object> startAfter,
@@ -441,15 +441,24 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
         final QueryDocumentSnapshot<Object> _startAfter = startAfter;
 
         if (_startAfter == null) {
-          _collectionSnapshot = await _subCollection
-              .orderBy(orderBy)
-              .limit(limit)
-              .get();
+
+          if (orderBy == null) {
+            _collectionSnapshot = await _subCollection
+                .limit(limit)
+                .get();
+          }
+          else {
+            _collectionSnapshot = await _subCollection
+                .orderBy(orderBy)
+                .limit(limit)
+                .get();
+          }
+
         }
 
         else {
           _collectionSnapshot = await _subCollection
-              .orderBy(orderBy)
+              // .orderBy(orderBy)
               .limit(limit)
               .startAfterDocument(startAfter)
               .get();
@@ -667,16 +676,20 @@ Future<void> deleteDoc({
   @required String collName,
   @required String docName,
 }) async {
+
   await tryAndCatch(
       context: context,
       methodName: 'deleteDoc',
       functions: () async {
+
         final DocumentReference<Object> _doc = getDocRef(
           collName: collName,
           docName: docName,
         );
 
         await _doc.delete();
+
+        blog('deleteDoc : deleted : $collName : $docName');
       });
 }
 // ---------------------------------------------------
@@ -699,6 +712,8 @@ Future<void> deleteSubDoc({
         );
 
         await _subDoc.delete();
+
+        blog('deleteSubDoc : deleted : $collName : $docName : $subCollName : $subDocName');
       });
 }
 // ---------------------------------------------------
