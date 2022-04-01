@@ -419,20 +419,6 @@ class SpecModel {
     return _contains;
   }
 // -----------------------------------------------------------------------------
-  static SpecModel getSpecFromKW({
-    @required KW kw,
-    @required String specsListID,
-  }) {
-    final SpecModel _spec = SpecModel(
-      value: kw.id,
-      specsListID: specsListID,
-    );
-
-    // _spec.printSpec();
-
-    return _spec;
-  }
-// -----------------------------------------------------------------------------
   static List<SpecModel> getSpecsByListID({
     @required List<SpecModel> specs,
     @required String specsListID,

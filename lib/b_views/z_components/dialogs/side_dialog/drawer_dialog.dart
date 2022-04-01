@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/chain/chain_crafts.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
@@ -49,10 +51,12 @@ class DrawerDialog extends StatefulWidget {
 
 class _DrawerDialogState extends State<DrawerDialog> {
   KeywordsProvider _keywordsProvider;
+  GeneralProvider _generalProvider;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+    _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -253,6 +257,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
                             ),
 
                             /// REAL ESTATE
+                            if (_generalProvider.sectionIsOnline(BzSection.realestate))
                             SectionBubble(
                                 title: 'RealEstate',
                                 icon: Iconz.pyramidSingleYellow,
@@ -270,7 +275,8 @@ class _DrawerDialogState extends State<DrawerDialog> {
                             ),
 
                             /// Construction
-                            SectionBubble(
+                            if (_generalProvider.sectionIsOnline(BzSection.construction))
+                              SectionBubble(
                                 title: 'Construction',
                                 icon: Iconz.pyramidSingleYellow,
                                 bubbleWidth: _bubbleWidth,
@@ -296,30 +302,31 @@ class _DrawerDialogState extends State<DrawerDialog> {
                             ),
 
                             /// Supplies
-                            SectionBubble(
-                              title: 'Supplies',
-                              icon: Iconz.pyramidSingleYellow,
-                              bubbleWidth: _bubbleWidth,
-                              buttons: <Widget>[
+                            if (_generalProvider.sectionIsOnline(BzSection.supplies))
+                              SectionBubble(
+                                title: 'Supplies',
+                                icon: Iconz.pyramidSingleYellow,
+                                bubbleWidth: _bubbleWidth,
+                                buttons: <Widget>[
 
-                                SectionTile(
-                                  bubbleWidth: _bubbleWidth,
-                                  inActiveMode: false,
-                                  flyerType: FlyerType.product,
-                                  chain: _productsChain,
-                                ),
+                                  SectionTile(
+                                    bubbleWidth: _bubbleWidth,
+                                    inActiveMode: false,
+                                    flyerType: FlyerType.product,
+                                    chain: _productsChain,
+                                  ),
 
-                                MainLayout.spacer10,
+                                  MainLayout.spacer10,
 
-                                SectionTile(
-                                  bubbleWidth: _bubbleWidth,
-                                  inActiveMode: false,
-                                  flyerType: FlyerType.equipment,
-                                  chain: _equipmentChain,
-                                ),
+                                  SectionTile(
+                                    bubbleWidth: _bubbleWidth,
+                                    inActiveMode: false,
+                                    flyerType: FlyerType.equipment,
+                                    chain: _equipmentChain,
+                                  ),
+                                ],
+                              ),
 
-                              ],
-                            ),
                           ],
                         ),
 

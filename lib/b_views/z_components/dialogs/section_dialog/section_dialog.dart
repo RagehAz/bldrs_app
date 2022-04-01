@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/section_dialog/section_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -51,83 +52,80 @@ class SectionDialog extends StatelessWidget {
     final double _bubbleWidth = CenterDialog.dialogWidth(context: context) - Ratioz.appBarMargin * 2;
     final double _buttonWidth = _bubbleWidth * 0.9;
 
-    return OldMaxBounceNavigator(
-      boxDistance: BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.7),
-      child: SizedBox(
-        width: BottomDialog.clearWidth(context),
-        // height: _dialogHeight,
-        // color: Colorz.BloodTest,
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: <Widget>[
+    return SizedBox(
+      width: BottomDialog.clearWidth(context),
+      // height: _dialogHeight,
+      // color: Colorz.BloodTest,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: <Widget>[
 
-            /// REAL ESTATE
-            SectionBubble(
-                title: 'RealEstate',
-                icon: Iconz.pyramidSingleYellow,
-                bubbleWidth: _buttonWidth,
-                buttons: <Widget>[
-
-                  SectionDialogButton(
-                    flyerType: FlyerType.property,
-                    inActiveMode: false,
-                    dialogHeight: dialogHeight,
-                  ),
-                ]),
-
-            /// Construction
-            SectionBubble(
-                title: 'Construction',
-                icon: Iconz.pyramidSingleYellow,
-                bubbleWidth: _buttonWidth,
-                buttons: <Widget>[
-
-                  SectionDialogButton(
-                    flyerType: FlyerType.design,
-                    inActiveMode: false,
-                    dialogHeight: dialogHeight,
-                  ),
-
-                  SectionDialogButton(
-                    flyerType: FlyerType.project,
-                    inActiveMode: false,
-                    dialogHeight: dialogHeight,
-                  ),
-
-                  SectionDialogButton(
-                    flyerType: FlyerType.craft,
-                    inActiveMode: false,
-                    dialogHeight: dialogHeight,
-                  ),
-                ]),
-
-            /// Construction
-            SectionBubble(
-              title: 'Supplies',
+          /// REAL ESTATE
+          SectionBubble(
+              title: 'RealEstate',
               icon: Iconz.pyramidSingleYellow,
               bubbleWidth: _buttonWidth,
               buttons: <Widget>[
 
                 SectionDialogButton(
-                  flyerType: FlyerType.product,
+                  flyerType: FlyerType.property,
+                  inActiveMode: false,
+                  dialogHeight: dialogHeight,
+                ),
+              ]),
+
+          /// Construction
+          SectionBubble(
+              title: 'Construction',
+              icon: Iconz.pyramidSingleYellow,
+              bubbleWidth: _buttonWidth,
+              buttons: <Widget>[
+
+                SectionDialogButton(
+                  flyerType: FlyerType.design,
                   inActiveMode: false,
                   dialogHeight: dialogHeight,
                 ),
 
                 SectionDialogButton(
-                  flyerType: FlyerType.equipment,
+                  flyerType: FlyerType.project,
                   inActiveMode: false,
                   dialogHeight: dialogHeight,
                 ),
-              ],
-            ),
 
-            const Horizon(
-              heightFactor: 0.5,
-            ),
+                SectionDialogButton(
+                  flyerType: FlyerType.craft,
+                  inActiveMode: false,
+                  dialogHeight: dialogHeight,
+                ),
+              ]),
 
-          ],
-        ),
+          /// Construction
+          SectionBubble(
+            title: 'Supplies',
+            icon: Iconz.pyramidSingleYellow,
+            bubbleWidth: _buttonWidth,
+            buttons: <Widget>[
+
+              SectionDialogButton(
+                flyerType: FlyerType.product,
+                inActiveMode: false,
+                dialogHeight: dialogHeight,
+              ),
+
+              SectionDialogButton(
+                flyerType: FlyerType.equipment,
+                inActiveMode: false,
+                dialogHeight: dialogHeight,
+              ),
+            ],
+          ),
+
+          const Horizon(
+            heightFactor: 0.5,
+          ),
+
+        ],
       ),
     );
   }
