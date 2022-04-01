@@ -1,16 +1,14 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/secondary_models/translation_model.dart';
 import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
+import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations/ar.dart';
-import 'package:flutter/material.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations/en.dart';
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
-import 'package:provider/provider.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 class PhraseProvider extends ChangeNotifier {

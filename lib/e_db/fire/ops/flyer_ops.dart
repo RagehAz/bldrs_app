@@ -228,7 +228,6 @@ Future<List<ReviewModel>> readAllReviews({
     subCollName: FireSubColl.flyers_flyer_reviews,
     addDocsIDs: true,
     orderBy: 'reviewID',
-    addDocSnapshotToEachMap: false,
     limit: 10,
 
     /// task : paginate in flyer reviews
