@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -61,28 +62,26 @@ class SectionsButton extends StatelessWidget {
                   builder: (_, KeywordsProvider keywordsProvider, Widget child){
 
                     final FlyerType _currentSection = keywordsProvider.currentSection;
-                    final KW _currentKeyword = keywordsProvider.currentKeyword;
+                    final String _currentKeywordID = keywordsProvider.currentKeywordID;
+                    final String _keywordPhrase = superPhrase(context, _currentKeywordID);
 
                     final String _sectionName = translateFlyerType(
                       context: context,
                       flyerType: _currentSection,
                     );
 
-                    final String _titleVerse = _currentKeyword == null ?
-                    Wordz.section(context)
+                    final String _titleVerse = _currentKeywordID == null ?
+                    _keywordPhrase
                         :
                     _sectionName;
 
-                    final String _sectionVerse = _currentKeyword == null ?
+                    final String _sectionVerse = _currentKeywordID == null ?
                     translateFlyerType(
                       context: context,
                       flyerType: _currentSection,
                     )
                         :
-                    Phrase.getPhraseByCurrentLangFromPhrases(
-                        context: context,
-                        phrases: _currentKeyword.names
-                    )?.value;
+                    _keywordPhrase;
 
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,

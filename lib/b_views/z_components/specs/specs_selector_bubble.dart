@@ -22,7 +22,7 @@ class SpecSelectorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final SpecList specList;
   final List<SpecModel> selectedSpecs;
-  final ValueChanged<KW> onSpecTap;
+  final ValueChanged<String> onSpecTap;
   final double bubbleHeight;
   /// --------------------------------------------------------------------------
   @override
@@ -49,7 +49,7 @@ class SpecSelectorBubble extends StatelessWidget {
             BldrsChain(
               boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
               chain: Chain.filterSpecListChainRange(specList),
-              onKeywordTap: (KW kw) => onSpecTap(kw),
+              onKeywordTap: (String keywordID) => onSpecTap(keywordID),
               selectedKeywordsIDs: KW.getKeywordsIDsFromSpecs(selectedSpecs),
             ),
 

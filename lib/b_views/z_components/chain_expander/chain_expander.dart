@@ -34,7 +34,7 @@ class ChainExpander extends StatelessWidget {
   final Color initialColor;
   final Color expansionColor;
   final EdgeInsets margin;
-  final ValueChanged<KW> onKeywordTap;
+  final ValueChanged<String> onKeywordTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class ChainExpander extends StatelessWidget {
           child: BldrsChain(
             chain: chain,
             boxWidth: width,
-            onKeywordTap: (KW kw) => onKeywordTap(kw),
+            onKeywordTap: (String keywordID) => onKeywordTap(keywordID),
           ),
 
           // child: ListView.builder(

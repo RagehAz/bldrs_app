@@ -97,7 +97,7 @@ class SectionDialogButton extends StatelessWidget {
       await _keywordsProvider.changeSection(
         context: context,
         section: flyerType,
-        kw: null,
+        keywordID: null,
       );
 
       /// B - close dialog

@@ -161,7 +161,7 @@ class KeywordsProvider extends ChangeNotifier {
   Future<void> changeSection({
     @required BuildContext context,
     @required FlyerType section,
-    @required KW kw,
+    @required String keywordID,
   }) async {
     blog('Changing section to $section');
 
@@ -175,7 +175,7 @@ class KeywordsProvider extends ChangeNotifier {
     );
 
     _currentSection = section;
-    _currentKeyword = kw;
+    _currentKeywordID = keywordID;
     // setSectionGroups();
 
     notifyListeners();
@@ -194,14 +194,14 @@ class KeywordsProvider extends ChangeNotifier {
   /// CURRENT KEYWORD
 
 // -------------------------------------
-  KW _currentKeyword;
+  String _currentKeywordID;
 // -------------------------------------
-  KW get currentKeyword {
-    return _currentKeyword;
+  String get currentKeywordID {
+    return _currentKeywordID;
   }
 // -----------------------------------------------------------------------------
-  void _setCurrentKeyword(KW kw){
-    _currentKeyword = kw;
+  void _setCurrentKeyword(String keywordID){
+    _currentKeywordID = keywordID;
     notifyListeners();
   }
 // -------------------------------------
