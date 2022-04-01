@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/kw/specs/data_creator.dart';
-import 'package:bldrs/a_models/kw/specs/raw_specs.dart' as RawSpecs;
 import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;

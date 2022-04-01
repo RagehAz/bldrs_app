@@ -84,7 +84,6 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
 
     final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
       context: context,
-      addDocsIDs: false,
       collName: FireColl.zones,
       docName: 'countries',
       subCollName: 'countries',
