@@ -222,7 +222,7 @@ class BottomDialog extends StatelessWidget {
     String title,
   }) async {
 
-    final double _spacing = buttonHeight;
+    final double _spacing = buttonHeight * 0.1;
     final double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length);
 
     await showBottomDialog(

@@ -1,10 +1,16 @@
+import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
+import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -98,87 +104,27 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+                // blog(superUserID());
                 //
-                // final List<CountryModel> _allCountries = <CountryModel>[];
-                //
-                // final CountryModel _egypt = await _zoneProvider.fetchCountryByID(
+                // final List<Map<String, dynamic>> _maps = await readSubCollectionDocs(
                 //     context: context,
-                //     countryID: 'egy',
+                //     collName: 'old_zones',
+                //     docName: 'usa',
+                //     subCollName: 'states',
+                //     limit: 10,
+                //
+                //   addDocsIDs: true,
                 // );
                 //
-                // final CountryModel _sau = await _zoneProvider.fetchCountryByID(
-                //     context: context,
-                //     countryID: 'sau',
-                // );
                 //
-                // _allCountries.add(_egypt);
-                // _allCountries.add(_sau);
-                //
-                // int _count = 0;
-                // for (final CountryModel country in _allCountries){
-                //
-                //   final List<String> citiesIDs = country.citiesIDs;
-                //
-                //   for (final String cityID in citiesIDs){
-                //
-                //     final CityModel _cityModel = await readCityOps(
-                //         context: context,
-                //         cityID: cityID
-                //     );
-                //
-                //     final _enPhrase = Phrase.getPhraseByLangFromPhrases(
-                //       phrases: _cityModel.phrases,
-                //       langCode: 'en',
-                //     );
-                //
-                //     final _arPhrase = Phrase.getPhraseByLangFromPhrases(
-                //       phrases: _cityModel.phrases,
-                //       langCode: 'ar',
-                //     );
-                //
-                //     if (_enPhrase != null){
-                //
-                //       final Phrase _enPhraseAdjusted = Phrase(
-                //         id: cityID,
-                //         value: _enPhrase.value,
-                //         trigram: createTrigram(input: _enPhrase.value),
-                //       );
-                //
-                //       await createNamedSubDoc(
-                //         context: context,
-                //         collName: FireColl.translations,
-                //         docName: 'en',
-                //         subCollName: FireSubColl.translations_xx_cities,
-                //         subDocName: cityID,
-                //         input: _enPhraseAdjusted.toMap(addTrigram: true),
-                //       );
-                //
-                //     }
-                //
-                //     if (_arPhrase != null){
-                //
-                //       final Phrase _arPhraseAdjusted = Phrase(
-                //         id: cityID,
-                //         value: _arPhrase.value,
-                //         trigram: createTrigram(input: _arPhrase.value),
-                //       );
-                //
-                //       await createNamedSubDoc(
-                //         context: context,
-                //         collName: FireColl.translations,
-                //         docName: 'ar',
-                //         subCollName: FireSubColl.translations_xx_cities,
-                //         subDocName: cityID,
-                //         input: _arPhraseAdjusted.toMap(addTrigram: true),
-                //       );
-                //
-                //     }
-                //
-                //     blog('done with $_count cities');
-                //     _count ++;
-                //   }
-                //
+                // for (final map in _maps){
+                //   await deleteSubDoc(
+                //       context: context,
+                //       collName: 'old_zones',
+                //       docName: 'usa',
+                //     subCollName: 'states',
+                //     subDocName: map['id']
+                //   );
                 // }
 
                 _uiProvider.triggerLoading(setLoadingTo: false);

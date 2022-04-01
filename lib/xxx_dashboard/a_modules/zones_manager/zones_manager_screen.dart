@@ -73,7 +73,6 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _readMoreCountries() async {
     if (_loading == false) {
