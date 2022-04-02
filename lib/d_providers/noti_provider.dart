@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/notification/noti_model.dart';
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
 import 'package:flutter/material.dart';
 
 // final NotiProvider _notiProvider = Provider.of<NotiProvider>(context, listen: false);

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:bldrs/a_models/notification/noti_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -9,6 +8,7 @@ import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/audioz.dart' as Audioz;
 import 'package:bldrs/f_helpers/notifications/noti_ops.dart' as NotiOps;
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
 import 'package:bldrs/f_helpers/notifications/test_screens/second_noti_test_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -133,21 +133,22 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
       _awesomeNotification.actionStream
           .listen((ReceivedAction notification) async {
-        final bool _isBasicChannel = notification.channelKey ==
-            NotiOps.getNotiChannelName(NotiChannel.basic);
+
+        final bool _isBasicChannel = notification.channelKey == NotiOps
+            .getNotiChannelName(NotiChannel.basic);
+
         final bool _isIOS = DeviceChecker.deviceIsIOS();
 
         if (_isBasicChannel && _isIOS) {
           final int _x = await _awesomeNotification.getGlobalBadgeCounter();
-
           await _awesomeNotification.setGlobalBadgeCounter(_x - 1);
         }
 
         await Nav.pushAndRemoveUntil(
           context: context,
           screen: const SecondNotiTestScreen(
-              // thing: 'thing'
-              ),
+            // thing: 'thing'
+          ),
         );
       });
     }

@@ -1,7 +1,7 @@
-import 'package:bldrs/a_models/notification/noti_sudo.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_sudo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
@@ -63,16 +63,14 @@ class NotiModel {
   final String title;
 
   /// max 30 char
-  final DateTime
-      timeStamp; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
+  final DateTime timeStamp; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
   final String body;
 
   /// max 80 char
   final dynamic attachment;
   final NotiAttachmentType attachmentType;
 
-  final bool
-      dismissed; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
+  final bool dismissed; // NEVER CHANGE THIS VAR NAME -> OR CREATE NEW FIREBASE QUERY INDEX
   final bool sendFCM;
   final dynamic metaData;
 
@@ -106,8 +104,10 @@ class NotiModel {
   }
 
 // -----------------------------------------------------------------------------
-  static NotiModel decipherNotiModel(
-      {@required dynamic map, @required bool fromJSON}) {
+  static NotiModel decipherNotiModel({
+    @required dynamic map,
+    @required bool fromJSON
+  }) {
     NotiModel _noti;
 
     if (map != null) {
@@ -136,10 +136,8 @@ class NotiModel {
 
     return _noti;
   }
-
 // -----------------------------------------------------------------------------
-  static List<NotiModel> decipherNotiModels(
-      {@required List<Map<String, dynamic>> maps, @required bool fromJSON}) {
+  static List<NotiModel> decipherNotiModels({@required List<Map<String, dynamic>> maps, @required bool fromJSON}) {
     final List<NotiModel> _notiModels = <NotiModel>[];
 
     if (Mapper.canLoopList(maps)) {
@@ -155,7 +153,6 @@ class NotiModel {
 
     return _notiModels;
   }
-
 // -----------------------------------------------------------------------------
   static String cipherNotiPicType(NotiPicType picType) {
     switch (picType) {
@@ -178,7 +175,6 @@ class NotiModel {
         return 'bldrs';
     }
   }
-
 // -----------------------------------------------------------------------------
   static NotiPicType decipherNotiPicType(String picType) {
     switch (picType) {
@@ -201,7 +197,6 @@ class NotiModel {
         return NotiPicType.bldrs;
     }
   }
-
 // -----------------------------------------------------------------------------
   static NotiAttachmentType decipherNotiAttachmentType(String attachmentType) {
     switch (attachmentType) {
@@ -221,7 +216,6 @@ class NotiModel {
         return NotiAttachmentType.non;
     }
   }
-
 // -----------------------------------------------------------------------------
   static String cipherNotiAttachmentType(NotiAttachmentType attachmentType) {
     switch (attachmentType) {
@@ -241,7 +235,6 @@ class NotiModel {
         return 'non';
     }
   }
-
 // -----------------------------------------------------------------------------
   static List<NotiAttachmentType> notiAttachmentTypesList() {
     return const <NotiAttachmentType>[
@@ -251,7 +244,6 @@ class NotiModel {
       NotiAttachmentType.buttons,
     ];
   }
-
 // -----------------------------------------------------------------------------
   void printNotiModel({String methodName}) {
     blog('$methodName : PRINTING NotiModel ---------------- START -- ');
@@ -273,7 +265,6 @@ class NotiModel {
 
     blog('$methodName : PRINTING NotiModel ---------------- END -- ');
   }
-
 // -----------------------------------------------------------------------------
   static List<NotiModel> getNotiModelsFromSnapshot(
       DocumentSnapshot<Object> doc) {

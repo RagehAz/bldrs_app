@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/notifications/notifications_manager/notifications_manager_screen.dart';
 import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -7,7 +8,6 @@ import 'package:bldrs/xxx_dashboard/a_modules/flyers_manager/all_flyers_screen.d
 import 'package:bldrs/xxx_dashboard/a_modules/flyers_manager/auditor/flyers_auditor_screen.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/keywords/keywords_manager_screen.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/ldb_manager/ldb_manager_screen.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/notifications_manager/notifications_manager_screen.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/pricing_manager/pricing_screen.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/statistics/statistics_screen.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/ui_manager/ui_manager_screen.dart';
@@ -17,7 +17,10 @@ import 'package:bldrs/xxx_dashboard/a_modules/zones_manager/zones_manager_screen
 import 'package:flutter/material.dart';
 
 class DashBoard extends StatefulWidget {
-  const DashBoard({Key key}) : super(key: key);
+
+  const DashBoard({
+    Key key
+  }) : super(key: key);
 
   @override
   _DashBoardState createState() => _DashBoardState();

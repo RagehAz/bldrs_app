@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/notification/noti_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -12,6 +11,8 @@ import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
@@ -38,7 +39,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/xxx_dashboard/b_widgets/user_button.dart';
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -616,8 +616,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         ),
 
                       /// BANNER
-                      if (_attachment != null &&
-                          _attachmentType == NotiAttachmentType.banner)
+                      if (_attachment != null
+                          &&
+                          _attachmentType == NotiAttachmentType.banner
+                      )
                         NotiBannerEditor(
                           width: _bodyWidth,
                           height: _bannerHeight,
