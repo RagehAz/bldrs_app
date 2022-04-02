@@ -118,22 +118,8 @@ class KeywordsProvider extends ChangeNotifier {
         functions: () {
           /// WHEN SON IS KEYWORD ID "never happens"
           if (son.runtimeType == String) {
-
-            if (stringContainsSubString(
-              string: son,
-              subString: 'phid_k_'
-            ) == true){
-              final String _modified = modifyAllCharactersWith(
-                input: son,
-                characterToReplace: 'phid_k_',
-                replacement: '',
-              );
-              _icon = 'assets/keywords/$_modified.jpg';
-            }
-            else {
             _icon = 'assets/keywords/$son.jpg';
-            }
-            blog('HEY : Im  a son, and im a keyword ID $son');
+            // blog('HEY : Im  a son, and im a keyword ID $son');
           }
 
           /// WHEN SON IS A KEYWORD
