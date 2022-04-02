@@ -8,18 +8,13 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/trans_model_streamer.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart';
-import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_creator_page.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_page.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_controller.dart';
-import 'package:bldrs/xxx_lab/cleaning_space.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

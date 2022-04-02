@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

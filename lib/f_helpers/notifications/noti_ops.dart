@@ -1,5 +1,4 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:bldrs/a_models/notification/noti_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
@@ -9,6 +8,7 @@ import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/audioz.dart' as Audioz;
 import 'package:bldrs/f_helpers/notifications/local_notification_service.dart' as LocalNotificationService;
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,8 +39,7 @@ Future<void> preInitializeNoti() async {
 // -----------------------------------------------------------------------------
 /// THIS GOES IN MAIN WIDGET INIT
 Future<void> initializeNoti() async {
-  final RemoteMessage initialRemoteMessage =
-      await FirebaseMessaging.instance.getInitialMessage();
+  final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
   if (initialRemoteMessage != null) {
     blogRemoteMessage(
@@ -292,8 +291,7 @@ NotificationChannel scheduledNotificationChannel() {
 }
 
 // -----------------------------------------------------------------------------
-Future<void> onNotifyButtonTap(
-    BuildContext context, Widget screenToGoToOnNotiTap) async {
+Future<void> onNotifyButtonTap(BuildContext context, Widget screenToGoToOnNotiTap) async {
   await notify();
 
   AwesomeNotifications().actionStream.listen((ReceivedAction receivedNoti) {
