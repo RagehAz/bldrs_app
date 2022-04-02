@@ -1,16 +1,14 @@
 import 'package:bldrs/a_models/kw/chain/chain.dart';
 
 const Chain appliancesChain = Chain(
-  id: 'phid__group_prd_appliances',
+  id: 'phid_k_group_prd_appliances',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_appliances',
   sons: <Chain>[
     // ----------------------------------
     /// Waste Disposal Appliances
     Chain(
       id: 'phid_k_sub_prd_app_wasteDisposal',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_wasteDisposal',
       sons: <String>[
         'phid_k_prd_app_waste_compactor',
         'phid_k_prd_app_waste_disposer',
@@ -21,7 +19,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_snacks',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_snacks',
       sons: <String>[
         'phid_k_prd_app_snack_icecream',
         'phid_k_prd_app_snack_popcorn',
@@ -37,7 +34,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_refrigeration',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_refrigeration',
       sons: <String>[
         'phid_k_prd_app_ref_fridge',
         'phid_k_prd_app_ref_freezer',
@@ -51,7 +47,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_outdoorCooking',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_outdoorCooking',
       sons: <String>[
         'phid_k_prd_app_outcook_grill',
         'phid_k_prd_app_outcook_grillTools',
@@ -64,7 +59,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_media',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_media',
       sons: <String>[
         'phid_k_prd_app_media_tv',
         'phid_k_prd_app_media_soundSystem',
@@ -75,7 +69,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_indoorCooking',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_indoorCooking',
       sons: <String>[
         'phid_k_prd_app_incook_microwave',
         'phid_k_prd_app_incook_fryer',
@@ -94,7 +87,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_housekeeping',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_housekeeping',
       sons: <String>[
         'phid_k_prd_app_hk_washingMachine',
         'phid_k_prd_app_hk_dishWasher',
@@ -111,7 +103,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_foodProcessors',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_foodProcessors',
       sons: <String>[
         'phid_k_prd_app_pro_slowCooker',
         'phid_k_prd_app_pro_pro',
@@ -126,7 +117,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_drinks',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_drinks',
       sons: <String>[
         'phid_k_prd_app_drink_coffeeMaker',
         'phid_k_prd_app_drink_coffeeGrinder',
@@ -141,7 +131,6 @@ const Chain appliancesChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_app_bathroom',
       icon: null,
-      phraseID: 'phid_k_sub_prd_app_bathroom',
       sons: <String>[
         'phid_k_prd_app_bath_handDryer',
         'phid_k_prd_app_bath_hairDryer',
@@ -154,14 +143,12 @@ const Chain appliancesChain = Chain(
 const Chain doorsAndWindowsChain = Chain(
   id: 'phid_k_group_prd_doors',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_doors',
   sons: <Chain>[
     // ----------------------------------
     /// Windows
     Chain(
       id: 'phid_k_sub_prd_door_windows',
       icon: null,
-      phraseID: 'phid_k_sub_prd_door_windows',
       sons: <String>[
         'phid_k_prd_doors_win_glassPanel',
         'phid_k_prd_doors_win_skyLight',
@@ -172,7 +159,6 @@ const Chain doorsAndWindowsChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_doors_shutters',
       icon: null,
-      phraseID: 'phid_k_sub_prd_doors_shutter',
       sons: <String>[
         'phid_k_prd_doors_shutters_metal',
         'phid_k_prd_doors_shutters_aluminum',
@@ -183,7 +169,6 @@ const Chain doorsAndWindowsChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_door_hardware',
       icon: null,
-      phraseID: 'phid_k_sub_prd_door_hardware',
       sons: <String>[
         'phid_k_prd_doors_hardware_hinges',
         'phid_k_prd_doors_hardware_doorbell',
@@ -207,7 +192,6 @@ const Chain doorsAndWindowsChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_door_doors',
       icon: null,
-      phraseID: 'phid_k_sub_prd_door_doors',
       sons: <String>[
         'phid_k_prd_doors_doors_front',
         'phid_k_prd_doors_doors_interior',
@@ -229,14 +213,12 @@ const Chain doorsAndWindowsChain = Chain(
 const Chain electricityChain = Chain(
   id: 'phid_k_group_prd_electricity',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_electricity',
   sons: <Chain>[
     // ----------------------------------
     /// Power Storage
     Chain(
       id: 'phid_k_sub_prd_elec_powerStorage',
       icon: null,
-      phraseID: 'phid_k_sub_prd_elec_powerStorage',
       sons: <String>[
         'phid_k_prd_elec_storage_rechargeable',
         'phid_k_prd_elec_storage_nonRechargeable',
@@ -249,7 +231,6 @@ const Chain electricityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_elec_organization',
       icon: null,
-      phraseID: 'phid_k_sub_prd_elec_organization',
       sons: <String>[
         'phid_k_prd_elec_org_load',
         'phid_k_prd_elec_org_conduit',
@@ -263,7 +244,6 @@ const Chain electricityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_elec_instruments',
       icon: null,
-      phraseID: 'phid_k_sub_prd_elec_instruments',
       sons: <String>[
         'phid_k_prd_elec_instr_factor',
         'phid_k_prd_elec_instr_measure',
@@ -283,7 +263,6 @@ const Chain electricityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_elec_generators',
       icon: null,
-      phraseID: 'phid_k_sub_prd_elec_generators',
       sons: <String>[
         'phid_k_prd_elec_gen_solar',
         'phid_k_prd_elec_gen_wind',
@@ -300,7 +279,6 @@ const Chain electricityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_elec_switches',
       icon: null,
-      phraseID: 'phid_k_sub_prd_elec_switches',
       sons: <String>[
         'phid_k_prd_elec_switches_outlet',
         'phid_k_prd_elec_switches_thermostat',
@@ -315,7 +293,6 @@ const Chain electricityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_elec_motors',
       icon: null,
-      phraseID: 'phid_k_sub_prd_elec_motors',
       sons: <String>[
         'phid_k_prd_elec_motor_ac',
         'phid_k_prd_elec_motor_dc',
@@ -329,7 +306,6 @@ const Chain electricityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_elec_connectors',
       icon: null,
-      phraseID: 'phid_k_sub_prd_elec_connectors',
       sons: <String>[
         'phid_k_prd_elec_connectors_alligator',
         'phid_k_prd_elec_connectors_connector',
@@ -344,7 +320,6 @@ const Chain electricityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_elec_cables',
       icon: null,
-      phraseID: 'phid_k_sub_prd_elec_cables',
       sons: <String>[
         'phid_k_prd_elec_cables_wire',
         'phid_k_prd_elec_cables_extension',
@@ -356,14 +331,12 @@ const Chain electricityChain = Chain(
 const Chain fireFightingChain = Chain(
   id: 'phid_k_group_prd_fireFighting',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_fireFighting',
   sons: <Chain>[
     // ----------------------------------
     /// Pumps & Controllers
     Chain(
       id: 'phid_k_sub_prd_fire_pumpsCont',
       icon: null,
-      phraseID: 'phid_k_sub_prd_fire_pumpsCont',
       sons: <String>[
         'phid_k_prd_fireFighting_pump_pump',
         'phid_k_prd_fireFighting_pump_filter',
@@ -377,7 +350,6 @@ const Chain fireFightingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_fire_equip',
       icon: null,
-      phraseID: 'phid_k_sub_prd_fire_equip',
       sons: <String>[
         'phid_k_prd_fireFighting_equip_hydrant',
         'phid_k_prd_fireFighting_equip_extinguisher',
@@ -392,7 +364,6 @@ const Chain fireFightingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_fire_clothes',
       icon: null,
-      phraseID: 'phid_k_sub_prd_fire_clothes',
       sons: <String>[
         'phid_k_prd_fireFighting_equip_suit',
         'phid_k_prd_fireFighting_equip_helmet',
@@ -407,7 +378,6 @@ const Chain fireFightingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_fire_detectors',
       icon: null,
-      phraseID: 'phid_k_sub_prd_fire_detectors',
       sons: <String>[
         'phid_k_prd_fireFighting_detectors_alarm',
         'phid_k_prd_fireFighting_detectors_control',
@@ -419,14 +389,12 @@ const Chain fireFightingChain = Chain(
 const Chain floorsAndSkirtingChain = Chain(
   id: 'phid_k_group_prd_floors',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_floors',
   sons: <Chain>[
     // ----------------------------------
     /// Skirting
     Chain(
       id: 'phid_k_sub_prd_floors_skirting',
       icon: null,
-      phraseID: 'phid_k_sub_prd_floors_skirting',
       sons: <String>[
         'phid_k_prd_floors_skirting_skirting',
       ],
@@ -436,7 +404,6 @@ const Chain floorsAndSkirtingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_floors_tiles',
       icon: null,
-      phraseID: 'phid_k_sub_prd_floors_tiles',
       sons: <String>[
         'phid_k_prd_floors_tiles_ceramic',
         'phid_k_prd_floors_tiles_porcelain',
@@ -459,7 +426,6 @@ const Chain floorsAndSkirtingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_floors_planks',
       icon: null,
-      phraseID: 'phid_k_sub_prd_floors_planks',
       sons: <String>[
         'phid_k_prd_floors_planks_bamboo',
         'phid_k_prd_floors_planks_engineered',
@@ -473,7 +439,6 @@ const Chain floorsAndSkirtingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_floors_paving',
       icon: null,
-      phraseID: 'phid_k_sub_prd_floors_paving',
       sons: <String>[
         'phid_k_prd_floors_paving_screed',
         'phid_k_prd_floors_paving_epoxy',
@@ -485,7 +450,6 @@ const Chain floorsAndSkirtingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_floors_covering',
       icon: null,
-      phraseID: 'phid_k_sub_prd_floors_covering',
       sons: <String>[
         'phid_k_prd_floors_covering_vinyl',
         'phid_k_prd_floors_covering_carpet',
@@ -499,14 +463,12 @@ const Chain floorsAndSkirtingChain = Chain(
 const Chain furnitureChain = Chain(
   id: 'phid_k_group_prd_furniture',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_furniture',
   sons: <Chain>[
     // ----------------------------------
     /// Waste Disposal
     Chain(
       id: 'phid_k_sub_prd_furn_wasteDisposal',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_wasteDisposal',
       sons: <String>[
         'phid_k_prd_furn_waste_small',
         'phid_k_prd_furn_waste_large',
@@ -518,7 +480,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_tops',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_tops',
       sons: <String>[
         'phid_k_prd_furn_tops_bathVanity',
         'phid_k_prd_furn_tops_kit',
@@ -529,7 +490,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_tables',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_tables',
       sons: <String>[
         'phid_k_prd_furn_tables_dining',
         'phid_k_prd_furn_tables_bistro',
@@ -545,7 +505,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_seatingBench',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_seatingBench',
       sons: <String>[
         'phid_k_prd_furn_bench_shower',
         'phid_k_prd_furn_bench_bedVanity',
@@ -558,7 +517,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_planting',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_planting',
       sons: <String>[
         'phid_k_prd_furn_planting_stand',
         'phid_k_prd_furn_planting_potting',
@@ -571,7 +529,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_outTables',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_outTables',
       sons: <String>[
         'phid_k_prd_furn_outTable_coffee',
         'phid_k_prd_furn_outTable_side',
@@ -584,7 +541,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_outSeating',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_outSeating',
       sons: <String>[
         'phid_k_prd_furn_outSeat_lounge',
         'phid_k_prd_furn_outSeat_dining',
@@ -605,7 +561,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_organizers',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_organizers',
       sons: <String>[
         'phid_k_prd_furn_org_shelf',
         'phid_k_prd_furn_org_drawer',
@@ -617,7 +572,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_office',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_office',
       sons: <String>[
         'phid_k_prd_furn_office_desk',
         'phid_k_prd_furn_office_deskAccess',
@@ -631,7 +585,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_livingStorage',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_livingStorage',
       sons: <String>[
         'phid_k_prd_furn_living_blanket',
         'phid_k_prd_furn_living_chest',
@@ -648,7 +601,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_laundry',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_laundry',
       sons: <String>[
         'phid_k_prd_furn_laundry_dryingRack',
         'phid_k_prd_furn_laundry_ironingTable',
@@ -660,7 +612,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_kitchenStorage',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_kitchenStorage',
       sons: <String>[
         'phid_k_prd_furn_kitStore_cabinet',
         'phid_k_prd_furn_kitStore_pantry',
@@ -676,7 +627,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_Kitchen Accessories',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_Kitchen Accessories',
       sons: <String>[
         'phid_k_prd_furn_kitaccess_rack',
         'phid_k_prd_furn_kitaccess_drawerOrg',
@@ -690,7 +640,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_kids',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_kids',
       sons: <String>[
         'phid_k_prd_furn_kids_set',
         'phid_k_prd_furn_kids_vanity',
@@ -711,7 +660,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_parts',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_parts',
       sons: <String>[
         'phid_k_prd_furn_parts_tableLeg',
         'phid_k_prd_furn_parts_tableTop',
@@ -722,7 +670,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_accessories',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_accessories',
       sons: <String>[
         'phid_k_prd_furn_access_mirror',
         'phid_k_prd_furn_access_clock',
@@ -738,7 +685,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_dressingStorage',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_dressingStorage',
       sons: <String>[
         'phid_k_prd_furn_dressStore_wardrobe',
         'phid_k_prd_furn_dressStore_dresser',
@@ -753,7 +699,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_diningStorage',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_diningStorage',
       sons: <String>[
         'phid_k_prd_furn_dinStore_china',
         'phid_k_prd_furn_dinStore_buffet',
@@ -764,7 +709,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_cushions',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_cushions',
       sons: <String>[
         'phid_k_prd_furn_cush_pillow',
         'phid_k_prd_furn_cush_seat',
@@ -783,7 +727,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_couch',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_couch',
       sons: <String>[
         'phid_k_prd_furn_couch_chaise',
         'phid_k_prd_furn_couch_banquette',
@@ -799,7 +742,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_sets',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_sets',
       sons: <String>[
         'phid_k_prd_furn_sets_dining',
         'phid_k_prd_furn_sets_bistro',
@@ -818,7 +760,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_chairs',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_chairs',
       sons: <String>[
         'phid_k_prd_furn_chair_bar',
         'phid_k_prd_furn_chair_dining',
@@ -842,7 +783,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_carpetsRugs',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_carpetsRugs',
       sons: <String>[
         'phid_k_prd_furn_carpet_bathMat',
         'phid_k_prd_furn_carpet_rug',
@@ -859,7 +799,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_cabinetHardware',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_cabinetHardware',
       sons: <String>[
         'phid_k_prd_furn_cabhard_pull',
         'phid_k_prd_furn_cabhard_knob',
@@ -872,7 +811,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_boxes',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_boxes',
       sons: <String>[
         'phid_k_prd_furn_boxes_bin',
         'phid_k_prd_furn_boxes_outdoor',
@@ -885,7 +823,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_blindsCurtains',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_blindsCurtains',
       sons: <String>[
         'phid_k_prd_furn_curtain_shower',
         'phid_k_prd_furn_curtain_shade',
@@ -903,7 +840,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_beds',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_beds',
       sons: <String>[
         'phid_k_prd_furn_beds_bed',
         'phid_k_prd_furn_beds_board',
@@ -926,7 +862,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_bathStorage',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_bathStorage',
       sons: <String>[
         'phid_k_prd_furn_bathStore_medicine',
         'phid_k_prd_furn_bathStore_cabinet',
@@ -940,7 +875,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_bathHardware',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_bathHardware',
       sons: <String>[
         'phid_k_prd_furn_bathHard_towelBar',
         'phid_k_prd_furn_bathHard_mirror',
@@ -958,7 +892,6 @@ const Chain furnitureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_furn_artworks',
       icon: null,
-      phraseID: 'phid_k_sub_prd_furn_artworks',
       sons: <String>[
         'phid_k_prd_furn_art_painting',
         'phid_k_prd_furn_art_photo',
@@ -978,14 +911,12 @@ const Chain furnitureChain = Chain(
 const Chain hvacChain = Chain(
   id: 'phid_k_group_prd_hvac',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_hvac',
   sons: <Chain>[
     // ----------------------------------
     /// Ventilation
     Chain(
       id: 'phid_k_sub_prd_hvac_ventilation',
       icon: null,
-      phraseID: 'phid_k_sub_prd_hvac_ventilation',
       sons: <String>[
         'phid_k_prd_hvac_vent_fan',
         'phid_k_prd_hvac_vent_exhaust',
@@ -998,7 +929,6 @@ const Chain hvacChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_hvac_heating',
       icon: null,
-      phraseID: 'phid_k_sub_prd_hvac_heating',
       sons: <String>[
         'phid_k_prd_hvac_heating_electric',
         'phid_k_prd_hvac_heating_radiators',
@@ -1010,7 +940,6 @@ const Chain hvacChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_hvac_fireplaces',
       icon: null,
-      phraseID: 'phid_k_sub_prd_hvac_fireplaces',
       sons: <String>[
         'phid_k_prd_fireplace_fire_mantle',
         'phid_k_prd_fireplace_fire_tabletop',
@@ -1025,7 +954,6 @@ const Chain hvacChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_hvac_fireplaceEquip',
       icon: null,
-      phraseID: 'phid_k_sub_prd_hvac_fireplaceEquip',
       sons: <String>[
         'phid_k_prd_fireplace_equip_tools',
         'phid_k_prd_fireplace_equip_rack',
@@ -1038,7 +966,6 @@ const Chain hvacChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_hvac_ac',
       icon: null,
-      phraseID: 'phid_k_sub_prd_hvac_ac',
       sons: <String>[
         'phid_k_prd_hvac_ac_chiller',
         'phid_k_prd_hvac_ac_ac',
@@ -1054,14 +981,12 @@ const Chain hvacChain = Chain(
 const Chain plantingAndLandscapeChain = Chain(
   id: 'phid_k_group_prd_landscape',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_landscape',
   sons: <Chain>[
     // ----------------------------------
     /// Pots & Vases
     Chain(
       id: 'phid_k_sub_prd_scape_potsVases',
       icon: null,
-      phraseID: 'phid_k_sub_prd_scape_potsVases',
       sons: <String>[
         'phid_k_prd_landscape_pots_vase',
         'phid_k_prd_landscape_pots_indoorPlanter',
@@ -1074,7 +999,6 @@ const Chain plantingAndLandscapeChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_scape_livePlants',
       icon: null,
-      phraseID: 'phid_k_sub_prd_scape_livePlants',
       sons: <String>[
         'phid_k_prd_landscape_live_tree',
         'phid_k_prd_landscape_live_grass',
@@ -1086,7 +1010,6 @@ const Chain plantingAndLandscapeChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_scape_hardscape',
       icon: null,
-      phraseID: 'phid_k_sub_prd_scape_hardscape',
       sons: <String>[
         'phid_k_prd_landscape_hardscape_trellis',
         'phid_k_prd_landscape_hardscape_flag',
@@ -1097,7 +1020,6 @@ const Chain plantingAndLandscapeChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_scape_fountainsPonds',
       icon: null,
-      phraseID: 'phid_k_sub_prd_scape_fountainsPonds',
       sons: <String>[
         'phid_k_prd_landscape_fountain_indoor',
         'phid_k_prd_landscape_fountain_outdoor',
@@ -1108,7 +1030,6 @@ const Chain plantingAndLandscapeChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_scape_birds',
       icon: null,
-      phraseID: 'phid_k_sub_prd_scape_birds',
       sons: <String>[
         'phid_k_prd_landscape_birds_feeder',
         'phid_k_prd_landscape_birds_bath',
@@ -1120,7 +1041,6 @@ const Chain plantingAndLandscapeChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_scape_artificial',
       icon: null,
-      phraseID: 'phid_k_sub_prd_scape_artificial',
       sons: <String>[
         'phid_k_prd_landscape_artificial_tree',
         'phid_k_prd_landscape_artificial_plant',
@@ -1133,14 +1053,12 @@ const Chain plantingAndLandscapeChain = Chain(
 const Chain lightingChain = Chain(
   id: 'phid_k_group_prd_lighting',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_lighting',
   sons: <Chain>[
     // ----------------------------------
     /// Wall Lighting
     Chain(
       id: 'phid_k_sub_prd_light_wall',
       icon: null,
-      phraseID: 'phid_k_sub_prd_light_wall',
       sons: <String>[
         'phid_k_prd_lighting_wall_applique',
         'phid_k_prd_lighting_wall_vanity',
@@ -1153,7 +1071,6 @@ const Chain lightingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_light_outdoor',
       icon: null,
-      phraseID: 'phid_k_sub_prd_light_outdoor',
       sons: <String>[
         'phid_k_prd_lighting_outdoor_wall',
         'phid_k_prd_lighting_outdoor_flush',
@@ -1176,7 +1093,6 @@ const Chain lightingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_light_access',
       icon: null,
-      phraseID: 'phid_k_sub_prd_light_access',
       sons: <String>[
         'phid_k_prd_lighting_accessories_shade',
         'phid_k_prd_lighting_accessories_timer',
@@ -1190,7 +1106,6 @@ const Chain lightingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_light_bulbs',
       icon: null,
-      phraseID: 'phid_k_sub_prd_light_bulbs',
       sons: <String>[
         'phid_k_prd_lighting_bulbs_fluorescent',
         'phid_k_prd_lighting_bulbs_led',
@@ -1205,7 +1120,6 @@ const Chain lightingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_light_lamps',
       icon: null,
-      phraseID: 'phid_k_sub_prd_light_lamps',
       sons: <String>[
         'phid_k_prd_lighting_lamp_table',
         'phid_k_prd_lighting_lamp_floor',
@@ -1221,7 +1135,6 @@ const Chain lightingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_light_ceiling',
       icon: null,
-      phraseID: 'phid_k_sub_prd_light_ceiling',
       sons: <String>[
         'phid_k_prd_lighting_ceiling_chandelier',
         'phid_k_prd_lighting_ceiling_pendant',
@@ -1241,14 +1154,12 @@ const Chain lightingChain = Chain(
 const Chain constructionMaterials = Chain(
   id: 'phid_k_group_prd_materials',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_materials',
   sons: <Chain>[
     // ----------------------------------
     /// Wood Coats
     Chain(
       id: 'phid_k_sub_prd_mat_woodCoats',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_woodCoats',
       sons: <String>[
         'phid_k_prd_mat_woodPaint_lacquer',
         'phid_k_prd_mat_woodPaint_polyurethane',
@@ -1262,7 +1173,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_waterProofing',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_waterProofing',
       sons: <String>[
         'phid_k_prd_mat_waterProof_rubber',
         'phid_k_prd_mat_waterProof_bitumen',
@@ -1278,7 +1188,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_heatSynth',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_heatSynth',
       sons: <String>[
         'phid_k_prd_mat_heatSynth_reflective',
         'phid_k_prd_mat_heatSynth_polystyrene',
@@ -1295,7 +1204,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_stones',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_stones',
       sons: <String>[
         'phid_k_prd_mat_stone_marble',
         'phid_k_prd_mat_stone_granite',
@@ -1310,7 +1218,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_steel',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_steel',
       sons: <String>[
         'phid_k_prd_mat_steel_rebar',
         'phid_k_prd_mat_steel_section',
@@ -1321,7 +1228,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_solidWood',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_solidWood',
       sons: <String>[
         'phid_k_prd_mat_wood_oak',
         'phid_k_prd_mat_wood_beech',
@@ -1344,7 +1250,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_sandRubble',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_sandRubble',
       sons: <String>[
         'prd_mat_sand_sand',
       ],
@@ -1354,7 +1259,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_paints',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_paints',
       sons: <String>[
         'phid_k_prd_mat_paint_cement',
         'phid_k_prd_mat_paint_outdoor',
@@ -1370,7 +1274,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_heatIMin',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_heatIMin',
       sons: <String>[
         'phid_k_prd_mat_heatmin_vermiculite',
         'phid_k_prd_mat_heatmin_cellulose',
@@ -1386,7 +1289,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_metals',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_metals',
       sons: <String>[
         'phid_k_prd_mat_metal_iron',
         'phid_k_prd_mat_metal_steel',
@@ -1404,7 +1306,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_manuWood',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_manuWood',
       sons: <String>[
         'phid_k_prd_mat_manWood_mdf',
         'phid_k_prd_mat_manWood_veneer',
@@ -1420,7 +1321,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_gypsum',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_gypsum',
       sons: <String>[
         'phid_k_prd_mat_gypsum_board',
         'phid_k_prd_mat_gypsum_powder',
@@ -1431,7 +1331,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_glass',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_glass',
       sons: <String>[
         'phid_k_prd_mat_glass_float',
         'phid_k_prd_mat_glass_bullet',
@@ -1448,7 +1347,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_fabrics',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_fabrics',
       sons: <String>[
         'phid_k_prd_mat_fabric_wool',
         'phid_k_prd_mat_fabric_moquette',
@@ -1469,7 +1367,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_cement',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_cement',
       sons: <String>[
         'phid_k_prd_mat_cement_white',
         'phid_k_prd_mat_cement_portland',
@@ -1481,7 +1378,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_bricks',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_bricks',
       sons: <String>[
         'phid_k_prd_mat_brick_cement',
         'phid_k_prd_mat_brick_red',
@@ -1493,7 +1389,6 @@ const Chain constructionMaterials = Chain(
     Chain(
       id: 'phid_k_sub_prd_mat_acrylic',
       icon: null,
-      phraseID: 'phid_k_sub_prd_mat_acrylic',
       sons: <String>[
         'phid_k_prd_mat_acrylic_tinted',
         'phid_k_prd_mat_acrylic_frosted',
@@ -1506,14 +1401,12 @@ const Chain constructionMaterials = Chain(
 const Chain plumbingAndSanitaryChain = Chain(
   id: 'phid_k_group_prd_plumbing',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_plumbing',
   sons: <Chain>[
     // ----------------------------------
     /// Water Treatment
     Chain(
       id: 'phid_k_sub_prd_plumb_treatment',
       icon: null,
-      phraseID: 'phid_k_sub_prd_plumb_treatment',
       sons: <String>[
         'phid_k_prd_plumbing_treatment_filter',
         'phid_k_prd_plumbing_treatment_system',
@@ -1526,7 +1419,6 @@ const Chain plumbingAndSanitaryChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_plumb_tub',
       icon: null,
-      phraseID: 'phid_k_sub_prd_plumb_tub',
       sons: <String>[
         'phid_k_prd_plumbing_tub_bathTubs',
         'phid_k_prd_plumbing_tub_faucet',
@@ -1537,7 +1429,6 @@ const Chain plumbingAndSanitaryChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_plumb_toilet',
       icon: null,
-      phraseID: 'phid_k_sub_prd_plumb_toilet',
       sons: <String>[
         'phid_k_prd_plumbing_toilet_floorDrain',
         'phid_k_prd_plumbing_toilet_urinal',
@@ -1552,7 +1443,6 @@ const Chain plumbingAndSanitaryChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_plumb_shower',
       icon: null,
-      phraseID: 'phid_k_sub_prd_plumb_shower',
       sons: <String>[
         'phid_k_prd_plumbing_shower_head',
         'phid_k_prd_plumbing_shower_panel',
@@ -1567,7 +1457,6 @@ const Chain plumbingAndSanitaryChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_plumb_sanitary',
       icon: null,
-      phraseID: 'phid_k_sub_prd_plumb_sanitary',
       sons: <String>[
         'phid_k_prd_plumbing_sanitary_drain',
         'phid_k_prd_plumbing_sanitary_bibbs',
@@ -1578,7 +1467,6 @@ const Chain plumbingAndSanitaryChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_plumb_kitchen',
       icon: null,
-      phraseID: 'phid_k_sub_prd_plumb_kitchen',
       sons: <String>[
         'phid_k_prd_plumbing_kitchen_rinser',
         'phid_k_prd_plumbing_kitchen_sink',
@@ -1594,7 +1482,6 @@ const Chain plumbingAndSanitaryChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_plumb_handwash',
       icon: null,
-      phraseID: 'phid_k_sub_prd_plumb_handwash',
       sons: <String>[
         'phid_k_prd_plumbing_handwash_washBasins',
         'phid_k_prd_plumbing_handwash_faucet',
@@ -1607,7 +1494,6 @@ const Chain plumbingAndSanitaryChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_plumb_connections',
       icon: null,
-      phraseID: 'phid_k_sub_prd_plumb_connections',
       sons: <String>[
         'phid_k_prd_plumbing_connections_pipes',
         'phid_k_prd_plumbing_connections_fittings',
@@ -1620,14 +1506,12 @@ const Chain plumbingAndSanitaryChain = Chain(
 const Chain poolsAndSpaChain = Chain(
   id: 'phid_k_group_prd_poolSpa',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_poolSpa',
   sons: <Chain>[
     // ----------------------------------
     /// Swimming Pools
     Chain(
       id: 'phid_k_sub_prd_pool_pools',
       icon: null,
-      phraseID: 'phid_k_sub_prd_pool_pools',
       sons: <String>[
         'phid_k_prd_poolSpa_pools_fiberglass',
         'phid_k_prd_poolSpa_pools_above',
@@ -1639,7 +1523,6 @@ const Chain poolsAndSpaChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_pool_spa',
       icon: null,
-      phraseID: 'phid_k_sub_prd_pool_spa',
       sons: <String>[
         'phid_k_prd_poolSpa_spa_sauna',
         'phid_k_prd_poolSpa_spa_steam',
@@ -1652,7 +1535,6 @@ const Chain poolsAndSpaChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_pool_equipment',
       icon: null,
-      phraseID: 'phid_k_sub_prd_pool_equipment',
       sons: <String>[
         'phid_k_prd_poolSpa_equip_cleaning',
         'phid_k_prd_poolSpa_equip_pump',
@@ -1664,7 +1546,6 @@ const Chain poolsAndSpaChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_pool_accessories',
       icon: null,
-      phraseID: 'phid_k_sub_prd_pool_accessories',
       sons: <String>[
         'phid_k_prd_poolSpa_access_handrail',
         'phid_k_prd_poolSpa_access_grate',
@@ -1678,14 +1559,12 @@ const Chain poolsAndSpaChain = Chain(
 const Chain roofingChain = Chain(
   id: 'phid_k_group_prd_roofing',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_roofing',
   sons: <Chain>[
     // ----------------------------------
     /// Roof Drainage
     Chain(
       id: 'phid_k_sub_prd_roof_drainage',
       icon: null,
-      phraseID: 'phid_k_sub_prd_roof_drainage',
       sons: <String>[
         'prd_roof_drainage_gutter',
       ],
@@ -1695,7 +1574,6 @@ const Chain roofingChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_roof_cladding',
       icon: null,
-      phraseID: 'phid_k_sub_prd_roof_cladding',
       sons: <String>[
         'phid_k_prd_roof_cladding_brick',
         'phid_k_prd_roof_cladding_bitumen',
@@ -1708,14 +1586,12 @@ const Chain roofingChain = Chain(
 const Chain safetyChain = Chain(
   id: 'phid_k_group_prd_safety',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_safety',
   sons: <Chain>[
     // ----------------------------------
     /// Safety Equipment
     Chain(
       id: 'phid_k_sub_prd_safety_equip',
       icon: null,
-      phraseID: 'phid_k_sub_prd_safety_equip',
       sons: <String>[
         'phid_k_prd_safety_equip_gasDetector',
         'phid_k_prd_safety_equip_rescue',
@@ -1727,7 +1603,6 @@ const Chain safetyChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_safety_clothes',
       icon: null,
-      phraseID: 'phid_k_sub_prd_safety_clothes',
       sons: <String>[
         'phid_k_prd_safety_clothes_coverall',
         'phid_k_prd_safety_clothes_chemicalSuit',
@@ -1744,7 +1619,6 @@ const Chain safetyChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_safety_floorProtection',
       icon: null,
-      phraseID: 'phid_k_sub_prd_safety_floorProtection',
       sons: <String>[
         'phid_k_prd_safety_floorProtection_cardboard',
         'phid_k_prd_safety_floorProtection_plastic',
@@ -1757,14 +1631,12 @@ const Chain safetyChain = Chain(
 const Chain securityChain = Chain(
   id: 'phid_k_group_prd_security',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_security',
   sons: <Chain>[
     // ----------------------------------
     /// Surveillance Systems
     Chain(
       id: 'phid_k_sub_prd_security_surveillance',
       icon: null,
-      phraseID: 'phid_k_sub_prd_security_surveillance',
       sons: <String>[
         'phid_k_prd_security_surv_camera',
         'phid_k_prd_security_surv_thermal',
@@ -1776,7 +1648,6 @@ const Chain securityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_security_safes',
       icon: null,
-      phraseID: 'phid_k_sub_prd_security_safes',
       sons: <String>[
         'phid_k_prd_security_safes_wall',
         'phid_k_prd_security_safes_portable',
@@ -1790,7 +1661,6 @@ const Chain securityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_security_roadControl',
       icon: null,
-      phraseID: 'phid_k_sub_prd_security_roadControl',
       sons: <String>[
         'phid_k_prd_security_road_bollard',
         'phid_k_prd_security_road_tire',
@@ -1802,7 +1672,6 @@ const Chain securityChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_security_accessibility',
       icon: null,
-      phraseID: 'phid_k_sub_prd_security_accessibility',
       sons: <String>[
         'phid_k_prd_security_access_accessControl',
         'phid_k_prd_security_access_eas',
@@ -1816,14 +1685,12 @@ const Chain securityChain = Chain(
 const Chain smartHomeChain = Chain(
   id: 'phid_k_group_prd_smartHome',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_smartHome',
   sons: <Chain>[
     // ----------------------------------
     /// Automation Systems
     Chain(
       id: 'phid_k_sub_prd_smart_automation',
       icon: null,
-      phraseID: 'phid_k_sub_prd_smart_automation',
       sons: <String>[
         'phid_k_prd_smart_auto_center',
         'phid_k_prd_smart_auto_system',
@@ -1834,7 +1701,6 @@ const Chain smartHomeChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_smart_audio',
       icon: null,
-      phraseID: 'phid_k_sub_prd_smart_audio',
       sons: <String>[
         'phid_k_prd_smart_audio_system',
         'phid_k_prd_smart_audio_theatre',
@@ -1850,14 +1716,12 @@ const Chain smartHomeChain = Chain(
 const Chain stairsChain = Chain(
   id: 'phid_k_group_prd_stairs',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_stairs',
   sons: <Chain>[
     // ----------------------------------
     /// Handrails
     Chain(
       id: 'phid_k_sub_prd_stairs_handrails',
       icon: null,
-      phraseID: 'phid_k_sub_prd_stairs_handrails',
       sons: <String>[
         'phid_k_prd_stairs_handrails_wood',
         'phid_k_prd_stairs_handrails_metal',
@@ -1871,14 +1735,12 @@ const Chain stairsChain = Chain(
 const Chain lightStructureChain = Chain(
   id: 'phid_k_group_prd_structure',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_structure',
   sons: <Chain>[
     // ----------------------------------
     /// Shades
     Chain(
       id: 'phid_k_sub_prd_struc_shades',
       icon: null,
-      phraseID: 'phid_k_sub_prd_struc_shades',
       sons: <String>[
         'phid_k_prd_structure_shades_pergola',
         'phid_k_prd_structure_shades_gazebo',
@@ -1894,7 +1756,6 @@ const Chain lightStructureChain = Chain(
     Chain(
       id: 'phid_k_sub_prd_struc_light',
       icon: null,
-      phraseID: 'phid_k_sub_prd_struc_light',
       sons: <String>[
         'phid_k_prd_structure_light_arbor',
         'phid_k_prd_structure_light_shed',
@@ -1911,14 +1772,12 @@ const Chain lightStructureChain = Chain(
 const Chain wallsAndRoomsPartitions = Chain(
   id: 'phid_k_group_prd_walls',
   icon: 'id',
-  phraseID: 'phid_k_group_prd_walls',
   sons: <Chain>[
     // ----------------------------------
     /// Wall Cladding
     Chain(
       id: 'phid_k_sub_prd_walls_cladding',
       icon: null,
-      phraseID: 'phid_k_sub_prd_walls_cladding',
       sons: <String>[
         'phid_k_prd_walls_cladding_mosaic',
         'phid_k_prd_walls_cladding_murals',
@@ -1936,7 +1795,6 @@ const Chain wallsAndRoomsPartitions = Chain(
     Chain(
       id: 'phid_k_sub_prd_walls_partitions',
       icon: null,
-      phraseID: 'phid_k_sub_prd_walls_partitions',
       sons: <String>[
         'prd_walls_partitions_screens',
         'prd_walls_partitions_showerStalls',
@@ -1948,7 +1806,6 @@ const Chain wallsAndRoomsPartitions = Chain(
     Chain(
       id: 'phid_k_sub_prd_walls_moldings',
       icon: null,
-      phraseID: 'phid_k_sub_prd_walls_moldings',
       sons: <String>[
         'prd_walls_molding_rail',
         'prd_walls_molding_onlay',
@@ -1962,7 +1819,6 @@ const Chain wallsAndRoomsPartitions = Chain(
     Chain(
       id: 'phid_k_sub_prd_walls_ceiling',
       icon: null,
-      phraseID: 'phid_k_sub_prd_walls_ceiling',
       sons: <String>[
         'prd_walls_ceiling_tiles',
       ],

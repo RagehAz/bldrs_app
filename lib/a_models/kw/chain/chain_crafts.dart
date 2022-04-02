@@ -4,9 +4,8 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 abstract class ChainCrafts {
 
   static const Chain chain = Chain(
-    id: 'phid_k_crafts',
+    id: 'phid_k_flyer_type_crafts',
     icon: Iconz.bxCraftsOff,
-    phraseID: 'phid_k_crafts_keywords',
     sons: <String>[
 
       'phid_k_con_trade_carpentry',

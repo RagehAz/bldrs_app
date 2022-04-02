@@ -821,7 +821,7 @@ class Phrase {
     // blog('THE FUCKINGGGGGGGGGGG THING IS :');
     // blogPhrases(_output);
 
-    return _cleanIdenticalPhrases(_output);
+    return cleanIdenticalPhrases(_output);
   }
 // -------------------------------------
   static List<Phrase> _addLangCodeToPhrases({
@@ -886,7 +886,7 @@ class Phrase {
 
   }
 // -------------------------------------
-  static List<Phrase> _cleanIdenticalPhrases(List<Phrase> phrases){
+  static List<Phrase> cleanIdenticalPhrases(List<Phrase> phrases){
     final List<Phrase> _output = <Phrase>[];
 
     if (Mapper.canLoopList(phrases) == true){

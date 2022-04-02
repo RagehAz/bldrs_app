@@ -48,13 +48,15 @@ class TranslationsPage extends StatelessWidget {
                 mixedPhrases : mixedPhrases,
               );
 
+              final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_allLanguagesPhrasesOfAllMixedPhrases);
+
               final List<Phrase> _enSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
-                phrases: _allLanguagesPhrasesOfAllMixedPhrases,
+                phrases: _cleaned,
                 langCode: 'en',
               );
 
               final List<Phrase> _arSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
-                phrases: _allLanguagesPhrasesOfAllMixedPhrases,
+                phrases: _cleaned,
                 langCode: 'ar',
               );
 
