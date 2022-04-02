@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/notification/noti_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
@@ -6,9 +5,10 @@ import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dar
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/notifications_manager/noti_banner_editor.dart';
 import 'package:flutter/material.dart';
 
 class NotificationCard extends StatelessWidget {

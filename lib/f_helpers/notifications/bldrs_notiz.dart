@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/notification/noti_model.dart';
-import 'package:bldrs/a_models/notification/noti_sudo.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_sudo.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/foundation.dart';
 
@@ -95,8 +95,7 @@ const dynamic notiDefaultMap = <String, dynamic>{
 
 const String bldrsSenderID = 'bldrs';
 // -----------------------------------------------------------------------------
-const String bldrsLogoURL =
-    'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
+const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
 
 final BzModel _dummyBz = BzModel.dummyBz('ar1');
 final FlyerModel _dummyFlyer = FlyerModel.dummyFlyers()[0];
@@ -132,6 +131,7 @@ NotiModel buildSomething() {
 
 // -----------------------------------------------------------------------------
 /// 2 - 35 days reminder
+/// Pseudo
 NotiModel createSomethingNew() {
   return NotiModel(
     id: 'n02',

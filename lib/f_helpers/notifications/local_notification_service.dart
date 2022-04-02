@@ -5,11 +5,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-final FlutterLocalNotificationsPlugin _notiPlugin =
-    FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
 
-const String _flatBldrsNotiIcon =
-    'res_flat_logo'; //'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
+const String _flatBldrsNotiIcon = 'res_flat_logo'; //'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
 
 Future<void> initialize(BuildContext context) async {
   const InitializationSettings initializationSettings = InitializationSettings(
