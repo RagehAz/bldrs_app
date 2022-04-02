@@ -84,6 +84,8 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     @required List<Phrase> originalArPhrases,
 }) async {
 
+    final List<Phrase>  extraPhrases = [];
+
     await onUploadPhrases(
       context: context,
       enOldPhrases: originalEnPhrases,
