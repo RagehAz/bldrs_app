@@ -1251,7 +1251,7 @@ const Chain constructionMaterials = Chain(
       id: 'phid_k_sub_prd_mat_sandRubble',
       icon: null,
       sons: <String>[
-        'prd_mat_sand_sand',
+        'phid_k_prd_mat_sand_sand',
       ],
     ),
     // ----------------------------------
@@ -1566,7 +1566,7 @@ const Chain roofingChain = Chain(
       id: 'phid_k_sub_prd_roof_drainage',
       icon: null,
       sons: <String>[
-        'prd_roof_drainage_gutter',
+        'phid_k_prd_roof_drainage_gutter',
       ],
     ),
     // ----------------------------------
@@ -1796,9 +1796,9 @@ const Chain wallsAndRoomsPartitions = Chain(
       id: 'phid_k_sub_prd_walls_partitions',
       icon: null,
       sons: <String>[
-        'prd_walls_partitions_screens',
-        'prd_walls_partitions_showerStalls',
-        'prd_walls_partitions_doubleWalls',
+        'phid_k_prd_walls_partitions_screens',
+        'phid_k_prd_walls_partitions_showerStalls',
+        'phid_k_prd_walls_partitions_doubleWalls',
       ],
     ),
     // ----------------------------------
@@ -1807,11 +1807,11 @@ const Chain wallsAndRoomsPartitions = Chain(
       id: 'phid_k_sub_prd_walls_moldings',
       icon: null,
       sons: <String>[
-        'prd_walls_molding_rail',
-        'prd_walls_molding_onlay',
-        'prd_walls_molding_column',
-        'prd_walls_molding_medallion',
-        'prd_walls_molding_corbel',
+        'phid_k_prd_walls_molding_rail',
+        'phid_k_prd_walls_molding_onlay',
+        'phid_k_prd_walls_molding_column',
+        'phid_k_prd_walls_molding_medallion',
+        'phid_k_prd_walls_molding_corbel',
       ],
     ),
     // ----------------------------------
@@ -1820,7 +1820,7 @@ const Chain wallsAndRoomsPartitions = Chain(
       id: 'phid_k_sub_prd_walls_ceiling',
       icon: null,
       sons: <String>[
-        'prd_walls_ceiling_tiles',
+        'phid_k_prd_walls_ceiling_tiles',
       ],
     ),
   ],
