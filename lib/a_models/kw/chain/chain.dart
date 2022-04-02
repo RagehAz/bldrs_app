@@ -15,13 +15,11 @@ class Chain {
   const Chain({
     @required this.id,
     @required this.icon,
-    @required this.phraseID, // TASK : should end as String titlePhraseID
     @required this.sons,
   });
   /// --------------------------------------------------------------------------
   final String id;
   final String icon;
-  final String phraseID;
   final dynamic sons;
   /// --------------------------------------------------------------------------
   static Chain filterSpecListChainRange(SpecList specList) {
@@ -54,7 +52,6 @@ class Chain {
       _filteredChain = Chain(
         id: specList.specChain.id,
         icon: specList.specChain.icon,
-        phraseID: specList.specChain.phraseID,
         sons: _filteredSons,
       );
     }
@@ -63,9 +60,8 @@ class Chain {
   }
 // -----------------------------------------------------------------------------
   static const Chain bldrsChain = Chain(
-    id: 'bldrs',
+    id: 'phid_sections',
     icon: Iconz.bldrsNameEn,
-    phraseID: '0100_bldrsChain',
     sons: <Chain>[
 
       /// PROPERTIES

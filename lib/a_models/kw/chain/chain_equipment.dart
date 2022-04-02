@@ -4,9 +4,8 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 abstract class ChainEquipment {
 
   static const Chain chain = Chain(
-    id: 'equipment',
+    id: 'phid_k_flyer_type_equipment',
     icon: Iconz.bxEquipmentOff,
-    phraseID: 'phid_k_equipment_keywords',
     sons: <Chain>[
 
       // -----------------------------------------------
@@ -14,14 +13,12 @@ abstract class ChainEquipment {
       Chain(
         id: 'phid_k_group_equip_handheld',
         icon: null,
-        phraseID: 'phid_k_group_equip_handheld',
         sons: <Chain>[
           // ----------------------------------
           /// Power tools
           Chain(
             id: 'phid_k_sub_handheld_power',
             icon: null,
-            phraseID: 'phid_k_sub_handheld_power',
             sons: <String>[
               'phid_k_equip_tool_power_drill',
               'phid_k_equip_tool_power_saw',
@@ -37,7 +34,6 @@ abstract class ChainEquipment {
           Chain(
             id: 'phid_k_sub_handheld_measure',
             icon: null,
-            phraseID: 'phid_k_sub_handheld_measure',
             sons: <String>[
               'phid_k_equip_tool_measure_lasermeter',
               'phid_k_equip_tool_measure_tapMeasure',
@@ -49,7 +45,6 @@ abstract class ChainEquipment {
           Chain(
             id: 'phid_k_sub_handheld_machinery',
             icon: null,
-            phraseID: 'phid_k_sub_handheld_machinery',
             sons: <String>[
               'phid_k_equip_handheld_paver',
               'phid_k_equip_handheld_rammer',
@@ -63,7 +58,6 @@ abstract class ChainEquipment {
           Chain(
             id: 'phid_k_sub_handheld_handTools',
             icon: null,
-            phraseID: 'phid_k_sub_handheld_handTools',
             sons: <String>[
               'phid_k_equip_tool_hand_workbench',
               'phid_k_equip_tool_hand_bits',
@@ -79,7 +73,6 @@ abstract class ChainEquipment {
           Chain(
             id: 'phid_k_sub_handheld_gardenTools',
             icon: null,
-            phraseID: 'phid_k_sub_handheld_gardenTools',
             sons: <String>[
               'phid_k_prd_tool_garden_fork',
               'phid_k_prd_tool_garden_pruning',
@@ -97,7 +90,6 @@ abstract class ChainEquipment {
           Chain(
             id: 'phid_k_sub_handheld_cleaning',
             icon: null,
-            phraseID: 'phid_k_sub_handheld_cleaning',
             sons: <String>[
               'phid_k_prd_tool_hk_floorcare',
               'phid_k_prd_tool_hk_mop',
@@ -111,7 +103,6 @@ abstract class ChainEquipment {
       Chain(
         id: 'phid_k_group_equip_handling',
         icon: null,
-        phraseID: 'phid_k_group_equip_handling',
         sons: <String>[
           'phid_k_equip_mat_crane',
           'phid_k_equip_mat_conveyor',
@@ -124,7 +115,6 @@ abstract class ChainEquipment {
       Chain(
         id: 'phid_k_group_equip_heavy',
         icon: null,
-        phraseID: 'phid_k_group_equip_heavy',
         sons: <String>[
           'phid_k_equip_machinery_stoneCrusher',
           'phid_k_equip_machinery_tunneling',
@@ -137,7 +127,6 @@ abstract class ChainEquipment {
       Chain(
         id: 'phid_k_group_equip_prep',
         icon: null,
-        phraseID: 'phid_k_group_equip_prep',
         sons: <String>[
          'phid_k_equip_prep_scaffold',
          'phid_k_equip_prep_cone',
@@ -149,14 +138,12 @@ abstract class ChainEquipment {
       Chain(
         id: 'phid_k_group_equip_vehicle',
         icon: null,
-        phraseID: 'phid_k_group_equip_vehicle',
         sons: <Chain>[
           // ----------------------------------
           /// Earth moving vehicles
           Chain(
             id: 'phid_k_sub_vehicle_earthmoving',
             icon: null,
-            phraseID: 'phid_k_sub_vehicle_earthmoving',
             sons: <String>[
               'phid_k_equip_earth_excavator',
               'phid_k_equip_earth_backhoe',
@@ -175,7 +162,6 @@ abstract class ChainEquipment {
           Chain(
             id: 'phid_k_sub_vehicle_transport',
             icon: null,
-            phraseID: 'phid_k_sub_vehicle_transport',
             sons: <String>[
               'phid_k_equip_vehicle_dumper',
               'phid_k_equip_vehicle_tanker',
@@ -187,7 +173,6 @@ abstract class ChainEquipment {
           Chain(
             id: 'phid_k_sub_vehicle_paving',
             icon: null,
-            phraseID: 'phid_k_sub_vehicle_paving',
             sons: <String>[
               'phid_k_equip_paving_roller',
               'phid_k_equip_paving_asphalt',
