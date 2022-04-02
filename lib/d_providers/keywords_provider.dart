@@ -9,8 +9,6 @@ import 'package:bldrs/e_db/fire/ops/keyword_ops.dart' as FireKeywordOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:flutter/cupertino.dart';
@@ -130,15 +128,21 @@ class KeywordsProvider extends ChangeNotifier {
 
           /// WHEN SON IS A CHAIN
           else if (son.runtimeType == Chain) {
+
             final Chain _chain = son;
 
             if (_chain.icon == null) {
               // _icon = null;
-            } else if (_chain.icon == 'id') {
+            }
+
+            else if (_chain.icon == 'id') {
               _icon = 'assets/keywords/${_chain.id}.jpg';
-            } else {
+            }
+
+            else {
               _icon = _chain.icon;
             }
+
           }
 
           /// HOWEVER
