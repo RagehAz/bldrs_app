@@ -9,6 +9,8 @@ import 'package:bldrs/e_db/fire/ops/keyword_ops.dart' as FireKeywordOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:flutter/cupertino.dart';
@@ -116,7 +118,21 @@ class KeywordsProvider extends ChangeNotifier {
         functions: () {
           /// WHEN SON IS KEYWORD ID "never happens"
           if (son.runtimeType == String) {
+
+            if (stringContainsSubString(
+              string: son,
+              subString: 'phid_k_'
+            ) == true){
+              final String _modified = modifyAllCharactersWith(
+                input: son,
+                characterToReplace: 'phid_k_',
+                replacement: '',
+              );
+              _icon = 'assets/keywords/$_modified.jpg';
+            }
+            else {
             _icon = 'assets/keywords/$son.jpg';
+            }
             blog('HEY : Im  a son, and im a keyword ID $son');
           }
 
