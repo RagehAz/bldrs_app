@@ -117,7 +117,7 @@ double stringToDouble(String string) {
 }
 // -----------------------------------------------------------------------------
 int lastTwoIntegersFromAString(String string) {
-  final String _lastTwoSubStrings = TextMod.lastTwoSubStringsFromAString(string);
+  final String _lastTwoSubStrings = TextMod.cutLastTwoCharactersFromAString(string);
   final int _asIntegers = stringToInt(_lastTwoSubStrings);
   return _asIntegers;
 }

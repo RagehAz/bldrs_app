@@ -28,8 +28,8 @@ bool textControllerIsEmpty(TextEditingController controller) {
   if (controller == null ||
       controller.text == '' ||
       controller.text.isEmpty ||
-      TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
-      TextMod.firstCharacterAfterRemovingSpacesFromAString(controller.text) == null) {
+      TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
+      TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(controller.text) == null) {
     _controllerIsEmpty = true;
   }
 
@@ -104,8 +104,8 @@ bool stringIsEmpty(String val) {
 
   if (
   val == null || val == '' || val.isEmpty ||
-      TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == '' ||
-      TextMod.firstCharacterAfterRemovingSpacesFromAString(val) == null) {
+      TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val) == '' ||
+      TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val) == null) {
     _controllerIsEmpty = true;
   }
 
@@ -141,7 +141,7 @@ bool textStartsInArabic(String val) {
   // bool isArabic;
 
   final String _firstCharacter =
-      TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
+      TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val);
 
   bool _startInArabic;
 
@@ -163,7 +163,7 @@ bool textStartsInArabic(String val) {
 bool textStartsInEnglish(String val) {
   const String _reg = r'[a-zA-Z]';
   final RegExp _exp = RegExp(_reg, multiLine: true);
-  final String _firstCharacter = TextMod.firstCharacterAfterRemovingSpacesFromAString(val);
+  final String _firstCharacter = TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val);
 
   bool _startsInEnglish;
 
