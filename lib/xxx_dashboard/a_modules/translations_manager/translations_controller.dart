@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/trans_ops.dart' as TransOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -337,18 +338,58 @@ Future<bool> _preUploadCheck({
   return _continueOps;
 }
 // -----------------------------
-/*
-Future<void> _onUploadPhrases({
+
+Future<void> onUploadPhrases({
   @required List<Phrase> arOldPhrases,
   @required List<Phrase> enOldPhrases,
+  @required List<Phrase> inputMixedLangPhrases,
   @required BuildContext context,
-  @required List<Phrase> arNewPhrases,
-  @required List<Phrase> enNewPhrases,
 }) async {
 
+  final int _numberOfEnPhrases = enOldPhrases.length;
+  final int _numberOfArPhrases = arOldPhrases.length;
+  final int _numberOfInputMixedPhrases = inputMixedLangPhrases.length;
+
+  blog('onUploadPhrases : '
+      'numberOfEnPhrases : $_numberOfEnPhrases : '
+      'numberOfArPhrases : $_numberOfArPhrases : '
+      'numberOfInputMixedPhrases : $_numberOfInputMixedPhrases'
+  );
+  blog('expected outcome = ${_numberOfArPhrases + (_numberOfInputMixedPhrases/2)}');
+
+  final List<String> _mixedPhrasesIDs = Phrase.getPhrasesIDs(inputMixedLangPhrases);
+  final List<String> _newPhrasesIDs = Mapper.getUniqueStringsFromStrings(strings: _mixedPhrasesIDs);
+
+  blog('_mixedPhrasesIDs.length : ${_mixedPhrasesIDs.length} : _newPhrasesIDs.length : ${_newPhrasesIDs.length}');
+
+  for (final String _phid in _newPhrasesIDs){
+
+    final Phrase _enPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
+      phrases: inputMixedLangPhrases,
+      phid: _phid,
+      langCode: 'en',
+    );
+
+    final Phrase _arPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
+      phrases: inputMixedLangPhrases,
+      phid: _phid,
+      langCode: 'ar',
+    );
+
+    await onUploadPhrase(
+        arOldPhrases: arOldPhrases,
+        enOldPhrases: enOldPhrases,
+        context: context,
+        phraseID: _phid,
+        enValue: _enPhrase.value,
+        arValue: _arPhrase.value,
+    );
+
+
+  }
 
 }
-*/
+
 // -----------------------------
 Future<void> onUploadPhrase({
   @required List<Phrase> arOldPhrases,
@@ -410,6 +451,8 @@ Future<void> onUploadPhrase({
           enPhrases: _enPhrases,
           arPhrases: _arPhrases,
       );
+
+      blog('onUploadPhrase uploaded : $phraseID : TAMAM PASHA');
 
       await TopDialog.showTopDialog(
         context: context,
