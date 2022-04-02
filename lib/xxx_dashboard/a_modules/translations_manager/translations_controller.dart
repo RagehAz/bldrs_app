@@ -51,7 +51,7 @@ void onSearchPhrases({
       phrasesToInsert: _enResults,
       forceUpdate: false,
       addLanguageCode: 'en',
-      allowDuplicateIDs: true,
+      allowDuplicateIDs: false,
     );
 
     _foundPhrases = Phrase.insertPhrases(
@@ -59,13 +59,17 @@ void onSearchPhrases({
       phrasesToInsert: _arResults,
       forceUpdate: false,
       addLanguageCode: 'ar',
-      allowDuplicateIDs: true,
+      allowDuplicateIDs: false,
     );
 
     // blog('mixed phrase are : ');
     // Phrase.blogPhrases(_foundPhrases);
 
-    mixedSearchResult.value = _foundPhrases;
+    final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_foundPhrases);
+
+    Phrase.blogPhrases(_cleaned);
+
+    mixedSearchResult.value = _cleaned;
   }
 
   else {
