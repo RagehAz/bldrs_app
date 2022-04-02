@@ -20,7 +20,6 @@ List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps) {
 
   return _listOfFirstValues;
 }
-
 // -----------------------------------------------------------------------------
 /// TASK : check getFirstValuesFromMaps if not used in production
 /// [
@@ -37,7 +36,6 @@ List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps) {
 
   return _listOfValues;
 }
-
 // -----------------------------------------------------------------------------
 List<String> cloneListOfStrings(List<String> list) {
   final List<dynamic> _newList = <dynamic>[];
@@ -47,7 +45,6 @@ List<String> cloneListOfStrings(List<String> list) {
   }
   return _newList;
 }
-
 // -----------------------------------------------------------------------------
 List<Map<String, dynamic>> getMapsFromQuerySnapshot({
   @required QuerySnapshot<Object> querySnapshot,
@@ -66,7 +63,6 @@ List<Map<String, dynamic>> getMapsFromQuerySnapshot({
 
   return _maps;
 }
-
 // -----------------------------------------------------------------------------
 List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
   @required List<QueryDocumentSnapshot<Object>> queryDocumentSnapshots,
@@ -107,10 +103,11 @@ Map<String, dynamic> getMapFromDocumentSnapshot(
   return _map;
 }
 // -----------------------------------------------------------------------------
-bool listOfMapsContainValue(
-    {@required List<Map<String, dynamic>> listOfMaps,
-    @required String field,
-    @required String value}) {
+bool listOfMapsContainValue({
+  @required List<Map<String, dynamic>> listOfMaps,
+  @required String field,
+  @required String value,
+}) {
   bool _listOfMapContainsTheValue;
 
   for (final Map<String, dynamic> map in listOfMaps) {
@@ -124,7 +121,6 @@ bool listOfMapsContainValue(
 
   return _listOfMapContainsTheValue;
 }
-
 // -----------------------------------------------------------------------------
 /// listOfMaps = [
 /// {'key1' : 'value', 'key2' : 'value2'}
@@ -133,9 +129,10 @@ bool listOfMapsContainValue(
 /// ];
 ///
 /// map = {'key1' : 'value', 'key2' : 'value2'};
-bool listOfMapsContainMap(
-    {@required List<Map<String, dynamic>> listOfMaps,
-    @required Map<String, dynamic> map}) {
+bool listOfMapsContainMap({
+  @required List<Map<String, dynamic>> listOfMaps,
+  @required Map<String, dynamic> map,
+}) {
   // ---------------------------------
   bool _inputsAreInvalid;
 
@@ -162,7 +159,6 @@ bool listOfMapsContainMap(
 
   return _listOfMapContainsTheMap;
 }
-
 // -----------------------------------------------------------------------------
 bool listsAreTheSame({
   @required List<dynamic> list1,
@@ -220,40 +216,38 @@ bool mapsAreTheSame(Map<String, dynamic> map1, Map<String, dynamic> map2) {
 
   return _mapsAreTheSame;
 }
-
 // -----------------------------------------------------------------------------
-int indexOfMapInListOfMaps(
-    List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map) {
+int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map) {
   final int _indexOfTheMap =
       listOfMaps.indexWhere((Map<String, dynamic> m) => mapsAreTheSame(m, map));
   return _indexOfTheMap;
 }
-
 // -----------------------------------------------------------------------------
-int indexOfMapByValueInListOfMaps(
-    {@required List<Map<String, dynamic>> listOfMaps,
-    @required String key,
-    @required dynamic value}) {
+int indexOfMapByValueInListOfMaps({
+  @required List<Map<String, dynamic>> listOfMaps,
+  @required String key,
+  @required dynamic value}) {
   final int _indexOfTheMap =
       listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
   return _indexOfTheMap;
 }
-
 // -----------------------------------------------------------------------------
-Map<String, dynamic> insertPairInMap(
-    {@required Map<String, dynamic> map,
-    @required String key,
-    @required dynamic value}) {
+Map<String, dynamic> insertPairInMap({
+  @required Map<String, dynamic> map,
+  @required String key,
+  @required dynamic value,
+}) {
   map.putIfAbsent(key, () => value);
 
   final Map<String, dynamic> _result = <String, dynamic>{}..addAll(map);
 
   return _result;
 }
-
 // -----------------------------------------------------------------------------
 /// url query looks like "key1=value1&key1=value2&key3=value3"
-Map<String, dynamic> getMapFromURLQuery({@required String urlQuery}) {
+Map<String, dynamic> getMapFromURLQuery({
+  @required String urlQuery,
+}) {
   /// url query should look like this
   /// 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
 
@@ -313,9 +307,10 @@ Map<String, dynamic> getMapFromURLQuery({@required String urlQuery}) {
 
   return _output;
 }
-
 // -----------------------------------------------------------------------------
-List<String> getStringsFromDynamics({@required List<dynamic> dynamics}) {
+List<String> getStringsFromDynamics({
+  @required List<dynamic> dynamics,
+}) {
   final List<String> _strings = <String>[];
 
   if (canLoopList(dynamics)) {
@@ -330,12 +325,12 @@ List<String> getStringsFromDynamics({@required List<dynamic> dynamics}) {
 
   return _strings;
 }
-
 // -----------------------------------------------------------------------------
-Map<String, Object> replacePair(
-    {@required Map<String, Object> map,
-    @required String fieldKey,
-    @required dynamic inputValue}) {
+Map<String, Object> replacePair({
+  @required Map<String, Object> map,
+  @required String fieldKey,
+  @required dynamic inputValue,
+}) {
   final Map<String, Object> _aMap = cloneMap(map);
 
   try {
@@ -349,17 +344,17 @@ Map<String, Object> replacePair(
 
   return _aMap;
 }
-
 // -----------------------------------------------------------------------------
-Map<String, Object> removePair(
-    {@required Map<String, Object> map, @required String fieldKey}) {
+Map<String, Object> removePair({
+  @required Map<String, Object> map,
+  @required String fieldKey,
+}) {
   final Map<String, Object> _map = cloneMap(map);
 
   _map.remove(fieldKey);
 
   return _map;
 }
-
 // -----------------------------------------------------------------------------
 bool canLoopList(List<dynamic> list) {
   bool _canLoop = false;
@@ -369,7 +364,6 @@ bool canLoopList(List<dynamic> list) {
   }
   return _canLoop;
 }
-
 // -----------------------------------------------------------------------------
 void blogMap(Map<String, dynamic> map) {
   blog('MAP-PRINT --------------------------------------------------START');
@@ -383,7 +377,6 @@ void blogMap(Map<String, dynamic> map) {
 
   blog('MAP-PRINT --------------------------------------------------END');
 }
-
 // -----------------------------------------------------------------------------
 void blogMaps(List<Map<String, dynamic>> maps) {
   if (canLoopList(maps)) {
@@ -392,7 +385,6 @@ void blogMaps(List<Map<String, dynamic>> maps) {
     }
   }
 }
-
 // -----------------------------------------------------------------------------
 List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
   final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -405,10 +397,11 @@ List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
 
   return _maps;
 }
-
 // -----------------------------------------------------------------------------
-bool stringsContainString(
-    {@required List<String> strings, @required String string}) {
+bool stringsContainString({
+  @required List<String> strings,
+  @required String string,
+}) {
   bool _containsIt = false;
 
   if (canLoopList(strings) && string != null) {
@@ -416,5 +409,24 @@ bool stringsContainString(
   }
 
   return _containsIt;
+}
+// -----------------------------------------------------------------------------
+List<String> getUniqueStringsFromStrings({@required List<String> strings}){
+
+  final List<String> _output = <String>[];
+
+  if (canLoopList(strings) == true){
+
+    for (final String string in strings){
+
+      if (_output.contains(string) == false){
+        _output.add(string);
+      }
+
+    }
+
+  }
+
+  return _output;
 }
 // -----------------------------------------------------------------------------

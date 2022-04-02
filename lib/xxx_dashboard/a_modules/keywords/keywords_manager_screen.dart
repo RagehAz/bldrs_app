@@ -1,17 +1,30 @@
+import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/kw/chain/chain_equipment.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class KeywordsManager extends StatefulWidget {
-  const KeywordsManager({Key key}) : super(key: key);
+
+  const KeywordsManager({
+    Key key
+  }) : super(key: key);
 
   @override
   _KeywordsManagerState createState() => _KeywordsManagerState();
 }
 
 class _KeywordsManagerState extends State<KeywordsManager> {
-  // List<Keyword> _selectedKeywords = [];
+
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -21,119 +34,218 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // final List<Keyword> _allKeywords = Keyword.bldrsKeywords();
 
-    // final double _screenWidth  = Scale.superScreenWidth(context);
-    // double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth  = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
 
-    // const double _keywordButtonHeight = 90;
-    // final double _buttonWidth = _screenWidth * 0.8;
-    // const double _spacing = Ratioz.appBarPadding;
+    const Chain _chain = ChainEquipment.chain;
 
     return MainLayout(
       pageTitle: 'All Keywords',
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      layoutWidget: Container(
-        width: Scale.superScreenWidth(context) -
-            Ratioz.appBarMargin * 2, // this dictates overall width
-        // child: Scrollbar(
-        //   isAlwaysShown: false,
-        //   radius: Radius.circular(Ratioz.appBarPadding * 0.5),
-        //   thickness: Ratioz.appBarPadding,
-        //   // controller: ,
-        //   // key: ,
-        //   // child: ListView.builder(
-        //   //   itemCount: _allKeywords.length,
-        //   //   physics: const BouncingScrollPhysics(),
-        //   //   padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere),
-        //   //   itemExtent: _keywordButtonHeight + _spacing,
-        //   //   itemBuilder: (BuildContext ctx, int index){
-        //   //
-        //   //     final Keyword _keyword = _allKeywords[index];
-        //   //     final String _keywordID = _allKeywords[index].keywordID;
-        //   //     final String _icon = Keyword.getImagePath(_keyword);
-        //   //     final String _keywordName = Keyword.getKeywordNameByKeywordID(context, _keywordID);
-        //   //     final String _groupID = _keyword.groupID;
-        //   //     final String _subGroupID = _keyword.subGroupID == '' ? '...' : _keyword.subGroupID;
-        //   //     // int _uses = _keyword.uses;
-        //   //     // FlyerType _keywordFlyerType = _keyword.flyerType;
-        //   //     // List<Name> _keywordNames = _keyword.names;
-        //   //     final String _arabicName = Keyword.getKeywordArabicName(_keyword);
-        //   //
-        //   //     return
-        //   //         Container(
-        //   //           width: _buttonWidth,
-        //   //           // height: _keywordButtonHeight,
-        //   //           margin: const EdgeInsets.only(bottom: _spacing),
-        //   //           decoration: BoxDecoration(
-        //   //             borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-        //   //             color: Colorz.bloodTest,
-        //   //           ),
-        //   //           child: Row(
-        //   //             mainAxisAlignment: MainAxisAlignment.start,
-        //   //             crossAxisAlignment: CrossAxisAlignment.start,
-        //   //             children: <Widget>[
-        //   //
-        //   //               DreamBox(
-        //   //                 height: _keywordButtonHeight,
-        //   //                 width: _keywordButtonHeight,
-        //   //                 icon: _icon,
-        //   //                 bubble: false,
-        //   //               ),
-        //   //
-        //   //               const SizedBox(
-        //   //                 width: _spacing,
-        //   //               ),
-        //   //
-        //   //               Column(
-        //   //                 mainAxisAlignment: MainAxisAlignment.start,
-        //   //                 crossAxisAlignment: CrossAxisAlignment.start,
-        //   //                 children: <Widget>[
-        //   //
-        //   //                   /// index - ID
-        //   //                   SuperVerse(
-        //   //                     verse: '$index : ID : $_keywordID',
-        //   //                     size: 1,
-        //   //                   ),
-        //   //
-        //   //                   /// english name
-        //   //                   SuperVerse(
-        //   //                     verse: _keywordName,
-        //   //                     size: 2,
-        //   //                   ),
-        //   //
-        //   //                   /// arabic name
-        //   //                   SuperVerse(
-        //   //                     verse: _arabicName,
-        //   //                     size: 1,
-        //   //                   ),
-        //   //
-        //   //                   /// GroupID
-        //   //                   SuperVerse(
-        //   //                     verse: _groupID,
-        //   //                     size: 0,
-        //   //                     weight: VerseWeight.thin,
-        //   //                   ),
-        //   //
-        //   //
-        //   //                   /// subGroupID
-        //   //                   SuperVerse(
-        //   //                     verse: _subGroupID,
-        //   //                     size: 0,
-        //   //                     weight: VerseWeight.thin,
-        //   //                   ),
-        //   //
-        //   //
-        //   //                 ],
-        //   //               ),
-        //   //             ],
-        //   //           ),
-        //   //         );
-        //   //   },
-        //   //
-        //   // ),
-        // ),
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
+      skyType: SkyType.black,
+      layoutWidget: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.only(top: Ratioz.stratosphere),
+        itemCount: _chain.sons.length,
+          itemBuilder: (_, index){
+
+          final Chain _son = _chain.sons[index];
+
+          return DataTreeChain(
+            chain: _son,
+          );
+
+          }
+      ),
+    );
+  }
+}
+
+class DataTreeChain extends StatefulWidget {
+
+  const DataTreeChain({
+    @required this.chain,
+    this.initialLevel = 1,
+    Key key
+  }) : super(key: key);
+
+  final Chain chain;
+  final int initialLevel;
+
+  @override
+  State<DataTreeChain> createState() => _DataTreeChainState();
+}
+
+class _DataTreeChainState extends State<DataTreeChain> {
+
+  final ValueNotifier<bool> _expanded = ValueNotifier(false);
+
+  void _triggerExpansion(){
+    _expanded.value = !_expanded.value;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    final double _screenWidth  = Scale.superScreenWidth(context);
+    final int _numberOfSons = widget.chain.sons.length;
+    final bool _sonsAreChain = Chain.sonsAreChains(widget.chain.sons);
+
+    return SizedBox(
+      width: _screenWidth,
+      child: ValueListenableBuilder(
+        valueListenable: _expanded,
+        child: Column(
+          // physics: const NeverScrollableScrollPhysics(),
+          // shrinkWrap: true,
+          children: <Widget>[
+
+            /// WHEN  CHAIN SONS ARE CHAINS
+            if (_sonsAreChain == true)
+              ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: _numberOfSons,
+                  shrinkWrap: true,
+                  itemBuilder: (_, index){
+                    final Chain son = widget.chain.sons[index];
+                    return DataTreeChain(
+                      chain: son,
+                      initialLevel: widget.initialLevel + 1,
+
+                    );
+                  }
+              ),
+
+            /// WHEN CHAIN SONS ARE STRINGS (PHRASES IDS)
+            if (_sonsAreChain == false) // its a List<String>
+              ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: _numberOfSons,
+                  shrinkWrap: true,
+                  itemBuilder: (_, index){
+                    final String keywordID = widget.chain.sons[index];
+                    return DataTreeStrip(
+                      level: widget.initialLevel + 1,
+                      secondLine: keywordID,
+                      firstLine: superPhrase(context, keywordID),
+                      onTriggerExpansion: (){},
+                    );
+
+                  }
+              ),
+
+          ],
+        ),
+        builder: (_, bool _isExpanded, Widget sonsWidgets){
+
+          return Column(
+
+            children: <Widget>[
+
+              /// chain title
+              DataTreeStrip(
+                level: widget.initialLevel,
+                secondLine: widget.chain.id,
+                firstLine: superPhrase(context, widget.chain.phraseID),
+                expanded: _isExpanded,
+                onTriggerExpansion: _triggerExpansion,
+              ),
+
+              if (_isExpanded)
+                sonsWidgets,
+
+            ],
+
+          );
+
+        },
+
+      ),
+    );
+  }
+}
+
+
+class DataTreeStrip extends StatelessWidget {
+
+  const DataTreeStrip({
+    @required this.level,
+    @required this.secondLine,
+    @required this.firstLine,
+    @required this.onTriggerExpansion,
+    this.expanded,
+    Key key
+  }) : super(key: key);
+
+  final int level;
+  final String secondLine;
+  final String firstLine;
+  final Function onTriggerExpansion;
+  final bool expanded;
+
+  static const double stripHeight = 35;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final double _screenWidth  = Scale.superScreenWidth(context);
+    const Color _stripColor = Colorz.black255;
+
+    return Container(
+      width: _screenWidth,
+      color: Color.fromRGBO(_stripColor.red, _stripColor.green, _stripColor.blue, (90 - (20 * level)) / 100),
+      margin: const EdgeInsets.only(bottom: 2),
+      child: Row(
+        children: <Widget>[
+
+          /// LEVEL PADDING + ARROW BOX
+          GestureDetector(
+            onTap: onTriggerExpansion,
+            child: Container(
+              width: stripHeight * level,
+              height: stripHeight,
+              alignment: superInverseCenterAlignment(context),
+              child:
+              expanded == null ?
+              const SizedBox()
+              :
+              DreamBox(
+                width: stripHeight,
+                height: stripHeight,
+                icon: expanded ? Iconz.arrowDown : superArrowENRight(context),
+                iconSizeFactor: 0.3,
+                bubble: false,
+              ),
+            ),
+          ),
+
+          /// STRINGS
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+
+              SuperVerse(
+                verse: firstLine,
+                size: 2,
+                weight: VerseWeight.bold,
+                italic: true,
+              ),
+
+              SuperVerse(
+                verse: '$level : $secondLine',
+                size: 1,
+                weight: VerseWeight.thin,
+              ),
+
+            ],
+          ),
+
+        ],
       ),
     );
   }

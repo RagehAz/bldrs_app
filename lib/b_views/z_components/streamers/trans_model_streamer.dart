@@ -42,7 +42,6 @@ Widget transModelStreamBuilder({
 
 }
 // -----------------------------------------------------------------------------
-
 class TransModelStreamer extends StatelessWidget {
 
   const TransModelStreamer({
