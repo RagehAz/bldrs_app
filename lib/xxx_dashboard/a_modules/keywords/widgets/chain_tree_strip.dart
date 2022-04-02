@@ -68,21 +68,32 @@ class ChainTreeStrip extends StatelessWidget {
           Container(
             width: _stringsWidth,
             height: stripHeight,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            alignment: superCenterAlignment(context),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
               children: <Widget>[
 
-                SuperVerse(
-                  verse: firstLine,
-                  italic: true,
-                  onTap: () => onCopyText(context, firstLine),
-                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-                SuperVerse(
-                  verse: '$level : $secondLine',
-                  size: 1,
-                  weight: VerseWeight.thin,
-                  onTap: () => onCopyText(context, secondLine),
+                    SuperVerse(
+                      verse: firstLine,
+                      italic: true,
+                      centered: false,
+                      onTap: () => onCopyText(context, firstLine),
+                    ),
+
+                    SuperVerse(
+                      verse: '$level : $secondLine',
+                      size: 1,
+                      centered: false,
+                      weight: VerseWeight.thin,
+                      onTap: () => onCopyText(context, secondLine),
+                    ),
+
+                  ],
                 ),
 
               ],
