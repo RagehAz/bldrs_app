@@ -9,7 +9,6 @@ abstract class ChainProperties {
     phraseID: 'phid_k_properties_keywords',
     sons: <Chain>[
 
-
       // -----------------------------------------------
       /// Industrial
       Chain(

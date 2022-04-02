@@ -18,13 +18,11 @@ class Chain {
     @required this.phraseID, // TASK : should end as String titlePhraseID
     @required this.sons,
   });
-
   /// --------------------------------------------------------------------------
   final String id;
   final String icon;
   final String phraseID;
   final dynamic sons;
-
   /// --------------------------------------------------------------------------
   static Chain filterSpecListChainRange(SpecList specList) {
 
@@ -63,7 +61,6 @@ class Chain {
 
     return _filteredChain;
   }
-
 // -----------------------------------------------------------------------------
   static const Chain bldrsChain = Chain(
     id: 'bldrs',
@@ -89,4 +86,14 @@ class Chain {
     ],
   );
 // -----------------------------------------------------------------------------
+
+/// CHECKERS
+
+// --------------------------------------------
+  static bool sonsAreChains(dynamic sons){
+    final bool _areChains = sons is List<Chain>;
+    return _areChains;
+  }
+// --------------------------------------------
+
 }
