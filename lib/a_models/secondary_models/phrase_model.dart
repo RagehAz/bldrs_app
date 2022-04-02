@@ -436,6 +436,41 @@ class Phrase {
 
     return _foundPhrases;
   }
+// -------------------------------------
+  static List<String> getPhrasesIDs(List<Phrase> phrases){
+
+    final List<String> _output = <String>[];
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+        _output.add(phrase.id);
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  static Phrase getPhraseByIDAndLangCodeFromPhrases({
+    @required String langCode,
+    @required String phid,
+    @required List<Phrase> phrases,
+}){
+
+    Phrase _phrase;
+
+    if (Mapper.canLoopList(phrases) == true){
+
+       _phrase = phrases.firstWhere(
+            (ph) => ph.id == phid && ph.langCode == langCode,
+        orElse: ()=> null,
+      );
+
+    }
+
+    return _phrase;
+  }
 // -----------------------------------------------------------------------------
 
   /// CHECKERS

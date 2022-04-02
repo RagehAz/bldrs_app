@@ -19,6 +19,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_creator_page.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_page.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_controller.dart';
+import 'package:bldrs/xxx_lab/cleaning_space.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -83,64 +84,12 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     @required List<Phrase> originalArPhrases,
 }) async {
 
-    blog('besm allah al rahman al raheem');
-
-    final List<Map<String, dynamic>> _countriesMap = await readSubCollectionDocs(
-        context: context,
-        collName: FireColl.zones,
-        docName: FireDoc.zones_countries,
-        subCollName: FireSubColl.zones_countries_countries,
-        limit: 300,
-        orderBy: 'id',
+    await onUploadPhrases(
+      context: context,
+      enOldPhrases: originalEnPhrases,
+      arOldPhrases: originalArPhrases,
+      inputMixedLangPhrases: extraPhrases,
     );
-
-    blog('found ${_countriesMap.length} countries -------------------------------- ');
-
-    int citiesCount = 1;
-    for (final Map<String, dynamic> _country in _countriesMap){
-
-      final List<String> _citiesIDs = Mapper.getStringsFromDynamics(dynamics: _country['citiesIDs']);
-
-      for (final String cityID in _citiesIDs){
-
-        final Map<String, dynamic> _cityMap = await readSubDoc(
-            context: context,
-            collName: FireColl.zones,
-            docName: FireDoc.zones_cities,
-            subCollName: FireSubColl.zones_cities_cities,
-            subDocName: cityID,
-        );
-
-        final dynamic _trigram = _cityMap['phrases']['en']['trigram'];
-        final bool _hasTrigram =  _trigram != null;
-
-        if (_hasTrigram == true){
-          blog('$citiesCount : $cityID : has trigram');
-        }
-
-        else {
-
-          await updateSubDocField(
-              context: context,
-              collName: FireColl.zones,
-              docName: FireDoc.zones_cities,
-              subCollName: FireSubColl.zones_cities_cities,
-              subDocName: cityID,
-              field: 'phrases.en.trigram',
-              input: createTrigram(input: _cityMap['phrases']['en']['value']),
-          );
-
-          blog('$citiesCount : $cityID : has no trigram and has just been added baby');
-        }
-
-        citiesCount++;
-      }
-
-
-      // blog('$citiesCount : done with ${map['cityID']}');
-      // citiesCount++;
-    }
-
 
   }
   // -----------------------------
@@ -148,6 +97,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     await _phraseProvider.updatePhrases(context);
   }
+
   // -----------------------------
   // Future<void> _doTheThingForCities(List<Map<String, dynamic>> citiesMaps) async {
   //
