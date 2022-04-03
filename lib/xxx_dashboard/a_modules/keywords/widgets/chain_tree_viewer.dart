@@ -32,7 +32,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
 
     final double _screenWidth  = Scale.superScreenWidth(context);
     final bool _sonsAreChain = Chain.sonsAreChains(widget.chain.sons);
-    final bool _sonsAreStrings = widget.chain.sons.runtimeType.toString() == 'List<String>';
+    final bool _sonsAreStrings = Chain.sonsAreStrings(widget.chain.sons);
     final int _numberOfSons =
     _sonsAreChain ? widget.chain.sons.length
         :
