@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/chain/data_creator.dart';
-import 'package:bldrs/a_models/chain/spec_list_model.dart';
-import 'package:bldrs/a_models/chain/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/specs/price_data_creator.dart';
 import 'package:bldrs/b_views/z_components/specs/spec_list_tile.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/spec_picker_screen.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -119,26 +121,29 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 
 // -----------------------------------------------------------------------------
   Future<void> _onSpecsListTap(SpecList specList) async {
-    blog('fi eh ${specList.specChain.sons}');
 
-    if (specList.specChain.sons.runtimeType != DataCreator) {
+    final Chain _specChain = superGetChain(context, specList.chainID);
+
+    blog('fi eh ${_specChain.sons}');
+
+    if (_specChain.sons.runtimeType != DataCreator) {
       await _goToSpecPickerScreen(specList);
     }
 
-    else if (specList.specChain.sons == DataCreator.price) {
+    else if (_specChain.sons == DataCreator.price) {
       await _goToSpecPickerScreen(specList);
     }
 
-    else if (specList.specChain.sons == DataCreator.currency) {
+    else if (_specChain.sons == DataCreator.currency) {
       await _runCurrencyDialog(specList);
     }
 
-    else if (specList.specChain.sons == DataCreator.integerIncrementer) {
+    else if (_specChain.sons == DataCreator.integerIncrementer) {
       blog('aho');
       await _goToSpecPickerScreen(specList);
     }
 
-    else if (specList.specChain.sons == DataCreator.doubleCreator) {
+    else if (_specChain.sons == DataCreator.doubleCreator) {
       blog('aho');
       await _goToSpecPickerScreen(specList);
     }
@@ -170,7 +175,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
       context: context,
       onSelectCurrency: (CurrencyModel currency) async {
         final SpecModel _currencySpec = SpecModel(
-          specsListID: specList.id,
+          specsListID: specList.chainID,
           value: currency.code,
         );
 
@@ -192,13 +197,18 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
   }
 
 // -----------------------------------------------------------------------------
-  void _updateSpecsListsAndGroups(
-      {@required dynamic specPickerResult, @required SpecList specList}) {
+  void _updateSpecsListsAndGroups({
+    @required dynamic specPickerResult,
+    @required SpecList specList,
+  }) {
+
+    final Chain _specChain = superGetChain(context, specList.chainID);
+
     // -------------------------------------------------------------
     if (specPickerResult != null) {
       // ------------------------------------
       /// A - SONS ARE FROM DATA CREATOR
-      if (specList.specChain.sons.runtimeType == DataCreator) {}
+      if (_specChain.sons.runtimeType == DataCreator) {}
       // ------------------------------------
       /// B - WHEN FROM LIST OF KWs
       if (ObjectChecker.objectIsListOfSpecs(specPickerResult)) {
@@ -308,7 +318,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                                 final List<SpecModel> _selectedSpecs =
                                     SpecModel.getSpecsByListID(
                                   specs: _allSelectedSpecs,
-                                  specsListID: _specList.id,
+                                  specsListID: _specList.chainID,
                                 );
 
                                 return SpecListTile(

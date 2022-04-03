@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/a_models/chain/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;

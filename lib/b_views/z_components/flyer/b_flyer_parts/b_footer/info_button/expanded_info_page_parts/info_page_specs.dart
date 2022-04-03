@@ -1,10 +1,10 @@
+import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/a_models/chain/spec_list_model.dart';
-import 'package:bldrs/a_models/chain/spec_model.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -68,7 +68,7 @@ class InfoPageSpecs extends StatelessWidget {
 
       for (final SpecModel spec in flyerSpecs){
 
-        if (spec.specsListID == specList.id){
+        if (spec.specsListID == specList.chainID){
 
           final bool _alreadyAdded = SpecModel.specsContainThisSpecValue(
             specs: _flyerSpecsFromThisSpecList,
@@ -139,12 +139,9 @@ class InfoPageSpecs extends StatelessWidget {
 
               final SpecList _specList = _flyerSpecsLists[index];
 
-              final Phrase _specListName = Phrase.getPhraseByCurrentLangFromPhrases(
-                  context: context,
-                  phrases: _specList.names,
-              );
+              final String _specListName = superPhrase(context, _specList.chainID);
 
-              blog('_specListName is : ${_specListName.value}');
+              blog('_specListName is : $_specListName');
 
               final String _specsInString = _generateSpecsString(
                 context: context,
@@ -166,7 +163,7 @@ class InfoPageSpecs extends StatelessWidget {
 
                     /// SPEC LIST NAME
                     SuperVerse(
-                      verse: '${_specListName?.value} :',
+                      verse: _specListName,
                       weight: VerseWeight.thin,
                       color: Colorz.white200,
                       centered: false,
