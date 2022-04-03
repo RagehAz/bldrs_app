@@ -41,8 +41,7 @@ class SpecsListsPickersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen>
-    with SingleTickerProviderStateMixin {
+class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with SingleTickerProviderStateMixin {
   List<SpecModel> _allSelectedSpecs;
 
   ScrollController _scrollController;

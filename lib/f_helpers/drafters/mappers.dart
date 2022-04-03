@@ -164,20 +164,39 @@ bool listsAreTheSame({
   @required List<dynamic> list1,
   @required List<dynamic> list2
 }) {
-  bool listsAreTheSame;
+  bool listsAreTheSame = false;
 
-  if (list1.length != list2.length) {
-    listsAreTheSame = false;
-  } else {
-    for (int i = 0; i < list1.length; i++) {
-      if (list1[i] != list2[i]) {
-        listsAreTheSame = false;
-        break;
-      } else {
-        listsAreTheSame = true;
+  if (list1 == null && list2 == null){
+    listsAreTheSame = true;
+  }
+  else if (list1 == [] && list2 == []){
+    listsAreTheSame = true;
+  }
+
+  else if (canLoopList(list1) == true && canLoopList(list2) == true){
+
+    if (list1.length != list2.length) {
+      listsAreTheSame = false;
+    }
+
+    else {
+      for (int i = 0; i < list1.length; i++) {
+
+        if (list1[i] != list2[i]) {
+          listsAreTheSame = false;
+          break;
+        }
+
+        else {
+          listsAreTheSame = true;
+        }
+
       }
     }
+
   }
+
+
 
   return listsAreTheSame;
 }
