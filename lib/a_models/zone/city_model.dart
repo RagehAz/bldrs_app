@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
@@ -33,6 +32,7 @@ class CityModel {
   final List<Phrase> phrases;
   final GeoPoint position;
   final String state; // only for USA
+// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
@@ -160,39 +160,6 @@ class CityModel {
     }
 
     return TextMod.sortAlphabetically(_citiesNames);
-  }
-// -------------------------------------
-  static KW getKeywordFromCity({
-    @required BuildContext context,
-    @required CityModel city,
-  }) {
-    // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
-
-    // String _name = _countryPro.getCityNameWithCurrentLanguageIfPossible(context, city.name);
-
-    final KW _keyword = KW(
-      id: city.cityID,
-      names: city.phrases,
-    );
-
-    return _keyword;
-  }
-// -------------------------------------
-  static List<KW> getKeywordsFromCities({
-    @required BuildContext context,
-    @required List<CityModel> cities,
-  }) {
-    final List<KW> _keywords = <KW>[];
-
-    if (Mapper.canLoopList(cities)) {
-      for (final CityModel city in cities) {
-        final KW _cityKeyword =
-            getKeywordFromCity(context: context, city: city);
-        _keywords.add(_cityKeyword);
-      }
-    }
-
-    return _keywords;
   }
 // -------------------------------------
   static List<MapModel> getCitiesNamesMapModels({

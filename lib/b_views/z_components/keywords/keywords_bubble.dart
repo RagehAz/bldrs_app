@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -10,7 +9,7 @@ class KeywordsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const KeywordsBubble({
     @required this.title,
-    @required this.keywords,
+    @required this.keywordsIDs,
     @required this.selectedWords,
     @required this.addButtonIsOn,
     @required this.onKeywordTap,
@@ -25,10 +24,10 @@ class KeywordsBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String title;
-  final List<KW> keywords;
+  final List<String> keywordsIDs;
   final int verseSize;
   final Function onTap;
-  final ValueChanged<KW> onKeywordTap;
+  final ValueChanged<String> onKeywordTap;
   final Color bubbleColor;
   final List<dynamic> selectedWords;
   final double bubbleWidth;
@@ -56,21 +55,23 @@ class KeywordsBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// STRINGS
-        if (Mapper.canLoopList(keywords))
+        if (Mapper.canLoopList(keywordsIDs))
           Wrap(
             children: <Widget>[
 
-              ...List<Widget>.generate(keywords?.length, (int index) {
-                final KW _keyword = keywords[index];
+              ...List<Widget>.generate(keywordsIDs?.length, (int index) {
+
+                final String _keyword = keywordsIDs[index];
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
                   child: KeywordBarButton(
-                    keyword: _keyword,
+                    keywordID: _keyword,
                     xIsOn: false,
-                    onTap: passKeywordOnTap == true
-                        ? () => onKeywordTap(_keyword)
-                        : null,
+                    onTap: passKeywordOnTap == true ?
+                        () => onKeywordTap(_keyword)
+                        :
+                    null,
                   ),
                 );
               }),
@@ -78,7 +79,7 @@ class KeywordsBubble extends StatelessWidget {
             ],
           ),
 
-        if (keywords != null && keywords.isEmpty && addButtonIsOn == true)
+        if (keywordsIDs != null && keywordsIDs.isEmpty && addButtonIsOn == true)
           AddKeywordsButton(
             onTap: passKeywordOnTap == true ? null : onTap,
           ),

@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
@@ -39,7 +39,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   await _initializeUserFollowedBzz(context);
 
   /// I - KEYWORDS
-  await _initializeKeywords(context);
+  await _initializeSpecsAndKeywords(context);
 
   /// J - SAVED FLYERS
   await _initializeSavedFlyers(context);
@@ -90,9 +90,9 @@ Future<void> _initializeSponsors(BuildContext context) async {
   await _bzzProvider.getSetSponsors(context);
 }
 // -----------------------------------------------------------------------------
-Future<void> _initializeKeywords(BuildContext context) async {
-  final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
-  await _keywordsProvider.getsetAllKeywords(context);
+Future<void> _initializeSpecsAndKeywords(BuildContext context) async {
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  await _chainsProvider.getSetKeywordsAndSpecsChains(context);
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeUserBzz(BuildContext context) async {

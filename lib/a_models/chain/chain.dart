@@ -1,18 +1,16 @@
-import 'package:bldrs/a_models/kw/chain/chain_crafts.dart';
-import 'package:bldrs/a_models/kw/chain/chain_designs.dart';
-import 'package:bldrs/a_models/kw/chain/chain_equipment.dart';
-import 'package:bldrs/a_models/kw/chain/chain_products.dart';
-import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/specs/data_creator.dart';
-import 'package:bldrs/a_models/kw/specs/raw_specs.dart' as specsChain;
-import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/data_creator.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_crafts.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_designs.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_equipment.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_properties.dart';
+import 'package:bldrs/a_models/chain/raw_data/specs_chains/raw_specs.dart' as specsChain;
+import 'package:bldrs/a_models/chain/spec_list_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/foundation.dart';
 
-/// can be KWs or sub-Chains
 class Chain {
   /// --------------------------------------------------------------------------
   const Chain({
@@ -157,9 +155,10 @@ class Chain {
   /// FILTERS
 
 // --------------------------------------------
+  /// TASK : REVISION
   static Chain filterSpecListChainRange(SpecList specList) {
 
-    final List<KW> _filteredSons = <KW>[];
+    final List<String> _filteredPhids = <String>[];
     Chain _filteredChain = specList.specChain;
 
     if (
@@ -168,7 +167,7 @@ class Chain {
         Mapper.canLoopList(specList.range)
     ) {
 
-      for (final KW kw in specList.specChain.sons) {
+      for (final String son in specList.specChain.sons) {
 
         final List<String> _strings = Mapper.getStringsFromDynamics(
             dynamics: specList.range,
@@ -177,17 +176,17 @@ class Chain {
         if (
         Mapper.stringsContainString(
           strings: _strings,
-          string: kw.id,
+          string: son,
         ) == true
         ) {
-          _filteredSons.add(kw);
+          _filteredPhids.add(son);
         }
       }
 
       _filteredChain = Chain(
         id: specList.specChain.id,
         icon: specList.specChain.icon,
-        sons: _filteredSons,
+        sons: _filteredPhids,
       );
     }
 

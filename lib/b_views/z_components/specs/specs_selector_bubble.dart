@@ -1,9 +1,8 @@
-import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
-import 'package:bldrs/a_models/kw/specs/spec_model.dart';
-import 'package:bldrs/b_views/z_components/chain_expander/components/bldrs_chains.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/chain_expander/components/bldrs_chains.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -50,7 +49,7 @@ class SpecSelectorBubble extends StatelessWidget {
               boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
               chain: Chain.filterSpecListChainRange(specList),
               onKeywordTap: (String keywordID) => onSpecTap(keywordID),
-              selectedKeywordsIDs: KW.getKeywordsIDsFromSpecs(selectedSpecs),
+              selectedKeywordsIDs: const <String>[],//SpecModel.get(selectedSpecs),
             ),
 
           ],

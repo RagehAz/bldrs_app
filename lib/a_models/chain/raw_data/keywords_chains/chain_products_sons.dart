@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
 
 const Chain appliancesChain = Chain(
   id: 'phid_k_group_prd_appliances',

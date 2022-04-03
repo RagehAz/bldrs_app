@@ -1,29 +1,25 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_crafts.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_designs.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_equipment.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_properties.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/chain/chain_crafts.dart';
-import 'package:bldrs/a_models/kw/chain/chain_designs.dart';
-import 'package:bldrs/a_models/kw/chain/chain_equipment.dart';
-import 'package:bldrs/a_models/kw/chain/chain_products.dart';
-import 'package:bldrs/a_models/kw/chain/chain_properties.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/section_dialog/section_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/side_dialog/section_tile.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -50,12 +46,12 @@ class DrawerDialog extends StatefulWidget {
 }
 
 class _DrawerDialogState extends State<DrawerDialog> {
-  KeywordsProvider _keywordsProvider;
+  ChainsProvider _keywordsProvider;
   GeneralProvider _generalProvider;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+    _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
     _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     super.initState();
   }
@@ -89,23 +85,23 @@ class _DrawerDialogState extends State<DrawerDialog> {
       if (text.length < 3) {
         setState(() {
           _isSearching = false;
-          _foundKeywords = <KW>[];
+          _foundKeywordsIDs = <String>[];
         });
       }
 
       /// B.2 keeps searching
       else {
-        final List<KW> _keywords = await _searchKeywords(text);
+        final List<String> _keywords = await _searchKeywords(text);
 
         /// found results
         if (Mapper.canLoopList(_keywords)) {
           setState(() {
-            _foundKeywords = _keywords;
+            _foundKeywordsIDs = _keywords;
             _noResultFound = false;
           });
         } else {
           setState(() {
-            _foundKeywords = <KW>[];
+            _foundKeywordsIDs = <String>[];
             _noResultFound = true;
           });
         }
@@ -117,22 +113,21 @@ class _DrawerDialogState extends State<DrawerDialog> {
     await _searchKeywords(text);
   }
 // -----------------------------------------------------------------------------
-  List<KW> _foundKeywords = <KW>[];
-  Future<List<KW>> _searchKeywords(String text) async {
-    List<KW> _results = <KW>[];
+  List<String> _foundKeywordsIDs = <String>[];
+  Future<List<String>> _searchKeywords(String text) async {
+    // List<Phrase> _results = <Phrase>[];
 
-    final List<Map<String, dynamic>> _maps = await LDBOps.searchTrigram(
-        searchValue: text,
-        docName: LDBDoc.keywords,
-        lingoCode: TextChecker.concludeEnglishOrArabicLingo(
-            text) //Wordz.languageCode(context),
-        );
+    // final List<Map<String, dynamic>> _maps = await LDBOps.searchTrigram(
+    //     searchValue: text,
+    //     docName: LDBDoc.keywords,
+    //     lingoCode: TextChecker.concludeEnglishOrArabicLingo(text) //Wordz.languageCode(context),
+    //     );
+    //
+    // if (Mapper.canLoopList(_maps)) {
+    //   _results = KW.decipherKeywordsLDBMaps(maps: _maps);
+    // }
 
-    if (Mapper.canLoopList(_maps)) {
-      _results = KW.decipherKeywordsLDBMaps(maps: _maps);
-    }
-
-    return _results;
+    return [];
   }
 // -----------------------------------------------------------------------------
   @override
@@ -203,27 +198,24 @@ class _DrawerDialogState extends State<DrawerDialog> {
                         Column(
                           children: <Widget>[
 
-                            if (Mapper.canLoopList(_foundKeywords))
+                            if (Mapper.canLoopList(_foundKeywordsIDs))
                               ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: _foundKeywords.length,
+                                  itemCount: _foundKeywordsIDs.length,
                                   itemBuilder: (_, index) {
-                                    final KW _keyword = _foundKeywords[index];
+
+                                    final String _phidk = _foundKeywordsIDs[index];
 
                                     return DreamBox(
                                       height: 60,
                                       width: _bubbleWidth,
                                       color: Colorz.white20,
-                                      verse:
-                                      Phrase.getPhraseByCurrentLangFromPhrases(
-                                          context: context,
-                                          phrases: _keyword.names
-                                      )?.value,
+                                      verse: superPhrase(context, _phidk),
                                       // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
                                       icon: _keywordsProvider.getKeywordIcon(
                                           context: context,
-                                          son: _keyword
+                                          son: _phidk,
                                       ),
                                       margins: const EdgeInsets.only(
                                           top: Ratioz.appBarPadding

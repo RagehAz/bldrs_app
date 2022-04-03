@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/components/inception.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

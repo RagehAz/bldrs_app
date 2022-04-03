@@ -1,6 +1,5 @@
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -12,18 +11,18 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 class SelectedKeywordsBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SelectedKeywordsBar({
-    @required this.selectedKeywords,
+    @required this.selectedKeywordsIDs,
     @required this.scrollController,
     @required this.itemPositionListener,
-    @required this.highlightedKeyword,
+    @required this.highlightedKeywordID,
     @required this.removeKeyword,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<KW> selectedKeywords;
+  final List<String> selectedKeywordsIDs;
   final ItemScrollController scrollController;
   final ItemPositionsListener itemPositionListener;
-  final KW highlightedKeyword;
+  final String highlightedKeywordID;
   final Function removeKeyword;
   /// --------------------------------------------------------------------------
   @override
@@ -34,13 +33,13 @@ class SelectedKeywordsBar extends StatelessWidget {
 
     const double _selectedKeywordsZoneHeight = 80;
 
-    final String _screenTitle = selectedKeywords.isEmpty ?
+    final String _screenTitle = selectedKeywordsIDs.isEmpty ?
     'Select keywords'
         :
-    selectedKeywords.length == 1 ?
+    selectedKeywordsIDs.length == 1 ?
     '1 Selected keyword'
         :
-    '${selectedKeywords.length} Selected keywords';
+    '${selectedKeywordsIDs.length} Selected keywords';
 
     final EdgeInsets _barPadding = appIsLeftToRight(context) == true ?
     const EdgeInsets.only(
@@ -80,7 +79,7 @@ class SelectedKeywordsBar extends StatelessWidget {
           SizedBox(
             width: _screenWidth,
             height: _selectedKeywordsZoneHeight * 0.7,
-            child: selectedKeywords.isEmpty ?
+            child: selectedKeywordsIDs.isEmpty ?
             Container()
                 :
             ScrollablePositionedList.builder(
@@ -88,12 +87,12 @@ class SelectedKeywordsBar extends StatelessWidget {
               itemScrollController: scrollController,
               scrollDirection: Axis.horizontal,
               itemPositionsListener: itemPositionListener,
-              itemCount: selectedKeywords.length,
+              itemCount: selectedKeywordsIDs.length,
               padding: _barPadding,
               itemBuilder: (BuildContext ctx, int index) {
 
-                final KW _keyword = index >= 0 ?
-                selectedKeywords[index]
+                final String _keyword = index >= 0 ?
+                selectedKeywordsIDs[index]
                     :
                 null;
 
@@ -112,7 +111,7 @@ class SelectedKeywordsBar extends StatelessWidget {
                       //     :
                       // false;
 
-                blog('_keywords.length : ${selectedKeywords.length}');
+                blog('_keywords.length : ${selectedKeywordsIDs.length}');
                 blog('index : $index');
 
                 return _keyword == null ?
@@ -128,7 +127,7 @@ class SelectedKeywordsBar extends StatelessWidget {
                     :
 
                 KeywordBarButton(
-                  keyword: _keyword,
+                  keywordID: _keyword,
                   xIsOn: true,
                   onTap: () => removeKeyword(index),
                 );
