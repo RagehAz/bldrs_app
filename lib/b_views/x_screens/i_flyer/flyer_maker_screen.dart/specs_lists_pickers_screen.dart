@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/a_models/kw/specs/data_creator.dart';
-import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
-import 'package:bldrs/a_models/kw/specs/spec_model.dart';
+import 'package:bldrs/a_models/chain/data_creator.dart';
+import 'package:bldrs/a_models/chain/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
@@ -156,7 +156,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
       transitionType: Nav.superHorizontalTransition(context),
     );
 
-    SpecModel.printSpecs(_result);
+    SpecModel.blogSpecs(_result);
 
     _updateSpecsListsAndGroups(
       specList: specList,

@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -231,8 +231,8 @@ Future<void> _onSignOut(BuildContext context) async {
   _searchProvider.closeAllZoneSearches();
 
   /// CLEAR KEYWORDS
-  final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
-  _keywordsProvider.clearAllKeywords();
+  final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  // _keywordsProvider.clearKeywordsChain();
   _keywordsProvider.clearCurrentKeyword();
   _keywordsProvider.clearCurrentSection();
 

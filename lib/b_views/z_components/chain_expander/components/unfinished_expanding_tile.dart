@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/keywords/collapsed_tile.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
@@ -93,14 +92,14 @@ class ExpandingTile extends StatefulWidget {
     return _titleZoneWidth;
   }
 // -----------------------------------------------------------------------------
-  static int numberOfButtons({List<KW> keywords}) {
-    return keywords.length;
+  static int numberOfButtons({@required List<String> keywordsIDs}) {
+    return keywordsIDs.length;
   }
 // -----------------------------------------------------------------------------
-  static double calculateMaxHeight({List<KW> keywords}) {
+  static double calculateMaxHeight({@required List<String> keywordsIDs}) {
 
     final int _totalNumberOfButtons = numberOfButtons(
-        keywords: keywords,
+        keywordsIDs: keywordsIDs,
     );
 
     final double _maxHeight =
@@ -119,11 +118,11 @@ class ExpandingTile extends StatefulWidget {
   }
 
 // -----------------------------------------------------------------------------
-  static double calculateButtonsTotalHeight({List<KW> keywords}) {
+  static double calculateButtonsTotalHeight({@required List<String> keywordsIDs}) {
     final double _totalButtonsHeight =
         (collapsedTileHeight + buttonVerticalPadding)
             *
-            numberOfButtons(keywords: keywords);
+            numberOfButtons(keywordsIDs: keywordsIDs);
 
     return _totalButtonsHeight;
   }

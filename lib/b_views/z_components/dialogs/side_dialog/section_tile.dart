@@ -1,10 +1,10 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/chain_expander.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
@@ -91,7 +91,7 @@ class SectionTile extends StatelessWidget {
     /// A - if section is active
     else {
 
-      final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+      final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
       await _keywordsProvider.changeSection(
         context: context,

@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 class KeywordBarButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const KeywordBarButton({
-    @required this.keyword,
+    @required this.keywordID,
     @required this.xIsOn,
     this.onTap,
     this.color = Colorz.blue80,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final KW keyword;
+  final String keywordID;
   final bool xIsOn;
   final Function onTap;
   final Color color;
@@ -91,7 +91,7 @@ class KeywordBarButton extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             SuperVerse(
-                              verse: KW.translateKeyword(context, keyword).toUpperCase(),
+                              verse: superPhrase(context, keywordID).toUpperCase(),
                               centered: false,
                               italic: true,
                             ),

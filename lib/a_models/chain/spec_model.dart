@@ -1,7 +1,5 @@
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/kw/specs/data_creator.dart';
-import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/chain/spec_list_model.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -134,17 +132,25 @@ enum SpecType {
 
 /// specs are used only to describe and filter flyers or keywords
 class SpecModel {
-  /// --------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// CONSTRUCTOR
+
+// ------------------------------------------
   const SpecModel({
     @required this.specsListID,
     @required this.value,
   });
-
-  /// --------------------------------------------------------------------------
+// ------------------------------------------
   /// specID is the specList's id value, and the key of firebase map
   final String specsListID;
   /// string, int, double, List<String>, List<double>, list<dynamic>
   final dynamic value;
+// -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+// ------------------------------------------
   Map<String, dynamic> toMap() {
     /// shall be saved like this inside flyerModel
     /// specs : {
@@ -169,7 +175,7 @@ class SpecModel {
       specsListID: value,
     };
   }
-  /// --------------------------------------------------------------------------
+// ------------------------------------------
   static Map<String, dynamic> cipherSpecs(List<SpecModel> specs) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
@@ -185,14 +191,37 @@ class SpecModel {
 
     return _map;
   }
+// ------------------------------------------
+  static List<SpecModel> decipherSpecs(Map<String, dynamic> map) {
+    final List<SpecModel> _specs = <SpecModel>[];
+
+    final List<String> _keys = map.keys.toList();
+
+    if (Mapper.canLoopList(_keys)) {
+      for (final String key in _keys) {
+        final SpecModel _spec = SpecModel(
+          specsListID: key,
+          value: map[key],
+        );
+
+        _specs.add(_spec);
+      }
+    }
+
+    return _specs;
+  }
 // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// ------------------------------------------
   SpecModel clone() {
     return SpecModel(
       specsListID: specsListID,
       value: value,
     );
   }
-// -----------------------------------------------------------------------------
+// ------------------------------------------
   static List<SpecModel> cloneSpecs(List<SpecModel> specs) {
     final List<SpecModel> _specs = <SpecModel>[];
 
@@ -204,6 +233,285 @@ class SpecModel {
 
     return _specs;
   }
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// ------------------------------------------
+  static bool specsAreTheSame(SpecModel specA, SpecModel specB) {
+    bool _areTheSame = false;
+
+    if (specA != null && specB != null) {
+      if (specA.specsListID == specB.specsListID) {
+        if (specA.value == specB.value) {
+          _areTheSame = true;
+        }
+      }
+    }
+
+    return _areTheSame;
+  }
+// ------------------------------------------
+  static bool specsListsAreTheSame(List<SpecModel> specsA, List<SpecModel> specsB) {
+    final Map<String, dynamic> specsAMap = cipherSpecs(specsA);
+    final Map<String, dynamic> specsBMap = cipherSpecs(specsB);
+
+    final bool _listsAreTheSame = Mapper.mapsAreTheSame(specsAMap, specsBMap);
+
+    blog('specsListsAreTheSame : _listsAreTheSame : $_listsAreTheSame');
+
+    return _listsAreTheSame;
+  }
+// ------------------------------------------
+  static bool specsContainThisSpec({
+    @required List<SpecModel> specs,
+    @required SpecModel spec,
+  }) {
+    bool _contains = false;
+
+    if (Mapper.canLoopList(specs) && spec != null) {
+      final SpecModel _result = specs.firstWhere(
+              (SpecModel sp) => SpecModel.specsAreTheSame(sp, spec) == true,
+          orElse: () => null);
+
+      if (_result == null) {
+        _contains = false;
+      } else {
+        _contains = true;
+      }
+    }
+
+    return _contains;
+  }
+// ------------------------------------------
+  static bool specsContainThisSpecValue({
+    @required List<SpecModel> specs,
+    @required dynamic value,
+  }) {
+    bool _contains = false;
+
+    if (Mapper.canLoopList(specs) && value != null) {
+      final List<SpecModel> _specs =
+      specs.where((SpecModel spec) => spec.value == value).toList();
+
+      if (_specs.isNotEmpty) {
+        _contains = true;
+      }
+    }
+
+    return _contains;
+  }
+// ------------------------------------------
+  static bool specsContainOfSameListID({
+    @required List<SpecModel> specs,
+    @required String specsListID,
+  }) {
+    bool _contains = false;
+
+    if (Mapper.canLoopList(specs) && specsListID != null) {
+      final SpecModel _result = specs.firstWhere(
+              (SpecModel sp) => sp.specsListID == specsListID,
+          orElse: () => null);
+
+      if (_result == null) {
+        _contains = false;
+      } else {
+        _contains = true;
+      }
+    }
+
+    return _contains;
+  }
+// ------------------------------------------
+  static bool specsContainsNewSale(List<SpecModel> specs) {
+    const SpecModel _newSaleSpec = SpecModel(
+      specsListID: 'propertyContractType',
+      value: null,//RawSpecs.newSaleID
+    );
+
+    final bool _containsNewSale = SpecModel.specsContainThisSpec(
+      specs: specs,
+      spec: _newSaleSpec,
+    );
+
+    return _containsNewSale;
+  }
+// -----------------------------------------------------------------------------
+
+  /// DUMMIES
+
+// ------------------------------------------
+  static List<SpecModel> dummySpecs() {
+    return <SpecModel>[
+      const SpecModel(specsListID: 'propertyLicense', value: 'ppt_lic_residential'),
+      const SpecModel(specsListID: 'propertyView', value: 'view_lake'),
+      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_builtinWardrobe'),
+      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_energyEfficient'),
+      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_elevator'),
+      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_intercom'),
+
+      const SpecModel(specsListID: 'propertyForm', value: 'pf_halfFloor'),
+    ];
+  }
+// -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+// ------------------------------------------
+  void blogSpec() {
+    blog('spec is : $specsListID : ${value.toString()}');
+  }
+// -----------------------------------------------------------------------------
+  static void blogSpecs(List<SpecModel> specs) {
+    blog(
+        'SPECS-PRINT -------------------------------------------------- START');
+    for (final SpecModel spec in specs) {
+      blog('${spec.specsListID} : ${spec.value}');
+    }
+    blog('SPECS-PRINT -------------------------------------------------- END');
+  }
+// -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// ------------------------------------------
+  static List<SpecModel> getSpecsByListID({
+    @required List<SpecModel> specs,
+    @required String specsListID,
+  }) {
+    List<SpecModel> _result = <SpecModel>[];
+
+    if (Mapper.canLoopList(specs) == true && specsListID != null) {
+      _result = specs
+          .where(
+            (SpecModel spec) => spec.specsListID == specsListID,
+          )
+          .toList();
+    }
+
+    return _result;
+  }
+// ------------------------------------------
+  static String getSpecNameFromSpecsLists({
+    @required BuildContext context,
+    @required SpecModel spec,
+    @required List<SpecList> specsLists,
+  }) {
+    // final String _specsListID = spec.specsListID;
+    // String _name = spec.value.toString();
+    //
+    // final SpecList _specList = specsLists.singleWhere(
+    //     (SpecList list) => list.id == _specsListID,
+    //     orElse: () => null);
+    //
+    // if (_specList != null &&
+    //     spec.value.runtimeType == String &&
+    //     _specList.specChain.sons.runtimeType != DataCreator) {
+    //   final String _kwID = spec.value;
+    //
+    //   final List<KW> _kws = KW.getKeywordsFromChain(
+    //       _specList.specChain); //_specList.specChain.sons;
+    //
+    //   if (Mapper.canLoopList(_kws)) {
+    //     final KW _kw =
+    //         _kws.singleWhere((KW kw) => kw.id == _kwID, orElse: () => null);
+    //
+    //     if (_kw != null) {
+    //       _name = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _kw.names)?.value;
+    //     }
+    //   }
+    // }
+
+    final String _name = superPhrase(context, spec.value);
+
+    return _name;
+  }
+// -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// ------------------------------------------
+  /// This considers if the specList can or can't pick many spec of same list, then adds if absent and updates or ignores if exists accordingly
+  static List<SpecModel> putSpecsInSpecs({
+    @required List<SpecModel> parentSpecs,
+    @required List<SpecModel> inputSpecs,
+    @required bool canPickMany,
+  }) {
+    final List<SpecModel> _specs = parentSpecs;
+
+    if (Mapper.canLoopList(inputSpecs)) {
+      for (final SpecModel inputSpec in inputSpecs) {
+        /// A - CAN PICK MANY "of this list ID"
+        if (canPickMany == true) {
+          final bool _alreadyThere =
+              specsContainThisSpec(specs: _specs, spec: inputSpec);
+
+          /// A1 - SPEC ALREADY SELECTED => do nothing
+          if (_alreadyThere == true) {
+          }
+
+          /// A2 - SPEC IS NOT SELECTED => add spec
+          else {
+            _specs.add(inputSpec);
+          }
+        }
+
+        /// B - CAN NOT PICK MANY " of this list ID"
+        else {
+          final bool _specsContainOfSameListID = specsContainOfSameListID(
+              specs: _specs, specsListID: inputSpec.specsListID);
+
+          /// B1 - LIST ID IS ALREADY THERE in [_specs] => REPLACE
+          if (_specsContainOfSameListID == true) {
+            final int _specOfSameListIDIndex = _specs.indexWhere(
+                (SpecModel sp) => sp.specsListID == inputSpec.specsListID);
+            _specs[_specOfSameListIDIndex] = inputSpec;
+          }
+
+          /// B2 - LIST ID IS NOT THERE in [_specs] => ADD
+          else {
+            _specs.add(inputSpec);
+          }
+
+          // if (_alreadyThere == true){
+          //   final int _specIndex = _specs.indexWhere((sp) => Spec.specsAreTheSame(sp, inputSpec));
+          //   _specs[_specIndex] = inputSpec;
+          // }
+          //
+          // else {
+          //   _specs.add(inputSpec);
+          // }
+
+        }
+      }
+    }
+
+    return SpecModel.cleanSpecs(_specs);
+  }
+// ------------------------------------------
+  static List<SpecModel> cleanSpecs(List<SpecModel> specs) {
+    final List<SpecModel> _output = <SpecModel>[];
+
+    if (Mapper.canLoopList(specs)) {
+      for (final SpecModel spec in specs) {
+        if (spec != null &&
+            spec.value != null &&
+            spec.value != 0 &&
+            spec.value != '' &&
+            spec.specsListID != null &&
+            spec.specsListID != '') {
+          _output.add(spec);
+        }
+      }
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+}
+
+/*
+
 // -----------------------------------------------------------------------------
 //   static String cipherSpecType(SpecType specType){
 //     switch (specType) {
@@ -284,25 +592,7 @@ class SpecModel {
 //     return _output;
 //   }
 // -----------------------------------------------------------------------------
-  static List<SpecModel> decipherSpecs(Map<String, dynamic> map) {
-    final List<SpecModel> _specs = <SpecModel>[];
-
-    final List<String> _keys = map.keys.toList();
-
-    if (Mapper.canLoopList(_keys)) {
-      for (final String key in _keys) {
-        final SpecModel _spec = SpecModel(
-          specsListID: key,
-          value: map[key],
-        );
-
-        _specs.add(_spec);
-      }
-    }
-
-    return _specs;
-  }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 //   static String cipherSpecValue(Spec spec){
 //     final String _dataType = getDataTypeOfSpecType(specType: spec.specType);
 //     String _output;
@@ -328,257 +618,6 @@ class SpecModel {
 //
 //   }
 // -----------------------------------------------------------------------------
-  static bool specsAreTheSame(SpecModel specA, SpecModel specB) {
-    bool _areTheSame = false;
 
-    if (specA != null && specB != null) {
-      if (specA.specsListID == specB.specsListID) {
-        if (specA.value == specB.value) {
-          _areTheSame = true;
-        }
-      }
-    }
 
-    return _areTheSame;
-  }
-// -----------------------------------------------------------------------------
-  static bool specsListsAreTheSame(List<SpecModel> specsA, List<SpecModel> specsB) {
-    final Map<String, dynamic> specsAMap = cipherSpecs(specsA);
-    final Map<String, dynamic> specsBMap = cipherSpecs(specsB);
-
-    final bool _listsAreTheSame = Mapper.mapsAreTheSame(specsAMap, specsBMap);
-
-    blog('specsListsAreTheSame : _listsAreTheSame : $_listsAreTheSame');
-
-    return _listsAreTheSame;
-  }
-// -----------------------------------------------------------------------------
-  static List<SpecModel> dummySpecs() {
-    return <SpecModel>[
-      const SpecModel(specsListID: 'propertyLicense', value: 'ppt_lic_residential'),
-      const SpecModel(specsListID: 'propertyView', value: 'view_lake'),
-      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_builtinWardrobe'),
-      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_energyEfficient'),
-      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_elevator'),
-      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_intercom'),
-
-      const SpecModel(specsListID: 'propertyForm', value: 'pf_halfFloor'),
-    ];
-  }
-// -----------------------------------------------------------------------------
-  void printSpec() {
-    blog('spec is : $specsListID : ${value.toString()}');
-  }
-// -----------------------------------------------------------------------------
-  static void printSpecs(List<SpecModel> specs) {
-    blog(
-        'SPECS-PRINT -------------------------------------------------- START');
-    for (final SpecModel spec in specs) {
-      blog('${spec.specsListID} : ${spec.value}');
-    }
-    blog('SPECS-PRINT -------------------------------------------------- END');
-  }
-// -----------------------------------------------------------------------------
-  static bool specsContainThisSpec({
-    @required List<SpecModel> specs,
-    @required SpecModel spec,
-  }) {
-    bool _contains = false;
-
-    if (Mapper.canLoopList(specs) && spec != null) {
-      final SpecModel _result = specs.firstWhere(
-          (SpecModel sp) => SpecModel.specsAreTheSame(sp, spec) == true,
-          orElse: () => null);
-
-      if (_result == null) {
-        _contains = false;
-      } else {
-        _contains = true;
-      }
-    }
-
-    return _contains;
-  }
-// -----------------------------------------------------------------------------
-  static bool specsContainThisSpecValue({
-    @required List<SpecModel> specs,
-    @required dynamic value,
-  }) {
-    bool _contains = false;
-
-    if (Mapper.canLoopList(specs) && value != null) {
-      final List<SpecModel> _specs =
-          specs.where((SpecModel spec) => spec.value == value).toList();
-
-      if (_specs.isNotEmpty) {
-        _contains = true;
-      }
-    }
-
-    return _contains;
-  }
-// -----------------------------------------------------------------------------
-  static List<SpecModel> getSpecsByListID({
-    @required List<SpecModel> specs,
-    @required String specsListID,
-  }) {
-    List<SpecModel> _result = <SpecModel>[];
-
-    if (Mapper.canLoopList(specs) == true && specsListID != null) {
-      _result = specs
-          .where(
-            (SpecModel spec) => spec.specsListID == specsListID,
-          )
-          .toList();
-    }
-
-    return _result;
-  }
-// -----------------------------------------------------------------------------
-  static bool specsContainOfSameListID({
-    @required List<SpecModel> specs,
-    @required String specsListID,
-  }) {
-    bool _contains = false;
-
-    if (Mapper.canLoopList(specs) && specsListID != null) {
-      final SpecModel _result = specs.firstWhere(
-          (SpecModel sp) => sp.specsListID == specsListID,
-          orElse: () => null);
-
-      if (_result == null) {
-        _contains = false;
-      } else {
-        _contains = true;
-      }
-    }
-
-    return _contains;
-  }
-// -----------------------------------------------------------------------------
-  /// This considers if the specList can or can't pick many spec of same list, then adds if absent and updates or ignores if exists accordingly
-  static List<SpecModel> putSpecsInSpecs({
-    @required List<SpecModel> parentSpecs,
-    @required List<SpecModel> inputSpecs,
-    @required bool canPickMany,
-  }) {
-    final List<SpecModel> _specs = parentSpecs;
-
-    if (Mapper.canLoopList(inputSpecs)) {
-      for (final SpecModel inputSpec in inputSpecs) {
-        /// A - CAN PICK MANY "of this list ID"
-        if (canPickMany == true) {
-          final bool _alreadyThere =
-              specsContainThisSpec(specs: _specs, spec: inputSpec);
-
-          /// A1 - SPEC ALREADY SELECTED => do nothing
-          if (_alreadyThere == true) {
-          }
-
-          /// A2 - SPEC IS NOT SELECTED => add spec
-          else {
-            _specs.add(inputSpec);
-          }
-        }
-
-        /// B - CAN NOT PICK MANY " of this list ID"
-        else {
-          final bool _specsContainOfSameListID = specsContainOfSameListID(
-              specs: _specs, specsListID: inputSpec.specsListID);
-
-          /// B1 - LIST ID IS ALREADY THERE in [_specs] => REPLACE
-          if (_specsContainOfSameListID == true) {
-            final int _specOfSameListIDIndex = _specs.indexWhere(
-                (SpecModel sp) => sp.specsListID == inputSpec.specsListID);
-            _specs[_specOfSameListIDIndex] = inputSpec;
-          }
-
-          /// B2 - LIST ID IS NOT THERE in [_specs] => ADD
-          else {
-            _specs.add(inputSpec);
-          }
-
-          // if (_alreadyThere == true){
-          //   final int _specIndex = _specs.indexWhere((sp) => Spec.specsAreTheSame(sp, inputSpec));
-          //   _specs[_specIndex] = inputSpec;
-          // }
-          //
-          // else {
-          //   _specs.add(inputSpec);
-          // }
-
-        }
-      }
-    }
-
-    return SpecModel.cleanSpecs(_specs);
-  }
-// -----------------------------------------------------------------------------
-  static String getSpecNameFromSpecsLists({
-    @required BuildContext context,
-    @required SpecModel spec,
-    @required List<SpecList> specsLists,
-  }) {
-    final String _specsListID = spec.specsListID;
-    String _name = spec.value.toString();
-
-    final SpecList _specList = specsLists.singleWhere(
-        (SpecList list) => list.id == _specsListID,
-        orElse: () => null);
-
-    if (_specList != null &&
-        spec.value.runtimeType == String &&
-        _specList.specChain.sons.runtimeType != DataCreator) {
-      final String _kwID = spec.value;
-
-      final List<KW> _kws = KW.getKeywordsFromChain(
-          _specList.specChain); //_specList.specChain.sons;
-
-      if (Mapper.canLoopList(_kws)) {
-        final KW _kw =
-            _kws.singleWhere((KW kw) => kw.id == _kwID, orElse: () => null);
-
-        if (_kw != null) {
-          _name = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _kw.names)?.value;
-        }
-      }
-    }
-
-    return _name;
-  }
-// -----------------------------------------------------------------------------
-  static List<SpecModel> cleanSpecs(List<SpecModel> specs) {
-    final List<SpecModel> _output = <SpecModel>[];
-
-    if (Mapper.canLoopList(specs)) {
-      for (final SpecModel spec in specs) {
-        if (spec != null &&
-            spec.value != null &&
-            spec.value != 0 &&
-            spec.value != '' &&
-            spec.specsListID != null &&
-            spec.specsListID != '') {
-          _output.add(spec);
-        }
-      }
-    }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
-  static bool specsContainsNewSale(List<SpecModel> specs) {
-    const SpecModel _newSaleSpec = SpecModel(
-        specsListID: 'propertyContractType',
-        value: null,//RawSpecs.newSaleID
-    );
-
-    final bool _containsNewSale = SpecModel.specsContainThisSpec(
-        specs: specs,
-        spec: _newSaleSpec,
-    );
-
-    return _containsNewSale;
-  }
-// -----------------------------------------------------------------------------
-}
-/// ============================================================================
+ */

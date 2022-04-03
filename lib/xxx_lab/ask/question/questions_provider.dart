@@ -31,7 +31,7 @@ class QuestionsProvider with ChangeNotifier {
         redirectCount: 12,
         niceCount: 5151,
         directedTo: BzType.contractor,
-        keywords: [],
+        keywordsIDs: [],
         pics: <String>[
           Dumz.xXzah_1,
           Iconz.dumSlide2,
@@ -52,7 +52,7 @@ class QuestionsProvider with ChangeNotifier {
         redirectCount: 12,
         niceCount: 5151,
         directedTo: BzType.contractor,
-        keywords: [],
+        keywordsIDs: [],
         pics: <String>[
           Dumz.xXwindow_1,
           Dumz.xXwindow_2,
@@ -73,7 +73,7 @@ class QuestionsProvider with ChangeNotifier {
         redirectCount: 12,
         niceCount: 5151,
         directedTo: BzType.contractor,
-        keywords: [],
+        keywordsIDs: [],
         pics: <String>[
           Dumz.xXrack_4,
           Dumz.xXorgento,

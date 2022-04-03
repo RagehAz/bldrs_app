@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/noti_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
@@ -214,8 +214,8 @@ class _BldrsAppState extends State<BldrsApp> {
           ChangeNotifierProvider<FlyersProvider>(
             create: (BuildContext ctx) => FlyersProvider(),
           ),
-          ChangeNotifierProvider<KeywordsProvider>(
-            create: (BuildContext ctx) => KeywordsProvider(),
+          ChangeNotifierProvider<ChainsProvider>(
+            create: (BuildContext ctx) => ChainsProvider(),
           ),
           ChangeNotifierProvider<SearchProvider>(
             create: (BuildContext ctx) => SearchProvider(),

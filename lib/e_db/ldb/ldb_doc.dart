@@ -12,7 +12,8 @@
   const String flyers = 'sessionFlyers';
   const String bzz = 'sessionBzz';
   const String users = 'sessionUsers';
-  const String keywords = 'keywords';
+  const String keywordsChain = 'keywordsChain';
+  const String specsChain = 'specsChain';
   const String countries = 'sessionCountries';
   const String cities = 'sessionCities';
   const String continents = 'continents';
@@ -44,7 +45,7 @@
     flyers,
     bzz,
     users,
-    keywords,
+    keywordsChain,
     countries,
     cities,
     continents,

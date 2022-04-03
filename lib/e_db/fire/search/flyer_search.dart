@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
@@ -60,10 +59,10 @@ Future<List<FlyerModel>> flyersByZoneAndFlyerType({
 }
 
 // -----------------------------------------------
-Future<List<FlyerModel>> flyersByZoneAndKeyword({
+Future<List<FlyerModel>> flyersByZoneAndKeywordID({
   @required BuildContext context,
   @required ZoneModel zone,
-  @required KW kw,
+  @required String keywordID,
   bool addDocsIDs = false,
   bool addDocSnapshotToEachMap = false,
   int limit = 3,
@@ -80,13 +79,13 @@ Future<List<FlyerModel>> flyersByZoneAndKeyword({
         final ZoneModel _zone = zone;
 
         blog(
-            'searching flyers of keyword : ${kw.id} : in ${_zone.countryID} - ${_zone.cityID}');
+            'searching flyers of keyword : $keywordID : in ${_zone.countryID} - ${_zone.cityID}');
 
         final QuerySnapshot<Object> _collectionSnapshot =
         await _flyersCollection
             .where('zone.countryID', isEqualTo: _zone.countryID)
             .where('zone.cityID', isEqualTo: _zone.cityID)
-            .where('keywordsIDs', arrayContains: kw.id)
+            .where('keywordsIDs', arrayContains: keywordID)
             .limit(limit)
             .get();
 
