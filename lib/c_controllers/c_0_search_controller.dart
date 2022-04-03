@@ -3,15 +3,12 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/record_model.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -20,11 +17,8 @@ import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/fire/search/user_search.dart' as UserSearchOps;
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -------------------------------------------------------
@@ -143,35 +137,35 @@ Future<List<SearchResult>> _searchKeywords({
 
   final List<SearchResult> _results = <SearchResult>[];
 
-  final List<Map<String, dynamic>> _maps = await LDBOps.searchTrigram(
-    searchValue: searchText,
-    docName: LDBDoc.keywords,
-    lingoCode: Wordz.languageCode(context),
-  );
-
-  if (Mapper.canLoopList(_maps)) {
-
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
-
-    final List<KW> _keywords = KW.decipherKeywordsLDBMaps(maps: _maps);
-
-    for (final KW kw in _keywords) {
-      final List<FlyerModel> _flyersByKeyword =
-      await _flyersProvider.fetchFlyersByCurrentZoneAndKeyword(
-        context: context,
-        kw: kw,
-      );
-
-      if (_flyersByKeyword.isNotEmpty) {
-        _results.add(SearchResult(
-          title: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: kw.names)?.value,
-          icon: _keywordsProvider.getKeywordIcon(context: context, son: kw),
-          flyers: _flyersByKeyword,
-        ));
-      }
-    }
-  }
+  // final List<Map<String, dynamic>> _maps = await LDBOps.searchTrigram(
+  //   searchValue: searchText,
+  //   docName: LDBDoc.keywordsChain,
+  //   lingoCode: Wordz.languageCode(context),
+  // );
+  //
+  // if (Mapper.canLoopList(_maps)) {
+  //
+  //   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  //   final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  //
+  //   final List<KW> _keywords = KW.decipherKeywordsLDBMaps(maps: _maps);
+  //
+  //   for (final KW kw in _keywords) {
+  //     final List<FlyerModel> _flyersByKeyword =
+  //     await _flyersProvider.fetchFlyersByCurrentZoneAndKeyword(
+  //       context: context,
+  //       kw: kw,
+  //     );
+  //
+  //     if (_flyersByKeyword.isNotEmpty) {
+  //       _results.add(SearchResult(
+  //         title: Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: kw.names)?.value,
+  //         icon: _keywordsProvider.getKeywordIcon(context: context, son: kw),
+  //         flyers: _flyersByKeyword,
+  //       ));
+  //     }
+  //   }
+  // }
 
   return _results;
 }

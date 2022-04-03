@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -9,14 +8,14 @@ import 'package:flutter/material.dart';
 class SelectKeywordsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SelectKeywordsScreen({
-    @required this.selectedKeywords,
+    @required this.selectedKeywordsIDs,
     @required this.flyerType,
     // @required this.onKeywordTap,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
-  final List<KW> selectedKeywords;
+  final List<String> selectedKeywordsIDs;
   final FlyerTypeClass.FlyerType flyerType;
   // final Function onKeywordTap;
   /// --------------------------------------------------------------------------
@@ -27,7 +26,7 @@ class SelectKeywordsScreen extends StatefulWidget {
 }
 
 class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
-  final List<KW> _selectedKeywords = <KW>[];
+  final List<String> _selectedKeywordsIDs = <String>[];
   // List<Chain> _chains;
   // CountryProvider _countryPro;
 // -----------------------------------------------------------------------------
@@ -42,7 +41,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     // _scrollController = ItemScrollController();
     // _itemPositionListener = ItemPositionsListener.create();
 
-    _selectedKeywords.addAll(widget.selectedKeywords);
+    _selectedKeywordsIDs.addAll(widget.selectedKeywordsIDs);
     // generateExpansionKeys();
   }
 // -----------------------------------------------------------------------------
@@ -322,12 +321,12 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     traceWidgetBuild(
         widgetName: 'SelectKeywordsScreen',
         varName: '_selectedKeywords.length',
-        varValue: _selectedKeywords.length);
+        varValue: _selectedKeywordsIDs.length);
     return MainLayout(
       pageTitle: 'Select Flyer keywords',
       appBarType: AppBarType.basic,
       onBack: () {
-        Nav.goBack(context, argument: _selectedKeywords);
+        Nav.goBack(context, argument: _selectedKeywordsIDs);
         // await null
       },
       layoutWidget: Column(

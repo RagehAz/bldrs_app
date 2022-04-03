@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -55,8 +55,8 @@ class SectionsButton extends StatelessWidget {
                   color: color,
                   borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                 ),
-                child: Consumer<KeywordsProvider>(
-                  builder: (_, KeywordsProvider keywordsProvider, Widget child){
+                child: Consumer<ChainsProvider>(
+                  builder: (_, ChainsProvider keywordsProvider, Widget child){
 
                     final FlyerType _currentSection = keywordsProvider.currentSection;
                     final String _currentKeywordID = keywordsProvider.currentKeywordID;

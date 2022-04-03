@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/kw/specs/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_list_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';

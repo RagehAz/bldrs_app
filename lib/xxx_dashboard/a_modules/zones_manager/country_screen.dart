@@ -1,20 +1,19 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/keywords/keywords_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/keywords/keywords_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -271,12 +270,12 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           KeywordsBubble(
             title: '${_citiesNames.length} Provinces',
-            keywords: CityModel.getKeywordsFromCities(context: context, cities: _cities),
+            keywordsIDs: CityModel.getCitiesIDsFromCities(cities: _cities),
             onTap: () {
               blog('bubble tapped');
             },
-            onKeywordTap: (KW kw) {
-              kw.blogKeyword();
+            onKeywordTap: (String keywordID) {
+              blog('tapping on city ID is $keywordID');
             },
             selectedWords: const <dynamic>[],
             addButtonIsOn: false,

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/components/bldrs_chains.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/components/unfinished_expanding_tile.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;

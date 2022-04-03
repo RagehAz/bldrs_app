@@ -1,9 +1,6 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/app_updates.dart';
 import 'package:bldrs/a_models/secondary_models/big_mac.dart';
 import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -11,18 +8,15 @@ import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/search/fire_search.dart' as FireSearch;
 import 'package:bldrs/e_db/fire/search/fire_search.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
 import 'package:flutter/material.dart';
@@ -369,69 +363,6 @@ class ExoticMethods {
   // }
 }
 // -----------------------------------------------------------------------------
-  static Future<void> uploadChainKeywords({
-  @required BuildContext context,
-  @required Chain chain,
-  @required String docName,
-}) async {
-
-  Map<String, dynamic> _keywordsMap = <String, dynamic>{};
-
-  final List<KW> _allKeywords = KW.getKeywordsFromChain(chain);
-
-  // int numberOfKeyword = 0;
-
-  for (final KW keyword in _allKeywords) {
-    // numberOfKeyword++;
-
-    _keywordsMap = Mapper.insertPairInMap(
-      map: _keywordsMap,
-      key: keyword.id,
-      value: keyword.toMap(toJSON: false),
-    );
-
-    blog('added keywordID : ${keyword.id}');
-  }
-
-  await Fire.createNamedDoc(
-    context: context,
-    collName: FireColl.keys,
-    docName: docName,
-    input: _keywordsMap,
-  );
-
-  // await Fire.createNamedDoc(
-  //     context: context,
-  //     collName: FireColl.keys,
-  //     docName: FireColl.keys_stats,
-  //     input:
-  //     {
-  //       'numberOfKeywords' : numberOfKeyword,
-  //     }
-  //
-  // );
-}
-// -----------------------------------------------------------------------------
-
-// abstract class RagehMethods{
-// -----------------------------------------------------------------------------
-  static Future<void> updateNumberOfKeywords(BuildContext context, List<KW> allKeywords) async {
-
-  if (FireAuthOps.superUserID() == '60a1SPzftGdH6rt15NF96m0j9Et2') {
-    if (Mapper.canLoopList(allKeywords)) {
-      final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-      final AppState _appState = _generalProvider.appState;
-      if (_appState.numberOfKeywords != allKeywords.length) {
-        await Fire.updateDocField(
-            context: context,
-            collName: FireColl.admin,
-            docName: FireDoc.admin_appState,
-            field: 'numberOfKeywords',
-            input: allKeywords.length);
-      }
-    }
-  }
-}
 // -----------------------------------------------------------------------------
   static Future<void> takeOwnerShip({
   @required BuildContext context,

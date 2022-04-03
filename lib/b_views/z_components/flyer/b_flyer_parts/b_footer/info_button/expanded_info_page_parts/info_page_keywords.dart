@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -27,22 +26,19 @@ class InfoPageKeywords extends StatelessWidget {
     //     keywordsIDs: flyerModel.keywordsIDs,
     // );
 
-    final List<KW> _keywords = KW.dummyKeywords(
-      context: context,
-      length: 10,
-    );
+    final List<String> _keywords = [];
 
     return Wrap(
       key: const ValueKey<String>('InfoPageKeywords'),
       children: <Widget>[
         ...List<Widget>.generate(_keywords?.length, (int index) {
 
-          final KW _keyword = _keywords[index];
+          final String _keyword = _keywords[index];
 
           return Padding(
             padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
             child: KeywordBarButton(
-              keyword: _keyword,
+              keywordID: _keyword,
               xIsOn: false,
               color: Colorz.white50,
             ),

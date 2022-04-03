@@ -1,8 +1,8 @@
-import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/components/unfinished_expanding_tile.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -38,7 +38,7 @@ class Inception extends StatelessWidget {
     final double _boxWidth = boxWidth ?? _screenWidth - (2 * Ratioz.appBarMargin);
     final double _buttonWidth = _boxWidth - _offset;
 
-    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
     /// IF SON IS A KEYWORD
     if (son is String) {

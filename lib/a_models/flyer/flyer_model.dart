@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/kw/specs/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
