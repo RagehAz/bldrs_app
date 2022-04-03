@@ -22,7 +22,7 @@ void onSearchPhrases({
   bool forceSearch = false,
 }){
 
-  blog('text : $text');
+  // blog('text : $text');
 
   isSearching.value = TextChecker.triggerIsSearching(
     text: searchController.text,
@@ -67,7 +67,7 @@ void onSearchPhrases({
 
     final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_foundPhrases);
 
-    Phrase.blogPhrases(_cleaned);
+    // Phrase.blogPhrases(_cleaned);
 
     mixedSearchResult.value = _cleaned;
   }
@@ -350,6 +350,8 @@ Future<void> onUploadPhrases({
   @required BuildContext context,
 }) async {
 
+  int _count = 0;
+
   final int _numberOfEnPhrases = enOldPhrases.length;
   final int _numberOfArPhrases = arOldPhrases.length;
   final int _numberOfInputMixedPhrases = inputMixedLangPhrases.length;
@@ -389,6 +391,8 @@ Future<void> onUploadPhrases({
         arValue: _arPhrase.value,
     );
 
+    _count++;
+    blog('uploaded : $_phid and remaining ${_numberOfEnPhrases - _count}');
 
   }
 
@@ -425,7 +429,7 @@ Future<void> onUploadPhrase({
       ),
     );
 
-    blog('4');
+    // blog('4');
 
     final List<Phrase> _arPhrases = Phrase.insertPhrase(
       forceUpdateDuplicate: true,
@@ -436,7 +440,7 @@ Future<void> onUploadPhrase({
       ),
     );
 
-    blog('5');
+    // blog('5');
 
     if (_enPhrases == null || _arPhrases == null){
 
@@ -456,7 +460,7 @@ Future<void> onUploadPhrase({
           arPhrases: _arPhrases,
       );
 
-      blog('onUploadPhrase uploaded : $phraseID : TAMAM PASHA');
+      // blog('onUploadPhrase uploaded : $phraseID : TAMAM PASHA');
 
       await TopDialog.showTopDialog(
         context: context,

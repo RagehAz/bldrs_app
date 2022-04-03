@@ -1,10 +1,13 @@
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
+import 'package:bldrs/xxx_lab/cleaning_space.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -92,34 +95,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'DO THE DAMN THING',
+              verse: 'DO IT',
               icon: Iconz.star,
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                // blog(superUserID());
-                //
-                // final List<Map<String, dynamic>> _maps = await readSubCollectionDocs(
-                //     context: context,
-                //     collName: 'old_zones',
-                //     docName: 'usa',
-                //     subCollName: 'states',
-                //     limit: 10,
-                //
-                //   addDocsIDs: true,
-                // );
-                //
-                //
-                // for (final map in _maps){
-                //   await deleteSubDoc(
-                //       context: context,
-                //       collName: 'old_zones',
-                //       docName: 'usa',
-                //     subCollName: 'states',
-                //     subDocName: map['id']
-                //   );
-                // }
+                final List<Phrase> _phrases = specsPhrasesMan();
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
@@ -179,12 +161,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           //   },
           // ),
 
-          Container(
-            width: _screenWidth,
-            height: _screenHeight,
-            color: Colorz.bloodTest,
-
-          ),
+          /// FULL SCREEN BOX
+          // Container(
+          //   width: _screenWidth,
+          //   height: _screenHeight,
+          //   color: Colorz.bloodTest,
+          //
+          // ),
 
         ],
       ),
@@ -233,3 +216,4 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 //   );
 //
 // }
+
