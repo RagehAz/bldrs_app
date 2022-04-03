@@ -20,6 +20,7 @@ abstract class FireColl{
   static const String records = 'records';
 
   static const String translations = 'translations';
+  static const String chains = 'chains';
 }
 // -----------------------------------------------------------------------------
 abstract class FireDoc {
@@ -34,7 +35,6 @@ abstract class FireDoc {
   static const String zones_currencies = 'currencies';
 
   static const String keys_stats = 'stats';
-  static const String keys_specs = 'specs';
   static const String keys_propertiesKeywords = 'propertiesKeywords';
   static const String keys_designsKeywords = 'designKeywords';
   static const String keys_craftsKeywords = 'craftsKeywords';
@@ -43,6 +43,9 @@ abstract class FireDoc {
 
   static const String trans_en = 'en';
   static const String trans_ar = 'ar';
+
+  static const String chains_specs = 'specs';
+  static const String chains_keywords = 'keywords';
 
 }
 // -----------------------------------------------------------------------------
