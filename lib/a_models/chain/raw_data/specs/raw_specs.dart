@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_crafts.dart';
 import 'package:bldrs/a_models/chain/data_creator.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_designs.dart';
 
 const String newSaleID = 'phid_s_contractType_NewSale';
 const String resaleID = 'phid_s_contractType_Resale';
@@ -87,6 +88,8 @@ const Chain price = Chain(
   icon: null,
   sons: DataCreator.price,
 );
+
+
 const Chain currency = Chain(
   id: 'phid_s_currency',
   icon: null,
@@ -207,7 +210,7 @@ const Chain propertyLicense = Chain(
 // -------------------------------------------------------------------------
 /// PROPERTY SPATIAL ANATOMY
 const Chain propertySpaces = Chain(
-  id: 'phid_s_group_space_type',
+  id: 'phid_s_property_spaces',
   icon: null,
   sons: <Chain>[
     // ----------------------------------
@@ -459,12 +462,6 @@ const Chain communityServices = Chain(
 );
 // -------------------------------------------------------------------------
 /// CONSTRUCTION ACTIVITY ANATOMY
-// const Chain projectCost = const Chain(
-//   id: 'projectCost',
-//   icon: null,
-//   names: <Name>[Name(code: 'en', value: 'Project cost'), Name(code: 'ar', value: 'تكلفة المشروع')],
-//   sons: DataCreator.numberKeyboard,
-// );
 
 Chain constructionActivities = Chain(
   id: 'phid_s_constructionActivities',
@@ -669,3 +666,39 @@ const Chain warrantyDurationUnit = Chain(
   ],
 );
 // ------------------------------------------
+
+/// TASK : TO ADD THIS TO FIREBASE
+const Chain propertySalePrice = Chain(
+  id: 'phid_s_PropertySalePrice',
+  icon: null,
+  sons: DataCreator.price,
+);
+const Chain propertyRentPrice = Chain(
+  id: 'phid_s_propertyRentPrice',
+  icon: null,
+  sons: DataCreator.price,
+);
+
+Chain propertyDecorationStyle = Chain(
+  id: 'phid_s_propertyDecorationStyle',
+  icon: null,
+  sons: style.sons,
+);
+
+Chain designType = Chain(
+  id: 'phid_k_group_dz_type',
+  icon: null,
+  sons: ChainDesigns.chain.sons,
+);
+
+const Chain projectCost = Chain(
+  id: 'phid_s_projectCost',
+  icon: null,
+  sons: DataCreator.price,
+);
+
+const Chain constructionDuration = Chain(
+  id: 'phid_s_constructionDuration',
+  icon: null,
+  sons: DataCreator.integerIncrementer,
+);

@@ -26,6 +26,22 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+  /// SEARCHERS
+
+// -------------------------------------
+  Chain searchAllChainsByID(String chainID){
+
+    final List<Chain> _allChains = <Chain>[_keywordsChain, _specsChain];
+
+    final Chain _chain = Chain.getChainFromChainsByID(
+      chainID: chainID,
+      chains: _allChains,
+    );
+
+    return _chain;
+  }
+// -----------------------------------------------------------------------------
+
   /// FETCHING KEYWORDS Chain
 
 // -------------------------------------
@@ -273,4 +289,10 @@ class ChainsProvider extends ChangeNotifier {
     _setCurrentKeyword(null);
   }
 // -----------------------------------------------------------------------------
+}
+
+Chain superGetChain(BuildContext context, String chainID){
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final Chain _chain = _chainsProvider.searchAllChainsByID(chainID);
+  return _chain;
 }
