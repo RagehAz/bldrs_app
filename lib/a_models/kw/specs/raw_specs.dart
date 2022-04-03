@@ -2,9 +2,9 @@ import 'package:bldrs/a_models/kw/chain/chain.dart';
 import 'package:bldrs/a_models/kw/chain/chain_crafts.dart';
 import 'package:bldrs/a_models/kw/specs/data_creator.dart';
 
-const String newSaleID = 'contractType_NewSale';
-const String resaleID = 'contractType_Resale';
-const String rentID = 'contractType_Rent';
+const String newSaleID = 'phid_s_contractType_NewSale';
+const String resaleID = 'phid_s_contractType_Resale';
+const String rentID = 'phid_s_contractType_Rent';
 
 // -------------------------------------------------------------------------
 /// STYLE ANATOMY
@@ -669,65 +669,3 @@ const Chain warrantyDurationUnit = Chain(
   ],
 );
 // ------------------------------------------
-
-const List<Chain> allSpecsChains = [
-  style,
-  color,
-  contractType,
-  paymentMethod,
-  price,
-  currency,
-  unitPriceInterval,
-  numberOfInstallments,
-  installmentsDuration,
-  installmentsDurationUnit,
-  duration,
-  durationUnit,
-  propertyArea,
-  propertyAreaUnit,
-  lotArea,
-  lotAreaUnit,
-  propertyForm,
-  propertyLicense,
-  propertySpaces,
-  propertyFloorNumber,
-  propertyDedicatedParkingLotsCount,
-  propertyNumberOfBedrooms,
-  propertyNumberOfBathrooms,
-  propertyView,
-  propertyIndoorFeatures,
-  propertyFinishingLevel,
-  buildingNumberOfFloors,
-  buildingAgeInYears,
-  buildingTotalParkingLotsCount,
-  buildingTotalUnitsCount,
-  inACompound,
-  amenities,
-  communityServices,
-  constructionActivityMeasurementMethod,
-  width,
-  length,
-  height,
-  thickness,
-  diameter,
-  radius,
-  linearMeasurementUnit,
-  footPrint,
-  areaMeasureUnit,
-  volume,
-  volumeMeasurementUnit,
-  weight,
-  weightMeasurementUnit,
-  count,
-  size,
-  wattage,
-  voltage,
-  ampere,
-  inStock,
-  deliveryAvailable,
-  deliveryDuration,
-  deliveryDurationUnit,
-  madeIn,
-  warrantyDuration,
-  warrantyDurationUnit,
-];

@@ -38,7 +38,7 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 
     final List<Chain> _chains = [
       ... Chain.bldrsChain.sons,
-      ... allSpecsChains,
+      ... Chain.allSpecsChain.sons,
     ];
 
     return MainLayout(

@@ -1,8 +1,13 @@
+import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/kw/specs/raw_specs.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -101,7 +106,23 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                final List<Phrase> _phrases = specsPhrasesMan();
+                // final List<Chain> _chains = [
+                //   ... Chain.bldrsChain.sons,
+                //   ... Chain.allSpecsChain.sons,
+                // ];
+                //
+                // final List<Map<String, dynamic>> _maps = Chain.cipherChains(_chains);
+                //
+                // final List<Chain> _chains2 = Chain.decipherChains(_maps);
+                //
+                // Chain.blogChains(_chains2);
+
+                await createNamedDoc(
+                    context: context,
+                    collName: FireColl.chains,
+                    docName: FireDoc.chains_keywords,
+                    input: Chain.bldrsChain.toMap(),
+                );
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
