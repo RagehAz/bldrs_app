@@ -4,12 +4,13 @@ import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_designs.dart
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_equipment.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_properties.dart';
-import 'package:bldrs/a_models/chain/raw_data/specs_chains/raw_specs.dart' as specsChain;
-import 'package:bldrs/a_models/chain/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/raw_data/specs/raw_specs.dart' as specsChain;
+import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class Chain {
   /// --------------------------------------------------------------------------
@@ -155,38 +156,42 @@ class Chain {
   /// FILTERS
 
 // --------------------------------------------
-  /// TASK : REVISION
-  static Chain filterSpecListChainRange(SpecList specList) {
+//   /// TASK : REVISION
+  static Chain filterSpecListChainRange({
+    @required BuildContext context,
+    @required SpecList specList,
+}) {
 
-    final List<String> _filteredPhids = <String>[];
-    Chain _filteredChain = specList.specChain;
+    final List<String> _filteredIDs = <String>[];
+    Chain _filteredChain = superGetChain(context, specList.chainID);
 
     if (
-    Mapper.canLoopList(_filteredChain.sons)
+        Mapper.canLoopList(_filteredChain.sons)
         &&
         Mapper.canLoopList(specList.range)
     ) {
 
-      for (final String son in specList.specChain.sons) {
+      final List<String> _rangeIDs = Mapper.getStringsFromDynamics(
+        dynamics: specList.range,
+      );
 
-        final List<String> _strings = Mapper.getStringsFromDynamics(
-            dynamics: specList.range,
-        );
+      for (final String son in _filteredChain.sons) {
 
-        if (
-        Mapper.stringsContainString(
-          strings: _strings,
+        final bool _rangeContainsThisID = Mapper.stringsContainString(
+          strings: _rangeIDs,
           string: son,
-        ) == true
-        ) {
-          _filteredPhids.add(son);
+        ) == true;
+
+        if (_rangeContainsThisID == true) {
+          _filteredIDs.add(son);
         }
+
       }
 
       _filteredChain = Chain(
-        id: specList.specChain.id,
-        icon: specList.specChain.icon,
-        sons: _filteredPhids,
+        id: _filteredChain.id,
+        icon: _filteredChain.icon,
+        sons: _filteredIDs,
       );
     }
 
@@ -235,6 +240,46 @@ class Chain {
       _count++;
     }
     blog('Blogging ${chains.length} chains ------------------------------------------------ END');
+  }
+// -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// --------------------------------------------
+  static Chain getChainFromChainsByID({
+    @required String chainID,
+    @required List<Chain> chains,
+}){
+
+    Chain _chain;
+
+    if (Mapper.canLoopList(chains) == true){
+
+      for (final Chain chain in chains){
+
+        if (chain.id == chainID){
+          _chain = chain;
+          break;
+        }
+        else if (sonsAreChains(chain.sons) == true){
+
+          final Chain _son = getChainFromChainsByID(
+              chainID: chainID,
+              chains: chain.sons,
+          );
+
+          if (_son != null){
+            _chain = _son;
+            break;
+          }
+
+        }
+
+      }
+
+    }
+
+    return _chain;
   }
 // -----------------------------------------------------------------------------
 
