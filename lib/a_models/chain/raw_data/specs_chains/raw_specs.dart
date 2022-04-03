@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/chain/chain_crafts.dart';
-import 'package:bldrs/a_models/kw/specs/data_creator.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_crafts.dart';
+import 'package:bldrs/a_models/chain/data_creator.dart';
 
 const String newSaleID = 'phid_s_contractType_NewSale';
 const String resaleID = 'phid_s_contractType_Resale';

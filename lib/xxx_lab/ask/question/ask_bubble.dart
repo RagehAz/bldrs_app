@@ -1,15 +1,15 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -45,7 +45,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   TextEditingController _titleController;
   bool _askButtonInactive = true;
   List<File> _questionPics;
-  List<KW> _keywords;
+  List<String> _keywordsIDs;
   BzType _questionDirectedTo;
 // -----------------------------------------------------------------------------
 //   /// --- FUTURE LOADING BLOCK
@@ -154,7 +154,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         body: _bodyController.text,
         pics: _questionPics,
         time: DateTime.now(),
-        keywords: _keywords,
+        keywordsIDs: _keywordsIDs,
         headline: _titleController.text,
         ownerID: FireAuthOps.superUserID(),
         questionIsOpen: true,

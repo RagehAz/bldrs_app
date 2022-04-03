@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -343,17 +342,17 @@ class FlyersProvider extends ChangeNotifier {
 // -------------------------------------
   Future<List<FlyerModel>> fetchFlyersByCurrentZoneAndKeyword({
     @required BuildContext context,
-    @required KW kw,
+    @required String keywordID,
     int limit = 3,
   }) async {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final ZoneModel _currentZone = _zoneProvider.currentZone;
 
     /// TASK : think this through.. can it be fetch instead of just search ? I don't think soooooo
-    final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndKeyword(
+    final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndKeywordID(
       context: context,
       zone: _currentZone,
-      kw: kw,
+      keywordID: keywordID,
       limit: limit,
     );
 

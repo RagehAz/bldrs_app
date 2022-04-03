@@ -1,129 +1,184 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/a_models/kw/chain/chain.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
-import 'package:bldrs/a_models/secondary_models/app_updates.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/e_db/fire/ops/keyword_ops.dart' as FireKeywordOps;
+import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
-class KeywordsProvider extends ChangeNotifier {
+// final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+class ChainsProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
-  Future<List<KW>> _readAllKeywordsThenWipeLDBThenInsertAll(BuildContext context) async {
-    /// 1 - read firebase KeywordOps
-    final List<KW> _allKeywords = await FireKeywordOps.readKeywordsOps(
-      context: context,
-    );
 
-    /// 2 - if found on firebase, store in ldb keywords
-    if (Mapper.canLoopList(_allKeywords) == true) {
-      /// TASK : temp until release
-      await ExoticMethods.updateNumberOfKeywords(context, _allKeywords);
+  /// INITIALIZATION
 
-      /// 2.1 - assure that LDB is clean first
-      await LDBOps.deleteAllMapsOneByOne(docName: LDBDoc.keywords);
+// -------------------------------------
+  Future<void> getSetKeywordsAndSpecsChains(BuildContext context) async {
 
-      /// 2.2 insert all keywords to LDB
-      await LDBOps.insertMaps(
-        inputs: KW.cipherKeywordsToLDBMaps(_allKeywords),
-        docName: LDBDoc.keywords,
-        primaryKey: 'id',
-      );
-    }
+    await _getsetKeywordsChain(context: context, notify: false);
+    await _getsetSpecsChain(context: context, notify: true);
 
-    return _allKeywords;
   }
 // -----------------------------------------------------------------------------
 
-  /// FETCHING KEYWORDS
+  /// FETCHING KEYWORDS Chain
 
 // -------------------------------------
-  Future<List<KW>> fetchAllKeywords({@required BuildContext context}) async {
-    final GeneralProvider _generalProvider =
-        Provider.of<GeneralProvider>(context, listen: false);
-    final AppState _appState = _generalProvider.appState;
+  Future<Chain> fetchKeywordsChain(BuildContext context) async {
 
-    List<KW> _allKeywords;
+    Chain _keywordsChain;
 
     /// 1 - search LDB
     final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.keywords,
+      docName: LDBDoc.keywordsChain,
     );
 
+    /// 2 - all keywords chain found in LDB
     if (Mapper.canLoopList(_maps)) {
-      _allKeywords = KW.decipherKeywordsLDBMaps(maps: _maps);
+      _keywordsChain = Chain.decipherChain(_maps[0]);
     }
 
-    /// 2 - all keywords found in LDB
-    if (Mapper.canLoopList(_allKeywords)) {
-      /// 2.A app state required readOps
-      if (_appState.keywordsUpdateRequired == true ||
-          _appState.numberOfKeywords != _allKeywords.length) {
-        /// 2.A.1 read firebase KeywordOps
-        _allKeywords = await _readAllKeywordsThenWipeLDBThenInsertAll(context);
-      }
-    }
-
-    /// 3 - all keywords are not found in LDB
+    /// 3 - all keywords chain is not found in LDB
     else {
-      /// 3.1 read firebase KeywordOps
-      _allKeywords = await _readAllKeywordsThenWipeLDBThenInsertAll(context);
+      _keywordsChain = await ChainOps.readKeywordsChain(context);
+
+      /// 3 - insert in LDB when found on firebase
+      if (_keywordsChain != null){
+
+        await LDBOps.insertMap(
+            primaryKey: 'id',
+            input: _keywordsChain.toMap(),
+            docName: LDBDoc.keywordsChain,
+        );
+
+      }
+
     }
 
-    return _allKeywords;
+    return _keywordsChain;
   }
 // -----------------------------------------------------------------------------
 
-  /// ALL KEYWORDS
+  /// FETCHING SPECS CHAIN
 
 // -------------------------------------
-  List<KW> _allKeywords = <KW>[];
-// -------------------------------------
-  List<KW> get allKeywords {
-    return <KW>[..._allKeywords];
-  }
-// -------------------------------------
-  Future<void> getsetAllKeywords(BuildContext context) async {
-    final List<KW> _keywords = await fetchAllKeywords(context: context);
+  Future<Chain> fetchSpecsChain(BuildContext context) async {
 
-    _setAllKeywords(_keywords);
-  }
-// -------------------------------------
-  void _setAllKeywords(List<KW> kws){
-    _allKeywords = kws;
-    notifyListeners();
-  }
-// -------------------------------------
-  void clearAllKeywords() {
-    _setAllKeywords(<KW>[]);
+    Chain _specsChain;
+
+    /// 1 - search LDB
+    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
+      docName: LDBDoc.specsChain,
+    );
+
+    /// 2 - all keywords chain found in LDB
+    if (Mapper.canLoopList(_maps)) {
+      _specsChain = Chain.decipherChain(_maps[0]);
+    }
+
+    /// 3 - all keywords chain is not found in LDB
+    else {
+      _specsChain = await ChainOps.readSpecsChain(context);
+
+      /// 3 - insert in LDB when found on firebase
+      if (_specsChain != null){
+
+        await LDBOps.insertMap(
+          primaryKey: 'id',
+          input: _specsChain.toMap(),
+          docName: LDBDoc.specsChain,
+        );
+
+      }
+
+    }
+
+    return _specsChain;
   }
 // -----------------------------------------------------------------------------
-  String getKeywordIcon({@required BuildContext context, @required dynamic son}) {
+
+  /// KEYWORDS CHAIN
+
+// -------------------------------------
+  Chain _keywordsChain;
+// -------------------------------------
+  Chain get keywordsChain => _keywordsChain;
+// -------------------------------------
+  Future<void> _getsetKeywordsChain({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+
+    final Chain _keywordsChain = await fetchKeywordsChain(context);
+
+    _setKeywordsChain(
+      keywordsChain: _keywordsChain,
+      notify: notify,
+    );
+  }
+// -------------------------------------
+  void _setKeywordsChain({
+    @required Chain keywordsChain,
+    @required bool notify,
+  }){
+    _specsChain = keywordsChain;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// SPECS CHAIN
+
+// -------------------------------------
+  Chain _specsChain;
+// -------------------------------------
+  Chain get specsChain => _specsChain;
+// -------------------------------------
+  Future<void> _getsetSpecsChain({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+    final Chain _specsChain = await fetchSpecsChain(context);
+    _setSpecsChain(
+      specsChain: _specsChain,
+      notify: notify,
+    );
+  }
+// -------------------------------------
+  void _setSpecsChain({
+    @required Chain specsChain,
+    @required bool notify,
+  }){
+    _specsChain = specsChain;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// KEYWORDS ICONS
+
+// -------------------------------------
+  String getKeywordIcon({
+    @required BuildContext context,
+    @required dynamic son,
+  }) {
     String _icon;
 
     tryAndCatch(
         context: context,
         methodName: 'get icon',
         functions: () {
-          /// WHEN SON IS KEYWORD ID "never happens"
+
+          /// WHEN SON IS KEYWORD ID
           if (son.runtimeType == String) {
             _icon = 'assets/keywords/$son.jpg';
-            // blog('HEY : Im  a son, and im a keyword ID $son');
-          }
-
-          /// WHEN SON IS A KEYWORD
-          else if (son.runtimeType == KW) {
-            final KW _keyword = son;
-            _icon = 'assets/keywords/${_keyword.id}.jpg';
           }
 
           /// WHEN SON IS A CHAIN
@@ -145,14 +200,17 @@ class KeywordsProvider extends ChangeNotifier {
 
           }
 
-          /// HOWEVER
-          else {
-            // _keywordID = null;
-          }
+          // /// HOWEVER
+          // else {
+          //   // _keywordID = null;
+          // }
+
         });
 
     return _icon;
   }
+
+
 // -----------------------------------------------------------------------------
 
   /// SELECTED SECTION

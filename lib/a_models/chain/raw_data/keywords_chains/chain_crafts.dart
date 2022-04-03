@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/kw/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainCrafts {

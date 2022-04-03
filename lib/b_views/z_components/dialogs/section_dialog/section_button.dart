@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/d_providers/keywords_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
@@ -50,7 +50,7 @@ class SectionDialogButton extends StatelessWidget {
   }) async {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
     final String _currentCityID = _zoneProvider.currentZone.cityID;
 
     final String _flyerTypeString = translateFlyerType(

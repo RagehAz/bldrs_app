@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/kw/kw.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
@@ -14,7 +13,7 @@ class QuestionModel {
     @required this.body,
     @required this.directedTo,
     @required this.time,
-    @required this.keywords,
+    @required this.keywordsIDs,
     @required this.pics,
     @required this.headline,
     @required this.totalViews,
@@ -31,7 +30,7 @@ class QuestionModel {
   final String ownerID;
   final BzType directedTo;
   final DateTime time;
-  final List<KW> keywords;
+  final List<String> keywordsIDs;
   final List<dynamic> pics;
   final String body;
   final String headline;
@@ -50,7 +49,7 @@ class QuestionModel {
       'userID': ownerID,
       'directedTo': BzModel.cipherBzType(directedTo),
       'askTime': Timers.cipherTime(time: time, toJSON: toJSON),
-      'keywords': keywords,
+      'keywords': keywordsIDs,
       'pics': pics,
       'body': body,
       'headline': headline,
@@ -79,7 +78,7 @@ class QuestionModel {
         body: map['body'],
         directedTo: BzModel.decipherBzType(map['directedTo']),
         time: Timers.decipherTime(time: map['askTime'], fromJSON: fromJSON),
-        keywords: map['keywords'],
+        keywordsIDs: map['keywords'],
         pics: map['pics'],
         headline: map['headline'],
         totalViews: map['totalViews'],
@@ -110,7 +109,7 @@ class QuestionModel {
         body: question.body,
         directedTo: question.directedTo,
         time: question.time,
-        keywords: question.keywords,
+        keywordsIDs: question.keywordsIDs,
         pics: picsURLS,
         headline: question.headline,
         totalViews: question.totalViews,
@@ -137,25 +136,36 @@ class QuestionModel {
   }) {
     bool _questionIsUpdated = true;
 
-    if (originalQuestion != null &&
-        updateQuestion != null &&
+    if (originalQuestion != null
+        &&
+        updateQuestion != null
+        &&
         Imagers.picturesURLsAreTheSame(
-                urlsA: originalQuestion.pics, urlsB: updateQuestion.pics) ==
-            true &&
-        originalQuestion.id == updateQuestion.id &&
-        originalQuestion.body == updateQuestion.body &&
-        originalQuestion.headline == updateQuestion.headline &&
-        originalQuestion.ownerID == updateQuestion.ownerID &&
-        KW.keywordsListsAreTheSame(
-              originalQuestion.keywords,
-              updateQuestion.keywords,
-            ) ==
-            true &&
-        originalQuestion.questionIsOpen == updateQuestion.questionIsOpen &&
-        originalQuestion.directedTo == updateQuestion.directedTo &&
-        originalQuestion.userDeletedQuestion ==
-            updateQuestion.userDeletedQuestion &&
-        originalQuestion.userSeenAll == updateQuestion.userSeenAll) {
+            urlsA: originalQuestion.pics,
+            urlsB: updateQuestion.pics
+        ) == true
+        &&
+        originalQuestion.id == updateQuestion.id
+        &&
+        originalQuestion.body == updateQuestion.body
+        &&
+        originalQuestion.headline == updateQuestion.headline
+        &&
+        originalQuestion.ownerID == updateQuestion.ownerID
+        &&
+        Mapper.listsAreTheSame(
+          list1: originalQuestion.keywordsIDs,
+          list2: updateQuestion.keywordsIDs
+        ) == true
+        &&
+        originalQuestion.questionIsOpen == updateQuestion.questionIsOpen
+        &&
+        originalQuestion.directedTo == updateQuestion.directedTo
+        &&
+        originalQuestion.userDeletedQuestion == updateQuestion.userDeletedQuestion
+        &&
+        originalQuestion.userSeenAll == updateQuestion.userSeenAll
+    ) {
       _questionIsUpdated = false;
     }
 
@@ -174,7 +184,7 @@ class QuestionModel {
       body: 'This is a dummy question baby,, are you okey dude ? \n Lorum Ipsum gowa loa7 Gypsum',
       directedTo: BzType.developer,
       time: Timers.createDateAndClock(year: 1987, month: 06, day: 10, hour: 12, minute: 05),
-      keywords: KW.dummyKeywords(context: context, length: 5),
+      keywordsIDs: [],
       pics: <String>[
         Iconz.dumSlide6,
         Iconz.dumSlide1,

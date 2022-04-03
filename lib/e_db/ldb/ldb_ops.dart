@@ -22,7 +22,7 @@ String getPrimaryKey(String docName) {
     case LDBDoc.flyers: return 'id';
     case LDBDoc.bzz: return 'id';
     case LDBDoc.users: return 'id';
-    case LDBDoc.keywords: return 'id';
+    case LDBDoc.keywordsChain: return 'id';
     case LDBDoc.countries: return 'id';
     case LDBDoc.cities: return 'cityID';
     case LDBDoc.continents: return 'name';
