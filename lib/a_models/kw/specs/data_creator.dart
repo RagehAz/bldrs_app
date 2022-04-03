@@ -11,4 +11,6 @@ enum DataCreator{
   doubleCreator,
   price,
   currency,
+
+  country,
 }

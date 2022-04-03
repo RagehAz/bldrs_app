@@ -476,41 +476,30 @@ class Phrase {
   /// CHECKERS
 
 // -------------------------------------
-  static bool phrasesIncludeIdenticalPhrases({
-  @required List<Phrase> phrases,
+  static bool phrasesIncludeIdenticalPhrase({
+    @required List<Phrase> phrases,
+    @required Phrase firstPhrase,
 }){
     bool _include = false;
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.canLoopList(phrases) == true && firstPhrase != null){
 
-      for (final Phrase phrase in phrases){
+      for (final Phrase secondPhrase in phrases){
 
-        final Phrase _found = phrases.firstWhere((ph){
+        final bool _found =
+            firstPhrase.id == secondPhrase.id
+            &&
+            firstPhrase.value == secondPhrase.value
+            &&
+            firstPhrase.langCode == secondPhrase.langCode;
 
-          final bool _condition =
-          ph.id == phrase.id
-          &&
-          ph.value == phrase.value
-          &&
-          ph.langCode == phrase.langCode
-          &&
-          Mapper.listsAreTheSame(list1: ph.trigram, list2: phrase.trigram) == true
-          ;
-
-          return _condition;
-        }, orElse: () => null);
-
-        if (_found != null){
-          _include = true;
-          break;
-        }
+       if (_found == true){
+         _include = true;
+         break;
+       }
 
       }
 
-    }
-
-    else {
-      _include = false;
     }
 
     return _include;
@@ -893,8 +882,9 @@ class Phrase {
 
       for (final Phrase firstPhrase in phrases){
 
-        final bool _contains = phrasesIncludeIdenticalPhrases(
-          phrases: phrases,
+        final bool _contains = phrasesIncludeIdenticalPhrase(
+          phrases: _output,
+          firstPhrase: firstPhrase,
         );
 
         if (_contains == false){

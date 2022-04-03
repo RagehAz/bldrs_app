@@ -31,8 +31,15 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
   Widget build(BuildContext context) {
 
     final double _screenWidth  = Scale.superScreenWidth(context);
-    final int _numberOfSons = widget.chain.sons.length;
     final bool _sonsAreChain = Chain.sonsAreChains(widget.chain.sons);
+    final bool _sonsAreStrings = widget.chain.sons.runtimeType.toString() == 'List<String>';
+    final int _numberOfSons =
+    _sonsAreChain ? widget.chain.sons.length
+        :
+    _sonsAreStrings ? widget.chain.sons.length
+        :
+    1
+    ;
 
     return SizedBox(
       width: _screenWidth,
@@ -60,7 +67,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
               ),
 
             /// WHEN CHAIN SONS ARE STRINGS (PHRASES IDS)
-            if (_sonsAreChain == false) // its a List<String>
+            if (_sonsAreStrings == true) // its a List<String>
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: _numberOfSons,
@@ -75,6 +82,15 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                     );
 
                   }
+              ),
+
+            /// OTHERWISE
+            if (_sonsAreChain == false && _sonsAreStrings == false)
+              ChainTreeStrip(
+                level: widget.initialLevel + 1,
+                secondLine: widget.chain.id,
+                firstLine: widget.chain.sons.toString(),
+                onTriggerExpansion: _triggerExpansion,
               ),
 
           ],
