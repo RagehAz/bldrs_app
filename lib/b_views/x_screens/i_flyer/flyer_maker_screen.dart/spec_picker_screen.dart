@@ -1,7 +1,7 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/data_creator.dart';
-import 'package:bldrs/a_models/chain/spec_list_model.dart';
-import 'package:bldrs/a_models/chain/spec_model.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -11,6 +11,8 @@ import 'package:bldrs/b_views/z_components/specs/integer_data_creator.dart';
 import 'package:bldrs/b_views/z_components/specs/price_data_creator.dart';
 import 'package:bldrs/b_views/z_components/specs/specs_selector_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -41,13 +43,14 @@ class SpecPickerScreen extends StatefulWidget {
 class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
   // List<Spec> _selectedSpecs = [];
-  final ValueNotifier<List<SpecModel>> _selectedSpecs =
-      ValueNotifier<List<SpecModel>>(<SpecModel>[]);
+  final ValueNotifier<List<SpecModel>> _selectedSpecs = ValueNotifier<List<SpecModel>>(<SpecModel>[]);
   // -----------------------------------------------------------------------------
+  Chain _specChain;
   @override
   void initState() {
     _selectedSpecs.value = widget.allSelectedSpecs;
     // Spec.getSpecsByListID(specsList: widget.allSelectedSpecs, specsListID: widget.specList.id)
+    _specChain = superGetChain(context, widget.specList.chainID);
 
     super.initState();
   }
@@ -57,7 +60,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     // spec.printSpec();
     final SpecModel _spec = SpecModel(
-      specsListID: widget.specList.id,
+      specsListID: widget.specList.chainID,
       value: keywordID,
     );
 
@@ -101,7 +104,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       /// B2 - WHEN CAN NOT PICK MANY
       else {
         final int _specIndex = _selectedSpecs.value
-            .indexWhere((SpecModel spec) => spec.specsListID == widget.specList.id);
+            .indexWhere((SpecModel spec) => spec.specsListID == widget.specList.chainID);
 
         /// C1 - WHEN NO SPEC OF THIS KIND IS SELECTED
         if (_specIndex == -1) {
@@ -150,7 +153,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
   void _onPriceChanged(String price) {
     final double _priceDouble = Numeric.stringToDouble(price);
     final SpecModel _priceSpec =
-        SpecModel(specsListID: widget.specList.id, value: _priceDouble);
+        SpecModel(specsListID: widget.specList.chainID, value: _priceDouble);
 
     final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
@@ -165,7 +168,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
   void _onAddInteger(int integer) {
     blog('received integer : $integer');
     final SpecModel _integerSpec =
-        SpecModel(specsListID: widget.specList.id, value: integer);
+        SpecModel(specsListID: widget.specList.chainID, value: integer);
 
     final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
@@ -179,7 +182,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onAddDouble(double num) {
     blog('received double : $num');
-    final SpecModel _doubleSpec = SpecModel(specsListID: widget.specList.id, value: num);
+    final SpecModel _doubleSpec = SpecModel(specsListID: widget.specList.chainID, value: num);
 
     final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
@@ -200,7 +203,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
   String _getInstructions() {
     String _instructions;
 
-    if (widget.specList.specChain.sons.runtimeType == DataCreator) {
+    if (_specChain.sons.runtimeType == DataCreator) {
       _instructions = 'Specify this';
     } else {
       _instructions = widget.specList.canPickMany == true
@@ -224,9 +227,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     final String _instructions = _getInstructions();
 
-    final String _pageTitle = Phrase.getPhraseByCurrentLangFromPhrases(
-        context: context,
-        phrases: widget.specList.names)?.value;
+    final String _pageTitle = superPhrase(context, widget.specList.chainID);
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -258,7 +259,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
           ),
 
           /// SPECS LIST SELECTOR
-          if (widget.specList.specChain.sons.runtimeType != DataCreator)
+          if (_specChain.sons.runtimeType != DataCreator)
             ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
                 builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
@@ -266,18 +267,18 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                     bubbleHeight: _listZoneHeight,
                     specList: widget.specList,
                     selectedSpecs: SpecModel.getSpecsByListID(
-                        specs: value, specsListID: widget.specList.id),
+                        specs: value, specsListID: widget.specList.chainID),
                     onSpecTap: (String keywordID) => _onSpecTap(context, keywordID),
                   );
                 }),
 
           /// PRICE SPECS CREATOR
-          if (widget.specList.specChain.sons == DataCreator.price)
+          if (_specChain.sons == DataCreator.price)
             ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
                 builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
                   final List<SpecModel> _priceSpec = SpecModel.getSpecsByListID(
-                      specs: value, specsListID: widget.specList.id);
+                      specs: value, specsListID: widget.specList.chainID);
 
                   final double _initialPriceValue =
                       Mapper.canLoopList(_priceSpec)
@@ -294,7 +295,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                 }),
 
           /// INTEGER INCREMENTER SPECS CREATOR
-          if (widget.specList.specChain.sons == DataCreator.integerIncrementer)
+          if (_specChain.sons == DataCreator.integerIncrementer)
             ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
                 builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
@@ -307,7 +308,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                 }),
 
           /// DOUBLE DATA CREATOR
-          if (widget.specList.specChain.sons == DataCreator.doubleCreator)
+          if (_specChain.sons == DataCreator.doubleCreator)
             ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
                 builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
@@ -318,6 +319,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                     specList: widget.specList,
                   );
                 }),
+
         ],
       ),
     );
