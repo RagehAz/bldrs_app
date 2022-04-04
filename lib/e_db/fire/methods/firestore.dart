@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,10 +40,37 @@ String pathOfSubDoc({
 // ---------------------------------------------------
 CollectionReference<Object> getCollectionRef(String collName) {
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-  final CollectionReference<Object> _collection =
-      _fireInstance.collection(collName);
+  final CollectionReference<Object> _collection = _fireInstance.collection(collName);
   return _collection;
 }
+
+Future<QuerySnapshot<Object>> _superCollectionQuery({
+  @required String collName,
+  String orderBy,
+  int limit,
+  QueryDocumentSnapshot<Object> startAfter,
+}) async {
+
+  Query<Map<String, dynamic>> query = FirebaseFirestore.instance.collection(collName);
+
+  /// ORDER IS REQUIRED
+  if (orderBy != null){
+    query = query.orderBy(orderBy);
+  }
+  /// LIMIT IS REQUIRED
+  if (limit != null){
+    query = query.limit(limit);
+  }
+  /// START AFTER IS REQUIRED
+  if (startAfter != null){
+    query = query.startAfterDocument(startAfter);
+  }
+
+  final QuerySnapshot<Object> _collectionSnapshot = await query.get();
+
+  return _collectionSnapshot;
+}
+
 // ---------------------------------------------------
 DocumentReference<Object> getDocRef({
   @required String collName,
@@ -244,59 +272,26 @@ Future<dynamic> _getMapByDocRef(DocumentReference<Object> docRef) async {
 // ---------------------------------------------------
 Future<List<Map<String, dynamic>>> readCollectionDocs({
   @required String collName,
-  @required String orderBy,
-  @required int limit,
+  String orderBy,
+  int limit,
   QueryDocumentSnapshot<Object> startAfter,
   bool addDocSnapshotToEachMap = false,
   bool addDocsIDs = false,
 }) async {
-  final QueryDocumentSnapshot<Object> _startAfter = startAfter;
 
-  QuerySnapshot<Object> _collectionSnapshot;
-
-  if (_startAfter == null) {
-    _collectionSnapshot = await FirebaseFirestore.instance
-        .collection(collName)
-        .orderBy(orderBy)
-        .limit(limit)
-        .get();
-  } else {
-    _collectionSnapshot = await FirebaseFirestore.instance
-        .collection(collName)
-        .orderBy(orderBy)
-        .limit(limit)
-        .startAfterDocument(startAfter)
-        .get();
-  }
-
-  final List<QueryDocumentSnapshot<Object>> _docsSnapshots =
-      _collectionSnapshot.docs;
+  final QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
+    collName: collName,
+    orderBy: orderBy,
+    limit: limit,
+    startAfter: startAfter,
+  );
 
   /// to return maps
-  final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
-
-  for (final QueryDocumentSnapshot<Object> docSnapshot in _docsSnapshots) {
-    Map<String, dynamic> _map = docSnapshot.data();
-
-    if (addDocsIDs == true) {
-      _map = Mapper.insertPairInMap(
-        map: _map,
-        key: 'id',
-        value: docSnapshot.id,
-      );
-    }
-
-    if (addDocSnapshotToEachMap == true) {
-      _map = Mapper.insertPairInMap(
-        map: _map,
-        key: 'docSnapshot',
-        value: docSnapshot,
-      );
-    }
-
-    _maps.add(_map);
-  }
-  // return <List<QueryDocumentSnapshot<Object>>>
+  final List<Map<String, dynamic>> _maps =Mapper.getMapsFromQueryDocumentSnapshotsList(
+      queryDocumentSnapshots: _collectionSnapshot.docs,
+      addDocsIDs: addDocsIDs,
+      addDocSnapshotToEachMap: addDocSnapshotToEachMap
+  );
 
   return _maps;
 }
@@ -717,11 +712,79 @@ Future<void> deleteSubDoc({
       });
 }
 // ---------------------------------------------------
-Future<void> deleteCollection({
+Future<void> deleteAllCollectionDocs({
   @required BuildContext context,
   @required String collName,
 }) async {
   /// TASK : deleting collection and all its docs, sub collections & sub docs require a cloud function
+
+  final bool _canContinue = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'DANGER',
+    body: 'you will delete all documents in [ $collName ] collection\n Confirm delete ?',
+    boolDialog: true,
+    confirmButtonText: 'YES DELETE ALL',
+  );
+
+  if (_canContinue == true){
+
+    for (int i = 0; i < 1000; i++){
+
+      final List<Map<String, dynamic>> _maps = await readCollectionDocs(
+        collName: collName,
+        limit: 5,
+        addDocsIDs: true,
+      );
+
+      if (_maps.isEmpty){
+        break;
+      }
+
+      else {
+
+        final List<String> _docIDs = Mapper.getMapsPrimaryKeysValues(
+          maps: _maps,
+          primaryKey: 'id',
+        );
+
+        blog('docs IDs : ${_docIDs.toString()}');
+
+        await _deleteNumberOfCollectionDocs(
+          context: context,
+          collName: collName,
+          number: _maps.length,
+          docsIDs: _docIDs,
+        );
+
+      }
+
+    }
+
+  }
+
+}
+// ---------------------------------------------------
+Future<void> _deleteNumberOfCollectionDocs({
+  @required BuildContext context,
+  @required collName,
+  @required int number,
+  @required List<String> docsIDs,
+}) async {
+
+  if (Mapper.canLoopList(docsIDs) == true){
+
+    for (final String id in docsIDs){
+
+      await deleteDoc(
+          context: context,
+          collName: collName,
+          docName: id,
+      );
+
+    }
+
+  }
+
 }
 // ---------------------------------------------------
 Future<void> deleteSubCollection({
