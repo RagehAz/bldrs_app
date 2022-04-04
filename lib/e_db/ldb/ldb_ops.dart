@@ -51,7 +51,7 @@ Future<void> insertMap({
   );
 
   blog('LDBOps inserted in $docName : map :-');
-  blogMap(input);
+  // blogMap(input);
 }
 // ---------------------------------------------------
 Future<void> insertMaps({
