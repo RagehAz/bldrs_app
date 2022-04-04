@@ -215,6 +215,7 @@ class Chain {
     return _areString;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool chainsAreTheSame({
     @required Chain chainA,
     @required Chain chainB,
@@ -401,6 +402,7 @@ class Chain {
 /// MODIFIERS
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Chain addChainsToSonsIfPossible({
     @required List<Chain> chainsToAdd,
     @required Chain chainToTake,

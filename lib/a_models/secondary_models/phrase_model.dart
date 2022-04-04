@@ -69,11 +69,10 @@ class Phrase {
     return _map;
   }
 // -------------------------------------
-    /// uses lang codes as sub maps keys otherwise uses phrase ids as sub maps keys
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherPhrasesToMap({
     @required List<Phrase> phrases,
     bool addTrigrams = false,
-    bool useLangCodeAsKeys = false,
   }) {
     Map<String, dynamic> _phrasesMap = <String, dynamic>{};
 
@@ -82,7 +81,7 @@ class Phrase {
       for (final Phrase phrase in phrases){
         _phrasesMap = Mapper.insertPairInMap(
           map: _phrasesMap,
-          key: useLangCodeAsKeys ? phrase.langCode : phrase.id,
+          key: phrase.id,
           value: phrase.toMap(addTrigram: addTrigrams),
         );
       }
@@ -130,6 +129,7 @@ class Phrase {
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesMap({
   @required Map<String, dynamic> map,
     String addLangCodeOverride,
@@ -156,6 +156,7 @@ class Phrase {
     return _phrases;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesMaps({
     @required List<Map<String, dynamic>> maps,
     String langCodeOverride,
@@ -197,6 +198,7 @@ class Phrase {
     blog('PHRASE ------------------------------------- END');
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogPhrases(List<Phrase> phrases){
 
     // blog('PRINTING NAME --------------------------------------- START');

@@ -25,6 +25,7 @@ class ZoneProvider extends ChangeNotifier {
   /// FETCHING ZONES
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<CountryModel> fetchCountryByID({
     @required BuildContext context,
     @required String countryID,
@@ -42,6 +43,7 @@ class ZoneProvider extends ChangeNotifier {
       searchField: 'id',
       searchValue: countryID,
     );
+
     if (_map != null && _map != <String, Object>{}){
       blog('fetchCountryByID : country found in local db : ${LDBDoc.countries}');
       _countryModel = CountryModel.decipherCountryMap(

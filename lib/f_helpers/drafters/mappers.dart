@@ -84,6 +84,7 @@ List<String> getUniqueStringsFromStrings({
   return _output;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 List<String> getMapsPrimaryKeysValues({
   @required List<Map<String, dynamic>> maps,
   String primaryKey = 'id',
@@ -282,6 +283,7 @@ List<String> cloneListOfStrings(List<String> list) {
 /// MAPS MODIFIERS
 
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 Map<String, dynamic> insertPairInMap({
   @required Map<String, dynamic> map,
   @required String key,
@@ -328,6 +330,7 @@ Map<String, Object> removePair({
 /// CHECKERS
 
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 bool canLoopList(List<dynamic> list) {
   bool _canLoop = false;
 
