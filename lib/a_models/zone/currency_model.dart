@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +7,6 @@ class CurrencyModel {
   /// --------------------------------------------------------------------------
   CurrencyModel({
     @required this.code,
-    @required this.phrases,
     @required this.countriesIDs,
     @required this.symbol,
     @required this.nativeSymbol,
@@ -17,7 +15,6 @@ class CurrencyModel {
 
   /// --------------------------------------------------------------------------
   final String code;
-  final List<Phrase> phrases;
   final List<String> countriesIDs;
   final String symbol;
   final String nativeSymbol;
@@ -28,7 +25,6 @@ class CurrencyModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'code': code,
-      'names': Phrase.cipherPhrasesToMap(phrases: phrases,),
       'countriesIDs': countriesIDs,
       'symbol': symbol,
       'nativeSymbol': nativeSymbol,
@@ -39,10 +35,8 @@ class CurrencyModel {
 // -----------------------------------------------------------------------------
   void printCurrency() {
     blog('CURRENCY PRINT ----------------------------------------- START ');
-    blog(
-        'code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
+    blog('code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
     blog('countries : $countriesIDs');
-    Phrase.blogPhrases(phrases);
     blog('CURRENCY PRINT ----------------------------------------- END ');
   }
 
@@ -70,9 +64,7 @@ class CurrencyModel {
     if (map != null) {
       _currency = CurrencyModel(
         code: map['code'],
-        phrases: Phrase.decipherPhrasesMap(map['names']),
-        countriesIDs:
-            Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
+        countriesIDs: Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
         symbol: map['symbol'],
         nativeSymbol: map['nativeSymbol'],
         digits: map['digits'],

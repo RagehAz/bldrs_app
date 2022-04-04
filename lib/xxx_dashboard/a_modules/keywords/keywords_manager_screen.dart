@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/raw_data/all_chains.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -36,8 +37,8 @@ class _KeywordsManagerState extends State<KeywordsManager> {
     final double _screenHeight = Scale.superScreenHeight(context);
 
     final List<Chain> _chains = [
-      ... Chain.bldrsChain.sons,
-      ... Chain.allSpecsChain.sons,
+      ... bldrsChain.sons,
+      ... allSpecsChain.sons,
     ];
 
     return MainLayout(

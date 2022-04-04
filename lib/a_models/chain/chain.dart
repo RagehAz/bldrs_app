@@ -1,15 +1,8 @@
 import 'package:bldrs/a_models/chain/data_creator.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_crafts.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_designs.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_equipment.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_properties.dart';
-import 'package:bldrs/a_models/chain/raw_data/specs/raw_specs.dart' as specsChain;
 import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class Chain {
@@ -156,7 +149,6 @@ class Chain {
   /// FILTERS
 
 // --------------------------------------------
-//   /// TASK : REVISION
   static Chain filterSpecListChainRange({
     @required BuildContext context,
     @required SpecList specList,
@@ -217,6 +209,112 @@ class Chain {
   static bool sonsAreStrings(dynamic sons){
     final bool _areString = sons.runtimeType.toString() == 'List<String>';
     return _areString;
+  }
+// --------------------------------------------
+  static bool chainsAreTheSame({
+    @required Chain chainA,
+    @required Chain chainB,
+}){
+    bool _areTheSame = false;
+
+    if (chainA !=null && chainB != null){
+
+      if (chainA.id == chainB.id){
+
+        if (chainsSonsAreTheSame(chainA, chainB) == true){
+          _areTheSame = true;
+        }
+
+      }
+
+    }
+
+    return _areTheSame;
+  }
+// --------------------------------------------
+  static bool chainsSonsAreTheSame(Chain chainA, Chain chainB){
+
+    bool _sonsAreTheSame = false;
+
+    final bool sonsAisChains = sonsAreChains(chainA);
+    final bool sonsAisDataCreator = sonsAreDataCreator(chainA);
+    final bool sonsAIsStrings = sonsAreStrings(chainA);
+
+    final bool sonsBisChains = sonsAreChains(chainB);
+    final bool sonsBisDataCreator = sonsAreDataCreator(chainB);
+    final bool sonsBIsStrings = sonsAreStrings(chainB);
+
+    if (
+    sonsAisChains == sonsBisChains
+    &&
+    sonsAisDataCreator == sonsBisDataCreator
+    &&
+    sonsBIsStrings == sonsAIsStrings
+    ){
+
+      /// IF SONS ARE CHAINS
+      if (sonsAisChains == true){
+        _sonsAreTheSame = chainsListsAreTheSame(
+          chainsA: chainA.sons,
+          chainsB: chainB.sons,
+        );
+      }
+
+      /// IF SONS ARE STRINGS
+      if (sonsAIsStrings == true){
+        _sonsAreTheSame = Mapper.listsAreTheSame(
+            list1: chainA.sons,
+            list2: chainB.sons
+        );
+      }
+
+      /// IF SONS ARE DATA CREATORS
+      if (sonsAisDataCreator == true){
+        _sonsAreTheSame = chainA.sons == chainB.sons;
+      }
+
+    }
+
+      return _sonsAreTheSame;
+  }
+// --------------------------------------------
+  static bool chainsListsAreTheSame({
+    @required List<Chain> chainsA,
+    @required List<Chain> chainsB
+  }){
+
+    bool _listsAreTheSame = false;
+
+    if (
+    Mapper.canLoopList(chainsA) == true
+    &&
+    Mapper.canLoopList(chainsB) == true
+    ){
+
+      if (chainsA.length == chainsB.length){
+
+        for (int i = 0; i < chainsA.length; i++){
+
+          final bool _twoChainsAreTheSame = chainsAreTheSame(
+              chainA: chainsA[i],
+              chainB: chainsB[i],
+          );
+
+          if (_twoChainsAreTheSame == false){
+            _listsAreTheSame = false;
+            break;
+          }
+          else {
+            _listsAreTheSame = true;
+          }
+
+        }
+
+      }
+
+    }
+
+    return _listsAreTheSame;
   }
 // -----------------------------------------------------------------------------
 
@@ -283,100 +381,37 @@ class Chain {
   }
 // -----------------------------------------------------------------------------
 
-/// SECTIONS / KEYWORDS CHAINS
+/// MODIFIERS
 
 // --------------------------------------------
-  static const Chain bldrsChain = Chain(
-    id: 'phid_sections',
-    icon: Iconz.bldrsNameEn,
-    sons: <Chain>[
+  static Chain addChainsToSonsIfPossible({
+    @required List<Chain> chainsToAdd,
+    @required Chain chainToTake,
+  }){
+    Chain _output = chainToTake;
 
-      /// PROPERTIES
-      ChainProperties.chain,
+    if (
+    Mapper.canLoopList(chainsToAdd) == true
+    &&
+    chainToTake != null
+    &&
+    sonsAreChains(chainToTake.sons) == true
+    ){
 
-      /// DESIGN
-      ChainDesigns.chain,
+      final List<Chain> _newSons = <Chain>[
+        ...chainToTake.sons,
+        ...chainsToAdd,
+      ];
 
-      /// CRAFTS
-      ChainCrafts.chain,
+      _output = Chain(
+        id: chainToTake.id,
+        icon: chainToTake.icon,
+        sons: _newSons,
+      );
 
-      /// PRODUCTS
-      ChainProducts.chain,
+    }
 
-      /// EQUIPMENT
-      ChainEquipment.chain,
-
-    ],
-  );
-// -----------------------------------------------------------------------------
-
-/// SPECS CHAINS
-
+    return _output;
+  }
 // --------------------------------------------
-  static const Chain allSpecsChain = Chain(
-    id: 'phid_s_specs_chain',
-    icon: null,
-    sons: <Chain>[
-      specsChain.style,
-      specsChain.color,
-      specsChain.contractType,
-      specsChain.paymentMethod,
-      specsChain.price,
-      specsChain.currency,
-      specsChain.unitPriceInterval,
-      specsChain.numberOfInstallments,
-      specsChain.installmentsDuration,
-      specsChain.installmentsDurationUnit,
-      specsChain.duration,
-      specsChain.durationUnit,
-      specsChain.propertyArea,
-      specsChain.propertyAreaUnit,
-      specsChain.lotArea,
-      specsChain.lotAreaUnit,
-      specsChain.propertyForm,
-      specsChain.propertyLicense,
-      specsChain.propertySpaces,
-      specsChain.propertyFloorNumber,
-      specsChain.propertyDedicatedParkingLotsCount,
-      specsChain.propertyNumberOfBedrooms,
-      specsChain.propertyNumberOfBathrooms,
-      specsChain.propertyView,
-      specsChain.propertyIndoorFeatures,
-      specsChain.propertyFinishingLevel,
-      specsChain.buildingNumberOfFloors,
-      specsChain.buildingAgeInYears,
-      specsChain.buildingTotalParkingLotsCount,
-      specsChain.buildingTotalUnitsCount,
-      specsChain.inACompound,
-      specsChain.amenities,
-      specsChain.communityServices,
-      specsChain.constructionActivityMeasurementMethod,
-      specsChain.width,
-      specsChain.length,
-      specsChain.height,
-      specsChain.thickness,
-      specsChain.diameter,
-      specsChain.radius,
-      specsChain.linearMeasurementUnit,
-      specsChain.footPrint,
-      specsChain.areaMeasureUnit,
-      specsChain.volume,
-      specsChain.volumeMeasurementUnit,
-      specsChain.weight,
-      specsChain.weightMeasurementUnit,
-      specsChain.count,
-      specsChain.size,
-      specsChain.wattage,
-      specsChain.voltage,
-      specsChain.ampere,
-      specsChain.inStock,
-      specsChain.deliveryAvailable,
-      specsChain.deliveryDuration,
-      specsChain.deliveryDurationUnit,
-      specsChain.madeIn,
-      specsChain.warrantyDuration,
-      specsChain.warrantyDurationUnit,
-    ],
-  );
-// -----------------------------------------------------------------------------
 }

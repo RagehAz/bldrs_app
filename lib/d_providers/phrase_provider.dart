@@ -12,9 +12,11 @@ import 'package:provider/provider.dart';
 
 // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 class PhraseProvider extends ChangeNotifier {
+// -----------------------------------------------------------------------------
 
   /// CHANGE APP LANGUAGE
 
+// --------------------------------------------
   Future<void> changeAppLang({
     @required BuildContext context,
     @required String langCode,
@@ -38,7 +40,7 @@ class PhraseProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+// -----------------------------------------------------------------------------
 
   /// FETCHING PHRASES
 
@@ -68,7 +70,7 @@ class PhraseProvider extends ChangeNotifier {
       blog('fetchPhrasesByLangCode : phrases NOT found in local db : langCode : $langCode');
 
       /// 2.1 read from firebase
-      _phrases = await readPhrases(
+      _phrases = await readBasicPhrases(
           context: context,
           langCode: langCode,
       );
@@ -98,8 +100,35 @@ class PhraseProvider extends ChangeNotifier {
     );
 
   }
+
+  Future<Phrase> fetchCountryPhrase({
+    @required BuildContext context,
+    @required String countryID,
+    @required String langCode,
+}) async {
+
+    /// GET FROM LOCAL PHRASES
+    final Phrase _countryPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
+        langCode: langCode,
+        phid: countryID,
+        phrases: _currentTransModel.phrases,
+    );
+
+    /// IF NOT FOUND LOCALLY
+    if (_countryPhrase == null){
+
+      /// get from firebase
+      _countryPhrase =
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// RELOADING PHRASES
+
 // -------------------------------------
-  Future<void> updatePhrases(BuildContext context) async {
+  Future<void> reloadPhrases(BuildContext context) async {
 
     /// delete LDB phrases
     await LDBOps.deleteAllAtOnce(docName: LDBDoc.enPhrases);

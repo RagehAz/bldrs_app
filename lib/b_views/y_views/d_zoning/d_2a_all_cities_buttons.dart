@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_city_button.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +20,8 @@ class AllCitiesButtons extends StatelessWidget {
 
     cities.sort((CityModel a, CityModel b){
 
-      final String _nameA = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: a.phrases).value;
-      final String _nameB = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: b.phrases).value;
+      final String _nameA = superPhrase(context, a.cityID);
+      final String _nameB = superPhrase(context, b.cityID);
 
       return _nameA.compareTo(_nameB);
     });
