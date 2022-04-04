@@ -101,8 +101,10 @@ void main() {
       'name': 'meshmesh',
     };
 
-    final bool _result =
-        Mapper.mapsAreTheSame(_aMapInTheList, _aMapInTheListCopy);
+    final bool _result = Mapper.mapsAreTheSame(
+        map1: _aMapInTheList,
+        map2: _aMapInTheListCopy
+    );
 
     expect(_result, true);
   });
@@ -118,8 +120,10 @@ void main() {
       'name': 'meshmeshaaaaaaaaayaaaaaaa',
     };
 
-    final bool _result =
-        Mapper.mapsAreTheSame(_aMapInTheList, _aMapNotInTheListByOneField);
+    final bool _result = Mapper.mapsAreTheSame(
+      map1: _aMapInTheList,
+      map2: _aMapNotInTheListByOneField,
+    );
 
     expect(_result, false);
   });

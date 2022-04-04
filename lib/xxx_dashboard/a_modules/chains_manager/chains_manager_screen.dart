@@ -1,16 +1,16 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/raw_data/all_chains.dart';
+import 'package:bldrs/a_models/chain/raw_data/specs/raw_specs.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/xxx_dashboard/a_modules/chains_manager/chains_controller.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/chains_manager/widgets/chains_data_tree_starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,16 +35,34 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onUploadChains() async {
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     // final Chain _keywordsChain = _chainsProvider.keywordsChain;
     // final Chain _specsChain = _chainsProvider.specsChain;
 
     // final Chain _keywordsChain = await ChainOps.readKeywordsChain(context);
 
     // _keywordsChain?.blogChain();
+    //
+    // final List<Chain> _newSpecsChains = <Chain>[
+    //   propertySalePrice,
+    //   propertyRentPrice,
+    //   propertyDecorationStyle,
+    //   designType,
+    //   projectCost,
+    //   constructionDuration,
+    // ];
+    //
+    // await onAddMoreSpecsChainsToExistingSpecsChains(
+    //   context: context,
+    //   chainsToAdd: _newSpecsChains,
+    // );
 
-    // await _chainsProvider.clearCurrentKeyword(context);
 
+    await deleteAllCollectionDocs(
+        context: context,
+        collName: 'countries',
+    );
+
+    // return 'b';
   }
 // -----------------------------------------------------------------------------
   @override

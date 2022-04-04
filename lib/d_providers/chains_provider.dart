@@ -18,11 +18,22 @@ class ChainsProvider extends ChangeNotifier {
   /// INITIALIZATION
 
 // -------------------------------------
-  Future<void> getSetKeywordsAndSpecsChains(BuildContext context) async {
+  /// All chains are [ Keywords chain - specs chain ]
+  Future<void> getSetAllChains(BuildContext context) async {
 
     await _getsetKeywordsChain(context: context, notify: true);
     await _getsetSpecsChain(context: context, notify: true);
 
+  }
+// -------------------------------------
+  Future<void> reloadAllChains(BuildContext context) async {
+
+    /// delete LDB chains
+    await LDBOps.deleteAllAtOnce(docName: LDBDoc.keywordsChain);
+    await LDBOps.deleteAllAtOnce(docName: LDBDoc.specsChain);
+
+    /// get set all chains
+    await getSetAllChains(context);
   }
 // -----------------------------------------------------------------------------
 
@@ -42,7 +53,7 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// FETCHING KEYWORDS Chain
+  /// FETCHING CHAINS
 
 // -------------------------------------
   Future<Chain> fetchKeywordsChain(BuildContext context) async {
@@ -80,10 +91,6 @@ class ChainsProvider extends ChangeNotifier {
 
     return _keywordsChain;
   }
-// -----------------------------------------------------------------------------
-
-  /// FETCHING SPECS CHAIN
-
 // -------------------------------------
   Future<Chain> fetchSpecsChain(BuildContext context) async {
 
