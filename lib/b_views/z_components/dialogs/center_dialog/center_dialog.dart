@@ -15,7 +15,7 @@ class CenterDialog extends StatelessWidget {
     @required this.title,
     @required this.boolDialog,
     @required this.height,
-    @required this.confirmButtonText,
+    this.confirmButtonText,
     this.child,
     Key key,
   }) : super(key: key);
@@ -34,7 +34,7 @@ class CenterDialog extends StatelessWidget {
     bool boolDialog = false,
     double height,
     Widget child,
-    String confirmButtonText = 'Ok',
+    String confirmButtonText,
   }) async {
 
     final bool _result = await showDialog(
@@ -82,6 +82,17 @@ class CenterDialog extends StatelessWidget {
     return _height;
   }
 // -----------------------------------------------------------------------------
+  String _getConfirmButtonText(){
+
+    String _text = boolDialog ? 'Yes' : 'Ok';
+
+    if (confirmButtonText != null){
+      _text = confirmButtonText;
+    }
+
+    return _text;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -109,6 +120,8 @@ class CenterDialog extends StatelessWidget {
     const double _buttonHeight = DialogButton.height;
     const double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
     final double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
+
+    final String _confirmButtonText = _getConfirmButtonText();
 
     return SafeArea(
       child: AlertDialog(
@@ -213,9 +226,7 @@ class CenterDialog extends StatelessWidget {
                                       Nav.goBack(context, argument: false),
                                 ),
                               DialogButton(
-                                verse: boolDialog == true
-                                    ? 'Yes'
-                                    : confirmButtonText,
+                                verse: _confirmButtonText,
                                 verseColor: Colorz.black230,
                                 color: Colorz.yellow255,
                                 onTap: boolDialog == true

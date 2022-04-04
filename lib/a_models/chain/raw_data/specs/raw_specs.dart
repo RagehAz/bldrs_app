@@ -667,7 +667,7 @@ const Chain warrantyDurationUnit = Chain(
 );
 // ------------------------------------------
 
-/// TASK : TO ADD THIS TO FIREBASE
+
 const Chain propertySalePrice = Chain(
   id: 'phid_s_PropertySalePrice',
   icon: null,

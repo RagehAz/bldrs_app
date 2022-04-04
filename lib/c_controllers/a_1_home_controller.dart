@@ -92,7 +92,7 @@ Future<void> _initializeSponsors(BuildContext context) async {
 // -----------------------------------------------------------------------------
 Future<void> _initializeSpecsAndKeywords(BuildContext context) async {
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  await _chainsProvider.getSetKeywordsAndSpecsChains(context);
+  await _chainsProvider.getSetAllChains(context);
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeUserBzz(BuildContext context) async {

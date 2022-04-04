@@ -256,7 +256,10 @@ class SpecModel {
     final Map<String, dynamic> specsAMap = cipherSpecs(specsA);
     final Map<String, dynamic> specsBMap = cipherSpecs(specsB);
 
-    final bool _listsAreTheSame = Mapper.mapsAreTheSame(specsAMap, specsBMap);
+    final bool _listsAreTheSame = Mapper.mapsAreTheSame(
+        map1: specsAMap,
+        map2: specsBMap,
+    );
 
     blog('specsListsAreTheSame : _listsAreTheSame : $_listsAreTheSame');
 
