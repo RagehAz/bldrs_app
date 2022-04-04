@@ -18,7 +18,6 @@ class CityModel {
     this.population,
     this.isActivated,
     this.isPublic,
-    this.phrases,
     this.position,
     this.state,
   });
@@ -29,7 +28,6 @@ class CityModel {
   final int population;
   final bool isActivated;
   final bool isPublic;
-  final List<Phrase> phrases;
   final GeoPoint position;
   final String state; // only for USA
 // -----------------------------------------------------------------------------
@@ -49,10 +47,6 @@ class CityModel {
       'population': population,
       'isActivated': isActivated,
       'isPublic': isPublic,
-      'phrases': Phrase.cipherPhrasesToMap(
-        phrases: phrases,
-
-      ),
       'position': Atlas.cipherGeoPoint(
           point: position,
           toJSON: toJSON
@@ -94,7 +88,6 @@ class CityModel {
         population: map['population'],
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
-        phrases: Phrase.decipherPhrasesMap(map['phrases']),
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
       );
     }
@@ -150,16 +143,17 @@ class CityModel {
     @required BuildContext context,
     @required List<CityModel> cities,
   }) {
-    final List<String> _citiesNames = <String>[];
-
-    if (Mapper.canLoopList(cities)) {
-      for (final CityModel city in cities) {
-        final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city.phrases)?.value;
-        _citiesNames.add(_cityName);
-      }
-    }
-
-    return TextMod.sortAlphabetically(_citiesNames);
+    // final List<String> _citiesNames = <String>[];
+    //
+    // if (Mapper.canLoopList(cities)) {
+    //   for (final CityModel city in cities) {
+    //     final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: city.phrases)?.value;
+    //     _citiesNames.add(_cityName);
+    //   }
+    // }
+    //
+    // return TextMod.sortAlphabetically(_citiesNames);
+    return null;
   }
 // -------------------------------------
   static List<MapModel> getCitiesNamesMapModels({
@@ -208,11 +202,11 @@ class CityModel {
   }) {
     String _cityName = '...';
 
-    if (city != null) {
-      _cityName = Phrase.getPhraseByCurrentLangFromPhrases(
-          context: context,
-          phrases: city.phrases)?.value;
-    }
+    // if (city != null) {
+    //   _cityName = Phrase.getPhraseByCurrentLangFromPhrases(
+    //       context: context,
+    //       phrases: city.phrases)?.value;
+    // }
 
     return _cityName;
   }
@@ -233,42 +227,44 @@ class CityModel {
   }
 // -------------------------------------
   static String getCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
-    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
-        context: context,
-        phrases: cityModel?.phrases
-    )?.value;
-
-    return _nameInCurrentLanguage ?? cityModel?.cityID;
+    // final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
+    //     context: context,
+    //     phrases: cityModel?.phrases
+    // )?.value;
+    //
+    // return _nameInCurrentLanguage ?? cityModel?.cityID;
+    return null;
   }
 // -------------------------------------
   static List<CityModel> _getCitiesFromNames({
     @required List<Phrase> names,
     @required List<CityModel> sourceCities,
   }){
-    final List<CityModel> _foundCities = <CityModel>[];
-
-    if (Mapper.canLoopList(sourceCities) && Mapper.canLoopList(names)){
-
-      for (final Phrase name in names){
-
-        for (final CityModel city in sourceCities){
-
-          if (city.phrases.contains(name)){
-
-            if (!_foundCities.contains(city)){
-              _foundCities.add(city);
-
-            }
-
-          }
-
-        }
-
-      }
-
-    }
-
-    return _foundCities;
+    // final List<CityModel> _foundCities = <CityModel>[];
+    //
+    // if (Mapper.canLoopList(sourceCities) && Mapper.canLoopList(names)){
+    //
+    //   for (final Phrase name in names){
+    //
+    //     for (final CityModel city in sourceCities){
+    //
+    //       if (city.phrases.contains(name)){
+    //
+    //         if (!_foundCities.contains(city)){
+    //           _foundCities.add(city);
+    //
+    //         }
+    //
+    //       }
+    //
+    //     }
+    //
+    //   }
+    //
+    // }
+    //
+    // return _foundCities;
+    return null;
   }
 // -----------------------------------------------------------------------------
 
@@ -284,7 +280,6 @@ class CityModel {
     blog('population : $population');
     blog('isActivated : $isActivated');
     blog('isPublic : $isPublic');
-    blog('phrases : $phrases');
     blog('position : $position');
 
     blog('CITY - PRINT --------------------------------------- END');
@@ -324,31 +319,33 @@ class CityModel {
     @required String inputText,
   }){
 
-    /// CREATE NAMES LIST
-    final List<Phrase> _citiesNames = <Phrase>[];
-    for (final CityModel city in sourceCities){
-      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLangFromPhrases(
-        context: context,
-        phrases: city.phrases,
-      );
-      _citiesNames.add(_nameInLingo);
-    }
-
-    /// SEARCH NAMES
-    final List<Phrase> _foundNames = Phrase.searchPhrasesTrigrams(
-      sourcePhrases: _citiesNames,
-      inputText: inputText,
-    );
-
-    /// GET CITIES BY IDS FROM NAMES
-    final List<CityModel> _foundCities = _getCitiesFromNames(
-        names: _foundNames,
-        sourceCities: sourceCities
-    );
-
-    CityModel.blogCities(_foundCities);
-
-    return _foundCities;
+    // /// CREATE NAMES LIST
+    // final List<Phrase> _citiesNames = <Phrase>[];
+    // for (final CityModel city in sourceCities){
+    //
+    //   final Phrase _nameInLingo = Phrase.getPhraseByCurrentLangFromPhrases(
+    //     context: context,
+    //     phrases: city.phrases,
+    //   );
+    //   _citiesNames.add(_nameInLingo);
+    // }
+    //
+    // /// SEARCH NAMES
+    // final List<Phrase> _foundNames = Phrase.searchPhrasesTrigrams(
+    //   sourcePhrases: _citiesNames,
+    //   inputText: inputText,
+    // );
+    //
+    // /// GET CITIES BY IDS FROM NAMES
+    // final List<CityModel> _foundCities = _getCitiesFromNames(
+    //     names: _foundNames,
+    //     sourceCities: sourceCities
+    // );
+    //
+    // CityModel.blogCities(_foundCities);
+    //
+    // return _foundCities;
+    return null;
   }
 // -----------------------------------------------------------------------------
 

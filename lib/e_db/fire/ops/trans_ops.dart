@@ -33,7 +33,7 @@ Stream<TransModel> getTransModelStream({
 
 }
 // -----------------------------
-Future<List<Phrase>> readPhrases({
+Future<List<Phrase>> readBasicPhrases({
   @required BuildContext context,
   @required String langCode,
 }) async {
@@ -55,6 +55,50 @@ Future<List<Phrase>> readPhrases({
     return null;
   }
 
+}
+// -----------------------------
+Future<Phrase> readCountryPhrase({
+  @required BuildContext context,
+  @required String langCode,
+  @required String countryID,
+}) async {
+
+  final Map<String, dynamic> _map = await Fire.readSubDoc(
+      context: context,
+      collName: FireColl.translations,
+      docName: langCode,
+      subCollName: FireSubColl.translations_xx_countries,
+      subDocName: countryID,
+  );
+
+  final Phrase _countryPhrase = Phrase.decipherPhrase(
+    map: _map,
+    langCodeOverride: langCode,
+  );
+
+  return _countryPhrase;
+}
+// -----------------------------
+Future<Phrase> readCityPhrase({
+  @required BuildContext context,
+  @required String langCode,
+  @required String cityID,
+}) async {
+
+  final Map<String, dynamic> _map = await Fire.readSubDoc(
+    context: context,
+    collName: FireColl.translations,
+    docName: langCode,
+    subCollName: FireSubColl.translations_xx_cities,
+    subDocName: cityID,
+  );
+
+  final Phrase _cityPhrase = Phrase.decipherPhrase(
+    map: _map,
+    langCodeOverride: langCode,
+  );
+
+  return _cityPhrase;
 }
 // ---------------------------------------------------------------------------
 

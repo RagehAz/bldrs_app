@@ -10,7 +10,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/noti_provider.dart';
+import 'package:bldrs/f_helpers/notifications/noti_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';

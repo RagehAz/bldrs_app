@@ -20,7 +20,6 @@ class CountryModel {
     @required this.isGlobal,
     @required this.citiesIDs,
     @required this.language,
-    @required this.phrases,
     @required this.currency,
   });
   /// --------------------------------------------------------------------------
@@ -36,7 +35,6 @@ class CountryModel {
   final bool isGlobal;
   final List<String> citiesIDs;
   final String language;
-  final List<Phrase> phrases;
   final String currency;
 // -----------------------------------------------------------------------------
 
@@ -54,7 +52,6 @@ class CountryModel {
       'isGlobal': isGlobal,
       'citiesIDs': citiesIDs,
       'language': language,
-      'phrases': Phrase.cipherPhrasesToMap(phrases: phrases),
       'currency': currency,
     };
   }
@@ -63,15 +60,13 @@ class CountryModel {
     @required Map<String, dynamic> map,
     @required bool fromJSON,
   }) {
+
     CountryModel _countryModel;
 
     if (map != null) {
 
-      final List<Phrase> _phrases = Phrase.decipherPhrasesMap(map['phrases']);
-
       _countryModel = CountryModel(
         id: map['id'],
-        phrases: _phrases,
         region: map['region'],
         continent: map['continent'],
         isActivated: map['isActivated'],
@@ -251,8 +246,6 @@ class CountryModel {
     blog('isGlobal : $isGlobal');
     blog('citiesIDs : $citiesIDs');
     blog('language : $language');
-    // blog('phrases : $phrases');
-    Phrase.blogPhrases(phrases);
 
     blog('$methodName ------------------------------------------- END');
   }

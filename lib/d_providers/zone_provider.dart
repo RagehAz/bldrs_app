@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -7,6 +6,7 @@ import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneSearch;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
@@ -518,11 +518,7 @@ class ZoneProvider extends ChangeNotifier {
 
 // -------------------------------------
   String getCurrentCountryNameByCurrentLingo(BuildContext context) {
-    final String _name = Phrase.getPhraseByCurrentLangFromPhrases(
-        context: context,
-        phrases: _currentCountryModel.phrases
-    )?.value;
-
+    final String _name = superPhrase(context, _currentCountryModel.id);
     return _name;
   }
 // -------------------------------------
@@ -533,10 +529,7 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   String getCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
 
-    final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
-        context: context,
-        phrases: _currentCityModel?.phrases
-    )?.value;
+    final String _nameInCurrentLanguage = superPhrase(context, cityID);
 
     return _nameInCurrentLanguage ?? cityID;
   }

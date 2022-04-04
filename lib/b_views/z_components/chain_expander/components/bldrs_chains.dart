@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/raw_data/all_chains.dart';
 import 'package:bldrs/b_views/z_components/chain_expander/components/inception.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -23,7 +24,7 @@ class BldrsChain extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
-    final Chain _allChains = chain ?? Chain.bldrsChain;
+    final Chain _allChains = chain ?? bldrsChain;
 
     return SizedBox(
       width: _boxWidth,

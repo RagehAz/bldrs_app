@@ -41,7 +41,10 @@ class TransModel {
     if (map != null){
       _model = TransModel(
           langCode: map['langCode'],
-          phrases: Phrase.decipherPhrasesMap(map['phrases']),
+          phrases: Phrase.decipherPhrasesMap(
+            map: map['phrases'],
+            addLangCodeOverride: map['langCode'],
+          ),
       );
     }
 

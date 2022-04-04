@@ -12,7 +12,6 @@ class DistrictModel{
     this.countryID,
     this.cityID,
     this.districtID,
-    this.names,
     this.isActivated,
     this.isPublic,
   });
@@ -20,7 +19,6 @@ class DistrictModel{
   final String countryID;
   final String cityID;
   final String districtID;
-  final List<Phrase> names;
   /// dashboard manual switch to deactivate entire cities.
   final bool isActivated;
   /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
@@ -32,7 +30,6 @@ class DistrictModel{
       'countryID' : countryID,
       'cityID' : cityID,
       'districtID' : TextMod.fixCountryName(districtID),
-      'names' : Phrase.cipherPhrasesToMap(phrases: names),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
     };
@@ -60,7 +57,6 @@ class DistrictModel{
       countryID : map['countryID'],
       cityID : map['cityID'],
       districtID : map['districtID'],
-      names : Phrase.decipherPhrasesMap(map['names']),
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
     );
@@ -142,21 +138,22 @@ class DistrictModel{
     @required String districtID
   }){
 
-    String _districtName = '...';
-
-    if (city != null && districtID != null){
-
-      final DistrictModel _district = DistrictModel.getDistrictFromDistricts(
-          districts: city.districts,
-          districtID: districtID,
-      );
-
-      _districtName = Phrase.getPhraseByCurrentLangFromPhrases(
-          context: context,
-          phrases: _district?.names)?.value;
-    }
-
-    return _districtName;
+    // String _districtName = '...';
+    //
+    // if (city != null && districtID != null){
+    //
+    //   final DistrictModel _district = DistrictModel.getDistrictFromDistricts(
+    //       districts: city.districts,
+    //       districtID: districtID,
+    //   );
+    //
+    //   _districtName = Phrase.getPhraseByCurrentLangFromPhrases(
+    //       context: context,
+    //       phrases: _district?.names)?.value;
+    // }
+    //
+    // return _districtName;
+    return null;
   }
 // -----------------------------------------------------------------------------
   static String getTranslatedDistrictNameFromDistrict({
@@ -164,14 +161,15 @@ class DistrictModel{
     @required DistrictModel district,
 }){
 
-    final Phrase _districtName = Phrase.getPhraseByCurrentLangFromPhrases(
-        context: context,
-        phrases: district?.names
-    );
-
-    final String _nameString = _districtName?.value;
-
-    return _nameString;
+    // final Phrase _districtName = Phrase.getPhraseByCurrentLangFromPhrases(
+    //     context: context,
+    //     phrases: district?.names
+    // );
+    //
+    // final String _nameString = _districtName?.value;
+    //
+    // return _nameString;
+    return null;
   }
 // -----------------------------------------------------------------------------
   static List<DistrictModel> searchDistrictsByCurrentLingoName({
@@ -180,64 +178,66 @@ class DistrictModel{
     @required String inputText,
   }){
 
-    /// CREATE NAMES LIST
-    final List<Phrase> _districtsNames = <Phrase>[];
-
-    for (final DistrictModel district in sourceDistricts){
-
-      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLangFromPhrases(
-        context: context,
-        phrases: district.names,
-      );
-
-      _districtsNames.add(_nameInLingo);
-
-    }
-
-    /// SEARCH NAMES
-    final List<Phrase> _foundNames = Phrase.searchPhrasesTrigrams(
-      sourcePhrases: _districtsNames,
-      inputText: inputText,
-    );
-
-    /// GET CITIES BY IDS FROM NAMES
-    final List<DistrictModel> _foundDistricts = _getDistrictsFromNames(
-        names: _foundNames,
-        sourceDistricts: sourceDistricts
-    );
-
-
-    return _foundDistricts;
+    // /// CREATE NAMES LIST
+    // final List<Phrase> _districtsNames = <Phrase>[];
+    //
+    // for (final DistrictModel district in sourceDistricts){
+    //
+    //   final Phrase _nameInLingo = Phrase.getPhraseByCurrentLangFromPhrases(
+    //     context: context,
+    //     phrases: district.names,
+    //   );
+    //
+    //   _districtsNames.add(_nameInLingo);
+    //
+    // }
+    //
+    // /// SEARCH NAMES
+    // final List<Phrase> _foundNames = Phrase.searchPhrasesTrigrams(
+    //   sourcePhrases: _districtsNames,
+    //   inputText: inputText,
+    // );
+    //
+    // /// GET CITIES BY IDS FROM NAMES
+    // final List<DistrictModel> _foundDistricts = _getDistrictsFromNames(
+    //     names: _foundNames,
+    //     sourceDistricts: sourceDistricts
+    // );
+    //
+    //
+    // return _foundDistricts;
+  return null;
   }
 // -----------------------------------------------------------------------------
   static List<DistrictModel> _getDistrictsFromNames({
     @required List<Phrase> names,
     @required List<DistrictModel> sourceDistricts,
   }){
-    final List<DistrictModel> _foundDistricts = <DistrictModel>[];
-
-    if (Mapper.canLoopList(sourceDistricts) && Mapper.canLoopList(names)){
-
-      for (final Phrase name in names){
-
-        for (final DistrictModel district in sourceDistricts){
-
-          if (district.names.contains(name)){
-
-            if (!_foundDistricts.contains(district)){
-              _foundDistricts.add(district);
-
-            }
-
-          }
-
-        }
-
-      }
-
-    }
-
-    return _foundDistricts;
+    // final List<DistrictModel> _foundDistricts = <DistrictModel>[];
+    //
+    // if (Mapper.canLoopList(sourceDistricts) && Mapper.canLoopList(names)){
+    //
+    //   for (final Phrase name in names){
+    //
+    //     for (final DistrictModel district in sourceDistricts){
+    //
+    //       if (district.names.contains(name)){
+    //
+    //         if (!_foundDistricts.contains(district)){
+    //           _foundDistricts.add(district);
+    //
+    //         }
+    //
+    //       }
+    //
+    //     }
+    //
+    //   }
+    //
+    // }
+    //
+    // return _foundDistricts;
+    return null;
   }
 // -----------------------------------------------------------------------------
 }

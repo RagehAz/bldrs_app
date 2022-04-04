@@ -1,13 +1,13 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_3_select_district_screen_view.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -131,7 +131,7 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       cityID: widget.city.cityID,
     );
 
-    final String _cityName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: widget.city.phrases)?.value;
+    final String _cityName = superPhrase(context, widget.city.cityID);
 
     return MainLayout(
       skyType: SkyType.black,

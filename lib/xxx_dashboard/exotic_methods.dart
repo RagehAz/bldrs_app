@@ -266,7 +266,7 @@ class ExoticMethods {
           .add(country.id);
     }
 
-    blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.phrases[0].value}');
+    blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.id}');
   }
 
   final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
