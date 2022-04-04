@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/keywords/widgets/chain_tree_viewer.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/chains_manager/widgets/chain_tree_viewer.dart';
 import 'package:flutter/material.dart';
 
 class ChainsTreesStarter extends StatelessWidget {
