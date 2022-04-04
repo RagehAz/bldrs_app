@@ -64,11 +64,11 @@ class InfoPageSpecs extends StatelessWidget {
     final List<SpecModel> _flyerSpecsFromThisSpecList = <SpecModel>[];
 
     /// GET FLYER SPECS MATHCHING THIS SPECLIST
-    if (Mapper.canLoopList(flyerSpecs) == true){
+    if (Mapper.canLoopList(flyerSpecs) == true && specList != null){
 
       for (final SpecModel spec in flyerSpecs){
 
-        if (spec.specsListID == specList.chainID){
+        if (spec.specsListID == specList?.chainID){
 
           final bool _alreadyAdded = SpecModel.specsContainThisSpecValue(
             specs: _flyerSpecsFromThisSpecList,
@@ -139,7 +139,7 @@ class InfoPageSpecs extends StatelessWidget {
 
               final SpecList _specList = _flyerSpecsLists[index];
 
-              final String _specListName = superPhrase(context, _specList.chainID);
+              final String _specListName = superPhrase(context, _specList?.chainID);
 
               blog('_specListName is : $_specListName');
 
@@ -173,7 +173,7 @@ class InfoPageSpecs extends StatelessWidget {
 
                     /// SPECS
                     SuperVerse(
-                      verse: _specsInString.toUpperCase(),
+                      verse: _specsInString?.toUpperCase(),
                       // size: 2,
                       maxLines: 10,
                       centered: false,

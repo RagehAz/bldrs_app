@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -38,6 +40,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
   ZoneProvider _zoneProvider;
   FlyersProvider _flyersProvider;
   GeneralProvider _generalProvider;
+  ChainsProvider _chainsProvider;
   AnimationController _animationController;
   UiProvider _uiProvider;
 // -----------------------------------------------------------------------------
@@ -70,6 +73,10 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    // final Chain _keywordsChain = _chainsProvider.keywordsChain;
+    // final Chain _specsChain = _chainsProvider.specsChain;
+
 
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -127,6 +134,9 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     final List<FlyerModel> _promotedFlyers = _flyersProvider?.promotedFlyers;
 
     final List<FlyerType> _activeSections = _generalProvider?.appState?.activeSections;
+    final Chain _keywordsChain = _chainsProvider.keywordsChain;
+    final Chain _specsChain = _chainsProvider.specsChain;
+
 
     // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     // final List<BzModel> _userBzz = _bzzProvider.myBzz;
@@ -279,6 +289,33 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   }),
 
               const BubblesSeparator(),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _keywordsChain',
+                  icon: Iconizer.valueIsNotNull(_keywordsChain),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    _keywordsChain.blogChain();
+
+                    unawaited(_triggerLoading());
+                  }),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _specsChain',
+                  icon: Iconizer.valueIsNotNull(_specsChain),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    _specsChain.blogChain();
+
+                    unawaited(_triggerLoading());
+                  }),
+
+              const BubblesSeparator(),
+
 
               /// AVOID SET STATE : WAY # 1
               ValueListenableBuilder<int>(
