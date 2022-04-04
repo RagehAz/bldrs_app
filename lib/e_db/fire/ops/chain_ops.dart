@@ -37,7 +37,7 @@ Future<Chain> readSpecsChain(BuildContext context) async {
 
   return _chain;
 }
-// ------------------------------------------
+// -----------------------------------------------------------------------------
 
 /// UPDATES
 
@@ -68,17 +68,17 @@ Future<void> addChainsToSpecsChainSons({
 
     blog('chains are the same : $_chainsAreTheSame');
 
-    // await Fire.updateDoc(
-    //     context: context,
-    //     collName: FireColl.chains,
-    //     docName: FireDoc.chains_specs,
-    //     input: _updatedChain.toMap(),
-    // );
+    await Fire.updateDoc(
+        context: context,
+        collName: FireColl.chains,
+        docName: FireDoc.chains_specs,
+        input: _updatedChain.toMap(),
+    );
 
   }
 
 }
-
+// -----------------------------------------------------------------------------
 /// DELETE
 
 // ------------------------------------------
