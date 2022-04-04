@@ -116,18 +116,24 @@ class Phrase {
     return _maps;
 }
 // -------------------------------------
-  static Phrase decipherPhrase(Map<String, dynamic> map) {
+  static Phrase decipherPhrase({
+    @required Map<String, dynamic> map,
+    String langCodeOverride,
+  }) {
 
     return Phrase(
       id: map['id'],
       value: map['value'],
-      langCode: map['langCode'], /// TASK : UPDATE ALL FIREBASE OLD [Name] MODELS FROM FIELD ['code'] to ['langCode']
+      langCode: langCodeOverride ?? map['langCode'],
       trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
     );
 
   }
 // -------------------------------------
-  static List<Phrase> decipherPhrasesMap(Map<String, dynamic> map,){
+  static List<Phrase> decipherPhrasesMap({
+  @required Map<String, dynamic> map,
+    String addLangCodeOverride,
+}){
     final List<Phrase> _phrases = <Phrase>[];
 
     final List<String> _keys = map?.keys?.toList();
@@ -137,7 +143,10 @@ class Phrase {
       for (int i = 0; i<_keys.length; i++){
 
         final String _key = _keys[i];
-        final Phrase _phrase = decipherPhrase(map[_key]);
+        final Phrase _phrase = decipherPhrase(
+          map: map[_key],
+          langCodeOverride: addLangCodeOverride,
+        );
         _phrases.add(_phrase);
 
       }
@@ -149,6 +158,7 @@ class Phrase {
 // -------------------------------------
   static List<Phrase> decipherPhrasesMaps({
     @required List<Map<String, dynamic>> maps,
+    String langCodeOverride,
   }){
 
     final List<Phrase> _phrases = <Phrase>[];
@@ -158,9 +168,13 @@ class Phrase {
       for (int i = 0; i< maps.length; i++){
 
         final Map<String, dynamic> _map = maps[i];
-        final Phrase _phrase = decipherPhrase(_map);
-        _phrases.add(_phrase);
 
+        final Phrase _phrase = decipherPhrase(
+          map: _map,
+          langCodeOverride: langCodeOverride,
+        );
+
+        _phrases.add(_phrase);
       }
 
     }

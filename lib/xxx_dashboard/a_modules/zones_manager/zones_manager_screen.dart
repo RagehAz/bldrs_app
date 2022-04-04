@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -127,7 +128,7 @@ class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
           itemBuilder: (BuildContext context, int index) {
 
             final CountryModel _countryModel = _countries[index];
-            final String _countryName = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _countryModel.phrases)?.value;
+            final String _countryName = superPhrase(context, _countryModel.id);
 
             return DreamBox(
               height: 100,

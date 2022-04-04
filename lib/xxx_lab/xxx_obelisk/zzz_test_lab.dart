@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/raw_data/specs/raw_specs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart';
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/ops/chain_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -95,28 +95,24 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'DO IT',
+              verse: 'DO ITttt',
               icon: Iconz.star,
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                // final List<Chain> _chains = [
-                //   ... Chain.bldrsChain.sons,
-                //   ... Chain.allSpecsChain.sons,
-                // ];
-                //
-                // final List<Map<String, dynamic>> _maps = Chain.cipherChains(_chains);
-                //
-                // final List<Chain> _chains2 = Chain.decipherChains(_maps);
-                //
-                // Chain.blogChains(_chains2);
+                final List<Chain> _newChains = <Chain>[
+                  propertySalePrice,
+                  propertyRentPrice,
+                  propertyDecorationStyle,
+                  designType,
+                  projectCost,
+                  constructionDuration,
+                ];
 
-                await createNamedDoc(
-                    context: context,
-                    collName: FireColl.chains,
-                    docName: FireDoc.chains_keywords,
-                    input: Chain.bldrsChain.toMap(),
+                await addChainsToSpecsChainSons(
+                  context: context,
+                  chainsToAdd: _newChains,
                 );
 
                 _uiProvider.triggerLoading(setLoadingTo: false);

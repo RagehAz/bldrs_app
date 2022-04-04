@@ -1,10 +1,10 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_3a_all_districts_buttons.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_3b_searched_districts_buttons.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +26,8 @@ class SelectDistrictScreenView extends StatelessWidget {
 
     districts.sort((DistrictModel a, DistrictModel b){
 
-      final String _nameA = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: a.names).value;
-      final String _nameB = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: b.names).value;
+      final String _nameA = superPhrase(context, a.districtID);
+      final String _nameB = superPhrase(context, b.districtID);
 
       return _nameA.compareTo(_nameB);
     });

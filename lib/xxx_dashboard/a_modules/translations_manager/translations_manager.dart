@@ -92,7 +92,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   // -----------------------------
   Future<void> _updatePhrases() async {
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-    await _phraseProvider.updatePhrases(context);
+    await _phraseProvider.reloadPhrases(context);
   }
 
   // -----------------------------
