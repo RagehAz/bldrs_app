@@ -20,7 +20,7 @@ class ChainsProvider extends ChangeNotifier {
 // -------------------------------------
   Future<void> getSetKeywordsAndSpecsChains(BuildContext context) async {
 
-    await _getsetKeywordsChain(context: context, notify: false);
+    await _getsetKeywordsChain(context: context, notify: true);
     await _getsetSpecsChain(context: context, notify: true);
 
   }
@@ -56,16 +56,18 @@ class ChainsProvider extends ChangeNotifier {
 
     /// 2 - all keywords chain found in LDB
     if (Mapper.canLoopList(_maps)) {
+      // blog('keywords chain found in LDB');
       _keywordsChain = Chain.decipherChain(_maps[0]);
     }
 
     /// 3 - all keywords chain is not found in LDB
     else {
+      // blog('keywords chain is NOT found in LDB');
       _keywordsChain = await ChainOps.readKeywordsChain(context);
 
       /// 3 - insert in LDB when found on firebase
       if (_keywordsChain != null){
-
+        // blog('keywords chain is found in FIREBASE and inserted');
         await LDBOps.insertMap(
             primaryKey: 'id',
             input: _keywordsChain.toMap(),
@@ -142,7 +144,7 @@ class ChainsProvider extends ChangeNotifier {
     @required Chain keywordsChain,
     @required bool notify,
   }){
-    _specsChain = keywordsChain;
+    _keywordsChain = keywordsChain;
     if (notify == true){
       notifyListeners();
     }

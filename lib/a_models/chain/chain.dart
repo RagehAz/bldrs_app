@@ -114,11 +114,15 @@ class Chain {
 
     if (sons != null){
 
-      if (sons is List<Map<String, dynamic>>){
-        _output = decipherChains(sons);
-      }
-      else if (sons is List<String>){
+      if (sons is List<dynamic>){
+
+        if (sons[0] is String){
         _output = Mapper.getStringsFromDynamics(dynamics: sons);
+        }
+        else {
+        _output = decipherChains(sons);
+        }
+
       }
       else if (sons is String){
         _output = _decipherDataCreator(sons);
@@ -130,7 +134,7 @@ class Chain {
     return  _output;
   }
 // --------------------------------------------
-  static List<Chain> decipherChains(List<Map<String, dynamic>> maps){
+  static List<Chain> decipherChains(List<dynamic> maps){
     final List<Chain> _chains = <Chain>[];
 
     if (Mapper.canLoopList(maps) == true){
@@ -323,21 +327,34 @@ class Chain {
 // --------------------------------------------
   void blogChain(){
 
-    blog('Chain : $id : icon : $icon : sons :  $sons');
+    if (id != null){
+      if (sonsAreDataCreator(sons)){
+        blog('Chain : $id : icon : $icon : sons :  $sons');
+      }
+
+      if (sonsAreStrings(sons)){
+        blog('Chain : $id : icon : $icon : sons :  $sons');
+      }
+
+      if (sonsAreChains(sons)){
+        blog('Chain : $id : icon : $icon : sons :-');
+        blogChains(sons);
+      }
+    }
+
+    else {
+      blog('chain is null');
+    }
 
   }
 // --------------------------------------------
   static void blogChains(List<Chain> chains){
-
     int _count = 1;
-    blog('Blogging ${chains.length} chains ------------------------------------------------ START');
     for (final Chain chain in chains){
-
-      blog('Number : $_count');
+    blog('CHAIN : $_count / ${chains.length} chains');
       chain.blogChain();
       _count++;
     }
-    blog('Blogging ${chains.length} chains ------------------------------------------------ END');
   }
 // -----------------------------------------------------------------------------
 

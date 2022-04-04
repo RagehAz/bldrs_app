@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/xxx_dashboard/a_modules/keywords/widgets/chain_tree_strip.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/chains_manager/widgets/chain_tree_strip.dart';
 import 'package:flutter/material.dart';
 
 class ChainTreeViewer extends StatefulWidget {
@@ -31,12 +31,12 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
   Widget build(BuildContext context) {
 
     final double _screenWidth  = Scale.superScreenWidth(context);
-    final bool _sonsAreChain = Chain.sonsAreChains(widget.chain.sons);
-    final bool _sonsAreStrings = Chain.sonsAreStrings(widget.chain.sons);
+    final bool _sonsAreChain = Chain.sonsAreChains(widget.chain?.sons);
+    final bool _sonsAreStrings = Chain.sonsAreStrings(widget.chain?.sons);
     final int _numberOfSons =
-    _sonsAreChain ? widget.chain.sons.length
+    _sonsAreChain ? widget.chain?.sons?.length
         :
-    _sonsAreStrings ? widget.chain.sons.length
+    _sonsAreStrings ? widget.chain?.sons?.length
         :
     1
     ;
@@ -88,8 +88,8 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
             if (_sonsAreChain == false && _sonsAreStrings == false)
               ChainTreeStrip(
                 level: widget.initialLevel + 1,
-                secondLine: widget.chain.id,
-                firstLine: widget.chain.sons.toString(),
+                secondLine: widget.chain?.id,
+                firstLine: widget.chain?.sons?.toString(),
                 onTriggerExpansion: _triggerExpansion,
               ),
 
@@ -104,8 +104,8 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
               /// chain title
               ChainTreeStrip(
                 level: widget.initialLevel,
-                secondLine: widget.chain.id,
-                firstLine: superPhrase(context, widget.chain.id),
+                secondLine: widget.chain?.id,
+                firstLine: superPhrase(context, widget.chain?.id),
                 expanded: _isExpanded,
                 onTriggerExpansion: _triggerExpansion,
               ),
