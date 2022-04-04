@@ -1,5 +1,6 @@
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/sembast_api.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
@@ -49,7 +50,8 @@ Future<void> insertMap({
     primaryKey: primaryKey,
   );
 
-  blog('LDBOps inserted in $docName');
+  blog('LDBOps inserted in $docName : map :-');
+  blogMap(input);
 }
 // ---------------------------------------------------
 Future<void> insertMaps({

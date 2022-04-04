@@ -4,25 +4,28 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
-import 'package:bldrs/xxx_dashboard/a_modules/keywords/widgets/chains_data_tree_starter.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/chains_manager/widgets/chains_data_tree_starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class KeywordsManager extends StatefulWidget {
+class ChainsManagerScreen extends StatefulWidget {
 
-  const KeywordsManager({
+  const ChainsManagerScreen({
     Key key
   }) : super(key: key);
 
   @override
-  _KeywordsManagerState createState() => _KeywordsManagerState();
+  _ChainsManagerScreenState createState() => _ChainsManagerScreenState();
 }
 
-class _KeywordsManagerState extends State<KeywordsManager> {
+class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 
 // -----------------------------------------------------------------------------
   @override
@@ -30,15 +33,30 @@ class _KeywordsManagerState extends State<KeywordsManager> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onUploadChains() async {
+
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    // final Chain _keywordsChain = _chainsProvider.keywordsChain;
+    // final Chain _specsChain = _chainsProvider.specsChain;
+
+    // final Chain _keywordsChain = await ChainOps.readKeywordsChain(context);
+
+    // _keywordsChain?.blogChain();
+
+    // await _chainsProvider.clearCurrentKeyword(context);
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth  = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: true);
+    final Chain _keywordsChain = _chainsProvider.keywordsChain;
+    final Chain _specsChain = _chainsProvider.specsChain;
 
     final List<Chain> _chains = [
-      ... bldrsChain.sons,
-      ... allSpecsChain.sons,
+      _keywordsChain,
+      _specsChain,
     ];
 
     return MainLayout(
@@ -52,10 +70,22 @@ class _KeywordsManagerState extends State<KeywordsManager> {
 
         const Expander(),
 
+        ///
+        DreamBox(
+          height: 40,
+          verse: 'Upload',
+          secondLine: 'Chains',
+          iconSizeFactor: 0.6,
+          onTap: _onUploadChains,
+        ),
+
+
+        /// SWITCH LANGUAGE BUTTON
         DreamBox(
           height: 40,
           icon: Iconz.language,
           iconSizeFactor: 0.6,
+          margins: const EdgeInsets.symmetric(horizontal: 5),
           onTap: () async {
 
             final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -65,13 +95,20 @@ class _KeywordsManagerState extends State<KeywordsManager> {
                 langCode: _currentLangCode == 'en' ? 'ar' : 'en',
             );
 
+            setState(() {});
+
           },
         ),
 
       ],
-      layoutWidget: ChainsTreesStarter(
+      layoutWidget:
+
+      canLoopList(_chains) == true ?
+      ChainsTreesStarter(
         chains: _chains,
-      ),
+      )
+          :
+      const SizedBox(),
 
     );
   }

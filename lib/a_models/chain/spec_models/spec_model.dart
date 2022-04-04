@@ -343,12 +343,12 @@ class SpecModel {
 // ------------------------------------------
   static List<SpecModel> dummySpecs() {
     return <SpecModel>[
-      const SpecModel(specsListID: 'propertyLicense', value: 'ppt_lic_residential'),
-      const SpecModel(specsListID: 'propertyView', value: 'view_lake'),
-      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_builtinWardrobe'),
-      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_energyEfficient'),
-      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_elevator'),
-      const SpecModel(specsListID: 'propertyIndoorFeatures', value: 'pFeature_intercom'),
+      const SpecModel(specsListID: 'phid_s_propertyLicense', value: 'phid_k_ppt_lic_residential'),
+      const SpecModel(specsListID: 'phid_s_propertyView', value: 'phid_s_view_lake'),
+      const SpecModel(specsListID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_builtinWardrobe'),
+      const SpecModel(specsListID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_energyEfficient'),
+      const SpecModel(specsListID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_elevator'),
+      const SpecModel(specsListID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_intercom'),
 
       const SpecModel(specsListID: 'propertyForm', value: 'pf_halfFloor'),
     ];
