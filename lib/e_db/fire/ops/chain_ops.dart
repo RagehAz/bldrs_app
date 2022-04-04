@@ -25,6 +25,7 @@ Future<Chain> readKeywordsChain(BuildContext context) async {
   return _chain;
 }
 // ------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<Chain> readSpecsChain(BuildContext context) async {
 
   final Map<String, dynamic> _map  = await Fire.readDoc(
@@ -42,6 +43,7 @@ Future<Chain> readSpecsChain(BuildContext context) async {
 /// UPDATES
 
 // ------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> addChainsToSpecsChainSons({
   @required BuildContext context,
   @required List<Chain> chainsToAdd,
@@ -59,15 +61,13 @@ Future<void> addChainsToSpecsChainSons({
     chainB: _updatedChain,
   );
 
-  blog('-------------------- > original Chain : -');
-  _specsChain.blogChain();
-  blog('-------------------- > updated Chain : -');
-  _updatedChain.blogChain();
+  // blog('-------------------- > original Chain : -');
+  // _specsChain.blogChain();
+  // blog('-------------------- > updated Chain : -');
+  // _updatedChain.blogChain();
 
   if (_chainsAreTheSame == false){
-
-    blog('chains are the same : $_chainsAreTheSame');
-
+    // blog('chains are the same : $_chainsAreTheSame');
     await Fire.updateDoc(
         context: context,
         collName: FireColl.chains,

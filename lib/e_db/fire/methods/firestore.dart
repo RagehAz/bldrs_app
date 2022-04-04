@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
 
-/// PATHS
+/// PATHS GETTERS
 
 // ---------------------------------------------------
+/// TESTED : NOT USED
+/*
 String pathOfDoc({
   @required String collName,
   @required String docName,
@@ -33,25 +35,30 @@ String pathOfSubDoc({
 }) {
   return '$collName/$docName/$subCollName/$subDocName';
 }
+
+ */
 // -----------------------------------------------------------------------------
 
 /// REFERENCES
 
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 CollectionReference<Object> getCollectionRef(String collName) {
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   final CollectionReference<Object> _collection = _fireInstance.collection(collName);
   return _collection;
 }
-
+// ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<QuerySnapshot<Object>> _superCollectionQuery({
-  @required String collName,
+  @required CollectionReference<Object> collRef,
   String orderBy,
   int limit,
   QueryDocumentSnapshot<Object> startAfter,
 }) async {
 
-  Query<Map<String, dynamic>> query = FirebaseFirestore.instance.collection(collName);
+
+  Query<Map<String, dynamic>> query = FirebaseFirestore.instance.collection(collRef.path);
 
   /// ORDER IS REQUIRED
   if (orderBy != null){
@@ -70,8 +77,8 @@ Future<QuerySnapshot<Object>> _superCollectionQuery({
 
   return _collectionSnapshot;
 }
-
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 DocumentReference<Object> getDocRef({
   @required String collName,
   @required String docName,
@@ -79,50 +86,56 @@ DocumentReference<Object> getDocRef({
   final CollectionReference<Object> _collection = getCollectionRef(collName);
   final DocumentReference<Object> _doc = _collection.doc(docName);
 
-  // or this syntax
-  // final DocumentReference<Object> _doc =
-  // FirebaseFirestore.instance
-  //     .collection(collName)
-  //     .doc(docName)
+  /// or this syntax
+  /// final DocumentReference<Object> _doc =
+  /// FirebaseFirestore.instance
+  ///     .collection(collName)
+  ///     .doc(docName)
 
   return _doc;
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 CollectionReference<Object> getSubCollectionRef({
   @required String collName,
   @required String docName,
   @required String subCollName,
 }) {
-  final CollectionReference<Object> _subCollection =
-      FirebaseFirestore.instance.collection('$collName/$docName/$subCollName');
 
-  // or this syntax
-  // final CollectionReference<Object> _subCollection =
-  // FirebaseFirestore.instance
-  //     .collection(collName)
-  //     .doc(docName)
-  //     .collection(subCollName);
+  final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
+  final CollectionReference<Object> _subCollection = _fireInstance
+      .collection('$collName/$docName/$subCollName');
+
+  /// or this syntax
+  /// final CollectionReference<Object> _subCollection =
+  /// FirebaseFirestore.instance
+  ///     .collection(collName)
+  ///     .doc(docName)
+  ///     .collection(subCollName);
 
   return _subCollection;
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 DocumentReference<Object> getSubDocRef({
   @required String collName,
   @required String docName,
   @required String subCollName,
   @required String subDocName,
 }) {
-  final CollectionReference<Object> _subCollection =
-      FirebaseFirestore.instance.collection('$collName/$docName/$subCollName');
+  final CollectionReference<Object> _subCollection = FirebaseFirestore
+      .instance
+      .collection('$collName/$docName/$subCollName');
+
   final DocumentReference<Object> _subDocRef = _subCollection.doc(subDocName);
 
-  // or this syntax
-  // final DocumentReference<Object> _subDocRef =
-  // FirebaseFirestore.instance
-  //     .collection(collName)
-  //     .doc(docName)
-  //     .collection(subCollName)
-  //     .doc(subDocName);
+  /// or this syntax
+  /// final DocumentReference<Object> _subDocRef =
+  /// FirebaseFirestore.instance
+  ///     .collection(collName)
+  ///     .doc(docName)
+  ///     .collection(subCollName)
+  ///     .doc(subDocName);
 
   return _subDocRef;
 }
@@ -131,13 +144,14 @@ DocumentReference<Object> getSubDocRef({
 /// CREATE
 
 // ---------------------------------------------------
-/// creates firestore doc with auto generated ID then returns doc reference
+/// TESTED : WORKS PERFECT : creates firestore doc with auto generated ID then returns doc reference
 Future<DocumentReference<Object>> createDoc({
   @required BuildContext context,
   @required String collName,
   @required Map<String, dynamic> input,
   bool addDocID = false,
 }) async {
+
   DocumentReference<Object> _docRef;
 
   await tryAndCatch(
@@ -163,6 +177,7 @@ Future<DocumentReference<Object>> createDoc({
   return _docRef;
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<DocumentReference<Object>> createNamedDoc({
   @required BuildContext context,
   @required String collName,
@@ -189,7 +204,7 @@ Future<DocumentReference<Object>> createNamedDoc({
   return _docRef;
 }
 // ---------------------------------------------------
-/// creates firestore sub doc with auto ID
+/// TESTED : WORKS PERFECT : creates firestore sub doc with auto ID
 Future<DocumentReference<Object>> createSubDoc({
   @required BuildContext context,
   @required String collName,
@@ -214,6 +229,7 @@ Future<DocumentReference<Object>> createSubDoc({
   return _subDocRef;
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<DocumentReference<Object>> createNamedSubDoc({
   @required BuildContext context,
   @required String collName,
@@ -229,7 +245,7 @@ Future<DocumentReference<Object>> createNamedSubDoc({
 
   DocumentReference<Object> _subDocRef;
 
-  await tryAndCatch(
+  final bool _success = await tryCatchAndReturnBool(
       context: context,
       methodName: 'createNamedSubDoc',
       functions: () async {
@@ -245,13 +261,20 @@ Future<DocumentReference<Object>> createNamedSubDoc({
         blog('createNamedSubDoc : CREATED $collName/$docName/$subCollName/$subDocName/');
       });
 
-  return _subDocRef;
+  if (_success == true){
+    return _subDocRef;
+  }
+  else {
+    return null;
+  }
+
 }
 // -----------------------------------------------------------------------------
 
 /// READ
 
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<dynamic> _getMapByDocRef(DocumentReference<Object> docRef) async {
   dynamic _map;
 
@@ -259,17 +282,12 @@ Future<dynamic> _getMapByDocRef(DocumentReference<Object> docRef) async {
 
   if (snapshot.exists == true) {
     _map = Mapper.getMapFromDocumentSnapshot(snapshot);
-  } else {
-    _map = null;
   }
 
-  //     .then<dynamic>((DocumentSnapshot snapshot) async {
-  //   _map = Mapper.getMapFromDocumentSnapshot(snapshot);
-  // });
   return _map;
 }
-
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<Map<String, dynamic>>> readCollectionDocs({
   @required String collName,
   String orderBy,
@@ -279,16 +297,19 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
   bool addDocsIDs = false,
 }) async {
 
+  final CollectionReference<Object> _collRef = getCollectionRef(collName);
+
   final QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
-    collName: collName,
+    collRef: _collRef,
     orderBy: orderBy,
     limit: limit,
     startAfter: startAfter,
   );
 
-  /// to return maps
+  final List<QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
+
   final List<Map<String, dynamic>> _maps =Mapper.getMapsFromQueryDocumentSnapshotsList(
-      queryDocumentSnapshots: _collectionSnapshot.docs,
+      queryDocumentSnapshots: _queryDocumentSnapshots,
       addDocsIDs: addDocsIDs,
       addDocSnapshotToEachMap: addDocSnapshotToEachMap
   );
@@ -296,17 +317,16 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
   return _maps;
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<Map<String, dynamic>> readDoc({
   @required BuildContext context,
   @required String collName,
   @required String docName,
 }) async {
+
   blog('readDoc() : starting to read doc : firestore/$collName/$docName');
-  // blog('lng : ${Wordz.languageCode(context)}');
 
   Map<String, dynamic> _map; //QueryDocumentSnapshot
-
-  // blog('readDoc() : _map starts as : $_map');
 
   final dynamic _result = await tryCatchAndReturnBool(
     context: context,
@@ -323,10 +343,6 @@ Future<Map<String, dynamic>> readDoc({
       // blog('readDoc() : _map : $_map');
     },
   );
-
-  // blog('readDoc() : _result : $_result');
-  // blog('readDoc() : _map : $_map');
-  // blog('lng : ${Wordz.languageCode(context)}');
 
   return _result.runtimeType == String ? null : _map;
 }
@@ -354,69 +370,18 @@ Future<dynamic> readDocField({
   return _map[fieldName];
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<Map<String, dynamic>>> readSubCollectionDocs({
   @required BuildContext context,
   @required String collName,
   @required String docName,
   @required String subCollName,
-  @required int limit,
+  int limit,
   String orderBy,
+  QueryDocumentSnapshot<Object> startAfter,
   bool addDocsIDs = false,
   bool addDocSnapshotToEachMap = false,
-  QueryDocumentSnapshot<Object> startAfter,
 }) async {
-  /*
-
-        final QueryDocumentSnapshot _startAfter = startAfter ?? null;
-
-    QuerySnapshot<Object> _collectionSnapshot;
-
-
-    if(_startAfter == null){
-      _collectionSnapshot = await FirebaseFirestore.instance.collection(collName).orderBy(orderBy).limit(limit).get();
-    }
-
-    else {
-      _collectionSnapshot = await FirebaseFirestore.instance.collection(collName).orderBy(orderBy).limit(limit).startAfterDocument(startAfter).get();
-    }
-
-
-
-    final List<QueryDocumentSnapshot> _docsSnapshots = _collectionSnapshot.docs;
-
-    /// to return maps
-    final List<dynamic> _maps = <dynamic>[];
-
-    for (QueryDocumentSnapshot docSnapshot in _docsSnapshots){
-
-      Map<String, dynamic> _map = docSnapshot.data();
-
-      if (addDocID == true){
-        _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'id',
-          value: docSnapshot.id,
-        );
-      }
-
-      if (addDocSnapshotToEachMap == true){
-        _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'docSnapshot',
-          value: docSnapshot,
-        );
-      }
-
-      _maps.add(_map);
-
-    }
-    // return <List<QueryDocumentSnapshot>>
-
-    return _maps;
-
-
-
-     */
 
   List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -425,52 +390,34 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
       methodName: 'readSubCollectionDocs',
       functions: () async {
 
-        final CollectionReference<Object> _subCollection = getSubCollectionRef(
+        final CollectionReference<Object> _subCollectionRef = getSubCollectionRef(
           collName: collName,
           docName: docName,
           subCollName: subCollName,
         );
 
-        QuerySnapshot<Object> _collectionSnapshot;
-
-        final QueryDocumentSnapshot<Object> _startAfter = startAfter;
-
-        if (_startAfter == null) {
-
-          if (orderBy == null) {
-            _collectionSnapshot = await _subCollection
-                .limit(limit)
-                .get();
-          }
-          else {
-            _collectionSnapshot = await _subCollection
-                .orderBy(orderBy)
-                .limit(limit)
-                .get();
-          }
-
-        }
-
-        else {
-          _collectionSnapshot = await _subCollection
-              // .orderBy(orderBy)
-              .limit(limit)
-              .startAfterDocument(startAfter)
-              .get();
-        }
-
-        _maps = Mapper.getMapsFromQuerySnapshot(
-          querySnapshot: _collectionSnapshot,
-          addDocsIDs: addDocsIDs,
-          addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+        final QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
+          collRef: _subCollectionRef,
+          orderBy: orderBy,
+          limit: limit,
+          startAfter: startAfter,
         );
+
+        final List<QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
+
+        _maps =Mapper.getMapsFromQueryDocumentSnapshotsList(
+            queryDocumentSnapshots: _queryDocumentSnapshots,
+            addDocsIDs: addDocsIDs,
+            addDocSnapshotToEachMap: addDocSnapshotToEachMap
+        );
+
       }
       );
 
   return _maps;
 }
-
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<dynamic> readSubDoc({
   @required BuildContext context,
   @required String collName,
@@ -478,12 +425,14 @@ Future<dynamic> readSubDoc({
   @required String subCollName,
   @required String subDocName,
 }) async {
+
   dynamic _map;
 
   await tryAndCatch(
       context: context,
       methodName: 'readSubDoc',
       functions: () async {
+
         final DocumentReference<Object> _subDocRef = getSubDocRef(
           collName: collName,
           docName: docName,
@@ -492,6 +441,7 @@ Future<dynamic> readSubDoc({
         );
 
         _map = await _getMapByDocRef(_subDocRef);
+
       });
 
   return _map;
@@ -572,7 +522,7 @@ Stream<DocumentSnapshot<Object>> streamSubDoc({
 /// UPDATE
 
 // ---------------------------------------------------
-/// this creates a new doc that overrides existing doc,, same as createNamedDoc method
+/// TESTED : WORKS PERFECT : this creates a new doc that overrides existing doc,, same as createNamedDoc method
 Future<void> updateDoc({
   @required BuildContext context,
   @required String collName,
@@ -587,18 +537,19 @@ Future<void> updateDoc({
     input: input,
   );
 
-  // or another syntax
-  // await tryAndCatch(
-  //     context: context,
-  //     functions: () async {
-  //
-  //       DocumentReference<Object> _docRef = getDocRef(collName, docName);
-  //       await _docRef.set(input);
-  //
-  //     }
-  // );
+  /// or another syntax
+  /// await tryAndCatch(
+  ///     context: context,
+  ///     functions: () async {
+  ///
+  ///       DocumentReference<Object> _docRef = getDocRef(collName, docName);
+  ///       await _docRef.set(input);
+  ///
+  ///     }
+  /// );
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> updateDocField({
   @required BuildContext context,
   @required String collName,
@@ -606,17 +557,20 @@ Future<void> updateDocField({
   @required String field,
   @required dynamic input,
 }) async {
-  final DocumentReference<Object> _doc =
-      getDocRef(collName: collName, docName: docName);
+
+  final DocumentReference<Object> _doc = getDocRef(
+      collName: collName,
+      docName: docName,
+  );
 
   await tryAndCatch(
       context: context,
       methodName: 'updateDocField',
       functions: () async {
-        await _doc.update(<String, dynamic>{field: input});
 
-        blog(
-            'Updated doc : $docName : field : [$field] : to : ${input.toString()}');
+        await _doc.update(<String, dynamic>{field: input});
+        blog('Updated doc : $docName : field : [$field] : to : ${input.toString()}');
+
       });
 }
 // ---------------------------------------------------
@@ -666,6 +620,7 @@ Future<void> updateSubDocField(
 /// DELETE
 
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteDoc({
   @required BuildContext context,
   @required String collName,
@@ -688,6 +643,7 @@ Future<void> deleteDoc({
       });
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteSubDoc({
   @required BuildContext context,
   @required String collName,
@@ -712,6 +668,7 @@ Future<void> deleteSubDoc({
       });
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteAllCollectionDocs({
   @required BuildContext context,
   @required String collName,
@@ -764,6 +721,7 @@ Future<void> deleteAllCollectionDocs({
 
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _deleteNumberOfCollectionDocs({
   @required BuildContext context,
   @required collName,
