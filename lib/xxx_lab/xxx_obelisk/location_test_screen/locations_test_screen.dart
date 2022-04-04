@@ -1,18 +1,18 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
-import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -278,22 +278,22 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               DataStripWithHeadline(
                 dataKey: 'Country Name (EN)',
-                dataValue: Phrase.getPhraseByLangFromPhrases(
-                    phrases: _countryModel?.phrases, langCode: 'en'),
+                dataValue: superPhrase(context, _countryModel.id),
               ),
 
               DataStripWithHeadline(
                 dataKey: 'Country Name (AR)',
-                dataValue: Phrase.getPhraseByLangFromPhrases(
-                    phrases: _countryModel?.phrases, langCode: 'ar'),
+                dataValue: superPhrase(context, _countryModel.id),
               ),
 
-              DataStripWithHeadline(dataKey: 'City ID', dataValue: _cityModel?.cityID),
+              DataStripWithHeadline(
+                  dataKey: 'City ID',
+                  dataValue: _cityModel?.cityID,
+              ),
 
               DataStripWithHeadline(
                 dataKey: 'City Name (EN)',
-                dataValue: Phrase.getPhraseByLangFromPhrases(
-                    phrases: _cityModel?.phrases, langCode: 'en'),
+                dataValue: superPhrase(context, _cityModel?.cityID),
               ),
 
             ],

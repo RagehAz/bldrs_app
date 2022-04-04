@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -8,6 +7,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/bzz_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/flyers_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -226,13 +226,15 @@ Future<CityModel> confirmCityDialog({
     draggable: true,
     buttonHeight: 50,
     buttons: <Widget>[
+
       const SuperVerse(
         verse: 'Please confirm your city',
       ),
+
       ...List<Widget>.generate(cities.length, (int index) {
+
         final CityModel _foundCity = cities[index];
-        final String _foundCityName =
-            Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _foundCity.phrases)?.value;
+        final String _foundCityName = superPhrase(context, _foundCity.cityID);
 
         return BottomDialog.wideButton(
             context: context,
