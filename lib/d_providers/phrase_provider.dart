@@ -108,20 +108,33 @@ class PhraseProvider extends ChangeNotifier {
 }) async {
 
     /// GET FROM LOCAL PHRASES
-    final Phrase _countryPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
+    Phrase _countryPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
         langCode: langCode,
         phid: countryID,
         phrases: _currentTransModel.phrases,
     );
 
-    /// IF NOT FOUND LOCALLY
+    /// IF NOT FOUND LOCALLY SEARCH LDB
     if (_countryPhrase == null){
+      // _countryPhrase =
 
-      /// get from firebase
-      _countryPhrase =
+      /// ADD TO LOCAL PHRASES
+      if (_countryPhrase != null){
 
+      }
     }
 
+    /// IF NOT FOUND SEARCH FIREBASE
+    if (_countryPhrase == null){
+      // _countryPhrase =
+
+      /// ADD TO LDB AND LOCAL PHRASES
+      if (_countryPhrase != null){
+
+      }
+    }
+
+    return _countryPhrase;
   }
 // -----------------------------------------------------------------------------
 
