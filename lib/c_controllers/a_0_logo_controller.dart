@@ -53,6 +53,6 @@ Future<bool> _initializeAppState(BuildContext context) async {
 Future<void> _initializeAppLanguage(BuildContext context) async {
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-  await _phraseProvider.getSetCurrentLangAndTransModel(context);
+  await _phraseProvider.getSetCurrentLangAndPhrases(context);
 
 }
