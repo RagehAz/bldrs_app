@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
@@ -17,6 +18,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -43,6 +45,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
   ChainsProvider _chainsProvider;
   AnimationController _animationController;
   UiProvider _uiProvider;
+  PhraseProvider _phraseProvider;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -74,6 +77,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     // final Chain _keywordsChain = _chainsProvider.keywordsChain;
     // final Chain _specsChain = _chainsProvider.specsChain;
 
@@ -316,6 +320,32 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
               const BubblesSeparator(),
 
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print currentLangCode',
+                  icon: Iconizer.valueIsNotNull(_phraseProvider.currentLangCode),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    blog(_phraseProvider.currentLangCode);
+
+                    unawaited(_triggerLoading());
+                  }),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print phrases',
+                  icon: Iconizer.valueIsNotNull(_phraseProvider.phrases),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    Phrase.blogPhrases(_phraseProvider.phrases);
+
+                    unawaited(_triggerLoading());
+                  }),
+
+              const BubblesSeparator(),
 
               /// AVOID SET STATE : WAY # 1
               ValueListenableBuilder<int>(

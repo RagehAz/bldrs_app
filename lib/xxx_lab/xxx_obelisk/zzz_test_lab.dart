@@ -6,6 +6,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -105,39 +106,18 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'DO ITttt',
+              verse: 'DO IT',
               icon: Iconz.star,
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                final List<Map<String, dynamic>> _allMaps = await ExoticMethods.readAllCollectionDocs(
-                    collName: FireColl.phrases,
+                final List<Phrase> _phrases = await _phraseProvider.fetchBasicPhrasesByLangCode(
+                    context: context,
+                    langCode: 'ar',
                 );
 
-                for (final Map<String, dynamic> map in _allMaps){
-
-                  final String _langCode = map['langCode'];
-                  final Map<String, dynamic> _phrasesMap = map['phrases'];
-
-                  final List<Phrase> _phrases = Phrase.decipherPhrasesMap(
-                      map: _phrasesMap,
-                  );
-
-                  // Phrase.blogPhrases(_phrases);
-
-                  final List<Phrase> _cleanedPhrases = Phrase.onlyIncludeIDAndValue(
-                    phrases: _phrases,
-                  );
-
-                  await createNamedDoc(
-                      context: context,
-                      collName: FireColl.phrases,
-                      docName: _langCode,
-                      input: Phrase.cipherPhrasesToMap(phrases: _cleanedPhrases),
-                  );
-
-                }
+                Phrase.blogPhrases(_phrases);
 
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
@@ -153,10 +133,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                await deleteAllCollectionDocs(
-                    context: context,
-                    collName: FireColl.phrases,
-                );
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
