@@ -559,4 +559,26 @@ class ExoticMethods {
     return _countries;
   }
 /// ----------------------------------------------------------------------------
+  static Future<void> duplicateDoc({
+  @required BuildContext context,
+    @required String fromCollName,
+    @required String docName,
+    @required String toCollName,
+}) async {
+
+    final Map<String, dynamic> _doc = await Fire.readDoc(
+      context: context,
+      collName: fromCollName,
+      docName: docName,
+    );
+
+    await Fire.createNamedDoc(
+        context: context,
+        collName: toCollName,
+        docName: docName,
+        input: _doc,
+    );
+
+  }
+/// ----------------------------------------------------------------------------
 }
