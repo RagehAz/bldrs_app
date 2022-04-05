@@ -152,9 +152,9 @@ class CountryModel {
 
           final Phrase _phrase = Phrase(
             id: zoneID,
-            langCode: phrasesMap[key],
-            value: phrasesMap['value'],
-            trigram: phrasesMap['trigram'],
+            langCode: phrasesMap[key]['langCode'],
+            value: phrasesMap[key]['value'],
+            trigram: Mapper.getStringsFromDynamics(dynamics: phrasesMap[key]['trigram']),
           );
 
           _output.add(_phrase);

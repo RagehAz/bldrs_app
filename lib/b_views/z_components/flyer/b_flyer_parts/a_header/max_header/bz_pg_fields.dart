@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class BzPgFields extends StatelessWidget {
@@ -31,7 +31,7 @@ class BzPgFields extends StatelessWidget {
           children: <Widget>[
 
             SuperVerse(
-              verse: Wordz.scopeOfServices(context),
+              verse: superPhrase(context, 'phid_scopeOfServices'),
               weight: VerseWeight.thin,
               margin: 10,
               color: Colorz.grey255,
@@ -42,16 +42,18 @@ class BzPgFields extends StatelessWidget {
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 runAlignment: WrapAlignment.center,
-                children: bzScope == ''
-                    ? <Widget>[Container()]
-                    : List<Widget>.generate(1, (int index) {
-                      return SuperVerse(
-                        verse: bzScope,
-                        labelColor: Colorz.white50,
-                        margin: flyerBoxWidth * 0.02 * 0,
-                      );
-                    })),
-
+                children: bzScope == '' ?
+                <Widget>[Container()]
+                    :
+                List<Widget>.generate(1, (int index) {
+                  return SuperVerse(
+                    verse: bzScope,
+                    labelColor: Colorz.white50,
+                    margin: flyerBoxWidth * 0.02 * 0,
+                  );
+                }
+                )
+            ),
           ],
         ),
       ),

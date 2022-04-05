@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class BzPgVerse extends StatelessWidget {
@@ -93,7 +93,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
             children: <Widget>[
 
               SuperVerse(
-                verse: '${Wordz.about(context)} ${widget.bzName}',
+                verse: '${superPhrase(context, 'phid_about')} ${widget.bzName}',
                 weight: VerseWeight.thin,
                 margin: 10,
                 color: Colorz.grey255,

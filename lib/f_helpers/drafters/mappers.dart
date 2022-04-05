@@ -289,9 +289,13 @@ Map<String, dynamic> insertPairInMap({
   @required String key,
   @required dynamic value,
 }) {
-  map.putIfAbsent(key, () => value);
 
-  final Map<String, dynamic> _result = <String, dynamic>{}..addAll(map);
+  Map<String, dynamic> _result = <String, dynamic>{};
+
+  if (map != null){
+    map.putIfAbsent(key, () => value);
+    _result = _result..addAll(map);
+  }
 
   return _result;
 }

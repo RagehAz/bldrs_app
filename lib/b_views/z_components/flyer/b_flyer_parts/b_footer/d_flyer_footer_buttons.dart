@@ -1,9 +1,9 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class FlyerFooterButtons extends StatelessWidget {
@@ -64,7 +64,7 @@ class FlyerFooterButtons extends StatelessWidget {
             FooterButton(
             flyerBoxWidth: flyerBoxWidth,
             icon: Iconz.share,
-            verse: Wordz.send(context),
+            verse: superPhrase(context, 'phid_send'),
             isOn: false,
             tinyMode: tinyMode,
             onTap: onShareFlyer,
@@ -95,7 +95,7 @@ class FlyerFooterButtons extends StatelessWidget {
               return FooterButton(
                 flyerBoxWidth: flyerBoxWidth,
                 icon: Iconz.save,
-                verse: isSaved == true ? Wordz.saved(context) : Wordz.save(context),
+                verse: isSaved == true ? superPhrase(context, 'phid_saved') : superPhrase(context, 'phid_save'),
                 isOn: isSaved,
                 tinyMode: tinyMode,
                 onTap: onSaveFlyer,

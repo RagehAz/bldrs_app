@@ -54,7 +54,7 @@ String countryStringerByModels ({
 
     _verse =
     zone.countryID == null || zone.cityID == null ? '...' :
-    '${Wordz.inn(context)} $_districtName , $_cityName , $_countryName . ';
+    '${superPhrase(context, 'phid_inn')} $_districtName , $_cityName , $_countryName . ';
 
   }
 
@@ -78,7 +78,7 @@ String countryStringerByZoneModel ({
 
     _verse =
     zone.countryID == null || zone.cityID == null ? '...' :
-    '${Wordz.inn(context)} $_districtName , $_cityName , $_countryName . ';
+    '${superPhrase(context, 'phid_inn')} $_districtName , $_cityName , $_countryName . ';
 
   }
 
@@ -103,7 +103,7 @@ String cityCountryStringer ({
 
     _verse =
     zone.countryID == null || zone.cityID == null ? '...' :
-    '${Wordz.inn(context)}, $_cityName , $_countryName . ';
+    '${superPhrase(context, 'phid_inn')}, $_cityName , $_countryName . ';
 
 
   }
@@ -121,29 +121,18 @@ String functionStringer(Function function) {
 // -----------------------------------------------------------------------------
 String askHinter (BuildContext context, BzType bzType){
   final String _askHint =
-  bzType == BzType.developer ? "I'm Looking for a property directly from the developer ..." :
-  bzType == BzType.broker ? "I'm Looking for a property from brokers and re-sellers ..." :
-  bzType == BzType.manufacturer ? 'I want to Manufacture or get big quantities ...' :
-  bzType == BzType.supplier ? "I'm searching for a product ..." :
-  bzType == BzType.designer ? 'I need consultation from a designer ...' :
-  bzType == BzType.contractor ? "I'm Looking for a contractor to build a project ..." :
-  bzType == BzType.craftsman ? 'I want a craftsman to fix or build something ...' :
-  Wordz.askHint(context);
+  bzType == BzType.developer ? superPhrase(context, 'phid_askHint_developer') :
+  bzType == BzType.broker ? superPhrase(context, 'phid_askHint_broker') :
+  bzType == BzType.manufacturer ? superPhrase(context, 'phid_askHint_manufacturer') :
+  bzType == BzType.supplier ? superPhrase(context, 'phid_askHint_supplier') :
+  bzType == BzType.designer ? superPhrase(context, 'phid_askHint_designer') :
+  bzType == BzType.contractor ? superPhrase(context, 'phid_askHint_contractor') :
+  bzType == BzType.craftsman ? superPhrase(context, 'phid_askHint_craftsman') :
+  superPhrase(context, 'phid_askHint');
   return _askHint;
 }
 // -----------------------------------------------------------------------------
-String bldrsTypePageTitle(BuildContext context, BzType bzType) {
-  return
-    bzType == BzType.developer ? Wordz.realEstateDeveloper(context) :
-    bzType == BzType.broker ? Wordz.realEstateBroker(context) :
-    bzType == BzType.manufacturer ? Wordz.manufacturers(context) :
-    bzType == BzType.supplier ? Wordz.suppliers(context) : // and distributors
-    bzType == BzType.designer ? Wordz.constructionTagLine(context) :
-    bzType == BzType.contractor ? Wordz.contractors(context) :
-    bzType == BzType.craftsman ? Wordz.craftsmen(context) :
-    Wordz.bldrsShortName(context);
-}
-// -----------------------------------------------------------------------------
+
 List<String> createTrigram({@required String input}){
   List<String> _trigram = <String>[];
 

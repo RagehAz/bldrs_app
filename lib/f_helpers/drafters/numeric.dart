@@ -1,9 +1,9 @@
 import 'dart:math' as math;
 
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -72,20 +72,20 @@ String counterCaliber(BuildContext context, int x) {
     else if (x >= 1000 && x < 99995) {
       _stringOfCalibratedNumber =
           '${(x / 1000).toStringAsFixed(1).replaceAll(RegExp('0.0'), '0').replaceAll(r'.0', '')}'
-          ' ${Wordz.thousand(context)}';
+          ' ${superPhrase(context, 'phid_thousand')}';
     }
 
     /// FROM 99995 TO 999445
     else if (x >= 99995 && x < 999445) {
       _stringOfCalibratedNumber = '${int.parse((x / 1000).toStringAsFixed(0))}'
-          ' ${Wordz.thousand(context)}';
+          ' ${superPhrase(context, 'phid_thousand')}';
     }
 
     /// FROM 999445 TO INFINITY
     else if (x >= 999445) {
       _stringOfCalibratedNumber =
           '${(x / 1000000).toStringAsFixed(1).replaceAll(RegExp('0.0'), '0').replaceAll(r'.0', '')}'
-          ' ${Wordz.million(context)}';
+          ' ${superPhrase(context, 'phid_million')}';
     } else {
       _stringOfCalibratedNumber = x.toStringAsFixed(0);
     }
