@@ -19,7 +19,6 @@ abstract class FireColl{
   static const String keys = 'keys';
   static const String records = 'records';
 
-  static const String translations = 'translations';
   static const String phrases = 'phrases';
   static const String chains = 'chains';
 }
@@ -28,6 +27,7 @@ abstract class FireDoc {
 
   static const String admin_statistics = 'statistics';
   static const String admin_appState = 'appState';
+  static const String admin_backups = 'backups';
 
   static const String zones_cities = 'cities';
   static const String zones_countries = 'countries';
@@ -42,8 +42,6 @@ abstract class FireDoc {
   static const String keys_productsKeywords = 'productsKeywords';
   static const String keys_equipmentKeywords = 'equipmentKeywords';
 
-  static const String trans_en = 'en';
-  static const String trans_ar = 'ar';
   static const String phrases_en = 'en';
   static const String phrases_ar = 'ar';
 
@@ -53,6 +51,8 @@ abstract class FireDoc {
 }
 // -----------------------------------------------------------------------------
 abstract class FireSubColl {
+
+  static const String admin_backups_phrases = 'phrases';
 
   static const String users_user_asks = 'asks' ;
   static const String users_user_records = 'records';
@@ -79,11 +79,6 @@ abstract class FireSubColl {
   static const String zones_cities_cities = 'cities';
   static const String zones_countries_countries = 'countries';
 
-  static const String translations_xx_countries = 'countries';
-  static const String translations_xx_cities = 'cities';
-
-  static const String phrases_xx_countriesAndCities = 'countriesAndCities';
-  static const String phrases_xx_citiesAndDistricts = 'citiesAndDistricts';
 }
 // -----------------------------------------------------------------------------
 abstract class FireSubDoc{
@@ -93,7 +88,6 @@ abstract class FireSubDoc{
   static const String bzz_bz_credits_log = 'log';
   static const String bzz_bz_credits_balance = 'balance';
 
-  static const String trans_xx_groups_keywords_and_Specs = 'keywords_and_specs';
 }
 // -----------------------------------------------------------------------------
 abstract class StorageDoc{

@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/secondary_models/translation_model.dart';
-import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
+import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -45,7 +44,7 @@ class PhraseProvider extends ChangeNotifier {
   /// FETCHING PHRASES
 
 // -------------------------------------
-  Future<TransModel> fetchPhrasesByLangCode({
+  Future<List<Phrase>> fetchBasicPhrasesByLangCode({
     @required BuildContext context,
     @required String langCode,
 }) async {
@@ -94,10 +93,7 @@ class PhraseProvider extends ChangeNotifier {
 
     }
 
-    return TransModel(
-      langCode: langCode,
-      phrases: _phrases,
-    );
+    return _phrases;
 
   }
 // -------------------------------------
@@ -111,7 +107,7 @@ class PhraseProvider extends ChangeNotifier {
     Phrase _countryPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
         langCode: langCode,
         phid: countryID,
-        phrases: _currentTransModel.phrases,
+        phrases: _currentPhrases,
     );
 
     /// IF NOT FOUND LOCALLY SEARCH LDB
@@ -193,32 +189,32 @@ class PhraseProvider extends ChangeNotifier {
 /// CURRENT TRANSLATIONS
 
 // -------------------------------------
-  TransModel _currentTransModel;
+  List<Phrase> _currentPhrases;
 // -------------------------------------
-  TransModel get translations  => _currentTransModel;
+  List<Phrase> get phrases  => _currentPhrases;
 // -------------------------------------
   Future<void> getSetTranslations({
     @required BuildContext context,
     @required bool notify,
 }) async {
 
-    final TransModel _translations = await fetchPhrasesByLangCode(
+    final List<Phrase> _phrases = await fetchBasicPhrasesByLangCode(
         context: context,
         langCode: _currentLangCode,
     );
 
     _setTranslations(
-        translations: _translations,
+        phrases: _phrases,
         notify: notify,
     );
 
   }
 // -------------------------------------
   void _setTranslations({
-    @required TransModel translations,
+    @required List<Phrase> phrases,
     @required bool notify,
 }){
-    _currentTransModel = translations;
+    _currentPhrases = phrases;
 
     if (notify == true){
       notifyListeners();
@@ -231,12 +227,12 @@ class PhraseProvider extends ChangeNotifier {
     String _translation = '...';
 
     if (
-    _currentTransModel != null
+    _currentPhrases != null
         &&
-    Mapper.canLoopList(_currentTransModel.phrases) == true
+    Mapper.canLoopList(_currentPhrases) == true
     ){
 
-      final Phrase _phrase = _currentTransModel.phrases.singleWhere(
+      final Phrase _phrase = _currentPhrases.singleWhere(
               (phrase) => phrase.id == id,
           orElse: ()=> null
       );

@@ -1,7 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -12,7 +10,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bldrs/xxx_dashboard/exotic_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -113,90 +111,55 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                const String _langCode = 'ar';
-
-                final List<Map<String, dynamic>> _enCountries = await readSubCollectionDocs(
-                  context: context,
-                  collName: FireColl.translations,
-                  docName: _langCode,
-                  subCollName: 'countries',
-                  limit: 250,
+                final List<Map<String, dynamic>> _allMaps = await ExoticMethods.readAllCollectionDocs(
+                    collName: FireColl.phrases,
                 );
 
-                final List<Phrase> _enPhrases = Phrase.decipherPhrasesMaps(maps: _enCountries);
+                for (final Map<String, dynamic> map in _allMaps){
 
-                Phrase.blogPhrases(_enPhrases);
+                  final String _langCode = map['langCode'];
+                  final Map<String, dynamic> _phrasesMap = map['phrases'];
 
-                for (final Phrase countryPhrase in _enPhrases){
-
-                  final List<Phrase> _countryAndCitiesPhrases = <Phrase>[countryPhrase];
-
-                  final String countryID = countryPhrase.id;
-
-                  final CountryModel _country = await _zoneProvider.fetchCountryByID(
-                      context: context,
-                      countryID: countryID,
+                  final List<Phrase> _phrases = Phrase.decipherPhrasesMap(
+                      map: _phrasesMap,
                   );
 
-                  final List<String> _citiesIDs = _country.citiesIDs;
+                  // Phrase.blogPhrases(_phrases);
 
-                  for (final String cityID in _citiesIDs){
+                  final List<Phrase> _cleanedPhrases = Phrase.onlyIncludeIDAndValue(
+                    phrases: _phrases,
+                  );
 
-                    final Map<String, dynamic> _cityPhraseMap = await readSubDoc(
-                        context: context,
-                        collName: FireColl.translations,
-                        docName: _langCode,
-                        subCollName: FireSubColl.translations_xx_cities,
-                        subDocName: cityID,
-                    );
-
-                    if (_cityPhraseMap != null){
-                    final Phrase _cityPhrase = Phrase.decipherPhrase(map: _cityPhraseMap);
-                    _countryAndCitiesPhrases.add(_cityPhrase);
-                    }
-
-
-                  }
-
-                  Phrase.blogPhrases(_countryAndCitiesPhrases);
-
-                  final DocumentReference<Object> _docRef = await createNamedSubDoc(
+                  await createNamedDoc(
                       context: context,
                       collName: FireColl.phrases,
                       docName: _langCode,
-                      subCollName: FireSubColl.phrases_xx_countriesAndCities,
-                      subDocName: countryID,
-                      input: Phrase.cipherPhrasesToMap(phrases: _countryAndCitiesPhrases),
+                      input: Phrase.cipherPhrasesToMap(phrases: _cleanedPhrases),
                   );
-
-                  if (_docRef == null && _langCode == 'ar'){
-                    blog('khod balak : DID NOT DELETE [ $countryID ] nor [ ${Phrase.getPhrasesIDs(_countryAndCitiesPhrases)} ]');
-                  }
-
-                  else {
-                    await deleteSubDoc(
-                      context: context,
-                      collName: FireColl.translations,
-                      docName: _langCode,
-                      subCollName: FireSubColl.translations_xx_countries,
-                      subDocName: countryID,
-                    );
-                    for (final String cityID in _citiesIDs){
-                      await deleteSubDoc(
-                        context: context,
-                        collName: FireColl.translations,
-                        docName: _langCode,
-                        subCollName: FireSubColl.translations_xx_cities,
-                        subDocName: cityID,
-                      );
-                    }
-                  }
 
                 }
 
+
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
-                blog('done with [ $_langCode ] : ${Phrase.getPhrasesIDs(_enPhrases)} ---------------');
+
+              }),
+
+          WideButton(
+              color: Colorz.red255,
+              verse: 'DO THE OTHER THING NOW',
+              icon: Iconz.star,
+              onTap: () async {
+
+                _uiProvider.triggerLoading(setLoadingTo: true);
+
+                await deleteAllCollectionDocs(
+                    context: context,
+                    collName: FireColl.phrases,
+                );
+
+                _uiProvider.triggerLoading(setLoadingTo: false);
+
 
               }),
 
