@@ -156,7 +156,7 @@ class CountryModel {
 
           final Phrase _phrase = Phrase(
             id: zoneID,
-            langCode: phrasesMap[key]['langCode'],
+            langCode: key,
             value: phrasesMap[key]['value'],
             trigram: Mapper.getStringsFromDynamics(dynamics: phrasesMap[key]['trigram']),
           );
@@ -173,6 +173,7 @@ class CountryModel {
     return _output;
   }
 // -----------------------------------------------------------------------------
+
   /// CHECKERS
 
 // -------------------------------------
@@ -317,6 +318,7 @@ class CountryModel {
     blog('isActivated : $isActivated');
     blog('isGlobal : $isGlobal');
     blog('citiesIDs : $citiesIDs');
+    Phrase.blogPhrases(phrases);
     blog('language : $language');
 
     blog('$methodName ------------------------------------------- END');
