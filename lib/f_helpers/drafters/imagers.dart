@@ -4,10 +4,12 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -17,7 +19,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -99,7 +100,7 @@ Future<List<Asset>> takeGalleryMultiPictures({
       ),
       materialOptions: MaterialOptions(
         actionBarColor: '#13244b',
-        actionBarTitle: Wordz.choose(context),
+        actionBarTitle: superPhrase(context, 'phid_choose'),
         allViewTitle: 'All Photos',
         useDetailsView: false,
         selectCircleStrokeColor: '#ffc000',

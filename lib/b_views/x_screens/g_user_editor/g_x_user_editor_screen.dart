@@ -20,6 +20,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
@@ -331,7 +332,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitle: Wordz.updateProfile(context),
+      pageTitle: superPhrase(context, 'phid_updateProfile'),
       layoutWidget: ValueListenableBuilder(
         valueListenable: _loading,
         builder: (_, bool _isLoading, Widget child){
@@ -371,12 +372,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     textController: _nameController,
                     key: const Key('name'),
                     fieldIsFormField: true,
-                    title: Wordz.name(context),
+                    title: superPhrase(context, 'phid_name'),
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
-                    validator: (String val) =>
-                    val.isEmpty ? Wordz.enterName(context) : null,
+                    validator: (String val) => val.isEmpty ?
+                    superPhrase(context, 'phid_enterName')
+                        :
+                    null,
                   ),
 
                   GenderBubble(
@@ -389,12 +392,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     textController: _titleController,
                     key: const Key('title'),
                     fieldIsFormField: true,
-                    title: Wordz.jobTitle(context),
+                    title: superPhrase(context, 'phid_jobTitle'),
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
-                    validator: (String val) =>
-                    val.isEmpty ? Wordz.enterJobTitle(context) : null,
+                    validator: (String val) => val.isEmpty ?
+                    superPhrase(context, 'phid_enterJobTitle')
+                        :
+                    null,
                   ),
 
                   /// --- EDIT COMPANY NAME
@@ -402,12 +407,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     textController: _companyController,
                     key: const Key('company'),
                     fieldIsFormField: true,
-                    title: Wordz.companyName(context),
+                    title: superPhrase(context, 'phid_companyName'),
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
-                    validator: (String val) =>
-                    val.isEmpty ? Wordz.enterCompanyName(context) : null,
+                    validator: (String val) => val.isEmpty ?
+                    superPhrase(context, 'phid_enterCompanyName')
+                        :
+                    null,
                   ),
 
                   /// --- EDIT ZONE
@@ -427,7 +434,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ContactFieldBubble(
                     textController: _emailController,
                     fieldIsFormField: true,
-                    title: Wordz.emailAddress(context),
+                    title: superPhrase(context, 'phid_emailAddress'),
                     leadingIcon: Iconz.comEmail,
                     keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
@@ -438,7 +445,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ContactFieldBubble(
                     textController: _phoneController,
                     fieldIsFormField: true,
-                    title: Wordz.phone(context),
+                    title: superPhrase(context, 'phid_phone'),
                     leadingIcon: Iconz.comPhone,
                     keyboardTextInputAction: TextInputAction.next,
                     keyboardTextInputType: TextInputType.phone,
@@ -448,7 +455,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ContactFieldBubble(
                     textController: _facebookController,
                     fieldIsFormField: true,
-                    title: Wordz.facebookLink(context),
+                    title: superPhrase(context, 'phid_facebookLink'),
                     leadingIcon: Iconz.comFacebook,
                     keyboardTextInputAction: TextInputAction.next,
                   ),
@@ -457,7 +464,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ContactFieldBubble(
                     textController: _instagramController,
                     fieldIsFormField: true,
-                    title: Wordz.instagramLink(context),
+                    title: superPhrase(context, 'phid_instagramLink'),
                     leadingIcon: Iconz.comInstagram,
                     keyboardTextInputAction: TextInputAction.next,
                   ),
@@ -466,7 +473,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ContactFieldBubble(
                     textController: _linkedInController,
                     fieldIsFormField: true,
-                    title: Wordz.linkedinLink(context),
+                    title: superPhrase(context, 'phid_linkedinLink'),
                     leadingIcon: Iconz.comLinkedin,
                     keyboardTextInputAction: TextInputAction.next,
                   ),
@@ -475,7 +482,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ContactFieldBubble(
                     textController: _twitterController,
                     fieldIsFormField: true,
-                    title: 'Twitter link', //Wordz.twitterLink(context),
+                    title: superPhrase(context, 'phid_twitterLink'),
                     leadingIcon: Iconz.comTwitter,
                     keyboardTextInputAction: TextInputAction.done,
                   ),
@@ -501,7 +508,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   // icon: Iconz.Check,
                   // iconColor: Colorz.Black225,
                   // iconSizeFactor: 0.5,
-                  verse: Wordz.updateProfile(context),
+                  verse: superPhrase(context, 'phid_updateProfile'),
                   verseColor: Colorz.black230,
                   verseScaleFactor: 0.9,
                   verseWeight: VerseWeight.black,

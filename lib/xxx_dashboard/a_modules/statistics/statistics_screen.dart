@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_head
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
@@ -96,7 +97,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.businesses(context),
+                  verse: superPhrase(context, 'phid_businesses'),
                   count: _numberOfBzz,
                   icon: Iconz.bz,
                   iconSizeFactor: 0.95,
@@ -104,7 +105,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.flyers(context),
+                  verse: superPhrase(context, 'phid_flyers'),
                   count: _numberOfFlyers,
                   icon: Iconz.gallery,
                   iconSizeFactor: 0.8,
@@ -112,7 +113,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'slides', //Wordz.slides,
+                  verse: superPhrase(context, 'phid_slides'),
                   count: _numberOfSlides,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -126,8 +127,8 @@ class GeneralStatistics extends StatelessWidget {
                   // margin: EdgeInsets.only(top: screenWidth * 0.05),
                 ),
 
-                const SuperVerse(
-                  verse: 'Bz states :-',
+                SuperVerse(
+                  verse: superPhrase(context, 'phid_bz_statistics'),
                   size: 3,
                   italic: true,
                   shadow: true,
@@ -138,7 +139,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'Realtors',
+                  verse: superPhrase(context, 'phid_realtors'),
                   count: 0,
                   icon: Iconz.bxPropertiesOn,
                   iconSizeFactor: 0.95,
@@ -146,7 +147,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.propertyFlyer(context),
+                  verse: superPhrase(context, 'phid_k_flyer_type_property'),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -164,7 +165,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.designers(context),
+                  verse: superPhrase(context, 'phid_designers'),
                   count: 0,
                   icon: Iconz.bxDesignsOn,
                   iconSizeFactor: 0.95,
@@ -172,7 +173,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.designFlyer(context),
+                  verse: superPhrase(context, 'phid_k_flyer_type_design'),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -190,7 +191,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.suppliers(context),
+                  verse: superPhrase(context, 'phid_suppliers'),
                   count: 0,
                   icon: Iconz.bxEquipmentOn,
                   iconSizeFactor: 0.95,
@@ -198,7 +199,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.productFlyer(context),
+                  verse: superPhrase(context, 'phid_k_flyer_type_product'),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -206,7 +207,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.equipmentFlyer(context),
+                  verse: superPhrase(context, 'phid_k_flyer_type_equipment'),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -224,7 +225,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.contractors(context),
+                  verse: superPhrase(context, 'phid_contractors'),
                   count: 0,
                   icon: Iconz.bxProjectsOn,
                   iconSizeFactor: 0.95,
@@ -232,7 +233,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.projectFlyer(context),
+                  verse: superPhrase(context, 'phid_k_flyer_type_project'),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -250,7 +251,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.craftsmen(context),
+                  verse: superPhrase(context, 'phid_craftsmen'),
                   count: 0,
                   icon: Iconz.bxCraftsOn,
                   iconSizeFactor: 0.95,
@@ -258,7 +259,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.craftFlyer(context),
+                  verse: superPhrase(context, 'phid_k_flyer_type_craft'),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -274,7 +275,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 SuperVerse(
-                  verse: 'Engagement states :-',
+                  verse: '${superPhrase(context, 'phid_engagement_rates')} :-',
                   size: 3,
                   italic: true,
                   shadow: true,
@@ -285,7 +286,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.totalSaves(context), // Wordz.saves
+                  verse: superPhrase(context, 'phid_totalSaves'), // Wordz.saves
                   count: 0,
                   icon: Iconz.saveOn,
                   iconSizeFactor: 0.8,
@@ -293,7 +294,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.views(context),
+                  verse: superPhrase(context, 'phid_views'),
                   count: 0,
                   icon: Iconz.viewsIcon,
                   iconSizeFactor: 0.8,
@@ -301,7 +302,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.totalShares(context), // Wordz.shares
+                  verse: superPhrase(context, 'phid_totalShares'), // Wordz.shares
                   count: 0,
                   icon: Iconz.share,
                   iconSizeFactor: 0.8,
@@ -309,7 +310,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.followers(context),
+                  verse: superPhrase(context, 'phid_followers'),
                   count: 0,
                   icon: Iconz.follow,
                   iconSizeFactor: 0.8,
@@ -317,7 +318,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: Wordz.bldrsConnected(context),
+                  verse: superPhrase(context, 'phid_bldrsConnected'),
                   count: 0,
                   icon: Iconz.handShake,
                   iconSizeFactor: 0.9,
@@ -325,7 +326,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'Contact me clicks',
+                  verse: superPhrase(context, 'phid_contact_me_clicks'),
                   count: 0,
                   icon: Iconz.comPhone,
                   iconSizeFactor: 0.8,

@@ -3,10 +3,10 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
@@ -80,15 +80,15 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   @override
   Widget build(BuildContext context) {
     const int titleVerseSize = 2;
-    final double actionBtSize =
-        SuperVerse.superVerseRealHeight(context, titleVerseSize, 1, null);
+    final double actionBtSize = SuperVerse.superVerseRealHeight(context, titleVerseSize, 1, null);
     final double actionBtCorner = actionBtSize * 0.4;
     const double leadingIconSize = 35;
     const double leadingAndFieldSpacing = 5;
     final double bubbleClearWidth = Bubble.clearWidth(context);
-    final double fieldWidth = widget.leadingIcon == null
-        ? bubbleClearWidth
-        : bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
+    final double fieldWidth = widget.leadingIcon == null ?
+    bubbleClearWidth
+        :
+    bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
 
     return Bubble(columnChildren: <Widget>[
       Row(
@@ -134,8 +134,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                   iconSizeFactor: widget.leadingIcon == Iconz.comWebsite ||
                           widget.leadingIcon == Iconz.comEmail ||
                           widget.leadingIcon == Iconz.comPhone
-                      ? 0.6
-                      : 1,
+                      ? 0.6 : 1,
                 ),
               if (widget.leadingIcon != null)
                 Container(
@@ -174,7 +173,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
               DreamBox(
                 height: 35,
-                verse: '${Wordz.paste(context)}  ',
+                verse: '${superPhrase(context, 'phid_paste')}  ',
                 verseScaleFactor: 0.5,
                 verseWeight: VerseWeight.thin,
                 verseItalic: true,

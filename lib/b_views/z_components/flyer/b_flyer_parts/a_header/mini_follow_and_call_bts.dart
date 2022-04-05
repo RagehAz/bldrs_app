@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -7,7 +8,6 @@ import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -122,9 +122,8 @@ class OldFollowBT extends StatelessWidget {
     const String followIcon = Iconz.follow;
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
-    final String followText = Wordz.follow(context);
-    final Color followTextColor =
-        followOn == true ? Colorz.black230 : Colorz.white255;
+    final String followText = superPhrase(context, 'phid_follow');
+    final Color followTextColor = followOn == true ? Colorz.black230 : Colorz.white255;
     // === === === === === === === === === === === === === === === === === ===
     // void followTap() {
     //   onFollowTap();
@@ -274,10 +273,9 @@ class OldCallBT extends StatelessWidget {
 
                 /// FLYERS TEXT
                 SuperVerse(
-                  verse: Wordz.call(context),
+                  verse: superPhrase(context, 'phid_call'),
                   size: 1,
-                  scaleFactor:
-                  flyerBoxWidth / Scale.superScreenWidth(context),
+                  scaleFactor: flyerBoxWidth / Scale.superScreenWidth(context),
                 )
 
               ],

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -157,26 +157,27 @@ String translateFlyerType({
   /// PLURAL
   if (pluralTranslation == true){
     return
-      flyerType == FlyerType.all         ? 'All Flyers' :
-      flyerType == FlyerType.property    ? Wordz.properties(context)  :
-      flyerType == FlyerType.design      ? Wordz.designs(context)  :
-      flyerType == FlyerType.product     ? Wordz.products(context)  :
-      flyerType == FlyerType.project     ? Wordz.projects(context)  :
-      flyerType == FlyerType.equipment   ? Wordz.equipments(context)  :
-      flyerType == FlyerType.craft       ? Wordz.crafts(context)  :
-      Wordz.general(context);
+      flyerType == FlyerType.all         ? superPhrase(context, 'phid_all_flyer_types') :
+      flyerType == FlyerType.property    ? superPhrase(context, 'phid_properties')    :
+      flyerType == FlyerType.design      ? superPhrase(context, 'phid_designs')    :
+      flyerType == FlyerType.product     ? superPhrase(context, 'phid_products')    :
+      flyerType == FlyerType.project     ? superPhrase(context, 'phid_projects')    :
+      flyerType == FlyerType.equipment   ? superPhrase(context, 'phid_equipments')    :
+      flyerType == FlyerType.craft       ? superPhrase(context, 'phid_products')    :
+      superPhrase(context, 'phid_general');
   }
 
   /// SINGLE
   else {
     return
-      flyerType == FlyerType.property         ? Wordz.property(context)  :
-      flyerType == FlyerType.design           ? Wordz.design(context)  :
-      flyerType == FlyerType.product          ? Wordz.product(context)  :
-      flyerType == FlyerType.project          ? Wordz.project(context)  :
-      flyerType == FlyerType.equipment        ? Wordz.equipment(context)  :
-      flyerType == FlyerType.craft            ? Wordz.craft(context)  :
-      Wordz.general(context);
+      flyerType == FlyerType.all              ? superPhrase(context, 'phid_all_flyer_types') :
+      flyerType == FlyerType.property         ? superPhrase(context, 'phid_propertyFlyer')    :
+      flyerType == FlyerType.design           ? superPhrase(context, 'phid_designFlyer')    :
+      flyerType == FlyerType.product          ? superPhrase(context, 'phid_productFlyer')    :
+      flyerType == FlyerType.project          ? superPhrase(context, 'phid_projectFlyer')    :
+      flyerType == FlyerType.equipment        ? superPhrase(context, 'phid_equipmentFlyer')    :
+      flyerType == FlyerType.craft            ? superPhrase(context, 'phid_craftFlyer')    :
+      superPhrase(context, 'phid_general');
   }
 
 }

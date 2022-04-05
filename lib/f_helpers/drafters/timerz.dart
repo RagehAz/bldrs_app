@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -140,17 +141,17 @@ DateTime _decipherDateTimeIso8601(String cipheredDateTimeIso8601){
 // -----------------------------------------------------------------------------
 String getMonthNameByInt(BuildContext context, int month){
   switch (month){
-    case 1    :    return  Wordz.january(context);  break;
-    case 2    :    return  Wordz.february(context);  break;
-    case 3    :    return  Wordz.march(context);  break;
-    case 4    :    return  Wordz.april(context);  break;
-    case 5    :    return  Wordz.may(context);  break;
-    case 6    :    return  Wordz.june(context);  break;
-    case 7    :    return  Wordz.july(context);  break;
-    case 8    :    return  Wordz.august(context);  break;
-    case 9    :    return  Wordz.september(context);  break;
-    case 11   :    return  Wordz.november(context);  break;
-    case 12   :    return  Wordz.december(context);  break;
+    case 1    :    return  superPhrase(context, 'phid_january'); break;
+    case 2    :    return  superPhrase(context, 'phid_february'); break;
+    case 3    :    return  superPhrase(context, 'phid_march'); break;
+    case 4    :    return  superPhrase(context, 'phid_april'); break;
+    case 5    :    return  superPhrase(context, 'phid_may'); break;
+    case 6    :    return  superPhrase(context, 'phid_june'); break;
+    case 7    :    return  superPhrase(context, 'phid_july'); break;
+    case 8    :    return  superPhrase(context, 'phid_august'); break;
+    case 9    :    return  superPhrase(context, 'phid_september'); break;
+    case 11   :    return  superPhrase(context, 'phid_november'); break;
+    case 12   :    return  superPhrase(context, 'phid_december'); break;
     default : return null;
   }
 }
@@ -411,7 +412,12 @@ String monthYearStringer(BuildContext context, DateTime time){
   String _output = '';
 
   if (time != null && time.year != null && time.month != null){
-    _output = '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${getMonthNameByInt(context, time.month)} ${time.year}';
+    _output =
+        '${superPhrase(context, 'phid_inn')} '
+        '${Wordz.bldrsShortName(context)} '
+        '${superPhrase(context, 'phid_since')} : '
+        '${getMonthNameByInt(context, time.month)} '
+        '${time.year}';
   }
 
   return _output;
@@ -422,7 +428,13 @@ String dayMonthYearStringer(BuildContext context, DateTime time){
   String _output = '';
 
   if (time != null && time.year != null && time.month != null && time.day != null){
-    _output = '${Wordz.inn(context)} ${Wordz.bldrsShortName(context)} since : ${time.day} ${getMonthNameByInt(context, time.month)} ${time.year}';
+    _output =
+    '${superPhrase(context, 'phid_inn')} '
+        '${superPhrase(context, 'phid_phid_bldrsShortName')} '
+        '${superPhrase(context, 'phid_since')} : '
+        '${time.day} '
+        '${getMonthNameByInt(context, time.month)} '
+        '${time.year}';
   }
 
   return _output;

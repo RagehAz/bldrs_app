@@ -19,6 +19,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -28,7 +29,6 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -434,7 +434,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
 
-    final String _bzAboutBubbleTitle = Wordz.about(context);
+    final String _bzAboutBubbleTitle = superPhrase(context, 'phid_about');
 
     return MainLayout(
       key: const ValueKey<String>('BzEditorScreen'),
@@ -446,9 +446,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitle: widget.firstTimer == true ?
-      Wordz.createBzAccount(context)
+      superPhrase(context, 'phid_createBzAccount')
           :
-      'Edit Business account info', // createBzAccount
+      superPhrase(context, 'phid_edit_bz_info'), // createBzAccount
       // appBarBackButton: true,
       layoutWidget: Stack(
         children: <Widget>[
@@ -486,7 +486,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           );
 
                           return MultipleChoiceBubble(
-                            title: Wordz.sections(context),
+                            title: superPhrase(context, 'phid_sections'),
                             buttonsList: _allSections,
                             selectedButtons: <String>[_selectedButton],
                             onButtonTap: _onSelectSection,
@@ -565,7 +565,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                               );
 
                               return MultipleChoiceBubble(
-                                title: Wordz.businessForm(context),
+                                title: superPhrase(context, 'phid_businessForm'),
+                                // description: superPhrase(context, 'phid_businessForm_description'),
                                 buttonsList: _buttonsList,
                                 onButtonTap: _onSelectBzForm,
                                 selectedButtons: <String>[_selectedButton],
@@ -587,7 +588,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       picture: _bzLogo,
                       onAddPicture: _takeBzLogo,
                       onDeletePicture: _onDeleteLogo,
-                      title: Wordz.businessLogo(context),
+                      title: superPhrase(context, 'phid_businessLogo'),
                       bubbleType: BubbleType.bzLogo,
                     ),
 
@@ -597,9 +598,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       valueListenable: _selectedBzForm,
                       builder: (_, BzForm selectedBzForm, Widget child){
 
-                        final String _title = selectedBzForm == BzForm.individual
-                            ? 'Business Entity name'
-                            : Wordz.companyName(context);
+                        final String _title =
+                        selectedBzForm == BzForm.individual ?
+                        superPhrase(context, 'phid_business_entity_name')
+                            :
+                        superPhrase(context, 'phid_companyName');
 
                         return TextFieldBubble(
                           textController: _bzNameTextController,
@@ -607,7 +610,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           title:_title,
                           counterIsOn: true,
                           maxLength: 72,
-
                           maxLines: 2,
                           keyboardTextInputType: TextInputType.name,
                           fieldIsRequired: true,
@@ -621,7 +623,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     TextFieldBubble(
                       key: const ValueKey<String>('bz_scope_bubble'),
                       textController: _bzScopeTextController,
-                      title: '${Wordz.scopeOfServices(context)} :',
+                      title: '${superPhrase(context, 'phid_scopeOfServices')} :',
                       counterIsOn: true,
                       maxLength: 500,
                       maxLines: 4,

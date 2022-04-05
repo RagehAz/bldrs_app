@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -254,8 +255,8 @@ class BzzButton extends StatelessWidget {
                 height: _textBoxHeight,
                 // color: Colorz.YellowLingerie,
                 alignment: Alignment.center,
-                child: const SuperVerse(
-                  verse: 'Accounts',
+                child: SuperVerse(
+                  verse: superPhrase(context, 'phid_my_bz_accounts'),
                   maxLines: 2,
                   size: _textSize,
                   weight: VerseWeight.thin,

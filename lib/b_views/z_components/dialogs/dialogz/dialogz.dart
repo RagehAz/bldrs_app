@@ -13,7 +13,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -29,57 +28,49 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
   final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
     /// SIGN IN ERROR
     <String, dynamic>{
-      'error':
-          '[firebase_auth/user-not-found]', // There is no user record corresponding to this identifier. The user may have been deleted.',
-      'reply': Wordz.emailNotFound(context),
+      'error': '[firebase_auth/user-not-found]', // There is no user record corresponding to this identifier. The user may have been deleted.',
+      'reply': superPhrase(context, 'phid_emailNotFound'),
+    },
+    <String, dynamic>{
+      'error': '[firebase_auth/network-request-failed]', // A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+      'reply': superPhrase(context, 'phid_no_internet_connection'),
     },
     <String, dynamic>{
       'error':
-          '[firebase_auth/network-request-failed]', // A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
-      'reply': 'No Internet connection available',
+      '[firebase_auth/invalid-email]', // The email address is badly formatted.',
+      'reply': superPhrase(context, 'phid_emailWrong'),
     },
     <String, dynamic>{
-      'error':
-          '[firebase_auth/invalid-email]', // The email address is badly formatted.',
-      'reply': Wordz.emailWrong(context),
-    },
-    <String, dynamic>{
-      'error':
-          '[firebase_auth/wrong-password]', // The password is invalid or the user does not have a password.',
-      'reply': Wordz.wrongPassword(context),
+      'error': '[firebase_auth/wrong-password]', // The password is invalid or the user does not have a password.',
+      'reply': superPhrase(context, 'phid_wrongPassword'),
 
       /// TASK : should link accounts authentication
     },
     <String, dynamic>{
-      'error':
-          '[firebase_auth/too-many-requests]', // We have blocked all requests from this device due to unusual activity. Try again later.',
-      'reply':
-          'Too many failed sign in attempts.\nThis device is put on hold for some time to secure the account',
+      'error': '[firebase_auth/too-many-requests]', // We have blocked all requests from this device due to unusual activity. Try again later.',
+      'reply': superPhrase(context, 'phid_too_many_fails_error'),
 
       /// TASK : should link accounts authentication and delete this dialog
     },
     <String, dynamic>{
-      'error':
-          'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
-      'reply': 'Sorry, Could not sign in by google.',
+      'error': 'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
+      'reply': superPhrase(context, 'phid_could_not_sign_by_google'),
     },
 
     /// REGISTER ERRORS
     <String, dynamic>{
-      'error':
-          '[firebase_auth/email-already-in-use]', // The email address is already in use by another account.',
-      'reply': Wordz.emailAlreadyRegistered(context),
+      'error': '[firebase_auth/email-already-in-use]', // The email address is already in use by another account.',
+      'reply': superPhrase(context, 'phid_emailAlreadyRegistered'),
     },
     <String, dynamic>{
-      'error':
-          '[firebase_auth/invalid-email]', // The email address is badly formatted.',
-      'reply': Wordz.emailWrong(context),
+      'error': '[firebase_auth/invalid-email]', // The email address is badly formatted.',
+      'reply': superPhrase(context, 'phid_emailWrong'),
     },
 
     /// SHARED ERRORS
     <String, dynamic>{
       'error': null,
-      'reply': Wordz.somethingIsWrong(context),
+      'reply': superPhrase(context, 'phid_somethingIsWrong'),
     },
   ];
 
@@ -97,7 +88,7 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
       _errorReply = map['reply'];
       break;
     } else {
-      _errorReply = 'Sorry, Something went wrong, please try again.';
+      _errorReply = superPhrase(context, 'phid_something_went_wrong_error');
     }
   }
 
@@ -108,7 +99,7 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Could not continue !',
+    title: superPhrase(context, 'phid_a_could_not_continue_title'),
     body: _errorReply,
   );
 }
@@ -120,10 +111,8 @@ Future<bool> bzzDeactivationDialog({
 }) async {
   final bool _bzzReviewResult = await CenterDialog.showCenterDialog(
     context: context,
-    title:
-        'You Have ${bzzToDeactivate.length + bzzToKeep.length} business accounts',
-    body:
-        'All Business accounts will be deactivated except those shared with other authors',
+    title: 'You Have ${bzzToDeactivate.length + bzzToKeep.length} business accounts',
+    body: 'All Business accounts will be deactivated except those shared with other authors',
     boolDialog: true,
     height: Scale.superScreenHeight(context) * 0.8,
     child: SizedBox(

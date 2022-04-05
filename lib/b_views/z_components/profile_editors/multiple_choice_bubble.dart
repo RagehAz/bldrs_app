@@ -13,11 +13,13 @@ class MultipleChoiceBubble extends StatelessWidget {
     @required this.onButtonTap,
     @required this.selectedButtons,
     @required this.isInError,
+    this.description,
     this.inactiveButtons,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String title;
+  final String description;
   final List<String> buttonsList;
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtons;
@@ -38,6 +40,16 @@ class MultipleChoiceBubble extends StatelessWidget {
             margin: 5,
             redDot: true,
           ),
+
+          if (description != null)
+            SuperVerse(
+              verse: description,
+              margin: 10,
+              size: 1,
+              color: Colorz.blue255,
+              italic: true,
+              weight: VerseWeight.thin,
+            ),
 
           Wrap(
               runAlignment: WrapAlignment.center,
