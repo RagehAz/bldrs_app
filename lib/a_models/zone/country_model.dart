@@ -21,6 +21,7 @@ class CountryModel {
     @required this.citiesIDs,
     @required this.language,
     @required this.currency,
+    @required this.phrases,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -36,6 +37,8 @@ class CountryModel {
   final List<String> citiesIDs;
   final String language;
   final String currency;
+  /// mixed languages country names
+  final List<Phrase> phrases;
 // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -53,6 +56,7 @@ class CountryModel {
       'citiesIDs': citiesIDs,
       'language': language,
       'currency': currency,
+      'phrases' : cipherZonePhrases(phrases: phrases),
     };
   }
 // -------------------------------------
@@ -74,6 +78,10 @@ class CountryModel {
         citiesIDs: Mapper.getStringsFromDynamics(dynamics: map['citiesIDs']),
         language: map['language'],
         currency: map['currency'],
+        phrases: decipherZonePhrases(
+          phrasesMap: map['phrases'],
+          zoneID: map['id'],
+        ),
       );
     }
 
@@ -101,6 +109,66 @@ class CountryModel {
   }
 // -----------------------------------------------------------------------------
 
+  /// COUNTRY PHRASES CYPHERS
+
+// -------------------------------------
+  /// phrases contain mixed languages phrases in one list
+  static Map<String, dynamic> cipherZonePhrases({
+    @required List<Phrase> phrases,
+  }){
+    Map<String, dynamic> _output;
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        _output = Mapper.insertPairInMap(
+            map: _output,
+            key: phrase.langCode,
+            value: phrase.toMap(addTrigram: true),
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  static List<Phrase> decipherZonePhrases({
+    @required Map<String, dynamic> phrasesMap,
+    @required String zoneID,
+  }){
+
+    final List<Phrase> _output = <Phrase>[];
+
+    if (phrasesMap != null){
+
+      final List<String> _keys = phrasesMap.keys.toList();
+
+      if (Mapper.canLoopList(_keys) == true){
+
+        for (final String key in _keys){
+
+          final Phrase _phrase = Phrase(
+            id: zoneID,
+            langCode: phrasesMap[key],
+            value: phrasesMap['value'],
+            trigram: phrasesMap['trigram'],
+          );
+
+          _output.add(_phrase);
+
+        }
+
+      }
+
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
   /// CHECKERS
 
 // -------------------------------------

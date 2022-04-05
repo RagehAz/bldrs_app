@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -20,6 +21,7 @@ class CityModel {
     this.isPublic,
     this.position,
     this.state,
+    this.phrases,
   });
   /// --------------------------------------------------------------------------
   final String countryID;
@@ -29,6 +31,7 @@ class CityModel {
   final bool isActivated;
   final bool isPublic;
   final GeoPoint position;
+  final List<Phrase> phrases;
   final String state; // only for USA
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
@@ -50,6 +53,9 @@ class CityModel {
       'position': Atlas.cipherGeoPoint(
           point: position,
           toJSON: toJSON
+      ),
+      'phrases' : CountryModel.cipherZonePhrases(
+        phrases: phrases,
       ),
     };
   }
@@ -88,7 +94,14 @@ class CityModel {
         population: map['population'],
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
-        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
+        position: Atlas.decipherGeoPoint(
+            point: map['position'],
+            fromJSON: fromJSON,
+        ),
+        phrases: CountryModel.decipherZonePhrases(
+            phrasesMap: map['phrases'],
+            zoneID: map['cityID']
+        ),
       );
     }
 
@@ -103,7 +116,12 @@ class CityModel {
 
     if (Mapper.canLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
-        _cities.add(decipherCityMap(map: map, fromJSON: fromJSON));
+        _cities.add(
+            decipherCityMap(
+                map: map,
+                fromJSON: fromJSON,
+            )
+        );
       }
     }
     return _cities;
