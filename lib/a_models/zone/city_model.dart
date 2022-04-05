@@ -299,6 +299,7 @@ class CityModel {
     blog('isActivated : $isActivated');
     blog('isPublic : $isPublic');
     blog('position : $position');
+    Phrase.blogPhrases(phrases);
 
     blog('CITY - PRINT --------------------------------------- END');
   }
