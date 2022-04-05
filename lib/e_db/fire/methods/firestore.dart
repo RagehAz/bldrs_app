@@ -673,7 +673,13 @@ Future<void> deleteAllCollectionDocs({
   @required BuildContext context,
   @required String collName,
 }) async {
+
   /// TASK : deleting collection and all its docs, sub collections & sub docs require a cloud function
+  //
+  /// for now : this method loops 1000 times in a collection,
+  /// each time reads 5 docs, and deletes them one by one,
+  /// then keeps repeating until it can not read any more documents
+  /// to break the loop and end
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
     context: context,
@@ -706,10 +712,9 @@ Future<void> deleteAllCollectionDocs({
 
         blog('docs IDs : ${_docIDs.toString()}');
 
-        await _deleteNumberOfCollectionDocs(
+        await _deleteCollectionDocsByIDs(
           context: context,
           collName: collName,
-          number: _maps.length,
           docsIDs: _docIDs,
         );
 
@@ -722,10 +727,9 @@ Future<void> deleteAllCollectionDocs({
 }
 // ---------------------------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> _deleteNumberOfCollectionDocs({
+Future<void> _deleteCollectionDocsByIDs({
   @required BuildContext context,
   @required collName,
-  @required int number,
   @required List<String> docsIDs,
 }) async {
 
@@ -745,13 +749,94 @@ Future<void> _deleteNumberOfCollectionDocs({
 
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteSubCollection({
   @required BuildContext context,
   @required String collName,
   @required String docName,
   @required String subCollName,
 }) async {
+
   /// TASK : deleting sub collection and all its sub docs require a cloud function
+  //
+  /// does the same deletion algorithm with [deleteAllCollectionDocs]
+
+  final bool _canContinue = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'DANGER',
+    body: 'you will delete all documents in [ $collName / $docName / $subCollName ] collection\n Confirm delete ?',
+    boolDialog: true,
+    confirmButtonText: 'YES DELETE ALL',
+  );
+
+  if (_canContinue == true){
+
+    for (int i = 0; i < 1000; i++){
+
+      final List<Map<String, dynamic>> _maps = await readSubCollectionDocs(
+        context: context,
+        collName: collName,
+        docName: docName,
+        subCollName: subCollName,
+        limit: 5,
+        addDocsIDs: true,
+      );
+
+      if (_maps.isEmpty){
+        break;
+      }
+
+      else {
+
+        final List<String> _docIDs = Mapper.getMapsPrimaryKeysValues(
+          maps: _maps,
+          primaryKey: 'id',
+        );
+
+        blog('docs IDs : ${_docIDs.toString()}');
+
+        await _deleteSubCollectionDocsBySubDocsIDs(
+          context: context,
+          collName: collName,
+          docName: docName,
+          subCollName: subCollName,
+          subDocsIDs: _docIDs,
+        );
+
+      }
+
+    }
+
+  }
+
+
+}
+// ---------------------------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _deleteSubCollectionDocsBySubDocsIDs({
+  @required BuildContext context,
+  @required collName,
+  @required docName,
+  @required subCollName,
+  @required List<String> subDocsIDs,
+}) async {
+
+  if (Mapper.canLoopList(subDocsIDs) == true){
+
+    for (final String subDocID in subDocsIDs){
+
+      await deleteSubDoc(
+        context: context,
+        collName: collName,
+        docName: docName,
+        subCollName: subCollName,
+        subDocName: subDocID,
+      );
+
+    }
+
+  }
+
 }
 // ---------------------------------------------------
 /// ALERT : deleting all sub docs from client device is super dangerous

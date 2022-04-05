@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/translation_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:flutter/material.dart';
@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 typedef TransWidgetBuilder = Widget Function(
     BuildContext context,
-    TransModel transModel,
+    List<Phrase> phrases,
     );
 // -----------------------------------------------------------------------------
-Widget transModelStreamBuilder({
+Widget phrasesStreamBuilder({
   @required BuildContext context,
   @required TransWidgetBuilder builder,
-  @required Stream<TransModel> stream,
+  @required Stream<List<Phrase>> stream,
 }){
 
   return
@@ -20,7 +20,7 @@ Widget transModelStreamBuilder({
     StreamBuilder(
         stream: stream,
         initialData: null,
-        builder: (BuildContext ctx, AsyncSnapshot<TransModel> snapshot){
+        builder: (BuildContext ctx, AsyncSnapshot<List<Phrase>> snapshot){
 
           // blog('snapshot is : $snapshot');
 
@@ -33,8 +33,8 @@ Widget transModelStreamBuilder({
           }
 
           else {
-            final TransModel _transModel = snapshot.data;
-            return builder(ctx, _transModel);
+            final List<Phrase> _phrases = snapshot.data;
+            return builder(ctx, _phrases);
           }
 
         }
@@ -42,21 +42,21 @@ Widget transModelStreamBuilder({
 
 }
 // -----------------------------------------------------------------------------
-class TransModelStreamer extends StatelessWidget {
+class PhrasesStreamer extends StatelessWidget {
 
-  const TransModelStreamer({
+  const PhrasesStreamer({
     @required this.stream,
     @required this.builder,
     Key key
   }) : super(key: key);
 
-  final Stream<TransModel> stream;
+  final Stream<List<Phrase>> stream;
   final TransWidgetBuilder builder;
 
   @override
   Widget build(BuildContext context) {
 
-    return transModelStreamBuilder(
+    return phrasesStreamBuilder(
       context: context,
       stream: stream,
       builder: builder,

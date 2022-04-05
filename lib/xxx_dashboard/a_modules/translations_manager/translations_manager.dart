@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/secondary_models/translation_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -8,7 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/trans_model_streamer.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/trans_ops.dart';
+import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -40,8 +39,8 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
   final ValueNotifier<List<Phrase>> _mixedSearchedPhrases = ValueNotifier(<Phrase>[]);
   // ---------------------------------------------------------------------------
-  Stream<TransModel> _arStream;
-  Stream<TransModel> _enStream;
+  Stream<List<Phrase>> _arStream;
+  Stream<List<Phrase>> _enStream;
   @override
   void initState() {
     super.initState();
@@ -165,20 +164,20 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     const double _buttonsHeight = 40;
 
-    return TransModelStreamer(
+    return PhrasesStreamer(
         stream: _arStream,
-        builder: (_, TransModel arTransModel) {
+        builder: (_, List<Phrase> arPhrases) {
 
           final List<Phrase> _arPhrases = Phrase.sortPhrasesByID(
-            phrases: arTransModel?.phrases,
+            phrases: arPhrases,
           );
 
-          return TransModelStreamer(
+          return PhrasesStreamer(
               stream: _enStream,
-              builder: (_, TransModel enTransModel) {
+              builder: (_, List<Phrase> enPhrases) {
 
                 final List<Phrase> _enPhrases = Phrase.sortPhrasesByID(
-                  phrases: enTransModel?.phrases,
+                  phrases: enPhrases,
                 );
 
                 return MainLayout(
