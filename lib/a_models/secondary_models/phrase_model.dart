@@ -4,6 +4,7 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Phrase {
@@ -24,52 +25,51 @@ class Phrase {
   /// CYPHERS
 
 // -------------------------------------
-  Map<String, dynamic> toMap({bool addTrigram = false}) {
+  Map<String, dynamic> toMap({
+    bool includeTrigram = false,
+    bool includeLangCode = false,
+    String overrideLangCode,
+  }) {
 
     /// START MAP
     Map<String, dynamic> _map = <String, dynamic>{
+      'id' : id,
       'value': value,
     };
 
-    /// ADD ID IF EXISTED
-    if (id != null){
-      _map = Mapper.insertPairInMap(
-        map: _map,
-        key: 'id',
-        value: id,
-      );
-    }
+    /// WHEN INCLUDING LANGUAGE CODE
+    if (includeLangCode == true){
 
-    /// ADD LANG CODE IF EXISTED
-    if (langCode != null){
-      _map = Mapper.insertPairInMap(
+      /// ADD LANG CODE IF EXISTED
+      if (langCode != null){
+        _map = Mapper.insertPairInMap(
           map: _map,
           key: 'langCode',
-          value: langCode,
-      );
+          value: overrideLangCode ?? langCode,
+        );
+      }
+
     }
 
-    /// CREATE TRIGRAM IF WANTED
-    if (addTrigram == true){
+    /// WHEN INCLUDING TRIGRAM
+    if (includeTrigram == true){
+
+      final bool _trigramExists = Mapper.canLoopList(trigram);
+
       _map = Mapper.insertPairInMap(
         map: _map,
         key: 'trigram',
-        value: TextGen.createTrigram(input: value),
-      );
-    }
-    /// OTHERWISE ADD TRIGRAM IF ALREADY EXISTS AND NOT REQUIRED TO BE CREATED
-    else if (Mapper.canLoopList(trigram) == true){
-      _map = Mapper.insertPairInMap(
-        map: _map,
-        key: 'trigram',
-        value: trigram,
+        value: _trigramExists ?
+        trigram
+            :
+        TextGen.createTrigram(input: value),
       );
     }
 
     return _map;
   }
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
+  /// TESTED : WORKS PERFECT : used to upload to firebase
   static Map<String, dynamic> cipherPhrasesToMap({
     @required List<Phrase> phrases,
     bool addTrigrams = false,
@@ -82,7 +82,7 @@ class Phrase {
         _phrasesMap = Mapper.insertPairInMap(
           map: _phrasesMap,
           key: phrase.id,
-          value: phrase.toMap(addTrigram: addTrigrams),
+          value: phrase.toMap(includeTrigram: addTrigrams),
         );
       }
 
@@ -91,6 +91,7 @@ class Phrase {
     return _phrasesMap;
   }
 // -------------------------------------
+  /// used to store in LDB
   static List<Map<String, dynamic>> cipherPhrasesToMaps({
   @required List<Phrase> phrases,
     bool addTrigrams = false,
@@ -103,7 +104,7 @@ class Phrase {
       for (final Phrase phrase in phrases){
 
         final Map<String, dynamic> _map = phrase.toMap(
-          addTrigram: addTrigrams,
+          includeTrigram: addTrigrams,
         );
 
         _maps.add(_map);
@@ -184,6 +185,27 @@ class Phrase {
   }
 // -----------------------------------------------------------------------------
 
+  /// STREAMING
+
+// -------------------------------------
+  static List<Phrase> getPhrasesFromStream({
+    @required DocumentSnapshot<Object> doc,
+    @required String langCode,
+  }) {
+
+    final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(doc);
+
+    final List<Phrase> _models = Phrase.decipherPhrasesMap(
+      map: _map,
+      addLangCodeOverride: langCode,
+    );
+
+    return _models;
+  }
+// -----------------------------------------------------------------------------
+
+
+
   /// BLOGGERS
 
 // -------------------------------------
@@ -201,26 +223,25 @@ class Phrase {
   /// TESTED : WORKS PERFECT
   static void blogPhrases(List<Phrase> phrases){
 
-    // blog('PRINTING NAME --------------------------------------- START');
+    int _count = 1;
 
     if (Mapper.canLoopList(phrases)){
 
       for (final Phrase phrase in phrases){
         blog(
+            '#$_count : '
             'id : [ ${phrase.id} ] : '
             'langCode : [ ${phrase.langCode} ] : '
             'name : [ ${phrase.value} ] : '
             'trigramLength : ${phrase.trigram?.length}'
         );
+        _count++;
       }
 
-    } else {
-
-      // blog('phrases ARE FUCKING NULL');
-
     }
-
-    // blog('PRINTING NAME --------------------------------------- END');
+    else {
+      // blog('phrases ARE FUCKING NULL');
+    }
 
   }
 // -----------------------------------------------------------------------------
@@ -927,6 +948,30 @@ class Phrase {
     if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(phraseID) == true){
 
       _output.removeWhere((ph) => ph.id == phraseID);
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> onlyIncludeIDAndValue({
+  @required List<Phrase> phrases,
+}){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        final Phrase _phrase = Phrase(
+          id: phrase.id,
+          value: phrase.value,
+        );
+
+        _output.add(_phrase);
+
+      }
 
     }
 

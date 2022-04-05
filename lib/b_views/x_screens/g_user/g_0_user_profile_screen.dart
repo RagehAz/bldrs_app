@@ -11,16 +11,14 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class UserProfileScreen extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const UserProfileScreen({
-
     Key key
   }) : super(key: key);
-
-
-
+  /// --------------------------------------------------------------------------
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> with SingleTickerProviderStateMixin {
