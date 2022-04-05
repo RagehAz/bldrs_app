@@ -21,15 +21,11 @@ class ZoneModel {
   String countryName;
   String cityName;
   String districtName;
-  /// --------------------------------------------------------------------------
-  ZoneModel clone() {
-    return ZoneModel(
-      countryID: countryID,
-      cityID: cityID,
-      districtID: districtID,
-    );
-  }
 // -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+// -------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'countryID': countryID,
@@ -37,11 +33,7 @@ class ZoneModel {
       'districtID': districtID,
     };
   }
-// -----------------------------------------------------------------------------
-  String cipherToString() {
-    return '$countryID/$cityID/$districtID';
-  }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static ZoneModel decipherZoneMap(Map<String, dynamic> map) {
     final ZoneModel _zone = map == null ? null :
     ZoneModel(
@@ -52,7 +44,56 @@ class ZoneModel {
 
     return _zone;
   }
+// -------------------------------------
+  String cipherToString() {
+    return '$countryID/$cityID/$districtID';
+  }
+// -------------------------------------
+  static ZoneModel decipherZoneString(String zoneString) {
+    final String _countryID = decipherZoneStringToCountryID(zoneString);
+    final String _cityID = decipherZoneStringToCityID(zoneString);
+    final String _districtID = decipherZoneStringToDistrictID(zoneString);
+
+    return ZoneModel(
+      countryID: _countryID,
+      cityID: _cityID,
+      districtID: _districtID,
+    );
+  }
+// -------------------------------------
+  static String decipherZoneStringToCountryID(String zoneString) {
+    final String _countryID = TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
+    return _countryID;
+  }
+// -------------------------------------
+  static String decipherZoneStringToCityID(String zoneString) {
+    final String _cityAndDistrict = TextMod.removeTextBeforeFirstSpecialCharacter(zoneString, '/');
+    final String _cityID = TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
+    return _cityID;
+  }
+// -------------------------------------
+  static String decipherZoneStringToDistrictID(String zoneString) {
+    final String _districtID =
+    TextMod.removeTextBeforeLastSpecialCharacter(zoneString, '/');
+    return _districtID;
+  }
 // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// -------------------------------------
+  ZoneModel clone() {
+    return ZoneModel(
+      countryID: countryID,
+      cityID: cityID,
+      districtID: districtID,
+    );
+  }
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -------------------------------------
   static bool zonesAreTheSame(ZoneModel finalZone, ZoneModel originalZone) {
     bool _zonesAreTheSame = true;
 
@@ -74,49 +115,25 @@ class ZoneModel {
 
     return _zonesAreTheSame;
   }
+// -------------------------------------
+  bool isNotEmpty() {
+    final bool _isEmpty = TextChecker.stringIsEmpty(countryID) == true;
+    final bool _isNotEmpty = !_isEmpty;
+    return _isNotEmpty;
+  }
+// -------------------------------------
+  static bool zoneHasAllIDs(ZoneModel zone) {
+    final bool _hasAllIDs = zone != null &&
+        zone.countryID != null &&
+        zone.cityID != null &&
+        zone.districtID != null;
+    return _hasAllIDs;
+  }
 // -----------------------------------------------------------------------------
-  static ZoneModel decipherZoneString(String zoneString) {
-    final String _countryID = decipherZoneStringToCountryID(zoneString);
-    final String _cityID = decipherZoneStringToCityID(zoneString);
-    final String _districtID = decipherZoneStringToDistrictID(zoneString);
 
-    return ZoneModel(
-      countryID: _countryID,
-      cityID: _cityID,
-      districtID: _districtID,
-    );
-  }
-// -----------------------------------------------------------------------------
-  static String decipherZoneStringToCountryID(String zoneString) {
-    final String _countryID = TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
-    return _countryID;
-  }
-// -----------------------------------------------------------------------------
-  static String decipherZoneStringToCityID(String zoneString) {
-    final String _cityAndDistrict = TextMod.removeTextBeforeFirstSpecialCharacter(zoneString, '/');
-    final String _cityID = TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
-    return _cityID;
-  }
-// -----------------------------------------------------------------------------
-  static String decipherZoneStringToDistrictID(String zoneString) {
-    final String _districtID =
-        TextMod.removeTextBeforeLastSpecialCharacter(zoneString, '/');
-    return _districtID;
-  }
-// -----------------------------------------------------------------------------
-//   static Zone getZoneFromBzModel(BzModel bzModel){
-//       return bzModel.bzZone;
-//   }
-// -----------------------------------------------------------------------------
-  static ZoneModel dummyZone() {
-    return ZoneModel(
-      countryID: 'egy',
-      cityID: 'egy_cairo',
-      districtID: 'el_rehab',
-    );
-  }
+  /// BLOGGING
 
-// -----------------------------------------------------------------------------
+// -------------------------------------
   void blogZone({String methodName = 'ZONE - PRINT'}) {
     blog('$methodName ------------------------------- START');
 
@@ -127,18 +144,16 @@ class ZoneModel {
     blog('$methodName ------------------------------- END');
   }
 // -----------------------------------------------------------------------------
-  bool isNotEmpty() {
-    final bool _isEmpty = TextChecker.stringIsEmpty(countryID) == true;
-    final bool _isNotEmpty = !_isEmpty;
-    return _isNotEmpty;
-  }
-// -----------------------------------------------------------------------------
-  static bool zoneHasAllIDs(ZoneModel zone) {
-    final bool _hasAllIDs = zone != null &&
-        zone.countryID != null &&
-        zone.cityID != null &&
-        zone.districtID != null;
-    return _hasAllIDs;
+
+  /// DUMMIES
+
+// -------------------------------------
+  static ZoneModel dummyZone() {
+    return ZoneModel(
+      countryID: 'egy',
+      cityID: 'egy_cairo',
+      districtID: 'el_rehab',
+    );
   }
 // -----------------------------------------------------------------------------
 }
