@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -94,7 +95,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// EDIT PROFILE
         BottomDialog.wideButton(
           context: context,
-          verse: Wordz.editProfile(context),
+          verse: superPhrase(context, 'phid_editProfile'),
           icon: Iconz.gears,
           onTap: () => onEditProfileTap(context),
         ),
@@ -102,7 +103,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// CHANGE APP LANGUAGE
         BottomDialog.wideButton(
           context: context,
-          verse: Wordz.changeLanguage(context),
+          verse: superPhrase(context, 'phid_changeLanguage'),
           icon: Iconz.language,
           onTap: () => _onChangeAppLanguageTap(context),
         ),
@@ -112,7 +113,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// ABOUT BLDRS
         BottomDialog.wideButton(
           context: context,
-          verse: '${Wordz.about(context)} ${Wordz.bldrsFullName(context)}',
+          verse: '${superPhrase(context, 'phid_about')} ${Wordz.bldrsFullName(context)}',
           icon: Iconz.pyramidSingleYellow,
           onTap: () => _onAboutBldrsTap(context),
         ),
@@ -120,7 +121,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// FEEDBACK
         BottomDialog.wideButton(
           context: context,
-          verse: Wordz.feedback(context),
+          verse: superPhrase(context, 'phid_feedback'),
           icon: Iconz.utSearching,
           onTap: () => _onFeedbackTap(context),
         ),
@@ -128,7 +129,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// TERMS AND REGULATIONS
         BottomDialog.wideButton(
           context: context,
-          verse: Wordz.termsRegulations(context),
+          verse: superPhrase(context, 'phid_termsRegulations'),
           icon: Iconz.terms,
           onTap: () => _onTermsAndRegulationsTap(context),
         ),
@@ -138,7 +139,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// CREATE NEW BZ ACCOUNT
         BottomDialog.wideButton(
           context: context,
-          verse: Wordz.createBzAccount(context),
+          verse: superPhrase(context, 'phid_createBzAccount'),
           icon: Iconz.bz,
           onTap: () => _onCreateNewBzTap(context),
         ),
@@ -146,7 +147,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// INVITE FRIENDS
         BottomDialog.wideButton(
           context: context,
-          verse: Wordz.inviteFriends(context),
+          verse: superPhrase(context, 'phid_inviteFriends'),
           icon: Iconizer.shareAppIcon(),
           onTap: () => _onInviteFriendsTap(context),
         ),
@@ -156,7 +157,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// DELETE MY ACCOUNT
         BottomDialog.wideButton(
           context: context,
-          verse: 'Delete my account',
+          verse: superPhrase(context, 'phid_delete_my_account'),
           icon: Iconz.xSmall,
           onTap: () => _onDeleteMyAccount(context),
         ),
@@ -166,7 +167,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         /// SIGN OUT
         BottomDialog.wideButton(
           context: context,
-          verse: Wordz.signOut(context),
+          verse: superPhrase(context, 'phid_signOut'),
           icon: Iconz.exit,
           onTap: () => _onSignOut(context),
         ),

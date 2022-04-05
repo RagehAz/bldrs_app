@@ -11,13 +11,13 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -271,7 +271,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     builder: (_, bool loadingCountries, Widget child){
 
                       return ZoneSelectionButton(
-                        title: Wordz.country(context),
+                        title: superPhrase(context, 'phid_country'),
                         icon: _countryFlag,
                         verse: _countryName,
                         onTap: () => _onShowCountriesTap(context: context),

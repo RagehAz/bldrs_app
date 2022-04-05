@@ -1,11 +1,11 @@
 import 'package:bldrs/b_views/x_screens/b_auth/b_1_email_auth_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class AuthScreenView extends StatelessWidget {
@@ -64,7 +64,7 @@ class AuthScreenView extends StatelessWidget {
 
         /// --- CONTINUE WITH EMAIL
         MainButton(
-          verse: Wordz.continueEmail(context),
+          verse: superPhrase(context, 'phid_continueEmail'),
           icon: Iconz.comEmail,
           buttonColor: Colorz.white10,
           buttonVerseShadow: false,

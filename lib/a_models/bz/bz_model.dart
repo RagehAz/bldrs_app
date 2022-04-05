@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -10,7 +11,6 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -415,26 +415,26 @@ class BzModel{
     /// PLURAL
     if (pluralTranslation == true){
       return
-        bzType == BzType.developer ? Wordz.realEstateDevelopers(context) :
-        bzType == BzType.broker ? Wordz.brokers(context) :
-        bzType == BzType.designer ? Wordz.designers(context) :
-        bzType == BzType.contractor ? Wordz.contractors(context) :
-        bzType == BzType.craftsman ? Wordz.craftsmen(context) :
-        bzType == BzType.manufacturer ? Wordz.manufacturers(context) :
-        bzType == BzType.supplier ? Wordz.suppliers(context) :
+        bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDevelopers') :
+        bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBrokers') :
+        bzType == BzType.designer ? superPhrase(context, 'phid_designers') :
+        bzType == BzType.contractor ? superPhrase(context, 'phid_contractors') :
+        bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsmen') :
+        bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturers') :
+        bzType == BzType.supplier ? superPhrase(context, 'phid_supplier') :
         'Builders';
     }
 
     /// SINGLE
     else {
       return
-        bzType == BzType.developer ? Wordz.realEstateDeveloper(context) :
-        bzType == BzType.broker ? Wordz.realEstateBroker(context) :
-        bzType == BzType.designer ? Wordz.designer(context) :
-        bzType == BzType.contractor ? Wordz.contractor(context) :
-        bzType == BzType.craftsman ? Wordz.craftsman(context) :
-        bzType == BzType.manufacturer ? Wordz.manufacturer(context) :
-        bzType == BzType.supplier ? Wordz.supplier(context) :
+        bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDeveloper') :
+        bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBroker') :
+        bzType == BzType.designer ? superPhrase(context, 'phid_designer') :
+        bzType == BzType.contractor ? superPhrase(context, 'phid_contractor') :
+        bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsman') :
+        bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturer') :
+        bzType == BzType.supplier ? superPhrase(context, 'phid_suppliers') :
         'Builder';
     }
 
@@ -725,11 +725,11 @@ class BzModel{
   }){
 
     if (bzForm == BzForm.company){
-      return Wordz.company(context);
+      return superPhrase(context, 'phid_company');
     }
 
     else if (bzForm == BzForm.individual){
-      return Wordz.individual(context);
+      return superPhrase(context, 'phid_individual');
     }
 
     else {

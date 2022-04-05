@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -6,7 +7,6 @@ import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -36,7 +36,7 @@ class FollowBT extends StatelessWidget {
     const String followIcon = Iconz.follow;
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
-    final String followText = Wordz.follow(context);
+    final String followText = superPhrase(context, 'phid_follow');
 // -----------------------------------------------------------------------------
     return GestureDetector(
       onTap: onFollowTap,

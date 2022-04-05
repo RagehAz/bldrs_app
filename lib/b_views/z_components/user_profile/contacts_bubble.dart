@@ -2,12 +2,12 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class ContactsBubble extends StatelessWidget {
@@ -33,7 +33,7 @@ class ContactsBubble extends StatelessWidget {
 
     return Bubble(
       stretchy: stretchy,
-      title: '${Wordz.contacts(context)} :',
+      title: '${superPhrase(context, 'phid_contacts')} :',
       columnChildren: <Widget>[
         /// CONTACTS WITH STRINGS
         Wrap(

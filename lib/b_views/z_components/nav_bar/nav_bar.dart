@@ -17,6 +17,7 @@ import 'package:bldrs/b_views/z_components/nav_bar/bar_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/unfinished_bzz_button.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
@@ -31,7 +32,6 @@ import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -422,7 +422,7 @@ class NavBar extends StatelessWidget {
                       if (_userIsSignedIn == true)
                         BarButton(
                           width: navBarButtonWidth,
-                          text: 'Choices',
+                          text: superPhrase(context, 'phid_saves'),
                           icon: Iconz.saveOn,
                           iconSizeFactor: 0.7,
                           barType: barType,
@@ -432,10 +432,10 @@ class NavBar extends StatelessWidget {
 
                       _spacer,
 
-                      /// MORE
+                      /// QUESTION
                       BarButton(
                         width: navBarButtonWidth,
-                        text: Wordz.question(context),
+                        text: superPhrase(context, 'phid_question'),
                         icon: Iconz.utPlanning,
                         iconSizeFactor: 0.45,
                         barType: barType,
@@ -493,7 +493,7 @@ class NavBar extends StatelessWidget {
                       if (_userIsSignedIn == true)
                         BarButton(
                             width: navBarButtonWidth,
-                            text: Wordz.profile(context),
+                            text: superPhrase(context, 'phid_profile'),
                             icon: Iconz.normalUser,
                             iconSizeFactor: 0.7,
                             barType: barType,
@@ -510,7 +510,7 @@ class NavBar extends StatelessWidget {
                       if (_userIsSignedIn == false)
                         BarButton(
                           width: navBarButtonWidth,
-                          text: 'Sign',
+                          text: superPhrase(context, 'phid_sign'),
                           icon: Iconz.normalUser,
                           iconSizeFactor: 0.45,
                           barType: barType,

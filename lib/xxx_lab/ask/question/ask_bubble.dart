@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -19,7 +20,6 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
 import 'package:bldrs/xxx_lab/ask/question/question_ops.dart';
 import 'package:flutter/material.dart';
@@ -418,7 +418,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                 width: 150,
                 height: 40,
                 margins: const EdgeInsets.only(top: 10),
-                verse: Wordz.ask(context),
+                verse: superPhrase(context, 'phid_ask'),
                 verseColor: Colorz.black255,
                 verseScaleFactor: 0.7,
                 color: Colorz.yellow255,
