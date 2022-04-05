@@ -125,7 +125,11 @@ class CountryModel {
         _output = Mapper.insertPairInMap(
             map: _output,
             key: phrase.langCode,
-            value: phrase.toMap(includeTrigram: true),
+            value: phrase.toMap(
+              includeID: false,
+              includeTrigram: true,
+              // includeLangCode: false,
+            ),
         );
 
       }
