@@ -69,8 +69,10 @@ Future<void> insertMaps({
 /// READ
 
 // ---------------------------------------------------
-Future<List<Map<String, Object>>> readAllMaps(
-    {@required String docName}) async {
+Future<List<Map<String, Object>>> readAllMaps({
+  @required String docName,
+}) async {
+
   final List<Map<String, Object>> _result = await Sembast.readAll(
     docName: docName,
   );
@@ -79,7 +81,6 @@ Future<List<Map<String, Object>>> readAllMaps(
 
   return _fixedMaps;
 }
-
 // ---------------------------------------------------
 Future<Map<String, Object>> searchFirstMap({
   @required String fieldToSortBy,
@@ -87,6 +88,7 @@ Future<Map<String, Object>> searchFirstMap({
   @required dynamic searchValue,
   @required String docName,
 }) async {
+
   final Map<String, Object> _result = await Sembast.findFirst(
     docName: docName,
     fieldToSortBy: fieldToSortBy,
@@ -100,7 +102,6 @@ Future<Map<String, Object>> searchFirstMap({
 
   return _fixedMap;
 }
-
 // ---------------------------------------------------
 Future<List<Map<String, Object>>> searchAllMaps({
   @required String fieldToSortBy,
@@ -122,13 +123,13 @@ Future<List<Map<String, Object>>> searchAllMaps({
 
   return _fixedMaps;
 }
-
 // ---------------------------------------------------
 Future<List<Map<String, Object>>> searchTrigram({
   @required dynamic searchValue,
   @required String docName,
   @required String lingoCode,
 }) async {
+
   final List<Map<String, dynamic>> _result = await Sembast.search(
     fieldToSortBy: getPrimaryKey(docName),
     searchField: 'names.$lingoCode.trigram',
@@ -148,6 +149,7 @@ Future<void> updateMap({
   @required String objectID,
   @required String docName,
 }) async {
+
   final String _primaryKey = getPrimaryKey(docName);
 
   await Sembast.update(
@@ -156,6 +158,7 @@ Future<void> updateMap({
     searchPrimaryKey: _primaryKey,
     searchPrimaryValue: objectID,
   );
+
 }
 // -----------------------------------------------------------------------------
 
@@ -166,6 +169,7 @@ Future<void> deleteMap({
   @required String objectID,
   @required String docName,
 }) async {
+
   final String _primaryKey = getPrimaryKey(docName);
 
   await Sembast.delete(

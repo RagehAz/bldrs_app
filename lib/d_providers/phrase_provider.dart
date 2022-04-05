@@ -23,17 +23,17 @@ class PhraseProvider extends ChangeNotifier {
 
     await Localizer.changeAppLanguage(context, langCode);
 
-    await getSetCurrentLangAndTransModel(context);
+    await getSetCurrentLangAndPhrases(context);
   }
 // -------------------------------------
-  Future<void> getSetCurrentLangAndTransModel(BuildContext context) async {
+  Future<void> getSetCurrentLangAndPhrases(BuildContext context) async {
 
     await getSetCurrentLangCode(
       context: context,
       notify: false,
     );
 
-    await getSetTranslations(
+    await getSetPhrases(
         context: context,
         notify: true
     );
@@ -144,7 +144,7 @@ class PhraseProvider extends ChangeNotifier {
     await LDBOps.deleteAllAtOnce(docName: LDBDoc.arPhrases);
 
     /// reload all phrases by current langCode
-    await getSetCurrentLangAndTransModel(context);
+    await getSetCurrentLangAndPhrases(context);
 
   }
 // -----------------------------------------------------------------------------
@@ -193,7 +193,7 @@ class PhraseProvider extends ChangeNotifier {
 // -------------------------------------
   List<Phrase> get phrases  => _currentPhrases;
 // -------------------------------------
-  Future<void> getSetTranslations({
+  Future<void> getSetPhrases({
     @required BuildContext context,
     @required bool notify,
 }) async {
@@ -203,14 +203,14 @@ class PhraseProvider extends ChangeNotifier {
         langCode: _currentLangCode,
     );
 
-    _setTranslations(
+    _setPhrases(
         phrases: _phrases,
         notify: notify,
     );
 
   }
 // -------------------------------------
-  void _setTranslations({
+  void _setPhrases({
     @required List<Phrase> phrases,
     @required bool notify,
 }){

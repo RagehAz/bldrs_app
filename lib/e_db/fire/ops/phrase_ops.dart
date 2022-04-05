@@ -42,6 +42,7 @@ Stream<List<Phrase>> getTransModelStream({
 
 }
 // -----------------------------
+/// TESTED : WORKS PERFECT
 Future<List<Phrase>> readBasicPhrases({
   @required BuildContext context,
   @required String langCode,
