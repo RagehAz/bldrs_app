@@ -30,15 +30,17 @@ class ExoticMethods {
 
   final dynamic bitch;
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
     @required String collName,
-    @required String orderBy,
-    bool addDocsIDs = true,
+    String orderBy,
+    bool addDocsIDs = false,
+    int limit = 1000,
   }) async {
 
     final List<Map<String, dynamic>> _maps = await readCollectionDocs(
-      limit: 1000,
       collName: collName,
+      limit: limit,
       orderBy: orderBy,
       addDocsIDs: addDocsIDs,
     );

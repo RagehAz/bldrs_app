@@ -1,9 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/secondary_models/translation_model.dart';
 
-TransModel bldrsTranslationsArabic = const TransModel(
-  langCode: 'en',
-  phrases: <Phrase>[
+List<Phrase> bldrsTranslationsArabic = const <Phrase>[
     // -----------------------------------------------------------------------
 
     /// GENERAL
@@ -62,12 +59,9 @@ TransModel bldrsTranslationsArabic = const TransModel(
     // -----------------------------------------------------------------------
 
 
-  ],
-);
+  ];
 
-TransModel keywordsAndSpecsArabic = const TransModel(
-  langCode: 'en',
-  phrases: <Phrase>[
+List<Phrase> keywordsAndSpecsArabic = const  <Phrase>[
     // -----------------------------------------------------------------------
 
     /// KEYWORDS
@@ -87,5 +81,4 @@ TransModel keywordsAndSpecsArabic = const TransModel(
     // -----------------------------
     // Phrase(id: 'id', value: 'value'),
     // -----------------------------------------------------------------------
-  ],
-);
+  ];
