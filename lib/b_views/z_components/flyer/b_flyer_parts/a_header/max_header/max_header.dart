@@ -3,13 +3,13 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_counter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_fields.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class MaxHeader extends StatelessWidget {
@@ -91,7 +91,7 @@ class MaxHeader extends StatelessWidget {
             key: const ValueKey<String>('max_header_BzPgCounter_follows'),
             flyerBoxWidth: flyerBoxWidth,
             count: _followersCount,
-            verse: Wordz.followers(context),
+            verse: superPhrase(context, 'phid_followers'),
             icon: Iconz.follow,
             iconSizeFactor: 0.8,
           ),
@@ -101,7 +101,7 @@ class MaxHeader extends StatelessWidget {
             key: const ValueKey<String>('max_header_BzPgCounter_calls'),
             flyerBoxWidth: flyerBoxWidth,
             count: _callsCount,
-            verse: Wordz.callsReceived(context),
+            verse: superPhrase(context, 'phid_callsReceived'),
             icon: Iconz.comPhone,
             iconSizeFactor: 0.8,
           ),
@@ -111,7 +111,7 @@ class MaxHeader extends StatelessWidget {
             key: const ValueKey<String>('max_header_BzPgCounter_slides'),
             flyerBoxWidth: flyerBoxWidth,
             count: _bzTotalSlides,
-            verse: Wordz.slidesPublished(context),
+            verse: superPhrase(context, 'phid_slidesPublished'),
             icon: Iconz.gallery,
             iconSizeFactor: 0.85,
           ),
@@ -121,7 +121,7 @@ class MaxHeader extends StatelessWidget {
             key: const ValueKey<String>('max_header_BzPgCounter_views'),
             flyerBoxWidth: flyerBoxWidth,
             count: _bzTotalViews,
-            verse: Wordz.totalViews(context),
+            verse: superPhrase(context, 'phid_totalViews'),
             icon: Iconz.viewsIcon,
             iconSizeFactor: 0.85,
           ),
@@ -131,7 +131,7 @@ class MaxHeader extends StatelessWidget {
             key: const ValueKey<String>('max_header_BzPgCounter_shares'),
             flyerBoxWidth: flyerBoxWidth,
             count: _bzTotalShares,
-            verse: Wordz.totalShares(context),
+            verse: superPhrase(context, 'phid_totalShares'),
             icon: Iconz.share,
             iconSizeFactor: 0.85,
           ),
@@ -141,7 +141,7 @@ class MaxHeader extends StatelessWidget {
             key: const ValueKey<String>('max_header_BzPgCounter_saves'),
             flyerBoxWidth: flyerBoxWidth,
             count: _bzTotalSaves,
-            verse: Wordz.totalSaves(context),
+            verse: superPhrase(context, 'phid_totalSaves'),
             icon: Iconz.saveOn,
             iconSizeFactor: 0.95,
           ),

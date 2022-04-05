@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -11,7 +12,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class OldAuthorLabel extends StatelessWidget {
@@ -75,9 +75,12 @@ class OldAuthorLabel extends StatelessWidget {
     ''
         :
     showLabel == true ?
-    '${Numeric.separateKilos(number: authorGalleryCount)} ${Wordz.flyers(context)}'
+    '${Numeric.separateKilos(number: authorGalleryCount)} '
+        '${superPhrase(context, 'phid_flyers')}'
             :
-    '${Numeric.counterCaliber(context, _followersCount)} ${Wordz.followers(context)} . $_galleryCountCalibrated ${Wordz.flyers(context)}';
+    '${Numeric.counterCaliber(context, _followersCount)} '
+        '${superPhrase(context, 'followers')} . '
+        '$_galleryCountCalibrated ${superPhrase(context, 'flyers')}';
 // -----------------------------------------------------------------------------
     final double _authorImageCorners = flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------

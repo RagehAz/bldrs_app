@@ -2,13 +2,13 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +69,7 @@ class EmailAuthScreenView extends StatelessWidget {
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
             keyboardTextInputAction: TextInputAction.next,
-            title: Wordz.emailAddress(context),
+            title: superPhrase(context, 'phid_emailAddress'),
             validator: validateEmail,
           ),
 
@@ -91,9 +91,9 @@ class EmailAuthScreenView extends StatelessWidget {
                       fieldIsRequired: true,
                       keyboardTextInputType: TextInputType.visiblePassword,
                       keyboardTextInputAction: TextInputAction.next,
-                      title: Wordz.password(context),
+                      title: superPhrase(context, 'phid_password'),
                       validator: validatePassword,
-                      comments: Wordz.min6Char(context),
+                      comments:superPhrase(context, 'phid_min6Char'),
                       obscured: isObscured,
                       onObscureTap: onObscureTap,
                     ),
@@ -116,9 +116,9 @@ class EmailAuthScreenView extends StatelessWidget {
                               fieldIsRequired: true,
                               keyboardTextInputType: TextInputType.visiblePassword,
                               keyboardTextInputAction: TextInputAction.done,
-                              title: Wordz.confirmPassword(context),
+                              title: superPhrase(context, 'phid_confirmPassword'),
                               validator: validatePasswordConfirmation,
-                              comments: Wordz.min6Char(context),
+                              comments:superPhrase(context, 'phid_min6Char'),
                               obscured: isObscured,
                               onObscureTap: onObscureTap,
                             );
@@ -166,9 +166,9 @@ class EmailAuthScreenView extends StatelessWidget {
                         width: 150,
                         verseScaleFactor: _verseScaleFactor,
                         verseMaxLines: 2,
-                        verse: isSigningIn ? 'Create' : Wordz.register(context),
+                        verse: isSigningIn ? superPhrase(context, 'phid_create') : superPhrase(context, 'phid_register'),
                         verseColor: isSigningIn ? Colorz.white255 : Colorz.black255,
-                        secondLine: 'New Account',
+                        secondLine: superPhrase(context, 'phid_new_account'),
                         secondLineColor: isSigningIn ? Colorz.white255 : Colorz.black255,
                         color: isSigningIn ? Colorz.white20 : Colorz.yellow255,
                         margins: EdgeInsets.zero,
@@ -181,7 +181,7 @@ class EmailAuthScreenView extends StatelessWidget {
                         height: _buttonHeight,
                         verseScaleFactor: _verseScaleFactor,
                         color: isSigningIn ? Colorz.yellow255 : Colorz.white20,
-                        verse: Wordz.signIn(context),
+                        verse: superPhrase(context, 'phid_signIn'),
                         verseColor: isSigningIn ? Colorz.black255 : Colorz.white255,
                         verseWeight: VerseWeight.black,
                         margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),

@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class BzAboutPage extends StatelessWidget {
@@ -45,38 +45,41 @@ class BzAboutPage extends StatelessWidget {
           Bubble(title: 'Stats', columnChildren: <Widget>[
             /// FOLLOWERS
             StatsLine(
-              verse: '${bzModel.totalFollowers} ${Wordz.followers(context)}',
+              verse: '${bzModel.totalFollowers} ${superPhrase(context, 'phid_followers')}',
               icon: Iconz.follow,
             ),
 
             /// CALLS
             StatsLine(
-              verse: '${bzModel.totalCalls} ${Wordz.callsReceived(context)}',
+              verse: '${bzModel.totalCalls} ${superPhrase(context, 'phid_callsReceived')}',
               icon: Iconz.comPhone,
             ),
 
             /// SLIDES & FLYERS
             StatsLine(
-              verse:
-                  '${bzModel.totalSlides} ${Wordz.slidesPublished(context)} ${Wordz.inn(context)} ${bzModel.flyersIDs.length} ${Wordz.flyers(context)}',
+              verse: '${bzModel.totalSlides} '
+                  '${superPhrase(context, 'phid_slidesPublished')} '
+                  '${superPhrase(context, 'phid_inn')} '
+                  '${bzModel.flyersIDs.length} '
+                  '${superPhrase(context, 'phid_flyers')}',
               icon: Iconz.gallery,
             ),
 
             /// SAVES
             StatsLine(
-              verse: '${bzModel.totalSaves} ${Wordz.totalSaves(context)}',
+              verse: '${bzModel.totalSaves} ${superPhrase(context, 'phid_totalSaves')}',
               icon: Iconz.saveOn,
             ),
 
             /// VIEWS
             StatsLine(
-              verse: '${bzModel.totalViews} ${Wordz.totalViews(context)}',
+              verse: '${bzModel.totalViews} ${superPhrase(context, 'phid_total_flyer_views')}',
               icon: Iconz.viewsIcon,
             ),
 
             /// SHARES
             StatsLine(
-              verse: '${bzModel.totalShares} ${Wordz.totalShares(context)}',
+              verse: '${bzModel.totalShares} ${superPhrase(context, 'phid_totalShares')}',
               icon: Iconz.share,
             ),
 

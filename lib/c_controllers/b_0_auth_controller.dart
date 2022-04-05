@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
@@ -8,6 +9,7 @@ import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dar
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -17,7 +19,6 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -327,13 +328,13 @@ String emailValidation({
   String _output;
 
   if (val.isEmpty) {
-    _output = Wordz.enterEmail(context);
+    _output = superPhrase(context, 'phid_enterEmail');
   }
 
   else {
 
     if (EmailValidator.validate(val) == false){
-      _output = Wordz.emailInvalid(context);
+      _output = superPhrase(context, 'phid_emailInvalid');
     }
 
   }
@@ -349,11 +350,11 @@ String passwordValidation({
   String _output;
 
   if (password.isEmpty){
-    _output = Wordz.enterPassword(context);
+    _output = superPhrase(context, 'phid_enterPassword');
   }
 
   else if (password.length < 6){
-    _output = Wordz.min6CharError(context);
+    _output = superPhrase(context, 'phid_min6CharError');
   }
 
   return _output;
@@ -368,15 +369,15 @@ String passwordConfirmationValidation({
   String _output;
 
   if (passwordConfirmation.isEmpty || password.isEmpty){
-    _output = Wordz.confirmPassword(context);
+    _output = superPhrase(context, 'phid_confirmPassword');
   }
 
   else if (passwordConfirmation != password){
-    _output = Wordz.passwordMismatch(context);
+    _output = superPhrase(context, 'phid_passwordMismatch');
   }
 
   else if (password.length < 6){
-    _output = Wordz.min6CharError(context);
+    _output = superPhrase(context, 'phid_min6CharError');
   }
 
   return _output;

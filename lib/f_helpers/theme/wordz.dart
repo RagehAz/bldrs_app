@@ -1,224 +1,221 @@
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/cupertino.dart';
 
-String xxx0 (BuildContext context) => Localizer.translate(context, 'xxx0');
 String allahoAkbar (BuildContext context) => Localizer.translate(context, 'allahoAkbar');
 String activeLanguage (BuildContext context) => Localizer.translate(context, 'activeLanguage');
 String textDirection (BuildContext context) => Localizer.translate(context, 'textDirection');
 String headlineFont (BuildContext context) => Localizer.translate(context, 'headlineFont');
 String bodyFont (BuildContext context) => Localizer.translate(context, 'bodyFont');
-String xxx1 (BuildContext context) => Localizer.translate(context, 'xxx1');
 String languageName (BuildContext context) => Localizer.translate(context, 'languageName');
 String languageCode (BuildContext context) => Localizer.translate(context, 'languageCode');
-String xxx2 (BuildContext context) => Localizer.translate(context, 'xxx2');
 String bldrsFullName (BuildContext context) => Localizer.translate(context, 'bldrsFullName');
 String bldrsShortName (BuildContext context) => Localizer.translate(context, 'bldrsShortName');
 String bldrsTagLine (BuildContext context) => Localizer.translate(context, 'bldrsTagLine');
 String bldrsDescription (BuildContext context) => Localizer.translate(context, 'bldrsDescription');
-String xxx3 (BuildContext context) => Localizer.translate(context, 'xxx3');
-String accountType (BuildContext context) => Localizer.translate(context, 'accountType');
-String owner (BuildContext context) => Localizer.translate(context, 'owner');
-String owners (BuildContext context) => Localizer.translate(context, 'owners');
-String property (BuildContext context) => Localizer.translate(context, 'property');
-String properties (BuildContext context) => Localizer.translate(context, 'properties');
-String realtor (BuildContext context) => Localizer.translate(context, 'realtor');
-String realtors (BuildContext context) => Localizer.translate(context, 'realtors');
-String realEstateDeveloper (BuildContext context) => Localizer.translate(context, 'realEstateDeveloper');
-String realEstateDevelopers (BuildContext context) => Localizer.translate(context, 'realEstateDevelopers');
-String realEstateBroker (BuildContext context) => Localizer.translate(context, 'realEstateBroker');
-String realEstateBrokers (BuildContext context) => Localizer.translate(context, 'realEstateBrokers');
-String developer (BuildContext context) => Localizer.translate(context, 'developer');
-String developers (BuildContext context) => Localizer.translate(context, 'developers');
-String broker (BuildContext context) => Localizer.translate(context, 'broker');
-String brokers (BuildContext context) => Localizer.translate(context, 'brokers');
-String design (BuildContext context) => Localizer.translate(context, 'design');
-String designs (BuildContext context) => Localizer.translate(context, 'designs');
-String designer (BuildContext context) => Localizer.translate(context, 'designer');
-String designers (BuildContext context) => Localizer.translate(context, 'designers');
-String product (BuildContext context) => Localizer.translate(context, 'product');
-String products (BuildContext context) => Localizer.translate(context, 'products');
-String equipment (BuildContext context) => Localizer.translate(context, 'equipment');
-String equipments (BuildContext context) => Localizer.translate(context, 'equipments');
-String supplier (BuildContext context) => Localizer.translate(context, 'supplier');
-String suppliers (BuildContext context) => Localizer.translate(context, 'suppliers');
-String manufacturer (BuildContext context) => Localizer.translate(context, 'manufacturer');
-String manufacturers (BuildContext context) => Localizer.translate(context, 'manufacturers');
-String project (BuildContext context) => Localizer.translate(context, 'project');
-String projects (BuildContext context) => Localizer.translate(context, 'projects');
-String contractor (BuildContext context) => Localizer.translate(context, 'contractor');
-String contractors (BuildContext context) => Localizer.translate(context, 'contractors');
-String craft (BuildContext context) => Localizer.translate(context, 'craft');
-String crafts (BuildContext context) => Localizer.translate(context, 'crafts');
-String craftsman (BuildContext context) => Localizer.translate(context, 'craftsman');
-String craftsmen (BuildContext context) => Localizer.translate(context, 'craftsmen');
-String artisan (BuildContext context) => Localizer.translate(context, 'artisan');
-String artisans (BuildContext context) => Localizer.translate(context, 'artisans');
-String bldr (BuildContext context) => Localizer.translate(context, 'bldr');
-String bldrs (BuildContext context) => Localizer.translate(context, 'bldrs');
-String xxx4 (BuildContext context) => Localizer.translate(context, 'xxx4');
-String propertiesDescription (BuildContext context) => Localizer.translate(context, 'propertiesDescription');
-String designsDescription (BuildContext context) => Localizer.translate(context, 'designsDescription');
-String productsDescription (BuildContext context) => Localizer.translate(context, 'productsDescription');
-String projectsDescription (BuildContext context) => Localizer.translate(context, 'projectsDescription');
-String craftsDescription (BuildContext context) => Localizer.translate(context, 'craftsDescription');
-String equipmentDescription (BuildContext context) => Localizer.translate(context, 'equipmentDescription');
-String xxx5 (BuildContext context) => Localizer.translate(context, 'xxx5');
-String flyer (BuildContext context) => Localizer.translate(context, 'flyer');
-String flyers (BuildContext context) => Localizer.translate(context, 'flyers');
-String propertyFlyer (BuildContext context) => Localizer.translate(context, 'propertyFlyer');
-String designFlyer (BuildContext context) => Localizer.translate(context, 'designFlyer');
-String projectFlyer (BuildContext context) => Localizer.translate(context, 'projectFlyer');
-String craftFlyer (BuildContext context) => Localizer.translate(context, 'craftFlyer');
-String productFlyer (BuildContext context) => Localizer.translate(context, 'productFlyer');
-String equipmentFlyer (BuildContext context) => Localizer.translate(context, 'equipmentFlyer');
-String general (BuildContext context) => Localizer.translate(context, 'general');
-String xxx6 (BuildContext context) => Localizer.translate(context, 'xxx6');
-String createAccount (BuildContext context) => Localizer.translate(context, 'createAccount');
-String signIn (BuildContext context) => Localizer.translate(context, 'signIn');
-String signInExisting (BuildContext context) => Localizer.translate(context, 'signInExisting');
-String register (BuildContext context) => Localizer.translate(context, 'register');
-String continueApple (BuildContext context) => Localizer.translate(context, 'continueApple');
-String continueFacebook (BuildContext context) => Localizer.translate(context, 'continueFacebook');
-String continueLinkedIn (BuildContext context) => Localizer.translate(context, 'continueLinkedIn');
-String continueEmail (BuildContext context) => Localizer.translate(context, 'continueEmail');
-String skip (BuildContext context) => Localizer.translate(context, 'skip');
-String emailAddress (BuildContext context) => Localizer.translate(context, 'emailAddress');
-String password (BuildContext context) => Localizer.translate(context, 'password');
-String confirmPassword (BuildContext context) => Localizer.translate(context, 'confirmPassword');
-String min6Char (BuildContext context) => Localizer.translate(context, 'min6Char');
-String xxx7 (BuildContext context) => Localizer.translate(context, 'xxx7');
-String createBzAccount (BuildContext context) => Localizer.translate(context, 'createBzAccount');
-String scopeOfServices (BuildContext context) => Localizer.translate(context, 'scopeOfServices');
-String productTypes (BuildContext context) => Localizer.translate(context, 'productTypes');
-String about (BuildContext context) => Localizer.translate(context, 'about');
-String business (BuildContext context) => Localizer.translate(context, 'business');
-String yourBusiness (BuildContext context) => Localizer.translate(context, 'yourBusiness');
-String businesses (BuildContext context) => Localizer.translate(context, 'businesses');
-String businessForm (BuildContext context) => Localizer.translate(context, 'businessForm');
-String individual (BuildContext context) => Localizer.translate(context, 'individual');
-String individuals (BuildContext context) => Localizer.translate(context, 'individuals');
-String company (BuildContext context) => Localizer.translate(context, 'company');
-String companies (BuildContext context) => Localizer.translate(context, 'companies');
-String companyName (BuildContext context) => Localizer.translate(context, 'companyName');
-String hqCity (BuildContext context) => Localizer.translate(context, 'hqCity'); // موقع المقر الرئيسي
-String authorName (BuildContext context) => Localizer.translate(context, 'authorName');
-String bldrsConnected (BuildContext context) => Localizer.translate(context, 'bldrsConnected');
-String callsReceived (BuildContext context) => Localizer.translate(context, 'callsReceived');
-String slidesPublished (BuildContext context) => Localizer.translate(context, 'slidesPublished');
-String totalViews (BuildContext context) => Localizer.translate(context, 'totalViews');
-String totalShares (BuildContext context) => Localizer.translate(context, 'totalShares');
-String totalSaves (BuildContext context) => Localizer.translate(context, 'totalSaves');
-String flyersPublishedBy (BuildContext context) => Localizer.translate(context, 'flyersPublishedBy');
-String authorsTeam (BuildContext context) => Localizer.translate(context, 'authorsTeam');
-String businessLogo (BuildContext context) => Localizer.translate(context, 'businessLogo');
-String xxx8 (BuildContext context) => Localizer.translate(context, 'xxx8');
-String publish (BuildContext context) => Localizer.translate(context, 'publish');
-String published (BuildContext context) => Localizer.translate(context, 'published');
-String keywordTag (BuildContext context) => Localizer.translate(context, 'keywordTag');
-String flyerSlides (BuildContext context) => Localizer.translate(context, 'flyerSlides');
-String follow (BuildContext context) => Localizer.translate(context, 'follow');
-String following (BuildContext context) => Localizer.translate(context, 'following');
-String followers (BuildContext context) => Localizer.translate(context, 'followers');
-String inn (BuildContext context) => Localizer.translate(context, 'inn');
-String view (BuildContext context) => Localizer.translate(context, 'view');
-String views (BuildContext context) => Localizer.translate(context, 'views');
-String viewed (BuildContext context) => Localizer.translate(context, 'viewed');
-String send (BuildContext context) => Localizer.translate(context, 'send');
-String sent (BuildContext context) => Localizer.translate(context, 'sent');
-String save (BuildContext context) => Localizer.translate(context, 'save');
-String saved (BuildContext context) => Localizer.translate(context, 'saved');
-String call (BuildContext context) => Localizer.translate(context, 'call');
-String createFlyer (BuildContext context) => Localizer.translate(context, 'createFlyer');
-String publishFlyer (BuildContext context) => Localizer.translate(context, 'publishFlyer');
-String saveDraft (BuildContext context) => Localizer.translate(context, 'saveDraft');
-String xxx9 (BuildContext context) => Localizer.translate(context, 'xxx9');
-String second (BuildContext context) => Localizer.translate(context, 'second');
-String seconds (BuildContext context) => Localizer.translate(context, 'seconds');
-String minute (BuildContext context) => Localizer.translate(context, 'minute');
-String minutes (BuildContext context) => Localizer.translate(context, 'minutes');
-String hour (BuildContext context) => Localizer.translate(context, 'hour');
-String hours (BuildContext context) => Localizer.translate(context, 'hours');
-String day (BuildContext context) => Localizer.translate(context, 'day');
-String days (BuildContext context) => Localizer.translate(context, 'days');
-String week (BuildContext context) => Localizer.translate(context, 'week');
-String weeks (BuildContext context) => Localizer.translate(context, 'weeks');
-String year (BuildContext context) => Localizer.translate(context, 'year');
-String years (BuildContext context) => Localizer.translate(context, 'years');
-String thousand (BuildContext context) => Localizer.translate(context, 'thousand');
-String million (BuildContext context) => Localizer.translate(context, 'million');
-String xxx10 (BuildContext context) => Localizer.translate(context, 'xxx10');
-String collections (BuildContext context) => Localizer.translate(context, 'collections');
-String savedFlyers (BuildContext context) => Localizer.translate(context, 'savedFlyers');
-String profile (BuildContext context) => Localizer.translate(context, 'profile');
-String news (BuildContext context) => Localizer.translate(context, 'news');
-String more (BuildContext context) => Localizer.translate(context, 'more');
-String contacts (BuildContext context) => Localizer.translate(context, 'contacts');
-String inviteFriends (BuildContext context) => Localizer.translate(context, 'inviteFriends');
-String inviteBusinesses (BuildContext context) => Localizer.translate(context, 'inviteBusinesses');
-String changeCountry (BuildContext context) => Localizer.translate(context, 'changeCountry');
-String changeLanguage (BuildContext context) => Localizer.translate(context, 'changeLanguage');
-String feedback (BuildContext context) => Localizer.translate(context, 'feedback');
-String termsRegulations (BuildContext context) => Localizer.translate(context, 'termsRegulations');
-String advertiseOnBldrs (BuildContext context) => Localizer.translate(context, 'advertiseOnBldrs');
-String whatIsFlyer (BuildContext context) => Localizer.translate(context, 'whatIsFlyer');
-String whoAreBldrs (BuildContext context) => Localizer.translate(context, 'whoAreBldrs');
-String howItWorks (BuildContext context) => Localizer.translate(context, 'howItWorks');
-String signOut (BuildContext context) => Localizer.translate(context, 'signOut');
-String editProfile (BuildContext context) => Localizer.translate(context, 'editProfile');
-String updateProfile (BuildContext context) => Localizer.translate(context, 'updateProfile');
-String name (BuildContext context) => Localizer.translate(context, 'name');
-String enterName (BuildContext context) => Localizer.translate(context, 'enterName');
-String jobTitle (BuildContext context) => Localizer.translate(context, 'jobTitle');
-String enterJobTitle (BuildContext context) => Localizer.translate(context, 'enterJobTitle');
-String enterCompanyName (BuildContext context) => Localizer.translate(context, 'enterCompanyName');
-String selectCity (BuildContext context) => Localizer.translate(context, 'selectCity');
-String phone (BuildContext context) => Localizer.translate(context, 'phone');
-String website (BuildContext context) => Localizer.translate(context, 'website');
-String facebookLink (BuildContext context) => Localizer.translate(context, 'facebookLink');
-String instagramLink (BuildContext context) => Localizer.translate(context, 'instagramLink');
-String linkedinLink (BuildContext context) => Localizer.translate(context, 'linkedinLink');
-String youtubeChannel (BuildContext context) => Localizer.translate(context, 'youtubeChannel');
-String tiktokLink (BuildContext context) => Localizer.translate(context, 'tiktokLink');
-String pinterestLink (BuildContext context) => Localizer.translate(context, 'pinterestLink');
-String xxx11 (BuildContext context) => Localizer.translate(context, 'xxx11');
-String enterEmail (BuildContext context) => Localizer.translate(context, 'enterEmail');
-String emailInvalid (BuildContext context) => Localizer.translate(context, 'emailInvalid');
-String enterPassword (BuildContext context) => Localizer.translate(context, 'enterPassword');
-String min6CharError (BuildContext context) => Localizer.translate(context, 'min6CharError');
-String wrongPassword (BuildContext context) => Localizer.translate(context, 'wrongPassword');
-String emailNotFound (BuildContext context) => Localizer.translate(context, 'emailNotFound');
-String emailWrong (BuildContext context) => Localizer.translate(context, 'emailWrong');
-String signInFailure (BuildContext context) => Localizer.translate(context, 'signInFailure');
-String passwordMismatch (BuildContext context) => Localizer.translate(context, 'passwordMismatch');
-String somethingIsWrong (BuildContext context) => Localizer.translate(context, 'somethingIsWrong');
-String emailAlreadyRegistered (BuildContext context) => Localizer.translate(context, 'emailAlreadyRegistered');
-String xxx12 (BuildContext context) => Localizer.translate(context, 'xxx12');
-String section (BuildContext context) => Localizer.translate(context, 'section');
-String sections (BuildContext context) => Localizer.translate(context, 'sections');
-String choose (BuildContext context) => Localizer.translate(context, 'choose');
-String realEstate (BuildContext context) => Localizer.translate(context, 'realEstate');
-String realEstateTagLine (BuildContext context) => Localizer.translate(context, 'realEstateTagLine');
-String construction (BuildContext context) => Localizer.translate(context, 'construction');
-String constructionTagLine (BuildContext context) => Localizer.translate(context, 'constructionTagLine');
-String supplies (BuildContext context) => Localizer.translate(context, 'supplies');
-String suppliesTagLine (BuildContext context) => Localizer.translate(context, 'suppliesTagLine');
-String search (BuildContext context) => Localizer.translate(context, 'search');
-String language (BuildContext context) => Localizer.translate(context, 'language');
-String country (BuildContext context) => Localizer.translate(context, 'country');
-String chooseCountryTagline (BuildContext context) => Localizer.translate(context, 'chooseCountryTagline');
-String city (BuildContext context) => Localizer.translate(context, 'city');
-String xxx13 (BuildContext context) => Localizer.translate(context, 'xxx13');
-String ask (BuildContext context) => Localizer.translate(context, 'ask');
-String question (BuildContext context) => Localizer.translate(context, 'question');
-String askHint (BuildContext context) => Localizer.translate(context, 'askHint');
-String askInfo (BuildContext context) => Localizer.translate(context, 'askInfo');
-String askConfirm (BuildContext context) => Localizer.translate(context, 'askConfirm');
-String askConfirmHint (BuildContext context) => Localizer.translate(context, 'askConfirmHint');
-String xxx14 (BuildContext context) => Localizer.translate(context, 'xxx14');
-String confirm (BuildContext context) => Localizer.translate(context, 'confirm');
-String cancel (BuildContext context) => Localizer.translate(context, 'cancel');
-String paste (BuildContext context) => Localizer.translate(context, 'paste');
-String xxx15 (BuildContext context) => Localizer.translate(context, 'xxx15');
+// String xxx3 (BuildContext context) => Localizer.translate(context, 'xxx3');
+// String accountType (BuildContext context) => Localizer.translate(context, 'accountType');
+// String owner (BuildContext context) => Localizer.translate(context, 'owner');
+// String owners (BuildContext context) => Localizer.translate(context, 'owners');
+// String property (BuildContext context) => Localizer.translate(context, 'property');
+// String properties (BuildContext context) => Localizer.translate(context, 'properties');
+// String realtor (BuildContext context) => Localizer.translate(context, 'realtor');
+// String realtors (BuildContext context) => Localizer.translate(context, 'realtors');
+// String realEstateDeveloper (BuildContext context) => Localizer.translate(context, 'realEstateDeveloper');
+// String realEstateDevelopers (BuildContext context) => Localizer.translate(context, 'realEstateDevelopers');
+// String realEstateBroker (BuildContext context) => Localizer.translate(context, 'realEstateBroker');
+// String realEstateBrokers (BuildContext context) => Localizer.translate(context, 'realEstateBrokers');
+// String developer (BuildContext context) => Localizer.translate(context, 'developer');
+// String developers (BuildContext context) => Localizer.translate(context, 'developers');
+// String broker (BuildContext context) => Localizer.translate(context, 'broker');
+// String brokers (BuildContext context) => Localizer.translate(context, 'brokers');
+// String design (BuildContext context) => Localizer.translate(context, 'design');
+// String designs (BuildContext context) => Localizer.translate(context, 'designs');
+// String designer (BuildContext context) => Localizer.translate(context, 'designer');
+// String designers (BuildContext context) => Localizer.translate(context, 'designers');
+// String product (BuildContext context) => Localizer.translate(context, 'product');
+// String products (BuildContext context) => Localizer.translate(context, 'products');
+// String equipment (BuildContext context) => Localizer.translate(context, 'equipment');
+// String equipments (BuildContext context) => Localizer.translate(context, 'equipments');
+// String supplier (BuildContext context) => Localizer.translate(context, 'supplier');
+// String suppliers (BuildContext context) => Localizer.translate(context, 'suppliers');
+// String manufacturer (BuildContext context) => Localizer.translate(context, 'manufacturer');
+// String manufacturers (BuildContext context) => Localizer.translate(context, 'manufacturers');
+// String project (BuildContext context) => Localizer.translate(context, 'project');
+// String projects (BuildContext context) => Localizer.translate(context, 'projects');
+// String contractor (BuildContext context) => Localizer.translate(context, 'contractor');
+// String contractors (BuildContext context) => Localizer.translate(context, 'contractors');
+// String craft (BuildContext context) => Localizer.translate(context, 'craft');
+// String crafts (BuildContext context) => Localizer.translate(context, 'crafts');
+// String craftsman (BuildContext context) => Localizer.translate(context, 'craftsman');
+// String craftsmen (BuildContext context) => Localizer.translate(context, 'craftsmen');
+// String artisan (BuildContext context) => Localizer.translate(context, 'artisan');
+// String artisans (BuildContext context) => Localizer.translate(context, 'artisans');
+// String bldr (BuildContext context) => Localizer.translate(context, 'bldr');
+// String bldrs (BuildContext context) => Localizer.translate(context, 'bldrs');
+// String xxx4 (BuildContext context) => Localizer.translate(context, 'xxx4');
+// String propertiesDescription (BuildContext context) => Localizer.translate(context, 'propertiesDescription');
+// String designsDescription (BuildContext context) => Localizer.translate(context, 'designsDescription');
+// String productsDescription (BuildContext context) => Localizer.translate(context, 'productsDescription');
+// String projectsDescription (BuildContext context) => Localizer.translate(context, 'projectsDescription');
+// String craftsDescription (BuildContext context) => Localizer.translate(context, 'craftsDescription');
+// String equipmentDescription (BuildContext context) => Localizer.translate(context, 'equipmentDescription');
+// String xxx5 (BuildContext context) => Localizer.translate(context, 'xxx5');
+// String flyer (BuildContext context) => Localizer.translate(context, 'flyer');
+// String flyers (BuildContext context) => Localizer.translate(context, 'flyers');
+// String propertyFlyer (BuildContext context) => Localizer.translate(context, 'propertyFlyer');
+// String designFlyer (BuildContext context) => Localizer.translate(context, 'designFlyer');
+// String projectFlyer (BuildContext context) => Localizer.translate(context, 'projectFlyer');
+// String craftFlyer (BuildContext context) => Localizer.translate(context, 'craftFlyer');
+// String productFlyer (BuildContext context) => Localizer.translate(context, 'productFlyer');
+// String equipmentFlyer (BuildContext context) => Localizer.translate(context, 'equipmentFlyer');
+// String general (BuildContext context) => Localizer.translate(context, 'general');
+// String xxx6 (BuildContext context) => Localizer.translate(context, 'xxx6');
+// String createAccount (BuildContext context) => Localizer.translate(context, 'createAccount');
+// String signIn (BuildContext context) => Localizer.translate(context, 'signIn');
+// String signInExisting (BuildContext context) => Localizer.translate(context, 'signInExisting');
+// String register (BuildContext context) => Localizer.translate(context, 'register');
+// String continueApple (BuildContext context) => Localizer.translate(context, 'continueApple');
+// String continueFacebook (BuildContext context) => Localizer.translate(context, 'continueFacebook');
+// String continueLinkedIn (BuildContext context) => Localizer.translate(context, 'continueLinkedIn');
+// String continueEmail (BuildContext context) => Localizer.translate(context, 'continueEmail');
+// String skip (BuildContext context) => Localizer.translate(context, 'skip');
+// String emailAddress (BuildContext context) => Localizer.translate(context, 'emailAddress');
+// String password (BuildContext context) => Localizer.translate(context, 'password');
+// String confirmPassword (BuildContext context) => Localizer.translate(context, 'confirmPassword');
+// String min6Char (BuildContext context) => Localizer.translate(context, 'min6Char');
+// String xxx7 (BuildContext context) => Localizer.translate(context, 'xxx7');
+// String createBzAccount (BuildContext context) => Localizer.translate(context, 'createBzAccount');
+// String scopeOfServices (BuildContext context) => Localizer.translate(context, 'scopeOfServices');
+// String productTypes (BuildContext context) => Localizer.translate(context, 'productTypes');
+// String about (BuildContext context) => Localizer.translate(context, 'about');
+// String business (BuildContext context) => Localizer.translate(context, 'business');
+// String yourBusiness (BuildContext context) => Localizer.translate(context, 'yourBusiness');
+// String businesses (BuildContext context) => Localizer.translate(context, 'businesses');
+// String businessForm (BuildContext context) => Localizer.translate(context, 'businessForm');
+// String individual (BuildContext context) => Localizer.translate(context, 'individual');
+// String individuals (BuildContext context) => Localizer.translate(context, 'individuals');
+// String company (BuildContext context) => Localizer.translate(context, 'company');
+// String companies (BuildContext context) => Localizer.translate(context, 'companies');
+// String companyName (BuildContext context) => Localizer.translate(context, 'companyName');
+// String hqCity (BuildContext context) => Localizer.translate(context, 'hqCity'); // موقع المقر الرئيسي
+// String authorName (BuildContext context) => Localizer.translate(context, 'authorName');
+// String bldrsConnected (BuildContext context) => Localizer.translate(context, 'bldrsConnected');
+// String callsReceived (BuildContext context) => Localizer.translate(context, 'callsReceived');
+// String slidesPublished (BuildContext context) => Localizer.translate(context, 'slidesPublished');
+// String totalViews (BuildContext context) => Localizer.translate(context, 'totalViews');
+// String totalShares (BuildContext context) => Localizer.translate(context, 'totalShares');
+// String totalSaves (BuildContext context) => Localizer.translate(context, 'totalSaves');
+// String flyersPublishedBy (BuildContext context) => Localizer.translate(context, 'flyersPublishedBy');
+// String authorsTeam (BuildContext context) => Localizer.translate(context, 'authorsTeam');
+// String businessLogo (BuildContext context) => Localizer.translate(context, 'businessLogo');
+// String xxx8 (BuildContext context) => Localizer.translate(context, 'xxx8');
+// String publish (BuildContext context) => Localizer.translate(context, 'publish');
+// String published (BuildContext context) => Localizer.translate(context, 'published');
+// String keywordTag (BuildContext context) => Localizer.translate(context, 'keywordTag');
+// String flyerSlides (BuildContext context) => Localizer.translate(context, 'flyerSlides');
+// String follow (BuildContext context) => Localizer.translate(context, 'follow');
+// String following (BuildContext context) => Localizer.translate(context, 'following');
+// String followers (BuildContext context) => Localizer.translate(context, 'followers');
+// String inn (BuildContext context) => Localizer.translate(context, 'inn');
+// String view (BuildContext context) => Localizer.translate(context, 'view');
+// String views (BuildContext context) => Localizer.translate(context, 'views');
+// String viewed (BuildContext context) => Localizer.translate(context, 'viewed');
+// String send (BuildContext context) => Localizer.translate(context, 'send');
+// String sent (BuildContext context) => Localizer.translate(context, 'sent');
+// String save (BuildContext context) => Localizer.translate(context, 'save');
+// String saved (BuildContext context) => Localizer.translate(context, 'saved');
+// String call (BuildContext context) => Localizer.translate(context, 'call');
+// String createFlyer (BuildContext context) => Localizer.translate(context, 'createFlyer');
+// String publishFlyer (BuildContext context) => Localizer.translate(context, 'publishFlyer');
+// String saveDraft (BuildContext context) => Localizer.translate(context, 'saveDraft');
+// String xxx9 (BuildContext context) => Localizer.translate(context, 'xxx9');
+// String second (BuildContext context) => Localizer.translate(context, 'second');
+// String seconds (BuildContext context) => Localizer.translate(context, 'seconds');
+// String minute (BuildContext context) => Localizer.translate(context, 'minute');
+// String minutes (BuildContext context) => Localizer.translate(context, 'minutes');
+// String hour (BuildContext context) => Localizer.translate(context, 'hour');
+// String hours (BuildContext context) => Localizer.translate(context, 'hours');
+// String day (BuildContext context) => Localizer.translate(context, 'day');
+// String days (BuildContext context) => Localizer.translate(context, 'days');
+// String week (BuildContext context) => Localizer.translate(context, 'week');
+// String weeks (BuildContext context) => Localizer.translate(context, 'weeks');
+// String year (BuildContext context) => Localizer.translate(context, 'year');
+// String years (BuildContext context) => Localizer.translate(context, 'years');
+// String thousand (BuildContext context) => Localizer.translate(context, 'thousand');
+// String million (BuildContext context) => Localizer.translate(context, 'million');
+// String xxx10 (BuildContext context) => Localizer.translate(context, 'xxx10');
+// String collections (BuildContext context) => Localizer.translate(context, 'collections');
+// String savedFlyers (BuildContext context) => Localizer.translate(context, 'savedFlyers');
+// String profile (BuildContext context) => Localizer.translate(context, 'profile');
+// String news (BuildContext context) => Localizer.translate(context, 'news');
+// String more (BuildContext context) => Localizer.translate(context, 'more');
+// String contacts (BuildContext context) => Localizer.translate(context, 'contacts');
+// String inviteFriends (BuildContext context) => Localizer.translate(context, 'inviteFriends');
+// String inviteBusinesses (BuildContext context) => Localizer.translate(context, 'inviteBusinesses');
+// String changeCountry (BuildContext context) => Localizer.translate(context, 'changeCountry');
+// String changeLanguage (BuildContext context) => Localizer.translate(context, 'changeLanguage');
+// String feedback (BuildContext context) => Localizer.translate(context, 'feedback');
+// String termsRegulations (BuildContext context) => Localizer.translate(context, 'termsRegulations');
+// String advertiseOnBldrs (BuildContext context) => Localizer.translate(context, 'advertiseOnBldrs');
+// String whatIsFlyer (BuildContext context) => Localizer.translate(context, 'whatIsFlyer');
+// String whoAreBldrs (BuildContext context) => Localizer.translate(context, 'whoAreBldrs');
+// String howItWorks (BuildContext context) => Localizer.translate(context, 'howItWorks');
+// String signOut (BuildContext context) => Localizer.translate(context, 'signOut');
+// String editProfile (BuildContext context) => Localizer.translate(context, 'editProfile');
+// String updateProfile (BuildContext context) => Localizer.translate(context, 'updateProfile');
+// String name (BuildContext context) => Localizer.translate(context, 'name');
+// String enterName (BuildContext context) => Localizer.translate(context, 'enterName');
+// String jobTitle (BuildContext context) => Localizer.translate(context, 'jobTitle');
+// String enterJobTitle (BuildContext context) => Localizer.translate(context, 'enterJobTitle');
+// String enterCompanyName (BuildContext context) => Localizer.translate(context, 'enterCompanyName');
+// String selectCity (BuildContext context) => Localizer.translate(context, 'selectCity');
+// String phone (BuildContext context) => Localizer.translate(context, 'phone');
+// String website (BuildContext context) => Localizer.translate(context, 'website');
+// String facebookLink (BuildContext context) => Localizer.translate(context, 'facebookLink');
+// String instagramLink (BuildContext context) => Localizer.translate(context, 'instagramLink');
+// String linkedinLink (BuildContext context) => Localizer.translate(context, 'linkedinLink');
+// String youtubeChannel (BuildContext context) => Localizer.translate(context, 'youtubeChannel');
+// String tiktokLink (BuildContext context) => Localizer.translate(context, 'tiktokLink');
+// String pinterestLink (BuildContext context) => Localizer.translate(context, 'pinterestLink');
+// String xxx11 (BuildContext context) => Localizer.translate(context, 'xxx11');
+// String enterEmail (BuildContext context) => Localizer.translate(context, 'enterEmail');
+// String emailInvalid (BuildContext context) => Localizer.translate(context, 'emailInvalid');
+// String enterPassword (BuildContext context) => Localizer.translate(context, 'enterPassword');
+// String min6CharError (BuildContext context) => Localizer.translate(context, 'min6CharError');
+// String wrongPassword (BuildContext context) => Localizer.translate(context, 'wrongPassword');
+// String emailNotFound (BuildContext context) => Localizer.translate(context, 'emailNotFound');
+// String emailWrong (BuildContext context) => Localizer.translate(context, 'emailWrong');
+// String signInFailure (BuildContext context) => Localizer.translate(context, 'signInFailure');
+// String passwordMismatch (BuildContext context) => Localizer.translate(context, 'passwordMismatch');
+// String somethingIsWrong (BuildContext context) => Localizer.translate(context, 'somethingIsWrong');
+// String emailAlreadyRegistered (BuildContext context) => Localizer.translate(context, 'emailAlreadyRegistered');
+// String xxx12 (BuildContext context) => Localizer.translate(context, 'xxx12');
+// String section (BuildContext context) => Localizer.translate(context, 'section');
+// String sections (BuildContext context) => Localizer.translate(context, 'sections');
+// String choose (BuildContext context) => Localizer.translate(context, 'choose');
+// String realEstate (BuildContext context) => Localizer.translate(context, 'realEstate');
+// String realEstateTagLine (BuildContext context) => Localizer.translate(context, 'realEstateTagLine');
+// String construction (BuildContext context) => Localizer.translate(context, 'construction');
+// String constructionTagLine (BuildContext context) => Localizer.translate(context, 'constructionTagLine');
+// String supplies (BuildContext context) => Localizer.translate(context, 'supplies');
+// String suppliesTagLine (BuildContext context) => Localizer.translate(context, 'suppliesTagLine');
+// String search (BuildContext context) => Localizer.translate(context, 'search');
+// String language (BuildContext context) => Localizer.translate(context, 'language');
+// String country (BuildContext context) => Localizer.translate(context, 'country');
+// String chooseCountryTagline (BuildContext context) => Localizer.translate(context, 'chooseCountryTagline');
+// String city (BuildContext context) => Localizer.translate(context, 'city');
+// String xxx13 (BuildContext context) => Localizer.translate(context, 'xxx13');
+// String ask (BuildContext context) => Localizer.translate(context, 'ask');
+// String question (BuildContext context) => Localizer.translate(context, 'question');
+// String askHint (BuildContext context) => Localizer.translate(context, 'askHint');
+// String askInfo (BuildContext context) => Localizer.translate(context, 'askInfo');
+// String askConfirm (BuildContext context) => Localizer.translate(context, 'askConfirm');
+// String askConfirmHint (BuildContext context) => Localizer.translate(context, 'askConfirmHint');
+// String xxx14 (BuildContext context) => Localizer.translate(context, 'xxx14');
+// String confirm (BuildContext context) => Localizer.translate(context, 'confirm');
+// String cancel (BuildContext context) => Localizer.translate(context, 'cancel');
+// String paste (BuildContext context) => Localizer.translate(context, 'paste');
+// String xxx15 (BuildContext context) => Localizer.translate(context, 'xxx15');
 // String afg (BuildContext context) => Localizer.translate(context, 'afg');
 // String ala (BuildContext context) => Localizer.translate(context, 'ala');
 // String alb (BuildContext context) => Localizer.translate(context, 'alb');
@@ -468,20 +465,20 @@ String xxx15 (BuildContext context) => Localizer.translate(context, 'xxx15');
 // String yem (BuildContext context) => Localizer.translate(context, 'yem');
 // String zmb (BuildContext context) => Localizer.translate(context, 'zmb');
 // String zwe (BuildContext context) => Localizer.translate(context, 'zwe');
-String xxx16 (BuildContext context) => Localizer.translate(context, 'xxx16');
-String january (BuildContext context) => Localizer.translate(context, 'january');
-String february (BuildContext context) => Localizer.translate(context, 'february');
-String march (BuildContext context) => Localizer.translate(context, 'march');
-String april (BuildContext context) => Localizer.translate(context, 'april');
-String may (BuildContext context) => Localizer.translate(context, 'may');
-String june (BuildContext context) => Localizer.translate(context, 'june');
-String july (BuildContext context) => Localizer.translate(context, 'july');
-String august (BuildContext context) => Localizer.translate(context, 'august');
-String september (BuildContext context) => Localizer.translate(context, 'september');
-String october (BuildContext context) => Localizer.translate(context, 'october');
-String november (BuildContext context) => Localizer.translate(context, 'november');
-String december (BuildContext context) => Localizer.translate(context, 'december');
-String xxxEND (BuildContext context) => Localizer.translate(context, 'xxxEND');
+// String xxx16 (BuildContext context) => Localizer.translate(context, 'xxx16');
+// String january (BuildContext context) => Localizer.translate(context, 'january');
+// String february (BuildContext context) => Localizer.translate(context, 'february');
+// String march (BuildContext context) => Localizer.translate(context, 'march');
+// String april (BuildContext context) => Localizer.translate(context, 'april');
+// String may (BuildContext context) => Localizer.translate(context, 'may');
+// String june (BuildContext context) => Localizer.translate(context, 'june');
+// String july (BuildContext context) => Localizer.translate(context, 'july');
+// String august (BuildContext context) => Localizer.translate(context, 'august');
+// String september (BuildContext context) => Localizer.translate(context, 'september');
+// String october (BuildContext context) => Localizer.translate(context, 'october');
+// String november (BuildContext context) => Localizer.translate(context, 'november');
+// String december (BuildContext context) => Localizer.translate(context, 'december');
+// String xxxEND (BuildContext context) => Localizer.translate(context, 'xxxEND');
 
 // unicode_map = {
 // // #           superscript     subscript
@@ -572,209 +569,209 @@ String xxxEND (BuildContext context) => Localizer.translate(context, 'xxxEND');
 // ₐ ₑ ₕ ᵢ ⱼ ₖ ₗ ₘ ₙ ₒ ₚ ᵣ ₛ ₜ ᵤ ᵥ ₓ ᵅ ᵝ ᵞ ᵟ ᵋ ᶿ ᶥ ᶲ ᵠ ᵡ ᵦ ᵧ ᵨ ᵩ ᵪ
 // 1ˢᵗ _ 2ⁿᵈ _ 3ʳᵈ _ 4ᵗʰ _ n² _ n³ - m² - م²
 
-const List<String> superJSONWords = <String>[
-'allahoAkbar',
-'activeLanguage',
-'textDirection',
-'headlineFont',
-'bodyFont',
-'languageName',
-'languageCode',
-'bldrsFullName',
-'bldrsShortName',
-'bldrsTagLine',
-'bldrsDescription',
-'accountType',
-'owner',
-'owners',
-'property',
-'properties',
-'realtor',
-'realtors',
-'realEstateDeveloper',
-'realEstateDevelopers',
-'realEstateBroker',
-'realEstateBrokers',
-'developer',
-'developers',
-'broker',
-'brokers',
-'design',
-'designs',
-'designer',
-'designers',
-'product',
-'products',
-'equipment',
-'equipments',
-'supplier',
-'suppliers',
-'manufacturer',
-'manufacturers',
-'project',
-'projects',
-'contractor',
-'contractors',
-'craft',
-'crafts',
-'craftsman',
-'craftsmen',
-'artisan',
-'artisans',
-'bldr',
-'bldrs',
-'propertiesDescription',
-'designsDescription',
-'productsDescription',
-'projectsDescription',
-'craftsDescription',
-'equipmentDescription',
-'flyer',
-'flyers',
-'propertyFlyer',
-'designFlyer',
-'projectFlyer',
-'craftFlyer',
-'productFlyer',
-'equipmentFlyer',
-'general',
-'createAccount',
-'signIn',
-'signInExisting',
-'register',
-'continueApple',
-'continueFacebook',
-'continueLinkedIn',
-'continueEmail',
-'skip',
-'emailAddress',
-'password',
-'confirmPassword',
-'min6Char',
-'createBzAccount',
-'scopeOfServices',
-'productTypes',
-'about',
-'business',
-'yourBusiness',
-'businesses',
-'businessForm',
-'individual',
-'individuals',
-'company',
-'companies',
-'companyName',
-'hqCity',
-'authorName',
-'bldrsConnected',
-'callsReceived',
-'slidesPublished',
-'totalViews',
-'totalShares',
-'totalSaves',
-'flyersPublishedBy',
-'authorsTeam',
-'businessLogo',
-'publish',
-'published',
-'keywordTag',
-'flyerSlides',
-'follow',
-'following',
-'followers',
-'inn',
-'view',
-'views',
-'viewed',
-'send',
-'sent',
-'save',
-'saved',
-'call',
-'createFlyer',
-'publishFlyer',
-'saveDraft',
-'second',
-'seconds',
-'minute',
-'minutes',
-'hour',
-'hours',
-'day',
-'days',
-'week',
-'weeks',
-'year',
-'years',
-'thousand',
-'million',
-'collections',
-'savedFlyers',
-'profile',
-'news',
-'more',
-'contacts',
-'inviteFriends',
-'inviteBusinesses',
-'changeCountry',
-'changeLanguage',
-'feedback',
-'termsRegulations',
-'advertiseOnBldrs',
-'whatIsFlyer',
-'whoAreBldrs',
-'howItWorks',
-'signOut',
-'editProfile',
-'updateProfile',
-'name',
-'enterName',
-'jobTitle',
-'enterJobTitle',
-'enterCompanyName',
-'selectCity',
-'phone',
-'website',
-'facebookLink',
-'instagramLink',
-'linkedinLink',
-'youtubeChannel',
-'tiktokLink',
-'pinterestLink',
-'enterEmail',
-'emailInvalid',
-'enterPassword',
-'min6CharError',
-'wrongPassword',
-'emailNotFound',
-'emailWrong',
-'signInFailure',
-'passwordMismatch',
-'somethingIsWrong',
-'emailAlreadyRegistered',
-'section',
-'sections',
-'choose',
-'realEstate',
-'realEstateTagLine',
-'construction',
-'constructionTagLine',
-'supplies',
-'suppliesTagLine',
-'search',
-'language',
-'country',
-'chooseCountryTagline',
-'city',
-'ask',
-'question',
-'askHint',
-'askInfo',
-'askConfirm',
-'askConfirmHint',
-'confirm',
-'cancel',
-'paste',
+// const List<String> superJSONWords = <String>[
+// 'allahoAkbar',
+// 'activeLanguage',
+// 'textDirection',
+// 'headlineFont',
+// 'bodyFont',
+// 'languageName',
+// 'languageCode',
+// 'bldrsFullName',
+// 'bldrsShortName',
+// 'bldrsTagLine',
+// 'bldrsDescription',
+// 'accountType',
+// 'owner',
+// 'owners',
+// 'property',
+// 'properties',
+// 'realtor',
+// 'realtors',
+// 'realEstateDeveloper',
+// 'realEstateDevelopers',
+// 'realEstateBroker',
+// 'realEstateBrokers',
+// 'developer',
+// 'developers',
+// 'broker',
+// 'brokers',
+// 'design',
+// 'designs',
+// 'designer',
+// 'designers',
+// 'product',
+// 'products',
+// 'equipment',
+// 'equipments',
+// 'supplier',
+// 'suppliers',
+// 'manufacturer',
+// 'manufacturers',
+// 'project',
+// 'projects',
+// 'contractor',
+// 'contractors',
+// 'craft',
+// 'crafts',
+// 'craftsman',
+// 'craftsmen',
+// 'artisan',
+// 'artisans',
+// 'bldr',
+// 'bldrs',
+// 'propertiesDescription',
+// 'designsDescription',
+// 'productsDescription',
+// 'projectsDescription',
+// 'craftsDescription',
+// 'equipmentDescription',
+// 'flyer',
+// 'flyers',
+// 'propertyFlyer',
+// 'designFlyer',
+// 'projectFlyer',
+// 'craftFlyer',
+// 'productFlyer',
+// 'equipmentFlyer',
+// 'general',
+// 'createAccount',
+// 'signIn',
+// 'signInExisting',
+// 'register',
+// 'continueApple',
+// 'continueFacebook',
+// 'continueLinkedIn',
+// 'continueEmail',
+// 'skip',
+// 'emailAddress',
+// 'password',
+// 'confirmPassword',
+// 'min6Char',
+// 'createBzAccount',
+// 'scopeOfServices',
+// 'productTypes',
+// 'about',
+// 'business',
+// 'yourBusiness',
+// 'businesses',
+// 'businessForm',
+// 'individual',
+// 'individuals',
+// 'company',
+// 'companies',
+// 'companyName',
+// 'hqCity',
+// 'authorName',
+// 'bldrsConnected',
+// 'callsReceived',
+// 'slidesPublished',
+// 'totalViews',
+// 'totalShares',
+// 'totalSaves',
+// 'flyersPublishedBy',
+// 'authorsTeam',
+// 'businessLogo',
+// 'publish',
+// 'published',
+// 'keywordTag',
+// 'flyerSlides',
+// 'follow',
+// 'following',
+// 'followers',
+// 'inn',
+// 'view',
+// 'views',
+// 'viewed',
+// 'send',
+// 'sent',
+// 'save',
+// 'saved',
+// 'call',
+// 'createFlyer',
+// 'publishFlyer',
+// 'saveDraft',
+// 'second',
+// 'seconds',
+// 'minute',
+// 'minutes',
+// 'hour',
+// 'hours',
+// 'day',
+// 'days',
+// 'week',
+// 'weeks',
+// 'year',
+// 'years',
+// 'thousand',
+// 'million',
+// 'collections',
+// 'savedFlyers',
+// 'profile',
+// 'news',
+// 'more',
+// 'contacts',
+// 'inviteFriends',
+// 'inviteBusinesses',
+// 'changeCountry',
+// 'changeLanguage',
+// 'feedback',
+// 'termsRegulations',
+// 'advertiseOnBldrs',
+// 'whatIsFlyer',
+// 'whoAreBldrs',
+// 'howItWorks',
+// 'signOut',
+// 'editProfile',
+// 'updateProfile',
+// 'name',
+// 'enterName',
+// 'jobTitle',
+// 'enterJobTitle',
+// 'enterCompanyName',
+// 'selectCity',
+// 'phone',
+// 'website',
+// 'facebookLink',
+// 'instagramLink',
+// 'linkedinLink',
+// 'youtubeChannel',
+// 'tiktokLink',
+// 'pinterestLink',
+// 'enterEmail',
+// 'emailInvalid',
+// 'enterPassword',
+// 'min6CharError',
+// 'wrongPassword',
+// 'emailNotFound',
+// 'emailWrong',
+// 'signInFailure',
+// 'passwordMismatch',
+// 'somethingIsWrong',
+// 'emailAlreadyRegistered',
+// 'section',
+// 'sections',
+// 'choose',
+// 'realEstate',
+// 'realEstateTagLine',
+// 'construction',
+// 'constructionTagLine',
+// 'supplies',
+// 'suppliesTagLine',
+// 'search',
+// 'language',
+// 'country',
+// 'chooseCountryTagline',
+// 'city',
+// 'ask',
+// 'question',
+// 'askHint',
+// 'askInfo',
+// 'askConfirm',
+// 'askConfirmHint',
+// 'confirm',
+// 'cancel',
+// 'paste',
 // 'afg',
 // 'ala',
 // 'alb',
@@ -1024,17 +1021,17 @@ const List<String> superJSONWords = <String>[
 // 'yem',
 // 'zmb',
 // 'zwe',
-'january',
-'february',
-'march',
-'april',
-'may',
-'june',
-'july',
-'august',
-'september',
-'october',
-'november',
-'december',
+// 'january',
+// 'february',
+// 'march',
+// 'april',
+// 'may',
+// 'june',
+// 'july',
+// 'august',
+// 'september',
+// 'october',
+// 'november',
+// 'december',
 
-];
+// ];

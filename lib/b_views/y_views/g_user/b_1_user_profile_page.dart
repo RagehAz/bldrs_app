@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -95,7 +95,7 @@ class UserProfilePage extends StatelessWidget {
                 height: 5,
               ),
               SuperVerse(
-                verse: '${Wordz.inn(context)} $_districtName, $_cityName, $_countryName',
+                verse: '${superPhrase(context, 'phid_inn')} $_districtName, $_cityName, $_countryName',
                 weight: VerseWeight.thin,
                 italic: true,
                 color: Colorz.grey255,

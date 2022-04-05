@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class QuestionFooterButtons extends StatelessWidget {
@@ -60,7 +60,7 @@ class QuestionFooterButtons extends StatelessWidget {
             FooterButton(
               flyerBoxWidth: flyerBoxWidth,
               icon: Iconz.share,
-              verse: Wordz.send(context),
+              verse: superPhrase(context, 'phid_share'),
               isOn: false,
               tinyMode: tinyMode,
               onTap: onShareFlyer,
