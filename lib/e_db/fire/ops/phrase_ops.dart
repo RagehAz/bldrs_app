@@ -56,7 +56,7 @@ Future<List<Phrase>> readBasicPhrases({
 
   if (_phrasesMap != null){
 
-    final List<Phrase> _phrasesModels = Phrase.decipherPhrasesMap(
+    final List<Phrase> _phrasesModels = Phrase.decipherOneLangPhrasesMap(
       map: _phrasesMap,
       addLangCodeOverride: langCode,
     );
@@ -129,7 +129,7 @@ Future<void> updatePhrases({
     collName: FireColl.phrases,
     docName: 'en',
     field: 'phrases',
-    input: Phrase.cipherPhrasesToMap(phrases: enPhrases),
+    input: Phrase.cipherOneLangPhrasesToMap(phrases: enPhrases),
   );
 
   await Fire.updateDocField(
@@ -137,7 +137,7 @@ Future<void> updatePhrases({
       collName: FireColl.phrases,
       docName: 'ar',
       field: 'phrases',
-      input:  Phrase.cipherPhrasesToMap(phrases: arPhrases),
+      input:  Phrase.cipherOneLangPhrasesToMap(phrases: arPhrases),
   );
 
 }

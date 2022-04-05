@@ -7,6 +7,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -106,18 +107,44 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'DO IT',
+              verse: 'DO IT ar',
               icon: Iconz.star,
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
+                const String _langCode = 'ar';
+
                 final List<Phrase> _phrases = await _phraseProvider.fetchBasicPhrasesByLangCode(
                     context: context,
-                    langCode: 'ar',
+                    langCode: _langCode,
                 );
 
-                Phrase.blogPhrases(_phrases);
+                Map<String, dynamic> _cleanedMap = {};
+
+                for (final Phrase phrase in _phrases){
+
+                  _cleanedMap = insertPairInMap(
+                      map: _cleanedMap,
+                      key: phrase.id,
+                      value: {
+                        'value' : phrase.value,
+                      },
+                  );
+
+                }
+
+
+                blogMap(_cleanedMap);
+
+                await createNamedDoc(
+                    context: context,
+                    collName: FireColl.phrases,
+                    docName: _langCode,
+                    input: _cleanedMap,
+                );
+
+                // Phrase.blogPhrases(_phrases);
 
 
                 _uiProvider.triggerLoading(setLoadingTo: false);

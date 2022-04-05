@@ -44,6 +44,7 @@ class PhraseProvider extends ChangeNotifier {
   /// FETCHING PHRASES
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<List<Phrase>> fetchBasicPhrasesByLangCode({
     @required BuildContext context,
     @required String langCode,
@@ -59,7 +60,7 @@ class PhraseProvider extends ChangeNotifier {
 
     if (Mapper.canLoopList(_maps) == true){
       blog('fetchPhrasesByLangCode : phrases found in local db : langCode : $langCode');
-      _phrases = Phrase.decipherPhrasesMaps(
+      _phrases = Phrase.decipherOneLangPhrasesMaps(
         maps: _maps,
       );
     }
@@ -78,7 +79,7 @@ class PhraseProvider extends ChangeNotifier {
       if (Mapper.canLoopList(_phrases) == true){
         blog('fetchPhrasesByLangCode : phrases found in Firestore : langCode : $langCode');
 
-        final List<Map<String, dynamic>> _maps = Phrase.cipherPhrasesToMaps(
+        final List<Map<String, dynamic>> _maps = Phrase.cipherOneLnagPhrasesToMaps(
           phrases: _phrases,
           addTrigrams: true,
         );
