@@ -54,7 +54,7 @@ class DashboardUserButton extends StatelessWidget {
     final CountryModel _country = _zoneProvider.userCountryModel;
     final CityModel _city = _zoneProvider.userCityModel;
 
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(
+    final String _countryName = CountryModel.getTranslatedCountryName(
         context: context,
         countryID: _country.id,
     );

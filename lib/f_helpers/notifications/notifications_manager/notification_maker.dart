@@ -248,8 +248,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
       title: 'Search for a user',
       height: _dialogHeight,
       builder: (BuildContext ctx, String title) {
-        return StatefulBuilder(builder:
-            (BuildContext xxx, void Function(void Function()) setDialogState) {
+        return StatefulBuilder(
+            builder: (BuildContext xxx, void Function(void Function()) setDialogState) {
           return Column(
             children: <Widget>[
               /// USER NAME TEXT FIELD

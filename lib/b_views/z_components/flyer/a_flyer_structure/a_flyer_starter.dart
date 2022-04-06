@@ -115,14 +115,14 @@ class _FlyerStarterState extends State<FlyerStarter> {
         _bzModelNotifier.value = _bzModel;
         _bzZoneNotifier.value = getZoneModel(
           context: context,
-          countryModel: _bzCountry,
+          countryID: _bzCountry.id,
           cityModel: _bzCity,
           districtID: _bzModel.zone.districtID,
         );
 
         _flyerZoneNotifier.value = getZoneModel(
           context: context,
-          countryModel: _flyerCountry,
+          countryID: _flyerCountry.id,
           cityModel: _flyerCity,
           districtID: widget.flyerModel.zone.districtID,
         );

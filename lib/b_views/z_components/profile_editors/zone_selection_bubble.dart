@@ -256,7 +256,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
               valueListenable: _selectedCountry,
               builder: (_, CountryModel selectedCountry, Widget child){
 
-                final String _countryName = CountryModel.getTranslatedCountryNameByID(
+                final String _countryName = CountryModel.getTranslatedCountryName(
                   context: context,
                   countryID: selectedCountry?.id,
                 );

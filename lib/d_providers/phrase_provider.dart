@@ -144,8 +144,11 @@ class PhraseProvider extends ChangeNotifier {
     await LDBOps.deleteAllAtOnce(docName: LDBDoc.enPhrases);
     await LDBOps.deleteAllAtOnce(docName: LDBDoc.arPhrases);
 
-    /// reload all phrases by current langCode
-    await getSetCurrentLangAndPhrases(context);
+    /// RELOAD APP LOCALIZATION
+    await changeAppLang(
+        context: context,
+        langCode: Wordz.languageCode(context),
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -248,7 +251,7 @@ class PhraseProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
 }
 
-String superPhrase(BuildContext context, String id){
-  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+String superPhrase(BuildContext context, String id, {PhraseProvider providerOverride}){
+  final PhraseProvider _phraseProvider = providerOverride ?? Provider.of<PhraseProvider>(context, listen: false);
   return _phraseProvider.getTranslatedPhraseByID(id);
 }

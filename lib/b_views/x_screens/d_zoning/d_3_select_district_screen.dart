@@ -131,7 +131,10 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       cityID: widget.city.cityID,
     );
 
-    final String _cityName = superPhrase(context, widget.city.cityID);
+    final String _cityName = CityModel.getTranslatedCityNameFromCity(
+        context: context,
+        city: widget.city,
+    );
 
     return MainLayout(
       skyType: SkyType.black,
@@ -143,11 +146,11 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       onSearchSubmit: _onSearchDistrict,
       onSearchChanged: _onSearchDistrict,
 
-      pageTitle: 'Select a District',
+      pageTitle: superPhrase(context, 'phid_select_a_district'),
       pyramidsAreOn: true,
 
       onBack: _onBack,
-      searchHint: 'Search Districts of $_cityName',
+      searchHint: '${superPhrase(context, 'phid_search_districts_of')} $_cityName',
       appBarRowWidgets: <Widget>[
 
         const Expander(),

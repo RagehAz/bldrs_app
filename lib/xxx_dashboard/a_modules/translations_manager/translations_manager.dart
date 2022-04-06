@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -11,6 +14,7 @@ import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_creator_page.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_page.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_controller.dart';
@@ -70,6 +74,30 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   // -----------------------------
   Future<void> _onBldrsTap() async {
 
+  }
+  // -----------------------------
+  Future<void> _onUploadPhrase({
+    @required List<Phrase> enPhrases,
+    @required List<Phrase> arPhrases,
+  }) async {
+
+    if (TextChecker.stringIsNotEmpty(_idController.text) == true){
+      await onUploadPhrase(
+        context: context,
+        enOldPhrases: enPhrases,
+        arOldPhrases: arPhrases,
+        enValue: _englishController.text,
+        arValue: _arabicController.text,
+        phraseID: _idController.text,
+      );
+    }
+
+    else {
+      await TopDialog.showTopDialog(
+        context: context,
+        verse: 'ID is Empty',
+      );
+    }
 
   }
   // -----------------------------
@@ -89,9 +117,15 @@ class _TranslationsManagerState extends State<TranslationsManager> {
 
   }
   // -----------------------------
-  Future<void> _updatePhrases() async {
+  Future<void> _reloadPhrases() async {
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
+    unawaited(WaitDialog.showWaitDialog(context));
+
     await _phraseProvider.reloadPhrases(context);
+
+    WaitDialog.closeWaitDialog(context);
+
   }
 
   // -----------------------------
@@ -209,20 +243,18 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                   ),
                   appBarRowWidgets: <Widget>[
 
-                    const Expander(),
-
-                    /// UPLOAD GROUP
+                    /// RELOAD
                     DreamBox(
                       height: _buttonsHeight,
+                      width: _buttonsHeight,
                       color: Colorz.green255,
-                      verseShadow: false,
-                      verseMaxLines: 2,
-                      verseScaleFactor: 0.6,
-                      verse: 'UPDATE',
-                      secondLine: 'PHRASES',
+                      icon: Iconz.reload,
+                      iconSizeFactor: 0.6,
                       margins: const EdgeInsets.symmetric(horizontal: 5),
-                      onTap: () => _updatePhrases(),
+                      onTap: () => _reloadPhrases(),
                     ),
+
+                    const Expander(),
 
 
                     /// UPLOAD GROUP
@@ -256,27 +288,10 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                             verseShadow: false,
                             verseMaxLines: 2,
                             verseScaleFactor: 0.6,
-                            onTap: () async {
-
-                              if (TextChecker.stringIsNotEmpty(_idController.text) == true){
-                                await onUploadPhrase(
-                                  context: context,
-                                  enOldPhrases: _enPhrases,
-                                  arOldPhrases: _arPhrases,
-                                  enValue: _englishController.text,
-                                  arValue: _arabicController.text,
-                                  phraseID: _idController.text,
-                                );
-                              }
-
-                              else {
-                                await TopDialog.showTopDialog(
-                                    context: context,
-                                    verse: 'ID is Empty',
-                                );
-                              }
-
-                            },
+                            onTap: () => _onUploadPhrase(
+                              enPhrases: enPhrases,
+                              arPhrases: arPhrases,
+                            ),
                           );
 
                         }

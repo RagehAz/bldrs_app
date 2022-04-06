@@ -82,8 +82,7 @@ class Localizer {
         input: code,
       );
 
-      blog(
-          "changed local language and firestore.user['language']  updated to $code");
+      blog("changed local language and firestore.user['language']  updated to $code");
     }
   }
 // -----------------------------------------------------------------------------

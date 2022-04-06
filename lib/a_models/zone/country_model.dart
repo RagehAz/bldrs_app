@@ -148,7 +148,7 @@ class CountryModel {
 
     if (phrasesMap != null){
 
-      final List<String> _keys = phrasesMap.keys.toList();
+      final List<String> _keys = phrasesMap.keys.toList(); // lang codes
 
       if (Mapper.canLoopList(_keys) == true){
 
@@ -209,7 +209,7 @@ class CountryModel {
   /// GETTERS
 
 // -------------------------------------
-  static String getTranslatedCountryNameByID({
+  static String getTranslatedCountryName({
     @required BuildContext context,
     @required String countryID
   }) {
@@ -251,7 +251,7 @@ class CountryModel {
 
     for (final String id in _allCountriesIDs) {
 
-      final String _countryName = getTranslatedCountryNameByID(
+      final String _countryName = getTranslatedCountryName(
           context: context,
           countryID: id,
       );
@@ -272,33 +272,32 @@ class CountryModel {
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
 
-    final List<Phrase> _allCountriesNamesInCurrentLanguage = <Phrase>[];
+    final List<Phrase> _allCountriesPhrasesInCurrentLang = <Phrase>[];
 
     for (final String id in _allCountriesIDs){
 
-      final String _countryName = getTranslatedCountryNameByID(
+      final String _countryName = getTranslatedCountryName(
           context: context,
           countryID: id,
       );
 
-      final Phrase _name = Phrase(
+      final Phrase _phrase = Phrase(
         id: id,
-        langCode: Wordz.languageCode(context),
         value: _countryName,
       );
 
       if (_countryName != null){
-        _allCountriesNamesInCurrentLanguage.add(_name);
+        _allCountriesPhrasesInCurrentLang.add(_phrase);
       }
     }
 
-    final List<Phrase> _namesSorted = Phrase.sortNamesAlphabetically(_allCountriesNamesInCurrentLanguage);
+    final List<Phrase> _namesSorted = Phrase.sortNamesAlphabetically(_allCountriesPhrasesInCurrentLang);
 
     final List<String> _sortedCountriesIDs = <String>[];
 
-    for (final Phrase name in _namesSorted){
+    for (final Phrase phrase in _namesSorted){
 
-      _sortedCountriesIDs.add(name.langCode);
+      _sortedCountriesIDs.add(phrase.id);
 
     }
 
