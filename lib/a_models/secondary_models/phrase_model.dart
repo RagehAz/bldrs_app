@@ -112,7 +112,7 @@ class Phrase {
   }
 // -------------------------------------
   /// used to store in LDB
-  static List<Map<String, dynamic>> cipherOneLnagPhrasesToMaps({
+  static List<Map<String, dynamic>> cipherOneLangPhrasesToMaps({
     @required List<Phrase> phrases,
     bool addTrigrams = false,
     bool includeLangCode = false,
@@ -221,6 +221,65 @@ class Phrase {
     }
 
     return _phrases;
+  }
+// -------------------------------------
+  /// TESTED :
+  static List<Phrase> decipherMixedLangPhrases({
+  @required List<Map<String, dynamic>> maps,
+}){
+    final List<Phrase> _phrases = <Phrase>[];
+
+    if (Mapper.canLoopList(maps) == true){
+
+      for (final Map<String, dynamic> map in maps){
+
+        final Phrase _phrase = decipherPhrase(
+          id: map['id'],
+          map: map,
+          langCodeOverride: map['langCode'],
+          includeTrigram: true,
+        );
+
+        _phrases.add(_phrase);
+
+      }
+
+    }
+
+    return _phrases;
+  }
+// -------------------------------------
+  /// TESTED :
+  static List<Map<String, dynamic>> cipherMixedLangPhrases({
+  @required List<Phrase> phrases,
+}){
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        Map<String, dynamic> _map = phrase.toMap(
+          includeID: true,
+          includeTrigram: true,
+          overrideLangCode: phrase.langCode,
+          includeLangCode: true,
+        );
+
+        /// used as primary key, due to duplicates in both ids and langCodes
+        _map = Mapper.insertPairInMap(
+            map: _map,
+            key: 'primaryKey',//'id_langCode',
+            value: '${phrase.id}_${phrase.langCode}',
+        );
+
+        _maps.add(_map);
+
+      }
+
+    }
+
+    return _maps;
   }
 // -----------------------------------------------------------------------------
 

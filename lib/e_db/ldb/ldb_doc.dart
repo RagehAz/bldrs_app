@@ -21,6 +21,8 @@
   const String enPhrases = 'enPhrases';
   const String arPhrases = 'arPhrases';
 
+  const String countriesMixedPhrases = 'countriesMixedPhrases';
+
   const List<String> bzModelsDocs = <String>[
     bzz,
   ];
@@ -53,4 +55,5 @@
     searches,
     enPhrases,
     arPhrases,
+    countriesMixedPhrases,
   ];
