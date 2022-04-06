@@ -54,11 +54,9 @@ Future<void> main() async {
 class BldrsApp extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BldrsApp({Key key}) : super(key: key);
-
   /// --------------------------------------------------------------------------
   static void setLocale(BuildContext context, Locale locale) {
-    final _BldrsAppState state =
-        context.findAncestorStateOfType<_BldrsAppState>();
+    final _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
     state._setLocale(locale);
   }
 

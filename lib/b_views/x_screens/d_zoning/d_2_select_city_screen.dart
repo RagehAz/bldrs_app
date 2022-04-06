@@ -99,7 +99,10 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
       countryID: widget.country.id,
     );
 
-    final String _countryName = superPhrase(context, widget.country.id);
+    final String _countryName = CountryModel.getTranslatedCountryName(
+        context: context,
+        countryID: widget.country.id,
+    );
 
     return MainLayout(
       skyType: SkyType.black,
@@ -109,10 +112,10 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
       zoneButtonIsOn: false,
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
-      pageTitle: 'Select a City',
+      pageTitle: superPhrase(context, 'phid_selectCity'),
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHint: 'Search cities of $_countryName',
+      searchHint: '${superPhrase(context, 'phid_search_cities_of')} $_countryName',
       appBarRowWidgets: <Widget>[
 
         const Expander(),

@@ -872,12 +872,14 @@ Future<void> deleteAllSubDocs({
   // }
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteDocField({
   @required BuildContext context,
   @required String collName,
   @required String docName,
   @required String field,
 }) async {
+
   final DocumentReference<Object> _docRef = getDocRef(
     collName: collName,
     docName: docName,
@@ -896,6 +898,8 @@ Future<void> deleteDocField({
   });
 
   await _docRef.update(updates);
+
+  blog('delete field : $collName / $docName / { $field }');
 
   //     }
   // );

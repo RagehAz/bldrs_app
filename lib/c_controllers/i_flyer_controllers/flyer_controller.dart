@@ -61,14 +61,14 @@ Future<CityModel> getFlyerBzCity({
 // -----------------------------------------------------------------------------
 ZoneModel getZoneModel({
   @required BuildContext context,
-  @required CountryModel countryModel,
+  @required String countryID,
   @required CityModel cityModel,
   @required String districtID,
 }){
 
-  final String _countryName = CountryModel.getTranslatedCountryNameByID(
+  final String _countryName = CountryModel.getTranslatedCountryName(
     context: context,
-    countryID: countryModel.id,
+    countryID: countryID,
   );
 
   final String _cityName = CityModel.getTranslatedCityNameFromCity(
@@ -83,7 +83,7 @@ ZoneModel getZoneModel({
   );
 
   return ZoneModel(
-    countryID: countryModel.id,
+    countryID: countryID,
     cityID: cityModel.cityID,
     districtID: districtID,
     countryName: _countryName,

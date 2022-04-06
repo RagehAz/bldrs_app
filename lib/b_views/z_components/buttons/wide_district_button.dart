@@ -19,7 +19,10 @@ class WideDistrictButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _districtNameValue = superPhrase(context, district.districtID);
+    final String _districtNameValue = DistrictModel.getTranslatedDistrictNameFromDistrict(
+        context: context,
+        district: district,
+    );
 
     return DreamBox(
       height: 40,
