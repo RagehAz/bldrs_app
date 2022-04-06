@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -115,37 +116,24 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 const String _langCode = 'ar';
 
-                final List<Phrase> _phrases = await _phraseProvider.fetchBasicPhrasesByLangCode(
-                    context: context,
-                    langCode: _langCode,
-                );
-
-                Map<String, dynamic> _cleanedMap = {};
-
-                for (final Phrase phrase in _phrases){
-
-                  _cleanedMap = insertPairInMap(
-                      map: _cleanedMap,
-                      key: phrase.id,
-                      value: {
-                        'value' : phrase.value,
-                      },
-                  );
-
-                }
-
-
-                blogMap(_cleanedMap);
-
-                await createNamedDoc(
+                // final Map<String, dynamic> _map =
+                await deleteDocField(
                     context: context,
                     collName: FireColl.phrases,
                     docName: _langCode,
-                    input: _cleanedMap,
+                  field: 'phrases',
                 );
 
-                // Phrase.blogPhrases(_phrases);
-
+                // final List<String> _keys = _map.keys.toList();
+                //
+                // final Map<String, dynamic> _phrasesMap = _map['phrases'];
+                // final List<String> _phrasesMapKeys = _phrasesMap.keys.toList();
+                //
+                // blog('keys : ${_keys.length} : ${_keys.toString()}');
+                //
+                // blog('----- x -----');
+                //
+                // blog('phrasesMap : ${_phrasesMapKeys.length} : ${_phrasesMapKeys.toString()}');
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 

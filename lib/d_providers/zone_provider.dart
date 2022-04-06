@@ -126,7 +126,10 @@ class ZoneProvider extends ChangeNotifier {
 
       if (_map != null && _map != <String, dynamic>{}){
         blog('fetchCityByID : City found in local db : ${LDBDoc.cities}');
-        _cityModel = CityModel.decipherCityMap(map: _map, fromJSON: true);
+        _cityModel = CityModel.decipherCityMap(
+            map: _map,
+            fromJSON: true,
+        );
       }
 
       /// 2 - if not found, search firebase

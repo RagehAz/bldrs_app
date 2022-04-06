@@ -39,11 +39,11 @@ class SearchedCountriesButtons extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (_, int index) {
 
-            final String _countryID = _searchedCountries[index].id;
+            final CountryModel _countryModel = _searchedCountries[index];
 
             return WideCountryButton(
-              countryID: _countryID,
-              onTap: () => onCountryTap(_countryID),
+              countryID: _countryModel.id,
+              onTap: () => onCountryTap(_countryModel.id),
             );
 
           }

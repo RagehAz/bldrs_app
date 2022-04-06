@@ -124,19 +124,17 @@ Future<void> updatePhrases({
   @required List<Phrase> arPhrases,
 }) async{
 
-  await Fire.updateDocField(
+  await Fire.createNamedDoc(
     context: context,
     collName: FireColl.phrases,
     docName: 'en',
-    field: 'phrases',
     input: Phrase.cipherOneLangPhrasesToMap(phrases: enPhrases),
   );
 
-  await Fire.updateDocField(
+  await Fire.createNamedDoc(
       context: context,
       collName: FireColl.phrases,
       docName: 'ar',
-      field: 'phrases',
       input:  Phrase.cipherOneLangPhrasesToMap(phrases: arPhrases),
   );
 

@@ -28,9 +28,9 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(
+    final String _countryName = CountryModel.getTranslatedCountryName(
         context: context,
-        countryID: userCountry?.id,
+        countryID: userCountry.id,
     );
 
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
