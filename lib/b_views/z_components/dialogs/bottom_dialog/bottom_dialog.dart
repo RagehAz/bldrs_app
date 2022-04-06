@@ -246,7 +246,7 @@ class BottomDialog extends StatelessWidget {
         final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(ctx, listen: false);
 
         return ListView.builder(
-          itemCount: buttons.length,
+          itemCount: _widgetsLength,
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (_, int index) {

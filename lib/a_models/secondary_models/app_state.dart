@@ -16,6 +16,7 @@ class AppState {
     @required this.keywordsUpdateRequired,
     @required this.numberOfKeywords,
     @required this.zonesUpdateRequired,
+    @required this.activeCountries,
   });
   /// --------------------------------------------------------------------------
   /// app update
@@ -42,6 +43,7 @@ class AppState {
 
   /// zones
   final bool zonesUpdateRequired;
+  final List<String> activeCountries;
 
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
@@ -57,6 +59,7 @@ class AppState {
       'keywordsUpdateRequired': keywordsUpdateRequired,
       'numberOfKeywords': numberOfKeywords,
       'zonesUpdateRequired': zonesUpdateRequired,
+      'activeCountries' : activeCountries,
     };
   }
 
@@ -74,6 +77,7 @@ class AppState {
       keywordsUpdateRequired: map['keywordsUpdateRequired'],
       numberOfKeywords: map['numberOfKeywords'],
       zonesUpdateRequired: map['zonesUpdateRequired'],
+      activeCountries: Mapper.getStringsFromDynamics(dynamics: map['activeCountries']),
     );
   }
 
@@ -92,6 +96,7 @@ class AppState {
       keywordsUpdateRequired: false,
       numberOfKeywords: 0,
       zonesUpdateRequired: false,
+      activeCountries: ['egy'],
     );
   }
 // -----------------------------------------------------------------------------

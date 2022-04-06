@@ -252,6 +252,8 @@ class PhraseProvider extends ChangeNotifier {
 }
 
 String superPhrase(BuildContext context, String id, {PhraseProvider providerOverride}){
-  final PhraseProvider _phraseProvider = providerOverride ?? Provider.of<PhraseProvider>(context, listen: false);
+  final PhraseProvider _phraseProvider = providerOverride ??
+      Provider.of<PhraseProvider>(context, listen: true);
+
   return _phraseProvider.getTranslatedPhraseByID(id);
 }
