@@ -339,6 +339,7 @@ class NavBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+// -----------------------------------------------------------------------------
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
     final UserModel _myUserModel = _usersProvider.myUserModel;
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
@@ -426,8 +427,7 @@ class NavBar extends StatelessWidget {
                           icon: Iconz.saveOn,
                           iconSizeFactor: 0.7,
                           barType: barType,
-                          onTap: () =>
-                              Nav.goToRoute(context, Routez.savedFlyers),
+                          onTap: () => Nav.goToRoute(context, Routez.savedFlyers),
                         ),
 
                       _spacer,

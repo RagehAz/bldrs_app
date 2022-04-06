@@ -116,7 +116,7 @@ class CountryModel {
   static Map<String, dynamic> cipherZonePhrases({
     @required List<Phrase> phrases,
   }){
-    Map<String, dynamic> _output;
+    Map<String, dynamic> _output = {};
 
     if (Mapper.canLoopList(phrases) == true){
 

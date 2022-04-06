@@ -24,6 +24,7 @@ class UserScreenViewPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return TabBarView(
       physics: const BouncingScrollPhysics(),
       controller: tabController,

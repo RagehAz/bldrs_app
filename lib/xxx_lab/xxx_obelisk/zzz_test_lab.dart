@@ -1,13 +1,19 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
+import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -79,7 +85,74 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   }
 
 
-//   File _file;
+  Future<void> _showDialog() async {
+
+    final double _height = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
+
+    await showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BottomDialog.dialogCorners(context),
+      ),
+      backgroundColor: Colorz.blackSemi255,
+      barrierColor: Colorz.black150,
+      enableDrag: true,
+      elevation: 20,
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context){
+
+        return SizedBox(
+            height: _height,
+            width: Scale.superScreenWidth(context),
+            child: Scaffold(
+              backgroundColor: Colorz.nothing,
+              resizeToAvoidBottomInset: false,
+              body: BottomDialog(
+                height: _height,
+                draggable: true,
+                title: 'WAT DA FAK',
+                child: StatefulBuilder(
+
+                  builder: (_, state){
+
+                    final UiProvider _ui = Provider.of<UiProvider>(context, listen: true);
+
+                    final bool _isLoading = _ui.isLoading;
+
+                    return Column(
+                      children: <Widget>[
+
+                        SuperVerse(
+                          verse: '$_isLoading',
+                          size: 4,
+                        ),
+
+                        DreamBox(
+                          height: 50,
+                          width: 50,
+                          icon: Iconz.reload,
+                          iconSizeFactor: 0.6,
+                          onTap: (){
+
+                            _ui.triggerLoading();
+
+                          },
+                        )
+
+                      ],
+                    );
+
+                  },
+
+                ),
+              ),
+            ));
+
+      },
+    );
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -114,26 +187,26 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                const String _langCode = 'ar';
+                // egy_cairo
+                // sau_al_qutaif
 
-                // final Map<String, dynamic> _map =
-                await deleteDocField(
+                // final CountryModel _country = await _zoneProvider.fetchCountryByID(
+                //     context: context,
+                //     countryID: 'afg',
+                // );
+
+                final CityModel _city = await readCityOps(
                     context: context,
-                    collName: FireColl.phrases,
-                    docName: _langCode,
-                  field: 'phrases',
+                    cityID: 'egy_cairo',
                 );
 
-                // final List<String> _keys = _map.keys.toList();
-                //
-                // final Map<String, dynamic> _phrasesMap = _map['phrases'];
-                // final List<String> _phrasesMapKeys = _phrasesMap.keys.toList();
-                //
-                // blog('keys : ${_keys.length} : ${_keys.toString()}');
-                //
-                // blog('----- x -----');
-                //
-                // blog('phrasesMap : ${_phrasesMapKeys.length} : ${_phrasesMapKeys.toString()}');
+                final Map<String, dynamic> _maw = _city.toMap(
+                    toJSON: true,
+                );
+
+                blogMap(_maw);
+
+                // _country.blogCountry();
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
@@ -142,12 +215,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           WideButton(
               color: Colorz.red255,
-              verse: 'DO THE OTHER THING NOW',
+              verse: 'show dialogz',
               icon: Iconz.star,
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
+                await _showDialog();
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
