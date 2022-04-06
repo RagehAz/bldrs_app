@@ -150,6 +150,7 @@
   const String target =  '$_iconsPath/gi_target.svg' ;
   const String power =  '$_iconsPath/gi_power.svg' ;
   const String circleDot =  '$_iconsPath/gi_circle_dot.svg' ;
+  const String reload =  '$_iconsPath/gi_reload.svg' ;
     // -----------------------------------------------------------------------------
   /// PYRAMIDS
   const String pyramidsYellow = '$_iconsPath/pyramids_yellow.svg' ;

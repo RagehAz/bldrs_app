@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
@@ -13,6 +14,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 enum BottomDialogType {
   countries,
@@ -177,6 +179,8 @@ class BottomDialog extends StatelessWidget {
 
     final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: Borderers.superBorderOnly(
@@ -193,19 +197,22 @@ class BottomDialog extends StatelessWidget {
         elevation: 20,
         isScrollControlled: true,
         context: context,
-        builder: (BuildContext bCtx) {
+        builder: (_) {
 
-          return SizedBox(
-            height: _height,
-            width: Scale.superScreenWidth(context),
-            child: Scaffold(
-              backgroundColor: Colorz.nothing,
-              resizeToAvoidBottomInset: false,
-              body: BottomDialog(
-                height: _height,
-                draggable: draggable,
-                title: title,
-                child: child,
+          return Provider.value(
+            value: _phraseProvider,
+            child:  SizedBox(
+              height: _height,
+              width: Scale.superScreenWidth(context),
+              child: Scaffold(
+                backgroundColor: Colorz.nothing,
+                resizeToAvoidBottomInset: false,
+                body: BottomDialog(
+                  height: _height,
+                  draggable: draggable,
+                  title: title,
+                  child: child,
+                ),
               ),
             ),
           );
@@ -219,30 +226,41 @@ class BottomDialog extends StatelessWidget {
     @required bool draggable,
     @required List<Widget> buttons,
     @required double buttonHeight,
+    List<Widget> Function(BuildContext, PhraseProvider) builder,
     String title,
   }) async {
 
-    final double _spacing = buttonHeight * 0.1;
-    final double _height = (buttonHeight * buttons.length) + (_spacing * buttons.length);
+    // final List<Widget> _widgets = builder(null, null);
+    final int _widgetsLength = 13;
 
-    await showBottomDialog(
+    final double _spacing = buttonHeight * 0.1;
+    final double _height = (buttonHeight * _widgetsLength) + (_spacing * _widgetsLength);
+
+    await showStatefulBottomDialog(
       context: context,
       draggable: draggable,
       height: _height,
       title: title,
-      child: ListView.builder(
-        itemCount: buttons.length,
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (BuildContext ctx, int index) {
-          return Column(
-            children: <Widget>[
-              buttons[index],
-              SizedBox(height: _spacing),
-            ],
-          );
-        },
-      ),
+      builder: (BuildContext ctx, title){
+
+        final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(ctx, listen: false);
+
+        return ListView.builder(
+          itemCount: buttons.length,
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (_, int index) {
+            return Column(
+              children: <Widget>[
+                builder(ctx, _phraseProvider)[index],
+                SizedBox(height: _spacing),
+              ],
+              // children: builder(ctx, _phraseProvider),
+            );
+          },
+        );
+
+      },
     );
   }
 // -----------------------------------------------------------------------------
@@ -254,8 +272,7 @@ class BottomDialog extends StatelessWidget {
     @required String title
   }) async {
 
-    final double _height =
-        height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
+    final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
     await showModalBottomSheet(
       shape: RoundedRectangleBorder(
@@ -523,6 +540,7 @@ class BottomDialog extends StatelessWidget {
                   ),
                   child: child,
                 ),
+
               ],
             ),
           ),

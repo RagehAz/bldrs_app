@@ -220,11 +220,18 @@ class CityModel {
   }) {
     String _cityName = '...';
 
-    // if (city != null) {
-    //   _cityName = Phrase.getPhraseByCurrentLangFromPhrases(
-    //       context: context,
-    //       phrases: city.phrases)?.value;
-    // }
+    if (city != null) {
+
+      final Phrase _phrase = Phrase.getPhraseByCurrentLangFromMixedLangPhrases(
+          context: context,
+          phrases: city.phrases
+      );
+
+      if (_phrase != null){
+        _cityName = _phrase.value;
+      }
+
+    }
 
     return _cityName;
   }

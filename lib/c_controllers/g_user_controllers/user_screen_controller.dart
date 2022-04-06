@@ -90,8 +90,97 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
       draggable: true,
       buttonHeight: _buttonHeight,
       title: 'Profile options',
-      buttons: <Widget>[
+      builder: (xxx, phrasePro){
 
+        blog('ahoooooooo lalalala');
+
+        return <Widget>[
+
+          /// EDIT PROFILE
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: superPhrase(xxx, 'phid_editProfile', providerOverride: phrasePro),
+            icon: Iconz.gears,
+            onTap: () => onEditProfileTap(xxx),
+          ),
+
+          /// CHANGE APP LANGUAGE
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: superPhrase(xxx, 'phid_changeLanguage', providerOverride: phrasePro),
+            icon: Iconz.language,
+            onTap: () => _onChangeAppLanguageTap(xxx),
+          ),
+
+          const BubblesSeparator(bottomMarginIsOn: false,),
+
+          /// ABOUT BLDRS
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: '${superPhrase(xxx, 'phid_about', providerOverride: phrasePro)} ${Wordz.bldrsFullName(xxx)}',
+            icon: Iconz.pyramidSingleYellow,
+            onTap: () => _onAboutBldrsTap(xxx),
+          ),
+
+          /// FEEDBACK
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: superPhrase(xxx, 'phid_feedback', providerOverride: phrasePro),
+            icon: Iconz.utSearching,
+            onTap: () => _onFeedbackTap(xxx),
+          ),
+
+          /// TERMS AND REGULATIONS
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: superPhrase(xxx, 'phid_termsRegulations', providerOverride: phrasePro),
+            icon: Iconz.terms,
+            onTap: () => _onTermsAndRegulationsTap(xxx),
+          ),
+
+          const BubblesSeparator(bottomMarginIsOn: false,),
+
+          /// CREATE NEW BZ ACCOUNT
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: superPhrase(xxx, 'phid_createBzAccount', providerOverride: phrasePro),
+            icon: Iconz.bz,
+            onTap: () => _onCreateNewBzTap(xxx),
+          ),
+
+          /// INVITE FRIENDS
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: superPhrase(xxx, 'phid_inviteFriends', providerOverride: phrasePro),
+            icon: Iconizer.shareAppIcon(),
+            onTap: () => _onInviteFriendsTap(xxx),
+          ),
+
+          const BubblesSeparator(bottomMarginIsOn: false,),
+
+          /// DELETE MY ACCOUNT
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: superPhrase(xxx, 'phid_delete_my_account', providerOverride: phrasePro),
+            icon: Iconz.xSmall,
+            onTap: () => _onDeleteMyAccount(xxx),
+          ),
+
+          const BubblesSeparator(bottomMarginIsOn: false,),
+
+          /// SIGN OUT
+          BottomDialog.wideButton(
+            context: xxx,
+            verse: superPhrase(xxx, 'phid_signOut', providerOverride: phrasePro),
+            icon: Iconz.exit,
+            onTap: () => _onSignOut(xxx),
+          ),
+
+        ];
+
+      },
+      buttons: <Widget>[
+        /*
         /// EDIT PROFILE
         BottomDialog.wideButton(
           context: context,
@@ -172,6 +261,8 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           onTap: () => _onSignOut(context),
         ),
 
+
+         */
       ],
     );
 

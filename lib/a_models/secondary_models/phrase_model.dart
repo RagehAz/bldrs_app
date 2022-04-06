@@ -243,8 +243,6 @@ class Phrase {
   }
 // -----------------------------------------------------------------------------
 
-
-
   /// BLOGGERS
 
 // -------------------------------------
@@ -289,7 +287,7 @@ class Phrase {
 
 // -------------------------------------
   /// Searches list of phrases of different lang codes by current the lang code
-  static Phrase getPhraseByCurrentLangFromPhrases({
+  static Phrase getPhraseByCurrentLangFromMixedLangPhrases({
     @required BuildContext context,
     @required List<Phrase> phrases,
   }) {

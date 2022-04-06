@@ -77,8 +77,8 @@ Future<CityModel> readCityOps({
   final Map<String, dynamic> _map = await Fire.readSubDoc(
     context: context,
     collName: FireColl.zones,
-    docName: 'cities',
-    subCollName: 'cities',
+    docName: FireDoc.zones_cities,
+    subCollName: FireSubColl.zones_cities_cities,
     subDocName: cityID,
   );
 

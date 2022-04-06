@@ -36,7 +36,7 @@ String countryStringerByModels ({
 
   if (country != null && ZoneModel.zoneHasAllIDs(zone)){
 
-    final String _countryName = CountryModel.getTranslatedCountryNameByID(
+    final String _countryName = CountryModel.getTranslatedCountryName(
         context: context,
         countryID: country.id,
     );
