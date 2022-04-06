@@ -44,6 +44,8 @@ class UserProfilePage extends StatelessWidget {
       districtID: userModel?.zone?.districtID,
     );
 
+    // userCity.blogCity();
+
     return Column(
       children: <Widget>[
 
