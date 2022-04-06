@@ -1,8 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/secondary_models/app_updates.dart';
+import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
@@ -48,4 +49,11 @@ class GeneralProvider extends ChangeNotifier {
     return _onlineSections.contains(section) == true;
   }
 // -------------------------------------
+}
+
+List<String> getActiveCountriesIDs(BuildContext context){
+  // final List<String> _allIDs = CountryModel.getAllCountriesIDsSortedByName(context);
+  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  final List<String> _activeIDs = _generalProvider.appState.activeCountries;
+  return _activeIDs;
 }
