@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -17,6 +18,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:provider/provider.dart';
 
 // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 class ZoneProvider extends ChangeNotifier {
@@ -412,6 +414,7 @@ class ZoneProvider extends ChangeNotifier {
     return _countries;
   }
 // -----------------------------------------------------------------------------
+
   /// USER COUNTRY MODEL
 
 // -------------------------------------
@@ -654,51 +657,6 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// SEARCHED COUNTRIES
-
-// -------------------------------------
-  List<CountryModel> _searchedCountries = <CountryModel>[];
-// -------------------------------------
-  List<CountryModel> get searchedCountries => <CountryModel>[..._searchedCountries];
-// -------------------------------------
-  Future<void> getSetSearchedCountries({
-    @required BuildContext context,
-    @required String input,
-  }) async {
-
-    /// SEARCH COUNTRIES
-    final List<CountryModel> _foundCountries = await ZoneSearch.countriesByCountryName(
-        context: context,
-        countryName: input,
-        lingoCode: TextChecker.concludeEnglishOrArabicLingo(input),
-    );
-
-
-    /// INSERT FOUND COUNTRIES TO LDB
-    if (_foundCountries.isNotEmpty){
-      for (final CountryModel country in _foundCountries){
-        await LDBOps.insertMap(
-          input: country.toMap(toJSON: true),
-          docName: LDBDoc.countries,
-          primaryKey: 'id',
-        );
-      }
-    }
-
-    /// SET FOUND COUNTRIES
-    _setSearchedCountries(_foundCountries);
-  }
-// -------------------------------------
-  void _setSearchedCountries(List<CountryModel> countries){
-    _searchedCountries = countries;
-    notifyListeners();
-  }
-// -------------------------------------
-  void clearSearchedCountries(){
-    _setSearchedCountries(<CountryModel>[]);
-  }
-// -----------------------------------------------------------------------------
-
   /// SELECTED COUNTRY CITIES
 
 // -------------------------------------
@@ -824,9 +782,8 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   void clearAllSearchesAndSelections(){
 
-    _searchedCountries = [];
+    // _searchedCountries = [];
     _searchedCities = [];
-    _searchedCountries = [];
 
     _selectedCountryCities = [];
     _selectedCityDistricts = [];
@@ -837,3 +794,15 @@ class ZoneProvider extends ChangeNotifier {
 
 }
 /// TASK : ACTIVATED & GLOBAL COUNTRIES
+
+// List<ZoneModel> searchCountriesByNames({
+//   @required String text,
+// }){
+//
+//   // final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
+//   //
+//   // final List<Phrase> _enCountryPhrase = CountryModel.createCountriesPhrases(
+//   //   langCode: 'en',
+//   // );
+//
+// }

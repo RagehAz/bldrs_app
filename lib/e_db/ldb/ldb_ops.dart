@@ -1,5 +1,6 @@
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/sembast_api.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
@@ -124,6 +125,37 @@ Future<List<Map<String, Object>>> searchAllMaps({
   return _fixedMaps;
 }
 // ---------------------------------------------------
+Future<List<Map<String, Object>>> searchPhrasesDoc({
+  @required dynamic searchValue,
+  @required String docName,
+  @required String lingCode,
+}) async {
+
+  blog('receiving value : $searchValue');
+
+  final List<Map<String, dynamic>> _result = await Sembast.searchArrays(
+    searchValue: searchValue,
+    docName: docName,
+    fieldToSortBy: 'value',
+    searchField: 'trigram',
+  );
+
+  if (canLoopList(_result) == true){
+    blog('searchPhrases : found ${_result.length} phrases');
+
+    return _result;
+
+  }
+  else {
+    blog('searchPhrases : did not find anything');
+
+    return null;
+  }
+
+}
+
+
+/// deprecated
 Future<List<Map<String, Object>>> searchTrigram({
   @required dynamic searchValue,
   @required String docName,
@@ -132,7 +164,7 @@ Future<List<Map<String, Object>>> searchTrigram({
 
   final List<Map<String, dynamic>> _result = await Sembast.search(
     fieldToSortBy: getPrimaryKey(docName),
-    searchField: 'names.$lingoCode.trigram',
+    searchField: 'phrases.$lingoCode.trigram',
     searchValue: TextMod.fixCountryName(searchValue),
     docName: docName,
   );

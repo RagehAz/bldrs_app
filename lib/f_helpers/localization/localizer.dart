@@ -28,45 +28,163 @@ import 'package:shared_preferences/shared_preferences.dart';
 // -----------------------------------------------------------------------------
 
 /// check this https://pub.dev/packages/localize_and_translate
-
+// -----------------------------------------------------------------------------
 class Localizer {
-  /// --------------------------------------------------------------------------
-  Localizer(this.locale);
+// -----------------------------------------------------------------------------
 
-  /// --------------------------------------------------------------------------
+  /// CONSTRUCTOR
+
+// -------------------------------------
+  Localizer(this.locale);
+// -------------------------------------
   final Locale locale;
   Map<String, String> _localizedValues;
-
-  /// --------------------------------------------------------------------------
+// -------------------------------------
   static Localizer of(BuildContext context) {
     return Localizations.of<Localizer>(context, Localizer);
   }
-
 // -----------------------------------------------------------------------------
-  static const LocalizationsDelegate<Localizer> delegate =
-      _DemoLocalizationDelegate();
-// -----------------------------------------------------------------------------
-  Future<void> load() async {
-    final String _jsonStringValues = await rootBundle
-        .loadString('assets/languages/${locale.languageCode}.json');
 
-    final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+  /// DELEGATE
 
-    _localizedValues =
-        _mappedJson.map((String key, value) => MapEntry(key, value.toString()));
+// -------------------------------------
+  static const LocalizationsDelegate<Localizer> delegate = _DemoLocalizationDelegate();
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<LocalizationsDelegate> getLocalizationDelegates() {
+
+    final List<LocalizationsDelegate> _localizationDelegates =
+    <LocalizationsDelegate>[
+      Localizer.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate,
+    ];
+
+    return _localizationDelegates;
   }
-
 // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> load() async {
+    _localizedValues = await getJSONLangMap(langCode: locale.languageCode);
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   String getTranslatedValue(String key) {
     return _localizedValues[key];
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Locale> getLocaleFromSharedPref() async {
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final String _languageCode =
+        _prefs.getString('languageCode') ?? Lang.englishLingo.code;
+    return _concludeLocaleByLingoCode(_languageCode);
+//  await _prefs.setString(Language_Code, languageCode);
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<Locale> getSupportedLocales() {
 
+    final List<Locale> _supportedLocales = <Locale>[
+      const Locale('en', 'US'),
+      const Locale('ar', 'EG'),
+      const Locale('es', 'ES'),
+      const Locale('fr', 'FR'),
+      const Locale('zh', 'CN'),
+      const Locale('de', 'DE'),
+      const Locale('it', 'IT'),
+    ];
+
+    return _supportedLocales;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Locale localeResolutionCallback({
+    @required Locale deviceLocale,
+    @required Iterable<Locale> supportedLocales,
+  }) {
+
+    for (final Locale locale in supportedLocales) {
+      if (locale.languageCode == deviceLocale.languageCode &&
+          locale.countryCode == deviceLocale.countryCode) {
+        return deviceLocale;
+      }
+    }
+
+    return supportedLocales.first;
+  }
 // -----------------------------------------------------------------------------
+
+  /// READING  LOCAL JSON
+
+// -------------------------------------
+  /// TESTED :
+  static Future<Map<String, String>> getJSONLangMap({
+    @required String langCode
+  }) async {
+
+    final String _jsonStringValues = await rootBundle
+        .loadString('assets/languages/$langCode.json');
+
+    final Map<String, dynamic> _mappedJson = json
+        .decode(_jsonStringValues);
+
+    final Map<String, String> _map = _mappedJson
+        .map((String key, value) => MapEntry(key, value.toString()));
+
+    return _map;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String translate(BuildContext context, String key) {
     return Localizer.of(context).getTranslatedValue(key);
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> getTranslationFromJSONByLangCode({
+    @required BuildContext context,
+    @required String jsonKey,
+    @required String langCode,
+  }) async {
 
+    String _jsonStringValues;
+    String _output;
+
+    final bool _result = await tryCatchAndReturnBool(
+      context: context,
+      methodName: 'getCountryNameByLingo',
+      functions: () async {
+
+        _jsonStringValues =
+        await rootBundle.loadString('assets/languages/$langCode.json');
+
+      },
+      onError: (String error) {},
+    );
+
+    if (_result == true) {
+
+      final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+
+      final Map<String, dynamic> _map = _mappedJson
+          .map((String key, value) => MapEntry(key, value.toString()));
+
+      _output = _map[jsonKey];
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
+
+  /// LANGUAGE SWITCHING
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> changeAppLanguage(BuildContext context, String code) async {
 
     final Locale _temp = await setLocale(code);
@@ -85,24 +203,23 @@ class Localizer {
       blog("changed local language and firestore.user['language']  updated to $code");
     }
   }
-// -----------------------------------------------------------------------------
-  static Future<void> switchBetweenArabicAndEnglish(
-      BuildContext context) async {
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
     Wordz.languageCode(context) == Lang.englishLingo.code ?
     await changeAppLanguage(context, Lang.arabicLingo.code)
         :
     await changeAppLanguage(context, Lang.englishLingo.code);
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<Locale> setLocale(String languageCode) async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
     await _prefs.setString('languageCode', languageCode);
-
     return _concludeLocaleByLingoCode(languageCode);
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Locale _concludeLocaleByLingoCode(String lingoCode) {
     Locale _temp;
     switch (lingoCode) {
@@ -117,17 +234,12 @@ class Localizer {
     }
     return _temp;
   }
-
 // -----------------------------------------------------------------------------
-  static Future<Locale> getLocaleFromSharedPref() async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final String _languageCode =
-        _prefs.getString('languageCode') ?? Lang.englishLingo.code;
-    return _concludeLocaleByLingoCode(_languageCode);
-//  await _prefs.setString(Language_Code, languageCode);
-  }
 
-// -----------------------------------------------------------------------------
+  /// CHECKERS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool appIsArabic(BuildContext context) {
     bool _isArabic;
 
@@ -140,86 +252,7 @@ class Localizer {
     return _isArabic;
   }
 // -----------------------------------------------------------------------------
-  static List<Locale> getSupportedLocales() {
-
-    final List<Locale> _supportedLocales = <Locale>[
-      const Locale('en', 'US'),
-      const Locale('ar', 'EG'),
-      const Locale('es', 'ES'),
-      const Locale('fr', 'FR'),
-      const Locale('zh', 'CN'),
-      const Locale('de', 'DE'),
-      const Locale('it', 'IT'),
-    ];
-
-    return _supportedLocales;
-  }
-// -----------------------------------------------------------------------------
-  static List<LocalizationsDelegate> getLocalizationDelegates() {
-
-    final List<LocalizationsDelegate> _localizationDelegates =
-        <LocalizationsDelegate>[
-      Localizer.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ];
-
-    return _localizationDelegates;
-  }
-// -----------------------------------------------------------------------------
-  static Future<String> getTranslationFromJSONByLangCode({
-    @required BuildContext context,
-    @required String jsonKey,
-    @required String langCode,
-  }) async {
-
-    String _jsonStringValues;
-    String _output;
-
-    final bool _result = await tryCatchAndReturnBool(
-      context: context,
-      methodName: 'getCountryNameByLingo',
-      functions: () async {
-
-        _jsonStringValues =
-            await rootBundle.loadString('assets/languages/$langCode.json');
-
-      },
-      onError: (String error) {},
-    );
-
-    if (_result == true) {
-
-      final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
-
-      final Map<String, dynamic> _map = _mappedJson
-          .map((String key, value) => MapEntry(key, value.toString()));
-
-      _output = _map[jsonKey];
-    }
-
-    return _output;
-  }
-
-// -----------------------------------------------------------------------------
-  static Locale localeResolutionCallback({
-    @required Locale deviceLocale,
-    @required Iterable<Locale> supportedLocales,
-  }) {
-
-    for (final Locale locale in supportedLocales) {
-      if (locale.languageCode == deviceLocale.languageCode &&
-          locale.countryCode == deviceLocale.countryCode) {
-        return deviceLocale;
-      }
-    }
-
-    return supportedLocales.first;
-  }
-// -----------------------------------------------------------------------------
 }
-
 // -----------------------------------------------------------------------------
 class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
   const _DemoLocalizationDelegate();

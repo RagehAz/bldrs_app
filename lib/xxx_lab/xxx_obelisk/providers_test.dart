@@ -336,11 +336,11 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               WideButton(
                   color: Colorz.black255,
                   verse: 'print phrases',
-                  icon: Iconizer.valueIsNotNull(_phraseProvider.phrases),
+                  icon: Iconizer.valueIsNotNull(_phraseProvider.basicPhrases),
                   onTap: () async {
                     unawaited(_triggerLoading());
 
-                    Phrase.blogPhrases(_phraseProvider.phrases);
+                    Phrase.blogPhrases(_phraseProvider.basicPhrases);
 
                     unawaited(_triggerLoading());
                   }),
