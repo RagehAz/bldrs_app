@@ -120,7 +120,10 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   Future<void> _reloadPhrases() async {
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
-    unawaited(WaitDialog.showWaitDialog(context));
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Please wait, reloading phrases aho ...',
+    ));
 
     await _phraseProvider.reloadPhrases(context);
 

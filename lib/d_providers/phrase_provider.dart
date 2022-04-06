@@ -1,10 +1,16 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,16 +27,42 @@ class PhraseProvider extends ChangeNotifier {
     @required String langCode,
   }) async {
 
+    triggerUILoading(context, listen: false);
+
+    final PhraseProvider _phrasePro = getPhraseProvider(context);
+
+    unawaited(
+        WaitDialog.showWaitDialog(
+          context: context,
+          loadingPhrase: superPhrase(context, 'phid_change_app_lang_description',
+              providerOverride: _phrasePro,
+          ),
+        )
+    );
+
+    await getSetCurrentLangAndPhrases(
+      context: context,
+      setLangCode: langCode,
+    );
+
     await Localizer.changeAppLanguage(context, langCode);
 
-    await getSetCurrentLangAndPhrases(context);
+    triggerUILoading(context, listen: false);
+
+    WaitDialog.closeWaitDialog(context);
+
+    await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
   }
 // -------------------------------------
-  Future<void> getSetCurrentLangAndPhrases(BuildContext context) async {
+  Future<void> getSetCurrentLangAndPhrases({
+    @required BuildContext context,
+    String setLangCode,
+  }) async {
 
     await getSetCurrentLangCode(
       context: context,
       notify: false,
+      setLangCode: setLangCode,
     );
 
     await getSetPhrases(
@@ -163,10 +195,11 @@ class PhraseProvider extends ChangeNotifier {
   Future<void> getSetCurrentLangCode({
     @required BuildContext context,
     @required bool notify,
+    String setLangCode,
   }) async {
 
     /// A. DETECT DEVICE LANGUAGE
-    final String _langCode = Wordz.languageCode(context);
+    final String _langCode = setLangCode ?? Wordz.languageCode(context);
 
     /// C. SET CURRENT LANGUAGE
     _setCurrentLanguage(
@@ -249,6 +282,10 @@ class PhraseProvider extends ChangeNotifier {
     return _translation;
   }
 // -----------------------------------------------------------------------------
+}
+
+PhraseProvider getPhraseProvider(BuildContext context, {bool listen = false}){
+  return Provider.of<PhraseProvider>(context, listen: listen);
 }
 
 String superPhrase(BuildContext context, String id, {PhraseProvider providerOverride}){
