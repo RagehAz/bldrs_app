@@ -1,8 +1,7 @@
-import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_1a_all_countries_buttons.dart';
 import 'package:bldrs/b_views/y_views/d_zoning/d_1b_searched_countries_buttons.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

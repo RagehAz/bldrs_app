@@ -14,12 +14,54 @@ class SectionsButton extends StatelessWidget {
     this.color = Colorz.white10,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final Function onTap;
   final Color color;
-
   /// --------------------------------------------------------------------------
+  static String getTitle({
+    @required BuildContext context,
+    @required String currentKeywordID,
+    @required FlyerType currentSection,
+}){
+    String _title;
+
+    if (currentKeywordID == null){
+      _title = superPhrase(context, 'phid_section');
+    }
+
+    else {
+      final String _sectionName = translateFlyerType(
+        context: context,
+        flyerType: currentSection,
+      );
+      _title = _sectionName;
+    }
+
+    return _title;
+  }
+// -----------------------------------------------------------------------------
+  static String getBody({
+    @required BuildContext context,
+    @required String currentKeywordID,
+    @required FlyerType currentSection,
+}){
+    String _body;
+
+    if (currentKeywordID != null){
+      _body = superPhrase(context, currentKeywordID);
+    }
+    else {
+      final String _sectionName = translateFlyerType(
+        context: context,
+        flyerType: currentSection,
+      );
+
+      _body = _sectionName;
+    }
+
+    return _body;
+}
+// -----------------------------------------------------------------------------
   void _changeSection(BuildContext context) {
     // final double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
 
@@ -28,8 +70,8 @@ class SectionsButton extends StatelessWidget {
     //   context: context,
     //   dialogHeight: _dialogHeight,
     // );
-  }
 
+  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -58,27 +100,17 @@ class SectionsButton extends StatelessWidget {
                 child: Consumer<ChainsProvider>(
                   builder: (_, ChainsProvider keywordsProvider, Widget child){
 
-                    final FlyerType _currentSection = keywordsProvider.currentSection;
-                    final String _currentKeywordID = keywordsProvider.currentKeywordID;
-                    final String _keywordPhrase = superPhrase(context, _currentKeywordID);
-
-                    final String _sectionName = translateFlyerType(
-                      context: context,
-                      flyerType: _currentSection,
+                    final String _titleVerse = getTitle(
+                        context: context,
+                        currentKeywordID: keywordsProvider.currentKeywordID,
+                        currentSection: keywordsProvider.currentSection,
                     );
 
-                    final String _titleVerse = _currentKeywordID == null ?
-                    _keywordPhrase
-                        :
-                    _sectionName;
-
-                    final String _sectionVerse = _currentKeywordID == null ?
-                    translateFlyerType(
-                      context: context,
-                      flyerType: _currentSection,
-                    )
-                        :
-                    _keywordPhrase;
+                    final String _sectionVerse = getBody(
+                        context: context,
+                        currentKeywordID: keywordsProvider.currentKeywordID,
+                        currentSection: keywordsProvider.currentSection
+                    );
 
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
