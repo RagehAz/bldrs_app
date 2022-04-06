@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum SearchingModel{
   country,
@@ -202,4 +203,9 @@ class UiProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+}
+
+void triggerUILoading(BuildContext context ,{bool listen = true}){
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+  _uiProvider.triggerLoading();
 }
