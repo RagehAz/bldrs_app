@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -337,6 +338,58 @@ class CountryModel {
 
   }
 // -----------------------------------------------------------------------------
+
+  /// COUNTRY PHRASE CREATION
+
+// -------------------------------------
+  static Future<List<Phrase>> _createCountriesPhrasesByLangCode({
+    @required String langCode,
+    @required List<String> countriesIDs,
+}) async {
+
+    final List<Phrase> _output = <Phrase>[];
+    final Map<String, String> _jsonMap = await Localizer.getJSONLangMap(
+      langCode: langCode,
+    );
+
+    for (final String id in countriesIDs){
+
+      final String _countryName = _jsonMap[id];
+
+      final Phrase _phrase = Phrase(
+        id: id,
+        value: _countryName,
+        langCode: langCode,
+        trigram: createTrigram(input: _countryName),
+      );
+
+      _output.add(_phrase);
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  static Future<List<Phrase>> createMixedCountriesPhrases({
+    @required List<String> langCodes,
+    @required List<String> countriesIDs,
+  }) async {
+
+    final List<Phrase> _countriesPhrases = <Phrase>[];
+
+    if (Mapper.canLoopList(langCodes) == true){
+
+      for (final String langCode in langCodes){
+        final List<Phrase> _phrases = await _createCountriesPhrasesByLangCode(
+          langCode: langCode,
+          countriesIDs: countriesIDs,
+        );
+        _countriesPhrases.addAll(_phrases);
+      }
+
+    }
+
+    return _countriesPhrases;
+  }
 }
 // -----------------------------------------------------------------------------
 class AmericanState extends CountryModel {

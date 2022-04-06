@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,10 @@ class GeneralProvider extends ChangeNotifier {
 }
 
 List<String> getActiveCountriesIDs(BuildContext context){
-  // final List<String> _allIDs = CountryModel.getAllCountriesIDsSortedByName(context);
+
+  final List<String> _allIDs = CountryModel.getAllCountriesIDsSortedByName(context);
+  return _allIDs;
+
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
   final List<String> _activeIDs = _generalProvider.appState.activeCountries;
   return _activeIDs;

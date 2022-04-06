@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
@@ -14,6 +16,7 @@ import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 
 // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 class PhraseProvider extends ChangeNotifier {
@@ -22,6 +25,7 @@ class PhraseProvider extends ChangeNotifier {
   /// CHANGE APP LANGUAGE
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> changeAppLang({
     @required BuildContext context,
     @required String langCode,
@@ -63,6 +67,11 @@ class PhraseProvider extends ChangeNotifier {
       context: context,
       notify: false,
       setLangCode: setLangCode,
+    );
+
+    await getSetActiveCountriesPhrases(
+      context: context,
+      notify: false,
     );
 
     await getSetPhrases(
@@ -111,7 +120,7 @@ class PhraseProvider extends ChangeNotifier {
       if (Mapper.canLoopList(_phrases) == true){
         blog('fetchPhrasesByLangCode : phrases found in Firestore : langCode : $langCode');
 
-        final List<Map<String, dynamic>> _maps = Phrase.cipherOneLnagPhrasesToMaps(
+        final List<Map<String, dynamic>> _maps = Phrase.cipherOneLangPhrasesToMaps(
           phrases: _phrases,
           addTrigrams: true,
         );
@@ -140,7 +149,7 @@ class PhraseProvider extends ChangeNotifier {
     Phrase _countryPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
         langCode: langCode,
         phid: countryID,
-        phrases: _currentPhrases,
+        phrases: _basicPhrases,
     );
 
     /// IF NOT FOUND LOCALLY SEARCH LDB
@@ -164,6 +173,48 @@ class PhraseProvider extends ChangeNotifier {
     }
 
     return _countryPhrase;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<List<Phrase>> fetchActiveCountriesMixedLangPhrases({
+    @required BuildContext context,
+}) async {
+
+    List<Phrase> _countriesMixedLangPhrases = <Phrase>[];
+
+    /// GET THEM FROM LDB
+    final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
+      docName: LDBDoc.countriesMixedPhrases,
+    );
+
+    if (Mapper.canLoopList(_maps) == true){
+      blog('fetchCountriesMixedLangPhrases : ${_maps.length} phrases found in LDB doc countriesMixedPhrases');
+
+      _countriesMixedLangPhrases = Phrase.decipherMixedLangPhrases(
+        maps: _maps,
+      );
+
+    }
+
+    /// WHEN NOT IN LDB
+    else {
+
+    /// CREATE THEM FROM JSON
+    _countriesMixedLangPhrases = await CountryModel.createMixedCountriesPhrases(
+        langCodes: ['en', 'ar'],
+        countriesIDs: getActiveCountriesIDs(context),
+    );
+
+    /// THEN STORE THEM IN LDB
+      await LDBOps.insertMaps(
+          primaryKey: 'primaryKey',
+          inputs: Phrase.cipherMixedLangPhrases(phrases: _countriesMixedLangPhrases),
+          docName: LDBDoc.countriesMixedPhrases,
+      );
+
+    }
+
+    return _countriesMixedLangPhrases;
   }
 // -----------------------------------------------------------------------------
 
@@ -223,12 +274,12 @@ class PhraseProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-/// CURRENT TRANSLATIONS
+/// CURRENT PHRASES
 
 // -------------------------------------
-  List<Phrase> _currentPhrases;
+  List<Phrase> _basicPhrases = <Phrase>[];
 // -------------------------------------
-  List<Phrase> get phrases  => _currentPhrases;
+  List<Phrase> get basicPhrases  => _basicPhrases;
 // -------------------------------------
   Future<void> getSetPhrases({
     @required BuildContext context,
@@ -240,18 +291,7 @@ class PhraseProvider extends ChangeNotifier {
         langCode: _currentLangCode,
     );
 
-    _setPhrases(
-        phrases: _phrases,
-        notify: notify,
-    );
-
-  }
-// -------------------------------------
-  void _setPhrases({
-    @required List<Phrase> phrases,
-    @required bool notify,
-}){
-    _currentPhrases = phrases;
+    _basicPhrases = _phrases;
 
     if (notify == true){
       notifyListeners();
@@ -264,12 +304,12 @@ class PhraseProvider extends ChangeNotifier {
     String _translation = '...';
 
     if (
-    _currentPhrases != null
+    _basicPhrases != null
         &&
-    Mapper.canLoopList(_currentPhrases) == true
+    Mapper.canLoopList(_basicPhrases) == true
     ){
 
-      final Phrase _phrase = _currentPhrases.singleWhere(
+      final Phrase _phrase = _basicPhrases.singleWhere(
               (phrase) => phrase.id == id,
           orElse: ()=> null
       );
@@ -282,6 +322,110 @@ class PhraseProvider extends ChangeNotifier {
     return _translation;
   }
 // -----------------------------------------------------------------------------
+
+/// COUNTRIES PHRASES
+
+// -------------------------------------
+  /*
+  /// mixed langs phrases
+   List<Phrase> _countriesPhrases = <Phrase>[];
+// -------------------------------------
+   List<Phrase> get countriesPhrases => _countriesPhrases;
+// -------------------------------------
+   */
+  Future<void> getSetActiveCountriesPhrases({
+    @required BuildContext context,
+    @required bool notify,
+}) async {
+
+    final List<Phrase> _phrases = await fetchActiveCountriesMixedLangPhrases(
+        context: context
+    );
+
+    blog('fetched ${_phrases.length} countries phrases');
+
+    //
+    // _countriesPhrases = _phrases;
+
+    // if (notify == true){
+    //   notifyListeners();
+    // }
+
+  }
+// -------------------------------------
+  Future<List<Phrase>> searchCountriesPhrasesByName({
+    @required BuildContext context,
+    @required String countryName,
+    @required String lingoCode
+  }) async {
+
+    List<Phrase> _phrases = <Phrase>[];
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
+      docName: LDBDoc.countriesMixedPhrases,
+      lingCode: lingoCode,
+      searchValue: countryName,
+    );
+    if (Mapper.canLoopList(_maps) == true){
+      _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
+    }
+
+    return _phrases;
+  }
+// -------------------------------------
+
+  /// SEARCHED COUNTRIES
+
+// -------------------------------------
+  List<Phrase> _searchedCountries = <Phrase>[];
+// -------------------------------------
+  List<Phrase> get searchedCountries => <Phrase>[..._searchedCountries];
+// -------------------------------------
+  Future<void> getSetSearchedCountries({
+    @required BuildContext context,
+    @required String input,
+  }) async {
+
+    /// SEARCH COUNTRIES MODELS FROM FIREBASE
+    // final List<CountryModel> _foundCountries = await ZoneSearch.countriesModelsByCountryName(
+    //     context: context,
+    //     countryName: input,
+    //     lingoCode: TextChecker.concludeEnglishOrArabicLingo(input),
+    // );
+
+    /// SEARCH COUNTRIES FROM LOCAL PHRASES
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    final List<Phrase> _foundCountries = await _phraseProvider.searchCountriesPhrasesByName(
+      context: context,
+      lingoCode: TextChecker.concludeEnglishOrArabicLingo(input),
+      countryName: input,
+    );
+
+    /// INSERT FOUND COUNTRIES TO LDB
+    // if (_foundCountries.isNotEmpty){
+    //   for (final CountryModel country in _foundCountries){
+    //     await LDBOps.insertMap(
+    //       input: country.toMap(toJSON: true),
+    //       docName: LDBDoc.countries,
+    //       primaryKey: 'id',
+    //     );
+    //   }
+    // }
+
+    /// SET FOUND COUNTRIES
+    _setSearchedCountries(_foundCountries);
+  }
+// -------------------------------------
+  void _setSearchedCountries(List<Phrase> countriesPhrases){
+    _searchedCountries = countriesPhrases;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearSearchedCountries(){
+    _setSearchedCountries(<Phrase>[]);
+  }
+// -----------------------------------------------------------------------------
+
 }
 
 PhraseProvider getPhraseProvider(BuildContext context, {bool listen = false}){

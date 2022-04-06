@@ -341,12 +341,14 @@ Future<void> _onSignOut(BuildContext context) async {
   _usersProvider.clearMyUserModelAndCountryAndCityAndAuthModel();
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
   // _zoneProvider.clearAllSearchesAndSelections();
   _zoneProvider.clearCurrentContinent();
   _zoneProvider.clearUserCountryModel();
   _zoneProvider.clearCurrentZoneAndCurrentCountryAndCurrentCity();
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies();
-  _zoneProvider.clearSearchedCountries();
+  _phraseProvider.clearSearchedCountries();
   _zoneProvider.clearSelectedCountryCities();
   _zoneProvider.clearSearchedCities();
   _zoneProvider.clearSelectedCityDistricts();

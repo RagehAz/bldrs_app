@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
@@ -15,7 +16,7 @@ import 'package:flutter/material.dart';
 /// ZONES
 
 // -----------------------------------------------
-Future<List<CountryModel>> countriesByCountryName({
+Future<List<CountryModel>> countriesModelsByCountryName({
   @required BuildContext context,
   @required String countryName,
   @required String lingoCode
@@ -29,7 +30,7 @@ Future<List<CountryModel>> countriesByCountryName({
       collName: FireColl.zones,
       docName: FireDoc.zones_countries,
       subCollName: FireSubColl.zones_countries_countries,
-      field: 'names.$lingoCode.trigram',
+      field: 'phrases.$lingoCode.trigram',
       compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: TextMod.fixCountryName(countryName),
         numberOfCharacters: Standards.maxTrigramLength,
