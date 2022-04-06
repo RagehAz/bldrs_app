@@ -1,4 +1,6 @@
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -208,13 +210,20 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           WideButton(
               color: Colorz.red255,
-              verse: 'show dialogz',
+              verse: 'countries baby',
               icon: Iconz.star,
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                await _showDialog();
+                await _phraseProvider.getSetActiveCountriesPhrases(
+                    context: context,
+                    notify: true,
+                );
+
+                // final List<Phrase> _phrases = _phraseProvider.countriesPhrases;
+                //
+                // Phrase.blogPhrases(_phrases);
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
