@@ -723,7 +723,7 @@ class ZoneProvider extends ChangeNotifier {
   }) async {
 
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-    final List<Phrase> _phrases = await _phraseProvider.fetchActiveCountriesMixedLangPhrases(
+    final List<Phrase> _phrases = await _phraseProvider.generateActiveCountriesMixedLangPhrases(
         context: context
     );
 
@@ -747,7 +747,7 @@ class ZoneProvider extends ChangeNotifier {
     List<Phrase> _phrases = <Phrase>[];
 
     final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
-      docName: LDBDoc.countriesMixedPhrases,
+      docName: LDBDoc.countriesPhrases,
       lingCode: lingoCode,
       searchValue: countryName,
     );

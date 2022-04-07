@@ -14,15 +14,14 @@
   const String users = 'sessionUsers';
   const String keywordsChain = 'keywordsChain';
   const String specsChain = 'specsChain';
-  const String countries = 'sessionCountries';
-  const String cities = 'sessionCities';
+  const String countries = 'countries';
+  const String cities = 'cities';
   const String continents = 'continents';
   const String currencies = 'currencies';
-  const String enPhrases = 'enPhrases';
-  const String arPhrases = 'arPhrases';
-  const String keywordsPhrases = 'keywordsPhrases';
 
-  const String countriesMixedPhrases = 'countriesMixedPhrases';
+  /// all docs include mixed lang phrases with extra primary key of "id_langCodo"
+  const String basicPhrases = 'basicPhrases';
+  const String countriesPhrases = 'countriesPhrases';
 
   const List<String> bzModelsDocs = <String>[
     bzz,
@@ -54,7 +53,7 @@
     continents,
     currencies,
     searches,
-    enPhrases,
-    arPhrases,
-    countriesMixedPhrases,
+    basicPhrases,
+    countriesPhrases,
+
   ];
