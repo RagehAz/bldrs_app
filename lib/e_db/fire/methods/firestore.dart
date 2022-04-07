@@ -707,7 +707,7 @@ Future<void> deleteAllCollectionDocs({
 
         final List<String> _docIDs = Mapper.getMapsPrimaryKeysValues(
           maps: _maps,
-          primaryKey: 'id',
+          // primaryKey: 'id',
         );
 
         blog('docs IDs : ${_docIDs.toString()}');
@@ -790,7 +790,7 @@ Future<void> deleteSubCollection({
 
         final List<String> _docIDs = Mapper.getMapsPrimaryKeysValues(
           maps: _maps,
-          primaryKey: 'id',
+          // primaryKey: 'id',
         );
 
         blog('docs IDs : ${_docIDs.toString()}');
