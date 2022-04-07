@@ -29,82 +29,86 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
-    return DashBoardLayout(pageTitle: 'DashBoard', listWidgets: <Widget>[
 
-      WideButton(
-        verse: 'Big Mac Price Index',
-        icon: Iconz.bigMac,
-        onTap: () => Nav.goToNewScreen(context, const PricingScreen()),
-      ),
+    return DashBoardLayout(
+        key: const ValueKey<String>('DashBoard'),
+        pageTitle: 'DashBoard',
+        listWidgets: <Widget>[
 
-      WideButton(
-        verse: 'Pricing',
-        icon: Iconz.dollar,
-        onTap: () => Nav.goToNewScreen(context, const PricingScreen()),
-      ),
+          WideButton(
+            verse: 'Big Mac Price Index',
+            icon: Iconz.bigMac,
+            onTap: () => Nav.goToNewScreen(context, const PricingScreen()),
+          ),
 
-      WideButton(
-        verse: 'All Flyers',
-        icon: Iconz.flyer,
-        onTap: () => Nav.goToNewScreen(context, const AllFlyersScreen()),
-      ),
+          WideButton(
+            verse: 'Pricing',
+            icon: Iconz.dollar,
+            onTap: () => Nav.goToNewScreen(context, const PricingScreen()),
+          ),
 
-      WideButton(
-        verse: 'General Statistics',
-        icon: Iconz.statistics,
-        onTap: () => Nav.goToNewScreen(context, const GeneralStatistics()),
-      ),
+          WideButton(
+            verse: 'All Flyers',
+            icon: Iconz.flyer,
+            onTap: () => Nav.goToNewScreen(context, const AllFlyersScreen()),
+          ),
 
-      WideButton(
-        verse: 'Users Manager',
-        icon: Iconz.users,
-        onTap: () => Nav.goToNewScreen(context, const UsersManagerScreen()),
-      ),
+          WideButton(
+            verse: 'General Statistics',
+            icon: Iconz.statistics,
+            onTap: () => Nav.goToNewScreen(context, const GeneralStatistics()),
+          ),
 
-      WideButton(
-        verse: 'Zones Manager',
-        icon: Iconz.earth,
-        onTap: () => Nav.goToNewScreen(context, const ZonesManagerScreen()),
-      ),
+          WideButton(
+            verse: 'Users Manager',
+            icon: Iconz.users,
+            onTap: () => Nav.goToNewScreen(context, const UsersManagerScreen()),
+          ),
 
-      WideButton(
-        verse: 'Bzz Manager',
-        icon: Iconz.bz,
-        onTap: () => Nav.goToNewScreen(context, const BzzManagerScreen()),
-      ),
+          WideButton(
+            verse: 'Zones Manager',
+            icon: Iconz.earth,
+            onTap: () => Nav.goToNewScreen(context, const ZonesManagerScreen()),
+          ),
 
-      WideButton(
-        verse: 'Notifications Manager',
-        icon: Iconz.news,
-        onTap: () => Nav.goToNewScreen(context, const NotificationsManager()),
-      ),
+          WideButton(
+            verse: 'Bzz Manager',
+            icon: Iconz.bz,
+            onTap: () => Nav.goToNewScreen(context, const BzzManagerScreen()),
+          ),
 
-      WideButton(
-        verse: 'Keywords Manager',
-        icon: Iconz.keyword,
-        onTap: () => Nav.goToNewScreen(context, const ChainsManagerScreen()),
-      ),
+          WideButton(
+            verse: 'Notifications Manager',
+            icon: Iconz.news,
+            onTap: () => Nav.goToNewScreen(context, const NotificationsManager()),
+          ),
 
-      WideButton(
-        verse: 'Flyers Auditor',
-        icon: Iconz.verifyFlyer,
-        onTap: () => Nav.goToNewScreen(context, const FlyersAuditor()),
-      ),
+          WideButton(
+            verse: 'Keywords Manager',
+            icon: Iconz.keyword,
+            onTap: () => Nav.goToNewScreen(context, const ChainsManagerScreen()),
+          ),
 
-      WideButton(
-        verse: 'UI Manager',
-        icon: Iconz.star,
-        onTap: () => Nav.goToNewScreen(context, const UIManager()),
-      ),
+          WideButton(
+            verse: 'Flyers Auditor',
+            icon: Iconz.verifyFlyer,
+            onTap: () => Nav.goToNewScreen(context, const FlyersAuditor()),
+          ),
 
-      WideButton(
-        verse: 'Local db viewers',
-        icon: Iconz.terms,
-        onTap: () => Nav.goToNewScreen(context, const LDBViewersScreen()),
-      ),
+          WideButton(
+            verse: 'UI Manager',
+            icon: Iconz.star,
+            onTap: () => Nav.goToNewScreen(context, const UIManager()),
+          ),
 
-      const Horizon(),
+          WideButton(
+            verse: 'Local db viewers',
+            icon: Iconz.terms,
+            onTap: () => Nav.goToNewScreen(context, const LDBViewersScreen()),
+          ),
 
-    ]);
+          const Horizon(),
+
+        ]);
   }
 }

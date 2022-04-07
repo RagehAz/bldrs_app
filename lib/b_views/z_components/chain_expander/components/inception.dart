@@ -38,7 +38,7 @@ class Inception extends StatelessWidget {
     final double _boxWidth = boxWidth ?? _screenWidth - (2 * Ratioz.appBarMargin);
     final double _buttonWidth = _boxWidth - _offset;
 
-    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
     /// IF SON IS A KEYWORD
     if (son is String) {
@@ -55,7 +55,10 @@ class Inception extends StatelessWidget {
       return DreamBox(
         width: _buttonWidth,
         height: _buttonHeight,
-        icon: _keywordsProvider.getKeywordIcon(son: _keywordID, context: context),
+        icon: _chainsProvider.getKeywordIcon(
+            son: _keywordID,
+            context: context,
+        ),
         verse: superPhrase(context, _keywordID),
         verseScaleFactor: 0.7,
         verseCentered: false,
@@ -74,7 +77,7 @@ class Inception extends StatelessWidget {
 
       return ExpandingTile(
         key: PageStorageKey<String>(_chain.id),
-        icon: _keywordsProvider.getKeywordIcon(son: son, context: context),
+        icon: _chainsProvider.getKeywordIcon(son: son, context: context),
         width: _buttonWidth,
         collapsedHeight: _buttonHeight,
         firstHeadline: superPhrase(context, _chain.id),
