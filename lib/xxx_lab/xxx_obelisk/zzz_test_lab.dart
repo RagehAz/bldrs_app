@@ -1,7 +1,9 @@
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -10,12 +12,13 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -173,32 +176,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'DO IT ar',
+              verse: 'DO IT',
               icon: Iconz.star,
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                // egy_cairo
-                // sau_al_qutaif
 
-                // final CountryModel _country = await _zoneProvider.fetchCountryByID(
-                //     context: context,
-                //     countryID: 'afg',
-                // );
-
-                final CityModel _city = await readCityOps(
-                    context: context,
-                    cityID: 'egy_cairo',
-                );
-
-                final Map<String, dynamic> _maw = _city.toMap(
-                    toJSON: true,
-                );
-
-                blogMap(_maw);
-
-                // _country.blogCountry();
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 

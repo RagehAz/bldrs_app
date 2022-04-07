@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
@@ -214,15 +215,22 @@ bool stringContainsSubStringRegExp({
 
   if (string != null && subString != null) {
 
-    final RegExp pattern = RegExp(subString,
+    final RegExp pattern = RegExp(r'phid_k',
         caseSensitive: caseSensitive,
         // multiLine: multiLine // mesh shaghal w mesh wa2to
     );
-    final Iterable matches = pattern.allMatches(string);
 
-    if (matches.isNotEmpty) {
-      _itContainsIt = true;
-    }
+    // final Iterable matches = pattern.allMatches(string);
+
+    _itContainsIt = string.contains(pattern);
+
+    // Matcher containsSubstringNoCase(String substring) =>
+    //     predicate((String expected) => expected.contains(RegExp(substring, caseSensitive: false)));
+
+    // if (matches.isNotEmpty) {
+    //   _itContainsIt = true;
+    //   blog(matches);
+    // }
 
   }
 
