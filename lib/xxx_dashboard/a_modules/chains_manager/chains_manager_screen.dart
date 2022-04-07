@@ -63,6 +63,14 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     // return 'b';
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onStripTap({
+    @required String phraseIDPath, // will look like this 'idA/idB/idC'
+}) async {
+
+    blog(phraseIDPath);
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -76,6 +84,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     ];
 
     return MainLayout(
+      key: const ValueKey<String>('ChainsManagerScreen'),
       pageTitle: 'All Keywords',
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
@@ -86,7 +95,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 
         const Expander(),
 
-        ///
+        /// UPLOAD CHAIN
         DreamBox(
           height: 40,
           verse: 'Upload',
@@ -94,7 +103,6 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
           iconSizeFactor: 0.6,
           onTap: _onUploadChains,
         ),
-
 
         /// SWITCH LANGUAGE BUTTON
         DreamBox(
@@ -122,6 +130,9 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
       canLoopList(_chains) == true ?
       ChainsTreesStarter(
         chains: _chains,
+        onStripTap: (String path) => _onStripTap(
+            phraseIDPath: path
+        )
       )
           :
       const SizedBox(),

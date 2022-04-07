@@ -7,15 +7,18 @@ class ChainsTreesStarter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainsTreesStarter({
     @required this.chains,
+    @required this.onStripTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Chain> chains;
+  final ValueChanged<String> onStripTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ListView.builder(
+        key: const ValueKey<String>('ChainsTreesStarter'),
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
         itemCount: chains.length,
@@ -25,6 +28,7 @@ class ChainsTreesStarter extends StatelessWidget {
 
           return ChainTreeViewer(
             chain: _chain,
+            onStripTap : onStripTap,
           );
 
         }
