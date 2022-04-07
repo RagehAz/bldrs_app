@@ -20,6 +20,7 @@
   const String currencies = 'currencies';
   const String enPhrases = 'enPhrases';
   const String arPhrases = 'arPhrases';
+  const String keywordsPhrases = 'keywordsPhrases';
 
   const String countriesMixedPhrases = 'countriesMixedPhrases';
 
