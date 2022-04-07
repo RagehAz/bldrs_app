@@ -2,7 +2,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -252,7 +251,8 @@ class Phrase {
 // -------------------------------------
   /// TESTED :
   static List<Map<String, dynamic>> cipherMixedLangPhrases({
-  @required List<Phrase> phrases,
+    @required List<Phrase> phrases,
+    bool includeTrigrams = true,
 }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -262,7 +262,7 @@ class Phrase {
 
         Map<String, dynamic> _map = phrase.toMap(
           includeID: true,
-          includeTrigram: true,
+          includeTrigram: includeTrigrams,
           overrideLangCode: phrase.langCode,
           includeLangCode: true,
         );

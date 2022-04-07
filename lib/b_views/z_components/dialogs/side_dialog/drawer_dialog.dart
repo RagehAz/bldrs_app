@@ -124,7 +124,7 @@ class _DrawerDialogState extends State<DrawerDialog> {
 
     final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
         searchValue: text,
-        docName: LDBDoc.keywordsPhrases,
+        docName: LDBDoc.basicPhrases,
         lingCode: TextChecker.concludeEnglishOrArabicLingo(text),
         );
 

@@ -76,7 +76,7 @@ class PhraseProvider extends ChangeNotifier {
       notify: false,
     );
 
-    await getSetPhrases(
+    await getSetBasicPhrases(
         context: context,
         notify: true
     );
@@ -87,62 +87,65 @@ class PhraseProvider extends ChangeNotifier {
   /// FETCHING PHRASES
 
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
-  Future<List<Phrase>> fetchBasicPhrasesByLangCode({
+  /// TESTED : WORKS PERFECT : fetches all phrases
+  Future<List<Phrase>> fetchAllPhrasesByEnAndAr({
     @required BuildContext context,
-    @required String langCode,
 }) async {
 
-    List<Phrase> _phrases;
-    final String _ldbDocName = langCode == 'ar' ? LDBDoc.arPhrases : LDBDoc.enPhrases;
+    List<Phrase> _allPhrases;
 
     /// 1- get phrases from LDB
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
-      docName: _ldbDocName,
+      docName: LDBDoc.basicPhrases,
     );
 
     if (Mapper.canLoopList(_maps) == true){
-      blog('fetchPhrasesByLangCode : phrases found in local db : langCode : $langCode');
-      _phrases = Phrase.decipherOneLangPhrasesMaps(
+      blog('fetchPhrasesByLangCode : phrases found in local db ');
+      _allPhrases = Phrase.decipherMixedLangPhrases(
         maps: _maps,
       );
     }
 
     /// 2 - if not found in LDB , read from firebase
-    if (Mapper.canLoopList(_phrases) == false){
-      blog('fetchPhrasesByLangCode : phrases NOT found in local db : langCode : $langCode');
+    if (Mapper.canLoopList(_allPhrases) == false){
+      blog('fetchPhrasesByLangCode : phrases NOT found in local db');
 
       /// 2.1 read from firebase
-      _phrases = await readBasicPhrases(
+      final List<Phrase> _en = await readBasicPhrases(
           context: context,
-          langCode: langCode,
+          langCode: 'en',
       );
+      final List<Phrase> _ar = await readBasicPhrases(
+        context: context,
+        langCode: 'ar',
+      );
+      _allPhrases = <Phrase>[..._en, ..._ar];
 
       /// 2.2 if found on firebase, store in LDB
-      if (Mapper.canLoopList(_phrases) == true){
-        blog('fetchPhrasesByLangCode : phrases found in Firestore : langCode : $langCode');
+      if (Mapper.canLoopList(_allPhrases) == true){
+        blog('fetchPhrasesByLangCode : phrases found in Firestore');
 
-        final List<Map<String, dynamic>> _maps = Phrase.cipherOneLangPhrasesToMaps(
-          phrases: _phrases,
-          addTrigrams: true,
+        final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrases(
+          phrases: _allPhrases,
+          // includeTrigrams: true,
         );
 
         await LDBOps.insertMaps(
-            primaryKey: 'id',
-            inputs: _maps,
-            docName: _ldbDocName
+            primaryKey: 'primaryKey',
+            inputs: _allMaps,
+            docName: LDBDoc.basicPhrases,
         );
 
       }
 
     }
 
-    return _phrases;
+    return _allPhrases;
 
   }
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
-  Future<List<Phrase>> fetchActiveCountriesMixedLangPhrases({
+  /// TESTED : WORKS PERFECT : gets phrases from LDB or creates countries phrases then stores in LDB
+  Future<List<Phrase>> generateActiveCountriesMixedLangPhrases({
     @required BuildContext context,
 }) async {
 
@@ -150,7 +153,7 @@ class PhraseProvider extends ChangeNotifier {
 
     /// GET THEM FROM LDB
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.countriesMixedPhrases,
+      docName: LDBDoc.countriesPhrases,
     );
 
     if (Mapper.canLoopList(_maps) == true){
@@ -175,7 +178,7 @@ class PhraseProvider extends ChangeNotifier {
       await LDBOps.insertMaps(
           primaryKey: 'primaryKey',
           inputs: Phrase.cipherMixedLangPhrases(phrases: _countriesMixedLangPhrases),
-          docName: LDBDoc.countriesMixedPhrases,
+          docName: LDBDoc.countriesPhrases,
       );
 
     }
@@ -190,8 +193,7 @@ class PhraseProvider extends ChangeNotifier {
   Future<void> reloadPhrases(BuildContext context) async {
 
     /// delete LDB phrases
-    await LDBOps.deleteAllAtOnce(docName: LDBDoc.enPhrases);
-    await LDBOps.deleteAllAtOnce(docName: LDBDoc.arPhrases);
+    await LDBOps.deleteAllAtOnce(docName: LDBDoc.basicPhrases);
 
     /// RELOAD APP LOCALIZATION
     await changeAppLang(
@@ -247,17 +249,21 @@ class PhraseProvider extends ChangeNotifier {
 // -------------------------------------
   List<Phrase> get basicPhrases  => _basicPhrases;
 // -------------------------------------
-  Future<void> getSetPhrases({
+  Future<void> getSetBasicPhrases({
     @required BuildContext context,
     @required bool notify,
 }) async {
 
-    final List<Phrase> _phrases = await fetchBasicPhrasesByLangCode(
+    final List<Phrase> _phrases = await fetchAllPhrasesByEnAndAr(
         context: context,
-        langCode: _currentLangCode,
     );
 
-    _basicPhrases = _phrases;
+    final List<Phrase> _phrasesByLang = Phrase.getPhrasesByLangFromPhrases(
+        phrases: _phrases,
+        langCode: _currentLangCode
+    );
+
+    _basicPhrases = _phrasesByLang;
 
     if (notify == true){
       notifyListeners();
