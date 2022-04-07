@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_equipment.da
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_properties.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -17,9 +18,12 @@ import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -115,19 +119,24 @@ class _DrawerDialogState extends State<DrawerDialog> {
 // -----------------------------------------------------------------------------
   List<String> _foundKeywordsIDs = <String>[];
   Future<List<String>> _searchKeywords(String text) async {
-    // List<Phrase> _results = <Phrase>[];
 
-    // final List<Map<String, dynamic>> _maps = await LDBOps.searchTrigram(
-    //     searchValue: text,
-    //     docName: LDBDoc.keywords,
-    //     lingoCode: TextChecker.concludeEnglishOrArabicLingo(text) //Wordz.languageCode(context),
-    //     );
-    //
-    // if (Mapper.canLoopList(_maps)) {
-    //   _results = KW.decipherKeywordsLDBMaps(maps: _maps);
-    // }
+    List<Phrase> _results = <Phrase>[];
 
-    return [];
+    final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
+        searchValue: text,
+        docName: LDBDoc.keywordsPhrases,
+        lingCode: TextChecker.concludeEnglishOrArabicLingo(text),
+        );
+
+    if (Mapper.canLoopList(_maps)) {
+      _results = Phrase.decipherMixedLangPhrases(
+        maps: _maps,
+      );
+    }
+
+    final List<String> _keywordsIDs = Phrase.getPhrasesIDs(_results);
+
+    return _keywordsIDs;
   }
 // -----------------------------------------------------------------------------
   @override
