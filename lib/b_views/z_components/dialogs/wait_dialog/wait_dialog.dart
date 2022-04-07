@@ -74,12 +74,11 @@ class WaitDialog extends StatelessWidget {
                   ),
 
                   if (loadingPhrase != null)
-                    Container(
+                    SizedBox(
                       width: _screenWidth * 0.8,
                       child: SuperVerse(
                         verse: loadingPhrase,
                         size: 3,
-                        scaleFactor: 1,
                         shadow: true,
                         italic: true,
                         weight: VerseWeight.black,
