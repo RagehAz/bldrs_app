@@ -4,11 +4,14 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -17,6 +20,8 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
+
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -148,7 +153,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   }
 
-
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -216,14 +220,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                await _phraseProvider.getSetActiveCountriesPhrases(
-                    context: context,
-                    notify: true,
-                );
-
-                // final List<Phrase> _phrases = _phraseProvider.countriesPhrases;
-                //
-                // Phrase.blogPhrases(_phrases);
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
