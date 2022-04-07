@@ -1,9 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -26,8 +24,8 @@ class SearchedCountriesButtons extends StatelessWidget {
 
     const EdgeInsets _topMargin = EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon);
 
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
-    final List<Phrase> _searchedCountries = _phraseProvider.searchedCountries;
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+    final List<Phrase> _searchedCountries = _zoneProvider.searchedCountries;
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 

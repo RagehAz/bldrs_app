@@ -689,8 +689,130 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+  /// SELECTED CITY DISTRICTS
+
+// -------------------------------------
+  List<DistrictModel> _selectedCityDistricts = <DistrictModel>[];
+// -------------------------------------
+  List<DistrictModel> get selectedCityDistricts => <DistrictModel>[..._selectedCityDistricts];
+// -------------------------------------
+  void setSelectedCityDistricts(List<DistrictModel> districts){
+    _selectedCityDistricts = districts;
+    clearSearchedDistricts();
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearSelectedCityDistricts(){
+    setSelectedCityDistricts(<DistrictModel>[]);
+  }
+// -----------------------------------------------------------------------------
+
+  /// COUNTRIES PHRASES
+
+// -------------------------------------
+  /*
+  /// mixed langs phrases
+   List<Phrase> _countriesPhrases = <Phrase>[];
+// -------------------------------------
+   List<Phrase> get countriesPhrases => _countriesPhrases;
+// -------------------------------------
+   */
+  Future<void> getSetActiveCountriesPhrases({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    final List<Phrase> _phrases = await _phraseProvider.fetchActiveCountriesMixedLangPhrases(
+        context: context
+    );
+
+    blog('fetched ${_phrases.length} countries phrases');
+
+    //
+    // _countriesPhrases = _phrases;
+
+    // if (notify == true){
+    //   notifyListeners();
+    // }
+
+  }
+// -------------------------------------
+  Future<List<Phrase>> searchCountriesPhrasesByName({
+    @required BuildContext context,
+    @required String countryName,
+    @required String lingoCode
+  }) async {
+
+    List<Phrase> _phrases = <Phrase>[];
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
+      docName: LDBDoc.countriesMixedPhrases,
+      lingCode: lingoCode,
+      searchValue: countryName,
+    );
+    if (Mapper.canLoopList(_maps) == true){
+      _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
+    }
+
+    return _phrases;
+  }
+// -------------------------------------
+
+  /// SEARCHED COUNTRIES
+
+// -------------------------------------
+  List<Phrase> _searchedCountries = <Phrase>[];
+// -------------------------------------
+  List<Phrase> get searchedCountries => <Phrase>[..._searchedCountries];
+// -------------------------------------
+  Future<void> getSetSearchedCountries({
+    @required BuildContext context,
+    @required String input,
+  }) async {
+
+    /// SEARCH COUNTRIES MODELS FROM FIREBASE
+    // final List<CountryModel> _foundCountries = await ZoneSearch.countriesModelsByCountryName(
+    //     context: context,
+    //     countryName: input,
+    //     lingoCode: TextChecker.concludeEnglishOrArabicLingo(input),
+    // );
+
+    /// SEARCH COUNTRIES FROM LOCAL PHRASES
+    final List<Phrase> _foundCountries = await searchCountriesPhrasesByName(
+      context: context,
+      lingoCode: TextChecker.concludeEnglishOrArabicLingo(input),
+      countryName: input,
+    );
+
+    /// INSERT FOUND COUNTRIES TO LDB
+    // if (_foundCountries.isNotEmpty){
+    //   for (final CountryModel country in _foundCountries){
+    //     await LDBOps.insertMap(
+    //       input: country.toMap(toJSON: true),
+    //       docName: LDBDoc.countries,
+    //       primaryKey: 'id',
+    //     );
+    //   }
+    // }
+
+    /// SET FOUND COUNTRIES
+    _setSearchedCountries(_foundCountries);
+  }
+// -------------------------------------
+  void _setSearchedCountries(List<Phrase> countriesPhrases){
+    _searchedCountries = countriesPhrases;
+    notifyListeners();
+  }
+// -------------------------------------
+  void clearSearchedCountries(){
+    _setSearchedCountries(<Phrase>[]);
+  }
+// -----------------------------------------------------------------------------
+
   /// SEARCHED CITIES
 
+// -------------------------------------
   List<CityModel> _searchedCities = <CityModel>[];
 // -------------------------------------
   List<CityModel> get searchedCities => <CityModel>[..._searchedCities];
@@ -700,11 +822,14 @@ class ZoneProvider extends ChangeNotifier {
     @required String input,
   }) async {
 
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final List<CityModel> _selectedCountryCities = _zoneProvider.selectedCountryCities;
+
     /// SEARCH SELECTED COUNTRY CITIES
     final List<CityModel> _foundCities = CityModel.searchCitiesByName(
-        context: context,
-        sourceCities: _selectedCountryCities,
-        inputText: input,
+      context: context,
+      sourceCities: _selectedCountryCities,
+      inputText: input,
     );
 
     blog('getSetSearchedCities : '
@@ -728,24 +853,6 @@ class ZoneProvider extends ChangeNotifier {
   // -------------------------------------
   void clearSearchedCities(){
     _setSearchedCities(<CityModel>[]);
-  }
-// -----------------------------------------------------------------------------
-
-  /// SELECTED CITY DISTRICTS
-
-// -------------------------------------
-  List<DistrictModel> _selectedCityDistricts = <DistrictModel>[];
-// -------------------------------------
-  List<DistrictModel> get selectedCityDistricts => <DistrictModel>[..._selectedCityDistricts];
-// -------------------------------------
-  void setSelectedCityDistricts(List<DistrictModel> districts){
-    _selectedCityDistricts = districts;
-    clearSearchedDistricts();
-    notifyListeners();
-  }
-// -------------------------------------
-  void clearSelectedCityDistricts(){
-    setSelectedCityDistricts(<DistrictModel>[]);
   }
 // -----------------------------------------------------------------------------
 
@@ -787,7 +894,7 @@ class ZoneProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   void clearAllSearchesAndSelections(){
 
-    // _searchedCountries = [];
+    _searchedCountries = [];
     _searchedCities = [];
 
     _selectedCountryCities = [];
@@ -796,7 +903,6 @@ class ZoneProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
-
 }
 /// TASK : ACTIVATED & GLOBAL COUNTRIES
 

@@ -348,7 +348,7 @@ Future<void> _onSignOut(BuildContext context) async {
   _zoneProvider.clearUserCountryModel();
   _zoneProvider.clearCurrentZoneAndCurrentCountryAndCurrentCity();
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies();
-  _phraseProvider.clearSearchedCountries();
+  _zoneProvider.clearSearchedCountries();
   _zoneProvider.clearSelectedCountryCities();
   _zoneProvider.clearSearchedCities();
   _zoneProvider.clearSelectedCityDistricts();
