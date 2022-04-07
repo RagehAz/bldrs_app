@@ -2,6 +2,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -1098,5 +1099,63 @@ class Phrase {
 
     return _output;
 }
+// -----------------------------------------------------------------------------
+
+  /// KEYWORDS AND SPECS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getKeywordsIDsFromPhrases({
+  @required List<Phrase> allPhrases,
+}){
+
+    final List<Phrase> _keywordsPhrases = <Phrase>[];
+
+    for (final Phrase phrase in allPhrases){
+
+      final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: phrase.id,
+        numberOfCharacters: 7, //'phid_k'
+      );
+
+      final bool _isKeyword = _phidK == 'phid_k_';
+
+      if (_isKeyword == true){
+        _keywordsPhrases.add(phrase);
+      }
+
+    }
+
+    final List<String> _keywordsPhrasesIDs = getPhrasesIDs(_keywordsPhrases);
+
+    return _keywordsPhrasesIDs;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getSpecsIDsFromPhrases({
+    @required List<Phrase> allPhrases,
+  }){
+
+    final List<Phrase> _specsIDs = <Phrase>[];
+
+    for (final Phrase phrase in allPhrases){
+
+      final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: phrase.id,
+        numberOfCharacters: 7, //'phid_s_'
+      );
+
+      final bool _isKeyword = _phidK == 'phid_s_';
+
+      if (_isKeyword == true){
+        _specsIDs.add(phrase);
+      }
+
+    }
+
+    final List<String> _specsPhraseIDs = getPhrasesIDs(_specsIDs);
+
+    return _specsPhraseIDs;
+  }
 // -------------------------------------
 }
