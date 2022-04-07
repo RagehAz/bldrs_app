@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -57,7 +58,10 @@ class CountryModel {
       'citiesIDs': citiesIDs,
       'language': language,
       'currency': currency,
-      'phrases' : cipherZonePhrases(phrases: phrases),
+      'phrases' : cipherZonePhrases(
+        phrases: phrases,
+        toJSON: toJSON,
+      ),
     };
   }
 // -------------------------------------
@@ -116,6 +120,7 @@ class CountryModel {
   /// phrases contain mixed languages phrases in one list
   static Map<String, dynamic> cipherZonePhrases({
     @required List<Phrase> phrases,
+    @required bool toJSON,
   }){
     Map<String, dynamic> _output = {};
 
@@ -128,7 +133,7 @@ class CountryModel {
             key: phrase.langCode,
             value: phrase.toMap(
               includeID: false,
-              includeTrigram: true,
+              includeTrigram: toJSON,
               // includeLangCode: false,
             ),
         );
@@ -159,7 +164,9 @@ class CountryModel {
             id: zoneID,
             langCode: key,
             value: phrasesMap[key]['value'],
-            trigram: Mapper.getStringsFromDynamics(dynamics: phrasesMap[key]['trigram']),
+            trigram: createTrigram(
+                input: fixCountryName(phrasesMap[key]['value']),
+            ),
           );
 
           _output.add(_phrase);
