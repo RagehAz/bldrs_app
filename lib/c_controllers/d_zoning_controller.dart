@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart'
 import 'package:bldrs/b_views/x_screens/d_zoning/d_2_select_city_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_3_select_district_screen.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -162,16 +161,16 @@ Future<void> controlCountrySearch({
 
   if (_searchProvider.isSearchingCountry == true) {
 
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
     _uiProvider.triggerLoading(setLoadingTo: true);
-    _phraseProvider.clearSearchedCountries();
+    _zoneProvider.clearSearchedCountries();
 
     // final List<ZoneModel> _countries = searchCountriesByNames(
     //   text: searchText,
     // );
 
-    await _phraseProvider.getSetSearchedCountries(
+    await _zoneProvider.getSetSearchedCountries(
       context: context,
       input: TextMod.fixCountryName(searchText),
     );
@@ -207,9 +206,8 @@ void controlCountryScreenOnBack(BuildContext context,){
   );
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
-  _phraseProvider.clearSearchedCountries();
+  _zoneProvider.clearSearchedCountries();
 
   _zoneProvider.clearSelectedCountryCities();
   _zoneProvider.clearSearchedCities();
