@@ -336,7 +336,7 @@ class Phrase {
 
     }
     else {
-      // blog('phrases ARE FUCKING NULL');
+      blog('phrases ARE FUCKING NULL');
     }
 
   }
@@ -570,6 +570,7 @@ class Phrase {
     return _foundPhrases;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getPhrasesIDs(List<Phrase> phrases){
 
     final List<String> _output = <String>[];
@@ -585,6 +586,7 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Phrase getPhraseByIDAndLangCodeFromPhrases({
     @required String langCode,
     @required String phid,

@@ -150,6 +150,7 @@ class Sembast  {
   }
 
 // ---------------------------------------------------
+  /// TESTED : WORKS PERFECT
     static Future<List<Map<String, Object>>> searchArrays({
       @required String fieldToSortBy,
       @required String searchField,
@@ -161,7 +162,7 @@ class Sembast  {
     final Database _db = await _getDB();
 
     final _finder = Finder(
-      filter: Filter.matches(searchField, searchValue,anyInList: true),
+      filter: Filter.matches(searchField, searchValue, anyInList: true),
       sortOrders: <SortOrder>[
         SortOrder(fieldToSortBy)
       ],

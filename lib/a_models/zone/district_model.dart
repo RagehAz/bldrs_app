@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class DistrictModel{
     this.districtID,
     this.isActivated,
     this.isPublic,
-    this.names,
+    this.phrases,
   });
   /// --------------------------------------------------------------------------
   final String countryID;
@@ -26,23 +27,31 @@ class DistrictModel{
   /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
   /// then all flyers will be visible to users not only between bzz
   final bool isPublic;
-  final List<Phrase> names; // was not changed in firebase sub docs,, kessa ba2a
-  /// --------------------------------------------------------------------------
-  Map<String, Object> toMap(){
+  final List<Phrase> phrases; // was not changed in firebase sub docs,, kessa ba2a
+// -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+// -------------------------------------
+  Map<String, Object> toMap({@required bool toJSON}){
     return <String, Object>{
       'countryID' : countryID,
       'cityID' : cityID,
       'districtID' : TextMod.fixCountryName(districtID),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
-      'names' : CountryModel.cipherZonePhrases(
-        phrases: names,
+      'phrases' : CountryModel.cipherZonePhrases(
+        phrases: phrases,
+        toJSON: toJSON,
       ),
 
     };
   }
 // -----------------------------------------------------------------------------
-  static Map<String,dynamic> cipherDistricts(List<DistrictModel> districts){
+  static Map<String,dynamic> cipherDistricts({
+    @required List<DistrictModel> districts,
+    @required bool toJSON,
+  }){
 
     Map<String, dynamic> _districtsMap = <String, dynamic>{};
 
@@ -51,7 +60,7 @@ class DistrictModel{
       _districtsMap = Mapper.insertPairInMap(
         map: _districtsMap,
         key: TextMod.fixCountryName(district.districtID),
-        value: district.toMap(),
+        value: district.toMap(toJSON: toJSON),
       );
 
     }
@@ -66,9 +75,9 @@ class DistrictModel{
       districtID : map['districtID'],
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
-      names: CountryModel.decipherZonePhrases(
-          phrasesMap: map['names'],
-          zoneID: map['districtID']
+      phrases: CountryModel.decipherZonePhrases(
+          phrasesMap: map['phrases'],
+          zoneID: map['districtID'],
       ),
 
     );
@@ -96,6 +105,10 @@ class DistrictModel{
     return _districts;
   }
 // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// -------------------------------------
   static List<MapModel> getDistrictsNamesMapModels({
     @required BuildContext context,
     @required List<DistrictModel> districts
@@ -144,6 +157,10 @@ class DistrictModel{
     return _district;
   }
 // -----------------------------------------------------------------------------
+
+  /// PHRASES
+
+// -------------------------------------
   static String getTranslatedDistrictNameFromCity({
     @required BuildContext context,
     @required CityModel city,
@@ -160,7 +177,7 @@ class DistrictModel{
 
       final Phrase _phrase = Phrase.getPhraseByCurrentLangFromMixedLangPhrases(
           context: context,
-          phrases: _district?.names,
+          phrases: _district?.phrases,
       );
 
       if (_phrase != null){
@@ -179,7 +196,7 @@ class DistrictModel{
 
     final Phrase _districtName = Phrase.getPhraseByCurrentLangFromMixedLangPhrases(
         context: context,
-        phrases: district?.names,
+        phrases: district?.phrases,
     );
 
     final String _nameString = _districtName?.value;
@@ -192,34 +209,39 @@ class DistrictModel{
     @required BuildContext context,
     @required List<DistrictModel> sourceDistricts,
     @required String inputText,
+    List<String> langCodes = const <String>['en', 'ar'],
   }){
 
     /// CREATE NAMES LIST
-    final List<Phrase> _districtsNames = <Phrase>[];
+    final List<Phrase> _districtsPhrases = <Phrase>[];
 
-    for (final DistrictModel district in sourceDistricts){
+    for (final String langCode in langCodes){
+      for (final DistrictModel district in sourceDistricts){
 
-      final Phrase _nameInLingo = Phrase.getPhraseByCurrentLangFromMixedLangPhrases(
-        context: context,
-        phrases: district.names,
-      );
+        final Phrase _districtPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
+          phid: district.districtID,
+          langCode: langCode,
+          phrases: district.phrases,
+        );
+        _districtsPhrases.add(_districtPhrase);
 
-      _districtsNames.add(_nameInLingo);
+      }
 
     }
 
-    /// SEARCH NAMES
-    final List<Phrase> _foundNames = Phrase.searchPhrasesTrigrams(
-      sourcePhrases: _districtsNames,
+    /// SEARCH PHRASES
+    final List<Phrase> _foundPhrases = Phrase.searchPhrasesTrigrams(
+      sourcePhrases: _districtsPhrases,
       inputText: inputText,
     );
 
     /// GET CITIES BY IDS FROM NAMES
     final List<DistrictModel> _foundDistricts = _getDistrictsFromNames(
-        names: _foundNames,
+        names: _foundPhrases,
         sourceDistricts: sourceDistricts
     );
 
+    DistrictModel.blogDistricts(_foundDistricts);
 
     return _foundDistricts;
   }
@@ -236,7 +258,7 @@ class DistrictModel{
 
         for (final DistrictModel district in sourceDistricts){
 
-          if (district.names.contains(name)){
+          if (district.phrases.contains(name)){
 
             if (!_foundDistricts.contains(district)){
               _foundDistricts.add(district);
@@ -254,4 +276,44 @@ class DistrictModel{
     return _foundDistricts;
   }
 // -----------------------------------------------------------------------------
+
+/// BLOGGERS
+
+// -------------------------------------
+  void blogDistrict(){
+
+    blog('districtID : $districtID : '
+        'cityID : $cityID : '
+        'countryID : $countryID : '
+        'isActivated : $isActivated : '
+        'isPublic : $isPublic : '
+        'has ${phrases.length} phrases'
+    );
+    blog('district phrases are : -');
+    Phrase.blogPhrases(phrases);
+
+  }
+// -------------------------------------
+  static void blogDistricts(List<DistrictModel> districts){
+
+    if (Mapper.canLoopList(districts) == true){
+
+      blog('BLOGGING ${districts.length} DISTRICTS -------------------------------- STAR');
+
+      for (final DistrictModel district in districts){
+
+        district.blogDistrict();
+
+      }
+
+      blog('BLOGGING ----- DISTRICTS -------------------------------- END');
+
+    }
+    else {
+      blog('No districts found to blog');
+    }
+
+  }
+// -----------------------------------------------------------------------------
+
 }

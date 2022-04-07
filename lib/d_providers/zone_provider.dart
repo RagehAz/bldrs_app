@@ -701,15 +701,20 @@ class ZoneProvider extends ChangeNotifier {
   }) async {
 
     /// SEARCH SELECTED COUNTRY CITIES
-    final List<CityModel> _foundCities = CityModel.searchCitiesByCurrentLingoName(
+    final List<CityModel> _foundCities = CityModel.searchCitiesByName(
         context: context,
         sourceCities: _selectedCountryCities,
         inputText: input,
     );
 
-    blog('getSetSearchedCities : _selectedCountryCities.length : ${_selectedCountryCities.length} : input : $input : _foundCities : ${_foundCities.length}' );
+    blog('getSetSearchedCities : '
+        '_selectedCountryCities.length : '
+        '${_selectedCountryCities.length} : '
+        'input : $input : '
+        '_foundCities : '
+        '${_foundCities?.length}'
+    );
 
-    blog('${_foundCities[0]}');
 
     /// SET FOUND CITIES
     _setSearchedCities(_foundCities);
