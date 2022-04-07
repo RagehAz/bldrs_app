@@ -65,7 +65,7 @@ Future<void> controlCountryOnTap({
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
-  /// A - WHEN SELECTING (COUNTRY) ONLY
+  /// A - WHEN  SEQUENCE IS SELECTING (COUNTRY) ONLY
   if (selectCountryIDOnly){
 
     /// B - DEFINE ZONE WITH COUNTRY ID ONLY
@@ -83,11 +83,14 @@ Future<void> controlCountryOnTap({
 
   else {
 
-    /// A - WHEN SELECTING (COUNTRY + CITY) ONLY
+    /// A - WHEN SEQUENCE IS SELECTING (COUNTRY + CITY) ONLY
     if (selectCountryAndCityOnly) {
 
       /// B - FETCH COUNTRY MODEL
-      final CountryModel _country= await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
+      final CountryModel _country= await _zoneProvider.fetchCountryByID(
+          context: context,
+          countryID: countryID,
+      );
 
       /// C - GO SELECT CITY
       final String _cityID = await Nav.goToNewScreen(context, SelectCityScreen(
@@ -120,11 +123,19 @@ Future<void> controlCountryOnTap({
 
     }
 
-    /// A - WHEN SELECTING (COUNTRY + CITY + DISTRICT)
+    /// A - WHEN SEQUENCE SELECTING (COUNTRY + CITY + DISTRICT)
     else {
 
-      final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: countryID);
-      await Nav.goToNewScreen(context, SelectCityScreen(country: _country));
+      final CountryModel _country = await _zoneProvider.fetchCountryByID(
+          context: context,
+          countryID: countryID
+      );
+
+      await Nav.goToNewScreen(context,
+          SelectCityScreen(
+              country: _country
+          )
+      );
 
     }
 
@@ -324,6 +335,7 @@ Future<void> controlCityOnTap({
 
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> controlCitySearch({
   @required BuildContext context,
   @required String searchText,
@@ -349,7 +361,6 @@ Future<void> controlCitySearch({
     );
 
   }
-
 
 }
 // -------------------------------------

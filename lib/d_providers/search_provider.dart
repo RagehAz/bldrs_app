@@ -48,6 +48,7 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void triggerIsSearchingAfterMaxTextLength({
     @required String text,
     @required SearchingModel searchModel,
