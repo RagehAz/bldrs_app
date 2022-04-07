@@ -28,8 +28,8 @@ String getPrimaryKey(String docName) {
     case LDBDoc.cities: return 'cityID';
     case LDBDoc.continents: return 'name';
     case LDBDoc.currencies: return 'currencies';
-    case LDBDoc.enPhrases: return 'id';
-    case LDBDoc.arPhrases: return 'id';
+    case LDBDoc.basicPhrases: return 'primaryKey';
+    case LDBDoc.countriesPhrases: return 'primaryKey';
     default: return null;
   }
 }
