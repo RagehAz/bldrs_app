@@ -8,12 +8,14 @@ class ChainTreeViewer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ChainTreeViewer({
     @required this.chain,
+    @required this.onStripTap,
     this.initialLevel = 1,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Chain chain;
   final int initialLevel;
+  final ValueChanged<String> onStripTap;
   /// --------------------------------------------------------------------------
   @override
   State<ChainTreeViewer> createState() => _ChainTreeViewerState();
@@ -61,7 +63,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                     return ChainTreeViewer(
                       chain: son,
                       initialLevel: widget.initialLevel + 1,
-
+                      onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
                     );
                   }
               ),
@@ -76,9 +78,10 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                     final String keywordID = widget.chain.sons[index];
                     return ChainTreeStrip(
                       level: widget.initialLevel + 1,
-                      secondLine: keywordID,
-                      firstLine: superPhrase(context, keywordID),
+                      phraseID: keywordID,
+                      phraseValue: superPhrase(context, keywordID),
                       onTriggerExpansion: (){},
+                      onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
                     );
 
                   }
@@ -88,9 +91,10 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
             if (_sonsAreChain == false && _sonsAreStrings == false)
               ChainTreeStrip(
                 level: widget.initialLevel + 1,
-                secondLine: widget.chain?.id,
-                firstLine: widget.chain?.sons?.toString(),
+                phraseID: widget.chain?.id,
+                phraseValue: widget.chain?.sons?.toString(),
                 onTriggerExpansion: _triggerExpansion,
+                onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
               ),
 
           ],
@@ -104,10 +108,11 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
               /// chain title
               ChainTreeStrip(
                 level: widget.initialLevel,
-                secondLine: widget.chain?.id,
-                firstLine: superPhrase(context, widget.chain?.id),
+                phraseID: widget.chain?.id,
+                phraseValue: superPhrase(context, widget.chain?.id),
                 expanded: _isExpanded,
                 onTriggerExpansion: _triggerExpansion,
+                onStripTap: (String sonID) => widget.onStripTap(sonID),
               ),
 
               if (_isExpanded)
