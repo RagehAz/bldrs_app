@@ -142,9 +142,9 @@ class _FlyerStarterState extends State<FlyerStarter> {
   void dispose() {
     super.dispose();
 
-    if (_currentSlideIndex != null){
-      _currentSlideIndex.dispose();
-    }
+    // if (_currentSlideIndex != null){
+    //   _currentSlideIndex.dispose();
+    // }
 
   }
 // -----------------------------------------------------------------------------
