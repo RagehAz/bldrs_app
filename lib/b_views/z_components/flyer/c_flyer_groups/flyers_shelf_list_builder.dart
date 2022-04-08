@@ -12,13 +12,15 @@ class FlyersShelfListBuilder extends StatefulWidget {
     @required this.flyers,
     @required this.flyerSizeFactor,
     @required this.flyerOnTap,
+    @required this.shelfTitle,
     this.onScrollEnd,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final String shelfTitle;
   final List<FlyerModel> flyers;
   final double flyerSizeFactor;
-  final Function flyerOnTap;
+  final ValueChanged<FlyerModel> flyerOnTap;
   final Function onScrollEnd;
   /// --------------------------------------------------------------------------
   @override
@@ -73,6 +75,8 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
     final List<FlyerModel> _flyers = widget.flyers;
     final double _flyerBoxWidth = FlyerBox.width(context, widget.flyerSizeFactor);
 
+
+
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
       itemCount: _flyers.length,
@@ -105,6 +109,8 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         //     onMicroFlyerTap: null,
         //     onAnkhTap: null
         // );
+
+        blog('recieving width factor : ${widget.flyerSizeFactor}');
 
         return
 
@@ -173,9 +179,11 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
               child: AbsorbPointer(
                 absorbing: _absorbingFlyerTap(),
                 child: FlyerStarter(
-                  minWidthFactor: FlyerBox.sizeFactorByWidth(context, widget.flyerSizeFactor),
+                  minWidthFactor: widget.flyerSizeFactor,
                   flyerModel: _flyers[_x],
+                  heroTag: widget.shelfTitle,
                 ),
+
               ),
             );
         },

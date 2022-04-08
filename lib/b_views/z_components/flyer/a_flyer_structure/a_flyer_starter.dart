@@ -68,7 +68,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+    if (_isInit && mounted) {
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------

@@ -23,7 +23,6 @@ enum BottomDialogType {
   languages,
   bottomSheet,
 }
-
 // -----------------------------------------------------------------------------
 /// TASK: should check draggable scrollable sheet
 class BottomDialog extends StatelessWidget {
@@ -150,7 +149,8 @@ class BottomDialog extends StatelessWidget {
         enTopLeft: Ratioz.bottomSheetCorner,
         enBottomLeft: 0,
         enBottomRight: 0,
-        enTopRight: Ratioz.bottomSheetCorner);
+        enTopRight: Ratioz.bottomSheetCorner,
+    );
     return _dialogCorners;
   }
 // -----------------------------------------------------------------------------
@@ -179,8 +179,6 @@ class BottomDialog extends StatelessWidget {
 
     final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: Borderers.superBorderOnly(
@@ -199,22 +197,30 @@ class BottomDialog extends StatelessWidget {
         context: context,
         builder: (_) {
 
-          return Provider.value(
-            value: _phraseProvider,
-            child:  SizedBox(
-              height: _height,
-              width: Scale.superScreenWidth(context),
-              child: Scaffold(
-                backgroundColor: Colorz.nothing,
-                resizeToAvoidBottomInset: false,
-                body: BottomDialog(
-                  height: _height,
-                  draggable: draggable,
-                  title: title,
-                  child: child,
-                ),
-              ),
-            ),
+          return StatefulBuilder(
+              builder: (BuildContext xxx, state){
+
+                final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(xxx, listen: false);
+
+                return Provider.value(
+                  value: _phraseProvider,
+                  child:  SizedBox(
+                    height: _height,
+                    width: Scale.superScreenWidth(context),
+                    child: Scaffold(
+                      backgroundColor: Colorz.nothing,
+                      resizeToAvoidBottomInset: false,
+                      body: BottomDialog(
+                        height: _height,
+                        draggable: draggable,
+                        title: title,
+                        child: child,
+                      ),
+                    ),
+                  ),
+                );
+
+              }
           );
 
         }

@@ -19,7 +19,6 @@ class FlyersShelf extends StatelessWidget {
     this.flyerSizeFactor = 0.3,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final List<FlyerModel> flyers;
@@ -27,7 +26,6 @@ class FlyersShelf extends StatelessWidget {
   final Function flyerOnTap;
   final Function onScrollEnd;
   final double flyerSizeFactor;
-
   /// --------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
   static const double titleIconWidth = Ratioz.appBarButtonSize;
@@ -44,7 +42,6 @@ class FlyersShelf extends StatelessWidget {
     return _height;
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -75,6 +72,7 @@ class FlyersShelf extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+
           /// ---  ABOVE TITLE SPACING
           if (title != null)
             SizedBox(
@@ -92,6 +90,7 @@ class FlyersShelf extends StatelessWidget {
                 // color: Colorz.BloodTest,
                 child: Row(
                   children: <Widget>[
+
                     if (titleIcon != null)
                       DreamBox(
                         height: titleIconWidth,
@@ -99,14 +98,14 @@ class FlyersShelf extends StatelessWidget {
                         margins: EdgeInsets.zero,
                         corners: titleIconCorner,
                       ),
+
                     if (titleIcon != null)
                       const SizedBox(
                         width: Ratioz.appBarMargin,
                       ),
+
                     SizedBox(
-                      width: _screenWidth -
-                          (Ratioz.appBarMargin * 5) -
-                          _titleIconWidthWithMargin,
+                      width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
                       child: SuperVerse(
                         verse: title,
                         centered: false,
@@ -115,6 +114,7 @@ class FlyersShelf extends StatelessWidget {
                         maxLines: 3,
                       ),
                     ),
+
                   ],
                 ),
               ),
@@ -133,6 +133,7 @@ class FlyersShelf extends StatelessWidget {
             height: _flyerZoneHeight,
             // color: Colorz.WhiteAir,
             child: FlyersShelfListBuilder(
+              shelfTitle: title,
               flyers: flyers,
               flyerSizeFactor: flyerSizeFactor,
               flyerOnTap: flyerOnTap,

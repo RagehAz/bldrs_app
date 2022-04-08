@@ -32,9 +32,9 @@ class SearchResultView extends StatelessWidget {
               title: _result.title,
               flyerSizeFactor: 0.45,
               titleIcon: _result.icon,
-              flyerOnTap: () {
-                blog('flyer tapped');
-              },
+              // flyerOnTap: (FlyerModel flyerModel) {
+              //   blog('flyer tapped : ${flyerModel.id}');
+              // },
               onScrollEnd: () {
                 blog('scroll ended');
               },
