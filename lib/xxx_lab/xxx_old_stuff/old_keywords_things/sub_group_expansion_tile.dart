@@ -1,6 +1,6 @@
 // import 'package:bldrs/controllers/theme/colorz.dart';
 // import 'package:bldrs/controllers/theme/ratioz.dart';
-// import 'package:bldrs/b_views/widgets/specific/keywords/collapsed_tile.dart';
+// import 'package:bldrs/b_views/widgets/specific/keywords/c_collapsed_tile.dart';
 // import 'package:bldrs/b_views/widgets/specific/keywords/group_expansion_tile.dart';
 // import 'package:bldrs/b_views/widgets/specific/keywords/keywords_buttons_list.dart';
 // import 'package:bldrs/a_models/keywords/keyword_model.dart';

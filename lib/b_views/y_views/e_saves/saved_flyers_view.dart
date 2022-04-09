@@ -62,11 +62,11 @@ class SavedFlyersScreenView extends StatelessWidget {
                   controller: ScrollController(),
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: sectionsList.length,
+                  itemCount: savedFlyersTabs.length,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   itemBuilder: (_, index){
 
-                    final FlyerType _flyerType = sectionsList[index];
+                    final FlyerType _flyerType = savedFlyersTabs[index];
 
                     final String _flyerTypeString = cipherFlyerType(_flyerType);
 

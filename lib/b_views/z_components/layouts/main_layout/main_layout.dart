@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/dialogs/side_dialog/drawer_dialog.dart';
+import 'package:bldrs/b_views/z_components/chains_dialog/structure/a_chains_dialog_starter.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -178,9 +178,9 @@ class MainLayout extends StatelessWidget {
               backgroundColor: _backgroundColor,
 
               /// DRAWER
-              drawer: const DrawerDialog(),
-              drawerEdgeDragWidth: DrawerDialog.drawerEdgeDragWidth,
-              drawerScrimColor: DrawerDialog.drawerScrimColor,
+              drawer: const ChainsDialogStarter(),
+              drawerEdgeDragWidth: ChainsDialogStarter.drawerEdgeDragWidth,
+              drawerScrimColor: ChainsDialogStarter.drawerScrimColor,
               onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
 
               /// BODY CONTENT

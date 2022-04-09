@@ -24,7 +24,7 @@ const List<FlyerType> flyerTypesList = <FlyerType>[
   FlyerType.equipment,
 ];
 // -----------------------------------------------------------------------------
-const List<FlyerType> sectionsList = <FlyerType>[
+const List<FlyerType> savedFlyersTabs = <FlyerType>[
   FlyerType.all,
   FlyerType.property,
   FlyerType.design,
@@ -34,11 +34,76 @@ const List<FlyerType> sectionsList = <FlyerType>[
   FlyerType.equipment,
 ];
 // -----------------------------------------------------------------------------
+
+/// CYPHERS
+
+// -------------------------------------
+FlyerType decipherFlyerType(String x) {
+  switch (x) {
+    case 'all'      : return FlyerType.all; break; // 1
+    case 'property' : return FlyerType.property; break; // 1
+    case 'design'   : return FlyerType.design; break; // 2
+    case 'product'  : return FlyerType.product; break; // 3
+    case 'project'  : return FlyerType.project; break; // 4
+    case 'craft'    : return FlyerType.craft; break; // 5
+    case 'equipment': return FlyerType.equipment; break; // 6
+    default: return null;
+  }
+}
+// -------------------------------------
+String cipherFlyerType(FlyerType x) {
+  switch (x) {
+    case FlyerType.all        : return 'all'; break;
+    case FlyerType.property   : return 'property'; break;
+    case FlyerType.design     : return 'design'; break;
+    case FlyerType.product    : return 'product'; break;
+    case FlyerType.project    : return 'project'; break;
+    case FlyerType.craft      : return 'craft'; break;
+    case FlyerType.equipment  : return 'equipment'; break;
+    default: return null;
+  }
+}
+// -------------------------------------
+List<String> cipherFlyersTypes(List<FlyerType> flyersTypes){
+
+  final List<String> _strings = <String>[];
+
+  if (Mapper.canLoopList(flyersTypes) == true){
+
+    for (final FlyerType type in flyersTypes){
+      _strings.add(cipherFlyerType(type));
+    }
+
+  }
+  return _strings;
+}
+// -------------------------------------
+List<FlyerType> decipherFlyersTypes(List<dynamic> strings){
+
+  final List<FlyerType> _flyersTypes = <FlyerType>[];
+
+  if (Mapper.canLoopList(strings) == true){
+    for (final String str in strings){
+      _flyersTypes.add(decipherFlyerType(str));
+    }
+  }
+
+  return _flyersTypes;
+}
+// -----------------------------------------------------------------------------
+
+/// GETTERS
+
+// -------------------------------------
 int getFlyerTypeIndexFromSectionsTabs(FlyerType flyerType){
-  final int _index = sectionsList.indexWhere((type) => type == flyerType);
+  final int _index = savedFlyersTabs.indexWhere((type) => type == flyerType);
   return _index;
 }
 // -----------------------------------------------------------------------------
+
+/// FIXERS
+
+// -------------------------------------
 String fixFlyerTypeFromIntToString(int x) {
   switch (x) {
     case 1: return 'rentalProperty'; break; // 1
@@ -54,59 +119,10 @@ String fixFlyerTypeFromIntToString(int x) {
   }
 }
 // -----------------------------------------------------------------------------
-FlyerType decipherFlyerType(String x) {
-  switch (x) {
-    case 'all'      : return FlyerType.all; break; // 1
-    case 'property' : return FlyerType.property; break; // 1
-    case 'design'   : return FlyerType.design; break; // 2
-    case 'product'  : return FlyerType.product; break; // 3
-    case 'project'  : return FlyerType.project; break; // 4
-    case 'craft'    : return FlyerType.craft; break; // 5
-    case 'equipment': return FlyerType.equipment; break; // 6
-    default: return null;
-  }
-}
-// -----------------------------------------------------------------------------
-String cipherFlyerType(FlyerType x) {
-  switch (x) {
-    case FlyerType.all        : return 'all'; break;
-    case FlyerType.property   : return 'property'; break;
-    case FlyerType.design     : return 'design'; break;
-    case FlyerType.product    : return 'product'; break;
-    case FlyerType.project    : return 'project'; break;
-    case FlyerType.craft      : return 'craft'; break;
-    case FlyerType.equipment  : return 'equipment'; break;
-    default: return null;
-  }
-}
-// -----------------------------------------------------------------------------
-List<String> cipherFlyersTypes(List<FlyerType> flyersTypes){
 
-  final List<String> _strings = <String>[];
+/// CONCLUDES
 
-  if (Mapper.canLoopList(flyersTypes) == true){
-
-    for (final FlyerType type in flyersTypes){
-      _strings.add(cipherFlyerType(type));
-    }
-
-  }
-  return _strings;
-}
-// -----------------------------------------------------------------------------
-List<FlyerType> decipherFlyersTypes(List<dynamic> strings){
-
-  final List<FlyerType> _flyersTypes = <FlyerType>[];
-
-  if (Mapper.canLoopList(strings) == true){
-    for (final String str in strings){
-      _flyersTypes.add(decipherFlyerType(str));
-    }
-  }
-
-  return _flyersTypes;
-}
-// -----------------------------------------------------------------------------
+// -------------------------------------
 FlyerType concludeFlyerType(BzType bzType) {
   switch (bzType) {
     case BzType.developer: return FlyerType.property; break;
@@ -133,6 +149,10 @@ List<FlyerType> concludePossibleFlyerTypesForBz({@required BzType bzType}) {
   }
 }
 // -----------------------------------------------------------------------------
+
+/// CHECKERS
+
+// -------------------------------------
 bool flyerTypesIncludeThisType({
   @required FlyerType flyerType,
   @required List<FlyerType> flyerTypes,
@@ -148,6 +168,10 @@ bool flyerTypesIncludeThisType({
   return _includes;
 }
 // -----------------------------------------------------------------------------
+
+/// TRANSLATION
+
+// -------------------------------------
 String translateFlyerType({
   @required BuildContext context,
   @required FlyerType flyerType,
@@ -181,7 +205,7 @@ String translateFlyerType({
   }
 
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 List<String> translateFlyerTypes({
   @required BuildContext context,
   @required List<FlyerType> flyerTypes,
@@ -207,7 +231,7 @@ List<String> translateFlyerTypes({
 
   return _strings;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 String translateFlyerTypeByBzType({
   @required BuildContext context,
   @required BzType bzType,
@@ -224,7 +248,7 @@ String translateFlyerTypeByBzType({
 
   return _translation;
 }
-
+// -----------------------------------------------------------------------------
 /*
 
 ZEBALA

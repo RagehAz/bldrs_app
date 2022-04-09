@@ -198,11 +198,13 @@ class Chain {
 /// CHECKERS
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool sonsAreChains(dynamic sons){
     final bool _areChains = sons is List<Chain>;
     return _areChains;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool sonsAreDataCreator(dynamic sons){
     final bool _sonsAreChain = sonsAreChains(sons);
     final bool _sonsAreStrings = sonsAreStrings(sons);
@@ -210,6 +212,7 @@ class Chain {
     return _areDataCreator;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool sonsAreStrings(dynamic sons){
     final bool _areString = sons.runtimeType.toString() == 'List<String>';
     return _areString;
@@ -321,6 +324,73 @@ class Chain {
 
     return _listsAreTheSame;
   }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool chainIncludeThisPhid({
+    @required Chain chain,
+    @required String phid,
+}){
+    bool _includes = false;
+
+    if (chain != null && phid != null){
+
+      if (chain.id == phid){
+        _includes = true;
+        blog('boss : chain ${chain.id} includes $phid : $_includes');
+      }
+
+      else if (sonsAreStrings(chain.sons) == true){
+        _includes = Mapper.stringsContainString(
+            strings: chain.sons,
+            string: phid,
+        );
+        blog('boss : chain ${chain.id} STRINGS SONS includes $phid : $_includes');
+      }
+
+      else if (sonsAreChains(chain.sons) == true){
+        _includes = chainsIncludeThisPhid(
+          chains: chain.sons,
+          phid: phid,
+        );
+        blog('boss : chain ${chain.id} CHAINS SONS includes $phid : $_includes');
+      }
+
+    }
+
+    else {
+      blog('boss : chain NULL includes $phid : $_includes');
+    }
+
+    return _includes;
+  }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool chainsIncludeThisPhid({
+    @required List<Chain> chains,
+    @required String phid,
+}){
+    bool _includes = false;
+
+    if (Mapper.canLoopList(chains) == true && phid != null){
+
+      for (final Chain chain in chains){
+
+        final bool _chainIncludes = chainIncludeThisPhid(
+            chain: chain,
+            phid: phid
+        );
+
+        if (_chainIncludes == true){
+          _includes = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _includes;
+  }
 // -----------------------------------------------------------------------------
 
   /// BLOGGERS
@@ -362,6 +432,7 @@ class Chain {
   /// GETTERS
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Chain getChainFromChainsByID({
     @required String chainID,
     @required List<Chain> chains,
@@ -396,6 +467,66 @@ class Chain {
     }
 
     return _chain;
+  }
+// --------------------------------------------
+  static List<String> getChainPhidsFromPhids({
+    @required List<Chain> chains,
+    @required List<String> phids,
+}){
+    final List<String> _phidsOfChains = <String>[];
+
+    if (
+    Mapper.canLoopList(chains) == true
+    &&
+    Mapper.canLoopList(phids) == true
+    ){
+
+      for (final String phid in phids){
+
+        final Chain _chain = getChainFromChainsByID(
+            chainID: phid,
+            chains: chains,
+        );
+
+        if (_chain != null){
+          _phidsOfChains.add(_chain.id);
+        }
+
+      }
+
+    }
+
+    return _phidsOfChains;
+  }
+// --------------------------------------------
+  static List<Chain> getChainsFromChainsByIDs({
+    List<String> ids,
+    List<Chain> sourceChains,
+  }){
+    final List<Chain> _foundChains = <Chain>[];
+
+    if (
+    Mapper.canLoopList(ids) == true
+        &&
+        Mapper.canLoopList(sourceChains) == true
+    ){
+
+      for (final String id in ids){
+
+        final Chain _chain = getChainFromChainsByID(
+            chainID: id,
+            chains: sourceChains
+        );
+
+        if (_chain != null){
+          _foundChains.add(_chain);
+        }
+
+      }
+
+    }
+
+    return _foundChains;
   }
 // -----------------------------------------------------------------------------
 

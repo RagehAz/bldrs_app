@@ -840,6 +840,7 @@ class Phrase {
 
     int _existingPhraseIndex;
     Phrase _phraseToInsert = phrase;
+
     if (stringIsNotEmpty(addLanguageCode)){
       _phraseToInsert = Phrase(
         id: phrase.id,
@@ -875,15 +876,15 @@ class Phrase {
 
     }
 
-    blog('after adding one phrase : ${phrase.id} ,, this list is :-');
-    blogPhrases(_output);
+    // blog('after adding one phrase : ${phrase.id} ,, this list is :-');
+    // blogPhrases(_output);
 
-    // if (_output.isEmpty || _existingPhraseIndex == -1){
-    //   return null;
-    // }
-    // else {
+    /// if (_output.isEmpty || _existingPhraseIndex == -1){
+    ///   return null;
+    /// }
+    /// else {
       return _output;
-    // }
+    /// }
 
   }
 // -------------------------------------
@@ -895,7 +896,7 @@ class Phrase {
     bool allowDuplicateIDs,
 }){
 
-    List<Phrase> _output;
+    List<Phrase> _output = <Phrase>[];
 
     if (allowDuplicateIDs == true){
       _output = _combinePhrasesListsAndAllowDuplicateIDs(
@@ -1004,8 +1005,8 @@ class Phrase {
 
     }
 
-    blog('output phrases inserted are : -');
-    Phrase.blogPhrases(_output);
+    blog('_combinePhrasesWithoutDuplicateIDs : output phrases inserted are : ${_output.length} phrases ');
+    // Phrase.blogPhrases(_output);
 
     return _output;
 
