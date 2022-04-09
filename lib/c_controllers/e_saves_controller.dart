@@ -39,7 +39,7 @@ void onChangeSavedFlyersTabIndex({
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  final FlyerType _newFlyerType = sectionsList[index];
+  final FlyerType _newFlyerType = savedFlyersTabs[index];
   final FlyerType _previousTab = _uiProvider.currentSavedFlyerTypeTab;
 
   /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS

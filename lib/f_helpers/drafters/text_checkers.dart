@@ -204,7 +204,7 @@ bool stringContainsSubString({
   return _itContainsIt;
 }
 // -----------------------------------------------------------------------------
-bool stringContainsSubStringRegExp({
+/*bool stringContainsPhraseIDKeyword({
   String string,
   String subString,
   bool caseSensitive = false,
@@ -215,8 +215,8 @@ bool stringContainsSubStringRegExp({
   if (string != null && subString != null) {
 
     final RegExp pattern = RegExp(r'phid_k',
-        caseSensitive: caseSensitive,
-        // multiLine: multiLine // mesh shaghal w mesh wa2to
+      caseSensitive: caseSensitive,
+      // multiLine: multiLine // mesh shaghal w mesh wa2to
     );
 
     // final Iterable matches = pattern.allMatches(string);
@@ -230,6 +230,32 @@ bool stringContainsSubStringRegExp({
     //   _itContainsIt = true;
     //   blog(matches);
     // }
+
+  }
+
+  return _itContainsIt;
+}
+ */
+// -----------------------------------------------------------------------------
+bool stringContainsSubStringRegExp({
+  String string,
+  String subString,
+  bool caseSensitive = false,
+  // bool multiLine = false
+}) {
+  bool _itContainsIt = false;
+
+  if (string != null && subString != null) {
+
+    final RegExp pattern = RegExp(subString,
+      caseSensitive: caseSensitive,
+      // multiLine: multiLine // mesh shaghal w mesh wa2to
+    );
+    final Iterable matches = pattern.allMatches(string);
+
+    if (matches.isNotEmpty) {
+      _itContainsIt = true;
+    }
 
   }
 

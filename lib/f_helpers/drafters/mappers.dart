@@ -494,6 +494,7 @@ bool listsAreTheSame({
   return listsAreTheSame;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 bool stringsContainString({
   @required List<String> strings,
   @required String string,
