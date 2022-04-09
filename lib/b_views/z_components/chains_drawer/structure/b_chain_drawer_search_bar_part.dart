@@ -4,9 +4,9 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ChainsDialogSearchBarPart extends StatelessWidget {
+class ChainsDrawerSearchBarPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainsDialogSearchBarPart({
+  const ChainsDrawerSearchBarPart({
     @required this.width,
     @required this.onSearchChanged,
     @required this.onSearchSubmit,
@@ -19,7 +19,9 @@ class ChainsDialogSearchBarPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Container(
+      key: const ValueKey<String>('ChainsDialogSearchBarPart'),
       width: width,
       height: Ratioz.appBarButtonSize,
       margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin + Ratioz.appBarPadding

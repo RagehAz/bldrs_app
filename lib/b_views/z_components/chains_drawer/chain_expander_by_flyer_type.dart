@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/b_views/z_components/chains_dialog/chain_expander_structure/a_chain_expander_starter.dart';
-import 'package:bldrs/c_controllers/g_keywords_browser_controller.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
+import 'package:bldrs/c_controllers/g_chains_dialog_controller.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -42,7 +42,7 @@ class ChainExpanderByFlyerType extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> _onKeywordTap(BuildContext context, String _keywordID) async {
 
-    await onKeywordTap(
+    await onSelectKeyword(
       phid: _keywordID,
       context: context,
       flyerType: flyerType,
@@ -54,20 +54,17 @@ class ChainExpanderByFlyerType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _width = bubbleWidth - (Ratioz.appBarMargin * 2);
-
-    return ChainExpander(
+    return ChainExpanderStarter(
       key: PageStorageKey<String>(flyerType.toString()),
       chain: chain,
-      width: _width,
-      // onTap: (bool isExpanded) => _onKeywordTap(context, isExpanded),
+      boxWidth: bubbleWidth - (2 * Ratioz.appBarMargin),
       icon: _sectionIcon(section: flyerType, inActiveMode: inActiveMode),
       firstHeadline: translateFlyerType(
         context: context,
         flyerType: flyerType,
       ),
       secondHeadline: TextGen.flyerTypeDescriptionStringer(context, flyerType),
-      inActiveMode: inActiveMode,
+      isDisabled: inActiveMode,
       initiallyExpanded: initiallyExpanded,
       onKeywordTap: (String keywordID) => _onKeywordTap(context, keywordID),
     );

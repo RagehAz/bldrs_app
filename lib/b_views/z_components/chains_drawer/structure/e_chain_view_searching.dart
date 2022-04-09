@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/b_views/z_components/chains_dialog/components/chain_son_button.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_chain_son_button.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -11,13 +11,13 @@ import 'package:provider/provider.dart';
 class ChainViewSearching extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainViewSearching({
-    @required this.boxWidth,
+    @required this.bubbleWidth,
     @required this.foundPhids,
     @required this.foundChains,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double boxWidth;
+  final double bubbleWidth;
   final ValueNotifier<List<String>> foundPhids;
   final ValueNotifier<List<Chain>> foundChains;
   /// --------------------------------------------------------------------------
@@ -95,8 +95,9 @@ class ChainViewSearching extends StatelessWidget {
                             else {
 
                               return ChainSonButton(
-                                boxWidth: boxWidth,
+                                sonWidth: bubbleWidth,
                                 phid: _phidk,
+                                isDisabled: false,
                                 onTap: () async {},
                               );
 

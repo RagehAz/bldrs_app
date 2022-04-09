@@ -28,5 +28,6 @@ class _AuthScreenState extends State<AuthScreen> {
       appBarType: AppBarType.non,
       layoutWidget: AuthScreenView(),
     );
+
   }
 }

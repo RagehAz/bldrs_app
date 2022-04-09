@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/chains_dialog/chain_expander_structure/b_expanding_tile.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/c_expanding_tile.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

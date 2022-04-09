@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/chains_dialog/chain_expander_structure/d_bldrs_chains.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/c_chains_sons_builder.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -45,7 +45,7 @@ class SpecSelectorBubble extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           children: <Widget>[
 
-            BldrsChain(
+            ChainSonsBuilder(
               boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
               chain: Chain.filterSpecListChainRange(
                 specList: specList,
