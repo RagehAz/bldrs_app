@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/chains_dialog/chain_expander_structure/c_collapsed_tile.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/b_collapsed_tile.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -23,7 +23,7 @@ class ExpandingTile extends StatefulWidget {
     this.initialColor = Colorz.white10,
     this.expansionColor,
     this.corners,
-    this.inActiveMode = false,
+    this.isDisabled = false,
     this.margin,
     Key key,
   }) : super(key: key);
@@ -42,7 +42,7 @@ class ExpandingTile extends StatefulWidget {
   final Color expansionColor;
   final double corners;
   final Widget child;
-  final bool inActiveMode;
+  final bool isDisabled;
   final EdgeInsets margin;
   /// --------------------------------------------------------------------------
   static const double collapsedTileHeight = 50;
@@ -201,7 +201,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   void toggle() {
 
     /// WHEN CAN EXPAND
-    if (widget.inActiveMode == false) {
+    if (widget.isDisabled == false) {
       _setExpanded(!_isExpanded.value);
     }
 

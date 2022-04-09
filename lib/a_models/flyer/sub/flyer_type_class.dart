@@ -187,7 +187,7 @@ String translateFlyerType({
       flyerType == FlyerType.product     ? superPhrase(context, 'phid_products')    :
       flyerType == FlyerType.project     ? superPhrase(context, 'phid_projects')    :
       flyerType == FlyerType.equipment   ? superPhrase(context, 'phid_equipments')    :
-      flyerType == FlyerType.craft       ? superPhrase(context, 'phid_products')    :
+      flyerType == FlyerType.craft       ? superPhrase(context, 'phid_crafts')    :
       superPhrase(context, 'phid_general');
   }
 
