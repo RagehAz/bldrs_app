@@ -61,7 +61,7 @@ class QuestionsScreenView extends StatelessWidget {
                   controller: ScrollController(),
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: sectionsList.length,
+                  itemCount: savedFlyersTabs.length,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   itemBuilder: (_, index){
 

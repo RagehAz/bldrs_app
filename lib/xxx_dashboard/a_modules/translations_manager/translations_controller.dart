@@ -22,7 +22,7 @@ void onSearchPhrases({
   bool forceSearch = false,
 }){
 
-  // blog('text : $text');
+  blog('onSearchPhrases : ');
 
   isSearching.value = TextChecker.triggerIsSearching(
     text: searchController.text,
@@ -30,7 +30,12 @@ void onSearchPhrases({
     minCharLimit: forceSearch ? 1 : 3,
   );
 
+  blog('onSearchPhrases : isSearching.value : ${isSearching.value}');
+
   if (isSearching.value == true){
+
+    blog('onSearchPhrases : isSearching.value == true');
+
 
     List<Phrase> _foundPhrases = <Phrase>[];
 
@@ -40,11 +45,15 @@ void onSearchPhrases({
       byValue: true,
     );
 
+    blog('onSearchPhrases : _enResults = $_enResults');
+
     final List<Phrase> _arResults = Phrase.searchPhrases(
       phrases: arPhrases,
       text: searchController.text,
       byValue: true,
     );
+
+    blog('onSearchPhrases : _arResults = $_arResults');
 
     _foundPhrases = Phrase.insertPhrases(
       insertIn: _foundPhrases,
@@ -54,6 +63,8 @@ void onSearchPhrases({
       allowDuplicateIDs: false,
     );
 
+    blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding en');
+
     _foundPhrases = Phrase.insertPhrases(
       insertIn: _foundPhrases,
       phrasesToInsert: _arResults,
@@ -62,14 +73,17 @@ void onSearchPhrases({
       allowDuplicateIDs: false,
     );
 
+    blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding ar');
+
     // blog('mixed phrase are : ');
     // Phrase.blogPhrases(_foundPhrases);
 
     final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_foundPhrases);
 
-    // Phrase.blogPhrases(_cleaned);
+    blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after cleaning');
 
     mixedSearchResult.value = _cleaned;
+
   }
 
   else {
@@ -342,7 +356,6 @@ Future<bool> _preUploadCheck({
   return _continueOps;
 }
 // -----------------------------
-
 Future<void> onUploadPhrases({
   @required List<Phrase> arOldPhrases,
   @required List<Phrase> enOldPhrases,
@@ -397,7 +410,6 @@ Future<void> onUploadPhrases({
   }
 
 }
-
 // -----------------------------
 Future<void> onUploadPhrase({
   @required List<Phrase> arOldPhrases,

@@ -44,6 +44,7 @@ class TranslationsCreatorPage extends StatelessWidget {
             pasteFunction: () => onPasteText(idController),
             actionBtFunction: () => onClearText(idController),
             actionBtIcon: Iconz.xLarge,
+            // isError: ,
             columnChildren: <Widget>[
 
               Row(
