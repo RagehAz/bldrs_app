@@ -200,22 +200,19 @@ class BottomDialog extends StatelessWidget {
           return StatefulBuilder(
               builder: (BuildContext xxx, state){
 
-                final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(xxx, listen: false);
+                // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(xxx, listen: false);
 
-                return Provider.value(
-                  value: _phraseProvider,
-                  child:  SizedBox(
-                    height: _height,
-                    width: Scale.superScreenWidth(context),
-                    child: Scaffold(
-                      backgroundColor: Colorz.nothing,
-                      resizeToAvoidBottomInset: false,
-                      body: BottomDialog(
-                        height: _height,
-                        draggable: draggable,
-                        title: title,
-                        child: child,
-                      ),
+                return SizedBox(
+                  height: _height,
+                  width: Scale.superScreenWidth(context),
+                  child: Scaffold(
+                    backgroundColor: Colorz.nothing,
+                    resizeToAvoidBottomInset: false,
+                    body: BottomDialog(
+                      height: _height,
+                      draggable: draggable,
+                      title: title,
+                      child: child,
                     ),
                   ),
                 );

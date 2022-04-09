@@ -175,8 +175,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-
-
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
 

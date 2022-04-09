@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/keywords/collapsed_tile.dart';
+import 'package:bldrs/b_views/z_components/chains_dialog/chain_expander_structure/c_collapsed_tile.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -50,7 +50,9 @@ class ExpandingTile extends StatefulWidget {
   static const double titleBoxHeight = 25;
   static const double arrowBoxSize = collapsedTileHeight;
   static const double collapsedGroupHeight =
-      ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
+      ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2)
+          +
+          Ratioz.appBarMargin;
   static const double cornersValue = Ratioz.appBarCorner;
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.white30;
@@ -92,11 +94,15 @@ class ExpandingTile extends StatefulWidget {
     return _titleZoneWidth;
   }
 // -----------------------------------------------------------------------------
-  static int numberOfButtons({@required List<String> keywordsIDs}) {
+  static int numberOfButtons({
+    @required List<String> keywordsIDs,
+  }) {
     return keywordsIDs.length;
   }
 // -----------------------------------------------------------------------------
-  static double calculateMaxHeight({@required List<String> keywordsIDs}) {
+  static double calculateMaxHeight({
+    @required List<String> keywordsIDs,
+  }) {
 
     final int _totalNumberOfButtons = numberOfButtons(
         keywordsIDs: keywordsIDs,
@@ -116,9 +122,10 @@ class ExpandingTile extends StatefulWidget {
 
     return _maxHeight;
   }
-
 // -----------------------------------------------------------------------------
-  static double calculateButtonsTotalHeight({@required List<String> keywordsIDs}) {
+  static double calculateButtonsTotalHeight({
+    @required List<String> keywordsIDs,
+  }) {
     final double _totalButtonsHeight =
         (collapsedTileHeight + buttonVerticalPadding)
             *
@@ -132,8 +139,8 @@ class ExpandingTile extends StatefulWidget {
 }
 
 class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderStateMixin {
+// -----------------------------------------------------------------------------
   AnimationController _controller;
-  // CurvedAnimation _easeOutAnimation;
   CurvedAnimation _easeInAnimation;
   ColorTween _borderColor;
   ColorTween _headlineColorTween;
@@ -141,30 +148,41 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   ColorTween _subtitleLabelColorTween;
   BorderRadiusTween _borderRadius;
   Animation<double> _arrowTurns;
-  bool _isExpanded = false;
+// -----------------------------------------------------------------------------
+  ValueNotifier<bool> _isExpanded;
+// -----------------------------------------------------------------------------
   static const Duration _kExpand = Duration(milliseconds: 200);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: _kExpand, vsync: this);
-    // _easeOutAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeOut);
-    _easeInAnimation =
-        CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+
+    _controller = AnimationController(
+        duration: _kExpand,
+        vsync: this,
+    );
+
+    _easeInAnimation = CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeIn,
+    );
+
     _borderColor = ColorTween();
     _headlineColorTween = ColorTween();
     _tileColorTween = ColorTween();
     _subtitleLabelColorTween = ColorTween();
     _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
     _borderRadius = BorderRadiusTween();
-    _isExpanded =
-        PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
 
-    if (_isExpanded) {
+    _isExpanded =
+        PageStorage.of(context)?.readState(context) ??
+      ValueNotifier(widget.initiallyExpanded);
+
+    if (_isExpanded.value == true) {
       _controller.value = 1.0;
     }
-  }
 
+  }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
@@ -181,36 +199,46 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   }
 // -----------------------------------------------------------------------------
   void toggle() {
+
+    /// WHEN CAN EXPAND
     if (widget.inActiveMode == false) {
-      _setExpanded(!_isExpanded);
-    } else {
+      _setExpanded(!_isExpanded.value);
+    }
+
+    /// WHEN CAN NOT EXPAND IN INACTIVE MODE
+    else {
       if (widget.onTap != null) {
-        widget.onTap(_isExpanded);
+        widget.onTap(_isExpanded.value);
       }
     }
+
   }
 // -----------------------------------------------------------------------------
   void _setExpanded(bool isExpanded) {
-    if (_isExpanded != isExpanded) {
-      setState(() {
-        _isExpanded = isExpanded;
 
-        if (_isExpanded) {
+    if (_isExpanded.value != isExpanded) {
+
+        _isExpanded.value = isExpanded;
+
+        if (_isExpanded.value == true) {
           _controller.forward();
-        } else {
+        }
+
+        else {
           _controller.reverse().then<void>((dynamic value) {
-            setState(() {
-              // Rebuild without widget.children.
-            });
+            // setState(() {
+            //   // Rebuild without widget.children.
+            // });
           });
         }
+
         PageStorage.of(context)?.writeState(context, _isExpanded);
-      });
 
       if (widget.onTap != null) {
-        widget.onTap(_isExpanded);
+        widget.onTap(_isExpanded.value);
       }
     }
+
   }
 // -----------------------------------------------------------------------------
 
@@ -231,13 +259,12 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
       ..begin = BorderRadius.circular(Ratioz.appBarCorner - 5)
       ..end = BorderRadius.circular(Ratioz.appBarCorner - 5);
     //------------------------------------------------------------o
-    final bool _closed =
-        _isExpanded == false && _controller.isDismissed == true;
-    //------------------------------------------------------------o
     // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
-    final double _bottomStripHeight = widget.collapsedHeight == null
-        ? ExpandingTile.collapsedGroupHeight * 0.75
-        : widget.collapsedHeight * 0.75;
+    final double _bottomStripHeight =
+    widget.collapsedHeight == null ?
+    ExpandingTile.collapsedGroupHeight * 0.75
+        :
+    widget.collapsedHeight * 0.75;
     //------------------------------------------------------------o
     return Container(
       // height: widget.height,
@@ -248,17 +275,14 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
       child: AnimatedBuilder(
         animation: _controller.view,
         builder: (BuildContext context, Widget child) {
-          /// final Color borderSideColor = _borderColor.evaluate(_easeOutAnimation) ?? Colors.transparent;
-          /// final Color _subTitleLabelColor = _subtitleLabelColorTween.evaluate(_easeInAnimation);
-          final Color _headlineColor =
-              _headlineColorTween.evaluate(_easeInAnimation);
+
+          final Color _headlineColor = _headlineColorTween.evaluate(_easeInAnimation);
           final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
 
           return CollapsedTile(
             tileWidth: widget.width,
             marginIsOn: false,
-            collapsedHeight:
-                widget.collapsedHeight ?? ExpandingTile.collapsedGroupHeight,
+            collapsedHeight: widget.collapsedHeight ?? ExpandingTile.collapsedGroupHeight,
             tileColor: _tileColor,
             corners: widget.corners ?? ExpandingTile.cornersValue,
             firstHeadline: widget.firstHeadline,
@@ -275,35 +299,48 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
         },
 
         /// SUB - GROUPS & KEYWORDS : Expanded tile children
-        child: _closed == true ?
-        null
-            :
-        Column(
-          children: <Widget>[
+        child: ValueListenableBuilder(
+          valueListenable: _isExpanded,
+          builder: (_, bool isExpanded, Widget child){
 
-            SizedBox(
-              width: widget.width,
-              child: widget.child,
-            ),
+            final bool _closed =
+                isExpanded == false
+                &&
+                _controller.isDismissed == true;
 
-            GestureDetector(
-              onTap: toggle,
-              child: Container(
-                width: widget.width,
-                height: _bottomStripHeight,
-                alignment: Alignment.center,
-                child: DreamBox(
-                  width: _bottomStripHeight,
-                  height: _bottomStripHeight,
-                  icon: Iconz.arrowUp,
-                  iconSizeFactor: _bottomStripHeight * 0.5 / 100,
-                  bubble: false,
+
+            return _closed == true ?
+            const SizedBox()
+                :
+            Column(
+              children: <Widget>[
+
+                SizedBox(
+                  width: widget.width,
+                  child: widget.child,
                 ),
 
-              ),
-            ),
+                GestureDetector(
+                  onTap: toggle,
+                  child: Container(
+                    width: widget.width,
+                    height: _bottomStripHeight,
+                    alignment: Alignment.center,
+                    child: DreamBox(
+                      width: _bottomStripHeight,
+                      height: _bottomStripHeight,
+                      icon: Iconz.arrowUp,
+                      iconSizeFactor: _bottomStripHeight * 0.5 / 100,
+                      bubble: false,
+                    ),
 
-          ],
+                  ),
+                ),
+
+              ],
+            );
+
+          },
         ),
       ),
     );
