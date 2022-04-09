@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_crafts.dart';
@@ -8,8 +6,8 @@ import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_equipment.da
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_properties.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/b_views/z_components/chains_dialog/components/chain_bubble.dart';
-import 'package:bldrs/b_views/z_components/chains_dialog/chain_expander_by_flyer_type.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/chain_expander_by_flyer_type.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/a_chain_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -22,11 +20,11 @@ import 'package:provider/provider.dart';
 class ChainViewBrowsing extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainViewBrowsing({
-    @required this.width,
+    @required this.bubbleWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double width;
+  final double bubbleWidth;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -56,11 +54,11 @@ class ChainViewBrowsing extends StatelessWidget {
           ChainBubble(
               title: superPhrase(context, 'phid_realEstate'),
               icon: Iconz.pyramidSingleYellow,
-              bubbleWidth: width,
+              bubbleWidth: bubbleWidth,
               buttons: <Widget>[
 
                 ChainExpanderByFlyerType(
-                  bubbleWidth: width,
+                  bubbleWidth: bubbleWidth,
                   inActiveMode: false,
                   flyerType: FlyerType.property,
                   chain: _propertiesChain,
@@ -74,11 +72,11 @@ class ChainViewBrowsing extends StatelessWidget {
           ChainBubble(
               title: superPhrase(context, 'phid_construction'),
               icon: Iconz.pyramidSingleYellow,
-              bubbleWidth: width,
+              bubbleWidth: bubbleWidth,
               buttons: <Widget>[
 
                 ChainExpanderByFlyerType(
-                  bubbleWidth: width,
+                  bubbleWidth: bubbleWidth,
                   inActiveMode: false,
                   flyerType: FlyerType.design,
                   chain: _designsChain,
@@ -87,7 +85,7 @@ class ChainViewBrowsing extends StatelessWidget {
                 MainLayout.spacer10,
 
                 ChainExpanderByFlyerType(
-                  bubbleWidth: width,
+                  bubbleWidth: bubbleWidth,
                   inActiveMode: false,
                   flyerType: FlyerType.craft,
                   chain: _craftsChain,
@@ -101,11 +99,11 @@ class ChainViewBrowsing extends StatelessWidget {
           ChainBubble(
             title: superPhrase(context, 'phid_supplies'),
             icon: Iconz.pyramidSingleYellow,
-            bubbleWidth: width,
+            bubbleWidth: bubbleWidth,
             buttons: <Widget>[
 
               ChainExpanderByFlyerType(
-                bubbleWidth: width,
+                bubbleWidth: bubbleWidth,
                 inActiveMode: false,
                 flyerType: FlyerType.product,
                 chain: _productsChain,
@@ -114,7 +112,7 @@ class ChainViewBrowsing extends StatelessWidget {
               MainLayout.spacer10,
 
               ChainExpanderByFlyerType(
-                bubbleWidth: width,
+                bubbleWidth: bubbleWidth,
                 inActiveMode: false,
                 flyerType: FlyerType.equipment,
                 chain: _equipmentChain,

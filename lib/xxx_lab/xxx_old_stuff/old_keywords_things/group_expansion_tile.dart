@@ -4,7 +4,7 @@
 // import 'package:bldrs/controllers/theme/ratioz.dart';
 // import 'package:bldrs/a_models/keywords/group_model.dart';
 // import 'package:bldrs/a_models/helpers/phrase_model.dart';
-// import 'package:bldrs/b_views/widgets/specific/keywords/c_collapsed_tile.dart';
+// import 'package:bldrs/b_views/widgets/specific/keywords/b_collapsed_tile.dart';
 // import 'package:bldrs/b_views/widgets/specific/keywords/keywords_buttons_list.dart';
 // import 'package:bldrs/a_models/keywords/keyword_model.dart';
 // import 'package:flutter/material.dart';
