@@ -108,6 +108,43 @@ List<String> getMapsPrimaryKeysValues({
 }
 // -----------------------------------------------------------------------------
 
+/// STRINGS MODIFIERS
+
+// -------------------------------------
+/// TESTED : WORKS PERFECT
+List<String> removeStringsFromStrings({
+  @required List<String> removeFrom,
+  @required List<String> removeThis,
+}){
+
+  final List<String> _output = <String>[];
+
+  if (canLoopList(removeFrom) == true){
+    if (canLoopList(removeThis) == true){
+
+      for (final String string in removeFrom){
+
+        final bool _canRemove = stringsContainString(
+            strings: removeThis,
+            string: string
+        );
+
+        if (_canRemove == true){
+          // do not add it
+        }
+        else {
+          _output.add(string);
+        }
+
+      }
+
+    }
+  }
+
+  return _output;
+}
+// -----------------------------------------------------------------------------
+
 /// MAPS GETTERS FROM OTHER THINGS
 
 // -------------------------------------

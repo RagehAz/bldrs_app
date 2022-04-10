@@ -118,7 +118,7 @@ Future<void> onSearchChanged({
   @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
-  blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
+  // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
 
   /// A - not searching
   if (isSearching.value == false) {
@@ -167,12 +167,20 @@ Future<void> onSearchKeywords({
   @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
-  final List<String> _phids = await _searchBasicPhrases(text);
+  final List<String> _phids = await _searchBasicPhrases(
+    text: text,
+    context: context,
+  );
 
   final List<Chain> _chains = _getChainsFromPhids(
     context: context,
     phids: _phids,
   );
+
+  blog('search result is : -');
+  blog('phids : $_phids');
+  Chain.blogChains(_chains);
+  blog('the end of search ------------------------------------------------------------------------');
 
   await _setFoundResults(
     context: context,
@@ -184,25 +192,39 @@ Future<void> onSearchKeywords({
 
 }
 // --------------------------------------------
-Future<List<String>> _searchBasicPhrases(String text) async {
+Future<List<String>> _searchBasicPhrases({
+  @required String text,
+  @required BuildContext context,
+}) async {
 
-  List<Phrase> _results = <Phrase>[];
+  List<String> _phidKs = <String>[];
 
   final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
     searchValue: text,
     docName: LDBDoc.basicPhrases,
-    lingCode: TextChecker.concludeEnglishOrArabicLingo(text),
+    lingCode: TextChecker.concludeEnglishOrArabicLang(text),
   );
 
   if (Mapper.canLoopList(_maps)) {
-    _results = Phrase.decipherMixedLangPhrases(
+
+    final List<Phrase> _results = Phrase.decipherMixedLangPhrases(
       maps: _maps,
     );
+
+    _phidKs = Phrase.getKeywordsIDsFromPhrases(allPhrases: _results);
+
+    blog('BEFORE REMOVE THEY WERE : $_phidKs');
+
+    _phidKs = Chain.removeAllChainIDsFromKeywordsIDs(
+      phidKs: _phidKs,
+      allChains: getAllChains(context),
+    );
+
+    blog('BEFORE REMOVE THEY ARE : $_phidKs');
+
   }
 
-  final List<String> _keywordsIDs = Phrase.getPhrasesIDs(_results);
-
-  return _keywordsIDs;
+  return _phidKs;
 }
 // --------------------------------------------
 List<Chain> _getChainsFromPhids({
@@ -216,9 +238,9 @@ List<Chain> _getChainsFromPhids({
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
-    _chains = Chain.getChainsFromChainsByIDs(
-      ids: phids,
-      sourceChains: _chainsProvider.keywordsChain.sons,
+    _chains = Chain.getOnlyChainsFromPhids(
+      phids: phids,
+      allChains: _chainsProvider.keywordsChain.sons,
     );
 
   }
