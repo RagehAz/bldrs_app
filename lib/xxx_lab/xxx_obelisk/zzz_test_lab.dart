@@ -1,8 +1,11 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -31,11 +34,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   ScrollController _scrollController;
   AnimationController _animationController;
   UiProvider _uiProvider;
+  ChainsProvider  _chainsProvider;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
 
     _scrollController = ScrollController();
@@ -174,6 +180,43 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
+
+                // final List<String> _paths = Chain.generateChainsPaths(
+                //     parentID: '',
+                //     chains: [_chainsProvider.keywordsChain],
+                //     previousPath: '',
+                // );
+                //
+                // Chain.blogPaths(_paths);
+
+                blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+
+                // final List<String> _found = Chain.findPathsContainingPhid(
+                //     paths: _paths,
+                //     phid: 'phid_k_sub_prd_walls_ceiling',
+                // );
+                //
+                // Chain.blogPaths(_found);
+
+
+                const List<String> _constPaths = <String>[
+                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/',
+                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_dumper/',
+                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_tanker/',
+                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_mixer/',
+                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/',
+                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_roller/',
+                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_asphalt/',
+                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_slurry/',
+                ];
+
+                final List<Chain> _generatedChains = Chain.createChainsFromPaths(_constPaths);
+
+                blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+
+                Chain.blogChains(_generatedChains);
+
+                blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 

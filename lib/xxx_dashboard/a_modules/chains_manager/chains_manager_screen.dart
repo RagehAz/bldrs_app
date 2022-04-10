@@ -7,6 +7,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:bldrs/xxx_dashboard/a_modules/chains_manager/widgets/chains_data_tree_starter.dart';
@@ -24,11 +25,22 @@ class ChainsManagerScreen extends StatefulWidget {
 }
 
 class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
-
+// -----------------------------------------------------------------------------
+  List<Chain> _allChains;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final Chain _keywordsChain = _chainsProvider.keywordsChain;
+    final Chain _specsChain = _chainsProvider.specsChain;
+
+    _allChains = <Chain>[
+      _keywordsChain,
+      _specsChain,
+    ];
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onUploadChains() async {
@@ -71,26 +83,49 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+// ------------------------------------------------
+  Future<void> _onSearchSubmit(String text) async {
+
+    blog('text is : $text');
+
+    triggerIsSearchingNotifier(
+        text: text,
+        isSearching: _isSearching
+    );
+
+    _onSearchChains(
+      chains: _allChains,
+    );
+
+  }
+
+  void _onSearchChains({
+  @required List<Chain> chains,
+}){
+
+    /// SEARCH CHAINS FOR MATCH CASES
+
+    /// GENERATE PATHS FOR THOSE CASES
+
+    /// BUILD CHAINS FOR THOSE PATHS
+
+    /// SEAT FOUND CHAINS AS SEARCH RESULT
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: true);
-    final Chain _keywordsChain = _chainsProvider.keywordsChain;
-    final Chain _specsChain = _chainsProvider.specsChain;
-
-    final List<Chain> _chains = [
-      _keywordsChain,
-      _specsChain,
-    ];
 
     return MainLayout(
       key: const ValueKey<String>('ChainsManagerScreen'),
       pageTitle: 'All Keywords',
-      appBarType: AppBarType.basic,
+      appBarType: AppBarType.search,
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       skyType: SkyType.black,
+      onSearchSubmit: (String text) => _onSearchSubmit(text),
       appBarRowWidgets: [
 
         const Expander(),
@@ -127,9 +162,9 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
       ],
       layoutWidget:
 
-      canLoopList(_chains) == true ?
+      canLoopList(_allChains) == true ?
       ChainsTreesStarter(
-        chains: _chains,
+        chains: _allChains,
         onStripTap: (String path) => _onStripTap(
             phraseIDPath: path
         )

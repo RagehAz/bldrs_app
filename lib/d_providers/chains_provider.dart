@@ -305,3 +305,10 @@ Chain superGetChain(BuildContext context, String chainID){
   final Chain _chain = _chainsProvider.searchAllChainsByID(chainID);
   return _chain;
 }
+
+List<Chain> getAllChains(BuildContext context){
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final Chain _keywordsChain = _chainsProvider.keywordsChain;
+  final Chain _specsChain = _chainsProvider.specsChain;
+  return <Chain>[_keywordsChain, _specsChain];
+}

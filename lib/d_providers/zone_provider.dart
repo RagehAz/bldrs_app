@@ -781,7 +781,7 @@ class ZoneProvider extends ChangeNotifier {
     /// SEARCH COUNTRIES FROM LOCAL PHRASES
     final List<Phrase> _foundCountries = await searchCountriesPhrasesByName(
       context: context,
-      lingoCode: TextChecker.concludeEnglishOrArabicLingo(input),
+      lingoCode: TextChecker.concludeEnglishOrArabicLang(input),
       countryName: input,
     );
 
