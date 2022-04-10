@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_chain_son_button.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/c_controllers/g_chains_drawer_controller.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -64,7 +65,7 @@ class ChainViewSearching extends StatelessWidget {
                               phid: _phidk,
                             );
 
-                            blog('_phidIncludedInFoundChains : $_phidIncludedInFoundChains : _phidk : $_phidk : foundChains : $foundChains');
+                            // blog('_phidIncludedInFoundChains : $_phidIncludedInFoundChains : _phidk : $_phidk : foundChains : ${foundChains.value}');
 
                             /// NOTHING : WHEN ITS A CHAIN
                             if (_chain != null){
@@ -98,7 +99,9 @@ class ChainViewSearching extends StatelessWidget {
                                 sonWidth: bubbleWidth,
                                 phid: _phidk,
                                 isDisabled: false,
-                                onTap: () async {},
+                                onTap: (){
+                                  blog(_phidk);
+                                }
                               );
 
                             }

@@ -1,7 +1,11 @@
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
+// -----------------------------------------------------------------------------
 
+/// LANGUAGE CHECK
+
+// -------------------------------------
 bool textIsEnglish(String val) {
   final RegExp exp = RegExp('[a-zA-Z]', multiLine: true, unicode: true);
   bool textIsEnglish;
@@ -21,7 +25,91 @@ bool textIsEnglish(String val) {
 
   return textIsEnglish;
 }
+// -------------------------------------
+bool textStartsInArabic(String val) {
+  /// \p{N} will match any unicode numeric digit.
+  // String _reg = r"^[\u0621-\u064A\s\p{N}]+$" ;
+
+  /// To match only ASCII digit use:
+  // String _reg = r"^[\u0621-\u064A\s0-9]+$" ;
+
+  /// this gets all arabic and english together
+  // String _reg = r"^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$" ;
+
+  /// others
+  // String _reg = r"^[\u0621-\u064A\u0660-\u0669 ]+$";
+  // "[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]"
+
+  /// This works for Arabic/Persian even numbers.
+  const String _reg = r'^[؀-ۿ]+$';
+
+  final RegExp _exp = RegExp(_reg, multiLine: true);
+  // bool isArabic;
+
+  final String _firstCharacter =
+  TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val);
+
+  bool _startInArabic;
+
+  if (_firstCharacter == null || _firstCharacter == '') {
+    _startInArabic = false;
+  }
+
+  else if (_exp.hasMatch(_firstCharacter) == true) {
+    _startInArabic = true;
+  }
+
+  else {
+    _startInArabic = false;
+  }
+
+  return _startInArabic;
+}
+// -------------------------------------
+bool textStartsInEnglish(String val) {
+  const String _reg = r'[a-zA-Z]';
+  final RegExp _exp = RegExp(_reg, multiLine: true);
+  final String _firstCharacter = TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val);
+
+  bool _startsInEnglish;
+
+  if (_firstCharacter == null || _firstCharacter == '') {
+    _startsInEnglish = false;
+  }
+
+  else if (_exp.hasMatch(_firstCharacter) == true) {
+    _startsInEnglish = true;
+  }
+
+  else {
+    _startsInEnglish = false;
+  }
+
+  return _startsInEnglish;
+}
+// -------------------------------------
+/// TASK : textIsRTL is not tested yet
+bool textIsRTL(String text){
+  return international.Bidi.detectRtlDirectionality(text);
+}
+// -------------------------------------
+String concludeEnglishOrArabicLang(String text) {
+
+  final String _lingoCode =
+  textStartsInArabic(text) == true ? 'ar'
+      :
+  textStartsInEnglish(text) == true ?
+  'en'
+      :
+  'en';
+
+  return _lingoCode;
+}
 // -----------------------------------------------------------------------------
+
+/// TEXT CONTROLLER CHECKERS
+
+// -------------------------------------
 bool textControllerIsEmpty(TextEditingController controller) {
   bool _controllerIsEmpty;
 
@@ -40,6 +128,10 @@ bool textControllerIsEmpty(TextEditingController controller) {
   return _controllerIsEmpty;
 }
 // -----------------------------------------------------------------------------
+
+/// TEXT CONTROLLER DISPOSERS
+
+// -------------------------------------
 /// TASK : is this the correct way to dispose a text controller ? are you sure ?
 void disposeControllerIfPossible(TextEditingController controller) {
   if (controller != null) {
@@ -66,6 +158,10 @@ void disposeAllTextControllers(List<TextEditingController> controllers) {
   }
 }
 // -----------------------------------------------------------------------------
+
+/// TEXT CONTROLLER CREATORS
+
+// -------------------------------------
 List<TextEditingController> createEmptyTextControllers(int length) {
   final List<TextEditingController> _controllers = <TextEditingController>[];
 
@@ -79,7 +175,8 @@ List<TextEditingController> createEmptyTextControllers(int length) {
 
   return _controllers;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
+/*
 /// createTextControllersAndOverrideOneString
 //   List<TextEditingController> createTextControllersAndOverrideOneString({int length, int indexToOverride, String overridingString}){
 //     List<TextEditingController> _controllers = [];
@@ -99,6 +196,13 @@ List<TextEditingController> createEmptyTextControllers(int length) {
 //     return _controllers;
 //   }
 // -----------------------------------------------------------------------------
+ */
+// -----------------------------------------------------------------------------
+
+/// STRING CHECKERS
+
+// -------------------------------------
+/// TESTED : WORKS PERFECT
 bool stringIsEmpty(String val) {
   bool _controllerIsEmpty;
 
@@ -115,78 +219,13 @@ bool stringIsEmpty(String val) {
 
   return _controllerIsEmpty;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
+/// TESTED : WORKS PERFECT
 bool stringIsNotEmpty(String val) {
   return !stringIsEmpty(val);
 }
-// -----------------------------------------------------------------------------
-bool textStartsInArabic(String val) {
-  /// \p{N} will match any unicode numeric digit.
-  // String _reg = r"^[\u0621-\u064A\s\p{N}]+$" ;
-
-  /// To match only ASCII digit use:
-  // String _reg = r"^[\u0621-\u064A\s0-9]+$" ;
-
-  /// this gets all arabic and english together
-  // String _reg = r"^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$" ;
-
-  /// others
-  // String _reg = r"^[\u0621-\u064A\u0660-\u0669 ]+$";
-  // "[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]"
-
-  /// This works for Arabic/Persian even numbers.
-  const String _reg = r'^[؀-ۿ]+$';
-
-  final RegExp _exp = RegExp(_reg, multiLine: true);
-  // bool isArabic;
-
-  final String _firstCharacter =
-      TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val);
-
-  bool _startInArabic;
-
-  if (_firstCharacter == null || _firstCharacter == '') {
-    _startInArabic = false;
-  }
-
-  else if (_exp.hasMatch(_firstCharacter) == true) {
-    _startInArabic = true;
-  }
-
-  else {
-    _startInArabic = false;
-  }
-
-  return _startInArabic;
-}
-// -----------------------------------------------------------------------------
-bool textStartsInEnglish(String val) {
-  const String _reg = r'[a-zA-Z]';
-  final RegExp _exp = RegExp(_reg, multiLine: true);
-  final String _firstCharacter = TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val);
-
-  bool _startsInEnglish;
-
-  if (_firstCharacter == null || _firstCharacter == '') {
-    _startsInEnglish = false;
-  }
-
-  else if (_exp.hasMatch(_firstCharacter) == true) {
-    _startsInEnglish = true;
-  }
-
-  else {
-    _startsInEnglish = false;
-  }
-
-  return _startsInEnglish;
-}
-// -----------------------------------------------------------------------------
-/// TASK : textIsRTL is not tested yet
-bool textIsRTL(String text){
-  return international.Bidi.detectRtlDirectionality(text);
-}
-// -----------------------------------------------------------------------------
+// -------------------------------------
+/// TESTED : WORKS PERFECT
 bool stringContainsSubString({
   String string,
   String subString,
@@ -262,19 +301,11 @@ bool stringContainsSubStringRegExp({
   return _itContainsIt;
 }
 // -----------------------------------------------------------------------------
-String concludeEnglishOrArabicLingo(String text) {
 
-  final String _lingoCode =
-  textStartsInArabic(text) == true ? 'ar'
-      :
-  textStartsInEnglish(text) == true ?
-  'en'
-      :
-  'en';
+/// SEARCH TRIGGERS
 
-  return _lingoCode;
-}
-// -----------------------------------------------------------------------------
+// -------------------------------------
+/// TESTED : WORKS PERFECT
 bool triggerIsSearching({
   @required String text,
   @required bool isSearching,
@@ -293,5 +324,23 @@ bool triggerIsSearching({
       }
 
   return  _output;
+}
+// -------------------------------------
+/// TESTED : WORKS PERFECT
+void triggerIsSearchingNotifier({
+  @required String text,
+  @required ValueNotifier<bool> isSearching,
+  int minCharLimit = 3,
+}){
+
+  if (text.length >= minCharLimit){
+
+    isSearching.value = true;
+
+  }
+  else {
+    isSearching.value = false;
+  }
+
 }
 // -----------------------------------------------------------------------------

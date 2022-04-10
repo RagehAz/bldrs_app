@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -1108,6 +1109,7 @@ class Phrase {
   /// TESTED : WORKS PERFECT
   static List<String> getKeywordsIDsFromPhrases({
   @required List<Phrase> allPhrases,
+    bool includeChainsIDs = true,
 }){
 
     final List<Phrase> _keywordsPhrases = <Phrase>[];

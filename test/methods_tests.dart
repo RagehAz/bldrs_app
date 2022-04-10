@@ -502,4 +502,18 @@ void main() {
     expect(_isURL, false);
   });
 // -----------------------------------------------------------------------------
+  test('removeStringsFromStrings', () async {
+
+    const List<String> _source = <String>['wa7ed', 'etneen', 'talata', 'arba3a'];
+
+    const List<String> _toRemove = <String>['wa7ed', 'etneen'];
+
+    final List<String> _modified = Mapper.removeStringsFromStrings(
+        removeFrom: _source,
+        removeThis: _toRemove,
+    );
+
+    expect(_modified, <String>['talata', 'arba3a']);
+  });
+// -----------------------------------------------------------------------------
 }
