@@ -20,7 +20,7 @@ class ChainsTreesStarter extends StatelessWidget {
     return ListView.builder(
         key: const ValueKey<String>('ChainsTreesStarter'),
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+        padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon),
         itemCount: chains.length,
         itemBuilder: (_, index){
 
