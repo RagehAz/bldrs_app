@@ -50,7 +50,7 @@ class ChainSonStarter extends StatelessWidget {
         sonWidth: sonWidth,
         parentLevel: parentLevel,
         color: _color,
-        isDisabled: false,
+        // isDisabled: false,
         onTap: () => onKeywordTap(_keywordID),
       );
 

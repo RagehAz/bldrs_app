@@ -9,7 +9,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// PROPERTY FORM
     SpecList(
         chainID: 'phid_s_propertyForm',
-        groupID: 'Main Specifications',
+        groupID: 'Main Specifications', /// TASK : TRANSLATE THIS
         canPickMany: false,
         isRequired: true,
         deactivators: <SpecDeactivator>[
