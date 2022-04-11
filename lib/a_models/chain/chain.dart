@@ -20,19 +20,20 @@ class Chain {
   final dynamic sons;
 // -----------------------------------------------------------------------------
 
+    void addPathSon({
+      @required dynamic son,
+      @required bool isLastSonInPath,
+    }) {
 
+      blog('addPathSon : adding son : $son : isLastSonInPath : $isLastSonInPath');
 
-    void addSon(dynamic son) {
-
-      blog('adding son : $son');
-
-      if (sonsAreChains(sons)){
+      if (isLastSonInPath == false){
         sons.add(son);
       }
 
-      else if (sonsAreStrings(sons)){
+      else {
         final bool _contains = Mapper.stringsContainString(
-          strings: sons,
+          strings: Mapper.getStringsFromDynamics(dynamics: sons),
           string: son,
         );
         if (_contains == false){
@@ -40,13 +41,13 @@ class Chain {
         }
       }
 
-      else if (sonsAreDataCreator(sons)){
-        // do nothing
-      }
-
-      else {
-        sons.add(son);
-      }
+      // else if (sonsAreDataCreator(sons)){
+      //   // do nothing
+      // }
+      //
+      // else {
+      //   sons.add(son);
+      // }
 
     }
 
@@ -233,8 +234,27 @@ class Chain {
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool sonsAreChains(dynamic sons){
-    final bool _areChains = sons is List<Chain>; // || sons is List<dynamic>;
+  static bool sonsAreChains(List<dynamic> sons){
+    bool _areChains = false; // || sons is List<dynamic>;
+
+    // if (Mapper.canLoopList(sons) == true){
+    //
+    //   if (sons is List<Chain>){
+    //     _areChains = true;
+    //   }
+    //
+    //   else if (sons.first is Chain){
+    //     _areChains = true;
+    //   }{
+    //     _areChains = false;
+    //   }
+    //
+    // }
+
+    if (sons.runtimeType.toString() == 'List<Chain>'){
+      _areChains = true;
+    }
+
     return _areChains;
   }
 // --------------------------------------------
@@ -254,7 +274,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool sonsAreStrings(dynamic sons){
+  static bool sonsAreStrings(List<dynamic> sons){
     final bool _areString = sons.runtimeType.toString() == 'List<String>';
     return _areString;
   }
@@ -285,13 +305,13 @@ class Chain {
 
     bool _sonsAreTheSame = false;
 
-    final bool sonsAisChains = sonsAreChains(chainA);
-    final bool sonsAisDataCreator = sonsAreDataCreator(chainA);
-    final bool sonsAIsStrings = sonsAreStrings(chainA);
+    final bool sonsAisChains = sonsAreChains(chainA.sons);
+    final bool sonsAisDataCreator = sonsAreDataCreator(chainA.sons);
+    final bool sonsAIsStrings = sonsAreStrings(chainA.sons);
 
-    final bool sonsBisChains = sonsAreChains(chainB);
-    final bool sonsBisDataCreator = sonsAreDataCreator(chainB);
-    final bool sonsBIsStrings = sonsAreStrings(chainB);
+    final bool sonsBisChains = sonsAreChains(chainB.sons);
+    final bool sonsBisDataCreator = sonsAreDataCreator(chainB.sons);
+    final bool sonsBIsStrings = sonsAreStrings(chainB.sons);
 
     if (
     sonsAisChains == sonsBisChains
@@ -440,7 +460,7 @@ class Chain {
   /// BLOGGERS
 
 // --------------------------------------------
-  static String _getChainTreeSpacing(int level){
+  static String getChainBlogTreeSpacing(int level){
 
     final String _space =
     level == 1 ? '-->' :
@@ -459,7 +479,7 @@ class Chain {
   int level = 0,
 }){
 
-      final String _space = _getChainTreeSpacing(level);
+      final String _space = getChainBlogTreeSpacing(level);
 
       // blog('sons run type is ${sons.runtimeType}');
 
@@ -469,15 +489,20 @@ class Chain {
         // blogChains(sons, level: level + 1);
       }
 
-      if (sonsAreStrings(sons)){
-        blog('$_space $level : $id : sonsStrings :  ${sons.toString()}');
+      else if (sonsAreStrings(sons)){
+        blog('$_space $level : $id : <String>${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
 
-      if (sonsAreChains(sons)){
+      else if (sonsAreChains(sons)){
         blog('$_space $level : $id :-');
         blogChains(sons, parentLevel: level);
       }
+
+      else {
+        blog('$_space $level : $id : sons dynamics :  ${sons.toString()}');
+      }
+
     }
 
     else {
@@ -488,15 +513,16 @@ class Chain {
 // --------------------------------------------
   static void blogChains(List<dynamic> chains, {int parentLevel = 0}){
 
-      final String _space = _getChainTreeSpacing(parentLevel);
+
+      final String _space = getChainBlogTreeSpacing(parentLevel);
 
     if (Mapper.canLoopList(chains) == true){
 
-      // int _count = 1;
+      int _count = 1;
       for (final dynamic chain in chains){
-        // blog('CHAIN : $_count / ${chains.length} chains');
+        // blog('--- --- --- --- --->>> BLOGGING CHAIN : $_count / ${chains.length} chains');
         chain.blogChain(level: parentLevel+1);
-        // _count++;
+        _count++;
       }
 
     }
@@ -853,6 +879,7 @@ class Chain {
     return _divisions;
   }
 // --------------------------------------------
+ /*
   static List<Chain> createChainsFromPaths(List<String> paths){
     final List<Chain> _chains = <Chain>[];
 
@@ -891,6 +918,7 @@ class Chain {
 
     return _chains;
   }
+  */
 // --------------------------------------------
   static bool phidIsAChainID({
     @required List<String> paths,
