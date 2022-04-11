@@ -9,10 +9,12 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
+import 'package:bldrs/xxx_lab/cleaning_space.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -188,9 +190,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 // );
                 //
                 // Chain.blogPaths(_paths);
-
-                blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-
+                //
+                // blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+                //
                 // final List<String> _found = Chain.findPathsContainingPhid(
                 //     paths: _paths,
                 //     phid: 'phid_k_sub_prd_walls_ceiling',
@@ -198,25 +200,29 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 //
                 // Chain.blogPaths(_found);
 
+                //
+                // const List<String> _constPaths = <String>[
+                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_dumper/',
+                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_tanker/',
+                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_mixer/',
+                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_roller/',
+                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_asphalt/',
+                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_slurry/',
+                // ];
+                //
+                // // final List<Chain> _generatedChains = Chain.createChainsFromPaths(_constPaths);
+                //
+                // final Map<String, dynamic> _map = Chain.chainMapFromPaths(carsPaths);
+                //
+                // blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+                //
+                //
+                // blogMap(_map);
+                // // Chain.blogChains(_generatedChains);
+                //
+                // blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
 
-                const List<String> _constPaths = <String>[
-                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/',
-                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_dumper/',
-                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_tanker/',
-                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_mixer/',
-                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/',
-                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_roller/',
-                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_asphalt/',
-                  'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_slurry/',
-                ];
-
-                final List<Chain> _generatedChains = Chain.createChainsFromPaths(_constPaths);
-
-                blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-
-                Chain.blogChains(_generatedChains);
-
-                blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+                khaled();
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
