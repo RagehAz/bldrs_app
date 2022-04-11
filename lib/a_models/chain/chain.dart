@@ -20,6 +20,38 @@ class Chain {
   final dynamic sons;
 // -----------------------------------------------------------------------------
 
+
+
+    void addSon(dynamic son) {
+
+      blog('adding son : $son');
+
+      if (sonsAreChains(sons)){
+        sons.add(son);
+      }
+
+      else if (sonsAreStrings(sons)){
+        final bool _contains = Mapper.stringsContainString(
+          strings: sons,
+          string: son,
+        );
+        if (_contains == false){
+          sons.add(son);
+        }
+      }
+
+      else if (sonsAreDataCreator(sons)){
+        // do nothing
+      }
+
+      else {
+        sons.add(son);
+      }
+
+    }
+
+// -----------------------------------------------------------------------------
+
   /// CYPHERS
 
 // --------------------------------------------
@@ -202,7 +234,7 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool sonsAreChains(dynamic sons){
-    final bool _areChains = sons is List<Chain>;
+    final bool _areChains = sons is List<Chain>; // || sons is List<dynamic>;
     return _areChains;
   }
 // --------------------------------------------
@@ -210,7 +242,14 @@ class Chain {
   static bool sonsAreDataCreator(dynamic sons){
     final bool _sonsAreChain = sonsAreChains(sons);
     final bool _sonsAreStrings = sonsAreStrings(sons);
-    final bool _areDataCreator = _sonsAreChain == false && _sonsAreStrings == false;
+    final bool _sonsAreDynamics = sons is List<dynamic>;
+    final bool _areDataCreator =
+            _sonsAreChain == false
+            &&
+            _sonsAreStrings == false
+            &&
+            _sonsAreDynamics == false;
+
     return _areDataCreator;
   }
 // --------------------------------------------
@@ -401,20 +440,43 @@ class Chain {
   /// BLOGGERS
 
 // --------------------------------------------
-  void blogChain(){
+  static String _getChainTreeSpacing(int level){
+
+    final String _space =
+    level == 1 ? '-->' :
+    level == 2 ? '---->' :
+    level == 3 ? '------>' :
+    level == 4 ? '-------->' :
+    level == 5 ? '---------->' :
+    level == 6 ? '------------>' :
+    level == 7 ? '-------------->' :
+    '---------------->';
+
+    return _space;
+  }
+// --------------------------------------------
+  void blogChain({
+  int level = 0,
+}){
+
+      final String _space = _getChainTreeSpacing(level);
+
+      // blog('sons run type is ${sons.runtimeType}');
 
     if (id != null){
       if (sonsAreDataCreator(sons)){
-        blog('Chain : $id : icon : $icon : sons :  $sons');
+        blog('$_space $level : $id : sonsDataCreator :  ${sons.toString()}');
+        // blogChains(sons, level: level + 1);
       }
 
       if (sonsAreStrings(sons)){
-        blog('Chain : $id : icon : $icon : sons :  $sons');
+        blog('$_space $level : $id : sonsStrings :  ${sons.toString()}');
+        // blogChains(sons, level: level + 1);
       }
 
       if (sonsAreChains(sons)){
-        blog('Chain : $id : icon : $icon : sons :-');
-        blogChains(sons);
+        blog('$_space $level : $id :-');
+        blogChains(sons, parentLevel: level);
       }
     }
 
@@ -424,20 +486,22 @@ class Chain {
 
   }
 // --------------------------------------------
-  static void blogChains(List<Chain> chains){
+  static void blogChains(List<dynamic> chains, {int parentLevel = 0}){
+
+      final String _space = _getChainTreeSpacing(parentLevel);
 
     if (Mapper.canLoopList(chains) == true){
 
-      int _count = 1;
-      for (final Chain chain in chains){
-        blog('CHAIN : $_count / ${chains.length} chains');
-        chain.blogChain();
-        _count++;
+      // int _count = 1;
+      for (final dynamic chain in chains){
+        // blog('CHAIN : $_count / ${chains.length} chains');
+        chain.blogChain(level: parentLevel+1);
+        // _count++;
       }
 
     }
     else {
-      blog('NOTHING IN CHAINS FOUND');
+      blog('$_space $parentLevel : NOTHING IN CHAINS FOUND');
     }
 
   }
@@ -652,9 +716,10 @@ class Chain {
 
     if (chain != null){
 
-      /// CHAIN ID PATH
-      final _chainPath = '$previousPath${chain.id}/';
-      _allPaths.add(_chainPath);
+      /// CAUTION : DO NO INCLUDE CHAINS IDS PATHS, INCLUDE ONLY SONS PATHS
+      // /// CHAIN ID PATH
+      // final _chainPath = '$previousPath${chain.id}/';
+      // _allPaths.add(_chainPath);
 
       /// SONS PATHS
       if (sonsAreStrings(chain.sons) == true){
@@ -774,6 +839,20 @@ class Chain {
   /// CHAINS PATHS FINDERS
 
 // --------------------------------------------
+  static List<String> _createPathDivisions(String path){
+
+    List<String> _divisions = <String>[];
+
+    if (stringIsNotEmpty(path) == true){
+
+      final String _cleaned = removeTextAfterLastSpecialCharacter(path, '/');
+      _divisions = _cleaned.split('/').toList();
+
+    }
+
+    return _divisions;
+  }
+// --------------------------------------------
   static List<Chain> createChainsFromPaths(List<String> paths){
     final List<Chain> _chains = <Chain>[];
 
@@ -781,22 +860,21 @@ class Chain {
 
       for (final String path in paths){
 
-        final String _cleaned = removeTextAfterLastSpecialCharacter(path, '/');
-        final List<String> _divided = _cleaned.split('/').toList();
+        final List<String> _divided = _createPathDivisions(path);
 
         blog(_divided);
 
-        for (final String phid in _divided){
+        for (final String division in _divided){
 
           final bool _phidIsAChainID = phidIsAChainID(
             paths: paths,
-            phid: phid,
+            phid: division,
           );
 
-          // blog('_phidIsAChainID : $phid : $_phidIsAChainID');
+          // blog('_phidIsAChainID : $division : $_phidIsAChainID');
 
           final Chain _chain = Chain(
-            id: phid,
+            id: division,
             icon: null,
             sons: [],
           );
@@ -813,13 +891,13 @@ class Chain {
 
     return _chains;
   }
-
+// --------------------------------------------
   static bool phidIsAChainID({
     @required List<String> paths,
     @required String phid,
 }){
 
-    /// when paths include this phid more than once
+    /// when paths include this phid more than once => its a chain
     bool _isChainID = false;
 
     if (Mapper.canLoopList(paths) && phid != null){
@@ -836,6 +914,128 @@ class Chain {
     }
 
     return _isChainID;
+  }
+
+  static Chain insertPathIntoChain({
+    @required Chain chain,
+    @required String path,
+}){
+
+    // final Chain _chain = chain ?? Chain
+
+  }
+  static Chain createChainByPath(String path){
+
+    if (stringIsNotEmpty(path) == true){
+
+      final List<String> _divisions = _createPathDivisions(path);
+
+      if (Mapper.canLoopList(_divisions) == true){
+
+        final int _numberOfPhids = _divisions.length;
+
+        for (int i = 0; i< _numberOfPhids; i++){
+
+          final String _id = _divisions[i];
+
+          /// if last phid => the keyword ID
+          if (i == _numberOfPhids - 1){
+            final List<String> _stringsSons = <String>[_id];
+          }
+
+          /// if previouse phids => the chains IDs
+          else {
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  static Map<String, dynamic> chainMapFromPaths(List<String> paths){
+    Map<String, dynamic> _map = {};
+
+    if (Mapper.canLoopList(paths) == true){
+
+      for (final String path in paths){
+
+        final List<String> _phids = _createPathDivisions(path);
+
+        for (int i = 0; i < _phids.length; i++){
+
+          // final int level = i;
+          final int _lastIndex = _phids.length - 1;
+          final String phid = _phids[i];
+
+          /// if at parents indexes
+          // if (i != _lastIndex){
+
+            if (i == 0){
+              // cars
+              _map[phid] = _lastIndex == 1 ? <String>[_phids[1]] : {};
+            }
+            else if (i == 1){
+              // sports
+              _map[_phids[0]][_phids[1]] = _lastIndex == 2 ? <String>[_phids[2]] : {};
+            }
+            else if (i == 2){
+              // ferrari
+              _map[_phids[0]][_phids[1]][_phids[2]] = _lastIndex == 3 ? <String>[_phids[3]] : {};
+            }
+            else if (i == 3){
+              // comp - corvette
+              _map[_phids[0]][_phids[1]][_phids[2]][_phids[3]] = _lastIndex == 4 ? <String>[_phids[4]] : {};
+            }
+            else if (i == 4){
+              _map[_phids[0]][_phids[1]][_phids[2]][_phids[3]][_phids[4]] = _lastIndex == 5 ? <String>[_phids[5]] : {};
+            }
+            else if (i == 5){
+              _map[_phids[0]][_phids[1]][_phids[2]][_phids[3]][_phids[4]][_phids[5]] = _lastIndex == 6 ? <String>[_phids[6]] : {};
+            }
+
+
+          // }
+
+          // /// if at last index
+          // else {
+          //
+          // }
+
+          /*
+
+          map = {
+
+            }
+
+           */
+
+        }
+
+      }
+
+    }
+
+    return _map;
+  }
+
+  Chain _createChainWithChainSons(String chainID){
+    return Chain(
+      id: chainID,
+      icon: null,
+      sons: <Chain>[],
+    );
+  }
+
+  Chain _createChainWithStringsSons(String chainID){
+    return Chain(
+      id: chainID,
+      icon: null,
+      sons: <String>[],
+    );
   }
 // -----------------------------------------------------------------------------
 
