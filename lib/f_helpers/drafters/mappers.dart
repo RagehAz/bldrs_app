@@ -60,6 +60,8 @@ List<String> getStringsFromDynamics({
     }
   }
 
+  blog('getStringsFromDynamics : _strings : $_strings');
+
   return _strings;
 }
 // -------------------------------------
@@ -139,6 +141,31 @@ List<String> removeStringsFromStrings({
       }
 
     }
+  }
+
+  return _output;
+}
+// -------------------------------------
+List<String> putStringInStringsIfAbsent({
+  @required List<String> strings,
+  @required String string,
+}){
+
+  List<String> _output = <String>[];
+
+  if (canLoopList(strings) == true){
+
+    _output = <String>[...strings];
+
+    final bool _contains = stringsContainString(
+        strings: strings,
+        string: string,
+    );
+
+    if (_contains == false){
+      _output.add(string);
+    }
+
   }
 
   return _output;
