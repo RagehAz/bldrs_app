@@ -129,8 +129,33 @@ void main() {
   });
 // -----------------------------------------------------------------------------
   test('Mapper.listsAreTheSame', () {
-    final List<String> _list1 = <String>['1', '2', '3'];
-    final List<String> _list2 = <String>['1', '2', '3'];
+
+    final List<String> _list1 = <String>[
+      'cars/sport/ferrari/Competizione/',
+      'cars/sport/ferrari/Monza/',
+      'cars/sport/chevrolet/corvette',
+      'cars/4wheel/jeep/wrangler/',
+      'cars/4wheel/hummer/h2/',
+      'cars/4wheel/hummer/h3/',
+      'bikes/race/honda/CBR/',
+      'bikes/race/honda/KOKO/',
+      'bikes/cruiser/harley/sportster/',
+      'bikes/cruiser/harley/DAVIDSON/',
+      'bikes/city/harley/bobo/',
+    ];
+    final List<String> _list2 = <String>[
+      'cars/sport/ferrari/Competizione/',
+      'cars/sport/ferrari/Monza/',
+      'cars/sport/chevrolet/corvette/',
+      'cars/4wheel/jeep/wrangler/',
+      'cars/4wheel/hummer/h2/',
+      'cars/4wheel/hummer/h3/',
+      'bikes/race/honda/CBR/',
+      'bikes/race/honda/KOKO/',
+      'bikes/cruiser/harley/sportster/',
+      'bikes/cruiser/harley/DAVIDSON/',
+      'bikes/city/harley/bobo/',
+    ];
 
     final bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
 
