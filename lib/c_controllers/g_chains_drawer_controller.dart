@@ -9,6 +9,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -117,42 +118,21 @@ Future<void> onSearchChanged({
 
   // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
 
-  /// A - not searching
-  if (isSearching.value == false) {
-
-    /// A.1 starts searching
-    if (text.length > 1) {
-      isSearching.value = true;
-    }
-
-  }
-
-  /// B - while searching
-  else {
-
-    /// B.1 ends searching
-    if (text.length < 3) {
-      isSearching.value = false;
-      _clearSearchResult(
-          foundChains: foundChains,
-          foundPhids: foundPhids
-      );
-    }
-
-    /// B.2 keeps searching
-    else {
-
-      await onSearchKeywords(
-        context: context,
-        foundPhids: foundPhids,
+  triggerIsSearchingNotifier(
+    text: text,
+    isSearching: isSearching,
+    onResume: () => onSearchKeywords(
+      context: context,
+      foundPhids: foundPhids,
+      foundChains: foundChains,
+      isSearching: isSearching,
+      text: text,
+    ),
+    onSwitchOff: () => _clearSearchResult(
         foundChains: foundChains,
-        isSearching: isSearching,
-        text: text,
-      );
-
-    }
-
-  }
+        foundPhids: foundPhids
+    ),
+  );
 
 }
 // --------------------------------------------

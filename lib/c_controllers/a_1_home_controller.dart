@@ -110,18 +110,18 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   await _flyersProvider.getSetPromotedFlyers(context);
 
   /// OPEN FIRST PROMOTED FLYER IF POSSIBLE
-  final List<FlyerModel> _promotedFlyers = _flyersProvider.promotedFlyers;
-  if (Mapper.canLoopList(_promotedFlyers)){
-    await Future.delayed(Ratioz.duration150ms, () async {
-
-      unawaited(Nav.openFlyer(
-        context: context,
-        flyer: _flyersProvider.promotedFlyers[0],
-        isSponsored: true,
-      ));
-
-    });
-  }
+  // final List<FlyerModel> _promotedFlyers = _flyersProvider.promotedFlyers;
+  // if (Mapper.canLoopList(_promotedFlyers)){
+  //   await Future.delayed(Ratioz.duration150ms, () async {
+  //
+  //      unawaited(Nav.openFlyer(
+  //        context: context,
+  //        flyer: _flyersProvider.promotedFlyers[0],
+  //        isSponsored: true,
+  //      ));
+  //
+  //   });
+  // }
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeSavedFlyers(BuildContext context) async {
