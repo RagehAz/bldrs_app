@@ -3,8 +3,6 @@ import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
 
 class Chain {
@@ -25,7 +23,7 @@ class Chain {
       @required bool isLastSonInPath,
     }) {
 
-      blog('addPathSon : adding son : $son : isLastSonInPath : $isLastSonInPath');
+      // blog('addPathSon : adding son : $son : isLastSonInPath : $isLastSonInPath');
 
       if (isLastSonInPath == false){
         sons.add(son);
@@ -234,7 +232,7 @@ class Chain {
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool sonsAreChains(List<dynamic> sons){
+  static bool sonsAreChains(dynamic sons){
     bool _areChains = false; // || sons is List<dynamic>;
 
     // if (Mapper.canLoopList(sons) == true){
@@ -274,7 +272,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool sonsAreStrings(List<dynamic> sons){
+  static bool sonsAreStrings(dynamic sons){
     final bool _areString = sons.runtimeType.toString() == 'List<String>';
     return _areString;
   }
@@ -368,6 +366,7 @@ class Chain {
               chainA: chainsA[i],
               chainB: chainsB[i],
           );
+          blog('( ${chainsA[i].id} ) <=> ( ${chainsB[i].id} ) : are the same : $_twoChainsAreTheSame');
 
           if (_twoChainsAreTheSame == false){
             _listsAreTheSame = false;
@@ -460,6 +459,7 @@ class Chain {
   /// BLOGGERS
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getChainBlogTreeSpacing(int level){
 
     final String _space =
@@ -514,19 +514,19 @@ class Chain {
   static void blogChains(List<dynamic> chains, {int parentLevel = 0}){
 
 
-      final String _space = getChainBlogTreeSpacing(parentLevel);
 
     if (Mapper.canLoopList(chains) == true){
 
       int _count = 1;
       for (final dynamic chain in chains){
         // blog('--- --- --- --- --->>> BLOGGING CHAIN : $_count / ${chains.length} chains');
-        chain.blogChain(level: parentLevel+1);
+        chain?.blogChain(level: parentLevel+1);
         _count++;
       }
 
     }
     else {
+      final String _space = getChainBlogTreeSpacing(parentLevel);
       blog('$_space $parentLevel : NOTHING IN CHAINS FOUND');
     }
 
@@ -692,192 +692,10 @@ class Chain {
 }
 // -----------------------------------------------------------------------------
 
-/// CHAINS PATHS GENERATORS
-
-// --------------------------------------------
-  /*
-//   static List<String> generatePhidChainPath({
-//     @required String phid,
-//     @required List<Chain> allChains,
-// }){
-//     final List<String> _paths = <String>[];
-//
-//     if (
-//     Mapper.canLoopList(allChains)
-//     &&
-//     phid != null
-//     ){
-//
-//       final bool _chainsIncludeThisPhid = chainsIncludeThisPhid(
-//           chains: allChains,
-//           phid: phid
-//       );
-//
-//       /// CHAINS INCLUDE THIS PHID
-//       if (_chainsIncludeThisPhid == true){
-//
-//         /// PATH IF CHAIN ID
-//
-//         /// OTHERWISE SEARCH SONS
-//
-//       }
-//
-//       // /// CHAINS DO NOT INCLUDE PHID
-//       // else {
-//       //
-//       // }
-//
-//     }
-//
-//     return _paths;
-//   }
-   */
-// --------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> generateChainPaths({
-    @required Chain chain,
-    String previousPath = '', // ...xx/
-  }){
-    final List<String> _allPaths = <String>[];
-
-    if (chain != null){
-
-      /// CAUTION : DO NO INCLUDE CHAINS IDS PATHS, INCLUDE ONLY SONS PATHS
-      // /// CHAIN ID PATH
-      // final _chainPath = '$previousPath${chain.id}/';
-      // _allPaths.add(_chainPath);
-
-      /// SONS PATHS
-      if (sonsAreStrings(chain.sons) == true){
-
-        final List<String> _sons = chain.sons;
-
-        final List<String> _sonsPaths = _generateChainPathsFromStringsSons(
-          parentID: chain.id,
-          sons: _sons,
-          previousPath: previousPath,
-        );
-
-        _allPaths.addAll(_sonsPaths);
-      }
-
-      if (sonsAreChains(chain.sons) == true){
-
-        final List<Chain> _sons = chain.sons;
-
-        final List<String> _sonsPaths = generateChainsPaths(
-          parentID: chain.id,
-          chains: _sons,
-          previousPath: previousPath,
-        );
-
-        _allPaths.addAll(_sonsPaths);
-
-      }
-
-    }
-
-    return _allPaths;
-  }
-// --------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> _generateChainPathsFromStringsSons({
-    @required String parentID,
-    @required List<String> sons,
-    String previousPath = '', // ...xx/
-}){
-
-    final List<String> _paths = <String>[];
-
-    if (Mapper.canLoopList(sons) == true && parentID != null){
-
-      for (final String son in sons){
-
-        _paths.add('$previousPath$parentID/$son/');
-
-      }
-
-    }
-
-    return _paths;
-  }
-// --------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> generateChainsPaths({
-    @required String parentID,
-    @required List<Chain> chains,
-    String previousPath = '', // ...xxx/
-}){
-    final List<String> _allPaths = <String>[];
-
-    if (Mapper.canLoopList(chains) == true && parentID != null){
-
-      for (final Chain sonChain in chains){
-
-        final String _parentID = stringIsEmpty(parentID) ? '' : '$parentID/';
-
-        final List<String> _paths = generateChainPaths(
-          chain : sonChain,
-          previousPath: '$previousPath$_parentID',
-        );
-
-        _allPaths.addAll(_paths);
-
-      }
-
-    }
-
-    return _allPaths;
-}
-// -----------------------------------------------------------------------------
-
-/// CHAINS PATHS FINDERS
-
-// --------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> findPathsContainingPhid({
-    @required List<String> paths,
-    @required String phid,
-  }){
-    final List<String> _foundPaths = <String>[];
-
-    if (Mapper.canLoopList(paths) && phid != null){
-
-      for (final String path in paths){
-
-        final bool _containsSubString = stringContainsSubString(
-          string: path,
-          subString: phid,
-        );
-
-        if (_containsSubString == true){
-          _foundPaths.add(path);
-        }
-
-      }
-
-    }
-
-    return _foundPaths;
-  }
-// -----------------------------------------------------------------------------
 
   /// CHAINS PATHS FINDERS
 
 // --------------------------------------------
-  static List<String> _createPathDivisions(String path){
-
-    List<String> _divisions = <String>[];
-
-    if (stringIsNotEmpty(path) == true){
-
-      final String _cleaned = removeTextAfterLastSpecialCharacter(path, '/');
-      _divisions = _cleaned.split('/').toList();
-
-    }
-
-    return _divisions;
-  }
 // --------------------------------------------
  /*
   static List<Chain> createChainsFromPaths(List<String> paths){
@@ -920,168 +738,7 @@ class Chain {
   }
   */
 // --------------------------------------------
-  static bool phidIsAChainID({
-    @required List<String> paths,
-    @required String phid,
-}){
 
-    /// when paths include this phid more than once => its a chain
-    bool _isChainID = false;
-
-    if (Mapper.canLoopList(paths) && phid != null){
-
-      final List<String> _pathsContainingPhid = findPathsContainingPhid(
-          paths: paths,
-          phid: phid,
-      );
-
-      if (_pathsContainingPhid.length > 1){
-        _isChainID = true;
-      }
-
-    }
-
-    return _isChainID;
-  }
-
-  static Chain insertPathIntoChain({
-    @required Chain chain,
-    @required String path,
-}){
-
-    // final Chain _chain = chain ?? Chain
-
-  }
-  static Chain createChainByPath(String path){
-
-    if (stringIsNotEmpty(path) == true){
-
-      final List<String> _divisions = _createPathDivisions(path);
-
-      if (Mapper.canLoopList(_divisions) == true){
-
-        final int _numberOfPhids = _divisions.length;
-
-        for (int i = 0; i< _numberOfPhids; i++){
-
-          final String _id = _divisions[i];
-
-          /// if last phid => the keyword ID
-          if (i == _numberOfPhids - 1){
-            final List<String> _stringsSons = <String>[_id];
-          }
-
-          /// if previouse phids => the chains IDs
-          else {
-
-          }
-
-        }
-
-      }
-
-    }
-
-  }
-
-  static Map<String, dynamic> chainMapFromPaths(List<String> paths){
-    Map<String, dynamic> _map = {};
-
-    if (Mapper.canLoopList(paths) == true){
-
-      for (final String path in paths){
-
-        final List<String> _phids = _createPathDivisions(path);
-
-        for (int i = 0; i < _phids.length; i++){
-
-          // final int level = i;
-          final int _lastIndex = _phids.length - 1;
-          final String phid = _phids[i];
-
-          /// if at parents indexes
-          // if (i != _lastIndex){
-
-            if (i == 0){
-              // cars
-              _map[phid] = _lastIndex == 1 ? <String>[_phids[1]] : {};
-            }
-            else if (i == 1){
-              // sports
-              _map[_phids[0]][_phids[1]] = _lastIndex == 2 ? <String>[_phids[2]] : {};
-            }
-            else if (i == 2){
-              // ferrari
-              _map[_phids[0]][_phids[1]][_phids[2]] = _lastIndex == 3 ? <String>[_phids[3]] : {};
-            }
-            else if (i == 3){
-              // comp - corvette
-              _map[_phids[0]][_phids[1]][_phids[2]][_phids[3]] = _lastIndex == 4 ? <String>[_phids[4]] : {};
-            }
-            else if (i == 4){
-              _map[_phids[0]][_phids[1]][_phids[2]][_phids[3]][_phids[4]] = _lastIndex == 5 ? <String>[_phids[5]] : {};
-            }
-            else if (i == 5){
-              _map[_phids[0]][_phids[1]][_phids[2]][_phids[3]][_phids[4]][_phids[5]] = _lastIndex == 6 ? <String>[_phids[6]] : {};
-            }
-
-
-          // }
-
-          // /// if at last index
-          // else {
-          //
-          // }
-
-          /*
-
-          map = {
-
-            }
-
-           */
-
-        }
-
-      }
-
-    }
-
-    return _map;
-  }
-
-  Chain _createChainWithChainSons(String chainID){
-    return Chain(
-      id: chainID,
-      icon: null,
-      sons: <Chain>[],
-    );
-  }
-
-  Chain _createChainWithStringsSons(String chainID){
-    return Chain(
-      id: chainID,
-      icon: null,
-      sons: <String>[],
-    );
-  }
 // -----------------------------------------------------------------------------
-
-  /// CHAINS PATHS BLOGGER
-
-// --------------------------------------------
-  static void blogPaths(List<String> paths){
-
-    if (Mapper.canLoopList(paths) == true){
-      for (final String string in paths){
-        blog('path : $string');
-      }
-    }
-    else {
-      blog('ALERT : paths are empty');
-    }
-
-}
-// --------------------------------------------
 
 }

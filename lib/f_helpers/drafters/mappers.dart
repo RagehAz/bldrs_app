@@ -60,7 +60,7 @@ List<String> getStringsFromDynamics({
     }
   }
 
-  blog('getStringsFromDynamics : _strings : $_strings');
+  // blog('getStringsFromDynamics : _strings : $_strings');
 
   return _strings;
 }
@@ -164,6 +164,26 @@ List<String> putStringInStringsIfAbsent({
 
     if (_contains == false){
       _output.add(string);
+    }
+
+  }
+
+  return _output;
+}
+
+List<String> cleanDuplicateStrings({
+  @required List<String> strings,
+}){
+  final List<String> _output = <String>[];
+
+  if (canLoopList(strings) == true){
+
+    for (final String string in strings){
+
+      if (_output.contains(string) == false){
+        _output.add(string);
+      }
+
     }
 
   }
@@ -533,6 +553,9 @@ bool listsAreTheSame({
   else if (canLoopList(list1) == true && canLoopList(list2) == true){
 
     if (list1.length != list2.length) {
+      blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
+      blog(' ---> lis1 is ( ${list1.toString()} )');
+      blog(' ---> lis2 is ( ${list2.toString()} )');
       listsAreTheSame = false;
     }
 
@@ -540,6 +563,7 @@ bool listsAreTheSame({
       for (int i = 0; i < list1.length; i++) {
 
         if (list1[i] != list2[i]) {
+          blog('items at index ( $i ) do not match : ( ${list1[i]} ) <=> ( ${list2[i]} )');
           listsAreTheSame = false;
           break;
         }
