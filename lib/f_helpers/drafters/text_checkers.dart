@@ -331,15 +331,18 @@ void triggerIsSearchingNotifier({
   @required String text,
   @required ValueNotifier<bool> isSearching,
   int minCharLimit = 3,
+  Function onSwitchOff,
+  Function onResume,
 }){
 
   if (text.length >= minCharLimit){
 
     isSearching.value = true;
-
+    onResume();
   }
   else {
     isSearching.value = false;
+    onSwitchOff();
   }
 
 }

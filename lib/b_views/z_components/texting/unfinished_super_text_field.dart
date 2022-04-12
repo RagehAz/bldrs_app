@@ -42,7 +42,6 @@ class SuperTextField extends StatefulWidget {
     this.onMaxLinesReached,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final TextInputType keyboardTextInputType;
   final Color inputColor;
@@ -76,11 +75,9 @@ class SuperTextField extends StatefulWidget {
   final ValueChanged<String> onSubmitted;
   final bool autofocus;
   final Function onMaxLinesReached;
-
   /// --------------------------------------------------------------------------
   @override
   _SuperTextFieldState createState() => _SuperTextFieldState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -90,58 +87,50 @@ class _SuperTextFieldState extends State<SuperTextField> {
   void initState() {
     super.initState();
 
-    // widget.textController = widget.textController ;
-    _textDirection.value = superTextDirectionSwitcher(widget.textController?.text);
+    final TextDirection _initialTextDirection = superTextDirectionSwitcher(widget.textController?.text);
+    _textDirection = ValueNotifier(_initialTextDirection);
   }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose(){
+  super.dispose();
 
-  // @override
-  // void dispose(){
-  //   _innerController.dispose();
-  // super.dispose();
-  // }
-
+  }
 // -----------------------------------------------------------------------------
   /// --- TEXT DIRECTION BLOCK
   /// USE LIKE THIS :-
   /// onChanged: (val){_changeTextDirection();},
-  final ValueNotifier<TextDirection> _textDirection = ValueNotifier(null);
+  ValueNotifier<TextDirection> _textDirection;
   void _changeTextDirection(String val) {
 
     _textDirection.value = superTextDirectionSwitcher(val);
 
   }
-
 // -----------------------------------------------------------------------------
   bool _autoFocusCheck() {
     final bool _isOn = widget.autofocus ?? false;
     return _isOn;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     const Color _boxColor = Colorz.nothing;
     const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
     const double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
     /// --- AVAILABLE FONT SIZES -----------------------------------------------
     final int _size = widget.inputSize;
-
     /// takes values from 0 to 8 in the entire app
     final double _verseSize = SuperVerse.superVerseSizeValue(context, _size, _scalingFactor);
-
     /// --- AVAILABLE FONT WEIGHTS -----------------------------------------------
     final VerseWeight _weight = widget.inputWeight;
     final FontWeight _verseWeight = SuperVerse.superVerseWeight(_weight);
-
     /// --- AVAILABLE FONTS -----------------------------------------------
     final String _verseFont = SuperVerse.superVerseFont(context, _weight);
-
     /// --- LETTER SPACING -----------------------------------------------
     final double _verseLetterSpacing = SuperVerse.superVerseLetterSpacing(_weight, _verseSize);
-
     /// --- WORD SPACING -----------------------------------------------
     final double _verseWordSpacing = SuperVerse.superVerseWordSpacing(_verseSize);
-
     /// --- SHADOWS -----------------------------------------------
     final bool _shadow = widget.inputShadow;
     // const double _shadowBlur = 0;
@@ -149,27 +138,34 @@ class _SuperTextFieldState extends State<SuperTextField> {
     final double _shadowXOffset = SuperVerse.superVerseXOffset(_weight, _verseSize);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
     final Color _leftShadow = widget.inputColor == Colorz.black230 ?
-    Colorz.white125 : Colorz.black230;
-
+    Colorz.white125
+        :
+    Colorz.black230;
     final Color _rightShadow = widget.inputColor == Colorz.black230 ?
-    Colorz.white80 : Colorz.white20;
-
+    Colorz.white80
+        :
+    Colorz.white20;
     /// --- ITALIC -----------------------------------------------
-    final FontStyle _verseStyle = widget.italic == true ? FontStyle.italic : FontStyle.normal;
-
+    final FontStyle _verseStyle = widget.italic == true ?
+    FontStyle.italic
+        :
+    FontStyle.normal;
     /// --- VERSE BOX MARGIN -----------------------------------------------
     // double _margin = margin == null ? 0 : margin;
-
     /// --- LABEL CORNERS -----------------------------------------------
     final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, _size);
     final double _labelCorner = widget.labelColor == Colorz.nothing ?
-    0 : widget.corners ?? _labelCornerValues;
-
+    0
+        :
+    widget.corners ?? _labelCornerValues;
     /// --- LABEL PADDINGS -----------------------------------------------
     final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, _size);
-// -----------------------------------------------------------------------------
-    final double _sidePaddings = widget.labelColor == Colorz.nothing ? 0 : _sidePaddingValues;
-// -----------------------------------------------------------------------------
+    /// --------------------------------------------------------------------
+    final double _sidePaddings = widget.labelColor == Colorz.nothing ?
+    0
+        :
+    _sidePaddingValues;
+    /// --------------------------------------------------------------------
     TextStyle superTextStyle(Color textColor, double sizeFactor) {
       return TextStyle(
           backgroundColor: _boxColor,
@@ -194,7 +190,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
             )
           ]);
     }
-
 // -----------------------------------------------------------------------------
     TextStyle superHintStyle(Color _textColor, double _sizeFactor) {
       return TextStyle(
@@ -211,13 +206,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
         shadows: const <Shadow>[],
       );
     }
-
-// -----------------------------------------------------------------------------
-    final TextDirection _concludedTextDirection = concludeTextDirection(
-      context: context,
-      definedDirection: widget.textDirection,
-      detectedDirection: _textDirection.value,
-    );
 // -----------------------------------------------------------------------------
     final InputDecoration _inputDecoration = InputDecoration(
       hintText: widget.hintText,
@@ -264,6 +252,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     final int _maxLines = widget.obscured == true ? 1 : widget.maxLines;
 // -----------------------------------------------------------------------------
     void _onChanged(String val) {
+
       if (val != null) {
         _changeTextDirection(val);
 
@@ -274,13 +263,20 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
 // -----------------------------------------------------------------------------
 
-    final MaxLengthEnforcement _maxLengthEnforced = widget.counterIsOn == true
-        ? MaxLengthEnforcement.enforced
-        : MaxLengthEnforcement.none;
+    final MaxLengthEnforcement _maxLengthEnforced = widget.counterIsOn == true ?
+    MaxLengthEnforcement.enforced
+        :
+    MaxLengthEnforcement.none;
 
     return ValueListenableBuilder(
         valueListenable: _textDirection,
         builder: (_, TextDirection textDirection, Widget child){
+
+          final TextDirection _concludedTextDirection = concludeTextDirection(
+            context: context,
+            definedDirection: widget.textDirection,
+            detectedDirection: textDirection,
+          );
 
           /// TEXT FORM FIELD -------------------------------
           if (widget.fieldIsFormField == true){
@@ -294,7 +290,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
               alignment: Alignment.topCenter,
               child: TextFormField(
                 key: widget.key,
-
                 // initialValue: widget.initialValue,
                 controller: widget.textController,
                 textInputAction: widget.keyboardTextInputAction,
