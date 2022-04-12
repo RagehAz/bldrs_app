@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
