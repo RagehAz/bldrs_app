@@ -103,7 +103,7 @@ class ChainViewSearching extends StatelessWidget {
                                 child: ChainSonButton(
                                   sonWidth: bubbleWidth,
                                   phid: _phidk,
-                                  isDisabled: false,
+                                  // isDisabled: false,
                                   parentLevel: 2,
                                   onTap: (){
                                     blog(_phidk);
