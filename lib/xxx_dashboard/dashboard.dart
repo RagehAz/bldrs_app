@@ -84,7 +84,7 @@ class _DashBoardState extends State<DashBoard> {
           ),
 
           WideButton(
-            verse: 'Keywords Manager',
+            verse: 'Chains Manager',
             icon: Iconz.keyword,
             onTap: () => Nav.goToNewScreen(context, const ChainsManagerScreen()),
           ),

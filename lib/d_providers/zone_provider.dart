@@ -186,7 +186,7 @@ class ZoneProvider extends ChangeNotifier {
         List<CityModel> _foundCities;
 
         /// B-1 - trial 2 search ldb
-        final List<Map<String, dynamic>> _ldbCitiesMaps = await LDBOps.searchTrigram(
+        final List<Map<String, dynamic>> _ldbCitiesMaps = await LDBOps.searchLDBDocTrigram(
           searchValue: cityName,
           docName: LDBDoc.cities,
           lingoCode: lingoCode,

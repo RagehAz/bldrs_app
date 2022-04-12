@@ -183,14 +183,16 @@ class Sembast  {
   static Future<List<Map<String, Object>>> search({
     @required String fieldToSortBy,
     @required String searchField,
+    @required bool fieldIsList,
     @required dynamic searchValue,
     @required String docName,
   }) async {
+
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
     final Finder _finder = Finder(
-      filter: Filter.equals(searchField, searchValue, anyInList: true),
+      filter: Filter.equals(searchField, searchValue, anyInList: fieldIsList),
       sortOrders: <SortOrder>[SortOrder(fieldToSortBy)],
     );
 
@@ -200,8 +202,16 @@ class Sembast  {
       finder: _finder,
     );
 
-    final List<Map<String, Object>> _maps = _recordSnapshots
-        .map((RecordSnapshot<int, Map<String, Object>> snapshot) {
+    // blog('fieldToSortBy : $fieldToSortBy');
+    // blog('searchField : $searchField');
+    // blog('searchValue : $searchValue');
+    // blog('docName : $docName');
+    // blog('_doc : $_doc');
+    // blog('_db : $_db');
+    // blog('_finder : $_finder');
+    // blog('_recordSnapshots : $_recordSnapshots');
+
+    final List<Map<String, Object>> _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
       return snapshot.value;
     }).toList();
 

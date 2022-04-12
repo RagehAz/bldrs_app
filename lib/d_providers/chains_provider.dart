@@ -1,7 +1,9 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
@@ -56,6 +58,7 @@ class ChainsProvider extends ChangeNotifier {
   /// FETCHING CHAINS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<Chain> fetchKeywordsChain(BuildContext context) async {
 
     Chain _keywordsChain;
@@ -92,6 +95,7 @@ class ChainsProvider extends ChangeNotifier {
     return _keywordsChain;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<Chain> fetchSpecsChain(BuildContext context) async {
 
     Chain _specsChain;
@@ -131,9 +135,13 @@ class ChainsProvider extends ChangeNotifier {
 
 // -------------------------------------
   Chain _keywordsChain;
+  /// must include trigrams and both languages (en, ar) for search engines
+  List<Phrase> _keywordsChainPhrases;
 // -------------------------------------
   Chain get keywordsChain => _keywordsChain;
+  List<Phrase> get keywordsChainPhrases => _keywordsChainPhrases;
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _getsetKeywordsChain({
     @required BuildContext context,
     @required bool notify,
@@ -141,20 +149,55 @@ class ChainsProvider extends ChangeNotifier {
 
     final Chain _keywordsChain = await fetchKeywordsChain(context);
 
-    _setKeywordsChain(
+    final List<Phrase> _keywordsPhrases = await _generateKeywordsPhrasesFromKeywordsChain(
+      context: context,
       keywordsChain: _keywordsChain,
+    );
+
+    _setKeywordsChainAndTheirPhrases(
+      keywordsChain: _keywordsChain,
+      keywordsChainPhrases: _keywordsPhrases,
       notify: notify,
     );
+
   }
 // -------------------------------------
-  void _setKeywordsChain({
+  /// TESTED : WORKS PERFECT
+  void _setKeywordsChainAndTheirPhrases({
     @required Chain keywordsChain,
+    @required List<Phrase> keywordsChainPhrases,
     @required bool notify,
   }){
     _keywordsChain = keywordsChain;
+    _keywordsChainPhrases = keywordsChainPhrases;
     if (notify == true){
       notifyListeners();
     }
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<List<Phrase>> _generateKeywordsPhrasesFromKeywordsChain({
+    @required Chain keywordsChain,
+    @required BuildContext context,
+  }) async {
+    /// should include en - ar phrases for all IDs
+    List<Phrase> _keywordsPhrases = <Phrase>[];
+
+    if (keywordsChain != null){
+
+      final List<String> _keywordsIDs = Chain.getOnlyStringsSonsIDsFromChain(
+        chain: keywordsChain,
+      );
+
+      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+      _keywordsPhrases = await _phraseProvider.generateMixedLangPhrasesFromPhids(
+        context: context,
+        phids: _keywordsIDs,
+      );
+
+    }
+
+    return _keywordsPhrases;
   }
 // -----------------------------------------------------------------------------
 

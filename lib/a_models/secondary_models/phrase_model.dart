@@ -1,3 +1,4 @@
+import 'package:bldrs/e_db/ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -148,7 +149,7 @@ class Phrase {
     bool includeTrigram,
   }) {
 
-    final List<String> _trigram = _getTrigramIfNeeded(
+    final List<String> _trigram = _getTrigramIfIncluded(
       includeTrigram: includeTrigram,
       existingTrigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
       originalString: map['value'],
@@ -562,7 +563,12 @@ class Phrase {
 
       final List<String> _trigram = source.trigram;
 
-      if (_trigram.contains(_fixedString)){
+      final bool _trigramContains = Mapper.stringsContainString(
+          strings: _trigram,
+          string: _fixedString
+      );
+
+      if (_trigramContains == true){
         _foundPhrases.add(source);
       }
 
@@ -1078,7 +1084,8 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
-  static List<String> _getTrigramIfNeeded({
+  /// TESTED :
+  static List<String> _getTrigramIfIncluded({
     @required bool includeTrigram,
     @required List<String> existingTrigram,
     @required String originalString,
@@ -1100,6 +1107,29 @@ class Phrase {
 
     return _output;
 }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> removeTrigramsFromPhrases(List<Phrase> phrases){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.canLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        final Phrase _cleaned = Phrase(
+          id: phrase.id,
+          value: phrase.value,
+          langCode: phrase.langCode,
+        );
+
+        _output.add(_cleaned);
+
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// KEYWORDS AND SPECS

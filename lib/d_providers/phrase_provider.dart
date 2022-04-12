@@ -10,6 +10,7 @@ import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -242,9 +243,10 @@ class PhraseProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-/// CURRENT PHRASES
+/// BASIC PHRASES (keywords phids 'phid_k_' / specs phids 'phid_s_' / general phids 'phid_' )
 
 // -------------------------------------
+  /// does not include trigrams : used for superPhrase translating method only not for search engines
   List<Phrase> _basicPhrases = <Phrase>[];
 // -------------------------------------
   List<Phrase> get basicPhrases  => _basicPhrases;
@@ -263,14 +265,17 @@ class PhraseProvider extends ChangeNotifier {
         langCode: _currentLangCode
     );
 
-    _basicPhrases = _phrasesByLang;
+    /// phrases received from the fetch include trigrams "that was stored in LDB"
+    final List<Phrase> _cleaned = Phrase.removeTrigramsFromPhrases(_phrasesByLang);
+
+    _basicPhrases = _cleaned;
 
     if (notify == true){
       notifyListeners();
     }
 
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
   String getTranslatedPhraseByID(String id){
 
     String _translation = '...';
@@ -293,7 +298,47 @@ class PhraseProvider extends ChangeNotifier {
 
     return _translation;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
+  Future<List<Phrase>> generateMixedLangPhrasesFromPhids({
+    @required BuildContext context,
+    @required List<String> phids,
+  }) async {
+
+    List<Phrase> _phrases = <Phrase>[];
+
+    if (Mapper.canLoopList(phids) == true){
+
+      for (final String phid in phids){
+
+        final List<Map<String,dynamic>> _phrasesMaps = await LDBOps.searchAllMaps(
+            fieldToSortBy: 'id',
+            searchField: 'id',
+            fieldIsList: false,
+            searchValue: phid,
+            docName: LDBDoc.basicPhrases,
+        );
+
+        // blog('found these maps in basic phrases ldb doc');
+        // Mapper.blogMaps(_phrasesMaps);
+
+        final List<Phrase> _deciphered = Phrase.decipherMixedLangPhrases(
+            maps: _phrasesMaps,
+        );
+
+        _phrases = Phrase.insertPhrases(
+          insertIn: _phrases,
+          phrasesToInsert: _deciphered,
+          forceUpdate: true,
+          allowDuplicateIDs: true,
+        );
+
+      }
+
+    }
+
+    return _phrases;
+  }
+// -------------------------------------
 }
 
 PhraseProvider getPhraseProvider(BuildContext context, {bool listen = false}){
