@@ -102,6 +102,15 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
         /// SPACER
         const Expander(),
 
+        DreamBox(
+          height: 40,
+          width: 40,
+          icon: Iconz.lab,
+          iconSizeFactor: 0.7,
+          bubble: false,
+          onTap: () => Nav.goToNewScreen(context, const TestLab()),
+        ),
+
         /// BLDRS NAME
         BldrsNameButton(
             onTap: () => Nav.goToNewScreen(context, const DashBoard())
@@ -128,8 +137,6 @@ class _ObeliskScreenState extends State<ObeliskScreen> {
           const ObeliskButton('SEMBAST', Iconz.terms, SembastReaderTestScreen()),
 
           const ObeliskButton('New ASKs', Iconz.utPlanning, NewAsks()),
-
-          const ObeliskButton('Translations Lab', Iconz.language, TranslationsManager()),
 
           ObeliskButton('BzEditor', Iconz.bz, BzEditorScreen(
             userModel: UserModel.dummyUserModel(context),

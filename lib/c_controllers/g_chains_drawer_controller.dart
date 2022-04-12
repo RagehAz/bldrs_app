@@ -167,7 +167,7 @@ Future<void> onSearchKeywords({
   @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
-  final List<String> _phids = await _searchBasicPhrases(
+  final List<String> _phids = await _searchKeywordsPhrases(
     text: text,
     context: context,
   );
@@ -192,26 +192,24 @@ Future<void> onSearchKeywords({
 
 }
 // --------------------------------------------
-Future<List<String>> _searchBasicPhrases({
+Future<List<String>> _searchKeywordsPhrases({
   @required String text,
   @required BuildContext context,
 }) async {
 
   List<String> _phidKs = <String>[];
 
-  final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
-    searchValue: text,
-    docName: LDBDoc.basicPhrases,
-    lingCode: TextChecker.concludeEnglishOrArabicLang(text),
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final List<Phrase> _searched = Phrase.searchPhrasesTrigrams(
+      sourcePhrases: _chainsProvider.keywordsChainPhrases,
+      inputText: text,
   );
 
-  if (Mapper.canLoopList(_maps)) {
+  blog('_searchKeywordsPhrases : found ${_searched.length} phrases');
 
-    final List<Phrase> _results = Phrase.decipherMixedLangPhrases(
-      maps: _maps,
-    );
+  if (Mapper.canLoopList(_searched) == true) {
 
-    _phidKs = Phrase.getKeywordsIDsFromPhrases(allPhrases: _results);
+    _phidKs = Phrase.getKeywordsIDsFromPhrases(allPhrases: _searched);
 
     blog('BEFORE REMOVE THEY WERE : $_phidKs');
 
@@ -220,7 +218,7 @@ Future<List<String>> _searchBasicPhrases({
       allChains: getAllChains(context),
     );
 
-    blog('BEFORE REMOVE THEY ARE : $_phidKs');
+    blog('AFTER REMOVE THEY ARE : $_phidKs');
 
   }
 

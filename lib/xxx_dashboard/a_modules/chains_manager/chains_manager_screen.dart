@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -27,6 +28,7 @@ class ChainsManagerScreen extends StatefulWidget {
 class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 // -----------------------------------------------------------------------------
   List<Chain> _allChains;
+  List<String> _allChainsPhrases;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -40,6 +42,14 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
       _keywordsChain,
       _specsChain,
     ];
+
+    _allChainsPhrases = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: _allChains,
+    );
+
+    blog('all chains paths : -');
+    ChainPathConverter.blogPaths(_allChainsPhrases);
 
   }
 // -----------------------------------------------------------------------------
@@ -84,38 +94,54 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null);
 // ------------------------------------------------
   Future<void> _onSearchSubmit(String text) async {
 
-    blog('text is : $text');
 
     triggerIsSearchingNotifier(
         text: text,
         isSearching: _isSearching
     );
 
-    _onSearchChains(
-      chains: _allChains,
-    );
+    blog('text is : $text : isSearching : ${_isSearching.value}');
+
+    if (_isSearching.value == true){
+      _onSearchChains(
+        chains: _allChains,
+        text: text,
+      );
+    }
+
 
   }
-
+// ------------------------------------------------
   void _onSearchChains({
-  @required List<Chain> chains,
+    @required List<Chain> chains,
+    @required String text,
 }){
 
+    blog('all paths : $_allChainsPhrases');
+
     /// SEARCH CHAINS FOR MATCH CASES
+    final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
+        paths: _allChainsPhrases,
+        phid: text
+    );
 
-    /// GENERATE PATHS FOR THOSE CASES
+    blog('found paths : $_foundPaths');
 
-    /// BUILD CHAINS FOR THOSE PATHS
+    final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(
+        paths: _foundPaths,
+    );
 
-    /// SEAT FOUND CHAINS AS SEARCH RESULT
+    /// SET FOUND CHAINS AS SEARCH RESULT
+    _foundChains.value = _foundPathsChains;
+
   }
-
+// ------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 
     return MainLayout(
       key: const ValueKey<String>('ChainsManagerScreen'),
@@ -126,7 +152,8 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
       zoneButtonIsOn: false,
       skyType: SkyType.black,
       onSearchSubmit: (String text) => _onSearchSubmit(text),
-      appBarRowWidgets: [
+      onSearchChanged: (String text) => _onSearchSubmit(text),
+      appBarRowWidgets: <Widget>[
 
         const Expander(),
 
@@ -160,17 +187,38 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
         ),
 
       ],
-      layoutWidget:
 
-      canLoopList(_allChains) == true ?
-      ChainsTreesStarter(
-        chains: _allChains,
-        onStripTap: (String path) => _onStripTap(
-            phraseIDPath: path
-        )
-      )
-          :
-      const SizedBox(),
+      layoutWidget: ValueListenableBuilder<bool>(
+        valueListenable: _isSearching,
+        builder: (_, bool isSearching, Widget child){
+
+          if (isSearching == true){
+            return ValueListenableBuilder(
+                valueListenable: _foundChains,
+                builder: (_, List<Chain> chains, Widget child){
+
+                  return ChainsTreesStarter(
+                      chains: chains,
+                      onStripTap: (String path) => _onStripTap(
+                          phraseIDPath: path
+                      )
+                  );
+
+                }
+            );
+          }
+
+          else {
+            return ChainsTreesStarter(
+                chains: _allChains,
+                onStripTap: (String path) => _onStripTap(
+                    phraseIDPath: path
+                )
+            );
+          }
+
+        },
+      ),
 
     );
   }

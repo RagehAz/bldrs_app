@@ -71,7 +71,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _search() async {
 
-    final List<Map<String, dynamic>> _result = await LDBOps.searchTrigram(
+    final List<Map<String, dynamic>> _result = await LDBOps.searchLDBDocTrigram(
         searchValue: 'Cairo',
         docName: _docName,
         lingoCode: 'en',

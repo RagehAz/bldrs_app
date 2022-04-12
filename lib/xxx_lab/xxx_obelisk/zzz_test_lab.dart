@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -183,30 +184,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                final List<Chain> _sourceChains = [_chainsProvider.keywordsChain];
-                final Chain _chain = Chain.getChainFromChainsByID(
-                    chainID: 'phid_k_flyer_type_equipment',
-                    chains: _sourceChains
-                );
-                final List<Chain> _originalChains = _sourceChains;
-
-                final List<String> _originalPaths = ChainPathConverter.generateChainsPaths(
-                    parentID: '',
-                    chains: _originalChains,
-                );
-                //
-                //
-                // ChainPathConverter.blogPaths(_paths);
-
-                // blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-
-                // final List<String> _found = Chain.findPathsContainingPhid(
-                //     paths: _paths,
-                //     phid: 'phid_k_sub_prd_walls_ceiling',
-                // );
-                //
-                // Chain.blogPaths(_found);
-
                 // const List<String> _constPaths = <String>[
                 //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_dumper/',
                 //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_tanker/',
@@ -216,57 +193,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_slurry/',
                 // ];
 
-                // const List<String> carsPaths = <String>[
-                //   'cars/sport/ferrari/Competizione/',
-                //   'cars/sport/ferrari/Monza/',
-                //   'cars/sport/chevrolet/corvette/',
-                //   'cars/4wheel/jeep/wrangler/',
-                //   'cars/4wheel/hummer/h2/',
-                //   'cars/4wheel/hummer/h3/',
-                //   'bikes/race/honda/CBR/',
-                //   'bikes/race/honda/KOKO/',
-                //   'bikes/cruiser/harley/sportster/',
-                //   'bikes/cruiser/harley/DAVIDSON/',
-                //   'bikes/city/harley/bobo/',
-                // ];
-
-
-                final List<Chain> _generatedChains = ChainPathConverter.createChainsFromPaths(
-                  paths: _originalPaths,
+                final List<Phrase> _phrases = await _phraseProvider.generateMixedLangPhrasesFromPhids(
+                    context: context,
+                    phids: ['phid_k_prd_landscape_pots_indoorPlanter', 'phid_k_prd_lighting_outdoor_floorSpot'],
                 );
 
-                final List<String> _generatedPaths = ChainPathConverter.generateChainsPaths(
-                    parentID: '',
-                    chains: _generatedChains
-                );
-
-                blog('xxxxxxxxxxxxxxxxxxxx');
-                ChainPathConverter.blogPaths(_originalPaths);
-                blog('xxxxxxxxxxxxxxxxxxxx');
-                ChainPathConverter.blogPaths(_generatedPaths);
-                blog('xxxxxxxxxxxxxxxxxxxx');
-
-
-                final bool _pathsAreTheSame = listsAreTheSame(
-                    list1: _originalPaths,
-                    list2: _generatedPaths,
-                );
-
-                blog('xxxxxxxxxxxxxxxxxxxx original chains blog aho');
-                Chain.blogChains(_originalChains);
-                blog('xxxxxxxxxxxxxxxxxxxx generated chains blog aho');
-                Chain.blogChains(_generatedChains);
-                blog('xxxxxxxxxxxxxxxxxxxx finished chains blogging ahowan');
-
-                final bool _chainsLAreTheSame = Chain.chainsListsAreTheSame(
-                    chainsA: _originalChains,
-                    chainsB: _generatedChains
-                );
-
-                blog('ISA B2EZN WA7ED A7AD CHAINS ARE THE SAME YA RAB : paths : $_pathsAreTheSame : chains : $_chainsLAreTheSame');
+                Phrase.blogPhrases(_phrases);
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
-
 
               }),
 

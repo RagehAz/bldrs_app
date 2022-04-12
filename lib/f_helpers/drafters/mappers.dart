@@ -122,7 +122,6 @@ List<String> removeStringsFromStrings({
   final List<String> _output = <String>[];
 
   if (canLoopList(removeFrom) == true){
-    if (canLoopList(removeThis) == true){
 
       for (final String string in removeFrom){
 
@@ -140,7 +139,6 @@ List<String> removeStringsFromStrings({
 
       }
 
-    }
   }
 
   return _output;
