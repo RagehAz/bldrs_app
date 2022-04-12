@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
@@ -133,7 +135,7 @@ void main() {
     final List<String> _list1 = <String>[
       'cars/sport/ferrari/Competizione/',
       'cars/sport/ferrari/Monza/',
-      'cars/sport/chevrolet/corvette',
+      'cars/sport/chevrolet/corvette/',
       'cars/4wheel/jeep/wrangler/',
       'cars/4wheel/hummer/h2/',
       'cars/4wheel/hummer/h3/',
@@ -541,4 +543,34 @@ void main() {
     expect(_modified, <String>['talata', 'arba3a']);
   });
 // -----------------------------------------------------------------------------
+  test('Mapper.chains Are the same', () {
+
+    final List<String> _list1 = <String>[
+      'cars/sport/ferrari/Competizione/',
+      'cars/sport/ferrari/Monza/',
+      'cars/sport/chevrolet/corvette/',
+      'cars/4wheel/jeep/wrangler/',
+      'cars/4wheel/hummer/h2/',
+      'cars/4wheel/hummer/h3/',
+      'bikes/race/honda/CBR/',
+      'bikes/race/honda/KOKO/',
+      'bikes/cruiser/harley/sportster/',
+      'bikes/cruiser/harley/DAVIDSON/',
+      'bikes/city/harley/bobo/',
+    ];
+
+    final List<Chain> _chains = ChainPathConverter.createChainsFromPaths(paths: _list1);
+
+    final List<String> _generatedPaths = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: _chains
+    );
+
+    final List<Chain> _regeneratedChains = ChainPathConverter.createChainsFromPaths(paths: _generatedPaths);
+
+    final bool _result = Chain.chainsListsAreTheSame(chainsA: _chains, chainsB: _regeneratedChains);
+
+    expect(_result, true);
+  });
+
 }

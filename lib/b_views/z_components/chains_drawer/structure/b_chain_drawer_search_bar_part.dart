@@ -1,6 +1,8 @@
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +12,16 @@ class ChainsDrawerSearchBarPart extends StatelessWidget {
     @required this.width,
     @required this.onSearchChanged,
     @required this.onSearchSubmit,
+    @required this.isSearching,
+    @required this.searchController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double width;
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
+  final ValueNotifier<bool> isSearching;
+  final TextEditingController searchController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -30,11 +36,31 @@ class ChainsDrawerSearchBarPart extends StatelessWidget {
       child: Row(
         children: <Widget>[
 
-          const BackAndSearchButton(
-            backAndSearchAction: BackAndSearchAction.goBack,
+          ValueListenableBuilder(
+              valueListenable: isSearching,
+              builder: (_, bool _isSearching, Widget child){
+
+                return BackAndSearchButton(
+                  backAndSearchAction: BackAndSearchAction.goBack,
+                  onTap: () async {
+
+                    if (_isSearching == true){
+                      minimizeKeyboardOnTapOutSide(context);
+                      isSearching.value = false;
+                      searchController.text = '';
+                    }
+                    else {
+                      Nav.goBack(context);
+                    }
+
+                  },
+                );
+
+              }
           ),
 
           SearchBar(
+            searchController: searchController,
             height: Ratioz.appBarButtonSize,
             boxWidth: width - 40,
             onSearchSubmit: (String val) => onSearchSubmit(val),
