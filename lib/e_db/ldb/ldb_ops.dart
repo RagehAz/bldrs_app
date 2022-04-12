@@ -38,6 +38,7 @@ String getPrimaryKey(String docName) {
 /// CREATE
 
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> insertMap({
   @required String primaryKey,
   @required Map<String, Object> input,
@@ -50,10 +51,11 @@ Future<void> insertMap({
     primaryKey: primaryKey,
   );
 
-  blog('LDBOps inserted in $docName : map :-');
+  // blog('LDBOps inserted in $docName : map :-');
   // blogMap(input);
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> insertMaps({
   @required String primaryKey,
   @required List<Map<String, Object>> inputs,
@@ -70,6 +72,7 @@ Future<void> insertMaps({
 /// READ
 
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<Map<String, Object>>> readAllMaps({
   @required String docName,
 }) async {
@@ -104,9 +107,11 @@ Future<Map<String, Object>> searchFirstMap({
   return _fixedMap;
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<Map<String, Object>>> searchAllMaps({
   @required String fieldToSortBy,
   @required String searchField,
+  @required bool fieldIsList,
   @required dynamic searchValue,
   @required String docName,
 }) async {
@@ -114,6 +119,7 @@ Future<List<Map<String, Object>>> searchAllMaps({
   final List<Map<String, Object>> _result = await Sembast.search(
     docName: docName,
     fieldToSortBy: fieldToSortBy,
+    fieldIsList: fieldIsList,
     searchField: searchField,
     searchValue: searchValue,
   );
@@ -153,10 +159,9 @@ Future<List<Map<String, Object>>> searchPhrasesDoc({
   }
 
 }
-
-
+// ---------------------------------------------------
 /// deprecated
-Future<List<Map<String, Object>>> searchTrigram({
+Future<List<Map<String, Object>>> searchLDBDocTrigram({
   @required dynamic searchValue,
   @required String docName,
   @required String lingoCode,
@@ -165,6 +170,7 @@ Future<List<Map<String, Object>>> searchTrigram({
   final List<Map<String, dynamic>> _result = await Sembast.search(
     fieldToSortBy: getPrimaryKey(docName),
     searchField: 'phrases.$lingoCode.trigram',
+    fieldIsList: true,
     searchValue: TextMod.fixCountryName(searchValue),
     docName: docName,
   );
@@ -197,6 +203,7 @@ Future<void> updateMap({
 /// DELETE
 
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteMap({
   @required String objectID,
   @required String docName,
@@ -212,6 +219,7 @@ Future<void> deleteMap({
 
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteAllMapsOneByOne({
   @required String docName,
 }) async {
@@ -223,6 +231,7 @@ Future<void> deleteAllMapsOneByOne({
 
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteAllAtOnce({
   @required String docName,
 }) async {

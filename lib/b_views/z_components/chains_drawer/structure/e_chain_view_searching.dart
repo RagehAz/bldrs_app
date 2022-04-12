@@ -5,6 +5,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -59,10 +60,10 @@ class ChainViewSearching extends StatelessWidget {
                               chains: _allChains,
                             );
 
-                            final bool _phidIncludedInFoundChains = Chain.chainsIncludeThisPhid(
-                              chains: _foundChains,
-                              phid: _phidk,
-                            );
+                            // final bool _phidIncludedInFoundChains = Chain.chainsIncludeThisPhid(
+                            //   chains: _foundChains,
+                            //   phid: _phidk,
+                            // );
 
                             // blog('_phidIncludedInFoundChains : $_phidIncludedInFoundChains : _phidk : $_phidk : foundChains : ${foundChains.value}');
 
@@ -94,13 +95,20 @@ class ChainViewSearching extends StatelessWidget {
                             /// DREAMBOX WHEN KEYWORD IS NOT INCLUDED IN THE CHAIN
                             else {
 
-                              return ChainSonButton(
-                                sonWidth: bubbleWidth,
-                                phid: _phidk,
-                                isDisabled: false,
-                                onTap: (){
-                                  blog(_phidk);
-                                }
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: Ratioz.appBarPadding,
+                                    horizontal: Ratioz.appBarMargin,
+                                ),
+                                child: ChainSonButton(
+                                  sonWidth: bubbleWidth,
+                                  phid: _phidk,
+                                  isDisabled: false,
+                                  parentLevel: 2,
+                                  onTap: (){
+                                    blog(_phidk);
+                                  }
+                                ),
                               );
 
                             }

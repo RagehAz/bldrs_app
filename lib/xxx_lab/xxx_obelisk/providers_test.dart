@@ -139,6 +139,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
     final List<FlyerType> _activeSections = _generalProvider?.appState?.activeSections;
     final Chain _keywordsChain = _chainsProvider.keywordsChain;
+    final List<Phrase> _keywordsChainPhrases = _chainsProvider.keywordsChainPhrases;
     final Chain _specsChain = _chainsProvider.specsChain;
 
 
@@ -302,6 +303,18 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                     unawaited(_triggerLoading());
 
                     _keywordsChain.blogChain();
+
+                    unawaited(_triggerLoading());
+                  }),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _keywordsChainPhrases',
+                  icon: Iconizer.valueIsNotNull(_keywordsChainPhrases),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    Phrase.blogPhrases(_keywordsChainPhrases);
 
                     unawaited(_triggerLoading());
                   }),

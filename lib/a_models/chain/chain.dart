@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/data_creator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -475,6 +476,7 @@ class Chain {
     return _space;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   void blogChain({
   int level = 0,
 }){
@@ -511,6 +513,7 @@ class Chain {
 
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogChains(List<dynamic> chains, {int parentLevel = 0}){
 
 
@@ -541,6 +544,7 @@ class Chain {
     @required String chainID,
     @required List<Chain> chains,
 }){
+      /// gets first matching "either parent or nested chain" in the input chains trees,
 
     Chain _chain;
 
@@ -633,6 +637,57 @@ class Chain {
 
     return _foundChains;
   }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getOnlyStringsSonsIDsFromChain({
+  @required Chain chain,
+}){
+      final List<String> _stringsIDs = <String>[];
+
+      if (chain != null){
+
+        if (sonsAreStrings(chain.sons) == true){
+
+          _stringsIDs.addAll(chain.sons);
+
+        }
+        else if (sonsAreChains(chain.sons) == true){
+
+          final List<String> _allNestedStrings = getOnlyStringsSonsIDsFromChains(
+            chains: chain.sons,
+          );
+
+          _stringsIDs.addAll(_allNestedStrings);
+
+        }
+
+      }
+
+      return _stringsIDs;
+  }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getOnlyStringsSonsIDsFromChains({
+  @required List<Chain> chains,
+}){
+      final List<String> _stringsIDs = <String>[];
+
+      if (Mapper.canLoopList(chains) == true){
+
+        for (final Chain chain in chains){
+
+          final List<String> _strings = getOnlyStringsSonsIDsFromChain(
+              chain: chain,
+          );
+
+          _stringsIDs.addAll(_strings);
+
+        }
+
+      }
+
+      return _stringsIDs;
+  }
 // -----------------------------------------------------------------------------
 
 /// MODIFIERS
@@ -688,57 +743,11 @@ class Chain {
       removeThis: _chainsIDs,
     );
 
+    blog('after removing ${_chainsIDs.length} chainsIDs from '
+        '${phidKs.length} input phrases : _cleaned IDs are : $_cleaned');
+
     return _cleaned;
 }
-// -----------------------------------------------------------------------------
-
-
-  /// CHAINS PATHS FINDERS
-
-// --------------------------------------------
-// --------------------------------------------
- /*
-  static List<Chain> createChainsFromPaths(List<String> paths){
-    final List<Chain> _chains = <Chain>[];
-
-    if (Mapper.canLoopList(paths) == true){
-
-      for (final String path in paths){
-
-        final List<String> _divided = _createPathDivisions(path);
-
-        blog(_divided);
-
-        for (final String division in _divided){
-
-          final bool _phidIsAChainID = phidIsAChainID(
-            paths: paths,
-            phid: division,
-          );
-
-          // blog('_phidIsAChainID : $division : $_phidIsAChainID');
-
-          final Chain _chain = Chain(
-            id: division,
-            icon: null,
-            sons: [],
-          );
-
-        }
-
-        // final Chain _chain = Chain(
-        //   id:
-        // );
-
-      }
-
-    }
-
-    return _chains;
-  }
-  */
-// --------------------------------------------
-
 // -----------------------------------------------------------------------------
 
 }

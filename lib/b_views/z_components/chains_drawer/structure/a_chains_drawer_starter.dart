@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/chains_drawer/structure/c_chains_draw
 import 'package:bldrs/c_controllers/g_chains_drawer_controller.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +37,13 @@ class _ChainsDrawerStarterState extends State<ChainsDrawerStarter> {
   @override
   void dispose() {
     super.dispose();
+    disposeControllerIfPossible(_searchController);
     _isSearching.dispose();
     _foundPhids.dispose();
     _foundChains.dispose();
   }
 // -----------------------------------------------------------------------------
+  final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<String>> _foundPhids = ValueNotifier(<String>[]);
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier(<Chain>[]);
@@ -90,6 +93,8 @@ class _ChainsDrawerStarterState extends State<ChainsDrawerStarter> {
                 width: _drawerWidth,
                 onSearchSubmit: (String text) => _onSearchSubmit(text),
                 onSearchChanged: (String text) => _onSearchChanged(text),
+                searchController: _searchController,
+                isSearching: _isSearching,
               ),
 
               /// KEYWORDS LISTS
