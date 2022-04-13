@@ -17,6 +17,8 @@ class FlyerFullScreen extends StatelessWidget {
     @required this.flyerZone,
     @required this.heroTag,
     @required this.currentSlideIndex,
+    @required this.onSaveFlyer,
+    @required this.flyerIsSaved,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +29,8 @@ class FlyerFullScreen extends StatelessWidget {
   final double minWidthFactor;
   final String heroTag;
   final ValueNotifier<int> currentSlideIndex;
+  final ValueNotifier<bool> flyerIsSaved;
+  final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
     Nav.goBack(context);
@@ -58,6 +62,8 @@ class FlyerFullScreen extends StatelessWidget {
           minWidthFactor: minWidthFactor,
           heroTag: heroTag,
           currentSlideIndex: currentSlideIndex,
+          flyerIsSaved: flyerIsSaved,
+          onSaveFlyer: onSaveFlyer,
         ),
 
       ),

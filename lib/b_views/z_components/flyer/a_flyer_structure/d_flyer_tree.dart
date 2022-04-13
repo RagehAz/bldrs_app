@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -10,8 +11,8 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_sl
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -28,6 +29,8 @@ class FlyerTree extends StatefulWidget {
     @required this.flyerBoxWidth,
     @required this.flightDirection,
     @required this.currentSlideIndex,
+    @required this.onSaveFlyer,
+    @required this.flyerIsSaved,
     this.onTap,
     this.loading = false,
     this.heroTag,
@@ -44,6 +47,8 @@ class FlyerTree extends StatefulWidget {
   final String heroTag;
   final FlightDirection flightDirection;
   final ValueNotifier<int> currentSlideIndex;
+  final Function onSaveFlyer;
+  final ValueNotifier<bool> flyerIsSaved;
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
   /// --------------------------------------------------------------------------
@@ -190,8 +195,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   final ValueNotifier<bool> _followIsOn = ValueNotifier(false);
   void _setFollowIsOn(bool setTo) => _followIsOn.value = setTo;
 // -----------------------------------------------------------------------------
-
-
   /// PROGRESS BAR OPACITY
   final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
   /// HEADER IS EXPANDED
@@ -286,12 +289,24 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _flyerIsSaved = ValueNotifier(false);
   Future<void> _onSaveFlyer() async {
 
-    // await Future.delayed(Ratioz.durationFading200, (){
-      _flyerIsSaved.value = !_flyerIsSaved.value;
-      await _triggerAnimation(_flyerIsSaved.value);
+    if (widget.flyerIsSaved.value == true){
+      goBack(context);
+    }
+
+    await widget.onSaveFlyer();
+
+    // await Future.delayed(Ratioz.durationFading200, () async {
+
+      // await _flyersProvider.saveOrUnSaveFlyer(
+      //   context: context,
+      //   inputFlyer: widget.flyerModel,
+      // );
+      //
+      // _flyerIsSaved.value = !_flyerIsSaved.value;
+      await _triggerAnimation(widget.flyerIsSaved.value);
+
     // });
 
   }
@@ -410,7 +425,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           flyerModel: widget.flyerModel,
           flyerZone: widget.flyerZone,
           tinyMode: _tinyMode,
-          flyerIsSaved: _flyerIsSaved,
           onSaveFlyer: _onSaveFlyer,
           footerPageController: _footerPageController,
           headerIsExpanded: _headerIsExpanded,
@@ -436,7 +450,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           key: const ValueKey<String>('SavingNotice'),
           flyerBoxWidth: widget.flyerBoxWidth,
           flyerBoxHeight: _flyerBoxHeight,
-          flyerIsSaved: _flyerIsSaved,
+          flyerIsSaved: widget.flyerIsSaved,
           animationController: _animationController,
           graphicIsOn: _graphicIsOn,
           graphicOpacity: _graphicOpacity,

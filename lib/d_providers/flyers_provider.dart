@@ -171,7 +171,7 @@ class FlyersProvider extends ChangeNotifier {
     _setSavedFlyers(<FlyerModel>[]);
   }
 // -------------------------------------
-  bool getAnkh(String flyerID){
+  bool checkFlyerIsSaved(String flyerID){
     bool _ankhIsOn = false;
 
     final FlyerModel _flyer = _savedFlyers?.firstWhere((FlyerModel flyer) => flyer.id == flyerID, orElse: () => null);
@@ -218,13 +218,15 @@ class FlyersProvider extends ChangeNotifier {
 
       );
 
-    } else {
+    }
+
+    else {
       /// so flyer is already saved, so we remove it
       final int _savedFlyerIndex =
       _savedFlyers.indexWhere((FlyerModel tf) => tf.id == inputFlyer.id, );
       _savedFlyers.removeAt(_savedFlyerIndex);
 
-      // /// remove from ldb
+      /// no need to remove flyer from LDB.flyers
       // await LDBOps.deleteMap(
       //     docName: LDBDoc.mySavedFlyers,
       //     objectID: inputFlyer.id,
