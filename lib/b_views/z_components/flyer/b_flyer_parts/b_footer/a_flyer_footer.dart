@@ -22,7 +22,6 @@ class FlyerFooter extends StatefulWidget {
     @required this.flyerZone,
     @required this.tinyMode,
     @required this.onSaveFlyer,
-    @required this.flyerIsSaved,
     @required this.footerPageController,
     @required this.headerIsExpanded,
     @required this.inFlight,
@@ -34,7 +33,6 @@ class FlyerFooter extends StatefulWidget {
   final ZoneModel flyerZone;
   final bool tinyMode;
   final Function onSaveFlyer;
-  final ValueNotifier<bool> flyerIsSaved;
   final PageController footerPageController;
   final ValueNotifier<bool> headerIsExpanded;
   final bool inFlight;
@@ -174,12 +172,12 @@ class _FlyerFooterState extends State<FlyerFooter> {
               // if (widget.tinyMode == false)// && widget.inFlight == false)
                 FlyerFooterButtons(
                   key: const ValueKey<String>('FooterButtons'),
+                  flyerID: widget.flyerModel.id,
                   flyerBoxWidth: widget.flyerBoxWidth,
                   tinyMode: widget.tinyMode,
                   onSaveFlyer: widget.onSaveFlyer,
                   onReviewFlyer: onReviewButtonTap,
                   onShareFlyer: _onShareFlyer,
-                  flyerIsSaved: widget.flyerIsSaved,
                   inFlight: widget.inFlight,
                   infoButtonType: _infoButtonType,
                 ),
