@@ -29,7 +29,7 @@ class CenterDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static Future<bool> showCenterDialog({
     @required BuildContext context,
-    dynamic body,
+    dynamic body = '',
     String title,
     bool boolDialog = false,
     double height,
