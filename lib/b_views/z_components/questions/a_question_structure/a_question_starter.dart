@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/questions/a_question_structure/c_ques
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/d_question_hero.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

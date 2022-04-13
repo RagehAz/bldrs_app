@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/b
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 
 class QuestionHeader extends StatefulWidget {
