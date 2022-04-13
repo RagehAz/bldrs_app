@@ -10,7 +10,7 @@
 // import 'package:bldrs/f_helpers/drafters/atlas.dart';
 // import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 // import 'package:bldrs/f_helpers/drafters/numeric.dart';
-// import 'package:bldrs/xxx_dashboard/widgets/wide_button.dart';
+// import 'package:bldrs/x_dashboard/widgets/wide_button.dart';
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 //

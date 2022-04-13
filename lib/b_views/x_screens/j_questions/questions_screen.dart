@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/y_views/j_questions/questions_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

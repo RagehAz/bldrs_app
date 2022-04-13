@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/questions/a_question_structure/e_ques
 import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 

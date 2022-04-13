@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_m
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_right_spacer_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_header_strip_box_part.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/c_question_header_labels_tree.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 
 class ConvertibleQuestionHeaderStripPart extends StatelessWidget {
