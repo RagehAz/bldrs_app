@@ -29,6 +29,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.historyButtonIsOn,
     @required this.zoneButtonIsOn,
     this.pyramidsAreOn = false,
+    this.navBarIsOn = true,
     this.searchHint,
     Key key
   }) : super(key: key);
@@ -46,6 +47,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
   final bool pyramidsAreOn;
+  final bool navBarIsOn;
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
   final bool zoneButtonIsOn;
@@ -122,7 +124,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
           ),
 
         /// --- NAV BAR
-        if (pyramidsAreOn == false)
+        if (navBarIsOn == true)
           const NavBar(
             key: ValueKey<String>('navBar'),
           ),

@@ -25,7 +25,7 @@ import 'package:bldrs/f_helpers/notifications/local_notification_service.dart' a
 import 'package:bldrs/f_helpers/notifications/noti_ops.dart' as NotiOps;
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
-import 'package:bldrs/xxx_lab/ask/question/questions_provider.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

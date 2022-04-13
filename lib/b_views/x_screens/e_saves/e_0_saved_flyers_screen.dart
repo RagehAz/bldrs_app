@@ -21,7 +21,10 @@ class SavedFlyersScreen extends StatefulWidget {
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();
 }
 
-class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
+// with AutomaticKeepAliveClientMixin<SavedFlyersScreen>
+class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
+  // @override
+  // bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
   ScrollController _flyersGridScrollController;
   ScrollController _sliverNestedScrollController;
@@ -61,6 +64,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // super.build(context);
 
     return MainLayout(
       appBarType: AppBarType.basic,
