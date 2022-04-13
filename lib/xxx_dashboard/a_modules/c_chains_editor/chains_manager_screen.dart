@@ -10,7 +10,7 @@ import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
-import 'package:bldrs/xxx_dashboard/a_modules/chains_manager/widgets/chains_data_tree_starter.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/c_chains_editor/widgets/chains_data_tree_starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

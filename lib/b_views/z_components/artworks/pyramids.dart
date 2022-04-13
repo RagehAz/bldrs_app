@@ -1,6 +1,5 @@
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_dashboard/bldrs_dashboard.dart';
 import 'package:flutter/material.dart';
@@ -52,9 +51,6 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
         width: Ratioz.pyramidsWidth,
         height: Ratioz.pyramidsHeight,
         child: GestureDetector(
-          onLongPress: () async {
-            await Navigator.pushNamed(context, Routez.obelisk);
-            }, /// TASK : REMOVE THIS ON RELEASE
           onDoubleTap: () async {
             await goToNewScreen(context, const BldrsDashBoard());
           },
