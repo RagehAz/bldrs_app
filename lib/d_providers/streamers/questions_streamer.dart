@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
-import 'package:bldrs/xxx_lab/ask/chat/chat_model.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/a_test_labs/specialized_labs/ask/chat/chat_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

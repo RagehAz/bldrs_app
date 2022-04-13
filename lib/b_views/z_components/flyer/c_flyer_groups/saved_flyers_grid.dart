@@ -56,15 +56,18 @@ class SavedFlyersGrid extends StatelessWidget {
       ),
       itemBuilder: (BuildContext ctx, int index) {
 
+        final FlyerModel _flyer = flyers[index];
+
         final bool _isSelected = FlyerModel.flyersContainThisID(
           flyers: selectedFlyers,
-          flyerID: flyers[index].id,
+          flyerID: _flyer.id,
         );
 
         /// SELECTION MODE FLYER
         return selectionMode == true ?
         GestureDetector(
-          onTap: () => onSelectFlyer(flyers[index]),
+          key: const ValueKey<String>('saved_flyers_gesture_detector'),
+          onTap: () => onSelectFlyer(_flyer),
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
@@ -72,7 +75,9 @@ class SavedFlyersGrid extends StatelessWidget {
               /// THE FLYER
               AbsorbPointer(
                 child: FlyerStarter(
-                  flyerModel: flyers[index],
+                  key: PageStorageKey<String>('saved_flyer_${_flyer.id}'),
+                  heroTag: 'saved_flyer_${_flyer.id}',
+                  flyerModel: _flyer,
                   minWidthFactor: FlyersGrid.getFlyerMinWidthFactor(
                       gridFlyerWidth: _flyerBoxWidth,
                       gridZoneWidth: superScreenWidth(context)

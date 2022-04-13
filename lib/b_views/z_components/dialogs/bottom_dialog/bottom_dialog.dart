@@ -234,7 +234,7 @@ class BottomDialog extends StatelessWidget {
   }) async {
 
     // final List<Widget> _widgets = builder(null, null);
-    final int _widgetsLength = 13;
+    const int _widgetsLength = 13;
 
     final double _spacing = buttonHeight * 0.1;
     final double _height = (buttonHeight * _widgetsLength) + (_spacing * _widgetsLength);

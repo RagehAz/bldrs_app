@@ -74,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: MainLayout(
         key: const ValueKey<String>('mainLayout'),
+        navBarIsOn: true,
         appBarType: AppBarType.main,
         layoutWidget: ValueListenableBuilder(
           valueListenable: _loading,
