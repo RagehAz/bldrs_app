@@ -5,17 +5,17 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
-class NotificationsManager extends StatefulWidget {
+class NotificationCreator extends StatefulWidget {
 
-  const NotificationsManager({
+  const NotificationCreator({
     Key key
   }) : super(key: key);
 
   @override
-  _NotificationsManagerState createState() => _NotificationsManagerState();
+  _NotificationCreatorState createState() => _NotificationCreatorState();
 }
 
-class _NotificationsManagerState extends State<NotificationsManager> {
+class _NotificationCreatorState extends State<NotificationCreator> {
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final bool _loading = false;

@@ -24,11 +24,8 @@ import 'package:provider/provider.dart';
 
 class ExoticMethods {
 
-  const ExoticMethods({
-   @required this.bitch,
-});
+  const ExoticMethods();
 
-  final dynamic bitch;
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
