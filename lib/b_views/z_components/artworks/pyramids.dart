@@ -2,7 +2,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_manager.dart';
+import 'package:bldrs/xxx_dashboard/bldrs_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -56,7 +56,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
             await Navigator.pushNamed(context, Routez.obelisk);
             }, /// TASK : REMOVE THIS ON RELEASE
           onDoubleTap: () async {
-            await goToNewScreen(context, const TranslationsManager());
+            await goToNewScreen(context, const BldrsDashBoard());
           },
           child: Selector<UiProvider, bool>(
             selector: (_, UiProvider uiProvider) => uiProvider.isLoading,

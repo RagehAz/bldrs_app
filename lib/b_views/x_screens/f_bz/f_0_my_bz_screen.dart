@@ -50,6 +50,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
 
     return MainLayout(
+
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidsAreOn: true,

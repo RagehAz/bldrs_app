@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/e_question_tree.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
 import 'package:bldrs/c_controllers/j_question_controller/j_question_controllers.dart';
-import 'package:bldrs/xxx_lab/ask/question/question_model.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 
 class QuestionHero extends StatelessWidget {

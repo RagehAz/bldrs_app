@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/x_screens/h_notifications/g_1_notifications_screen
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
-import 'package:bldrs/xxx_lab/xxx_obelisk/xxx_obelisk.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> allRoutes(RouteSettings settings) {
@@ -78,14 +77,6 @@ Route<dynamic> allRoutes(RouteSettings settings) {
     case Routez.flyerScreen:
       return Nav.slideToScreen(const FlyerScreen(), settings);
       break;
-// -----------------------------------------------------------------------------
-
-    // --- XXX GENERAL SCREENS
-    ///  xxx
-    case Routez.obelisk:
-      return Nav.slideToScreen(const ObeliskScreen(), settings);
-      break;
-
 // -----------------------------------------------------------------------------
 
   }
