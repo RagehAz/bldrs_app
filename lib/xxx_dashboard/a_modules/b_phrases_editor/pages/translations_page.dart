@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_controller.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/widgets/translations_bubble.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/b_phrases_editor/widgets/translations_bubble.dart';
 import 'package:flutter/material.dart';
 
 class TranslationsPage extends StatelessWidget {

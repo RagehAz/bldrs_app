@@ -14,18 +14,18 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/zones_manager/country_screen.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/e_zones_editor/country_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class ZonesManagerScreen extends StatefulWidget {
-  const ZonesManagerScreen({Key key}) : super(key: key);
+class ZonesEditorScreen extends StatefulWidget {
+  const ZonesEditorScreen({Key key}) : super(key: key);
 
   @override
-  _ZonesManagerScreenState createState() => _ZonesManagerScreenState();
+  _ZonesEditorScreenState createState() => _ZonesEditorScreenState();
 }
 
-class _ZonesManagerScreenState extends State<ZonesManagerScreen> {
+class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
   List<CountryModel> _countries;
   ScrollController _scrollController;
   QueryDocumentSnapshot<Object> _lastSnap;

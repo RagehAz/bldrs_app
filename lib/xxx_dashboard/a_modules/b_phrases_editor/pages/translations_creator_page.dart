@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_controller.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:flutter/material.dart';
 
 class TranslationsCreatorPage extends StatelessWidget {
