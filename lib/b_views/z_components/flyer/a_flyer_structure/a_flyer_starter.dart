@@ -8,9 +8,11 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FlyerStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -52,6 +54,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
   /// FLYER ZONE
   final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null);
 // -----------------------------------------------------------------------------
+  FlyersProvider _flyersProvider;
   FlyerModel _flyerModel;
 // -----------------------------------------------------------------------------
   /// CURRENT SLIDE INDEX
@@ -61,6 +64,10 @@ class _FlyerStarterState extends State<FlyerStarter> {
   void initState() {
 
     _flyerModel = widget.flyerModel;
+
+    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final bool _isSaved = _flyersProvider.checkFlyerIsSaved(widget.flyerModel.id);
+    _flyerIsSaved = ValueNotifier(_isSaved);
 
     super.initState();
   }
@@ -160,11 +167,25 @@ class _FlyerStarterState extends State<FlyerStarter> {
           flyerZone: _flyerZoneNotifier.value,
           heroTag: widget.heroTag,
           currentSlideIndex: _currentSlideIndex,
+          flyerIsSaved: _flyerIsSaved,
+          onSaveFlyer: onTriggerSave,
         )
     );
 
   }
 // -----------------------------------------------------------------------------
+  ValueNotifier<bool> _flyerIsSaved;
+  Future<void> onTriggerSave() async {
+
+    await _flyersProvider.saveOrUnSaveFlyer(
+      context: context,
+      inputFlyer: widget.flyerModel,
+    );
+
+    _flyerIsSaved.value = !_flyerIsSaved.value;
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -214,6 +235,8 @@ class _FlyerStarterState extends State<FlyerStarter> {
                                     isFullScreen: widget.isFullScreen,
                                     heroTag: widget.heroTag,
                                     currentSlideIndex: _currentSlideIndex,
+                                    onSaveFlyer: onTriggerSave,
+                                    flyerIsSaved: _flyerIsSaved,
                                   ),
                                 );
 

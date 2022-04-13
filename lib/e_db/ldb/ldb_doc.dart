@@ -1,17 +1,17 @@
 
 
-  const String follows = 'myFollows';
-  const String calls = 'myCalls';
-  const String shares = 'myShares';
-  const String views = 'myViews';
-  const String saves = 'mySaves';
-  const String reviews = 'myReviews';
-  const String questions = 'myQuestions';
-  const String answers = 'myAnswers';
-  const String searches = 'mySearches';
-  const String flyers = 'sessionFlyers';
-  const String bzz = 'sessionBzz';
-  const String users = 'sessionUsers';
+  const String follows = 'follows';
+  const String calls = 'calls';
+  const String shares = 'shares';
+  const String views = 'views';
+  const String saves = 'saves';
+  const String reviews = 'reviews';
+  const String questions = 'questions';
+  const String answers = 'answers';
+  const String searches = 'searches';
+  const String flyers = 'flyers';
+  const String bzz = 'bzz';
+  const String users = 'users';
   const String keywordsChain = 'keywordsChain';
   const String specsChain = 'specsChain';
   const String countries = 'countries';

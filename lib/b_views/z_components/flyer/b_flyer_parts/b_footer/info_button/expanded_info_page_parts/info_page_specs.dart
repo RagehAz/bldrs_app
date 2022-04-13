@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -141,7 +140,7 @@ class InfoPageSpecs extends StatelessWidget {
 
               final String _specListName = superPhrase(context, _specList?.chainID);
 
-              blog('_specListName is : $_specListName');
+              // blog('_specListName is : $_specListName');
 
               final String _specsInString = _generateSpecsString(
                 context: context,

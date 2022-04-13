@@ -154,8 +154,13 @@ Future<BzModel> readBz({
   @required BuildContext context,
   @required String bzID,
 }) async {
+
   final dynamic _bzMap = await Fire.readDoc(
-      context: context, collName: FireColl.bzz, docName: bzID);
+      context: context,
+      collName: FireColl.bzz,
+      docName: bzID,
+  );
+
   final BzModel _bz = BzModel.decipherBz(
     map: _bzMap,
     fromJSON: false,
