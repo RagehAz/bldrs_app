@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -9,9 +8,11 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
+import 'package:bldrs/xxx_dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -79,8 +80,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     super.didChangeDependencies();
   }
 
-
-  Future<void> _showDialog() async {
+  /// DIALOG THAT LISTENS TO PROVIDER CHANGES
+  Future<void> _showDialog(Function onTap) async {
 
     final double _height = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
 
@@ -109,6 +110,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                   builder: (_, state){
 
+                    /// this provider can listen properly to variable changes inside this dialog
                     final UiProvider _ui = Provider.of<UiProvider>(context, listen: true);
 
                     final bool _isLoading = _ui.isLoading;
@@ -126,9 +128,24 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                           width: 50,
                           icon: Iconz.reload,
                           iconSizeFactor: 0.6,
-                          onTap: (){
+                          onTap: () async {
 
-                            _ui.triggerLoading();
+                            if (onTap == null){
+
+                              // await _showDialog((){
+                                // blog('trying to trigger loading');
+                                // _ui.triggerLoading();
+
+                                await Nav.goToNewScreen(context, const DashBoard());
+
+                              // });
+
+                            }
+
+                            else {
+                              onTap();
+                            }
+
 
                           },
                         )
@@ -178,25 +195,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               icon: Iconz.star,
               onTap: () async {
 
-                _uiProvider.triggerLoading(setLoadingTo: true);
+                // _uiProvider.triggerLoading(setLoadingTo: true);
 
-                // const List<String> _constPaths = <String>[
-                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_dumper/',
-                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_tanker/',
-                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_transport/phid_k_equip_vehicle_mixer/',
-                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_roller/',
-                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_asphalt/',
-                //   'phid_sections/phid_k_flyer_type_equipment/phid_k_group_equip_vehicle/phid_k_sub_vehicle_paving/phid_k_equip_paving_slurry/',
-                // ];
+                await _showDialog(null);
 
-                final List<Phrase> _phrases = await _phraseProvider.generateMixedLangPhrasesFromPhids(
-                    context: context,
-                    phids: ['phid_k_prd_landscape_pots_indoorPlanter', 'phid_k_prd_lighting_outdoor_floorSpot'],
-                );
-
-                Phrase.blogPhrases(_phrases);
-
-                _uiProvider.triggerLoading(setLoadingTo: false);
+                // _uiProvider.triggerLoading(setLoadingTo: false);
 
               }),
 

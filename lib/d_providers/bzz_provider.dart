@@ -31,6 +31,8 @@ class BzzProvider extends ChangeNotifier {
     ///   2.1 read firebase bz ops
     ///   2.2 if found on firebase, store in ldb sessionBzz
 
+    blog('fetchBzModel : $bzID');
+
     BzModel _bz;
 
     /// 1 - search in entire LDBs for this bzModel

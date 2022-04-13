@@ -1,3 +1,4 @@
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/notifications/notifications_manager/notifications_manager_screen.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/chains_manager/chains_manager_screen.dart';
 import 'package:bldrs/xxx_dashboard/b_widgets/layout/dashboard_layout.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/xxx_dashboard/a_modules/users_manager/users_manager_screen
 import 'package:bldrs/xxx_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/xxx_dashboard/a_modules/zones_manager/zones_manager_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
 
@@ -32,6 +34,10 @@ class _DashBoardState extends State<DashBoard> {
 
     return DashBoardLayout(
         key: const ValueKey<String>('DashBoard'),
+        onBldrsTap: (){
+          final UiProvider _ui = Provider.of<UiProvider>(context, listen: false);
+          _ui.triggerLoading();
+        },
         pageTitle: 'DashBoard',
         listWidgets: <Widget>[
 

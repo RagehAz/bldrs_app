@@ -1,31 +1,34 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FlyerFooterButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerFooterButtons({
+    @required this.flyerID,
     @required this.flyerBoxWidth,
     @required this.tinyMode,
     @required this.onSaveFlyer,
     @required this.onReviewFlyer,
     @required this.onShareFlyer,
-    @required this.flyerIsSaved,
     @required this.inFlight,
     @required this.infoButtonType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
+  final String flyerID;
   final bool tinyMode;
   final Function onSaveFlyer;
   final Function onReviewFlyer;
   final Function onShareFlyer;
-  final ValueNotifier<bool> flyerIsSaved;
   final bool inFlight;
   final InfoButtonType infoButtonType;
   /// --------------------------------------------------------------------------
@@ -88,15 +91,20 @@ class FlyerFooterButtons extends StatelessWidget {
             _spacer,
 
           /// SAVE BUTTON
-          ValueListenableBuilder(
-            valueListenable: flyerIsSaved,
-            builder: (_, bool isSaved, Widget child){
+          Selector<FlyersProvider, List<FlyerModel>>(
+            selector: (_, FlyersProvider flyersProvider) => flyersProvider.savedFlyers,
+            builder: (_, List<FlyerModel> _savedFlyers, Widget child){
+
+              final bool _isSaved = FlyerModel.flyersContainThisID(
+                  flyerID: flyerID,
+                  flyers: _savedFlyers,
+              );
 
               return FooterButton(
                 flyerBoxWidth: flyerBoxWidth,
                 icon: Iconz.save,
-                verse: isSaved == true ? superPhrase(context, 'phid_saved') : superPhrase(context, 'phid_save'),
-                isOn: isSaved,
+                verse: _isSaved == true ? superPhrase(context, 'phid_saved') : superPhrase(context, 'phid_save'),
+                isOn: _isSaved,
                 tinyMode: tinyMode,
                 onTap: onSaveFlyer,
               );

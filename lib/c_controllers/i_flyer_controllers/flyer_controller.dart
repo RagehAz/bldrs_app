@@ -307,6 +307,8 @@ Widget flyerFlightShuttle({
   @required BzModel bzModel,
   @required double minWidthFactor,
   @required ValueNotifier<int> currentSlideIndex,
+  @required Function onSaveFlyer,
+  @required ValueNotifier<bool> flyerIsSaved,
 }) {
 
   /*
@@ -365,6 +367,8 @@ Widget flyerFlightShuttle({
             loading: true,
             flightDirection: _flightDirection,
             currentSlideIndex: currentSlideIndex,
+            onSaveFlyer: onSaveFlyer,
+            flyerIsSaved: flyerIsSaved,
           ),
         );
 

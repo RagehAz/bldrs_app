@@ -23,6 +23,8 @@ class FlyerHero extends StatelessWidget {
     @required this.minWidthFactor,
     @required this.heroTag,
     @required this.currentSlideIndex,
+    @required this.onSaveFlyer,
+    @required this.flyerIsSaved,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -34,6 +36,8 @@ class FlyerHero extends StatelessWidget {
   final double minWidthFactor;
   final String heroTag;
   final ValueNotifier<int> currentSlideIndex;
+  final ValueNotifier<bool> flyerIsSaved;
+  final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -68,6 +72,8 @@ class FlyerHero extends StatelessWidget {
           fromHeroContext: fromHeroContext,
           toHeroContext: toHeroContext,
           currentSlideIndex: currentSlideIndex,
+          flyerIsSaved: flyerIsSaved,
+          onSaveFlyer: onSaveFlyer,
         );
       },
 
@@ -80,6 +86,8 @@ class FlyerHero extends StatelessWidget {
         heroTag: _heroTag,
         flightDirection: FlightDirection.non,
         currentSlideIndex: currentSlideIndex,
+        onSaveFlyer: onSaveFlyer,
+        flyerIsSaved: flyerIsSaved,
       ),
 
     );
