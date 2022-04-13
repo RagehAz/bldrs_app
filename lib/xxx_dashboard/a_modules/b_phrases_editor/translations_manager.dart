@@ -15,9 +15,9 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_creator_page.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/pages/translations_page.dart';
-import 'package:bldrs/xxx_dashboard/a_modules/translations_manager/translations_controller.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/b_phrases_editor/pages/translations_creator_page.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/b_phrases_editor/pages/translations_page.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

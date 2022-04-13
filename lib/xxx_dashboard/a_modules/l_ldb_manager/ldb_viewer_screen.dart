@@ -11,7 +11,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/xxx_dashboard/a_modules/ldb_manager/value_box.dart';
+import 'package:bldrs/xxx_dashboard/a_modules/l_ldb_manager/value_box.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
