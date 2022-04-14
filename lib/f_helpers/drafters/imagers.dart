@@ -62,7 +62,6 @@ Future<File> takeGalleryPicture({@required PicType picType}) async {
 
   return _result;
 }
-
 // ---------------------------------------------------
 Future<File> takeCameraPicture({@required PicType picType}) async {
   final ImagePicker _picker = ImagePicker();
@@ -78,7 +77,6 @@ Future<File> takeCameraPicture({@required PicType picType}) async {
 
   return _result;
 }
-
 // ---------------------------------------------------
 Future<List<Asset>> takeGalleryMultiPictures({
   @required BuildContext context,
@@ -98,9 +96,9 @@ Future<List<Asset>> takeGalleryMultiPictures({
         takePhotoIcon: 'Take photo',
         doneButtonTitle: 'Done',
       ),
-      materialOptions: MaterialOptions(
+      materialOptions: const MaterialOptions(
         actionBarColor: '#13244b',
-        actionBarTitle: superPhrase(context, 'phid_choose'),
+        actionBarTitle: 'Select Images',//superPhrase(context, 'phid_choose'),
         allViewTitle: 'All Photos',
         useDetailsView: false,
         selectCircleStrokeColor: '#ffc000',
@@ -237,7 +235,6 @@ Future<File> getEmptyFile(String fileName) async {
   final File _file = File(_filePath);
   return _file;
 }
-
 // ---------------------------------------------------
 /// THIS IS TEMP DIRECTORY
 Future<File> getTempEmptyFile(String fileName) async {
@@ -247,7 +244,6 @@ Future<File> getTempEmptyFile(String fileName) async {
   final File _tempFile = File(_tempFilePath);
   return _tempFile;
 }
-
 // ---------------------------------------------------
 /// TAMAM
 Future<File> getFileFromLocalRasterAsset({
@@ -287,7 +283,6 @@ Future<File> getFileFromLocalRasterAsset({
 
   return _file;
 }
-
 // ---------------------------------------------------
 Future<File> getFileFromUint8List({
   @required Uint8List uInt8List,
@@ -302,7 +297,6 @@ Future<File> getFileFromUint8List({
 
   return _result;
 }
-
 // ---------------------------------------------------
 Future<File> getFileFromURL(String imageUrl) async {
   /// generate random number.
@@ -328,7 +322,6 @@ Future<File> getFileFromURL(String imageUrl) async {
   /// temporary directory and image bytes from response is written to // that file.
   return _file;
 }
-
 // ---------------------------------------------------
 Future<File> getFileFromPickerAsset(Asset asset) async {
   final ByteData _byteData = await asset.getThumbByteData(
@@ -348,7 +341,6 @@ Future<File> getFileFromPickerAsset(Asset asset) async {
 
   return _file;
 }
-
 // ---------------------------------------------------
 Future<List<File>> getFilesFromPickerAssets(List<Asset> assets) async {
   final List<File> _files = <File>[];
@@ -362,7 +354,6 @@ Future<List<File>> getFilesFromPickerAssets(List<Asset> assets) async {
 
   return _files;
 }
-
 // ---------------------------------------------------
 Future<File> getFileFromDynamic(dynamic pic) async {
   File _file;
@@ -381,7 +372,6 @@ Future<File> getFileFromDynamic(dynamic pic) async {
 
   return _file;
 }
-
 // ---------------------------------------------------
 Future<File> getFilerFromBase64(String base64) async {
   final Uint8List _fileAgainAsInt = base64Decode(base64);
@@ -399,16 +389,20 @@ Future<File> getFilerFromBase64(String base64) async {
 /// FILE WRITING
 
 // ---------------------------------------------------
-Future<File> writeUint8ListOnFile(
-    {@required File file, @required Uint8List uint8list}) async {
+Future<File> writeUint8ListOnFile({
+  @required File file,
+  @required Uint8List uint8list,
+}) async {
   await file.writeAsBytes(uint8list);
   await file.create(recursive: true);
   return file;
 }
 
 // ---------------------------------------------------
-Future<File> writeBytesOnFile(
-    {@required File file, @required ByteData byteData}) async {
+Future<File> writeBytesOnFile({
+  @required File file,
+  @required ByteData byteData,
+}) async {
   File _file;
 
   if (file != null && byteData != null) {
@@ -455,7 +449,6 @@ Future<Asset> getPickerAssetFromURL(String url) async {
   return _asset;
   //
 }
-
 // ---------------------------------------------------
 Asset getOnlyAssetFromDynamic(dynamic input) {
   Asset _asset;
@@ -465,7 +458,6 @@ Asset getOnlyAssetFromDynamic(dynamic input) {
 
   return _asset;
 }
-
 // ---------------------------------------------------
 List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs) {
   final List<Asset> _assets = <Asset>[];
@@ -492,7 +484,6 @@ Future<ui.Image> getUiImageFromUint8List(Uint8List uInt) async {
 
   return _decodedImage;
 }
-
 // ---------------------------------------------------
 Future<ui.Image> getUiImageFromIntList(List<int> img) async {
   final Completer<ui.Image> completer = Completer<ui.Image>();
@@ -511,13 +502,11 @@ Uint8List getUint8ListFromByteData(ByteData byteData) {
       .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
   return _uInts;
 }
-
 // ---------------------------------------------------
 Future<Uint8List> getUint8ListFromFile(File file) async {
   final Uint8List _uInt = await file.readAsBytes();
   return _uInt;
 }
-
 // ---------------------------------------------------
 Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
   final List<Uint8List> _screenShots = <Uint8List>[];
@@ -531,11 +520,12 @@ Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
 
   return _screenShots;
 }
-
 // ---------------------------------------------------
 /// TAMAM
-Future<Uint8List> getUint8ListFromLocalRasterAsset(
-    {@required String asset, @required int width}) async {
+Future<Uint8List> getUint8ListFromLocalRasterAsset({
+  @required String asset,
+  @required int width
+}) async {
   final ByteData _byteData = await rootBundle.load(asset);
 
   final ui.Codec _codec = await ui.instantiateImageCodec(
@@ -548,10 +538,8 @@ Future<Uint8List> getUint8ListFromLocalRasterAsset(
           .asUint8List();
   return _result;
 }
-
 // ---------------------------------------------------
-Future<Uint8List> getUint8ListFromRasterURL(
-    int width, int height, String urlAsset) async {
+Future<Uint8List> getUint8ListFromRasterURL(int width, int height, String urlAsset) async {
   final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
   final Canvas _canvas = Canvas(_pictureRecorder);
   final Paint _paint = Paint()..color = Colors.transparent;
@@ -649,8 +637,9 @@ Future<BitmapDescriptor> getBitmapFromSVG({
 }
 
 // ---------------------------------------------------
-Future<BitmapDescriptor> getBitmapFromPNG(
-    {String pngPic = Iconz.flyerPinPNG}) async {
+Future<BitmapDescriptor> getBitmapFromPNG({
+  String pngPic = Iconz.flyerPinPNG,
+}) async {
   final BitmapDescriptor _marker =
       await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, pngPic);
   return _marker;
@@ -664,7 +653,6 @@ BoxFit concludeBoxFitOld(Asset asset) {
   final BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
   return _fit;
 }
-
 // ---------------------------------------------------
 BoxFit concludeBoxFit({
   @required double picWidth,
@@ -697,7 +685,6 @@ BoxFit concludeBoxFit({
 
   return _boxFit;
 }
-
 // ---------------------------------------------------
 BoxFit concludeBoxFitForAsset({
   @required Asset asset,
@@ -718,7 +705,6 @@ BoxFit concludeBoxFitForAsset({
     viewHeight: _flyerZoneHeight,
   );
 }
-
 // ---------------------------------------------------
 List<BoxFit> concludeBoxesFitsForAssets({
   @required List<Asset> assets,
@@ -757,7 +743,6 @@ List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets() {
   ];
   return _androidRatios;
 }
-
 // ---------------------------------------------------
 List<CropAspectRatioPreset> getIOSCropAspectRatioPresets() {
   const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
@@ -777,11 +762,12 @@ List<CropAspectRatioPreset> getIOSCropAspectRatioPresets() {
 /// CHECKERS
 
 // ---------------------------------------------------
-bool slideBlurIsOn(
-    {@required dynamic pic,
-    @required ImageSize imageSize,
-    @required BoxFit boxFit,
-    @required double flyerBoxWidth}) {
+bool slideBlurIsOn({
+  @required dynamic pic,
+  @required ImageSize imageSize,
+  @required BoxFit boxFit,
+  @required double flyerBoxWidth,
+}) {
   /// blur layer shall only be active if the height of image supplied is smaller
   /// than flyer height when image width = flyerWidth
   /// hangebha ezzay dih
@@ -859,7 +845,6 @@ bool slideBlurIsOn(
 
   return _blurIsOn;
 }
-
 // ---------------------------------------------------
 bool picturesURLsAreTheSame({
   @required List<String> urlsA,
@@ -919,7 +904,6 @@ int concludeImageQuality(PicType picType) {
       return 100;
   }
 }
-
 // ---------------------------------------------------
 double concludeImageMaxWidth(PicType picType) {
   switch (picType) {
