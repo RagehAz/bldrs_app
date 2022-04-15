@@ -26,27 +26,30 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-class FlyerChain extends StatefulWidget {
-
-  FlyerChain({
+class FlyerCreator extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const FlyerCreator({
     @required this.chainNumber,
     @required this.onDeleteChain,
     @required this.chainHeight,
     @required this.bzModel,
     @required this.firstTimer,
-});
-
+    Key key,
+}) : super(key: key);
+  /// --------------------------------------------------------------------------
   final int chainNumber;
   final Function onDeleteChain;
   final double chainHeight;
   final BzModel bzModel;
   final bool firstTimer;
-
+  /// --------------------------------------------------------------------------
   @override
-  _FlyerChainState createState() => _FlyerChainState();
+  _FlyerCreatorState createState() => _FlyerCreatorState();
+  /// --------------------------------------------------------------------------
 }
 
-class _FlyerChainState extends State<FlyerChain> with AutomaticKeepAliveClientMixin{
+class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClientMixin{
+// -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
@@ -64,7 +67,9 @@ class _FlyerChainState extends State<FlyerChain> with AutomaticKeepAliveClientMi
   void _triggerLoading(){
     setState(() {_loading = !_loading;});
     _loading == true?
-    print('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------')
+        :
+    blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -160,14 +165,14 @@ class _FlyerChainState extends State<FlyerChain> with AutomaticKeepAliveClientMi
   Future <void> _onImageTap(int index) async {
 
     /// TASK : calculating flyer editor width is redundant and should be in separate method
-    double _screenWidth = Scale.superScreenWidth(context);
-    double _buttonSize = 50;
-    double _panelWidth = _buttonSize + (Ratioz.appBarMargin * 2);
-    double _flyerZoneWidth = _screenWidth - _panelWidth - Ratioz.appBarMargin;
+    // final double _screenWidth = Scale.superScreenWidth(context);
+    // const double _buttonSize = 50;
+    // const double _panelWidth = _buttonSize + (Ratioz.appBarMargin * 2);
+    // double _flyerZoneWidth = _screenWidth - _panelWidth - Ratioz.appBarMargin;
 
     blog('index is : $index');
 
-    dynamic _result = await Nav.goToNewScreen(context,
+    final dynamic _result = await Nav.goToNewScreen(context,
         // FlyerEditorScreen(
         //   draftFlyer : _draftFlyer,
         //   firstTitle : _headlinesControllers.isEmpty ? null : _headlinesControllers[0].text,
@@ -301,7 +306,7 @@ class _FlyerChainState extends State<FlyerChain> with AutomaticKeepAliveClientMi
                   children: <Widget>[
 
                     /// CHAIN NUMBER AND COUNTER
-                    Container(
+                    SizedBox(
                       width: _flyerTitleZoneWidth,
                       child: Padding(
                         padding: const EdgeInsets.only(right: Ratioz.appBarPadding, left: Ratioz.appBarPadding, top: Ratioz.appBarMargin),
@@ -321,7 +326,7 @@ class _FlyerChainState extends State<FlyerChain> with AutomaticKeepAliveClientMi
                             /// TEXT FIELD COUNTER
                             if  (_isPublished == false)
                             SuperVerse(
-                              verse: '${_textLength} / ${_flyerTitleMaxLength}',
+                              verse: '$_textLength / $_flyerTitleMaxLength',
                               size: 1,
                               italic: true,
                               color: _counterColor,
@@ -340,7 +345,7 @@ class _FlyerChainState extends State<FlyerChain> with AutomaticKeepAliveClientMi
                       child: SuperTextField(
                         // onTap: (){},
                         fieldIsFormField: true,
-                        height: _stackTitleHeight,
+                        // height: _stackTitleHeight,
                         width: _flyerTitleZoneWidth,
                         maxLines: 1,
                         inputSize: 2,
