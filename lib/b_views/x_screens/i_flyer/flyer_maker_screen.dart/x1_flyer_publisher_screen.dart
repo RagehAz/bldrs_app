@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/flyer_chain.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/flyer_creator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
@@ -40,23 +40,24 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 
-class PublisherScreen extends StatefulWidget {
+class FlyerPublisherScreen extends StatefulWidget {
 
-  PublisherScreen({
+  const FlyerPublisherScreen({
     @required this.bzModel,
     this.firstTimer = false,
     this.flyerModel,
-  });
+    Key key,
+  }) : super(key: key);
 
   final BzModel bzModel;
   final bool firstTimer;
   final FlyerModel flyerModel;
 
   @override
-  _PublisherScreenState createState() => _PublisherScreenState();
+  _FlyerPublisherScreenState createState() => _FlyerPublisherScreenState();
 }
 
-class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAliveClientMixin{
+class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
   @override
@@ -65,11 +66,11 @@ class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAli
   final ScrollController _scrollController = ScrollController();
   final Curve _animationCurve = Curves.easeOut;
   final Duration _animationDuration = Ratioz.duration150ms;
-  final double _chainMaxHeight = 340;
+  final double _creatorMaxHeight = 340;
 // -----------------------------------------------------------------------------
-  final List<double> _chainsOpacities = <double>[];
-  List<double> _chainsHeights = <double>[];
-  final List<ValueKey<int>> _chainsKeys = <ValueKey<int>>[];
+  final List<double> _creatorsOpacities = <double>[];
+  final List<double> _creatorsHeights = <double>[];
+  final List<ValueKey<int>> _creatorsKeys = <ValueKey<int>>[];
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -91,7 +92,7 @@ class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAli
   }
 // -----------------------------------------------------------------------------
   double _getChainPosition(int index){
-    final double _verticalOffsetFromScreenTop =  (_chainMaxHeight * (index)) + Ratioz.appBarMargin;
+    final double _verticalOffsetFromScreenTop =  (_creatorMaxHeight * (index)) + Ratioz.appBarMargin;
     return _verticalOffsetFromScreenTop;
   }
 // -----------------------------------------------------------------------------
@@ -120,16 +121,16 @@ class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAli
   Future<void> _createNewChain() async {
 
     /// A - if less than 5 drafts
-    if (_chainsKeys.length < 5){
+    if (_creatorsKeys.length < 5){
 
-      final int _newIndex = _chainsKeys.length;
-      final ValueKey _newKey = Numeric.createUniqueKeyFrom(existingKeys: _chainsKeys);
+      final int _newIndex = _creatorsKeys.length;
+      final ValueKey _newKey = Numeric.createUniqueKeyFrom(existingKeys: _creatorsKeys);
 
       setState(() {
 
-        _chainsHeights.add(0);
-        _chainsOpacities.add(0);
-        _chainsKeys.add(_newKey);
+        _creatorsHeights.add(0);
+        _creatorsOpacities.add(0);
+        _creatorsKeys.add(_newKey);
 
       });
 
@@ -162,9 +163,9 @@ class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAli
       }
 
       setState(() {
-        _chainsKeys.removeAt(index);
-        _chainsOpacities.removeAt(index);
-        _chainsHeights.removeAt(index);
+        _creatorsKeys.removeAt(index);
+        _creatorsOpacities.removeAt(index);
+        _creatorsHeights.removeAt(index);
       });
     });
 
@@ -173,12 +174,12 @@ class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAli
   Future<void> _fadeOutAndShrinkChain(int index) async {
     await Future.delayed( _animationDuration, () async {
       setState(() {
-      _chainsOpacities[index] = 0;
+      _creatorsOpacities[index] = 0;
       });
     });
 
     setState(() {
-      _chainsHeights[index] = 0;
+      _creatorsHeights[index] = 0;
     });
 
   }
@@ -187,13 +188,13 @@ class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAli
 
     await Future.delayed(Ratioz.durationFading200, () async {
       setState(() {
-        _chainsOpacities[index] = 1;
+        _creatorsOpacities[index] = 1;
 
       });
     });
 
     setState(() {
-      _chainsHeights[index] = _chainMaxHeight;
+      _creatorsHeights[index] = _creatorMaxHeight;
     });
 
   }
@@ -246,38 +247,76 @@ class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAli
           // ),
 
           /// CHAINS
-          ...List.generate(
-              _chainsKeys.length,
-                  (_chainIndex) => AnimatedContainer(
-                    duration: _animationDuration,
+          ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _creatorsKeys.length,
+              itemBuilder: (_, int index){
+
+                return AnimatedContainer(
+                  duration: _animationDuration,
+                  curve: _animationCurve,
+                  height: _creatorsHeights[index],
+                  child: AnimatedOpacity(
+                    key: _creatorsKeys[index],
                     curve: _animationCurve,
-                    height: _chainsHeights[_chainIndex],
-                    child: AnimatedOpacity(
-                      key: _chainsKeys[_chainIndex],
-                      curve: _animationCurve,
-                      duration: _animationDuration,
-                      opacity: _chainsOpacities[_chainIndex],
-                      child: FlyerChain(
-                        // chainKey: _chainsKeys[_chainIndex],
-                        bzModel: widget.bzModel,
-                        firstTimer: widget.firstTimer,
-                        chainNumber: _chainIndex + 1,
-                        chainHeight: _chainMaxHeight,
-                        onDeleteChain: () => _deleteChain(index: _chainIndex),
-                        // onAddPics: () => _getMultiImages(
-                        //   accountType: BzAccountType.Super,
-                        //   draftIndex: _chainIndex,
-                        // ),
-                        // onDeleteImage: (int imageIndex){
-                        //   setState(() {
-                        //     _draftFlyers[_chainIndex].assetsAsFiles.removeAt(imageIndex);
-                        //     _draftFlyers[_chainIndex].assets.removeAt(imageIndex);
-                        //   });
-                        // },
-          ),
+                    duration: _animationDuration,
+                    opacity: _creatorsOpacities[index],
+                    child: FlyerCreator(
+                      // chainKey: _chainsKeys[_chainIndex],
+                      bzModel: widget.bzModel,
+                      firstTimer: widget.firstTimer,
+                      chainNumber: index + 1,
+                      chainHeight: _creatorMaxHeight,
+                      onDeleteChain: () => _deleteChain(index: index),
+                      // onAddPics: () => _getMultiImages(
+                      //   accountType: BzAccountType.Super,
+                      //   draftIndex: _chainIndex,
+                      // ),
+                      // onDeleteImage: (int imageIndex){
+                      //   setState(() {
+                      //     _draftFlyers[_chainIndex].assetsAsFiles.removeAt(imageIndex);
+                      //     _draftFlyers[_chainIndex].assets.removeAt(imageIndex);
+                      //   });
+                      // },
                     ),
-                  )
+                  ),
+                );
+
+              }
           ),
+          // ...List.generate(
+          //     _chainsKeys.length,
+          //         (_chainIndex) => AnimatedContainer(
+          //           duration: _animationDuration,
+          //           curve: _animationCurve,
+          //           height: _chainsHeights[_chainIndex],
+          //           child: AnimatedOpacity(
+          //             key: _chainsKeys[_chainIndex],
+          //             curve: _animationCurve,
+          //             duration: _animationDuration,
+          //             opacity: _chainsOpacities[_chainIndex],
+          //             child: FlyerChain(
+          //               // chainKey: _chainsKeys[_chainIndex],
+          //               bzModel: widget.bzModel,
+          //               firstTimer: widget.firstTimer,
+          //               chainNumber: _chainIndex + 1,
+          //               chainHeight: _chainMaxHeight,
+          //               onDeleteChain: () => _deleteChain(index: _chainIndex),
+          //               // onAddPics: () => _getMultiImages(
+          //               //   accountType: BzAccountType.Super,
+          //               //   draftIndex: _chainIndex,
+          //               // ),
+          //               // onDeleteImage: (int imageIndex){
+          //               //   setState(() {
+          //               //     _draftFlyers[_chainIndex].assetsAsFiles.removeAt(imageIndex);
+          //               //     _draftFlyers[_chainIndex].assets.removeAt(imageIndex);
+          //               //   });
+          //               // },
+          // ),
+          //           ),
+          //         )
+          // ),
 
           /// ADD NEW FLYER BUTTON
           Container(
@@ -294,14 +333,14 @@ class _PublisherScreenState extends State<PublisherScreen> with AutomaticKeepAli
               color: Colorz.white10,
               bubble: false,
               onTap: _createNewChain,
-              inActiveMode: _chainsKeys.length < Standards.maxDraftsAtOnce ? false : true,
+              inActiveMode: _creatorsKeys.length < Standards.maxDraftsAtOnce ? false : true,
             ),
           ),
 
           /// HORIZON
           SizedBox(
             width: Scale.superScreenWidth(context),
-            height: Scale.superScreenHeight(context) - (Ratioz.stratosphere + _chainMaxHeight + 100 + (Ratioz.appBarMargin * 4)),
+            height: Scale.superScreenHeight(context) - (Ratioz.stratosphere + _creatorMaxHeight + 100 + (Ratioz.appBarMargin * 4)),
           ),
 
           /// GIF THING
