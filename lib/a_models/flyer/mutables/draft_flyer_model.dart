@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 class DraftFlyerModel{
-
+  /// --------------------------------------------------------------------------
   DraftFlyerModel({
     @required this.assetsSources,
     @required this.assetsFiles,
@@ -12,13 +12,13 @@ class DraftFlyerModel{
     @required this.headlinesControllers,
     @required this.state,
   });
-
+  /// --------------------------------------------------------------------------
   List<Asset> assetsSources;
   List<File> assetsFiles;
   List<BoxFit> boxesFits;
   List<TextEditingController> headlinesControllers;
   FlyerState state;
-
+  /// --------------------------------------------------------------------------
   static DraftFlyerModel createEmptyDraft(){
 
     final DraftFlyerModel _draft = DraftFlyerModel(
@@ -31,5 +31,5 @@ class DraftFlyerModel{
 
     return _draft;
   }
-
+// -----------------------------------------------------------------------------
 }

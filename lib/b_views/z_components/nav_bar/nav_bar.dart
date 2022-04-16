@@ -294,39 +294,17 @@ class NavBar extends StatelessWidget {
                     verseScaleFactor: 0.7,
                     verseCentered: false,
                     onTap: () async {
+
                       blog(_bzModel.id);
-
-                      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-                      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-                      final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
-                          context: context,
-                          countryID: _bzModel.zone.countryID,
-                      );
-
-                      final CityModel _bzCity = await _zoneProvider.fetchCityByID(
-                          context: context,
-                          cityID: _bzModel.zone.cityID,
-                      );
-
-                      _bzzProvider.setActiveBz(
-                        bzModel: _bzModel,
-                        bzCountry: _bzCountry,
-                        bzCity: _bzCity,
-                      );
-
-                      await _bzzProvider.getsetActiveBzFlyers(
-                          context: context,
-                          bzID: _bzModel.id,
-                      );
 
                       await Nav.goToNewScreen(
                           context,
-                          const MyBzScreen(
-                            // userModel: userModel,
-                            // bzModel: _bzModel,
-                          ));
-                    },
+                          MyBzScreen(
+                            bzModel: _bzModel,
+                          )
+                      );
+
+                      },
                   ),
                 );
               },
@@ -455,18 +433,21 @@ class NavBar extends StatelessWidget {
                           circleWidth: _circleWidth,
                           barType: barType,
                           // bzzIDs: _userBzzIDs,
-                          onTap: () {
+                          onTap: () async {
                             blog('fish');
 
                             if (_userBzzIDs.length == 1) {
-                              Nav.goToNewScreen(
+
+                              await Nav.goToNewScreen(
                                   context,
-                                  const MyBzScreen(
+                                  MyBzScreen(
                                     // userModel: _myUserModel,
-                                    // bzModel: _myBzz[0],
+                                    bzModel: _myBzz[0],
                                   ));
-                            } else {
-                              _multiBzzSlider(context, _myUserModel, _myBzz);
+                            }
+
+                            else {
+                              await _multiBzzSlider(context, _myUserModel, _myBzz);
                             }
                           },
                         ),

@@ -330,11 +330,11 @@ Future<void> _onSignOut(BuildContext context) async {
 
   /// CLEAR BZZ
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  _bzzProvider.clearMyBzz();
-  _bzzProvider.clearFollowedBzz();
-  _bzzProvider.clearSponsors();
-  _bzzProvider.clearMyActiveBz();
-  _bzzProvider.clearActiveBzFlyers();
+  _bzzProvider.clearMyBzz(notify: false,);
+  _bzzProvider.clearFollowedBzz(notify: false,);
+  _bzzProvider.clearSponsors(notify: false,);
+  _bzzProvider.clearMyActiveBz(notify: false);
+  _bzzProvider.clearActiveBzFlyers(notify: true);
 
   /// CLEAR USER
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
