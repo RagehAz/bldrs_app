@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/remaining_slides_counter.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/remaining_slides_counter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -8,20 +8,18 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class FlyerMakerScreen extends StatelessWidget {
+class OldFlyerMakerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerMakerScreen({
+  const OldFlyerMakerScreen({
     @required this.bzModel,
     @required this.firstTimer,
     @required this.flyerModel,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final bool firstTimer;
   final FlyerModel flyerModel;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,6 +40,7 @@ class FlyerMakerScreen extends StatelessWidget {
       pyramidsAreOn: true,
 
       appBarRowWidgets: const <Widget>[
+
         RemainingSlidesCounter(),
 
         Expander(),
@@ -50,13 +49,11 @@ class FlyerMakerScreen extends StatelessWidget {
         //     firstTimer: firstTimer,
         //     loading: false, /// TASK : add loading to superFlyer
         //     onTap: (){
-        //
         //       //widget.firstTimer ? _superFlyer.createNewFlyer : _superFlyer.updateExistingFlyer,
-        //
         //       print('fuck the fucking null');
-        //
         //     }
         // ),
+
       ],
       layoutWidget: Column(
         // physics: NeverScrollableScrollPhysics(),
@@ -66,8 +63,7 @@ class FlyerMakerScreen extends StatelessWidget {
 
           /// FLYER & PANEL ZONES
           Container(
-            height: Scale.superScreenHeightWithoutSafeArea(context) -
-                Ratioz.stratosphere,
+            height: Scale.superScreenHeightWithoutSafeArea(context) - Ratioz.stratosphere,
             alignment: Alignment.center,
             // child: FinalFlyer(
             //   flyerBoxWidth: _flyerBoxWidth,
@@ -80,6 +76,7 @@ class FlyerMakerScreen extends StatelessWidget {
             //   },
             // ),
           ),
+
         ],
       ),
     );

@@ -8,27 +8,39 @@ import 'package:bldrs/b_views/y_views/f_bz/f_4_bz_authors_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_5_bz_targets_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_6_bz_powers_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_7_bz_network_page.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyBzScreenViewPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MyBzScreenViewPages({
     @required this.tabController,
-    @required this.bzModel,
-    @required this.bzFlyers,
-    @required this.bzCountry,
-    @required this.bzCity,
+    // @required this.bzModel,
+    // @required this.bzFlyers,
+    // @required this.bzCountry,
+    // @required this.bzCity,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TabController tabController;
-  final BzModel bzModel;
-  final List<FlyerModel> bzFlyers;
-  final CountryModel bzCountry;
-  final CityModel bzCity;
+  // final BzModel bzModel;
+  // final List<FlyerModel> bzFlyers;
+  // final CountryModel bzCountry;
+  // final CityModel bzCity;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
+    final BzModel bzModel = _bzzProvider.myActiveBz;
+    final List<FlyerModel> bzFlyers = _bzzProvider.myActiveBzFlyers;
+    final CountryModel bzCountry = _bzzProvider.myActiveBzCountry;
+    final CityModel bzCity = _bzzProvider.myActiveBzCity;
+
+    blog('BUILDING MyBzScreenViewPages WITH ${bzFlyers.length} FLYERS');
+
     return TabBarView(
       physics: const BouncingScrollPhysics(),
       controller: tabController,

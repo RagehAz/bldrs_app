@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
@@ -28,16 +29,21 @@ class BzFlyersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return FlyersGrid(
-      key: const ValueKey<String>('BzFlyersPage_grid'),
-      flyers: flyers,
-      gridWidth: superScreenWidth(context),
-      gridHeight: superScreenHeight(context),
-      scrollController: null,
-      numberOfColumns: 2,
-      topPadding: 5,
-      addFlyerButtonIsOn: true,
-    );
+    if (canLoopList(flyers) == true){
+      return FlyersGrid(
+        key: const ValueKey<String>('BzFlyersPage_grid'),
+        flyers: flyers,
+        gridWidth: superScreenWidth(context),
+        gridHeight: superScreenHeight(context),
+        scrollController: null,
+        numberOfColumns: 2,
+        topPadding: 5,
+        addFlyerButtonIsOn: true,
+      );
+    }
+    else {
+      return const SizedBox();
+    }
 
   }
 }

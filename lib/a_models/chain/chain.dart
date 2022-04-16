@@ -519,11 +519,11 @@ class Chain {
 
     if (Mapper.canLoopList(chains) == true){
 
-      int _count = 1;
+      // int _count = 1;
       for (final dynamic chain in chains){
         // blog('--- --- --- --- --->>> BLOGGING CHAIN : $_count / ${chains.length} chains');
         chain?.blogChain(level: parentLevel+1);
-        _count++;
+        // _count++;
       }
 
     }

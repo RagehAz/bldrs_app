@@ -29,14 +29,23 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   /// E - PROMOTED FLYERS
   unawaited(_initializePromotedFlyers(context));
 
-  /// F - SPONSORS
-  await _initializeSponsors(context);
+  /// F - SPONSORS : USES BZZ PROVIDER
+  await _initializeSponsors(
+    context: context,
+    notify: true,
+  );
 
-  /// G - USER BZZ
-  await _initializeUserBzz(context);
+  /// G - USER BZZ : USES BZZ PROVIDER
+  await _initializeUserBzz(
+    context: context,
+    notify: true,
+  );
 
-  /// H - USER FOLLOWED BZZ
-  await _initializeUserFollowedBzz(context);
+  /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
+  await _initializeUserFollowedBzz(
+    context: context,
+    notify: true
+  );
 
   /// I - KEYWORDS
   await _initializeSpecsAndKeywords(context);
@@ -85,9 +94,15 @@ Future<void> _initializeUserZone(BuildContext context) async {
   }
 }
 // -----------------------------------------------------------------------------
-Future<void> _initializeSponsors(BuildContext context) async {
+Future<void> _initializeSponsors({
+  @required BuildContext context,
+  @required bool notify,
+}) async {
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.getSetSponsors(context);
+  await _bzzProvider.getSetSponsors(
+    context: context,
+    notify: notify,
+  );
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeSpecsAndKeywords(BuildContext context) async {
@@ -95,14 +110,26 @@ Future<void> _initializeSpecsAndKeywords(BuildContext context) async {
   await _chainsProvider.getSetAllChains(context);
 }
 // -----------------------------------------------------------------------------
-Future<void> _initializeUserBzz(BuildContext context) async {
+Future<void> _initializeUserBzz({
+  @required BuildContext context,
+  @required bool notify,
+}) async {
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.getSetMyBzz(context);
+  await _bzzProvider.getSetMyBzz(
+    context: context,
+    notify: notify,
+  );
 }
 // -----------------------------------------------------------------------------
-Future<void> _initializeUserFollowedBzz(BuildContext context) async {
+Future<void> _initializeUserFollowedBzz({
+  @required BuildContext context,
+  @required bool notify,
+}) async {
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.getsetFollowedBzz(context);
+  await _bzzProvider.getsetFollowedBzz(
+    context: context,
+    notify: notify,
+  );
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {

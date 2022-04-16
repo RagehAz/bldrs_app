@@ -47,22 +47,22 @@ class MyBzScreenView extends StatelessWidget {
       },
 
       /// MY BZ SCREEN PAGES
-      body: Consumer<BzzProvider>(
+      body: Consumer<BzzProvider>( /// TASK : REMOVE CONSUMER
         builder: (_, BzzProvider bzzProvider, Widget child){
 
-          final BzModel _myActiveBzModel = bzzProvider.myActiveBz;
-          final List<FlyerModel> _myActiveBzFlyers = bzzProvider.myActiveBzFlyers;
-          final CountryModel _myActiveBzCountry = bzzProvider.myActiveBzCountry;
-          final CityModel _myActiveBzCity = bzzProvider.myActiveBzCity;
+          // final BzModel _myActiveBzModel = bzzProvider.myActiveBz;
+          // final List<FlyerModel> _myActiveBzFlyers = bzzProvider.myActiveBzFlyers;
+          // final CountryModel _myActiveBzCountry = bzzProvider.myActiveBzCountry;
+          // final CityModel _myActiveBzCity = bzzProvider.myActiveBzCity;
 
           return
 
             MyBzScreenViewPages(
                 tabController: tabController,
-                bzModel: _myActiveBzModel,
-                bzFlyers: _myActiveBzFlyers,
-                bzCountry: _myActiveBzCountry,
-                bzCity: _myActiveBzCity,
+                // bzModel: _myActiveBzModel,
+                // bzFlyers: _myActiveBzFlyers,
+                // bzCountry: _myActiveBzCountry,
+                // bzCity: _myActiveBzCity,
             );
 
         },

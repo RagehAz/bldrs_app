@@ -127,7 +127,10 @@ class BzzProvider extends ChangeNotifier {
   /// FETCH SPONSORS
   /// 1 - get sponsors from app state
   /// 2 - fetch each bzID if found
-  Future<void> getSetSponsors(BuildContext context) async {
+  Future<void> getSetSponsors({
+    @required BuildContext context,
+    @required bool notify,
+}) async {
     /// 1 - get sponsorsIDs from app state
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final List<String> _sponsorsBzzIDs = _generalProvider.appState.sponsors;
@@ -139,17 +142,31 @@ class BzzProvider extends ChangeNotifier {
           bzzIDs: _sponsorsBzzIDs
       );
 
-      _setSponsors(_bzzSponsors);
+      _setSponsors(
+        bzz: _bzzSponsors,
+        notify: notify,
+      );
     }
   }
 // -------------------------------------
-  void _setSponsors(List<BzModel> bzz){
+  void _setSponsors({
+    @required List<BzModel> bzz,
+    @required bool notify,
+}){
     _sponsors = bzz;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearSponsors(){
-    _setSponsors(<BzModel>[]);
+  void clearSponsors({
+  @required bool notify,
+}){
+    _setSponsors(
+      bzz: <BzModel>[],
+      notify: notify,
+    );
+
   }
 // -----------------------------------------------------------------------------
 
@@ -162,7 +179,10 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel>[..._myBzz];
   }
 // -------------------------------------
-  Future<void> getSetMyBzz(BuildContext context) async {
+  Future<void> getSetMyBzz({
+    @required BuildContext context,
+    @required bool notify,
+}) async {
     /// 1 - get userBzzIDs from userModel
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final List<String> _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
@@ -171,17 +191,31 @@ class BzzProvider extends ChangeNotifier {
       /// 2 - fetch bzz
       final List<BzModel> _bzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
 
-      _setMyBzz(_bzz);
+      _setMyBzz(
+        bzz: _bzz,
+        notify: notify,
+      );
+
     }
   }
 // -------------------------------------
-  void _setMyBzz(List<BzModel> bzz){
+  void _setMyBzz({
+    @required List<BzModel> bzz,
+    @required bool notify,
+}){
     _myBzz = bzz;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearMyBzz(){
-    _setMyBzz(<BzModel>[]);
+  void clearMyBzz({
+  @required bool notify,
+}){
+    _setMyBzz(
+      bzz: <BzModel>[],
+      notify: notify,
+    );
   }
 // -------------------------------------
   Future<void> removeBzFromMyBzz({@required String bzID}) async {
@@ -231,7 +265,10 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel>[..._followedBzz];
   }
 // -------------------------------------
-  Future<void> getsetFollowedBzz(BuildContext context) async {
+  Future<void> getsetFollowedBzz({
+    @required BuildContext context,
+    @required bool notify,
+}) async {
     /// 1 - get user saved followed bzz IDs
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
@@ -244,20 +281,36 @@ class BzzProvider extends ChangeNotifier {
         bzzIDs: _followedBzzIDs,
       );
 
-      _setFollowedBzz(_bzz);
+      _setFollowedBzz(
+        bzz: _bzz,
+        notify: notify,
+      );
     }
   }
 // -------------------------------------
-  void _setFollowedBzz(List<BzModel> bzz){
+  void _setFollowedBzz({
+    @required List<BzModel> bzz,
+    @required bool notify,
+  }){
     _followedBzz = bzz;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearFollowedBzz(){
-    _setFollowedBzz(<BzModel>[]);
+  void clearFollowedBzz({
+  @required bool notify,
+}){
+    _setFollowedBzz(
+      bzz: <BzModel>[],
+      notify: notify,
+    );
   }
 // -------------------------------------
-  bool checkFollow({@required BuildContext context, @required String bzID}) {
+  bool checkFollow({
+    @required BuildContext context,
+    @required String bzID,
+  }) {
     bool _isFollowing = false;
 
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -300,40 +353,63 @@ class BzzProvider extends ChangeNotifier {
     @required BzModel bzModel,
     @required CountryModel bzCountry,
     @required CityModel bzCity,
+    @required bool notify,
   }) {
     blog('setting active bz to ${bzModel?.id}');
     _myActiveBz = bzModel;
     _myActiveBzCountry = bzCountry;
     _myActiveBzCity = bzCity;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -------------------------------------
   Future<void> getsetActiveBzFlyers({
     @required BuildContext context,
-    @required String bzID
+    @required String bzID,
+    @required bool notify,
   }) async {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     final List<FlyerModel> _flyers = await _flyersProvider.fetchAllBzFlyersByBzID(context: context, bzID: bzID);
 
-    _setActiveBzFlyers(_flyers);
+    _setActiveBzFlyers(
+      flyers: _flyers,
+      notify: notify,
+    );
 
   }
 // -------------------------------------
-  void _setActiveBzFlyers(List<FlyerModel> flyers){
+  void _setActiveBzFlyers({
+    @required List<FlyerModel> flyers,
+    @required bool notify,
+  }){
     _myActiveBzFlyers = flyers;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearActiveBzFlyers(){
-    _setActiveBzFlyers(<FlyerModel>[]);
+  void clearActiveBzFlyers({
+  @required bool notify,
+}){
+    _setActiveBzFlyers(
+      flyers: <FlyerModel>[],
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
-  void clearMyActiveBz(){
+  void clearMyActiveBz({
+  @required bool notify,
+}){
     setActiveBz(
       bzModel: null,
       bzCity: null,
       bzCountry: null,
+      notify: notify,
     );
   }
 // -----------------------------------------------------------------------------
