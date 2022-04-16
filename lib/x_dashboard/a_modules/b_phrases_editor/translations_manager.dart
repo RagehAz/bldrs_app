@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/trans_model_streamer.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+// import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -22,13 +22,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TranslationsManager extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const TranslationsManager({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _TranslationsManagerState createState() => _TranslationsManagerState();
+/// --------------------------------------------------------------------------
 }
 
 class _TranslationsManagerState extends State<TranslationsManager> {
@@ -130,7 +131,6 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     WaitDialog.closeWaitDialog(context);
 
   }
-
   // -----------------------------
   // Future<void> _doTheThingForCities(List<Map<String, dynamic>> citiesMaps) async {
   //
@@ -197,8 +197,8 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    // final double _screenWidth = Scale.superScreenWidth(context);
+    // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     const double _buttonsHeight = 40;
 
     return PhrasesStreamer(

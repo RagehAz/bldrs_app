@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -143,8 +145,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     final Chain _specsChain = _chainsProvider.specsChain;
 
 
-    // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    // final List<BzModel> _userBzz = _bzzProvider.myBzz;
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final List<BzModel> _myBzz = _bzzProvider.myBzz;
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -159,6 +161,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             children: <Widget>[
 
               const Stratosphere(),
+
+              const SuperVerse(verse: 'User',),
 
               WideButton(
                   color: Colorz.black255,
@@ -204,20 +208,21 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                     unawaited(_triggerLoading());
                   }),
 
-              const BubblesSeparator(),
+              const SuperVerse(verse: 'Bzz',),
 
-              // WideButton(
-              //     color: Colorz.black255,
-              //     verse: 'print _userBzz : ${_userBzz?.length}',
-              //     icon: Iconizer.valueIsNotNull(_myUserModelStream),
-              //     onTap: () async {
-              //       unawaited(_triggerLoading());
-              //
-              //       BzModel.blogBzz(bzz: _userBzz);
-              //
-              //       unawaited(_triggerLoading());
-              //     }),
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print _myBzz : ${_myBzz?.length}',
+                  icon: Iconizer.valueIsNotNull(_myBzz),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
 
+                    BzModel.blogBzz(bzz: _myBzz);
+
+                    unawaited(_triggerLoading());
+                  }),
+
+              const SuperVerse(verse: 'Zone',),
 
               WideButton(
                   color: Colorz.black255,
@@ -267,7 +272,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                     unawaited(_triggerLoading());
                   }),
 
-              const BubblesSeparator(),
+              const SuperVerse(verse: 'Sections and keywords',),
 
               WideButton(
                   color: Colorz.black255,
@@ -293,7 +298,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                     unawaited(_triggerLoading());
                   }),
 
-              const BubblesSeparator(),
+              const SuperVerse(verse: 'Chains',),
 
               WideButton(
                   color: Colorz.black255,

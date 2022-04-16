@@ -45,7 +45,7 @@ class BzzButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final List<BzModel> _userBzz = _bzzProvider.myBzz;
+    final List<BzModel> _myBzz = _bzzProvider.myBzz;
 
     final double _circleWidth = circleWidth;
     final double _buttonCircleCorner = _circleWidth * 0.5;
@@ -83,30 +83,30 @@ class BzzButton extends StatelessWidget {
             ),
 
             /// --- BZZ LOGOS
-            if (_userBzz.isEmpty)
+            if (_myBzz.isEmpty)
               SizedBox(
                 width: _circleWidth,
                 height: _circleWidth,
               ),
 
-            if (_userBzz.isNotEmpty)
+            if (_myBzz.isNotEmpty)
               Container(
                   width: _circleWidth,
                   height: _circleWidth,
                   alignment: Alignment.center,
-                  child: _userBzz.length == 1 ?
+                  child: _myBzz.length == 1 ?
 
                   DreamBox(
                     width: _circleWidth,
                     height: _circleWidth,
-                    icon: _userBzz[0].logo,
+                    icon: _myBzz[0].logo,
                     corners: _buttonCircleCorner,
                     onTap: onTap,
                   )
 
                       :
 
-                  _userBzz.length == 2 ?
+                  _myBzz.length == 2 ?
                   Stack(
                     children: <Widget>[
 
@@ -115,7 +115,7 @@ class BzzButton extends StatelessWidget {
                         left: 0,
                         child: BzLogo(
                           width: _circleWidth * 0.7,
-                          image: _userBzz[0].logo,
+                          image: _myBzz[0].logo,
                           shadowIsOn: _shadowIsOn,
                           onTap: onTap,
                         ),
@@ -126,7 +126,7 @@ class BzzButton extends StatelessWidget {
                         right: 0,
                         child: BzLogo(
                           width: _circleWidth * 0.7,
-                          image: _userBzz[1].logo,
+                          image: _myBzz[1].logo,
                           shadowIsOn: _shadowIsOn,
                           onTap: onTap,
                         ),
@@ -137,7 +137,7 @@ class BzzButton extends StatelessWidget {
 
                       :
 
-                  _userBzz.length == 3 ?
+                  _myBzz.length == 3 ?
                   SizedBox(
                     width: _circleWidth,
                     height: _circleWidth,
@@ -153,8 +153,8 @@ class BzzButton extends StatelessWidget {
                           crossAxisAlignment:
                           CrossAxisAlignment.start,
                           children: <Widget>[
-                            _nanoBzLogo(context, _userBzz[0]),
-                            _nanoBzLogo(context, _userBzz[1]),
+                            _nanoBzLogo(context, _myBzz[0]),
+                            _nanoBzLogo(context, _myBzz[1]),
                           ],
                         ),
 
@@ -163,7 +163,7 @@ class BzzButton extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
 
-                            _nanoBzLogo(context, _userBzz[2]),
+                            _nanoBzLogo(context, _myBzz[2]),
 
                             Container(
                               width: _circleWidth * 0.47,
@@ -178,7 +178,7 @@ class BzzButton extends StatelessWidget {
 
                       :
 
-                  _userBzz.length == 4 ?
+                  _myBzz.length == 4 ?
                   Column(
                     mainAxisAlignment:
                     MainAxisAlignment.spaceBetween,
@@ -190,8 +190,8 @@ class BzzButton extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
-                          _nanoBzLogo(context, _userBzz[0]),
-                          _nanoBzLogo(context, _userBzz[1]),
+                          _nanoBzLogo(context, _myBzz[0]),
+                          _nanoBzLogo(context, _myBzz[1]),
 
                         ],
                                         ),
@@ -199,8 +199,8 @@ class BzzButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          _nanoBzLogo(context, _userBzz[2]),
-                          _nanoBzLogo(context, _userBzz[3]),
+                          _nanoBzLogo(context, _myBzz[2]),
+                          _nanoBzLogo(context, _myBzz[3]),
                         ],
                       ),
                     ],
@@ -219,8 +219,8 @@ class BzzButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          _nanoBzLogo(context, _userBzz[0]),
-                          _nanoBzLogo(context, _userBzz[1]),
+                          _nanoBzLogo(context, _myBzz[0]),
+                          _nanoBzLogo(context, _myBzz[1]),
                         ],
                       ),
 
@@ -229,11 +229,11 @@ class BzzButton extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
-                          _nanoBzLogo(context, _userBzz[2]),
+                          _nanoBzLogo(context, _myBzz[2]),
                           DreamBox(
                             height: _circleWidth * 0.47,
                             width: _circleWidth * 0.47,
-                            verse: '+${_userBzz.length - 3}',
+                            verse: '+${_myBzz.length - 3}',
                             verseWeight: VerseWeight.thin,
                             verseScaleFactor: 0.35,
                             bubble: false,

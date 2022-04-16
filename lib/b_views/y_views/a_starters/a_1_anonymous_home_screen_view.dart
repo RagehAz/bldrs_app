@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
-import 'package:bldrs/c_controllers/a_1_home_controller.dart';
+import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -70,6 +70,7 @@ class _AnonymousHomeScreenViewState extends State<AnonymousHomeScreenView> {
         numberOfColumns: 2,
         flyers: _wallFlyers,
         scrollController: _scrollController,
+        heroTag: 'anonymous_home_screen',
       );
     }
 

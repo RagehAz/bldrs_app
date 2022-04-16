@@ -67,7 +67,7 @@ class BzAppBar extends StatelessWidget {
 
     final String _zoneString = TextGen.cityCountryStringer(
       context: context,
-      zone: _bzModel.zone,
+      zone: _bzModel?.zone,
       country: _bzCountry,
       city: _bzCity,
     );
