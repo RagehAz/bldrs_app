@@ -32,9 +32,9 @@
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/old_flyer_zone_box.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/stats_dialog.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/static_progress_bar.dart';
-// import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/flyer_maker_screen.dart';
-// import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/keywords_picker_screen.dart';
-// import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
+// import 'package:bldrs/b_views/x_screens/i_flyer/old_flyer_maker_screen.dart/old_flyer_maker_screen.dart';
+// import 'package:bldrs/b_views/x_screens/i_flyer/old_flyer_maker_screen.dart/keywords_picker_screen.dart';
+// import 'package:bldrs/b_views/x_screens/i_flyer/old_flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
 // import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 // import 'package:bldrs/d_providers/bzz_provider.dart';
 // import 'package:bldrs/d_providers/flyers_provider.dart';

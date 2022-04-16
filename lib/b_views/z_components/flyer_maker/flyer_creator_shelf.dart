@@ -26,9 +26,9 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-class FlyerCreator extends StatefulWidget {
+class FlyerCreatorShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FlyerCreator({
+  const FlyerCreatorShelf({
     @required this.chainNumber,
     @required this.onDeleteChain,
     @required this.chainHeight,
@@ -44,11 +44,11 @@ class FlyerCreator extends StatefulWidget {
   final bool firstTimer;
   /// --------------------------------------------------------------------------
   @override
-  _FlyerCreatorState createState() => _FlyerCreatorState();
+  _FlyerCreatorShelfState createState() => _FlyerCreatorShelfState();
   /// --------------------------------------------------------------------------
 }
 
-class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClientMixin{
+class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
@@ -84,8 +84,6 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
     // TextChecker.disposeAllTextControllers(_headlinesControllers);
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-
 // -----------------------------------------------------------------------------
   Future<void> _getMultiGalleryImages({double flyerBoxWidth}) async {
 
@@ -195,7 +193,7 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
     }
 
     else {
-      print('not published');
+      blog('not published');
     }
 
     /// why
@@ -277,7 +275,7 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
     _draftFlyer.state == FlyerState.draft ? '${widget.chainNumber} .' :
     '${widget.chainNumber} .';
 
-    final bool _isPublished = _draftFlyer.state == FlyerState.published ? true : false;
+    final bool _isPublished = _draftFlyer.state == FlyerState.published;
 
     return Container(
       width: Scale.superScreenWidth(context),
@@ -348,9 +346,7 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
                         // height: _stackTitleHeight,
                         width: _flyerTitleZoneWidth,
                         maxLines: 1,
-                        inputSize: 2,
                         counterIsOn: false,
-                        centered: false,
                         validator: (val) => _firstHeadlineValidator(val),
                         // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
                         hintText: 'Flyer Headline ...',
@@ -425,23 +421,26 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
               itemExtent: _flyerBoxWidth,
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-              addAutomaticKeepAlives: true,
+              // addAutomaticKeepAlives: true,
               itemBuilder: (ctx, index){
 
                 final List<Asset> _assetsSources = _draftFlyer.assetsSources;
 
-                final bool _indexIsForAddButton = _assetsSources?.length == index ? true : false;
+                final bool _indexIsForAddButton = _assetsSources?.length == index;
 
                 final Asset _asset = _indexIsForAddButton ? null : _assetsSources[index];
 
                 if(_assetsSources != null && _assetsSources.isNotEmpty && _assetsSources.length != index){
-                  String _picName = _asset?.name;
-                // print('SLIDES STACK : pic : ${_picName}');
+                  final String _picName = _asset?.name;
+                  blog('SLIDES STACK : pic : $_picName');
                 }
 
-                return
-                  Container(
-                    margin: const EdgeInsets.only(left: Ratioz.appBarPadding, right: Ratioz.appBarPadding, bottom: Ratioz.appBarPadding),
+                return Container(
+                    margin: const EdgeInsets.only(
+                        left: Ratioz.appBarPadding,
+                        right: Ratioz.appBarPadding,
+                        bottom: Ratioz.appBarPadding,
+                    ),
                     alignment: Alignment.center,
                     child: Column(
                       children: <Widget>[
@@ -474,7 +473,7 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
                         ),
 
                         /// IMAGE
-                        Container(
+                        SizedBox(
                             width: _flyerBoxWidth,
                             height: _flyerZoneHeight,
                             // decoration: _flyerDecoration,
@@ -520,7 +519,7 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
 
                                       iconColor: Colorz.white20,
                                       bubble: false,
-                                      onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
+                                      // onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
                                     ),
 
                                     SizedBox(
@@ -547,8 +546,6 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
                     ),
                   );
 
-
-
               },
             ),
           ),
@@ -558,5 +555,3 @@ class _FlyerCreatorState extends State<FlyerCreator> with AutomaticKeepAliveClie
     );
   }
 }
-
-

@@ -1,60 +1,40 @@
 import 'dart:async';
-import 'dart:async';
-import 'dart:io';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/flyer_creator.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
-import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 
 class FlyerPublisherScreen extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const FlyerPublisherScreen({
     @required this.bzModel,
     this.firstTimer = false,
     this.flyerModel,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final bool firstTimer;
   final FlyerModel flyerModel;
-
+  /// --------------------------------------------------------------------------
   @override
   _FlyerPublisherScreenState createState() => _FlyerPublisherScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with AutomaticKeepAliveClientMixin{
@@ -77,7 +57,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   void _triggerLoading(){
     setState(() {_loading = !_loading;});
     _loading == true?
-    blog('LOADING--------------------------------------') : print('LOADING COMPLETE--------------------------------------');
+    blog('LOADING--------------------------------------') : blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -91,14 +71,14 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  double _getChainPosition(int index){
-    final double _verticalOffsetFromScreenTop =  (_creatorMaxHeight * (index)) + Ratioz.appBarMargin;
+  double _getCreatorPosition(int index){
+    final double _verticalOffsetFromScreenTop =  (_creatorMaxHeight * index) + Ratioz.appBarMargin;
     return _verticalOffsetFromScreenTop;
   }
 // -----------------------------------------------------------------------------
-  Future <void> _scrollToChain(int index) async {
+  Future <void> _scrollToCreator(int index) async {
 
-    final double _position = _getChainPosition(index);
+    final double _position = _getCreatorPosition(index);
 
     await _scrollController.animateTo(
       _position,
@@ -118,7 +98,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
     return _randomNumber;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _createNewChain() async {
+  Future<void> _createNewCreator() async {
 
     /// A - if less than 5 drafts
     if (_creatorsKeys.length < 5){
@@ -134,7 +114,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
       });
 
-      await _fadeInAndExpandChain(_newIndex);
+      await _fadeInAndExpandCreator(_newIndex);
       await _scrollToBottom();
 
     }
@@ -152,14 +132,14 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteChain({int index}) async {
+  Future<void> _deleteCreator({int index}) async {
 
-    await _fadeOutAndShrinkChain(index);
+    await _fadeOutAndShrinkCreator(index);
 
     await Future.delayed(_animationDuration, () async {
 
       if (index != 0 ){
-        await _scrollToChain(index - 1);
+        await _scrollToCreator(index - 1);
       }
 
       setState(() {
@@ -171,7 +151,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _fadeOutAndShrinkChain(int index) async {
+  Future<void> _fadeOutAndShrinkCreator(int index) async {
     await Future.delayed( _animationDuration, () async {
       setState(() {
       _creatorsOpacities[index] = 0;
@@ -184,7 +164,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _fadeInAndExpandChain(int index) async {
+  Future<void> _fadeInAndExpandCreator(int index) async {
 
     await Future.delayed(Ratioz.durationFading200, () async {
       setState(() {
@@ -211,7 +191,6 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
@@ -221,7 +200,6 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
       pageTitle: 'Add multiple flyers',
       appBarType: AppBarType.basic,
       // loading: _loading,
-      navBarIsOn: false,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       appBarRowWidgets: const <Widget>[],
@@ -235,16 +213,15 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           const Stratosphere(),
 
           /// Initial Paragraph
-          // Container(
-          //   width: Scale.superScreenWidth(context),
-          //   height: Ratioz.appBarSmallHeight,
-          //   padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-          //   child: SuperVerse(
-          //     verse: 'Add a flyer',
-          //     centered: false,
-          //     labelColor: Colorz.WhiteAir,
-          //   ),
-          // ),
+          Container(
+            width: Scale.superScreenWidth(context),
+            height: Ratioz.appBarSmallHeight,
+            padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+            child: const SuperVerse(
+              verse: 'Add a flyer',
+              centered: false,
+            ),
+          ),
 
           /// CHAINS
           ListView.builder(
@@ -262,13 +239,13 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
                     curve: _animationCurve,
                     duration: _animationDuration,
                     opacity: _creatorsOpacities[index],
-                    child: FlyerCreator(
+                    child: FlyerCreatorShelf(
                       // chainKey: _chainsKeys[_chainIndex],
                       bzModel: widget.bzModel,
                       firstTimer: widget.firstTimer,
                       chainNumber: index + 1,
                       chainHeight: _creatorMaxHeight,
-                      onDeleteChain: () => _deleteChain(index: index),
+                      onDeleteChain: () => _deleteCreator(index: index),
                       // onAddPics: () => _getMultiImages(
                       //   accountType: BzAccountType.Super,
                       //   draftIndex: _chainIndex,
@@ -285,38 +262,6 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
               }
           ),
-          // ...List.generate(
-          //     _chainsKeys.length,
-          //         (_chainIndex) => AnimatedContainer(
-          //           duration: _animationDuration,
-          //           curve: _animationCurve,
-          //           height: _chainsHeights[_chainIndex],
-          //           child: AnimatedOpacity(
-          //             key: _chainsKeys[_chainIndex],
-          //             curve: _animationCurve,
-          //             duration: _animationDuration,
-          //             opacity: _chainsOpacities[_chainIndex],
-          //             child: FlyerChain(
-          //               // chainKey: _chainsKeys[_chainIndex],
-          //               bzModel: widget.bzModel,
-          //               firstTimer: widget.firstTimer,
-          //               chainNumber: _chainIndex + 1,
-          //               chainHeight: _chainMaxHeight,
-          //               onDeleteChain: () => _deleteChain(index: _chainIndex),
-          //               // onAddPics: () => _getMultiImages(
-          //               //   accountType: BzAccountType.Super,
-          //               //   draftIndex: _chainIndex,
-          //               // ),
-          //               // onDeleteImage: (int imageIndex){
-          //               //   setState(() {
-          //               //     _draftFlyers[_chainIndex].assetsAsFiles.removeAt(imageIndex);
-          //               //     _draftFlyers[_chainIndex].assets.removeAt(imageIndex);
-          //               //   });
-          //               // },
-          // ),
-          //           ),
-          //         )
-          // ),
 
           /// ADD NEW FLYER BUTTON
           Container(
@@ -324,15 +269,15 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
             height: 100,
             alignment: Alignment.center,
             color: Colorz.white10,
-            margin: EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
+            margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
             child: DreamBox(
               height: 70,
               icon: Iconz.addFlyer,
               iconSizeFactor: 0.7,
               verse: 'Add a new Flyer',
-              color: Colorz.white10,
+              // color: Colorz.white10,
               bubble: false,
-              onTap: _createNewChain,
+              onTap: _createNewCreator,
               inActiveMode: _creatorsKeys.length < Standards.maxDraftsAtOnce ? false : true,
             ),
           ),

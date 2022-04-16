@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/chain/data_creator.dart';
@@ -13,7 +12,7 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/specs/price_data_creator.dart';
 import 'package:bldrs/b_views/z_components/specs/spec_list_tile.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/spec_picker_screen.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/spec_picker_screen.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

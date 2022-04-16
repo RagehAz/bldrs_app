@@ -13,7 +13,6 @@ class SelectKeywordsScreen extends StatefulWidget {
     // @required this.onKeywordTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<String> selectedKeywordsIDs;
   final FlyerTypeClass.FlyerType flyerType;
@@ -21,7 +20,6 @@ class SelectKeywordsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SelectKeywordsScreenState createState() => _SelectKeywordsScreenState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -313,6 +311,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     // final double _screenWidth = Scale.superScreenWidth(context);
     // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     // const double _selectedKeywordsZoneHeight = 80;
