@@ -31,6 +31,7 @@ class MyBzScreen extends StatefulWidget {
 }
 
 class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin {
+// -----------------------------------------------------------------------------
   TabController _tabController;
   UiProvider _uiProvider;
   BzzProvider _bzzProvider;

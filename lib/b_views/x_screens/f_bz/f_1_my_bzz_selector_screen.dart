@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
@@ -11,16 +9,16 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class MyBzzSelectorScreen extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const MyBzzSelectorScreen({
     @required this.bzzModels,
     @required this.userModel,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final List<BzModel> bzzModels;
   final UserModel userModel;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
