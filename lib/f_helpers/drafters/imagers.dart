@@ -88,7 +88,7 @@ Future<List<Asset>> takeGalleryMultiPictures({
 
   try {
     _resultList = await MultiImagePicker.pickImages(
-      maxImages: Standards.getMaxSlidesCount(accountType),
+      maxImages: Standards.getMaxSlidesCount(bzAccountType: accountType),
       enableCamera: true,
       selectedAssets: images,
       cupertinoOptions: const CupertinoOptions(
@@ -720,8 +720,10 @@ List<BoxFit> concludeBoxesFitsForAssets({
     // }
 
     /// boss ba2a
-    final BoxFit _fit =
-        concludeBoxFitForAsset(asset: asset, flyerBoxWidth: flyerBoxWidth);
+    final BoxFit _fit = concludeBoxFitForAsset(
+        asset: asset,
+        flyerBoxWidth: flyerBoxWidth,
+    );
 
     _fits.add(_fit);
   }

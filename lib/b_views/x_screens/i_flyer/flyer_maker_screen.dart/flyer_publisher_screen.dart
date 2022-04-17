@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf.dart';
+import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -24,13 +23,11 @@ class FlyerPublisherScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerPublisherScreen({
     @required this.bzModel,
-    this.firstTimer = false,
     this.flyerModel,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
-  final bool firstTimer;
   final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
@@ -49,9 +46,10 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   final Duration _animationDuration = Ratioz.duration150ms;
   final double _creatorMaxHeight = 340;
 // -----------------------------------------------------------------------------
-  final List<double> _creatorsOpacities = <double>[];
-  final List<double> _creatorsHeights = <double>[];
-  final List<ValueKey<int>> _creatorsKeys = <ValueKey<int>>[];
+  final List<double> _shelvesOpacities = <double>[];
+  final List<double> _shelvesHeights = <double>[];
+  final List<int> _shelvesIndexes = <int>[];
+  FlyerModel _flyerInput;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   bool _loading = false;
@@ -99,20 +97,22 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
     return _randomNumber;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _createNewCreator() async {
+  Future<void> _createNewShelf() async {
 
     /// A - if less than 5 drafts
-    if (_creatorsKeys.length < 5){
+    if (_shelvesIndexes.length < 5){
 
-      final int _newIndex = _creatorsKeys.length;
-      final ValueKey _newKey = Numeric.createUniqueKeyFrom(existingKeys: _creatorsKeys);
+      final DraftFlyerModel _newDraft = DraftFlyerModel.createNewDraft(
+          bzModel: widget.bzModel,
+          authorID: superUserID(),
+      );
+
+      final int _newIndex = _shelvesIndexes.length;
 
       setState(() {
-
-        _creatorsHeights.add(0);
-        _creatorsOpacities.add(0);
-        _creatorsKeys.add(_newKey);
-
+        _shelvesHeights.add(0);
+        _shelvesOpacities.add(0);
+        _shelvesIndexes.add(_newIndex);
       });
 
       await _fadeInAndExpandCreator(_newIndex);
@@ -133,9 +133,9 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _deleteCreator({int index}) async {
+  Future<void> _deleteShelf({int index}) async {
 
-    await _fadeOutAndShrinkCreator(index);
+    await _fadeOutAndShrinkShelf(index);
 
     await Future.delayed(_animationDuration, () async {
 
@@ -144,38 +144,44 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
       }
 
       setState(() {
-        _creatorsKeys.removeAt(index);
-        _creatorsOpacities.removeAt(index);
-        _creatorsHeights.removeAt(index);
+        _shelvesIndexes.removeAt(index);
+        _shelvesOpacities.removeAt(index);
+        _shelvesHeights.removeAt(index);
       });
+
     });
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _fadeOutAndShrinkCreator(int index) async {
+  Future<void> _fadeOutAndShrinkShelf(int index) async {
+
+    /// FADE OUT
     await Future.delayed( _animationDuration, () async {
       setState(() {
-      _creatorsOpacities[index] = 0;
+      _shelvesOpacities[index] = 0;
       });
     });
 
+    /// SHRINK
     setState(() {
-      _creatorsHeights[index] = 0;
+      _shelvesHeights[index] = 0;
     });
 
   }
 // -----------------------------------------------------------------------------
   Future<void> _fadeInAndExpandCreator(int index) async {
 
+    /// FADE IN
     await Future.delayed(Ratioz.durationFading200, () async {
       setState(() {
-        _creatorsOpacities[index] = 1;
+        _shelvesOpacities[index] = 1;
 
       });
     });
 
+    /// EXPAND
     setState(() {
-      _creatorsHeights[index] = _creatorMaxHeight;
+      _shelvesHeights[index] = _creatorMaxHeight;
     });
 
   }
@@ -210,7 +216,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-        itemCount: _creatorsKeys.length + 2,
+        itemCount: _shelvesIndexes.length + 2,
         itemBuilder: (_, int index){
 
           /// FIRST ITEM : INITIAL PARAGRAPH
@@ -227,7 +233,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           }
 
           /// LAST ITEM : ADD NEW FLYER BUTTON
-          else if (index == _creatorsKeys.length + 1){
+          else if (index == _shelvesIndexes.length + 1){
             return Container(
               width: Scale.superScreenWidth(context),
               height: 100,
@@ -241,8 +247,8 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
                 verse: 'Add a new Flyer',
                 // color: Colorz.white10,
                 bubble: false,
-                onTap: _createNewCreator,
-                inActiveMode: _creatorsKeys.length < Standards.maxDraftsAtOnce ? false : true,
+                onTap: _createNewShelf,
+                inActiveMode: _shelvesIndexes.length < Standards.maxDraftsAtOnce ? false : true,
               ),
             );
           }
@@ -253,21 +259,21 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
             final int _shelfIndex = index - 1;
 
             return AnimatedContainer(
+              // key: ValueKey<String>(_shelvesIndexes[_shelfIndex].id),
               duration: _animationDuration,
               curve: _animationCurve,
-              height: _creatorsHeights[_shelfIndex],
+              height: _shelvesHeights[_shelfIndex],
               child: AnimatedOpacity(
-                key: _creatorsKeys[_shelfIndex],
                 curve: _animationCurve,
                 duration: _animationDuration,
-                opacity: _creatorsOpacities[_shelfIndex],
-                child: FlyerCreatorShelf(
+                opacity: _shelvesOpacities[_shelfIndex],
+                child: FlyerDraftShelf(
                   // chainKey: _chainsKeys[_chainIndex],
                   bzModel: widget.bzModel,
-                  firstTimer: widget.firstTimer,
-                  chainNumber: _shelfIndex + 1,
+                  flyerModel: _flyerInput,
+                  shelfNumber: _shelfIndex + 1,
                   chainHeight: _creatorMaxHeight,
-                  onDeleteChain: () => _deleteCreator(index: _shelfIndex),
+                  onDeleteDraft: () => _deleteShelf(index: _shelfIndex),
                   // onAddPics: () => _getMultiImages(
                   //   accountType: BzAccountType.Super,
                   //   draftIndex: _chainIndex,

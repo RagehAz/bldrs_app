@@ -26,22 +26,16 @@ const int maxLocationFetchSeconds = 10;
 
 const String ipRegistryAPIKey = '89i23ivki8p5tsqj';
 // -----------------------------------------------------------------------------
-int getMaxSlidesCount(BzAccountType accountType) {
-  switch (accountType) {
-    case BzAccountType.normal:
-      return maxFlyerSlidesFreeAccount;
-      break;
-    case BzAccountType.premium:
-      return maxFlyerSlidesPremiumAccount;
-      break;
-    case BzAccountType.sphinx:
-      return maxFlyerSlidesFreeSuper;
-      break;
-    default:
-      return maxFlyerSlidesFreeAccount;
+int getMaxSlidesCount({
+  @required BzAccountType bzAccountType,
+}) {
+  switch (bzAccountType) {
+    case BzAccountType.normal:  return maxFlyerSlidesFreeAccount;     break;
+    case BzAccountType.premium: return maxFlyerSlidesPremiumAccount;  break;
+    case BzAccountType.sphinx:  return maxFlyerSlidesFreeSuper;       break;
+    default:  return maxFlyerSlidesFreeAccount;
   }
 }
-
 // -----------------------------------------------------------------------------
 bool canAddMoreSlides({
   @required BzAccountType bzAccountType,
@@ -49,7 +43,9 @@ bool canAddMoreSlides({
 }) {
   bool _canAdd = false;
 
-    final int _maxSlides = getMaxSlidesCount(bzAccountType);
+    final int _maxSlides = getMaxSlidesCount(
+      bzAccountType: bzAccountType,
+    );
 
     if (numberOfSlide < _maxSlides) {
       _canAdd = true;
