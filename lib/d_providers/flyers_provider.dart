@@ -117,16 +117,21 @@ class FlyersProvider extends ChangeNotifier {
     @required BuildContext context,
     @required String bzID,
   }) async {
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(
-        context, listen: false);
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _activeBz = _bzzProvider.myActiveBz;
     final List<String> _bzFlyersIDs = _activeBz?.flyersIDs;
 
     List<FlyerModel> _flyers;
 
     if (Mapper.canLoopList(_bzFlyersIDs)) {
-      _flyers =
-      await fetchFlyersByIDs(context: context, flyersIDs: _bzFlyersIDs);
+
+      _flyers = await fetchFlyersByIDs(
+          context: context,
+          flyersIDs: _bzFlyersIDs,
+      );
+
+      blog('fetchAllBzFlyersByBzID : ${_flyers.length} flyers');
     }
 
     return _flyers;
