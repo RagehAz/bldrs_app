@@ -39,7 +39,8 @@ class MyBzScreenViewPages extends StatelessWidget {
     final CountryModel bzCountry = _bzzProvider.myActiveBzCountry;
     final CityModel bzCity = _bzzProvider.myActiveBzCity;
 
-    blog('BUILDING MyBzScreenViewPages WITH ${bzFlyers.length} FLYERS');
+    // blog('BUILDING MyBzScreenViewPages WITH ${bzFlyers.length} FLYERS for bz : ${bzModel.id}');
+    // FlyerModel.blogFlyers(bzFlyers);
 
     return TabBarView(
       physics: const BouncingScrollPhysics(),

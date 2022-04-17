@@ -91,21 +91,14 @@ class FlyersGrid extends StatelessWidget {
 }){
     int _numberOfRealFlyers = 0;
 
-    /// WHEN FLYERS HAVE LENGTH
-    if (Mapper.canLoopList(flyers)){
+    if (addFlyerButtonIsOn == true){
+      _numberOfRealFlyers = flyers.length + 1;
+    }
+    else {
       _numberOfRealFlyers = flyers.length;
     }
 
-    /// ADD ONE IF THE THE ADD BUTTON IS ON
-    if (addFlyerButtonIsOn == true){
-      return _numberOfRealFlyers + 1;
-    }
-
-    /// KEEP AS IS
-    else {
-      return _numberOfRealFlyers;
-    }
-
+    return _numberOfRealFlyers;
   }
 // -----------------------------------------------------------------------------
   static double calculateFlyerBoxWidth({
@@ -164,12 +157,6 @@ class FlyersGrid extends StatelessWidget {
       addFlyerButtonIsOn: addFlyerButtonIsOn,
     );
 // ----------------------------------------------------------
-    if (addFlyerButtonIsOn == true){
-      if (Mapper.canLoopList(flyers)){
-        flyers.insert(0, null);
-      }
-    }
-// ----------------------------------------------------------
     return Stack(
       key: const ValueKey<String>('Stack_of_flyers_grid'),
       children: <Widget>[
@@ -203,8 +190,8 @@ class FlyersGrid extends StatelessWidget {
                   /// B3 - WHEN AT ANY ELEMENT AFTER FIRST
                   else {
                     return FlyerStarter(
-                      key: const ValueKey<String>('Flyers_grid_FlyerStarter'),
-                      flyerModel: flyers[index],
+                      key: ValueKey<String>('Flyers_grid_FlyerStarter_${flyers[index-1].id}'),
+                      flyerModel: flyers[index-1],
                       minWidthFactor: _minWidthFactor,
                       heroTag: heroTag,
                     );
