@@ -434,3 +434,9 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 }
+
+// 0 para
+// 1        real 0
+// 2         real 1
+// 3         real 2 : last => length - 1
+// 4 => length + 1
