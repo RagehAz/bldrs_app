@@ -163,7 +163,9 @@ List<int> getValuesFromKeys({@required List<ValueKey<int>> keys}) {
   return _values;
 }
 // -----------------------------------------------------------------------------
-List<ValueKey<int>> addUniqueKeyToKeys({@required List<ValueKey<int>> keys}) {
+List<ValueKey<int>> addUniqueKeyToKeys({
+  @required List<ValueKey<int>> keys
+}) {
   final List<int> _numbers = getValuesFromKeys(keys: keys);
 
   final int _newValue = createUniqueIndex(existingIndexes: _numbers);
@@ -179,7 +181,10 @@ List<ValueKey<int>> addUniqueKeyToKeys({@required List<ValueKey<int>> keys}) {
 ValueKey<int> createUniqueKeyFrom({
   @required List<ValueKey<int>> existingKeys
 }) {
-  final List<int> _existingValues = getValuesFromKeys(keys: existingKeys);
+
+  final List<int> _existingValues = getValuesFromKeys(
+      keys: existingKeys
+  );
 
   final int _newValue = createUniqueIndex(existingIndexes: _existingValues);
 

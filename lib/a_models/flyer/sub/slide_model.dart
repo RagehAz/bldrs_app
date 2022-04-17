@@ -365,8 +365,8 @@ class SlideModel {
       _slideModel = SlideModel(
         slideIndex: mSlide.slideIndex,
         pic: mSlide.picURL ?? mSlide.picFile ?? mSlide.picAsset,
-        headline: mSlide.headline,
-        description: mSlide.description,
+        headline: mSlide.headline.text,
+        description: mSlide.description.text,
         sharesCount: mSlide.sharesCount,
         viewsCount: mSlide.viewsCount,
         savesCount: mSlide.savesCount,

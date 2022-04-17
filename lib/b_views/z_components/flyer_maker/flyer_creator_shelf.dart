@@ -1,20 +1,21 @@
-import 'dart:io';
-
+import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/c_controllers/i_flyer_publisher_controllers/flyer_publisher_controller.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -23,59 +24,55 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-class FlyerCreatorShelf extends StatefulWidget {
+class FlyerDraftShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FlyerCreatorShelf({
-    @required this.chainNumber,
-    @required this.onDeleteChain,
+  const FlyerDraftShelf({
+    @required this.shelfNumber,
+    @required this.onDeleteDraft,
     @required this.chainHeight,
     @required this.bzModel,
-    @required this.firstTimer,
+    @required this.flyerModel,
     Key key,
 }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final int chainNumber;
-  final Function onDeleteChain;
+  final int shelfNumber;
+  final Function onDeleteDraft;
   final double chainHeight;
   final BzModel bzModel;
-  final bool firstTimer;
+  final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
-  _FlyerCreatorShelfState createState() => _FlyerCreatorShelfState();
+  _FlyerDraftShelfState createState() => _FlyerDraftShelfState();
   /// --------------------------------------------------------------------------
 }
 
-class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKeepAliveClientMixin{
+class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
   final _formKey = GlobalKey<FormState>();
-  DraftFlyerModel _draftFlyer;
-
+// ----------------------------------------
   int _textLength = 0;
   final int _flyerTitleMaxLength = Standards.flyerTitleMaxLength;
   Color _counterColor = Colorz.white80;
-
-  List<TextEditingController> _headlinesControllers;
 // -----------------------------------------------------------------------------
-  /// --- LOADING BLOCK
-  bool _loading = false;
-  void _triggerLoading(){
-    setState(() {_loading = !_loading;});
-    _loading == true?
-    blog('LOADING--------------------------------------')
-        :
-    blog('LOADING COMPLETE--------------------------------------');
+  ValueNotifier<DraftFlyerModel> _draftFlyer;
+// -----------------------------------------------------------------------------
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+// -----------------------------------
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(loading: _loading.value);
   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _draftFlyer = DraftFlyerModel.createEmptyDraft();
-    _headlinesControllers = TextChecker.createEmptyTextControllers(1);
+
+    // _headlinesControllers = TextChecker.createEmptyTextControllers(1);
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -85,13 +82,37 @@ class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKee
     super.dispose();
   }
 // -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+
+      _triggerLoading().then((_) async {
+
+        _draftFlyer.value = await initializeDraftFlyerModel(
+          bzModel: widget.bzModel,
+          existingFlyer: widget.flyerModel,
+        );
+
+        await _triggerLoading();
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
   Future<void> _getMultiGalleryImages({double flyerBoxWidth}) async {
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
-    final List<Asset> _assetsSources = _draftFlyer.assetsSources;
+    final List<Asset> _assetsSources = MutableSlide.getAssetsFromMutableSlides(
+      mutableSlides: _draftFlyer.value.mutableSlides,
+    );
 
-    final int _maxLength = Standards.getMaxSlidesCount(widget.bzModel.accountType);
+    final int _maxLength = Standards.getMaxSlidesCount(
+      bzAccountType: widget.bzModel.accountType,
+    );
 
     /// A - if max images reached
     if(_maxLength <= _assetsSources.length ){
@@ -122,14 +143,10 @@ class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKee
         /// B - if made new picks
         else {
 
-          final List<File> _assetsAsFiles = await Imagers.getFilesFromPickerAssets(_outputAssets);
-          final List<BoxFit> _fits = Imagers.concludeBoxesFitsForAssets(
-              assets: _assetsSources,
-              flyerBoxWidth: flyerBoxWidth,
+          final List<MutableSlide> _newMutableSlides = await MutableSlide.createNewMutableSlidesByAssets(
+            assets: _outputAssets,
+            existingAssets: MutableSlide.getAssetsFromMutableSlides(mutableSlides: _draftFlyer.value.mutableSlides),
           );
-
-          /// TASK : fix this in relation to existing controllers values
-          final List<TextEditingController> _newControllers = <TextEditingController>[];
 
 
           for (int i = 0; i < _outputAssets.length; i++){
@@ -139,16 +156,10 @@ class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKee
             }
             /// for the nest pages
             else {
-              _headlinesControllers.add(TextEditingController());
+              final List<MutableSlide> _combinedSlides = <MutableSlide>[..._draftFlyer.value.mutableSlides, ... _newMutableSlides];
+              _draftFlyer.value.mutableSlides = _combinedSlides;
             }
           }
-
-          setState(() {
-            _draftFlyer.assetsSources = _outputAssets;
-            _draftFlyer.assetsFiles = _assetsAsFiles;
-            _draftFlyer.boxesFits = _fits;
-            _draftFlyer.headlinesControllers = _headlinesControllers;
-          });
 
         }
 
@@ -156,7 +167,7 @@ class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKee
 
     }
 
-    _triggerLoading();
+    unawaited(_triggerLoading());
 
   }
 // -----------------------------------------------------------------------------
@@ -187,9 +198,7 @@ class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKee
     );
 
     if (_result == 'published'){
-      setState(() {
-        _draftFlyer.state = FlyerState.published;
-      });
+        _draftFlyer.value.flyerState = FlyerState.published;
     }
 
     else {
@@ -200,12 +209,11 @@ class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKee
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
   }
 // -----------------------------------------------------------------------------
-  void _onImageDelete(int imageIndex) {
-      setState(() {
-        _draftFlyer.assetsSources.removeAt(imageIndex);
-        _draftFlyer.assetsFiles.removeAt(imageIndex);
-        _draftFlyer.headlinesControllers.removeAt(imageIndex);
-      });
+  void _onImageDelete(int index) {
+    onDeleteSlide(
+      index: index,
+      draftFlyer: _draftFlyer
+    );
   }
 // -----------------------------------------------------------------------------
   String _firstHeadlineValidator(String val){
@@ -268,289 +276,297 @@ class _FlyerCreatorShelfState extends State<FlyerCreatorShelf> with AutomaticKee
 
     const double _verticalMargin = Ratioz.appBarPadding;
 
-    final String _chainNumberString =
-    _draftFlyer.state == FlyerState.draft ? '${widget.chainNumber} .' :
-    _draftFlyer.state == FlyerState.published ? '${widget.chainNumber} - Published @ 6:28 pm ,  Thursday 15 July 2021 .' :
-    _draftFlyer.state == FlyerState.unpublished ? '${widget.chainNumber} - unPublished @ 6:28 pm ,  Thursday 15 July 2021 .' :
-    _draftFlyer.state == FlyerState.draft ? '${widget.chainNumber} .' :
-    '${widget.chainNumber} .';
 
-    final bool _isPublished = _draftFlyer.state == FlyerState.published;
 
     return Container(
       width: Scale.superScreenWidth(context),
       height: _overAllHeight,
       color: Colorz.white10,
       margin: const EdgeInsets.symmetric(vertical: _verticalMargin),
-      child:
-      ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        children: <Widget>[
+      child: ValueListenableBuilder(
+        valueListenable: _draftFlyer,
+        builder: (_, DraftFlyerModel draft, Widget child){
 
-          /// FLYER TITLE
-          Container(
-            width: Scale.superScreenWidth(context),
-            height: _stackTitleHeight,
-            alignment: Aligners.superCenterAlignment(context),
-            // color: Colorz.BloodTest,
-            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+          final String _chainNumberString =
+          draft.flyerState == FlyerState.draft ? '${widget.shelfNumber} .' :
+          draft.flyerState == FlyerState.published ? '${widget.shelfNumber} - Published @ 6:28 pm ,  Thursday 15 July 2021 .' :
+          draft.flyerState == FlyerState.unpublished ? '${widget.shelfNumber} - unPublished @ 6:28 pm ,  Thursday 15 July 2021 .' :
+          draft.flyerState == FlyerState.draft ? '${widget.shelfNumber} .' :
+          '${widget.shelfNumber} .';
 
-                /// FLYER TITLE TEXT FIELD & COUNTER
-                Column(
+
+          final bool _isPublished = draft.flyerState == FlyerState.published;
+
+          return ListView(
+            physics: const NeverScrollableScrollPhysics(),
+            children: <Widget>[
+
+              /// FLYER TITLE
+              Container(
+                width: Scale.superScreenWidth(context),
+                height: _stackTitleHeight,
+                alignment: Aligners.superCenterAlignment(context),
+                // color: Colorz.BloodTest,
+                padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
 
-                    /// CHAIN NUMBER AND COUNTER
-                    SizedBox(
-                      width: _flyerTitleZoneWidth,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: Ratioz.appBarPadding, left: Ratioz.appBarPadding, top: Ratioz.appBarMargin),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
+                    /// FLYER TITLE TEXT FIELD & COUNTER
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
 
-                            /// CHAIN NUMBER
-                            SuperVerse(
-                              verse: _chainNumberString,
-                              size: 1,
-                              italic: true,
-                              color: _isPublished ? Colorz.green255: Colorz.white80,
-                              weight: VerseWeight.thin,
+                        /// CHAIN NUMBER AND COUNTER
+                        SizedBox(
+                          width: _flyerTitleZoneWidth,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: Ratioz.appBarPadding, left: Ratioz.appBarPadding, top: Ratioz.appBarMargin),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+
+                                /// CHAIN NUMBER
+                                SuperVerse(
+                                  verse: _chainNumberString,
+                                  size: 1,
+                                  italic: true,
+                                  color: _isPublished ? Colorz.green255: Colorz.white80,
+                                  weight: VerseWeight.thin,
+                                ),
+
+                                /// TEXT FIELD COUNTER
+                                if  (_isPublished == false)
+                                  SuperVerse(
+                                    verse: '$_textLength / $_flyerTitleMaxLength',
+                                    size: 1,
+                                    italic: true,
+                                    color: _counterColor,
+                                    weight: VerseWeight.thin,
+                                  ),
+
+                              ],
                             ),
-
-                            /// TEXT FIELD COUNTER
-                            if  (_isPublished == false)
-                            SuperVerse(
-                              verse: '$_textLength / $_flyerTitleMaxLength',
-                              size: 1,
-                              italic: true,
-                              color: _counterColor,
-                              weight: VerseWeight.thin,
-                            ),
-
-                          ],
+                          ),
                         ),
-                      ),
+
+                        /// FIRST HEADLINE TEXT FIELD
+                        if  (_isPublished == false)
+                          Form(
+                            key: _formKey,
+                            child: SuperTextField(
+                              // onTap: (){},
+                              fieldIsFormField: true,
+                              // height: _stackTitleHeight,
+                              width: _flyerTitleZoneWidth,
+                              maxLines: 1,
+                              counterIsOn: false,
+                              validator: (val) => _firstHeadlineValidator(val),
+                              // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
+                              hintText: 'Flyer Headline ...',
+                              textController: draft.mutableSlides[0].headline,
+                              maxLength: _flyerTitleMaxLength,
+                              onChanged: (value) => _firstHeadlineOnChanged(value),
+
+                            ),
+                          ),
+
+                        /// FIRST HEADLINE AS SUPER VERSE
+                        if (_isPublished == true)
+                          Container(
+                            width: _flyerTitleZoneWidth,
+                            height: _deleteFlyerButtonSize,
+                            decoration: BoxDecoration(
+                              color: Colorz.white10,
+                              borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner12),
+                            ),
+                            alignment: Aligners.superCenterAlignment(context),
+                            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                            child: SuperVerse(
+                              verse: draft.mutableSlides[0].headline.text,
+                              centered: false,
+                              size: 3,
+                            ),
+                          ),
+
+                      ],
                     ),
 
-                    /// FIRST HEADLINE TEXT FIELD
-                    if  (_isPublished == false)
-                    Form(
-                      key: _formKey,
-                      child: SuperTextField(
-                        // onTap: (){},
-                        fieldIsFormField: true,
-                        // height: _stackTitleHeight,
-                        width: _flyerTitleZoneWidth,
-                        maxLines: 1,
-                        counterIsOn: false,
-                        validator: (val) => _firstHeadlineValidator(val),
-                        // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
-                        hintText: 'Flyer Headline ...',
-                        textController: _headlinesControllers[0],
-                        maxLength: _flyerTitleMaxLength,
-                        onChanged: (value) => _firstHeadlineOnChanged(value),
-
-                      ),
+                    /// SPACER
+                    const SizedBox(
+                      width: Ratioz.appBarMargin,
                     ),
 
-                    /// FIRST HEADLINE AS SUPER VERSE
-                    if (_isPublished == true)
+                    /// DELETE DRAFT BUTTON
                     Container(
-                      width: _flyerTitleZoneWidth,
-                      height: _deleteFlyerButtonSize,
-                      decoration: BoxDecoration(
-                        color: Colorz.white10,
-                        borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner12),
+                      width: _deleteFlyerButtonSize,
+                      height: _stackTitleHeight,
+                      alignment: Alignment.topCenter,
+                      child: DreamBox(
+                          height: _deleteFlyerButtonSize,
+                          width: _deleteFlyerButtonSize,
+                          color: _isPublished ? Colorz.green255 : null,
+                          icon: _isPublished ? Iconz.check : Iconz.xLarge,
+                          iconColor: _isPublished ? Colorz.white255 : null,
+                          iconSizeFactor: 0.7,
+                          onTap: (){
+
+                            DraftFlyerModel.disposeDraftControllers(
+                              draft: draft,
+                            );
+
+                            widget.onDeleteDraft();
+                          }
                       ),
-                      alignment: Aligners.superCenterAlignment(context),
-                      padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                      child: SuperVerse(
-                        verse: _headlinesControllers[0].text,
-                        centered: false,
-                        size: 3,
-                      ),
+
                     ),
 
                   ],
                 ),
+              ),
 
-                /// SPACER
-                const SizedBox(
-                  width: Ratioz.appBarMargin,
-                ),
+              /// SLIDES CHAIN
+              Container(
+                width: Scale.superScreenWidth(context),
+                height: _stackZoneHeight,
+                // color: Colorz.WhiteAir,
+                alignment: Aligners.superCenterAlignment(context),
+                child: ListView.builder(
+                  itemCount: draft.mutableSlides.length + 1,
+                  scrollDirection: Axis.horizontal,
+                  itemExtent: _flyerBoxWidth,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                  // addAutomaticKeepAlives: true,
+                  itemBuilder: (ctx, index){
 
-                /// DELETE DRAFT BUTTON
-                Container(
-                  width: _deleteFlyerButtonSize,
-                  height: _stackTitleHeight,
-                  alignment: Alignment.topCenter,
-                  child: DreamBox(
-                    height: _deleteFlyerButtonSize,
-                    width: _deleteFlyerButtonSize,
-                    color: _isPublished ? Colorz.green255 : null,
-                    icon: _isPublished ? Iconz.check : Iconz.xLarge,
-                    iconColor: _isPublished ? Colorz.white255 : null,
-                    iconSizeFactor: 0.7,
-                    onTap: (){
+                    final bool _atLastIndex = draft.mutableSlides.length == index;
 
-                      TextChecker.disposeAllTextControllers(_headlinesControllers);
 
-                      widget.onDeleteChain();
-                    }
-                  ),
+                    if (_atLastIndex == true){
 
-                ),
-
-              ],
-            ),
-          ),
-
-          /// SLIDES CHAIN
-          Container(
-            width: Scale.superScreenWidth(context),
-            height: _stackZoneHeight,
-            // color: Colorz.WhiteAir,
-            alignment: Aligners.superCenterAlignment(context),
-            child: ListView.builder(
-              itemCount: _draftFlyer.assetsSources.length + 1,
-              scrollDirection: Axis.horizontal,
-              itemExtent: _flyerBoxWidth,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-              // addAutomaticKeepAlives: true,
-              itemBuilder: (ctx, index){
-
-                final List<Asset> _assetsSources = _draftFlyer.assetsSources;
-
-                final bool _indexIsForAddButton = _assetsSources?.length == index;
-
-                final Asset _asset = _indexIsForAddButton ? null : _assetsSources[index];
-
-                if(_assetsSources != null && _assetsSources.isNotEmpty && _assetsSources.length != index){
-                  final String _picName = _asset?.name;
-                  blog('SLIDES STACK : pic : $_picName');
-                }
-
-                return Container(
-                    margin: const EdgeInsets.only(
-                        left: Ratioz.appBarPadding,
-                        right: Ratioz.appBarPadding,
-                        bottom: Ratioz.appBarPadding,
-                    ),
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: <Widget>[
-
-                        /// FLYER NUMBER
-                        Container(
-                          width: _flyerBoxWidth,
-                          height: _flyerNumberTagZoneHeight,
-                          // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                          decoration: BoxDecoration(
-                            borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner * 0.5),
-                            // color: Colorz.WhiteAir,
-                          ),
-                          alignment: Aligners.superCenterAlignment(context),
-                          child:
-                          index < _assetsSources.length ?
-                          SuperVerse(
-                            verse: '${index + 1}',
-                            size: 1,
-                            color: Colorz.white200,
-                            labelColor: Colorz.white10,
-                          )
-                              :
-                          const SizedBox(),
-                        ),
-
-                        /// SPACER
-                        const SizedBox(
-                          height: Ratioz.appBarPadding,
-                        ),
-
-                        /// IMAGE
-                        SizedBox(
+                      /// ADD IMAGE BUTTON
+                      return GestureDetector(
+                          onTap: () => _getMultiGalleryImages(flyerBoxWidth: _flyerBoxWidth),
+                          child: Container(
                             width: _flyerBoxWidth,
                             height: _flyerZoneHeight,
-                            // decoration: _flyerDecoration,
-                            child:
-                            index < _assetsSources.length ?
+                            decoration: _flyerDecoration,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
 
-                            /// IMAGE
-                            GestureDetector(
-                              onTap: () => _onImageTap(index),
-                              child: SizedBox(
-                                width: _flyerBoxWidth,
-                                height: _flyerZoneHeight,
-                                child: ClipRRect(
-                                  borderRadius: _flyerBorderRadius,
-                                  child: SuperImage(
-                                    pic: _asset,
-                                    width: _flyerBoxWidth,
-                                    height: _flyerZoneHeight,
+                                /// PLUS ICON
+                                DreamBox(
+                                  height: _flyerBoxWidth * 0.5,
+                                  width: _flyerBoxWidth * 0.5,
+                                  icon: Iconz.plus,
 
+                                  iconColor: Colorz.white20,
+                                  bubble: false,
+                                  // onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
+                                ),
+
+                                SizedBox(
+                                  height: _flyerBoxWidth * 0.05,
+                                ),
+
+                                SizedBox(
+                                  width: _flyerBoxWidth * 0.95,
+                                  child: const SuperVerse(
+                                    verse: 'Add Photos',
+                                    color: Colorz.white20,
+                                    maxLines: 2,
                                   ),
                                 ),
+
+                              ],
+                            ),
+                          ),
+                        );
+
+                      return AddFlyerButton(
+                        flyerBoxWidth: _flyerBoxWidth,
+                      );
+
+
+
+                    }
+
+                    else {
+
+                      final MutableSlide _mutableSlide = draft.mutableSlides[index];
+                      // final String _picName = _asset?.name;
+
+                      return Container(
+                        margin: const EdgeInsets.only(
+                          left: Ratioz.appBarPadding,
+                          right: Ratioz.appBarPadding,
+                          bottom: Ratioz.appBarPadding,
+                        ),
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: <Widget>[
+
+                            /// FLYER NUMBER
+                            Container(
+                              width: _flyerBoxWidth,
+                              height: _flyerNumberTagZoneHeight,
+                              // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                              decoration: BoxDecoration(
+                                borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner * 0.5),
+                                // color: Colorz.WhiteAir,
                               ),
-                            )
+                              alignment: Aligners.superCenterAlignment(context),
+                              child: SuperVerse(
+                                verse: '${index + 1}',
+                                size: 1,
+                                color: Colorz.white200,
+                                labelColor: Colorz.white10,
+                              ),
+                            ),
 
-                                :
+                            /// SPACER
+                            const SizedBox(
+                              height: Ratioz.appBarPadding,
+                            ),
 
-                            /// ADD IMAGE BUTTON
-                            GestureDetector(
-                              onTap: () => _getMultiGalleryImages(flyerBoxWidth: _flyerBoxWidth),
-                              child: Container(
+                            /// IMAGE
+                            SizedBox(
                                 width: _flyerBoxWidth,
                                 height: _flyerZoneHeight,
-                                decoration: _flyerDecoration,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-
-                                    /// PLUS ICON
-                                    DreamBox(
-                                      height: _flyerBoxWidth * 0.5,
-                                      width: _flyerBoxWidth * 0.5,
-                                      icon: Iconz.plus,
-
-                                      iconColor: Colorz.white20,
-                                      bubble: false,
-                                      // onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
-                                    ),
-
-                                    SizedBox(
-                                      height: _flyerBoxWidth * 0.05,
-                                    ),
-
-                                    SizedBox(
-                                      width: _flyerBoxWidth * 0.95,
-                                      child: const SuperVerse(
-                                        verse: 'Add Photos',
-                                        color: Colorz.white20,
-                                        maxLines: 2,
+                                // decoration: _flyerDecoration,
+                                child: GestureDetector(
+                                  onTap: () => _onImageTap(index),
+                                  child: SizedBox(
+                                    width: _flyerBoxWidth,
+                                    height: _flyerZoneHeight,
+                                    child: ClipRRect(
+                                      borderRadius: _flyerBorderRadius,
+                                      child: SuperImage(
+                                        pic: _mutableSlide.picAsset,
+                                        width: _flyerBoxWidth,
+                                        height: _flyerZoneHeight,
                                       ),
                                     ),
-
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            )
+                            ),
 
+                          ],
                         ),
+                      );
+                    }
 
-                      ],
-                    ),
-                  );
 
-              },
-            ),
-          ),
+                  },
+                ),
+              ),
 
-        ],
+            ],
+          );
+
+        },
       ),
     );
   }
