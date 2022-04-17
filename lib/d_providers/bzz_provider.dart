@@ -346,6 +346,9 @@ class BzzProvider extends ChangeNotifier {
   CountryModel get myActiveBzCountry => _myActiveBzCountry;
   CityModel get myActiveBzCity => _myActiveBzCity;
   List<FlyerModel> get myActiveBzFlyers{
+
+    blog('GETTING _myActiveBzFlyers : ${_myActiveBzFlyers.length} flyers');
+
     return _myActiveBzFlyers;
   }
 // -----------------------------------------------------------------------------
@@ -373,7 +376,12 @@ class BzzProvider extends ChangeNotifier {
   }) async {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final List<FlyerModel> _flyers = await _flyersProvider.fetchAllBzFlyersByBzID(context: context, bzID: bzID);
+    final List<FlyerModel> _flyers = await _flyersProvider.fetchAllBzFlyersByBzID(
+        context: context,
+        bzID: bzID,
+    );
+
+    blog('getsetActiveBzFlyers : got ${_flyers.length} flyers');
 
     _setActiveBzFlyers(
       flyers: _flyers,
@@ -386,7 +394,9 @@ class BzzProvider extends ChangeNotifier {
     @required List<FlyerModel> flyers,
     @required bool notify,
   }){
-    _myActiveBzFlyers = flyers;
+
+    blog('_setActiveBzFlyers : ${flyers.length} flyers');
+    _myActiveBzFlyers = <FlyerModel>[...flyers];
 
     if (notify == true){
       notifyListeners();

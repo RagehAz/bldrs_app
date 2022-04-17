@@ -327,11 +327,11 @@ class FlyerModel {
 // ------------------------------------------
   static void blogFlyers(List<FlyerModel> flyers){
 
-    if (Mapper.canLoopList(flyers)){
+    if (Mapper.canLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
 
-        flyer.blogFlyer();
+        flyer?.blogFlyer();
 
       }
 

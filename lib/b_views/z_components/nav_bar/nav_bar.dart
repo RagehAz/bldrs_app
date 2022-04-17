@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
+import 'package:bldrs/b_views/x_screens/f_bz/f_1_my_bzz_selector_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
@@ -436,6 +437,7 @@ class NavBar extends StatelessWidget {
                           onTap: () async {
                             blog('fish');
 
+                            /// IF HAS ONLY ONE BZ ACCOUNT
                             if (_userBzzIDs.length == 1) {
 
                               await Nav.goToNewScreen(
@@ -443,11 +445,23 @@ class NavBar extends StatelessWidget {
                                   MyBzScreen(
                                     // userModel: _myUserModel,
                                     bzModel: _myBzz[0],
-                                  ));
+                                  )
+                              );
+
                             }
 
+                            /// IF HAS MULTIPLE BZZ ACCOUNTS
                             else {
-                              await _multiBzzSlider(context, _myUserModel, _myBzz);
+                              // await _multiBzzSlider(context, _myUserModel, _myBzz);
+
+                              await Nav.goToNewScreen(
+                                  context,
+                                  MyBzzSelectorScreen(
+                                    userModel: _myUserModel,
+                                    bzzModels: _myBzz,
+                                  )
+                              );
+
                             }
                           },
                         ),
