@@ -568,7 +568,7 @@ class FlyerModel {
     bool _canShow = true;
 
     if(bzModel.showsTeam == true){
-      _canShow = flyerModel.showsAuthor;
+      _canShow = flyerModel?.showsAuthor ?? true;
     }
     else {
       _canShow = false;
