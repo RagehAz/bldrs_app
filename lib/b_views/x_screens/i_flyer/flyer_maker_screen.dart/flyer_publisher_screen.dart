@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf.dart'
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -198,95 +199,91 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
     return MainLayout(
       pageTitle: 'Add multiple flyers',
+      skyType: SkyType.black,
+      pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       // loading: _loading,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       appBarRowWidgets: const <Widget>[],
-      layoutWidget: ListView(
+      layoutWidget: ListView.builder(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        children: <Widget>[
+        padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+        itemCount: _creatorsKeys.length + 2,
+        itemBuilder: (_, int index){
 
-          /// STRATOSPHERE
-          const Stratosphere(),
+          /// FIRST ITEM : INITIAL PARAGRAPH
+          if (index == 0){
+            return Container(
+              width: Scale.superScreenWidth(context),
+              height: Ratioz.appBarSmallHeight,
+              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+              child: const SuperVerse(
+                verse: 'Add a flyer',
+                centered: false,
+              ),
+            );
+          }
 
-          /// Initial Paragraph
-          Container(
-            width: Scale.superScreenWidth(context),
-            height: Ratioz.appBarSmallHeight,
-            padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-            child: const SuperVerse(
-              verse: 'Add a flyer',
-              centered: false,
-            ),
-          ),
+          /// LAST ITEM : ADD NEW FLYER BUTTON
+          else if (index == _creatorsKeys.length + 1){
+            return Container(
+              width: Scale.superScreenWidth(context),
+              height: 100,
+              alignment: Alignment.center,
+              color: Colorz.white10,
+              margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
+              child: DreamBox(
+                height: 70,
+                icon: Iconz.addFlyer,
+                iconSizeFactor: 0.7,
+                verse: 'Add a new Flyer',
+                // color: Colorz.white10,
+                bubble: false,
+                onTap: _createNewCreator,
+                inActiveMode: _creatorsKeys.length < Standards.maxDraftsAtOnce ? false : true,
+              ),
+            );
+          }
 
-          /// CHAINS
-          ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _creatorsKeys.length,
-              itemBuilder: (_, int index){
+          /// SHELVES
+          else {
 
-                return AnimatedContainer(
-                  duration: _animationDuration,
-                  curve: _animationCurve,
-                  height: _creatorsHeights[index],
-                  child: AnimatedOpacity(
-                    key: _creatorsKeys[index],
-                    curve: _animationCurve,
-                    duration: _animationDuration,
-                    opacity: _creatorsOpacities[index],
-                    child: FlyerCreatorShelf(
-                      // chainKey: _chainsKeys[_chainIndex],
-                      bzModel: widget.bzModel,
-                      firstTimer: widget.firstTimer,
-                      chainNumber: index + 1,
-                      chainHeight: _creatorMaxHeight,
-                      onDeleteChain: () => _deleteCreator(index: index),
-                      // onAddPics: () => _getMultiImages(
-                      //   accountType: BzAccountType.Super,
-                      //   draftIndex: _chainIndex,
-                      // ),
-                      // onDeleteImage: (int imageIndex){
-                      //   setState(() {
-                      //     _draftFlyers[_chainIndex].assetsAsFiles.removeAt(imageIndex);
-                      //     _draftFlyers[_chainIndex].assets.removeAt(imageIndex);
-                      //   });
-                      // },
-                    ),
-                  ),
-                );
+            final int _shelfIndex = index - 1;
 
-              }
-          ),
+            return AnimatedContainer(
+              duration: _animationDuration,
+              curve: _animationCurve,
+              height: _creatorsHeights[_shelfIndex],
+              child: AnimatedOpacity(
+                key: _creatorsKeys[_shelfIndex],
+                curve: _animationCurve,
+                duration: _animationDuration,
+                opacity: _creatorsOpacities[_shelfIndex],
+                child: FlyerCreatorShelf(
+                  // chainKey: _chainsKeys[_chainIndex],
+                  bzModel: widget.bzModel,
+                  firstTimer: widget.firstTimer,
+                  chainNumber: _shelfIndex + 1,
+                  chainHeight: _creatorMaxHeight,
+                  onDeleteChain: () => _deleteCreator(index: _shelfIndex),
+                  // onAddPics: () => _getMultiImages(
+                  //   accountType: BzAccountType.Super,
+                  //   draftIndex: _chainIndex,
+                  // ),
+                  // onDeleteImage: (int imageIndex){
+                  //   setState(() {
+                  //     _draftFlyers[_chainIndex].assetsAsFiles.removeAt(imageIndex);
+                  //     _draftFlyers[_chainIndex].assets.removeAt(imageIndex);
+                  //   });
+                  // },
+                ),
+              ),
+            );
+          }
 
-          /// ADD NEW FLYER BUTTON
-          Container(
-            width: Scale.superScreenWidth(context),
-            height: 100,
-            alignment: Alignment.center,
-            color: Colorz.white10,
-            margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
-            child: DreamBox(
-              height: 70,
-              icon: Iconz.addFlyer,
-              iconSizeFactor: 0.7,
-              verse: 'Add a new Flyer',
-              // color: Colorz.white10,
-              bubble: false,
-              onTap: _createNewCreator,
-              inActiveMode: _creatorsKeys.length < Standards.maxDraftsAtOnce ? false : true,
-            ),
-          ),
-
-          /// HORIZON
-          SizedBox(
-            width: Scale.superScreenWidth(context),
-            height: Scale.superScreenHeight(context) - (Ratioz.stratosphere + _creatorMaxHeight + 100 + (Ratioz.appBarMargin * 4)),
-          ),
+        },
 
           /// GIF THING
           // check this
@@ -300,8 +297,6 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           //   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
           // ),
 
-
-        ],
       ),
     );
   }
