@@ -187,21 +187,27 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
   Future<void> _onBldrsTap() async {
 
     await BottomDialog.showButtonsBottomDialog(
-      context: context,
-      draggable: true,
-      buttonHeight: 40,
-      buttons: <Widget>[
+        context: context,
+        draggable: true,
+        buttonHeight: 40,
+        numberOfWidgets: 1,
+        builder: (xxx, phrasePro){
 
-        DreamBox(
-          width: BottomDialog.clearWidth(context),
-          height: 40,
-          verse: 'Clear ${widget.ldbDocName} data',
-          verseWeight: VerseWeight.thin,
-          verseScaleFactor: 0.7,
-          onTap: _onClearLDB,
-        ),
+        return <Widget>[
 
-      ],
+          DreamBox(
+            width: BottomDialog.clearWidth(context),
+            height: 40,
+            verse: 'Clear ${widget.ldbDocName} data',
+            verseWeight: VerseWeight.thin,
+            verseScaleFactor: 0.7,
+            onTap: _onClearLDB,
+          ),
+
+        ];
+
+        }
+
     );
   }
 // -----------------------------------------------------------------------------

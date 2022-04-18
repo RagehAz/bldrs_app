@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -97,7 +98,10 @@ bool canSlide({
   return _canSlide;
 }
 // -----------------------------------------------------------------------------
-Future<void> scrollTo({ScrollController controller, double offset}) async {
+Future<void> scrollTo({
+  @required ScrollController controller,
+  @required double offset,
+}) async {
   // if (controller.positions.isEmpty == true){
   await controller.animateTo(
     offset,
@@ -108,8 +112,16 @@ Future<void> scrollTo({ScrollController controller, double offset}) async {
 }
 
 // -----------------------------------------------------------------------------
-Future<void> scrollToBottom({@required ScrollController controller}) async {
+Future<void> scrollToEnd({
+  @required ScrollController controller,
+}) async {
+
+  blog('scrolling to End of scroll controller ${controller.position.maxScrollExtent}');
+
   await controller.animateTo(controller.position.maxScrollExtent,
-      duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
+      duration: Ratioz.durationSliding400,
+      curve: Curves.easeInOutCirc,
+  );
+
 }
 // -----------------------------------------------------------------------------
