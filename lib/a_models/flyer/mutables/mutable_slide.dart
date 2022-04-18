@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -286,6 +287,30 @@ class MutableSlide {
         TextChecker.disposeControllerIfPossible(mSlide.description);
       }
     }
+
+  }
+// -----------------------------------------------------------------------------
+
+/// BLOGGING
+
+// -------------------------------------
+  void blogSlide(){
+
+    blog('BLOGGING SLIDE ------------> START');
+    blog('picAsset : $picAsset');
+    blog('picFile : $picFile');
+    blog('headline : $headline');
+    blog('imageSize : $imageSize');
+    blog('midColor : $midColor');
+    blog('opacity : $opacity');
+    blog('slideIndex : $slideIndex');
+    blog('picURL : $picURL');
+    blog('description : $description');
+    blog('sharesCount : $sharesCount');
+    blog('viewsCount : $viewsCount');
+    blog('savesCount : $savesCount');
+    blog('picFit : $picFit');
+    blog('BLOGGING SLIDE ------------> END');
 
   }
 // -----------------------------------------------------------------------------
