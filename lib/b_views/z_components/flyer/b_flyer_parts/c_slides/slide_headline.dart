@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SlideHeadline extends StatelessWidget {
@@ -7,16 +8,16 @@ class SlideHeadline extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.verse,
     @required this.verseSize,
-    @required this.verseColor,
-    @required this.tappingVerse,
+    this.tappingVerse,
+    this.verseColor = Colorz.white255,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final String verse;
-  final dynamic verseColor;
   final int verseSize;
   final Function tappingVerse;
+  final Color verseColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

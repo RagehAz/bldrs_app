@@ -283,13 +283,14 @@ class _TranslationsManagerState extends State<TranslationsManager> {
 
                           return DreamBox(
                             height: _buttonsHeight,
+                            width: 100,
                             color: Colorz.yellow255,
                             verse: 'Upload',
                             verseColor: Colorz.black255,
                             secondLineColor: Colorz.black255,
                             secondLine: newID,
                             verseShadow: false,
-                            verseMaxLines: 2,
+                            secondVerseMaxLines: 1,
                             verseScaleFactor: 0.6,
                             onTap: () => _onUploadPhrase(
                               enPhrases: enPhrases,
