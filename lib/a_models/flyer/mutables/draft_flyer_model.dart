@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 
 class DraftFlyerModel{
   /// --------------------------------------------------------------------------
@@ -133,6 +134,50 @@ class DraftFlyerModel{
         mutableSlides: draft.mutableSlides
     );
 
+  }
+// -----------------------------------------------------------------------------
+
+/// GENERATORS
+
+// -------------------------------------
+  static String _generateStateTimeString({
+    @required BuildContext context,
+    @required PublishTime publishTime,
+}){
+
+    final String _timeString = Timers.generateString_hh_i_mm_ampm_day_dd_month_yyyy(
+      context: context,
+      time: publishTime?.time,
+    );
+    final String _stateString = FlyerModel.translateFlyerState(
+        context: context,
+        state: publishTime?.state
+    );
+
+    return '$_stateString @ $_timeString';
+  }
+// -------------------------------------
+  static String generateShelfTitle({
+    @required BuildContext context,
+    @required FlyerState flyerState,
+    @required List<PublishTime> times,
+    @required int shelfNumber,
+}){
+
+    final PublishTime _publishTime = PublishTime.getPublishTimeFromTimes(
+      state: FlyerState.banned,
+      times: times,
+    );
+
+    final String _stateTimeString = _publishTime == null ? '' :
+    _generateStateTimeString(
+      context: context,
+      publishTime: _publishTime,
+    );
+
+    final String _shelfTitle = '$shelfNumber . $_stateTimeString';
+
+    return _shelfTitle;
   }
 // -----------------------------------------------------------------------------
 }

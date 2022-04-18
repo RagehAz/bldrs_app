@@ -31,6 +31,16 @@ class InfoPageMainDetails extends StatelessWidget {
       pluralTranslation: false,
     );
 
+    final DateTime _from = PublishTime.getPublishTimeFromTimes(
+        times: flyerModel.times,
+        state: FlyerState.published
+    )?.time;
+
+    final String _timeDifferance = Timers.getSuperTimeDifferenceString(
+        from: _from,
+        to: DateTime.now(),
+    );
+
     return Column(
       key: const ValueKey<String>('InfoPageMainDetails'),
       children: <Widget>[
@@ -47,7 +57,7 @@ class InfoPageMainDetails extends StatelessWidget {
         /// PUBLISH TIME
         StatsLine(
           bubbleWidth: pageWidth,
-          verse: 'Published ${Timers.getSuperTimeDifferenceString(from: PublishTime.getPublishTimeFromTimes(times: flyerModel.times, state: FlyerState.published), to: DateTime.now())}',
+          verse: 'Published $_timeDifferance',
           icon: Iconz.calendar,
         ),
 

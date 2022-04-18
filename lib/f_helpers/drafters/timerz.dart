@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -7,8 +6,11 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+// -----------------------------------------------------------------------------
 
+/// FORMATTING
 
+// -------------------------------------
 /*
 DAY                          d
  ABBR_WEEKDAY                 E
@@ -61,10 +63,14 @@ Examples Using the US Locale:
  new DateFormat.yMd().add_jm()    -> 7/10/1996 5:08 PM
  new DateFormat.Hm()              -> 17:08 // force 24 hour time
  */
-
+// -------------------------------------
 /// "2019-07-19 8:40:23"
 final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 // -----------------------------------------------------------------------------
+
+/// CYPHERS
+
+// -------------------------------------
 dynamic cipherTime({
   @required DateTime time,
   @required bool toJSON,
@@ -72,7 +78,7 @@ dynamic cipherTime({
   final dynamic _output = toJSON ? _cipherDateTimeIso8601(time) : time;
   return _output;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 DateTime decipherTime({
   @required dynamic time,
   @required bool fromJSON,
@@ -80,7 +86,7 @@ DateTime decipherTime({
   final DateTime _output = fromJSON == true ? _decipherDateTimeIso8601(time) : time?.toDate();
   return _output;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 List<dynamic> cipherTimes({
   @required List<DateTime> times,
   @required bool toJSON,
@@ -100,7 +106,7 @@ List<dynamic> cipherTimes({
 
   return _times;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 List<DateTime> decipherTimes({
   @required List<dynamic> times,
   @required bool fromJSON,
@@ -118,7 +124,7 @@ List<DateTime> decipherTimes({
 
   return _dateTimes;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 String _cipherDateTimeIso8601(DateTime dateTime){
   String _string;
 
@@ -128,7 +134,7 @@ String _cipherDateTimeIso8601(DateTime dateTime){
 
   return _string;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 DateTime _decipherDateTimeIso8601(String cipheredDateTimeIso8601){
   DateTime _time;
 
@@ -138,8 +144,48 @@ DateTime _decipherDateTimeIso8601(String cipheredDateTimeIso8601){
 
   return _time;
 }
+// -------------------------------------
+/// we may revise datetimes timestamps isoStrings for firebase, sembast & sql
+Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
+  Timestamp _time;
+
+  if (cipheredDateTimeIso8601 != null){
+    final DateTime _dateTime = _decipherDateTimeIso8601(cipheredDateTimeIso8601);
+    _time = Timestamp.fromDate(_dateTime);
+  }
+
+  return _time;
+}
+// -------------------------------------
+String tempCipherDateTimeToString(DateTime dateTime){
+
+  if(dateTime == null){
+    return null;
+  }
+
+  else {
+    return dateFormat?.format(dateTime);
+  }
+
+}
+// -------------------------------------
+DateTime tempDecipherDateTimeString(String dateTimeString){
+
+  if (dateTimeString == null){
+    return null;
+  }
+
+  else {
+    return dateFormat?.parse(dateTimeString);
+  }
+
+}
 // -----------------------------------------------------------------------------
-String getMonthNameByInt(BuildContext context, int month){
+
+/// STRING GENERATORS
+
+// -------------------------------------
+String generateMonthNameByInt(BuildContext context, int month){
   switch (month){
     case 1    :    return  superPhrase(context, 'phid_january'); break;
     case 2    :    return  superPhrase(context, 'phid_february'); break;
@@ -155,19 +201,196 @@ String getMonthNameByInt(BuildContext context, int month){
     default : return null;
   }
 }
-// -----------------------------------------------------------------------------
-/// we may revise datetimes timestamps isoStrings for firebase, sembast & sql
-Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
-  Timestamp _time;
 
-  if (cipheredDateTimeIso8601 != null){
-    final DateTime _dateTime = _decipherDateTimeIso8601(cipheredDateTimeIso8601);
-    _time = Timestamp.fromDate(_dateTime);
+String generateDayName(BuildContext context, DateTime time){
+  return DateFormat('EEEE').format(time);
+}
+// -------------------------------------
+/// GENERATES => [ 'on dd month yyyy' ]
+String generateString_on_dd_month_yyyy({
+  @required BuildContext context,
+  @required DateTime time,
+}){
+  final String _day = '${time.day}';
+  final String _monthString = generateMonthNameByInt(context, time.month);
+  final String _year = '${time.year}';
+  final String _timeString = 'on $_day $_monthString $_year';
+
+  return _timeString;
+}
+// -------------------------------------
+/// GENERATES => [ 'dd month yyyy' ]
+String generateString_dd_month_yyyy({
+  @required BuildContext context,
+  @required DateTime time
+}){
+  final String _day = '${time.day}';
+  final String _monthString = generateMonthNameByInt(context, time.month);
+  final String _year = '${time.year}';
+  final String _timeString = '$_day $_monthString $_year';
+  return _timeString;
+}
+// -------------------------------------
+/// GENERATES => [ 'dd / MM / yyyy' ]
+String getString_dd_I_MM_I_yyyy({
+  @required BuildContext context,
+  @required DateTime time
+}){
+  final String _dd = '${time.day}';
+  final String _mm = '${time.month}';
+  final String _yyyy = '${time.year}';
+  final String _timeString = '$_dd / $_mm / $_yyyy';
+  return _timeString;
+}
+// -------------------------------------
+/// GENERATES => [ 'hh : mm ampm' ]
+String generateString_hh_i_mm_ampm({
+  @required BuildContext context,
+  @required DateTime time,
+}){
+  final String _hh = DateFormat('h').format(time);
+  final String _mm = '${time.minute}';
+  final String _ampm = DateFormat('a').format(time);
+  final String _timeString = '$_hh:$_mm $_ampm';
+
+  return _timeString;
+}
+// -------------------------------------
+String getString_in_bldrs_since_month_yyyy(BuildContext context, DateTime time){
+
+  String _output = '';
+
+  if (time != null && time.year != null && time.month != null){
+    _output =
+    '${superPhrase(context, 'phid_inn')} '
+        '${Wordz.bldrsShortName(context)} '
+        '${superPhrase(context, 'phid_since')} : '
+        '${generateMonthNameByInt(context, time.month)} '
+        '${time.year}';
   }
 
-  return _time;
+  return _output;
 }
+// -------------------------------------
+String generateString_in_bldrs_since_dd_month_yyyy(BuildContext context, DateTime time){
+
+  String _output = '';
+
+  if (
+      time != null
+      &&
+      time.year != null
+      &&
+      time.month != null
+      &&
+      time.day != null
+  ){
+    _output =
+        '${superPhrase(context, 'phid_inn')} '
+        '${superPhrase(context, 'phid_phid_bldrsShortName')} '
+        '${superPhrase(context, 'phid_since')} : '
+        '${time.day} '
+        '${generateMonthNameByInt(context, time.month)} '
+        '${time.year}';
+  }
+
+  return _output;
+
+}
+// -------------------------------------
+String generateString_hh_i_mm_i_ss(DateTime time){
+
+  String _output = '';
+
+  if (
+      time != null
+      &&
+      time.hour != null
+      &&
+      time.minute != null
+      &&
+      time.second != null
+  ){
+    _output = '${time.hour}:${time.minute}:${time.second}';
+  }
+
+  return _output;
+
+}
+// -------------------------------------
+String generateString_hh_i_mm_ampm_day_dd_month_yyyy({
+  @required BuildContext context,
+  @required DateTime time,
+}){
+
+  String _output = '';
+
+  final bool _timeIsEmpty = timeIsEmpty(
+      time: time,
+  );
+
+  if (_timeIsEmpty == false){
+    final String _hh = DateFormat('h').format(time);
+    final String _mm = '${time.minute}';
+    final String _ampm = DateFormat('a').format(time);
+    final String _day = generateDayName(context, time);
+    final String _dd = '${time.day}';
+    final String _month = generateMonthNameByInt(context, time.month);
+    final String _yyyy = '${time.year}';
+
+    _output = '$_hh:$_mm $_ampm, $_day $_dd $_month $_yyyy';
+  }
+
+  return _output;
+}
+// -------------------------------------
+/*
+String generateStringsList_hh_i_mm_i_ss(List<DateTime> times){
+  String _output = '';
+
+  if (Mapper.canLoopList(times)){
+
+    for (int i = 0; i<times.length; i++){
+      final String _string = generateString_hh_i_mm_i_ss(times[i]);
+
+      _output = '$_output$_string\n';
+    }
+
+  }
+
+  return _output;
+}
+// -------------------------------------
+String generateStringsList_index_hh_i_mm_i_ss({
+  @required List<DateTime> times,
+  @required List<int> indexes,
+}){
+  String _output = '';
+
+  if (
+      Mapper.canLoopList(times) == true
+      &&
+      Mapper.canLoopList(indexes) == true
+  ){
+
+    for (int i = 0; i<times.length; i++){
+
+      final String _indexString = '${indexes[i]} : ';
+      final String _timeStampString =  generateString_hh_i_mm_i_ss(times[i]);
+
+      _output = '${_output+_indexString+_timeStampString}\n';
+    }
+
+  }
+
+  return _output;
+}
+ */
 // -----------------------------------------------------------------------------
+
+/// CREATORS
+
+// -------------------------------------
 DateTime createDateTime({
   int year,
   int month,
@@ -194,7 +417,7 @@ DateTime createDateTime({
 
   return _output;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 DateTime createDate({
   @required int year,
   @required int month,
@@ -212,7 +435,7 @@ DateTime createDate({
       microsecond: 0,
     );
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 DateTime createClock({
   @required int hour,
   @required int minute,
@@ -230,7 +453,7 @@ DateTime createClock({
       microsecond: 0,
     );
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 DateTime createDateAndClock({
   @required int year,
   @required int month,
@@ -251,7 +474,28 @@ DateTime createDateAndClock({
       microsecond: 0,
     );
 }
+// -------------------------------------
+DateTime createDateTimeAfterNumberOfDays({
+  @required int days,
+}){
+
+  final DateTime _now = DateTime.now();
+
+  final DateTime _dayAndClock = createDateAndClock(
+    year: _now.year,
+    month: _now.month,
+    day: _now.day + days,
+    hour: 0,
+    minute: 0,
+  );
+
+  return _dayAndClock;
+}
 // -----------------------------------------------------------------------------
+
+/// TIME DIFFERENCE
+
+// -------------------------------------
 int getTimeDifferenceInSeconds({
   @required DateTime from,
   @required DateTime to,
@@ -262,28 +506,28 @@ int getTimeDifferenceInSeconds({
 
   return to.difference(from).inSeconds;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 int getTimeDifferenceInMinutes({
   @required DateTime from,
   @required DateTime to,
 }){
   return to.difference(from).inMinutes;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 int getTimeDifferenceInHours({
   @required DateTime from,
   @required DateTime to,
 }){
   return to.difference(from).inHours;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 int getTimeDifferenceInDays({
   @required DateTime from,
   @required DateTime to,
 }){
   return to.difference(from).inDays;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 int getTimeDifferenceInWeeks({
   @required DateTime from,
   @required DateTime to,
@@ -291,7 +535,7 @@ int getTimeDifferenceInWeeks({
   final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
   return (_differenceInDays / 7).floor();
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 int getTimeDifferenceInMonths({
   @required DateTime from,
   @required DateTime to,
@@ -299,7 +543,7 @@ int getTimeDifferenceInMonths({
   final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
   return (_differenceInDays / 30).floor();
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 int getTimeDifferenceInYears({
   @required DateTime from,
   @required DateTime to,
@@ -307,7 +551,7 @@ int getTimeDifferenceInYears({
   final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
   return (_differenceInDays / 365).floor();
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 String getSuperTimeDifferenceString({
   @required DateTime from,
   @required DateTime to,
@@ -362,182 +606,74 @@ String getSuperTimeDifferenceString({
   return _string;
 }
 // -----------------------------------------------------------------------------
-String stringOnDateMonthYear({
-  @required BuildContext context,
-  @required DateTime time,
-}){
-  final String _day = '${time.day}';
-  final String _monthString = getMonthNameByInt(context, time.month);
-  final String _year = '${time.year}';
-  final String _timeString = 'on $_day $_monthString $_year';
 
-  return _timeString;
-}
-// -----------------------------------------------------------------------------
-String getString_dd_month_yyyy({
-  @required BuildContext context,
-  @required DateTime time
-}){
-  final String _day = '${time.day}';
-  final String _monthString = getMonthNameByInt(context, time.month);
-  final String _year = '${time.year}';
-  final String _timeString = '$_day $_monthString $_year';
-  return _timeString;
-}
-// -----------------------------------------------------------------------------
-String getString_dd_I_mm_I_yyyy({
-  @required BuildContext context,
-  @required DateTime time
-}){
-  final String _day = '${time.day}';
-  final String _year = '${time.year}';
-  final String _timeString = '$_day / ${time.month} / $_year';
-  return _timeString;
-}
-// -----------------------------------------------------------------------------
-String getString_hh_i_mm({
-  @required BuildContext context,
-  @required DateTime time,
-}){
-  final String _hour = DateFormat('h').format(time);
-  final String _minute = '${time.minute}';
-  final String _ampm = DateFormat('a').format(time);
-  final String _timeString = '$_hour:$_minute $_ampm';
+/// BLOGGERS
 
-  return _timeString;
-}
-// -----------------------------------------------------------------------------
-String monthYearStringer(BuildContext context, DateTime time){
-
-  String _output = '';
-
-  if (time != null && time.year != null && time.month != null){
-    _output =
-        '${superPhrase(context, 'phid_inn')} '
-        '${Wordz.bldrsShortName(context)} '
-        '${superPhrase(context, 'phid_since')} : '
-        '${getMonthNameByInt(context, time.month)} '
-        '${time.year}';
-  }
-
-  return _output;
-}
-// -----------------------------------------------------------------------------
-String dayMonthYearStringer(BuildContext context, DateTime time){
-
-  String _output = '';
-
-  if (time != null && time.year != null && time.month != null && time.day != null){
-    _output =
-    '${superPhrase(context, 'phid_inn')} '
-        '${superPhrase(context, 'phid_phid_bldrsShortName')} '
-        '${superPhrase(context, 'phid_since')} : '
-        '${time.day} '
-        '${getMonthNameByInt(context, time.month)} '
-        '${time.year}';
-  }
-
-  return _output;
-
-}
-// -----------------------------------------------------------------------------
-String hourMinuteSecondStringer(DateTime time){
-
-  String _output = '';
-
-  if (time != null && time.hour != null && time.minute != null && time.second != null){
-    _output = '${time.hour}:${time.minute}:${time.second}';
-  }
-
-  return _output;
-
-}
-// -----------------------------------------------------------------------------
-String hourMinuteSecondListOfStrings(List<DateTime> times){
-  String _output = '';
-
-  if (Mapper.canLoopList(times)){
-
-    for (int i = 0; i<times.length; i++){
-      final String _string = hourMinuteSecondStringer(times[i]);
-
-      _output = '$_output$_string\n';
-    }
-
-  }
-
-  return _output;
-}
-// -----------------------------------------------------------------------------
-String hourMinuteSecondListOfStringsWithIndexes(List<DateTime> times, List<int> indexes){
-  String _output = '';
-
-  if (Mapper.canLoopList(times) == true && Mapper.canLoopList(indexes) == true){
-
-    for (int i = 0; i<times.length; i++){
-
-      final String _indexString = '${indexes[i]} : ';
-      final String _timeStampString =  hourMinuteSecondStringer(times[i]);
-
-      _output = '${_output+_indexString+_timeStampString}\n';
-    }
-
-  }
-
-  return _output;
-}
-// -----------------------------------------------------------------------------
-String tempCipherDateTimeToString(DateTime dateTime){
-
-  if(dateTime == null){
-    return null;
-  }
-
-  else {
-    return dateFormat?.format(dateTime);
-  }
-
-}
-// -----------------------------------------------------------------------------
-DateTime tempDecipherDateTimeString(String dateTimeString){
-
-  if (dateTimeString == null){
-    return null;
-  }
-
-  else {
-    return dateFormat?.parse(dateTimeString);
-  }
-
-}
-// -----------------------------------------------------------------------------
-DateTime createDateTimeAfterNumberOfDays({@required int days}){
-
-  final DateTime _now = DateTime.now();
-
-  final DateTime _dayAndClock = createDateAndClock(
-      year: _now.year,
-      month: _now.month,
-      day: _now.day + days,
-      hour: 0,
-      minute: 0,
-  );
-
-  return _dayAndClock;
-}
-// -----------------------------------------------------------------------------
+// -------------------------------------
 void blogDateTime(DateTime dateTime){
   blog('BLOGGING DATE TIME : $dateTime');
 }
 // -----------------------------------------------------------------------------
+
+/// LIST MODIFIERS
+
+// -------------------------------------
+List<DateTime> putTimeInTimes({
+  @required DateTime time,
+  @required List<DateTime> times,
+}){
+  final List<DateTime> _result = times;
+
+  final bool _timesContainIt = timesContainTime(
+      times: times,
+      time: time,
+      // accuracy: 'minute',
+  );
+
+  if (_timesContainIt == false){
+    _result.add(time);
+  }
+
+  return _result;
+}
+// -------------------------------------
+List<DateTime> getHoursAndMinutesFromDateTimes({
+  @required List<DateTime> times,
+}){
+
+  List<DateTime> _result = <DateTime>[];
+
+  if (Mapper.canLoopList(times)){
+
+    for (final DateTime time in times){
+
+      final DateTime _hourMinute = createClock(
+          hour: time.hour,
+          minute: time.minute
+      );
+
+      _result = putTimeInTimes(
+          time: _hourMinute,
+          times: _result
+      );
+
+    }
+
+  }
+
+  return _result;
+}
+// -----------------------------------------------------------------------------
+
+/// CHECKERS
+
+// -------------------------------------
 bool timesAreTheSame({
-  @required String accuracy,
+  @required TimeAccuracy accuracy,
   @required DateTime timeA,
   @required DateTime timeB,
 }){
   bool _areTheSame = false;
-
-  final String _level = accuracy?.toLowerCase()?.trim() ?? 'minute';
 
   /// XXX - check if both are not nulls
   if (timeA != null && timeB != null){
@@ -546,7 +682,7 @@ bool timesAreTheSame({
     if (timeA.year == timeB.year){
 
       /// A1 - WHEN LEVEL == YEAR
-      if (_level == 'year'){
+      if (accuracy == TimeAccuracy.year){
         _areTheSame = true;
       }
 
@@ -557,7 +693,7 @@ bool timesAreTheSame({
         if (timeA.month == timeB.month){
 
           /// B1 - LEVEL == MONTH
-          if (_level == 'month'){
+          if (accuracy == TimeAccuracy.month){
             _areTheSame = true;
           }
 
@@ -568,7 +704,7 @@ bool timesAreTheSame({
             if (timeA.day == timeB.day){
 
               /// C1 - LEVEL == DAY
-              if (_level == 'day'){
+              if (accuracy == TimeAccuracy.day){
                 _areTheSame = true;
               }
 
@@ -579,7 +715,7 @@ bool timesAreTheSame({
                 if (timeA.hour == timeB.hour){
 
                   /// D1 - LEVEL == HOUR
-                  if (_level == 'hour'){
+                  if (accuracy == TimeAccuracy.hour){
                     _areTheSame = true;
                   }
 
@@ -590,7 +726,7 @@ bool timesAreTheSame({
                     if (timeA.minute == timeB.minute){
 
                       /// E1 - LEVEL == MINUTE
-                      if (_level == 'minute'){
+                      if (accuracy == TimeAccuracy.minute){
                         _areTheSame = true;
                       }
 
@@ -601,19 +737,19 @@ bool timesAreTheSame({
                         if (timeA.second == timeB.second){
 
                           /// F1 - LEVEL == SECOND
-                          if (_level == 'second'){
+                          if (accuracy == TimeAccuracy.second){
                             _areTheSame = true;
                           }
 
                           /// F2 - ZOOM IN
-                          if (_level == 'millisecond'){
+                          if (accuracy == TimeAccuracy.millisecond){
 
                             /// G - MILLISECOND
                             if (timeA.millisecond == timeB.millisecond){
 
                               /// G1 - LEVEL == MILLISECOND
                               // if (_level == 'millisecond'){
-                                _areTheSame = true;
+                              _areTheSame = true;
                               // }
 
                               // /// G2 - ZOOM IN
@@ -632,7 +768,7 @@ bool timesAreTheSame({
                             if (timeA.microsecond == timeB.microsecond){
 
                               /// H1 - LEVEL == MICROSECOND
-                              if (_level == 'microsecond'){
+                              if (accuracy == TimeAccuracy.microSecond){
                                 _areTheSame = true;
                               }
 
@@ -669,30 +805,11 @@ bool timesAreTheSame({
 
   return _areTheSame;
 }
-// -----------------------------------------------------------------------------
-List<DateTime> putTimeInTimes({
-  @required DateTime time,
-  @required List<DateTime> times,
-}){
-  final List<DateTime> _result = times;
-
-  final bool _timesContainIt = timesContainTime(
-      times: times,
-      time: time,
-      // accuracy: 'minute',
-  );
-
-  if (_timesContainIt == false){
-    _result.add(time);
-  }
-
-  return _result;
-}
-// -----------------------------------------------------------------------------
+// -------------------------------------
 bool timesContainTime({
   @required List<DateTime> times,
   @required DateTime time,
-  String accuracy = 'minute'
+  TimeAccuracy accuracy = TimeAccuracy.minute,
 }){
   bool _contains = false;
 
@@ -700,7 +817,13 @@ bool timesContainTime({
 
     for (int i =0; i < times.length; i++){
 
-      if (timesAreTheSame(accuracy: accuracy, timeA: times[i], timeB: time) == true){
+      final bool _timesAreTheSame = timesAreTheSame(
+          accuracy: accuracy,
+          timeA: times[i],
+          timeB: time,
+      );
+
+      if (_timesAreTheSame == true){
         _contains = true;
         break;
       }
@@ -711,21 +834,43 @@ bool timesContainTime({
 
   return _contains;
 }
-// -----------------------------------------------------------------------------
-List<DateTime> getHoursAndMinutesFromDateTimes({@required List<DateTime> times,}){
+// -------------------------------------
+bool timeIsAfter({
+  @required DateTime existing,
+  @required DateTime timeAfter,
+}){
+  bool _isAfter = false;
 
-  List<DateTime> _result = <DateTime>[];
+  if (existing != null && timeAfter != null){
 
-  if (Mapper.canLoopList(times)){
-
-    for (final DateTime time in times){
-
-      final DateTime _hourMinute = createClock(hour: time.hour, minute: time.minute);
-      _result = putTimeInTimes(time: _hourMinute, times: _result);
-    }
+    _isAfter = timeAfter.isAfter(existing);
 
   }
 
-  return _result;
+  return _isAfter;
+}
+// -------------------------------------
+bool timeIsEmpty({
+  @required DateTime time,
+  // @required TimeAccuracy accuracy,
+}){
+  bool _isEmpty = true;
+
+  if (time != null){
+    _isEmpty = false;
+  }
+
+  return _isEmpty;
+}
+// -----------------------------------------------------------------------------
+enum TimeAccuracy{
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  second,
+  millisecond,
+  microSecond,
 }
 // -----------------------------------------------------------------------------
