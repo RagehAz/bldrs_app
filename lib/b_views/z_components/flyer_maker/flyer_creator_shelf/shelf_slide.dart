@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -16,12 +17,14 @@ class ShelfSlide extends StatelessWidget {
     @required this.mutableSlide,
     @required this.number,
     @required this.onTap,
+    @required this.headline,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final MutableSlide mutableSlide;
   final int number;
   final Function onTap;
+  final TextEditingController headline;
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
@@ -79,6 +82,13 @@ class ShelfSlide extends StatelessWidget {
                     fit: mutableSlide.picFit,
                   ),
                 ),
+
+                if (mutableSlide != null)
+                  SlideHeadline(
+                    flyerBoxWidth: flyerBoxWidth,
+                    verse: headline?.text ?? mutableSlide.headline.text,
+                    verseSize: 3,
+                  ),
 
                 if (mutableSlide == null)
                   SizedBox(

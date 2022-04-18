@@ -342,6 +342,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
             return Container(
               width: widget.width,
+              height: widget.height,
               padding: _boxPadding,
               margin: widget.margin,
               decoration: _boxDecoration,
