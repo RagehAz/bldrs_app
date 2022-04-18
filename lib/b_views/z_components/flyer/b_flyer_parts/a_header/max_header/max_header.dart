@@ -74,7 +74,7 @@ class MaxHeader extends StatelessWidget {
           BzPgVerse(
             key: const ValueKey<String>('max_header_BzPgVerse'),
             flyerBoxWidth: flyerBoxWidth,
-            verse: Timers.monthYearStringer(context, bzModel.createdAt),
+            verse: Timers.getString_in_bldrs_since_month_yyyy(context, bzModel.createdAt),
             size: 2,
           ),
 

@@ -125,7 +125,7 @@ class DashboardUserButton extends StatelessWidget {
                       dataKey: 'createdAt', dataValue: userModel.createdAt),
                   DataStripWithHeadline(
                       dataKey: 'timeString',
-                      dataValue: Timers.dayMonthYearStringer(
+                      dataValue: Timers.generateString_in_bldrs_since_dd_month_yyyy(
                           context, userModel.createdAt)),
                   DataStripWithHeadline(dataKey: 'userStatus', dataValue: userModel.status),
                   DataStripWithHeadline(dataKey: 'name', dataValue: userModel.name),
