@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClas
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -291,6 +292,22 @@ class FlyerModel {
     FlyerState.verified,
     FlyerState.suspended,
   ];
+// ------------------------------------------
+  static String translateFlyerState({
+    @required BuildContext context,
+    @required FlyerState state,
+}){
+    switch (state){
+      case FlyerState.published     :     return  superPhrase(context, 'phid_published')          ;  break;
+      case FlyerState.draft         :     return  superPhrase(context, 'phid_draft_flyer')        ;  break;
+      case FlyerState.deleted       :     return  superPhrase(context, 'phid_deleted_flyer')      ;  break;
+      case FlyerState.unpublished   :     return  superPhrase(context, 'phid_unpublished_flyer')  ;  break;
+      case FlyerState.banned        :     return  superPhrase(context, 'phid_banned_flyer')       ;  break;
+      case FlyerState.verified      :     return  superPhrase(context, 'phid_verified_flyer')     ;  break;
+      case FlyerState.suspended     :     return  superPhrase(context, 'phid_suspended_flyer')    ;  break;
+      default : return null;
+    }
+  }
 // -----------------------------------------------------------------------------
 
   /// FLYER BLOGGING

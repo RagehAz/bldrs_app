@@ -509,7 +509,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
           child: SuperVerse(
-            verse: Timers.stringOnDateMonthYear(
+            verse: Timers.generateString_on_dd_month_yyyy(
                 context: context, time: DateTime.now()),
 
             /// task : fix timestamp parsing

@@ -85,7 +85,7 @@ class BzAboutPage extends StatelessWidget {
 
             /// BIRTH
             StatsLine(
-              verse: Timers.monthYearStringer(context, bzModel.createdAt),
+              verse: Timers.getString_in_bldrs_since_month_yyyy(context, bzModel.createdAt),
               icon: Iconz.calendar,
             ),
           ]),
