@@ -1,7 +1,7 @@
 // import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 // import 'package:bldrs/a_models/secondary_models/image_size.dart';
 // import 'package:bldrs/xxx_lab/xxx_old_stuff/old_flyer_stuff/old_flyer_zone_box.dart';
-// import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/single_slide_headline.dart';
+// import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/slide_headline.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/slides_parts/zoomable_pic.dart';
 // import 'package:bldrs/b_views/x_screens/i_flyer/x_3_slide_full_screen.dart';
 // import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';

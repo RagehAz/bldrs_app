@@ -18,6 +18,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -57,7 +58,8 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 // ----------------------------------------
-  final ValueNotifier<int> _textLength = ValueNotifier(0);
+  final TextEditingController _headlineController = TextEditingController();
+  final ValueNotifier<int> _headlineLength = ValueNotifier(0);
 // -----------------------------------------------------------------------------
   ValueNotifier<DraftFlyerModel> _draftFlyer;
 // -----------------------------------------------------------------------------
@@ -80,7 +82,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-    // TextChecker.disposeAllTextControllers(_headlinesControllers);
+    disposeControllerIfPossible(_headlineController);
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -149,7 +151,8 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
 
           final List<MutableSlide> _newMutableSlides = await MutableSlide.createNewMutableSlidesByAssets(
             assets: _outputAssets,
-            existingAssets: MutableSlide.getAssetsFromMutableSlides(mutableSlides: _draftFlyer.value.mutableSlides),
+            existingMutableSlides: _draftFlyer.value.mutableSlides,
+            headlineController: _headlineController,
           );
 
           final List<MutableSlide> _combinedSlides = <MutableSlide>[... _newMutableSlides];
@@ -284,7 +287,18 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
     );
 
   }
+// -----------------------------------------------------------------------------
+  void _onFlyerHeadlineChanged(String val){
+    _formKey.currentState.validate();
+    _headlineLength.value = val.length;
 
+    // if (canLoopList(_draftFlyer.value.mutableSlides) == true){
+      // final DraftFlyerModel _updated = _draftFlyer.value.updateHeadline(val);
+      // _draftFlyer.value = _updated;
+    // }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
@@ -322,8 +336,11 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                   formKey: _formKey,
                   draft: draft,
                   shelfNumber: widget.shelfNumber,
-                  titleLength: _textLength,
+                  titleLength: _headlineLength,
                   onMoreTap: _onMoreTap,
+                  loading: _loading,
+                  headlineController: _headlineController,
+                  onHeadlineChanged: (String val) => _onFlyerHeadlineChanged(val),
                 ),
 
                 /// SHELF SLIDES
@@ -340,9 +357,11 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
 
                       final bool _atLastIndex = draft.mutableSlides.length == index;
                       final MutableSlide _mutableSlide = _atLastIndex ? null : draft.mutableSlides[index];
+                      final bool _hasSlides = draft.mutableSlides.isNotEmpty;
 
                       return ShelfSlide(
                           mutableSlide: _mutableSlide,
+                          headline: _hasSlides && index == 0 ? _headlineController : null,
                           number: index + 1,
                           onTap: () async {
 

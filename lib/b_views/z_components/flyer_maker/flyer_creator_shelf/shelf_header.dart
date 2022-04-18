@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/shelf
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/i_flyer_publisher_controllers/flyer_publisher_controller.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -33,6 +34,9 @@ class ShelfHeader extends StatelessWidget {
     @required this.titleLength,
     @required this.formKey,
     @required this.onMoreTap,
+    @required this.loading,
+    @required this.onHeadlineChanged,
+    @required this.headlineController,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -41,32 +45,24 @@ class ShelfHeader extends StatelessWidget {
   final ValueNotifier<int> titleLength;
   final GlobalKey<FormState> formKey;
   final Function onMoreTap;
+  final ValueNotifier<bool> loading;
+  final ValueChanged<String> onHeadlineChanged;
+  final TextEditingController headlineController;
   /// --------------------------------------------------------------------------
   static const double height = 80;
 // -----------------------------------------------------------------------------
-  String _firstHeadlineValidator(String val){
+  String _flyerHeadlineValidator(String val){
 
+    /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
     if(val.length >= Standards.flyerTitleMaxLength){
-
-      // if(_counterColor != Colorz.red255){
-      //   setState(() {
-      //     _counterColor = Colorz.red255;
-      //   });
-      // }
-
       return 'Only ${Standards.flyerTitleMaxLength} characters allowed for the flyer title';
     }
 
+    /// WHEN HEADLINE LENGTH IS OK
     else {
-
-      // if(_counterColor != Colorz.white80){
-      //   setState(() {
-      //     _counterColor = Colorz.white80;
-      //   });
-      // }
-
       return null;
     }
+
   }
 // -----------------------------------------------------------------------------
   void _firstHeadlineOnChanged(String val){
@@ -87,8 +83,8 @@ class ShelfHeader extends StatelessWidget {
     final bool _hasSlides = canLoopList(draft.mutableSlides);
     // HEIGHT ----------------------------------------------------------------------------
     const double _shelfNumberZoneHeight = 20;
-    const double _headlineTextZoneHeight = height - _shelfNumberZoneHeight;
-    const double _textFieldHeight = _headlineTextZoneHeight;
+    const double _headlineZoneHeight = height - _shelfNumberZoneHeight;
+    const double _textFieldHeight = _headlineZoneHeight;
     // WIDTH ----------------------------------------------------------------------------
     final double _shelfWidth = Scale.superScreenWidth(context);
     const double _spacing = Ratioz.appBarMargin;
@@ -163,25 +159,25 @@ class ShelfHeader extends StatelessWidget {
                 ),
 
                 /// FIRST HEADLINE TEXT FIELD
-                if  (_isPublished == false && _hasSlides)
+                // if  (_isPublished == false && _hasSlides)
                   SizedBox(
                     width: _headlineZoneWidth,
-                    height: _headlineTextZoneHeight,
+                    height: _headlineZoneHeight,
                     child: Form(
-                      key: key,
+                      key: formKey,
                       child: SuperTextField(
                         // onTap: (){},
                         fieldIsFormField: true,
-                        height: height,
-                        width: _textFieldHeight,
+                        height: _textFieldHeight,
+                        width: _headlineZoneWidth,
                         maxLines: 1,
                         counterIsOn: false,
-                        validator: (val) => _firstHeadlineValidator(val),
+                        validator: (val) => _flyerHeadlineValidator(val),
+                        onChanged: (val) => onHeadlineChanged(val),
                         // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
-                        hintText: 'Flyer Headline ...',
-                        textController: draft.mutableSlides[0].headline,
+                        hintText: superPhrase(context, 'phid_flyer_headline_3_dots'),
+                        textController: headlineController,
                         // maxLength: Standards.flyerTitleMaxLength,
-                        onChanged: (value) => _firstHeadlineOnChanged(value),
 
                       ),
                     ),
@@ -212,20 +208,29 @@ class ShelfHeader extends StatelessWidget {
           /// SPACER
           const SizedBox(width: _spacing,),
 
+
+
           /// CONTROL PANEL
           Container(
             width: _controlPanelWidth,
             height: height,
             alignment: Alignment.center,
             // color: Colorz.blue20,
-            child: DreamBox(
-                height: _moreButtonSize,
-                width: _moreButtonSize,
-                icon: Iconz.more,
-                iconSizeFactor: 0.5,
-                onTap: onMoreTap
-            ),
+            child: ValueListenableBuilder(
+                valueListenable: loading,
+                builder: (_, bool isLoading, Widget child){
 
+                  return DreamBox(
+                      height: _moreButtonSize,
+                      width: _moreButtonSize,
+                      icon: Iconz.more,
+                      iconSizeFactor: 0.5,
+                      loading: isLoading,
+                      onTap: onMoreTap
+                  );
+
+                }
+            ),
           ),
 
           /// SPACER

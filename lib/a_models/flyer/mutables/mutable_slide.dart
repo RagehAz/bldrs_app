@@ -136,10 +136,15 @@ class MutableSlide {
 // -------------------------------------
   static Future<List<MutableSlide>> createNewMutableSlidesByAssets({
     @required List<Asset> assets,
-    @required List<Asset> existingAssets,
+    @required List<MutableSlide> existingMutableSlides,
+    @required TextEditingController headlineController,
 }) async {
 
     final List<MutableSlide> _slides = <MutableSlide>[];
+
+    final List<Asset> _existingAssets = MutableSlide.getAssetsFromMutableSlides(
+        mutableSlides: existingMutableSlides,
+    );
 
     if (Mapper.canLoopList(assets) == true){
 
@@ -147,7 +152,8 @@ class MutableSlide {
 
         final MutableSlide _mutableSlide = await createNewMutableSlideByAsset(
           asset: assets[i],
-          index: existingAssets.length + i,
+          index: _existingAssets.length + i,
+          headline: _existingAssets.isEmpty && i == 0 ? headlineController : null,
         );
 
         _slides.add(_mutableSlide);
@@ -161,6 +167,7 @@ class MutableSlide {
   static Future<MutableSlide> createNewMutableSlideByAsset({
     @required Asset asset,
     @required int index,
+    @required TextEditingController headline,
 }) async {
     MutableSlide _slide;
 
@@ -177,7 +184,7 @@ class MutableSlide {
       _slide = MutableSlide(
           picAsset: asset,
           picFile: _file,
-          headline: TextEditingController(),
+          headline: headline ?? TextEditingController(),
           imageSize: _imageSize,
           midColor: _midColor,
           opacity: 1,
