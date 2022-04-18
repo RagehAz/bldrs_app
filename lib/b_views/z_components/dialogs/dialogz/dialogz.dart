@@ -214,30 +214,36 @@ Future<CityModel> confirmCityDialog({
     context: context,
     draggable: true,
     buttonHeight: 50,
-    buttons: <Widget>[
+    numberOfWidgets: cities.length + 1,
+    builder: (BuildContext context, PhraseProvider _phraseProvider){
 
-      const SuperVerse(
-        verse: 'Please confirm your city',
-      ),
+      return <Widget>[
 
-      ...List<Widget>.generate(cities.length, (int index) {
+        const SuperVerse(
+          verse: 'Please confirm your city',
+        ),
 
-        final CityModel _foundCity = cities[index];
-        final String _foundCityName = superPhrase(context, _foundCity.cityID);
+        ...List<Widget>.generate(cities.length, (int index) {
 
-        return BottomDialog.wideButton(
-            context: context,
-            verse: _foundCityName,
-            icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
-            onTap: () {
-              blog('city selected aho $_foundCityName');
+          final CityModel _foundCity = cities[index];
+          final String _foundCityName = superPhrase(context, _foundCity.cityID);
 
-              _city = _foundCity;
-              Nav.goBack(context);
-              // await null;
-            });
-      }),
-    ],
+          return BottomDialog.wideButton(
+              context: context,
+              verse: _foundCityName,
+              icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
+              onTap: () {
+                blog('city selected aho $_foundCityName');
+
+                _city = _foundCity;
+                Nav.goBack(context);
+                // await null;
+              });
+        }),
+
+      ];
+
+    }
   );
 
   return _city;

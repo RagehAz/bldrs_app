@@ -5,8 +5,9 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/shelf_slide.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/flyer_creator_shelf.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/shelf_header.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/shelf_slide.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
@@ -46,7 +47,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   final Curve _animationCurve = Curves.easeOut;
   final Duration _animationDuration = Ratioz.duration150ms;
   double _shelfMaxHeight(){
-    return ShelfSlide.shelfSlideZoneHeight(context) + FlyerDraftShelf.height;
+    return ShelfSlide.shelfSlideZoneHeight(context) + ShelfHeader.height;
   }
 // -----------------------------------------------------------------------------
   final List<double> _shelvesOpacities = <double>[];
@@ -175,7 +176,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   Future<void> _fadeInAndExpandCreator(int index) async {
 
     /// FADE IN
-    await Future.delayed(Ratioz.durationFading200, () async {
+    await Future.delayed(_animationDuration, () async {
       setState(() {
         _shelvesOpacities[index] = 1;
 
@@ -191,7 +192,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   Future<void> _scrollToBottom() async {
 
-    await Future.delayed(Ratioz.durationFading200, () async {
+    await Future.delayed(_animationDuration, () async {
       await _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
         duration: _animationDuration,
@@ -266,6 +267,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
               duration: _animationDuration,
               curve: _animationCurve,
               height: _shelvesHeights[_shelfIndex],
+              margin: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
               child: AnimatedOpacity(
                 curve: _animationCurve,
                 duration: _animationDuration,

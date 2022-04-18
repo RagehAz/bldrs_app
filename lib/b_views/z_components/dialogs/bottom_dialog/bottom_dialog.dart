@@ -227,17 +227,22 @@ class BottomDialog extends StatelessWidget {
   static Future<void> showButtonsBottomDialog({
     @required BuildContext context,
     @required bool draggable,
-    @required List<Widget> buttons,
     @required double buttonHeight,
+    @required int numberOfWidgets,
     List<Widget> Function(BuildContext, PhraseProvider) builder,
     String title,
   }) async {
 
-    // final List<Widget> _widgets = builder(null, null);
-    const int _widgetsLength = 13;
+    final int _widgetsLength = numberOfWidgets;
 
     final double _spacing = buttonHeight * 0.1;
-    final double _height = (buttonHeight * _widgetsLength) + (_spacing * _widgetsLength);
+    final double _height =
+        BottomDialog.draggerZoneHeight(draggable: draggable)
+        + BottomDialog.draggerMarginValue(draggable: draggable)
+        + BottomDialog.titleZoneHeight(titleIsOn: title != null)
+        + (buttonHeight * _widgetsLength)
+            + (_spacing * _widgetsLength);
+
 
     await showStatefulBottomDialog(
       context: context,
@@ -248,14 +253,16 @@ class BottomDialog extends StatelessWidget {
 
         final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(ctx, listen: false);
 
+        final List<Widget> _widgets = builder(ctx, _phraseProvider);
+
         return ListView.builder(
-          itemCount: _widgetsLength,
+          itemCount: _widgets.length,
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (_, int index) {
             return Column(
               children: <Widget>[
-                builder(ctx, _phraseProvider)[index],
+                _widgets[index],
                 SizedBox(height: _spacing),
               ],
               // children: builder(ctx, _phraseProvider),
@@ -344,6 +351,8 @@ class BottomDialog extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
+  static const double wideButtonHeight = 45;
+
   static Widget wideButton({
     @required BuildContext context,
     @required String verse,
@@ -353,7 +362,7 @@ class BottomDialog extends StatelessWidget {
   }) {
 
     return DreamBox(
-      height: 45,
+      height: wideButtonHeight,
       width: clearWidth(context),
       verse: verse,
       verseScaleFactor: 1.1,
