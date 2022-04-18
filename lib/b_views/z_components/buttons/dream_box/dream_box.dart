@@ -32,6 +32,7 @@ class DreamBox extends StatelessWidget {
     this.verseShadow,
     this.verseItalic = false,
     this.verseMaxLines = 1,
+    this.secondVerseMaxLines = 10,
     this.onTap,
     this.margins,
     this.blackAndWhite = false,
@@ -77,6 +78,7 @@ class DreamBox extends StatelessWidget {
   final bool verseShadow;
   final bool verseItalic;
   final int verseMaxLines;
+  final int secondVerseMaxLines;
   final Function onTap;
   final dynamic margins;
   final bool blackAndWhite;
@@ -310,6 +312,7 @@ class DreamBox extends StatelessWidget {
             verseColor: verseColor,
             verseShadow: verseShadow,
             verseMaxLines: verseMaxLines,
+            secondVerseMaxLines: secondVerseMaxLines,
             verseItalic: verseItalic,
             redDot: redDot,
             secondLineScaleFactor: secondLineScaleFactor,

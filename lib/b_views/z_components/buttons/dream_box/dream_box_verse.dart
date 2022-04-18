@@ -36,6 +36,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.verseColor,
     @required this.verseShadow,
     @required this.verseMaxLines,
+    @required this.secondVerseMaxLines,
     @required this.verseItalic,
     @required this.redDot,
     @required this.secondLineScaleFactor,
@@ -69,6 +70,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final Color verseColor;
   final bool verseShadow;
   final int verseMaxLines;
+  final int secondVerseMaxLines;
   final bool verseItalic;
   final bool redDot;
   final double secondLineScaleFactor;
@@ -317,35 +319,41 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
               crossAxisAlignment: _versesCrossAlignment,
               children: <Widget>[
 
-                SuperVerse(
-                  verse: verse,
-                  size: verseSize,
-                  weight: verseWeight,
-                  color: blackAndWhite == true || inActiveMode == true
-                      ? Colorz.white30
-                      : verseColor,
-                  shadow: _verseShadowIsOn(),
-                  maxLines: verseMaxLines,
-                  centered: _verseIsCentered(),
-                  scaleFactor: iconSizeFactor * verseScaleFactor,
-                  italic: verseItalic,
-                  redDot: redDot,
+                SizedBox(
+                  width: _verseWidth,
+                  child: SuperVerse(
+                    verse: verse,
+                    size: verseSize,
+                    weight: verseWeight,
+                    color: blackAndWhite == true || inActiveMode == true
+                        ? Colorz.white30
+                        : verseColor,
+                    shadow: _verseShadowIsOn(),
+                    maxLines: verseMaxLines,
+                    centered: _verseIsCentered(),
+                    scaleFactor: iconSizeFactor * verseScaleFactor,
+                    italic: verseItalic,
+                    redDot: redDot,
+                  ),
                 ),
 
                 if (secondLine != null)
-                  SuperVerse(
-                    verse: secondLine,
-                    weight: VerseWeight.thin,
-                    size: 1,
-                    color: blackAndWhite == true || inActiveMode == true ?
-                    Colorz.white30
-                        :
-                    secondLineColor,
-                    maxLines: 10,
-                    italic: true,
-                    shadow: _secondLineShadowIsOn(),
-                    centered: _verseIsCentered(),
-                    scaleFactor: secondLineScaleFactor,
+                  SizedBox(
+                    width: _verseWidth,
+                    child: SuperVerse(
+                      verse: secondLine,
+                      weight: VerseWeight.thin,
+                      size: 1,
+                      color: blackAndWhite == true || inActiveMode == true ?
+                      Colorz.white30
+                          :
+                      secondLineColor,
+                      maxLines: secondVerseMaxLines,
+                      italic: true,
+                      shadow: _secondLineShadowIsOn(),
+                      centered: _verseIsCentered(),
+                      scaleFactor: secondLineScaleFactor,
+                    ),
                   ),
               ],
             ),

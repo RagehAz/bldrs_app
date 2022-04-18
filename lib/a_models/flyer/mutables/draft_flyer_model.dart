@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -204,6 +205,25 @@ class DraftFlyerModel{
             times: times,
             priceTagIsOn: priceTagIsOn,
         );
+  }
+
+  DraftFlyerModel updateHeadline(String value){
+    if (Mapper.canLoopList(mutableSlides) == true){
+      mutableSlides[0].headline.text = value;
+    }
+
+    return this;
+  }
+// -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// -------------------------------------
+  static TextEditingController getDraftHeadlineController(DraftFlyerModel draft){
+    return Mapper.canLoopList(draft?.mutableSlides) == true ?
+    draft.mutableSlides[0].headline
+        :
+    null;
   }
 // -----------------------------------------------------------------------------
 }
