@@ -9,18 +9,19 @@ class PublishTime {
     @required this.state,
     @required this.time,
   });
-
   /// --------------------------------------------------------------------------
   final FlyerState state;
   final DateTime time;
+// -----------------------------------------------------------------------------
 
-  /// --------------------------------------------------------------------------
+  /// CLONING
+
+// -------------------------------------
   PublishTime clone() {
     final PublishTime _time = PublishTime(state: state, time: time);
 
     return _time;
   }
-
 // -----------------------------------------------------------------------------
   static List<PublishTime> cloneTimes(List<PublishTime> times) {
     final List<PublishTime> _times = <PublishTime>[];
@@ -33,16 +34,73 @@ class PublishTime {
 
     return _times;
   }
-
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap({@required bool toJSON}) {
+
+  /// CYPHERS
+
+// -------------------------------------
+  Map<String, dynamic> toMap({
+    @required bool toJSON,
+  }) {
     return <String, dynamic>{
       'state': FlyerModel.cipherFlyerState(state),
       'time': Timers.cipherTime(time: time, toJSON: toJSON),
     };
   }
+// -------------------------------------
+  static Map<String, dynamic> cipherPublishTimesToMap({
+    @required List<PublishTime> times,
+    @required bool toJSON,
+  }) {
+    Map<String, dynamic> _outPut = <String, dynamic>{};
 
+    if (Mapper.canLoopList(times)) {
+      for (final PublishTime time in times) {
+        _outPut = Mapper.insertPairInMap(
+          map: _outPut,
+          key: FlyerModel.cipherFlyerState(time.state),
+          value: Timers.cipherTime(time: time.time, toJSON: toJSON),
+        );
+      }
+    }
+
+    return _outPut;
+  }
+// -------------------------------------
+  static List<PublishTime> decipherPublishTimesFromMap({
+    @required Map<String, dynamic> map,
+    @required bool fromJSON,
+  }) {
+    final List<PublishTime> _times = <PublishTime>[];
+
+    if (map != null) {
+      final List<String> _keys = map.keys.toList();
+      final List<dynamic> _values = map.values.toList();
+
+      if (Mapper.canLoopList(_keys) && Mapper.canLoopList(_values)) {
+        for (int i = 0; i < _keys.length; i++) {
+          final FlyerState _flyerStateString =
+          FlyerModel.decipherFlyerState(_keys[i]);
+          final DateTime _time =
+          Timers.decipherTime(time: _values[i], fromJSON: fromJSON);
+
+          _times.add(
+            PublishTime(
+              state: _flyerStateString,
+              time: _time,
+            ),
+          );
+        }
+      }
+    }
+
+    return _times;
+  }
 // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -------------------------------------
   static bool flyerIsBanned(List<PublishTime> times) {
     bool _flyerIsBanned = false;
 
@@ -58,68 +116,51 @@ class PublishTime {
 
     return _flyerIsBanned;
   }
-
 // -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherPublishTimesToMap(
-      {@required List<PublishTime> times, @required bool toJSON}) {
-    Map<String, dynamic> _outPut = <String, dynamic>{};
 
-    if (Mapper.canLoopList(times)) {
-      for (final PublishTime time in times) {
-        _outPut = Mapper.insertPairInMap(
-          map: _outPut,
-          key: FlyerModel.cipherFlyerState(time.state),
-          value: Timers.cipherTime(time: time.time, toJSON: toJSON),
-        );
-      }
-    }
+  /// GETTERS
 
-    return _outPut;
-  }
+// -------------------------------------
+  static PublishTime getPublishTimeFromTimes({
+    FlyerState state,
+    List<PublishTime> times,
+  }) {
 
-// -----------------------------------------------------------------------------
-  static List<PublishTime> decipherPublishTimesFromMap(
-      {@required Map<String, dynamic> map, @required bool fromJSON}) {
-    final List<PublishTime> _times = <PublishTime>[];
-
-    if (map != null) {
-      final List<String> _keys = map.keys.toList();
-      final List<dynamic> _values = map.values.toList();
-
-      if (Mapper.canLoopList(_keys) && Mapper.canLoopList(_values)) {
-        for (int i = 0; i < _keys.length; i++) {
-          final FlyerState _flyerStateString =
-              FlyerModel.decipherFlyerState(_keys[i]);
-          final DateTime _time =
-              Timers.decipherTime(time: _values[i], fromJSON: fromJSON);
-
-          _times.add(
-            PublishTime(
-              state: _flyerStateString,
-              time: _time,
-            ),
-          );
-        }
-      }
-    }
-
-    return _times;
-  }
-
-// -----------------------------------------------------------------------------
-  static DateTime getPublishTimeFromTimes(
-      {FlyerState state, List<PublishTime> times}) {
-    DateTime _time;
+    PublishTime _publishTime;
 
     if (times != null) {
-      _time = times
+      _publishTime = times
           .firstWhere((PublishTime time) => time.state == state,
-              orElse: () => null)
-          ?.time;
+              orElse: () => null);
     }
 
-    return _time;
+    return _publishTime;
   }
+// -------------------------------------
+  static PublishTime getLastRecord(List<PublishTime> publishTimes){
+    PublishTime _publishTime;
+
+    if (Mapper.canLoopList(publishTimes) == true){
+
+      _publishTime = publishTimes[0];
+
+      for (final PublishTime publishTime in publishTimes){
+
+        if (Timers.timeIsAfter(
+          existing: _publishTime.time,
+          timeAfter: publishTime.time,
+        ) == true){
+          _publishTime = publishTime;
+        }
+
+      }
+
+    }
+
+    return _publishTime;
+  }
+// -------------------------------------
+
 }
 
 /*

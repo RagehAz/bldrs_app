@@ -15,6 +15,7 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -71,7 +72,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-
+    _draftFlyer = ValueNotifier<DraftFlyerModel>(null);
     // _headlinesControllers = TextChecker.createEmptyTextControllers(1);
     super.initState();
   }
@@ -255,7 +256,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
     super.build(context);
 
     final double _overAllHeight = widget.chainHeight;
-    const double _stackTitleHeight = 85;
+    const double _stackTitleHeight = 50;
     const double _flyerNumberTagZoneHeight = 15;
 
     final double _stackZoneHeight = _overAllHeight - _stackTitleHeight;
@@ -271,7 +272,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
 
     const BzAccountType _accountType = BzAccountType.premium;
 
-    const double _deleteFlyerButtonSize = _stackTitleHeight * 0.4;
+    const double _deleteFlyerButtonSize = _stackTitleHeight * 0.9;
     final double _flyerTitleZoneWidth = Scale.superScreenWidth(context) - _deleteFlyerButtonSize - (Ratioz.appBarMargin * 3);
 
     const double _verticalMargin = Ratioz.appBarPadding;
@@ -283,170 +284,183 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
       height: _overAllHeight,
       color: Colorz.white10,
       margin: const EdgeInsets.symmetric(vertical: _verticalMargin),
-      child: ValueListenableBuilder(
+      child:
+      _draftFlyer == null ? const SizedBox() :
+      ValueListenableBuilder(
         valueListenable: _draftFlyer,
         builder: (_, DraftFlyerModel draft, Widget child){
 
-          final String _chainNumberString =
-          draft.flyerState == FlyerState.draft ? '${widget.shelfNumber} .' :
-          draft.flyerState == FlyerState.published ? '${widget.shelfNumber} - Published @ 6:28 pm ,  Thursday 15 July 2021 .' :
-          draft.flyerState == FlyerState.unpublished ? '${widget.shelfNumber} - unPublished @ 6:28 pm ,  Thursday 15 July 2021 .' :
-          draft.flyerState == FlyerState.draft ? '${widget.shelfNumber} .' :
-          '${widget.shelfNumber} .';
+          if (draft == null){
+            return const SizedBox();
+          }
 
+          else {
 
-          final bool _isPublished = draft.flyerState == FlyerState.published;
+            final String _shelfTitle = DraftFlyerModel.generateShelfTitle(
+              context: context,
+              times: draft.times,
+              flyerState: draft.flyerState,
+              shelfNumber: widget.shelfNumber,
+            );
 
-          return ListView(
-            physics: const NeverScrollableScrollPhysics(),
-            children: <Widget>[
+            final bool _isPublished = draft.flyerState == FlyerState.published;
 
-              /// FLYER TITLE
-              Container(
-                width: Scale.superScreenWidth(context),
-                height: _stackTitleHeight,
-                alignment: Aligners.superCenterAlignment(context),
-                // color: Colorz.BloodTest,
-                padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+            final bool _hasSlides = canLoopList(draft.mutableSlides);
 
-                    /// FLYER TITLE TEXT FIELD & COUNTER
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
+            return ListView(
+              physics: const NeverScrollableScrollPhysics(),
+              children: <Widget>[
 
-                        /// CHAIN NUMBER AND COUNTER
-                        SizedBox(
-                          width: _flyerTitleZoneWidth,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: Ratioz.appBarPadding, left: Ratioz.appBarPadding, top: Ratioz.appBarMargin),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
+                /// SHELF HEADER
+                Container(
+                  width: Scale.superScreenWidth(context),
+                  height: _stackTitleHeight,
+                  alignment: Aligners.superCenterAlignment(context),
+                  color: Colorz.bloodTest,
+                  padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
 
-                                /// CHAIN NUMBER
-                                SuperVerse(
-                                  verse: _chainNumberString,
-                                  size: 1,
-                                  italic: true,
-                                  color: _isPublished ? Colorz.green255: Colorz.white80,
-                                  weight: VerseWeight.thin,
-                                ),
+                      /// FLYER TITLE TEXT FIELD & COUNTER
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
 
-                                /// TEXT FIELD COUNTER
-                                if  (_isPublished == false)
+                          /// CHAIN NUMBER AND COUNTER
+                          SizedBox(
+                            width: _flyerTitleZoneWidth,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: Ratioz.appBarPadding, left: Ratioz.appBarPadding, top: Ratioz.appBarMargin),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+
+                                  /// CHAIN NUMBER
                                   SuperVerse(
-                                    verse: '$_textLength / $_flyerTitleMaxLength',
+                                    verse: _shelfTitle,
                                     size: 1,
                                     italic: true,
-                                    color: _counterColor,
+                                    color: _isPublished ? Colorz.green255: Colorz.white80,
                                     weight: VerseWeight.thin,
                                   ),
 
-                              ],
-                            ),
-                          ),
-                        ),
+                                  /// TEXT FIELD COUNTER
+                                  if  (_isPublished == false)
+                                    SuperVerse(
+                                      verse: '$_textLength / $_flyerTitleMaxLength',
+                                      size: 1,
+                                      italic: true,
+                                      color: _counterColor,
+                                      weight: VerseWeight.thin,
+                                    ),
 
-                        /// FIRST HEADLINE TEXT FIELD
-                        if  (_isPublished == false)
-                          Form(
-                            key: _formKey,
-                            child: SuperTextField(
-                              // onTap: (){},
-                              fieldIsFormField: true,
-                              // height: _stackTitleHeight,
-                              width: _flyerTitleZoneWidth,
-                              maxLines: 1,
-                              counterIsOn: false,
-                              validator: (val) => _firstHeadlineValidator(val),
-                              // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
-                              hintText: 'Flyer Headline ...',
-                              textController: draft.mutableSlides[0].headline,
-                              maxLength: _flyerTitleMaxLength,
-                              onChanged: (value) => _firstHeadlineOnChanged(value),
-
+                                ],
+                              ),
                             ),
                           ),
 
-                        /// FIRST HEADLINE AS SUPER VERSE
-                        if (_isPublished == true)
-                          Container(
-                            width: _flyerTitleZoneWidth,
-                            height: _deleteFlyerButtonSize,
-                            decoration: BoxDecoration(
-                              color: Colorz.white10,
-                              borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner12),
+                          /// FIRST HEADLINE TEXT FIELD
+                          if  (_isPublished == false && _hasSlides)
+                            Form(
+                              key: _formKey,
+                              child: SuperTextField(
+                                // onTap: (){},
+                                fieldIsFormField: true,
+                                height: _stackTitleHeight,
+                                width: _flyerTitleZoneWidth,
+                                maxLines: 1,
+                                counterIsOn: false,
+                                validator: (val) => _firstHeadlineValidator(val),
+                                // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
+                                hintText: 'Flyer Headline ...',
+                                textController: draft.mutableSlides[0].headline,
+                                maxLength: _flyerTitleMaxLength,
+                                onChanged: (value) => _firstHeadlineOnChanged(value),
+
+                              ),
                             ),
-                            alignment: Aligners.superCenterAlignment(context),
-                            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                            child: SuperVerse(
-                              verse: draft.mutableSlides[0].headline.text,
-                              centered: false,
-                              size: 3,
-                            ),
-                          ),
 
-                      ],
-                    ),
+                          // /// FIRST HEADLINE AS SUPER VERSE
+                          // if (_isPublished == true && _hasSlides)
+                          //   Container(
+                          //     width: _flyerTitleZoneWidth,
+                          //     height: _deleteFlyerButtonSize,
+                          //     decoration: BoxDecoration(
+                          //       color: Colorz.white10,
+                          //       borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner12),
+                          //     ),
+                          //     alignment: Aligners.superCenterAlignment(context),
+                          //     padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                          //     child: SuperVerse(
+                          //       verse: draft.mutableSlides[0].headline.text,
+                          //       centered: false,
+                          //       size: 3,
+                          //     ),
+                          //   ),
 
-                    /// SPACER
-                    const SizedBox(
-                      width: Ratioz.appBarMargin,
-                    ),
-
-                    /// DELETE DRAFT BUTTON
-                    Container(
-                      width: _deleteFlyerButtonSize,
-                      height: _stackTitleHeight,
-                      alignment: Alignment.topCenter,
-                      child: DreamBox(
-                          height: _deleteFlyerButtonSize,
-                          width: _deleteFlyerButtonSize,
-                          color: _isPublished ? Colorz.green255 : null,
-                          icon: _isPublished ? Iconz.check : Iconz.xLarge,
-                          iconColor: _isPublished ? Colorz.white255 : null,
-                          iconSizeFactor: 0.7,
-                          onTap: (){
-
-                            DraftFlyerModel.disposeDraftControllers(
-                              draft: draft,
-                            );
-
-                            widget.onDeleteDraft();
-                          }
+                        ],
                       ),
 
-                    ),
+                      /// SPACER
+                      const SizedBox(
+                        width: Ratioz.appBarMargin,
+                      ),
 
-                  ],
+                      /// DELETE DRAFT BUTTON
+                      Container(
+                        width: _deleteFlyerButtonSize,
+                        height: _stackTitleHeight,
+                        alignment: Alignment.topCenter,
+                        child: DreamBox(
+                            height: _deleteFlyerButtonSize,
+                            width: _deleteFlyerButtonSize,
+                            color: _isPublished ? Colorz.green255 : null,
+                            icon: _isPublished ? Iconz.check : Iconz.xLarge,
+                            iconColor: _isPublished ? Colorz.white255 : null,
+                            iconSizeFactor: 0.7,
+                            onTap: (){
+
+                              DraftFlyerModel.disposeDraftControllers(
+                                draft: draft,
+                              );
+
+                              widget.onDeleteDraft();
+                            }
+                        ),
+
+                      ),
+
+                    ],
+                  ),
                 ),
-              ),
 
-              /// SLIDES CHAIN
-              Container(
-                width: Scale.superScreenWidth(context),
-                height: _stackZoneHeight,
-                // color: Colorz.WhiteAir,
-                alignment: Aligners.superCenterAlignment(context),
-                child: ListView.builder(
-                  itemCount: draft.mutableSlides.length + 1,
-                  scrollDirection: Axis.horizontal,
-                  itemExtent: _flyerBoxWidth,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                  // addAutomaticKeepAlives: true,
-                  itemBuilder: (ctx, index){
+                /// SLIDES CHAIN
+                Container(
+                  width: Scale.superScreenWidth(context),
+                  height: _stackZoneHeight,
+                  // color: Colorz.WhiteAir,
+                  alignment: Aligners.superCenterAlignment(context),
+                  child:
 
-                    final bool _atLastIndex = draft.mutableSlides.length == index;
+                  // canLoopList(draft.mutableSlides) == false ? const SizedBox() :
+
+                  ListView.builder(
+                    itemCount: draft.mutableSlides.length + 1,
+                    scrollDirection: Axis.horizontal,
+                    itemExtent: _flyerBoxWidth,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                    // addAutomaticKeepAlives: true,
+                    itemBuilder: (ctx, index){
+
+                      final bool _atLastIndex = draft.mutableSlides.length == index;
 
 
-                    if (_atLastIndex == true){
-
-                      /// ADD IMAGE BUTTON
-                      return GestureDetector(
+                      if (_atLastIndex == true){
+                        /// ADD IMAGE BUTTON
+                        return GestureDetector(
                           onTap: () => _getMultiGalleryImages(flyerBoxWidth: _flyerBoxWidth),
                           child: Container(
                             width: _flyerBoxWidth,
@@ -485,54 +499,52 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                           ),
                         );
 
-                      return AddFlyerButton(
-                        flyerBoxWidth: _flyerBoxWidth,
-                      );
+                        return AddFlyerButton(
+                          flyerBoxWidth: _flyerBoxWidth,
+                        );
 
+                      }
 
+                      else {
 
-                    }
+                        final MutableSlide _mutableSlide = draft.mutableSlides[index];
+                        // final String _picName = _asset?.name;
 
-                    else {
+                        return Container(
+                          margin: const EdgeInsets.only(
+                            left: Ratioz.appBarPadding,
+                            right: Ratioz.appBarPadding,
+                            bottom: Ratioz.appBarPadding,
+                          ),
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: <Widget>[
 
-                      final MutableSlide _mutableSlide = draft.mutableSlides[index];
-                      // final String _picName = _asset?.name;
-
-                      return Container(
-                        margin: const EdgeInsets.only(
-                          left: Ratioz.appBarPadding,
-                          right: Ratioz.appBarPadding,
-                          bottom: Ratioz.appBarPadding,
-                        ),
-                        alignment: Alignment.center,
-                        child: Column(
-                          children: <Widget>[
-
-                            /// FLYER NUMBER
-                            Container(
-                              width: _flyerBoxWidth,
-                              height: _flyerNumberTagZoneHeight,
-                              // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                              decoration: BoxDecoration(
-                                borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner * 0.5),
-                                // color: Colorz.WhiteAir,
+                              /// FLYER NUMBER
+                              Container(
+                                width: _flyerBoxWidth,
+                                height: _flyerNumberTagZoneHeight,
+                                // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                                decoration: BoxDecoration(
+                                  borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner * 0.5),
+                                  // color: Colorz.WhiteAir,
+                                ),
+                                alignment: Aligners.superCenterAlignment(context),
+                                child: SuperVerse(
+                                  verse: '${index + 1}',
+                                  size: 1,
+                                  color: Colorz.white200,
+                                  labelColor: Colorz.white10,
+                                ),
                               ),
-                              alignment: Aligners.superCenterAlignment(context),
-                              child: SuperVerse(
-                                verse: '${index + 1}',
-                                size: 1,
-                                color: Colorz.white200,
-                                labelColor: Colorz.white10,
+
+                              /// SPACER
+                              const SizedBox(
+                                height: Ratioz.appBarPadding,
                               ),
-                            ),
 
-                            /// SPACER
-                            const SizedBox(
-                              height: Ratioz.appBarPadding,
-                            ),
-
-                            /// IMAGE
-                            SizedBox(
+                              /// IMAGE
+                              SizedBox(
                                 width: _flyerBoxWidth,
                                 height: _flyerZoneHeight,
                                 // decoration: _flyerDecoration,
@@ -551,20 +563,23 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                                     ),
                                   ),
                                 ),
-                            ),
+                              ),
 
-                          ],
-                        ),
-                      );
-                    }
+                            ],
+                          ),
+                        );
+                      }
 
 
-                  },
+                    },
+                  ),
+
                 ),
-              ),
 
-            ],
-          );
+              ],
+            );
+
+          }
 
         },
       ),
