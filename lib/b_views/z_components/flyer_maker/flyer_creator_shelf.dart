@@ -5,14 +5,11 @@ import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/shelf_slide.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/c_controllers/i_flyer_publisher_controllers/flyer_publisher_controller.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -32,7 +29,7 @@ class FlyerDraftShelf extends StatefulWidget {
   const FlyerDraftShelf({
     @required this.shelfNumber,
     @required this.onDeleteDraft,
-    @required this.chainHeight,
+    @required this.shelfHeight,
     @required this.bzModel,
     @required this.flyerModel,
     Key key,
@@ -40,12 +37,14 @@ class FlyerDraftShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final Function onDeleteDraft;
-  final double chainHeight;
+  final double shelfHeight;
   final BzModel bzModel;
   final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
   _FlyerDraftShelfState createState() => _FlyerDraftShelfState();
+  /// --------------------------------------------------------------------------
+  static const double height = 50;
   /// --------------------------------------------------------------------------
 }
 
@@ -59,6 +58,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
   int _textLength = 0;
   final int _flyerTitleMaxLength = Standards.flyerTitleMaxLength;
   Color _counterColor = Colorz.white80;
+
 // -----------------------------------------------------------------------------
   ValueNotifier<DraftFlyerModel> _draftFlyer;
 // -----------------------------------------------------------------------------
@@ -255,35 +255,18 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
 
-    final double _overAllHeight = widget.chainHeight;
-    const double _stackTitleHeight = 50;
-    const double _flyerNumberTagZoneHeight = 15;
-
-    final double _stackZoneHeight = _overAllHeight - _stackTitleHeight;
-    final double _flyerZoneHeight = _stackZoneHeight - _flyerNumberTagZoneHeight - (Ratioz.appBarPadding * 5);
-
-    final double _flyerSizeFactor = FlyerBox.sizeFactorByHeight(context, _flyerZoneHeight);
-    final double _flyerBoxWidth = FlyerBox.width(context, _flyerSizeFactor);
-    final BorderRadius _flyerBorderRadius = FlyerBox.corners(context, _flyerBoxWidth);
-    final BoxDecoration _flyerDecoration = BoxDecoration(
-      borderRadius: _flyerBorderRadius,
-      color: Colorz.white10,
-    );
+    final double _shelfSlideZoneHeight = ShelfSlide.shelfSlideZoneHeight(context);
+    const double _shelfHeaderHeight = FlyerDraftShelf.height;
+    final double _overAllHeight = _shelfSlideZoneHeight + _shelfHeaderHeight;
 
     const BzAccountType _accountType = BzAccountType.premium;
-
-    const double _deleteFlyerButtonSize = _stackTitleHeight * 0.9;
+    const double _deleteFlyerButtonSize = _shelfHeaderHeight * 0.9;
     final double _flyerTitleZoneWidth = Scale.superScreenWidth(context) - _deleteFlyerButtonSize - (Ratioz.appBarMargin * 3);
-
-    const double _verticalMargin = Ratioz.appBarPadding;
-
-
 
     return Container(
       width: Scale.superScreenWidth(context),
       height: _overAllHeight,
       color: Colorz.white10,
-      margin: const EdgeInsets.symmetric(vertical: _verticalMargin),
       child:
       _draftFlyer == null ? const SizedBox() :
       ValueListenableBuilder(
@@ -302,9 +285,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
               flyerState: draft.flyerState,
               shelfNumber: widget.shelfNumber,
             );
-
             final bool _isPublished = draft.flyerState == FlyerState.published;
-
             final bool _hasSlides = canLoopList(draft.mutableSlides);
 
             return ListView(
@@ -314,7 +295,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                 /// SHELF HEADER
                 Container(
                   width: Scale.superScreenWidth(context),
-                  height: _stackTitleHeight,
+                  height: _shelfHeaderHeight,
                   alignment: Aligners.superCenterAlignment(context),
                   color: Colorz.bloodTest,
                   padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
@@ -332,7 +313,11 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                           SizedBox(
                             width: _flyerTitleZoneWidth,
                             child: Padding(
-                              padding: const EdgeInsets.only(right: Ratioz.appBarPadding, left: Ratioz.appBarPadding, top: Ratioz.appBarMargin),
+                              padding: const EdgeInsets.only(
+                                  right: Ratioz.appBarPadding,
+                                  left: Ratioz.appBarPadding,
+                                  top: Ratioz.appBarMargin,
+                              ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
@@ -347,7 +332,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                                   ),
 
                                   /// TEXT FIELD COUNTER
-                                  if  (_isPublished == false)
+                                  if  (_isPublished == false && _hasSlides)
                                     SuperVerse(
                                       verse: '$_textLength / $_flyerTitleMaxLength',
                                       size: 1,
@@ -368,7 +353,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                               child: SuperTextField(
                                 // onTap: (){},
                                 fieldIsFormField: true,
-                                height: _stackTitleHeight,
+                                height: _shelfHeaderHeight,
                                 width: _flyerTitleZoneWidth,
                                 maxLines: 1,
                                 counterIsOn: false,
@@ -411,8 +396,8 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                       /// DELETE DRAFT BUTTON
                       Container(
                         width: _deleteFlyerButtonSize,
-                        height: _stackTitleHeight,
-                        alignment: Alignment.topCenter,
+                        height: _shelfHeaderHeight,
+                        alignment: Alignment.center,
                         child: DreamBox(
                             height: _deleteFlyerButtonSize,
                             width: _deleteFlyerButtonSize,
@@ -436,140 +421,35 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                   ),
                 ),
 
-                /// SLIDES CHAIN
-                Container(
+                /// SHELF SLIDES
+                SizedBox(
                   width: Scale.superScreenWidth(context),
-                  height: _stackZoneHeight,
-                  // color: Colorz.WhiteAir,
-                  alignment: Aligners.superCenterAlignment(context),
-                  child:
-
-                  // canLoopList(draft.mutableSlides) == false ? const SizedBox() :
-
-                  ListView.builder(
+                  height: _shelfSlideZoneHeight,
+                  child: ListView.builder(
                     itemCount: draft.mutableSlides.length + 1,
                     scrollDirection: Axis.horizontal,
-                    itemExtent: _flyerBoxWidth,
+                    itemExtent: ShelfSlide.flyerBoxWidth,
                     physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                    // addAutomaticKeepAlives: true,
                     itemBuilder: (ctx, index){
 
                       final bool _atLastIndex = draft.mutableSlides.length == index;
+                      final MutableSlide _mutableSlide = _atLastIndex ? null : draft.mutableSlides[index];
 
+                      return ShelfSlide(
+                          mutableSlide: _mutableSlide,
+                          number: index + 1,
+                          onTap: (){
 
-                      if (_atLastIndex == true){
-                        /// ADD IMAGE BUTTON
-                        return GestureDetector(
-                          onTap: () => _getMultiGalleryImages(flyerBoxWidth: _flyerBoxWidth),
-                          child: Container(
-                            width: _flyerBoxWidth,
-                            height: _flyerZoneHeight,
-                            decoration: _flyerDecoration,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
+                            if (_atLastIndex == true){
+                              blog('add new pics aho');
+                            }
+                            else {
+                              blog('slide is tapped aho');
+                              _mutableSlide.blogSlide();
+                            }
 
-                                /// PLUS ICON
-                                DreamBox(
-                                  height: _flyerBoxWidth * 0.5,
-                                  width: _flyerBoxWidth * 0.5,
-                                  icon: Iconz.plus,
-
-                                  iconColor: Colorz.white20,
-                                  bubble: false,
-                                  // onTap: null,//() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
-                                ),
-
-                                SizedBox(
-                                  height: _flyerBoxWidth * 0.05,
-                                ),
-
-                                SizedBox(
-                                  width: _flyerBoxWidth * 0.95,
-                                  child: const SuperVerse(
-                                    verse: 'Add Photos',
-                                    color: Colorz.white20,
-                                    maxLines: 2,
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                          ),
-                        );
-
-                        return AddFlyerButton(
-                          flyerBoxWidth: _flyerBoxWidth,
-                        );
-
-                      }
-
-                      else {
-
-                        final MutableSlide _mutableSlide = draft.mutableSlides[index];
-                        // final String _picName = _asset?.name;
-
-                        return Container(
-                          margin: const EdgeInsets.only(
-                            left: Ratioz.appBarPadding,
-                            right: Ratioz.appBarPadding,
-                            bottom: Ratioz.appBarPadding,
-                          ),
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: <Widget>[
-
-                              /// FLYER NUMBER
-                              Container(
-                                width: _flyerBoxWidth,
-                                height: _flyerNumberTagZoneHeight,
-                                // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                                decoration: BoxDecoration(
-                                  borderRadius: Borderers.superBorderAll(context, Ratioz.appBarButtonCorner * 0.5),
-                                  // color: Colorz.WhiteAir,
-                                ),
-                                alignment: Aligners.superCenterAlignment(context),
-                                child: SuperVerse(
-                                  verse: '${index + 1}',
-                                  size: 1,
-                                  color: Colorz.white200,
-                                  labelColor: Colorz.white10,
-                                ),
-                              ),
-
-                              /// SPACER
-                              const SizedBox(
-                                height: Ratioz.appBarPadding,
-                              ),
-
-                              /// IMAGE
-                              SizedBox(
-                                width: _flyerBoxWidth,
-                                height: _flyerZoneHeight,
-                                // decoration: _flyerDecoration,
-                                child: GestureDetector(
-                                  onTap: () => _onImageTap(index),
-                                  child: SizedBox(
-                                    width: _flyerBoxWidth,
-                                    height: _flyerZoneHeight,
-                                    child: ClipRRect(
-                                      borderRadius: _flyerBorderRadius,
-                                      child: SuperImage(
-                                        pic: _mutableSlide.picAsset,
-                                        width: _flyerBoxWidth,
-                                        height: _flyerZoneHeight,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                            ],
-                          ),
-                        );
-                      }
-
+                          }
+                      );
 
                     },
                   ),
