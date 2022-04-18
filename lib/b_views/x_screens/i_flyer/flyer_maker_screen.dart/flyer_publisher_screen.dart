@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/shelf_slide.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
@@ -44,7 +45,9 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   final ScrollController _scrollController = ScrollController();
   final Curve _animationCurve = Curves.easeOut;
   final Duration _animationDuration = Ratioz.duration150ms;
-  final double _creatorMaxHeight = 340;
+  double _shelfMaxHeight(){
+    return ShelfSlide.shelfSlideZoneHeight(context) + FlyerDraftShelf.height;
+  }
 // -----------------------------------------------------------------------------
   final List<double> _shelvesOpacities = <double>[];
   final List<double> _shelvesHeights = <double>[];
@@ -71,7 +74,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   }
 // -----------------------------------------------------------------------------
   double _getCreatorPosition(int index){
-    final double _verticalOffsetFromScreenTop =  (_creatorMaxHeight * index) + Ratioz.appBarMargin;
+    final double _verticalOffsetFromScreenTop =  (_shelfMaxHeight() * index) + Ratioz.appBarMargin;
     return _verticalOffsetFromScreenTop;
   }
 // -----------------------------------------------------------------------------
@@ -181,7 +184,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
     /// EXPAND
     setState(() {
-      _shelvesHeights[index] = _creatorMaxHeight;
+      _shelvesHeights[index] = _shelfMaxHeight();
     });
 
   }
@@ -272,7 +275,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
                   bzModel: widget.bzModel,
                   flyerModel: _flyerInput,
                   shelfNumber: _shelfIndex + 1,
-                  chainHeight: _creatorMaxHeight,
+                  shelfHeight: _shelfMaxHeight(),
                   onDeleteDraft: () => _deleteShelf(index: _shelfIndex),
                   // onAddPics: () => _getMultiImages(
                   //   accountType: BzAccountType.Super,
