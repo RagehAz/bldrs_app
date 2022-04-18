@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -8,6 +9,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -104,46 +106,53 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       context: context,
       draggable: true,
       buttonHeight: _buttonHeight,
-      buttons: <Widget>[
-        /// --- DELETE Flyer
-        DreamBox(
-          height: _buttonHeight,
-          width: BottomDialog.clearWidth(context),
-          icon: Iconz.xSmall,
-          iconSizeFactor: 0.5,
-          iconColor: Colorz.black230,
-          verse: 'delete flyer',
-          verseScaleFactor: 1.2,
-          verseWeight: VerseWeight.black,
-          verseColor: Colorz.black230,
-          // verseWeight: VerseWeight.thin,
-          onTap: () => _deleteFlyerOnTap(flyerModel),
-        ),
+      numberOfWidgets: 3,
+      builder: (BuildContext context, PhraseProvider _phraseProvider){
 
-        /// --- RE-PUBLISH FLYER
-        DreamBox(
+        return <Widget>[
+
+          /// --- DELETE Flyer
+          DreamBox(
             height: _buttonHeight,
             width: BottomDialog.clearWidth(context),
             icon: Iconz.xSmall,
             iconSizeFactor: 0.5,
-            iconColor: Colorz.red255,
-            verse: 'Re-publish flyer',
+            iconColor: Colorz.black230,
+            verse: 'delete flyer',
             verseScaleFactor: 1.2,
-            verseColor: Colorz.red255,
+            verseWeight: VerseWeight.black,
+            verseColor: Colorz.black230,
             // verseWeight: VerseWeight.thin,
-            onTap: () => _republishFlyerOnTap(flyerModel)),
+            onTap: () => _deleteFlyerOnTap(flyerModel),
+          ),
 
-        /// --- EDIT FLYER
-        DreamBox(
-          height: _buttonHeight,
-          width: BottomDialog.clearWidth(context),
-          icon: Iconz.gears,
-          iconSizeFactor: 0.5,
-          verse: 'Edit flyer',
-          verseScaleFactor: 1.2,
-          onTap: () => _editFlyerOnTap(flyerModel),
-        ),
-      ],
+          /// --- RE-PUBLISH FLYER
+          DreamBox(
+              height: _buttonHeight,
+              width: BottomDialog.clearWidth(context),
+              icon: Iconz.xSmall,
+              iconSizeFactor: 0.5,
+              iconColor: Colorz.red255,
+              verse: 'Re-publish flyer',
+              verseScaleFactor: 1.2,
+              verseColor: Colorz.red255,
+              // verseWeight: VerseWeight.thin,
+              onTap: () => _republishFlyerOnTap(flyerModel)),
+
+          /// --- EDIT FLYER
+          DreamBox(
+            height: _buttonHeight,
+            width: BottomDialog.clearWidth(context),
+            icon: Iconz.gears,
+            iconSizeFactor: 0.5,
+            verse: 'Edit flyer',
+            verseScaleFactor: 1.2,
+            onTap: () => _editFlyerOnTap(flyerModel),
+          ),
+
+        ];
+
+      },
     );
   }
 

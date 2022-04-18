@@ -90,6 +90,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
       draggable: true,
       buttonHeight: _buttonHeight,
       title: 'Profile options',
+      numberOfWidgets: 13,
       builder: (xxx, phrasePro){
 
         blog('ahoooooooo lalalala');
@@ -179,91 +180,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
         ];
 
       },
-      buttons: <Widget>[
-        /*
-        /// EDIT PROFILE
-        BottomDialog.wideButton(
-          context: context,
-          verse: superPhrase(context, 'phid_editProfile'),
-          icon: Iconz.gears,
-          onTap: () => onEditProfileTap(context),
-        ),
 
-        /// CHANGE APP LANGUAGE
-        BottomDialog.wideButton(
-          context: context,
-          verse: superPhrase(context, 'phid_changeLanguage'),
-          icon: Iconz.language,
-          onTap: () => _onChangeAppLanguageTap(context),
-        ),
-
-        const BubblesSeparator(bottomMarginIsOn: false,),
-
-        /// ABOUT BLDRS
-        BottomDialog.wideButton(
-          context: context,
-          verse: '${superPhrase(context, 'phid_about')} ${Wordz.bldrsFullName(context)}',
-          icon: Iconz.pyramidSingleYellow,
-          onTap: () => _onAboutBldrsTap(context),
-        ),
-
-        /// FEEDBACK
-        BottomDialog.wideButton(
-          context: context,
-          verse: superPhrase(context, 'phid_feedback'),
-          icon: Iconz.utSearching,
-          onTap: () => _onFeedbackTap(context),
-        ),
-
-        /// TERMS AND REGULATIONS
-        BottomDialog.wideButton(
-          context: context,
-          verse: superPhrase(context, 'phid_termsRegulations'),
-          icon: Iconz.terms,
-          onTap: () => _onTermsAndRegulationsTap(context),
-        ),
-
-        const BubblesSeparator(bottomMarginIsOn: false,),
-
-        /// CREATE NEW BZ ACCOUNT
-        BottomDialog.wideButton(
-          context: context,
-          verse: superPhrase(context, 'phid_createBzAccount'),
-          icon: Iconz.bz,
-          onTap: () => _onCreateNewBzTap(context),
-        ),
-
-        /// INVITE FRIENDS
-        BottomDialog.wideButton(
-          context: context,
-          verse: superPhrase(context, 'phid_inviteFriends'),
-          icon: Iconizer.shareAppIcon(),
-          onTap: () => _onInviteFriendsTap(context),
-        ),
-
-        const BubblesSeparator(bottomMarginIsOn: false,),
-
-        /// DELETE MY ACCOUNT
-        BottomDialog.wideButton(
-          context: context,
-          verse: superPhrase(context, 'phid_delete_my_account'),
-          icon: Iconz.xSmall,
-          onTap: () => _onDeleteMyAccount(context),
-        ),
-
-        const BubblesSeparator(bottomMarginIsOn: false,),
-
-        /// SIGN OUT
-        BottomDialog.wideButton(
-          context: context,
-          verse: superPhrase(context, 'phid_signOut'),
-          icon: Iconz.exit,
-          onTap: () => _onSignOut(context),
-        ),
-
-
-         */
-      ],
     );
 
 }

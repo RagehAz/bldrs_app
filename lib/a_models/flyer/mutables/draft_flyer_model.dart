@@ -180,4 +180,30 @@ class DraftFlyerModel{
     return _shelfTitle;
   }
 // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// -------------------------------------
+  DraftFlyerModel replaceSlides(List<MutableSlide> newSlides){
+    return
+        DraftFlyerModel(
+            id: id,
+            title: title,
+            flyerType: flyerType,
+            flyerState: flyerState,
+            keywordsIDs: keywordsIDs,
+            showsAuthor: showsAuthor,
+            zone: zone,
+            authorID: authorID,
+            bzID: bzID,
+            position: position,
+            mutableSlides: newSlides,
+            isBanned: isBanned,
+            specs: specs,
+            info: info,
+            times: times,
+            priceTagIsOn: priceTagIsOn,
+        );
+  }
+// -----------------------------------------------------------------------------
 }
