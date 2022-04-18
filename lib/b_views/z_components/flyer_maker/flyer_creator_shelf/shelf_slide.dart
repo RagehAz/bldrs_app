@@ -54,8 +54,8 @@ class ShelfSlide extends StatelessWidget {
             child: SuperVerse(
               verse: '$number',
               size: 1,
-              color: Colorz.white200,
-              labelColor: Colorz.white10,
+              // color: Colorz.white255,
+              labelColor: mutableSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
             ),
           ),
 
@@ -71,11 +71,13 @@ class ShelfSlide extends StatelessWidget {
               stackWidgets: <Widget>[
 
                 if (mutableSlide != null)
-                SuperImage(
-                  width: flyerBoxWidth,
-                  height: _flyerZoneHeight,
-                  pic: mutableSlide.picAsset ?? mutableSlide.picFile,
-                  fit: mutableSlide.picFit,
+                Align(
+                  child: SuperImage(
+                    width: flyerBoxWidth,
+                    height: _flyerZoneHeight,
+                    pic: mutableSlide.picAsset ?? mutableSlide.picFile,
+                    fit: mutableSlide.picFit,
+                  ),
                 ),
 
                 if (mutableSlide == null)

@@ -89,7 +89,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     });
 
     await Future<void>.delayed(const Duration(milliseconds: 400), () async {
-      await Scrollers.scrollToBottom(controller: _scrollController);
+      await Scrollers.scrollToEnd(controller: _scrollController);
     });
   }
 
