@@ -2,6 +2,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 
 /// TASK : try InteractiveViewer() in slides to zoom and pan
 class ZoomablePicture extends StatefulWidget {
@@ -12,6 +13,7 @@ class ZoomablePicture extends StatefulWidget {
     this.onTap,
     this.autoShrink = true,
     this.isFullScreen = false,
+    this.transformationController,
     Key key,
   }) : super(key: key);
 
@@ -21,7 +23,7 @@ class ZoomablePicture extends StatefulWidget {
   final bool autoShrink;
   final bool isFullScreen;
   final Function onTap;
-
+  final TransformationController transformationController;
   /// --------------------------------------------------------------------------
   @override
   _ZoomablePictureState createState() => _ZoomablePictureState();
@@ -32,18 +34,20 @@ class ZoomablePicture extends StatefulWidget {
 class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderStateMixin {
   TransformationController _transformationController;
   AnimationController _zoomAnimationController;
+
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _transformationController = TransformationController();
+
+    _transformationController = widget.transformationController ?? TransformationController();
     _zoomAnimationController = AnimationController(
       vsync: this,
       duration: Ratioz.duration150ms,
     );
     _transformationController.addListener(() {
       if (_transformationController.value.getMaxScaleOnAxis() > 1.5) {
-        blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX its bigger than 1.5 now');
+        // blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX its bigger than 1.5 now');
       }
     });
   }
@@ -56,7 +60,6 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
 
     super.dispose();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _resetZoom() async {
     final Animation<Matrix4> _reset = Matrix4Tween(
@@ -71,13 +74,11 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     _zoomAnimationController.reset();
     await _zoomAnimationController.forward();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onDoubleTap() async {
     await _resetZoom();
     Nav.goBack(context);
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -98,32 +99,37 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
               await _onDoubleTap();
             }
           : null,
-      child: InteractiveViewer(
-        key: widget.key,
-        transformationController: _transformationController,
-        panEnabled: widget.isOn,
-        scaleEnabled: widget.isOn,
-        constrained: false,
-        maxScale: 10,
-        minScale: 0.5,
-        onInteractionEnd: (ScaleEndDetails scaleEndDetails) async {
-          if (widget.autoShrink == true) {
-            await _resetZoom();
-          } else {
-            // await Future.delayed(Duration(seconds: 5), () async {
-            //   await resetZoom();
-            // });
-          }
-        },
-        // onInteractionStart: (ScaleStartDetails scaleStartDetails){
-        //   blog('scaleStartDetails : $scaleStartDetails');
-        //   },
-        // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
-        //   blog('scaleUpdateDetails : $scaleUpdateDetails');
-        //   },
+      child: RotatedBox(
+        quarterTurns: 0,
+        child: InteractiveViewer(
+          key: widget.key,
+          transformationController: _transformationController,
+          panEnabled: widget.isOn,
+          scaleEnabled: widget.isOn,
+          constrained: false,
+          maxScale: 10,
+          minScale: 0.5,
+          onInteractionEnd: (ScaleEndDetails scaleEndDetails) async {
+            if (widget.autoShrink == true) {
+              await _resetZoom();
+            } else {
+              // await Future.delayed(Duration(seconds: 5), () async {
+              //   await resetZoom();
+              // });
+            }
+          },
+          // onInteractionStart: (ScaleStartDetails scaleStartDetails){
+          //   blog('scaleStartDetails : $scaleStartDetails');
+          //   },
+          // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
+          //   blog('scaleUpdateDetails : $scaleUpdateDetails');
+          //   },
 
-        child: widget.child ?? Container(),
+          child: widget.child ?? Container(),
+        ),
       ),
+
+
     );
   }
 }
