@@ -9,15 +9,17 @@ import 'package:flutter/material.dart';
 class SlideEditorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorControlPanel({
-    @required this.onCropTap,
-    @required this.onFitTap,
+    @required this.onEditorTap,
+    @required this.onReset,
+    @required this.onFlip,
     @required this.onBack,
     @required this.height,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final Function onCropTap;
-  final Function onFitTap;
+  final Function onEditorTap;
+  final Function onReset;
+  final Function onFlip;
   final Function onBack;
   final double height;
   /// --------------------------------------------------------------------------
@@ -48,7 +50,7 @@ class SlideEditorControlPanel extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: <Widget>[
 
-          /// CROP
+          /// BACK
           SlideEditorButton(
             size: _buttonSize,
             icon: superBackIcon(context),
@@ -56,20 +58,28 @@ class SlideEditorControlPanel extends StatelessWidget {
             onTap: onBack,
           ),
 
-          /// CROP
+          /// BOX FIT
           SlideEditorButton(
             size: _buttonSize,
-            icon: Iconz.gears,
-            verse: 'Crop',
-            onTap: onCropTap,
+            icon: Iconz.fingerTap,
+            verse: 'Reset',
+            onTap: onReset,
           ),
 
           /// BOX FIT
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.fingerTap,
-            verse: 'Fit',
-            onTap: onFitTap,
+            verse: 'Flip',
+            onTap: onFlip,
+          ),
+
+          /// IMAGE EDITOR
+          SlideEditorButton(
+            size: _buttonSize,
+            icon: Iconz.gears,
+            verse: 'Image Editor',
+            onTap: onEditorTap,
           ),
 
         ],
