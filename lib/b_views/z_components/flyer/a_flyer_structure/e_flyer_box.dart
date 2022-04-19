@@ -28,6 +28,11 @@ class FlyerBox extends StatelessWidget {
     return Scale.superScreenWidth(context) * flyerSizeFactor;
   }
   //--------------------------------o
+  static double widthByHeight(BuildContext context, double flyerBoxHeight){
+    final double _sizeFactor = sizeFactorByHeight(context, flyerBoxHeight);
+    return width(context, _sizeFactor);
+  }
+  //--------------------------------o
   static double height(BuildContext context, double flyerBoxWidth) {
     final double _flyerZoneHeight = sizeFactorByWidth(context, flyerBoxWidth) == 1 ?
     Scale.superScreenHeightWithoutSafeArea(context)
