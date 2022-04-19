@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class SlideHeadline extends StatelessWidget {
@@ -7,7 +8,6 @@ class SlideHeadline extends StatelessWidget {
   const SlideHeadline({
     @required this.flyerBoxWidth,
     @required this.verse,
-    @required this.verseSize,
     this.tappingVerse,
     this.verseColor = Colorz.white255,
     Key key,
@@ -15,7 +15,6 @@ class SlideHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final String verse;
-  final int verseSize;
   final Function tappingVerse;
   final Color verseColor;
   /// --------------------------------------------------------------------------
@@ -34,11 +33,13 @@ class SlideHeadline extends StatelessWidget {
         // color: Colorz.BloodTest,
         margin: EdgeInsets.only(top: _headlineTopMargin),
         alignment: Alignment.topCenter,
+        padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.05),
         child: SuperVerse(
           verse: verse,
           color: verseColor,
           shadow: true,
-          size: verseSize,
+          size: 4,
+          scaleFactor: flyerBoxWidth * 0.005,
           maxLines: 3,
         ),
       ),

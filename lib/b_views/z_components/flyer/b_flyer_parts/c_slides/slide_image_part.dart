@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide_tap_area.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_tap_area.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class SingleSlideImagePart extends StatelessWidget {
+class SlideImagePart extends StatelessWidget {
 
-  const SingleSlideImagePart({
+  const SlideImagePart({
     @required this.tinyMode,
     @required this.slideModel,
     @required this.flyerBoxWidth,
@@ -78,7 +78,7 @@ class SingleSlideImagePart extends StatelessWidget {
 
           /// TAP AREAS
           if (tinyMode == false)
-            SingleSlideTapAreas(
+            SlideTapAreas(
               key: const ValueKey<String>('SlideTapAreas'),
               flyerBoxWidth: flyerBoxWidth,
               flyerBoxHeight: flyerBoxHeight,

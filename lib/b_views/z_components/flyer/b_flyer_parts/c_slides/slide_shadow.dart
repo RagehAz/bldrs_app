@@ -2,9 +2,9 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
 import 'package:flutter/material.dart';
 
-class SingleSlideShadow extends StatelessWidget {
+class SlideShadow extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SingleSlideShadow({
+  const SlideShadow({
     @required this.flyerBoxWidth,
     Key key
   }) : super(key: key);
