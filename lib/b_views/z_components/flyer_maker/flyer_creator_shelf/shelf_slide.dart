@@ -87,7 +87,6 @@ class ShelfSlide extends StatelessWidget {
                   SlideHeadline(
                     flyerBoxWidth: flyerBoxWidth,
                     verse: headline?.text ?? mutableSlide.headline.text,
-                    verseSize: 3,
                   ),
 
                 if (mutableSlide == null)

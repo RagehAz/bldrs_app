@@ -321,6 +321,28 @@ class MutableSlide {
 
   }
 // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// -------------------------------------
+  MutableSlide updatePicFit(BoxFit fit){
+    return MutableSlide(
+        picAsset: picAsset,
+        picFile: picFile,
+        headline: headline,
+        imageSize: imageSize,
+        midColor: midColor,
+        opacity: opacity,
+        slideIndex: slideIndex,
+        picURL: picURL,
+        description: description,
+        sharesCount: sharesCount,
+        viewsCount: viewsCount,
+        savesCount: savesCount,
+        picFit: fit
+    );
+  }
+// -----------------------------------------------------------------------------
 }
 
 /*

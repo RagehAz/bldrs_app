@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide_image_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide_shadow.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_image_part.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_shadow.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -30,6 +30,7 @@ class SingleSlide extends StatelessWidget {
   final Function onSlideBackTap;
   final Function onDoubleTap;
   /// --------------------------------------------------------------------------
+  /*
   int _getSlideTitleSize(BuildContext context){
     final double _screenWidth = Scale.superScreenWidth(context);
 
@@ -45,12 +46,11 @@ class SingleSlide extends StatelessWidget {
 
     return _slideTitleSize;
   }
+   */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // blog('single slide title is : ${slideModel?.headline} and tinyMode is : $tinyMode');
-// -----------------------------------------------------------------------------
-    final int _slideTitleSize = _getSlideTitleSize(context);
 // -----------------------------------------------------------------------------
 //     double _blurImageScale = 1.5;
     // -----------------------------o
@@ -62,7 +62,7 @@ class SingleSlide extends StatelessWidget {
     //   imageSize: imageSize,
     // );
 // -----------------------------------------------------------------------------
-    return SingleSlideBox(
+    return SlideBox(
       key: const ValueKey<String>('SingleSlideBox'),
       flyerBoxWidth: flyerBoxWidth,
       flyerBoxHeight: flyerBoxHeight,
@@ -72,7 +72,7 @@ class SingleSlide extends StatelessWidget {
 
         /// --- IMAGE NETWORK
         if (ObjectChecker.objectIsURL(slideModel.pic))
-          SingleSlideImagePart(
+          SlideImagePart(
             key: const ValueKey<String>('SingleSlideImagePart'),
             flyerBoxWidth: flyerBoxWidth,
             flyerBoxHeight: flyerBoxHeight,
@@ -84,7 +84,7 @@ class SingleSlide extends StatelessWidget {
           ),
 
         /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
-        SingleSlideShadow(
+        SlideShadow(
           key: const ValueKey<String>('SingleSlideShadow'),
           flyerBoxWidth: flyerBoxWidth,
         ),
@@ -94,7 +94,6 @@ class SingleSlide extends StatelessWidget {
           key: const ValueKey<String>('SlideHeadline'),
           flyerBoxWidth: flyerBoxWidth,
           verse: slideModel.headline,
-          verseSize: _slideTitleSize,
           verseColor: Colorz.white255,
           tappingVerse: () {
             blog('Flyer Title clicked');
