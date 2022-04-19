@@ -21,8 +21,13 @@ double superSafeAreaTopPadding(BuildContext context) {
 }
 // -----------------------------------------------------------------------------
 double superScreenHeightWithoutSafeArea(BuildContext context) {
+
   final double _screenWithoutSafeAreaHeight =
-      superScreenHeight(context) - superSafeAreaTopPadding(context);
+      superScreenHeight(context)
+          -
+          superSafeAreaTopPadding(context);
+
+
   return _screenWithoutSafeAreaHeight;
 }
 // -----------------------------------------------------------------------------

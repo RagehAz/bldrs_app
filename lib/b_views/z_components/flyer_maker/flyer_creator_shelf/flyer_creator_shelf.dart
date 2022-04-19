@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/slide_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
@@ -106,7 +107,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _getMultiGalleryImages({double flyerBoxWidth}) async {
+  Future<void> _getMultiGalleryImages() async {
 
     unawaited(_triggerLoading());
 
@@ -188,42 +189,28 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
 
   }
 // -----------------------------------------------------------------------------
-  Future <void> _onImageTap(int index) async {
-
-    /// TASK : calculating flyer editor width is redundant and should be in separate method
-    // final double _screenWidth = Scale.superScreenWidth(context);
-    // const double _buttonSize = 50;
-    // const double _panelWidth = _buttonSize + (Ratioz.appBarMargin * 2);
-    // double _flyerZoneWidth = _screenWidth - _panelWidth - Ratioz.appBarMargin;
-
-    blog('index is : $index');
-
-    final dynamic _result = await Nav.goToNewScreen(context,
-        // FlyerEditorScreen(
-        //   draftFlyer : _draftFlyer,
-        //   firstTitle : _headlinesControllers.isEmpty ? null : _headlinesControllers[0].text,
-        //   headlinesControllers: _headlinesControllers,
-        //   index: index,
-        //   firstTimer: widget.firstTimer,
-        //   bzModel: widget.bzModel,
-        //   flyerModel: null,
-        //   flyerZoneWidth: _flyerZoneWidth,
-        //   onDeleteImage: (i) => _onImageDelete(i),
-        // )
-
-      const BldrsDashBoard()
-    );
-
-    if (_result == 'published'){
-        _draftFlyer.value.flyerState = FlyerState.published;
-    }
-
-    else {
-      blog('not published');
-    }
-
-    /// why
+  Future<void> _goToSlideEditorScreen(MutableSlide slide) async {
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
+    final MutableSlide _result = await Nav.goToNewScreen(context, SlideEditorScreen(
+      slide: slide,
+    ));
+
+    /*
+
+    /// TASK : bokra isa
+
+    final bool _noChangeOccured = MutableSlide.slidesAreTheSame(slide, _result);
+
+    if (_noChangeOccured == true){
+      // do nothing
+    }
+    else {
+      _draftFlyer.value = _draftFlyer.value.replaceSlideWith(_result);
+    }
+
+
+     */
   }
 // -----------------------------------------------------------------------------
   void _onImageDelete(int index) {
@@ -292,10 +279,9 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
     _formKey.currentState.validate();
     _headlineLength.value = val.length;
 
-    // if (canLoopList(_draftFlyer.value.mutableSlides) == true){
-      // final DraftFlyerModel _updated = _draftFlyer.value.updateHeadline(val);
-      // _draftFlyer.value = _updated;
-    // }
+    if (canLoopList(_draftFlyer.value.mutableSlides) == true){
+      _draftFlyer.value.updateHeadline(val);
+    }
 
   }
 // -----------------------------------------------------------------------------
@@ -369,8 +355,9 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
                               await _getMultiGalleryImages();
                             }
                             else {
-                              blog('slide is tapped aho');
-                              _mutableSlide.blogSlide();
+
+                              await _goToSlideEditorScreen(_mutableSlide);
+
                             }
 
                           }

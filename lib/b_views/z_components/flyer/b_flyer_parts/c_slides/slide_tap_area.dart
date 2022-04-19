@@ -1,9 +1,9 @@
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class SingleSlideTapAreas extends StatelessWidget {
+class SlideTapAreas extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SingleSlideTapAreas({
+  const SlideTapAreas({
     @required this.onTapNext,
     @required this.onTapBack,
     @required this.onDoubleTap,

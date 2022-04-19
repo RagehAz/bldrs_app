@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
@@ -50,21 +51,31 @@ class SuperImage extends StatelessWidget {
     // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
 
     return pic == null ?
-    Container()
+    const SizedBox()
         :
     Transform.scale(
       scale: scale,
       child:
       ObjectChecker.objectIsJPGorPNG(pic) ?
-      Image.asset(pic, fit: _boxFit)
+      Image.asset(
+          pic,
+          fit: _boxFit
+      )
           :
       ObjectChecker.objectIsSVG(pic) ?
-      WebsafeSvg.asset(pic, fit: _boxFit, color: iconColor)
+      WebsafeSvg.asset(
+          pic,
+          fit: _boxFit,
+          color: iconColor
+      )
           :
 
       /// max user NetworkImage(userPic), to try it later
       ObjectChecker.objectIsURL(pic) ?
-      Image.network(pic, fit: _boxFit)
+      Image.network(
+          pic,
+          fit: _boxFit
+      )
           :
       ObjectChecker.objectIsFile(pic) ?
       Image.file(

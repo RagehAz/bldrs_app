@@ -1,9 +1,9 @@
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:flutter/material.dart';
 
-class SingleSlideBox extends StatelessWidget {
+class SlideBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SingleSlideBox({
+  const SlideBox({
     @required this.flyerBoxWidth,
     @required this.flyerBoxHeight,
     @required this.tinyMode,
