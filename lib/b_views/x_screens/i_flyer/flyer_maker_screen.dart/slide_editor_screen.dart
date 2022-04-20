@@ -195,6 +195,12 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     _filterModel.value = filter;
   }
 // -----------------------------------------------------------------------------
+  final ValueNotifier<double> _opacity = ValueNotifier(1);
+// -----------------------------------------------
+  void _onOpacityChanged(double opacity){
+    _opacity.value = opacity;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -221,6 +227,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             filterIndex: _filterIndex,
             blendMode: _blendMode,
             filterModel: _filterModel,
+            opacity: _opacity,
           ),
 
           /// CONTROL PANEL
@@ -234,6 +241,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
                     onSelectFilter: (ColorFilterModel filter) => _onSelectFilter(filter),
                     onBack: _onTriggerFilterControlIsOn,
                     slide: _slide,
+                    opacity: _opacity,
+                    onOpacityChanged: _onOpacityChanged,
                   );
                 }
 
