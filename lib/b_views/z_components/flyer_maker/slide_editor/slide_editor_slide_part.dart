@@ -30,6 +30,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.filterIndex,
     @required this.blendMode,
     @required this.filterModel,
+    @required this.opacity,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -41,6 +42,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<int> filterIndex;
   final ValueNotifier<BlendMode> blendMode;
   final ValueNotifier<ColorFilterModel> filterModel;
+  final ValueNotifier<double> opacity;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.75;
@@ -127,6 +129,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 height: FlyerBox.height(context, _flyerBoxWidth),
                                 imageFile: _slide.picFile,
                                 boxFit: _slide.picFit,
+                                opacity: opacity,
                               );
 
                             },
