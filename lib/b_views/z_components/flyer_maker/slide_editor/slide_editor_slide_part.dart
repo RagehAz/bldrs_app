@@ -1,9 +1,15 @@
+import 'dart:ui';
+
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
@@ -17,7 +23,10 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.height,
     @required this.transformationController,
     @required this.matrix,
-    @required this.isFlipped,
+    @required this.onSwipe,
+    @required this.filterIndex,
+    @required this.blendMode,
+    @required this.color,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,7 +34,10 @@ class SlideEditorSlidePart extends StatelessWidget {
   final double height;
   final TransformationController transformationController;
   final ValueNotifier<Matrix4> matrix;
-  final ValueNotifier<bool> isFlipped;
+  final ValueChanged<int> onSwipe;
+  final ValueNotifier<int> filterIndex;
+  final ValueNotifier<BlendMode> blendMode;
+  final ValueNotifier<Color> color;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.75;
@@ -45,6 +57,14 @@ class SlideEditorSlidePart extends StatelessWidget {
 
     final double _slideZoneHeight = height;
     final double _flyerBoxWidth = getFlyerZoneWidth(context, _slideZoneHeight);
+    final double _flyerBoxHeight = FlyerBox.height(context, _flyerBoxWidth);
+
+    final List<Color> _colors = <Color>[
+      Colorz.bloodTest,
+      Colorz.white10,
+      Colorz.black20,
+    ];
+
 
     return Container(
       width: _screenWidth,
@@ -71,33 +91,91 @@ class SlideEditorSlidePart extends StatelessWidget {
                 clipChild: true,
                 focalPointAlignment: Alignment.center,
                 child: ValueListenableBuilder(
-                  valueListenable: matrix,
-                  builder: (_, Matrix4 _matrix, Widget childA){
+                  valueListenable: blendMode,
+                  builder: (_, BlendMode mode, Widget child){
 
-                    return ValueListenableBuilder(
-                      valueListenable: isFlipped,
-                      builder: (_, bool _isFlipped, Widget childB){
+                    blog('blend mode is : $mode');
 
-                        final double _flipValue = _isFlipped ? 0 : math.pi;
+                    return Stack(
+                      children: <Widget>[
 
-                        return Transform(
-                          transform: _matrix..rotateY(_flipValue),
-                          child: childA,
-                        );
+                        ValueListenableBuilder(
+                          valueListenable: matrix,
+                          builder: (_, Matrix4 _matrix, Widget childA){
 
-                      },
+                            blog('rebuilding tranforming image');
+
+                            return Transform(
+                              transform: _matrix,
+                              child: childA,
+                            );
+
+                          },
+
+                          child: ValueListenableBuilder(
+                            valueListenable: color,
+                            builder: (_, Color _color, Widget child){
+
+                              blog('changing color to $_color');
+
+                              return ColorFiltered(
+                                colorFilter: ColorFilter.mode(_color, mode),
+                                child: SuperImage(
+                                  width: _flyerBoxWidth,
+                                  height: FlyerBox.height(context, _flyerBoxWidth),
+                                  pic: _slide.picFile,
+                                  fit: _slide.picFit,
+                                ),
+                              );
+
+                            },
+                          ),
+                        ),
+
+                        SizedBox(
+                          width: _flyerBoxWidth,
+                          height: _flyerBoxHeight,
+                          child: PageView.builder(
+                              itemCount: _colors.length,
+                              onPageChanged: onSwipe,
+                              itemBuilder: (_, index){
+
+                                return Container(
+                                  width: _flyerBoxWidth,
+                                  height: _flyerBoxHeight,
+                                  decoration: BoxDecoration(
+                                      // color: Colorz.white10,
+
+                                      borderRadius: FlyerBox.corners(context, _flyerBoxWidth)
+                                  ),
+                                );
+
+                              }
+                          ),
+                        ),
+
+
+                        ValueListenableBuilder(
+                            valueListenable: filterIndex,
+                            builder: (_, int index, Widget child){
+
+                              return Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SuperVerse(
+                                  verse: 'filter ${_colors[index]}\n${mode.toString()}',
+                                  maxLines: 3,
+                                ),
+                              );
+
+                            }
+                        ),
+
+
+
+                      ],
                     );
 
-
                   },
-
-                  child: SuperImage(
-                    width: _flyerBoxWidth,
-                    height: FlyerBox.height(context, _flyerBoxWidth),
-                    pic: _slide.picFile,
-                    fit: _slide.picFit,
-                  ),
-
                 ),
               ),
 
