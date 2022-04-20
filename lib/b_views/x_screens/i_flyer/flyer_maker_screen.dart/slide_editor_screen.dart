@@ -1,6 +1,9 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/filter_selector_control_panel.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
@@ -181,6 +184,17 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     blog('color has become $_colorIndex : ${_color.value}');
   }
 // -----------------------------------------------------------------------------
+  final ValueNotifier<ColorFilterModel> _filterModel = ValueNotifier(PresetFilters.none);
+  final ValueNotifier<bool> _filtersControlIsOn = ValueNotifier(false);
+// -----------------------------------------------
+  void _onTriggerFilterControlIsOn(){
+    _filtersControlIsOn.value = !_filtersControlIsOn.value;
+  }
+// -----------------------------------------------
+  void _onSelectFilter(ColorFilterModel filter){
+    _filterModel.value = filter;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -206,19 +220,39 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             onSwipe: _onSwipe,
             filterIndex: _filterIndex,
             blendMode: _blendMode,
-            color: _color,
+            filterModel: _filterModel,
           ),
 
           /// CONTROL PANEL
-          SlideEditorControlPanel(
-            height: _controlPanelHeight,
-            onEditorTap: _onEditorTap,
-            onReset: _onResetTap,
-            onFlip: _onFlip,
-            onBack: _onBack,
-            onBlend: _onBlend,
-            onColor: _onColor,
+          ValueListenableBuilder(
+              valueListenable: _filtersControlIsOn,
+              builder: (_, bool filtersTriggerIsOn, Widget child){
+
+                if (filtersTriggerIsOn == true){
+                  return FiltersSelectorControlPanel(
+                    height : _controlPanelHeight,
+                    onSelectFilter: (ColorFilterModel filter) => _onSelectFilter(filter),
+                    onBack: _onTriggerFilterControlIsOn,
+                    slide: _slide,
+                  );
+                }
+
+                else {
+                  return SlideEditorControlPanel(
+                    height: _controlPanelHeight,
+                    onEditorTap: _onEditorTap,
+                    onReset: _onResetTap,
+                    onFlip: _onFlip,
+                    onBack: _onBack,
+                    onBlend: _onBlend,
+                    onColor: _onColor,
+                    onFilterTrigger: _onTriggerFilterControlIsOn,
+                  );
+                }
+
+              }
           ),
+
 
         ],
 
