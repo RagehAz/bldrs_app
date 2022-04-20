@@ -80,6 +80,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
       alignment: alignment,
       children: <Widget>[
 
+        if (skyType != SkyType.non)
         Sky(
           key: const ValueKey<String>('sky'),
           skyType: skyType,

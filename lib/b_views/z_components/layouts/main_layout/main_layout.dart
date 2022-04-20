@@ -81,7 +81,16 @@ class MainLayout extends StatelessWidget {
   );
 // -----------------------------------------------------------------------------
   static Color _mainLayoutBackGroundColor(SkyType skyType){
-    final Color _backgroundColor = skyType == SkyType.non || skyType == SkyType.black ? Colorz.blackSemi255 : Colorz.skyDarkBlue;
+
+    final Color _backgroundColor =
+    skyType == SkyType.non ?
+    Colorz.black255
+        :
+    skyType == SkyType.black ?
+    Colorz.blackSemi255
+        :
+    Colorz.skyDarkBlue;
+
     return _backgroundColor;
   }
 // -----------------------------------------------------------------------------

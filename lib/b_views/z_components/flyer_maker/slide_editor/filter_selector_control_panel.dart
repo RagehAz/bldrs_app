@@ -1,9 +1,10 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_builder.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
@@ -11,11 +12,11 @@ import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-import '../../buttons/dream_box/dream_box.dart';
 
 class FiltersSelectorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -42,7 +43,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _controlPanelHeight = height;
 
-    final double _sliderZoneHeight = _controlPanelHeight * 0.7;
+    final double _sliderZoneHeight = _controlPanelHeight * 0.15;
     final double _buttonsZoneHeight = _controlPanelHeight - _sliderZoneHeight;
 
     final double _buttonSize = SlideEditorControlPanel.getButtonSize(context, _buttonsZoneHeight);
@@ -65,6 +66,8 @@ class FiltersSelectorControlPanel extends StatelessWidget {
               builder: (_, double _opacity, Widget child){
 
                 return Slider(
+                  activeColor: Colorz.yellow255,
+                  inactiveColor: Colorz.white20,
                   divisions: 100,
                   value: _opacity,
                   onChanged: (value) => onOpacityChanged(value),
@@ -80,10 +83,13 @@ class FiltersSelectorControlPanel extends StatelessWidget {
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: presetFiltersList.length,
-              itemBuilder: (_, index){
+              itemCount: presetFiltersList.length + 1,
+              itemBuilder: (_, i){
 
-                final ColorFilterModel _filter = presetFiltersList[index];
+                final int index = i - 1;
+                final bool isBackButton = i == 0;
+
+                final ColorFilterModel _filter = isBackButton ? null : presetFiltersList[index];
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
@@ -93,6 +99,19 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                       flyerBoxWidth: _boxWidth,
                       stackWidgets: <Widget>[
 
+                        if (isBackButton == true)
+                          Center(
+                            child: DreamBox(
+                              width: _boxWidth,
+                              height: _boxWidth,
+                              icon: superBackIcon(context),
+                              bubble: false,
+                              onTap: onBack,
+                              iconSizeFactor: 0.6,
+                            ),
+                          ),
+
+                        if (isBackButton == false)
                         ValueListenableBuilder(
                             valueListenable: slide,
                             builder: (_, MutableSlide _slide, Widget child){
@@ -102,19 +121,19 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                                 width: _boxWidth,
                                 height: _boxHeight,
                                 imageFile: _slide.picFile,
+                                // boxFit: BoxFit.cover,
                               );
 
                             }),
 
-
-
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SuperVerse(
-                            verse: _filter.name,
-                            maxLines: 2,
+                        if (isBackButton == false)
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SuperVerse(
+                              verse: _filter.name,
+                              maxLines: 2,
+                            ),
                           ),
-                        ),
 
                       ],
                     ),

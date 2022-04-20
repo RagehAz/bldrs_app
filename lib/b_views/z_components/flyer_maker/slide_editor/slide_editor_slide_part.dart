@@ -6,10 +6,11 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_he
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_builder.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/fade_widget_out.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -160,14 +161,21 @@ class SlideEditorSlidePart extends StatelessWidget {
 
 
                         ValueListenableBuilder(
-                            valueListenable: filterIndex,
-                            builder: (_, int index, Widget child){
+                            valueListenable: filterModel,
+                            builder: (_, ColorFilterModel _filterModel, Widget child){
 
-                              return Align(
-                                alignment: Alignment.bottomCenter,
-                                child: SuperVerse(
-                                  verse: 'filter ${_colors[index]}\n${mode.toString()}',
-                                  maxLines: 3,
+                              return FadeWidgetOut(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: SuperVerse(
+                                    verse: _filterModel.name,
+                                    maxLines: 3,
+                                    weight: VerseWeight.thin,
+                                    italic: true,
+                                    size: 4,
+                                    scaleFactor: _flyerBoxWidth * 0.005,
+                                    margin: Ratioz.appBarMargin,
+                                  ),
                                 ),
                               );
 

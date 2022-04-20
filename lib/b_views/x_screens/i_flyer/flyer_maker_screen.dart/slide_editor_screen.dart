@@ -193,6 +193,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------
   void _onSelectFilter(ColorFilterModel filter){
     _filterModel.value = filter;
+    _opacity.value = 1;
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<double> _opacity = ValueNotifier(1);
@@ -209,7 +210,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     final double _controlPanelHeight = SlideEditorControlPanel.getControlPanelHeight(context, _screenHeight);
 
     return MainLayout(
-      skyType: SkyType.black,
+      skyType: SkyType.non,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       appBarType: AppBarType.non,
