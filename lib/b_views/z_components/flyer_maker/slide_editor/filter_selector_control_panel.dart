@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_builder.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
@@ -66,11 +67,11 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                       valueListenable: slide,
                       builder: (_, MutableSlide _slide, Widget child){
 
-                        return SuperImage(
-                          width: _boxWidth,
-                          height: _boxHeight,
-                          fit: BoxFit.cover,
-                          pic: _slide.picFile,
+                        return SuperFilteredImage(
+                            filterModel: _filter,
+                            width: _boxWidth,
+                            height: _boxHeight,
+                            imageFile: _slide.picFile,
                         );
 
                       }),
