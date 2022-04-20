@@ -174,11 +174,12 @@ class Sky extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    final List<Color> _skyColors = skyType == SkyType.night
-        ? <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue]
-        : skyType == SkyType.black
-            ? <Color>[Colorz.blackSemi230, Colorz.blackSemi230]
-            : <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
+    final List<Color> _skyColors = skyType == SkyType.night ? <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue]
+        :
+    skyType == SkyType.black ?
+    <Color>[Colorz.blackSemi230, Colorz.blackSemi230]
+        :
+    <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
 // -----------------------------------------------------------------------------
     final Gradient _skyGradient = gradientIsOn == true ?
     RadialGradient(
