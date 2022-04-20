@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,22 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
   Future<void> _onFlip() async {
     _isFlipped.value = !_isFlipped.value;
+
+    final double _angle = _isFlipped.value == true ?
+    degreeToRadian(180)
+        :
+    degreeToRadian(0)
+    ;
+
+    blog('flipping to angle $_angle :\n${_matrix.value}');
+    final Matrix4 _newMatrix = Matrix4.copy(_matrix.value);//;
+
+    _newMatrix.rotateY(_angle);
+    // _newMatrix.
+    blog('flipping to angle $_angle :\n${_matrix.value}\nnew matrix \n$_newMatrix');
+
+
+    _matrix.value = _newMatrix;
   }
 // ------------------------------------
   Future<void> _onEditorTap() async {
@@ -86,8 +103,82 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  final ValueNotifier<int> _filterIndex = ValueNotifier(0);
+  void _onSwipe(int index){
+    _filterIndex.value = index;
+  }
+
   void _onBack(){
     goBack(context, argument: _slide.value);
+  }
+// -----------------------------------------------------------------------------
+  static const List<BlendMode> _modes = <BlendMode>[
+    BlendMode.clear,
+    BlendMode.color,
+    BlendMode.clear,
+    BlendMode.colorBurn,
+    BlendMode.screen,
+    BlendMode.colorDodge,
+    BlendMode.darken,
+    BlendMode.difference,
+    BlendMode.dst,
+    BlendMode.dstATop,
+    BlendMode.dstIn,
+    BlendMode.dstOut,
+    BlendMode.dstOver,
+    BlendMode.exclusion,
+    BlendMode.hardLight,
+    BlendMode.hue,
+    BlendMode.lighten,
+    BlendMode.luminosity,
+    BlendMode.modulate,
+    BlendMode.multiply,
+    BlendMode.overlay,
+    BlendMode.plus,
+    BlendMode.saturation,
+    BlendMode.softLight,
+    BlendMode.src,
+    BlendMode.srcATop,
+    BlendMode.srcIn,
+    BlendMode.srcOut,
+    BlendMode.srcOver,
+    BlendMode.xor,
+  ];
+  int _blendIndex = 0;
+  final ValueNotifier<BlendMode> _blendMode = ValueNotifier(BlendMode.clear);
+  void _onBlend(){
+
+    _blendIndex++;
+    if (_blendIndex == _modes.length){
+      _blendIndex = 0;
+    }
+
+    _blendMode.value = _modes[_blendIndex];
+  }
+// -----------------------------------------------------------------------------
+  static const List<Color> _colors = <Color>[
+    Colorz.nothing,
+    Colorz.white10,
+    Colorz.white20,
+    Colorz.white50,
+    Colorz.white80,
+    Colorz.black0,
+    Colorz.black10,
+    Colorz.black20,
+    Colorz.black50,
+    Colorz.black80,
+  ];
+  final ValueNotifier<Color> _color = ValueNotifier(Colorz.nothing);
+  int _colorIndex = 0;
+  void _onColor(){
+    _colorIndex++;
+    if (_colorIndex == _colors.length){
+      _colorIndex = 0;
+    }
+
+    _color.value = _colors[_colorIndex];
+
+    blog('color has become $_colorIndex : ${_color.value}');
   }
 // -----------------------------------------------------------------------------
   @override
@@ -112,7 +203,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             slide: _slide,
             transformationController: _transformationController,
             matrix: _matrix,
-            isFlipped: _isFlipped,
+            onSwipe: _onSwipe,
+            filterIndex: _filterIndex,
+            blendMode: _blendMode,
+            color: _color,
           ),
 
           /// CONTROL PANEL
@@ -122,6 +216,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             onReset: _onResetTap,
             onFlip: _onFlip,
             onBack: _onBack,
+            onBlend: _onBlend,
+            onColor: _onColor,
           ),
 
         ],

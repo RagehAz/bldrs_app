@@ -13,6 +13,8 @@ class SlideEditorControlPanel extends StatelessWidget {
     @required this.onReset,
     @required this.onFlip,
     @required this.onBack,
+    @required this.onBlend,
+    @required this.onColor,
     @required this.height,
     Key key
   }) : super(key: key);
@@ -21,6 +23,8 @@ class SlideEditorControlPanel extends StatelessWidget {
   final Function onReset;
   final Function onFlip;
   final Function onBack;
+  final Function onBlend;
+  final Function onColor;
   final double height;
   /// --------------------------------------------------------------------------
   static double getControlPanelHeight(BuildContext context, double screenHeight){
@@ -72,6 +76,22 @@ class SlideEditorControlPanel extends StatelessWidget {
             icon: Iconz.fingerTap,
             verse: 'Flip',
             onTap: onFlip,
+          ),
+
+          /// IMAGE EDITOR
+          SlideEditorButton(
+            size: _buttonSize,
+            icon: Iconz.lab,
+            verse: 'Blend',
+            onTap: onBlend,
+          ),
+
+          /// IMAGE EDITOR
+          SlideEditorButton(
+            size: _buttonSize,
+            icon: Iconz.dvDonaldDuck,
+            verse: 'Color',
+            onTap: onColor,
           ),
 
           /// IMAGE EDITOR
