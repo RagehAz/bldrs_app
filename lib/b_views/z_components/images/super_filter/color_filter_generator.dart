@@ -1,3 +1,5 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix2d/matrix2d.dart';
 
@@ -23,37 +25,47 @@ class ColorFilterModel {
 
     List<double> _colorMatrix;
 
-    if (matrixes.isEmpty) {
+    blog('combineMatrixes : input are : ${matrixes.length} matrixes ');
+
+    if (canLoopList(matrixes) == true){
+
+      const Matrix2d m2d = Matrix2d();
+
+      List<dynamic> result = m2d.reshape([matrixes[0]], 4, 5);
+      // List listA = m2d.reshape([filters[0]], 4, 5);
+
+      for (int i = 1; i < matrixes.length; i++) {
+
+        final List<double> listB = <double>[
+          ...matrixes[i] is ColorFilterModel ?
+          _getStandardMatrix()
+              :
+          matrixes[i]
+          ,
+          0,
+          0,
+          0,
+          0,
+          1,
+        ];
+
+        result = m2d.dot(
+          result,
+          m2d.reshape([listB], 5, 5),
+        );
+      }
+
+      _colorMatrix = List<double>.from(result.flatten.sublist(0, 20));
+
+      blog('combineMatrixes : output is : $_colorMatrix');
+
       return _colorMatrix;
     }
 
-    const Matrix2d m2d = Matrix2d();
-
-    List<double> result = m2d.reshape([matrixes[0]], 4, 5);
-    // List listA = m2d.reshape([filters[0]], 4, 5);
-
-    for (int i = 1; i < matrixes.length; i++) {
-
-      final List<double> listB = <double>[
-        ...matrixes[i] is ColorFilterModel ?
-        _getStandardMatrix()
-            :
-        matrixes[i]
-        ,
-        0,
-        0,
-        0,
-        0,
-        1,
-      ];
-
-      result = m2d.dot(
-        result,
-        m2d.reshape([listB], 5, 5),
-      );
+    else {
+      return _colorMatrix;
     }
 
-    return List<double>.from(result.flatten.sublist(0, 20));
   }
 // -----------------------------------------------------------------------------
   static List<double> _getStandardMatrix(){
