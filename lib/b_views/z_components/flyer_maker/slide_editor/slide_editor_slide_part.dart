@@ -121,41 +121,39 @@ class SlideEditorSlidePart extends StatelessWidget {
 
                               blog('changing filterModel to ${_filterModel.name}');
 
-                              return ColorFilterBuilder(
+                              return SuperFilteredImage(
                                 filterModel: _filterModel,
-                                child: SuperImage(
-                                  width: _flyerBoxWidth,
-                                  height: FlyerBox.height(context, _flyerBoxWidth),
-                                  pic: _slide.picFile,
-                                  fit: _slide.picFit,
-                                ),
+                                width: _flyerBoxWidth,
+                                height: FlyerBox.height(context, _flyerBoxWidth),
+                                imageFile: _slide.picFile,
+                                boxFit: _slide.picFit,
                               );
 
                             },
                           ),
                         ),
 
-                        SizedBox(
-                          width: _flyerBoxWidth,
-                          height: _flyerBoxHeight,
-                          child: PageView.builder(
-                              itemCount: _colors.length,
-                              onPageChanged: onSwipe,
-                              itemBuilder: (_, index){
-
-                                return Container(
-                                  width: _flyerBoxWidth,
-                                  height: _flyerBoxHeight,
-                                  decoration: BoxDecoration(
-                                      // color: Colorz.white10,
-
-                                      borderRadius: FlyerBox.corners(context, _flyerBoxWidth)
-                                  ),
-                                );
-
-                              }
-                          ),
-                        ),
+                        // SizedBox(
+                        //   width: _flyerBoxWidth,
+                        //   height: _flyerBoxHeight,
+                        //   child: PageView.builder(
+                        //       itemCount: _colors.length,
+                        //       onPageChanged: onSwipe,
+                        //       itemBuilder: (_, index){
+                        //
+                        //         return Container(
+                        //           width: _flyerBoxWidth,
+                        //           height: _flyerBoxHeight,
+                        //           decoration: BoxDecoration(
+                        //               // color: Colorz.white10,
+                        //
+                        //               borderRadius: FlyerBox.corners(context, _flyerBoxWidth)
+                        //           ),
+                        //         );
+                        //
+                        //       }
+                        //   ),
+                        // ),
 
 
                         ValueListenableBuilder(
