@@ -18,6 +18,7 @@ class SuperFilteredImage extends StatefulWidget {
     @required this.imageFile,
     @required this.width,
     @required this.height,
+    this.opacity,
     this.boxFit = BoxFit.cover,
     Key key
   }) : super(key: key);
@@ -27,6 +28,7 @@ class SuperFilteredImage extends StatefulWidget {
   final double width;
   final double height;
   final BoxFit boxFit;
+  final ValueNotifier<double> opacity;
 // -----------------------------------------------------------------------------
   static Future<File> processImage({
     @required File input,
@@ -147,7 +149,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
             return const Loading(loading: true);
           }
 
-          else {
+          else if (widget.opacity == null){
             return SuperFilteredImage._createTree(
               matrixes: widget.filterModel.matrixes,
               child: SuperImage(
@@ -156,6 +158,29 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
                 pic: _file,
                 fit: widget.boxFit,
               ),
+            );
+
+          }
+
+          else {
+            return ValueListenableBuilder(
+                valueListenable: widget.opacity,
+                builder: (_, double _opacity, Widget child){
+
+                  return Opacity(
+                    opacity: _opacity,
+                    child: SuperFilteredImage._createTree(
+                      matrixes: widget.filterModel.matrixes,
+                      child: SuperImage(
+                        width: widget.width,
+                        height: widget.height,
+                        pic: _file,
+                        fit: widget.boxFit,
+                      ),
+                    ),
+                  );
+
+                }
             );
           }
 

@@ -24,6 +24,8 @@ class FiltersSelectorControlPanel extends StatelessWidget {
     @required this.onSelectFilter,
     @required this.onBack,
     @required this.slide,
+    @required this.opacity,
+    @required this.onOpacityChanged,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -31,14 +33,19 @@ class FiltersSelectorControlPanel extends StatelessWidget {
   final ValueChanged<ColorFilterModel> onSelectFilter;
   final Function onBack;
   final ValueNotifier<MutableSlide> slide;
-  /// --------------------------------------------------------------------------
+  final ValueNotifier<double> opacity;
+  final Function onOpacityChanged;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _controlPanelHeight = height;
-    final double _buttonSize = SlideEditorControlPanel.getButtonSize(context, _controlPanelHeight);
+
+    final double _sliderZoneHeight = _controlPanelHeight * 0.7;
+    final double _buttonsZoneHeight = _controlPanelHeight - _sliderZoneHeight;
+
+    final double _buttonSize = SlideEditorControlPanel.getButtonSize(context, _buttonsZoneHeight);
     final double _boxHeight = SlideEditorButton.getBoxHeight(buttonSize: _buttonSize);
     final double _boxWidth = FlyerBox.widthByHeight(context, _boxHeight);
 
@@ -47,52 +54,79 @@ class FiltersSelectorControlPanel extends StatelessWidget {
       width: _screenWidth,
       height: _controlPanelHeight,
       // color: Colorz.white10,
-      child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: presetFiltersList.length,
-        itemBuilder: (_, index){
+      child: Column(
+        children: <Widget>[
 
-          final ColorFilterModel _filter = presetFiltersList[index];
+          SizedBox(
+            width: _screenWidth,
+            height: _sliderZoneHeight,
+            child: ValueListenableBuilder(
+              valueListenable: opacity,
+              builder: (_, double _opacity, Widget child){
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-            child: GestureDetector(
-              onTap: () => onSelectFilter(_filter),
-              child: FlyerBox(
-                flyerBoxWidth: _boxWidth,
-                stackWidgets: <Widget>[
+                return Slider(
+                  divisions: 100,
+                  value: _opacity,
+                  onChanged: (value) => onOpacityChanged(value),
+                );
 
-                  ValueListenableBuilder(
-                      valueListenable: slide,
-                      builder: (_, MutableSlide _slide, Widget child){
-
-                        return SuperFilteredImage(
-                            filterModel: _filter,
-                            width: _boxWidth,
-                            height: _boxHeight,
-                            imageFile: _slide.picFile,
-                        );
-
-                      }),
-
-
-
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SuperVerse(
-                    verse: _filter.name,
-                    maxLines: 2,
-                  ),
-                ),
-
-                ],
-              ),
+              },
             ),
-          );
+          ),
 
-        },
+          SizedBox(
+            width: _screenWidth,
+            height: _buttonsZoneHeight,
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: presetFiltersList.length,
+              itemBuilder: (_, index){
 
+                final ColorFilterModel _filter = presetFiltersList[index];
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                  child: GestureDetector(
+                    onTap: () => onSelectFilter(_filter),
+                    child: FlyerBox(
+                      flyerBoxWidth: _boxWidth,
+                      stackWidgets: <Widget>[
+
+                        ValueListenableBuilder(
+                            valueListenable: slide,
+                            builder: (_, MutableSlide _slide, Widget child){
+
+                              return SuperFilteredImage(
+                                filterModel: _filter,
+                                width: _boxWidth,
+                                height: _boxHeight,
+                                imageFile: _slide.picFile,
+                              );
+
+                            }),
+
+
+
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: SuperVerse(
+                            verse: _filter.name,
+                            maxLines: 2,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                );
+
+              },
+
+            ),
+          ),
+
+        ],
       ),
     );
   }
