@@ -15,6 +15,7 @@ class SlideEditorControlPanel extends StatelessWidget {
     @required this.onBack,
     @required this.onBlend,
     @required this.onColor,
+    @required this.onFilterTrigger,
     @required this.height,
     Key key
   }) : super(key: key);
@@ -25,6 +26,7 @@ class SlideEditorControlPanel extends StatelessWidget {
   final Function onBack;
   final Function onBlend;
   final Function onColor;
+  final Function onFilterTrigger;
   final double height;
   /// --------------------------------------------------------------------------
   static double getControlPanelHeight(BuildContext context, double screenHeight){
@@ -78,7 +80,7 @@ class SlideEditorControlPanel extends StatelessWidget {
             onTap: onFlip,
           ),
 
-          /// IMAGE EDITOR
+          /// BLEND
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.lab,
@@ -86,12 +88,21 @@ class SlideEditorControlPanel extends StatelessWidget {
             onTap: onBlend,
           ),
 
-          /// IMAGE EDITOR
+          /// COLOR
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.dvDonaldDuck,
             verse: 'Color',
             onTap: onColor,
+          ),
+
+
+          /// IMAGE EDITOR
+          SlideEditorButton(
+            size: _buttonSize,
+            icon: Iconz.cleopatra,
+            verse: 'Filters',
+            onTap: onFilterTrigger,
           ),
 
           /// IMAGE EDITOR
