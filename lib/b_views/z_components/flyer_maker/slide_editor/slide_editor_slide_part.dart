@@ -4,6 +4,9 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/zoomable_pic.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_builder.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
@@ -26,7 +29,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.onSwipe,
     @required this.filterIndex,
     @required this.blendMode,
-    @required this.color,
+    @required this.filterModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,7 +40,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueChanged<int> onSwipe;
   final ValueNotifier<int> filterIndex;
   final ValueNotifier<BlendMode> blendMode;
-  final ValueNotifier<Color> color;
+  final ValueNotifier<ColorFilterModel> filterModel;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.75;
@@ -113,13 +116,13 @@ class SlideEditorSlidePart extends StatelessWidget {
                           },
 
                           child: ValueListenableBuilder(
-                            valueListenable: color,
-                            builder: (_, Color _color, Widget child){
+                            valueListenable: filterModel,
+                            builder: (_, ColorFilterModel _filterModel, Widget child){
 
-                              blog('changing color to $_color');
+                              blog('changing filterModel to ${_filterModel.name}');
 
-                              return ColorFiltered(
-                                colorFilter: ColorFilter.mode(_color, mode),
+                              return ColorFilterBuilder(
+                                filterModel: _filterModel,
                                 child: SuperImage(
                                   width: _flyerBoxWidth,
                                   height: FlyerBox.height(context, _flyerBoxWidth),

@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class SlideEditorButton extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const SlideEditorButton({
     @required this.size,
     @required this.icon,
@@ -14,16 +14,31 @@ class SlideEditorButton extends StatelessWidget {
     @required this.onTap,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final double size;
   final String icon;
   final String verse;
   final Function onTap;
-
+  /// --------------------------------------------------------------------------
+  static double getVerseZoneHeight({
+  @required double buttonSize,
+}){
+    return buttonSize * 0.4;
+  }
+// -----------------------------------------------------------------------------
+  static double getBoxHeight({
+  @required double buttonSize,
+}){
+    final double _verseZoneHeight = getVerseZoneHeight(buttonSize: buttonSize);
+    return buttonSize + _verseZoneHeight;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _verseZoneHeight = size * 0.4;
+    final double _verseZoneHeight = getVerseZoneHeight(
+      buttonSize: size,
+    );
 
     return SizedBox(
       width: size + (2 * Ratioz.appBarMargin),
