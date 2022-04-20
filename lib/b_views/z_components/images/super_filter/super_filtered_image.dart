@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
@@ -146,7 +147,9 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
         builder: (_, bool _isLoading, Widget childA){
 
           if (_isLoading == true){
-            return const Loading(loading: true);
+            return FlyerLoading(
+              flyerBoxWidth: widget.width,
+            );
           }
 
           else if (widget.opacity == null){
@@ -167,20 +170,29 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
                 valueListenable: widget.opacity,
                 builder: (_, double _opacity, Widget child){
 
-                  return Opacity(
-                    opacity: _opacity,
-                    child: SuperFilteredImage._createTree(
-                      matrixes: widget.filterModel.matrixes,
-                      child: SuperImage(
-                        width: widget.width,
-                        height: widget.height,
-                        pic: _file,
-                        fit: widget.boxFit,
+                  return Stack(
+                    children: <Widget>[
+
+                      child,
+
+                      Opacity(
+                        opacity: _opacity,
+                        child: SuperFilteredImage._createTree(
+                          matrixes: widget.filterModel.matrixes,
+                          child: child,
+                        ),
                       ),
-                    ),
+
+                    ],
                   );
 
-                }
+                },
+              child: SuperImage(
+                width: widget.width,
+                height: widget.height,
+                pic: _file,
+                fit: widget.boxFit,
+              ),
             );
           }
 
