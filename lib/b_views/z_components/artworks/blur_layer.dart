@@ -29,7 +29,7 @@ class BlurLayer extends StatelessWidget {
       width: width,
       height: height,
       child: ClipRRect(
-        borderRadius: borders,
+        borderRadius: borders ?? BorderRadius.zero,
         child: blurIsOn == true ?
         BackdropFilter(
           filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
