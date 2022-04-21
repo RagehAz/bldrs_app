@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/filter_selec
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_layers.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -51,6 +52,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
     });
 
+    _filters = bldrsImageFilters(context);
+
     _slide = ValueNotifier<MutableSlide>(widget.slide);
     super.initState();
   }
@@ -87,6 +90,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
     _matrix.value = _newMatrix;
   }
+
 // ------------------------------------
   Future<void> _onEditorTap() async {
     // blog('start cropping');
@@ -199,7 +203,41 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   final ValueNotifier<double> _opacity = ValueNotifier(1);
 // -----------------------------------------------
   void _onOpacityChanged(double opacity){
+    blog('opacity : $opacity');
     _opacity.value = opacity;
+  }
+// -----------------------------------------------------------------------------
+  int _index = 0;
+  List<ColorFilterModel> _filters;
+  void _onToggleFilter(BuildContext context){
+
+    /// --------------------------------------------- FOR TESTING START
+    // _index = _index == 0 ? 1 : 0;
+    // const Color _color = Color.fromRGBO(210, 137, 28, 1.0);
+    //
+    // blog('color : ${_color.value}');
+    //
+    // final _fii = _index == 0 ?
+    // bldrsImageFilters(context)[0]
+    //     :
+    // ColorFilterModel(
+    //   name: 'cool',
+    //   matrixes: <List<double>>[
+    //     ColorFilterLayer.sepia(0.1),
+    //     ColorFilterLayer.colorOverlay(255, 145, 0, 0.1),
+    //     ColorFilterLayer.brightness(10),
+    //     ColorFilterLayer.saturation(15),
+    //   ],
+    // );
+    // _filterModel.value = _fii;
+    /// --------------------------------------------- FOR TESTING END
+
+    _index++;
+    if (_index >= _filters.length){
+      _index = 0;
+    }
+    _filterModel.value = _filters[_index];
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -229,6 +267,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             blendMode: _blendMode,
             filterModel: _filterModel,
             opacity: _opacity,
+            onSlideTap: () => _onToggleFilter(context),
           ),
 
           /// CONTROL PANEL
