@@ -30,6 +30,19 @@ class ImageSize {
     };
   }
 
+  double getAspectRatio(){
+    return height / width;
+  }
+
+  /*
+
+              final double _ratio = _slide.imageSize.getAspectRatio();
+            final double _imageHeight = _flyerBoxWidth * _ratio;
+            final double _scale = _flyerBoxHeight / _imageHeight;
+
+
+   */
+
 // -----------------------------------------------------------------------------
   static ImageSize decipherImageSize(Map<String, dynamic> map) {
     ImageSize _imageSize;

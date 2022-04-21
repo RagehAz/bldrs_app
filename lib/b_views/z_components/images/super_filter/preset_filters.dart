@@ -1,7 +1,10 @@
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_layers.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:colorfilter_generator/addons.dart';
 import 'package:colorfilter_generator/colorfilter_generator.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// Preset filters that can be used directly
 class PresetFilters {
@@ -447,3 +450,79 @@ List<ColorFilterModel> presetFiltersList = [
   PresetFilters.willow,
   PresetFilters.xProII,
 ];
+
+List<ColorFilterModel> bldrsImageFilters (BuildContext context){
+
+  final PhraseProvider _pro = Provider.of<PhraseProvider>(context, listen: false);
+
+  return <ColorFilterModel>[
+
+    /// NORMAL
+    ColorFilterModel(
+      name: superPhrase(context, 'phid_filter_normal', providerOverride: _pro),
+      matrixes: <List<double>>[],
+    ),
+
+    /// SHARP
+    ColorFilterModel(
+      name: superPhrase(context, 'phid_filter_sharp', providerOverride: _pro),
+      matrixes: <List<double>>[
+        ColorFilterLayer.contrast(0.1),
+        ColorFilterLayer.saturation(0.15),
+      ],
+    ),
+
+    /// LIGHT
+    ColorFilterModel(
+      name: superPhrase(context, 'phid_filter_light', providerOverride: _pro),
+      matrixes: <List<double>>[
+        ColorFilterLayer.brightness(30),
+        ColorFilterLayer.contrast(0.01),
+        ColorFilterLayer.saturation(0.02),
+      ],
+    ),
+
+    /// DARK
+    ColorFilterModel(
+      name: superPhrase(context, 'phid_filter_dark', providerOverride: _pro),
+      matrixes: <List<double>>[
+        ColorFilterLayer.brightness(-28),
+        ColorFilterLayer.contrast(0.015),
+        ColorFilterLayer.saturation(10),
+      ],
+    ),
+
+    /// COOL
+    ColorFilterModel(
+      name: superPhrase(context, 'phid_filter_cool', providerOverride: _pro),
+      matrixes: <List<double>>[
+        ColorFilterLayer.sepia(0.1),
+        ColorFilterLayer.colorOverlay(255, 145, 0, 0.1),
+        ColorFilterLayer.brightness(10),
+        ColorFilterLayer.saturation(15),
+      ],
+    ),
+
+    /// WARM
+    ColorFilterModel(
+      name: superPhrase(context, 'phid_filter_warm', providerOverride: _pro),
+      matrixes: <List<double>>[
+        ColorFilterLayer.colorOverlay(15, 145, 152, 0.07),
+        ColorFilterLayer.sepia(0.05),
+      ],
+    ),
+
+    /// 6 - BLACK & WHITE
+    ColorFilterModel(
+      name: superPhrase(context, 'phid_filter_blackandwhite', providerOverride: _pro),
+      matrixes: <List<double>>[
+        ColorFilterLayer.grayscale(),
+        ColorFilterLayer.brightness(30),
+        ColorFilterLayer.colorOverlay(210, 137, 28, 0.12),
+        ColorFilterLayer.contrast(0.12),
+      ],
+    ),
+
+];
+
+}

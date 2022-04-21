@@ -261,6 +261,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
           else {
 
             final int _shelfIndex = index - 1;
+            final double _shelfHeight = _shelfMaxHeight();
 
             return AnimatedContainer(
               // key: ValueKey<String>(_shelvesIndexes[_shelfIndex].id),
@@ -277,7 +278,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
                   bzModel: widget.bzModel,
                   flyerModel: _flyerInput,
                   shelfNumber: _shelfIndex + 1,
-                  shelfHeight: _shelfMaxHeight(),
+                  shelfHeight: _shelfHeight,
                   onDeleteDraft: () => _deleteShelf(index: _shelfIndex),
                   // onAddPics: () => _getMultiImages(
                   //   accountType: BzAccountType.Super,

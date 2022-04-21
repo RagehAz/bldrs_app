@@ -36,9 +36,14 @@ class _FadeWidgetOutState extends State<FadeWidgetOut> with SingleTickerProvider
       reverseCurve: Curves.easeInOut,
     );
 
-
-
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _animation.dispose();
+    super.dispose();
   }
 
   @override
