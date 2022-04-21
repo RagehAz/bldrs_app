@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/zoomable_pic.dart';
@@ -32,6 +34,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.blendMode,
     @required this.filterModel,
     @required this.opacity,
+    @required this.onSlideTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -44,6 +47,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<BlendMode> blendMode;
   final ValueNotifier<ColorFilterModel> filterModel;
   final ValueNotifier<double> opacity;
+  final Function onSlideTap;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.75;
@@ -72,136 +76,161 @@ class SlideEditorSlidePart extends StatelessWidget {
     ];
 
 
-    return Container(
-      width: _screenWidth,
-      height: _slideZoneHeight,
-      alignment: Alignment.center,
-      child: ValueListenableBuilder(
-        valueListenable: slide,
-        child: Container(),
-        builder: (_, MutableSlide _slide, Widget child){
+    return GestureDetector(
+      onTap: onSlideTap,
+      child: Container(
+        width: _screenWidth,
+        height: _slideZoneHeight,
+        alignment: Alignment.center,
+        child: ValueListenableBuilder(
+          valueListenable: slide,
+          child: Container(),
+          builder: (_, MutableSlide _slide, Widget child){
 
-          return FlyerBox(
-            flyerBoxWidth: _flyerBoxWidth,
-            boxColor: _slide.midColor,
-            stackWidgets: <Widget>[
+            return FlyerBox(
+              key: const ValueKey<String>('flyer_box_slide_editor'),
+              flyerBoxWidth: _flyerBoxWidth,
+              boxColor: _slide.midColor,
+              stackWidgets: <Widget>[
 
-              /// IMAGE
-              MatrixGestureDetector(
-                onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
-                  matrix.value = m;
-                },
-                shouldRotate: true,
-                shouldScale: true,
-                shouldTranslate: true,
-                clipChild: true,
-                focalPointAlignment: Alignment.center,
-                child: ValueListenableBuilder(
-                  valueListenable: blendMode,
-                  builder: (_, BlendMode mode, Widget child){
+                ValueListenableBuilder(
+                    valueListenable: filterModel,
+                    builder: (_, ColorFilterModel _filterModel, Widget child){
 
-                    blog('blend mode is : $mode');
+                      return SuperFilteredImage(
+                        filterModel: _filterModel,
+                        imageFile: _slide.picFile,
+                        width: _flyerBoxWidth,
+                        height: _flyerBoxHeight,
+                      );
+                    }
+                    ),
 
-                    return Stack(
-                      children: <Widget>[
+                BlurLayer(
+                  key: const ValueKey<String>('blur_layer'),
+                  width: _flyerBoxWidth,
+                  height: _flyerBoxHeight,
+                  blurIsOn: true,
+                  blur: 20,
+                  borders: FlyerBox.corners(context, _flyerBoxWidth),
+                ),
 
-                        ValueListenableBuilder(
-                          valueListenable: matrix,
-                          builder: (_, Matrix4 _matrix, Widget childA){
+                /// IMAGE
+                MatrixGestureDetector(
+                  onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
+                    matrix.value = m;
+                  },
+                  shouldRotate: true,
+                  shouldScale: true,
+                  shouldTranslate: true,
+                  clipChild: true,
+                  focalPointAlignment: Alignment.center,
+                  child: ValueListenableBuilder(
+                    valueListenable: blendMode,
+                    builder: (_, BlendMode mode, Widget child){
 
-                            blog('rebuilding tranforming image');
+                      blog('blend mode is : $mode');
 
-                            return Transform(
-                              transform: _matrix,
-                              child: childA,
-                            );
+                      return Stack(
+                        children: <Widget>[
 
-                          },
+                          ValueListenableBuilder(
+                            valueListenable: matrix,
+                            builder: (_, Matrix4 _matrix, Widget childA){
 
-                          child: ValueListenableBuilder(
-                            valueListenable: filterModel,
-                            builder: (_, ColorFilterModel _filterModel, Widget child){
+                              blog('rebuilding transforming image');
 
-                              blog('changing filterModel to ${_filterModel.name}');
-
-                              return SuperFilteredImage(
-                                filterModel: _filterModel,
-                                width: _flyerBoxWidth,
-                                height: FlyerBox.height(context, _flyerBoxWidth),
-                                imageFile: _slide.picFile,
-                                boxFit: _slide.picFit,
-                                opacity: opacity,
+                              return Transform(
+                                transform: _matrix,
+                                child: childA,
                               );
 
                             },
+
+                            child: ValueListenableBuilder(
+                              valueListenable: filterModel,
+                              builder: (_, ColorFilterModel _filterModel, Widget child){
+
+                                blog('changing filterModel to ${_filterModel.name}');
+
+                                return SuperFilteredImage(
+                                  filterModel: _filterModel,
+                                  width: _flyerBoxWidth,
+                                  height: FlyerBox.height(context, _flyerBoxWidth),
+                                  imageFile: _slide.picFile,
+                                  boxFit: _slide.picFit,
+                                  opacity: opacity,
+                                );
+
+                              },
+                            ),
                           ),
-                        ),
 
-                        // SizedBox(
-                        //   width: _flyerBoxWidth,
-                        //   height: _flyerBoxHeight,
-                        //   child: PageView.builder(
-                        //       itemCount: _colors.length,
-                        //       onPageChanged: onSwipe,
-                        //       itemBuilder: (_, index){
-                        //
-                        //         return Container(
-                        //           width: _flyerBoxWidth,
-                        //           height: _flyerBoxHeight,
-                        //           decoration: BoxDecoration(
-                        //               // color: Colorz.white10,
-                        //
-                        //               borderRadius: FlyerBox.corners(context, _flyerBoxWidth)
-                        //           ),
-                        //         );
-                        //
-                        //       }
-                        //   ),
-                        // ),
+                          // SizedBox(
+                          //   width: _flyerBoxWidth,
+                          //   height: _flyerBoxHeight,
+                          //   child: PageView.builder(
+                          //       itemCount: _colors.length,
+                          //       onPageChanged: onSwipe,
+                          //       itemBuilder: (_, index){
+                          //
+                          //         return Container(
+                          //           width: _flyerBoxWidth,
+                          //           height: _flyerBoxHeight,
+                          //           decoration: BoxDecoration(
+                          //               // color: Colorz.white10,
+                          //
+                          //               borderRadius: FlyerBox.corners(context, _flyerBoxWidth)
+                          //           ),
+                          //         );
+                          //
+                          //       }
+                          //   ),
+                          // ),
 
 
-                        ValueListenableBuilder(
-                            valueListenable: filterModel,
-                            builder: (_, ColorFilterModel _filterModel, Widget child){
+                          ValueListenableBuilder(
+                              valueListenable: filterModel,
+                              builder: (_, ColorFilterModel _filterModel, Widget child){
 
-                              return FadeWidgetOut(
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: SuperVerse(
-                                    verse: _filterModel.name,
-                                    maxLines: 3,
-                                    weight: VerseWeight.thin,
-                                    italic: true,
-                                    size: 4,
-                                    scaleFactor: _flyerBoxWidth * 0.005,
-                                    margin: Ratioz.appBarMargin,
+                                return FadeWidgetOut(
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: SuperVerse(
+                                      verse: _filterModel.name,
+                                      maxLines: 3,
+                                      weight: VerseWeight.thin,
+                                      italic: true,
+                                      size: 4,
+                                      scaleFactor: _flyerBoxWidth * 0.005,
+                                      margin: Ratioz.appBarMargin,
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
 
-                            }
-                        ),
-
+                              }
+                          ),
 
 
-                      ],
-                    );
 
-                  },
+                        ],
+                      );
+
+                    },
+                  ),
                 ),
-              ),
 
+                /// HEADLINE
+                SlideHeadline(
+                  flyerBoxWidth: _flyerBoxWidth,
+                  verse: _slide.headline.text,
+                ),
 
-              /// HEADLINE
-              SlideHeadline(
-                flyerBoxWidth: _flyerBoxWidth,
-                verse: _slide.headline.text,
-              ),
+              ],
+            );
 
-            ],
-          );
-
-        },
+          },
+        ),
       ),
     );
   }

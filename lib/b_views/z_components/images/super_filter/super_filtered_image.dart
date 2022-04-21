@@ -21,6 +21,7 @@ class SuperFilteredImage extends StatefulWidget {
     @required this.height,
     this.opacity,
     this.boxFit = BoxFit.cover,
+    this.scale = 1,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class SuperFilteredImage extends StatefulWidget {
   final double height;
   final BoxFit boxFit;
   final ValueNotifier<double> opacity;
+  final double scale;
 // -----------------------------------------------------------------------------
   static Future<File> processImage({
     @required File input,
@@ -192,6 +194,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
                 height: widget.height,
                 pic: _file,
                 fit: widget.boxFit,
+                scale: widget.scale,
               ),
             );
           }

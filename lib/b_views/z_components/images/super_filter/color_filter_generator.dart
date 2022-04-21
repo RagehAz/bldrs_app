@@ -9,10 +9,12 @@ class ColorFilterModel {
   const ColorFilterModel({
     @required this.name,
     @required this.matrixes,
+    this.opacity = 1,
   });
   /// --------------------------------------------------------------------------
   final String name;
   final List<List<double>> matrixes;
+  final double opacity;
 // -----------------------------------------------------------------------------
 
   /// MATRIX BUILDER
