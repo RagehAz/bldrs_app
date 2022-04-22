@@ -1,7 +1,10 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/z_components/animators/animate_widget_matrix.dart';
+import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -74,12 +77,32 @@ class ShelfSlide extends StatelessWidget {
               stackWidgets: <Widget>[
 
                 if (mutableSlide != null)
-                Align(
-                  child: SuperImage(
+                SuperFilteredImage(
+                  width: flyerBoxWidth,
+                  height: _flyerZoneHeight,
+                  imageFile: mutableSlide.picFile,
+                  filterModel: mutableSlide.filter,
+                ),
+
+                if (mutableSlide != null)
+                BlurLayer(
+                  key: const ValueKey<String>('blur_layer'),
+                  width: flyerBoxWidth,
+                  height: _flyerZoneHeight,
+                  blurIsOn: true,
+                  blur: 20,
+                  borders: FlyerBox.corners(context, flyerBoxWidth),
+                ),
+
+                if (mutableSlide != null)
+                AnimateWidgetToMatrix(
+                  matrix: mutableSlide.matrix,
+                  child: SuperFilteredImage(
                     width: flyerBoxWidth,
                     height: _flyerZoneHeight,
-                    pic: mutableSlide.picAsset ?? mutableSlide.picFile,
-                    fit: mutableSlide.picFit,
+                    imageFile: mutableSlide.picFile,
+                    filterModel: mutableSlide.filter,
+                    boxFit: mutableSlide.picFit,
                   ),
                 ),
 
