@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/b_views/z_components/animators/animate_widget_matrix.dart';
+import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
@@ -9,12 +9,17 @@ import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:matrix4_transform/matrix4_transform.dart';
+import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 
-class ShelfSlide extends StatelessWidget {
+
+class ShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ShelfSlide({
     @required this.mutableSlide,
@@ -33,18 +38,33 @@ class ShelfSlide extends StatelessWidget {
   static const double slideNumberBoxHeight = 20;
 // ----------------------------------------------
   static double shelfSlideZoneHeight(BuildContext context){
-    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
-    return _flyerZoneHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
+    final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
+    return _flyerBoxHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
+  }
+
+  @override
+  State<ShelfSlide> createState() => _ShelfSlideState();
+}
+
+class _ShelfSlideState extends State<ShelfSlide> {
+// -----------------------------------------------------------------------------
+  final ValueNotifier<bool> _animateSlide = ValueNotifier(true);
+  void _onReAnimate(){
+
+    blog('re-animating');
+
+    _animateSlide.value = false;
+    _animateSlide.value = true;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerBox.height(context, ShelfSlide.flyerBoxWidth);
 
     return Container(
-      width: flyerBoxWidth,
-      height: shelfSlideZoneHeight(context),
+      width: ShelfSlide.flyerBoxWidth,
+      height: ShelfSlide.shelfSlideZoneHeight(context),
       margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding,),
       child: Column(
         children: <Widget>[
@@ -54,14 +74,14 @@ class ShelfSlide extends StatelessWidget {
 
           /// FLYER NUMBER
           Container(
-            width: flyerBoxWidth,
-            height: slideNumberBoxHeight,
+            width: ShelfSlide.flyerBoxWidth,
+            height: ShelfSlide.slideNumberBoxHeight,
             alignment: Aligners.superCenterAlignment(context),
             child: SuperVerse(
-              verse: '$number',
+              verse: '${widget.number}',
               size: 1,
               // color: Colorz.white255,
-              labelColor: mutableSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
+              labelColor: widget.mutableSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
             ),
           ),
 
@@ -70,71 +90,90 @@ class ShelfSlide extends StatelessWidget {
 
           /// IMAGE
           GestureDetector(
-            onTap: onTap,
+            onTap: widget.onTap,
+            onDoubleTap: _onReAnimate,
             child: FlyerBox(
-              flyerBoxWidth: flyerBoxWidth,
-              boxColor: mutableSlide?.midColor ?? Colorz.white10,
+              key: const ValueKey<String>('shelf_slide_flyer_box'),
+              flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+              boxColor: widget.mutableSlide?.midColor ?? Colorz.white10,
               stackWidgets: <Widget>[
 
-                if (mutableSlide != null)
+                if (widget.mutableSlide != null)
                 SuperFilteredImage(
-                  width: flyerBoxWidth,
-                  height: _flyerZoneHeight,
-                  imageFile: mutableSlide.picFile,
-                  filterModel: mutableSlide.filter,
+                  width: ShelfSlide.flyerBoxWidth,
+                  height: _flyerBoxHeight,
+                  imageFile: widget.mutableSlide.picFile,
+                  filterModel: widget.mutableSlide.filter,
                 ),
 
-                if (mutableSlide != null)
+                if (widget.mutableSlide != null)
                 BlurLayer(
                   key: const ValueKey<String>('blur_layer'),
-                  width: flyerBoxWidth,
-                  height: _flyerZoneHeight,
+                  width: ShelfSlide.flyerBoxWidth,
+                  height: _flyerBoxHeight,
                   blurIsOn: true,
                   blur: 20,
-                  borders: FlyerBox.corners(context, flyerBoxWidth),
+                  borders: FlyerBox.corners(context, ShelfSlide.flyerBoxWidth),
                 ),
 
-                if (mutableSlide != null)
-                AnimateWidgetToMatrix(
-                  matrix: mutableSlide.matrix,
-                  child: SuperFilteredImage(
-                    width: flyerBoxWidth,
-                    height: _flyerZoneHeight,
-                    imageFile: mutableSlide.picFile,
-                    filterModel: mutableSlide.filter,
-                    boxFit: mutableSlide.picFit,
+                if (widget.mutableSlide != null)
+                  ValueListenableBuilder(
+                      valueListenable: _animateSlide,
+                      builder: (_, bool _animate, Widget child){
+
+                        if (_animate == true){
+                          return AnimateWidgetToMatrix(
+                            matrix: renderSlideMatrix(
+                                matrix: widget.mutableSlide.matrix,
+                                flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                                flyerBoxHeight: _flyerBoxHeight
+                            ),
+                            child: child,
+                          );
+                        }
+                        else {
+                          return child;
+                        }
+
+                      },
+                    child: SuperFilteredImage(
+                      width: ShelfSlide.flyerBoxWidth,
+                      height: _flyerBoxHeight,
+                      imageFile: widget.mutableSlide.picFile,
+                      filterModel: widget.mutableSlide.filter,
+                      boxFit: widget.mutableSlide.picFit,
+                    ),
                   ),
-                ),
 
-                if (mutableSlide != null)
+                if (widget.mutableSlide != null)
                   SlideHeadline(
-                    flyerBoxWidth: flyerBoxWidth,
-                    verse: headline?.text ?? mutableSlide.headline.text,
+                    flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                    verse: widget.headline?.text ?? widget.mutableSlide.headline.text,
                   ),
 
-                if (mutableSlide == null)
+                if (widget.mutableSlide == null)
                   SizedBox(
-                    width: flyerBoxWidth,
-                    height: _flyerZoneHeight,
+                    width: ShelfSlide.flyerBoxWidth,
+                    height: _flyerBoxHeight,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
 
                         /// PLUS ICON
                         const DreamBox(
-                          height: flyerBoxWidth * 0.5,
-                          width: flyerBoxWidth * 0.5,
+                          height: ShelfSlide.flyerBoxWidth * 0.5,
+                          width: ShelfSlide.flyerBoxWidth * 0.5,
                           icon: Iconz.plus,
                           iconColor: Colorz.white20,
                           bubble: false,
                         ),
 
                         const SizedBox(
-                          height: flyerBoxWidth * 0.05,
+                          height: ShelfSlide.flyerBoxWidth * 0.05,
                         ),
 
                         SizedBox(
-                          width: flyerBoxWidth * 0.95,
+                          width: ShelfSlide.flyerBoxWidth * 0.95,
                           child: SuperVerse(
                             verse: superPhrase(context, 'phid_add_images'),
                             color: Colorz.white20,
