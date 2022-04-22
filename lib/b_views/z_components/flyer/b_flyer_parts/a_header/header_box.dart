@@ -17,7 +17,8 @@ class HeaderBox extends StatelessWidget {
   final bool tinyMode;
   final Function onHeaderTap;
   final double flyerBoxWidth;
-  final Animation<double> headerHeightTween;
+  /// either double of Animation<double>
+  final dynamic headerHeightTween;
   final Color headerColor;
   final BorderRadius headerBorders;
   final List<Widget> children;
@@ -30,28 +31,58 @@ class HeaderBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
-      onTap: tinyMode == true ? null : onHeaderTap,
-      child: Container(
-        width: flyerBoxWidth,
-        height: headerHeightTween.value,
-        decoration: BoxDecoration(
-          color: headerColor,
-          borderRadius: headerBorders,
-        ),
-        alignment: Alignment.topCenter,
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: ClipRRect(
+    if (headerHeightTween is Animation<double>){
+      final Animation<double> _headerHeightTween = headerHeightTween;
+      return GestureDetector(
+        onTap: tinyMode == true ? null : onHeaderTap,
+        child: Container(
+          width: flyerBoxWidth,
+          height: _headerHeightTween.value,
+          decoration: BoxDecoration(
+            color: headerColor,
             borderRadius: headerBorders,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: children,
+          ),
+          alignment: Alignment.topCenter,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: ClipRRect(
+              borderRadius: headerBorders,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: children,
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    }
+
+    else {
+
+      return GestureDetector(
+        onTap: tinyMode == true ? null : onHeaderTap,
+        child: Container(
+          width: flyerBoxWidth,
+          height: headerHeightTween,
+          decoration: BoxDecoration(
+            color: headerColor,
+            borderRadius: headerBorders,
+          ),
+          alignment: Alignment.topCenter,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: ClipRRect(
+              borderRadius: headerBorders,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: children,
+              ),
+            ),
+          ),
+        ),
+      );
+
+    }
 
   }
 }

@@ -6,6 +6,11 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
+
+// should have these buttons
+
+// cancel - confirm - reset -
+
 class SlideEditorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorControlPanel({

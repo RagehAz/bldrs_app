@@ -40,7 +40,7 @@ class ColorFilterModel {
 
         final List<double> listB = <double>[
           ...matrixes[i] is ColorFilterModel ?
-          _getStandardMatrix()
+          getStandardMatrix()
               :
           matrixes[i]
           ,
@@ -70,7 +70,7 @@ class ColorFilterModel {
 
   }
 // -----------------------------------------------------------------------------
-  static List<double> _getStandardMatrix(){
+  static List<double> getStandardMatrix(){
     return <double>[
       1, 0, 0, 0, 0,
       0, 1, 0, 0, 0,
