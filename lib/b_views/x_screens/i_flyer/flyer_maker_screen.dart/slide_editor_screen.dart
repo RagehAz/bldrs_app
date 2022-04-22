@@ -38,20 +38,32 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
 // -----------------------------------------------------------------------------
   ValueNotifier<MutableSlide> _slide;
-  TransformationController _transformationController;
   ValueNotifier<Matrix4> _matrix;
+  ValueNotifier<ColorFilterModel> _filterModel;
+  List<ColorFilterModel> _allFilters;
+  int _filterIndex;
 // ------------------------------------
   @override
   void initState() {
 
-    _slide = ValueNotifier<MutableSlide>(widget.slide);
-    _matrix = ValueNotifier(_initializeMatrix());
-
-    _transformationController = TransformationController();
-
     _allFilters = bldrsImageFilters(context);
 
+    _slide = ValueNotifier<MutableSlide>(widget.slide.copyWith());
+    _matrix = ValueNotifier(_initializeMatrix());
+    _filterModel = ValueNotifier(_slide.value.filter ?? _allFilters[0]);
+
+    _filterIndex = _initializeFilterIndex();
+
     super.initState();
+  }
+// -----------------------------------------------------------------------------
+  int _initializeFilterIndex(){
+    final int _index = _slide.value.filter == null ?
+        0
+        :
+    _allFilters.indexWhere((filter) => filter.name == _slide.value.filter.name);
+
+    return _index == -1 ? 0 : _index;
   }
 // -----------------------------------------------------------------------------
   Matrix4 _initializeMatrix(){
@@ -66,7 +78,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     return _output;
   }
 // -----------------------------------------------------------------------------
-
   Future<void> _onReset() async {
 
     // if (_slide.value.picFit == BoxFit.fitWidth){
@@ -86,20 +97,20 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onConfirm() async {
 
-    widget.slide.matrix = _matrix.value;
-    widget.slide.filter = _filterModel.value;
+    // widget.slide.matrix = _matrix.value;
+    // widget.slide.filter = _filterModel.value;
+    final MutableSlide _slide = widget.slide.copyWith(
+      matrix: _matrix.value,
+      filter: _filterModel.value,
+    );
 
-    goBack(context, argument: widget.slide);
+    goBack(context, argument: _slide);
 
     blog('confirming stuff aho');
 
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<ColorFilterModel> _filterModel = ValueNotifier(PresetFilters.none);
-  int _index = 0;
-  List<ColorFilterModel> _allFilters;
-// -----------------------------------------------
-  void _onToggleFilter(BuildContext context){
+  void _onToggleFilter(){
 
     /// --------------------------------------------- FOR TESTING START
     // _index = _index == 0 ? 1 : 0;
@@ -122,11 +133,11 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     // _filterModel.value = _fii;
     /// --------------------------------------------- FOR TESTING END
 
-    _index++;
-    if (_index >= _allFilters.length){
-      _index = 0;
+    _filterIndex++;
+    if (_filterIndex >= _allFilters.length){
+      _filterIndex = 0;
     }
-    _filterModel.value = _allFilters[_index];
+    _filterModel.value = _allFilters[_filterIndex];
 
   }
 // -----------------------------------------------------------------------------
@@ -150,10 +161,9 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
           SlideEditorSlidePart(
             height: _slideZoneHeight,
             slide: _slide,
-            transformationController: _transformationController,
             matrix: _matrix,
             filterModel: _filterModel,
-            onSlideTap: () => _onToggleFilter(context),
+            onSlideTap: _onToggleFilter,
           ),
 
           /// CONTROL PANEL
