@@ -92,17 +92,20 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
   // }
    */
 // -----------------------------------------------------------------------------
-  List<double> getMatrix({@required bool normal}){
+  Matrix4 getMatrix({@required bool normal}){
     if (normal == true){
-      return Matrix4.identity().storage;
+      return Matrix4.identity();
     }
     else {
-      return <double>[
+
+      final List<double> _list = <double>[
         1.2, -0.1, 0.0, 0.0,
         0.1, 1.2, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0,
         -52.5, -42, 0.0, 1.0
       ];
+
+      return Matrix4.fromList(_list);
     }
   }
 // -----------------------------------------------------------------------------
@@ -169,7 +172,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
 
             // blog(_again);
 
-            final Matrix4 _endMatrix = Matrix4.fromList(getMatrix(normal: false));
+            final Matrix4 _endMatrix = getMatrix(normal: false);
             blog(_endMatrix);
 
             blog(_endMatrix.storage);

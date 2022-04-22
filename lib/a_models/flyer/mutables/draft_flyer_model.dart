@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
@@ -58,6 +59,42 @@ class DraftFlyerModel{
 
   /// CREATORS
 
+// -------------------------------------
+  DraftFlyerModel copyWith({
+    String id,
+    TextEditingController title,
+    FlyerTypeClass.FlyerType flyerType,
+    FlyerState flyerState,
+    List<String> keywordsIDs,
+    bool showsAuthor,
+    ZoneModel zone,
+    String authorID,
+    String bzID,
+    GeoPoint position,
+    List<MutableSlide> mutableSlides,
+    bool isBanned,
+    List<SpecModel> specs,
+    TextEditingController info,
+    List<PublishTime> times,
+    bool priceTagIsOn,
+  }) => DraftFlyerModel(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    flyerType: flyerType ?? this.flyerType,
+    flyerState: flyerState ?? this.flyerState,
+    keywordsIDs: keywordsIDs ?? this.keywordsIDs,
+    showsAuthor: showsAuthor ?? this.showsAuthor,
+    zone: zone ?? this.zone,
+    authorID: authorID ?? this.authorID,
+    bzID: bzID ?? this.bzID,
+    position: position ?? this.position,
+    mutableSlides: mutableSlides ?? this.mutableSlides,
+    isBanned: isBanned ?? this.isBanned,
+    specs: specs ?? this.specs,
+    info: info ?? this.info,
+    times: times ?? this.times,
+    priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
+  );
 // -------------------------------------
   static DraftFlyerModel createNewDraft({
     @required BzModel bzModel,
@@ -226,4 +263,33 @@ class DraftFlyerModel{
     null;
   }
 // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+//
+  void blogDraft(){
+
+    blog('BLOGGIND DRAFT FLYER MODEL ---------------------------------------- START');
+
+    blog('id : $id');
+    blog('title : $title');
+    blog('flyerType : $flyerType');
+    blog('flyerState : $flyerState');
+    blog('keywordsIDs : $keywordsIDs');
+    blog('showsAuthor : $showsAuthor');
+    blog('zone : $zone');
+    blog('authorID : $authorID');
+    blog('bzID : $bzID');
+    blog('position : $position');
+    blog('mutableSlides : ${mutableSlides.length} slides');
+    blog('isBanned : $isBanned');
+    blog('specs : $specs');
+    blog('info : $info');
+    blog('times : $times');
+    blog('priceTagIsOn : $priceTagIsOn');
+
+    MutableSlide.blogSlides(mutableSlides);
+
+    blog('BLOGGIND DRAFT FLYER MODEL ---------------------------------------- END');
+  }
 }

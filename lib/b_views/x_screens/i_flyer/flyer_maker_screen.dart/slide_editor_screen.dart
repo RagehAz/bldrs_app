@@ -39,26 +39,35 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------------------------------------
   ValueNotifier<MutableSlide> _slide;
   TransformationController _transformationController;
-  final ValueNotifier<Matrix4> _matrix = ValueNotifier(Matrix4.identity());
-  final ValueNotifier<bool> _isFlipped = ValueNotifier(false);
+  ValueNotifier<Matrix4> _matrix;
 // ------------------------------------
   @override
   void initState() {
-    _transformationController = TransformationController();
-
-    _transformationController.addListener(() {
-
-      blog('transformation Controller : ${_transformationController.value}');
-
-    });
-
-    _filters = bldrsImageFilters(context);
 
     _slide = ValueNotifier<MutableSlide>(widget.slide);
+    _matrix = ValueNotifier(_initializeMatrix());
+
+    _transformationController = TransformationController();
+
+    _allFilters = bldrsImageFilters(context);
+
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onResetTap() async {
+  Matrix4 _initializeMatrix(){
+    Matrix4 _output;
+    if (_slide.value.matrix == null){
+      _output = Matrix4.identity();
+    }
+
+    else {
+      _output = _slide.value.matrix;
+    }
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  Future<void> _onReset() async {
 
     // if (_slide.value.picFit == BoxFit.fitWidth){
     //   _slide.value = _slide.value.updatePicFit(BoxFit.fitHeight);
@@ -70,145 +79,26 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     _matrix.value = Matrix4.identity();
 
   }
-
-  Future<void> _onFlip() async {
-    _isFlipped.value = !_isFlipped.value;
-
-    final double _angle = _isFlipped.value == true ?
-    degreeToRadian(180)
-        :
-    degreeToRadian(0)
-    ;
-
-    blog('flipping to angle $_angle :\n${_matrix.value}');
-    final Matrix4 _newMatrix = Matrix4.copy(_matrix.value);//;
-
-    _newMatrix.rotateY(_angle);
-    // _newMatrix.
-    blog('flipping to angle $_angle :\n${_matrix.value}\nnew matrix \n$_newMatrix');
-
-
-    _matrix.value = _newMatrix;
-  }
-
-// ------------------------------------
-  Future<void> _onEditorTap() async {
-    // blog('start cropping');
-
-    // imageLib.Image image = imageLib.decodeImage(await _slide.value.picFile.readAsBytes());
-    // image = imageLib.copyResize(image, width: 600);
-
-    await goToNewScreen(context, ImageEditor(
-      image: await Imagers.getUint8ListFromFile(_slide.value.picFile),
-      allowCamera: false,
-      allowGallery: false,
-      allowMultiple: false,
-      maxLength: 20,
-      appBar: Colorz.skyDarkBlue,
-    )
-    );
-
-  }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<int> _filterIndex = ValueNotifier(0);
-  void _onSwipe(int index){
-    _filterIndex.value = index;
-  }
-
   void _onBack(){
     goBack(context, argument: _slide.value);
   }
 // -----------------------------------------------------------------------------
-  static const List<BlendMode> _modes = <BlendMode>[
-    BlendMode.clear,
-    BlendMode.color,
-    BlendMode.clear,
-    BlendMode.colorBurn,
-    BlendMode.screen,
-    BlendMode.colorDodge,
-    BlendMode.darken,
-    BlendMode.difference,
-    BlendMode.dst,
-    BlendMode.dstATop,
-    BlendMode.dstIn,
-    BlendMode.dstOut,
-    BlendMode.dstOver,
-    BlendMode.exclusion,
-    BlendMode.hardLight,
-    BlendMode.hue,
-    BlendMode.lighten,
-    BlendMode.luminosity,
-    BlendMode.modulate,
-    BlendMode.multiply,
-    BlendMode.overlay,
-    BlendMode.plus,
-    BlendMode.saturation,
-    BlendMode.softLight,
-    BlendMode.src,
-    BlendMode.srcATop,
-    BlendMode.srcIn,
-    BlendMode.srcOut,
-    BlendMode.srcOver,
-    BlendMode.xor,
-  ];
-  int _blendIndex = 0;
-  final ValueNotifier<BlendMode> _blendMode = ValueNotifier(BlendMode.clear);
-  void _onBlend(){
+  Future<void> _onConfirm() async {
 
-    _blendIndex++;
-    if (_blendIndex == _modes.length){
-      _blendIndex = 0;
-    }
+    widget.slide.matrix = _matrix.value;
+    widget.slide.filter = _filterModel.value;
 
-    _blendMode.value = _modes[_blendIndex];
-  }
-// -----------------------------------------------------------------------------
-  static const List<Color> _colors = <Color>[
-    Colorz.nothing,
-    Colorz.white10,
-    Colorz.white20,
-    Colorz.white50,
-    Colorz.white80,
-    Colorz.black0,
-    Colorz.black10,
-    Colorz.black20,
-    Colorz.black50,
-    Colorz.black80,
-  ];
-  final ValueNotifier<Color> _color = ValueNotifier(Colorz.nothing);
-  int _colorIndex = 0;
-  void _onColor(){
-    _colorIndex++;
-    if (_colorIndex == _colors.length){
-      _colorIndex = 0;
-    }
+    goBack(context, argument: widget.slide);
 
-    _color.value = _colors[_colorIndex];
+    blog('confirming stuff aho');
 
-    blog('color has become $_colorIndex : ${_color.value}');
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<ColorFilterModel> _filterModel = ValueNotifier(PresetFilters.none);
-  final ValueNotifier<bool> _filtersControlIsOn = ValueNotifier(false);
-// -----------------------------------------------
-  void _onTriggerFilterControlIsOn(){
-    _filtersControlIsOn.value = !_filtersControlIsOn.value;
-  }
-// -----------------------------------------------
-  void _onSelectFilter(ColorFilterModel filter){
-    _filterModel.value = filter;
-    _opacity.value = 1;
-  }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<double> _opacity = ValueNotifier(1);
-// -----------------------------------------------
-  void _onOpacityChanged(double opacity){
-    blog('opacity : $opacity');
-    _opacity.value = opacity;
-  }
-// -----------------------------------------------------------------------------
   int _index = 0;
-  List<ColorFilterModel> _filters;
+  List<ColorFilterModel> _allFilters;
+// -----------------------------------------------
   void _onToggleFilter(BuildContext context){
 
     /// --------------------------------------------- FOR TESTING START
@@ -233,10 +123,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     /// --------------------------------------------- FOR TESTING END
 
     _index++;
-    if (_index >= _filters.length){
+    if (_index >= _allFilters.length){
       _index = 0;
     }
-    _filterModel.value = _filters[_index];
+    _filterModel.value = _allFilters[_index];
 
   }
 // -----------------------------------------------------------------------------
@@ -262,44 +152,16 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             slide: _slide,
             transformationController: _transformationController,
             matrix: _matrix,
-            onSwipe: _onSwipe,
-            filterIndex: _filterIndex,
-            blendMode: _blendMode,
             filterModel: _filterModel,
-            opacity: _opacity,
             onSlideTap: () => _onToggleFilter(context),
           ),
 
           /// CONTROL PANEL
-          ValueListenableBuilder(
-              valueListenable: _filtersControlIsOn,
-              builder: (_, bool filtersTriggerIsOn, Widget child){
-
-                if (filtersTriggerIsOn == true){
-                  return FiltersSelectorControlPanel(
-                    height : _controlPanelHeight,
-                    onSelectFilter: (ColorFilterModel filter) => _onSelectFilter(filter),
-                    onBack: _onTriggerFilterControlIsOn,
-                    slide: _slide,
-                    opacity: _opacity,
-                    onOpacityChanged: _onOpacityChanged,
-                  );
-                }
-
-                else {
-                  return SlideEditorControlPanel(
-                    height: _controlPanelHeight,
-                    onEditorTap: _onEditorTap,
-                    onReset: _onResetTap,
-                    onFlip: _onFlip,
-                    onBack: _onBack,
-                    onBlend: _onBlend,
-                    onColor: _onColor,
-                    onFilterTrigger: _onTriggerFilterControlIsOn,
-                  );
-                }
-
-              }
+          SlideEditorControlPanel(
+            height: _controlPanelHeight,
+            onReset: _onReset,
+            onConfirm: _onConfirm,
+            onCancel: _onBack,
           ),
 
 
