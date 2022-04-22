@@ -211,7 +211,7 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
       mutableSlides: _updatedSlides,
     );
 
-    _draftFlyer.value.blogDraft();
+    // _draftFlyer.value.blogDraft();
 
     /*
 
