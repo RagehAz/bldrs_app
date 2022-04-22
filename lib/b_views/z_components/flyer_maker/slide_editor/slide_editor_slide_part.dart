@@ -1,10 +1,8 @@
 import 'dart:ui';
-
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/b_views/z_components/animators/fade_widget_out.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
@@ -14,23 +12,17 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_shadow.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/b_views/z_components/animators/fade_widget_out.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
-import 'dart:math' as math;
+
 
 
 class SlideEditorSlidePart extends StatelessWidget {
@@ -38,7 +30,6 @@ class SlideEditorSlidePart extends StatelessWidget {
   const SlideEditorSlidePart({
     @required this.slide,
     @required this.height,
-    @required this.transformationController,
     @required this.matrix,
     @required this.filterModel,
     @required this.onSlideTap,
@@ -47,7 +38,6 @@ class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final ValueNotifier<MutableSlide> slide;
   final double height;
-  final TransformationController transformationController;
   final ValueNotifier<Matrix4> matrix;
   final ValueNotifier<ColorFilterModel> filterModel;
   final Function onSlideTap;
@@ -72,12 +62,6 @@ class SlideEditorSlidePart extends StatelessWidget {
     final double _flyerBoxWidth = getFlyerZoneWidth(context, _slideZoneHeight);
     final double _flyerBoxHeight = FlyerBox.height(context, _flyerBoxWidth);
 
-    final List<Color> _colors = <Color>[
-      Colorz.bloodTest,
-      Colorz.white10,
-      Colorz.black20,
-    ];
-
     final Widget _spacer = FooterButtonSpacer(
         flyerBoxWidth: _flyerBoxWidth,
         tinyMode: false
@@ -88,7 +72,7 @@ class SlideEditorSlidePart extends StatelessWidget {
       child: Container(
         width: _screenWidth,
         height: _slideZoneHeight,
-        alignment: Alignment.center,
+        alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
           valueListenable: slide,
           child: Container(),
@@ -123,30 +107,39 @@ class SlideEditorSlidePart extends StatelessWidget {
                   borders: FlyerBox.corners(context, _flyerBoxWidth),
                 ),
 
-                /// IMAGE
+
+                /// IMAGE A
                 MatrixGestureDetector(
                   onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
 
-                    blog(m.storage);
+                    matrix.value = generateSlideMatrix(
+                        matrix: m,
+                        flyerBoxWidth: _flyerBoxWidth,
+                        flyerBoxHeight: _flyerBoxHeight
+                    );
 
-                    matrix.value = m;
                   },
                   shouldRotate: true,
                   shouldScale: true,
                   shouldTranslate: true,
-                  clipChild: true,
-                  focalPointAlignment: Alignment.center,
+                  clipChild: false,
+                  // focalPointAlignment: Alignment.center,
                   child: ValueListenableBuilder(
                     valueListenable: matrix,
                     builder: (_, Matrix4 _matrix, Widget childA){
-
                       blog('rebuilding transforming image');
-
                       return Transform(
-                        transform: _matrix,
+                        transform: renderSlideMatrix(
+                          matrix: _matrix,
+                          flyerBoxWidth: _flyerBoxWidth,
+                          flyerBoxHeight: _flyerBoxHeight,
+                        ),
+                        // alignment: Alignment.center,
+                        // origin: Offset(0,0),
+                        filterQuality: FilterQuality.high,
+                        transformHitTests: false,
                         child: childA,
                       );
-
                     },
 
                     child: ValueListenableBuilder(

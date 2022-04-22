@@ -50,6 +50,43 @@ class MutableSlide {
   Matrix4 matrix;
   ColorFilterModel filter;
 // -----------------------------------------------------------------------------
+  MutableSlide copyWith({
+      int slideIndex,
+      String picURL,
+      Asset picAsset,
+      File picFile,
+      BoxFit picFit,
+      ImageSize picSize,
+      TextEditingController headline,
+      TextEditingController description,
+      int sharesCount,
+      int viewsCount,
+      int savesCount,
+      ImageSize imageSize,
+      Color midColor,
+      double opacity,
+      Matrix4 matrix,
+      ColorFilterModel filter,
+}){
+    return MutableSlide(
+      picAsset: picAsset ?? this.picAsset,
+      picFile: picFile ?? this.picFile,
+      headline: headline ?? this.headline,
+      imageSize: imageSize ?? this.imageSize,
+      midColor: midColor ?? this.midColor,
+      opacity: opacity ?? this.opacity,
+      slideIndex: slideIndex ?? this.slideIndex,
+      picURL: picURL ?? this.picURL,
+      description: description ?? this.description,
+      sharesCount: sharesCount ?? this.sharesCount,
+      viewsCount: viewsCount ?? this.viewsCount,
+      savesCount: savesCount ?? this.savesCount,
+      picFit: picFit ?? this.picFit,
+      matrix: matrix ?? this.matrix,
+      filter: filter ?? this.filter,
+    );
+  }
+// -----------------------------------------------------------------------------
 
   /// VIEW MUTABLE SLIDES CREATORS
 
@@ -374,9 +411,9 @@ class MutableSlide {
     @required MutableSlide slide,
 }){
 
-    slide.blogSlide();
-    slides[slide.slideIndex] = slide;
-    slides[1].blogSlide();
+    slides.removeAt(slide.slideIndex);
+    slides.insert(slide.slideIndex, slide);
+    // slides[1].blogSlide();
     return slides;
   }
 // -----------------------------------------------------------------------------
