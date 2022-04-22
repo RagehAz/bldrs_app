@@ -451,6 +451,7 @@ List<ColorFilterModel> presetFiltersList = [
   PresetFilters.xProII,
 ];
 
+
 List<ColorFilterModel> bldrsImageFilters (BuildContext context){
 
   final PhraseProvider _pro = Provider.of<PhraseProvider>(context, listen: false);

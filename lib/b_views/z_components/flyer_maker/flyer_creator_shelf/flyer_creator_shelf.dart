@@ -196,6 +196,23 @@ class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAli
       slide: slide,
     ));
 
+    blog('received slide aho');
+
+    // _result.blogSlide();
+
+    final int _slideIndex = _result.slideIndex;
+
+    final List<MutableSlide> _updatedSlides = MutableSlide.replaceSlide(
+      slides: _draftFlyer.value.mutableSlides,
+      slide: _result,
+    );
+
+    _draftFlyer.value = _draftFlyer.value.copyWith(
+      mutableSlides: _updatedSlides,
+    );
+
+    _draftFlyer.value.blogDraft();
+
     /*
 
     /// TASK : bokra isa

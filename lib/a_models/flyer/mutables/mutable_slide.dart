@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -28,6 +29,8 @@ class MutableSlide {
     @required this.viewsCount,
     @required this.savesCount,
     @required this.picFit,
+    @required this.matrix,
+    @required this.filter,
   });
   /// --------------------------------------------------------------------------
   int slideIndex;
@@ -44,6 +47,8 @@ class MutableSlide {
   ImageSize imageSize;
   Color midColor;
   double opacity;
+  Matrix4 matrix;
+  ColorFilterModel filter;
 // -----------------------------------------------------------------------------
 
   /// VIEW MUTABLE SLIDES CREATORS
@@ -64,6 +69,8 @@ class MutableSlide {
       picFit: slide.picFit,
       midColor: slide.midColor,
       opacity: 1,
+      matrix: Matrix4.identity(),
+      filter: ColorFilterModel.noFilter,
     );
   }
 // -------------------------------------
@@ -110,6 +117,8 @@ class MutableSlide {
       picFit: slide.picFit,
       midColor: slide.midColor,
       opacity: 1,
+      filter: ColorFilterModel.noFilter,
+      matrix: Matrix4.identity(),
     );
 
   }
@@ -182,19 +191,21 @@ class MutableSlide {
       final Color _midColor = await Colorizers.getAverageColor(_file);
 
       _slide = MutableSlide(
-          picAsset: asset,
-          picFile: _file,
-          headline: headline ?? TextEditingController(),
-          imageSize: _imageSize,
-          midColor: _midColor,
-          opacity: 1,
-          slideIndex: index,
-          picURL: null,
-          description: TextEditingController(),
-          sharesCount: 0,
-          viewsCount: 0,
-          savesCount: 0,
-          picFit: _fit
+        picAsset: asset,
+        picFile: _file,
+        headline: headline ?? TextEditingController(),
+        imageSize: _imageSize,
+        midColor: _midColor,
+        opacity: 1,
+        slideIndex: index,
+        picURL: null,
+        description: TextEditingController(),
+        sharesCount: 0,
+        viewsCount: 0,
+        savesCount: 0,
+        picFit: _fit,
+        matrix: Matrix4.identity(),
+        filter: ColorFilterModel.noFilter,
       );
 
     }
@@ -317,8 +328,21 @@ class MutableSlide {
     blog('viewsCount : $viewsCount');
     blog('savesCount : $savesCount');
     blog('picFit : $picFit');
+    blog('matrix : $matrix');
+    blog('filter : ${filter?.name}');
     blog('BLOGGING SLIDE ------------> END');
 
+  }
+
+  static void blogSlides(List<MutableSlide> slides){
+
+    blog('BLOGGING SLIDES -------- START');
+
+    for (final MutableSlide slide in slides){
+      slide.blogSlide();
+    }
+
+    blog('BLOGGING SLIDES -------- END');
   }
 // -----------------------------------------------------------------------------
 
@@ -327,20 +351,33 @@ class MutableSlide {
 // -------------------------------------
   MutableSlide updatePicFit(BoxFit fit){
     return MutableSlide(
-        picAsset: picAsset,
-        picFile: picFile,
-        headline: headline,
-        imageSize: imageSize,
-        midColor: midColor,
-        opacity: opacity,
-        slideIndex: slideIndex,
-        picURL: picURL,
-        description: description,
-        sharesCount: sharesCount,
-        viewsCount: viewsCount,
-        savesCount: savesCount,
-        picFit: fit
+      picAsset: picAsset,
+      picFile: picFile,
+      headline: headline,
+      imageSize: imageSize,
+      midColor: midColor,
+      opacity: opacity,
+      slideIndex: slideIndex,
+      picURL: picURL,
+      description: description,
+      sharesCount: sharesCount,
+      viewsCount: viewsCount,
+      savesCount: savesCount,
+      picFit: fit,
+      matrix: matrix,
+      filter: filter,
     );
+  }
+// -------------------------------------
+  static List<MutableSlide> replaceSlide({
+    @required List<MutableSlide> slides,
+    @required MutableSlide slide,
+}){
+
+    slide.blogSlide();
+    slides[slide.slideIndex] = slide;
+    slides[1].blogSlide();
+    return slides;
   }
 // -----------------------------------------------------------------------------
 }

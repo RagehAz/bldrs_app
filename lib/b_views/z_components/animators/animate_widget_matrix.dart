@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 
 class AnimateWidgetToMatrix extends StatefulWidget {
 
@@ -10,7 +11,7 @@ class AnimateWidgetToMatrix extends StatefulWidget {
   }) : super(key: key);
 
   final Widget child;
-  final List<double> matrix;
+  final Matrix4 matrix;
   final Duration duration;
 
 
@@ -41,25 +42,41 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
   @override
   Widget build(BuildContext context) {
 
-    _animationController.forward();
 
-    return AnimatedBuilder(
-      animation: _animationController,
-      child: widget.child,
-      builder: (_, Widget child){
+    if (widget.matrix == null){
+      return widget.child;
+    }
 
-        final Matrix4 matrix = Matrix4Tween(
+    else {
+      _animationController.forward();
+      return AnimatedBuilder(
+        animation: _animationController,
+        child: widget.child,
+        builder: (_, Widget child){
+
+          final Matrix4 matrix = Matrix4Tween(
             begin: Matrix4.identity(),
-            end: Matrix4.fromList(widget.matrix),
-        ).evaluate(_animationController);
+            end: widget.matrix,
+          ).evaluate(_animationController);
 
-        return Transform(
-          transform: matrix,
-          child: child,
-        );
+          return MatrixGestureDetector(
+            onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
+            },
+            shouldRotate: false,
+            shouldScale: false,
+            shouldTranslate: false,
+            clipChild: true,
+            focalPointAlignment: Alignment.center,
+            child: Transform(
+              transform: matrix,
+              child: child,
+            ),
+          );
 
-      },
-    );
+        },
+      );
+    }
+
   }
 
 }
