@@ -4,7 +4,16 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
@@ -12,10 +21,12 @@ import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_im
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/fade_widget_out.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/b_views/z_components/animators/fade_widget_out.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
@@ -75,6 +86,10 @@ class SlideEditorSlidePart extends StatelessWidget {
       Colorz.black20,
     ];
 
+    final Widget _spacer = FooterButtonSpacer(
+        flyerBoxWidth: _flyerBoxWidth,
+        tinyMode: false
+    );
 
     return GestureDetector(
       onTap: onSlideTap,
@@ -118,6 +133,9 @@ class SlideEditorSlidePart extends StatelessWidget {
                 /// IMAGE
                 MatrixGestureDetector(
                   onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
+
+                    blog(m.storage);
+
                     matrix.value = m;
                   },
                   shouldRotate: true,
@@ -126,98 +144,72 @@ class SlideEditorSlidePart extends StatelessWidget {
                   clipChild: true,
                   focalPointAlignment: Alignment.center,
                   child: ValueListenableBuilder(
-                    valueListenable: blendMode,
-                    builder: (_, BlendMode mode, Widget child){
+                    valueListenable: matrix,
+                    builder: (_, Matrix4 _matrix, Widget childA){
 
-                      blog('blend mode is : $mode');
+                      blog('rebuilding transforming image');
 
-                      return Stack(
-                        children: <Widget>[
-
-                          ValueListenableBuilder(
-                            valueListenable: matrix,
-                            builder: (_, Matrix4 _matrix, Widget childA){
-
-                              blog('rebuilding transforming image');
-
-                              return Transform(
-                                transform: _matrix,
-                                child: childA,
-                              );
-
-                            },
-
-                            child: ValueListenableBuilder(
-                              valueListenable: filterModel,
-                              builder: (_, ColorFilterModel _filterModel, Widget child){
-
-                                blog('changing filterModel to ${_filterModel.name}');
-
-                                return SuperFilteredImage(
-                                  filterModel: _filterModel,
-                                  width: _flyerBoxWidth,
-                                  height: FlyerBox.height(context, _flyerBoxWidth),
-                                  imageFile: _slide.picFile,
-                                  boxFit: _slide.picFit,
-                                  opacity: opacity,
-                                );
-
-                              },
-                            ),
-                          ),
-
-                          // SizedBox(
-                          //   width: _flyerBoxWidth,
-                          //   height: _flyerBoxHeight,
-                          //   child: PageView.builder(
-                          //       itemCount: _colors.length,
-                          //       onPageChanged: onSwipe,
-                          //       itemBuilder: (_, index){
-                          //
-                          //         return Container(
-                          //           width: _flyerBoxWidth,
-                          //           height: _flyerBoxHeight,
-                          //           decoration: BoxDecoration(
-                          //               // color: Colorz.white10,
-                          //
-                          //               borderRadius: FlyerBox.corners(context, _flyerBoxWidth)
-                          //           ),
-                          //         );
-                          //
-                          //       }
-                          //   ),
-                          // ),
-
-
-                          ValueListenableBuilder(
-                              valueListenable: filterModel,
-                              builder: (_, ColorFilterModel _filterModel, Widget child){
-
-                                return FadeWidgetOut(
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: SuperVerse(
-                                      verse: _filterModel.name,
-                                      maxLines: 3,
-                                      weight: VerseWeight.thin,
-                                      italic: true,
-                                      size: 4,
-                                      scaleFactor: _flyerBoxWidth * 0.005,
-                                      margin: Ratioz.appBarMargin,
-                                    ),
-                                  ),
-                                );
-
-                              }
-                          ),
-
-
-
-                        ],
+                      return Transform(
+                        transform: _matrix,
+                        child: childA,
                       );
 
                     },
+
+                    child: ValueListenableBuilder(
+                      valueListenable: filterModel,
+                      builder: (_, ColorFilterModel _filterModel, Widget child){
+
+                        blog('changing filterModel to ${_filterModel.name}');
+
+                        return SuperFilteredImage(
+                          filterModel: _filterModel,
+                          width: _flyerBoxWidth,
+                          height: FlyerBox.height(context, _flyerBoxWidth),
+                          imageFile: _slide.picFile,
+                          boxFit: _slide.picFit,
+                          opacity: opacity,
+                        );
+
+                      },
+                    ),
                   ),
+                ),
+
+                SlideShadow(
+                  key: const ValueKey<String>('SingleSlideShadow'),
+                  flyerBoxWidth: _flyerBoxWidth,
+                ),
+
+                /// FILTER NAME
+                ValueListenableBuilder(
+                    valueListenable: filterModel,
+                    builder: (_, ColorFilterModel _filterModel, Widget child){
+
+                      return FadeWidgetOut(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                bottom: FooterBox.collapsedHeight(
+                                    context: context,
+                                    flyerBoxWidth: _flyerBoxWidth,
+                                    tinyMode: false,
+                                )
+                            ),
+                            child: SuperVerse(
+                              verse: _filterModel.name,
+                              maxLines: 3,
+                              weight: VerseWeight.thin,
+                              italic: true,
+                              size: 4,
+                              scaleFactor: _flyerBoxWidth * 0.005,
+                            ),
+                          ),
+                        ),
+                      );
+
+                    }
                 ),
 
                 /// HEADLINE
@@ -226,12 +218,136 @@ class SlideEditorSlidePart extends StatelessWidget {
                   verse: _slide.headline.text,
                 ),
 
+                /// BOTTOM SHADOW
+                FooterShadow(
+                  key: const ValueKey<String>('FooterShadow'),
+                  flyerBoxWidth: _flyerBoxWidth,
+                  tinyMode: false,
+                ),
+
+                /// STATIC FOOTER
+                Opacity(
+                  opacity: 0.5,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                      width: _flyerBoxWidth,
+                      height: FooterBox.collapsedHeight(
+                        context: context,
+                        flyerBoxWidth: _flyerBoxWidth,
+                        tinyMode: false,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+
+                          /// INFO BUTTON
+                          Container(
+                            // key: const ValueKey<String>('InfoButtonStarter_animated_container'),
+                            width: InfoButtonStarter.getWidth(
+                              context: context,
+                              flyerBoxWidth: _flyerBoxWidth,
+                              tinyMode: false,
+                              isExpanded: false,
+                              infoButtonType: InfoButtonType.info,
+                            ),
+                            height: InfoButtonStarter.getHeight(
+                              context: context,
+                              flyerBoxWidth: _flyerBoxWidth,
+                              tinyMode: false,
+                              isExpanded: false,
+                            ),
+                            decoration: BoxDecoration(
+                              // color: _color,
+                              color: Colorz.black255,
+                              borderRadius: InfoButtonStarter.getBorders(
+                                  context: context,
+                                  flyerBoxWidth: _flyerBoxWidth,
+                                  tinyMode: false,
+                                  isExpanded: false
+                              ),
+                            ),
+                            margin: InfoButtonStarter.getMargin(
+                              context: context,
+                              flyerBoxWidth: _flyerBoxWidth,
+                              tinyMode: false,
+                              isExpanded: false,
+                            ),
+                            alignment: Alignment.center,
+                            child: const SizedBox(),
+                          ),
+
+                          const Expander(),
+
+                            _spacer,
+
+                          /// SHARE
+                            FooterButton(
+                              flyerBoxWidth: _flyerBoxWidth,
+                              icon: null, // Iconz.share,
+                              verse: '', // superPhrase(context, 'phid_send'),
+                              isOn: false,
+                              tinyMode: false,
+                              onTap: (){},
+                            ),
+
+                            _spacer,
+
+                          /// COMMENT
+                            FooterButton(
+                              flyerBoxWidth: _flyerBoxWidth,
+                              icon: null, // Iconz.utPlanning,
+                              verse: '', // superPhrase(context, 'phid_comment'),
+                              isOn: false,
+                              tinyMode: false,
+                              onTap: (){},
+                            ),
+
+                            _spacer,
+
+                          /// SAVE BUTTON
+                          FooterButton(
+                            flyerBoxWidth: _flyerBoxWidth,
+                            icon: null, // Iconz.save,
+                            verse: '', // superPhrase(context, 'phid_save'),
+                            isOn: false,
+                            tinyMode: false,
+                            onTap: (){},
+                          ),
+
+                          _spacer,
+
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                /// STATIC HEADER
+                Opacity(
+                  opacity: 0.5,
+                  child: HeaderBox(
+                    key: const ValueKey<String>('SlideEditorSlidePart_HeaderBox'),
+                    tinyMode: false,
+                    onHeaderTap: null,
+                    headerBorders: FlyerBox.superHeaderCorners(
+                      context: context,
+                      flyerBoxWidth: _flyerBoxWidth,
+                      bzPageIsOn: false,
+                    ),
+                    flyerBoxWidth: _flyerBoxWidth,
+                    headerColor: Colorz.black255,
+                    headerHeightTween: FlyerBox.headerBoxHeight(flyerBoxWidth: _flyerBoxWidth),
+                    children: const <Widget>[],
+                  ),
+                ),
+
               ],
             );
-
           },
         ),
       ),
     );
   }
 }
+
