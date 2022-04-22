@@ -14,24 +14,16 @@ import 'package:flutter/material.dart';
 class SlideEditorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorControlPanel({
-    @required this.onEditorTap,
+    @required this.onCancel,
     @required this.onReset,
-    @required this.onFlip,
-    @required this.onBack,
-    @required this.onBlend,
-    @required this.onColor,
-    @required this.onFilterTrigger,
+    @required this.onConfirm,
     @required this.height,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final Function onEditorTap;
+  final Function onCancel;
   final Function onReset;
-  final Function onFlip;
-  final Function onBack;
-  final Function onBlend;
-  final Function onColor;
-  final Function onFilterTrigger;
+  final Function onConfirm;
   final double height;
   /// --------------------------------------------------------------------------
   static double getControlPanelHeight(BuildContext context, double screenHeight){
@@ -56,17 +48,18 @@ class SlideEditorControlPanel extends StatelessWidget {
       width: _screenWidth,
       height: _controlPanelHeight,
       // color: Colorz.white10,
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
+      child: Row(
+        // physics: const BouncingScrollPhysics(),
+        // scrollDirection: Axis.horizontal,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
 
           /// BACK
           SlideEditorButton(
             size: _buttonSize,
             icon: superBackIcon(context),
-            verse: 'Back',
-            onTap: onBack,
+            verse: 'Cancel',
+            onTap: onCancel,
           ),
 
           /// BOX FIT
@@ -80,43 +73,11 @@ class SlideEditorControlPanel extends StatelessWidget {
           /// BOX FIT
           SlideEditorButton(
             size: _buttonSize,
-            icon: Iconz.fingerTap,
-            verse: 'Flip',
-            onTap: onFlip,
+            icon: Iconz.check,
+            verse: 'Confirm',
+            onTap: onConfirm,
           ),
 
-          /// BLEND
-          SlideEditorButton(
-            size: _buttonSize,
-            icon: Iconz.lab,
-            verse: 'Blend',
-            onTap: onBlend,
-          ),
-
-          /// COLOR
-          SlideEditorButton(
-            size: _buttonSize,
-            icon: Iconz.dvDonaldDuck,
-            verse: 'Color',
-            onTap: onColor,
-          ),
-
-
-          /// IMAGE EDITOR
-          SlideEditorButton(
-            size: _buttonSize,
-            icon: Iconz.cleopatra,
-            verse: 'Filters',
-            onTap: onFilterTrigger,
-          ),
-
-          /// IMAGE EDITOR
-          SlideEditorButton(
-            size: _buttonSize,
-            icon: Iconz.gears,
-            verse: 'Image Editor',
-            onTap: onEditorTap,
-          ),
 
         ],
       ),

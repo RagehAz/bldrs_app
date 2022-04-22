@@ -126,15 +126,19 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   void didChangeDependencies() {
     if (_isInit) {
 
-      _triggerLoading().then((_) async {
+      if (widget.filterModel != null){
 
-        _file = await SuperFilteredImage.processImage(
+        _triggerLoading().then((_) async {
+
+          _file = await SuperFilteredImage.processImage(
             input: widget.imageFile,
             filterModel: widget.filterModel,
-        );
+          );
 
-        await _triggerLoading();
-      });
+          await _triggerLoading();
+        });
+
+      }
 
     }
     _isInit = false;
@@ -144,31 +148,41 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   @override
   Widget build(BuildContext context) {
 
-    return ValueListenableBuilder(
-        valueListenable: _loading,
-        builder: (_, bool _isLoading, Widget childA){
+    if (widget.filterModel == null){
+      return SuperImage(
+        width: widget.width,
+        height: widget.height,
+        pic: widget.imageFile,
+        fit: widget.boxFit,
+      );
+    }
 
-          if (_isLoading == true){
-            return FlyerLoading(
-              flyerBoxWidth: widget.width,
-            );
-          }
+    else {
+      return ValueListenableBuilder(
+          valueListenable: _loading,
+          builder: (_, bool _isLoading, Widget childA){
 
-          else if (widget.opacity == null){
-            return SuperFilteredImage._createTree(
-              matrixes: widget.filterModel.matrixes,
-              child: SuperImage(
-                width: widget.width,
-                height: widget.height,
-                pic: _file,
-                fit: widget.boxFit,
-              ),
-            );
+            if (_isLoading == true){
+              return FlyerLoading(
+                flyerBoxWidth: widget.width,
+              );
+            }
 
-          }
+            else if (widget.opacity == null){
+              return SuperFilteredImage._createTree(
+                matrixes: widget.filterModel.matrixes,
+                child: SuperImage(
+                  width: widget.width,
+                  height: widget.height,
+                  pic: _file,
+                  fit: widget.boxFit,
+                ),
+              );
 
-          else {
-            return ValueListenableBuilder(
+            }
+
+            else {
+              return ValueListenableBuilder(
                 valueListenable: widget.opacity,
                 builder: (_, double _opacity, Widget child){
 
@@ -189,18 +203,19 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
                   );
 
                 },
-              child: SuperImage(
-                width: widget.width,
-                height: widget.height,
-                pic: _file,
-                fit: widget.boxFit,
-                scale: widget.scale,
-              ),
-            );
-          }
+                child: SuperImage(
+                  width: widget.width,
+                  height: widget.height,
+                  pic: _file,
+                  fit: widget.boxFit,
+                  scale: widget.scale,
+                ),
+              );
+            }
 
-        }
-    );
+          }
+      );
+    }
 
   }
 }

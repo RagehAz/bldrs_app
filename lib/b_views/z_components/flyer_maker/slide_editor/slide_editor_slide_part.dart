@@ -40,11 +40,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.height,
     @required this.transformationController,
     @required this.matrix,
-    @required this.onSwipe,
-    @required this.filterIndex,
-    @required this.blendMode,
     @required this.filterModel,
-    @required this.opacity,
     @required this.onSlideTap,
     Key key
   }) : super(key: key);
@@ -53,15 +49,11 @@ class SlideEditorSlidePart extends StatelessWidget {
   final double height;
   final TransformationController transformationController;
   final ValueNotifier<Matrix4> matrix;
-  final ValueChanged<int> onSwipe;
-  final ValueNotifier<int> filterIndex;
-  final ValueNotifier<BlendMode> blendMode;
   final ValueNotifier<ColorFilterModel> filterModel;
-  final ValueNotifier<double> opacity;
   final Function onSlideTap;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
-    final double _slideZoneHeight = screenHeight * 0.75;
+    final double _slideZoneHeight = screenHeight * 0.85;
     return _slideZoneHeight;
   }
 // -----------------------------------------------------------------------------
@@ -113,10 +105,11 @@ class SlideEditorSlidePart extends StatelessWidget {
                     builder: (_, ColorFilterModel _filterModel, Widget child){
 
                       return SuperFilteredImage(
-                        filterModel: _filterModel,
-                        imageFile: _slide.picFile,
                         width: _flyerBoxWidth,
                         height: _flyerBoxHeight,
+                        imageFile: _slide.picFile,
+                        filterModel: _filterModel,
+                        // boxFit: _slide.picFit,
                       );
                     }
                     ),
@@ -163,12 +156,11 @@ class SlideEditorSlidePart extends StatelessWidget {
                         blog('changing filterModel to ${_filterModel.name}');
 
                         return SuperFilteredImage(
-                          filterModel: _filterModel,
                           width: _flyerBoxWidth,
                           height: FlyerBox.height(context, _flyerBoxWidth),
                           imageFile: _slide.picFile,
+                          filterModel: _filterModel,
                           boxFit: _slide.picFit,
-                          opacity: opacity,
                         );
 
                       },
