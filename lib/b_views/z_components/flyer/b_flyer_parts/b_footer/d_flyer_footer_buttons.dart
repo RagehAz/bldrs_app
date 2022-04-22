@@ -81,7 +81,7 @@ class FlyerFooterButtons extends StatelessWidget {
             FooterButton(
             flyerBoxWidth: flyerBoxWidth,
             icon: Iconz.utPlanning,
-            verse: 'Review',
+            verse: superPhrase(context, 'phid_comment'),
             isOn: false,
             tinyMode: tinyMode,
             onTap: onReviewFlyer,

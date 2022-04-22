@@ -25,7 +25,7 @@ class DashButton extends StatelessWidget {
     return DreamBox(
       width: size,
       height: size,
-      color: Colorz.bloodTest,
+      color: Colorz.black255,
       onTap: () async {
 
         if (dashButtonModel.screen != null){
