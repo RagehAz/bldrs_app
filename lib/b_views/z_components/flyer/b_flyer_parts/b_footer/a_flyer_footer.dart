@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/d_flyer_footer_buttons.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_convertible_review_page_pre_starter.dart';
@@ -36,17 +37,18 @@ class FlyerFooter extends StatefulWidget {
   final PageController footerPageController;
   final ValueNotifier<bool> headerIsExpanded;
   final bool inFlight;
-
+  /// --------------------------------------------------------------------------
   @override
   State<FlyerFooter> createState() => _FlyerFooterState();
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyerFooterState extends State<FlyerFooter> {
-
+// -----------------------------------------------------------------------------
   ScrollController _infoPageVerticalController;
   ScrollController _reviewPageVerticalController;
   TextEditingController _reviewTextController;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _infoPageVerticalController = ScrollController();
@@ -135,6 +137,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     final bool _canShowInfoButton = _canShowInfoButtonChecker(
       infoButtonType: _infoButtonType
     );
+
 
     return ValueListenableBuilder(
       valueListenable: widget.headerIsExpanded,

@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_list
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/notifications/test_screens/awesome_noti_test_screen.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/animations_lab.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_asks.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
@@ -30,7 +31,7 @@ class SpecializedLabs extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    // final double _screenHeight = Scale.superScreenHeight(context);
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
 
@@ -71,6 +72,13 @@ class SpecializedLabs extends StatelessWidget {
         verse: 'Video Player',
         icon: Iconz.play,
         screen: const VideoPlayerScreen(),
+      ),
+
+      /// ANIMATIONS LAB
+      DashButtonModel(
+        verse: 'Animations lab',
+        icon: Iconz.dvDonaldDuck,
+        screen: const AnimationsLab(),
       ),
 
       /// SPECS SELECTOR
