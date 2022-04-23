@@ -3,16 +3,16 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix2d/matrix2d.dart';
 
-/// The [ColorFilterModel] class to define a Filter which will applied to each color, consists of multiple [SubFilter]s
-class ColorFilterModel {
+/// The [ImageFilterModel] class to define a Filter which will applied to each color, consists of multiple [SubFilter]s
+class ImageFilterModel {
   /// --------------------------------------------------------------------------
-  const ColorFilterModel({
-    @required this.name,
+  const ImageFilterModel({
+    @required this.id,
     @required this.matrixes,
     this.opacity = 1,
   });
   /// --------------------------------------------------------------------------
-  final String name;
+  final String id;
   final List<List<double>> matrixes;
   final double opacity;
 // -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ class ColorFilterModel {
       for (int i = 1; i < matrixes.length; i++) {
 
         final List<double> listB = <double>[
-          ...matrixes[i] is ColorFilterModel ?
+          ...matrixes[i] is ImageFilterModel ?
           getStandardMatrix()
               :
           matrixes[i]
@@ -80,9 +80,9 @@ class ColorFilterModel {
   }
 // -----------------------------------------------------------------------------
   /// Create new filter from this filter with given opacity
-  ColorFilterModel addOpacity(double value) {
-    return ColorFilterModel(
-        name: name,
+  ImageFilterModel addOpacity(double value) {
+    return ImageFilterModel(
+        id: id,
         matrixes: <List<double>>[
       ...matrixes,
       [
@@ -95,8 +95,8 @@ class ColorFilterModel {
     );
   }
 // -----------------------------------------------------------------------------
-  static ColorFilterModel noFilter = const ColorFilterModel(
-    name: 'No Filter',
+  static ImageFilterModel noFilter = const ImageFilterModel(
+    id: 'No Filter',
     matrixes: <List<double>>[],
   );
 // -----------------------------------------------------------------------------

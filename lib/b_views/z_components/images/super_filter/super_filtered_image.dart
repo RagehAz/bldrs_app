@@ -22,7 +22,7 @@ class SuperFilteredImage extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ColorFilterModel filterModel;
+  final ImageFilterModel filterModel;
   final File imageFile;
   final double width;
   final double height;
@@ -32,7 +32,7 @@ class SuperFilteredImage extends StatefulWidget {
 // -----------------------------------------------------------------------------
   static Future<File> processImage({
     @required File input,
-    @required ColorFilterModel filterModel,
+    @required ImageFilterModel filterModel,
 }) async {
 
     if (filterModel != null && canLoopList(filterModel.matrixes) == true){
@@ -41,9 +41,9 @@ class SuperFilteredImage extends StatefulWidget {
 
       final image_editor.ImageEditorOption option = image_editor.ImageEditorOption();
 
-      blog('processImage : filterModel : ${filterModel.name} : matrixes : ${filterModel.matrixes}');
+      blog('processImage : filterModel : ${filterModel.id} : matrixes : ${filterModel.matrixes}');
 
-      final List<double> _combinedMatrix = ColorFilterModel.combineMatrixes(
+      final List<double> _combinedMatrix = ImageFilterModel.combineMatrixes(
         matrixes: filterModel.matrixes,
       );
 

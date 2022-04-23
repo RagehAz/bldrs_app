@@ -38,7 +38,7 @@ class ShelfSlide extends StatefulWidget {
     final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
     return _flyerBoxHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
   }
-
+// ----------------------------------------------
   @override
   State<ShelfSlide> createState() => _ShelfSlideState();
 }
@@ -85,7 +85,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
           /// SPACER
           const SizedBox(height: Ratioz.appBarPadding,),
 
-          /// IMAGE
+          /// SLIDE
           GestureDetector(
             onTap: widget.onTap,
             onDoubleTap: _onReAnimate,
@@ -95,6 +95,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
               boxColor: widget.mutableSlide?.midColor ?? Colorz.white10,
               stackWidgets: <Widget>[
 
+                /// BACK GROUND COVER PIC
                 if (widget.mutableSlide != null)
                 SuperFilteredImage(
                   width: ShelfSlide.flyerBoxWidth,
@@ -103,6 +104,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
                   filterModel: widget.mutableSlide.filter,
                 ),
 
+                /// BLUR LAYER
                 if (widget.mutableSlide != null)
                 BlurLayer(
                   key: const ValueKey<String>('blur_layer'),
@@ -113,6 +115,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
                   borders: FlyerBox.corners(context, ShelfSlide.flyerBoxWidth),
                 ),
 
+                /// IMAGE
                 if (widget.mutableSlide != null)
                   ValueListenableBuilder(
                       valueListenable: _animateSlide,
@@ -142,12 +145,14 @@ class _ShelfSlideState extends State<ShelfSlide> {
                     ),
                   ),
 
+                /// HEADLINE
                 if (widget.mutableSlide != null)
                   SlideHeadline(
                     flyerBoxWidth: ShelfSlide.flyerBoxWidth,
                     verse: widget.headline?.text ?? widget.mutableSlide.headline.text,
                   ),
 
+                /// ADD SLIDE PLUS ICON
                 if (widget.mutableSlide == null)
                   SizedBox(
                     width: ShelfSlide.flyerBoxWidth,

@@ -1,0 +1,90 @@
+import 'dart:ui';
+
+import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/trinity.dart';
+import 'package:flutter/material.dart';
+import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
+
+class SlideTransformer extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const SlideTransformer({
+    @required this.matrix,
+    @required this.filterModel,
+    @required this.flyerBoxWidth,
+    @required this.flyerBoxHeight,
+    @required this.slide,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final ValueNotifier<Matrix4> matrix;
+  final ValueNotifier<ImageFilterModel> filterModel;
+  final double flyerBoxWidth;
+  final double flyerBoxHeight;
+  final MutableSlide slide;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return MatrixGestureDetector(
+      key: const ValueKey<String>('SlideTransformer'),
+      onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
+
+        matrix.value = generateSlideMatrix(
+            matrix: m,
+            flyerBoxWidth: flyerBoxWidth,
+            flyerBoxHeight: flyerBoxHeight
+        );
+
+      },
+      // shouldRotate: true,
+      // shouldScale: true,
+      // shouldTranslate: true,
+      // focalPointAlignment: Alignment.center,
+      clipChild: false,
+      child: ValueListenableBuilder(
+        valueListenable: matrix,
+        builder: (_, Matrix4 _matrix, Widget childA){
+
+          blog('rebuilding transforming image');
+
+          return Transform(
+            transform: renderSlideMatrix(
+              matrix: _matrix,
+              flyerBoxWidth: flyerBoxWidth,
+              flyerBoxHeight: flyerBoxHeight,
+            ),
+            // alignment: Alignment.center,
+            // origin: Offset(0,0),
+            filterQuality: FilterQuality.high,
+            transformHitTests: false,
+            child: childA,
+          );
+
+        },
+
+        child: ValueListenableBuilder(
+          valueListenable: filterModel,
+          builder: (_, ImageFilterModel _filterModel, Widget child){
+
+            blog('changing filterModel to ${_filterModel.id}');
+
+            return SuperFilteredImage(
+              width: flyerBoxWidth,
+              height: FlyerBox.height(context, flyerBoxWidth),
+              imageFile: slide.picFile,
+              filterModel: _filterModel,
+              boxFit: slide.picFit,
+            );
+
+          },
+        ),
+
+      ),
+    );
+
+  }
+}

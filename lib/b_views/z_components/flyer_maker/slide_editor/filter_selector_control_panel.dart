@@ -27,7 +27,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double height;
-  final ValueChanged<ColorFilterModel> onSelectFilter;
+  final ValueChanged<ImageFilterModel> onSelectFilter;
   final Function onBack;
   final ValueNotifier<MutableSlide> slide;
   final ValueNotifier<double> opacity;
@@ -85,7 +85,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                 final int index = i - 1;
                 final bool isBackButton = i == 0;
 
-                final ColorFilterModel _filter = isBackButton ? null : presetFiltersList[index];
+                final ImageFilterModel _filter = isBackButton ? null : presetFiltersList[index];
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
@@ -126,7 +126,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: SuperVerse(
-                              verse: _filter.name,
+                              verse: _filter.id,
                               maxLines: 2,
                             ),
                           ),

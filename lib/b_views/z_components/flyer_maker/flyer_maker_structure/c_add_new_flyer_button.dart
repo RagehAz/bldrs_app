@@ -21,6 +21,7 @@ class AddNewDraftShelf extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DreamBox(
+      key: const ValueKey<String>('AddNewDraftShelf'),
       width: Scale.superScreenWidth(context) - Ratioz.appBarMargin * 2,
       height: 100,
       color: Colorz.white10,
@@ -35,6 +36,7 @@ class AddNewDraftShelf extends StatelessWidget {
         bubble: false,
         isDeactivated: isDeactivated,
       ),
+
     );
   }
 
