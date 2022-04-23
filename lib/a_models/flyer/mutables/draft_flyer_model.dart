@@ -243,7 +243,7 @@ class DraftFlyerModel{
             priceTagIsOn: priceTagIsOn,
         );
   }
-
+// -------------------------------------
   DraftFlyerModel updateHeadline(String value){
     if (Mapper.canLoopList(mutableSlides) == true){
       mutableSlides[0].headline.text = value;

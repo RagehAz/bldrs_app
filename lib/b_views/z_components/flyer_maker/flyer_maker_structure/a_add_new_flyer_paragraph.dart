@@ -13,6 +13,7 @@ class AddNewFlyerParagraph extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
+      key: const ValueKey<String>('AddNewFlyerParagraph'),
       width: Scale.superScreenWidth(context),
       height: Ratioz.appBarSmallHeight,
       padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),

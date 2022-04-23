@@ -25,6 +25,7 @@ class SlideHeadline extends StatelessWidget {
 
     /// FLYER TITLE
     return GestureDetector(
+      key: const ValueKey<String>('SlideHeadline'),
       onTap: tappingVerse,
       child: Container(
         width: flyerBoxWidth,
