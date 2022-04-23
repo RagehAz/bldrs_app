@@ -1,10 +1,7 @@
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 
-/// TASK : try InteractiveViewer() in slides to zoom and pan
 class ZoomablePicture extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ZoomablePicture({
