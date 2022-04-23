@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/flyer_creator_shelf/shelf_header.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/flyer_creator_shelf/shelf_slide.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/c_shelf_header_part.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +18,14 @@ class ShelfBox extends StatelessWidget {
   static const Curve animationCurve  = Curves.easeOut;
 // -----------------------------------------------------------------------------
   static double maxHeight(BuildContext context){
-    return ShelfSlide.shelfSlideZoneHeight(context) + ShelfHeader.height;
+    return ShelfSlide.shelfSlideZoneHeight(context) + ShelfHeaderPart.height;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
+        key: const ValueKey<String>('ShelfBox'),
         valueListenable: shelfUI,
         child: child,
         builder: (_, ShelfUI shelfUI, Widget kid){

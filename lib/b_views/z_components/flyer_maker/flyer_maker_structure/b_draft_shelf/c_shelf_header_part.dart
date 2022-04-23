@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/c_controllers/i_flyer_maker_controllers/draft_shelf_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -13,9 +14,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 import 'package:flutter/material.dart';
 
-class ShelfHeader extends StatelessWidget {
+class ShelfHeaderPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ShelfHeader({
+  const ShelfHeaderPart({
     @required this.draft,
     @required this.shelfNumber,
     @required this.titleLength,
@@ -38,34 +39,16 @@ class ShelfHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const double height = 80;
 // -----------------------------------------------------------------------------
-  String _flyerHeadlineValidator(String val){
-
-    /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
-    if(val.length >= Standards.flyerTitleMaxLength){
-      return 'Only ${Standards.flyerTitleMaxLength} characters allowed for the flyer title';
-    }
-
-    /// WHEN HEADLINE LENGTH IS OK
-    else {
-      return null;
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  void _firstHeadlineOnChanged(String val){
-    formKey.currentState.validate();
-    titleLength.value = val.length;
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // ----------------------------------------------------------------------------------
     final String _shelfTitle = DraftFlyerModel.generateShelfTitle(
       context: context,
       times: draft.times,
       flyerState: draft.flyerState,
       shelfNumber: shelfNumber,
     );
+    // ----------------------------------------------------------------------------------
     final bool _isPublished = draft.flyerState == FlyerState.published;
     final bool _hasSlides = canLoopList(draft.mutableSlides);
     // HEIGHT ----------------------------------------------------------------------------
@@ -78,10 +61,9 @@ class ShelfHeader extends StatelessWidget {
     const double _controlPanelWidth = _textFieldHeight * 0.7;
     const double _moreButtonSize = _textFieldHeight * 0.7;
     final double _headlineZoneWidth = _shelfWidth - _controlPanelWidth - (_spacing * 3);
-
-
+    // ----------------------------------------------------------------------------------
     return Container(
-      // key: const ValueKey<String>('ShelfHeader'),
+      key: const ValueKey<String>('ShelfHeaderPart'),
       width: _shelfWidth,
       height: height,
       alignment: Aligners.superCenterAlignment(context),
@@ -159,7 +141,10 @@ class ShelfHeader extends StatelessWidget {
                         width: _headlineZoneWidth,
                         maxLines: 1,
                         counterIsOn: false,
-                        validator: (val) => _flyerHeadlineValidator(val),
+                        validator: (val) => flyerHeadlineValidator(
+                          context: context,
+                          val: val,
+                        ),
                         onChanged: (val) => onHeadlineChanged(val),
                         // margin: EdgeInsets.only(top: Ratioz.appBarPadding),
                         hintText: superPhrase(context, 'phid_flyer_headline_3_dots'),
@@ -194,8 +179,6 @@ class ShelfHeader extends StatelessWidget {
 
           /// SPACER
           const SizedBox(width: _spacing,),
-
-
 
           /// CONTROL PANEL
           Container(

@@ -14,6 +14,7 @@ class SlideShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: const ValueKey<String>('SlideShadow'),
       width: flyerBoxWidth,
       height: flyerBoxWidth * 0.6,
       decoration: BoxDecoration(

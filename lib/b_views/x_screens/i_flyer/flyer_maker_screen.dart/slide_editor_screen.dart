@@ -5,9 +5,8 @@ import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_gene
 import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_controllers/i_flyer_maker_controllers/slide_editor_controller.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 class SlideEditorScreen extends StatefulWidget {
@@ -26,108 +25,28 @@ class SlideEditorScreen extends StatefulWidget {
 
 class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------------------------------------
+  final List<ImageFilterModel> _allFilters = bldrsImageFilters;
+  // ------------------------------------
   ValueNotifier<MutableSlide> _slide;
   ValueNotifier<Matrix4> _matrix;
-  ValueNotifier<ColorFilterModel> _filterModel;
-  List<ColorFilterModel> _allFilters;
-  int _filterIndex;
+  ValueNotifier<ImageFilterModel> _filterModel;
 // ------------------------------------
   @override
   void initState() {
 
-    _allFilters = bldrsImageFilters(context);
-
     _slide = ValueNotifier<MutableSlide>(widget.slide.copyWith());
-    _matrix = ValueNotifier(_initializeMatrix());
+
     _filterModel = ValueNotifier(_slide.value.filter ?? _allFilters[0]);
 
-    _filterIndex = _initializeFilterIndex();
-
-    super.initState();
-  }
-// -----------------------------------------------------------------------------
-  int _initializeFilterIndex(){
-    final int _index = _slide.value.filter == null ?
-        0
-        :
-    _allFilters.indexWhere((filter) => filter.name == _slide.value.filter.name);
-
-    return _index == -1 ? 0 : _index;
-  }
-// -----------------------------------------------------------------------------
-  Matrix4 _initializeMatrix(){
-    Matrix4 _output;
-    if (_slide.value.matrix == null){
-      _output = Matrix4.identity();
-    }
-
-    else {
-      _output = _slide.value.matrix;
-    }
-    return _output;
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _onReset() async {
-
-    // if (_slide.value.picFit == BoxFit.fitWidth){
-    //   _slide.value = _slide.value.updatePicFit(BoxFit.fitHeight);
-    // }
-    // else {
-    //   _slide.value = _slide.value.updatePicFit(BoxFit.fitWidth);
-    // }
-
-    _matrix.value = Matrix4.identity();
-
-  }
-// -----------------------------------------------------------------------------
-  void _onBack(){
-    goBack(context, argument: _slide.value);
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _onConfirm() async {
-
-    // widget.slide.matrix = _matrix.value;
-    // widget.slide.filter = _filterModel.value;
-    final MutableSlide _slide = widget.slide.copyWith(
-      matrix: _matrix.value,
-      filter: _filterModel.value,
+    _matrix = initializeMatrix(
+        slide: _slide.value
     );
 
-    goBack(context, argument: _slide);
-
-    blog('confirming stuff aho');
-
-  }
-// -----------------------------------------------------------------------------
-  void _onToggleFilter(){
-
-    /// --------------------------------------------- FOR TESTING START
-    // _index = _index == 0 ? 1 : 0;
-    // const Color _color = Color.fromRGBO(210, 137, 28, 1.0);
-    //
-    // blog('color : ${_color.value}');
-    //
-    // final _fii = _index == 0 ?
-    // bldrsImageFilters(context)[0]
-    //     :
-    // ColorFilterModel(
-    //   name: 'cool',
-    //   matrixes: <List<double>>[
-    //     ColorFilterLayer.sepia(0.1),
-    //     ColorFilterLayer.colorOverlay(255, 145, 0, 0.1),
-    //     ColorFilterLayer.brightness(10),
-    //     ColorFilterLayer.saturation(15),
-    //   ],
+    // _filterIndex = initializeFilterIndex(
+    //   slide: _slide.value,
     // );
-    // _filterModel.value = _fii;
-    /// --------------------------------------------- FOR TESTING END
 
-    _filterIndex++;
-    if (_filterIndex >= _allFilters.length){
-      _filterIndex = 0;
-    }
-    _filterModel.value = _allFilters[_filterIndex];
-
+    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -152,15 +71,25 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             slide: _slide,
             matrix: _matrix,
             filterModel: _filterModel,
-            onSlideTap: _onToggleFilter,
+            onSlideTap: () => onToggleFilter(
+                currentFilter: _filterModel,
+            ),
           ),
 
           /// CONTROL PANEL
           SlideEditorControlPanel(
             height: _controlPanelHeight,
-            onReset: _onReset,
-            onConfirm: _onConfirm,
-            onCancel: _onBack,
+            onReset: () => onReset(
+                filter: _filterModel,
+                matrix: _matrix
+            ),
+            onConfirm: () => onConfirm(
+                context: context,
+                originalSlide: widget.slide,
+                filter: _filterModel,
+                matrix: _matrix,
+            ),
+            onCancel: onCancel,
           ),
 
 

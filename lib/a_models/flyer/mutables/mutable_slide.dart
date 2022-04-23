@@ -48,7 +48,7 @@ class MutableSlide {
   Color midColor;
   double opacity;
   Matrix4 matrix;
-  ColorFilterModel filter;
+  ImageFilterModel filter;
 // -----------------------------------------------------------------------------
   MutableSlide copyWith({
       int slideIndex,
@@ -66,7 +66,7 @@ class MutableSlide {
       Color midColor,
       double opacity,
       Matrix4 matrix,
-      ColorFilterModel filter,
+      ImageFilterModel filter,
 }){
     return MutableSlide(
       picAsset: picAsset ?? this.picAsset,
@@ -107,7 +107,7 @@ class MutableSlide {
       midColor: slide.midColor,
       opacity: 1,
       matrix: Matrix4.identity(),
-      filter: ColorFilterModel.noFilter,
+      filter: ImageFilterModel.noFilter,
     );
   }
 // -------------------------------------
@@ -154,7 +154,7 @@ class MutableSlide {
       picFit: slide.picFit,
       midColor: slide.midColor,
       opacity: 1,
-      filter: ColorFilterModel.noFilter,
+      filter: ImageFilterModel.noFilter,
       matrix: Matrix4.identity(),
     );
 
@@ -242,7 +242,7 @@ class MutableSlide {
         savesCount: 0,
         picFit: _fit,
         matrix: Matrix4.identity(),
-        filter: ColorFilterModel.noFilter,
+        filter: ImageFilterModel.noFilter,
       );
 
     }
@@ -366,7 +366,7 @@ class MutableSlide {
     blog('savesCount : $savesCount');
     blog('picFit : $picFit');
     blog('matrix : $matrix');
-    blog('filter : ${filter?.name}');
+    blog('filter : ${filter?.id}');
     blog('BLOGGING SLIDE ------------> END');
 
   }

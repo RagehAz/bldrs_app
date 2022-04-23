@@ -1,0 +1,303 @@
+import 'dart:async';
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/slide_editor_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
+import 'package:flutter/material.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
+
+// -----------------------------------------------------------------------------
+/*
+/// GIF THING
+// check this
+// https://stackoverflow.com/questions/67173576/how-to-get-or-pick-local-gif-file-from-device
+// https://pub.dev/packages/file_picker
+// Container(
+//   width: 200,
+//   height: 200,
+//   margin: EdgeInsets.all(30),
+//   color: Colorz.BloodTest,
+//   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
+// ),
+ */
+// -----------------------------------------------------------------------------
+Future<DraftFlyerModel> initializeDraftFlyerModel({
+  @required FlyerModel existingFlyer,
+  @required BzModel bzModel,
+}) async {
+  DraftFlyerModel _draft;
+
+  if (existingFlyer == null){
+
+    _draft = DraftFlyerModel.createNewDraft(
+      bzModel: bzModel,
+      authorID: superUserID(),
+    );
+
+  }
+
+  else {
+
+    _draft = await DraftFlyerModel.createDraftFromFlyer(existingFlyer);
+
+  }
+
+  return _draft;
+}
+// -----------------------------------------------------------------------------
+void onDeleteSlide({
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required int index,
+}){
+
+  final List<MutableSlide> _slides = draftFlyer.value.mutableSlides;
+
+  if (canLoopList(_slides) == true){
+
+    _slides.removeAt(index);
+
+    draftFlyer.value.mutableSlides = _slides;
+  }
+
+}
+// -----------------------------------------------------------------------------
+Future<void> onAddNewSlides({
+  @required BuildContext context,
+  @required ValueNotifier<bool> isLoading,
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required BzModel bzModel,
+  @required bool mounted,
+  @required ScrollController scrollController,
+  @required TextEditingController headlineController,
+}) async {
+
+  isLoading.value = true;
+
+  final List<Asset> _assetsSources = MutableSlide.getAssetsFromMutableSlides(
+    mutableSlides: draftFlyer.value.mutableSlides,
+  );
+
+  final int _maxLength = Standards.getMaxSlidesCount(
+    bzAccountType: bzModel.accountType,
+  );
+
+  /// A - if max images reached
+  if(_maxLength <= _assetsSources.length ){
+
+    await Dialogz.maxSlidesReached(context, _maxLength);
+
+  }
+
+  /// A - if can pick more images
+  else {
+
+    List<Asset> _outputAssets;
+
+    if(mounted){
+
+      _outputAssets = await Imagers.takeGalleryMultiPictures(
+        context: context,
+        images: _assetsSources,
+        mounted: mounted,
+        accountType: bzModel.accountType,
+      );
+
+      /// B - if didn't pick more images
+      if(_outputAssets.isEmpty){
+        // will do nothing
+      }
+
+      /// B - if made new picks
+      else {
+
+        blog('the thing is : $_outputAssets');
+
+        final List<MutableSlide> _newMutableSlides = await MutableSlide.createNewMutableSlidesByAssets(
+          assets: _outputAssets,
+          existingMutableSlides: draftFlyer.value.mutableSlides,
+          headlineController: headlineController,
+        );
+
+        final List<MutableSlide> _combinedSlides = <MutableSlide>[... _newMutableSlides];
+        final DraftFlyerModel _newDraft = draftFlyer.value.replaceSlides(_combinedSlides,);
+
+        draftFlyer.value = _newDraft;
+        // setState(() {});
+
+        await Future.delayed(Ratioz.duration150ms,() async {
+          await Scrollers.scrollToEnd(
+            controller: scrollController,
+          );
+        });
+
+
+        // for (int i = 0; i < _outputAssets.length; i++){
+        //   /// for first headline
+        //   if(i == 0){
+        //     /// keep controller as is
+        //   }
+        //   /// for the nest pages
+        //   else {
+        //   }
+        // }
+
+      }
+
+    }
+
+  }
+
+  isLoading.value = false;
+
+}
+// -----------------------------------------------------------------------------
+Future<void> onSlideTap({
+  @required BuildContext context,
+  @required MutableSlide slide,
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+}) async {
+
+  Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
+  final MutableSlide _result = await Nav.goToNewScreen(
+      context,
+      SlideEditorScreen(
+    slide: slide,
+  )
+  );
+
+  final int _slideIndex = _result.slideIndex;
+
+  final List<MutableSlide> _updatedSlides = MutableSlide.replaceSlide(
+    slides: draftFlyer.value.mutableSlides,
+    slide: _result,
+  );
+
+  draftFlyer.value = draftFlyer.value.copyWith(
+    mutableSlides: _updatedSlides,
+  );
+
+  // _draftFlyer.value.blogDraft();
+
+  /*
+
+    /// TASK : bokra isa
+
+    final bool _noChangeOccured = MutableSlide.slidesAreTheSame(slide, _result);
+
+    if (_noChangeOccured == true){
+      // do nothing
+    }
+    else {
+      _draftFlyer.value = _draftFlyer.value.replaceSlideWith(_result);
+    }
+
+
+     */
+
+}
+// -----------------------------------------------------------------------------
+Future<void> onMoreTap({
+  @required BuildContext context,
+  @required Function onDeleteDraft,
+  @required Function onSaveDraft,
+  @required Function onPublishFlyer,
+}) async {
+
+  await BottomDialog.showButtonsBottomDialog(
+    context: context,
+    draggable: true,
+    buttonHeight: BottomDialog.wideButtonHeight,
+    numberOfWidgets: 3,
+    builder: (BuildContext ctx, PhraseProvider phraseProvider){
+
+      final List<Widget> _widgets = <Widget>[
+
+        /// DELETE
+        BottomDialog.wideButton(
+          context: context,
+          verse: superPhrase(context, 'phid_delete'),
+          verseCentered: true,
+          onTap: (){
+            Nav.goBack(context);
+            onDeleteDraft();
+          },
+        ),
+
+        /// SAVE DRAFT
+        BottomDialog.wideButton(
+          context: context,
+          verse: 'Save Draft',
+          verseCentered: true,
+          onTap: (){
+            Nav.goBack(context);
+            onSaveDraft();
+          },
+        ),
+
+        /// PUBLISH
+        BottomDialog.wideButton(
+          context: context,
+          verse: 'Publish',
+          verseCentered: true,
+          onTap: (){
+            Nav.goBack(context);
+            onPublishFlyer();
+          },
+        ),
+
+      ];
+
+
+      return _widgets;
+
+    },
+  );
+
+}
+// -----------------------------------------------------------------------------
+void onFlyerHeadlineChanged({
+  @required String val,
+  @required GlobalKey<FormState> formKey,
+  @required ValueNotifier<int> headlineLength,
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+}){
+  formKey.currentState.validate();
+  headlineLength.value = val.length;
+
+  if (canLoopList(draftFlyer.value.mutableSlides) == true){
+    draftFlyer.value = draftFlyer.value.updateHeadline(val);
+  }
+
+}
+// -----------------------------------------------------------------------------
+String flyerHeadlineValidator({
+  @required BuildContext context,
+  @required String val,
+}){
+
+  /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
+  if(val.length >= Standards.flyerTitleMaxLength){
+    return 'Only ${Standards.flyerTitleMaxLength} characters allowed for the flyer title';
+  }
+
+  /// WHEN HEADLINE LENGTH IS OK
+  else {
+    return null;
+  }
+
+}
+// -----------------------------------------------------------------------------

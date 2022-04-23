@@ -26,6 +26,7 @@ class BlurLayer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return SizedBox(
+      key: const ValueKey<String>('BlurLayer'),
       width: width,
       height: height,
       child: ClipRRect(
