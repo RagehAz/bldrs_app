@@ -1,9 +1,6 @@
 import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -12,12 +9,10 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 
 class AnimationsLab extends StatefulWidget {
   const AnimationsLab({Key key}) : super(key: key);
@@ -99,10 +94,10 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
     else {
 
       final List<double> _list = <double>[
-        1.2, -0.1, 0.0, 0.0,
-        0.1, 1.2, 0.0, 0.0,
-        0.0, 0.0, 1.0, 0.0,
-        -52.5, -42, 0.0, 1.0
+        1.2, -0.1, 0, 0,
+        0.1, 1.2, 0, 0,
+        0, 0, 1, 0,
+        -52.5, -42, 0, 1
       ];
 
       return Matrix4.fromList(_list);

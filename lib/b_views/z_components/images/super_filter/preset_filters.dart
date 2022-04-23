@@ -1,8 +1,6 @@
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_layers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:colorfilter_generator/addons.dart';
-import 'package:colorfilter_generator/colorfilter_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
