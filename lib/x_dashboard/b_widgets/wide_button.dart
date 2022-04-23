@@ -39,7 +39,7 @@ class WideButton extends StatelessWidget {
       iconSizeFactor: 0.6,
       verseCentered: false,
       margins: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
-      inActiveMode: !isActive,
+      isDeactivated: !isActive,
       onTap: onTap,
       color: color,
     );

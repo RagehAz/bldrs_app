@@ -3,23 +3,17 @@ import 'dart:math';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/y_views/i_flyer/flyer_maker/flyer_maker_screen_view.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/flyer_creator_shelf.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/shelf_header.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/shelf_slide.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/flyer_creator_shelf/shelf_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 import 'package:flutter/material.dart';
-
 
 class FlyerPublisherScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -44,15 +38,16 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
+  final int _maxDraftsCount = Standards.maxDraftsAtOnce;
+
   final Curve _animationCurve = Curves.easeOut;
   final Duration _animationDuration = Ratioz.duration150ms;
-  double _shelfMaxHeight(){
-    return ShelfSlide.shelfSlideZoneHeight(context) + ShelfHeader.height;
-  }
 // -----------------------------------------------------------------------------
-  final List<double> _shelvesOpacities = <double>[];
-  final List<double> _shelvesHeights = <double>[];
-  final List<int> _shelvesIndexes = <int>[];
+  final List<ValueNotifier<ShelfUI>> _shelvesUIs =  <ValueNotifier<ShelfUI>>[];
+
+  // final List<double> _shelvesOpacities = <double>[];
+  // final List<double> _shelvesHeights = <double>[];
+  // final List<int> _shelvesIndexes = <int>[];
   FlyerModel _flyerInput;
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
@@ -75,7 +70,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   }
 // -----------------------------------------------------------------------------
   double _getCreatorPosition(int index){
-    final double _verticalOffsetFromScreenTop =  (_shelfMaxHeight() * index) + Ratioz.appBarMargin;
+    final double _verticalOffsetFromScreenTop =  (ShelfBox.maxHeight(context) * index) + Ratioz.appBarMargin;
     return _verticalOffsetFromScreenTop;
   }
 // -----------------------------------------------------------------------------
@@ -103,28 +98,31 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   Future<void> _createNewShelf() async {
 
-    /// A - if less than 5 drafts
-    if (_shelvesIndexes.length < 5){
+    /// A - if less than max drafts drafts possible
+    if (_shelvesUIs.length < _maxDraftsCount){
 
       final DraftFlyerModel _newDraft = DraftFlyerModel.createNewDraft(
           bzModel: widget.bzModel,
           authorID: superUserID(),
       );
 
-      final int _newIndex = _shelvesIndexes.length;
+      final int _newIndex = _shelvesUIs.length;
+      final ShelfUI _newShelfUI = ShelfUI(
+          height: 0,
+          opacity: 0,
+          index: _newIndex,
+      );
 
       setState(() {
-        _shelvesHeights.add(0);
-        _shelvesOpacities.add(0);
-        _shelvesIndexes.add(_newIndex);
+        _shelvesUIs.add(ValueNotifier<ShelfUI>(_newShelfUI));
       });
 
-      await _fadeInAndExpandCreator(_newIndex);
+      await _fadeInAndExpandShelf(_newIndex);
       await _scrollToBottom();
 
     }
 
-    /// A - if 5 drafts reached
+    /// A - if max drafts reached
     else {
 
       await CenterDialog.showCenterDialog(
@@ -148,9 +146,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
       }
 
       setState(() {
-        _shelvesIndexes.removeAt(index);
-        _shelvesOpacities.removeAt(index);
-        _shelvesHeights.removeAt(index);
+        _shelvesUIs.removeAt(index);
       });
 
     });
@@ -161,31 +157,30 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 
     /// FADE OUT
     await Future.delayed( _animationDuration, () async {
-      setState(() {
-      _shelvesOpacities[index] = 0;
-      });
+      _shelvesUIs[index].value = _shelvesUIs[index].value.copyWith(
+        opacity: 0,
+      );
     });
 
     /// SHRINK
-    setState(() {
-      _shelvesHeights[index] = 0;
-    });
+    _shelvesUIs[index].value = _shelvesUIs[index].value.copyWith(
+      height: 0,
+    );
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> _fadeInAndExpandCreator(int index) async {
+  Future<void> _fadeInAndExpandShelf(int index) async {
 
     /// FADE IN
-    await Future.delayed(_animationDuration, () async {
-      setState(() {
-        _shelvesOpacities[index] = 1;
-
-      });
-    });
+    _shelvesUIs[index].value = _shelvesUIs[index].value.copyWith(
+      opacity: 1,
+    );
 
     /// EXPAND
-    setState(() {
-      _shelvesHeights[index] = _shelfMaxHeight();
+    await Future.delayed(_animationDuration, () async {
+      _shelvesUIs[index].value = _shelvesUIs[index].value.copyWith(
+        height: ShelfBox.maxHeight(context),
+      );
     });
 
   }
@@ -208,7 +203,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
     super.build(context);
 
     return MainLayout(
-      pageTitle: 'Add multiple flyers',
+      pageTitle: superPhrase(context, 'phid_flyers_creator'),
       skyType: SkyType.black,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
@@ -216,99 +211,13 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       appBarRowWidgets: const <Widget>[],
-      layoutWidget: ListView.builder(
-        controller: _scrollController,
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-        itemCount: _shelvesIndexes.length + 2,
-        itemBuilder: (_, int index){
-
-          /// FIRST ITEM : INITIAL PARAGRAPH
-          if (index == 0){
-            return Container(
-              width: Scale.superScreenWidth(context),
-              height: Ratioz.appBarSmallHeight,
-              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-              child: const SuperVerse(
-                verse: 'Add a flyer',
-                centered: false,
-              ),
-            );
-          }
-
-          /// LAST ITEM : ADD NEW FLYER BUTTON
-          else if (index == _shelvesIndexes.length + 1){
-            return Container(
-              width: Scale.superScreenWidth(context),
-              height: 100,
-              alignment: Alignment.center,
-              color: Colorz.white10,
-              margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
-              child: DreamBox(
-                height: 70,
-                icon: Iconz.addFlyer,
-                iconSizeFactor: 0.7,
-                verse: 'Add a new Flyer',
-                // color: Colorz.white10,
-                bubble: false,
-                onTap: _createNewShelf,
-                inActiveMode: _shelvesIndexes.length < Standards.maxDraftsAtOnce ? false : true,
-              ),
-            );
-          }
-
-          /// SHELVES
-          else {
-
-            final int _shelfIndex = index - 1;
-            final double _shelfHeight = _shelfMaxHeight();
-
-            return AnimatedContainer(
-              // key: ValueKey<String>(_shelvesIndexes[_shelfIndex].id),
-              duration: _animationDuration,
-              curve: _animationCurve,
-              height: _shelvesHeights[_shelfIndex],
-              margin: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
-              child: AnimatedOpacity(
-                curve: _animationCurve,
-                duration: _animationDuration,
-                opacity: _shelvesOpacities[_shelfIndex],
-                child: FlyerDraftShelf(
-                  // chainKey: _chainsKeys[_chainIndex],
-                  bzModel: widget.bzModel,
-                  flyerModel: _flyerInput,
-                  shelfNumber: _shelfIndex + 1,
-                  shelfHeight: _shelfHeight,
-                  onDeleteDraft: () => _deleteShelf(index: _shelfIndex),
-                  // onAddPics: () => _getMultiImages(
-                  //   accountType: BzAccountType.Super,
-                  //   draftIndex: _chainIndex,
-                  // ),
-                  // onDeleteImage: (int imageIndex){
-                  //   setState(() {
-                  //     _draftFlyers[_chainIndex].assetsAsFiles.removeAt(imageIndex);
-                  //     _draftFlyers[_chainIndex].assets.removeAt(imageIndex);
-                  //   });
-                  // },
-                ),
-              ),
-            );
-          }
-
-        },
-
-          /// GIF THING
-          // check this
-          // https://stackoverflow.com/questions/67173576/how-to-get-or-pick-local-gif-file-from-device
-          // https://pub.dev/packages/file_picker
-          // Container(
-          //   width: 200,
-          //   height: 200,
-          //   margin: EdgeInsets.all(30),
-          //   color: Colorz.BloodTest,
-          //   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
-          // ),
-
+      layoutWidget: FlyerMakerScreenView(
+        bzModel: widget.bzModel,
+        scrollController: _scrollController,
+        flyerInput: widget.flyerModel,
+        onCreateNewShelf: _createNewShelf,
+        onDeleteShelf: (int index) => _deleteShelf(index: index),
+        shelvesUIs: _shelvesUIs,
       ),
     );
   }
