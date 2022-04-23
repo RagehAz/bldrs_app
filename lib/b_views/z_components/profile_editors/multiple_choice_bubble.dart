@@ -69,7 +69,7 @@ class MultipleChoiceBubble extends StatelessWidget {
 
                 return DreamBox(
                   height: 40,
-                  inActiveMode: _isInactive,
+                  isDeactivated: _isInactive,
                   verse: buttonsList[index],
                   color: _isSelected == true ?
                   Colorz.yellow255

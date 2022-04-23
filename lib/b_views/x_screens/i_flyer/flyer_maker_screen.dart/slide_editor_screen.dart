@@ -25,7 +25,6 @@ class SlideEditorScreen extends StatefulWidget {
 }
 
 class _SlideEditorScreenState extends State<SlideEditorScreen> {
-
 // -----------------------------------------------------------------------------
   ValueNotifier<MutableSlide> _slide;
   ValueNotifier<Matrix4> _matrix;

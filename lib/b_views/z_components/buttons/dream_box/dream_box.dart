@@ -43,7 +43,7 @@ class DreamBox extends StatelessWidget {
     this.subChild,
     this.childAlignment = Alignment.center,
     this.opacity = 1,
-    this.inActiveMode = false,
+    this.isDeactivated = false,
     this.underLine,
     this.splashColor = Colorz.white80,
     this.underLineColor = Colorz.white255,
@@ -89,7 +89,7 @@ class DreamBox extends StatelessWidget {
   final Widget subChild;
   final Alignment childAlignment;
   final double opacity;
-  final bool inActiveMode;
+  final bool isDeactivated;
   final String underLine;
   final Color splashColor;
   final Color underLineColor;
@@ -225,7 +225,7 @@ class DreamBox extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
     final Color _iconColor = getIconColor(
-      inActiveMode: inActiveMode,
+      inActiveMode: isDeactivated,
       blackAndWhite: blackAndWhite,
       colorOverride: iconColor,
     );
@@ -255,7 +255,7 @@ class DreamBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     return TheBoxOfDreamBox(
       key: const ValueKey<String>('Dream_box_the_box'),
-      inActiveMode: inActiveMode,
+      inActiveMode: isDeactivated,
       opacity: opacity,
       boxMargins: _boxMargins,
       width: width,
@@ -308,7 +308,7 @@ class DreamBox extends StatelessWidget {
             secondLine: secondLine,
             verseSize: _verseSize,
             verseWeight: verseWeight,
-            inActiveMode: inActiveMode,
+            inActiveMode: isDeactivated,
             verseColor: verseColor,
             verseShadow: verseShadow,
             verseMaxLines: verseMaxLines,
@@ -364,7 +364,7 @@ class DreamBox extends StatelessWidget {
             ),
 
           /// --- RIPPLE & TAP LAYER
-          if (onTap != null && inActiveMode == false)
+          if (onTap != null && isDeactivated == false)
             DreamBoxTapLayer(
                 key: const ValueKey<String>('DreamBoxTapLayer'),
                 width: width,
@@ -374,7 +374,7 @@ class DreamBox extends StatelessWidget {
                 onTapUp: onTapUp,
                 onTapDown: onTapDown,
                 onTapCancel: onTapCancel,
-                inActiveMode: inActiveMode
+                inActiveMode: isDeactivated
             ),
 
         ],

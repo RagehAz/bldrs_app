@@ -414,7 +414,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             Align(
               alignment: Aligners.superInverseCenterAlignment(context),
               child: DreamBox(
-                inActiveMode: _askButtonInactive,
+                isDeactivated: _askButtonInactive,
                 width: 150,
                 height: 40,
                 margins: const EdgeInsets.only(top: 10),

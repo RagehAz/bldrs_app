@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
@@ -7,8 +6,8 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/slide_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/shelf_header.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_creator_shelf/shelf_slide.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/flyer_creator_shelf/shelf_header.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/flyer_creator_shelf/shelf_slide.dart';
 import 'package:bldrs/c_controllers/i_flyer_publisher_controllers/flyer_publisher_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -25,12 +24,11 @@ import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-class FlyerDraftShelf extends StatefulWidget {
+class DraftShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FlyerDraftShelf({
+  const DraftShelf({
     @required this.shelfNumber,
     @required this.onDeleteDraft,
-    @required this.shelfHeight,
     @required this.bzModel,
     @required this.flyerModel,
     Key key,
@@ -38,16 +36,15 @@ class FlyerDraftShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final Function onDeleteDraft;
-  final double shelfHeight;
   final BzModel bzModel;
   final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
-  _FlyerDraftShelfState createState() => _FlyerDraftShelfState();
+  _DraftShelfState createState() => _DraftShelfState();
   /// --------------------------------------------------------------------------
 }
 
-class _FlyerDraftShelfState extends State<FlyerDraftShelf> with AutomaticKeepAliveClientMixin{
+class _DraftShelfState extends State<DraftShelf> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
