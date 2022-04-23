@@ -119,9 +119,9 @@ class SlideEditorSlidePart extends StatelessWidget {
                     );
 
                   },
-                  shouldRotate: true,
-                  shouldScale: true,
-                  shouldTranslate: true,
+                  // shouldRotate: true,
+                  // shouldScale: true,
+                  // shouldTranslate: true,
                   clipChild: false,
                   // focalPointAlignment: Alignment.center,
                   child: ValueListenableBuilder(
@@ -335,4 +335,3 @@ class SlideEditorSlidePart extends StatelessWidget {
     );
   }
 }
-

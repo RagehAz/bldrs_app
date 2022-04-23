@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
-import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 
 class AnimateWidgetToMatrix extends StatefulWidget {
 
