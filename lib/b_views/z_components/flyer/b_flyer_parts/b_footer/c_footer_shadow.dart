@@ -25,6 +25,7 @@ class FooterShadow extends StatelessWidget {
     );
 
     return Align(
+      key: const ValueKey<String>('FooterShadow'),
       alignment: Alignment.bottomCenter,
       child: Container(
         width: flyerBoxWidth,
