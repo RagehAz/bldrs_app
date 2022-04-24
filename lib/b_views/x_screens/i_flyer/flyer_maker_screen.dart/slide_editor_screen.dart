@@ -2,9 +2,9 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/slide_editor_controller.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class SlideEditorScreen extends StatefulWidget {
 
 class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------------------------------------
-  final List<ImageFilterModel> _allFilters = bldrsImageFilters;
+  final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // ------------------------------------
   ValueNotifier<MutableSlide> _slide;
   ValueNotifier<Matrix4> _matrix;
@@ -35,6 +35,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   void initState() {
 
     _slide = ValueNotifier<MutableSlide>(widget.slide.copyWith());
+
+    blog('slide filter is ${_slide.value.filter.id} and initial filter is : ${_allFilters[0].id}');
 
     _filterModel = ValueNotifier(_slide.value.filter ?? _allFilters[0]);
 

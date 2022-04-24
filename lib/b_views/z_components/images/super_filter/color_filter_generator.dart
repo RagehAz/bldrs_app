@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/images/super_filter/color_layers.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
@@ -95,9 +96,74 @@ class ImageFilterModel {
     );
   }
 // -----------------------------------------------------------------------------
-  static ImageFilterModel noFilter = const ImageFilterModel(
-    id: 'No Filter',
-    matrixes: <List<double>>[],
-  );
-// -----------------------------------------------------------------------------
+
+  /// BLDRS IMAGE FILTERS
+
+// -------------------------------------
+  static ImageFilterModel noFilter(){
+    return bldrsImageFilters[0];
+  }
+// -------------------------------------
+  static List<ImageFilterModel> bldrsImageFilters = <ImageFilterModel>[
+    /// NORMAL
+    const ImageFilterModel(
+      id: 'phid_filter_normal',
+      matrixes: <List<double>>[],
+    ),
+    /// SHARP
+    ImageFilterModel(
+      id: 'phid_filter_sharp',
+      matrixes: <List<double>>[
+        ColorFilterLayer.contrast(0.1),
+        ColorFilterLayer.saturation(0.15),
+      ],
+    ),
+    /// LIGHT
+    ImageFilterModel(
+      id: 'phid_filter_light',
+      matrixes: <List<double>>[
+        ColorFilterLayer.brightness(30),
+        ColorFilterLayer.contrast(0.01),
+        ColorFilterLayer.saturation(0.02),
+      ],
+    ),
+    /// DARK
+    ImageFilterModel(
+      id: 'phid_filter_dark',
+      matrixes: <List<double>>[
+        ColorFilterLayer.brightness(-28),
+        ColorFilterLayer.contrast(0.015),
+        ColorFilterLayer.saturation(10),
+      ],
+    ),
+    /// COOL
+    ImageFilterModel(
+      id: 'phid_filter_cool',
+      matrixes: <List<double>>[
+        ColorFilterLayer.sepia(0.1),
+        ColorFilterLayer.colorOverlay(255, 145, 0, 0.1),
+        ColorFilterLayer.brightness(10),
+        ColorFilterLayer.saturation(15),
+      ],
+    ),
+    /// WARM
+    ImageFilterModel(
+      id: 'phid_filter_warm',
+      matrixes: <List<double>>[
+        ColorFilterLayer.colorOverlay(15, 145, 152, 0.07),
+        ColorFilterLayer.sepia(0.05),
+      ],
+    ),
+    /// BLACK & WHITE
+    ImageFilterModel(
+      id: 'phid_filter_blackandwhite',
+      matrixes: <List<double>>[
+        ColorFilterLayer.grayscale(),
+        ColorFilterLayer.brightness(30),
+        ColorFilterLayer.colorOverlay(210, 137, 28, 0.12),
+        ColorFilterLayer.contrast(0.12),
+      ],
+    ),
+  ];
+// -------------------------------------
 }
