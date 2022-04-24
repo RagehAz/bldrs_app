@@ -16,12 +16,14 @@ class FlyerMakerScreenView extends StatelessWidget {
     @required this.scrollController,
     @required this.bzModel,
     @required this.flyerModel,
+    @required this.headline,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ScrollController scrollController;
   final BzModel bzModel;
   final FlyerModel flyerModel;
+  final TextEditingController headline;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,13 +44,13 @@ class FlyerMakerScreenView extends StatelessWidget {
 
         /// FLYER TITLE
         TextFieldBubble(
-          textController: TextEditingController(),
+          textController: headline,
           title: 'Flyer Title',
           counterIsOn: true,
-          maxLength: 1000,
+          maxLength: 50,
           maxLines: 3,
           keyboardTextInputType: TextInputType.multiline,
-          // fieldIsRequired: false,
+          fieldIsRequired: false,
           fieldIsFormField: true,
           // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
         ),

@@ -141,7 +141,7 @@ Future<void> onAddNewSlides({
         await Future.delayed(Ratioz.duration150ms,() async {
           await Scrollers.scrollTo(
             controller: scrollController,
-            offset: scrollController.position.maxScrollExtent - flyerWidth,
+            offset: scrollController?.position?.maxScrollExtent ?? 0 - flyerWidth,
           );
         });
 
