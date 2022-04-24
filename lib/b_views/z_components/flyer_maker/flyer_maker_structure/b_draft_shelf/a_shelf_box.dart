@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/c_shelf_header_part.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -19,17 +18,12 @@ class ShelfBox extends StatelessWidget {
   static const Duration animationDuration = Ratioz.duration150ms;
   static const Curve animationCurve  = Curves.easeOut;
 // -----------------------------------------------------------------------------
-  static double maxHeight(BuildContext context){
-    return ShelfSlide.shelfSlideZoneHeight(context) + ShelfHeaderPart.height;
+  static double height(BuildContext context){
+    return ShelfSlide.shelfSlideZoneHeight(context);
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final double _overAllHeight =
-        ShelfSlide.shelfSlideZoneHeight(context)
-            +
-            ShelfHeaderPart.height;
 
     return ValueListenableBuilder(
         key: const ValueKey<String>('ShelfBox'),
@@ -37,7 +31,7 @@ class ShelfBox extends StatelessWidget {
 
         child: Container(
             width: Scale.superScreenWidth(context),
-            height: _overAllHeight,
+            height: ShelfSlide.shelfSlideZoneHeight(context),
             color: Colorz.white10,
             child: child,
         ),

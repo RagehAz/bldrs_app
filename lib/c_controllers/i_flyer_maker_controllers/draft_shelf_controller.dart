@@ -141,7 +141,7 @@ Future<void> onAddNewSlides({
         await Future.delayed(Ratioz.duration150ms,() async {
           await Scrollers.scrollTo(
             controller: scrollController,
-            offset: scrollController.position.maxScrollExtent - (flyerWidth * 2)
+            offset: scrollController.position.maxScrollExtent - flyerWidth,
           );
         });
 
@@ -177,22 +177,23 @@ Future<void> onSlideTap({
   final MutableSlide _result = await Nav.goToNewScreen(
       context,
       SlideEditorScreen(
-    slide: slide,
-  )
+        slide: slide,
+      )
   );
 
-  final int _slideIndex = _result.slideIndex;
+  if (_result != null){
 
-  final List<MutableSlide> _updatedSlides = MutableSlide.replaceSlide(
-    slides: draftFlyer.value.mutableSlides,
-    slide: _result,
-  );
+    final List<MutableSlide> _updatedSlides = MutableSlide.replaceSlide(
+      slides: draftFlyer.value.mutableSlides,
+      slide: _result,
+    );
 
-  draftFlyer.value = draftFlyer.value.copyWith(
-    mutableSlides: _updatedSlides,
-  );
+    draftFlyer.value = draftFlyer.value.copyWith(
+      mutableSlides: _updatedSlides,
+    );
 
-  // _draftFlyer.value.blogDraft();
+  }
+
 
   /*
 
