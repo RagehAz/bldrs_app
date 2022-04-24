@@ -103,7 +103,7 @@ Future<void> deleteShelf({
 
     final List<ValueNotifier<ShelfUI>> _newShelves = shelvesUIs.value;
     _newShelves.removeAt(index);
-    shelvesUIs.value = _newShelves;
+    shelvesUIs.value = <ValueNotifier<ShelfUI>>[..._newShelves];
 
   });
 

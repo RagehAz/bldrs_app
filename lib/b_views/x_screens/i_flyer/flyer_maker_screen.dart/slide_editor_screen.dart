@@ -83,13 +83,15 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
                 filter: _filterModel,
                 matrix: _matrix
             ),
-            onConfirm: () => onConfirm(
+            onConfirm: () => onConfirmSlideEdits(
                 context: context,
                 originalSlide: widget.slide,
                 filter: _filterModel,
                 matrix: _matrix,
             ),
-            onCancel: onCancel,
+            onCancel: () => onCancelSlideEdits(
+              context: context,
+            ),
           ),
 
 
