@@ -1,88 +1,122 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/c_add_new_flyer_button.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/a_add_new_flyer_paragraph.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/b_draft_shelf.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/a_shelf_box.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 import 'package:flutter/material.dart';
 
 class FlyerMakerScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerMakerScreenView({
     @required this.scrollController,
-    @required this.shelvesUIs,
-    @required this.onCreateNewShelf,
     @required this.bzModel,
-    @required this.onDeleteShelf,
-    @required this.flyerInput,
+    @required this.flyerModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ScrollController scrollController;
-  final ValueNotifier<List<ValueNotifier<ShelfUI>>> shelvesUIs;
-  final Function onCreateNewShelf;
   final BzModel bzModel;
-  final ValueChanged<int> onDeleteShelf;
-  final FlyerModel flyerInput;
-// -----------------------------------------------------------------------------
-  bool _addNewFlyerButtonIsDeactivated(){
-    if (shelvesUIs.value.length < Standards.maxDraftsAtOnce){
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
+  final FlyerModel flyerModel;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return ValueListenableBuilder(
-      key: const ValueKey<String>('FlyerMakerScreenView'),
-        valueListenable: shelvesUIs,
-        builder: (_, List<ValueNotifier<ShelfUI>> _shelvesUIs, Widget child){
+    return ListView(
+      controller: scrollController,
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+      children: <Widget>[
 
-          return ListView.builder(
-            controller: scrollController,
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-            itemCount: _shelvesUIs.length + 2,
-            itemBuilder: (_, int index){
+        /// SHELVES
+        DraftShelf(
+          /// PLAN : ADD FLYER LOCATION SLIDE
+          bzModel: bzModel,
+          flyerModel: flyerModel,
+          shelfNumber: 1,
+        ),
 
-              /// FIRST ITEM : INITIAL PARAGRAPH
-              if (index == 0){
-                return const AddNewFlyerParagraph();
-              }
+        /// FLYER TITLE
+        TextFieldBubble(
+          textController: TextEditingController(),
+          title: 'Flyer Title',
+          counterIsOn: true,
+          maxLength: 1000,
+          maxLines: 3,
+          keyboardTextInputType: TextInputType.multiline,
+          // fieldIsRequired: false,
+          fieldIsFormField: true,
+          // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+        ),
 
-              /// LAST ITEM : ADD NEW FLYER BUTTON
-              else if (index == _shelvesUIs.length + 1){
-                return AddNewDraftShelf(
-                  isDeactivated: _addNewFlyerButtonIsDeactivated(),
-                  onTap: onCreateNewShelf,
-                );
-              }
+        /// FLYER TYPE SELECTOR
+        MultipleChoiceBubble(
+          title: 'Flyer type',
+          buttonsList: translateFlyerTypes(
+            context: context,
+            flyerTypes: flyerTypesList,
+            pluralTranslation: false,
+          ),
+          selectedButtons: const <String>[],
+          onButtonTap: (int index){blog('index : $index');},
+          isInError: false,
+          inactiveButtons: const [],
+          description: 'blha blah',
+        ),
 
-              /// SHELVES
-              else {
-                final int _shelfIndex = index - 1;
-                return DraftShelf(
-                  shelfUI: _shelvesUIs[_shelfIndex],
-                  bzModel: bzModel,
-                  flyerModel: flyerInput,
-                  shelfNumber: _shelfIndex + 1,
-                  onDeleteDraft: () => onDeleteShelf(_shelfIndex),
-                );
+        /// FLYER DESCRIPTION
+        TextFieldBubble(
+          key: const ValueKey<String>('bz_scope_bubble'),
+          textController: TextEditingController(),
+          title: 'Flyer Description',
+          counterIsOn: true,
+          maxLength: 1000,
+          maxLines: 5,
+          keyboardTextInputType: TextInputType.multiline,
+          fieldIsRequired: false,
+          fieldIsFormField: true,
+          // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+        ),
 
-              }
+        /// KEYWORDS SELECTOR
+        Bubble(
+          width: Bubble.bubbleWidth(context: context, stretchy: false),
+          title: 'Search Keywords',
+          columnChildren: <Widget>[],
+        ),
 
-            },
+        /// SPECS SELECTOR
+        Bubble(
+          width: Bubble.bubbleWidth(context: context, stretchy: false),
+          title: 'Specifications',
+          columnChildren: const <Widget>[],
+        ),
 
+        /// ZONE SELECTOR
+        ZoneSelectionBubble(
+          title: 'Flyer Target city',
+          // description: 'Select The city you would like this '
+          //     'flyer to target, each flyer can target only'
+          //     ' one city, and selecting district  increases '
+          //     'the probability of this flyer to gain more '
+          //     'views in that district',
+          onZoneChanged: null,
+          currentZone: flyerModel?.zone,
+        ),
 
-          );
+        /// SHOW FLYER AUTHOR
+        Bubble(
+          width: Bubble.bubbleWidth(context: context, stretchy: false),
+          title: 'Show Flyer author on Flyer',
+          columnChildren: <Widget>[],
+        ),
 
-        }
+      ],
+
     );
 
   }

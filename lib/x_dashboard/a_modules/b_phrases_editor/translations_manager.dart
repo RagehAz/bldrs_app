@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -15,6 +17,7 @@ import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_creator_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
@@ -73,9 +76,11 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   /// BUTTONS
 
   // -----------------------------
+  /*
   Future<void> _onBldrsTap() async {
 
   }
+   */
   // -----------------------------
   Future<void> _onUploadPhrase({
     @required List<Phrase> enPhrases,
@@ -102,6 +107,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
 
   }
   // -----------------------------
+  /*
   Future<void> _onUploadGroup({
     @required List<Phrase> originalEnPhrases,
     @required List<Phrase> originalArPhrases,
@@ -117,21 +123,26 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     );
 
   }
+   */
   // -----------------------------
   Future<void> _reloadPhrases() async {
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
-    unawaited(WaitDialog.showWaitDialog(
+    final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      loadingPhrase: 'Please wait, reloading phrases aho ...',
-    ));
+      title: 'Reload All Phrases',
+      body: 'This will restart the app',
+      boolDialog: true,
+      confirmButtonText: 'Yes, Reload !',
+    );
 
-    await _phraseProvider.reloadPhrases(context);
-
-    WaitDialog.closeWaitDialog(context);
+    if (_result == true){
+      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+      await _phraseProvider.reloadPhrases(context);
+    }
 
   }
   // -----------------------------
+  /*
   // Future<void> _doTheThingForCities(List<Map<String, dynamic>> citiesMaps) async {
   //
   //   int count = 1;
@@ -193,7 +204,47 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   //
   //
   // }
+   */
+  // -----------------------------
+  Future<void> _onBackupPhrases({
+    @required List<Phrase> originalEnPhrases,
+    @required List<Phrase> originalArPhrases,
+  }) async {
 
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Create a backup',
+      body: 'will be located in :\ndb/admin/backups/phrases \n and will include current time stamp',
+      boolDialog: true,
+      confirmButtonText: 'Back the fuck up',
+    );
+
+    if (_result == true){
+
+    String _error;
+
+    final bool _result = await tryCatchAndReturnBool(
+        context: context,
+        functions: () async {
+
+          await backupPhrasesOps(context);
+
+        },
+      onError: (String error){
+          _error = error;
+      }
+    );
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      boolDialog: false,
+      title: _result == true ? 'Tamam' : 'Ops,, errr',
+      body: _result == true ? 'Phrases are backed up successfully' : 'error : $_error',
+    );
+
+    }
+  }
+  // -----------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -257,24 +308,35 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                       onTap: () => _reloadPhrases(),
                     ),
 
-                    const Expander(),
-
-
                     /// UPLOAD GROUP
                     DreamBox(
                       height: _buttonsHeight,
-                      color: Colorz.red255,
                       verseShadow: false,
                       verseMaxLines: 2,
                       verseScaleFactor: 0.6,
-                      verse: 'Upload',
-                      secondLine: 'group',
+                      verse: 'Backup',
+                      secondLine: 'All phrases',
                       margins: const EdgeInsets.symmetric(horizontal: 5),
-                      onTap: () => _onUploadGroup(
+                      onTap: () => _onBackupPhrases(
                         originalArPhrases: _arPhrases,
                         originalEnPhrases: _enPhrases,
                       ),
                     ),
+
+                    /// PASTE
+                    DreamBox(
+                      height: _buttonsHeight,
+                      verseShadow: false,
+                      verseMaxLines: 2,
+                      verseScaleFactor: 0.6,
+                      verse: 'paste',
+                      margins: const EdgeInsets.symmetric(horizontal: 5),
+                      onTap: () async {
+                        await onPasteText(_searchController);
+                      },
+                    ),
+
+                    const Expander(),
 
                     /// UPLOAD BUTTON
                     ValueListenableBuilder(
@@ -282,16 +344,18 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                         builder: (_, String newID, Widget child){
 
                           return DreamBox(
+                            isDeactivated: newID == '',
                             height: _buttonsHeight,
-                            width: 100,
+                            width: 80,
                             color: Colorz.yellow255,
                             verse: 'Upload',
                             verseColor: Colorz.black255,
                             secondLineColor: Colorz.black255,
-                            secondLine: newID,
+                            secondLine: newID == '' ? null : newID,
                             verseShadow: false,
                             secondVerseMaxLines: 1,
                             verseScaleFactor: 0.6,
+                            margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                             onTap: () => _onUploadPhrase(
                               enPhrases: enPhrases,
                               arPhrases: arPhrases,
@@ -301,16 +365,16 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                         }
                     ),
 
-                    /// BLDRS BUTTON
-                    GestureDetector(
-                      onTap: _onBldrsTap,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: BldrsName(
-                          size: 40,
-                        ),
-                      ),
-                    ),
+                    // /// BLDRS BUTTON
+                    // GestureDetector(
+                    //   onTap: _onBldrsTap,
+                    //   child: const Padding(
+                    //     padding: EdgeInsets.symmetric(horizontal: 10),
+                    //     child: BldrsName(
+                    //       size: 40,
+                    //     ),
+                    //   ),
+                    // ),
 
                   ],
 
