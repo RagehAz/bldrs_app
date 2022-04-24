@@ -82,6 +82,7 @@ Future<void> onAddNewSlides({
   @required bool mounted,
   @required ScrollController scrollController,
   @required TextEditingController headlineController,
+  @required double flyerWidth,
 }) async {
 
   isLoading.value = true;
@@ -138,8 +139,9 @@ Future<void> onAddNewSlides({
         // setState(() {});
 
         await Future.delayed(Ratioz.duration150ms,() async {
-          await Scrollers.scrollToEnd(
+          await Scrollers.scrollTo(
             controller: scrollController,
+            offset: scrollController.position.maxScrollExtent - (flyerWidth * 2)
           );
         });
 

@@ -96,7 +96,6 @@ class SlideEditorSlidePart extends StatelessWidget {
 
                 /// SLIDE SHADOW
                 SlideShadow(
-                  key: const ValueKey<String>('SingleSlideShadow'),
                   flyerBoxWidth: _flyerBoxWidth,
                 ),
 
