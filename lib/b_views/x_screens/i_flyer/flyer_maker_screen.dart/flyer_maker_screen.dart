@@ -30,9 +30,11 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _headlineController = TextEditingController();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    _headlineController.text = widget.flyerModel?.title ?? '';
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -62,6 +64,7 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
         bzModel: widget.bzModel,
         scrollController: _scrollController,
         flyerModel: widget.flyerModel,
+        headline: _headlineController,
       ),
     );
   }
