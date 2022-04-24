@@ -65,8 +65,8 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   @override
   void initState() {
     super.initState();
-    _selectedZone = widget.currentZone;
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    _selectedZone = widget.currentZone ?? _zoneProvider.currentZone;
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

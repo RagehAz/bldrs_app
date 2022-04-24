@@ -107,7 +107,7 @@ class MutableSlide {
       midColor: slide.midColor,
       opacity: 1,
       matrix: Matrix4.identity(),
-      filter: ImageFilterModel.noFilter,
+      filter: ImageFilterModel.noFilter(),
     );
   }
 // -------------------------------------
@@ -154,7 +154,7 @@ class MutableSlide {
       picFit: slide.picFit,
       midColor: slide.midColor,
       opacity: 1,
-      filter: ImageFilterModel.noFilter,
+      filter: ImageFilterModel.noFilter(),
       matrix: Matrix4.identity(),
     );
 
@@ -242,7 +242,7 @@ class MutableSlide {
         savesCount: 0,
         picFit: _fit,
         matrix: Matrix4.identity(),
-        filter: ImageFilterModel.noFilter,
+        filter: ImageFilterModel.noFilter(),
       );
 
     }

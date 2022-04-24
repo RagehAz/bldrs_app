@@ -23,7 +23,7 @@ Future<void> onReset({
   @required ValueNotifier<Matrix4> matrix,
 }) async {
 
-  filter.value = bldrsImageFilters[0];
+  filter.value = ImageFilterModel.noFilter();
   matrix.value = Matrix4.identity();
 
 }
@@ -77,15 +77,15 @@ void onToggleFilter({
   // _filterModel.value = _fii;
   /// --------------------------------------------- FOR TESTING END
 
-  int _filterIndex = bldrsImageFilters.indexWhere((fil) => fil.id == currentFilter.value.id);
+  final List<ImageFilterModel> _bldrsFilters = ImageFilterModel.bldrsImageFilters;
+  int _filterIndex = _bldrsFilters.indexWhere((fil) => fil.id == currentFilter.value.id);
 
   _filterIndex++;
-
-  if (_filterIndex >= bldrsImageFilters.length){
+  if (_filterIndex >= _bldrsFilters.length){
     _filterIndex = 0;
   }
 
-  currentFilter.value = bldrsImageFilters[_filterIndex];
+  currentFilter.value = _bldrsFilters[_filterIndex];
 
 }
 // -----------------------------------------------------------------------------

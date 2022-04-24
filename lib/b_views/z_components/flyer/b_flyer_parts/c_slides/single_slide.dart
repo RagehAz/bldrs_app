@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_im
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_shadow.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SingleSlide extends StatelessWidget {
@@ -93,7 +92,7 @@ class SingleSlide extends StatelessWidget {
           key: const ValueKey<String>('SlideHeadline'),
           flyerBoxWidth: flyerBoxWidth,
           verse: slideModel.headline,
-          verseColor: Colorz.white255,
+          // verseColor: Colorz.white255,
           tappingVerse: () {
             blog('Flyer Title clicked');
             },

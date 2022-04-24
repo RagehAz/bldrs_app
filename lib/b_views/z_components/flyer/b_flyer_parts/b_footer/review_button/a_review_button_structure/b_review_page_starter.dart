@@ -419,7 +419,7 @@ class ReviewPageStarter extends StatelessWidget {
     final EdgeInsets _margins = superInsets(
       context: context,
       enBottom: _leftMargin,
-      enTop: 0,
+      // enTop: 0,
       enRight: isExpanded ? _expandedRightMargin : _collapsedRightMargin,
       enLeft: _leftMargin,
     );
