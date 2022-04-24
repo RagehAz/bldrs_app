@@ -66,18 +66,13 @@ class FlyerMakerScreenView extends StatelessWidget {
 
               /// SHELVES
               else {
-
                 final int _shelfIndex = index - 1;
-
-                return ShelfBox(
+                return DraftShelf(
                   shelfUI: _shelvesUIs[_shelfIndex],
-                  child: DraftShelf(
-                    // chainKey: _chainsKeys[_chainIndex],
-                    bzModel: bzModel,
-                    flyerModel: flyerInput,
-                    shelfNumber: _shelfIndex + 1,
-                    onDeleteDraft: () => onDeleteShelf(_shelfIndex),
-                  ),
+                  bzModel: bzModel,
+                  flyerModel: flyerInput,
+                  shelfNumber: _shelfIndex + 1,
+                  onDeleteDraft: () => onDeleteShelf(_shelfIndex),
                 );
 
               }

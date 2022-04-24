@@ -2,24 +2,7 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
-/*
-
-no need khalas
-
-int initializeFilterIndex({
-  @required MutableSlide slide,
-}){
-  final int _index = slide.filter == null ?
-  0
-      :
-  bldrsImageFilters.indexWhere((filter) => filter.id == slide.filter.id);
-
-  return _index == -1 ? 0 : _index;
-}
- */
 // -----------------------------------------------------------------------------
 ValueNotifier<Matrix4> initializeMatrix({
   @required MutableSlide slide,
@@ -45,7 +28,7 @@ Future<void> onReset({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> onConfirm({
+Future<void> onConfirmSlideEdits({
   @required BuildContext context,
   @required MutableSlide originalSlide,
   @required ValueNotifier<ImageFilterModel> filter,
@@ -61,11 +44,11 @@ Future<void> onConfirm({
 
 }
 // -----------------------------------------------------------------------------
-void onCancel({
+void onCancelSlideEdits({
   @required BuildContext context,
 }){
 
-  goBack(context);
+  Nav.goBack(context);
 
 }
 // -----------------------------------------------------------------------------
