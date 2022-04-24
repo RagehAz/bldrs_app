@@ -1,5 +1,7 @@
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/c_shelf_header_part.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -24,14 +26,25 @@ class ShelfBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _overAllHeight =
+        ShelfSlide.shelfSlideZoneHeight(context)
+            +
+            ShelfHeaderPart.height;
+
     return ValueListenableBuilder(
         key: const ValueKey<String>('ShelfBox'),
         valueListenable: shelfUI,
-        child: child,
+
+        child: Container(
+            width: Scale.superScreenWidth(context),
+            height: _overAllHeight,
+            color: Colorz.white10,
+            child: child,
+        ),
+
         builder: (_, ShelfUI shelfUI, Widget kid){
 
           return AnimatedContainer(
-            // key: ValueKey<String>(_shelvesIndexes[_shelfIndex].id),
             duration: animationDuration,
             curve: animationCurve,
             height: shelfUI.height,

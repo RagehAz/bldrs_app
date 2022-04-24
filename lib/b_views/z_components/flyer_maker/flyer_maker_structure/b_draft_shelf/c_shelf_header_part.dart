@@ -38,6 +38,7 @@ class ShelfHeaderPart extends StatelessWidget {
   final TextEditingController headlineController;
   /// --------------------------------------------------------------------------
   static const double height = 80;
+  static const double shelfNumberZoneHeight = 20;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -52,8 +53,7 @@ class ShelfHeaderPart extends StatelessWidget {
     final bool _isPublished = draft.flyerState == FlyerState.published;
     final bool _hasSlides = canLoopList(draft.mutableSlides);
     // HEIGHT ----------------------------------------------------------------------------
-    const double _shelfNumberZoneHeight = 20;
-    const double _headlineZoneHeight = height - _shelfNumberZoneHeight;
+    const double _headlineZoneHeight = height - shelfNumberZoneHeight;
     const double _textFieldHeight = _headlineZoneHeight;
     // WIDTH ----------------------------------------------------------------------------
     final double _shelfWidth = Scale.superScreenWidth(context);
@@ -87,7 +87,7 @@ class ShelfHeaderPart extends StatelessWidget {
                 /// SHELF NUMBER + COUNTER
                 SizedBox(
                   width: _headlineZoneWidth,
-                  height: _shelfNumberZoneHeight,
+                  height: shelfNumberZoneHeight,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

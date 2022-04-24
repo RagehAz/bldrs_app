@@ -3,7 +3,11 @@ import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.da
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_shadow.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_footer.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -144,6 +148,31 @@ class _ShelfSlideState extends State<ShelfSlide> {
                       boxFit: widget.mutableSlide.picFit,
                     ),
                   ),
+
+                /// SLIDE SHADOW
+                if (widget.mutableSlide != null)
+                  const SlideShadow(
+                  flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                ),
+
+                /// BOTTOM SHADOW
+                if (widget.mutableSlide != null)
+                const FooterShadow(
+                  flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                  tinyMode: false,
+                ),
+
+                // /// STATIC FOOTER
+                // if (widget.mutableSlide != null)
+                // const StaticFooter(
+                //   flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                // ),
+
+                /// STATIC HEADER
+                if (widget.mutableSlide != null)
+                const StaticHeader(
+                  flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                ),
 
                 /// HEADLINE
                 if (widget.mutableSlide != null)
