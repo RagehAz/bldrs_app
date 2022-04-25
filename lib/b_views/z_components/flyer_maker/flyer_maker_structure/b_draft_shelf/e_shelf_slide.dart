@@ -77,7 +77,8 @@ class _ShelfSlideState extends State<ShelfSlide> {
             width: ShelfSlide.flyerBoxWidth,
             height: ShelfSlide.slideNumberBoxHeight,
             alignment: Aligners.superCenterAlignment(context),
-            child: SuperVerse(
+            child: widget.number == null ? const SizedBox() :
+            SuperVerse(
               verse: '${widget.number}',
               size: 1,
               // color: Colorz.white255,

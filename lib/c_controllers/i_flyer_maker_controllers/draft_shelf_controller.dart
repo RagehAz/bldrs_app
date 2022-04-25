@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/slide_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -87,48 +88,46 @@ Future<void> onAddNewSlides({
 
   isLoading.value = true;
 
-  final List<Asset> _assetsSources = MutableSlide.getAssetsFromMutableSlides(
-    mutableSlides: draftFlyer.value.mutableSlides,
-  );
 
   final int _maxLength = Standards.getMaxSlidesCount(
     bzAccountType: bzModel.accountType,
   );
 
   /// A - if max images reached
-  if(_maxLength <= _assetsSources.length ){
-
-    await Dialogz.maxSlidesReached(context, _maxLength);
-
+  if(_maxLength <= draftFlyer.value.mutableSlides.length ){
+    await _showMaxSlidesReachedDialog(context, _maxLength);
   }
 
   /// A - if can pick more images
   else {
 
-    List<Asset> _outputAssets;
-
     if(mounted){
 
-      _outputAssets = await Imagers.takeGalleryMultiPictures(
+      /// GET ONLY ASSETS AND IGNORE FILES
+      final List<Asset> _existingAssets = MutableSlide.getAssetsFromMutableSlides(
+        mutableSlides: draftFlyer.value.mutableSlides,
+      );
+
+      final List<Asset> _pickedAssets = await Imagers.takeGalleryMultiPictures(
         context: context,
-        images: _assetsSources,
+        images: _existingAssets,
         mounted: mounted,
         accountType: bzModel.accountType,
       );
 
       /// B - if didn't pick more images
-      if(_outputAssets.isEmpty){
+      if(_pickedAssets.isEmpty){
         // will do nothing
       }
 
       /// B - if made new picks
       else {
 
-        blog('the thing is : $_outputAssets');
+        blog('the thing is : $_pickedAssets');
 
-        final List<MutableSlide> _newMutableSlides = await MutableSlide.createNewMutableSlidesByAssets(
-          assets: _outputAssets,
-          existingMutableSlides: draftFlyer.value.mutableSlides,
+        final List<MutableSlide> _newMutableSlides = await MutableSlide.createMutableSlidesByAssets(
+          assets: _pickedAssets,
+          existingSlides: draftFlyer.value.mutableSlides,
           headlineController: headlineController,
         );
 
@@ -146,7 +145,7 @@ Future<void> onAddNewSlides({
         });
 
 
-        // for (int i = 0; i < _outputAssets.length; i++){
+        // for (int i = 0; i < _pickedAssets.length; i++){
         //   /// for first headline
         //   if(i == 0){
         //     /// keep controller as is
@@ -166,6 +165,15 @@ Future<void> onAddNewSlides({
 
 }
 // -----------------------------------------------------------------------------
+Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Max. Images reached',
+    body: 'Can not add more than $maxLength images in one slide',
+  );
+}
+// -----------------------------------------------------------------------------
+
 Future<void> onSlideTap({
   @required BuildContext context,
   @required MutableSlide slide,

@@ -15,14 +15,12 @@ class FlyerMakerScreenView extends StatelessWidget {
   const FlyerMakerScreenView({
     @required this.scrollController,
     @required this.bzModel,
-    @required this.flyerModel,
     @required this.headline,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ScrollController scrollController;
   final BzModel bzModel;
-  final FlyerModel flyerModel;
   final TextEditingController headline;
 // -----------------------------------------------------------------------------
   @override
@@ -35,10 +33,9 @@ class FlyerMakerScreenView extends StatelessWidget {
       children: <Widget>[
 
         /// SHELVES
-        DraftShelf(
+        SlidesShelf(
           /// PLAN : ADD FLYER LOCATION SLIDE
           bzModel: bzModel,
-          flyerModel: flyerModel,
           shelfNumber: 1,
         ),
 
@@ -107,7 +104,7 @@ class FlyerMakerScreenView extends StatelessWidget {
           //     'the probability of this flyer to gain more '
           //     'views in that district',
           onZoneChanged: null,
-          currentZone: flyerModel?.zone,
+          currentZone: null,
         ),
 
         /// SHOW FLYER AUTHOR
