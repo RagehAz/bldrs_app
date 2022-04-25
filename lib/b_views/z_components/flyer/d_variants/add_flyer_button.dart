@@ -39,7 +39,7 @@ class AddFlyerButton extends StatelessWidget {
           //   flyerModel: null,
           // )
 
-        FlyerPublisherScreen(
+        FlyerMakerScreen(
           bzModel: bzModel,
         )
       );

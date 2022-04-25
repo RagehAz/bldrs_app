@@ -17,25 +17,23 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class DraftShelf extends StatefulWidget {
+class SlidesShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const DraftShelf({
+  const SlidesShelf({
     @required this.shelfNumber,
     @required this.bzModel,
-    @required this.flyerModel,
     Key key,
 }) : super(key: key);
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final BzModel bzModel;
-  final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
-  _DraftShelfState createState() => _DraftShelfState();
+  _SlidesShelfState createState() => _SlidesShelfState();
   /// --------------------------------------------------------------------------
 }
 
-class _DraftShelfState extends State<DraftShelf> with AutomaticKeepAliveClientMixin{
+class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
@@ -79,7 +77,7 @@ class _DraftShelfState extends State<DraftShelf> with AutomaticKeepAliveClientMi
 
           _draftFlyer.value = await initializeDraftFlyerModel(
             bzModel: widget.bzModel,
-            existingFlyer: widget.flyerModel,
+            existingFlyer: null,
           );
 
           await _triggerLoading(setTo: false);
