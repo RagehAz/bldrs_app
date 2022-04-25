@@ -180,34 +180,61 @@ class MutableSlide {
     return _slides;
   }
 // -------------------------------------
-  static Future<List<MutableSlide>> createNewMutableSlidesByAssets({
+  static Future<List<MutableSlide>> createMutableSlidesByAssets({
     @required List<Asset> assets,
-    @required List<MutableSlide> existingMutableSlides,
+    @required List<MutableSlide> existingSlides,
     @required TextEditingController headlineController,
 }) async {
 
-    final List<MutableSlide> _slides = <MutableSlide>[];
+    final List<MutableSlide> _output = <MutableSlide>[];
 
-    final List<Asset> _existingAssets = MutableSlide.getAssetsFromMutableSlides(
-        mutableSlides: existingMutableSlides,
-    );
+    // final List<Asset> _existingAssets = MutableSlide.getAssetsFromMutableSlides(
+    //     mutableSlides: existingSlides,
+    // );
 
     if (Mapper.canLoopList(assets) == true){
 
       for (int i = 0; i < assets.length; i++){
 
-        final MutableSlide _mutableSlide = await createNewMutableSlideByAsset(
-          asset: assets[i],
-          index: _existingAssets.length + i,
-          headline: _existingAssets.isEmpty && i == 0 ? headlineController : null,
+        final Asset _pickedAsset = assets[i];
+
+        final int _slideIndexThatIncludesThisAsset = MutableSlide.getMutableSlideIndexThatContainsThisAsset(
+          mSlides: existingSlides,
+          assetToSearchFor: _pickedAsset,
         );
 
-        _slides.add(_mutableSlide);
+        /// A - IF FOUND EXITING SLIDE CONTAINING THIS ASSET => ALREADY PICKED ASSET
+        if (_slideIndexThatIncludesThisAsset != -1){
+
+          /// A1 - ADJUST SLIDE INDEX AND HEADLINE OF EXISTING SLIDE
+          final MutableSlide _adjustedSlide = existingSlides[_slideIndexThatIncludesThisAsset].copyWith(
+            slideIndex: i,
+            headline: i == 0 ? headlineController : null,
+          );
+
+          /// A2 - ADD THIS SLIDE
+          _output.add(_adjustedSlide);
+        }
+
+        /// B - IF DID NOT FIND SLIDE WITH THIS ASSET => NEWLY PICKED ASSET
+        else {
+
+          /// B1 - CREATE NEW SLIDE
+          final MutableSlide _newSlide = await createNewMutableSlideByAsset(
+            asset: _pickedAsset,
+            index: i,
+            headline: i == 0 ? headlineController : null,
+          );
+
+          /// B2 - ADD THIS NEW SLIDE
+          _output.add(_newSlide);
+        }
+
       }
 
     }
 
-    return _slides;
+    return _output;
   }
 // -------------------------------------
   static Future<MutableSlide> createNewMutableSlideByAsset({
@@ -254,6 +281,7 @@ class MutableSlide {
   /// GETTERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Asset> getAssetsFromMutableSlides({
     @required List<MutableSlide> mutableSlides,
   }) {

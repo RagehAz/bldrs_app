@@ -16,14 +16,6 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
-Future<void> maxSlidesReached(BuildContext context, int maxLength) async {
-  await CenterDialog.showCenterDialog(
-    context: context,
-    title: 'Max. Images reached',
-    body: 'Can not add more than $maxLength images in one slide',
-  );
-}
-// -----------------------------------------------------------------------------
 Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
   final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
     /// SIGN IN ERROR
