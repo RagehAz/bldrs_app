@@ -48,9 +48,8 @@ class ShelfSlidesPart extends StatelessWidget {
         ),
         builder: (_, bool isLoading, Widget loadingWidget){
 
-            return ListView.builder(
+            return ListView(
               controller: scrollController,
-              itemCount: mutableSlides.length + 1,
               scrollDirection: Axis.horizontal,
               itemExtent: ShelfSlide.flyerBoxWidth,
               physics: const BouncingScrollPhysics(),
@@ -58,30 +57,11 @@ class ShelfSlidesPart extends StatelessWidget {
                 context: context,
                 enRight: ShelfSlide.flyerBoxWidth * 0.5,
               ),
-              itemBuilder: (ctx, index){
+              children: <Widget>[
 
-                final bool _atLastIndex = index == mutableSlides.length;
-
-                /// PRE LAST INDEX : ADD SLIDE BUTTON
-                if (_atLastIndex == true){
-
-                  if (isLoading == true){
-                    return loadingWidget;
-                  }
-
-                  else {
-                    return ShelfSlide(
-                      mutableSlide: null,
-                      headline: null,
-                      number: index + 1,
-                      onTap: onAddNewSlides,
-                    );
-                  }
-
-                }
-
-                /// AT SLIDES INDEXES : SLIDES
-                else {
+                /// SLIDES
+                if (isLoading == false)
+                ...List.generate(mutableSlides.length, (index){
 
                   final MutableSlide _mutableSlide = mutableSlides[index];
                   final bool _hasSlides = mutableSlides.isNotEmpty;
@@ -92,9 +72,23 @@ class ShelfSlidesPart extends StatelessWidget {
                     number: index + 1,
                     onTap: () => onSlideTap(_mutableSlide),
                   );
-                }
 
-              },
+                }),
+
+                /// ADD SLIDE BUTTON
+                if (isLoading == false)
+                  ShelfSlide(
+                    mutableSlide: null,
+                    headline: null,
+                    number: null,
+                    onTap: onAddNewSlides,
+                  ),
+
+                /// LOADING WIDGET
+                if (isLoading == true)
+                  loadingWidget,
+
+              ],
             );
 
       },

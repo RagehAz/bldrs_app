@@ -27,7 +27,7 @@ class FlyersGrid extends StatelessWidget {
     this.numberOfColumns = 3,
     this.heroTag,
     this.authorMode = false,
-    this.onEditFlyer,
+    this.onDeleteFlyer,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -40,7 +40,7 @@ class FlyersGrid extends StatelessWidget {
   /// when grid is inside a flyer
   final String heroTag;
   final bool authorMode;
-  final ValueChanged<FlyerModel> onEditFlyer;
+  final ValueChanged<FlyerModel> onDeleteFlyer;
   /// --------------------------------------------------------------------------
   static double getGridWidth({
     @required BuildContext context,
@@ -225,7 +225,7 @@ class FlyersGrid extends StatelessWidget {
                             color: Colorz.black200,
                             corners: superBorderAll(context, FooterBox.boxCornersValue(_gridFlyerWidth)),
                             bubble: false,
-                            onTap: () => onEditFlyer(_flyer),
+                            onTap: () => onDeleteFlyer(_flyer),
                           ),
                         ),
 

@@ -7,23 +7,21 @@ import 'package:bldrs/c_controllers/i_flyer_maker_controllers/flyer_maker_contro
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:flutter/material.dart';
 
-class FlyerPublisherScreen extends StatefulWidget {
+class FlyerMakerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FlyerPublisherScreen({
+  const FlyerMakerScreen({
     @required this.bzModel,
-    this.flyerModel,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
-  final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
-  _FlyerPublisherScreenState createState() => _FlyerPublisherScreenState();
+  _FlyerMakerScreenState createState() => _FlyerMakerScreenState();
 /// --------------------------------------------------------------------------
 }
 
-class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with AutomaticKeepAliveClientMixin{
+class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepAliveClientMixin{
 // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
   @override
@@ -34,7 +32,6 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _headlineController.text = widget.flyerModel?.title ?? '';
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -63,7 +60,6 @@ class _FlyerPublisherScreenState extends State<FlyerPublisherScreen> with Automa
       layoutWidget: FlyerMakerScreenView(
         bzModel: widget.bzModel,
         scrollController: _scrollController,
-        flyerModel: widget.flyerModel,
         headline: _headlineController,
       ),
     );
