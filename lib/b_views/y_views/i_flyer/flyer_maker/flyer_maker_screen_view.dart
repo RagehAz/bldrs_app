@@ -58,7 +58,6 @@ class FlyerMakerScreenView extends StatelessWidget {
           maxLines: 3,
           keyboardTextInputType: TextInputType.multiline,
           // fieldIsRequired: false,
-          fieldIsFormField: true,
           textOnChanged: (String text){
             draft.value = DraftFlyerModel.updateHeadline(
               controller : headlineController,
@@ -92,8 +91,6 @@ class FlyerMakerScreenView extends StatelessWidget {
           maxLength: 1000,
           maxLines: 5,
           keyboardTextInputType: TextInputType.multiline,
-          // fieldIsRequired: false,
-          fieldIsFormField: true,
           // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
         ),
 
@@ -101,7 +98,7 @@ class FlyerMakerScreenView extends StatelessWidget {
         Bubble(
           width: Bubble.bubbleWidth(context: context, stretchy: false),
           title: 'Search Keywords',
-          columnChildren: <Widget>[],
+          columnChildren: const <Widget>[],
         ),
 
         /// SPECS SELECTOR
@@ -112,7 +109,7 @@ class FlyerMakerScreenView extends StatelessWidget {
         ),
 
         /// ZONE SELECTOR
-        ZoneSelectionBubble(
+        const ZoneSelectionBubble(
           title: 'Flyer Target city',
           // description: 'Select The city you would like this '
           //     'flyer to target, each flyer can target only'
@@ -127,7 +124,7 @@ class FlyerMakerScreenView extends StatelessWidget {
         Bubble(
           width: Bubble.bubbleWidth(context: context, stretchy: false),
           title: 'Show Flyer author on Flyer',
-          columnChildren: <Widget>[],
+          columnChildren: const <Widget>[],
         ),
 
       ],

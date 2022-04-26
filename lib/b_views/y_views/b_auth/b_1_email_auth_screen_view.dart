@@ -34,9 +34,9 @@ class EmailAuthScreenView extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController passwordConfirmationController;
-  final ValueChanged<String> validateEmail;
-  final ValueChanged<String> validatePassword;
-  final ValueChanged<String> validatePasswordConfirmation;
+  final String Function() validateEmail;
+  final String Function() validatePassword;
+  final String Function() validatePasswordConfirmation;
   final Function onObscureTap;
   final Function switchSignIn;
   final Function onSignin;
@@ -62,10 +62,10 @@ class EmailAuthScreenView extends StatelessWidget {
 
           /// ENTER E-MAIL
           TextFieldBubble(
+            formKey: formKey,
             key: const ValueKey<String>('email'),
             textController: emailController,
             textDirection: TextDirection.ltr,
-            fieldIsFormField: true,
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.emailAddress,
             keyboardTextInputAction: TextInputAction.next,
@@ -84,10 +84,10 @@ class EmailAuthScreenView extends StatelessWidget {
 
                     /// PASSWORD
                     TextFieldBubble(
+                      formKey: formKey,
                       key: const ValueKey<String>('password'),
                       textController: passwordController,
                       textDirection: TextDirection.ltr,
-                      fieldIsFormField: true,
                       fieldIsRequired: true,
                       keyboardTextInputType: TextInputType.visiblePassword,
                       keyboardTextInputAction: TextInputAction.next,
@@ -109,10 +109,10 @@ class EmailAuthScreenView extends StatelessWidget {
 
                           else {
                             return TextFieldBubble(
+                              formKey: formKey,
                               key: const ValueKey<String>('confirm'),
                               textController: passwordConfirmationController,
                               textDirection: TextDirection.ltr,
-                              fieldIsFormField: true,
                               fieldIsRequired: true,
                               keyboardTextInputType: TextInputType.visiblePassword,
                               keyboardTextInputAction: TextInputAction.done,

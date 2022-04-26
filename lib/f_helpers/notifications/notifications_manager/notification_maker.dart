@@ -1,24 +1,22 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_card.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dart';
-import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
-import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
-import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
+import 'package:bldrs/b_views/z_components/notifications/notification_card.dart';
+import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
@@ -35,10 +33,13 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/bldrs_notiz.dart' as BldrsNotiModelz;
+import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/user_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -257,13 +258,13 @@ class _NotificationMakerState extends State<NotificationMaker> {
                 width: _dialogClearWidth,
                 height: _textFieldHeight,
                 child: SuperTextField(
-                  height: _textFieldHeight,
+                  // height: _textFieldHeight,
+                  // formKey: null,
                   textController: _userNameController,
                   hintText: 'user name ...',
                   keyboardTextInputType: TextInputType.multiline,
                   maxLength: 30,
                   maxLines: 2,
-                  fieldIsFormField: true,
                   keyboardTextInputAction: TextInputAction.search,
                   onSubmitted: (String val) async {
                     blog('submitted : val : $val');
@@ -553,15 +554,16 @@ class _NotificationMakerState extends State<NotificationMaker> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+
                       /// TITLE
                       SuperTextField(
-                        height: 80,
+                        // formKey: _formKey,
+                        // height: 80,
                         textController: _titleController,
                         hintText: 'Title',
                         keyboardTextInputAction: TextInputAction.next,
                         maxLength: 30,
                         maxLines: 2,
-                        fieldIsFormField: true,
 
                         // validator: (){}, // TASK : question body must include question mark '?'
                       ),
@@ -574,13 +576,13 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                       /// BODY
                       SuperTextField(
+                        // formKey: _formKey,
                         textController: _bodyController,
                         hintText: 'body',
                         keyboardTextInputType: TextInputType.multiline,
                         maxLength: 80,
                         maxLines: 10,
-                        inputWeight: VerseWeight.thin,
-                        fieldIsFormField: true,
+                        textWeight: VerseWeight.thin,
                         // validator: (){}, // TASK : question body must include question mark '?'
                       ),
 

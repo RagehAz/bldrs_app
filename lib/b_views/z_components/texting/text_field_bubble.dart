@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -21,8 +21,8 @@ class TextFieldBubble extends StatelessWidget {
     this.keyboardTextInputType = TextInputType.text,
     this.textOnChanged,
     this.obscured = false,
-    this.fieldIsFormField,
-    this.onSaved,
+    this.formKey,
+    this.onSavedForForm,
     this.keyboardTextInputAction,
     this.initialTextValue,
     this.validator,
@@ -52,11 +52,11 @@ class TextFieldBubble extends StatelessWidget {
   final TextInputType keyboardTextInputType;
   final ValueChanged<String> textOnChanged;
   final bool obscured;
-  final bool fieldIsFormField;
-  final ValueChanged<String> onSaved;
+  final GlobalKey<FormState> formKey;
+  final ValueChanged<String> onSavedForForm;
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
-  final ValueChanged<String> validator;
+  final String Function() validator;
   final String comments;
   final bool fieldIsRequired;
   // final bool loading;
@@ -134,8 +134,8 @@ class TextFieldBubble extends StatelessWidget {
                   SizedBox(
                     width: fieldWidth,
                     child: SuperTextField(
+                      formKey: formKey,
                       textDirection: textDirection,
-                      fieldIsFormField: fieldIsFormField,
                       hintText: hintText,
                       counterIsOn: counterIsOn,
                       keyboardTextInputType: keyboardTextInputType,
@@ -144,7 +144,7 @@ class TextFieldBubble extends StatelessWidget {
                       textController: textController,
                       onChanged: textOnChanged,
                       obscured: obscured,
-                      onSaved: onSaved,
+                      onSavedForForm: onSavedForForm,
                       keyboardTextInputAction: keyboardTextInputAction,
                       initialValue: initialTextValue,
                       validator: validator,

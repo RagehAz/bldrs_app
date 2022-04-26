@@ -56,22 +56,25 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     _isSigningIn.value = !_isSigningIn.value;
   }
 // -----------------------------------------------------------------------------
-  String _validateEmail(String val){
-    return emailValidation(context: context, val: val);
-  }
-// -----------------------------------------------------------------------------
-  String _validatePassword(String val){
-    return passwordValidation(
+  String _validateEmail(){
+    return emailValidation(
         context: context,
-        password: val,
+        val: _emailController.text,
     );
   }
 // -----------------------------------------------------------------------------
-  String _validatePasswordConfirmation(String val){
+  String _validatePassword(){
+    return passwordValidation(
+        context: context,
+        password: _passwordController.text,
+    );
+  }
+// -----------------------------------------------------------------------------
+  String _validatePasswordConfirmation(){
     return passwordConfirmationValidation(
         context: context,
         password: _passwordController.text,
-        passwordConfirmation: val,
+        passwordConfirmation: _passwordConfirmationController.text,
     );
   }
 // -----------------------------------------------------------------------------
