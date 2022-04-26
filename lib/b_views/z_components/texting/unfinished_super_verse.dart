@@ -152,6 +152,7 @@ class SuperVerse extends StatelessWidget {
     return TextStyle(
         backgroundColor: _boxColor,
         textBaseline: TextBaseline.alphabetic,
+
         height: _verseHeight,
         color: color,
         fontFamily: _verseFont,
