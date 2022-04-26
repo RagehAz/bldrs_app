@@ -1,21 +1,20 @@
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/xxx_lab/text_field_form_switcher.dart';
 import 'package:flutter/material.dart';
 
-class NewTextField extends StatefulWidget {
+class SuperTextField extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const NewTextField({
+  const SuperTextField({
     /// main
-    this.fieldKey,
+    this.formKey,
     this.textController,
+    this.initialValue,
     this.hintText = '...',
     this.autofocus = false,
     this.focusNode,
@@ -37,8 +36,8 @@ class NewTextField extends StatefulWidget {
     this.scrollController,
 
     /// keyboard
-    this.textInputType = TextInputType.text,
-    this.textInputAction = TextInputAction.done,
+    this.keyboardTextInputType = TextInputType.text,
+    this.keyboardTextInputAction = TextInputAction.done,
 
     /// styling
     this.textWeight = VerseWeight.regular,
@@ -60,8 +59,9 @@ class NewTextField extends StatefulWidget {
   }) : super(key: key);
   // --------------------------------------------------------------------------
   /// main
-  final Key fieldKey;
+  final Key formKey;
   final TextEditingController textController;
+  final String initialValue;
   final String hintText;
   final bool autofocus;
   final FocusNode focusNode;
@@ -74,8 +74,8 @@ class NewTextField extends StatefulWidget {
   final Color fieldColor;
 
   /// keyboard
-  final TextInputType textInputType;
-  final TextInputAction textInputAction;
+  final TextInputType keyboardTextInputType;
+  final TextInputAction keyboardTextInputAction;
 
   /// text
   final TextDirection textDirection;
@@ -104,7 +104,7 @@ class NewTextField extends StatefulWidget {
   final String Function() validator;
   /// --------------------------------------------------------------------------
   @override
-  _NewTextFieldState createState() => _NewTextFieldState();
+  _SuperTextFieldState createState() => _SuperTextFieldState();
 /// --------------------------------------------------------------------------
   static TextStyle createHintStyle({
     @required BuildContext context,
@@ -213,7 +213,7 @@ class NewTextField extends StatefulWidget {
           corners: corners,
       ),
 
-      counter: const Offstage(offstage: true),
+      counter: const Offstage(),
       // counterText: '${widget.textController?.text?.length} / ${widget.maxLength}',
       // counterStyle: superTextStyle(Colorz.white200, 0.7),
 
@@ -235,7 +235,7 @@ class NewTextField extends StatefulWidget {
 // -----------------------------------------------------------------------------
 }
 
-class _NewTextFieldState extends State<NewTextField> {
+class _SuperTextFieldState extends State<SuperTextField> {
   TextEditingController _controller;
   ScrollController _scrollController;
 // -----------------------------------------------------------------------------
@@ -243,7 +243,8 @@ class _NewTextFieldState extends State<NewTextField> {
   void initState() {
     super.initState();
 
-    _controller = widget.textController ?? TextEditingController();
+    _controller = _initializeTextController();
+
     _scrollController = widget.scrollController ?? ScrollController();
     _textLength = ValueNotifier(_controller.text.length);
     _errors = ValueNotifier<List<String>>(_initializeErrors());
@@ -264,6 +265,14 @@ class _NewTextFieldState extends State<NewTextField> {
     _textLength.dispose();
     _errors.dispose();
     _textDirection.dispose();
+  }
+// -----------------------------------------------------------------------------
+  TextEditingController _initializeTextController(){
+    final TextEditingController _controller = widget.textController ?? TextEditingController();
+    if (widget.initialValue != null){
+      _controller.text = widget.initialValue;
+    }
+    return _controller;
   }
 // -----------------------------------------------------------------------------
   ValueNotifier<List<String>> _errors;
@@ -430,7 +439,7 @@ class _NewTextFieldState extends State<NewTextField> {
 
                     return TextFormFieldSwitcher(
                       /// main
-                      fieldKey: widget.fieldKey,
+                      fieldKey: widget.formKey,
                       controller: _controller,
                       hintText: widget.hintText,
                       autoFocus: widget.autofocus,
@@ -441,8 +450,8 @@ class _NewTextFieldState extends State<NewTextField> {
                       corners: widget.corners,
 
                       /// keyboard
-                      textInputAction: widget.textInputAction,
-                      textInputType: widget.textInputType,
+                      textInputAction: widget.keyboardTextInputAction,
+                      textInputType: widget.keyboardTextInputType,
 
                       /// text
                       textDirection: _concludedTextDirection,
@@ -495,7 +504,7 @@ class _NewTextFieldState extends State<NewTextField> {
                             verse: _error,
                             color: Colorz.red255,
                             weight: VerseWeight.thin,
-                            size: 2,
+                            // size: 2,
                             maxLines: 3,
                             centered: false,
                             italic: true,
@@ -525,8 +534,8 @@ class _NewTextFieldState extends State<NewTextField> {
                           return SuperVerse(
                             verse: '$textLength / ${widget.maxLength}',
                             weight: VerseWeight.thin,
-                            size: 2,
-                            scaleFactor: 1,
+                            // size: 2,
+                            // scaleFactor: 1,
                             labelColor: _getFieldColor(_errorIsOn),
                           );
 

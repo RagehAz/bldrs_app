@@ -617,15 +617,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         superPhrase(context, 'phid_companyName');
 
                         return TextFieldBubble(
-                          textController: _bzNameTextController,
+                          formKey: _formKey,
                           key: const Key('bzName'),
+                          textController: _bzNameTextController,
                           title:_title,
                           counterIsOn: true,
                           maxLength: 72,
                           maxLines: 2,
                           keyboardTextInputType: TextInputType.name,
                           fieldIsRequired: true,
-                          fieldIsFormField: true,
                         );
 
                       },
@@ -633,6 +633,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                     /// --- BZ SCOPE
                     TextFieldBubble(
+                      formKey: _formKey,
                       key: const ValueKey<String>('bz_scope_bubble'),
                       textController: _bzScopeTextController,
                       title: '${superPhrase(context, 'phid_scopeOfServices')} :',
@@ -641,7 +642,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       maxLines: 4,
                       keyboardTextInputType: TextInputType.multiline,
                       fieldIsRequired: true,
-                      fieldIsFormField: true,
                       // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
                     ),
 

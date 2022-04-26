@@ -378,14 +378,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT NAME
                   TextFieldBubble(
+                    formKey: _formKey,
                     textController: _nameController,
                     key: const Key('name'),
-                    fieldIsFormField: true,
                     title: superPhrase(context, 'phid_name'),
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
-                    validator: (String val) => val.isEmpty ?
+                    validator: () => _nameController.text.isEmpty ?
                     superPhrase(context, 'phid_enterName')
                         :
                     null,
@@ -398,14 +398,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT JOB TITLE
                   TextFieldBubble(
-                    textController: _titleController,
+                    formKey: _formKey,
                     key: const Key('title'),
-                    fieldIsFormField: true,
+                    textController: _titleController,
                     title: superPhrase(context, 'phid_jobTitle'),
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
-                    validator: (String val) => val.isEmpty ?
+                    validator: () => _titleController.text.isEmpty ?
                     superPhrase(context, 'phid_enterJobTitle')
                         :
                     null,
@@ -413,14 +413,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT COMPANY NAME
                   TextFieldBubble(
+                    formKey: _formKey,
                     textController: _companyController,
                     key: const Key('company'),
-                    fieldIsFormField: true,
                     title: superPhrase(context, 'phid_companyName'),
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
-                    validator: (String val) => val.isEmpty ?
+                    validator: () => _companyController.text.isEmpty ?
                     superPhrase(context, 'phid_enterCompanyName')
                         :
                     null,
@@ -441,8 +441,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT EMAIL
                   ContactFieldBubble(
+                    formKey: _formKey,
                     textController: _emailController,
-                    fieldIsFormField: true,
                     title: superPhrase(context, 'phid_emailAddress'),
                     leadingIcon: Iconz.comEmail,
                     keyboardTextInputAction: TextInputAction.next,
@@ -452,8 +452,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT PHONE
                   ContactFieldBubble(
+                    formKey: _formKey,
                     textController: _phoneController,
-                    fieldIsFormField: true,
                     title: superPhrase(context, 'phid_phone'),
                     leadingIcon: Iconz.comPhone,
                     keyboardTextInputAction: TextInputAction.next,
@@ -462,8 +462,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT FACEBOOK
                   ContactFieldBubble(
+                    formKey: _formKey,
                     textController: _facebookController,
-                    fieldIsFormField: true,
                     title: superPhrase(context, 'phid_facebookLink'),
                     leadingIcon: Iconz.comFacebook,
                     keyboardTextInputAction: TextInputAction.next,
@@ -471,8 +471,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT INSTAGRAM
                   ContactFieldBubble(
+                    formKey: _formKey,
                     textController: _instagramController,
-                    fieldIsFormField: true,
                     title: superPhrase(context, 'phid_instagramLink'),
                     leadingIcon: Iconz.comInstagram,
                     keyboardTextInputAction: TextInputAction.next,
@@ -480,8 +480,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT LINKEDIN
                   ContactFieldBubble(
+                    formKey: _formKey,
                     textController: _linkedInController,
-                    fieldIsFormField: true,
                     title: superPhrase(context, 'phid_linkedinLink'),
                     leadingIcon: Iconz.comLinkedin,
                     keyboardTextInputAction: TextInputAction.next,
@@ -489,8 +489,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT TWITTER
                   ContactFieldBubble(
+                    formKey: _formKey,
                     textController: _twitterController,
-                    fieldIsFormField: true,
                     title: superPhrase(context, 'phid_twitterLink'),
                     leadingIcon: Iconz.comTwitter,
                     keyboardTextInputAction: TextInputAction.done,
