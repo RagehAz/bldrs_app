@@ -32,7 +32,10 @@ class TextLinesAnalyzer extends StatelessWidget {
         final TextPainter _textPainter = TextPainter(
           text: _span,
           maxLines: maxLines,
-          textDirection: superTextDirectionSwitcher(text),
+          textDirection: superTextDirectionSwitcher(
+            val: text,
+            context: context,
+          ),
         );
 
         _textPainter.layout(maxWidth: size.maxWidth);

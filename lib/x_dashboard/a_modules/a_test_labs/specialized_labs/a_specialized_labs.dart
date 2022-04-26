@@ -133,6 +133,13 @@ class SpecializedLabs extends StatelessWidget {
         screen: const GoldenScrollsScreen(),
       ),
 
+      /// SOUND TEST
+      DashButtonModel(
+        verse: 'SOUND TEST',
+        icon: Iconz.dvRageh,
+        screen: null,
+      ),
+
     ];
 
     return Container(

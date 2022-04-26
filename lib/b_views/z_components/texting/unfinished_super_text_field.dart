@@ -40,6 +40,7 @@ class SuperTextField extends StatefulWidget {
     this.onSubmitted,
     this.autofocus = false,
     this.onMaxLinesReached,
+    this.textSizeFactor = 1,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -75,6 +76,7 @@ class SuperTextField extends StatefulWidget {
   final ValueChanged<String> onSubmitted;
   final bool autofocus;
   final Function onMaxLinesReached;
+  final double textSizeFactor;
   /// --------------------------------------------------------------------------
   @override
   _SuperTextFieldState createState() => _SuperTextFieldState();
@@ -87,7 +89,11 @@ class _SuperTextFieldState extends State<SuperTextField> {
   void initState() {
     super.initState();
 
-    final TextDirection _initialTextDirection = superTextDirectionSwitcher(widget.textController?.text);
+    final TextDirection _initialTextDirection = superTextDirectionSwitcher(
+      val: widget.textController?.text,
+       context: context,
+    );
+
     _textDirection = ValueNotifier(_initialTextDirection);
   }
 // -----------------------------------------------------------------------------
@@ -103,7 +109,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
   ValueNotifier<TextDirection> _textDirection;
   void _changeTextDirection(String val) {
 
-    _textDirection.value = superTextDirectionSwitcher(val);
+    _textDirection.value = superTextDirectionSwitcher(
+      context: context,
+      val: val,
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -117,7 +126,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     const Color _boxColor = Colorz.nothing;
     const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-    const double _scalingFactor = 1; //scaleFactor == null ? 1: scaleFactor;
+    final double _scalingFactor = widget.textSizeFactor;
     /// --- AVAILABLE FONT SIZES -----------------------------------------------
     final int _size = widget.inputSize;
     /// takes values from 0 to 8 in the entire app
@@ -351,6 +360,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                 // scrollPadding: EdgeInsets.symmetric(vertical: ),
                 controller: widget.textController,
                 onChanged: _onChanged,
+                scrollPhysics: const BouncingScrollPhysics(),
                 // onTap: () => widget.onTap(_keyboard),
                 keyboardType: widget.keyboardTextInputType,
                 style: superTextStyle(widget.inputColor, 1),
