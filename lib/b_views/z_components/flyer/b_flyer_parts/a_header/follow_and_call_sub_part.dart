@@ -19,7 +19,7 @@ class FollowAndCallBTs extends StatelessWidget {
   final bool headerIsExpanded;
   final Function onFollowTap;
   final Function onCallTap;
-  final ValueNotifier<bool> followIsOn;
+  final ValueNotifier<bool> followIsOn; /// p
   /// --------------------------------------------------------------------------
   static double getPaddings({double flyerBoxWidth}) {
     return flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;

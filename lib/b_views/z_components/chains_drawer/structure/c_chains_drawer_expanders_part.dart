@@ -17,9 +17,9 @@ class ChainsDialogExpandersPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double drawerWidth;
   final double bubbleWidth;
-  final ValueNotifier<bool> isSearching;
-  final ValueNotifier<List<String>> foundPhids;
-  final ValueNotifier<List<Chain>> foundChains;
+  final ValueNotifier<bool> isSearching; /// p
+  final ValueNotifier<List<String>> foundPhids; /// p
+  final ValueNotifier<List<Chain>> foundChains; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

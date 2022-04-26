@@ -28,7 +28,7 @@ class SlidesStack extends StatelessWidget {
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final bool tinyMode;
-  final ValueNotifier<int> currentSlideIndex;
+  final ValueNotifier<int> currentSlideIndex; /// p
   final FlyerModel flyerModel;
   final BzModel bzModel;
   final PageController horizontalController;

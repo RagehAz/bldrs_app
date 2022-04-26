@@ -19,7 +19,7 @@ class QuestionsScreenView extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<BzType> currentQuestionsBzType;
+  final ValueNotifier<BzType> currentQuestionsBzType; ///p
   final ValueChanged<BzType> onChangeCurrentFlyerType;
   final ScrollController questionsGridScrollController;
   final ScrollController sliverNestedScrollController;
@@ -38,7 +38,6 @@ class QuestionsScreenView extends StatelessWidget {
     return _isSelected;
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 

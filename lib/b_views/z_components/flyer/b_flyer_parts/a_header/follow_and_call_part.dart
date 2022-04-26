@@ -21,7 +21,7 @@ class FollowAndCallPart extends StatelessWidget {
   final Animation<double> logoSizeRatioTween;
   final double flyerBoxWidth;
   final Animation<double> followCallButtonsScaleTween;
-  final ValueNotifier<bool> followIsOn;
+  final ValueNotifier<bool> followIsOn; /// p
   final Function onCallTap;
   final Function onFollowTap;
   final double logoMinWidth;

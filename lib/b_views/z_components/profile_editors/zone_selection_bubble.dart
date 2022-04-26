@@ -41,20 +41,20 @@ class ZoneSelectionBubble extends StatefulWidget {
 
 class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<CountryModel> _selectedCountry = ValueNotifier(null);
-  final ValueNotifier<List<CityModel>> _selectedCountryCities = ValueNotifier(null);
+  final ValueNotifier<CountryModel> _selectedCountry = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<List<CityModel>> _selectedCountryCities = ValueNotifier(null);/// tamam disposed
 // ------------------------------------------
-  final ValueNotifier<CityModel> _selectedCity = ValueNotifier(null);
+  final ValueNotifier<CityModel> _selectedCity = ValueNotifier(null);/// tamam disposed
 // ------------------------------------------
-  final ValueNotifier<DistrictModel> _selectedDistrict = ValueNotifier(null);
+  final ValueNotifier<DistrictModel> _selectedDistrict = ValueNotifier(null);/// tamam disposed
 // ------------------------------------------
   ZoneModel _selectedZone;
   ZoneProvider _zoneProvider;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _isLoadingCountries = ValueNotifier(false);
-  final ValueNotifier<bool> _isLoadingCities = ValueNotifier(false);
-  final ValueNotifier<bool> _isLoadingDistricts = ValueNotifier(false);
+  final ValueNotifier<bool> _isLoadingCountries = ValueNotifier(false);/// tamam disposed
+  final ValueNotifier<bool> _isLoadingCities = ValueNotifier(false);/// tamam disposed
+  final ValueNotifier<bool> _isLoadingDistricts = ValueNotifier(false);/// tamam disposed
 // -----------------------------------
   Future<void> _triggerAllLoading({@required setTo}) async {
     _isLoadingCountries.value = setTo;
@@ -103,6 +103,18 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose(){
+    super.dispose();
+    _selectedCountry.dispose();
+    _selectedCountryCities.dispose();
+    _selectedCity.dispose();
+    _selectedDistrict.dispose();
+    _isLoadingCountries.dispose();
+    _isLoadingCities.dispose();
+    _isLoadingDistricts.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onShowCountriesTap({

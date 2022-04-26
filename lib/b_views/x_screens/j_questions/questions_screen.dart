@@ -20,8 +20,8 @@ class QScreen extends StatefulWidget {
 
 class _QScreenState extends State<QScreen> {
 // -----------------------------------------------------------------------------
-  ScrollController _questionsGridScrollController;
-  ScrollController _sliverNestedScrollController;
+  ScrollController _questionsGridScrollController; /// tamam disposed
+  ScrollController _sliverNestedScrollController; /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -44,8 +44,16 @@ class _QScreenState extends State<QScreen> {
 
     super.didChangeDependencies();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _currentQuestionsBzType.dispose();
+    _questionsGridScrollController.dispose();
+    _sliverNestedScrollController.dispose();
+  }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<BzType> _currentQuestionsBzType = ValueNotifier(BzType.developer);
+  final ValueNotifier<BzType> _currentQuestionsBzType = ValueNotifier(BzType.developer); /// tamam disposed
   void onChangeCurrentFlyerType(BzType bzType){
     _currentQuestionsBzType.value = bzType;
   }

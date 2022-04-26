@@ -24,8 +24,7 @@ class FollowBT extends StatelessWidget {
   final double flyerBoxWidth;
   final Function onFollowTap;
   final Function tappingUnfollow;
-  final ValueNotifier<bool> followIsOn;
-
+  final ValueNotifier<bool> followIsOn; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

@@ -29,9 +29,9 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController(); /// tamam disposed
   TextEditingController _headlineController;
-  ValueNotifier<DraftFlyerModel> _draftFlyer;
+  ValueNotifier<DraftFlyerModel> _draftFlyer; /// tamam disposed
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 // -----------------------------------------------------------------------------
   @override
@@ -50,13 +50,13 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     super.initState();
   }
 // -----------------------------------------------------------------------------
-
   @override
   void dispose(){
+    super.dispose();
     _scrollController.dispose();
+    _draftFlyer.dispose();
     // disposeControllerIfPossible(_headlineController);
     /// task : dispose draft slides text controllers
-    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

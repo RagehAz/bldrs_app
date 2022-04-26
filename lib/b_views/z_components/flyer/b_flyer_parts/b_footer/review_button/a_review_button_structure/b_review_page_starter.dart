@@ -28,11 +28,11 @@ class ReviewPageStarter extends StatelessWidget {
   final double flyerBoxWidth;
   final bool tinyMode;
   final Function onReviewButtonTap;
-  final ValueNotifier<bool> reviewButtonExpanded;
+  final ValueNotifier<bool> reviewButtonExpanded; /// p
   final ScrollController reviewPageVerticalController;
   final bool inFlight;
   final Function onEditReview;
-  final ValueNotifier<bool> isEditingReview;
+  final ValueNotifier<bool> isEditingReview;/// p
   final Function onSubmitReview;
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;

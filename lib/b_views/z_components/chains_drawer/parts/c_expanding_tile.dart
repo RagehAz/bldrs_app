@@ -140,8 +140,8 @@ class ExpandingTile extends StatefulWidget {
 
 class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
-  AnimationController _controller;
-  CurvedAnimation _easeInAnimation;
+  AnimationController _controller; /// tamam disposed
+  CurvedAnimation _easeInAnimation; /// tamam disposed
   ColorTween _borderColor;
   ColorTween _headlineColorTween;
   ColorTween _tileColorTween;
@@ -149,7 +149,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   BorderRadiusTween _borderRadius;
   Animation<double> _arrowTurns;
 // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _isExpanded;
+  ValueNotifier<bool> _isExpanded; /// tamam disposed
 // -----------------------------------------------------------------------------
   static const Duration _kExpand = Duration(milliseconds: 200);
 // -----------------------------------------------------------------------------
@@ -186,8 +186,10 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
+    _controller.dispose();
+    _isExpanded.dispose();
+    _easeInAnimation.dispose();
   }
 // -----------------------------------------------------------------------------
   void expand() {

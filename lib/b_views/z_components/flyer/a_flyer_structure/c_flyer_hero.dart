@@ -35,8 +35,8 @@ class FlyerHero extends StatelessWidget {
   final bool isFullScreen;
   final double minWidthFactor;
   final String heroTag;
-  final ValueNotifier<int> currentSlideIndex;
-  final ValueNotifier<bool> flyerIsSaved;
+  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<bool> flyerIsSaved; /// p
   final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
   @override

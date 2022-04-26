@@ -28,8 +28,8 @@ class FlyerFullScreen extends StatelessWidget {
   final ZoneModel flyerZone;
   final double minWidthFactor;
   final String heroTag;
-  final ValueNotifier<int> currentSlideIndex;
-  final ValueNotifier<bool> flyerIsSaved;
+  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<bool> flyerIsSaved; /// p
   final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {

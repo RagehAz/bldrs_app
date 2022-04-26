@@ -35,15 +35,15 @@ class TranslationsManager extends StatefulWidget {
 
 class _TranslationsManagerState extends State<TranslationsManager> {
   // ---------------------------------------------------------------------------
-  final TextEditingController _idController = TextEditingController();
-  final TextEditingController _englishController = TextEditingController();
-  final TextEditingController _arabicController = TextEditingController();
-  ScrollController _docScrollController;
-  final TextEditingController _searchController = TextEditingController();
-  PageController _pageController;
-  final ValueNotifier<String> _newID = ValueNotifier('');
-  final ValueNotifier<bool> _isSearching = ValueNotifier(false);
-  final ValueNotifier<List<Phrase>> _mixedSearchedPhrases = ValueNotifier(<Phrase>[]);
+  final TextEditingController _idController = TextEditingController(); /// tamam disposed
+  final TextEditingController _englishController = TextEditingController(); /// tamam disposed
+  final TextEditingController _arabicController = TextEditingController(); /// tamam disposed
+  ScrollController _docScrollController; /// tamam disposed
+  final TextEditingController _searchController = TextEditingController(); /// tamam disposed
+  PageController _pageController; /// tamam disposed
+  final ValueNotifier<String> _newID = ValueNotifier(''); /// tamam disposed
+  final ValueNotifier<bool> _isSearching = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<List<Phrase>> _mixedSearchedPhrases = ValueNotifier(<Phrase>[]); /// tamam disposed
   // ---------------------------------------------------------------------------
   Stream<List<Phrase>> _arStream;
   Stream<List<Phrase>> _enStream;
@@ -68,6 +68,20 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     );
 
     _docScrollController = ScrollController();
+  }
+  // -------------------------------------
+  @override
+  void dispose(){
+    super.dispose();
+    _idController.dispose();
+    _englishController.dispose();
+    _arabicController.dispose();
+    _docScrollController.dispose();
+    _searchController.dispose();
+    _pageController.dispose();
+    _newID.dispose();
+    _isSearching.dispose();
+    _mixedSearchedPhrases.dispose();
   }
   // ---------------------------------------------------------------------------
 

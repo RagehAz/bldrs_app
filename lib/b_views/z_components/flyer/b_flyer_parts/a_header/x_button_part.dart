@@ -16,7 +16,7 @@ class XButtonPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final BorderRadius headerBorders;
   final Function onHeaderTap;
-  final ValueNotifier<bool> headerIsExpanded;
+  final ValueNotifier<bool> headerIsExpanded; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

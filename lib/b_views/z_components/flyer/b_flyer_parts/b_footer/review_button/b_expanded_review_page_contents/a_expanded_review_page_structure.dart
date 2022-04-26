@@ -21,7 +21,7 @@ class ExpandedReviewPageStructure extends StatelessWidget {
   final double flyerBoxWidth;
   final ScrollController reviewPageVerticalController;
   final Function onEditReview;
-  final ValueNotifier<bool> isEditingReview;
+  final ValueNotifier<bool> isEditingReview; /// p
   final Function onSubmitReview;
   final TextEditingController reviewTextController;
   /// --------------------------------------------------------------------------

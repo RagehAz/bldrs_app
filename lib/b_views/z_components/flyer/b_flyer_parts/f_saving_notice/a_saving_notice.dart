@@ -18,10 +18,10 @@ class SavingNotice extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
-  final ValueNotifier<bool> flyerIsSaved;
+  final ValueNotifier<bool> flyerIsSaved; /// p
   final AnimationController animationController;
-  final ValueNotifier<bool> graphicIsOn;
-  final ValueNotifier<double> graphicOpacity;
+  final ValueNotifier<bool> graphicIsOn; /// p
+  final ValueNotifier<double> graphicOpacity; /// p
   final bool isStarGraphic;
   /// --------------------------------------------------------------------------
   @override

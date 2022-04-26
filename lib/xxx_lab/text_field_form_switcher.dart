@@ -131,7 +131,6 @@ class TextFormFieldSwitcher extends StatelessWidget {
     const TextAlignVertical _textAlignVertical = TextAlignVertical.center;
 // -----------------------------------------------------------------------------
 
-
     /// WHEN TEXT FORM FIELD
     if (fieldKey is GlobalKey<FormState>){
       return TextFormField(

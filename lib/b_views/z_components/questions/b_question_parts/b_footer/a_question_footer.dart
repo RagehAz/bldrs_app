@@ -30,8 +30,8 @@ class QuestionFooter extends StatefulWidget {
   final QuestionModel questionModel;
   final bool tinyMode;
   final Function onNiceQuestion;
-  final ValueNotifier<bool> questionIsNice;
-  final ValueNotifier<bool> headerIsExpanded;
+  final ValueNotifier<bool> questionIsNice; /// p
+  final ValueNotifier<bool> headerIsExpanded; /// p
   final bool inFlight;
 
   @override
@@ -39,11 +39,11 @@ class QuestionFooter extends StatefulWidget {
 }
 
 class _QuestionFooterState extends State<QuestionFooter> {
-
-  ScrollController _infoPageVerticalController;
-  ScrollController _reviewPageVerticalController;
-  TextEditingController _reviewTextController;
-
+// -----------------------------------------------------------------------------
+  ScrollController _infoPageVerticalController; /// tamam disposed
+  ScrollController _reviewPageVerticalController; /// tamam disposed
+  TextEditingController _reviewTextController; /// tamam disposed
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _infoPageVerticalController = ScrollController();
@@ -54,17 +54,21 @@ class _QuestionFooterState extends State<QuestionFooter> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
+    super.dispose();
     disposeScrollControllerIfPossible(_infoPageVerticalController);
     disposeScrollControllerIfPossible(_reviewPageVerticalController);
     disposeControllerIfPossible(_reviewTextController);
-    super.dispose();
+    _infoButtonExpanded.dispose(); /// tamam disposed
+    _reviewButtonExpanded.dispose(); /// tamam disposed
+    _canShowConvertibleReviewButton.dispose(); /// tamam disposed
+    _isEditingReview.dispose(); /// tamam disposed
   }
 // -----------------------------------------------------------------------------
   void _onShareQuestion(){
     blog('SHARE QUESTION NOW');
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
+  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false); /// tamam disposed
 // ----------------------------------------
   Future<void> onInfoButtonTap() async {
     _infoButtonExpanded.value = !_infoButtonExpanded.value;
@@ -89,14 +93,14 @@ class _QuestionFooterState extends State<QuestionFooter> {
 
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false);
-  final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true);
+  final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true); /// tamam disposed
 // ----------------------------------------
   void onReviewButtonTap(){
     _reviewButtonExpanded.value = !_reviewButtonExpanded.value;
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isEditingReview = ValueNotifier(false);
+  final ValueNotifier<bool> _isEditingReview = ValueNotifier(false); /// tamam disposed
   void _onEditReview(){
     blog('onEditReview');
     _isEditingReview.value = !_isEditingReview.value;
