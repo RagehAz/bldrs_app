@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
@@ -309,11 +309,11 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             textController: _titleController,
             hintText: 'Question title',
             centered: true,
-            height: 60,
-            inputSize: 3,
+            // height: 60,
+            textSize: 3,
             keyboardTextInputAction: TextInputAction.next,
             maxLength: 100,
-            counterIsOn: false,
+            // counterIsOn: false,
             // validator: (){}, // TASK : question body must include question mark '?'
           ),
         ),
@@ -326,7 +326,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             hintText: askHint,
             keyboardTextInputType: TextInputType.multiline,
             maxLength: 1000,
-            counterIsOn: false,
+            // counterIsOn: false,
             // validator: (){}, // TASK : question body must include question mark '?'
           ),
         ),

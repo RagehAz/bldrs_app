@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/zone/currency_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/specs/currency_button.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -181,7 +181,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   }
 
 // -----------------------------------------------------------------------------
-  String _validator(String val) {
+  String _validator() {
 
     final int _maxDigits = _currency.value.digits;
 
@@ -256,22 +256,22 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
               child: Form(
                 key: _formKey,
                 child: SuperTextField(
-                  fieldIsFormField: true,
+                  formKey: _formKey,
                   // key: ValueKey('price_text_field'),
                   autofocus: true,
                   width: _textFieldWidth,
-                  height: _fieldHeight,
+                  // height: _fieldHeight,
                   textController: controller,
                   hintText: _hintText,
                   fieldColor: Colorz.black20,
                   centered: true,
-                  counterIsOn: false,
-                  inputSize: 4,
-                  inputWeight: VerseWeight.black,
+                  // counterIsOn: false,
+                  textSize: 4,
+                  textWeight: VerseWeight.black,
                   corners: Ratioz.appBarCorner,
                   keyboardTextInputType: TextInputType.number,
-                  labelColor: Colorz.blackSemi255,
-                  validator: (String val) => _validator(val),
+                  // labelColor: Colorz.blackSemi255,
+                  validator: () => _validator(),
                   onChanged: (String val) => _onTextChanged(val),
                   onSubmitted: (String val) async {
                     _onTextChanged(val);

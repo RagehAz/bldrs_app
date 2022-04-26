@@ -4,7 +4,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix2d/matrix2d.dart';
 
-/// The [ImageFilterModel] class to define a Filter which will applied to each color, consists of multiple [SubFilter]s
+/// The [ImageFilterModel] class to define a Filter which will applied to each color, consists of multiple [-SubFilter-]s
 class ImageFilterModel {
   /// --------------------------------------------------------------------------
   const ImageFilterModel({

@@ -156,12 +156,12 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// --- NAME
           TextFieldBubble(
+            // formKey: _formKey,
             title: 'Country Name',
             textOnChanged: (String val) => setState(() {
               _name = val;
             }),
             fieldIsRequired: true,
-            fieldIsFormField: true,
             initialTextValue: _name,
             actionBtIcon: Iconz.check,
             actionBtFunction: () =>
@@ -170,12 +170,12 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// --- Language
           TextFieldBubble(
+            // formKey: _formKey,
             title: 'Main language',
             textOnChanged: (String val) => setState(() {
               _language = val;
             }),
             fieldIsRequired: true,
-            fieldIsFormField: true,
             initialTextValue: _language,
             actionBtIcon: Iconz.check,
             actionBtFunction: () =>
@@ -184,13 +184,13 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// --- FLAG
           TextFieldBubble(
+            initialTextValue: _flag,
             title: 'flag',
             textOnChanged: (String val) => setState(() {
               _flag = val;
             }),
             fieldIsRequired: true,
-            fieldIsFormField: true,
-            initialTextValue: _flag,
+            // formKey: _formKey,
             actionBtIcon: Iconz.check,
             actionBtFunction: () =>
                 _updateCountryFieldOnFirestore('flag', _flag),
@@ -201,12 +201,12 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// --- REGION
           TextFieldBubble(
+            // formKey: _formKey,
             title: 'Region',
             textOnChanged: (String val) => setState(() {
               _region = val;
             }),
             fieldIsRequired: true,
-            fieldIsFormField: true,
             initialTextValue: _region,
             actionBtIcon: Iconz.check,
             actionBtFunction: () =>
@@ -215,12 +215,12 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// --- CONTINENT
           TextFieldBubble(
+            // formKey: _formKey,
             title: 'Continent',
             textOnChanged: (String val) => setState(() {
               _continent = val;
             }),
             fieldIsRequired: true,
-            fieldIsFormField: true,
             initialTextValue: _continent,
             actionBtIcon: Iconz.check,
             actionBtFunction: () =>

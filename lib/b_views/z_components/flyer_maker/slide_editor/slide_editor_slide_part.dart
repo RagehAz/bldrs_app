@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_transf
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_footer.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -120,7 +120,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                   width: _flyerBoxWidth,
                   // height: flyerBoxWidth * 0.15,
                   fieldColor: Colorz.black80,
-                  margin: EdgeInsets.only(
+                  margins: EdgeInsets.only(
                       top: _flyerBoxWidth * 0.3,
                       left: 5,
                       right: 5
@@ -128,17 +128,17 @@ class SlideEditorSlidePart extends StatelessWidget {
                   maxLines: 4,
                   maxLength: 55,
                   // counterIsOn: true,
-                  inputSize: SlideHeadline.headlineSize,
+                  textSize: SlideHeadline.headlineSize,
                   textSizeFactor: _flyerBoxWidth * SlideHeadline.headlineScaleFactor,
                   centered: true,
                   textController: _slide.headline,
                   onChanged: (String val){},
-                  inputWeight: VerseWeight.bold,
-                  inputShadow: true,
+                  textWeight: VerseWeight.bold,
+                  textShadow: true,
                   // autofocus: false,
                   // fieldIsFormField: true,
                   // onSubmitted: null,
-                  keyboardTextInputAction: TextInputAction.done,
+                  // keyboardTextInputAction: TextInputAction.done,
                 ),
 
 
