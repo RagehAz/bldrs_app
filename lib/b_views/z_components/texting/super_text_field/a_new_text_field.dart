@@ -19,7 +19,6 @@ class NewTextField extends StatefulWidget {
 
     /// box
     this.width,
-    this.height,
     this.margins,
     this.corners = Ratioz.boxCorner12,
     this.fieldColor = Colorz.white10,
@@ -66,7 +65,6 @@ class NewTextField extends StatefulWidget {
 
   /// box
   final double width;
-  final double height;
   final dynamic margins;
   final double corners;
   final Color fieldColor;
@@ -209,7 +207,7 @@ class NewTextField extends StatefulWidget {
           corners: corners,
       ),
 
-      counter: const Offstage(),
+      counter: const Offstage(offstage: true),
       // counterText: '${widget.textController?.text?.length} / ${widget.maxLength}',
       // counterStyle: superTextStyle(Colorz.white200, 0.7),
 
@@ -284,11 +282,11 @@ class _NewTextFieldState extends State<NewTextField> {
 
     return SuperTextFieldBox(
       width: widget.width,
-      height: widget.height,
       margins: widget.margins,
       corners: widget.corners,
       fieldColor: widget.fieldColor,
       child: ValueListenableBuilder(
+          key: const ValueKey<String>('The_super_text_field'),
           valueListenable: _textDirection,
           builder: (_, TextDirection textDirection, Widget child){
 
@@ -297,7 +295,6 @@ class _NewTextFieldState extends State<NewTextField> {
               definedDirection: widget.textDirection,
               detectedDirection: textDirection,
             );
-
 
             return TextFormFieldSwitcher(
               /// main

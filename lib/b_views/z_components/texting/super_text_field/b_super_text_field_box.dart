@@ -7,7 +7,6 @@ class SuperTextFieldBox extends StatelessWidget {
   const SuperTextFieldBox({
     @required this.child,
     @required this.width,
-    @required this.height,
     @required this.margins,
     @required this.corners,
     @required this.fieldColor,
@@ -16,7 +15,6 @@ class SuperTextFieldBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Widget child;
   final double width;
-  final double height;
   final dynamic margins;
   final double corners;
   final Color fieldColor;
@@ -26,8 +24,8 @@ class SuperTextFieldBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
+      key: const ValueKey<String>('SuperTextFieldBox'),
       width: width,
-      height: height,
       margin: superMargins(margins: margins),
       decoration: BoxDecoration(
         borderRadius: superBorderAll(context, corners),

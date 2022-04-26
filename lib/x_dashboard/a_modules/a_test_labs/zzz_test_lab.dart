@@ -256,36 +256,38 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           NewTextField(
             textController: TextEditingController(),
             width: 200,
+            fieldColor: Colorz.bloodTest,
+            maxLines: 20,
           ),
 
           /// DO SOMETHING
-          WideButton(
-              color: Colorz.red255,
-              verse: 'DO IT',
-              icon: Iconz.star,
-              onTap: () async {
-
-                // _uiProvider.triggerLoading(setLoadingTo: true);
-
-                await _showDialog(null);
-
-                // _uiProvider.triggerLoading(setLoadingTo: false);
-
-              }),
-
-          WideButton(
-              color: Colorz.red255,
-              verse: 'countries baby',
-              icon: Iconz.star,
-              onTap: () async {
-
-                _uiProvider.triggerLoading(setLoadingTo: true);
-
-
-                _uiProvider.triggerLoading(setLoadingTo: false);
-
-
-              }),
+          // WideButton(
+          //     color: Colorz.red255,
+          //     verse: 'DO IT',
+          //     icon: Iconz.star,
+          //     onTap: () async {
+          //
+          //       // _uiProvider.triggerLoading(setLoadingTo: true);
+          //
+          //       await _showDialog(null);
+          //
+          //       // _uiProvider.triggerLoading(setLoadingTo: false);
+          //
+          //     }),
+          //
+          // WideButton(
+          //     color: Colorz.red255,
+          //     verse: 'countries baby',
+          //     icon: Iconz.star,
+          //     onTap: () async {
+          //
+          //       _uiProvider.triggerLoading(setLoadingTo: true);
+          //
+          //
+          //       _uiProvider.triggerLoading(setLoadingTo: false);
+          //
+          //
+          //     }),
 
 
           /// MANIPULATE LOCAL ASSETS TESTING
