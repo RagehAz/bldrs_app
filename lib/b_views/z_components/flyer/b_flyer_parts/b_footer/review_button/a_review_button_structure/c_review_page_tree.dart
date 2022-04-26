@@ -24,12 +24,12 @@ class ReviewPageTree extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final ValueNotifier<bool> reviewButtonExpanded;
+  final ValueNotifier<bool> reviewButtonExpanded; /// p
   final ScrollController reviewPageVerticalController;
   final bool inFlight;
   final bool tinyMode;
   final Function onEditReview;
-  final ValueNotifier<bool> isEditingReview;
+  final ValueNotifier<bool> isEditingReview; /// p
   final Function onSubmitReview;
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;

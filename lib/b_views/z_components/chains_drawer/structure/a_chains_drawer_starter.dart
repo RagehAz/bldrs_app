@@ -43,10 +43,10 @@ class _ChainsDrawerStarterState extends State<ChainsDrawerStarter> {
     _foundChains.dispose();
   }
 // -----------------------------------------------------------------------------
-  final TextEditingController _searchController = TextEditingController();
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
-  final ValueNotifier<List<String>> _foundPhids = ValueNotifier(<String>[]);
-  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier(<Chain>[]);
+  final TextEditingController _searchController = TextEditingController(); /// tamam disposed
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
+  final ValueNotifier<List<String>> _foundPhids = ValueNotifier(<String>[]); /// tamam disposed
+  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier(<Chain>[]); /// tamam disposed
 // ---------------------------
   Future<void> _onSearchChanged(String text) async {
     await onSearchChanged(

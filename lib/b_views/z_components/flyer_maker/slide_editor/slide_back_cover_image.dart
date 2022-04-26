@@ -13,7 +13,7 @@ class SlideBackCoverImage extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<ImageFilterModel> filterModel;
+  final ValueNotifier<ImageFilterModel> filterModel; /// p
   final MutableSlide slide;
   final double flyerBoxWidth;
   final double flyerBoxHeight;

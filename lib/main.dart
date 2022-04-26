@@ -68,7 +68,7 @@ class BldrsApp extends StatefulWidget {
 class _BldrsAppState extends State<BldrsApp> {
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
@@ -121,27 +121,23 @@ class _BldrsAppState extends State<BldrsApp> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  Locale _localeResolutionCallback(
-      Locale deviceLocale, Iterable<Locale> supportedLocales) {
+  Locale _localeResolutionCallback(Locale deviceLocale, Iterable<Locale> supportedLocales) {
     return Localizer.localeResolutionCallback(
         deviceLocale: deviceLocale, supportedLocales: supportedLocales);
   }
-
 // -----------------------------------------------------------------------------
-  final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null);
+  final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null); /// tamam disposed
 // -----------------------------------
   Future<void> _initializeLocale() async {
     final Locale _gotLocale = await Localizer.getLocaleFromSharedPref();
     _setLocale(_gotLocale);
   }
-
 // -----------------------------------
   void _setLocale(Locale locale) {
     _locale.value = locale;
   }
-
 // -----------------------------------------------------------------------------
-  final ValueNotifier<String> _fireError = ValueNotifier(null);
+  final ValueNotifier<String> _fireError = ValueNotifier(null); /// tamam disposed
 // -----------------------------------
   Future<void> _initializeFlutterFire() async {
     await tryAndCatch(
@@ -166,7 +162,6 @@ class _BldrsAppState extends State<BldrsApp> {
     blog('building Bldrs with _locale : $_locale');
 
     if (_locale == null || _fireError.value != null) {
-
       return ValueListenableBuilder<bool>(
           valueListenable: _loading,
           builder: (_, bool loading, Widget child) {

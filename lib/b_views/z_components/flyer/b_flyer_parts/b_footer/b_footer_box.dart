@@ -19,8 +19,8 @@ class FooterBox extends StatelessWidget {
   final double flyerBoxWidth;
   final PageController footerPageController;
   final List<Widget> footerPageViewChildren;
-  final ValueNotifier<bool> infoButtonExpanded;
-  final ValueNotifier<bool> reviewButtonIsExpanded;
+  final ValueNotifier<bool> infoButtonExpanded; /// p
+  final ValueNotifier<bool> reviewButtonIsExpanded; /// p
   final bool tinyMode;
   /// --------------------------------------------------------------------------
   static double boxCornersValue(double flyerBoxWidth) {

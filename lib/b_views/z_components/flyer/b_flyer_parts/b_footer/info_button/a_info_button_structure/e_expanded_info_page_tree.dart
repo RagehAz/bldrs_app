@@ -13,7 +13,7 @@ class ExpandedInfoPageTree extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> buttonIsExpanded;
+  final ValueNotifier<bool> buttonIsExpanded; /// p
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final ZoneModel flyerZone;

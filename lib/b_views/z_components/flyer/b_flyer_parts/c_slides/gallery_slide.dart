@@ -35,7 +35,7 @@ class GallerySlide extends StatefulWidget {
 class _GallerySlideState extends State<GallerySlide> {
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
   Future<void> _triggerLoading({bool setTo}) async {
 
@@ -114,7 +114,7 @@ class _GallerySlideState extends State<GallerySlide> {
   /// BZ FLYERS
 
 // --------------------------------------------
-  final ValueNotifier<List<FlyerModel>> _loadedFlyers = ValueNotifier(<FlyerModel>[]);
+  final ValueNotifier<List<FlyerModel>> _loadedFlyers = ValueNotifier(<FlyerModel>[]); /// tamam disposed
 // --------------------------------------------
   Future<void> _fetchMoreFlyers() async {
 

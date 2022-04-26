@@ -59,7 +59,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   BzzProvider _bzzProvider;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
@@ -93,18 +93,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   BzModel _initialBzModel;
   // -------------------------
   /// String _bzID; // NOT REQUIRED HERE
-  ValueNotifier<List<BzType>> _selectedBzTypes;
-  ValueNotifier<BzForm> _selectedBzForm;
+  ValueNotifier<List<BzType>> _selectedBzTypes; /// tamam disposed
+  ValueNotifier<BzForm> _selectedBzForm; /// tamam disposed
   /// DateTime _createdAt; // NOT REQUIRED HERE
   /// BzAccountType _accountType // NOT REQUIRED HERE
   // -------------------------
   TextEditingController _bzNameTextController;
-  ValueNotifier<dynamic> _bzLogo;
+  ValueNotifier<dynamic> _bzLogo; /// tamam disposed
   TextEditingController _bzScopeTextController;
-  ValueNotifier<ZoneModel> _bzZone;
+  ValueNotifier<ZoneModel> _bzZone; /// tamam disposed
   TextEditingController _bzAboutTextController;
-  ValueNotifier<GeoPoint> _bzPosition;
-  ValueNotifier<List<ContactModel>> _bzContacts;
+  ValueNotifier<GeoPoint> _bzPosition; /// tamam disposed
+  ValueNotifier<List<ContactModel>> _bzContacts; /// tamam disposed
   /// List<AuthorModel> _bzAuthors; // NOT REQUIRED HERE
   /// bool _bzShowsTeam; // NOT REQUIRED HERE
   // -------------------------
@@ -136,9 +136,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   /// HELPER VARIABLES
   
 // -------------------------------------
-  ValueNotifier<BzSection> _selectedBzSection;
-  ValueNotifier<List<BzType>> _inactiveBzTypes;
-  ValueNotifier<List<BzForm>> _inactiveBzForms;
+  ValueNotifier<BzSection> _selectedBzSection; /// tamam disposed
+  ValueNotifier<List<BzType>> _inactiveBzTypes; /// tamam disposed
+  ValueNotifier<List<BzForm>> _inactiveBzForms; /// tamam disposed
 // -------------------------------------
   void _initializeHelperVariables(){
     final BzSection _concludedBzSection = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
@@ -156,6 +156,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void dispose() {
     super.dispose();
     _disposeControllers();
+
+    _missingFields.dispose();
+    _loading.dispose();
+    _selectedBzTypes.dispose();
+    _selectedBzForm.dispose();
+    _bzLogo.dispose();
+    _bzZone.dispose();
+    _bzPosition.dispose();
+    _bzContacts.dispose();
+    _selectedBzSection.dispose();
+    _inactiveBzTypes.dispose();
+    _inactiveBzForms.dispose();
   }
 // -----------------------------------------------------------------------------
   void _disposeControllers(){
@@ -230,7 +242,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _bzZone.value = zoneModel;
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]);
+  final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]); /// tamam disposed
 // -------------------------------------
   Future<bool> _validateInputs(BzModel bzModel) async {
 

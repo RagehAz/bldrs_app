@@ -18,8 +18,8 @@ class TranslationsPage extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> isSearching;
-  final ValueNotifier<List<Phrase>> mixedSearchedPhrases;
+  final ValueNotifier<bool> isSearching; /// p
+  final ValueNotifier<List<Phrase>> mixedSearchedPhrases; /// p
   final ScrollController scrollController;
   final List<Phrase> enPhrases;
   final List<Phrase> arPhrases;

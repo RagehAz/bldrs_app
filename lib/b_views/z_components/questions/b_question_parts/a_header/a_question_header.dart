@@ -33,9 +33,9 @@ class QuestionHeader extends StatefulWidget {
   final AnimationController headerAnimationController;
   final ScrollController headerScrollController;
   final bool tinyMode;
-  final ValueNotifier<bool> headerIsExpanded;
-  final ValueNotifier<bool> followIsOn;
-  final ValueNotifier<double> headerPageOpacity;
+  final ValueNotifier<bool> headerIsExpanded; /// p
+  final ValueNotifier<bool> followIsOn; /// p
+  final ValueNotifier<double> headerPageOpacity; /// p
   /// --------------------------------------------------------------------------
   @override
   _QuestionHeaderState createState() => _QuestionHeaderState();
@@ -54,7 +54,7 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
   Animation<double> _headerLabelsWidthTween;
   Animation<double> _headerMiddleSpacerWidthTween;
   Animation<double> _followCallButtonsScaleTween;
-  CurvedAnimation _animation;
+  CurvedAnimation _animation; /// tamam disposed
 
   @override
   void initState() {
@@ -94,8 +94,8 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _animation.dispose();
     super.dispose();
+    _animation.dispose();
   }
 // -----------------------------------------------------------------------------
 

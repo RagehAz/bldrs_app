@@ -19,8 +19,8 @@ class ChainViewSearching extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double bubbleWidth;
-  final ValueNotifier<List<String>> foundPhids;
-  final ValueNotifier<List<Chain>> foundChains;
+  final ValueNotifier<List<String>> foundPhids; /// p
+  final ValueNotifier<List<Chain>> foundChains; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

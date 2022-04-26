@@ -45,9 +45,9 @@ class FlyerHeader extends StatefulWidget {
   final AnimationController headerAnimationController;
   final ScrollController headerScrollController;
   final bool tinyMode;
-  final ValueNotifier<bool> headerIsExpanded;
-  final ValueNotifier<bool> followIsOn;
-  final ValueNotifier<double> headerPageOpacity;
+  final ValueNotifier<bool> headerIsExpanded; /// p
+  final ValueNotifier<bool> followIsOn; /// p
+  final ValueNotifier<double> headerPageOpacity; /// p
   /// --------------------------------------------------------------------------
   @override
   _FlyerHeaderState createState() => _FlyerHeaderState();
