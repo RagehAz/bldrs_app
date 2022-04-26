@@ -395,9 +395,9 @@ class QuestionReviewPageStarter extends StatelessWidget {
     final EdgeInsets _margins = superInsets(
       context: context,
       enBottom: _leftMargin,
-      enTop: 0,
-      enRight: 0,
-      enLeft: 0,
+      // enTop: 0,
+      // enRight: 0,
+      // enLeft: 0,
     );
 
     return _margins;

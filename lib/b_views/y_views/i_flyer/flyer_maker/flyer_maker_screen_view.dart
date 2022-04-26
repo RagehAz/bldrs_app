@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/b_draft_shelf.dart';
@@ -15,13 +15,15 @@ class FlyerMakerScreenView extends StatelessWidget {
   const FlyerMakerScreenView({
     @required this.scrollController,
     @required this.bzModel,
-    @required this.headline,
+    @required this.draft,
+    @required this.headlineController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ScrollController scrollController;
   final BzModel bzModel;
-  final TextEditingController headline;
+  final ValueNotifier<DraftFlyerModel> draft;
+  final TextEditingController headlineController;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -33,22 +35,36 @@ class FlyerMakerScreenView extends StatelessWidget {
       children: <Widget>[
 
         /// SHELVES
-        SlidesShelf(
-          /// PLAN : ADD FLYER LOCATION SLIDE
-          bzModel: bzModel,
-          shelfNumber: 1,
+        Bubble(
+          width: Bubble.bubbleWidth(context: context, stretchy: false),
+          title: 'Flyer Slides',
+          columnChildren: <Widget>[
+            SlidesShelf(
+              /// PLAN : ADD FLYER LOCATION SLIDE
+              bzModel: bzModel,
+              shelfNumber: 1,
+              draft: draft,
+              headlineController: headlineController,
+            ),
+          ],
         ),
 
         /// FLYER TITLE
         TextFieldBubble(
-          textController: headline,
+          textController: headlineController,
           title: 'Flyer Title',
           counterIsOn: true,
           maxLength: 50,
           maxLines: 3,
           keyboardTextInputType: TextInputType.multiline,
-          fieldIsRequired: false,
+          // fieldIsRequired: false,
           fieldIsFormField: true,
+          textOnChanged: (String text){
+            draft.value = DraftFlyerModel.updateHeadline(
+              controller : headlineController,
+              draft: draft.value,
+            );
+          },
           // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
         ),
 
@@ -76,7 +92,7 @@ class FlyerMakerScreenView extends StatelessWidget {
           maxLength: 1000,
           maxLines: 5,
           keyboardTextInputType: TextInputType.multiline,
-          fieldIsRequired: false,
+          // fieldIsRequired: false,
           fieldIsFormField: true,
           // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
         ),
