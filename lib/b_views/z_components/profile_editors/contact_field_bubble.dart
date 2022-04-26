@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
@@ -17,7 +17,7 @@ class ContactFieldBubble extends StatefulWidget {
     this.hintText = '...',
     this.textController,
     this.textOnChanged,
-    this.fieldIsFormField,
+    this.formKey,
     this.onSaved,
     this.keyboardTextInputAction,
     this.initialTextValue,
@@ -40,7 +40,7 @@ class ContactFieldBubble extends StatefulWidget {
   final String hintText;
   final TextEditingController textController;
   final Function textOnChanged;
-  final bool fieldIsFormField;
+  final GlobalKey<FormState> formKey;
   final Function onSaved;
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
@@ -95,6 +95,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
           /// BUBBLE TITLE
           Padding(
             padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
@@ -115,17 +116,20 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
               iconSizeFactor: 0.6,
               onTap: widget.actionBtFunction,
             ),
+
         ],
       ),
 
       Stack(
         alignment: Aligners.superInverseTopAlignment(context),
         children: <Widget>[
+
           /// TEXT FIELD
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             textDirection: TextDirection.ltr,
             children: <Widget>[
+
               if (widget.leadingIcon != null)
                 DreamBox(
                   height: 35,
@@ -136,27 +140,29 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                           widget.leadingIcon == Iconz.comPhone
                       ? 0.6 : 1,
                 ),
+
               if (widget.leadingIcon != null)
                 Container(
                   width: 5,
                 ),
+
+              /// TEXT FIELD
               SizedBox(
                 width: fieldWidth,
                 child: SuperTextField(
-                  fieldIsFormField: widget.fieldIsFormField,
-                  hintText: widget.hintText,
-                  counterIsOn: false,
-                  keyboardTextInputType: widget.keyboardTextInputType,
-                  textController:
-                      paste == '' ? widget.textController : pasteController,
-                  onChanged: widget.textOnChanged,
-                  onSaved: widget.onSaved,
-                  keyboardTextInputAction: widget.keyboardTextInputAction,
+                  formKey: widget.formKey,
                   initialValue: paste == '' ? widget.initialTextValue : null,
+                  hintText: widget.hintText,
+                  keyboardTextInputType: widget.keyboardTextInputType,
+                  textController: paste == '' ? widget.textController : pasteController,
+                  onChanged: widget.textOnChanged,
+                  onSavedForForm: widget.onSaved,
+                  keyboardTextInputAction: widget.keyboardTextInputAction,
                   validator: widget.validator,
                   textDirection: TextDirection.ltr,
                 ),
               ),
+
             ],
           ),
 
@@ -164,6 +170,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
             mainAxisAlignment: MainAxisAlignment.end,
             textDirection: TextDirection.ltr,
             children: <Widget>[
+
               /// LOADING INDICATOR
               if (widget.loading)
                 Loading(
@@ -180,6 +187,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 color: Colorz.white10,
                 onTap: _pasteFunction,
               ),
+
             ],
           ),
         ],
@@ -194,6 +202,8 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
           weight: VerseWeight.thin,
           leadingDot: true,
         ),
-    ]);
+
+    ]
+    );
   }
 }

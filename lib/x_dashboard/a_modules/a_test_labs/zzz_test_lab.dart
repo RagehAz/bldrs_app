@@ -5,12 +5,13 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_new_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -18,12 +19,10 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
-import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -256,7 +255,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           const Stratosphere(),
 
-          NewTextField(
+          SuperTextField(
             textController: _textController,
             width: Scale.appBarWidth(context),
             // fieldColor: Colorz.white20,
@@ -264,7 +263,24 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             minLines: 2,
             maxLength: 10,
             counterIsOn: true,
-            textInputAction: TextInputAction.newline,
+            centered: true,
+            onEditingComplete: (){
+              blog('editing just completed');
+            },
+            onTap: (){
+              blog('just tapped');
+            },
+            corners: 50,
+            autofocus: true,
+            hintText: 'fuck you',
+            onSubmitted: (String val){
+              blog('submitted val : $val');
+            },
+            margins: const EdgeInsets.symmetric(vertical: 50),
+            textSize: 5,
+            textSizeFactor: 1.5,
+
+            keyboardTextInputAction: TextInputAction.newline,
             validator: (){
 
               if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){

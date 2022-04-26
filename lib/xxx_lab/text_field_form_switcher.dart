@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_new_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -115,7 +115,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         shadow: textShadow,
     );
 // -----------------------------------------------------------------------------
-    final InputDecoration _inputDecoration = NewTextField.createDecoration(
+    final InputDecoration _inputDecoration = SuperTextField.createDecoration(
       context: context,
       textSize: textSize,
       textSizeFactor: textSizeFactor,

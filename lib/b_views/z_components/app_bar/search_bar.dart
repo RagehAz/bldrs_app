@@ -1,9 +1,8 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -101,16 +100,17 @@ class _SearchBarState extends State<SearchBar> {
 
           /// SEARCH TEXT FIELD
           SuperTextField(
-
-            fieldIsFormField: true,
-            height: widget.height ?? Ratioz.appBarButtonSize + Ratioz.appBarPadding,
-            width: _textFieldWidth - 5,
+            // fieldIsFormField: true,
+            // onSavedForForm: (String val) {
+            //   blog('on saved');
+            // },
+            // height: widget.height ?? Ratioz.appBarButtonSize + Ratioz.appBarPadding,
             // height: Ratioz.appBarButtonSize * 0.5 * 2,
+            // labelColor: Colorz.yellow255,
+            width: _textFieldWidth - 5,
             textController: _searchTextController,
-            labelColor: Colorz.yellow255,
-            italic: true,
+            textItalic: true,
             keyboardTextInputAction: TextInputAction.search,
-            counterIsOn: false,
             corners: Ratioz.appBarButtonCorner,
             onTap: () {},
             onChanged: (String val) {
@@ -121,11 +121,8 @@ class _SearchBarState extends State<SearchBar> {
               }
             },
             hintText: widget.hintText ?? 'Search ...',
-            inputColor: Colorz.yellow255,
-            inputWeight: VerseWeight.thin,
-            onSaved: (String val) {
-              blog('on saved');
-            },
+            textColor: Colorz.yellow255,
+            textWeight: VerseWeight.thin,
             onSubmitted: (String val) {
               widget.onSearchSubmit(val);
             },

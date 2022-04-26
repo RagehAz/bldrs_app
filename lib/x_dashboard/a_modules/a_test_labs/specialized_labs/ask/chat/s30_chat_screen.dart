@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/d_providers/streamers/questions_streamer.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
@@ -87,6 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     // final Stream<QuerySnapshot> _chatSnapshots = _chatsCollection.orderBy(
     //     'at', descending: false).snapshots();
 
@@ -108,9 +109,11 @@ class _ChatScreenState extends State<ChatScreen> {
           questionID: widget.question.id,
           bzID: widget.bzID,
           builder: (BuildContext xxx, ChatModel chatModel) {
+
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+
                 if (Mapper.canLoopList(chatModel.messages))
                   Container(
                     width: _screenWidth,
@@ -142,24 +145,25 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+
                       SuperTextField(
-                        height: 40,
+                        // height: 40,
                         width: Scale.superScreenWidth(context) - 80,
-                        labelColor: Colorz.white20,
-                        counterIsOn: false,
+                        // counterIsOn: false,
                         keyboardTextInputAction: TextInputAction.send,
                         // onChanged: (value) {
                         //   setState(() {
                         //     _enteredMessage = value;
                         //   });
                         // },
-                        margin: const EdgeInsets.all(10),
+                        margins: const EdgeInsets.all(10),
                         maxLines: 10,
                         textController: _msgController,
-                        onSaved: (String val) => _sendMessage(
+                        onSavedForForm: (String val) => _sendMessage(
                             body: _msgController.text.trim(),
                             existingMsgs: chatModel.messages),
                       ),
+
                       DreamBox(
                         height: 50,
                         icon: Iconizer.superArrowENRight(context),
@@ -167,12 +171,15 @@ class _ChatScreenState extends State<ChatScreen> {
                             body: _msgController.text.trim(),
                             existingMsgs: chatModel.messages),
                       ),
+
                     ],
                   ),
                 ),
               ],
             );
-          }),
+
+          }
+          ),
     );
   }
 }
