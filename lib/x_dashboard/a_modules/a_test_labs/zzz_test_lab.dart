@@ -12,6 +12,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -189,6 +190,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   }
 // -----------------------------------------------------------------------------
 
+  final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -203,6 +205,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
     return MainLayout(
+      key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       appBarRowWidgets: <Widget>[
@@ -254,10 +257,24 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           const Stratosphere(),
 
           NewTextField(
-            textController: TextEditingController(),
-            width: 200,
-            fieldColor: Colorz.bloodTest,
-            maxLines: 20,
+            textController: _textController,
+            width: Scale.appBarWidth(context),
+            // fieldColor: Colorz.white20,
+            maxLines: 3,
+            minLines: 2,
+            maxLength: 10,
+            counterIsOn: true,
+            textInputAction: TextInputAction.newline,
+            validator: (){
+
+              if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
+                return 'you can not say a77a';
+              }
+              else {
+                return null;
+              }
+
+            },
           ),
 
           /// DO SOMETHING
