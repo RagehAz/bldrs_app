@@ -30,7 +30,7 @@ class HorizontalBouncer extends StatefulWidget {
 
 class _HorizontalBouncerState extends State<HorizontalBouncer> {
 // -----------------------------------------
-  ValueNotifier<bool> _canNavigate;
+  ValueNotifier<bool> _canNavigate; /// tamam disposed
   int _numberOfTimesBack = 0;
 // -----------------------------------------
   @override
@@ -38,7 +38,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
     _canNavigate = ValueNotifier(widget.canNavigate);
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _canNavigate.dispose();

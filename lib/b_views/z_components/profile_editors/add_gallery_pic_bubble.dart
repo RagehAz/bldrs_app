@@ -29,7 +29,7 @@ class AddGalleryPicBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onAddPicture;
-  final ValueNotifier<dynamic> picture;
+  final ValueNotifier<dynamic> picture; /// p
   final Function onDeletePicture;
   final String title;
   final BubbleType bubbleType;

@@ -43,9 +43,10 @@ class SpecPickerScreen extends StatefulWidget {
 class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
   // List<Spec> _selectedSpecs = [];
-  final ValueNotifier<List<SpecModel>> _selectedSpecs = ValueNotifier<List<SpecModel>>(<SpecModel>[]);
+  final ValueNotifier<List<SpecModel>> _selectedSpecs = ValueNotifier<List<SpecModel>>(<SpecModel>[]); /// dispose
   // -----------------------------------------------------------------------------
   Chain _specChain;
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     _selectedSpecs.value = widget.allSelectedSpecs;
@@ -53,6 +54,12 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     _specChain = superGetChain(context, widget.specList.chainID);
 
     super.initState();
+  }
+  // -----------------------------------------------------------------------------
+  @override
+  void dispose(){
+    super.dispose();
+    _selectedSpecs.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSpecTap(BuildContext context, String keywordID) async {
@@ -132,7 +139,6 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     // _selectedSpecs.notifyListeners();
   }
-
 // -----------------------------------------------------------------------------
   void _onCurrencyChanged(CurrencyModel currency) {
     final SpecModel _currencySpec =
@@ -148,7 +154,6 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     _selectedSpecs.value = _updatedList;
     // });
   }
-
 // -----------------------------------------------------------------------------
   void _onPriceChanged(String price) {
     final double _priceDouble = Numeric.stringToDouble(price);
@@ -163,7 +168,6 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     _selectedSpecs.value = _updatedList;
   }
-
 // -----------------------------------------------------------------------------
   void _onAddInteger(int integer) {
     blog('received integer : $integer');
@@ -178,7 +182,6 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     _selectedSpecs.value = _updatedList;
   }
-
 // -----------------------------------------------------------------------------
   void _onAddDouble(double num) {
     blog('received double : $num');
@@ -192,13 +195,11 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     _selectedSpecs.value = _updatedList;
   }
-
 // -----------------------------------------------------------------------------
   void _onBack() {
     Nav.goBack(context, argument: _selectedSpecs.value);
     // await null;
   }
-
 // -----------------------------------------------------------------------------
   String _getInstructions() {
     String _instructions;
@@ -214,7 +215,6 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
     return _instructions;
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
     final double _screenWidth = Scale.superScreenWidth(context);

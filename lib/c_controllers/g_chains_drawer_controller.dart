@@ -111,9 +111,9 @@ String getSectionIcon({
 Future<void> onSearchChanged({
   @required BuildContext context,
   @required String text,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<String>> foundPhids,
-  @required ValueNotifier<List<Chain>> foundChains,
+  @required ValueNotifier<bool> isSearching, /// p
+  @required ValueNotifier<List<String>> foundPhids, /// p
+  @required ValueNotifier<List<Chain>> foundChains, /// p
 }) async {
 
   // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
@@ -139,9 +139,9 @@ Future<void> onSearchChanged({
 Future<void> onSearchKeywords({
   @required BuildContext context,
   @required String text,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<String>> foundPhids,
-  @required ValueNotifier<List<Chain>> foundChains,
+  @required ValueNotifier<bool> isSearching, /// p
+  @required ValueNotifier<List<String>> foundPhids, /// p
+  @required ValueNotifier<List<Chain>> foundChains, /// p
 }) async {
 
   final List<String> _phids = await _searchKeywordsPhrases(

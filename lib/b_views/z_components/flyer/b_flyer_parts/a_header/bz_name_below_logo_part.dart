@@ -15,7 +15,7 @@ class LinesBelowLogoPart extends StatelessWidget {
   final double flyerBoxWidth;
   final String firstLine;
   final String secondLine;
-  final ValueNotifier<bool> headerIsExpanded;
+  final ValueNotifier<bool> headerIsExpanded; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

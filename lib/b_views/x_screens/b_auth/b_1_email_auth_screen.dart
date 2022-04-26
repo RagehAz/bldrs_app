@@ -20,13 +20,14 @@ class EmailAuthScreen extends StatefulWidget {
 }
 
 class _EmailAuthScreenState extends State<EmailAuthScreen> {
+  // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // -----------------------------------------------------------------------------
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordConfirmationController = TextEditingController();
   // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSigningIn = ValueNotifier(true);
+  final ValueNotifier<bool> _isSigningIn = ValueNotifier(true); /// tamam disposed
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
+    super.dispose();
 
     if (TextChecker.textControllerIsEmpty(_emailController)) {
       _emailController.dispose();
@@ -46,7 +48,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       _passwordConfirmationController.dispose();
     }
 
-    super.dispose();
+    _isSigningIn.dispose();
   }
 // -----------------------------------------------------------------------------
   void _switchSignIn() {

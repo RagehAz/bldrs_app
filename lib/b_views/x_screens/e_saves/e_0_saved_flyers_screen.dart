@@ -46,6 +46,12 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
 
     super.didChangeDependencies();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _currentFlyerType.dispose();
+  }
 // -----------------------------------------------------------------------------
   void _passSelectedFlyersBack(){
 
@@ -57,7 +63,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
 
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<FlyerType> _currentFlyerType = ValueNotifier(FlyerType.all);
+  final ValueNotifier<FlyerType> _currentFlyerType = ValueNotifier(FlyerType.all); /// tamam disposed
   void onChangeCurrentFlyerType(FlyerType flyerType){
     _currentFlyerType.value = flyerType;
   }

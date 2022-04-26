@@ -38,7 +38,7 @@ class FlyerStarter extends StatefulWidget {
 class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(true);
+  final ValueNotifier<bool> _loading = ValueNotifier(true); /// tamam disposed
 // -----------------------------------
   Future<void> _triggerLoading({@required setTo}) async {
     _loading.value = setTo;
@@ -46,20 +46,20 @@ class _FlyerStarterState extends State<FlyerStarter> {
   }
 // -----------------------------------------------------------------------------
   /// --- FLYER BZ MODEL
-  final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null);
+  final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null); /// tamam disposed
 // -----------------------------------------------------------------------------
   /// FLYER BZ ZONE
-  final ValueNotifier<ZoneModel> _bzZoneNotifier = ValueNotifier(null);
+  final ValueNotifier<ZoneModel> _bzZoneNotifier = ValueNotifier(null); /// tamam disposed
 // -----------------------------------------------------------------------------
   /// FLYER ZONE
-  final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null);
+  final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null); /// tamam disposed
 // -----------------------------------------------------------------------------
   FlyersProvider _flyersProvider;
   FlyerModel _flyerModel;
 // -----------------------------------------------------------------------------
   /// CURRENT SLIDE INDEX
-  ValueNotifier<int> _currentSlideIndex;
-
+  ValueNotifier<int> _currentSlideIndex; /// tamam disposed
+// -----------------------------------------------------------------------------
   @override
   void initState() {
 
@@ -148,6 +148,12 @@ class _FlyerStarterState extends State<FlyerStarter> {
   @override
   void dispose() {
     super.dispose();
+    _loading.dispose();
+    _bzModelNotifier.dispose();
+    _bzZoneNotifier.dispose();
+    _flyerZoneNotifier.dispose();
+    _currentSlideIndex.dispose();
+    _flyerIsSaved.dispose();
 
     // if (_currentSlideIndex != null){
     //   _currentSlideIndex.dispose();
@@ -174,7 +180,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
   }
 // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _flyerIsSaved;
+  ValueNotifier<bool> _flyerIsSaved; /// tamam disposed
   Future<void> onTriggerSave() async {
 
     await _flyersProvider.saveOrUnSaveFlyer(

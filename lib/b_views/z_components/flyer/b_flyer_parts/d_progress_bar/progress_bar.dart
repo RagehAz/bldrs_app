@@ -18,9 +18,9 @@ class ProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final int numberOfSlides;
-  final ValueNotifier<int> currentSlideIndex;
-  final ValueNotifier<double> progressBarOpacity;
-  final ValueNotifier<Sliders.SwipeDirection> swipeDirection;
+  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<double> progressBarOpacity; /// p
+  final ValueNotifier<Sliders.SwipeDirection> swipeDirection; /// p
   final bool loading;
   final bool tinyMode;
   /// --------------------------------------------------------------------------

@@ -27,9 +27,9 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------------------------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // ------------------------------------
-  ValueNotifier<MutableSlide> _slide;
-  ValueNotifier<Matrix4> _matrix;
-  ValueNotifier<ImageFilterModel> _filterModel;
+  ValueNotifier<MutableSlide> _slide; /// tamam disposed
+  ValueNotifier<Matrix4> _matrix; /// tamam disposed
+  ValueNotifier<ImageFilterModel> _filterModel; /// tamam disposed
 // ------------------------------------
   @override
   void initState() {
@@ -49,6 +49,14 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     // );
 
     super.initState();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    super.dispose();
+    _slide.dispose();
+    _matrix.dispose();
+    _filterModel.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

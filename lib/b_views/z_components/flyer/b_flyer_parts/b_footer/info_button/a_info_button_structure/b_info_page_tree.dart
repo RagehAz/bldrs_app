@@ -26,7 +26,7 @@ class InfoPageTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final InfoButtonType infoButtonType;
-  final ValueNotifier<bool> buttonIsExpanded;
+  final ValueNotifier<bool> buttonIsExpanded; /// p
   final FlyerModel flyerModel;
   final ZoneModel flyerZone;
   final bool tinyMode;
