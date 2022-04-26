@@ -1,5 +1,9 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -96,7 +100,8 @@ class NewTextField extends StatefulWidget {
   final ValueChanged<String> onSubmitted;
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
-  final ValueChanged<String> validator;
+  /// should return error string or null if there is no error
+  final String Function() validator;
   /// --------------------------------------------------------------------------
   @override
   _NewTextFieldState createState() => _NewTextFieldState();
@@ -158,6 +163,7 @@ class NewTextField extends StatefulWidget {
     @required String hintText,
     @required bool textItalic,
     @required double corners,
+    @required Color fieldColor,
 }){
 
     final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
@@ -172,7 +178,7 @@ class NewTextField extends StatefulWidget {
           textItalic: textItalic,
       ),
       alignLabelWithHint: true,
-      contentPadding: EdgeInsets.symmetric(horizontal: _textFieldPadding),
+      contentPadding: EdgeInsets.all(_textFieldPadding),
 
       focusedBorder: createOutlineBorder(
           borderColor: Colorz.yellow80,
@@ -217,7 +223,7 @@ class NewTextField extends StatefulWidget {
       // semanticCounterText: 'semantic',
       focusColor: Colorz.green255,
       filled: true,
-      fillColor: Colorz.white10,
+      fillColor: fieldColor,
 
       // helperText: 'helper',
       // errorText: 'there is some error here',
@@ -239,6 +245,8 @@ class _NewTextFieldState extends State<NewTextField> {
 
     _controller = widget.textController ?? TextEditingController();
     _scrollController = widget.scrollController ?? ScrollController();
+    _textLength = ValueNotifier(_controller.text.length);
+    _errors = ValueNotifier<List<String>>(_initializeErrors());
 
     final TextDirection _initialTextDirection = superTextDirectionSwitcher(
       val: widget.textController?.text,
@@ -253,16 +261,126 @@ class _NewTextFieldState extends State<NewTextField> {
   void dispose(){
     super.dispose();
     _controller.dispose();
+    _textLength.dispose();
+    _errors.dispose();
+    _textDirection.dispose();
+  }
+// -----------------------------------------------------------------------------
+  ValueNotifier<List<String>> _errors;
+  String _lastValidatorError;
+// ------------------------------------------------
+  List<String> _initializeErrors(){
+    final List<String> _list = <String>[];
+    final String _initialError = widget.validator();
+    if (_initialError != null){
+      _list.add(_initialError);
+    }
+    return _list;
+  }
+// ------------------------------------------------
+  void _validateInput(){
+
+    final String _validatorError = widget.validator();
+
+    /// WHEN THERE IS AN ERROR FROM VALIDATOR
+    if (_validatorError != null){
+      _lastValidatorError = _validatorError;
+      if (_errors.value.contains(_validatorError) == false){
+        _errors.value = <String>[_validatorError, ... _errors.value];
+      }
+    }
+    /// WHEN NO ERROR FROM VALIDATOR
+    else {
+      _errors.value = _removeLastValidatorErrorIfExisted();
+    }
+
+  }
+// ------------------------------------------------
+  List<String> _removeLastValidatorErrorIfExisted(){
+
+    final List<String> _list = <String>[..._errors.value];
+    final int _index = _list.indexOf(_lastValidatorError);
+
+    /// LAST ERROR NOT FOUND : REMOVED ALREADY
+    if (_index == -1){
+
+    }
+    /// LAST ERROR IS FOUND
+    else {
+      _list.removeAt(_index);
+    }
+
+    return <String>[..._list];
+  }
+// ------------------------------------------------
+  ValueNotifier<int> _textLength;
+  void _updateTextLength(String val){
+
+    if (val != null){
+      _textLength.value = val.length;
+    }
+
+  }
+// ------------------------------------------------
+  void _updateMaxLengthError(int textLength){
+
+    const String _error = 'Max Characters reached';
+    final List<String> _list = <String>[..._errors.value];
+
+    if (textLength > widget.maxLength){
+      if (_errors.value.contains(_error) == false){
+        _errors.value = <String>[..._list, _error];
+      }
+    }
+
+    else {
+      final int _index = _list.indexOf(_error);
+      if (_index != -1){
+        _list.removeAt(_index);
+        _errors.value = _list;
+      }
+    }
+
+  }
+// ------------------------------------------------
+  void _updateMaxLinesError(String text){
+
+    const String _error = 'Max Lines reached';
+    final List<String> _list = <String>[..._errors.value];
+    final List<String> _rows = text.split('\n');
+
+    if (_rows.length > widget.maxLines){
+      if (_errors.value.contains(_error) == false){
+        _errors.value = <String>[..._list, _error];
+      }
+    }
+
+    else {
+      final int _index = _list.indexOf(_error);
+      if (_index != -1){
+        _list.removeAt(_index);
+        _errors.value = _list;
+      }
+    }
+
   }
 // -----------------------------------------------------------------------------
   void _onTextChanged(String val) {
 
     if (val != null) {
+
+      if (widget.counterIsOn == true){
+        _updateTextLength(val);
+        _updateMaxLengthError(_textLength.value);
+        _updateMaxLinesError(val);
+      }
+      _validateInput();
       _changeTextDirection(val);
 
       if (widget.onChanged != null) {
         widget.onChanged(val);
       }
+
     }
   }
 // -----------------------------------------------------------------------------
@@ -277,6 +395,10 @@ class _NewTextFieldState extends State<NewTextField> {
     );
   }
 // -----------------------------------------------------------------------------
+  Color _getFieldColor(bool errorIsOn){
+    return errorIsOn ? Colorz.red230 : widget.fieldColor;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -284,62 +406,141 @@ class _NewTextFieldState extends State<NewTextField> {
       width: widget.width,
       margins: widget.margins,
       corners: widget.corners,
-      fieldColor: widget.fieldColor,
       child: ValueListenableBuilder(
-          key: const ValueKey<String>('The_super_text_field'),
-          valueListenable: _textDirection,
-          builder: (_, TextDirection textDirection, Widget child){
+        valueListenable: _errors,
+        builder: (_, List<String> errors, Widget counter){
 
-            final TextDirection _concludedTextDirection = concludeTextDirection(
-              context: context,
-              definedDirection: widget.textDirection,
-              detectedDirection: textDirection,
-            );
+          final bool _errorIsOn = Mapper.canLoopList(errors);
 
-            return TextFormFieldSwitcher(
-              /// main
-              fieldKey: widget.fieldKey,
-              controller: _controller,
-              hintText: widget.hintText,
-              autoFocus: widget.autofocus,
-              focusNode: widget.focusNode,
-              counterIsOn: widget.counterIsOn,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
 
-              /// box
-              corners: widget.corners,
+              /// TEXT FIELD
+              ValueListenableBuilder(
+                  key: const ValueKey<String>('The_super_text_field'),
+                  valueListenable: _textDirection,
+                  builder: (_, TextDirection textDirection, Widget child){
 
-              /// keyboard
-              textInputAction: widget.textInputAction,
-              textInputType: widget.textInputType,
+                    final TextDirection _concludedTextDirection = concludeTextDirection(
+                      context: context,
+                      definedDirection: widget.textDirection,
+                      detectedDirection: textDirection,
+                    );
 
-              /// text
-              textDirection: _concludedTextDirection,
-              obscured: widget.obscured,
-              minLines: widget.minLines,
-              maxLines: widget.maxLines,
-              maxLength: widget.maxLength,
-              scrollController: _scrollController,
+                    return TextFormFieldSwitcher(
+                      /// main
+                      fieldKey: widget.fieldKey,
+                      controller: _controller,
+                      hintText: widget.hintText,
+                      autoFocus: widget.autofocus,
+                      focusNode: widget.focusNode,
+                      counterIsOn: widget.counterIsOn,
 
-              /// styling
-              centered: widget.centered,
-              textShadow: widget.textShadow,
-              textWeight: widget.textWeight,
-              textSize: widget.textSize,
-              textSizeFactor: widget.textSizeFactor,
-              textItalic: widget.textItalic,
-              textColor: widget.textColor,
+                      /// box
+                      corners: widget.corners,
 
-              /// functions
-              onTap: widget.onTap,
-              onChanged: _onTextChanged,
-              onSubmitted: widget.onSubmitted,
-              onSavedForForm: widget.onSavedForForm,
-              onEditingComplete: widget.onEditingComplete,
-              validator: widget.validator,
-            );
+                      /// keyboard
+                      textInputAction: widget.textInputAction,
+                      textInputType: widget.textInputType,
 
-          }
-          ),
+                      /// text
+                      textDirection: _concludedTextDirection,
+                      obscured: widget.obscured,
+                      minLines: widget.minLines,
+                      maxLines: widget.maxLines,
+                      maxLength: widget.maxLength,
+                      scrollController: _scrollController,
+
+                      /// styling
+                      centered: widget.centered,
+                      textShadow: widget.textShadow,
+                      textWeight: widget.textWeight,
+                      textSize: widget.textSize,
+                      textSizeFactor: widget.textSizeFactor,
+                      textItalic: widget.textItalic,
+                      textColor: widget.textColor,
+                      fieldColor: _getFieldColor(_errorIsOn),
+
+                      /// functions
+                      onTap: widget.onTap,
+                      onChanged: _onTextChanged,
+                      onSubmitted: widget.onSubmitted,
+                      onSavedForForm: widget.onSavedForForm,
+                      onEditingComplete: widget.onEditingComplete,
+                    );
+
+                  }
+              ),
+
+              /// COUNTER & ERROR
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+
+                  /// ERROR
+                  if (_errorIsOn == true)
+                  Container(
+                    width: widget.width  - 110,
+                    // color: Colorz.blue255,
+                    padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+
+                        ...List.generate(errors.length, (index){
+                          final String _error = errors[index];
+                          return SuperVerse(
+                            verse: _error,
+                            color: Colorz.red255,
+                            weight: VerseWeight.thin,
+                            size: 2,
+                            maxLines: 3,
+                            centered: false,
+                            italic: true,
+                            leadingDot: true,
+                          );
+
+                        })
+
+                      ],
+
+                    ),
+                  ),
+
+                  const SizedBox(),
+
+                  /// COUNTER
+                  if (widget.counterIsOn)
+                    Container(
+                      width: 110,
+                      // height: 30,
+                      // color: Colorz.black80,
+                      alignment: superInverseCenterAlignment(context),
+                      child: ValueListenableBuilder(
+                        valueListenable: _textLength,
+                        builder: (_, int textLength, Widget child){
+
+                          return SuperVerse(
+                            verse: '$textLength / ${widget.maxLength}',
+                            weight: VerseWeight.thin,
+                            size: 2,
+                            scaleFactor: 1,
+                            labelColor: _getFieldColor(_errorIsOn),
+                          );
+
+                        },
+                      ),
+                    ),
+
+                ],
+              ),
+            ],
+          );
+
+        },
+      ),
     );
 
   }
