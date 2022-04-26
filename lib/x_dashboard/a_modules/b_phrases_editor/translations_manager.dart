@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -237,7 +235,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      boolDialog: false,
+      // boolDialog: false,
       title: _result == true ? 'Tamam' : 'Ops,, errr',
       body: _result == true ? 'Phrases are backed up successfully' : 'error : $_error',
     );

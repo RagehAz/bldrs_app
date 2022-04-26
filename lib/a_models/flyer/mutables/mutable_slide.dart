@@ -180,6 +180,7 @@ class MutableSlide {
     return _slides;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<MutableSlide>> createMutableSlidesByAssets({
     @required List<Asset> assets,
     @required List<MutableSlide> existingSlides,
@@ -187,10 +188,6 @@ class MutableSlide {
 }) async {
 
     final List<MutableSlide> _output = <MutableSlide>[];
-
-    // final List<Asset> _existingAssets = MutableSlide.getAssetsFromMutableSlides(
-    //     mutableSlides: existingSlides,
-    // );
 
     if (Mapper.canLoopList(assets) == true){
 

@@ -1,17 +1,17 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/a_shelf_box.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/d_shelf_slides_part.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/draft_shelf_controller.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -22,11 +22,15 @@ class SlidesShelf extends StatefulWidget {
   const SlidesShelf({
     @required this.shelfNumber,
     @required this.bzModel,
+    @required this.draft,
+    @required this.headlineController,
     Key key,
 }) : super(key: key);
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final BzModel bzModel;
+  final ValueNotifier<DraftFlyerModel> draft;
+  final TextEditingController headlineController;
   /// --------------------------------------------------------------------------
   @override
   _SlidesShelfState createState() => _SlidesShelfState();
@@ -38,12 +42,6 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-// -----------------------------------------------------------------------------
-  final TextEditingController _headlineController = TextEditingController();
-  final ValueNotifier<int> _headlineLength = ValueNotifier(0);
-// ----------------------------------------
-  ValueNotifier<DraftFlyerModel> _draftFlyer;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   ValueNotifier<bool> _loading;
@@ -58,13 +56,11 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   void initState() {
     _scrollController = ScrollController();
     _loading = ValueNotifier(false);
-    _draftFlyer = ValueNotifier<DraftFlyerModel>(null);
     super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-    disposeControllerIfPossible(_headlineController);
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -73,15 +69,10 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   void didChangeDependencies() {
     if (_isInit) {
 
-        _triggerLoading(setTo: true).then((_) async {
-
-          _draftFlyer.value = await initializeDraftFlyerModel(
-            bzModel: widget.bzModel,
-            existingFlyer: null,
-          );
-
-          await _triggerLoading(setTo: false);
-        });
+        // _triggerLoading(setTo: true).then((_) async {
+        //
+        //   await _triggerLoading(setTo: false);
+        // });
 
     }
     _isInit = false;
@@ -98,10 +89,13 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     return Container(
       width: superScreenWidth(context),
       height: ShelfBox.height(context),
-      color: Colorz.white10,
+      decoration: BoxDecoration(
+        color: Colorz.white10,
+        borderRadius: superBorderAll(context, Bubble.clearCornersValue),
+      ),
       alignment: superCenterAlignment(context),
       child: ValueListenableBuilder(
-        valueListenable: _draftFlyer,
+        valueListenable: widget.draft,
         builder: (_, DraftFlyerModel draft, Widget child){
 
           /// WHILE LOADING GIVEN EXISTING FLYER MODEL
@@ -124,20 +118,19 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
               slideZoneHeight: _slideZoneHeight,
               scrollController: _scrollController,
               mutableSlides: draft?.mutableSlides,
-              flyerHeaderController: _headlineController,
               onSlideTap: (MutableSlide slide) => onSlideTap(
                 context: context,
                 slide: slide,
-                draftFlyer: _draftFlyer,
+                draftFlyer: widget.draft,
               ),
               onAddNewSlides: () => onAddNewSlides(
                 context: context,
                 isLoading: _loading,
-                draftFlyer: _draftFlyer,
+                draftFlyer: widget.draft,
                 bzModel: widget.bzModel,
                 mounted: mounted,
                 scrollController: _scrollController,
-                headlineController: _headlineController,
+                headlineController: widget.headlineController,
                 flyerWidth: ShelfSlide.flyerBoxWidth,
               ),
             );

@@ -244,12 +244,34 @@ class DraftFlyerModel{
         );
   }
 // -------------------------------------
-  DraftFlyerModel updateHeadline(String value){
-    if (Mapper.canLoopList(mutableSlides) == true){
-      mutableSlides[0].headline.text = value;
+  static DraftFlyerModel updateHeadline({
+    @required TextEditingController controller,
+    @required DraftFlyerModel draft,
+}){
+
+    DraftFlyerModel _draft = draft;
+
+    if (draft != null){
+
+      if (Mapper.canLoopList(_draft.mutableSlides) == true){
+
+        final MutableSlide _newSlide = _draft.mutableSlides.first.copyWith(
+          headline: controller,
+        );
+
+        final List<MutableSlide> _newSlides = MutableSlide.replaceSlide(
+          slides: _draft.mutableSlides,
+          slide: _newSlide,
+        );
+
+        _draft = draft.copyWith(
+          mutableSlides: _newSlides,
+        );
+      }
+
     }
 
-    return this;
+    return _draft;
   }
 // -----------------------------------------------------------------------------
 

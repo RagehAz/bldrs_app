@@ -1,7 +1,9 @@
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 /// TASK : need to test this method to detect text direction
@@ -23,7 +25,10 @@ bool appIsLeftToRight(BuildContext context) {
 }
 // -----------------------------------------------------------------------------
 TextDirection textDirectionAsPerAppDirection(BuildContext context) {
-  if (appIsLeftToRight(context)) {
+
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
+  if (_phraseProvider.currentLangCode == 'en') {
     return TextDirection.ltr;
   } else {
     return TextDirection.rtl;
@@ -77,7 +82,10 @@ TextDirection superTextDirectionSwitcherByController(TextEditingController contr
   return _textDirection;
 }
 // -----------------------------------------------------------------------------
-TextDirection superTextDirectionSwitcher(String val) {
+TextDirection superTextDirectionSwitcher({
+  @required BuildContext context,
+  @required String val,
+}) {
   TextDirection _textDirection;
 
   // bool _appIsLeftToRight = appIsLeftToRight(context);
@@ -108,8 +116,9 @@ TextDirection superTextDirectionSwitcher(String val) {
 
   /// when val is empty
   else {
-    // _textDirection = _defaultByLang; // can not check app is left to right in initState of SuperTextField
-    _textDirection = TextDirection.ltr; // instead of null
+    // _textDirection = _defaultByLang;
+    /// can not check app is left to right in initState of SuperTextField
+    _textDirection = textDirectionAsPerAppDirection(context); // instead of null
 
   }
 

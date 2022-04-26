@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ class ShelfSlidesPart extends StatelessWidget {
     @required this.slideZoneHeight,
     @required this.scrollController,
     @required this.mutableSlides,
-    @required this.flyerHeaderController,
     @required this.onSlideTap,
     @required this.onAddNewSlides,
     @required this.loading,
@@ -22,7 +22,6 @@ class ShelfSlidesPart extends StatelessWidget {
   final double slideZoneHeight;
   final ScrollController scrollController;
   final List<MutableSlide> mutableSlides;
-  final TextEditingController flyerHeaderController;
   final ValueChanged<MutableSlide> onSlideTap;
   final Function onAddNewSlides;
   final ValueNotifier<bool> loading;
@@ -60,15 +59,13 @@ class ShelfSlidesPart extends StatelessWidget {
               children: <Widget>[
 
                 /// SLIDES
-                if (isLoading == false)
+                if (Mapper.canLoopList(mutableSlides) == true)
                 ...List.generate(mutableSlides.length, (index){
 
                   final MutableSlide _mutableSlide = mutableSlides[index];
-                  final bool _hasSlides = mutableSlides.isNotEmpty;
 
                   return ShelfSlide(
                     mutableSlide: _mutableSlide,
-                    headline: _hasSlides && index == 0 ? flyerHeaderController : null,
                     number: index + 1,
                     onTap: () => onSlideTap(_mutableSlide),
                   );
@@ -79,7 +76,6 @@ class ShelfSlidesPart extends StatelessWidget {
                 if (isLoading == false)
                   ShelfSlide(
                     mutableSlide: null,
-                    headline: null,
                     number: null,
                     onTap: onAddNewSlides,
                   ),

@@ -17,6 +17,9 @@ class SlideHeadline extends StatelessWidget {
   final Function tappingVerse;
   final Color verseColor;
   /// --------------------------------------------------------------------------
+  static const headlineScaleFactor = 0.004;
+  static const headlineSize = 4;
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // print('slide title verse is : $verse');
@@ -38,8 +41,8 @@ class SlideHeadline extends StatelessWidget {
           verse: verse,
           color: verseColor,
           shadow: true,
-          size: 4,
-          scaleFactor: flyerBoxWidth * 0.005,
+          size: headlineSize,
+          scaleFactor: flyerBoxWidth * headlineScaleFactor,
           maxLines: 3,
         ),
       ),
