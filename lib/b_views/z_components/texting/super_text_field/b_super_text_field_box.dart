@@ -9,7 +9,6 @@ class SuperTextFieldBox extends StatelessWidget {
     @required this.width,
     @required this.margins,
     @required this.corners,
-    @required this.fieldColor,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -17,7 +16,6 @@ class SuperTextFieldBox extends StatelessWidget {
   final double width;
   final dynamic margins;
   final double corners;
-  final Color fieldColor;
   /// --------------------------------------------------------------------------
 
   @override
@@ -29,7 +27,6 @@ class SuperTextFieldBox extends StatelessWidget {
       margin: superMargins(margins: margins),
       decoration: BoxDecoration(
         borderRadius: superBorderAll(context, corners),
-        color: fieldColor,
       ),
       alignment: Alignment.topCenter,
       child: child,

@@ -38,6 +38,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
     @required this.textSize,
     @required this.textSizeFactor,
     @required this.textShadow,
+    @required this.fieldColor,
 
     /// functions
     @required this.onTap,
@@ -45,7 +46,6 @@ class TextFormFieldSwitcher extends StatelessWidget {
     @required this.onSubmitted,
     @required this.onSavedForForm,
     @required this.onEditingComplete,
-    @required this.validator,
 
     Key key,
   }) : super(key: key);
@@ -81,6 +81,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
   final int textSize;
   final double textSizeFactor;
   final bool textShadow;
+  final Color fieldColor;
 
   /// functions
   final Function onTap;
@@ -88,8 +89,19 @@ class TextFormFieldSwitcher extends StatelessWidget {
   final ValueChanged<String> onSubmitted;
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
-  final Function(String) validator;
+// -----------------------------------------------------------------------------
+  static TextInputType _getKeyboardType({
+    @required TextInputAction textInputAction,
+    @required TextInputType textInputType,
+  }){
+    final _textInputType = textInputAction == TextInputAction.newline ?
+    TextInputType.multiline
+        :
+    textInputType;
 
+    return _textInputType;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -110,6 +122,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
       hintText: hintText,
       textItalic: textItalic,
       corners: corners,
+      fieldColor: fieldColor,
     );
 // -----------------------------------------------------------------------------
     const EdgeInsets _scrollPadding = EdgeInsets.only(bottom: 50);
@@ -118,9 +131,10 @@ class TextFormFieldSwitcher extends StatelessWidget {
 // -----------------------------------------------------------------------------
     const Color _cursorColor = Colorz.yellow255;
 // -----------------------------------------------------------------------------
-    final MaxLengthEnforcement _maxLengthEnforced = counterIsOn == true ?
-    MaxLengthEnforcement.enforced
-        :
+    const MaxLengthEnforcement _maxLengthEnforced =
+    // counterIsOn == true ?
+    // MaxLengthEnforcement.enforced
+    //     :
     MaxLengthEnforcement.none;
 // -----------------------------------------------------------------------------
     final TextAlign _textAlign = centered == true ?
@@ -155,7 +169,10 @@ class TextFormFieldSwitcher extends StatelessWidget {
 
         /// keyboard
         textInputAction: textInputAction,
-        keyboardType: textInputType,
+        keyboardType: _getKeyboardType(
+          textInputAction: textInputAction,
+          textInputType: textInputType,
+        ),
         keyboardAppearance: Brightness.dark,
 
         /// styling
@@ -172,7 +189,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         onFieldSubmitted: (String val) => onSubmitted(val),
         onSaved: (String val) => onSavedForForm(val),
         onEditingComplete: onEditingComplete,
-        validator: validator,
+        // validator: validator,
 
         /// other stuff
         enabled: true, /// THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
@@ -194,6 +211,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         scrollPhysics: const BouncingScrollPhysics(),
         scrollPadding: _scrollPadding,
 
+
         /// text
         textDirection: textDirection,
         obscureText: obscured,
@@ -205,7 +223,10 @@ class TextFormFieldSwitcher extends StatelessWidget {
 
         /// keyboard
         textInputAction: textInputAction,
-        keyboardType: textInputType,
+        keyboardType: _getKeyboardType(
+          textInputAction: textInputAction,
+          textInputType: textInputType,
+        ),
         keyboardAppearance: Brightness.dark,
 
         /// styling
