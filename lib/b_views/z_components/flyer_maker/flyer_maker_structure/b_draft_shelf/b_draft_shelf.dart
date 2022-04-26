@@ -29,7 +29,7 @@ class SlidesShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final BzModel bzModel;
-  final ValueNotifier<DraftFlyerModel> draft;
+  final ValueNotifier<DraftFlyerModel> draft; /// p
   final TextEditingController headlineController;
   /// --------------------------------------------------------------------------
   @override
@@ -42,26 +42,26 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  ValueNotifier<bool> _loading;
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
   Future<void> _triggerLoading({bool setTo}) async {
     _loading.value = setTo ?? !_loading.value;
     blogLoading(loading: _loading.value);
   }
 // -----------------------------------------------------------------------------
-  ScrollController _scrollController;
+  ScrollController _scrollController; /// tamam disposed
   @override
   void initState() {
     _scrollController = ScrollController();
-    _loading = ValueNotifier(false);
     super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
     super.dispose();
+    _scrollController.dispose();
+    _loading.dispose();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

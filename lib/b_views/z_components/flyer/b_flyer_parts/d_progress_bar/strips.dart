@@ -21,8 +21,8 @@ class Strips extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final int numberOfStrips;
-  final ValueNotifier<int> currentSlideIndex;
-  final ValueNotifier<Sliders.SwipeDirection> swipeDirection;
+  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<Sliders.SwipeDirection> swipeDirection; /// p
   final bool barIsOn;
   final EdgeInsets margins;
   final bool tinyMode;

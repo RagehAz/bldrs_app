@@ -16,12 +16,12 @@ class ExpandedReviewPageTree extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> reviewButtonExpanded;
+  final ValueNotifier<bool> reviewButtonExpanded; /// p
   final double pageWidth;
   final double pageHeight;
   final double flyerBoxWidth;
   final ScrollController reviewPageVerticalController;
-  final ValueNotifier<bool> isEditingReview;
+  final ValueNotifier<bool> isEditingReview; /// p
   final Function onEditReview;
   final TextEditingController reviewTextController;
   final Function onSubmitReview;

@@ -14,7 +14,7 @@ class GenderBubble extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<Gender> selectedGender;
+  final ValueNotifier<Gender> selectedGender; /// p
   final ValueChanged<Gender> onTap;
   /// --------------------------------------------------------------------------
   static double buttonWidth(BuildContext context){

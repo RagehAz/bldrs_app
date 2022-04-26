@@ -25,7 +25,7 @@ class QuestionHeaderLabelsTree extends StatelessWidget {
   final QuestionModel questionModel;
   final UserModel userModel;
   final bool tinyMode;
-  final ValueNotifier<bool> headerIsExpanded;
+  final ValueNotifier<bool> headerIsExpanded; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

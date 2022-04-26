@@ -39,11 +39,11 @@ class ConvertibleQuestionHeaderStripPart extends StatelessWidget {
   final BorderRadius headerBorders;
   final double logoMinWidth;
   final BorderRadius logoBorders;
-  final ValueNotifier<bool> headerIsExpanded;
+  final ValueNotifier<bool> headerIsExpanded; /// p
   final Animation<double> headerMiddleSpacerWidthTween;
   final Animation<double> headerLabelsWidthTween;
   final Animation<double> followCallButtonsScaleTween;
-  final ValueNotifier<bool> followIsOn;
+  final ValueNotifier<bool> followIsOn; /// p
   final Animation<double> headerRightSpacerTween;
   final QuestionModel questionModel;
   final UserModel userModel;

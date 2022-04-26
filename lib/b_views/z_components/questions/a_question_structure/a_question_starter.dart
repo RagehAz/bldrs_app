@@ -32,7 +32,7 @@ class QuestionStarter extends StatefulWidget {
 class _QuestionStarterState extends State<QuestionStarter> {
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(true);
+  final ValueNotifier<bool> _loading = ValueNotifier(true); /// tamam disposed
 // -----------------------------------
   Future<void> _triggerLoading({@required setTo}) async {
     _loading.value = setTo;
@@ -74,6 +74,7 @@ class _QuestionStarterState extends State<QuestionStarter> {
   @override
   void dispose() {
     super.dispose();
+    _loading.dispose();
 
     // if (_currentSlideIndex != null){
     //   _currentSlideIndex.dispose();

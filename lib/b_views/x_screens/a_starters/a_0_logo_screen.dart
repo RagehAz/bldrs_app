@@ -25,7 +25,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
   static const int _fadeCycleDuration = 750;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
   /// HAS TO BE A FUTURE TO BE USED IN didChangeDependencies
   Future<void> _triggerLoading() async {

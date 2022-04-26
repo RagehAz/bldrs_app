@@ -54,15 +54,16 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+// -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
-  final ValueNotifier<dynamic> _picture = ValueNotifier(null);
-  final ValueNotifier<Gender> _gender = ValueNotifier(null);
-  final ValueNotifier<ZoneModel> _zone = ValueNotifier(null);
-
+  final ValueNotifier<dynamic> _picture = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<Gender> _gender = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<ZoneModel> _zone = ValueNotifier(null); /// tamam disposed
+  // --------------------
   String _currentLanguageCode;
   GeoPoint _currentPosition;
-
+  // --------------------
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _companyController = TextEditingController();
@@ -74,7 +75,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _twitterController = TextEditingController();
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(true);
+  final ValueNotifier<bool> _loading = ValueNotifier(true); /// tamam disposed
 // -----------------------------------
   Future<void> _triggerLoading({@required setTo}) async {
     _loading.value = setTo;
@@ -118,6 +119,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     TextChecker.disposeControllerIfPossible(_linkedInController);
     TextChecker.disposeControllerIfPossible(_instagramController);
     TextChecker.disposeControllerIfPossible(_twitterController);
+    _loading.dispose();
+    _canPickImage.dispose();
+    _picture.dispose();
+    _gender.dispose();
+    _zone.dispose();
+
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -139,7 +146,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _twitterController.text   = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.twitter);
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
+  final ValueNotifier<bool> _canPickImage = ValueNotifier(true); /// tamam disposed
 // -----------------------------------------------------------------------------
   Future<void> _takeGalleryPicture() async {
 
@@ -183,9 +190,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     zoneModel.blogZone(methodName: 'recieved this zone ahoo');
   }
 // -----------------------------------------------------------------------------
+  /*
   // void _changePosition(GeoPoint geoPoint){
   //   setState(() => _currentPosition = geoPoint );
   // }
+   */
 // -----------------------------------------------------------------------------
   List<ContactModel> _createContactList({List<ContactModel> existingContacts}) {
     /// takes current contacts, overrides them on existing contact list, then

@@ -41,7 +41,7 @@ class EmailAuthScreenView extends StatelessWidget {
   final Function switchSignIn;
   final Function onSignin;
   final Function onSignup;
-  final ValueNotifier<bool> isSigningIn;
+  final ValueNotifier<bool> isSigningIn; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

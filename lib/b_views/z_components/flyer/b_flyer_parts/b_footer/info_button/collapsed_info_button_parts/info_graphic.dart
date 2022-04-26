@@ -16,7 +16,7 @@ class InfoGraphic extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final ValueNotifier<bool> buttonIsExpanded;
+  final ValueNotifier<bool> buttonIsExpanded; /// p
   final bool tinyMode;
   /// --------------------------------------------------------------------------
   @override

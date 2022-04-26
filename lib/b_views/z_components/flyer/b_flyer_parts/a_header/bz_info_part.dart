@@ -17,7 +17,7 @@ class BzInfoPart extends StatelessWidget {
   final double flyerBoxWidth;
   final BzModel bzModel;
   final FlyerModel flyerModel;
-  final ValueNotifier<double> headerPageOpacity;
+  final ValueNotifier<double> headerPageOpacity; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,7 @@ class CollapsedReviewButtonTree extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> reviewButtonExpanded;
+  final ValueNotifier<bool> reviewButtonExpanded; /// p
   final double flyerBoxWidth;
   final Function onReviewButtonTap;
   /// --------------------------------------------------------------------------

@@ -22,7 +22,7 @@ class QuestionFooterButtons extends StatelessWidget {
   final Function onSaveFlyer;
   final Function onReviewFlyer;
   final Function onShareFlyer;
-  final ValueNotifier<bool> flyerIsSaved;
+  final ValueNotifier<bool> flyerIsSaved; /// p
   final bool inFlight;
   /// --------------------------------------------------------------------------
   bool _canShowElement(){

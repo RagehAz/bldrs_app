@@ -24,7 +24,7 @@ class ShelfSlidesPart extends StatelessWidget {
   final List<MutableSlide> mutableSlides;
   final ValueChanged<MutableSlide> onSlideTap;
   final Function onAddNewSlides;
-  final ValueNotifier<bool> loading;
+  final ValueNotifier<bool> loading; /// p
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

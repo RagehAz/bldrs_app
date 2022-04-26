@@ -32,9 +32,10 @@ class DoubleDataCreator extends StatefulWidget {
 }
 
 class _DoubleDataCreatorState extends State<DoubleDataCreator> {
+// -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController controller = TextEditingController();
-  final ValueNotifier<double> _double = ValueNotifier<double>(null);
+  final TextEditingController controller = TextEditingController(); /// tamam disposed
+  final ValueNotifier<double> _double = ValueNotifier<double>(null); /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -43,11 +44,16 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _double.dispose();
+    controller.dispose();
+  }
 // -----------------------------------------------------------------------------
   void _validate() {
     _formKey.currentState.validate();
   }
-
 // -----------------------------------------------------------------------------
   String _validator(String val) {
     // final int _maxDigits = _currency.value.digits;
@@ -78,7 +84,6 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
 
     return null;
   }
-
 // -----------------------------------------------------------------------------
   void _onTextChanged(String val) {
     _validate();
@@ -87,7 +92,6 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
     _double.value = _doubleFromString;
     widget.onDoubleChanged(_doubleFromString);
   }
-
 // -----------------------------------------------------------------------------
 //   Future<void> _increment() async {
 //     Keyboarders.minimizeKeyboardOnTapOutSide(context);

@@ -21,7 +21,7 @@ class SavedFlyersScreenView extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool selectionMode;
-  final ValueNotifier<FlyerType> currentFlyerType;
+  final ValueNotifier<FlyerType> currentFlyerType; /// p
   final ValueChanged<FlyerType> onChangeCurrentFlyerType;
   final ScrollController flyersGridScrollController;
   final ScrollController sliverNestedScrollController;

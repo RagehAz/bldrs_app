@@ -28,7 +28,7 @@ class InfoButtonStarter extends StatelessWidget {
   final FlyerModel flyerModel;
   final ZoneModel flyerZone;
   final bool tinyMode;
-  final ValueNotifier<bool> infoButtonExpanded;
+  final ValueNotifier<bool> infoButtonExpanded; /// p
   final Function onInfoButtonTap;
   final InfoButtonType infoButtonType;
   final ScrollController infoPageVerticalController;

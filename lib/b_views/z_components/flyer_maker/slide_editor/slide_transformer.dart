@@ -20,8 +20,8 @@ class SlideTransformer extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<Matrix4> matrix;
-  final ValueNotifier<ImageFilterModel> filterModel;
+  final ValueNotifier<Matrix4> matrix; /// p
+  final ValueNotifier<ImageFilterModel> filterModel; /// p
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final MutableSlide slide;

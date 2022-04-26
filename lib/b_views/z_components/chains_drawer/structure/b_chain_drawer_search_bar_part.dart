@@ -20,7 +20,7 @@ class ChainsDrawerSearchBarPart extends StatelessWidget {
   final double width;
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
-  final ValueNotifier<bool> isSearching;
+  final ValueNotifier<bool> isSearching; /// p
   final TextEditingController searchController;
   /// --------------------------------------------------------------------------
   @override

@@ -24,7 +24,7 @@ class ReviewCreatorTree extends StatelessWidget {
   final double pageWidth;
   final double flyerBoxWidth;
   final double pageHeight;
-  final ValueNotifier<bool> isEditingReview;
+  final ValueNotifier<bool> isEditingReview; /// p
   final Function onEditReview;
   final Function onSubmitReview;
   final TextEditingController reviewTextController;

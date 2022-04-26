@@ -46,9 +46,9 @@ class FlyerTree extends StatefulWidget {
   final bool loading;
   final String heroTag;
   final FlightDirection flightDirection;
-  final ValueNotifier<int> currentSlideIndex;
+  final ValueNotifier<int> currentSlideIndex; /// p
   final Function onSaveFlyer;
-  final ValueNotifier<bool> flyerIsSaved;
+  final ValueNotifier<bool> flyerIsSaved; /// p
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
   /// --------------------------------------------------------------------------
@@ -59,14 +59,14 @@ class FlyerTree extends StatefulWidget {
 class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   /// FOR HEADER
-  AnimationController _headerAnimationController;
-  ScrollController _headerScrollController;
+  AnimationController _headerAnimationController; /// tamam disposed
+  ScrollController _headerScrollController; /// tamam disposed
   /// FOR SLIDES
-  PageController _horizontalSlidesController;
+  PageController _horizontalSlidesController; /// tamam disposed
   /// FOR FOOTER
-  PageController _footerPageController;
+  PageController _footerPageController; /// tamam disposed
   /// FOR SAVING GRAPHIC
-  AnimationController _animationController;
+  AnimationController _animationController; /// tamam disposed
 
   bool _canShowGallery;
   int _numberOfSlides;
@@ -163,6 +163,15 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     _headerAnimationController.dispose();
     _headerScrollController.dispose();
     _animationController.dispose();
+    _horizontalSlidesController.dispose();
+    _footerPageController.dispose();
+    _followIsOn.dispose();
+    _progressBarOpacity.dispose();
+    _headerIsExpanded.dispose();
+    _headerPageOpacity.dispose();
+    _swipeDirection.dispose();
+    _graphicIsOn.dispose();
+    _graphicOpacity.dispose();
   }
 // -----------------------------------------------------------------------------
   void _listenToHorizontalController(){
@@ -192,17 +201,17 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   }
 // -----------------------------------------------------------------------------
   /// FOLLOW IS ON
-  final ValueNotifier<bool> _followIsOn = ValueNotifier(false);
+  final ValueNotifier<bool> _followIsOn = ValueNotifier(false); /// tamam disposed
   void _setFollowIsOn(bool setTo) => _followIsOn.value = setTo;
 // -----------------------------------------------------------------------------
   /// PROGRESS BAR OPACITY
-  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
+  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1); /// tamam disposed
   /// HEADER IS EXPANDED
-  final ValueNotifier<bool> _headerIsExpanded = ValueNotifier(false);
+  final ValueNotifier<bool> _headerIsExpanded = ValueNotifier(false); /// tamam disposed
   /// HEADER PAGE OPACITY
-  final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
+  final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0); /// tamam disposed
   /// SWIPE DIRECTION
-  final ValueNotifier<Sliders.SwipeDirection> _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next);
+  final ValueNotifier<Sliders.SwipeDirection> _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next); /// tamam disposed
 // -----------------------------------------------------------------------------
   Future<void> _onHeaderTap() async {
 
@@ -311,8 +320,8 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
-  final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
+  final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<double> _graphicOpacity = ValueNotifier(1); /// tamam disposed
 // -----------------------------------------------------------------------------
   Future<void> _triggerAnimation(bool isSaved) async {
 
@@ -348,9 +357,11 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
+  /*
 //   Future<void> _slideToZeroIndex() async {
 //     await Sliders.slideToBackFrom(_horizontalSlidesController, widget.currentSlideIndex.value);
 //   }
+   */
 // -----------------------------------------------------------------------------
   bool _inFlight(){
 
