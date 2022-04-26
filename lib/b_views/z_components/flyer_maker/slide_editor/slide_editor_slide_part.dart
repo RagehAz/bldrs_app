@@ -10,7 +10,10 @@ import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_transf
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_footer.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -105,11 +108,39 @@ class SlideEditorSlidePart extends StatelessWidget {
                   filterModel: filterModel,
                 ),
 
-                /// HEADLINE
-                SlideHeadline(
-                  flyerBoxWidth: _flyerBoxWidth,
-                  verse: _slide.headline.text,
+                // /// HEADLINE
+                // SlideHeadline(
+                //   flyerBoxWidth: _flyerBoxWidth,
+                //   verse: _slide.headline.text,
+                // ),
+
+                SuperTextField(
+                  // key: ValueKey<String>('slide$slideIndex'),
+                  hintText: 'T i t l e',
+                  width: _flyerBoxWidth,
+                  // height: flyerBoxWidth * 0.15,
+                  fieldColor: Colorz.black80,
+                  margin: EdgeInsets.only(
+                      top: _flyerBoxWidth * 0.3,
+                      left: 5,
+                      right: 5
+                  ),
+                  maxLines: 4,
+                  maxLength: 55,
+                  // counterIsOn: true,
+                  inputSize: SlideHeadline.headlineSize,
+                  textSizeFactor: _flyerBoxWidth * SlideHeadline.headlineScaleFactor,
+                  centered: true,
+                  textController: _slide.headline,
+                  onChanged: (String val){},
+                  inputWeight: VerseWeight.bold,
+                  inputShadow: true,
+                  // autofocus: false,
+                  // fieldIsFormField: true,
+                  // onSubmitted: null,
+                  keyboardTextInputAction: TextInputAction.done,
                 ),
+
 
                 /// BOTTOM SHADOW
                 FooterShadow(

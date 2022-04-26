@@ -25,14 +25,12 @@ class ShelfSlide extends StatefulWidget {
     @required this.mutableSlide,
     @required this.number,
     @required this.onTap,
-    @required this.headline,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final MutableSlide mutableSlide;
   final int number;
   final Function onTap;
-  final TextEditingController headline;
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
@@ -70,7 +68,9 @@ class _ShelfSlideState extends State<ShelfSlide> {
         children: <Widget>[
 
           /// SPACER
-          const SizedBox(height: Ratioz.appBarPadding,),
+          const SizedBox(
+            height: Ratioz.appBarPadding,
+          ),
 
           /// FLYER NUMBER
           Container(
@@ -178,8 +178,9 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 if (widget.mutableSlide != null)
                   SlideHeadline(
                     flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                    verse: widget.headline?.text ?? widget.mutableSlide.headline.text,
+                    verse: widget.mutableSlide.headline.text,
                   ),
+
 
                 /// ADD SLIDE PLUS ICON
                 if (widget.mutableSlide == null)

@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_new_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -251,6 +252,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         children: <Widget>[
 
           const Stratosphere(),
+
+          NewTextField(
+            textController: TextEditingController(),
+            width: 200,
+          ),
 
           /// DO SOMETHING
           WideButton(

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/slide_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -57,6 +57,33 @@ Future<DraftFlyerModel> initializeDraftFlyerModel({
   }
 
   return _draft;
+}
+
+TextEditingController initializeHeadlineController({
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+}){
+
+  final TextEditingController _controller = TextEditingController();
+
+  _controller.addListener(() {
+
+    blog('text controller : ${_controller.text}');
+
+    if (canLoopList(draftFlyer.value.mutableSlides) == true){
+
+      draftFlyer.value = DraftFlyerModel.updateHeadline(
+        controller : _controller,
+        draft: draftFlyer.value,
+      );
+
+    blog('headline is : ${draftFlyer?.value?.mutableSlides?.first?.headline?.text}');
+
+    }
+
+
+  });
+
+  return _controller;
 }
 // -----------------------------------------------------------------------------
 void onDeleteSlide({
@@ -283,14 +310,16 @@ Future<void> onMoreTap({
 void onFlyerHeadlineChanged({
   @required String val,
   @required GlobalKey<FormState> formKey,
-  @required ValueNotifier<int> headlineLength,
+  @required TextEditingController controller,
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
 }){
   formKey.currentState.validate();
-  headlineLength.value = val.length;
 
   if (canLoopList(draftFlyer.value.mutableSlides) == true){
-    draftFlyer.value = draftFlyer.value.updateHeadline(val);
+    draftFlyer.value = DraftFlyerModel.updateHeadline(
+      draft: draftFlyer.value,
+      controller: controller,
+    );
   }
 
 }
