@@ -62,7 +62,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
           /// ENTER E-MAIL
           TextFieldBubble(
-            formKey: formKey,
+            isFormField: true,
             key: const ValueKey<String>('email'),
             textController: emailController,
             textDirection: TextDirection.ltr,
@@ -84,7 +84,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
                     /// PASSWORD
                     TextFieldBubble(
-                      formKey: formKey,
+                      isFormField: true,
                       key: const ValueKey<String>('password'),
                       textController: passwordController,
                       textDirection: TextDirection.ltr,
@@ -109,7 +109,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
                           else {
                             return TextFieldBubble(
-                              formKey: formKey,
+                              isFormField: true,
                               key: const ValueKey<String>('confirm'),
                               textController: passwordConfirmationController,
                               textDirection: TextDirection.ltr,

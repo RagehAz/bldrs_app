@@ -258,6 +258,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                 width: _dialogClearWidth,
                 height: _textFieldHeight,
                 child: SuperTextField(
+                   width: _dialogClearWidth,
                   // height: _textFieldHeight,
                   // formKey: null,
                   textController: _userNameController,
@@ -557,6 +558,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                       /// TITLE
                       SuperTextField(
+                        width: _bodyWidth,
                         // formKey: _formKey,
                         // height: 80,
                         textController: _titleController,
@@ -576,6 +578,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                       /// BODY
                       SuperTextField(
+                        width: _bodyWidth,
                         // formKey: _formKey,
                         textController: _bodyController,
                         hintText: 'body',

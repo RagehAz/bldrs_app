@@ -378,7 +378,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT NAME
                   TextFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     textController: _nameController,
                     key: const Key('name'),
                     title: superPhrase(context, 'phid_name'),
@@ -398,7 +398,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT JOB TITLE
                   TextFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     key: const Key('title'),
                     textController: _titleController,
                     title: superPhrase(context, 'phid_jobTitle'),
@@ -413,7 +413,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT COMPANY NAME
                   TextFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     textController: _companyController,
                     key: const Key('company'),
                     title: superPhrase(context, 'phid_companyName'),
@@ -441,7 +441,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT EMAIL
                   ContactFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     textController: _emailController,
                     title: superPhrase(context, 'phid_emailAddress'),
                     leadingIcon: Iconz.comEmail,
@@ -452,7 +452,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT PHONE
                   ContactFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     textController: _phoneController,
                     title: superPhrase(context, 'phid_phone'),
                     leadingIcon: Iconz.comPhone,
@@ -462,7 +462,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT FACEBOOK
                   ContactFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     textController: _facebookController,
                     title: superPhrase(context, 'phid_facebookLink'),
                     leadingIcon: Iconz.comFacebook,
@@ -471,7 +471,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT INSTAGRAM
                   ContactFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     textController: _instagramController,
                     title: superPhrase(context, 'phid_instagramLink'),
                     leadingIcon: Iconz.comInstagram,
@@ -480,7 +480,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT LINKEDIN
                   ContactFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     textController: _linkedInController,
                     title: superPhrase(context, 'phid_linkedinLink'),
                     leadingIcon: Iconz.comLinkedin,
@@ -489,7 +489,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   /// --- EDIT TWITTER
                   ContactFieldBubble(
-                    formKey: _formKey,
+                    isFormField: true,
                     textController: _twitterController,
                     title: superPhrase(context, 'phid_twitterLink'),
                     leadingIcon: Iconz.comTwitter,
