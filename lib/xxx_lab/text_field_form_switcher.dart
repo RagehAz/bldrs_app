@@ -46,6 +46,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
     @required this.onSubmitted,
     @required this.onSavedForForm,
     @required this.onEditingComplete,
+    @required this.validator,
 
     Key key,
   }) : super(key: key);
@@ -89,6 +90,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
   final ValueChanged<String> onSubmitted;
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
+  final String Function(String) validator;
 // -----------------------------------------------------------------------------
   static TextInputType _getKeyboardType({
     @required TextInputAction textInputAction,
@@ -100,6 +102,14 @@ class TextFormFieldSwitcher extends StatelessWidget {
     textInputType;
 
     return _textInputType;
+  }
+// -----------------------------------------------------------------------------
+  Widget counterBuilder(BuildContext context, {int currentLength, bool isFocused, int maxLength}){
+    return SuperTextField.textFieldCounter(
+      currentLength: currentLength,
+      maxLength: maxLength,
+      fieldColor: fieldColor,
+    );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -123,6 +133,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
       textItalic: textItalic,
       corners: corners,
       fieldColor: fieldColor,
+      counterIsOn: counterIsOn,
     );
 // -----------------------------------------------------------------------------
     const EdgeInsets _scrollPadding = EdgeInsets.only(bottom: 50);
@@ -183,13 +194,16 @@ class TextFormFieldSwitcher extends StatelessWidget {
         decoration: _inputDecoration,
         textAlignVertical: _textAlignVertical,
 
+
+        buildCounter: counterIsOn ? counterBuilder : null,
+
         /// functions
         onTap: onTap,
         onChanged: (String val) => onChanged(val),
         onFieldSubmitted: (String val) => onSubmitted(val),
         onSaved: (String val) => onSavedForForm(val),
         onEditingComplete: onEditingComplete,
-        // validator: validator,
+        validator: validator,
 
         /// other stuff
         enabled: true, /// THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD

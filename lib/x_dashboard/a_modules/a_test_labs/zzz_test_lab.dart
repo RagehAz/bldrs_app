@@ -19,6 +19,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
+import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -191,6 +192,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   final TextEditingController _textController = TextEditingController();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -203,28 +206,19 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
-    /// FARTS : FAILED ATTEMPT TO CONCLUDE TEXT FIELD HEIGHT
+    /// TAMAM THANK YOU ALLAH
     const int numberOfLines = 1;
     const int _textSize = 2;
     const double _sizeFactor = 1; // 1.5429 max factor before box starts expanding
-    final _textHeight = SuperVerse.superVerseRealHeight(
+    final double _concludedHeight = SuperTextField.getFieldHeight(
         context: context,
-        size: _textSize,
-        sizeFactor: _sizeFactor,
-        hasLabelBox: false,
+        minLines: numberOfLines,
+        textSize: _textSize,
+        scaleFactor: _sizeFactor,
+        withBottomMargin: true,
+        withCounter: true,
     );
-    final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, _textSize);
-
-    final _maxHeightBeforeExpansion = SuperVerse.superVerseRealHeight(
-      context: context,
-      size: 2,
-      sizeFactor: 1.5429,
-      hasLabelBox: false,
-    );
-
-    final double _concludedHeight = (_textFieldPadding * 2) + (numberOfLines * _textHeight);
-
-    // blog('text height at limit is : ( $_textHeight ) : _concludedHeight : ( $_concludedHeight ) => ${_concludedHeight - _textHeight}');
+    final double _fieldWidth = Scale.appBarWidth(context) - 50;
 
     return MainLayout(
       key: const ValueKey('test_lab'),
@@ -279,7 +273,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           const Stratosphere(),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
@@ -289,76 +282,46 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 child: Stack(
                   children: [
 
-                    SuperTextField(
-                      width: Scale.appBarWidth(context) - 50,
-                      textController: _textController,
-                      // fieldColor: Colorz.white20,
-                      maxLines: 1000,
-                      minLines: numberOfLines,
-                      maxLength: 10,
-                      counterIsOn: false,
-                      onEditingComplete: (){
-                        blog('editing just completed');
-                      },
-                      onTap: (){
-                        blog('just tapped');
-                      },
-                      // corners: 50,
-                      autofocus: true,
-                      hintText: 'fuck you',
-                      onSubmitted: (String val){
-                        blog('submitted val : $val');
-                      },
-                      // margins: const EdgeInsets.symmetric(vertical: 50),
-                      textSize: _textSize,
-                      textSizeFactor: _sizeFactor,
+                    Form(
+                      key: _formKey,
+                      child: SuperTextField(
+                        isFormField: true,
+                        width: _fieldWidth,
+                        textController: _textController,
+                        // fieldColor: Colorz.white20,
+                        maxLines: 1000,
+                        minLines: numberOfLines,
+                        maxLength: 10,
+                        counterIsOn: true,
+                        onEditingComplete: (){
+                          blog('editing just completed');
+                        },
+                        onTap: (){
+                          blog('just tapped');
+                        },
+                        // corners: 50,
+                        autofocus: true,
+                        hintText: 'fuck you',
+                        onSubmitted: (String val){
+                          blog('submitted val : $val');
+                        },
+                        // margins: const EdgeInsets.symmetric(vertical: 50),
+                        textSize: _textSize,
+                        textSizeFactor: _sizeFactor,
 
-                      keyboardTextInputAction: TextInputAction.newline,
-                      validator: (){
+                        keyboardTextInputAction: TextInputAction.newline,
+                        validator: (){
 
-                        if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
-                          return 'you can not say a77a';
-                        }
-                        else {
-                          return null;
-                        }
-
-                      },
-                    ),
-
-                    Container(
-                      width: 50,
-                      height: SuperTextField.getFieldHeight(
-                          context: context,
-                          minLines: numberOfLines,
-                          textSize: _textSize,
-                          scaleFactor: _sizeFactor,
-                          withBottomMargin: true,
-                      ),
-                      color: Colorz.yellow20,
-                      child: Column(
-                        children: [
-
-                          Container(
-                            width: 50,
-                            height: _textFieldPadding,
-                            color: Colorz.blue20,
-                          ),
-
-                          Container(
-                            width: 50,
-                            height: _textHeight,
-                            color: Colorz.black80,
-                          ),
-
-                          Container(
-                            width: 50,
-                            height: _textFieldPadding,
-                            color: Colorz.blue20,
-                          ),
+                          // if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
+                          //   return 'you can not say a77a';
+                          // }
+                          // else {
 
 
-                        ],
+                            return 'xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx ';
+                          // }
+
+                        },
                       ),
                     ),
 
@@ -376,56 +339,39 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             ],
           ),
 
-          Container(
-            child: Stack(
-              children: <Widget>[
-
-                Container(
-                  color: Colorz.black200,
-                  child: const SuperVerse(
-                    verse: '| test |',
-                    size: _textSize,
-                    scaleFactor: _sizeFactor,
-                  ),
-                ),
-
-                Container(
-                  width: 100,
-                  height: _textHeight,
-                  color: Colorz.yellow20,
-                ),
-              ],
-            ),
-          ),
 
           /// DO SOMETHING
-          // WideButton(
-          //     color: Colorz.red255,
-          //     verse: 'DO IT',
-          //     icon: Iconz.star,
-          //     onTap: () async {
-          //
-          //       // _uiProvider.triggerLoading(setLoadingTo: true);
-          //
-          //       await _showDialog(null);
-          //
-          //       // _uiProvider.triggerLoading(setLoadingTo: false);
-          //
-          //     }),
-          //
-          // WideButton(
-          //     color: Colorz.red255,
-          //     verse: 'countries baby',
-          //     icon: Iconz.star,
-          //     onTap: () async {
-          //
-          //       _uiProvider.triggerLoading(setLoadingTo: true);
-          //
-          //
-          //       _uiProvider.triggerLoading(setLoadingTo: false);
-          //
-          //
-          //     }),
+          WideButton(
+              color: Colorz.red255,
+              verse: 'DO IT',
+              icon: Iconz.star,
+              onTap: () async {
+
+                // _uiProvider.triggerLoading(setLoadingTo: true);
+
+                // await _showDialog(null);
+
+                blog('thing is : ${_formKey.currentState.mounted}');
+
+                // _uiProvider.triggerLoading(setLoadingTo: false);
+
+              }),
+
+          WideButton(
+              color: Colorz.red255,
+              verse: 'validate',
+              icon: Iconz.star,
+              onTap: () async {
+
+                _uiProvider.triggerLoading(setLoadingTo: true);
+
+                blog('should validate');
+                _formKey.currentState.validate();
+
+                _uiProvider.triggerLoading(setLoadingTo: false);
+
+
+              }),
 
 
           /// MANIPULATE LOCAL ASSETS TESTING
