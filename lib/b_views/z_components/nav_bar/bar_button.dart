@@ -46,7 +46,12 @@ class BarButton extends StatelessWidget {
 
     final double _textBoxHeight =
         barType == BarType.maxWithText || barType == BarType.minWithText ?
-        SuperVerse.superVerseRealHeight(context, _textSize, _textScaleFactor, null)
+        SuperVerse.superVerseRealHeight(
+            context: context,
+            size: _textSize,
+            sizeFactor: _textScaleFactor,
+            hasLabelBox: false,
+        )
             :
         0;
 

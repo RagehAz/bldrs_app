@@ -106,7 +106,34 @@ class SuperTextField extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SuperTextFieldState createState() => _SuperTextFieldState();
-/// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+  /// TESTED : ACCEPTED
+  static double getFieldHeight({
+    @required BuildContext context,
+    @required int minLines,
+    @required int textSize,
+    @required double scaleFactor,
+    @required bool withBottomMargin,
+}){
+
+    final _textHeight = SuperVerse.superVerseRealHeight(
+      context: context,
+      size: textSize,
+      sizeFactor: scaleFactor,
+      hasLabelBox: false,
+    );
+
+    /// INNER FIELD PADDING
+    final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
+
+    /// UNDER TEXT FIELD BOX MARGIN : THAT WE CAN NOT REMOVE
+    final double _bottomMargin = withBottomMargin == true ? 7 : 0;
+
+    final double _concludedHeight = (_textFieldPadding * 2) + (minLines * _textHeight) + _bottomMargin;
+
+    return _concludedHeight;
+  }
+// -----------------------------------------------------------------------------
   static TextStyle createHintStyle({
     @required BuildContext context,
     @required int textSize,
@@ -219,7 +246,7 @@ class SuperTextField extends StatefulWidget {
       // counterStyle: superTextStyle(Colorz.white200, 0.7),
 
       // SOME BULLSHIT
-      isDense: false,
+      isDense: true,
       // isCollapsed: false,
       // semanticCounterText: 'semantic',
       focusColor: Colorz.green255,
