@@ -305,6 +305,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
+            width: 100,
             maxLines: 2,
             textController: _titleController,
             hintText: 'Question title',
@@ -322,6 +323,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
+            width: 100,
             textController: _bodyController,
             hintText: askHint,
             keyboardTextInputType: TextInputType.multiline,

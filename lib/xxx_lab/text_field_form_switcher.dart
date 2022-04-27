@@ -8,7 +8,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
 
   const TextFormFieldSwitcher({
     /// main
-    @required this.fieldKey,
+    @required this.isFormField,
     @required this.controller,
     @required this.hintText,
     @required this.autoFocus,
@@ -51,7 +51,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
   }) : super(key: key);
 
   /// main
-  final Key fieldKey;
+  final bool isFormField;
   final TextEditingController controller;
   final String hintText;
   final bool autoFocus;
@@ -146,10 +146,10 @@ class TextFormFieldSwitcher extends StatelessWidget {
 // -----------------------------------------------------------------------------
 
     /// WHEN TEXT FORM FIELD
-    if (fieldKey is GlobalKey<FormState>){
+    if (isFormField == true){
       return TextFormField(
         /// main
-        key: fieldKey ?? key,
+        // key: fieldKey ?? key,
         controller: controller,
         autofocus: autoFocus,
         focusNode: focusNode,
@@ -202,7 +202,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
     else {
       return TextField(
         /// main
-        key: fieldKey ?? key,
+        // key: key,
         controller: controller,
         autofocus: autoFocus,
         focusNode: focusNode,

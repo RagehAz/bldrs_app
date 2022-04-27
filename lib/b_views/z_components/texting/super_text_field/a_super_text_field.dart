@@ -11,8 +11,10 @@ import 'package:flutter/material.dart';
 class SuperTextField extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SuperTextField({
+    @required this.width,
+
     /// main
-    this.formKey,
+    this.isFormField,
     this.textController,
     this.initialValue,
     this.hintText = '...',
@@ -21,7 +23,6 @@ class SuperTextField extends StatefulWidget {
     this.counterIsOn = false,
 
     /// box
-    this.width,
     this.margins,
     this.corners = Ratioz.boxCorner12,
     this.fieldColor = Colorz.white10,
@@ -59,7 +60,7 @@ class SuperTextField extends StatefulWidget {
   }) : super(key: key);
   // --------------------------------------------------------------------------
   /// main
-  final Key formKey;
+  final bool isFormField;
   final TextEditingController textController;
   final String initialValue;
   final String hintText;
@@ -256,6 +257,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     _textDirection = ValueNotifier(_initialTextDirection);
 
+
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -439,7 +442,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
                     return TextFormFieldSwitcher(
                       /// main
-                      fieldKey: widget.formKey,
+                      isFormField: widget.isFormField,
                       controller: _controller,
                       hintText: widget.hintText,
                       autoFocus: widget.autofocus,
@@ -491,7 +494,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                   /// ERROR
                   if (_errorIsOn == true)
                   Container(
-                    width: widget.width  - 110,
+                    width: widget.width - 110,
                     // color: Colorz.blue255,
                     padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
                     child: Column(

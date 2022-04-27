@@ -21,7 +21,7 @@ class TextFieldBubble extends StatelessWidget {
     this.keyboardTextInputType = TextInputType.text,
     this.textOnChanged,
     this.obscured = false,
-    this.formKey,
+    this.isFormField,
     this.onSavedForForm,
     this.keyboardTextInputAction,
     this.initialTextValue,
@@ -52,7 +52,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextInputType keyboardTextInputType;
   final ValueChanged<String> textOnChanged;
   final bool obscured;
-  final GlobalKey<FormState> formKey;
+  final bool isFormField;
   final ValueChanged<String> onSavedForForm;
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
@@ -131,26 +131,24 @@ class TextFieldBubble extends StatelessWidget {
                     const SizedBox(width: 5,),
 
                   /// TEXT FIELD
-                  SizedBox(
+                  SuperTextField(
                     width: fieldWidth,
-                    child: SuperTextField(
-                      formKey: formKey,
-                      textDirection: textDirection,
-                      hintText: hintText,
-                      counterIsOn: counterIsOn,
-                      keyboardTextInputType: keyboardTextInputType,
-                      maxLines: maxLines,
-                      maxLength: maxLength,
-                      textController: textController,
-                      onChanged: textOnChanged,
-                      obscured: obscured,
-                      onSavedForForm: onSavedForForm,
-                      keyboardTextInputAction: keyboardTextInputAction,
-                      initialValue: initialTextValue,
-                      validator: validator,
-                      key: key,
+                    isFormField: isFormField,
+                    textDirection: textDirection,
+                    hintText: hintText,
+                    counterIsOn: counterIsOn,
+                    keyboardTextInputType: keyboardTextInputType,
+                    maxLines: maxLines,
+                    maxLength: maxLength,
+                    textController: textController,
+                    onChanged: textOnChanged,
+                    obscured: obscured,
+                    onSavedForForm: onSavedForForm,
+                    keyboardTextInputAction: keyboardTextInputAction,
+                    initialValue: initialTextValue,
+                    validator: validator,
+                    key: key,
 
-                    ),
                   ),
 
                   /// SPACER

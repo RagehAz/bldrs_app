@@ -617,7 +617,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         superPhrase(context, 'phid_companyName');
 
                         return TextFieldBubble(
-                          formKey: _formKey,
+                          isFormField: true,
                           key: const Key('bzName'),
                           textController: _bzNameTextController,
                           title:_title,
@@ -633,7 +633,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                     /// --- BZ SCOPE
                     TextFieldBubble(
-                      formKey: _formKey,
+                      isFormField: true,
                       key: const ValueKey<String>('bz_scope_bubble'),
                       textController: _bzScopeTextController,
                       title: '${superPhrase(context, 'phid_scopeOfServices')} :',

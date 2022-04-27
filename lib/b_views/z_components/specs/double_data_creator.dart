@@ -154,7 +154,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
               child: Form(
                 key: _formKey,
                 child: SuperTextField(
-                  formKey: _formKey,
+                  isFormField: true,
                   // key: ValueKey('price_text_field'),
                   autofocus: true,
                   width: _textFieldWidth,
