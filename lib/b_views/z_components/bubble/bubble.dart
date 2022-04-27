@@ -118,7 +118,12 @@ class Bubble extends StatelessWidget {
 
     const int _titleVerseSize = 2;
 // -----------------------------------------------------------------------------
-    final double _actionBtSize = SuperVerse.superVerseRealHeight(context, _titleVerseSize, 1, null);
+    final double _actionBtSize = SuperVerse.superVerseRealHeight(
+        context: context,
+        size: _titleVerseSize,
+        sizeFactor: 1,
+        hasLabelBox: false,
+    );
 // -----------------------------------------------------------------------------
     final double _actionBtCorner = _actionBtSize * 0.4;
 // -----------------------------------------------------------------------------

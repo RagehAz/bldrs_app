@@ -203,6 +203,29 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
+    /// FARTS : FAILED ATTEMPT TO CONCLUDE TEXT FIELD HEIGHT
+    const int numberOfLines = 1;
+    const int _textSize = 2;
+    const double _sizeFactor = 1; // 1.5429 max factor before box starts expanding
+    final _textHeight = SuperVerse.superVerseRealHeight(
+        context: context,
+        size: _textSize,
+        sizeFactor: _sizeFactor,
+        hasLabelBox: false,
+    );
+    final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, _textSize);
+
+    final _maxHeightBeforeExpansion = SuperVerse.superVerseRealHeight(
+      context: context,
+      size: 2,
+      sizeFactor: 1.5429,
+      hasLabelBox: false,
+    );
+
+    final double _concludedHeight = (_textFieldPadding * 2) + (numberOfLines * _textHeight);
+
+    // blog('text height at limit is : ( $_textHeight ) : _concludedHeight : ( $_concludedHeight ) => ${_concludedHeight - _textHeight}');
+
     return MainLayout(
       key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
@@ -255,42 +278,124 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           const Stratosphere(),
 
-          SuperTextField(
-            textController: _textController,
-            width: Scale.appBarWidth(context),
-            // fieldColor: Colorz.white20,
-            maxLines: 3,
-            minLines: 2,
-            maxLength: 10,
-            counterIsOn: true,
-            centered: true,
-            onEditingComplete: (){
-              blog('editing just completed');
-            },
-            onTap: (){
-              blog('just tapped');
-            },
-            corners: 50,
-            autofocus: true,
-            hintText: 'fuck you',
-            onSubmitted: (String val){
-              blog('submitted val : $val');
-            },
-            margins: const EdgeInsets.symmetric(vertical: 50),
-            textSize: 5,
-            textSizeFactor: 1.5,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
 
-            keyboardTextInputAction: TextInputAction.newline,
-            validator: (){
+              Container(
+                color: Colorz.bloodTest,
+                alignment: Alignment.topCenter,
+                child: Stack(
+                  children: [
 
-              if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
-                return 'you can not say a77a';
-              }
-              else {
-                return null;
-              }
+                    SuperTextField(
+                      width: Scale.appBarWidth(context) - 50,
+                      textController: _textController,
+                      // fieldColor: Colorz.white20,
+                      maxLines: 1000,
+                      minLines: numberOfLines,
+                      maxLength: 10,
+                      counterIsOn: false,
+                      onEditingComplete: (){
+                        blog('editing just completed');
+                      },
+                      onTap: (){
+                        blog('just tapped');
+                      },
+                      // corners: 50,
+                      autofocus: true,
+                      hintText: 'fuck you',
+                      onSubmitted: (String val){
+                        blog('submitted val : $val');
+                      },
+                      // margins: const EdgeInsets.symmetric(vertical: 50),
+                      textSize: _textSize,
+                      textSizeFactor: _sizeFactor,
 
-            },
+                      keyboardTextInputAction: TextInputAction.newline,
+                      validator: (){
+
+                        if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
+                          return 'you can not say a77a';
+                        }
+                        else {
+                          return null;
+                        }
+
+                      },
+                    ),
+
+                    Container(
+                      width: 50,
+                      height: SuperTextField.getFieldHeight(
+                          context: context,
+                          minLines: numberOfLines,
+                          textSize: _textSize,
+                          scaleFactor: _sizeFactor,
+                          withBottomMargin: true,
+                      ),
+                      color: Colorz.yellow20,
+                      child: Column(
+                        children: [
+
+                          Container(
+                            width: 50,
+                            height: _textFieldPadding,
+                            color: Colorz.blue20,
+                          ),
+
+                          Container(
+                            width: 50,
+                            height: _textHeight,
+                            color: Colorz.black80,
+                          ),
+
+                          Container(
+                            width: 50,
+                            height: _textFieldPadding,
+                            color: Colorz.blue20,
+                          ),
+
+
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+
+              ),
+
+              Container(
+                width: 50,
+                height: _concludedHeight,
+                color: Colorz.yellow255,
+              ),
+
+            ],
+          ),
+
+          Container(
+            child: Stack(
+              children: <Widget>[
+
+                Container(
+                  color: Colorz.black200,
+                  child: const SuperVerse(
+                    verse: '| test |',
+                    size: _textSize,
+                    scaleFactor: _sizeFactor,
+                  ),
+                ),
+
+                Container(
+                  width: 100,
+                  height: _textHeight,
+                  color: Colorz.yellow20,
+                ),
+              ],
+            ),
           ),
 
           /// DO SOMETHING
