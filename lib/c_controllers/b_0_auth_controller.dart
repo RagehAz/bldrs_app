@@ -317,6 +317,7 @@ bool _prepareForEmailAuthOps({
   /// C - CHECK VALIDITY
   final bool _allFieldsAreValid = formKey.currentState.validate();
 
+
   return _allFieldsAreValid;
 }
 // -------------------------------------
@@ -325,16 +326,18 @@ String emailValidation({
   @required String val,
 }) {
 
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
   String _output;
 
   if (val.isEmpty) {
-    _output = superPhrase(context, 'phid_enterEmail');
+    _output = superPhrase(context, 'phid_enterEmail', providerOverride: _phraseProvider);
   }
 
   else {
 
     if (EmailValidator.validate(val) == false){
-      _output = superPhrase(context, 'phid_emailInvalid');
+      _output = superPhrase(context, 'phid_emailInvalid', providerOverride: _phraseProvider);
     }
 
   }
@@ -347,14 +350,15 @@ String passwordValidation({
   @required String password,
 }){
 
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
   String _output;
 
   if (password.isEmpty){
-    _output = superPhrase(context, 'phid_enterPassword');
+    _output = superPhrase(context, 'phid_enterPassword', providerOverride: _phraseProvider);
   }
 
   else if (password.length < 6){
-    _output = superPhrase(context, 'phid_min6CharError');
+    _output = superPhrase(context, 'phid_min6CharError', providerOverride: _phraseProvider);
   }
 
   return _output;
