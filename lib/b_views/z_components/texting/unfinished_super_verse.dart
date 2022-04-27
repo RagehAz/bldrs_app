@@ -131,7 +131,7 @@ class SuperVerse extends StatelessWidget {
     double scaleFactor = 1,
     bool strikeThrough = false,
   }) {
-    const double _verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
+    const double _verseHeight = 1.438; //1.48; // The sacred golden reverse engineered factor
     const Color _boxColor = Colorz.nothing;
     final String _verseFont = superVerseFont(context, weight);
     final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
@@ -426,17 +426,19 @@ class SuperVerse extends StatelessWidget {
     return _sidePaddingValues;
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : ACCEPTED
+  static double superVerseRealHeight({
+    @required BuildContext context,
+    @required int size,
+    @required double sizeFactor,
+    @required bool hasLabelBox,
+  }) {
   /// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
-  static double superVerseRealHeight(
-      BuildContext context,
-      int verseSize,
-      double scalingFactor,
-      Color labelColor
-      ) {
-    final double _sidePaddingValues = superVerseSidePaddingValues(context, verseSize);
-    final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
+    final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
+    final double _sidePaddings = hasLabelBox == false ? 0 : _sidePaddingValues;
     final double _verseHeight =
-        (superVerseSizeValue(context, verseSize, scalingFactor) * 1.42) +
+        (superVerseSizeValue(context, size, sizeFactor) * 1.438)
+            +
             (_sidePaddings * 0.25 * 0);
 
     return _verseHeight;
@@ -498,7 +500,12 @@ class SuperVerse extends StatelessWidget {
     final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
     final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
     final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
-    final double _labelHeight = superVerseRealHeight(context, size, scaleFactor, labelColor);
+    final double _labelHeight = superVerseRealHeight(
+        context: context,
+        size: size,
+        sizeFactor: scaleFactor,
+        hasLabelBox: labelColor != null,
+    );
     // --- DOTS -----------------------------------------------
     final double _dotSize = verseSizeValue * 0.3;
     // --- RED DOT -----------------------------------------------
