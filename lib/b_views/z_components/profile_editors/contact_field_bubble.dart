@@ -80,7 +80,12 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   @override
   Widget build(BuildContext context) {
     const int titleVerseSize = 2;
-    final double actionBtSize = SuperVerse.superVerseRealHeight(context, titleVerseSize, 1, null);
+    final double actionBtSize = SuperVerse.superVerseRealHeight(
+        context: context,
+        size: titleVerseSize,
+        sizeFactor: 1,
+        hasLabelBox: false,
+    );
     final double actionBtCorner = actionBtSize * 0.4;
     const double leadingIconSize = 35;
     const double leadingAndFieldSpacing = 5;

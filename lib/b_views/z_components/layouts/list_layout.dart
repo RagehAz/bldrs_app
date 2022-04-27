@@ -42,7 +42,13 @@ class ListLayout extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    final double _verseHeight = SuperVerse.superVerseRealHeight(context, 2, 1, Colorz.white10);
+    final double _verseHeight = SuperVerse.superVerseRealHeight(
+        context: context,
+        size: 2,
+        sizeFactor: 1,
+        hasLabelBox: true,
+    );
+
     final double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight -
         (Ratioz.appBarMargin * 4);
 // -----------------------------------------------------------------------------
