@@ -17,7 +17,7 @@ class ContactFieldBubble extends StatefulWidget {
     this.hintText = '...',
     this.textController,
     this.textOnChanged,
-    this.formKey,
+    this.isFormField,
     this.onSaved,
     this.keyboardTextInputAction,
     this.initialTextValue,
@@ -40,7 +40,7 @@ class ContactFieldBubble extends StatefulWidget {
   final String hintText;
   final TextEditingController textController;
   final Function textOnChanged;
-  final GlobalKey<FormState> formKey;
+  final bool isFormField;
   final Function onSaved;
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
@@ -147,20 +147,18 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 ),
 
               /// TEXT FIELD
-              SizedBox(
+              SuperTextField(
                 width: fieldWidth,
-                child: SuperTextField(
-                  formKey: widget.formKey,
-                  initialValue: paste == '' ? widget.initialTextValue : null,
-                  hintText: widget.hintText,
-                  keyboardTextInputType: widget.keyboardTextInputType,
-                  textController: paste == '' ? widget.textController : pasteController,
-                  onChanged: widget.textOnChanged,
-                  onSavedForForm: widget.onSaved,
-                  keyboardTextInputAction: widget.keyboardTextInputAction,
-                  validator: widget.validator,
-                  textDirection: TextDirection.ltr,
-                ),
+                isFormField: widget.isFormField,
+                initialValue: paste == '' ? widget.initialTextValue : null,
+                hintText: widget.hintText,
+                keyboardTextInputType: widget.keyboardTextInputType,
+                textController: paste == '' ? widget.textController : pasteController,
+                onChanged: widget.textOnChanged,
+                onSavedForForm: widget.onSaved,
+                keyboardTextInputAction: widget.keyboardTextInputAction,
+                validator: widget.validator,
+                textDirection: TextDirection.ltr,
               ),
 
             ],
