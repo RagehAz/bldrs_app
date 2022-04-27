@@ -114,6 +114,7 @@ class SuperTextField extends StatefulWidget {
     @required int textSize,
     @required double scaleFactor,
     @required bool withBottomMargin,
+    @required bool withCounter,
 }){
 
     final _textHeight = SuperVerse.superVerseRealHeight(
@@ -129,7 +130,18 @@ class SuperTextField extends StatefulWidget {
     /// UNDER TEXT FIELD BOX MARGIN : THAT WE CAN NOT REMOVE
     final double _bottomMargin = withBottomMargin == true ? 7 : 0;
 
-    final double _concludedHeight = (_textFieldPadding * 2) + (minLines * _textHeight) + _bottomMargin;
+    final double _counterPaddingValue = withCounter ? 2.5 : 0;
+    final double _counterHeight = withCounter ? SuperVerse.superVerseRealHeight(
+      context: context,
+      size: 2,
+      sizeFactor: 1,
+      hasLabelBox: true,
+    ) : 0;
+
+    final double _totalCounterBoxHeight = _counterHeight + (2 * _counterPaddingValue);
+
+
+    final double _concludedHeight = (_textFieldPadding * 2) + (minLines * _textHeight) + _bottomMargin + _totalCounterBoxHeight;
 
     return _concludedHeight;
   }
@@ -163,9 +175,9 @@ class SuperTextField extends StatefulWidget {
       context: context,
       color: Colorz.red255,
       weight: VerseWeight.thin,
-      italic: textItalic,
+      italic: true,
       size: textSize,
-      scaleFactor: textSizeFactor * 0.6,
+      scaleFactor: textSizeFactor,
       shadow: false,
     );
   }
@@ -184,6 +196,21 @@ class SuperTextField extends StatefulWidget {
     );
   }
 // -----------------------------------------------------------------------------
+  static Widget textFieldCounter({
+    @required int currentLength,
+    @required int maxLength,
+    @required Color fieldColor,
+}){
+    return SuperVerse(
+      verse: '$currentLength / ${maxLength}',
+      weight: VerseWeight.thin,
+      // size: 2,
+      // scaleFactor: 1,
+      labelColor: currentLength > maxLength ? Colorz.red125 : fieldColor,
+    );
+
+  }
+// -----------------------------------------------------------------------------
   static InputDecoration createDecoration({
     @required BuildContext context,
     @required int textSize,
@@ -192,6 +219,7 @@ class SuperTextField extends StatefulWidget {
     @required bool textItalic,
     @required double corners,
     @required Color fieldColor,
+    @required bool counterIsOn,
 }){
 
     final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
@@ -223,6 +251,9 @@ class SuperTextField extends StatefulWidget {
         textItalic: textItalic,
         textSizeFactor: textSizeFactor,
       ),
+      errorMaxLines: 3,
+      // errorText: 'initial state error text',
+
       focusedErrorBorder: createOutlineBorder(
         borderColor: Colorz.yellow80,
         corners: corners,
@@ -241,7 +272,9 @@ class SuperTextField extends StatefulWidget {
           corners: corners,
       ),
 
-      counter: const Offstage(),
+      counter: counterIsOn ? null : const Offstage(),
+      // counterText: 'a77aaaa ',
+
       // counterText: '${widget.textController?.text?.length} / ${widget.maxLength}',
       // counterStyle: superTextStyle(Colorz.white200, 0.7),
 
@@ -266,16 +299,19 @@ class SuperTextField extends StatefulWidget {
 class _SuperTextFieldState extends State<SuperTextField> {
   TextEditingController _controller;
   ScrollController _scrollController;
+  FocusNode _focusNode;
+
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
     _controller = _initializeTextController();
+    _focusNode = widget.focusNode ?? FocusNode();
 
     _scrollController = widget.scrollController ?? ScrollController();
-    _textLength = ValueNotifier(_controller.text.length);
-    _errors = ValueNotifier<List<String>>(_initializeErrors());
+    // _textLength = ValueNotifier(_controller.text.length);
+    // _errors = ValueNotifier<List<String>>(_initializeErrors());
 
     final TextDirection _initialTextDirection = superTextDirectionSwitcher(
       val: widget.textController?.text,
@@ -292,8 +328,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
   void dispose(){
     super.dispose();
     _controller.dispose();
-    _textLength.dispose();
-    _errors.dispose();
+    // _textLength.dispose();
+    // _errors.dispose();
     _textDirection.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -305,115 +341,115 @@ class _SuperTextFieldState extends State<SuperTextField> {
     return _controller;
   }
 // -----------------------------------------------------------------------------
-  ValueNotifier<List<String>> _errors;
-  String _lastValidatorError;
+//   ValueNotifier<List<String>> _errors;
+//   String _lastValidatorError;
 // ------------------------------------------------
-  List<String> _initializeErrors(){
-    final List<String> _list = <String>[];
-    final String _initialError = widget.validator();
-    if (_initialError != null){
-      _list.add(_initialError);
-    }
-    return _list;
-  }
+//   List<String> _initializeErrors(){
+//     // final List<String> _list = <String>[];
+//     // final String _initialError = widget.validator();
+//     // if (_initialError != null){
+//     //   _list.add(_initialError);
+//     // }
+//     return <String>[];
+//   }
 // ------------------------------------------------
-  void _validateInput(){
-
-    final String _validatorError = widget.validator();
-
-    /// WHEN THERE IS AN ERROR FROM VALIDATOR
-    if (_validatorError != null){
-      _lastValidatorError = _validatorError;
-      if (_errors.value.contains(_validatorError) == false){
-        _errors.value = <String>[_validatorError, ... _errors.value];
-      }
-    }
-    /// WHEN NO ERROR FROM VALIDATOR
-    else {
-      _errors.value = _removeLastValidatorErrorIfExisted();
-    }
-
-  }
+//   void _validateInput(){
+//
+//     const String _validatorError = null;
+//
+//     /// WHEN THERE IS AN ERROR FROM VALIDATOR
+//     if (_validatorError != null){
+//       _lastValidatorError = _validatorError;
+//       if (_errors.value.contains(_validatorError) == false){
+//         _errors.value = <String>[_validatorError, ... _errors.value];
+//       }
+//     }
+//     /// WHEN NO ERROR FROM VALIDATOR
+//     else {
+//       _errors.value = _removeLastValidatorErrorIfExisted();
+//     }
+//
+//   }
 // ------------------------------------------------
-  List<String> _removeLastValidatorErrorIfExisted(){
-
-    final List<String> _list = <String>[..._errors.value];
-    final int _index = _list.indexOf(_lastValidatorError);
-
-    /// LAST ERROR NOT FOUND : REMOVED ALREADY
-    if (_index == -1){
-
-    }
-    /// LAST ERROR IS FOUND
-    else {
-      _list.removeAt(_index);
-    }
-
-    return <String>[..._list];
-  }
+//   List<String> _removeLastValidatorErrorIfExisted(){
+//
+//     final List<String> _list = <String>[..._errors.value];
+//     final int _index = _list.indexOf(_lastValidatorError);
+//
+//     /// LAST ERROR NOT FOUND : REMOVED ALREADY
+//     if (_index == -1){
+//
+//     }
+//     /// LAST ERROR IS FOUND
+//     else {
+//       _list.removeAt(_index);
+//     }
+//
+//     return <String>[..._list];
+//   }
 // ------------------------------------------------
-  ValueNotifier<int> _textLength;
-  void _updateTextLength(String val){
-
-    if (val != null){
-      _textLength.value = val.length;
-    }
-
-  }
+//   ValueNotifier<int> _textLength;
+//   void _updateTextLength(String val){
+//
+//     if (val != null){
+//       _textLength.value = val.length;
+//     }
+//
+//   }
 // ------------------------------------------------
-  void _updateMaxLengthError(int textLength){
-
-    const String _error = 'Max Characters reached';
-    final List<String> _list = <String>[..._errors.value];
-
-    if (textLength > widget.maxLength){
-      if (_errors.value.contains(_error) == false){
-        _errors.value = <String>[..._list, _error];
-      }
-    }
-
-    else {
-      final int _index = _list.indexOf(_error);
-      if (_index != -1){
-        _list.removeAt(_index);
-        _errors.value = _list;
-      }
-    }
-
-  }
+//   void _updateMaxLengthError(int textLength){
+//
+//     const String _error = 'Max Characters reached';
+//     final List<String> _list = <String>[..._errors.value];
+//
+//     if (textLength > widget.maxLength){
+//       if (_errors.value.contains(_error) == false){
+//         _errors.value = <String>[..._list, _error];
+//       }
+//     }
+//
+//     else {
+//       final int _index = _list.indexOf(_error);
+//       if (_index != -1){
+//         _list.removeAt(_index);
+//         _errors.value = _list;
+//       }
+//     }
+//
+//   }
 // ------------------------------------------------
-  void _updateMaxLinesError(String text){
-
-    const String _error = 'Max Lines reached';
-    final List<String> _list = <String>[..._errors.value];
-    final List<String> _rows = text.split('\n');
-
-    if (_rows.length > widget.maxLines){
-      if (_errors.value.contains(_error) == false){
-        _errors.value = <String>[..._list, _error];
-      }
-    }
-
-    else {
-      final int _index = _list.indexOf(_error);
-      if (_index != -1){
-        _list.removeAt(_index);
-        _errors.value = _list;
-      }
-    }
-
-  }
+//   void _updateMaxLinesError(String text){
+//
+//     const String _error = 'Max Lines reached';
+//     final List<String> _list = <String>[..._errors.value];
+//     final List<String> _rows = text.split('\n');
+//
+//     if (_rows.length > widget.maxLines){
+//       if (_errors.value.contains(_error) == false){
+//         _errors.value = <String>[..._list, _error];
+//       }
+//     }
+//
+//     else {
+//       final int _index = _list.indexOf(_error);
+//       if (_index != -1){
+//         _list.removeAt(_index);
+//         _errors.value = _list;
+//       }
+//     }
+//
+//   }
 // -----------------------------------------------------------------------------
   void _onTextChanged(String val) {
 
     if (val != null) {
 
       if (widget.counterIsOn == true){
-        _updateTextLength(val);
-        _updateMaxLengthError(_textLength.value);
-        _updateMaxLinesError(val);
+        // _updateTextLength(val);
+        // _updateMaxLengthError(_textLength.value);
+        // _updateMaxLinesError(val);
       }
-      _validateInput();
+      // _validateInput();
       _changeTextDirection(val);
 
       if (widget.onChanged != null) {
@@ -434,10 +470,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
     );
   }
 // -----------------------------------------------------------------------------
-  Color _getFieldColor(bool errorIsOn){
-    return errorIsOn ? Colorz.red230 : widget.fieldColor;
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -446,139 +478,60 @@ class _SuperTextFieldState extends State<SuperTextField> {
       margins: widget.margins,
       corners: widget.corners,
       child: ValueListenableBuilder(
-        valueListenable: _errors,
-        builder: (_, List<String> errors, Widget counter){
+          key: const ValueKey<String>('The_super_text_field'),
+          valueListenable: _textDirection,
+          builder: (_, TextDirection textDirection, Widget child){
 
-          final bool _errorIsOn = Mapper.canLoopList(errors);
+            final TextDirection _concludedTextDirection = concludeTextDirection(
+              context: context,
+              definedDirection: widget.textDirection,
+              detectedDirection: textDirection,
+            );
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
+            return TextFormFieldSwitcher(
+              /// main
+              isFormField: widget.isFormField,
+              controller: _controller,
+              hintText: widget.hintText,
+              autoFocus: widget.autofocus,
+              focusNode: _focusNode,
+              counterIsOn: widget.counterIsOn,
 
-              /// TEXT FIELD
-              ValueListenableBuilder(
-                  key: const ValueKey<String>('The_super_text_field'),
-                  valueListenable: _textDirection,
-                  builder: (_, TextDirection textDirection, Widget child){
+              /// box
+              corners: widget.corners,
 
-                    final TextDirection _concludedTextDirection = concludeTextDirection(
-                      context: context,
-                      definedDirection: widget.textDirection,
-                      detectedDirection: textDirection,
-                    );
+              /// keyboard
+              textInputAction: widget.keyboardTextInputAction,
+              textInputType: widget.keyboardTextInputType,
 
-                    return TextFormFieldSwitcher(
-                      /// main
-                      isFormField: widget.isFormField,
-                      controller: _controller,
-                      hintText: widget.hintText,
-                      autoFocus: widget.autofocus,
-                      focusNode: widget.focusNode,
-                      counterIsOn: widget.counterIsOn,
+              /// text
+              textDirection: _concludedTextDirection,
+              obscured: widget.obscured,
+              minLines: widget.minLines,
+              maxLines: widget.maxLines,
+              maxLength: widget.maxLength,
+              scrollController: _scrollController,
 
-                      /// box
-                      corners: widget.corners,
+              /// styling
+              centered: widget.centered,
+              textShadow: widget.textShadow,
+              textWeight: widget.textWeight,
+              textSize: widget.textSize,
+              textSizeFactor: widget.textSizeFactor,
+              textItalic: widget.textItalic,
+              textColor: widget.textColor,
+              fieldColor: widget.fieldColor,
 
-                      /// keyboard
-                      textInputAction: widget.keyboardTextInputAction,
-                      textInputType: widget.keyboardTextInputType,
+              /// functions
+              onTap: widget.onTap,
+              onChanged: _onTextChanged,
+              onSubmitted: widget.onSubmitted,
+              onSavedForForm: widget.onSavedForForm,
+              onEditingComplete: widget.onEditingComplete,
+              validator: (String val) => widget.validator(),
+            );
 
-                      /// text
-                      textDirection: _concludedTextDirection,
-                      obscured: widget.obscured,
-                      minLines: widget.minLines,
-                      maxLines: widget.maxLines,
-                      maxLength: widget.maxLength,
-                      scrollController: _scrollController,
-
-                      /// styling
-                      centered: widget.centered,
-                      textShadow: widget.textShadow,
-                      textWeight: widget.textWeight,
-                      textSize: widget.textSize,
-                      textSizeFactor: widget.textSizeFactor,
-                      textItalic: widget.textItalic,
-                      textColor: widget.textColor,
-                      fieldColor: _getFieldColor(_errorIsOn),
-
-                      /// functions
-                      onTap: widget.onTap,
-                      onChanged: _onTextChanged,
-                      onSubmitted: widget.onSubmitted,
-                      onSavedForForm: widget.onSavedForForm,
-                      onEditingComplete: widget.onEditingComplete,
-                    );
-
-                  }
-              ),
-
-              /// COUNTER & ERROR
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-
-                  /// ERROR
-                  if (_errorIsOn == true)
-                  Container(
-                    width: widget.width - 110,
-                    // color: Colorz.blue255,
-                    padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-
-                        ...List.generate(errors.length, (index){
-                          final String _error = errors[index];
-                          return SuperVerse(
-                            verse: _error,
-                            color: Colorz.red255,
-                            weight: VerseWeight.thin,
-                            // size: 2,
-                            maxLines: 3,
-                            centered: false,
-                            italic: true,
-                            leadingDot: true,
-                          );
-
-                        })
-
-                      ],
-
-                    ),
-                  ),
-
-                  const SizedBox(),
-
-                  /// COUNTER
-                  if (widget.counterIsOn)
-                    Container(
-                      width: 110,
-                      // height: 30,
-                      // color: Colorz.black80,
-                      alignment: superInverseCenterAlignment(context),
-                      child: ValueListenableBuilder(
-                        valueListenable: _textLength,
-                        builder: (_, int textLength, Widget child){
-
-                          return SuperVerse(
-                            verse: '$textLength / ${widget.maxLength}',
-                            weight: VerseWeight.thin,
-                            // size: 2,
-                            // scaleFactor: 1,
-                            labelColor: _getFieldColor(_errorIsOn),
-                          );
-
-                        },
-                      ),
-                    ),
-
-                ],
-              ),
-            ],
-          );
-
-        },
+          }
       ),
     );
 

@@ -102,10 +102,13 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     );
   }
 // -----------------------------------------------------------------------------
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
 
     return MainLayout(
+      scaffoldKey: _scaffoldKey,
       pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.non,

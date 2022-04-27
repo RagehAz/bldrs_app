@@ -90,12 +90,22 @@ class TextFieldBubble extends StatelessWidget {
     // int titleVerseSize = 2;
     // double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
     // double actionBtCorner = actionBtSize * 0.4;
-    final double leadingIconSize = leadingIcon == null ? 0 : 35;
+
+    final double fieldHeight = SuperTextField.getFieldHeight(
+      context: context,
+      minLines: 1,
+      textSize: 2,
+      scaleFactor: 1,
+      withBottomMargin: false,
+      withCounter: false,
+    );
+
+    final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
     final double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
-    final double obscureBtSize = obscured == null ? 0 : 35;
-    final double obscureBtSpacing = obscured == null ? 0 : 5;
+    final double obscureBtSize = obscured == false ? 0 : fieldHeight;
+    final double obscureBtSpacing = obscured == false ? 0 : 5;
     final double bubbleClearWidth = Bubble.clearWidth(context);
-    final double fieldWidth = bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing - 10;
+    final double fieldWidth = bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
 
     return Bubble(
         bubbleColor: bubbleColor,
@@ -158,8 +168,8 @@ class TextFieldBubble extends StatelessWidget {
                   /// OBSCURE BUTTON
                   if (onObscureTap != null)
                     DreamBox(
-                      height: 35,
-                      width: 35,
+                      height: obscureBtSize,
+                      width: obscureBtSize,
                       color: obscured ? Colorz.nothing : Colorz.yellow200,
                       icon: Iconz.viewsIcon,
                       iconColor: obscured ? Colorz.white20 : Colorz.black230,
@@ -169,6 +179,7 @@ class TextFieldBubble extends StatelessWidget {
                       // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
                       corners: SuperVerse.superVerseLabelCornerValue(context, 3),
                     ),
+
                 ],
               ),
 
