@@ -1,11 +1,9 @@
 import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
 import 'package:flutter/material.dart';
 
 class SuperTextField extends StatefulWidget {
@@ -204,7 +202,7 @@ class SuperTextField extends StatefulWidget {
     @required Color fieldColor,
 }){
     return SuperVerse(
-      verse: '$currentLength / ${maxLength}',
+      verse: '$currentLength / $maxLength',
       weight: VerseWeight.thin,
       // size: 2,
       // scaleFactor: 1,
@@ -329,7 +327,11 @@ class _SuperTextFieldState extends State<SuperTextField> {
   @override
   void dispose(){
     super.dispose();
-    _controller.dispose();
+
+    if (widget.textController == null){
+      _controller.dispose();
+    }
+
     // _textLength.dispose();
     // _errors.dispose();
     _textDirection.dispose();
