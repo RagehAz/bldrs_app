@@ -21,6 +21,7 @@ class TextFieldBubble extends StatelessWidget {
     this.keyboardTextInputType = TextInputType.text,
     this.textOnChanged,
     this.obscured = false,
+    this.showUnObscure = false,
     this.isFormField,
     this.onSavedForForm,
     this.keyboardTextInputAction,
@@ -52,6 +53,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextInputType keyboardTextInputType;
   final ValueChanged<String> textOnChanged;
   final bool obscured;
+  final bool showUnObscure;
   final bool isFormField;
   final ValueChanged<String> onSavedForForm;
   final TextInputAction keyboardTextInputAction;
@@ -102,8 +104,8 @@ class TextFieldBubble extends StatelessWidget {
 
     final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
     final double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
-    final double obscureBtSize = obscured == false ? 0 : fieldHeight;
-    final double obscureBtSpacing = obscured == false ? 0 : 5;
+    final double obscureBtSize = showUnObscure == false ? 0 : fieldHeight;
+    final double obscureBtSpacing = showUnObscure == false ? 0 : 5;
     final double bubbleClearWidth = Bubble.clearWidth(context);
     final double fieldWidth = bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
 
@@ -130,8 +132,8 @@ class TextFieldBubble extends StatelessWidget {
                   /// LEADING ICON
                   if (leadingIcon != null)
                     DreamBox(
-                      height: 35,
-                      width: 35,
+                      height: leadingIconSize,
+                      width: leadingIconSize,
                       icon: leadingIcon,
                       iconSizeFactor: _leadingIconSizeFactor(leadingIcon),
                     ),
