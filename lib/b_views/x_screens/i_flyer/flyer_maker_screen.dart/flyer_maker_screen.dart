@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/y_views/i_flyer/flyer_maker/flyer_maker_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/draft_shelf_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/flyer_maker_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -59,6 +60,16 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     /// task : dispose draft slides text controllers
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onPublish() async {
+
+    blog('Starting flyer publish ops');
+
+    blog('Draft flyer model is : -');
+    _draftFlyer.value.blogDraft();
+
+    _formKey.currentState.validate();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +93,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         scrollController: _scrollController,
         headlineController: _headlineController,
         draft: _draftFlyer,
+        onPublish: _onPublish,
       ),
     );
   }

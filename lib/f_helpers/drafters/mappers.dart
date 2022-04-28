@@ -3,7 +3,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sembast/utils/value_utils.dart';
-
+// -----------------------------------------------------------------------------
+  /*
+  typedef dMap = Map<String, dynamic>;
+   */
 // -----------------------------------------------------------------------------
 
 /// STRINGS GETTERS FROM LISTS

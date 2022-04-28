@@ -120,7 +120,7 @@ String fixFlyerTypeFromIntToString(int x) {
 }
 // -----------------------------------------------------------------------------
 
-/// CONCLUDES
+/// CONCLUDERS
 
 // -------------------------------------
 FlyerType concludeFlyerType(BzType bzType) {
@@ -135,8 +135,10 @@ FlyerType concludeFlyerType(BzType bzType) {
     default: return null;
   }
 }
-// -----------------------------------------------------------------------------
-List<FlyerType> concludePossibleFlyerTypesForBz({@required BzType bzType}) {
+// -------------------------------------
+List<FlyerType> concludePossibleFlyerTypesByBzType({
+  @required BzType bzType
+}) {
   switch (bzType) {
     case BzType.developer: return <FlyerType>[FlyerType.property]; break;
     case BzType.broker: return <FlyerType>[FlyerType.property]; break;
@@ -147,6 +149,51 @@ List<FlyerType> concludePossibleFlyerTypesForBz({@required BzType bzType}) {
     case BzType.supplier: return <FlyerType>[FlyerType.product, FlyerType.equipment]; break; // product or equipment for author to choose while creating flyer
     default: return null;
   }
+}
+// -------------------------------------
+List<FlyerType> concludePossibleFlyerTypesByBzTypes({
+  @required List<BzType> bzTypes
+}){
+  final List<FlyerType> _flyerTypes = <FlyerType>[];
+
+  if (Mapper.canLoopList(bzTypes) == true){
+
+    for (final BzType bzType in bzTypes){
+
+      final List<FlyerType> _types = concludePossibleFlyerTypesByBzType(
+          bzType: bzType,
+      );
+
+      for (final FlyerType type in _types){
+        if (_flyerTypes.contains(type) == false){
+          _flyerTypes.add(type);
+        }
+      }
+
+    }
+
+  }
+
+  return _flyerTypes;
+}
+// -------------------------------------
+List<FlyerType> concludeInactiveFlyerTypesByBzModel({
+  @required BzModel bzModel,
+}){
+
+  final List<FlyerType> _allowableTypes = concludePossibleFlyerTypesByBzTypes(
+      bzTypes: bzModel.bzTypes,
+  );
+
+  final List<FlyerType> _output = <FlyerType>[];
+
+  for (final FlyerType flyerType in flyerTypesList){
+    if (_allowableTypes.contains(flyerType) == false){
+      _output.add(flyerType);
+    }
+  }
+
+  return _output;
 }
 // -----------------------------------------------------------------------------
 

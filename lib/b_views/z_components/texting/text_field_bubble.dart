@@ -36,7 +36,7 @@ class TextFieldBubble extends StatelessWidget {
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
-    this.bubbleColor = Colorz.white20,
+    this.bubbleColor = Colorz.white10,
     this.onBubbleTap,
     this.isLoading = false,
     this.isError = false,
