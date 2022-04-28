@@ -290,7 +290,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                         textController: _textController,
                         // fieldColor: Colorz.white20,
                         maxLines: 1000,
-                        minLines: numberOfLines,
+                        // minLines: numberOfLines,
                         maxLength: 10,
                         counterIsOn: true,
                         onEditingComplete: (){
@@ -306,8 +306,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                           blog('submitted val : $val');
                         },
                         // margins: const EdgeInsets.symmetric(vertical: 50),
-                        textSize: _textSize,
-                        textSizeFactor: _sizeFactor,
+                        // textSize: _textSize,
+                        // textSizeFactor: _sizeFactor,
 
                         keyboardTextInputAction: TextInputAction.newline,
                         validator: (){

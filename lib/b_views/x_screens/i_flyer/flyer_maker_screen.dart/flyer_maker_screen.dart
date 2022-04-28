@@ -59,6 +59,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     /// task : dispose draft slides text controllers
   }
 // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
@@ -76,6 +77,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       appBarRowWidgets: const <Widget>[],
       onBack: () => onCancelFlyerCreation(context),
       layoutWidget: FlyerMakerScreenView(
+        formKey: _formKey,
         bzModel: widget.bzModel,
         scrollController: _scrollController,
         headlineController: _headlineController,
