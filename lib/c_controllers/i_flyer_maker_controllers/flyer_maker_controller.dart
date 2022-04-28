@@ -1,7 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/a_shelf_box.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -9,11 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 
 
+// -----------------------------------------------------------------------------
+/// OLD MULTIPLE SHELVES METHODS
+/*
+// -----------------------------------------------------------------------------
 const int _maxDraftsCount = Standards.maxDraftsAtOnce;
 const Curve _animationCurve = Curves.easeOut;
 const Duration _animationDuration = Ratioz.duration150ms;
 // -----------------------------------------------------------------------------
-/*
 int _createKeyValue(List<ValueKey> keys){
   final Random _random = Random();
   int _randomNumber = _random.nextInt(100000); // from 0 upto 99 included
@@ -24,7 +29,6 @@ int _createKeyValue(List<ValueKey> keys){
 
   return _randomNumber;
 }
- */
 // -----------------------------------------------------------------------------
 Future<void> createNewShelf({
   @required BuildContext context,
@@ -195,6 +199,7 @@ Future<void> _scrollToBottom({
   });
 
 }
+*/
 // -----------------------------------------------------------------------------
 Future<void> onCancelFlyerCreation(BuildContext context) async {
 
@@ -211,3 +216,48 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
   }
 
 }
+// -----------------------------------------------------------------------------
+void onUpdateFlyerHeadline({
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required TextEditingController headlineController,
+}){
+
+  draft.value = DraftFlyerModel.updateHeadline(
+    controller : headlineController,
+    draft: draft.value,
+  );
+
+}
+// -----------------------------------------------------------------------------
+String flyerHeadlineValidator({
+  @required TextEditingController headlineController,
+}){
+
+  final bool _isEmpty = headlineController.text.trim() == '';
+  final bool _isShort = headlineController.text.length < 10;
+
+  if (_isEmpty){
+    return "Can not publish a flyer without a title as it's used in the search engine";
+  }
+  else if (_isShort){
+    return 'Flyer title can not be less than 10 characters';
+  }
+  else {
+    return null;
+  }
+}
+// -----------------------------------------------------------------------------
+void onSelectFlyerType({
+  @required int index,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}){
+
+  blog('tapped on index : $index');
+
+  final FlyerType _selectedFlyerType = flyerTypesList[index];
+
+  draft.value = draft.value.copyWith(
+    flyerType: _selectedFlyerType,
+  );
+}
+// -----------------------------------------------------------------------------
