@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 class FlyerMakerScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerMakerScreenView({
+    @required this.formKey,
     @required this.scrollController,
     @required this.bzModel,
     @required this.draft,
@@ -20,115 +21,123 @@ class FlyerMakerScreenView extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final GlobalKey<FormState> formKey;
   final ScrollController scrollController;
   final BzModel bzModel;
   final ValueNotifier<DraftFlyerModel> draft;
   final TextEditingController headlineController;
 // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
-    return ListView(
-      controller: scrollController,
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-      children: <Widget>[
+    return Form(
+      key: formKey,
+      child: ListView(
+        controller: scrollController,
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+        children: <Widget>[
 
-        /// SHELVES
-        Bubble(
-          width: Bubble.bubbleWidth(context: context, stretchy: false),
-          title: 'Flyer Slides',
-          columnChildren: <Widget>[
-            SlidesShelf(
-              /// PLAN : ADD FLYER LOCATION SLIDE
-              bzModel: bzModel,
-              shelfNumber: 1,
-              draft: draft,
-              headlineController: headlineController,
-            ),
-          ],
-        ),
+          /// SHELVES
+          Bubble(
+            width: Bubble.bubbleWidth(context: context, stretchy: false),
+            title: 'Flyer Slides',
+            columnChildren: <Widget>[
 
-        /// FLYER TITLE
-        TextFieldBubble(
-          textController: headlineController,
-          title: 'Flyer Title',
-          counterIsOn: true,
-          maxLength: 50,
-          maxLines: 3,
-          keyboardTextInputType: TextInputType.multiline,
-          // fieldIsRequired: false,
-          textOnChanged: (String text){
-            draft.value = DraftFlyerModel.updateHeadline(
-              controller : headlineController,
-              draft: draft.value,
-            );
-          },
-          // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
-        ),
-
-        /// FLYER TYPE SELECTOR
-        MultipleChoiceBubble(
-          title: 'Flyer type',
-          buttonsList: translateFlyerTypes(
-            context: context,
-            flyerTypes: flyerTypesList,
-            pluralTranslation: false,
+              SlidesShelf(
+                /// PLAN : ADD FLYER LOCATION SLIDE
+                bzModel: bzModel,
+                shelfNumber: 1,
+                draft: draft,
+                headlineController: headlineController,
+              ),
+            ],
           ),
-          selectedButtons: const <String>[],
-          onButtonTap: (int index){blog('index : $index');},
-          isInError: false,
-          inactiveButtons: const [],
-          description: 'blha blah',
-        ),
 
-        /// FLYER DESCRIPTION
-        TextFieldBubble(
-          key: const ValueKey<String>('bz_scope_bubble'),
-          textController: TextEditingController(),
-          title: 'Flyer Description',
-          counterIsOn: true,
-          maxLength: 1000,
-          maxLines: 5,
-          keyboardTextInputType: TextInputType.multiline,
-          // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
-        ),
+          /// FLYER TITLE
+          TextFieldBubble(
+            key: const ValueKey<String>('flyer_title_text_field'),
+            isFormField: false,
+            textController: headlineController,
+            title: 'Flyer Title',
+            counterIsOn: true,
+            maxLength: 50,
+            maxLines: 3,
+            keyboardTextInputType: TextInputType.multiline,
+            // fieldIsRequired: false,
+            textOnChanged: (String text){
+              draft.value = DraftFlyerModel.updateHeadline(
+                controller : headlineController,
+                draft: draft.value,
+              );
+            },
+            // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+          ),
 
-        /// KEYWORDS SELECTOR
-        Bubble(
-          width: Bubble.bubbleWidth(context: context, stretchy: false),
-          title: 'Search Keywords',
-          columnChildren: const <Widget>[],
-        ),
+          /// FLYER TYPE SELECTOR
+          MultipleChoiceBubble(
+            title: 'Flyer type',
+            buttonsList: translateFlyerTypes(
+              context: context,
+              flyerTypes: flyerTypesList,
+              pluralTranslation: false,
+            ),
+            selectedButtons: const <String>[],
+            onButtonTap: (int index){blog('index : $index');},
+            isInError: false,
+            inactiveButtons: const [],
+            description: 'blha blah',
+          ),
 
-        /// SPECS SELECTOR
-        Bubble(
-          width: Bubble.bubbleWidth(context: context, stretchy: false),
-          title: 'Specifications',
-          columnChildren: const <Widget>[],
-        ),
+          /// FLYER DESCRIPTION
+          TextFieldBubble(
+            key: const ValueKey<String>('bz_scope_bubble'),
+            textController: TextEditingController(),
+            title: 'Flyer Description',
+            counterIsOn: true,
+            maxLength: 1000,
+            maxLines: 5,
+            keyboardTextInputType: TextInputType.multiline,
+            // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+          ),
 
-        /// ZONE SELECTOR
-        const ZoneSelectionBubble(
-          title: 'Flyer Target city',
-          // description: 'Select The city you would like this '
-          //     'flyer to target, each flyer can target only'
-          //     ' one city, and selecting district  increases '
-          //     'the probability of this flyer to gain more '
-          //     'views in that district',
-          onZoneChanged: null,
-          currentZone: null,
-        ),
+          /// KEYWORDS SELECTOR
+          Bubble(
+            width: Bubble.bubbleWidth(context: context, stretchy: false),
+            title: 'Search Keywords',
+            columnChildren: const <Widget>[],
+          ),
 
-        /// SHOW FLYER AUTHOR
-        Bubble(
-          width: Bubble.bubbleWidth(context: context, stretchy: false),
-          title: 'Show Flyer author on Flyer',
-          columnChildren: const <Widget>[],
-        ),
+          /// SPECS SELECTOR
+          Bubble(
+            width: Bubble.bubbleWidth(context: context, stretchy: false),
+            title: 'Specifications',
+            columnChildren: const <Widget>[],
+          ),
 
-      ],
+          /// ZONE SELECTOR
+          const ZoneSelectionBubble(
+            title: 'Flyer Target city',
+            // description: 'Select The city you would like this '
+            //     'flyer to target, each flyer can target only'
+            //     ' one city, and selecting district  increases '
+            //     'the probability of this flyer to gain more '
+            //     'views in that district',
+            onZoneChanged: null,
+            currentZone: null,
+          ),
 
+          /// SHOW FLYER AUTHOR
+          Bubble(
+            width: Bubble.bubbleWidth(context: context, stretchy: false),
+            title: 'Show Flyer author on Flyer',
+            columnChildren: const <Widget>[],
+          ),
+
+        ],
+
+      ),
     );
 
   }
