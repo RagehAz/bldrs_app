@@ -312,14 +312,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                         keyboardTextInputAction: TextInputAction.newline,
                         validator: (){
 
-                          // if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
-                          //   return 'you can not say a77a';
-                          // }
-                          // else {
-
-
-                            return 'xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx ';
-                          // }
+                          if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
+                            return 'you can not say a77a';
+                          }
+                          else {
+                            return null;
+                          }
 
                         },
                       ),
