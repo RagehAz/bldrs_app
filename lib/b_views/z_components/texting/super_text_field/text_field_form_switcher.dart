@@ -14,6 +14,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
     @required this.autoFocus,
     @required this.focusNode,
     @required this.counterIsOn,
+    @required this.autoValidate,
 
     /// box
     @required this.corners,
@@ -58,6 +59,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
   final bool autoFocus;
   final FocusNode focusNode;
   final bool counterIsOn;
+  final bool autoValidate;
 
   /// box
   final double corners;
@@ -194,7 +196,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         decoration: _inputDecoration,
         textAlignVertical: _textAlignVertical,
 
-
+        /// counter
         buildCounter: counterIsOn ? counterBuilder : null,
 
         /// functions
@@ -204,6 +206,8 @@ class TextFormFieldSwitcher extends StatelessWidget {
         onSaved: (String val) => onSavedForForm(val),
         onEditingComplete: onEditingComplete,
         validator: validator,
+
+        autovalidateMode: autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
 
         /// other stuff
         enabled: true, /// THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
@@ -251,11 +255,17 @@ class TextFormFieldSwitcher extends StatelessWidget {
         decoration: _inputDecoration,
         textAlignVertical: _textAlignVertical,
 
+
+
+        /// counter
+        buildCounter: counterIsOn ? counterBuilder : null,
+
         /// functions
         onTap: onTap,
         onChanged: (String val) => onChanged(val),
         onSubmitted: (String val) => onSubmitted(val),
         onEditingComplete: onEditingComplete,
+
 
 
         /// other stuff

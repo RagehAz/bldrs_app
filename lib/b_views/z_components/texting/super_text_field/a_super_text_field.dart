@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/xxx_lab/text_field_form_switcher.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
 import 'package:flutter/material.dart';
 
 class SuperTextField extends StatefulWidget {
@@ -21,6 +21,7 @@ class SuperTextField extends StatefulWidget {
     this.autofocus = false,
     this.focusNode,
     this.counterIsOn = false,
+    this.autoValidate = false,
 
     /// box
     this.margins,
@@ -67,6 +68,7 @@ class SuperTextField extends StatefulWidget {
   final bool autofocus;
   final FocusNode focusNode;
   final bool counterIsOn;
+  final bool autoValidate;
 
   /// box
   final double width;
@@ -496,6 +498,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               autoFocus: widget.autofocus,
               focusNode: _focusNode,
               counterIsOn: widget.counterIsOn,
+              autoValidate: widget.autoValidate,
 
               /// box
               corners: widget.corners,

@@ -95,6 +95,7 @@ class EmailAuthScreenView extends StatelessWidget {
                       validator: validatePassword,
                       comments:superPhrase(context, 'phid_min6Char'),
                       obscured: isObscured,
+                      showUnObscure: true,
                       onObscureTap: onObscureTap,
                     ),
 
@@ -120,6 +121,7 @@ class EmailAuthScreenView extends StatelessWidget {
                               validator: validatePasswordConfirmation,
                               comments:superPhrase(context, 'phid_min6Char'),
                               obscured: isObscured,
+                              showUnObscure: true,
                               onObscureTap: onObscureTap,
                             );
                           }
