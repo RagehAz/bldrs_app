@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -13,13 +14,13 @@ class MultipleChoiceBubble extends StatelessWidget {
     @required this.onButtonTap,
     @required this.selectedButtons,
     @required this.isInError,
-    this.description,
+    this.notes,
     this.inactiveButtons,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String title;
-  final String description;
+  final List<String> notes;
   final List<String> buttonsList;
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtons;
@@ -41,14 +42,9 @@ class MultipleChoiceBubble extends StatelessWidget {
             redDot: true,
           ),
 
-          if (description != null)
-            SuperVerse(
-              verse: description,
-              margin: 10,
-              size: 1,
-              color: Colorz.blue255,
-              italic: true,
-              weight: VerseWeight.thin,
+          if (notes != null)
+            BubbleNotes(
+              notes: notes,
             ),
 
           Wrap(

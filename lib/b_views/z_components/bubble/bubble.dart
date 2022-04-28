@@ -14,7 +14,7 @@ class Bubble extends StatelessWidget {
   const Bubble({
     @required this.columnChildren,
     this.centered = false,
-    this.bubbleColor = Colorz.white20,
+    this.bubbleColor = Colorz.white10,
     this.stretchy = false,
     this.title,
     this.titleColor = Colorz.white255,
@@ -91,7 +91,6 @@ class Bubble extends StatelessWidget {
     return _pageMargin;
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
