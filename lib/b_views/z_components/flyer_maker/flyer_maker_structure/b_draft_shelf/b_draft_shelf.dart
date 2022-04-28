@@ -90,7 +90,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
       width: superScreenWidth(context),
       height: ShelfBox.height(context),
       decoration: BoxDecoration(
-        color: Colorz.white10,
+        // color: Colorz.white10,
         borderRadius: superBorderAll(context, Bubble.clearCornersValue),
       ),
       alignment: superCenterAlignment(context),

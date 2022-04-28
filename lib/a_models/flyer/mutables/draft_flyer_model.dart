@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -101,10 +102,20 @@ class DraftFlyerModel{
     @required String authorID,
 }){
 
+    final List<FlyerType> _possibleFlyerType = concludePossibleFlyerTypesByBzTypes(
+      bzTypes: bzModel.bzTypes,
+    );
+
+    final FlyerType _flyerType =
+    _possibleFlyerType.length == 1 ?
+    _possibleFlyerType.first
+        :
+    null;
+
     final DraftFlyerModel _draft = DraftFlyerModel(
       id: createUniqueID().toString(),
       title: TextEditingController(),
-      flyerType: null,
+      flyerType: _flyerType,
       flyerState: FlyerState.draft,
       keywordsIDs: <String>[],
       showsAuthor: FlyerModel.canShowFlyerAuthor(
@@ -266,6 +277,7 @@ class DraftFlyerModel{
 
         _draft = draft.copyWith(
           mutableSlides: _newSlides,
+          title: controller,
         );
       }
 
