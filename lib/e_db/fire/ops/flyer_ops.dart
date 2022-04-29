@@ -74,9 +74,10 @@ Future<FlyerModel> createFlyerOps({
   blog('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
 
   /// update slides with URLs
-  final List<SlideModel> _updatedSlides =
-      await SlideModel.replaceSlidesPicturesWithNewURLs(
-          _picturesURLs, inputFlyerModel.slides);
+  final List<SlideModel> _updatedSlides = await SlideModel.replaceSlidesPicturesWithNewURLs(
+      newPicturesURLs: _picturesURLs,
+      inputSlides: inputFlyerModel.slides,
+  );
 
   blog('4- slides updated with URLs');
 

@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 /// SELECTING KEYWORD
 
 // --------------------------------------------
-Future<void> onSelectKeyword({
+Future<void> onChangeHomeSection({
   @required BuildContext context,
   @required String phid,
   @required bool inActiveMode,

@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 class InfoPageKeywords extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageKeywords({
-    @required this.flyerModel,
+    @required this.keywordsIDs,
     @required this.pageWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FlyerModel flyerModel;
+  final List<String> keywordsIDs;
   final double pageWidth;
   /// --------------------------------------------------------------------------
   @override
@@ -26,19 +26,18 @@ class InfoPageKeywords extends StatelessWidget {
     //     keywordsIDs: flyerModel.keywordsIDs,
     // );
 
-    final List<String> _keywords = [];
 
     return Wrap(
       key: const ValueKey<String>('InfoPageKeywords'),
       children: <Widget>[
-        ...List<Widget>.generate(_keywords?.length, (int index) {
+        ...List<Widget>.generate(keywordsIDs?.length, (int index) {
 
-          final String _keyword = _keywords[index];
+          final String _keywordID = keywordsIDs[index];
 
           return Padding(
             padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
             child: KeywordBarButton(
-              keywordID: _keyword,
+              keywordID: _keywordID,
               xIsOn: false,
               color: Colorz.white50,
             ),

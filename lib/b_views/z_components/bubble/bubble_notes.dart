@@ -27,7 +27,6 @@ class BubbleNotes extends StatelessWidget {
       final double _bubbleWidth = bubbleWidth ?? Bubble.clearWidth(context);
 
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           ...List.generate(notes.length, (index){

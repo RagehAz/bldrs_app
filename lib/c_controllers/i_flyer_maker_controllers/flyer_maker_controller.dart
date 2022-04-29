@@ -1,14 +1,11 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/a_shelf_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
 
 
 // -----------------------------------------------------------------------------
@@ -261,3 +258,24 @@ void onSelectFlyerType({
   );
 }
 // -----------------------------------------------------------------------------
+Future<void> onAddKeywordsTap({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}) async {
+
+  final dynamic _result = await Nav.goToNewScreen(context, SelectKeywordsScreen(
+    flyerType: draft.value.flyerType,
+    selectedKeywordsIDs: draft.value.keywordsIDs,
+  ));
+
+  final List<String> receivedKeywordsIds = _result;
+
+  if (canLoopList(receivedKeywordsIds) == true){
+
+    draft.value = draft.value.copyWith(
+      keywordsIDs: receivedKeywordsIds,
+    );
+
+  }
+
+}
