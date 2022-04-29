@@ -9,6 +9,7 @@ import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -198,6 +199,29 @@ class ChainsProvider extends ChangeNotifier {
     }
 
     return _keywordsPhrases;
+  }
+// -------------------------------------
+  Chain getKeywordsChainByFlyerType(FlyerType flyerType){
+
+    String _chainID = 'phid_sections';
+
+    switch(flyerType){
+      case FlyerType.property   : _chainID = 'phid_k_flyer_type_property'; break;
+      case FlyerType.design     : _chainID = 'phid_k_flyer_type_design'; break;
+      case FlyerType.project    : _chainID = 'phid_k_flyer_type_design'; break;
+      case FlyerType.craft      : _chainID = 'phid_k_flyer_type_crafts'; break;
+      case FlyerType.product    : _chainID = 'phid_k_flyer_type_product'; break;
+      case FlyerType.equipment  : _chainID = 'phid_k_flyer_type_equipment'; break;
+      case FlyerType.all        : _chainID = 'phid_sections'; break;
+      case FlyerType.non        : _chainID = 'phid_sections'; break;
+    }
+
+    final Chain _chain = Chain.getChainFromChainsByID(
+        chainID: _chainID,
+        chains: <Chain>[_keywordsChain]
+    );
+
+    return _chain;
   }
 // -----------------------------------------------------------------------------
 
