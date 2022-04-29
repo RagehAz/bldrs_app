@@ -19,7 +19,6 @@ class SlideModel {
   SlideModel({
     @required this.description,
     @required this.picFit,
-
     /// TASK : update all methods below to include this boxfit parameter
     @required this.imageSize,
     @required this.midColor,
@@ -30,10 +29,7 @@ class SlideModel {
     this.viewsCount,
     this.savesCount,
     this.flyerID,
-
-    /// only used in sql ops
   });
-
   /// --------------------------------------------------------------------------
   final int slideIndex;
   final dynamic pic;
@@ -46,9 +42,11 @@ class SlideModel {
   ImageSize imageSize;
   Color midColor;
   final String flyerID;
+// -----------------------------------------------------------------------------
 
-  /// only used in sql ops
-  /// --------------------------------------------------------------------------
+  /// CYPHERS
+
+// -------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'slideIndex': slideIndex,
@@ -63,8 +61,7 @@ class SlideModel {
       'midColor': Colorizer.cipherColor(midColor),
     };
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static SlideModel decipherSlide(dynamic map) {
     return SlideModel(
         slideIndex: map['slideIndex'],
@@ -79,8 +76,7 @@ class SlideModel {
         imageSize: ImageSize.decipherImageSize(map['imageSize']),
         midColor: Colorizer.decipherColor(map['midColor']));
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static Map<String, Object> cipherSlides(List<SlideModel> slides) {
     Map<String, Object> _slidesMap = <String, Object>{};
 
@@ -96,8 +92,7 @@ class SlideModel {
 
     return _slidesMap;
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<SlideModel> decipherSlides(Map<String, dynamic> maps) {
     final List<SlideModel> _slides = <SlideModel>[];
     final List<String> _keys = maps.keys.toList();
@@ -112,8 +107,25 @@ class SlideModel {
 
     return _slides;
   }
+// -------------------------------------
+  static Future<Map<String, dynamic>> cipherSlidesCounters(List<SlideModel> slides) async {
+    final Map<String, dynamic> _combinedMap = <String, dynamic>{};
 
+    await Future.forEach(slides, (SlideModel slide) {
+      _combinedMap.addAll(<String, dynamic>{
+        'saves/${slide.slideIndex}': slide.savesCount,
+        'shares/${slide.slideIndex}': slide.sharesCount,
+        'views/${slide.slideIndex}': slide.viewsCount,
+      });
+    });
+
+    return _combinedMap;
+  }
 // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// -------------------------------------
   SlideModel clone() {
     return SlideModel(
       slideIndex: slideIndex,
@@ -129,24 +141,7 @@ class SlideModel {
       midColor: midColor,
     );
   }
-
-// -------------------------
-// -------------------------
-  static void printSlides(List<SlideModel> slides) {
-    if (Mapper.canLoopList(slides)) {
-      blog('slides can not be printed : slides are : $slides');
-    } else {
-      blog('XXX - STARTING TO PRINT ALL ${slides.length} SLIDES');
-
-      for (final SlideModel slide in slides) {
-        slide.printSlide();
-      }
-
-      blog('XXX - ENDED PRINTING ALL ${slides.length} SLIDES');
-    }
-  }
-
-// -------------------------
+// -------------------------------------
   static List<SlideModel> cloneSlides(List<SlideModel> slides) {
     final List<SlideModel> _newSlides = <SlideModel>[];
 
@@ -155,10 +150,48 @@ class SlideModel {
     }
     return _newSlides;
   }
+// -----------------------------------------------------------------------------
 
-// -------------------------
-  static bool slidesPicsAreTheSame(
-      SlideModel finalSlide, SlideModel originalSlide) {
+  /// BLOGGING
+
+// -------------------------------------
+  void blogSlide() {
+    blog('SLIDE-PRINT --------------------------------------------------START');
+
+    // blog('SLIDE-PRINT : flyerID : ${flyerID}');
+    blog('SLIDE-PRINT : slideIndex : $slideIndex');
+    blog('SLIDE-PRINT : pic : $pic');
+    blog('SLIDE-PRINT : headline : $headline');
+    blog('SLIDE-PRINT : description : $description');
+    blog('SLIDE-PRINT : sharesCount : $sharesCount');
+    blog('SLIDE-PRINT : viewsCount : $viewsCount');
+    blog('SLIDE-PRINT : savesCount : $savesCount');
+    blog('SLIDE-PRINT : picFit : $picFit');
+    blog('SLIDE-PRINT : imageSize : $imageSize');
+    blog('SLIDE-PRINT : midColor : $midColor');
+
+    blog('SLIDE-PRINT --------------------------------------------------END');
+  }
+// -------------------------------------
+  static void blogSlides(List<SlideModel> slides) {
+    if (Mapper.canLoopList(slides)) {
+      blog('slides can not be printed : slides are : $slides');
+    } else {
+      blog('XXX - STARTING TO PRINT ALL ${slides.length} SLIDES');
+
+      for (final SlideModel slide in slides) {
+        slide.blogSlide();
+      }
+
+      blog('XXX - ENDED PRINTING ALL ${slides.length} SLIDES');
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -------------------------------------
+  static bool slidesPicsAreTheSame(SlideModel finalSlide, SlideModel originalSlide) {
     bool _slidesPicsAreTheSame;
 
     if (finalSlide.pic != originalSlide.pic) {
@@ -169,10 +202,11 @@ class SlideModel {
 
     return _slidesPicsAreTheSame;
   }
-
-// -----------------------------------------------------------------------------
-  static bool allSlidesPicsAreTheSame(
-      {FlyerModel finalFlyer, FlyerModel originalFlyer}) {
+// -------------------------------------
+  static bool allSlidesPicsAreTheSame({
+    @required FlyerModel finalFlyer,
+    @required FlyerModel originalFlyer,
+  }) {
     bool _allSlidesPicsAreTheSame;
 
     // blog('finalFlyer.slides.length = ${finalFlyer.slides.length}');
@@ -196,8 +230,11 @@ class SlideModel {
 
     return _allSlidesPicsAreTheSame;
   }
-
 // -----------------------------------------------------------------------------
+
+  /// ID GENERATOR AND GETTERS
+
+// -------------------------------------
   static String generateSlideID(String flyerID, int slideIndex) {
     // slide index shall never have more than two digits
     // ass flyer should never be more than 10 slides long
@@ -206,11 +243,10 @@ class SlideModel {
     final String _slideID = '${flyerID}_$_slideIndexString';
     return _slideID;
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<String> generateSlidesIDs({
-    String flyerID,
-    int numberOfSlides,
+    @required String flyerID,
+    @required int numberOfSlides,
   }) {
     final List<String> _slidesIDs = <String>[];
 
@@ -221,24 +257,27 @@ class SlideModel {
 
     return _slidesIDs;
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static int getSlideIndexFromSlideID(String slideID) {
     // slide index shall never have more than two digits
     final int _slideIndex = Numeric.lastTwoIntegersFromAString(slideID);
     return _slideIndex;
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static String getFlyerIDFromSlideID(String slideID) {
     final String _flyerID =
-        TextMod.removeTextAfterFirstSpecialCharacter(slideID, '_');
+    TextMod.removeTextAfterFirstSpecialCharacter(slideID, '_');
     return _flyerID;
   }
-
 // -----------------------------------------------------------------------------
-  static Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs(
-      List<String> newPicturesURLs, List<SlideModel> inputSlides) async {
+
+  /// MODIFIERS
+
+// -------------------------------------
+  static Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs({
+    @required List<String> newPicturesURLs,
+    @required List<SlideModel> inputSlides,
+  }) async {
     final List<SlideModel> _outputSlides = <SlideModel>[];
 
     for (final SlideModel slide in inputSlides) {
@@ -264,26 +303,12 @@ class SlideModel {
 
     return _outputSlides;
   }
-
 // -----------------------------------------------------------------------------
-  static Future<Map<String, dynamic>> cipherSlidesCounters(
-      List<SlideModel> slides) async {
-    final Map<String, dynamic> _combinedMap = <String, dynamic>{};
 
-    await Future.forEach(slides, (SlideModel slide) {
-      _combinedMap.addAll(<String, dynamic>{
-        'saves/${slide.slideIndex}': slide.savesCount,
-        'shares/${slide.slideIndex}': slide.sharesCount,
-        'views/${slide.slideIndex}': slide.viewsCount,
-      });
-    });
+  /// GETTERS
 
-    return _combinedMap;
-  }
-
-// -----------------------------------------------------------------------------
-  static Future<List<File>> getImageFilesFromPublishedSlides(
-      List<SlideModel> slides) async {
+// -------------------------------------
+  static Future<List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
     final List<File> _files = <File>[];
 
     if (Mapper.canLoopList(slides)) {
@@ -296,10 +321,8 @@ class SlideModel {
 
     return _files;
   }
-
-// -----------------------------------------------------------------------------
-  static Future<List<Asset>> getImageAssetsFromPublishedSlides(
-      List<SlideModel> slides) async {
+// -------------------------------------
+  static Future<List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
     final List<Asset> _assets = <Asset>[];
 
     if (Mapper.canLoopList(slides)) {
@@ -324,8 +347,7 @@ class SlideModel {
 
     return _assets;
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
     final List<BoxFit> _boxFits = <BoxFit>[];
 
@@ -343,21 +365,24 @@ class SlideModel {
 
     return _boxFits;
   }
+// -------------------------------------
+  static List<SlideModel> getSlidesFromSlidesByFlyerID(List<SlideModel> allSlides, String flyerID) {
+    final List<SlideModel> _foundSlides = <SlideModel>[];
 
-// -----------------------------------------------------------------------------
-  static List<bool> createVisibilityListFromSlides(List<SlideModel> slides) {
-    final List<bool> _visibilityList = <bool>[];
-
-    if (Mapper.canLoopList(slides)) {
-      for (int i = 0; i < slides.length; i++) {
-        _visibilityList.add(true);
+    if (allSlides != null && flyerID != null && allSlides.isNotEmpty) {
+      for (final SlideModel slide in allSlides) {
+        if (slide.flyerID == flyerID) {
+          _foundSlides.add(slide);
+        }
       }
     }
 
-    return _visibilityList;
-  }
+    _foundSlides.sort(
+            (SlideModel a, SlideModel b) => a.slideIndex.compareTo(b.slideIndex));
 
-// -----------------------------------------------------------------------------
+    return _foundSlides;
+  }
+// -------------------------------------
   static SlideModel getSlideFromMutableSlide(MutableSlide mSlide) {
     SlideModel _slideModel;
 
@@ -377,10 +402,8 @@ class SlideModel {
     }
     return _slideModel;
   }
-
-// -----------------------------------------------------------------------------
-  static List<SlideModel> getSlidesFromMutableSlides(
-      List<MutableSlide> mSlides) {
+// -------------------------------------
+  static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides) {
     final List<SlideModel> _slides = <SlideModel>[];
 
     if (Mapper.canLoopList(mSlides)) {
@@ -391,27 +414,27 @@ class SlideModel {
 
     return _slides;
   }
-
 // -----------------------------------------------------------------------------
-  static List<SlideModel> getSlidesFromSlidesByFlyerID(
-      List<SlideModel> allSlides, String flyerID) {
-    final List<SlideModel> _foundSlides = <SlideModel>[];
 
-    if (allSlides != null && flyerID != null && allSlides.isNotEmpty) {
-      for (final SlideModel slide in allSlides) {
-        if (slide.flyerID == flyerID) {
-          _foundSlides.add(slide);
-        }
+  /// VISIBILITY LISTS
+
+// -------------------------------------
+  static List<bool> createVisibilityListFromSlides(List<SlideModel> slides) {
+    final List<bool> _visibilityList = <bool>[];
+
+    if (Mapper.canLoopList(slides)) {
+      for (int i = 0; i < slides.length; i++) {
+        _visibilityList.add(true);
       }
     }
 
-    _foundSlides.sort(
-        (SlideModel a, SlideModel b) => a.slideIndex.compareTo(b.slideIndex));
-
-    return _foundSlides;
+    return _visibilityList;
   }
-
 // -----------------------------------------------------------------------------
+
+  /// DUMMIES
+
+// -------------------------------------
   static SlideModel dummySlide() {
     return SlideModel(
       slideIndex: 0,
@@ -425,25 +448,6 @@ class SlideModel {
       imageSize: ImageSize(height: 900, width: 600),
       midColor: Colorz.black255,
     );
-  }
-
-// -----------------------------------------------------------------------------
-  void printSlide() {
-    blog('SLIDE-PRINT --------------------------------------------------START');
-
-    // blog('SLIDE-PRINT : flyerID : ${flyerID}');
-    blog('SLIDE-PRINT : slideIndex : $slideIndex');
-    blog('SLIDE-PRINT : pic : $pic');
-    blog('SLIDE-PRINT : headline : $headline');
-    blog('SLIDE-PRINT : description : $description');
-    blog('SLIDE-PRINT : sharesCount : $sharesCount');
-    blog('SLIDE-PRINT : viewsCount : $viewsCount');
-    blog('SLIDE-PRINT : savesCount : $savesCount');
-    blog('SLIDE-PRINT : picFit : $picFit');
-    blog('SLIDE-PRINT : imageSize : $imageSize');
-    blog('SLIDE-PRINT : midColor : $midColor');
-
-    blog('SLIDE-PRINT --------------------------------------------------END');
   }
 // -----------------------------------------------------------------------------
 }

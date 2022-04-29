@@ -74,6 +74,7 @@ class ChainSonStarter extends StatelessWidget {
         onKeywordTap: onKeywordTap,
         // isDisabled: false,
         parentLevel: parentLevel,
+        selectedKeywordsIDs: selectedKeywordsIDs,
       );
 
     }

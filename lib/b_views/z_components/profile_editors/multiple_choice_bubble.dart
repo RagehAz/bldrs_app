@@ -30,10 +30,7 @@ class MultipleChoiceBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-
     return Bubble(
-        bubbleColor: Colorz.white10,
         columnChildren: <Widget>[
 
           SuperVerse(

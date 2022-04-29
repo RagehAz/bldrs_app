@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -8,12 +9,14 @@ class ChainBox extends StatelessWidget {
     @required this.boxWidth,
     @required this.child,
     this.isDisabled = false,
+    this.alignment,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool isDisabled;
   final double boxWidth;
   final Widget child;
+  final Alignment alignment;
   /// --------------------------------------------------------------------------
   static double getSonWidth({
     @required double parentWidth,
@@ -37,7 +40,7 @@ class ChainBox extends StatelessWidget {
       opacity: isDisabled == true ? 0.3 : 1,
       child: Container(
         width: boxWidth,
-        alignment: superInverseCenterAlignment(context),
+        alignment: alignment ?? superInverseCenterAlignment(context),
         // margin: const EdgeInsets.all(Ratioz.appBarPadding),
         child: child,
       ),

@@ -90,7 +90,7 @@ class InfoPageContents extends StatelessWidget {
           /// MAIN DETAILS
           InfoPageKeywords(
             pageWidth: _pageWidth,
-            flyerModel: flyerModel,
+            keywordsIDs: flyerModel.keywordsIDs,
           ),
 
           /// -------------------------------------------------------- SEPARATOR
