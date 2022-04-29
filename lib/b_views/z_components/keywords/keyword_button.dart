@@ -59,7 +59,7 @@ class KeywordBarButton extends StatelessWidget {
                       height: 15,
                       width: 15,
                       icon: Iconz.xLarge,
-                      iconSizeFactor: 09,
+                      iconSizeFactor: 0.9,
                       bubble: false,
                       iconColor: Colorz.white200,
                       onTap: onTap,
@@ -73,18 +73,6 @@ class KeywordBarButton extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                        // /// 'Group' TITLE
-                        // // if (title != null)
-                        // SuperVerse(
-                        //   // '${Keyword.getSubGroupNameByKeywordID(context, secondKeyword?.keywordID)}'
-                        //   // '${Keyword.getTranslatedKeywordTitleBySequence(context, sequence)}',
-                        //   verse: KW.translateKeyword(context, keyword),
-                        //   size: 1,
-                        //   italic: true,
-                        //   weight: VerseWeight.thin,
-                        //   centered: false,
-                        // ),
-
                         /// CURRENT SECTION NAME
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -94,6 +82,7 @@ class KeywordBarButton extends StatelessWidget {
                               verse: superPhrase(context, keywordID).toUpperCase(),
                               centered: false,
                               italic: true,
+                              scaleFactor: 0.9,
                             ),
                           ],
                         ),

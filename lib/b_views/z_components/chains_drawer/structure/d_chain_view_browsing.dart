@@ -30,11 +30,11 @@ class ChainViewBrowsing extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-    const Chain _propertiesChain = ChainProperties.chain;
-    const Chain _designsChain = ChainDesigns.chain;
-    const Chain _craftsChain = ChainCrafts.chain;
-    const Chain _productsChain = ChainProducts.chain;
-    const Chain _equipmentChain = ChainEquipment.chain;
+    // const Chain _propertiesChain = ChainProperties.chain;
+    // const Chain _designsChain = ChainDesigns.chain;
+    // const Chain _craftsChain = ChainCrafts.chain;
+    // const Chain _productsChain = ChainProducts.chain;
+    // const Chain _equipmentChain = ChainEquipment.chain;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,9 +59,8 @@ class ChainViewBrowsing extends StatelessWidget {
 
                 ChainExpanderByFlyerType(
                   bubbleWidth: bubbleWidth,
-                  inActiveMode: false,
+                  deactivated: false,
                   flyerType: FlyerType.property,
-                  chain: _propertiesChain,
                 ),
 
               ]
@@ -77,18 +76,16 @@ class ChainViewBrowsing extends StatelessWidget {
 
                 ChainExpanderByFlyerType(
                   bubbleWidth: bubbleWidth,
-                  inActiveMode: false,
+                  deactivated: false,
                   flyerType: FlyerType.design,
-                  chain: _designsChain,
                 ),
 
                 MainLayout.spacer10,
 
                 ChainExpanderByFlyerType(
                   bubbleWidth: bubbleWidth,
-                  inActiveMode: false,
+                  deactivated: false,
                   flyerType: FlyerType.craft,
-                  chain: _craftsChain,
                 ),
 
               ]
@@ -104,18 +101,16 @@ class ChainViewBrowsing extends StatelessWidget {
 
               ChainExpanderByFlyerType(
                 bubbleWidth: bubbleWidth,
-                inActiveMode: false,
+                deactivated: false,
                 flyerType: FlyerType.product,
-                chain: _productsChain,
               ),
 
               MainLayout.spacer10,
 
               ChainExpanderByFlyerType(
                 bubbleWidth: bubbleWidth,
-                inActiveMode: false,
+                deactivated: false,
                 flyerType: FlyerType.equipment,
-                chain: _equipmentChain,
               ),
 
             ],

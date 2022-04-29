@@ -16,6 +16,8 @@ class ChainExpanderStarter extends StatelessWidget {
     @required this.firstHeadline,
     @required this.secondHeadline,
     @required this.initiallyExpanded,
+    @required this.selectedKeywordsIDs,
+    this.alignment,
     this.isDisabled = false,
     this.margin,
     this.initialColor = Colorz.black50,
@@ -28,6 +30,7 @@ class ChainExpanderStarter extends StatelessWidget {
   final Chain chain;
   final bool isDisabled;
   final double boxWidth;
+  final Alignment alignment;
   // final ValueChanged<bool> onTap;
   final String icon;
   final String firstHeadline;
@@ -38,6 +41,7 @@ class ChainExpanderStarter extends StatelessWidget {
   final ValueChanged<String> onKeywordTap;
   final bool initiallyExpanded;
   final int parentLevel;
+  final List<String> selectedKeywordsIDs;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,7 @@ class ChainExpanderStarter extends StatelessWidget {
     return ChainBox(
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),
       boxWidth: boxWidth,
+      alignment: alignment,
       child: ExpandingTile(
         key: PageStorageKey<String>(chain.id),
         width: boxWidth,
@@ -66,6 +71,7 @@ class ChainExpanderStarter extends StatelessWidget {
           initiallyExpanded: initiallyExpanded,
           onKeywordTap: (String keywordID) => onKeywordTap(keywordID),
           parentLevel: parentLevel,
+          selectedKeywordsIDs: selectedKeywordsIDs,
         ),
       ),
     );

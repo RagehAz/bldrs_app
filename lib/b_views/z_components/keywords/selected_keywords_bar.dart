@@ -23,7 +23,7 @@ class SelectedKeywordsBar extends StatelessWidget {
   final ItemScrollController scrollController;
   final ItemPositionsListener itemPositionListener;
   final String highlightedKeywordID;
-  final Function removeKeyword;
+  final ValueChanged<String> removeKeyword;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -66,8 +66,7 @@ class SelectedKeywordsBar extends StatelessWidget {
           Container(
             width: _screenHeight,
             height: (_selectedKeywordsZoneHeight * 0.3) - _yellowLineHeight,
-            padding:
-                const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
             child: SuperVerse(
               verse: _screenTitle,
               size: 1,
@@ -111,8 +110,8 @@ class SelectedKeywordsBar extends StatelessWidget {
                       //     :
                       // false;
 
-                blog('_keywords.length : ${selectedKeywordsIDs.length}');
-                blog('index : $index');
+                // blog('_keywords.length : ${selectedKeywordsIDs.length}');
+                // blog('index : $index');
 
                 return _keyword == null ?
                 Container(
@@ -129,7 +128,7 @@ class SelectedKeywordsBar extends StatelessWidget {
                 KeywordBarButton(
                   keywordID: _keyword,
                   xIsOn: true,
-                  onTap: () => removeKeyword(index),
+                  onTap: () => removeKeyword(_keyword),
                 );
 
                 },

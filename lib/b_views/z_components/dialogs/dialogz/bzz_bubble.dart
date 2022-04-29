@@ -1,10 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/bz_static_grid.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_1_bz_card_screen.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/bz_static_grid.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +31,6 @@ class BzzBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Bubble(
-      bubbleColor: Colorz.white10,
       corners: corners,
       columnChildren: <Widget>[
 
