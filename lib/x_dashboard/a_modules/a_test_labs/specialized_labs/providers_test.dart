@@ -293,7 +293,10 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   onTap: () async {
                     unawaited(_triggerLoading());
 
-                    FlyerModel.blogFlyers(_promotedFlyers);
+                    FlyerModel.blogFlyers(
+                      flyers: _promotedFlyers,
+                      methodName: 'provider test : [_promotedFlyers button]'
+                    );
 
                     unawaited(_triggerLoading());
                   }),

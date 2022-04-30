@@ -230,7 +230,6 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 
     return Bubble(
       centered: true,
-      bubbleColor: Colorz.white10,
       columnChildren: <Widget>[
 
         /// USER LABEL
