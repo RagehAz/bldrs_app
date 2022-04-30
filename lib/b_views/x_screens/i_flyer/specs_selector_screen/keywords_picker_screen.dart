@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/b_views/z_components/chains_drawer/chain_expander_by_flyer_type.dart';
 import 'package:bldrs/b_views/z_components/keywords/selected_keywords_bar.dart';
@@ -9,10 +8,8 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SelectKeywordsScreen extends StatefulWidget {
@@ -35,15 +32,12 @@ class SelectKeywordsScreen extends StatefulWidget {
 
 class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   ValueNotifier<List<String>> _selectedKeywordsIDs;
-  Chain _chain;
   ChainsProvider _chainsProvider;
+  final TextEditingController _searchController = TextEditingController();
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-
-    _chainsProvider =  Provider.of<ChainsProvider>(context, listen: false);
-    _chain = _chainsProvider.keywordsChain;
 
     _scrollController = ItemScrollController();
     // _itemPositionListener = ItemPositionsListener.create();
@@ -172,7 +166,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
       // _index = _selectedKeywordsIDs.indexWhere((id) => keyword.groupID == keywordModel.groupID);
     }
 
-    _scrollToIndex(_index);
+    await _scrollToIndex(_index);
 
     final String _keywordID = _index >= 0 ? _selectedKeywordsIDs.value[_index] : null;
 
@@ -194,7 +188,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
     // _scrollController.animateTo(_scrollController.position.maxScrollExtent + 100, duration: Ratioz.fadingDuration, curve: Curves.easeInOut);
 
     if (_selectedKeywordsIDs.value.length <= 2 || _scrollController == null){
-      print('no scroll available');
+      blog('no scroll available');
     } else {
       await _scrollController?.scrollTo(
         index: _selectedKeywordsIDs.value.length - 1,
@@ -209,7 +203,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
   Future<void> _scrollToIndex(int index) async {
 
     if (_selectedKeywordsIDs.value.length <= 1){
-      print('no scroll available');
+      blog('no scroll available');
     } else {
       await _scrollController.scrollTo(
         index: index,
@@ -242,18 +236,24 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
 
   }
 // -----------------------------------------------------------------------------
-
+  Future<void> _onSearchChain(String text) async {
+    blog('text to search is : $text');
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    const double _selectedKeywordsZoneHeight = 80;
-    final double _keywordsZoneHeight =  _screenHeight - Ratioz.stratosphere - _selectedKeywordsZoneHeight;
+    final double _selectedKeywordsBubbleHeight = SelectedKeywordsBar.getBubbleHeight(
+      context: context,
+      includeMargins: true,
+    );
+    final double _keywordsZoneHeight =  _screenHeight - Ratioz.exosphere - _selectedKeywordsBubbleHeight;
 
     return MainLayout(
       pageTitle: 'Select Flyer keywords',
-      appBarType: AppBarType.basic,
+      appBarType: AppBarType.search,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       pyramidsAreOn: true,
@@ -262,6 +262,9 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
         Nav.goBack(context, argument: _selectedKeywordsIDs.value);
         // await null
       },
+      onSearchChanged: _onSearchChain,
+      onSearchSubmit: _onSearchChain,
+      searchController: _searchController,
       layoutWidget: ValueListenableBuilder(
         valueListenable: _selectedKeywordsIDs,
         builder: (_, List<String> selectedIDs, Widget child){
@@ -269,7 +272,7 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
           return Column(
             children: <Widget>[
 
-              Stratosphere(),
+              const Stratosphere(bigAppBar: true),
 
               /// selected keywords zone
               SelectedKeywordsBar(
@@ -281,10 +284,9 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
               ),
 
               /// keywords zone
-              Container(
+              SizedBox(
                 width: _screenWidth,
                 height: _keywordsZoneHeight,
-                // alignment: Alignment.topLeft,
                 child: ListView(
                   padding: const EdgeInsets.only(
                     top: Ratioz.appBarMargin,
@@ -297,7 +299,6 @@ class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
                       flyerType: widget.flyerType,
                       bubbleWidth: _screenWidth,
                       deactivated: false,
-                      initiallyExpanded: false,
                       onKeywordTap: (String id) => _onSelectKeyword(id),
                       selectedKeywordsIDs: selectedIDs,
                     ),

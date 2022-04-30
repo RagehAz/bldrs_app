@@ -6,13 +6,14 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
+/// TASK : NEED TO MERGE THIS WIDGET WITH THIS [@ChainSonButton]
 class KeywordBarButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const KeywordBarButton({
     @required this.keywordID,
     @required this.xIsOn,
     this.onTap,
-    this.color = Colorz.blue80,
+    this.color,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -21,84 +22,101 @@ class KeywordBarButton extends StatelessWidget {
   final Function onTap;
   final Color color;
   /// --------------------------------------------------------------------------
+  static const Color buttonColor = Colorz.blue125;
+  static const double height = 40;
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     const double _corners = Ratioz.boxCorner12;
 
-    return GestureDetector(
+    return DreamBox(
+      height: height,
+      color: color ?? buttonColor,
+      icon: xIsOn ? Iconz.xLarge : null,
+      iconSizeFactor: 0.4,
+      verse: superPhrase(context, keywordID),
       onTap: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-
-          IntrinsicWidth(
-            child: Container(
-              height: 40,
-              // width: buttonWidth,
-              margin: const EdgeInsets.symmetric(horizontal: 2.5),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(_corners),
-              ),
-
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-
-                  if (xIsOn)
-                    const SizedBox(
-                      width: 10,
-                    ),
-
-                  if (xIsOn)
-                    DreamBox(
-                      height: 15,
-                      width: 15,
-                      icon: Iconz.xLarge,
-                      iconSizeFactor: 0.9,
-                      bubble: false,
-                      iconColor: Colorz.white200,
-                      onTap: onTap,
-                      splashColor: Colorz.nothing,
-                    ),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-
-                        /// CURRENT SECTION NAME
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            SuperVerse(
-                              verse: superPhrase(context, keywordID).toUpperCase(),
-                              centered: false,
-                              italic: true,
-                              scaleFactor: 0.9,
-                            ),
-                          ],
-                        ),
-
-                      ],
-                    ),
-                  ),
-
-                ],
-              ),
-            ),
-          ),
-
-        ],
-      ),
+      verseScaleFactor: 1.7,
+      margins: const EdgeInsets.symmetric(horizontal: 2.5),
+      bubble: false,
+      verseShadow: false,
+      verseItalic: true,
     );
+
+    // return GestureDetector(
+    //   onTap: onTap,
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     mainAxisSize: MainAxisSize.min,
+    //     children: <Widget>[
+    //
+    //       IntrinsicWidth(
+    //         child: Container(
+    //           height: 40,
+    //           // width: buttonWidth,
+    //           margin: const EdgeInsets.symmetric(horizontal: 2.5),
+    //           alignment: Alignment.center,
+    //           decoration: BoxDecoration(
+    //             color: color ?? buttonColor,
+    //             borderRadius: BorderRadius.circular(_corners),
+    //           ),
+    //
+    //           child: Row(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             mainAxisSize: MainAxisSize.min,
+    //             children: <Widget>[
+    //
+    //               if (xIsOn)
+    //                 const SizedBox(
+    //                   width: 10,
+    //                 ),
+    //
+    //               if (xIsOn)
+    //                 DreamBox(
+    //                   height: 15,
+    //                   width: 15,
+    //                   icon: Iconz.xLarge,
+    //                   iconSizeFactor: 0.9,
+    //                   bubble: false,
+    //                   iconColor: Colorz.white200,
+    //                   onTap: onTap,
+    //                   splashColor: Colorz.nothing,
+    //                 ),
+    //
+    //               Padding(
+    //                 padding: const EdgeInsets.symmetric(horizontal: 10),
+    //                 child: Column(
+    //                   mainAxisAlignment: MainAxisAlignment.center,
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: <Widget>[
+    //
+    //                     /// CURRENT SECTION NAME
+    //                     Row(
+    //                       mainAxisAlignment: MainAxisAlignment.center,
+    //                       crossAxisAlignment: CrossAxisAlignment.end,
+    //                       children: <Widget>[
+    //                         SuperVerse(
+    //                           verse: superPhrase(context, keywordID).toUpperCase(),
+    //                           centered: false,
+    //                           italic: true,
+    //                           scaleFactor: 0.9,
+    //                         ),
+    //                       ],
+    //                     ),
+    //
+    //                   ],
+    //                 ),
+    //               ),
+    //
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //
+    //     ],
+    //   ),
+    // );
   }
 }
 

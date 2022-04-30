@@ -104,7 +104,9 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final List<FlyerModel> _fetchedModels =
         FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
 
-    _fetchedModels[1].blogFlyer();
+    _fetchedModels[1].blogFlyer(
+      methodName: 'auditor screen : [_readMoreFlyers method]',
+    );
 
     setState(() {
       _loading = false;

@@ -6,6 +6,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// TASK : NEED TO MERGE THIS WIDGET WITH THIS [@KeywordBarButton]
 class ChainSonButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainSonButton({
@@ -55,6 +56,9 @@ class ChainSonButton extends StatelessWidget {
         verseScaleFactor: 0.7,
         verseCentered: false,
         verseMaxLines: 2,
+        bubble: false,
+        verseShadow: false,
+        verseItalic: true,
         onTap: onTap,
       ),
     );

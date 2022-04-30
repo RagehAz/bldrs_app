@@ -313,13 +313,13 @@ class FlyerModel {
   /// FLYER BLOGGING
 
 // ------------------------------------------
-  void blogFlyer({String methodName}){
+  void blogFlyer({@required String methodName}){
 
     if (methodName != null){
       blog(methodName);
     }
 
-    blog('FLYER-PRINT --------------------------------------------------START');
+    blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------START');
 
     blog('id : $id');
     blog('title : $title');
@@ -342,13 +342,16 @@ class FlyerModel {
     blog('FLYER-PRINT --------------------------------------------------END');
   }
 // ------------------------------------------
-  static void blogFlyers(List<FlyerModel> flyers){
+  static void blogFlyers({
+    @required List<FlyerModel> flyers,
+    @required String methodName,
+  }){
 
     if (Mapper.canLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
 
-        flyer?.blogFlyer();
+        flyer?.blogFlyer(methodName: methodName);
 
       }
 

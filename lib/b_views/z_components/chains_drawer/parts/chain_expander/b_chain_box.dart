@@ -1,5 +1,4 @@
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +29,7 @@ class ChainBox extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double sonHeight(){
-    return 60;
+    return 50;
   }
 // -----------------------------------------------------------------------------
   @override
