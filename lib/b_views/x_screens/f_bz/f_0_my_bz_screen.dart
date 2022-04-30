@@ -2,11 +2,10 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_0_my_bz_screen_view.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/y_views/f_bz/f_0_my_bz_screen_view.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -129,8 +128,11 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     final List<FlyerModel> _bzFlyers = _bzzProvider.myActiveBzFlyers;
     final bool _isLoading =  _uiProvider.isLoading;
 
-    blog('MyBzScreen : BUILDING WITH : ${_bzFlyers.length} flyers');
-    FlyerModel.blogFlyers(_bzFlyers);
+    // blog('MyBzScreen : BUILDING WITH : ${_bzFlyers.length} flyers');
+    // FlyerModel.blogFlyers(
+    //   flyers: _bzFlyers,
+    //   methodName: 'my bz screen : [_canBuild method]',
+    // );
 
     if (
     _bzModel != null

@@ -86,6 +86,7 @@ abstract class Ratioz {
 // -----------------------------------------------------------------------------
   /// paddings
   static const double stratosphere = 70;
+  static const double exosphere = appBarBigHeight + (appBarMargin * 2);
   static const double horizon = pyramidsHeight * 1.5;
   static const double grandHorizon = pyramidsHeight;
 // -----------------------------------------------------------------------------

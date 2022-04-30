@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_chain_son_button.dart';
+import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -43,7 +44,7 @@ class ChainSonStarter extends StatelessWidget {
           string: _keywordID,
       );
 
-      final Color _color = _isSelected == true ? Colorz.green255 : Colorz.white20;
+      final Color _color = _isSelected == true ? KeywordBarButton.buttonColor : Colorz.white20;
 
       return ChainSonButton(
         phid: _keywordID,

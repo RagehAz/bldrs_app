@@ -70,6 +70,23 @@ class Bubble extends StatelessWidget {
     return _bubbleWidth;
   }
 // -----------------------------------------------------------------------------
+  static double _getTitleHeight(BuildContext context){
+    const int _titleVerseSize = 2;
+    return SuperVerse.superVerseRealHeight(
+      context: context,
+      size: _titleVerseSize,
+      sizeFactor: 1,
+      hasLabelBox: false,
+    );
+  }
+// -----------------------------------------------------------------------------
+  static double getHeightWithoutChildren(BuildContext context){
+    final double _titleHeight = _getTitleHeight(context);
+    final double _heights = (_pageMargin * 3) + _titleHeight;
+
+    return _heights;
+  }
+// -----------------------------------------------------------------------------
   static const double cornersValue = Ratioz.appBarCorner;
   static const double _pageMargin = Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
@@ -78,13 +95,19 @@ class Bubble extends StatelessWidget {
   static BorderRadius borders(
     BuildContext context,
   ) {
-    return Borderers.superBorder(context: context, corners: cornersValue);
+    return Borderers.superBorder(
+        context: context,
+        corners: cornersValue,
+    );
   }
 // -----------------------------------------------------------------------------
   static BorderRadius clearBorders(
     BuildContext context,
   ) {
-    return Borderers.superBorder(context: context, corners: clearCornersValue);
+    return Borderers.superBorder(
+        context: context,
+        corners: clearCornersValue,
+    );
   }
 // -----------------------------------------------------------------------------
   static double paddingValue(){
@@ -115,14 +138,8 @@ class Bubble extends StatelessWidget {
     //     child: InPyramidsBubble(
     ///////////////////////////////////////////////////////////////////////////
 
-    const int _titleVerseSize = 2;
 // -----------------------------------------------------------------------------
-    final double _actionBtSize = SuperVerse.superVerseRealHeight(
-        context: context,
-        size: _titleVerseSize,
-        sizeFactor: 1,
-        hasLabelBox: false,
-    );
+    final double _actionBtSize = _getTitleHeight(context);
 // -----------------------------------------------------------------------------
     final double _actionBtCorner = _actionBtSize * 0.4;
 // -----------------------------------------------------------------------------
