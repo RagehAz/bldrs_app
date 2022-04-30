@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_shelf.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class FlyersBubble extends StatelessWidget {
@@ -30,7 +29,6 @@ class FlyersBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Bubble(
-      bubbleColor: Colorz.white10,
       title: title,
       width: bubbleWidth,
       columnChildren: <Widget>[

@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/asker_label.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/private_replies_counter.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_body.dart';
@@ -27,7 +26,6 @@ class AskedQuestion extends StatelessWidget {
 
     return Bubble(
       centered: true,
-      bubbleColor: Colorz.white10,
       columnChildren: <Widget>[
 
         /// ASKER LABEL

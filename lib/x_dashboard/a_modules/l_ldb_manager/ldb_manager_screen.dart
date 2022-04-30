@@ -45,7 +45,9 @@ class LDBViewersScreen extends StatelessWidget {
           flyerID: 'f002',
         );
 
-        _flyer.blogFlyer();
+        _flyer.blogFlyer(
+          methodName: 'LDB Manager : [onBldrsTap button]',
+        );
       },
       listWidgets: <Widget>[
 

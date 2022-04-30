@@ -33,6 +33,8 @@ class SlideTransformer extends StatelessWidget {
       key: const ValueKey<String>('SlideTransformer'),
       onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
 
+        // blog('matrix is : $m');
+
         matrix.value = generateSlideMatrix(
             matrix: m,
             flyerBoxWidth: flyerBoxWidth,

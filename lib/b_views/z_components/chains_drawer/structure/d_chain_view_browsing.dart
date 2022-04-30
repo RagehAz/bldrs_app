@@ -1,10 +1,4 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_crafts.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_designs.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_equipment.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products.dart';
-import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_properties.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/chain_expander_by_flyer_type.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/a_chain_bubble.dart';
