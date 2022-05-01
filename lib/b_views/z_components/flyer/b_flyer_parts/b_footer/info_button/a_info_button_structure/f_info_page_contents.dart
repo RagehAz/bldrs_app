@@ -107,7 +107,8 @@ class InfoPageContents extends StatelessWidget {
           /// SPECS
           InfoPageSpecs(
             pageWidth: _pageWidth,
-            flyerModel: flyerModel,
+            specs: flyerModel.specs,
+            flyerType: flyerModel.flyerType,
           ),
 
           /// -------------------------------------------------------- SEPARATOR
