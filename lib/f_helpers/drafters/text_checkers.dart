@@ -338,11 +338,16 @@ void triggerIsSearchingNotifier({
   if (text.length >= minCharLimit){
 
     isSearching.value = true;
-    onResume();
+
+    if (onResume != null){
+      onResume();
+    }
   }
   else {
     isSearching.value = false;
-    onSwitchOff();
+    if (onSwitchOff != null){
+      onSwitchOff();
+    }
   }
 
 }

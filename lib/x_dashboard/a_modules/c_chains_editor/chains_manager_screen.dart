@@ -99,8 +99,9 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 
 
     triggerIsSearchingNotifier(
-        text: text,
-        isSearching: _isSearching
+      text: text,
+      isSearching: _isSearching,
+
     );
 
     blog('text is : $text : isSearching : ${_isSearching.value}');

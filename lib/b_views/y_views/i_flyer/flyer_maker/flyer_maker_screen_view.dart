@@ -257,7 +257,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                       ),
                     ),
 
-
                   ],
                 );
                 },
