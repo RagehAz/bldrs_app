@@ -130,7 +130,6 @@ enum SpecType {
 
 }
 
-/// specs are used only to describe and filter flyers or keywords
 class SpecModel {
 // -----------------------------------------------------------------------------
 
@@ -362,7 +361,7 @@ class SpecModel {
 
 // ------------------------------------------
   void blogSpec() {
-    blog('spec is : $specsListID : ${value.toString()}');
+    blog('BLOGGING SPEC : specsListID : ( $specsListID ) : value : ( ${value.toString()} )');
   }
 // -----------------------------------------------------------------------------
   static void blogSpecs(List<SpecModel> specs) {
@@ -428,6 +427,22 @@ class SpecModel {
     final String _name = superPhrase(context, spec.value);
 
     return _name;
+  }
+// ------------------------------------------
+  static List<String> getSpecsIDs(List<SpecModel> specs){
+    final List<String> _output = <String>[];
+
+    if (Mapper.canLoopList(specs) == true){
+      for (final SpecModel spec in specs){
+
+        if (spec.value is String){
+          _output.add(spec.value);
+        }
+
+      }
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 

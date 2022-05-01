@@ -12,9 +12,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class SelectKeywordsScreen extends StatefulWidget {
+class KeywordsPickerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const SelectKeywordsScreen({
+  const KeywordsPickerScreen({
     @required this.selectedKeywordsIDs,
     @required this.flyerType,
     // @required this.onKeywordTap,
@@ -26,11 +26,11 @@ class SelectKeywordsScreen extends StatefulWidget {
   // final Function onKeywordTap;
   /// --------------------------------------------------------------------------
   @override
-  _SelectKeywordsScreenState createState() => _SelectKeywordsScreenState();
+  _KeywordsPickerScreenState createState() => _KeywordsPickerScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _SelectKeywordsScreenState extends State<SelectKeywordsScreen> {
+class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
   ValueNotifier<List<String>> _selectedKeywordsIDs;
   ChainsProvider _chainsProvider;
   final TextEditingController _searchController = TextEditingController();

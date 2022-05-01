@@ -1,6 +1,8 @@
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_picker_screen.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_lists_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -263,7 +265,7 @@ Future<void> onAddKeywordsTap({
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
-  final dynamic _result = await Nav.goToNewScreen(context, SelectKeywordsScreen(
+  final dynamic _result = await Nav.goToNewScreen(context, KeywordsPickerScreen(
     flyerType: draft.value.flyerType,
     selectedKeywordsIDs: draft.value.keywordsIDs,
   ));
@@ -279,3 +281,26 @@ Future<void> onAddKeywordsTap({
   }
 
 }
+// -----------------------------------------------------------------------------
+Future<void> onAddSpecsTap({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}) async {
+
+  final dynamic _result = await Nav.goToNewScreen(context, SpecsListsPickersScreen(
+    flyerType: draft.value.flyerType,
+    selectedSpecs: draft.value.specs,
+  ));
+
+  final List<SpecModel> _receivedSpecs = _result;
+
+  if (canLoopList(_receivedSpecs) == true){
+
+    draft.value = draft.value.copyWith(
+      specs: _receivedSpecs,
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------

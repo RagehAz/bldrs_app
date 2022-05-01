@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/c_chains_sons_builder.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -29,6 +30,8 @@ class SpecSelectorBubble extends StatelessWidget {
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
+    blog('selected specs are : ${selectedSpecs.toString()}');
+
     return Container(
       width: _screenWidth,
       height: bubbleHeight,
@@ -39,7 +42,8 @@ class SpecSelectorBubble extends StatelessWidget {
         height: bubbleHeight - (2 * Ratioz.appBarMargin),
         decoration: BoxDecoration(
             color: Colorz.white10,
-            borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner)),
+            borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+        ),
         alignment: Alignment.topCenter,
         child: ListView(
           physics: const BouncingScrollPhysics(),
@@ -52,7 +56,7 @@ class SpecSelectorBubble extends StatelessWidget {
                 context: context,
               ),
               onKeywordTap: (String keywordID) => onSpecTap(keywordID),
-              selectedKeywordsIDs: const <String>[],//SpecModel.get(selectedSpecs),
+              selectedKeywordsIDs: SpecModel.getSpecsIDs(selectedSpecs),
               initiallyExpanded: false,
             ),
 
