@@ -9,11 +9,13 @@ class ChainsTreesStarter extends StatelessWidget {
   const ChainsTreesStarter({
     @required this.chains,
     @required this.onStripTap,
+    this.searchValue,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Chain> chains;
   final ValueChanged<String> onStripTap;
+  final ValueNotifier<String> searchValue;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class ChainsTreesStarter extends StatelessWidget {
             return ChainTreeViewer(
               chain: _chain,
               onStripTap : onStripTap,
+              searchValue: searchValue,
             );
 
           }

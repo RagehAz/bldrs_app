@@ -17,6 +17,7 @@ class ChainTreeStrip extends StatelessWidget {
     @required this.phraseValue,
     @required this.onTriggerExpansion,
     @required this.onStripTap,
+    @required this.searchValue,
     this.expanded,
     Key key
   }) : super(key: key);
@@ -27,6 +28,7 @@ class ChainTreeStrip extends StatelessWidget {
   final Function onTriggerExpansion;
   final bool expanded;
   final ValueChanged<String> onStripTap;
+  final ValueNotifier<String> searchValue;
   /// --------------------------------------------------------------------------
   static const double stripHeight = 40;
 // -----------------------------------------------------------------------------
@@ -96,6 +98,7 @@ class ChainTreeStrip extends StatelessWidget {
                         verse: phraseValue,
                         italic: true,
                         centered: false,
+                        highlight: searchValue,
                         // onTap: () => onCopyText(context, phraseValue),
                       ),
 
@@ -105,6 +108,7 @@ class ChainTreeStrip extends StatelessWidget {
                         size: 1,
                         centered: false,
                         weight: VerseWeight.thin,
+                        highlight: searchValue,
                         // onTap: () => onCopyText(context, phraseID),
                       ),
 
