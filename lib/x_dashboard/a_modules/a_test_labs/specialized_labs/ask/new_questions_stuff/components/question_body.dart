@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
 

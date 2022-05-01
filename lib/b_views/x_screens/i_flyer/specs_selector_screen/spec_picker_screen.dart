@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/specs/double_data_creator.dart';
 import 'package:bldrs/b_views/z_components/specs/integer_data_creator.dart';
 import 'package:bldrs/b_views/z_components/specs/price_data_creator.dart';
 import 'package:bldrs/b_views/z_components/specs/specs_selector_bubble.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;

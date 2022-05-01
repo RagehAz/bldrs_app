@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;

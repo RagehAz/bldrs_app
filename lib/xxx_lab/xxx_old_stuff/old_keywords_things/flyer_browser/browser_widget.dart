@@ -9,7 +9,7 @@
 // import 'package:bldrs/b_views/widgets/layouts/dream_list.dart';
 // import 'package:bldrs/b_views/widgets/nav_bar/bar_button.dart';
 // import 'package:bldrs/b_views/widgets/nav_bar/nav_bar.dart';
-// import 'package:bldrs/b_views/widgets/textings/unfinished_super_verse.dart';
+// import 'package:bldrs/b_views/widgets/textings/super_verse.dart';
 // import 'package:flutter/material.dart';
 //
 // class FlyersBrowser extends StatefulWidget {

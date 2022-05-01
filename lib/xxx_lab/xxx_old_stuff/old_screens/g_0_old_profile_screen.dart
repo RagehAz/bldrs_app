@@ -12,7 +12,7 @@
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/unfinished_night_sky.dart';
-// import 'package:bldrs/b_views/widgets/general/textings/unfinished_super_verse.dart';
+// import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 // import 'package:bldrs/b_views/x_screens/g_user/g_x_user_editor_screen.dart';
 // import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 // import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';

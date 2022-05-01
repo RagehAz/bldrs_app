@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

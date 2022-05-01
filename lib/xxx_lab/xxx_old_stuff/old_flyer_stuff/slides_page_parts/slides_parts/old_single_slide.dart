@@ -7,7 +7,7 @@
 // import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 // import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
 // import 'package:bldrs/b_views/z_components/texting/old_super_text_field.dart';
-// import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+// import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 // import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
 // import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
