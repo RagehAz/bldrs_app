@@ -175,7 +175,10 @@ class FlyerMakerScreenView extends StatelessWidget {
                 valueListenable: draft,
                 builder: (_, DraftFlyerModel _draft, Widget child){
                   return Bubble(
-                    width: Bubble.bubbleWidth(context: context, stretchy: false),
+                    width: Bubble.bubbleWidth(
+                        context: context,
+                        stretchy: false,
+                    ),
                     title: 'Flyer Keywords',
                     columnChildren: <Widget>[
 

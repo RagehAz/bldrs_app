@@ -11,7 +11,7 @@ class DreamBoxTapLayer extends StatelessWidget {
     @required this.onTapUp,
     @required this.onTapDown,
     @required this.onTapCancel,
-    @required this.inActiveMode,
+    @required this.deactivated,
     Key key,
   }) : super(key: key);
 
@@ -23,27 +23,27 @@ class DreamBoxTapLayer extends StatelessWidget {
   final Function onTapUp;
   final Function onTapDown;
   final Function onTapCancel;
-  final bool inActiveMode;
-
+  final bool deactivated;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: width,
       height: height,
       child: Material(
         color: Colorz.nothing,
         child: GestureDetector(
-          onTapDown: inActiveMode == true || onTapDown == null ?
+          onTapDown: deactivated == true || onTapDown == null ?
               (TapDownDetails details) {}
               :
               (TapDownDetails details) => onTapDown(),
-          onTapUp: inActiveMode == true || onTapUp == null ?
+          onTapUp: deactivated == true || onTapUp == null ?
               (TapUpDetails details) {}
               :
               (TapUpDetails details) => onTapUp(),
           child: InkWell(
-            splashColor: inActiveMode == true ? null : splashColor,
+            splashColor: deactivated == true ? null : splashColor,
             onTap: onTap == null ?
             null
                 :
@@ -60,5 +60,6 @@ class DreamBoxTapLayer extends StatelessWidget {
         ),
       ),
     );
+
   }
 }

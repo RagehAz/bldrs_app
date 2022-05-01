@@ -337,11 +337,6 @@ class DreamBox extends StatelessWidget {
 
           /// --- BOX GRADIENT
           if (bubble == true)
-          // GradientLayer(
-          //   width: size.hasBoundedWidth ? 100 : 200,
-          //   height: size.maxHeight,
-          //   isWhite: false,
-          // ),
             DreamBoxGradient(
               key: const ValueKey<String>('DreamBoxGradient'),
               width: width,
@@ -374,162 +369,11 @@ class DreamBox extends StatelessWidget {
                 onTapUp: onTapUp,
                 onTapDown: onTapDown,
                 onTapCancel: onTapCancel,
-                inActiveMode: isDeactivated
+                deactivated: isDeactivated
             ),
 
         ],
     );
 
-    // return Row(
-    //   key: const ValueKey<String>('Dream_box'),
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   mainAxisSize: MainAxisSize.min,
-    //   children: <Widget>[
-    //     IntrinsicWidth(
-    //       child: Opacity(
-    //         opacity: inActiveMode == true ? 0.35 : opacity,
-    //         child: Padding(
-    //           padding: _boxMargins,
-    //           child: Container(
-    //             width: width,
-    //             height: height,
-    //             alignment: Alignment.center,
-    //             decoration: BoxDecoration(
-    //                 color: inActiveMode == true ? Colorz.white10 : _boxColor,
-    //                 borderRadius: _cornersAsBorderRadius,
-    //                 boxShadow: const <BoxShadow>[
-    //                   // CustomBoxShadow(
-    //                   //     color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
-    //                   //     offset: new Offset(0, 0),
-    //                   //     blurRadius: height * 0.15,
-    //                   //     blurStyle: BlurStyle.outer
-    //                   // ),
-    //                 ]),
-    //             child: ClipRRect(
-    //               borderRadius: _cornersAsBorderRadius,
-    //               child: Stack(
-    //                 alignment: Alignment.center,
-    //                 children: <Widget>[
-    //                   // /// --- BLUR LAYER
-    //                   // if (blur != null)
-    //                   //   BlurLayer(
-    //                   //     width: width,
-    //                   //     height: height,
-    //                   //     blur: blur,
-    //                   //     borders: _cornersAsBorderRadius,
-    //                   //   ),
-    //
-    //                   /// --- DREAM CHILD
-    //                   if (subChild != null)
-    //                     Container(
-    //                       height: height,
-    //                       width: width,
-    //                       decoration: BoxDecoration(
-    //                         borderRadius: _cornersAsBorderRadius,
-    //                       ),
-    //                       alignment: childAlignment,
-    //                       child: subChild,
-    //                     ),
-    //
-    //                   /// ICON - VERSE - SECOND LINE
-    //                   DreamBoxIconVerseSecondLine(
-    //                     key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
-    //                     verse: verse,
-    //                     textDirection: _textDirection,
-    //                     icon: icon,
-    //                     loading: loading,
-    //                     underLine: underLine,
-    //                     height: height,
-    //                     width: width,
-    //                     iconCorners: _iconCorners,
-    //                     iconFile: iconFile,
-    //                     iconMargin: _iconMargin,
-    //                     imageSaturationColor: _imageSaturationColor,
-    //                     bubble: bubble,
-    //                     blackAndWhite: blackAndWhite,
-    //                     iconColor: _iconColor,
-    //                     iconSizeFactor: iconSizeFactor,
-    //                     verseScaleFactor: verseScaleFactor,
-    //                     verseCentered: verseCentered,
-    //                     secondLine: secondLine,
-    //                     verseSize: _verseSize,
-    //                     verseWeight: verseWeight,
-    //                     inActiveMode: inActiveMode,
-    //                     verseColor: verseColor,
-    //                     verseShadow: verseShadow,
-    //                     verseMaxLines: verseMaxLines,
-    //                     verseItalic: verseItalic,
-    //                     redDot: redDot,
-    //                     secondLineScaleFactor: secondLineScaleFactor,
-    //                     secondLineColor: secondLineColor,
-    //                     centered: verseCentered,
-    //                   ),
-    //
-    //                   /// --- BOX HIGHLIGHT
-    //                   if (bubble == true)
-    //                     // GradientLayer(
-    //                     //   width: size.hasBoundedWidth ? 100 : SuperVerse.,
-    //                     //   height: size.maxHeight,
-    //                     //   isWhite: true,
-    //                     // ),
-    //
-    //                     DreamBoxHighlight(
-    //                         key: const ValueKey<String>('DreamBoxHighlight'),
-    //                         width: width,
-    //                         height: height,
-    //                         corners: corners
-    //                     ),
-    //
-    //                   /// --- BOX GRADIENT
-    //                   if (bubble == true)
-    //                     // GradientLayer(
-    //                     //   width: size.hasBoundedWidth ? 100 : 200,
-    //                     //   height: size.maxHeight,
-    //                     //   isWhite: false,
-    //                     // ),
-    //                     DreamBoxGradient(
-    //                       key: const ValueKey<String>('DreamBoxGradient'),
-    //                       width: width,
-    //                       height: height,
-    //                       corners: _cornersAsBorderRadius,
-    //                     ),
-    //
-    //                   /// --- UNDERLINE
-    //                   if (underLine != null)
-    //                     DreamBoxUnderLine(
-    //                       key: const ValueKey<String>('DreamBoxUnderLine'),
-    //                       width: width,
-    //                       height: height,
-    //                       underLine: underLine,
-    //                       icon: icon,
-    //                       scaleFactor: verseScaleFactor * 0.45,
-    //                       underLineShadowIsOn: underLineShadowIsOn,
-    //                       underLineColor: underLineColor,
-    //                       verseSize: _verseSize,
-    //                     ),
-    //
-    //                   /// --- RIPPLE & TAP LAYER
-    //                   if (onTap != null)
-    //                     DreamBoxTapLayer(
-    //                         key: const ValueKey<String>('DreamBoxTapLayer'),
-    //                         width: width,
-    //                         height: height,
-    //                         splashColor: splashColor,
-    //                         onTap: onTap,
-    //                         onTapUp: onTapUp,
-    //                         onTapDown: onTapDown,
-    //                         onTapCancel: onTapCancel,
-    //                         inActiveMode: inActiveMode
-    //                     ),
-    //
-    //                 ],
-    //               ),
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   ],
-    // );
   }
 }
