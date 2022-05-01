@@ -87,9 +87,13 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
     _sourceSpecsLists = SpecList.getSpecsListsByFlyerType(widget.flyerType);
     _allSelectedSpecs = widget.selectedSpecs;
     _refinedSpecsLists = SpecList.generateRefinedSpecsLists(
-        sourceSpecsLists: _sourceSpecsLists, selectedSpecs: _allSelectedSpecs);
-    _groupsIDs =
-        SpecList.getGroupsFromSpecsLists(specsLists: _sourceSpecsLists);
+        sourceSpecsLists: _sourceSpecsLists,
+        selectedSpecs: _allSelectedSpecs,
+    );
+
+    _groupsIDs = SpecList.getGroupsFromSpecsLists(
+        specsLists: _sourceSpecsLists,
+    );
 
     super.initState();
   }
@@ -231,14 +235,12 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
     }
     // -------------------------------------------------------------
   }
-
 // -----------------------------------------------------------------------------
   void _removeSpec(SpecModel spec) {
     setState(() {
       _allSelectedSpecs.remove(spec);
     });
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -260,6 +262,11 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
       pyramidsAreOn: true,
       // loading: _loading,
       pageTitle: 'Select Flyer Specifications',
+      onBack: (){
+
+        Nav.goBack(context, argument: _allSelectedSpecs);
+
+      },
       layoutWidget: SizedBox(
         width: _screenWidth,
         height: _screenHeight,
@@ -270,12 +277,14 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                 itemCount: _groupsIDs.length,
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(
-                    top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+                    top: Ratioz.stratosphere,
+                    bottom: Ratioz.horizon,
+                ),
                 itemBuilder: (BuildContext ctx, int index) {
+
                   final String _groupID = _groupsIDs[index];
 
-                  final List<SpecList> _listsOfThisGroup =
-                      SpecList.getSpecsListsByGroupID(
+                  final List<SpecList> _listsOfThisGroup = SpecList.getSpecsListsByGroupID(
                     specsLists: _refinedSpecsLists,
                     groupID: _groupID,
                   );
@@ -285,6 +294,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                     // height: 80 + (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
                     child: Column(
                       children: <Widget>[
+
                         /// GROUP TITLE
                         Container(
                           width: _screenHeight,
@@ -314,10 +324,9 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                             children: <Widget>[
                               ...List<Widget>.generate(_listsOfThisGroup.length,
                                   (int index) {
-                                final SpecList _specList =
-                                    _listsOfThisGroup[index];
-                                final List<SpecModel> _selectedSpecs =
-                                    SpecModel.getSpecsByListID(
+
+                                final SpecList _specList = _listsOfThisGroup[index];
+                                final List<SpecModel> _selectedSpecs = SpecModel.getSpecsByListID(
                                   specs: _allSelectedSpecs,
                                   specsListID: _specList.chainID,
                                 );
@@ -327,13 +336,14 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                                   specList: _specList,
                                   sourceSpecsLists: _sourceSpecsLists,
                                   selectedSpecs: _selectedSpecs,
-                                  onDeleteSpec: (SpecModel spec) =>
-                                      _removeSpec(spec),
+                                  onDeleteSpec: (SpecModel spec) => _removeSpec(spec),
                                 );
+
                               }),
                             ],
                           ),
                         ),
+
                       ],
                     ),
                   );

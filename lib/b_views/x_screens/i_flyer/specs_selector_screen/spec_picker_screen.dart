@@ -141,8 +141,11 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
   }
 // -----------------------------------------------------------------------------
   void _onCurrencyChanged(CurrencyModel currency) {
-    final SpecModel _currencySpec =
-        SpecModel(specsListID: 'currency', value: currency.code);
+
+    final SpecModel _currencySpec = SpecModel(
+        specsListID: 'currency',
+        value: currency.code,
+    );
 
     final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
@@ -150,9 +153,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       canPickMany: false,
     );
 
-    // setState(() {
     _selectedSpecs.value = _updatedList;
-    // });
   }
 // -----------------------------------------------------------------------------
   void _onPriceChanged(String price) {
@@ -170,9 +171,12 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
   }
 // -----------------------------------------------------------------------------
   void _onAddInteger(int integer) {
+
     blog('received integer : $integer');
-    final SpecModel _integerSpec =
-        SpecModel(specsListID: widget.specList.chainID, value: integer);
+    final SpecModel _integerSpec = SpecModel(
+        specsListID: widget.specList.chainID,
+        value: integer,
+    );
 
     final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
@@ -184,8 +188,12 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
   }
 // -----------------------------------------------------------------------------
   void _onAddDouble(double num) {
+
     blog('received double : $num');
-    final SpecModel _doubleSpec = SpecModel(specsListID: widget.specList.chainID, value: num);
+    final SpecModel _doubleSpec = SpecModel(
+        specsListID: widget.specList.chainID,
+        value: num,
+    );
 
     final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
@@ -206,7 +214,9 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     if (_specChain.sons.runtimeType == DataCreator) {
       _instructions = 'Specify this';
-    } else {
+    }
+
+    else {
       _instructions = widget.specList.canPickMany == true
           ? 'You may pick multiple specifications from this list'
           : 'You can pick only one specification from this list';
@@ -217,13 +227,14 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight =
-        Scale.superScreenHeightWithoutSafeArea(context);
 
-    final double _listZoneHeight = _screenHeight -
-        Ratioz.stratosphere -
-        SpecPickerScreen.instructionBoxHeight;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+
+    final double _listZoneHeight =
+              _screenHeight
+            - Ratioz.stratosphere
+            - SpecPickerScreen.instructionBoxHeight;
 
     final String _instructions = _getInstructions();
 
@@ -233,6 +244,8 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       appBarType: AppBarType.basic,
       // appBarBackButton: true,
       skyType: SkyType.black,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
       pageTitle: _pageTitle,
       pyramidsAreOn: true,
       onBack: _onBack,
@@ -263,14 +276,18 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
             ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
                 builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
+
                   return SpecSelectorBubble(
                     bubbleHeight: _listZoneHeight,
                     specList: widget.specList,
                     selectedSpecs: SpecModel.getSpecsByListID(
-                        specs: value, specsListID: widget.specList.chainID),
+                        specs: value,
+                        specsListID: widget.specList.chainID,
+                    ),
                     onSpecTap: (String keywordID) => _onSpecTap(context, keywordID),
                   );
-                }),
+                }
+                ),
 
           /// PRICE SPECS CREATOR
           if (_specChain.sons == DataCreator.price)
