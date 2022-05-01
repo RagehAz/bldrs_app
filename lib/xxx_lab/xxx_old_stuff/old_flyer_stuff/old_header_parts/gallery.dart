@@ -3,7 +3,7 @@
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
 // import 'package:bldrs/a_models/zone/city_model.dart';
 // import 'package:bldrs/a_models/zone/country_model.dart';
-// import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+// import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_bubble.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/stacks/old_gallery_grid.dart';
 // import 'package:bldrs/d_providers/bzz_provider.dart';

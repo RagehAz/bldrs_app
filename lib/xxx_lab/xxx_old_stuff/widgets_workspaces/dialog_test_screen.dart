@@ -7,7 +7,7 @@
 // import 'package:bldrs/b_views/widgets/general/dialogs/dialogz.dart' as Dialogz;
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/unfinished_night_sky.dart';
-// import 'package:bldrs/b_views/widgets/general/textings/unfinished_super_verse.dart';
+// import 'package:bldrs/b_views/widgets/general/textings/super_verse.dart';
 // import 'package:bldrs/d_providers/flyers_provider.dart';
 // import 'package:bldrs/d_providers/streamers/user_streamer.dart';
 // import 'package:bldrs/e_db/fire/ops/old_auth_ops.dart' as FireAuthOps;

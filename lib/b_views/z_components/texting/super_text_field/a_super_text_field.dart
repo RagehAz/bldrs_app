@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
