@@ -125,9 +125,9 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 // -----------------------------------------------------------------------------
   Future<void> _onSpecsListTap(SpecList specList) async {
 
+    blog('_onSpecsListTap : chainID : ${specList?.chainID} : groupID : ${specList?.groupID}');
     final Chain _specChain = superGetChain(context, specList.chainID);
 
-    blog('fi eh ${_specChain.sons}');
 
     if (_specChain.sons.runtimeType != DataCreator) {
       await _goToSpecPickerScreen(specList);
