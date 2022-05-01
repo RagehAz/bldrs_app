@@ -55,7 +55,7 @@ class SuperVerse extends StatelessWidget {
   final bool leadingDot;
   final bool redDot;
   final bool strikeThrough;
-  final String highlight;
+  final ValueNotifier<String> highlight;
   final Color highlightColor;
   /// --------------------------------------------------------------------------
   static Widget dotVerse({String verse}) {
@@ -671,7 +671,7 @@ class Verse extends StatelessWidget {
   final int size;
   final Color labelColor;
   final String verse;
-  final String highlight;
+  final ValueNotifier<String> highlight;
   final int maxLines;
   final bool centered;
   final Color color;
@@ -771,7 +771,7 @@ class Verse extends StatelessWidget {
           color: labelColor,
         ),
         child:
-        stringIsEmpty(highlight) == true ?
+        highlight == null ?
         Text(
           verse,
           softWrap: false,
@@ -792,22 +792,30 @@ class Verse extends StatelessWidget {
           ),
         )
             :
-        RichText(
-          maxLines: maxLines,
-          textAlign: _textAlign,
-          overflow: TextOverflow.ellipsis,
-          softWrap: false,
-          // textDirection: ,
-          // textScaleFactor: 1,
-          text: TextSpan(
-            style: _style,
-            children: _generateTextSpans(
-              verse: verse,
-              highlighted: highlight,
-              defaultStyle: _style,
-              highlightColor: highlightColor,
-            ),
-          ),
+        ValueListenableBuilder(
+            valueListenable: highlight,
+            builder: (_, String _highlight, Widget child){
+
+              return RichText(
+                maxLines: maxLines,
+                textAlign: _textAlign,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+                // textDirection: ,
+                // textScaleFactor: 1,
+                text: TextSpan(
+                  style: _style,
+                  children: _generateTextSpans(
+                    verse: verse,
+                    highlighted: _highlight,
+                    defaultStyle: _style,
+                    highlightColor: highlightColor,
+                  ),
+                ),
+              );
+
+
+            }
         ),
       ),
     );

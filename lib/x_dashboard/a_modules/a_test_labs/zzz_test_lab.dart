@@ -201,64 +201,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   final TextEditingController _textController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 // -----------------------------------------------------------------------------
+  final ValueNotifier<String> highlightedText = ValueNotifier<String>(null);
   void _onTextFieldChanged(String text){
     blog('received text : $text');
+
+    highlightedText.value = text;
   }
 // -----------------------------------------------------------------------------
-
-  List<TextSpan> _generateTextSpans({
-    @required String verse,
-    @required String highlighted,
-}){
-    if (highlighted == null || highlighted.isEmpty || !verse.toLowerCase().contains(highlighted.toLowerCase())) {
-      return [ TextSpan(text: verse) ];
-    }
-
-    else {
-
-      final matches = highlighted.toLowerCase().allMatches(verse.toLowerCase());
-      int lastMatchEnd = 0;
-
-      final List<TextSpan> children = <TextSpan>[];
-
-      final TextStyle _defStyle = SuperVerse.superVerseDefaultStyle(context);
-
-      for (var i = 0; i < matches.length; i++) {
-        final match = matches.elementAt(i);
-
-        if (match.start != lastMatchEnd) {
-
-          children.add(
-              TextSpan(
-                text: verse.substring(lastMatchEnd, match.start),
-                style: _defStyle,
-              )
-          );
-
-        }
-
-        children.add(
-            TextSpan(
-              text: verse.substring(match.start, match.end),
-              style: SuperVerse.superVerseDefaultStyle(context).copyWith(backgroundColor: Colorz.bloodTest),
-            )
-        );
-
-        if (i == matches.length - 1 && match.end != verse.length) {
-          children.add(
-              TextSpan(
-                text: verse.substring(match.end, verse.length),
-                style: _defStyle,
-              )
-          );
-        }
-
-        lastMatchEnd = match.end;
-      }
-      return children;
-
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -404,21 +353,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             maxLines: 10,
             centered: false,
             margin: 10,
-          ),
-
-          const BubblesSeparator(),
-
-          Container(
-            color: Colorz.white20,
-            child: RichText(
-                text: TextSpan(
-                  style: SuperVerse.superVerseDefaultStyle(context),
-                  children: _generateTextSpans(
-                    verse: _fuckingText,
-                    highlighted: 'es',
-                  ),
-                ),
-            ),
+            highlight: highlightedText,
           ),
 
           const BubblesSeparator(),
