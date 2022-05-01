@@ -24,7 +24,7 @@
 // import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 // import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 // import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-// import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+// import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/dialogs/flyer_type_selector.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/flyer_methods.dart' as FlyerMethod;
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/flyer_pages.dart';
