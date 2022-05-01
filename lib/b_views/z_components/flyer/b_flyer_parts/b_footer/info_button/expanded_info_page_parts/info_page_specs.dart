@@ -13,12 +13,14 @@ class InfoPageSpecs extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageSpecs({
     @required this.pageWidth,
-    @required this.flyerModel,
+    @required this.specs,
+    @required this.flyerType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final FlyerModel flyerModel;
+  final List<SpecModel> specs;
+  final FlyerType flyerType;
   /// --------------------------------------------------------------------------
   List<SpecList> _getFlyerSpecsLists({
     @required List<SpecModel> flyerSpecs,
@@ -99,7 +101,7 @@ class InfoPageSpecs extends StatelessWidget {
           _output = _specName;
         }
         else {
-          _output = '$_output, $_specName';
+          _output = '$_output - $_specName';
         }
 
       }
@@ -112,14 +114,9 @@ class InfoPageSpecs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<SpecModel> _specs =
-    // flyerModel.specs
-    SpecModel.dummySpecs();
-
     final List<SpecList> _flyerSpecsLists = _getFlyerSpecsLists(
-      // flyerType: flyerModel.flyerType,
-      flyerType: FlyerType.property,
-      flyerSpecs: _specs,
+      flyerType: flyerType,
+      flyerSpecs: specs,
     );
 
     // SpecList.blogSpecsLists(_flyerSpecsLists);
@@ -144,7 +141,7 @@ class InfoPageSpecs extends StatelessWidget {
 
               final String _specsInString = _generateSpecsString(
                 context: context,
-                flyerSpecs: _specs,
+                flyerSpecs: specs,
                 specList: _specList,
               );
 

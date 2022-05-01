@@ -2,10 +2,13 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/b_draft_shelf.dart';
+import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
@@ -176,14 +179,20 @@ class FlyerMakerScreenView extends StatelessWidget {
                     title: 'Flyer Keywords',
                     columnChildren: <Widget>[
 
+                      const BubbleNotes(
+                          notes: <String>[
+                            'Select at least 1 flyer keyword to help search engines show your flyer in its dedicated place',
+                          ],
+                      ),
+
                       InfoPageKeywords(
                         pageWidth: Bubble.clearWidth(context),
                         keywordsIDs: _draft.keywordsIDs,
                       ),
 
                       DreamBox(
-                        height: 50,
-                        width: Bubble.clearWidth(context),
+                        height: KeywordBarButton.height,
+                        // width: Bubble.clearWidth(context),
                         verse: canLoopList(_draft.keywordsIDs) ? 'Edit Keywords' : 'Add Keywords',
                         bubble: false,
                         color: Colorz.white20,
@@ -204,11 +213,56 @@ class FlyerMakerScreenView extends StatelessWidget {
             ),
 
             /// SPECS SELECTOR
-            Bubble(
-              width: Bubble.bubbleWidth(context: context, stretchy: false),
-              title: 'Specifications',
-              columnChildren: const <Widget>[],
+            ValueListenableBuilder(
+              valueListenable: draft,
+              builder: (_, DraftFlyerModel _draft, Widget child){
+
+                final String _translatedFlyerType = translateFlyerType(
+                  context: context,
+                  flyerType: _draft.flyerType,
+                  pluralTranslation: false,
+                );
+
+                return Bubble(
+                  width: Bubble.bubbleWidth(context: context, stretchy: false),
+                  title: 'Specifications',
+                  columnChildren: <Widget>[
+
+                    BubbleNotes(
+                      notes: <String>[
+                        'Add $_translatedFlyerType specification to describe and allow advanced search criteria',
+                      ],
+                    ),
+
+                    InfoPageSpecs(
+                      pageWidth: Bubble.clearWidth(context),
+                      specs: _draft.specs,
+                      flyerType: _draft.flyerType,
+                    ),
+
+                    DreamBox(
+                      height: KeywordBarButton.height,
+                      // width: Bubble.clearWidth(context),
+                      verse: canLoopList(_draft.keywordsIDs) ? 'Edit Specifications' : 'Add Specifications',
+                      bubble: false,
+                      color: Colorz.white20,
+                      verseScaleFactor: 1.5,
+                      verseWeight: VerseWeight.thin,
+                      icon: Iconz.plus,
+                      iconSizeFactor: 0.4,
+                      iconColor: Colorz.white20,
+                      onTap: () => onAddSpecsTap(
+                        context: context,
+                        draft: draft,
+                      ),
+                    ),
+
+
+                  ],
+                );
+                },
             ),
+
 
             const BubblesSeparator(),
 

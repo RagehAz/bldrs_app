@@ -29,6 +29,7 @@ class InfoPageKeywords extends StatelessWidget {
     return Wrap(
       key: const ValueKey<String>('InfoPageKeywords'),
       children: <Widget>[
+
         ...List<Widget>.generate(keywordsIDs?.length, (int index) {
 
           final String _keywordID = keywordsIDs[index];
@@ -41,7 +42,9 @@ class InfoPageKeywords extends StatelessWidget {
               color: Colorz.white50,
             ),
           );
-        }),
+        }
+        ),
+
       ],
     );
   }
