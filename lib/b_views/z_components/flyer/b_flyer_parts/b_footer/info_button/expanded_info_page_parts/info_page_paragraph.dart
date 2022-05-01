@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:flutter/material.dart';
 
 class InfoPageParagraph extends StatelessWidget {

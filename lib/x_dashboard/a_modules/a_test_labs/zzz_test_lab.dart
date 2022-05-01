@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -6,12 +7,13 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -44,9 +46,16 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   UiProvider _uiProvider;
   ChainsProvider  _chainsProvider;
   bool _isSignedIn;
+  String _fuckingText;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
+    _fuckingText = 'Lorum Ipsum Gypsum board\n'
+        'This is a test paragraph that includes design '
+        'and Designs with projects of designs and properties '
+        'with a touch of crafts and several other cool '
+        'awesome stuff bitch';
 
     _isSignedIn = _isSignedInCheck();
 
@@ -189,10 +198,67 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     return _isSignedIn;
   }
 // -----------------------------------------------------------------------------
-
   final TextEditingController _textController = TextEditingController();
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+// -----------------------------------------------------------------------------
+  void _onTextFieldChanged(String text){
+    blog('received text : $text');
+  }
+// -----------------------------------------------------------------------------
+
+  List<TextSpan> _generateTextSpans({
+    @required String verse,
+    @required String highlighted,
+}){
+    if (highlighted == null || highlighted.isEmpty || !verse.toLowerCase().contains(highlighted.toLowerCase())) {
+      return [ TextSpan(text: verse) ];
+    }
+
+    else {
+
+      final matches = highlighted.toLowerCase().allMatches(verse.toLowerCase());
+      int lastMatchEnd = 0;
+
+      final List<TextSpan> children = <TextSpan>[];
+
+      final TextStyle _defStyle = SuperVerse.superVerseDefaultStyle(context);
+
+      for (var i = 0; i < matches.length; i++) {
+        final match = matches.elementAt(i);
+
+        if (match.start != lastMatchEnd) {
+
+          children.add(
+              TextSpan(
+                text: verse.substring(lastMatchEnd, match.start),
+                style: _defStyle,
+              )
+          );
+
+        }
+
+        children.add(
+            TextSpan(
+              text: verse.substring(match.start, match.end),
+              style: SuperVerse.superVerseDefaultStyle(context).copyWith(backgroundColor: Colorz.bloodTest),
+            )
+        );
+
+        if (i == matches.length - 1 && match.end != verse.length) {
+          children.add(
+              TextSpan(
+                text: verse.substring(match.end, verse.length),
+                style: _defStyle,
+              )
+          );
+        }
+
+        lastMatchEnd = match.end;
+      }
+      return children;
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -200,11 +266,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-
-    // double _gWidth = _screenWidth * 0.4;
-    // double _gHeight = _screenWidth * 0.6;
-
-    // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
     /// TAMAM THANK YOU ALLAH
     const int numberOfLines = 1;
@@ -320,6 +381,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                           }
 
                         },
+                        onChanged: _onTextFieldChanged,
                       ),
                     ),
 
@@ -337,6 +399,29 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             ],
           ),
 
+          SuperVerse(
+            verse: _fuckingText,
+            maxLines: 10,
+            centered: false,
+            margin: 10,
+          ),
+
+          const BubblesSeparator(),
+
+          Container(
+            color: Colorz.white20,
+            child: RichText(
+                text: TextSpan(
+                  style: SuperVerse.superVerseDefaultStyle(context),
+                  children: _generateTextSpans(
+                    verse: _fuckingText,
+                    highlighted: 'es',
+                  ),
+                ),
+            ),
+          ),
+
+          const BubblesSeparator(),
 
           /// DO SOMETHING
           WideButton(

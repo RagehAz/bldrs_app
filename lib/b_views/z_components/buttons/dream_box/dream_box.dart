@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_tap_layer
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_underline.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/the_box_of_dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/unfinished_super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

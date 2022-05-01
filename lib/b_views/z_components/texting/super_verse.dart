@@ -1,6 +1,7 @@
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -32,7 +33,9 @@ class SuperVerse extends StatelessWidget {
     this.onTap,
     this.leadingDot = false,
     this.redDot = false,
-    this.strikethrough = false,
+    this.strikeThrough = false,
+    this.highlight,
+    this.highlightColor = Colorz.bloodTest,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -45,13 +48,15 @@ class SuperVerse extends StatelessWidget {
   final bool centered;
   final double scaleFactor;
   final int maxLines;
-  final double margin;
+  final dynamic margin;
   // final bool softWrap;
   final Color labelColor;
   final Function onTap;
   final bool leadingDot;
   final bool redDot;
-  final bool strikethrough;
+  final bool strikeThrough;
+  final String highlight;
+  final Color highlightColor;
   /// --------------------------------------------------------------------------
   static Widget dotVerse({String verse}) {
     return SuperVerse(
@@ -64,12 +69,6 @@ class SuperVerse extends StatelessWidget {
       centered: false,
     );
   }
-
-// -----------------------------------------------------------------------------
-//   static Widget headlineVerse(String verse){
-//     return
-//         SuperVerse();
-//   }
 // -----------------------------------------------------------------------------
   static Widget priceVerse({
     @required BuildContext context,
@@ -93,7 +92,7 @@ class SuperVerse extends StatelessWidget {
           size: 6,
           scaleFactor: scaleFactor,
           shadow: true,
-          strikethrough: strikethrough,
+          strikeThrough: strikethrough,
         ),
 
         if (currency != null)
@@ -110,16 +109,6 @@ class SuperVerse extends StatelessWidget {
       ],
     );
   }
-
-// -----------------------------------------------------------------------------
-  Widget _dot(double _dotSize, Color _color) {
-    return Container(
-      width: _dotSize,
-      height: _dotSize,
-      decoration: BoxDecoration(color: _color, shape: BoxShape.circle),
-    );
-  }
-
 // -----------------------------------------------------------------------------
   static TextStyle createStyle({
     @required BuildContext context,
@@ -180,23 +169,6 @@ class SuperVerse extends StatelessWidget {
         ]
     );
   }
-
-// -----------------------------------------------------------------------------
-//   static Size getSize({String verse, TextStyle style, int maxLines, bool centered = true}) {
-//
-//     int _maxLines = maxLines == null ? 1 : maxLines;
-//
-//     final TextPainter textPainter =
-//     TextPainter(
-//       text: TextSpan(text: verse, style: style, ),
-//       maxLines: _maxLines,
-//       textDirection: superTextDirectionSwitcher(verse),
-//       ellipsis: true,
-//       textAlign:
-//     )
-//       ..layout(minWidth: 0, maxWidth: double.infinity);
-//     return textPainter.size;
-//   }
 // -----------------------------------------------------------------------------
   static dynamic getTextAlign({@required bool centered}) {
     return centered == true ? TextAlign.center : TextAlign.start;
@@ -468,150 +440,377 @@ class SuperVerse extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // const Color _boxColor = Colorz.Nothing;
-    // const double verseHeight = 1.42; //1.48; // The sacred golden reverse engineered factor
-    final double _scalingFactor = scaleFactor ?? 1;
 
-    /// takes values from 0 to 8 in the entire app
-    final double verseSizeValue =
-        superVerseSizeValue(context, size, _scalingFactor);
+    if (verse == null){
+      return const SizedBox();
+    }
 
-    /// --- AVAILABLE FONT WEIGHTS -----------------------------------------------
-    // FontWeight verseWeight = superVerseWeight(weight);
-    /// --- AVAILABLE FONTS -----------------------------------------------
-    // String verseFont = superVerseFont(context, weight);
-    /// --- LETTER SPACING -----------------------------------------------
-    // double verseLetterSpacing = superVerseLetterSpacing(weight, verseSizeValue);
-    /// --- WORD SPACING -----------------------------------------------
-    // double verseWordSpacing = superVerseWordSpacing(verseSizeValue);
-    /// --- SHADOWS -----------------------------------------------
-    // const double _shadowBlur = 0;
-    // const double _shadowYOffset = 0;
-    // double _shadowXOffset = superVerseXOffset(weight, verseSizeValue);
-    // double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    // Color _leftShadow = color == Colorz.Black230 ? Colorz.White125 : Colorz.Black230;
-    // Color _rightShadow = color == Colorz.Black230 ? Colorz.White80 : Colorz.White20;
-    /// --- ITALIC -----------------------------------------------
-    // FontStyle verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
-    /// --- VERSE BOX MARGIN -----------------------------------------------
-    final double _margin = margin ?? 0;
-    /// --- LABEL -----------------------------------------------
-    final double _labelCornerValues = superVerseLabelCornerValue(context, size);
-    final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
-    final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
-    final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
-    final double _labelHeight = superVerseRealHeight(
+    else {
+
+      final double verseSizeValue = superVerseSizeValue(context, size, scaleFactor);
+      final double _labelHeight = superVerseRealHeight(
         context: context,
         size: size,
         sizeFactor: scaleFactor,
         hasLabelBox: labelColor != null,
-    );
-    // --- DOTS -----------------------------------------------
-    final double _dotSize = verseSizeValue * 0.3;
-    // --- RED DOT -----------------------------------------------
+      );
 
-    return verse == null ?
-    const SizedBox()
-        :
-    GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.all(_margin),
-        child: Row(
-          mainAxisAlignment: centered == true ?
-          MainAxisAlignment.center
-              :
-          MainAxisAlignment.start,
-          crossAxisAlignment: redDot == true ?
-          CrossAxisAlignment.center
-              :
-          leadingDot == true ?
-          CrossAxisAlignment.start
-              :
-          CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
+      final double _dotSize = verseSizeValue * 0.3;
+
+      return SuperVerseBox(
+          onTap: onTap,
+          margin: margin,
+          centered: centered,
+          leadingDot: leadingDot,
+          redDot: redDot,
           children: <Widget>[
 
             if (leadingDot == true)
-              Container(
-                      // color: Colorz.BloodTest,
-                      padding: EdgeInsets.all(_dotSize),
-                      margin: EdgeInsets.only(top: _dotSize),
-                      child: _dot(_dotSize, color),
-                    ),
-
-            Flexible(
-              child: Container(
-                padding: EdgeInsets.only(
-                    right: _sidePaddings,
-                    left: _sidePaddings,
-                ),
-                margin: EdgeInsets.all(_sidePaddings * 0.25),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
-                    color: labelColor,
-                ),
-                child: Text(
-                  verse,
-                  softWrap: false,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: maxLines,
-                  textAlign: getTextAlign(centered: centered),
-                  textScaleFactor: 1,
-                  style: createStyle(
-                    context: context,
-                    color: color,
-                    weight: weight,
-                    italic: italic,
-                    size: size,
-                    shadow: shadow,
-                    scaleFactor: scaleFactor,
-                    strikeThrough: strikethrough,
-                  ),
-
-                  // TextStyle(
-                  //     fontWeight: verseWeight,
-                  //     shadows: <Shadow>[
-                  //       if (shadow)
-                  //         Shadow(
-                  //           blurRadius: _shadowBlur,
-                  //           color: _leftShadow,
-                  //           offset: Offset(_shadowXOffset, _shadowYOffset),
-                  //         ),
-                  //       Shadow(
-                  //         blurRadius: _shadowBlur,
-                  //         color: _rightShadow,
-                  //         offset: Offset(_secondShadowXOffset, _shadowYOffset),
-                  //       ),
-                  //     ]
-                  // ),
-
-                ),
+              LeadingDot(
+                dotSize: _dotSize,
+                color: color,
               ),
+
+            Verse(
+              verse: verse,
+              maxLines: maxLines,
+              color: color,
+              centered: centered,
+              scaleFactor: scaleFactor,
+              size: size,
+              italic: italic,
+              labelColor: labelColor,
+              weight: weight,
+              shadow: shadow,
+              highlight: highlight,
+              highlightColor: highlightColor,
+              strikeThrough: strikeThrough,
             ),
 
             if (redDot == true)
-              Container(
-                height: _labelHeight,
-                margin: labelColor == null ?
-                EdgeInsets.symmetric(horizontal: _labelHeight * 0.2)
-                    :
-                EdgeInsets.symmetric(
-                    horizontal: _labelHeight * 0.05
-                ),
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: labelColor == null ?
-                  EdgeInsets.only(top: _labelHeight * 0.2)
-                      :
-                  EdgeInsets.only(top: _labelHeight * 0.05),
-                  child: _dot(_dotSize, Colorz.red255),
-                ),
+              RedDot(
+                labelHeight: _labelHeight,
+                labelColor: labelColor,
+                dotSize: _dotSize,
               ),
 
           ],
+      );
+
+    }
+
+  }
+}
+
+class SuperVerseBox extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const SuperVerseBox({
+    @required this.onTap,
+    @required this.margin,
+    @required this.centered,
+    @required this.leadingDot,
+    @required this.redDot,
+    @required this.children,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final Function onTap;
+  final dynamic margin;
+  final bool centered;
+  final bool leadingDot;
+  final bool redDot;
+  final List<Widget> children;
+  /// --------------------------------------------------------------------------
+  static MainAxisAlignment _getMainAxisAlignment({
+    @required bool centered,
+  }){
+    return centered == true ?
+    MainAxisAlignment.center
+        :
+    MainAxisAlignment.start;
+  }
+// -----------------------------------------------------------------------------
+  static CrossAxisAlignment _getCrossAxisAlignment({
+    @required bool redDot,
+    @required bool leadingDot,
+  }){
+    return
+      redDot == true ?
+      CrossAxisAlignment.center
+          :
+      leadingDot == true ?
+      CrossAxisAlignment.start
+          :
+      CrossAxisAlignment.center;
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
+      key: const ValueKey<String>('SuperVerseBox'),
+      onTap: onTap,
+      child: Padding(
+        padding: Scale.superMargins(margins: margin),
+        child: Row(
+          mainAxisAlignment: _getMainAxisAlignment(
+            centered: centered,
+          ),
+          crossAxisAlignment: _getCrossAxisAlignment(
+            leadingDot: leadingDot,
+            redDot: redDot,
+          ),
+          mainAxisSize: MainAxisSize.min,
+          children: children,
         ),
       ),
     );
+
+  }
+}
+
+class LeadingDot extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const LeadingDot({
+    @required this.dotSize,
+    @required this.color,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final double dotSize;
+  final Color color;
+  /// --------------------------------------------------------------------------
+  static Widget dot({
+    @required double dotSize,
+    @required Color color,
+}){
+    return Container(
+      width: dotSize,
+      height: dotSize,
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+      key: const ValueKey<String>('the_leading_dot'),
+      padding: EdgeInsets.all(dotSize),
+      margin: EdgeInsets.only(top: dotSize),
+      child: dot(
+        dotSize: dotSize,
+        color: color,
+      ),
+    );
+
+  }
+}
+
+class RedDot extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const RedDot({
+    @required this.labelHeight,
+    @required this.labelColor,
+    @required this.dotSize,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final double labelHeight;
+  final Color labelColor;
+  final double dotSize;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const ValueKey<String>('the_red_dot'),
+      height: labelHeight,
+      margin: labelColor == null ?
+      EdgeInsets.symmetric(horizontal: labelHeight * 0.2)
+          :
+      EdgeInsets.symmetric(
+          horizontal: labelHeight * 0.05
+      ),
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: labelColor == null ?
+        EdgeInsets.only(top: labelHeight * 0.2)
+            :
+        EdgeInsets.only(top: labelHeight * 0.05),
+        child: LeadingDot.dot(
+          dotSize: dotSize,
+          color: Colorz.red255,
+        ),
+      ),
+    );
+  }
+}
+
+class Verse extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const Verse({
+    @required this.verse,
+    this.highlight,
+    this.size = 2,
+    this.labelColor,
+    this.maxLines = 1,
+    this.centered = true,
+    this.color = Colorz.white255,
+    this.shadow = false,
+    this.italic = false,
+    this.weight = VerseWeight.bold,
+    this.scaleFactor = 1,
+    this.strikeThrough = false,
+    this.highlightColor = Colorz.bloodTest,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final int size;
+  final Color labelColor;
+  final String verse;
+  final String highlight;
+  final int maxLines;
+  final bool centered;
+  final Color color;
+  final bool shadow;
+  final bool italic;
+  final VerseWeight weight;
+  final double scaleFactor;
+  final bool strikeThrough;
+  final Color highlightColor;
+  /// --------------------------------------------------------------------------
+  static List<TextSpan> _generateTextSpans({
+    @required String verse,
+    @required String highlighted,
+    @required TextStyle defaultStyle,
+    @required Color highlightColor,
+  }){
+    if (highlighted == null || highlighted.isEmpty || !verse.toLowerCase().contains(highlighted.toLowerCase())) {
+      return [ TextSpan(text: verse) ];
+    }
+
+    else {
+
+      final matches = highlighted.toLowerCase().allMatches(verse.toLowerCase());
+      int lastMatchEnd = 0;
+
+      final List<TextSpan> children = <TextSpan>[];
+
+      for (var i = 0; i < matches.length; i++) {
+        final match = matches.elementAt(i);
+
+        if (match.start != lastMatchEnd) {
+
+          children.add(
+              TextSpan(
+                text: verse.substring(lastMatchEnd, match.start),
+                style: defaultStyle,
+              )
+          );
+
+        }
+
+        children.add(
+            TextSpan(
+              text: verse.substring(match.start, match.end),
+              style: defaultStyle.copyWith(backgroundColor: highlightColor),
+            )
+        );
+
+        if (i == matches.length - 1 && match.end != verse.length) {
+          children.add(
+              TextSpan(
+                text: verse.substring(match.end, verse.length),
+                style: defaultStyle,
+              )
+          );
+        }
+
+        lastMatchEnd = match.end;
+      }
+      return children;
+
+    }
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, size);
+    final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
+
+    final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, size);
+    final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
+
+    final TextAlign _textAlign = SuperVerse.getTextAlign(centered: centered);
+
+    final TextStyle _style = SuperVerse.createStyle(
+      context: context,
+      color: color,
+      weight: weight,
+      italic: italic,
+      size: size,
+      shadow: shadow,
+      scaleFactor: scaleFactor,
+      strikeThrough: strikeThrough,
+    );
+
+    return Flexible(
+      key: const ValueKey<String>('a_verse'),
+      child: Container(
+        padding: EdgeInsets.only(
+          right: _sidePaddings,
+          left: _sidePaddings,
+        ),
+        margin: EdgeInsets.all(_sidePaddings * 0.25),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
+          color: labelColor,
+        ),
+        child:
+        stringIsEmpty(highlight) == true ?
+        Text(
+          verse,
+          softWrap: false,
+          overflow: TextOverflow.ellipsis,
+          maxLines: maxLines,
+          textAlign: _textAlign,
+          textScaleFactor: 1,
+          // textDirection: ,
+          style: SuperVerse.createStyle(
+            context: context,
+            color: color,
+            weight: weight,
+            italic: italic,
+            size: size,
+            shadow: shadow,
+            scaleFactor: scaleFactor,
+            strikeThrough: strikeThrough,
+          ),
+        )
+            :
+        RichText(
+          maxLines: maxLines,
+          textAlign: _textAlign,
+          overflow: TextOverflow.ellipsis,
+          softWrap: false,
+          // textDirection: ,
+          // textScaleFactor: 1,
+          text: TextSpan(
+            style: _style,
+            children: _generateTextSpans(
+              verse: verse,
+              highlighted: highlight,
+              defaultStyle: _style,
+              highlightColor: highlightColor,
+            ),
+          ),
+        ),
+      ),
+    );
+
   }
 }
