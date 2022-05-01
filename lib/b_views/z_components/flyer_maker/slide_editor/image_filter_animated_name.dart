@@ -25,7 +25,8 @@ class ImageFilterAnimatedName extends StatelessWidget {
         valueListenable: filterModel,
         builder: (_, ImageFilterModel _filterModel, Widget child){
 
-          return FadeWidgetOut(
+          return WidgetFader(
+            fadeType: FadeType.fadeOut,
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(

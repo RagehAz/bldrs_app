@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/animators/fade_widget_out.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -348,12 +349,18 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             ],
           ),
 
-          SuperVerse(
-            verse: _fuckingText,
-            maxLines: 10,
-            centered: false,
-            margin: 10,
-            highlight: highlightedText,
+          WidgetFader(
+            fadeType: FadeType.repeatAndReverse,
+            min: 0,
+            duration: Duration(milliseconds: 700),
+            curve: Curves.fastOutSlowIn,
+            child: SuperVerse(
+              verse: _fuckingText,
+              maxLines: 10,
+              centered: false,
+              margin: 10,
+              highlight: highlightedText,
+            ),
           ),
 
           const BubblesSeparator(),
@@ -361,7 +368,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'DO IT',
+              verse: 'REBUILD SCREEN',
               icon: Iconz.star,
               onTap: () async {
 
@@ -369,7 +376,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 // await _showDialog(null);
 
-                blog('thing is : ${_formKey.currentState.mounted}');
+                // blog('thing is : ${_formKey.currentState.mounted}');
+
+                setState(() {
+
+                });
 
                 // _uiProvider.triggerLoading(setLoadingTo: false);
 
