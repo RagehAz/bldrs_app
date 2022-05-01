@@ -9,6 +9,7 @@ class ChainTreeViewer extends StatefulWidget {
   const ChainTreeViewer({
     @required this.chain,
     @required this.onStripTap,
+    @required this.searchValue,
     this.initialLevel = 1,
     Key key
   }) : super(key: key);
@@ -16,6 +17,7 @@ class ChainTreeViewer extends StatefulWidget {
   final Chain chain;
   final int initialLevel;
   final ValueChanged<String> onStripTap;
+  final ValueNotifier<String> searchValue;
   /// --------------------------------------------------------------------------
   @override
   State<ChainTreeViewer> createState() => _ChainTreeViewerState();
@@ -70,6 +72,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                       chain: son,
                       initialLevel: widget.initialLevel + 1,
                       onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
+                      searchValue: widget.searchValue,
                     );
                   }
               ),
@@ -88,6 +91,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                       phraseValue: superPhrase(context, keywordID),
                       onTriggerExpansion: (){},
                       onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
+                      searchValue: widget.searchValue,
                     );
 
                   }
@@ -101,6 +105,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                 phraseValue: widget.chain?.sons?.toString(),
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
+                searchValue: widget.searchValue,
               ),
 
           ],
@@ -119,6 +124,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                 expanded: _isExpanded,
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap(sonID),
+                searchValue: widget.searchValue,
               ),
 
               if (_isExpanded)

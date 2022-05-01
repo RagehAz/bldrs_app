@@ -94,9 +94,11 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null);
+  final ValueNotifier<String> _searchValue = ValueNotifier(null);
 // ------------------------------------------------
   Future<void> _onSearchSubmit(String text) async {
 
+    _searchValue.value = text;
 
     triggerIsSearchingNotifier(
       text: text,
@@ -195,13 +197,14 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
           if (isSearching == true){
             return ValueListenableBuilder(
                 valueListenable: _foundChains,
-                builder: (_, List<Chain> chains, Widget child){
+                builder: (_, List<Chain> foundChains, Widget child){
 
                   return ChainsTreesStarter(
-                      chains: chains,
+                      chains: foundChains,
                       onStripTap: (String path) => _onStripTap(
                           phraseIDPath: path
-                      )
+                      ),
+                      searchValue: _searchValue,
                   );
 
                 }
