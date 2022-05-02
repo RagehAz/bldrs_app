@@ -17,6 +17,7 @@ class WidgetFader extends StatefulWidget {
     this.min = 0,
     this.duration,
     this.curve = Curves.easeInOut,
+    this.absorbPointer = false,
     Key key
   }) : super(key: key);
 
@@ -26,6 +27,7 @@ class WidgetFader extends StatefulWidget {
   final double min;
   final Duration duration;
   final Curve curve;
+  final bool absorbPointer;
 
   @override
   _WidgetFaderState createState() => _WidgetFaderState();
@@ -105,9 +107,12 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
 
     _animate();
 
-    return FadeTransition(
-      opacity: _animation,
-      child: widget.child,
+    return AbsorbPointer(
+      absorbing: widget.absorbPointer,
+      child: FadeTransition(
+        opacity: _animation,
+        child: widget.child,
+      ),
     );
   }
 
