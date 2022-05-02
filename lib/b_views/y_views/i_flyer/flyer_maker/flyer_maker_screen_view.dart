@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -174,43 +175,49 @@ class FlyerMakerScreenView extends StatelessWidget {
             ValueListenableBuilder(
                 valueListenable: draft,
                 builder: (_, DraftFlyerModel _draft, Widget child){
-                  return Bubble(
-                    width: Bubble.bubbleWidth(
+
+                  return WidgetFader(
+                    fadeType: _draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
+                    min: 0.35,
+                    absorbPointer: _draft.flyerType == null,
+                    child: Bubble(
+                      width: Bubble.bubbleWidth(
                         context: context,
                         stretchy: false,
-                    ),
-                    title: 'Flyer Keywords',
-                    columnChildren: <Widget>[
+                      ),
+                      title: 'Flyer Keywords',
+                      columnChildren: <Widget>[
 
-                      const BubbleNotes(
+                        const BubbleNotes(
                           notes: <String>[
                             'Select at least 1 flyer keyword to help search engines show your flyer in its dedicated place',
                           ],
-                      ),
-
-                      InfoPageKeywords(
-                        pageWidth: Bubble.clearWidth(context),
-                        keywordsIDs: _draft.keywordsIDs,
-                      ),
-
-                      DreamBox(
-                        height: KeywordBarButton.height,
-                        // width: Bubble.clearWidth(context),
-                        verse: canLoopList(_draft.keywordsIDs) ? 'Edit Keywords' : 'Add Keywords',
-                        bubble: false,
-                        color: Colorz.white20,
-                        verseScaleFactor: 1.5,
-                        verseWeight: VerseWeight.thin,
-                        icon: Iconz.plus,
-                        iconSizeFactor: 0.4,
-                        iconColor: Colorz.white20,
-                        onTap: () => onAddKeywordsTap(
-                          context: context,
-                          draft: draft,
                         ),
-                      ),
 
-                    ],
+                        InfoPageKeywords(
+                          pageWidth: Bubble.clearWidth(context),
+                          keywordsIDs: _draft.keywordsIDs,
+                        ),
+
+                        DreamBox(
+                          height: KeywordBarButton.height,
+                          // width: Bubble.clearWidth(context),
+                          verse: canLoopList(_draft.keywordsIDs) ? 'Edit Keywords' : 'Add Keywords',
+                          bubble: false,
+                          color: Colorz.white20,
+                          verseScaleFactor: 1.5,
+                          verseWeight: VerseWeight.thin,
+                          icon: Iconz.plus,
+                          iconSizeFactor: 0.4,
+                          iconColor: Colorz.white20,
+                          onTap: () => onAddKeywordsTap(
+                            context: context,
+                            draft: draft,
+                          ),
+                        ),
+
+                      ],
+                    ),
                   );
                 },
             ),
@@ -226,46 +233,50 @@ class FlyerMakerScreenView extends StatelessWidget {
                   pluralTranslation: false,
                 );
 
-                return Bubble(
-                  width: Bubble.bubbleWidth(context: context, stretchy: false),
-                  title: 'Specifications',
-                  columnChildren: <Widget>[
+                return WidgetFader(
+                  fadeType: _draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
+                  min: 0.35,
+                  absorbPointer: _draft.flyerType == null,
+                  child: Bubble(
+                    width: Bubble.bubbleWidth(context: context, stretchy: false),
+                    title: 'Specifications',
+                    columnChildren: <Widget>[
 
-                    BubbleNotes(
-                      notes: <String>[
-                        'Add $_translatedFlyerType specification to describe and allow advanced search criteria',
-                      ],
-                    ),
-
-                    InfoPageSpecs(
-                      pageWidth: Bubble.clearWidth(context),
-                      specs: _draft.specs,
-                      flyerType: _draft.flyerType,
-                    ),
-
-                    DreamBox(
-                      height: KeywordBarButton.height,
-                      // width: Bubble.clearWidth(context),
-                      verse: canLoopList(_draft.keywordsIDs) ? 'Edit Specifications' : 'Add Specifications',
-                      bubble: false,
-                      color: Colorz.white20,
-                      verseScaleFactor: 1.5,
-                      verseWeight: VerseWeight.thin,
-                      icon: Iconz.plus,
-                      iconSizeFactor: 0.4,
-                      iconColor: Colorz.white20,
-                      onTap: () => onAddSpecsTap(
-                        context: context,
-                        draft: draft,
+                      BubbleNotes(
+                        notes: <String>[
+                          'Add $_translatedFlyerType specification to describe and allow advanced search criteria',
+                        ],
                       ),
-                    ),
 
-                  ],
+                      InfoPageSpecs(
+                        pageWidth: Bubble.clearWidth(context),
+                        specs: _draft.specs,
+                        flyerType: _draft.flyerType,
+                      ),
+
+                      DreamBox(
+                        height: KeywordBarButton.height,
+                        // width: Bubble.clearWidth(context),
+                        verse: canLoopList(_draft.keywordsIDs) ? 'Edit Specifications' : 'Add Specifications',
+                        bubble: false,
+                        color: Colorz.white20,
+                        verseScaleFactor: 1.5,
+                        verseWeight: VerseWeight.thin,
+                        icon: Iconz.plus,
+                        iconSizeFactor: 0.4,
+                        iconColor: Colorz.white20,
+                        onTap: () => onAddSpecsTap(
+                          context: context,
+                          draft: draft,
+                        ),
+                      ),
+
+                    ],
+                  ),
                 );
                 },
             ),
-
-
+            
             const BubblesSeparator(),
 
             /// ZONE SELECTOR
