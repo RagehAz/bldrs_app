@@ -1,8 +1,12 @@
-import 'package:bldrs/b_views/z_components/animators/fade_widget_out.dart';
+import 'dart:async';
+
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -14,6 +18,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -24,6 +29,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +53,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   UiProvider _uiProvider;
   ChainsProvider  _chainsProvider;
   bool _isSignedIn;
+  bool _isConnected = false;
   String _fuckingText;
+  StreamSubscription<ConnectivityResult> subscription;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -82,10 +90,27 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     //   Provider.of<FlyersProvider>(context,listen: true).fetchAndSetBzz();
     // });
 
+    initConnectivity();
+
+    subscription =
+        Connectivity()
+            .onConnectivityChanged
+            .listen((ConnectivityResult result) async {
+              final bool _connected = await deviceIsConnected();
+              await _onConnectivityChanged(_connected);
+
+              blog('CONNECTIVITY HAD CHANGED TO : ${result.toString()}');
+
+            });
+
     super.initState();
   }
-
 // -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    // subscription.cancel();
+    super.dispose();
+  }// -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -209,7 +234,59 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     highlightedText.value = text;
   }
 // -----------------------------------------------------------------------------
+  Future<void> initConnectivity() async {
+    ConnectivityResult result;
 
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+          result = await Connectivity().checkConnectivity();
+        },
+      onError: (String error){
+          blog('DISCONNECTED : $error');
+      }
+    );
+
+    if (!mounted) {
+    /// If the widget was removed from the tree while the asynchronous platform
+    /// message was in flight, we want to discard the reply rather than calling
+    /// setState to update our non-existent appearance.
+    //   return Future.value(null);
+    }
+    else {
+      final bool _connected = await deviceIsConnected(streamResult: result);
+      await _onConnectivityChanged(_connected);
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onConnectivityChanged(bool isConnected) async {
+    if (isConnected == true){
+
+      if (mounted == true){
+        setState(() {
+          _isConnected = true;
+        });
+
+        await NavDialog.showNavDialog(
+          context: context,
+          firstLine: 'Connected',
+          color: Colorz.green255,
+        );
+
+      }
+    }
+    else {
+      if (mounted == true) {
+        setState(() {
+          _isConnected = false;
+        });
+        await NavDialog.showNoInternetDialog(context);
+      }
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -240,19 +317,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         /// IS SIGNED IN ?
         DreamBox(
           height: Ratioz.appBarButtonSize,
-          verse: _isSignedIn ?
-          'Signed in'
-              :
-          'Signed out',
-          color: _isSignedIn ?
-          Colorz.green255
-              :
-          Colorz.grey80,
+          verse: _isSignedIn ? 'Signed in' : 'Signed out',
+          color: _isSignedIn ? Colorz.green255 : Colorz.grey80,
           verseScaleFactor: 0.6,
-          verseColor: _isSignedIn ?
-          Colorz.white255
-              :
-          Colorz.darkGrey255,
+          verseColor: _isSignedIn ? Colorz.white255 : Colorz.darkGrey255,
           bubble: false,
           onTap: () async {
 
@@ -265,15 +333,34 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
             if (_result == true){
 
-              await FireAuthOps.signOut(
-                  context: context,
-                  routeToUserChecker: true
-              );
+            await FireAuthOps.signOut(
+                context: context,
+                routeToUserChecker: true
+            );
 
             }
 
+
           },
         ),
+
+        /// CONNECTED ?
+        DreamBox(
+          height: Ratioz.appBarButtonSize,
+          verse: _isConnected ? 'Connected' : 'disconnected',
+          color: _isConnected ? Colorz.green255 : Colorz.bloodTest,
+          verseScaleFactor: 0.6,
+          verseColor: _isConnected ? Colorz.white255 : Colorz.darkGrey255,
+          bubble: false,
+          onTap: () async {
+
+            final bool _connected = await deviceIsConnected();
+
+            await _onConnectivityChanged(_connected);
+
+          },
+        ),
+
 
       ],
       layoutWidget: Column(
@@ -350,9 +437,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           ),
 
           WidgetFader(
-            fadeType: FadeType.repeatAndReverse,
-            min: 0,
-            duration: Duration(milliseconds: 700),
+            fadeType: FadeType.fadeIn,
             curve: Curves.fastOutSlowIn,
             child: SuperVerse(
               verse: _fuckingText,

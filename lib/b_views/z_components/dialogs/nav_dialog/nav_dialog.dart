@@ -62,6 +62,7 @@ class NavDialog extends StatelessWidget {
       context: context,
       firstLine: 'No Internet',
       secondLine: 'Check your connection',
+      color: Colorz.red255,
     );
   }
 // -----------------------------------------------------------------------------
