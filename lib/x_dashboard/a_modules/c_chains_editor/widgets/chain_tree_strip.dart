@@ -6,6 +6,7 @@ import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -99,7 +100,7 @@ class ChainTreeStrip extends StatelessWidget {
                         italic: true,
                         centered: false,
                         highlight: searchValue,
-                        // onTap: () => onCopyText(context, phraseValue),
+                        onTap: () => onCopyText(context, phraseValue),
                       ),
 
                       /// ID
@@ -109,7 +110,7 @@ class ChainTreeStrip extends StatelessWidget {
                         centered: false,
                         weight: VerseWeight.thin,
                         highlight: searchValue,
-                        // onTap: () => onCopyText(context, phraseID),
+                        onTap: () => onCopyText(context, phraseID),
                       ),
 
 

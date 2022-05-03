@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_picker_screen.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_lists_pickers_screen.dart';
+import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -287,7 +287,7 @@ Future<void> onAddSpecsTap({
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
-  final dynamic _result = await Nav.goToNewScreen(context, SpecsListsPickersScreen(
+  final dynamic _result = await Nav.goToNewScreen(context, SpecsPickersScreen(
     flyerType: draft.value.flyerType,
     selectedSpecs: draft.value.specs,
   ));

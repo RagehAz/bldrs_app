@@ -152,6 +152,8 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
   }
 // -----------------------------------------------------------------------------
 }
+
+/*
 // -----------------------------------------------------------------------------
 Future<void> _initializeConnectivity({
   @required BuildContext context,
@@ -188,3 +190,4 @@ Future<void> connectivityListener({
 
 }
 // -----------------------------------------------------------------------------
+ */
