@@ -1,17 +1,16 @@
 // tu sei il #crepuscolo_sul_mare contessa
 
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
-import 'package:bldrs/f_helpers/notifications/noti_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -24,10 +23,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/notifications/local_notification_service.dart' as LocalNotificationService;
 import 'package:bldrs/f_helpers/notifications/noti_ops.dart' as NotiOps;
+import 'package:bldrs/f_helpers/notifications/noti_provider.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -34,7 +34,7 @@
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/static_progress_bar.dart';
 // import 'package:bldrs/b_views/x_screens/i_flyer/old_flyer_maker_screen.dart/old_flyer_maker_screen.dart';
 // import 'package:bldrs/b_views/x_screens/i_flyer/old_flyer_maker_screen.dart/keywords_picker_screen.dart';
-// import 'package:bldrs/b_views/x_screens/i_flyer/old_flyer_maker_screen.dart/specs_lists_pickers_screen.dart';
+// import 'package:bldrs/b_views/x_screens/i_flyer/old_flyer_maker_screen.dart/specs_pickers_screen.dart';
 // import 'package:bldrs/b_views/z_components/texting/old_super_text_field.dart';
 // import 'package:bldrs/d_providers/bzz_provider.dart';
 // import 'package:bldrs/d_providers/flyers_provider.dart';

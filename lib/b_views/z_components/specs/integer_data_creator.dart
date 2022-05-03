@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -26,7 +26,7 @@ class IntegerDataCreator extends StatefulWidget {
   final ValueChanged<int> onIntegerChanged;
   final int initialValue;
   final Function onSubmitted;
-  final SpecList specList;
+  final SpecPicker specList;
   /// --------------------------------------------------------------------------
   @override
   State<IntegerDataCreator> createState() => _IntegerDataCreatorState();
