@@ -1,6 +1,5 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -22,24 +21,24 @@ class InfoPageSpecs extends StatelessWidget {
   final List<SpecModel> specs;
   final FlyerType flyerType;
   /// --------------------------------------------------------------------------
-  List<SpecList> _getFlyerSpecsLists({
+  List<SpecPicker> _getFlyerSpecsLists({
     @required List<SpecModel> flyerSpecs,
     @required FlyerType flyerType,
   }){
-    final List<SpecList> _specsLists = <SpecList>[];
+    final List<SpecPicker> _specsLists = <SpecPicker>[];
 
-    final List<SpecList> _flyerTypeSpecsLists = SpecList.getSpecsListsByFlyerType(flyerType);
+    final List<SpecPicker> _flyerTypeSpecsLists = SpecPicker.getSpecsPickersByFlyerType(flyerType);
 
     if (Mapper.canLoopList(flyerSpecs)){
 
       for (final SpecModel _spec in flyerSpecs){
 
-        final SpecList _specList = SpecList.getSpecListFromSpecsListsByID(
-          specsLists: _flyerTypeSpecsLists,
-          specListID: _spec.specsListID,
+        final SpecPicker _specList = SpecPicker.getSpecPickerFromSpecsPickersByChainID(
+          specsPickers: _flyerTypeSpecsLists,
+          pickerChainID: _spec.specsListID,
         );
 
-        final bool _alreadyAdded = SpecList.specsListsContainSpecList(
+        final bool _alreadyAdded = SpecPicker.specsPickersContainSpecPicker(
           specsLists: _specsLists,
           specList: _specList,
         );
@@ -57,7 +56,7 @@ class InfoPageSpecs extends StatelessWidget {
   String _generateSpecsString({
     @required BuildContext context,
     @required List<SpecModel> flyerSpecs,
-    @required SpecList specList,
+    @required SpecPicker specList,
   }){
 
     String _output = '';
@@ -114,7 +113,7 @@ class InfoPageSpecs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<SpecList> _flyerSpecsLists = _getFlyerSpecsLists(
+    final List<SpecPicker> _flyerSpecsLists = _getFlyerSpecsLists(
       flyerType: flyerType,
       flyerSpecs: specs,
     );
@@ -133,7 +132,7 @@ class InfoPageSpecs extends StatelessWidget {
             padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
             itemBuilder: (_, int index){
 
-              final SpecList _specList = _flyerSpecsLists[index];
+              final SpecPicker _specList = _flyerSpecsLists[index];
 
               final String _specListName = superPhrase(context, _specList?.chainID);
 

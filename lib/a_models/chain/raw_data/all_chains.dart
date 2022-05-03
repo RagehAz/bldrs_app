@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_designs.dart
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_equipment.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_properties.dart';
-import 'package:bldrs/a_models/chain/raw_data/specs/raw_specs.dart' as specsChain;
+import 'package:bldrs/a_models/chain/raw_data/specs/raw_specs_chains.dart' as specsChain;
 
 // -----------------------------------------------------------------------------
 

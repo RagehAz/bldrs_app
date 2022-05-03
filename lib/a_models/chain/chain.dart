@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/data_creator.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -188,7 +188,7 @@ class Chain {
 // --------------------------------------------
   static Chain filterSpecListChainRange({
     @required BuildContext context,
-    @required SpecList specList,
+    @required SpecPicker specList,
 }) {
 
     final List<String> _filteredIDs = <String>[];

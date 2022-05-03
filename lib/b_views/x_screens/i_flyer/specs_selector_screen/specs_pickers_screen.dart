@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/chain/data_creator.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -22,9 +22,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class SpecsListsPickersScreen extends StatefulWidget {
+class SpecsPickersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const SpecsListsPickersScreen({
+  const SpecsPickersScreen({
     @required this.flyerType,
     @required this.selectedSpecs,
     Key key,
@@ -36,44 +36,41 @@ class SpecsListsPickersScreen extends StatefulWidget {
 
   /// --------------------------------------------------------------------------
   @override
-  _SpecsListsPickersScreenState createState() =>
-      _SpecsListsPickersScreenState();
+  _SpecsPickersScreenState createState() =>
+      _SpecsPickersScreenState();
 
   /// --------------------------------------------------------------------------
 }
 
-class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with SingleTickerProviderStateMixin {
+class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTickerProviderStateMixin {
   List<SpecModel> _allSelectedSpecs;
 
   ScrollController _scrollController;
   // AnimationController _animationController;
 
-  List<SpecList> _sourceSpecsLists = <SpecList>[];
-  List<SpecList> _refinedSpecsLists = <SpecList>[];
+  List<SpecPicker> _specsPickers = <SpecPicker>[];
+  List<SpecPicker> _refinedSpecsPickers = <SpecPicker>[];
   List<String> _groupsIDs = <String>[];
-
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------------------------------
+  Future<void> _triggerLoading({bool setTo}) async {
+
+    if (setTo != null){
+      _loading.value = setTo;
+    }
+    else {
+      _loading.value = !_loading.value;
     }
 
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
-  }
+    if (_loading.value == true) {
+      blog('LOADING --------------------------------------');
+    } else {
+      blog('LOADING COMPLETE -----------------------------');
+    }
 
+  }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -84,81 +81,61 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
     //   vsync: this,
     // );
 
-    _sourceSpecsLists = SpecList.getSpecsListsByFlyerType(widget.flyerType);
+    _specsPickers = SpecPicker.getSpecsPickersByFlyerType(widget.flyerType);
     _allSelectedSpecs = widget.selectedSpecs;
-    _refinedSpecsLists = SpecList.generateRefinedSpecsLists(
-        sourceSpecsLists: _sourceSpecsLists,
+    _refinedSpecsPickers = SpecPicker.applyDeactivatorsToSpecsPickers(
+        sourceSpecsPickers: _specsPickers,
         selectedSpecs: _allSelectedSpecs,
     );
 
-    _groupsIDs = SpecList.getGroupsFromSpecsLists(
-        specsLists: _sourceSpecsLists,
+    _groupsIDs = SpecPicker.getGroupsFromSpecsPickers(
+        specsPickers: _specsPickers,
     );
 
     super.initState();
   }
-
-// -----------------------------------------------------------------------------
-  bool _isInit = true;
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      _triggerLoading().then((_) async {
-        /// do Futures here
-
-        unawaited(_triggerLoading(function: () {
-          /// set new values here
-        }));
-      });
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
-
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     // _animationController.dispose();
     super.dispose();
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _onSpecsListTap(SpecList specList) async {
+  Future<void> _onSpecPickerTap(SpecPicker specPicker) async {
 
-    blog('_onSpecsListTap : chainID : ${specList?.chainID} : groupID : ${specList?.groupID}');
-    final Chain _specChain = superGetChain(context, specList.chainID);
+    blog('_onSpecPickerTap : chainID : ${specPicker?.chainID} : groupID : ${specPicker?.groupID}');
+    final Chain _specChain = superGetChain(context, specPicker.chainID);
 
 
     if (_specChain.sons.runtimeType != DataCreator) {
-      await _goToSpecPickerScreen(specList);
+      await _goToSpecPickerScreen(specPicker);
     }
 
     else if (_specChain.sons == DataCreator.price) {
-      await _goToSpecPickerScreen(specList);
+      await _goToSpecPickerScreen(specPicker);
     }
 
     else if (_specChain.sons == DataCreator.currency) {
-      await _runCurrencyDialog(specList);
+      await _runCurrencyDialog(specPicker);
     }
 
     else if (_specChain.sons == DataCreator.integerIncrementer) {
       blog('aho');
-      await _goToSpecPickerScreen(specList);
+      await _goToSpecPickerScreen(specPicker);
     }
 
     else if (_specChain.sons == DataCreator.doubleCreator) {
       blog('aho');
-      await _goToSpecPickerScreen(specList);
+      await _goToSpecPickerScreen(specPicker);
     }
 
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _goToSpecPickerScreen(SpecList specList) async {
+  Future<void> _goToSpecPickerScreen(SpecPicker specPicker) async {
     final List<SpecModel> _result = await Nav.goToNewScreen(
       context,
       SpecPickerScreen(
-        specList: specList,
+        specPicker: specPicker,
         allSelectedSpecs: _allSelectedSpecs,
       ),
       transitionType: Nav.superHorizontalTransition(context),
@@ -166,30 +143,29 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 
     SpecModel.blogSpecs(_result);
 
-    _updateSpecsListsAndGroups(
-      specList: specList,
+    _updateSpecsPickersAndGroups(
+      specPicker: specPicker,
       specPickerResult: _result,
     );
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _runCurrencyDialog(SpecList specList) async {
+  Future<void> _runCurrencyDialog(SpecPicker specPicker) async {
     await PriceDataCreator.showCurrencyDialog(
       context: context,
       onSelectCurrency: (CurrencyModel currency) async {
         final SpecModel _currencySpec = SpecModel(
-          specsListID: specList.chainID,
+          specsListID: specPicker.chainID,
           value: currency.code,
         );
 
         final List<SpecModel> _result = SpecModel.putSpecsInSpecs(
           parentSpecs: _allSelectedSpecs,
           inputSpecs: <SpecModel>[_currencySpec],
-          canPickMany: specList.canPickMany,
+          canPickMany: specPicker.canPickMany,
         );
 
-        _updateSpecsListsAndGroups(
-          specList: specList,
+        _updateSpecsPickersAndGroups(
+          specPicker: specPicker,
           specPickerResult: _result,
         );
 
@@ -198,14 +174,13 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
       },
     );
   }
-
 // -----------------------------------------------------------------------------
-  void _updateSpecsListsAndGroups({
+  void _updateSpecsPickersAndGroups({
     @required dynamic specPickerResult,
-    @required SpecList specList,
+    @required SpecPicker specPicker,
   }) {
 
-    final Chain _specChain = superGetChain(context, specList.chainID);
+    final Chain _specChain = superGetChain(context, specPicker.chainID);
 
     // -------------------------------------------------------------
     if (specPickerResult != null) {
@@ -218,12 +193,18 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
         // Spec.printSpecs(_allSelectedSpecs);
 
         setState(() {
+
           _allSelectedSpecs = specPickerResult;
-          _refinedSpecsLists = SpecList.generateRefinedSpecsLists(
-              sourceSpecsLists: _sourceSpecsLists,
-              selectedSpecs: _allSelectedSpecs);
-          _groupsIDs =
-              SpecList.getGroupsFromSpecsLists(specsLists: _refinedSpecsLists);
+
+          _refinedSpecsPickers = SpecPicker.applyDeactivatorsToSpecsPickers(
+              sourceSpecsPickers: _specsPickers,
+              selectedSpecs: _allSelectedSpecs,
+          );
+
+          _groupsIDs = SpecPicker.getGroupsFromSpecsPickers(
+              specsPickers: _refinedSpecsPickers,
+          );
+
         });
       }
       // ------------------------------------
@@ -284,14 +265,14 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 
                   final String _groupID = _groupsIDs[index];
 
-                  final List<SpecList> _listsOfThisGroup = SpecList.getSpecsListsByGroupID(
-                    specsLists: _refinedSpecsLists,
+                  final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
+                    specsPickers: _refinedSpecsPickers,
                     groupID: _groupID,
                   );
 
                   return SizedBox(
                     width: _screenHeight,
-                    // height: 80 + (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
+                    // height: 80 + (_pickersOfThisGroup.length * (SpecListTile.height() + 5)),
                     child: Column(
                       children: <Widget>[
 
@@ -299,8 +280,7 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
                         Container(
                           width: _screenHeight,
                           height: 50,
-                          margin:
-                              const EdgeInsets.only(top: Ratioz.appBarMargin),
+                          margin: const EdgeInsets.only(top: Ratioz.appBarMargin),
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           // color: Colorz.bloodTest,
                           child: SuperVerse(
@@ -322,19 +302,20 @@ class _SpecsListsPickersScreenState extends State<SpecsListsPickersScreen> with 
 
                           child: Column(
                             children: <Widget>[
-                              ...List<Widget>.generate(_listsOfThisGroup.length,
+
+                              ...List<Widget>.generate(_pickersOfThisGroup.length,
                                   (int index) {
 
-                                final SpecList _specList = _listsOfThisGroup[index];
+                                final SpecPicker _specList = _pickersOfThisGroup[index];
                                 final List<SpecModel> _selectedSpecs = SpecModel.getSpecsByListID(
                                   specs: _allSelectedSpecs,
                                   specsListID: _specList.chainID,
                                 );
 
                                 return SpecListTile(
-                                  onTap: () => _onSpecsListTap(_specList),
+                                  onTap: () => _onSpecPickerTap(_specList),
                                   specList: _specList,
-                                  sourceSpecsLists: _sourceSpecsLists,
+                                  sourceSpecsLists: _specsPickers,
                                   selectedSpecs: _selectedSpecs,
                                   onDeleteSpec: (SpecModel spec) => _removeSpec(spec),
                                 );

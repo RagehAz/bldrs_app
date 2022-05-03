@@ -1,12 +1,10 @@
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 class NavDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NavDialog({
@@ -95,7 +93,6 @@ class NavDialog extends StatelessWidget {
                   width: _navBarClearWidth,
                   child: SuperVerse(
                     verse: secondLine,
-                    size: 2,
                     color: Colorz.white200,
                     weight: VerseWeight.thin,
                     maxLines: 3,
