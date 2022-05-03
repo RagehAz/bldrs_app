@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_deactivator.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 
-List<SpecList> propertySpecLists = <SpecList>[
+List<SpecPicker> propertySpecsPickers = <SpecPicker>[
 
     // ------------------------------------------------------------
     /// - MAIN SPECIFICATIONS
     // ----------------------------
     /// PROPERTY FORM
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyForm',
         groupID: 'Main Specifications', /// TASK : TRANSLATE THIS
         canPickMany: false,
@@ -34,7 +34,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY LICENSE
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyLicense',
         groupID: 'Main Specifications',
         canPickMany: true,
@@ -45,7 +45,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// - PROPERTY PRICING SPECIFICATIONS
     // ----------------------------
     /// PROPERTY CONTRACT TYPE
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_contractType',
         groupID: 'Pricing',
         canPickMany: false,
@@ -68,7 +68,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY PAYMENT METHOD
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_paymentMethod',
         groupID: 'Pricing',
         canPickMany: false,
@@ -87,7 +87,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY SALE PRICE
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_PropertySalePrice',
         groupID: 'Pricing',
         canPickMany: false,
@@ -96,7 +96,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY RENT PRICE
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyRentPrice',
         groupID: 'Pricing',
         canPickMany: false,
@@ -105,7 +105,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY PRICE CURRENCY
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_currency',
         groupID: 'Pricing',
         canPickMany: false,
@@ -116,7 +116,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// - INSTALLMENTS
     // ----------------------------
     /// PROPERTY NUMBER OF INSTALLMENTS
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_numberOfInstallments',
         groupID: 'Installments',
         canPickMany: false,
@@ -125,7 +125,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY INSTALLMENTS DURATION
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_installmentsDuration',
         groupID: 'Installments',
         canPickMany: false,
@@ -134,7 +134,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY INSTALLMENTS DURATION UNIT
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_installmentsDurationUnit',
         groupID: 'Installments',
         canPickMany: false,
@@ -145,7 +145,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// - PROPERTY AREA
     // ----------------------------
     /// PROPERTY AREA
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyArea',
         groupID: 'Property Area',
         canPickMany: false,
@@ -154,7 +154,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY AREA UNIT
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyAreaUnit',
         groupID: 'Property Area',
         canPickMany: false,
@@ -165,7 +165,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// - LOT AREA
     // ----------------------------
     /// LOT AREA
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_plotArea',
         groupID: 'Lot Area',
         canPickMany: false,
@@ -174,7 +174,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// LOT AREA UNIT
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyAreaUnit',
         groupID: 'Lot Area',
         canPickMany: false,
@@ -185,7 +185,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// - PROPERTY SPATIAL SPECIFICATION
     // ----------------------------
     /// PROPERTY SPACES
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_property_spaces',
         groupID: 'Spatial Specifications',
         canPickMany: true,
@@ -194,7 +194,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY FLOOR NUMBER
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyFloorNumber',
         groupID: 'Spatial Specifications',
         canPickMany: false,
@@ -203,7 +203,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY DEDICATED PARKING LOTS COUNT
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyDedicatedParkingSpaces',
         groupID: 'Spatial Specifications',
         canPickMany: false,
@@ -212,7 +212,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY NUMBER OF BEDROOMS
-    SpecList(
+    SpecPicker(
       chainID: 'phid_s_propertyNumberOfBedrooms',
       groupID: 'Spatial Specifications',
       canPickMany: false,
@@ -221,7 +221,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY NUMBER OF BATHROOMS
-    SpecList(
+    SpecPicker(
       chainID: 'phid_s_propertyNumberOfBathrooms',
       groupID: 'Spatial Specifications',
       canPickMany: false,
@@ -232,7 +232,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// - PROPERTY FEATURES SPECIFICATIONS
     // ----------------------------
     /// PROPERTY VIEW
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyView',
         groupID: 'Property Features',
         canPickMany: true,
@@ -241,7 +241,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY INDOOR FEATURES
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_sub_ppt_feat_indoor',
         groupID: 'Property Features',
         canPickMany: true,
@@ -250,7 +250,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY FINISHING LEVEL
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_sub_ppt_feat_finishing',
         groupID: 'Property Features',
         canPickMany: false,
@@ -259,7 +259,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// PROPERTY DECORATION STYLE
-    SpecList(
+    SpecPicker(
       chainID: 'phid_s_propertyDecorationStyle',
       groupID: 'Property Features',
       canPickMany: false,
@@ -270,7 +270,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// - COMMUNITY FEATURES SPECIFICATIONS
     // ----------------------------
     /// IN  A COMPOUND
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_sub_ppt_feat_compound',
         groupID: 'Community Features',
         canPickMany: false,
@@ -279,7 +279,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// AMENITIES
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_sub_ppt_feat_amenities',
         groupID: 'Community Features',
         canPickMany: true,
@@ -288,7 +288,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// COMMUNITY SERVICES
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_sub_ppt_feat_services',
         groupID: 'Community Features',
         canPickMany: true,
@@ -299,7 +299,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     /// - BUILDING FEATURES SPECIFICATIONS
     // ----------------------------
     /// BUILDING NUMBER OF FLOORS
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_buildingNumberOfFloors',
         groupID: 'Building Specifications',
         canPickMany: false,
@@ -308,7 +308,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// BUILDING AGE IN YEARS
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_buildingAge',
         groupID: 'Building Specifications',
         canPickMany: false,
@@ -317,7 +317,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// BUILDING TOTAL UNITS COUNTS
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_buildingTotalPropertiesCount',
         groupID: 'Building Specifications',
         canPickMany: false,
@@ -326,7 +326,7 @@ List<SpecList> propertySpecLists = <SpecList>[
     ),
 
     /// BUILDING TOTAL PARKING LOTS COUNTS
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_buildingTotalParkingLotsCount',
         groupID: 'Building Specifications',
         canPickMany: false,
@@ -338,13 +338,13 @@ List<SpecList> propertySpecLists = <SpecList>[
 
 ];
 
-List<SpecList> designSpecLists = <SpecList>[
+List<SpecPicker> designSpecsPickers = <SpecPicker>[
 
     // ------------------------------------------------------------
     /// - DESIGN SPECIFICATIONS
     // ----------------------------
     /// DESIGN TYPE
-    SpecList(
+    SpecPicker(
         chainID: 'phid_k_group_dz_type',
         groupID: 'Design Specifications',
         canPickMany: true,
@@ -353,8 +353,8 @@ List<SpecList> designSpecLists = <SpecList>[
     ),
 
     /// DESIGN SPACES
-    SpecList(
-        chainID: 'phid_s_property_spaces',
+    SpecPicker(
+        chainID: 'phid_s_group_space_type',
         groupID: 'Design Specifications',
         canPickMany: true,
         isRequired: true,
@@ -362,7 +362,7 @@ List<SpecList> designSpecLists = <SpecList>[
     ),
 
     /// DESIGN STYLE
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_style',
         groupID: 'Design Specifications',
         canPickMany: true,
@@ -373,7 +373,7 @@ List<SpecList> designSpecLists = <SpecList>[
     /// - PROPERTY SPECIFICATIONS
     // ----------------------------
     /// PROPERTY FORM
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyForm',
         groupID: 'Property Specifications',
         canPickMany: false,
@@ -382,7 +382,7 @@ List<SpecList> designSpecLists = <SpecList>[
     ),
 
     /// PROPERTY LICENSE
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyLicense',
         groupID: 'Property Specifications',
         canPickMany: true,
@@ -393,7 +393,7 @@ List<SpecList> designSpecLists = <SpecList>[
     /// - CONSTRUCTION COST
     // ----------------------------
     /// PROJECT COST
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_projectCost',
         groupID: 'Construction Cost',
         canPickMany: false,
@@ -402,7 +402,7 @@ List<SpecList> designSpecLists = <SpecList>[
     ),
 
     /// PROJECT COST CURRENCY
-    SpecList(
+    SpecPicker(
       chainID: 'phid_s_currency',
       groupID: 'Construction Cost',
       canPickMany: false,
@@ -413,7 +413,7 @@ List<SpecList> designSpecLists = <SpecList>[
     /// - CONSTRUCTION DURATION
     // ----------------------------
     /// Construction DURATION
-    SpecList(
+    SpecPicker(
       chainID: 'phid_s_constructionDuration',
       groupID: 'Construction Duration',
       canPickMany: false,
@@ -422,7 +422,7 @@ List<SpecList> designSpecLists = <SpecList>[
     ),
 
     /// Construction DURATION UNIT
-    SpecList(
+    SpecPicker(
       chainID: 'phid_s_durationUnit',
       groupID: 'Construction Duration',
       canPickMany: false,
@@ -433,8 +433,8 @@ List<SpecList> designSpecLists = <SpecList>[
     /// - CONSTRUCTION ACTIVITIES
     // ----------------------------
     /// CONSTRUCTION ACTIVITIES
-    SpecList(
-      chainID: 'phid_s_constructionActivities',
+    SpecPicker(
+      chainID: 'phid_k_flyer_type_crafts',
       groupID: 'Construction Activities',
       canPickMany: true,
       isRequired: false,
@@ -444,7 +444,7 @@ List<SpecList> designSpecLists = <SpecList>[
     /// - PROPERTY AREA
     // ----------------------------
     /// PROPERTY AREA
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyArea',
         groupID: 'Property Area',
         canPickMany: false,
@@ -453,7 +453,7 @@ List<SpecList> designSpecLists = <SpecList>[
     ),
 
     /// PROPERTY AREA UNIT
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_propertyAreaUnit',
         groupID: 'Property Area',
         canPickMany: false,
@@ -464,7 +464,7 @@ List<SpecList> designSpecLists = <SpecList>[
     /// - PROPERTY AREA
     // ----------------------------
     /// LOT AREA
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_plotArea',
         groupID: 'Lot Area',
         canPickMany: false,
@@ -473,7 +473,7 @@ List<SpecList> designSpecLists = <SpecList>[
     ),
 
     /// LOT AREA UNIT
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_lotAreaUnit',
         groupID: 'Lot Area',
         canPickMany: false,
@@ -484,10 +484,10 @@ List<SpecList> designSpecLists = <SpecList>[
 
 ];
 
-List<SpecList> craftSpecLists = <SpecList>[
+List<SpecPicker> craftSpecsPickers = <SpecPicker>[
 
     /// CONSTRUCTION ACTIVITY PRICE
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_price',
         groupID: 'Cost',
         canPickMany: false,
@@ -496,7 +496,7 @@ List<SpecList> craftSpecLists = <SpecList>[
     ),
 
     /// CONSTRUCTION ACTIVITY PRICE CURRENCY
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_currency',
         groupID: 'Cost',
         canPickMany: false,
@@ -505,7 +505,7 @@ List<SpecList> craftSpecLists = <SpecList>[
     ),
 
     /// CONSTRUCTION ACTIVITY MEASUREMENT METHOD
-    SpecList(
+    SpecPicker(
         chainID: 'phid_s_constructionActivityMeasurementMethod',
         groupID: 'Cost',
         canPickMany: false,
@@ -515,6 +515,6 @@ List<SpecList> craftSpecLists = <SpecList>[
 
 ];
 
-List<SpecList> productSpecLists = <SpecList>[];
+List<SpecPicker> productSpecsPickers = <SpecPicker>[];
 
-List<SpecList> equipmentSpecLists = <SpecList>[];
+List<SpecPicker> equipmentSpecsPickers = <SpecPicker>[];

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_list_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -23,8 +23,8 @@ class SpecListTile extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onTap;
-  final SpecList specList;
-  final List<SpecList> sourceSpecsLists;
+  final SpecPicker specList;
+  final List<SpecPicker> sourceSpecsLists;
   final List<SpecModel> selectedSpecs;
   final Function onDeleteSpec;
   /// --------------------------------------------------------------------------
