@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-
+import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 class NavDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NavDialog({
@@ -25,26 +25,19 @@ class NavDialog extends StatelessWidget {
     @required String firstLine,
     String secondLine,
     Color color = Colorz.black255,
+    double seconds,
   }) async {
 
     final Color _color = color ?? Colorz.darkRed255;
 
-    // double _screenWidth = Scale.superScreenWidth(context);
-
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: const Duration(seconds: 5),
+        duration: Duration(seconds: seconds ?? 5),
         backgroundColor: Colorz.nothing,
-
         behavior: SnackBarBehavior.fixed,
-        // width: _isBig == true ? _screenWidth : null,
-
-        // margin: _isBig == true ? EdgeInsets.all(0) : null,
         padding: EdgeInsets.zero,
-        // onVisible: () {
-        //   print('is visible now');
-        // },
+        // onVisible: () {print('is visible now');},
         elevation: 0,
         content: NavDialog(
           firstLine: firstLine,
@@ -54,27 +47,6 @@ class NavDialog extends StatelessWidget {
       ),
     );
     // await null;
-  }
-
-// -----------------------------------------------------------------------------
-  static Future<void> showNoInternetDialog(BuildContext context) async {
-    await showNavDialog(
-      context: context,
-      firstLine: 'No Internet',
-      secondLine: 'Check your connection',
-      color: Colorz.red255,
-    );
-  }
-// -----------------------------------------------------------------------------
-  bool _verseIsCentered() {
-    bool _isCentered;
-    if (secondLine == null) {
-      _isCentered = false;
-    } else {
-      _isCentered = true;
-    }
-
-    return _isCentered;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -92,52 +64,46 @@ class NavDialog extends StatelessWidget {
       onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
       child: Container(
         width: _screenWidth,
-        height: _navBarHeight,
-        alignment: Alignment.center,
+        height: _navBarHeight + NavBar.navbarPaddings,
+        alignment: Alignment.topCenter,
         child: Container(
           height: _navBarHeight,
           width: _navBarClearWidth,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+            borderRadius: NavBar.navBarCorners(context: context),
+            boxShadow: Shadowz.appBarShadow,
           ),
           alignment: Alignment.center,
 
           child: Column(
-            crossAxisAlignment: secondLine == null ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              Container(
-                height: _titleHeight,
+              SizedBox(
                 width: _navBarClearWidth,
-                alignment: secondLine == null ? Alignment.center : Aligners.superCenterAlignment(context),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Ratioz.appBarMargin,
-                ),
                 child: SuperVerse(
                   verse: firstLine,
-                  scaleFactor: secondLine == null ? 0.8 : 0.9,
+                  scaleFactor: 1.1,
                   shadow: true,
-                  centered: _verseIsCentered(),
+                  margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin,),
                 ),
               ),
 
               if (secondLine != null)
-                Container(
-                  height: _bodyHeight,
+                SizedBox(
                   width: _navBarClearWidth,
-                  alignment: Aligners.superCenterAlignment(context),
-                  padding: const EdgeInsets.only(
-                      left: Ratioz.appBarMargin,
-                      right: Ratioz.appBarMargin,
-                      bottom: Ratioz.appBarPadding),
                   child: SuperVerse(
                     verse: secondLine,
-                    size: 1,
+                    size: 2,
                     color: Colorz.white200,
                     weight: VerseWeight.thin,
                     maxLines: 3,
-                    centered: false,
+                    margin: const EdgeInsets.only(
+                        left: Ratioz.appBarMargin,
+                        right: Ratioz.appBarMargin,
+                        bottom: Ratioz.appBarPadding
+                    ),
                   ),
                 ),
 
