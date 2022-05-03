@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/chains_drawer/structure/a_chains_drawer_starter.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -168,51 +169,54 @@ class MainLayout extends StatelessWidget {
       key: const ValueKey<String>('Main_layout'),
       onTap: () => Keyboarders.minimizeKeyboardOnTapOutSide(context),
       child: SafeArea(
-        child: Stack(
-          children: <Widget>[
+        child: ConnectivitySensor(
+          child: Stack(
+            children: <Widget>[
 
-            if (skyType == SkyType.non)
-              Container(
-                key: const ValueKey<String>('noSkyBackground'),
-                width: Scale.superScreenWidth(context),
-                height: Scale.superScreenHeight(context),
-                color: _backgroundColor,
+              if (skyType == SkyType.non)
+                Container(
+                  key: const ValueKey<String>('noSkyBackground'),
+                  width: Scale.superScreenWidth(context),
+                  height: Scale.superScreenHeight(context),
+                  color: _backgroundColor,
+                ),
+
+              Scaffold(
+                key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
+
+                /// INSETS
+                resizeToAvoidBottomInset: false, /// this false prevents keyboard from pushing pyramids up
+                // resizeToAvoidBottomPadding: false,
+
+                /// BACK GROUND COLOR
+                backgroundColor: _backgroundColor,
+
+                /// DRAWER
+                drawer: const ChainsDrawerStarter(),
+                drawerEdgeDragWidth: ChainsDrawerStarter.drawerEdgeDragWidth,
+                drawerScrimColor: ChainsDrawerStarter.drawerScrimColor,
+                onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
+
+                /// BODY CONTENT
+                body: canRefreshFlyers ?
+
+                RefreshIndicator(
+                  onRefresh: () => _refresh(context),
+                  color: Colorz.black230,
+                  backgroundColor: Colorz.yellow255,
+                  displacement: Ratioz.appBarMargin,
+                  strokeWidth: 4,
+                  child: _mainLayoutStackWidgets,
+                )
+
+                    :
+
+                _mainLayoutStackWidgets,
+
               ),
 
-            Scaffold(
-              key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
-
-              /// INSETS
-              resizeToAvoidBottomInset: false, /// this false prevents keyboard from pushing pyramids up
-              // resizeToAvoidBottomPadding: false,
-
-              /// BACK GROUND COLOR
-              backgroundColor: _backgroundColor,
-
-              /// DRAWER
-              drawer: const ChainsDrawerStarter(),
-              drawerEdgeDragWidth: ChainsDrawerStarter.drawerEdgeDragWidth,
-              drawerScrimColor: ChainsDrawerStarter.drawerScrimColor,
-              onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
-
-              /// BODY CONTENT
-              body: canRefreshFlyers ?
-
-              RefreshIndicator(
-                onRefresh: () => _refresh(context),
-                color: Colorz.black230,
-                backgroundColor: Colorz.yellow255,
-                displacement: Ratioz.appBarMargin,
-                strokeWidth: 4,
-                child: _mainLayoutStackWidgets,
-              )
-
-                  :
-
-              _mainLayoutStackWidgets,
-
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
