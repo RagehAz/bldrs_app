@@ -1,5 +1,7 @@
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'dart:async';
+
 import 'package:bldrs/b_views/y_views/a_starters/a_0_logo_screen_view.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_0_logo_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +44,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: _fadeCycleDuration),
     );
 
+
   }
 // -----------------------------------------------------------------------------
   @override
@@ -57,7 +60,12 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
     if (_isInit) {
 
       _triggerLoading().then((_) async {
-        await initializeLogoScreen(context);
+
+        await initializeLogoScreen(
+          context: context,
+          mounted: mounted,
+        );
+
         await _triggerLoading();
       });
 

@@ -1,9 +1,16 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 
 // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
@@ -34,6 +41,47 @@ class GeneralProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
+  /// CONNECTIVITY
+
+  // -------------------------------------
+  bool _isConnected = false;
+  // -------------------------------------
+  bool get isConnected => _isConnected;
+  // -------------------------------------
+  Future<void> getSetConnectivity({
+    @required BuildContext context,
+    @required bool mounted,
+    @required bool notify,
+}) async {
+
+    if (mounted == true){
+
+      final bool _connected = await DeviceChecker.checkConnectivity(
+        context: context,
+      );
+
+      setConnectivity(
+        isConnected: _connected,
+        notify: notify,
+      );
+    }
+
+  }
+  // -------------------------------------
+  void setConnectivity({
+    @required bool isConnected,
+    @required bool notify,
+  }) {
+
+    _isConnected = isConnected;
+
+      if(notify == true){
+        notifyListeners();
+      }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// ONLINE SECTIONS
 
   // -------------------------------------
@@ -59,4 +107,9 @@ List<String> getActiveCountriesIDs(BuildContext context){
   // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
   // final List<String> _activeIDs = _generalProvider.appState.activeCountries;
   // return _activeIDs;
+}
+
+bool deviceIsConnected(BuildContext context){
+  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  return _generalProvider.isConnected;
 }
