@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 // -----------------------------------------------------------------------------
@@ -46,13 +48,24 @@ import 'package:connectivity_plus/connectivity_plus.dart';
     return _isLandscape;
   }
 // -----------------------------------------------------------------------------
-  Future<bool> deviceIsConnected({
+  Future<bool> checkConnectivity({
+    @required BuildContext context,
     ConnectivityResult streamResult,
 }) async {
 
     bool _connected = false;
+    ConnectivityResult _result;
 
-    final ConnectivityResult _result = streamResult ?? await Connectivity().checkConnectivity();
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+          _result = streamResult ?? await Connectivity().checkConnectivity();
+        },
+        onError: (String error){
+          blog('DISCONNECTED : $error');
+        }
+    );
+
 
     /// THROUGH MOBILE NETWORK
     if (_result == ConnectivityResult.mobile) {
@@ -85,3 +98,4 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
     return _connected;
   }
+// -----------------------------------------------------------------------------

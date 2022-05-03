@@ -119,7 +119,7 @@ class PhraseProvider extends ChangeNotifier {
         context: context,
         langCode: 'ar',
       );
-      _allPhrases = <Phrase>[..._en, ..._ar];
+      _allPhrases = <Phrase>[..._en??[], ..._ar??[]];
 
       /// 2.2 if found on firebase, store in LDB
       if (Mapper.canLoopList(_allPhrases) == true){

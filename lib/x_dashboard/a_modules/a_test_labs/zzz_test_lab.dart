@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -53,9 +54,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   UiProvider _uiProvider;
   ChainsProvider  _chainsProvider;
   bool _isSignedIn;
-  bool _isConnected = false;
   String _fuckingText;
-  StreamSubscription<ConnectivityResult> subscription;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -90,19 +89,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     //   Provider.of<FlyersProvider>(context,listen: true).fetchAndSetBzz();
     // });
 
-    initConnectivity();
-
-    subscription =
-        Connectivity()
-            .onConnectivityChanged
-            .listen((ConnectivityResult result) async {
-              final bool _connected = await deviceIsConnected();
-              await _onConnectivityChanged(_connected);
-
-              blog('CONNECTIVITY HAD CHANGED TO : ${result.toString()}');
-
-            });
-
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -110,7 +96,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   void dispose() {
     // subscription.cancel();
     super.dispose();
-  }// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -234,59 +221,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     highlightedText.value = text;
   }
 // -----------------------------------------------------------------------------
-  Future<void> initConnectivity() async {
-    ConnectivityResult result;
-
-    await tryAndCatch(
-        context: context,
-        functions: () async {
-          result = await Connectivity().checkConnectivity();
-        },
-      onError: (String error){
-          blog('DISCONNECTED : $error');
-      }
-    );
-
-    if (!mounted) {
-    /// If the widget was removed from the tree while the asynchronous platform
-    /// message was in flight, we want to discard the reply rather than calling
-    /// setState to update our non-existent appearance.
-    //   return Future.value(null);
-    }
-    else {
-      final bool _connected = await deviceIsConnected(streamResult: result);
-      await _onConnectivityChanged(_connected);
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _onConnectivityChanged(bool isConnected) async {
-    if (isConnected == true){
-
-      if (mounted == true){
-        setState(() {
-          _isConnected = true;
-        });
-
-        await NavDialog.showNavDialog(
-          context: context,
-          firstLine: 'Connected',
-          color: Colorz.green255,
-        );
-
-      }
-    }
-    else {
-      if (mounted == true) {
-        setState(() {
-          _isConnected = false;
-        });
-        await NavDialog.showNoInternetDialog(context);
-      }
-    }
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -312,6 +246,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
+      navBarIsOn: true,
       appBarRowWidgets: <Widget>[
 
         /// IS SIGNED IN ?
@@ -345,21 +280,32 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ),
 
         /// CONNECTED ?
-        DreamBox(
-          height: Ratioz.appBarButtonSize,
-          verse: _isConnected ? 'Connected' : 'disconnected',
-          color: _isConnected ? Colorz.green255 : Colorz.bloodTest,
-          verseScaleFactor: 0.6,
-          verseColor: _isConnected ? Colorz.white255 : Colorz.darkGrey255,
-          bubble: false,
-          onTap: () async {
+        ConnectivitySensor(
+            builder: (bool connected, Widget child){
 
-            final bool _connected = await deviceIsConnected();
+              return DreamBox(
+                  width: Ratioz.appBarButtonSize,
+                  height: Ratioz.appBarButtonSize,
+                  icon: connected ? Iconz.check : Iconz.xSmall,
+                  color: connected ? Colorz.green255 : Colorz.bloodTest,
+                  verseScaleFactor: 0.6,
+                  bubble: false,
+                  onTap: () async {
+                    // final bool _connected = await checkConnectivity();
+                    //
+                    // await _onConnectivityChanged(_connected);
 
-            await _onConnectivityChanged(_connected);
+                    await NavDialog.showNavDialog(
+                      context: context,
+                      firstLine: 'Hello There',
+                      secondLine: 'Welcome to Bldrs.net the Builders\' network',
+                      // color: Colorz.red50,
+                    );
 
-          },
-        ),
+                  }
+                  );
+            }
+            ),
 
 
       ],
@@ -551,7 +497,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           const Expander(),
 
-          const SpecializedLabs(),
+          // const SpecializedLabs(),
 
         ],
       ),

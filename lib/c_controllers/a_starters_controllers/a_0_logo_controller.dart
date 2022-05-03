@@ -1,30 +1,61 @@
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
-Future<void> initializeLogoScreen(BuildContext context) async {
+Future<void> initializeLogoScreen({
+  @required BuildContext context,
+  @required bool mounted,
+}) async {
 
-  /// A - APP LANGUAGE
-  await _initializeAppLanguage(context);
+  // /// 0 - CONNECTIVITY
+  // await _initializeConnectivity(
+  //   context: context,
+  //   mounted: mounted,
+  // );
+  //
+  // final bool _isConnected = deviceIsConnected(context);
 
-  /// B - APP STATE
-  final bool _canContinue = await _initializeAppState(context);
+  // /// WHEN CONNECTED TO INTERNET
+  // if (_isConnected == true){
 
-  if (_canContinue == false) {
+    /// A - APP LANGUAGE
+    await _initializeAppLanguage(context);
+
+    /// B - APP STATE
+    final bool _canContinue = await _initializeAppState(context);
+
+    if (_canContinue == false) {
 
 
-  } else {
+    } else {
 
-    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+      Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    await goToRoute(context, Routez.home);
+      await goToRoute(context, Routez.home);
 
-  }
+    }
+
+  // }
+  //
+  // /// IF DISCONNECTED FORM INTERNET
+  // else {
+  //
+  //   await WaitDialog.showWaitDialog(
+  //     context: context,
+  //     loadingPhrase: 'You are Disconnected',
+  //     canManuallyGoBack: true,
+  //   );
+  //
+  // }
 
 
 }
