@@ -11,11 +11,13 @@ class SelectCountryScreen extends StatefulWidget {
   const SelectCountryScreen({
     this.selectCountryIDOnly = false,
     this.selectCountryAndCityOnly = false,
+    this.onCountryTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool selectCountryIDOnly;
   final bool selectCountryAndCityOnly;
+  final ValueChanged<String> onCountryTap;
   /// --------------------------------------------------------------------------
   @override
   _SelectCountryScreenState createState() => _SelectCountryScreenState();
@@ -26,12 +28,18 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onCountryTap(String countryID) async {
 
-    await controlCountryOnTap(
-      context: context,
-      countryID: countryID,
-      selectCountryIDOnly: widget.selectCountryIDOnly,
-      selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
-    );
+    if (widget.onCountryTap == null){
+      await controlCountryOnTap(
+        context: context,
+        countryID: countryID,
+        selectCountryIDOnly: widget.selectCountryIDOnly,
+        selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
+      );
+    }
+
+    else {
+      widget.onCountryTap(countryID);
+    }
 
   }
 // -----------------------------------------------------------------------------

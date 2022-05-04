@@ -18,12 +18,14 @@ class SelectDistrictScreen extends StatefulWidget {
     @required this.country,
     @required this.city,
     this.settingCurrentZone = true,
+    this.onDistrictTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final CountryModel country;
   final CityModel city;
   final bool settingCurrentZone;
+  final ValueChanged<String> onDistrictTap;
   /// --------------------------------------------------------------------------
   @override
   State<SelectDistrictScreen> createState() => _SelectDistrictScreenState();
@@ -61,12 +63,20 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onDistrictTap(String districtID) async {
 
-    await controlDistrictOnTap(
-        context: context,
-        cityModel: widget.city,
-        districtID: districtID,
-        settingCurrentZone: widget.settingCurrentZone
-    );
+    if (widget.onDistrictTap == null){
+
+      await controlDistrictOnTap(
+          context: context,
+          cityModel: widget.city,
+          districtID: districtID,
+          settingCurrentZone: widget.settingCurrentZone
+      );
+
+    }
+
+    else {
+      widget.onDistrictTap(districtID);
+    }
 
   }
 // -----------------------------------------------------------------------------
