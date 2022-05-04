@@ -154,7 +154,7 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
       context: context,
       onSelectCurrency: (CurrencyModel currency) async {
         final SpecModel _currencySpec = SpecModel(
-          specsListID: specPicker.chainID,
+          pickerChainID: specPicker.chainID,
           value: currency.code,
         );
 
@@ -251,85 +251,83 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
       layoutWidget: SizedBox(
         width: _screenWidth,
         height: _screenHeight,
-        child: OldMaxBounceNavigator(
-          child: Scroller(
-            controller: _scrollController,
-            child: ListView.builder(
-                itemCount: _groupsIDs.length,
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(
-                    top: Ratioz.stratosphere,
-                    bottom: Ratioz.horizon,
-                ),
-                itemBuilder: (BuildContext ctx, int index) {
+        child: Scroller(
+          controller: _scrollController,
+          child: ListView.builder(
+              itemCount: _groupsIDs.length,
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(
+                  top: Ratioz.stratosphere,
+                  bottom: Ratioz.horizon,
+              ),
+              itemBuilder: (BuildContext ctx, int index) {
 
-                  final String _groupID = _groupsIDs[index];
+                final String _groupID = _groupsIDs[index];
 
-                  final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
-                    specsPickers: _refinedSpecsPickers,
-                    groupID: _groupID,
-                  );
+                final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
+                  specsPickers: _refinedSpecsPickers,
+                  groupID: _groupID,
+                );
 
-                  return SizedBox(
-                    width: _screenHeight,
-                    // height: 80 + (_pickersOfThisGroup.length * (SpecListTile.height() + 5)),
-                    child: Column(
-                      children: <Widget>[
+                return SizedBox(
+                  width: _screenHeight,
+                  // height: 80 + (_pickersOfThisGroup.length * (SpecListTile.height() + 5)),
+                  child: Column(
+                    children: <Widget>[
 
-                        /// GROUP TITLE
-                        Container(
-                          width: _screenHeight,
-                          height: 50,
-                          margin: const EdgeInsets.only(top: Ratioz.appBarMargin),
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          // color: Colorz.bloodTest,
-                          child: SuperVerse(
-                            verse: _groupID.toUpperCase(),
-                            weight: VerseWeight.black,
-                            centered: false,
-                            margin: 10,
-                            size: 3,
-                            scaleFactor: 0.85,
-                            italic: true,
-                            color: Colorz.yellow125,
-                          ),
+                      /// GROUP TITLE
+                      Container(
+                        width: _screenHeight,
+                        height: 50,
+                        margin: const EdgeInsets.only(top: Ratioz.appBarMargin),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        // color: Colorz.bloodTest,
+                        child: SuperVerse(
+                          verse: _groupID.toUpperCase(),
+                          weight: VerseWeight.black,
+                          centered: false,
+                          margin: 10,
+                          size: 3,
+                          scaleFactor: 0.85,
+                          italic: true,
+                          color: Colorz.yellow125,
                         ),
+                      ),
 
-                        /// GROUP SPECS LISTS
-                        SizedBox(
-                          width: _screenHeight,
-                          // height: (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
+                      /// GROUP SPECS PICKERS
+                      SizedBox(
+                        width: _screenHeight,
+                        // height: (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
 
-                          child: Column(
-                            children: <Widget>[
+                        child: Column(
+                          children: <Widget>[
 
-                              ...List<Widget>.generate(_pickersOfThisGroup.length,
-                                  (int index) {
+                            ...List<Widget>.generate(_pickersOfThisGroup.length,
+                                (int index) {
 
-                                final SpecPicker _specList = _pickersOfThisGroup[index];
-                                final List<SpecModel> _selectedSpecs = SpecModel.getSpecsByListID(
-                                  specs: _allSelectedSpecs,
-                                  specsListID: _specList.chainID,
-                                );
+                              final SpecPicker _specPicker = _pickersOfThisGroup[index];
+                              final List<SpecModel> _selectedSpecs = SpecModel.getSpecsByPickerChainID(
+                                specs: _allSelectedSpecs,
+                                pickerChainID: _specPicker.chainID,
+                              );
 
-                                return SpecListTile(
-                                  onTap: () => _onSpecPickerTap(_specList),
-                                  specList: _specList,
-                                  sourceSpecsLists: _specsPickers,
-                                  selectedSpecs: _selectedSpecs,
-                                  onDeleteSpec: (SpecModel spec) => _removeSpec(spec),
-                                );
+                              return SpecPickerTile(
+                                onTap: () => _onSpecPickerTap(_specPicker),
+                                specPicker: _specPicker,
+                                sourceSpecsPickers: _specsPickers,
+                                selectedSpecs: _selectedSpecs,
+                                onDeleteSpec: (SpecModel spec) => _removeSpec(spec),
+                              );
 
-                              }),
-                            ],
-                          ),
+                            }),
+                          ],
                         ),
+                      ),
 
-                      ],
-                    ),
-                  );
-                }),
-          ),
+                    ],
+                  ),
+                );
+              }),
         ),
       ),
     );
