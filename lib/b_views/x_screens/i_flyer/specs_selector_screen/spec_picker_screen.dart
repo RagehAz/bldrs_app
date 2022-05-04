@@ -67,7 +67,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     // spec.printSpec();
     final SpecModel _spec = SpecModel(
-      specsListID: widget.specPicker.chainID,
+      pickerChainID: widget.specPicker.chainID,
       value: keywordID,
     );
 
@@ -111,7 +111,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
       /// B2 - WHEN CAN NOT PICK MANY
       else {
         final int _specIndex = _selectedSpecs.value
-            .indexWhere((SpecModel spec) => spec.specsListID == widget.specPicker.chainID);
+            .indexWhere((SpecModel spec) => spec.pickerChainID == widget.specPicker.chainID);
 
         /// C1 - WHEN NO SPEC OF THIS KIND IS SELECTED
         if (_specIndex == -1) {
@@ -143,7 +143,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
   void _onCurrencyChanged(CurrencyModel currency) {
 
     final SpecModel _currencySpec = SpecModel(
-        specsListID: 'currency',
+        pickerChainID: 'currency',
         value: currency.code,
     );
 
@@ -158,7 +158,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onPriceChanged(String price) {
     final double _priceDouble = Numeric.stringToDouble(price);
-    final SpecModel _priceSpec = SpecModel(specsListID: widget.specPicker.chainID, value: _priceDouble);
+    final SpecModel _priceSpec = SpecModel(pickerChainID: widget.specPicker.chainID, value: _priceDouble);
     final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
       inputSpecs: <SpecModel>[_priceSpec],
@@ -171,7 +171,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     blog('received integer : $integer');
     final SpecModel _integerSpec = SpecModel(
-        specsListID: widget.specPicker.chainID,
+        pickerChainID: widget.specPicker.chainID,
         value: integer,
     );
 
@@ -188,7 +188,7 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 
     blog('received double : $num');
     final SpecModel _doubleSpec = SpecModel(
-        specsListID: widget.specPicker.chainID,
+        pickerChainID: widget.specPicker.chainID,
         value: num,
     );
 
@@ -277,9 +277,9 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                   return SpecSelectorBubble(
                     bubbleHeight: _listZoneHeight,
                     specList: widget.specPicker,
-                    selectedSpecs: SpecModel.getSpecsByListID(
+                    selectedSpecs: SpecModel.getSpecsByPickerChainID(
                         specs: value,
-                        specsListID: widget.specPicker.chainID,
+                        pickerChainID: widget.specPicker.chainID,
                     ),
                     onSpecTap: (String keywordID) => _onSpecTap(context, keywordID),
                   );
@@ -291,8 +291,8 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
             ValueListenableBuilder<List<SpecModel>>(
                 valueListenable: _selectedSpecs,
                 builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
-                  final List<SpecModel> _priceSpec = SpecModel.getSpecsByListID(
-                      specs: value, specsListID: widget.specPicker.chainID);
+                  final List<SpecModel> _priceSpec = SpecModel.getSpecsByPickerChainID(
+                      specs: value, pickerChainID: widget.specPicker.chainID);
 
                   final double _initialPriceValue = Mapper.canLoopList(_priceSpec) ?
                   _priceSpec[0].value

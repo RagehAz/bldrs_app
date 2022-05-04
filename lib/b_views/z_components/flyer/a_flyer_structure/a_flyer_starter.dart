@@ -148,12 +148,12 @@ class _FlyerStarterState extends State<FlyerStarter> {
   @override
   void dispose() {
     super.dispose();
-    _loading.dispose();
-    _bzModelNotifier.dispose();
-    _bzZoneNotifier.dispose();
-    _flyerZoneNotifier.dispose();
-    _currentSlideIndex.dispose();
-    _flyerIsSaved.dispose();
+    _loading?.dispose();
+    _bzModelNotifier?.dispose();
+    _bzZoneNotifier?.dispose();
+    _flyerZoneNotifier?.dispose();
+    _currentSlideIndex?.dispose();
+    _flyerIsSaved?.dispose();
 
     // if (_currentSlideIndex != null){
     //   _currentSlideIndex.dispose();

@@ -668,7 +668,7 @@ Future<void> deleteSubDoc({
       });
 }
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT
+/// TESTED : WORKS PERFECT : TASK : SHOULD BE EXOTIC METHOD
 Future<void> deleteAllCollectionDocs({
   @required BuildContext context,
   @required String collName,
@@ -726,7 +726,7 @@ Future<void> deleteAllCollectionDocs({
 
 }
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT
+/// TESTED : WORKS PERFECT : TASK : SHOULD BE EXOTIC METHOD
 Future<void> _deleteCollectionDocsByIDs({
   @required BuildContext context,
   @required collName,
@@ -749,7 +749,7 @@ Future<void> _deleteCollectionDocsByIDs({
 
 }
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT
+/// TESTED : WORKS PERFECT : TASK : SHOULD BE EXOTIC METHOD
 Future<void> deleteSubCollection({
   @required BuildContext context,
   @required String collName,
@@ -812,7 +812,7 @@ Future<void> deleteSubCollection({
 
 }
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT
+/// TESTED : WORKS PERFECT : TASK : SHOULD BE EXOTIC METHOD
 Future<void> _deleteSubCollectionDocsBySubDocsIDs({
   @required BuildContext context,
   @required collName,
@@ -839,7 +839,7 @@ Future<void> _deleteSubCollectionDocsBySubDocsIDs({
 
 }
 // ---------------------------------------------------
-/// ALERT : deleting all sub docs from client device is super dangerous
+/// ALERT : deleting all sub docs from client device is super dangerous  : TASK : SHOULD BE EXOTIC METHOD
 Future<void> deleteAllSubDocs({
   @required BuildContext context,
   @required String collName,

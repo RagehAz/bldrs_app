@@ -170,14 +170,14 @@ class SpecPicker {
 
 // -------------------------------------
   static bool specsPickersContainSpecPicker({
-    @required SpecPicker specList,
+    @required SpecPicker specPicker,
     @required List<SpecPicker> specsLists,
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(specsLists) == true && specList != null) {
+    if (Mapper.canLoopList(specsLists) == true && specPicker != null) {
       for (int i = 0; i < specsLists.length; i++) {
-        if (specsLists[i].chainID == specList.chainID) {
+        if (specsLists[i].chainID == specPicker.chainID) {
           _contains = true;
           break;
         }

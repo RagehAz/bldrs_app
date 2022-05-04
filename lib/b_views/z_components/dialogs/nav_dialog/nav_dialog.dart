@@ -18,13 +18,13 @@ class NavDialog extends StatelessWidget {
   final String secondLine;
   final Color color;
   /// --------------------------------------------------------------------------
-  static Future<void> showNavDialog({
+  static void showNavDialog({
     @required BuildContext context,
     @required String firstLine,
     String secondLine,
     Color color = Colorz.black255,
     double seconds,
-  }) async {
+  }) {
 
     final Color _color = color ?? Colorz.darkRed255;
 
