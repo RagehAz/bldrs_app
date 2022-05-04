@@ -21,12 +21,14 @@ class SelectCityScreen extends StatefulWidget {
     this.country,
     this.selectCountryAndCityOnly = false,
     this.settingCurrentZone = true,
+    this.onCityTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final CountryModel country;
   final bool selectCountryAndCityOnly;
   final bool settingCurrentZone;
+  final ValueChanged<String> onCityTap;
   /// --------------------------------------------------------------------------
   @override
   State<SelectCityScreen> createState() => _SelectCityScreenState();
@@ -66,13 +68,21 @@ class _SelectCityScreenState extends State<SelectCityScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onCityTap(String cityID) async {
 
-    await controlCityOnTap(
-      context: context,
-      selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
-      country: widget.country,
-      cityID: cityID,
-      settingCurrentZone: widget.settingCurrentZone,
-    );
+    if (widget.onCityTap == null){
+
+      await controlCityOnTap(
+        context: context,
+        selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
+        country: widget.country,
+        cityID: cityID,
+        settingCurrentZone: widget.settingCurrentZone,
+      );
+
+    }
+
+    else {
+      widget.onCityTap(cityID);
+    }
 
   }
 // -----------------------------------------------------------------------------
