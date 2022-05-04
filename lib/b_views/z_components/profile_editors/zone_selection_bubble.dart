@@ -6,10 +6,15 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
+import 'package:bldrs/b_views/x_screens/d_zoning/d_2_select_city_screen.dart';
+import 'package:bldrs/b_views/x_screens/d_zoning/d_3_select_district_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog_buttons.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -27,12 +32,14 @@ class ZoneSelectionBubble extends StatefulWidget {
     @required this.currentZone,
     @required this.onZoneChanged,
     this.title = 'Preferred Location',
+    this.notes,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ZoneModel currentZone;
   final ValueChanged<ZoneModel> onZoneChanged;
   final String title;
+  final List<String> notes;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -123,18 +130,22 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
-
-    await BottomDialog.showBottomDialog(
-      context: context,
-      draggable: true,
-      title: 'Select a Country',
-      child: BottomDialogButtons(
-        mapsModels: _countriesMapModels,
-        alignment: Alignment.center,
-        buttonTap: _onSelectCountry,
-      ),
+    await Nav.goToNewScreen(context, SelectCountryScreen(
+      onCountryTap: _onSelectCountry,
+    )
     );
+
+    // final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
+    // await BottomDialog.showBottomDialog(
+    //   context: context,
+    //   draggable: true,
+    //   title: 'Select a Country',
+    //   child: BottomDialogButtons(
+    //     mapsModels: _countriesMapModels,
+    //     alignment: Alignment.center,
+    //     buttonTap: _onSelectCountry,
+    //   ),
+    // );
 
   }
 // ----------------------------------------
@@ -171,22 +182,28 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(
-      context: context,
-      cities: _selectedCountryCities.value,
+    await Nav.goToNewScreen(context, SelectCityScreen(
+      country: _selectedCountry.value,
+      settingCurrentZone: false,
+      onCityTap: _onSelectCity,
+    )
     );
 
-    await BottomDialog.showBottomDialog(
-      context: context,
-      draggable: true,
-      title: 'Select a City',
-      child: BottomDialogButtons(
-        mapsModels: _citiesMapModels,
-        alignment: Alignment.center,
-        bottomDialogType: BottomDialogType.cities,
-        buttonTap: _onSelectCity,
-      ),
-    );
+    // final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(
+    //   context: context,
+    //   cities: _selectedCountryCities.value,
+    // );
+    // await BottomDialog.showBottomDialog(
+    //   context: context,
+    //   draggable: true,
+    //   title: 'Select a City',
+    //   child: BottomDialogButtons(
+    //     mapsModels: _citiesMapModels,
+    //     alignment: Alignment.center,
+    //     bottomDialogType: BottomDialogType.cities,
+    //     buttonTap: _onSelectCity,
+    //   ),
+    // );
 
   }
 // ----------------------------------------
@@ -219,22 +236,29 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    final List<MapModel> _districtsMapModels = DistrictModel.getDistrictsNamesMapModels(
-      context: context,
-      districts: _selectedCity.value.districts,
+    await Nav.goToNewScreen(context, SelectDistrictScreen(
+      country: _selectedCountry.value,
+      city: _selectedCity.value,
+      settingCurrentZone: false,
+      onDistrictTap: _onSelectDistrict,
+    )
     );
 
-    await BottomDialog.showBottomDialog(
-      context: context,
-      draggable: true,
-      title: 'Select a district',
-      child: BottomDialogButtons(
-        mapsModels: _districtsMapModels,
-        alignment: Alignment.center,
-        bottomDialogType: BottomDialogType.districts,
-        buttonTap: _onSelectDistrict,
-      ),
-    );
+    // final List<MapModel> _districtsMapModels = DistrictModel.getDistrictsNamesMapModels(
+    //   context: context,
+    //   districts: _selectedCity.value.districts,
+    // );
+    // await BottomDialog.showBottomDialog(
+    //   context: context,
+    //   draggable: true,
+    //   title: 'Select a district',
+    //   child: BottomDialogButtons(
+    //     mapsModels: _districtsMapModels,
+    //     alignment: Alignment.center,
+    //     bottomDialogType: BottomDialogType.districts,
+    //     buttonTap: _onSelectDistrict,
+    //   ),
+    // );
 
   }
 // ----------------------------------------
@@ -262,6 +286,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         title: widget.title,
         redDot: true,
         columnChildren: <Widget>[
+
+          if (Mapper.canLoopList(widget.notes))
+            BubbleNotes(
+              notes: widget.notes,
+            ),
 
           /// COUNTRY BUTTON
           ValueListenableBuilder(
