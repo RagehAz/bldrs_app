@@ -457,15 +457,15 @@ void main() {
 // -----------------------------------------------------------------------------
   test('Specs are the same', () async {
     const List<SpecModel> specsA = <SpecModel>[
-      SpecModel(specsListID: 'x', value: 'x'),
-      SpecModel(specsListID: 'y', value: 'y'),
-      SpecModel(specsListID: 'z', value: 'z'),
+      SpecModel(pickerChainID: 'x', value: 'x'),
+      SpecModel(pickerChainID: 'y', value: 'y'),
+      SpecModel(pickerChainID: 'z', value: 'z'),
     ];
 
     const List<SpecModel> specsB = <SpecModel>[
-      SpecModel(specsListID: 'x', value: 'x'),
-      SpecModel(specsListID: 'y', value: 'y'),
-      SpecModel(specsListID: 'z', value: 'z'),
+      SpecModel(pickerChainID: 'x', value: 'x'),
+      SpecModel(pickerChainID: 'y', value: 'y'),
+      SpecModel(pickerChainID: 'z', value: 'z'),
     ];
 
     final bool _areTheSame = SpecModel.specsListsAreTheSame(specsA, specsB);
@@ -475,12 +475,12 @@ void main() {
 // -----------------------------------------------------------------------------
   test('Specs are the same', () async {
     const List<SpecModel> specsA = <SpecModel>[
-      SpecModel(specsListID: 'x', value: 'x'),
-      SpecModel(specsListID: 'y', value: 'y'),
-      SpecModel(specsListID: 'z', value: 'z'),
+      SpecModel(pickerChainID: 'x', value: 'x'),
+      SpecModel(pickerChainID: 'y', value: 'y'),
+      SpecModel(pickerChainID: 'z', value: 'z'),
     ];
 
-    const SpecModel _aSpec = SpecModel(specsListID: 'z', value: 'v');
+    const SpecModel _aSpec = SpecModel(pickerChainID: 'z', value: 'v');
 
     final bool _contains =
         SpecModel.specsContainThisSpec(specs: specsA, spec: _aSpec);
@@ -490,9 +490,9 @@ void main() {
 // -----------------------------------------------------------------------------
   test('Object is list of specs', () async {
     const List<SpecModel> specsA = <SpecModel>[
-      SpecModel(specsListID: 'x', value: 'x'),
-      SpecModel(specsListID: 'y', value: 'y'),
-      SpecModel(specsListID: 'z', value: 'z'),
+      SpecModel(pickerChainID: 'x', value: 'x'),
+      SpecModel(pickerChainID: 'y', value: 'y'),
+      SpecModel(pickerChainID: 'z', value: 'z'),
     ];
 
     final List<String> things = <String>['d', 'r'];

@@ -11,20 +11,20 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class SpecListTile extends StatelessWidget {
+class SpecPickerTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SpecListTile({
+  const SpecPickerTile({
     @required this.onTap,
-    @required this.specList,
-    @required this.sourceSpecsLists,
+    @required this.specPicker,
+    @required this.sourceSpecsPickers,
     @required this.selectedSpecs,
     @required this.onDeleteSpec,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onTap;
-  final SpecPicker specList;
-  final List<SpecPicker> sourceSpecsLists;
+  final SpecPicker specPicker;
+  final List<SpecPicker> sourceSpecsPickers;
   final List<SpecModel> selectedSpecs;
   final Function onDeleteSpec;
   /// --------------------------------------------------------------------------
@@ -90,11 +90,11 @@ class SpecListTile extends StatelessWidget {
                             SizedBox(
                               width: _specNameBoxWidth,
                               child: SuperVerse(
-                                verse: superPhrase(context, specList.chainID),
+                                verse: superPhrase(context, specPicker.chainID),
                                 centered: false,
                                 margin: 10,
                                 maxLines: 2,
-                                redDot: specList.isRequired,
+                                redDot: specPicker.isRequired,
                               ),
                             ),
 
@@ -143,20 +143,18 @@ class SpecListTile extends StatelessWidget {
 
                             ...List<Widget>.generate(selectedSpecs.length,
                                 (int index) {
+
                               final SpecModel _spec = selectedSpecs[index];
 
-                              final String _specName =
-                                  SpecModel.getSpecNameFromSpecsLists(
+                              final String _specName = SpecModel.traslateSpec(
                                 context: context,
                                 spec: _spec,
-                                specsLists: sourceSpecsLists,
                               );
 
                               return DreamBox(
                                 height: 30,
                                 icon: Iconz.xLarge,
-                                margins:
-                                    const EdgeInsets.symmetric(vertical: 2.5),
+                                margins: const EdgeInsets.symmetric(vertical: 2.5),
                                 verse: _specName,
                                 verseWeight: VerseWeight.thin,
                                 verseItalic: true,

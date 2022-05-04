@@ -51,6 +51,14 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     ChainPathConverter.blogPaths(_allChainsPhrases);
 
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _isSearching.dispose();
+    _foundChains.dispose();
+    _searchValue.dispose();
+  }
 // -----------------------------------------------------------------------------
   Future<void> _onUploadChains() async {
 
@@ -76,11 +84,6 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     // );
 
 
-    await deleteAllCollectionDocs(
-        context: context,
-        collName: 'countries',
-    );
-
     // return 'b';
   }
 // -----------------------------------------------------------------------------
@@ -88,13 +91,13 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     @required String phraseIDPath, // will look like this 'idA/idB/idC'
 }) async {
 
-    blog(phraseIDPath);
+    blog('phrase id path is : $phraseIDPath');
 
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
-  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null);
-  final ValueNotifier<String> _searchValue = ValueNotifier(null);
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
+  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null); /// tamam disposed
+  final ValueNotifier<String> _searchValue = ValueNotifier(null); /// tamam disposed
 // ------------------------------------------------
   Future<void> _onSearchSubmit(String text) async {
 
@@ -166,26 +169,6 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
           secondLine: 'Chains',
           iconSizeFactor: 0.6,
           onTap: _onUploadChains,
-        ),
-
-        /// SWITCH LANGUAGE BUTTON
-        DreamBox(
-          height: 40,
-          icon: Iconz.language,
-          iconSizeFactor: 0.6,
-          margins: const EdgeInsets.symmetric(horizontal: 5),
-          onTap: () async {
-
-            final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-            final String _currentLangCode = Wordz.languageCode(context);
-            await _phraseProvider.changeAppLang(
-                context: context,
-                langCode: _currentLangCode == 'en' ? 'ar' : 'en',
-            );
-
-            setState(() {});
-
-          },
         ),
 
       ],
