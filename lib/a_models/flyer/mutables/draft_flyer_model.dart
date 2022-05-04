@@ -122,7 +122,7 @@ class DraftFlyerModel{
           bzModel: bzModel,
           flyerModel: null,
       ),
-      zone: ZoneModel(),
+      zone: bzModel.zone,
       authorID: authorID,
       bzID: bzModel.id,
       position: null,

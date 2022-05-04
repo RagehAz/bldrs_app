@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
@@ -280,15 +281,26 @@ class FlyerMakerScreenView extends StatelessWidget {
             const BubblesSeparator(),
 
             /// ZONE SELECTOR
-            const ZoneSelectionBubble(
-              title: 'Flyer Target city',
-              // description: 'Select The city you would like this '
-              //     'flyer to target, each flyer can target only'
-              //     ' one city, and selecting district  increases '
-              //     'the probability of this flyer to gain more '
-              //     'views in that district',
-              onZoneChanged: null,
-              currentZone: null,
+            ValueListenableBuilder(
+                valueListenable: draft,
+                builder: (_, DraftFlyerModel _draft, Widget child){
+
+                  return ZoneSelectionBubble(
+                    title: 'Flyer Target city',
+                    notes: <String>[
+                      'Select The city you would like this flyer to target',
+                      'each flyer can target only one city',
+                      'Selecting district increases the probability of this flyer to gain more views in that district',
+                    ],
+                    currentZone: _draft.zone,
+                    onZoneChanged: (ZoneModel zone) => onZoneChanged(
+                        context: context,
+                        draft: draft,
+                        zone: zone,
+                    ),
+                  );
+
+                }
             ),
 
             const BubblesSeparator(),

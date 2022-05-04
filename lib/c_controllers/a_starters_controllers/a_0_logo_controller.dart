@@ -31,13 +31,11 @@ Future<void> initializeLogoScreen({
 
     if (_canContinue == false) {
 
+    }
 
-    } else {
-
+    else {
       Keyboarders.minimizeKeyboardOnTapOutSide(context);
-
       await goToRoute(context, Routez.home);
-
     }
 
   // }

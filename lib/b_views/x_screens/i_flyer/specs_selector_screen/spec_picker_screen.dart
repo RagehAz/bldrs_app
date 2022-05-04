@@ -158,15 +158,12 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
 // -----------------------------------------------------------------------------
   void _onPriceChanged(String price) {
     final double _priceDouble = Numeric.stringToDouble(price);
-    final SpecModel _priceSpec =
-        SpecModel(specsListID: widget.specPicker.chainID, value: _priceDouble);
-
+    final SpecModel _priceSpec = SpecModel(specsListID: widget.specPicker.chainID, value: _priceDouble);
     final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
       parentSpecs: _selectedSpecs.value,
       inputSpecs: <SpecModel>[_priceSpec],
       canPickMany: widget.specPicker.canPickMany,
     );
-
     _selectedSpecs.value = _updatedList;
   }
 // -----------------------------------------------------------------------------
@@ -297,14 +294,13 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                   final List<SpecModel> _priceSpec = SpecModel.getSpecsByListID(
                       specs: value, specsListID: widget.specPicker.chainID);
 
-                  final double _initialPriceValue =
-                      Mapper.canLoopList(_priceSpec)
-                          ? _priceSpec[0].value
-                          : null;
+                  final double _initialPriceValue = Mapper.canLoopList(_priceSpec) ?
+                  _priceSpec[0].value
+                      :
+                  null;
 
                   return PriceDataCreator(
-                    onCurrencyChanged: (CurrencyModel currency) =>
-                        _onCurrencyChanged(currency),
+                    onCurrencyChanged: (CurrencyModel currency) => _onCurrencyChanged(currency),
                     onValueChanged: (String value) => _onPriceChanged(value),
                     initialPriceValue: _initialPriceValue,
                     onSubmitted: _onBack,
