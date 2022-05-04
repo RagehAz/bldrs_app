@@ -1,134 +1,133 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
-enum SpecType {
-  // propertyForm, // from a list
-  // propertyLicense, // from a list
-  // ------------------------------------------
-  // PROPERTY PRICING
-  // propertyContractType, // from a List (for sale or rent)
-  // propertyPaymentMethod, // from a list
-  // propertySalePrice, // double
-  // propertyRentPrice, // double
-  // propertyRentType, // from a list ( per day per week per month)
-  // propertyPriceCurrency, // from a list
-  // propertyNumberOfInstallments, // int
-  // propertyInstallmentsDuration, // int
-  // propertyInstallmentsDurationUnit, // form a list
-
-  // ------------------------------------------
-  // PROPERTY AREAS
-  // propertyArea, // double
-  // propertyAreaUnit, // from a List
-  // lotArea,  // from double slider
-  // lotAreaUnit, // from a List
-  // ------------------------------------------
-  // PROPERTY FEATURES
-  // propertyView, // from a List
-  // numberOfFloor, // int
-  // indoorFeatures, // from a List
-  // amenities, // from a List
-  // additionalServices, // from a list
-  // inACompound, // bool
-  // finishingLevel, // from a List
-  // buildingAgeInYears, // int
-  // ------------------------------------------
-  // PROPERTY SPACES
-  // propertySpaces, // from a list
-  // propertyNumberOfParkingLots, // int
-  // propertyNumberOfBedrooms, // int
-  // propertyNumberOfBathrooms, // int
-  // -------------------------------------------------------------------------
-
-  // DESIGNS
-
-  // ------------------------------------------
-  // STYLE
-  // designArchitecturalStyle, // from a list
-  // ------------------------------------------
-  // PROPERTY TYPE
-  // propertyForm, // from a list
-  // propertyLicense, // from a list
-  // ------------------------------------------
-  /// SPACES
-  // propertySpaces, // from a list
-  // -------------------------------------------------------------------------
-
-  /// CRAFTS
-
-  // ------------------------------------------
-  /// PRICING
-  activityPrice, // double
-  activityPriceCurrency, // from a list
-  activityMeasurementUnit, // form a list (per piece, per unit length, per unit area, per day, per month, ...etc)
-  // -------------------------------------------------------------------------
-
-  /// PRODUCTS
-
-  // ------------------------------------------
-  /// PRICING
-  productContractType, // from a list (for sale or rent)
-  productSalePrice, // double
-  productRentPrice, // double
-  productPriceCurrency, // from a list
-  productOldPrice, // double
-  productPaymentMethod, // from a list
-  productNumberOfInstallments, // int
-  productInstallmentCost, // double
-  productInstallmentCostCurrency, // from a list
-  productInstallmentsDuration, // double
-  productInstallmentsDurationUnit, // from a list
-  // ------------------------------------------
-  /// MEASUREMENTS
-  width, // double
-  length, // double
-  height, // double
-  thickness, // double
-  diameter, // double
-  radius, // double
-  dimensionsUnit, // from a list
-  volume, // double
-  volumeUnit, // from a list
-  footPrint, // double
-  footPrintUnit, // from a list
-  weight, // double
-  weightUnit, // from a list
-  count, // int
-  size, // from list (3x, 2x, xs, s, m, l, xl, 2x, 3x)
-  // ------------------------------------------
-  /// ELECTRICITY
-  wattage, // double
-  voltage, // double
-  ampere, // double
-
-  // ------------------------------------------
-  /// LOGISTICS
-  inStock, // bool
-  deliverable, // bool
-  deliveryCost, // double
-  deliveryCostUnit, // from list
-  deliveryMinDuration, // double
-  deliveryMaxDuration, // double
-  deliveryDurationUnit, // from list
-  // ------------------------------------------
-  /// materials
-
-  productColor, // from a list
-  // -------------------------------------------------------------------------
-  /// info
-  madeIn, // from a list "counties IDs"
-  insuranceDuration, // int
-  insuranceDurationUnit, // from list
-  // -------------------------------------------------------------------------
-
-  /// EQUIPMENT
-
-  // ------------------------------------------
-
-}
+// enum SpecType {
+//   // propertyForm, // from a list
+//   // propertyLicense, // from a list
+//   // ------------------------------------------
+//   // PROPERTY PRICING
+//   // propertyContractType, // from a List (for sale or rent)
+//   // propertyPaymentMethod, // from a list
+//   // propertySalePrice, // double
+//   // propertyRentPrice, // double
+//   // propertyRentType, // from a list ( per day per week per month)
+//   // propertyPriceCurrency, // from a list
+//   // propertyNumberOfInstallments, // int
+//   // propertyInstallmentsDuration, // int
+//   // propertyInstallmentsDurationUnit, // form a list
+//
+//   // ------------------------------------------
+//   // PROPERTY AREAS
+//   // propertyArea, // double
+//   // propertyAreaUnit, // from a List
+//   // lotArea,  // from double slider
+//   // lotAreaUnit, // from a List
+//   // ------------------------------------------
+//   // PROPERTY FEATURES
+//   // propertyView, // from a List
+//   // numberOfFloor, // int
+//   // indoorFeatures, // from a List
+//   // amenities, // from a List
+//   // additionalServices, // from a list
+//   // inACompound, // bool
+//   // finishingLevel, // from a List
+//   // buildingAgeInYears, // int
+//   // ------------------------------------------
+//   // PROPERTY SPACES
+//   // propertySpaces, // from a list
+//   // propertyNumberOfParkingLots, // int
+//   // propertyNumberOfBedrooms, // int
+//   // propertyNumberOfBathrooms, // int
+//   // -------------------------------------------------------------------------
+//
+//   // DESIGNS
+//
+//   // ------------------------------------------
+//   // STYLE
+//   // designArchitecturalStyle, // from a list
+//   // ------------------------------------------
+//   // PROPERTY TYPE
+//   // propertyForm, // from a list
+//   // propertyLicense, // from a list
+//   // ------------------------------------------
+//   /// SPACES
+//   // propertySpaces, // from a list
+//   // -------------------------------------------------------------------------
+//
+//   /// CRAFTS
+//
+//   // ------------------------------------------
+//   /// PRICING
+//   activityPrice, // double
+//   activityPriceCurrency, // from a list
+//   activityMeasurementUnit, // form a list (per piece, per unit length, per unit area, per day, per month, ...etc)
+//   // -------------------------------------------------------------------------
+//
+//   /// PRODUCTS
+//
+//   // ------------------------------------------
+//   /// PRICING
+//   productContractType, // from a list (for sale or rent)
+//   productSalePrice, // double
+//   productRentPrice, // double
+//   productPriceCurrency, // from a list
+//   productOldPrice, // double
+//   productPaymentMethod, // from a list
+//   productNumberOfInstallments, // int
+//   productInstallmentCost, // double
+//   productInstallmentCostCurrency, // from a list
+//   productInstallmentsDuration, // double
+//   productInstallmentsDurationUnit, // from a list
+//   // ------------------------------------------
+//   /// MEASUREMENTS
+//   width, // double
+//   length, // double
+//   height, // double
+//   thickness, // double
+//   diameter, // double
+//   radius, // double
+//   dimensionsUnit, // from a list
+//   volume, // double
+//   volumeUnit, // from a list
+//   footPrint, // double
+//   footPrintUnit, // from a list
+//   weight, // double
+//   weightUnit, // from a list
+//   count, // int
+//   size, // from list (3x, 2x, xs, s, m, l, xl, 2x, 3x)
+//   // ------------------------------------------
+//   /// ELECTRICITY
+//   wattage, // double
+//   voltage, // double
+//   ampere, // double
+//
+//   // ------------------------------------------
+//   /// LOGISTICS
+//   inStock, // bool
+//   deliverable, // bool
+//   deliveryCost, // double
+//   deliveryCostUnit, // from list
+//   deliveryMinDuration, // double
+//   deliveryMaxDuration, // double
+//   deliveryDurationUnit, // from list
+//   // ------------------------------------------
+//   /// materials
+//
+//   productColor, // from a list
+//   // -------------------------------------------------------------------------
+//   /// info
+//   madeIn, // from a list "counties IDs"
+//   insuranceDuration, // int
+//   insuranceDurationUnit, // from list
+//   // -------------------------------------------------------------------------
+//
+//   /// EQUIPMENT
+//
+//   // ------------------------------------------
+//
+// }
 
 class SpecModel {
 // -----------------------------------------------------------------------------
@@ -137,12 +136,12 @@ class SpecModel {
 
 // ------------------------------------------
   const SpecModel({
-    @required this.specsListID,
+    @required this.pickerChainID,
     @required this.value,
   });
 // ------------------------------------------
-  /// specID is the specList's id value, and the key of firebase map
-  final String specsListID;
+  /// specID is the specPicker's chain id , and the key of firebase map
+  final String pickerChainID;
   /// string, int, double, List<String>, List<double>, list<dynamic>
   final dynamic value;
 // -----------------------------------------------------------------------------
@@ -171,7 +170,7 @@ class SpecModel {
     /// 'installmentsDurationUnit' : 'months'
     /// },
     return <String, dynamic>{
-      specsListID: value,
+      pickerChainID: value,
     };
   }
 // ------------------------------------------
@@ -182,7 +181,7 @@ class SpecModel {
       for (final SpecModel spec in specs) {
         _map = Mapper.insertPairInMap(
           map: _map,
-          key: spec.specsListID,
+          key: spec.pickerChainID,
           value: spec.value,
         );
       }
@@ -199,7 +198,7 @@ class SpecModel {
     if (Mapper.canLoopList(_keys)) {
       for (final String key in _keys) {
         final SpecModel _spec = SpecModel(
-          specsListID: key,
+          pickerChainID: key,
           value: map[key],
         );
 
@@ -216,7 +215,7 @@ class SpecModel {
 // ------------------------------------------
   SpecModel clone() {
     return SpecModel(
-      specsListID: specsListID,
+      pickerChainID: pickerChainID,
       value: value,
     );
   }
@@ -241,7 +240,7 @@ class SpecModel {
     bool _areTheSame = false;
 
     if (specA != null && specB != null) {
-      if (specA.specsListID == specB.specsListID) {
+      if (specA.pickerChainID == specB.pickerChainID) {
         if (specA.value == specB.value) {
           _areTheSame = true;
         }
@@ -304,15 +303,15 @@ class SpecModel {
     return _contains;
   }
 // ------------------------------------------
-  static bool specsContainOfSameListID({
+  static bool specsContainOfSamePickerChainID({
     @required List<SpecModel> specs,
-    @required String specsListID,
+    @required String pickerChainID,
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(specs) && specsListID != null) {
+    if (Mapper.canLoopList(specs) && pickerChainID != null) {
       final SpecModel _result = specs.firstWhere(
-              (SpecModel sp) => sp.specsListID == specsListID,
+              (SpecModel sp) => sp.pickerChainID == pickerChainID,
           orElse: () => null);
 
       if (_result == null) {
@@ -327,7 +326,7 @@ class SpecModel {
 // ------------------------------------------
   static bool specsContainsNewSale(List<SpecModel> specs) {
     const SpecModel _newSaleSpec = SpecModel(
-      specsListID: 'propertyContractType',
+      pickerChainID: 'propertyContractType',
       value: null,//RawSpecs.newSaleID
     );
 
@@ -345,14 +344,14 @@ class SpecModel {
 // ------------------------------------------
   static List<SpecModel> dummySpecs() {
     return <SpecModel>[
-      const SpecModel(specsListID: 'phid_s_propertyLicense', value: 'phid_k_ppt_lic_residential'),
-      const SpecModel(specsListID: 'phid_s_propertyView', value: 'phid_s_view_lake'),
-      const SpecModel(specsListID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_builtinWardrobe'),
-      const SpecModel(specsListID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_energyEfficient'),
-      const SpecModel(specsListID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_elevator'),
-      const SpecModel(specsListID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_intercom'),
+      const SpecModel(pickerChainID: 'phid_s_propertyLicense', value: 'phid_k_ppt_lic_residential'),
+      const SpecModel(pickerChainID: 'phid_s_propertyView', value: 'phid_s_view_lake'),
+      const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_builtinWardrobe'),
+      const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_energyEfficient'),
+      const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_elevator'),
+      const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_intercom'),
 
-      const SpecModel(specsListID: 'propertyForm', value: 'pf_halfFloor'),
+      const SpecModel(pickerChainID: 'propertyForm', value: 'pf_halfFloor'),
     ];
   }
 // -----------------------------------------------------------------------------
@@ -361,14 +360,14 @@ class SpecModel {
 
 // ------------------------------------------
   void blogSpec() {
-    blog('BLOGGING SPEC : specsListID : ( $specsListID ) : value : ( ${value.toString()} )');
+    blog('BLOGGING SPEC : specsListID : ( $pickerChainID ) : value : ( ${value.toString()} )');
   }
 // -----------------------------------------------------------------------------
   static void blogSpecs(List<SpecModel> specs) {
     blog(
         'SPECS-PRINT -------------------------------------------------- START');
     for (final SpecModel spec in specs) {
-      blog('${spec.specsListID} : ${spec.value}');
+      blog('${spec.pickerChainID} : ${spec.value}');
     }
     blog('SPECS-PRINT -------------------------------------------------- END');
   }
@@ -377,16 +376,16 @@ class SpecModel {
   /// GETTERS
 
 // ------------------------------------------
-  static List<SpecModel> getSpecsByListID({
+  static List<SpecModel> getSpecsByPickerChainID({
     @required List<SpecModel> specs,
-    @required String specsListID,
+    @required String pickerChainID,
   }) {
     List<SpecModel> _result = <SpecModel>[];
 
-    if (Mapper.canLoopList(specs) == true && specsListID != null) {
+    if (Mapper.canLoopList(specs) == true && pickerChainID != null) {
       _result = specs
           .where(
-            (SpecModel spec) => spec.specsListID == specsListID,
+            (SpecModel spec) => spec.pickerChainID == pickerChainID,
           )
           .toList();
     }
@@ -394,37 +393,15 @@ class SpecModel {
     return _result;
   }
 // ------------------------------------------
-  static String getSpecNameFromSpecsLists({
+  static String traslateSpec({
     @required BuildContext context,
     @required SpecModel spec,
-    @required List<SpecPicker> specsLists,
   }) {
-    // final String _specsListID = spec.specsListID;
-    // String _name = spec.value.toString();
-    //
-    // final SpecList _specList = specsLists.singleWhere(
-    //     (SpecList list) => list.id == _specsListID,
-    //     orElse: () => null);
-    //
-    // if (_specList != null &&
-    //     spec.value.runtimeType == String &&
-    //     _specList.specChain.sons.runtimeType != DataCreator) {
-    //   final String _kwID = spec.value;
-    //
-    //   final List<KW> _kws = KW.getKeywordsFromChain(
-    //       _specList.specChain); //_specList.specChain.sons;
-    //
-    //   if (Mapper.canLoopList(_kws)) {
-    //     final KW _kw =
-    //         _kws.singleWhere((KW kw) => kw.id == _kwID, orElse: () => null);
-    //
-    //     if (_kw != null) {
-    //       _name = Phrase.getPhraseByCurrentLangFromPhrases(context: context, phrases: _kw.names)?.value;
-    //     }
-    //   }
-    // }
 
-    final String _name = superPhrase(context, spec.value);
+    final String _name = spec.value is String ?
+    superPhrase(context, spec.value)
+        :
+    spec.value.toString();
 
     return _name;
   }
@@ -476,13 +453,15 @@ class SpecModel {
 
         /// B - CAN NOT PICK MANY " of this list ID"
         else {
-          final bool _specsContainOfSameListID = specsContainOfSameListID(
-              specs: _specs, specsListID: inputSpec.specsListID);
+          final bool _specsContainOfSamePickerChainID = specsContainOfSamePickerChainID(
+              specs: _specs,
+              pickerChainID: inputSpec.pickerChainID,
+          );
 
           /// B1 - LIST ID IS ALREADY THERE in [_specs] => REPLACE
-          if (_specsContainOfSameListID == true) {
+          if (_specsContainOfSamePickerChainID == true) {
             final int _specOfSameListIDIndex = _specs.indexWhere(
-                (SpecModel sp) => sp.specsListID == inputSpec.specsListID);
+                (SpecModel sp) => sp.pickerChainID == inputSpec.pickerChainID);
             _specs[_specOfSameListIDIndex] = inputSpec;
           }
 
@@ -516,8 +495,8 @@ class SpecModel {
             spec.value != null &&
             spec.value != 0 &&
             spec.value != '' &&
-            spec.specsListID != null &&
-            spec.specsListID != '') {
+            spec.pickerChainID != null &&
+            spec.pickerChainID != '') {
           _output.add(spec);
         }
       }

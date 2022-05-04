@@ -21,62 +21,62 @@ class InfoPageSpecs extends StatelessWidget {
   final List<SpecModel> specs;
   final FlyerType flyerType;
   /// --------------------------------------------------------------------------
-  List<SpecPicker> _getFlyerSpecsLists({
+  List<SpecPicker> _getFlyerSpecsPickers({
     @required List<SpecModel> flyerSpecs,
     @required FlyerType flyerType,
   }){
-    final List<SpecPicker> _specsLists = <SpecPicker>[];
+    final List<SpecPicker> _pickers = <SpecPicker>[];
 
-    final List<SpecPicker> _flyerTypeSpecsLists = SpecPicker.getSpecsPickersByFlyerType(flyerType);
+    final List<SpecPicker> _flyerTypePickers = SpecPicker.getSpecsPickersByFlyerType(flyerType);
 
     if (Mapper.canLoopList(flyerSpecs)){
 
       for (final SpecModel _spec in flyerSpecs){
 
-        final SpecPicker _specList = SpecPicker.getSpecPickerFromSpecsPickersByChainID(
-          specsPickers: _flyerTypeSpecsLists,
-          pickerChainID: _spec.specsListID,
+        final SpecPicker _picker = SpecPicker.getSpecPickerFromSpecsPickersByChainID(
+          specsPickers: _flyerTypePickers,
+          pickerChainID: _spec.pickerChainID,
         );
 
         final bool _alreadyAdded = SpecPicker.specsPickersContainSpecPicker(
-          specsLists: _specsLists,
-          specList: _specList,
+          specsLists: _pickers,
+          specPicker: _picker,
         );
 
         if (_alreadyAdded == false){
-          _specsLists.add(_specList);
+          _pickers.add(_picker);
         }
       }
 
     }
 
-    return _specsLists;
+    return _pickers;
   }
 // -----------------------------------------------------------------------------
-  String _generateSpecsString({
+  String _generateTranslateSpecsString({
     @required BuildContext context,
     @required List<SpecModel> flyerSpecs,
-    @required SpecPicker specList,
+    @required SpecPicker specPicker,
   }){
 
     String _output = '';
 
-    final List<SpecModel> _flyerSpecsFromThisSpecList = <SpecModel>[];
+    final List<SpecModel> _flyerSpecsFromThisSpecPicker = <SpecModel>[];
 
-    /// GET FLYER SPECS MATHCHING THIS SPECLIST
-    if (Mapper.canLoopList(flyerSpecs) == true && specList != null){
+    /// GET FLYER SPECS MATCHING THIS SPECS PICKER
+    if (Mapper.canLoopList(flyerSpecs) == true && specPicker != null){
 
       for (final SpecModel spec in flyerSpecs){
 
-        if (spec.specsListID == specList?.chainID){
+        if (spec.pickerChainID == specPicker?.chainID){
 
           final bool _alreadyAdded = SpecModel.specsContainThisSpecValue(
-            specs: _flyerSpecsFromThisSpecList,
+            specs: _flyerSpecsFromThisSpecPicker,
             value: spec.value,
           );
 
           if (_alreadyAdded == false){
-            _flyerSpecsFromThisSpecList.add(spec);
+            _flyerSpecsFromThisSpecPicker.add(spec);
           }
 
         }
@@ -86,14 +86,13 @@ class InfoPageSpecs extends StatelessWidget {
     }
 
     /// TRANSLATE THOSE FOUND SPECS
-    if (Mapper.canLoopList(_flyerSpecsFromThisSpecList)){
+    if (Mapper.canLoopList(_flyerSpecsFromThisSpecPicker)){
 
-      for (final SpecModel _spec in _flyerSpecsFromThisSpecList){
+      for (final SpecModel _spec in _flyerSpecsFromThisSpecPicker){
 
-        final String _specName = SpecModel.getSpecNameFromSpecsLists(
+        final String _specName = SpecModel.traslateSpec(
           context: context,
           spec: _spec,
-          specsLists: [specList],
         );
 
         if (_output == ''){
@@ -113,12 +112,10 @@ class InfoPageSpecs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<SpecPicker> _flyerSpecsLists = _getFlyerSpecsLists(
+    final List<SpecPicker> _flyerSpecsPickers = _getFlyerSpecsPickers(
       flyerType: flyerType,
       flyerSpecs: specs,
     );
-
-    // SpecList.blogSpecsLists(_flyerSpecsLists);
 
     return SizedBox(
       key: const ValueKey<String>('InfoPageSpecs'),
@@ -126,22 +123,22 @@ class InfoPageSpecs extends StatelessWidget {
         child:
 
         ListView.builder(
-            itemCount: _flyerSpecsLists.length,
+            itemCount: _flyerSpecsPickers.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
             itemBuilder: (_, int index){
 
-              final SpecPicker _specList = _flyerSpecsLists[index];
+              final SpecPicker _specPicker = _flyerSpecsPickers[index];
 
-              final String _specListName = superPhrase(context, _specList?.chainID);
+              final String _pickerName = superPhrase(context, _specPicker?.chainID);
 
-              // blog('_specListName is : $_specListName');
+              // blog('_pickerName is : $_pickerName');
 
-              final String _specsInString = _generateSpecsString(
+              final String _specsInString = _generateTranslateSpecsString(
                 context: context,
                 flyerSpecs: specs,
-                specList: _specList,
+                specPicker: _specPicker,
               );
 
               return Container(
@@ -156,9 +153,9 @@ class InfoPageSpecs extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
 
-                    /// SPEC LIST NAME
+                    /// SPEC PICKER NAME
                     SuperVerse(
-                      verse: _specListName,
+                      verse: _pickerName,
                       weight: VerseWeight.thin,
                       color: Colorz.white200,
                       centered: false,

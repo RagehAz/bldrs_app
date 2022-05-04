@@ -55,24 +55,26 @@ bool keyboardIsOn(BuildContext context) {
 // on native Android?
 // -----------------------------------------------------------------------------
 Future<void> handlePaste(TextSelectionDelegate delegate) async {
-  final TextEditingValue _value =
-      delegate.textEditingValue; // Snapshot the input before using `await`.
+
+  final TextEditingValue _value = delegate.textEditingValue; // Snapshot the input before using `await`.
   final ClipboardData _data = await Clipboard.getData(Clipboard.kTextPlain);
 
   if (_data != null) {
+
     final TextEditingValue _textEditingValue = TextEditingValue(
-      text: _value.selection.textBefore(_value.text) +
-          _data.text +
-          _value.selection.textAfter(_value.text),
+      text: _value.selection.textBefore(_value.text)
+          + _data.text
+          + _value.selection.textAfter(_value.text),
       selection: TextSelection.collapsed(
-          offset: _value.selection.start + _data.text.length),
+          offset: _value.selection.start
+              + _data.text.length
+      ),
     );
 
-    const SelectionChangedCause _selectionChangedCause =
-        SelectionChangedCause.tap;
+    const SelectionChangedCause _selectionChangedCause = SelectionChangedCause.tap;
 
-    delegate.userUpdateTextEditingValue(
-        _textEditingValue, _selectionChangedCause);
+    delegate.userUpdateTextEditingValue(_textEditingValue, _selectionChangedCause);
+
   }
 
   delegate.bringIntoView(delegate.textEditingValue.selection.extent);
@@ -81,12 +83,18 @@ Future<void> handlePaste(TextSelectionDelegate delegate) async {
 }
 
 // -----------------------------------------------------------------------------
-Future<void> copyToClipboard({BuildContext context, String copy}) async {
-  await Clipboard.setData(ClipboardData(
-    text: copy,
-  ));
+Future<void> copyToClipboard({
+  @required BuildContext context,
+  @required String copy,
+}) async {
 
-  await NavDialog.showNavDialog(
+  await Clipboard.setData(
+      ClipboardData(
+        text: copy,
+      )
+  );
+
+  NavDialog.showNavDialog(
     context: context,
     firstLine: 'Copied to clipboard',
     secondLine: copy,
