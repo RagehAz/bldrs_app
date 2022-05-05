@@ -1,15 +1,22 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_controller.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/widgets/chains_data_tree_starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +34,7 @@ class ChainsManagerScreen extends StatefulWidget {
 class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 // -----------------------------------------------------------------------------
   List<Chain> _allChains;
-  List<String> _allChainsPhrases;
+  List<String> _allChainsPaths;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -42,16 +49,16 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
       _specsChain,
     ];
 
-    _allChainsPhrases = ChainPathConverter.generateChainsPaths(
+    _allChainsPaths = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: _allChains,
     );
 
-    blog('all chains paths : -');
-    ChainPathConverter.blogPaths(_allChainsPhrases);
+    // blog('all chains paths : -');
+    // ChainPathConverter.blogPaths(_allChainsPaths);
 
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose();
@@ -60,38 +67,43 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     _searchValue.dispose();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onUploadChains() async {
-
-    // final Chain _keywordsChain = _chainsProvider.keywordsChain;
-    // final Chain _specsChain = _chainsProvider.specsChain;
-
-    // final Chain _keywordsChain = await ChainOps.readKeywordsChain(context);
-
-    // _keywordsChain?.blogChain();
-    //
-    // final List<Chain> _newSpecsChains = <Chain>[
-    //   propertySalePrice,
-    //   propertyRentPrice,
-    //   propertyDecorationStyle,
-    //   designType,
-    //   projectCost,
-    //   constructionDuration,
-    // ];
-    //
-    // await onAddMoreSpecsChainsToExistingSpecsChains(
-    //   context: context,
-    //   chainsToAdd: _newSpecsChains,
-    // );
-
-
-    // return 'b';
-  }
-// -----------------------------------------------------------------------------
   Future<void> _onStripTap({
     @required String phraseIDPath, // will look like this 'idA/idB/idC'
 }) async {
 
     blog('phrase id path is : $phraseIDPath');
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
+    final List<String> _pathNodes = phraseIDPath.split('/');
+    final String _phid = _pathNodes.last;
+    final String _phraseName = superPhrase(context, _phid, providerOverride: _phraseProvider);
+
+    final double _clearWidth = BottomDialog.clearWidth(context);
+
+    await BottomDialog.showBottomDialog(
+        context: context,
+        draggable: true,
+        title: _phraseName,
+        child: Container(
+          width: _clearWidth,
+          height: BottomDialog.clearHeight(context: context, draggable: true, titleIsOn: true),
+          // color: Colorz.bloodTest,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(bottom: Ratioz.horizon),
+            children: <Widget>[
+
+              DataStrip(
+                dataKey: 'Path',
+                dataValue: phraseIDPath,
+                width: _clearWidth,
+                onTap: () => copyToClipboard(context: context, copy: phraseIDPath),
+              ),
+
+            ],
+          ),
+        ),
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -99,52 +111,19 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null); /// tamam disposed
   final ValueNotifier<String> _searchValue = ValueNotifier(null); /// tamam disposed
 // ------------------------------------------------
-  Future<void> _onSearchSubmit(String text) async {
-
-    _searchValue.value = text;
-
-    triggerIsSearchingNotifier(
+  Future<void> onSearch(String text) async {
+    await onSearchChains(
       text: text,
+      searchValue: _searchValue,
       isSearching: _isSearching,
-
+      allChains: _allChains,
+      allChainsPaths: _allChainsPaths,
+      foundChains: _foundChains,
     );
-
-    blog('text is : $text : isSearching : ${_isSearching.value}');
-
-    if (_isSearching.value == true){
-      _onSearchChains(
-        chains: _allChains,
-        text: text,
-      );
-    }
-
-
   }
-// ------------------------------------------------
-  void _onSearchChains({
-    @required List<Chain> chains,
-    @required String text,
-}){
+// -----------------------------------------------------------------------------
 
-    blog('all paths : $_allChainsPhrases');
-
-    /// SEARCH CHAINS FOR MATCH CASES
-    final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
-        paths: _allChainsPhrases,
-        phid: text
-    );
-
-    blog('found paths : $_foundPaths');
-
-    final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(
-        paths: _foundPaths,
-    );
-
-    /// SET FOUND CHAINS AS SEARCH RESULT
-    _foundChains.value = _foundPathsChains;
-
-  }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -156,20 +135,20 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       skyType: SkyType.black,
-      onSearchSubmit: (String text) => _onSearchSubmit(text),
-      onSearchChanged: (String text) => _onSearchSubmit(text),
-      appBarRowWidgets: <Widget>[
+      onSearchSubmit: onSearch,
+      onSearchChanged: onSearch,
+      appBarRowWidgets: const <Widget>[
 
-        const Expander(),
+        Expander(),
 
         /// UPLOAD CHAIN
-        DreamBox(
-          height: 40,
-          verse: 'Upload',
-          secondLine: 'Chains',
-          iconSizeFactor: 0.6,
-          onTap: _onUploadChains,
-        ),
+        // DreamBox(
+        //   height: 40,
+        //   verse: 'Upload',
+        //   secondLine: 'Chains',
+        //   iconSizeFactor: 0.6,
+        //   onTap: onUploadChains,
+        // ),
 
       ],
 
