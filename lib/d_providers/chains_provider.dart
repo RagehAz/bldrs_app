@@ -269,7 +269,14 @@ class ChainsProvider extends ChangeNotifier {
 
           /// WHEN SON IS KEYWORD ID
           if (son.runtimeType == String) {
-            _icon = 'assets/keywords/$son.jpg';
+
+            if (Phrase.isKeywordPhid(son)){
+              _icon = 'assets/icons/keywords/$son.jpg';
+            }
+            else if (Phrase.isSpecPhid(son)){
+              _icon = 'assets/icons/specs/$son.svg';
+            }
+
           }
 
           /// WHEN SON IS A CHAIN
@@ -282,7 +289,7 @@ class ChainsProvider extends ChangeNotifier {
             }
 
             else if (_chain.icon == 'id') {
-              _icon = 'assets/keywords/${_chain.id}.jpg';
+              _icon = 'assets/icons/keywords/${_chain.id}.jpg';
             }
 
             else {

@@ -799,6 +799,23 @@ class Phrase {
 
     return _listsAreTheSame;
   }
+// -------------------------------------
+  static bool isKeywordPhid(String phid){
+    final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      input: phid,
+      numberOfCharacters: 7, //'phid_k'
+    );
+    return _phidK == 'phid_k_';
+  }
+// -------------------------------------
+  static bool isSpecPhid(String phid){
+    final String _phids = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      input: phid,
+      numberOfCharacters: 7, //'phid_s'
+    );
+    return _phids == 'phid_s_';
+  }
+
 // -----------------------------------------------------------------------------
 
   /// SORTING
@@ -1144,12 +1161,7 @@ class Phrase {
 
     for (final Phrase phrase in allPhrases){
 
-      final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: phrase.id,
-        numberOfCharacters: 7, //'phid_k'
-      );
-
-      final bool _isKeyword = _phidK == 'phid_k_';
+      final bool _isKeyword = isKeywordPhid(phrase.id);
 
       if (_isKeyword == true){
         _keywordsPhrases.add(phrase);
@@ -1171,14 +1183,9 @@ class Phrase {
 
     for (final Phrase phrase in allPhrases){
 
-      final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: phrase.id,
-        numberOfCharacters: 7, //'phid_s_'
-      );
+      final bool _isSpec = isSpecPhid(phrase.id);
 
-      final bool _isKeyword = _phidK == 'phid_s_';
-
-      if (_isKeyword == true){
+      if (_isSpec == true){
         _specsIDs.add(phrase);
       }
 
