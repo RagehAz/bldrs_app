@@ -345,7 +345,7 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
     // ----------------------------
     /// DESIGN TYPE
     SpecPicker(
-        chainID: 'phid_k_group_dz_type',
+        chainID: 'phid_s_group_dz_type',
         groupID: 'Design Specifications',
         canPickMany: true,
         isRequired: true,
