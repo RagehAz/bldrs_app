@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -118,6 +118,8 @@ class FooterButton extends StatelessWidget {
               height: _buttonSize * 0.9,
               // color: Colorz.BloodTest,
               child: SuperImage(
+                width: _buttonSize * 0.8,
+                height: _buttonSize * 0.9,
                 pic: icon,
                 iconColor: _iconAndVerseColor,
                 scale: 0.5,

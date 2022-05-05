@@ -132,8 +132,7 @@ BorderRadius superBorder({BuildContext context, dynamic corners}) {
   } else if (corners is BorderRadius) {
     _corner = corners;
   } else {
-    final Error _error =
-        ArgumentError('superBorder corners is invalid', 'superBorder');
+    final Error _error = ArgumentError('superBorder corners is invalid', 'superBorder');
 
     throw _error;
   }

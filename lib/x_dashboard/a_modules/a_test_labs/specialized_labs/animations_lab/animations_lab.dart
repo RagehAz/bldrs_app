@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -212,7 +212,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                 child: SuperImage(
                   width: 100,
                   height: FlyerBox.height(context, 100),
-                  fit: BoxFit.fitWidth,
+                  boxFit: BoxFit.fitWidth,
                   pic: Iconz.dumSlide1,
                 ),
               ),

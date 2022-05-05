@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
@@ -86,6 +86,8 @@ class BzLogo extends StatelessWidget {
             key: const ValueKey<String>('bz_logo_image'),
             borderRadius: bzLogoCorners,
             child: SuperImage(
+              width: width,
+              height: width,
               pic: image,
             ),
           ),

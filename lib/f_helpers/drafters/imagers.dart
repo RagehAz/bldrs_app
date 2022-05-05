@@ -102,7 +102,7 @@ Future<List<Asset>> takeGalleryMultiPictures({
     _resultList = await MultiImagePicker.pickImages(
       maxImages: Standards.getMaxSlidesCount(bzAccountType: accountType),
       enableCamera: true,
-      selectedAssets: images,
+      selectedAssets: images ?? <Asset>[],
       cupertinoOptions: const CupertinoOptions(
         takePhotoIcon: 'Take photo',
         doneButtonTitle: 'Done',
@@ -713,11 +713,11 @@ Future<ui.Image> getUiImageFromIntList(List<int> img) async {
 
 // ---------------------------------------
 Uint8List getUint8ListFromByteData(ByteData byteData) {
-  final Uint8List _uInts = byteData.buffer
-      .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+  final Uint8List _uInts = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
   return _uInts;
 }
 // ---------------------------------------
+/// TESTED : WORKS PERFECT
 Future<Uint8List> getUint8ListFromFile(File file) async {
   final Uint8List _uInt = await file.readAsBytes();
   return _uInt;
@@ -787,6 +787,7 @@ Future<Uint8List> getUint8ListFromRasterURL(int width, int height, String urlAss
 /// Base64
 
 // ---------------------------------------
+/// TESTED : WORKS PERFECT
 Future<String> getBase64FromFileOrURL(dynamic image) async {
   File _file;
 
