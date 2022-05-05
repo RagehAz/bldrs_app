@@ -17,7 +17,6 @@ extension FileExtention on FileSystemEntity {
     return this?.path?.split('.')?.last;
   }
 }
-
 // -----------------------------------------------------------------------------
 String fileExtensionOf(dynamic file) {
   return file == null
@@ -26,7 +25,6 @@ String fileExtensionOf(dynamic file) {
           ? File(file).fileExtension
           : null;
 }
-
 // -----------------------------------------------------------------------------
 bool objectIsURL(dynamic file) {
   bool _validURL;
@@ -41,8 +39,8 @@ bool objectIsURL(dynamic file) {
 
   return _validURL;
 }
-
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 bool isBase64(dynamic value) {
   if (value is String == true) {
     final RegExp rx = RegExp(
@@ -61,8 +59,8 @@ bool isBase64(dynamic value) {
     return false;
   }
 }
-
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 bool objectIsFile(dynamic file) {
   bool _isFile = false;
 
@@ -74,21 +72,25 @@ bool objectIsFile(dynamic file) {
 
   return _isFile;
 }
-
 // -----------------------------------------------------------------------------
-bool objectIsUint8List(dynamic file) {
+/// TESTED : WORKS PERFECT
+bool objectIsUint8List(dynamic object) {
   bool _isUint8List = false;
 
-  if (file != null) {
-    if (file.runtimeType.toString() == '_Uint8ArrayView') {
+  if (object != null) {
+    if (
+    object.runtimeType.toString() == '_Uint8ArrayView'
+    ||
+    object.runtimeType.toString() == 'Uint8List'
+    ) {
       _isUint8List = true;
     }
   }
 
   return _isUint8List;
 }
-
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 bool objectIsSVG(dynamic object) {
   bool _isSVG;
 
@@ -100,8 +102,8 @@ bool objectIsSVG(dynamic object) {
 
   return _isSVG;
 }
-
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 bool objectIsAsset(dynamic object) {
   bool _objectIsAsset;
 
@@ -113,8 +115,8 @@ bool objectIsAsset(dynamic object) {
 
   return _objectIsAsset;
 }
-
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 bool objectIsJPGorPNG(dynamic object) {
   bool _objectIsJPGorPNG;
 
@@ -128,7 +130,6 @@ bool objectIsJPGorPNG(dynamic object) {
 
   return _objectIsJPGorPNG;
 }
-
 // -----------------------------------------------------------------------------
 Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
   bool _objectIsIntInString;
@@ -151,7 +152,6 @@ Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
 
   return _objectIsIntInString;
 }
-
 // -----------------------------------------------------------------------------
 bool objectIsDoubleInString(dynamic string) {
   bool _objectIsDoubleInString;
@@ -171,28 +171,24 @@ bool objectIsDoubleInString(dynamic string) {
 
   return _objectIsDoubleInString;
 }
-
 // -----------------------------------------------------------------------------
 bool objectIsDateTime(dynamic object) {
   final bool _isDatTime = object?.runtimeType == DateTime;
 
   return _isDatTime;
 }
-
 // -----------------------------------------------------------------------------
 bool objectIsGeoPoint(dynamic object) {
   final bool _isGeoPoint = object?.runtimeType == GeoPoint;
 
   return _isGeoPoint;
 }
-
 // -----------------------------------------------------------------------------
 bool objectIsTimeStamp(dynamic object) {
   final bool _isTimestamp = object?.runtimeType == Timestamp;
 
   return _isTimestamp;
 }
-
 // -----------------------------------------------------------------------------
 bool objectIsListOfSpecs(dynamic object) {
   bool _objectsListIsSpecs = false;

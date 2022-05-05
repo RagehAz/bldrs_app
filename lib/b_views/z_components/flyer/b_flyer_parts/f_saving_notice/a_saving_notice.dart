@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/b_saving_graphic.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -87,6 +87,8 @@ class _SavingNoticeState extends State<SavingNotice> {
               child: ValueListenableBuilder(
                 valueListenable: widget.flyerIsSaved,
                 child: SuperImage(
+                  width: widget.flyerBoxWidth,
+                  height: widget.flyerBoxHeight,
                   pic: widget.isStarGraphic ? Iconz.sexyStar : Iconz.saveOn,
                   scale: widget.isStarGraphic ? 7 : 10,
                 ),

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_gradient.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_highlight.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_tap_layer.dart';
@@ -20,7 +19,6 @@ class DreamBox extends StatelessWidget {
     @required this.height,
     this.width,
     this.icon,
-    this.iconFile,
     this.iconSizeFactor = 1,
     this.color = Colorz.nothing,
     this.corners = Ratioz.boxCorner12,
@@ -35,7 +33,7 @@ class DreamBox extends StatelessWidget {
     this.secondVerseMaxLines = 10,
     this.onTap,
     this.margins,
-    this.blackAndWhite = false,
+    this.greyscale = false,
     this.iconRounded = true,
     this.bubble = true,
     this.secondLine,
@@ -57,12 +55,12 @@ class DreamBox extends StatelessWidget {
     this.redDot = false,
     this.secondLineScaleFactor = 1,
     this.loading = false,
+    this.iconBackgroundColor,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
-  final String icon;
-  final File iconFile;
+  final dynamic icon;
 
   /// works as a verseSizeFactor as well
   final double iconSizeFactor;
@@ -81,7 +79,7 @@ class DreamBox extends StatelessWidget {
   final int secondVerseMaxLines;
   final Function onTap;
   final dynamic margins;
-  final bool blackAndWhite;
+  final bool greyscale;
   final bool iconRounded;
   final bool bubble;
   final String secondLine;
@@ -103,6 +101,7 @@ class DreamBox extends StatelessWidget {
   final bool redDot;
   final double secondLineScaleFactor;
   final bool loading;
+  final Color iconBackgroundColor;
   /// --------------------------------------------------------------------------
   static Color getIconColor({
     bool blackAndWhite = false,
@@ -165,8 +164,6 @@ class DreamBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final Color _imageSaturationColor = blackAndWhite == true ? Colorz.grey255 : Colorz.nothing;
-// -----------------------------------------------------------------------------
 //     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
 // -----------------------------------------------------------------------------
     final double _graphicWidth = graphicWidth(
@@ -221,12 +218,12 @@ class DreamBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final Color _boxColor = boxColor(
       color: color,
-      blackAndWhite: blackAndWhite,
+      blackAndWhite: greyscale,
     );
 // -----------------------------------------------------------------------------
     final Color _iconColor = getIconColor(
       inActiveMode: isDeactivated,
-      blackAndWhite: blackAndWhite,
+      blackAndWhite: greyscale,
       colorOverride: iconColor,
     );
 // -----------------------------------------------------------------------------
@@ -296,11 +293,9 @@ class DreamBox extends StatelessWidget {
             height: height,
             width: width,
             iconCorners: _iconCorners,
-            iconFile: iconFile,
             iconMargin: _iconMargin,
-            imageSaturationColor: _imageSaturationColor,
+            greyscale: greyscale,
             bubble: bubble,
-            blackAndWhite: blackAndWhite,
             iconColor: _iconColor,
             iconSizeFactor: iconSizeFactor,
             verseScaleFactor: verseScaleFactor,
@@ -318,6 +313,7 @@ class DreamBox extends StatelessWidget {
             secondLineScaleFactor: secondLineScaleFactor,
             secondLineColor: secondLineColor,
             centered: verseCentered,
+            backgroundColor: iconBackgroundColor,
           ),
 
           /// --- BOX HIGHLIGHT

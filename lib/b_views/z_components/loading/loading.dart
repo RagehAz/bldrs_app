@@ -19,10 +19,9 @@ class Loading extends StatelessWidget {
     /// WHEN IS LOADING => TRUE
     if (loading == true){
 
-      return Container(
+      return SizedBox(
         width: size,
         height: size,
-        color: Colorz.nothing,
         child: Center(
           child: SpinKitPulse(
             color: Colorz.yellow255,
