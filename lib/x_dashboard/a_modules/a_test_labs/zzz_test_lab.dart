@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -6,6 +7,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -18,6 +20,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -216,6 +219,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     highlightedText.value = text;
   }
 // -----------------------------------------------------------------------------
+  dynamic _thePic;
+
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -394,7 +399,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'REBUILD SCREEN',
+              verse: 'CLEAR IMAGE',
               icon: Iconz.star,
               onTap: () async {
 
@@ -404,8 +409,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 // blog('thing is : ${_formKey.currentState.mounted}');
 
-                setState(() {
+                const String _url = 'https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY';
 
+                setState(() {
+                  _thePic = _url;
                 });
 
                 // _uiProvider.triggerLoading(setLoadingTo: false);
@@ -414,55 +421,58 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           WideButton(
               color: Colorz.red255,
-              verse: 'validate',
+              verse: 'image in this',
               icon: Iconz.star,
               onTap: () async {
 
                 _uiProvider.triggerLoading(setLoadingTo: true);
 
-                blog('should validate');
-                _formKey.currentState.validate();
+                // final List<Asset> assets = await takeGalleryMultiPictures(
+                //     context: context,
+                //     images: [],
+                //     mounted: mounted,
+                //     accountType: BzAccountType.normal,
+                // );
+
+                final File file = await takeGalleryPicture(
+                  picType: PicType.bzLogo,
+                );
+
+                // final Uint8List _uints = await getUint8ListFromFile(file);
+
+                // final String _base = await getBase64FromFileOrURL(file);
+
+                // const String _url = 'https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY';
+
+                setState(() {
+                  _thePic = file ?? Iconz.sphinx;
+                });
+
+                //     File file = await Imagers.getFileFromLocalRasterAsset(
+                //       context: context,
+                //       width: 200,
+                //       localAsset: Iconz.BldrsAppIcon,
+                //     );
+
 
                 _uiProvider.triggerLoading(setLoadingTo: false);
 
 
               }),
 
+          SuperImage(
+            width: 100,
+            height: 100,
+            scale: 1,
+            boxFit: BoxFit.fitWidth,
+            pic: _thePic ?? Iconz.dumUniverse,
+            iconColor: Colorz.blue255,
+            loading: false,
+            backgroundColor: Colorz.yellow255,
+            corners: 10,
+            greyscale: false,
+          ),
 
-          /// MANIPULATE LOCAL ASSETS TESTING
-          // GestureDetector(
-          //   onTap: () async {
-          //
-          //     _triggerLoading();
-          //
-          //     File file = await Imagers.getFileFromLocalRasterAsset(
-          //       context: context,
-          //       width: 200,
-          //       localAsset: Iconz.BldrsAppIcon,
-          //     );
-          //
-          //     if (file != null){
-          //       setState(() {
-          //         _file = file;
-          //       });
-          //
-          //     }
-          //
-          //     _triggerLoading();
-          //   },
-          //   child: Container(
-          //     width: 100,
-          //     height: 100,
-          //     color: Colorz.facebook,
-          //     alignment: Alignment.center,
-          //     child: SuperImage(
-          //       _file ?? Iconz.DumAuthorPic,
-          //       width: 100,
-          //       height: 100,
-          //
-          //     ),
-          //   ),
-          // ),
 
           /// PROMOTED FLYERS
           // Selector<FlyersProvider, List<FlyerModel>>(
@@ -480,14 +490,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           //         );
           //
           //   },
-          // ),
-
-          /// FULL SCREEN BOX
-          // Container(
-          //   width: _screenWidth,
-          //   height: _screenHeight,
-          //   color: Colorz.bloodTest,
-          //
           // ),
 
           const Expander(),

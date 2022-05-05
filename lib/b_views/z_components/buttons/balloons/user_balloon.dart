@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/clip_shadow_path.dart';
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
@@ -213,7 +213,7 @@ class BalloonComponents extends StatelessWidget {
                   pic: pic,
                   width: balloonWidth,
                   height: balloonWidth,
-                  fit: BoxFit.cover,
+                  boxFit: BoxFit.cover,
                 )
                     :
                 Container()

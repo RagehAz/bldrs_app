@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -84,11 +85,28 @@ class ChainTreeStrip extends StatelessWidget {
               width: _stringsWidth,
               height: stripHeight,
               alignment: superCenterAlignment(context),
-              color: Colorz.white10,
+              // color: Colorz.white10,
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
+
+                  /// ICON
+                  DreamBox(
+                    height: stripHeight,
+                    width: stripHeight,
+                    iconSizeFactor: Phrase.isKeywordPhid(phraseID) ? 1 : 0.7,
+                    bubble: false,
+                    icon: _chainsProvider.getKeywordIcon(
+                      son: phraseID,
+                      context: context,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    width: stripHeight * 0.2,
+                    height: stripHeight,
+                  ),
 
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,15 +140,6 @@ class ChainTreeStrip extends StatelessWidget {
             ),
           ),
 
-          /// ICON
-          DreamBox(
-            height: stripHeight,
-            width: stripHeight,
-            icon: _chainsProvider.getKeywordIcon(
-              son: phraseID,
-              context: context,
-            ),
-          ),
 
         ],
       ),

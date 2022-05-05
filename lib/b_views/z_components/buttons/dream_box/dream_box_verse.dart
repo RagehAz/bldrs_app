@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_icon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -20,11 +18,9 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.height,
     @required this.width,
     @required this.iconCorners,
-    @required this.iconFile,
     @required this.iconMargin,
-    @required this.imageSaturationColor,
+    @required this.greyscale,
     @required this.bubble,
-    @required this.blackAndWhite,
     @required this.iconColor,
     @required this.iconSizeFactor,
     @required this.verseScaleFactor,
@@ -42,23 +38,21 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.secondLineScaleFactor,
     @required this.secondLineColor,
     @required this.centered,
+    @required this.backgroundColor,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String verse;
   final TextDirection textDirection;
-  final String icon;
+  final dynamic icon;
   final bool loading;
   final String underLine;
   final double width;
   final double height;
   final BorderRadius iconCorners;
-  final File iconFile;
   final double iconMargin;
-  final Color imageSaturationColor;
+  final bool greyscale;
   final bool bubble;
-  final bool blackAndWhite;
   final Color iconColor;
   final double iconSizeFactor;
   final double verseScaleFactor;
@@ -76,7 +70,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final double secondLineScaleFactor;
   final Color secondLineColor;
   final bool centered;
-
+  final Color backgroundColor;
   /// ----------------------------------------------------------------------------
   static CrossAxisAlignment versesCrossAlignment({
     String icon,
@@ -136,7 +130,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     if (verseShadow != null) {
       _isOn = verseShadow;
-    } else if (blackAndWhite == true || inActiveMode == true) {
+    } else if (greyscale == true || inActiveMode == true) {
       _isOn = false;
     } else {
       _isOn = true;
@@ -163,7 +157,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   bool _secondLineShadowIsOn() {
     bool _isOn;
 
-    if (blackAndWhite == true || inActiveMode == true || verseShadow == false) {
+    if (greyscale == true || inActiveMode == true || verseShadow == false) {
       _isOn = false;
     } else {
       _isOn = true;
@@ -208,8 +202,10 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
       verseCentered: verseCentered,
     ); // verseCentered
 // ---------------------------------------------------------
-    final MainAxisAlignment _mainAxisAlignment =
-        centered == true ? MainAxisAlignment.center : MainAxisAlignment.start;
+    final MainAxisAlignment _mainAxisAlignment = centered == true ?
+    MainAxisAlignment.center
+        :
+    MainAxisAlignment.start;
 // ---------------------------------------------------------
     final Alignment _verseAlignment = centered == true ?
     Alignment.center
@@ -218,7 +214,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 // ---------------------------------------------------------
     return Row(
       mainAxisAlignment: _mainAxisAlignment,
-      // mainAxisSize: MainAxisSize.min,
       textDirection: _textDirection,
       children: <Widget>[
 
@@ -243,25 +238,22 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                   child: Stack(
                     alignment: Alignment.center,
                     children: <Widget>[
+
                       DreamBoxIcon(
-                        verse: verse,
-                        textDirection: textDirection,
                         icon: icon,
                         loading: loading,
-                        height: height,
-                        width: width,
-                        iconCorners: iconCorners,
-                        iconFile: iconFile,
+                        size: height,
+                        corners: iconCorners,
                         iconMargin: iconMargin,
-                        imageSaturationColor: imageSaturationColor,
+                        greyscale: greyscale,
                         bubble: bubble,
                         iconColor: iconColor,
                         iconSizeFactor: iconSizeFactor,
-                        verseWeight: verseWeight,
+                        backgroundColor: backgroundColor,
                       ),
 
                       /// --- BUTTON BLACK LAYER IF GREYED OUT
-                      if (blackAndWhite == true &&
+                      if (greyscale == true &&
                           icon != null &&
                           ObjectChecker.fileExtensionOf(icon) != 'svg')
                         Container(
@@ -325,9 +317,10 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     verse: verse,
                     size: verseSize,
                     weight: verseWeight,
-                    color: blackAndWhite == true || inActiveMode == true
-                        ? Colorz.white30
-                        : verseColor,
+                    color: greyscale == true || inActiveMode == true ?
+                    Colorz.white30
+                        :
+                    verseColor,
                     shadow: _verseShadowIsOn(),
                     maxLines: verseMaxLines,
                     centered: _verseIsCentered(),
@@ -344,7 +337,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                       verse: secondLine,
                       weight: VerseWeight.thin,
                       size: 1,
-                      color: blackAndWhite == true || inActiveMode == true ?
+                      color: greyscale == true || inActiveMode == true ?
                       Colorz.white30
                           :
                       secondLineColor,
