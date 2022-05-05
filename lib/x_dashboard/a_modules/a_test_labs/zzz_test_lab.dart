@@ -27,6 +27,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -246,7 +247,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
-      navBarIsOn: true,
+      navBarIsOn: false,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
       appBarRowWidgets: <Widget>[
 
         /// IS SIGNED IN ?
@@ -468,7 +471,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             pic: _thePic ?? Iconz.dumUniverse,
             iconColor: Colorz.blue255,
             loading: false,
-            backgroundColor: Colorz.yellow255,
+            // backgroundColor: Colorz.black255,
             corners: 10,
             greyscale: false,
           ),
@@ -494,7 +497,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           const Expander(),
 
-          // const SpecializedLabs(),
+          const SpecializedLabs(),
 
         ],
       ),
