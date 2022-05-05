@@ -686,7 +686,7 @@ Chain propertyDecorationStyle = Chain(
 );
 
 Chain designType = Chain(
-  id: 'phid_k_group_dz_type',
+  id: 'phid_s_group_dz_type',
   icon: null,
   sons: ChainDesigns.chain.sons,
 );
