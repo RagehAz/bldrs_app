@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/images/unfinished_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class GradientLayer extends StatelessWidget {
         pic: _gradient,
         width: width,
         height: height,
-        fit: BoxFit.cover,
+        boxFit: BoxFit.cover,
         iconColor: color,
       ),
     );
