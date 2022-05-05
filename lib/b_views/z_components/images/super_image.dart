@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -37,8 +39,8 @@ class SuperImage extends StatelessWidget {
   final dynamic corners;
   final bool greyscale;
   /// --------------------------------------------------------------------------
-  static const bool _gaplessPlayback = false;
-
+  static const bool _gaplessPlayback = true;
+// -----------------------------------------------------------------------------
   static DecorationImage decorationImage({
     @required String picture,
     BoxFit boxFit
@@ -63,30 +65,44 @@ class SuperImage extends StatelessWidget {
       color: Colorz.white10,
     );
   }
+// -----------------------------------------------------------------------------
+  Widget _loadingBuilder(BuildContext context , Widget child, ImageChunkEvent imageChunkEvent){
 
-  Widget _loadingBuilder(BuildContext context , Widget widget, ImageChunkEvent imageChunkEvent){
+    // blog('SUPER IMAGE LOADING BUILDER : imageChunkEvent.cumulativeBytesLoaded : ${imageChunkEvent?.cumulativeBytesLoaded} / ${imageChunkEvent?.expectedTotalBytes}');
 
-    blog('SUPER IMAGE LOADING BUILDER : imageChunkEvent.cumulativeBytesLoaded : ${imageChunkEvent?.cumulativeBytesLoaded} / ${imageChunkEvent?.expectedTotalBytes}');
+    /// AFTER LOADED
+    if (imageChunkEvent == null){
+      return child;
+    }
+    /// WHILE LOADING
+    else {
 
-    return Container(
-      width: width,
-      height: height,
-      color: imageChunkEvent == null ? null : Colorz.green255,
-      child: widget,
-    );
+      final double _percentage = imageChunkEvent.cumulativeBytesLoaded / imageChunkEvent.expectedTotalBytes;
+
+      return Container(
+        width: width,
+        height: height,
+        color: Colorz.white50,
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          width: width,
+          height: height * _percentage,
+          color: backgroundColor ?? Colorz.white20,
+        ),
+      );
+    }
+
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    // int _width = fit == BoxFit.fitWidth ? width : null;
-    // int _height = fit == BoxFit.fitHeight ? height : null;
-    // Asset _asset = ObjectChecker.objectIsAsset(pic) == true ? pic : null;
-
+    /// PIC IS NULL
     if (pic == null){
       return const SizedBox();
     }
 
+    /// ON LOADING
     else if (loading == true){
       return Loading(
         size: height,
@@ -94,11 +110,13 @@ class SuperImage extends StatelessWidget {
       );
     }
 
+    /// IMAGE
     else {
 
       final Color _imageSaturationColor = greyscale == true ? Colorz.grey255 : Colorz.nothing;
 
       return ClipRRect(
+        key: const ValueKey<String>('SuperImage'),
         borderRadius: superBorder(
           context: context,
           corners: corners,
@@ -133,7 +151,7 @@ class SuperImage extends StatelessWidget {
                 height: height,
                 errorBuilder: _errorBuilder,
                 scale: 1,
-                // gaplessPlayback: _gaplessPlayback,
+                gaplessPlayback: _gaplessPlayback,
               )
 
                   :
@@ -158,7 +176,7 @@ class SuperImage extends StatelessWidget {
                 width: width,
                 height: height,
                 errorBuilder: _errorBuilder,
-                // gaplessPlayback: _gaplessPlayback,
+                gaplessPlayback: _gaplessPlayback,
                 loadingBuilder: _loadingBuilder,
               )
 
@@ -172,7 +190,7 @@ class SuperImage extends StatelessWidget {
                 width: width,
                 height: height,
                 errorBuilder: _errorBuilder,
-                // gaplessPlayback: _gaplessPlayback,
+                gaplessPlayback: _gaplessPlayback,
               )
 
                   :
@@ -184,7 +202,7 @@ class SuperImage extends StatelessWidget {
                 fit: boxFit,
                 width: width,
                 height: height,
-                // gaplessPlayback: _gaplessPlayback,
+                gaplessPlayback: _gaplessPlayback,
                 errorBuilder: _errorBuilder,
               )
 
