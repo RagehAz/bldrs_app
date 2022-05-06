@@ -241,9 +241,13 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       /// B - wait fading to start sliding
       await Future<void>.delayed(Ratioz.durationFading210, () async {
+
         /// C - slide
         await Sliders.slideToNext(
-            _pageController, _flyers.length, _currentPageIndex);
+            slidingController: _pageController,
+            numberOfSlides: _flyers.length,
+            currentSlide: _currentPageIndex,
+        );
 
         /// D - delete when one slide remaining
         /// E - wait for sliding to end
@@ -281,9 +285,13 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       /// B - wait fading to start sliding
       await Future<void>.delayed(Ratioz.durationFading210, () async {
+
         /// C - slide
         await Sliders.slideToNext(
-            _pageController, _flyers.length, _currentPageIndex);
+            slidingController: _pageController,
+            numberOfSlides: _flyers.length,
+            currentSlide: _currentPageIndex,
+        );
 
         /// D - delete when one slide remaining
         if (_originalNumberOfPages <= 1) {

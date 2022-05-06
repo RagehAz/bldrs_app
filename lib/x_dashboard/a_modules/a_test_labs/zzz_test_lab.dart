@@ -218,7 +218,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     highlightedText.value = text;
   }
 // -----------------------------------------------------------------------------
-  ValueNotifier<dynamic> _thePic = ValueNotifier(null);
+  final ValueNotifier<dynamic> _thePic = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -296,7 +296,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                     //
                     // await _onConnectivityChanged(_connected);
 
-                    await NavDialog.showNavDialog(
+                    NavDialog.showNavDialog(
                       context: context,
                       firstLine: 'Hello There',
                       secondLine: "Welcome to Bldrs.net the Builders' network",

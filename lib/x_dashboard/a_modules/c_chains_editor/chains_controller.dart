@@ -30,6 +30,7 @@ Future<void> onAddMoreSpecsChainsToExistingSpecsChains({
 
 }
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onBackupAllChains(BuildContext context) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
@@ -128,3 +129,47 @@ void _searchChainsOps({
 
 }
 // ------------------------------------------------
+Future<void> onUpdateNode({
+  @required BuildContext context,
+  @required String path,
+  @required List<Chain> allChains,
+  @required String newPhid,
+}) async {
+
+  if (stringIsEmpty(newPhid) == true){
+    blog('new phid value is empty man');
+  }
+
+  else {
+
+    blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
+
+    final String _rootChainID = ChainPathConverter.getFirstPathNode(
+      path: path,
+    );
+    final Chain _chain = Chain.getChainFromChainsByID(
+      chainID: _rootChainID,
+      chains: allChains,
+    );
+
+    _chain.blogChain();
+
+    blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
+
+    final String _phid = ChainPathConverter.getLastPathNode(path);
+
+    final Chain _newChain = await Chain.updateNode(
+      context: context,
+      oldPhid: _phid,
+      newPhid: newPhid,
+      sourceChain: _chain,
+    );
+
+    _newChain.blogChain();
+
+    blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
+
+  }
+
+
+}

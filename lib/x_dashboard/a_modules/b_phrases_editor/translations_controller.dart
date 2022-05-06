@@ -573,7 +573,11 @@ Future<void> onEditPhrase({
   arTextController.text = _arPhrase.value;
   idTextController.text = _enPhrase.id;
 
-  await slideToNext(pageController, 2, 0);
+  await slideToNext(
+      slidingController: pageController,
+      numberOfSlides: 2,
+      currentSlide: 0,
+  );
 
 }
 // ---------------------------------------------------------------------------

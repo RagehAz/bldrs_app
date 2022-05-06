@@ -75,7 +75,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
     if (_zone == null || _zone.countryID == null || _zone.cityID == null){
 
-      await NavDialog.showNavDialog(
+      NavDialog.showNavDialog(
         context: context,
         firstLine: 'Select promotion zone man !',
         color: Colorz.red255,

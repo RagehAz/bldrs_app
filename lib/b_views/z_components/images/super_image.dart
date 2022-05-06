@@ -258,4 +258,3 @@ class SuperImage extends StatelessWidget {
 
   }
 }
-
