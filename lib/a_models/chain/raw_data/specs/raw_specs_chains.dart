@@ -11,7 +11,6 @@ const String rentID = 'phid_s_contractType_Rent';
 /// STYLE ANATOMY
 const Chain style = Chain(
   id: 'phid_s_style',
-  icon: null,
   sons: <String>[
     'phid_s_arch_style_arabian',
     'phid_s_arch_style_andalusian',
@@ -50,7 +49,6 @@ const Chain style = Chain(
 );
 const Chain color = Chain(
   id: 'phid_s_color',
-  icon: null,
   sons: <String>[
     'phid_s_red',
     'phid_s_orange',
@@ -68,7 +66,6 @@ const Chain color = Chain(
 /// PRICING ANATOMY
 const Chain contractType = Chain(
   id: 'phid_s_contractType',
-  icon: null,
   sons: <String>[
     'phid_s_contractType_NewSale',
     'phid_s_contractType_Resale',
@@ -77,7 +74,6 @@ const Chain contractType = Chain(
 );
 const Chain paymentMethod = Chain(
   id: 'phid_s_paymentMethod',
-  icon: null,
   sons: <String>[
   'phid_s_payment_cash',
   'phid_s_payment_installments',
@@ -85,19 +81,16 @@ const Chain paymentMethod = Chain(
 );
 const Chain price = Chain(
   id: 'phid_s_price',
-  icon: null,
   sons: DataCreator.price,
 );
 
 
 const Chain currency = Chain(
   id: 'phid_s_currency',
-  icon: null,
   sons: DataCreator.currency,
 );
 const Chain unitPriceInterval = Chain(
   id: 'phid_s_unitPriceInterval',
-  icon: null,
   sons: <String>[
     'phid_s_perHour',
     'phid_s_perDay',
@@ -108,17 +101,14 @@ const Chain unitPriceInterval = Chain(
 );
 const Chain numberOfInstallments = Chain(
   id: 'phid_s_numberOfInstallments',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain installmentsDuration = Chain(
   id: 'phid_s_installmentsDuration',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain installmentsDurationUnit = Chain(
   id: 'phid_s_installmentsDurationUnit',
-  icon: null,
   sons: <String>[
     'phid_s_installmentsDurationUnit_day',
     'phid_s_installmentsDurationUnit_week',
@@ -130,12 +120,10 @@ const Chain installmentsDurationUnit = Chain(
 /// TIME ANATOMY
 const Chain duration = Chain(
   id: 'phid_s_duration',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain durationUnit = Chain(
   id: 'phid_s_durationUnit',
-  icon: null,
   sons: <String>[
     'phid_s_minute',
     'phid_s_hour',
@@ -149,12 +137,10 @@ const Chain durationUnit = Chain(
 /// AREAL ANATOMY
 const Chain propertyArea = Chain(
   id: 'phid_s_propertyArea',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain propertyAreaUnit = Chain(
   id: 'phid_s_propertyAreaUnit',
-  icon: null,
   sons: <String>[
     'phid_s_square_meter',
     'phid_s_square_feet',
@@ -162,12 +148,10 @@ const Chain propertyAreaUnit = Chain(
 );
 const Chain lotArea = Chain(
   id: 'phid_s_plotArea',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain lotAreaUnit = Chain(
   id: 'phid_s_lotAreaUnit',
-  icon: null,
   sons: <String>[
     'phid_square_meter',
     'phid_square_Kilometer',
@@ -181,7 +165,6 @@ const Chain lotAreaUnit = Chain(
 /// PROPERTY GENERAL ANATOMY
 const Chain propertyForm = Chain(
   id: 'phid_s_propertyForm',
-  icon: null,
   sons: <String>[
     'phid_s_pf_fullFloor',
     'phid_s_pf_halfFloor',
@@ -193,7 +176,6 @@ const Chain propertyForm = Chain(
 );
 const Chain propertyLicense = Chain(
   id: 'phid_s_propertyLicense',
-  icon: null,
   sons: <String>[
     'phid_s_ppt_lic_residential',
     'phid_s_ppt_lic_administration',
@@ -211,13 +193,11 @@ const Chain propertyLicense = Chain(
 /// PROPERTY SPATIAL ANATOMY
 const Chain propertySpaces = Chain(
   id: 'phid_s_property_spaces',
-  icon: null,
   sons: <Chain>[
     // ----------------------------------
     /// Administration
     Chain(
       id: 'phid_s_ppt_lic_administration',
-      icon: null,
       sons: <String>[
         'phid_s_pt_office',
         'phid_s_space_kitchenette',
@@ -230,7 +210,6 @@ const Chain propertySpaces = Chain(
     /// Educational
     Chain(
       id: 'phid_s_ppt_lic_educational',
-      icon: null,
       sons: <String>[
         'phid_s_space_lectureRoom',
         'phid_s_space_library',
@@ -240,7 +219,6 @@ const Chain propertySpaces = Chain(
     /// Entertainment
     Chain(
       id: 'phid_s_ppt_lic_entertainment',
-      icon: null,
       sons: <String>[
         'phid_s_space_theatre',
         'phid_s_space_concertHall',
@@ -251,7 +229,6 @@ const Chain propertySpaces = Chain(
     /// Medical
     Chain(
       id: 'phid_s_ppt_lic_medical',
-      icon: null,
       sons: <String>[
         'phid_s_space_spa',
       ],
@@ -260,7 +237,6 @@ const Chain propertySpaces = Chain(
     /// Residential
     Chain(
       id: 'phid_s_ppt_lic_residential',
-      icon: null,
       sons: <String>[
         'phid_s_space_lobby',
         'phid_s_space_living',
@@ -290,7 +266,6 @@ const Chain propertySpaces = Chain(
     /// Retail
     Chain(
       id: 'phid_s_ppt_lic_retail',
-      icon: null,
       sons: <String>[
         'phid_s_space_store',
       ],
@@ -299,7 +274,6 @@ const Chain propertySpaces = Chain(
     /// Sports
     Chain(
       id: 'phid_s_ppt_lic_sports',
-      icon: null,
       sons: <String>[
         'phid_s_space_gymnasium',
         'phid_s_space_sportsCourt',
@@ -310,7 +284,6 @@ const Chain propertySpaces = Chain(
     /// Utilities
     Chain(
       id: 'phid_s_ppt_lic_utilities',
-      icon: null,
       sons: <String>[
         'phid_s_pFeature_elevator',
         'phid_s_space_electricityRoom',
@@ -322,29 +295,24 @@ const Chain propertySpaces = Chain(
 );
 const Chain propertyFloorNumber = Chain(
   id: 'phid_s_propertyFloorNumber',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain propertyDedicatedParkingLotsCount = Chain(
   id: 'phid_s_propertyDedicatedParkingSpaces',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain propertyNumberOfBedrooms = Chain(
   id: 'phid_s_propertyNumberOfBedrooms',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain propertyNumberOfBathrooms = Chain(
   id: 'phid_s_propertyNumberOfBathrooms',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 // -------------------------------------------------------------------------
 /// PROPERTY FEATURES ANATOMY
 const Chain propertyView = Chain(
   id: 'phid_s_propertyView',
-  icon: null,
   sons: <String>[
     'phid_s_view_golf',
     'phid_s_view_hill',
@@ -363,7 +331,6 @@ const Chain propertyView = Chain(
 );
 const Chain propertyIndoorFeatures = Chain(
   id: 'phid_s_sub_ppt_feat_indoor',
-  icon: null,
   sons: <String>[
     'phid_s_pFeature_disabilityFeatures',
     'phid_s_pFeature_fireplace',
@@ -381,7 +348,6 @@ const Chain propertyIndoorFeatures = Chain(
 );
 const Chain propertyFinishingLevel = Chain(
   id: 'phid_s_sub_ppt_feat_finishing',
-  icon: null,
   sons: <String>[
     'phid_s_finish_coreAndShell',
     'phid_s_finish_withoutFinishing',
@@ -395,29 +361,24 @@ const Chain propertyFinishingLevel = Chain(
 /// BUILDING FEATURES ANATOMY
 const Chain buildingNumberOfFloors = Chain(
   id: 'phid_s_buildingNumberOfFloors',
-  icon: null,
   sons: DataCreator.integerIncrementer, // TASK : define range 0 - g163
 );
 const Chain buildingAgeInYears = Chain(
   id: 'phid_s_buildingAge',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain buildingTotalParkingLotsCount = Chain(
   id: 'phid_s_buildingTotalParkingLotsCount',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain buildingTotalUnitsCount = Chain(
   id: 'phid_s_buildingTotalPropertiesCount',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 // -------------------------------------------------------------------------
 /// COMMUNITY FEATURES ANATOMY
 const Chain inACompound = Chain(
   id: 'phid_s_sub_ppt_feat_compound',
-  icon: null,
   sons: <String>[
     'phid_s_in_compound',
     'phid_s_not_in_compound',
@@ -425,7 +386,6 @@ const Chain inACompound = Chain(
 );
 const Chain amenities = Chain(
   id: 'phid_s_sub_ppt_feat_amenities',
-  icon: null,
   sons: <String>[
     'phid_s_am_laundry',
     'phid_s_am_swimmingPool',
@@ -446,7 +406,6 @@ const Chain amenities = Chain(
 );
 const Chain communityServices = Chain(
   id: 'phid_s_sub_ppt_feat_services',
-  icon: null,
   sons: <String>[
     'phid_s_pService_houseKeeping',
     'phid_s_pService_laundryService',
@@ -465,12 +424,10 @@ const Chain communityServices = Chain(
 
 Chain constructionActivities = Chain(
   id: 'phid_s_constructionActivities',
-  icon: null,
   sons: ChainCrafts.chain.sons,
 );
 const Chain constructionActivityMeasurementMethod = Chain(
   id: 'phid_s_constructionActivityMeasurementMethod',
-  icon: null,
   sons: <String>[
     'phid_s_byLength',
     'phid_s_byArea',
@@ -484,37 +441,30 @@ const Chain constructionActivityMeasurementMethod = Chain(
 /// SIZING ANATOMY
 const Chain width = Chain(
   id: 'phid_s_width',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain length = Chain(
   id: 'phid_s_length',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain height = Chain(
   id: 'phid_s_height',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain thickness = Chain(
   id: 'phid_s_thickness',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain diameter = Chain(
   id: 'phid_s_diameter',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain radius = Chain(
   id: 'phid_s_radius',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain linearMeasurementUnit = Chain(
   id: 'phid_s_linearMeasureUnit',
-  icon: null,
   sons: <String>[
     'phid_s_micron',
     'phid_s_millimeter',
@@ -529,12 +479,10 @@ const Chain linearMeasurementUnit = Chain(
 );
 const Chain footPrint = Chain(
   id: 'phid_s_footPrint',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain areaMeasureUnit = Chain(
   id: 'phid_s_areaMeasureUnit',
-  icon: null,
   sons: <String>[
     'phid_s_square_meter',
     'phid_s_square_Kilometer',
@@ -546,12 +494,10 @@ const Chain areaMeasureUnit = Chain(
 );
 const Chain volume = Chain(
   id: 'phid_s_volume',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain volumeMeasurementUnit = Chain(
   id: 'phid_s_volumeMeasurementUnit',
-  icon: null,
   sons: <String>[
     'phid_s_cubic_cm',
     'phid_s_cubic_m',
@@ -565,12 +511,10 @@ const Chain volumeMeasurementUnit = Chain(
 );
 const Chain weight = Chain(
   id: 'phid_s_weight',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain weightMeasurementUnit = Chain(
   id: 'phid_s_weightMeasurementUnit',
-  icon: null,
   sons: <String>[
     'phid_s_ounce',
     'phid_s_pound',
@@ -581,12 +525,10 @@ const Chain weightMeasurementUnit = Chain(
 );
 const Chain count = Chain(
   id: 'phid_s_count',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );
 const Chain size = Chain(
   id: 'phid_s_size',
-  icon: null,
   sons: <String>[
     'phid_s_xxxSmall',
     'phid_s_xxSmall',
@@ -603,39 +545,32 @@ const Chain size = Chain(
 /// ELECTRICAL ANATOMY
 const Chain wattage = Chain(
   id: 'phid_s_wattage',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain voltage = Chain(
   id: 'phid_s_voltage',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain ampere = Chain(
   id: 'phid_s_ampere',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 // ------------------------------------------
 /// LOGISTICS ANATOMY
 const Chain inStock = Chain(
   id: 'phid_s_inStock',
-  icon: null,
   sons: DataCreator.boolSwitch,
 );
 const Chain deliveryAvailable = Chain(
   id: 'phid_s_deliveryAvailable',
-  icon: null,
   sons: DataCreator.boolSwitch,
 );
 const Chain deliveryDuration = Chain(
   id: 'phid_s_deliveryMinDuration',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain deliveryDurationUnit = Chain(
   id: 'phid_s_deliveryDurationUnit',
-  icon: null,
   sons: <String>[
     'phid_s_hour',
     'phid_s_day',
@@ -646,17 +581,14 @@ const Chain deliveryDurationUnit = Chain(
 /// PRODUCT INFO
 const Chain madeIn = Chain(
   id: 'phid_s_madeIn',
-  icon: null,
   sons: DataCreator.country,
 );
 const Chain warrantyDuration = Chain(
   id: 'phid_s_insuranceDuration',
-  icon: null,
   sons: DataCreator.doubleCreator,
 );
 const Chain warrantyDurationUnit = Chain(
   id: 'phid_s_warrantyDurationUnit',
-  icon: null,
   sons: <String>[
     'phid_s_hour',
     'phid_s_day',
@@ -670,35 +602,29 @@ const Chain warrantyDurationUnit = Chain(
 
 const Chain propertySalePrice = Chain(
   id: 'phid_s_PropertySalePrice',
-  icon: null,
   sons: DataCreator.price,
 );
 const Chain propertyRentPrice = Chain(
   id: 'phid_s_propertyRentPrice',
-  icon: null,
   sons: DataCreator.price,
 );
 
 Chain propertyDecorationStyle = Chain(
   id: 'phid_s_propertyDecorationStyle',
-  icon: null,
   sons: style.sons,
 );
 
 Chain designType = Chain(
   id: 'phid_s_group_dz_type',
-  icon: null,
   sons: ChainDesigns.chain.sons,
 );
 
 const Chain projectCost = Chain(
   id: 'phid_s_projectCost',
-  icon: null,
   sons: DataCreator.price,
 );
 
 const Chain constructionDuration = Chain(
   id: 'phid_s_constructionDuration',
-  icon: null,
   sons: DataCreator.integerIncrementer,
 );

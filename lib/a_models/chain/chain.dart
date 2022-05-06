@@ -9,12 +9,10 @@ class Chain {
   /// --------------------------------------------------------------------------
   const Chain({
     @required this.id,
-    @required this.icon,
     @required this.sons,
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final String icon;
   final dynamic sons;
 // -----------------------------------------------------------------------------
 
@@ -58,7 +56,6 @@ class Chain {
     return
         {
           'id': id,
-          'icon': icon,
           'sons': _cipherSons(sons),
         };
   }
@@ -134,7 +131,6 @@ class Chain {
     if (map != null){
       _chain = Chain(
         id: map['id'],
-        icon: map['icon'],
         sons: _decipherSons(map['sons']),
       );
     }
@@ -219,7 +215,6 @@ class Chain {
 
       _filteredChain = Chain(
         id: _filteredChain.id,
-        icon: _filteredChain.icon,
         sons: _filteredIDs,
       );
     }
@@ -714,7 +709,6 @@ class Chain {
 
       _output = Chain(
         id: chainToTake.id,
-        icon: chainToTake.icon,
         sons: _newSons,
       );
 

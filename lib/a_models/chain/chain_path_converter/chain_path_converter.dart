@@ -42,6 +42,26 @@ class ChainPathConverter {
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
+  static Chain createChainFromSinglePath({
+    @required String path,
+  }) {
+
+    Chain _chain;
+
+    if (TextChecker.stringIsNotEmpty(path)){
+      final List<Chain> chains = createChainsFromPaths(
+        paths: <String>[path],
+      );
+
+      if (Mapper.canLoopList(chains)){
+        _chain = chains.first;
+      }
+    }
+
+    return _chain;
+  }
+// -------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Chain> createChainsFromPaths({
   @required List<String> paths,
 }) {
@@ -151,7 +171,6 @@ class ChainPathConverter {
 
     final Chain _chain = Chain(
       id: dividedPath.first,
-      icon: null,
       sons: dividedPath.length == 2 ? <String>[dividedPath.last] : <Chain>[],
     );
 
