@@ -321,15 +321,30 @@ class ChainPathConverter {
     return _output;
   }
 // -------------------------------------------
-  static String getRootChainID({
+  static String getFirstPathNode({
     @required String path
   }){
-    /// => 'phid_a/phid_b/phid_c'
+    /// FIRST PATH NODE IS CHAIN ROOT ID, in this example it's [phid_a] => 'phid_a/phid_b/phid_c'
     final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
     /// => <String>[phid_a, phid_b, phid_c]
     final List<String> _pathNodes = _cleanedPath.split('/');
     /// => phid_c
     return _pathNodes.first;
+  }
+// -------------------------------------------
+  static String getLastPathNode(String path){
+    /// LAST PATH NODE IS the FURTHEST FROM ROOT ID, in this example it's [phid_c] => 'phid_a/phid_b/phid_c'
+
+    String _node;
+
+    if (TextChecker.stringIsNotEmpty(path) == true){
+
+      final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
+      final List<String> _pathNodes = _cleanedPath.split('/');
+      _node = _pathNodes.last;
+
+    }
+    return _node;
   }
 // -----------------------------------------------------------------------------
 

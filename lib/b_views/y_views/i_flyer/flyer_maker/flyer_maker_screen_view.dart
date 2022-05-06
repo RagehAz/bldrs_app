@@ -287,7 +287,7 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                   return ZoneSelectionBubble(
                     title: 'Flyer Target city',
-                    notes: <String>[
+                    notes: const <String>[
                       'Select The city you would like this flyer to target',
                       'each flyer can target only one city',
                       'Selecting district increases the probability of this flyer to gain more views in that district',

@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -70,8 +69,12 @@ class PageBubble extends StatelessWidget {
     return height;
   }
 // -----------------------------------------------------------------------------
-  static double clearWidth(BuildContext context){
+  static double width(BuildContext context){
     return Scale.appBarWidth(context);
+  }
+// -----------------------------------------------------------------------------
+  static double clearWidth(BuildContext context){
+    return PageBubble.width(context) - (Ratioz.appBarMargin * 2);
   }
 // -----------------------------------------------------------------------------
   @override

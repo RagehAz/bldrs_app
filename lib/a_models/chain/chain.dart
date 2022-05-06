@@ -1,12 +1,11 @@
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/data_creator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:flutter/material.dart';
 
 class Chain {
   /// --------------------------------------------------------------------------
