@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 class ChainTreeStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainTreeStrip({
+    @required this.width,
     @required this.level,
     @required this.phraseID,
     @required this.phraseValue,
@@ -23,6 +24,7 @@ class ChainTreeStrip extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final double width;
   final int level;
   final String phraseID;
   final String phraseValue;
@@ -38,15 +40,14 @@ class ChainTreeStrip extends StatelessWidget {
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
-    final double _screenWidth  = Scale.superScreenWidth(context);
     const Color _stripColor = Colorz.black255;
 
     final double _levelPaddingWidth = stripHeight + (stripHeight * 0.6 * (level - 1));
-    final double _stringsWidth = _screenWidth - _levelPaddingWidth - stripHeight;
+    final double _stringsWidth = width - _levelPaddingWidth - stripHeight;
 
     return Container(
       key: const ValueKey<String>('chain_tree_strip'),
-      width: _screenWidth,
+      width: width,
       color: Color.fromRGBO(_stripColor.red, _stripColor.green, _stripColor.blue, (90 - (20 * level)) / 100),
       margin: const EdgeInsets.only(bottom: 2),
       child: Row(

@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/trans_model_streamer.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
-// import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -21,6 +20,7 @@ import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 
 class TranslationsManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -260,8 +260,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   @override
   Widget build(BuildContext context) {
 
-    // final double _screenWidth = Scale.superScreenWidth(context);
-    // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     const double _buttonsHeight = 40;
 
     return PhrasesStreamer(
@@ -397,6 +396,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
 
                       /// TRANSLATIONS LIST PAGE
                       TranslationsPage(
+                        screenHeight: _screenHeight,
                         pageController: _pageController,
                         scrollController: _docScrollController,
                         arController: _arabicController,

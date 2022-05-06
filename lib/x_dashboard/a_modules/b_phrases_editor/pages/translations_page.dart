@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class TranslationsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TranslationsPage({
+    @required this.screenHeight,
     @required this.isSearching,
     @required this.mixedSearchedPhrases,
     @required this.scrollController,
@@ -18,6 +19,7 @@ class TranslationsPage extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final double screenHeight;
   final ValueNotifier<bool> isSearching; /// p
   final ValueNotifier<List<Phrase>> mixedSearchedPhrases; /// p
   final ScrollController scrollController;
@@ -61,6 +63,7 @@ class TranslationsPage extends StatelessWidget {
               );
 
               return TranslationsBubble(
+                screenHeight: screenHeight,
                 enPhrases: _enSearchedPhrases,
                 arPhrases: _arSearchedPhrases,
                 scrollController: scrollController,
@@ -100,6 +103,7 @@ class TranslationsPage extends StatelessWidget {
 
       },
       child: TranslationsBubble(
+        screenHeight: screenHeight,
         scrollController: scrollController,
         arPhrases: arPhrases,
         enPhrases: enPhrases,
