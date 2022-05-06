@@ -53,6 +53,7 @@ abstract class FireDoc {
 abstract class FireSubColl {
 
   static const String admin_backups_phrases = 'phrases';
+  static const String admin_backups_chains = 'chains';
 
   static const String users_user_asks = 'asks' ;
   static const String users_user_records = 'records';

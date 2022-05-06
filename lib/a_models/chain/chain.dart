@@ -1,9 +1,12 @@
+import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/data_creator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 
 class Chain {
   /// --------------------------------------------------------------------------
@@ -458,13 +461,14 @@ class Chain {
   static String getChainBlogTreeSpacing(int level){
 
     final String _space =
-    level == 1 ? '-->' :
-    level == 2 ? '---->' :
-    level == 3 ? '------>' :
-    level == 4 ? '-------->' :
-    level == 5 ? '---------->' :
-    level == 6 ? '------------>' :
-    level == 7 ? '-------------->' :
+    level == 0 ? '-->' :
+    level == 1 ? '---->' :
+    level == 2 ? '------>' :
+    level == 3 ? '-------->' :
+    level == 4 ? '---------->' :
+    level == 5 ? '------------>' :
+    level == 6 ? '-------------->' :
+    level == 7 ? '---------------->' :
     '---------------->';
 
     return _space;
@@ -742,5 +746,94 @@ class Chain {
     return _cleaned;
 }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Chain> updateNode({
+    @required BuildContext context,
+    @required String oldPhid,
+    @required String newPhid,
+    @required Chain sourceChain,
+}) async {
 
+      List<String> _modifiedPaths = <String>[];
+      // int _numberOfModifiedPaths = 0;
+      // final List<String> _pathsContainingOldPhid = ChainPathConverter.findPathsContainingPhid(
+      //   phid: oldPhid,
+      //   paths: _chainPaths,
+      // );
+
+      final List<String> _chainPaths = ChainPathConverter.generateChainPaths(
+        chain: sourceChain,
+      );
+
+      if (Mapper.canLoopList(_chainPaths)){
+
+        for (int i = 0; i< _chainPaths.length; i++){
+
+          final String _path = _chainPaths[i];
+
+          final bool _pathContainOldPhid = TextChecker.stringContainsSubString(
+            string: _path,
+            subString: oldPhid,
+          );
+
+          /// PATH CONTAINS OLD PHID
+          if (_pathContainOldPhid == true){
+            final List<String> _nodes = ChainPathConverter.splitPathNodes(_path);
+
+            /// get level / index of the old phid
+            final int _index = _nodes.indexOf(oldPhid);
+
+            /// loop in all paths
+            if (_index != -1){
+
+              // _numberOfModifiedPaths++;
+
+              // final bool _result = await CenterDialog.showCenterDialog(
+              //   context: context,
+              //   title: 'Replace ( $oldPhid ) with ( $newPhid ) ?',
+              //   body: '${_pathsContainingOldPhid.length} paths has this ID'
+              //       '\n${_pathsContainingOldPhid.length - _numberOfModifiedPaths} paths remaining to be modified'
+              //       '\npath is : $_path'
+              //       '\n${_chainPaths.length} total number of all paths in this chain',
+              //   boolDialog: true,
+              // );
+
+              // if (_result == true){
+                _nodes[_index] = newPhid;
+                final String _combinedPath = ChainPathConverter.combinePathNodes(_nodes);
+
+                _modifiedPaths = ChainPathConverter.addPathToPaths(
+                    paths: _modifiedPaths,
+                    path: _combinedPath,
+                );
+
+              // }
+              // else {
+              //   _modifiedPaths = ChainPathConverter.addPathToPaths(
+              //     paths: _modifiedPaths,
+              //     path: _path,
+              //   );
+              // }
+
+            }
+
+          }
+
+          /// PATH DOES NOT CONTAIN OLD PHID
+          else {
+            _modifiedPaths = ChainPathConverter.addPathToPaths(
+              paths: _modifiedPaths,
+              path: _path,
+            );
+          }
+
+        }
+
+      }
+
+      final List<Chain> _output = ChainPathConverter.createChainsFromPaths(paths: _modifiedPaths);
+
+      return _output?.first;
+  }
+// -----------------------------------------------------------------------------
 }

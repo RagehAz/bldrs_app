@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -81,6 +82,24 @@ class ChainPathConverter {
   }
 // -------------------------------------------
   /// TESTED : WORKS PERFECT
+  static Chain _createNewEmptyChainForPath({
+    @required List<String> dividedPath,
+  }){
+
+    final Chain _chain = Chain(
+      id: dividedPath.first,
+      sons: dividedPath.length == 2 ? <String>[dividedPath.last] : <Chain>[],
+    );
+
+    return _chain;
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// CHAIN MODIFIERS
+
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static void _addPathsToChains({
     @required List<Chain> allChains,
     @required List<String> pathsToAdd,
@@ -103,7 +122,7 @@ class ChainPathConverter {
     @required String pathToAdd,
   }){
 
-    final List<String> _divided = _createPathDivisions(pathToAdd);
+    final List<String> _divided = splitPathNodes(pathToAdd);
 
     _dBlog('XXX - adding path of ( $pathToAdd )');
 
@@ -118,67 +137,6 @@ class ChainPathConverter {
   }
 // -------------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> _createPathDivisions(String path){
-
-    List<String> _divisions = <String>[];
-
-    if (TextChecker.stringIsNotEmpty(path) == true){
-
-      // final String _cleaned = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
-      _divisions = path.split('/').toList();
-      _divisions.removeWhere((element) => element == '');
-
-    }
-
-    return _divisions;
-  }
-// -------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Chain _getRootChainFromAllChains({
-    @required List<Chain> chains,
-    @required String rootChainID
-  }){
-
-    final int index = chains.indexWhere((chain) => chain.id == rootChainID);
-
-    if (index == -1){
-      return null;
-    }
-
-    else {
-      return chains[index];
-    }
-  }
-// -------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> _getNestedSonsIDsFromDividedPath({
-    @required List<String> dividedPath,
-  }){
-
-    List<String> _output;
-
-    if (Mapper.canLoopList(dividedPath) == true){
-      _output = dividedPath.sublist(1);
-    }
-
-    return _output;
-  }
-// -------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Chain _createNewEmptyChainForPath({
-    @required List<String> dividedPath,
-  }){
-
-    final Chain _chain = Chain(
-      id: dividedPath.first,
-      sons: dividedPath.length == 2 ? <String>[dividedPath.last] : <Chain>[],
-    );
-
-    return _chain;
-
-  }
-// -------------------------------------------
-  /// TESTED : WORKS PERFECT
   static void _addDividedPathToAllChains({
     @required List<Chain> allChains,
     @required List<String> dividedPath,
@@ -186,7 +144,7 @@ class ChainPathConverter {
 
     /// GET ROOT CHAIN IF EXISTED OR NULL IF NOT
     final String _rootChainID = dividedPath.first;
-    final Chain _rooChain = _getRootChainFromAllChains(
+    final Chain _rooChain = _getRootChainFromChains(
       chains: allChains,
       rootChainID: _rootChainID,
     );
@@ -234,34 +192,7 @@ class ChainPathConverter {
 
     }
   }
-// -------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static bool _chainSonsIncludeID({
-    @required Chain chain,
-    @required String sonID,
-  }){
-    bool _include = false;
 
-    if (Chain != null && sonID != null){
-
-      if (Chain.sonsAreChains(chain.sons) == true){
-        final List<Chain> _sonsChains = chain.sons;
-        final int _index = _sonsChains.indexWhere((sonChain) => sonChain.id == sonID);
-        _include = _index != -1;
-      }
-      else if (Chain.sonsAreStrings(chain.sons) == true){
-        final List<String> _sonsStrings = chain.sons;
-        final int _index = _sonsStrings.indexWhere((sonString) => sonString == sonID);
-        _include = _index != -1;
-      }
-      else if (Chain.sonsAreDataCreator(chain.sons) == true){
-        _include = chain.sons == sonID;
-      }
-
-    }
-
-    return _include;
-  }
 // -------------------------------------------
   /// TESTED : WORKS PERFECT
   static void _addNestedSonsIDsToChain({
@@ -356,6 +287,52 @@ class ChainPathConverter {
   }
 // -----------------------------------------------------------------------------
 
+  /// CHAIN / PATHS / NODES GETTERS
+
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Chain _getRootChainFromChains({
+    @required List<Chain> chains,
+    @required String rootChainID
+  }){
+
+    final int index = chains.indexWhere((chain) => chain.id == rootChainID);
+
+    if (index == -1){
+      return null;
+    }
+
+    else {
+      return chains[index];
+    }
+  }
+// -------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _getNestedSonsIDsFromDividedPath({
+    @required List<String> dividedPath,
+  }){
+
+    List<String> _output;
+
+    if (Mapper.canLoopList(dividedPath) == true){
+      _output = dividedPath.sublist(1);
+    }
+
+    return _output;
+  }
+// -------------------------------------------
+  static String getRootChainID({
+    @required String path
+  }){
+    /// => 'phid_a/phid_b/phid_c'
+    final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
+    /// => <String>[phid_a, phid_b, phid_c]
+    final List<String> _pathNodes = _cleanedPath.split('/');
+    /// => phid_c
+    return _pathNodes.first;
+  }
+// -----------------------------------------------------------------------------
+
 /// CREATE PATHS FROM CHAINS
 
 // --------------------------------------------
@@ -407,28 +384,6 @@ class ChainPathConverter {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> _generateChainPathsFromStringsSons({
-    @required String parentID,
-    @required List<String> sons,
-    String previousPath = '', // ...xx/
-  }){
-
-    final List<String> _paths = <String>[];
-
-    if (Mapper.canLoopList(sons) == true && parentID != null){
-
-      for (final String son in sons){
-
-        _paths.add('$previousPath$parentID/$son/');
-
-      }
-
-    }
-
-    return _paths;
-  }
-// --------------------------------------------
-  /// TESTED : WORKS PERFECT
   static List<String> generateChainsPaths({
     @required String parentID,
     @required List<Chain> chains,
@@ -459,9 +414,31 @@ class ChainPathConverter {
 
     return _cleaned;
   }
+  // --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _generateChainPathsFromStringsSons({
+    @required String parentID,
+    @required List<String> sons,
+    String previousPath = '', // ...xx/
+  }){
+
+    final List<String> _paths = <String>[];
+
+    if (Mapper.canLoopList(sons) == true && parentID != null){
+
+      for (final String son in sons){
+
+        _paths.add('$previousPath$parentID/$son/');
+
+      }
+
+    }
+
+    return _paths;
+  }
 // -----------------------------------------------------------------------------
 
-/// CREATE PATHS FINDERS
+/// PATHS FINDERS
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -492,9 +469,94 @@ class ChainPathConverter {
   }
 // -----------------------------------------------------------------------------
 
+/// PATHS MODIFIERS
+
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> addPathToPaths({
+    @required List<String> paths,
+    @required String path,
+}){
+
+    final List<String> _output = <String>[...paths];
+
+    if (_output != null && TextChecker.stringIsNotEmpty(path) == true){
+
+      if (_output.contains(path) == false){
+        _output.add(path);
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> splitPathNodes(String path){
+
+    List<String> _divisions = <String>[];
+
+    if (TextChecker.stringIsNotEmpty(path) == true){
+
+      // final String _cleaned = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
+      _divisions = path.split('/').toList();
+      _divisions.removeWhere((element) => element == '');
+
+    }
+
+    return _divisions;
+  }
+// -------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String combinePathNodes(List<String> nodes){
+    String _path = '';
+
+    if (Mapper.canLoopList(nodes) == true){
+
+      for (final String node in nodes){
+
+        _path = _path == '' ? '$node/' : '$_path$node/';
+
+      }
+
+    }
+
+    return _path;
+  }
+// -----------------------------------------------------------------------------
+
 /// PATH CHECKERS
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool _chainSonsIncludeID({
+    @required Chain chain,
+    @required String sonID,
+  }){
+    bool _include = false;
+
+    if (Chain != null && sonID != null){
+
+      if (Chain.sonsAreChains(chain.sons) == true){
+        final List<Chain> _sonsChains = chain.sons;
+        final int _index = _sonsChains.indexWhere((sonChain) => sonChain.id == sonID);
+        _include = _index != -1;
+      }
+      else if (Chain.sonsAreStrings(chain.sons) == true){
+        final List<String> _sonsStrings = chain.sons;
+        final int _index = _sonsStrings.indexWhere((sonString) => sonString == sonID);
+        _include = _index != -1;
+      }
+      else if (Chain.sonsAreDataCreator(chain.sons) == true){
+        _include = chain.sons == sonID;
+      }
+
+    }
+
+    return _include;
+  }
+// -------------------------------------------
+
 /*
   static bool phidIsAChainID({
     @required List<String> paths,
