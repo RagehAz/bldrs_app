@@ -1,26 +1,17 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_manager_pages/chain_editor_page.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_manager_pages/chains_viewer_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_controller.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/widgets/chain_tree_viewer.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/widgets/chains_data_tree_starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 
 class ChainsManagerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -38,6 +29,8 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
   List<Chain> _allChains;
   List<String> _allChainsPaths;
   Chain _testChain;
+  final PageController _pageController = PageController(); /// tamam disposed
+  final TextEditingController _textController = TextEditingController(); /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -114,6 +107,8 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     _isSearching.dispose();
     _foundChains.dispose();
     _searchValue.dispose();
+    _pageController.dispose();
+    _textController.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onStripTap({
@@ -121,115 +116,12 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     @required String phraseIDPath,
 }) async {
 
-    /// => 'phid_a/phid_b/phid_c'
-    final String _cleanedPath = removeTextAfterLastSpecialCharacter(phraseIDPath, '/');
-    /// => <String>[phid_a, phid_b, phid_c]
-    final List<String> _pathNodes = _cleanedPath.split('/');
-    /// => phid_c
-    final String _phid = _pathNodes.last;
-    /// => translation
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-    final String _phraseName = superPhrase(context, _phid, providerOverride: _phraseProvider);
-    /// => single path chain
-    final Chain _pathChain = ChainPathConverter.createChainFromSinglePath(
-        path: phraseIDPath
-    );
+    _selectedPath.value = phraseIDPath;
 
-    final double _clearWidth = BottomDialog.clearWidth(context);
-    final double _dialogHeight = superScreenHeight(context) * 0.65;
-
-    await BottomDialog.showBottomDialog(
-        context: context,
-        draggable: true,
-        title: _phraseName,
-        height: _dialogHeight,
-        child: SizedBox(
-          width: _clearWidth,
-          height: BottomDialog.clearHeight(
-            context: context,
-            draggable: true,
-            titleIsOn: true,
-            overridingDialogHeight: _dialogHeight,
-          ),
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(bottom: Ratioz.horizon),
-            children: <Widget>[
-
-              DataStrip(
-                dataKey: 'Path',
-                dataValue: phraseIDPath,
-                width: _clearWidth,
-                withHeadline: true,
-                onTap: () => copyToClipboard(context: context, copy: phraseIDPath),
-              ),
-
-              DataStripKey(
-                dataKey: 'Chain',
-                width: _clearWidth,
-                height: DataStripWithHeadline.keyRowHeight,
-              ),
-
-              ChainTreeViewer(
-                width: _clearWidth,
-                chain: _pathChain,
-                onStripTap: (String path){blog(path);},
-                searchValue: null,
-                initiallyExpanded: true,
-              ),
-
-              SizedBox(
-                width: _clearWidth,
-                child: Row(
-                  children: <Widget>[
-
-                    DreamBox(
-                      height: 40,
-                      verse: 'change $_phid',
-                      verseScaleFactor: 0.7,
-                      verseColor: Colorz.black255,
-                      // verseWeight: VerseWeight.thin,
-                      color: Colorz.yellow255,
-                      margins: 10,
-                      onTap: () async {
-
-                        blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
-
-                        final String _rootChainID = ChainPathConverter.getRootChainID(
-                          path: phraseIDPath,
-                        );
-                        final Chain _chain = Chain.getChainFromChainsByID(
-                            chainID: _rootChainID,
-                            chains: _allChains,
-                        );
-
-                        _chain.blogChain();
-
-                        blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
-
-                        final Chain _newChain = await Chain.updateNode(
-                          context: context,
-                          oldPhid: _phid,
-                          newPhid: 'SEXXXY',
-                          sourceChain: _chain,
-                        );
-
-                        _newChain.blogChain();
-
-                        blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
-
-                      },
-                    ),
-
-
-                  ],
-                ),
-              ),
-
-
-            ],
-          ),
-        ),
+    await slideToNext(
+        slidingController: _pageController,
+        numberOfSlides: 2,
+        currentSlide: 0
     );
 
   }
@@ -249,7 +141,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     );
   }
 // -----------------------------------------------------------------------------
-
+  final ValueNotifier<String> _selectedPath = ValueNotifier(null);
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -282,44 +174,35 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 
       ],
 
-      layoutWidget: PageBubble(
-        screenHeightWithoutSafeArea: _screenHeight,
-        appBarType: AppBarType.search,
-        color: Colorz.white20,
-        child: ValueListenableBuilder<bool>(
-          valueListenable: _isSearching,
-          builder: (_, bool isSearching, Widget child){
+      layoutWidget: PageView(
+        physics: const BouncingScrollPhysics(),
+        controller: _pageController,
+        children: <Widget>[
 
-            if (isSearching == true){
-              return ValueListenableBuilder(
-                  valueListenable: _foundChains,
-                  builder: (_, List<Chain> foundChains, Widget child){
+          ChainViewerPage(
+              screenHeight: _screenHeight,
+              isSearching: _isSearching,
+              foundChains: _foundChains,
+              searchValue: _searchValue,
+              allChains: _allChains,
+              onStripTap: (String path) => _onStripTap(
+                phraseIDPath: path,
+              ),
+          ),
 
-                    return ChainsTreesStarter(
-                      width: PageBubble.clearWidth(context),
-                      chains: foundChains,
-                      onStripTap: (String path) => _onStripTap(
-                          phraseIDPath: path
-                      ),
-                      searchValue: _searchValue,
-                    );
+          ChainEditorPage(
+            screenHeight: _screenHeight,
+            textController: _textController,
+            path: _selectedPath,
+            onUpdateNode: () => onUpdateNode(
+              context: context,
+              newPhid: _textController.text,
+              allChains: _allChains,
+              path: _selectedPath.value,
+            ),
+          ),
 
-                  }
-              );
-            }
-
-            else {
-              return ChainsTreesStarter(
-                  width: PageBubble.clearWidth(context),
-                  chains: _allChains,
-                  onStripTap: (String path) => _onStripTap(
-                      phraseIDPath: path
-                  )
-              );
-            }
-
-          },
-        ),
+        ],
       ),
 
     );

@@ -135,14 +135,14 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 // ---------------------------------------------------------------------------
   Future<void> _onAsk() async {
     if (TextChecker.textControllerIsEmpty(_bodyController) == true) {
-      await NavDialog.showNavDialog(
+      NavDialog.showNavDialog(
           context: context,
           firstLine: 'Question is empty',
           secondLine: 'Please type your question first');
     }
 
     else if (TextChecker.textControllerIsEmpty(_titleController) == true) {
-      await NavDialog.showNavDialog(
+      NavDialog.showNavDialog(
           context: context,
           firstLine: 'Title is empty',
           secondLine: 'Please type question title to proceed');
@@ -174,7 +174,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         userID: FireAuthOps.superUserID(),
       );
 
-      await NavDialog.showNavDialog(
+      NavDialog.showNavDialog(
           context: context,
           firstLine: 'Question submitted',
           secondLine: 'Question is submitted, and all bitched will see now');

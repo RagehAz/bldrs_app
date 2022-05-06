@@ -87,7 +87,7 @@ class DataStrip extends StatelessWidget {
       copy: dataValue.toString(),
     );
 
-    await NavDialog.showNavDialog(
+    NavDialog.showNavDialog(
       context: context,
       firstLine: 'data copied to clipboard',
       secondLine: dataValue.toString(),

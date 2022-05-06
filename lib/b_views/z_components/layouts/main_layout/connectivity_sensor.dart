@@ -101,7 +101,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
 
         /// SHOW CONNECTED DIALOG
         if (isConnected == true){
-          await NavDialog.showNavDialog(
+          NavDialog.showNavDialog(
             context: context,
             firstLine: 'Connected',
             color: Colorz.green255,
@@ -110,7 +110,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
         }
         /// SHOW DISCONNECTED DIALOG
         else {
-          await NavDialog.showNavDialog(
+          NavDialog.showNavDialog(
             context: context,
             firstLine: 'Disconnected',
             secondLine: 'Check your Internet connection',
