@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -25,6 +26,21 @@ Future<void> onAddMoreSpecsChainsToExistingSpecsChains({
 
     await _chainsProvider.reloadAllChains(context);
 
+  }
+
+}
+// -----------------------------------------------------------------------------
+Future<void> onBackupAllChains(BuildContext context) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    boolDialog: true,
+    title: 'Back up All Chains ?',
+    body: 'Please confirm',
+  );
+
+  if (_result == true){
+    await ChainOps.backupChainsOps(context);
   }
 
 }

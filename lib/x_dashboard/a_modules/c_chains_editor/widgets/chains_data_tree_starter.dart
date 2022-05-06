@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 class ChainsTreesStarter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainsTreesStarter({
+    @required this.width,
     @required this.chains,
     @required this.onStripTap,
     this.searchValue,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final double width;
   final List<Chain> chains;
   final ValueChanged<String> onStripTap;
   final ValueNotifier<String> searchValue;
@@ -24,13 +26,14 @@ class ChainsTreesStarter extends StatelessWidget {
       return ListView.builder(
           key: const ValueKey<String>('ChainsTreesStarter'),
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon),
+          padding: const EdgeInsets.only(bottom: Ratioz.horizon),
           itemCount: chains?.length,
           itemBuilder: (_, index){
 
             final Chain _chain = chains[index];
 
             return ChainTreeViewer(
+              width: width,
               chain: _chain,
               onStripTap : onStripTap,
               searchValue: searchValue,
