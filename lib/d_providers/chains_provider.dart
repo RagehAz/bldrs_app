@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -260,50 +259,29 @@ class ChainsProvider extends ChangeNotifier {
     @required BuildContext context,
     @required dynamic son,
   }) {
+
     String _icon;
 
-    tryAndCatch(
-        context: context,
-        methodName: 'get icon',
-        functions: () {
+    String _phid;
 
-          /// WHEN SON IS KEYWORD ID
-          if (son.runtimeType == String) {
+    /// WHEN SON IS KEYWORD ID
+    if (son.runtimeType == String) {
+      _phid  = son;
+    }
+    /// WHEN SON IS A CHAIN
+    else if (son.runtimeType == Chain) {
+      final Chain _chain = son;
+      _phid = _chain.id;
+    }
 
-            if (Phrase.isKeywordPhid(son)){
-              _icon = 'assets/icons/keywords/$son.jpg';
-            }
-            else if (Phrase.isSpecPhid(son)){
-              _icon = 'assets/icons/specs/$son.svg';
-            }
-
-          }
-
-          /// WHEN SON IS A CHAIN
-          else if (son.runtimeType == Chain) {
-
-            final Chain _chain = son;
-
-            if (_chain.icon == null) {
-              // _icon = null;
-            }
-
-            else if (_chain.icon == 'id') {
-              _icon = 'assets/icons/keywords/${_chain.id}.jpg';
-            }
-
-            else {
-              _icon = _chain.icon;
-            }
-
-          }
-
-          // /// HOWEVER
-          // else {
-          //   // _keywordID = null;
-          // }
-
-        });
+    /// WHEN PHID_K_
+    if (Phrase.isKeywordPhid(_phid)){
+      _icon = 'assets/icons/keywords/$_phid.jpg';
+    }
+    /// WHEN PHID_S_
+    else if (Phrase.isSpecPhid(_phid)){
+      _icon = 'assets/icons/specs/$_phid.svg';
+    }
 
     return _icon;
   }

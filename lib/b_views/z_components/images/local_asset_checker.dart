@@ -48,8 +48,8 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
         await _triggerLoading();
       });
 
+      _isInit = false;
     }
-    _isInit = false;
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
