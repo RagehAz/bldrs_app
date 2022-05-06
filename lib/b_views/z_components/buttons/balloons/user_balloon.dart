@@ -213,7 +213,7 @@ class BalloonComponents extends StatelessWidget {
                   pic: pic,
                   width: balloonWidth,
                   height: balloonWidth,
-                  boxFit: BoxFit.cover,
+                  // boxFit: BoxFit.cover,
                 )
                     :
                 Container()

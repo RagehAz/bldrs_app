@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -1086,6 +1087,33 @@ bool picturesURLsAreTheSame({
   }
 
   return _areTheSame;
+}
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+Future<bool> localAssetExists(dynamic asset) async {
+  bool _isFound = false;
+
+  if (asset is String){
+    if (TextChecker.stringIsNotEmpty(asset) == true){
+
+      final ByteData _bytes = await rootBundle.load(asset).catchError((Object error){
+
+        // blog('LocalAssetChecker : _checkAsset : error : ${error.toString()}');
+
+        if (error == null){
+          _isFound = true;
+        }{
+          _isFound = false;
+        }
+
+      },);
+
+      _isFound = _bytes != null;
+
+    }
+  }
+
+  return _isFound;
 }
 // -----------------------------------------------------------------
 

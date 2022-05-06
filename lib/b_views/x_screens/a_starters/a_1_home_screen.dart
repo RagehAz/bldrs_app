@@ -55,6 +55,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 // -----------------------------------------------------------------------------
   @override
+  void dispose() {
+    super.dispose();
+    _loading.dispose();
+  }
+// -----------------------------------------------------------------------------
+  @override
   Widget build(BuildContext context) {
 
     // traceWidgetBuild(widgetName: 'Home screen', varName: '_isInit', varValue: _isInit);
