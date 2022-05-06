@@ -1,8 +1,6 @@
 import 'dart:convert';
-
-import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/images/local_asset_checker.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -144,26 +142,32 @@ class SuperImage extends StatelessWidget {
 
               /// JPG OR PNG
               ObjectChecker.objectIsJPGorPNG(pic) ?
-              Image.asset(
-                pic,
-                fit: boxFit,
-                width: width,
-                height: height,
-                errorBuilder: _errorBuilder,
-                scale: 1,
-                gaplessPlayback: _gaplessPlayback,
+              LocalAssetChecker(
+                asset: pic,
+                child: Image.asset(
+                  pic,
+                  fit: boxFit,
+                  width: width,
+                  height: height,
+                  errorBuilder: _errorBuilder,
+                  scale: 1,
+                  gaplessPlayback: _gaplessPlayback,
+                ),
               )
 
                   :
 
               /// SVG
               ObjectChecker.objectIsSVG(pic) ?
-              WebsafeSvg.asset(
-                pic,
-                fit: boxFit,
-                color: iconColor,
-                width: width,
-                height: height,
+              LocalAssetChecker(
+                asset: pic,
+                child: WebsafeSvg.asset(
+                  pic,
+                  fit: boxFit,
+                  color: iconColor,
+                  width: width,
+                  height: height,
+                ),
               )
 
                   :
@@ -254,3 +258,4 @@ class SuperImage extends StatelessWidget {
 
   }
 }
+

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -20,7 +19,6 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -220,7 +218,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     highlightedText.value = text;
   }
 // -----------------------------------------------------------------------------
-  dynamic _thePic;
+  ValueNotifier<dynamic> _thePic = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +245,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
-      navBarIsOn: false,
+      // navBarIsOn: false,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       appBarRowWidgets: <Widget>[
@@ -414,9 +412,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 const String _url = 'https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY';
 
-                setState(() {
-                  _thePic = _url;
-                });
+                  _thePic.value = _url;
 
                 // _uiProvider.triggerLoading(setLoadingTo: false);
 
@@ -437,9 +433,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 //     accountType: BzAccountType.normal,
                 // );
 
-                final File file = await takeGalleryPicture(
-                  picType: PicType.bzLogo,
-                );
+                // final File file = await takeGalleryPicture(
+                //   picType: PicType.bzLogo,
+                // );
 
                 // final Uint8List _uints = await getUint8ListFromFile(file);
 
@@ -447,9 +443,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 // const String _url = 'https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY';
 
-                setState(() {
-                  _thePic = file ?? Iconz.sphinx;
-                });
+                  _thePic.value = 'assets/icons/gi_exit.svg';
 
                 //     File file = await Imagers.getFileFromLocalRasterAsset(
                 //       context: context,
@@ -463,19 +457,25 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
               }),
 
-          SuperImage(
-            width: 100,
-            height: 100,
-            scale: 1,
-            boxFit: BoxFit.fitWidth,
-            pic: _thePic ?? Iconz.dumUniverse,
-            iconColor: Colorz.blue255,
-            loading: false,
-            // backgroundColor: Colorz.black255,
-            corners: 10,
-            greyscale: false,
-          ),
+          ValueListenableBuilder(
+              valueListenable: _thePic,
+              builder: (_, dynamic pic, Widget child){
 
+                return SuperImage(
+                  width: 100,
+                  height: 100,
+                  // scale: 1,
+                  boxFit: BoxFit.fitWidth,
+                  pic: pic ?? Iconz.dumUniverse,
+                  iconColor: Colorz.blue255,
+                  // loading: false,
+                  // backgroundColor: Colorz.black255,
+                  corners: 10,
+                  // greyscale: false,
+                );
+
+              }
+          ),
 
           /// PROMOTED FLYERS
           // Selector<FlyersProvider, List<FlyerModel>>(

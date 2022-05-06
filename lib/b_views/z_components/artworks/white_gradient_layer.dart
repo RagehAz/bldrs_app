@@ -34,7 +34,7 @@ class GradientLayer extends StatelessWidget {
         pic: _gradient,
         width: width,
         height: height,
-        boxFit: BoxFit.cover,
+        // boxFit: BoxFit.cover,
         iconColor: color,
       ),
     );
