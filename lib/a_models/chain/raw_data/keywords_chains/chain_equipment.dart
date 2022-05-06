@@ -1,24 +1,20 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainEquipment {
 
   static const Chain chain = Chain(
     id: 'phid_k_flyer_type_equipment',
-    icon: Iconz.bxEquipmentOff,
     sons: <Chain>[
 
       // -----------------------------------------------
       /// Handheld equipment & tools
       Chain(
         id: 'phid_k_group_equip_handheld',
-        icon: null,
         sons: <Chain>[
           // ----------------------------------
           /// Power tools
           Chain(
             id: 'phid_k_sub_handheld_power',
-            icon: null,
             sons: <String>[
               'phid_k_equip_tool_power_drill',
               'phid_k_equip_tool_power_saw',
@@ -33,7 +29,6 @@ abstract class ChainEquipment {
           /// Measurement tools
           Chain(
             id: 'phid_k_sub_handheld_measure',
-            icon: null,
             sons: <String>[
               'phid_k_equip_tool_measure_lasermeter',
               'phid_k_equip_tool_measure_tapMeasure',
@@ -44,7 +39,6 @@ abstract class ChainEquipment {
           /// Handheld machinery
           Chain(
             id: 'phid_k_sub_handheld_machinery',
-            icon: null,
             sons: <String>[
               'phid_k_equip_handheld_paver',
               'phid_k_equip_handheld_rammer',
@@ -57,7 +51,6 @@ abstract class ChainEquipment {
           /// Hand tools
           Chain(
             id: 'phid_k_sub_handheld_handTools',
-            icon: null,
             sons: <String>[
               'phid_k_equip_tool_hand_workbench',
               'phid_k_equip_tool_hand_bits',
@@ -72,7 +65,6 @@ abstract class ChainEquipment {
           /// Garden Tools
           Chain(
             id: 'phid_k_sub_handheld_gardenTools',
-            icon: null,
             sons: <String>[
               'phid_k_prd_tool_garden_fork',
               'phid_k_prd_tool_garden_pruning',
@@ -89,7 +81,6 @@ abstract class ChainEquipment {
           /// Cleaning Tools
           Chain(
             id: 'phid_k_sub_handheld_cleaning',
-            icon: null,
             sons: <String>[
               'phid_k_prd_tool_hk_floorcare',
               'phid_k_prd_tool_hk_mop',
@@ -102,7 +93,6 @@ abstract class ChainEquipment {
       /// Material handling equipment
       Chain(
         id: 'phid_k_group_equip_handling',
-        icon: null,
         sons: <String>[
           'phid_k_equip_mat_crane',
           'phid_k_equip_mat_conveyor',
@@ -114,7 +104,6 @@ abstract class ChainEquipment {
       /// Heavy machinery
       Chain(
         id: 'phid_k_group_equip_heavy',
-        icon: null,
         sons: <String>[
           'phid_k_equip_machinery_stoneCrusher',
           'phid_k_equip_machinery_tunneling',
@@ -126,7 +115,6 @@ abstract class ChainEquipment {
       /// Construction preparations
       Chain(
         id: 'phid_k_group_equip_prep',
-        icon: null,
         sons: <String>[
          'phid_k_equip_prep_scaffold',
          'phid_k_equip_prep_cone',
@@ -137,13 +125,11 @@ abstract class ChainEquipment {
       /// Vehicles
       Chain(
         id: 'phid_k_group_equip_vehicle',
-        icon: null,
         sons: <Chain>[
           // ----------------------------------
           /// Earth moving vehicles
           Chain(
             id: 'phid_k_sub_vehicle_earthmoving',
-            icon: null,
             sons: <String>[
               'phid_k_equip_earth_excavator',
               'phid_k_equip_earth_backhoe',
@@ -161,7 +147,6 @@ abstract class ChainEquipment {
           /// Transporting vehicles
           Chain(
             id: 'phid_k_sub_vehicle_transport',
-            icon: null,
             sons: <String>[
               'phid_k_equip_vehicle_dumper',
               'phid_k_equip_vehicle_tanker',
@@ -172,7 +157,6 @@ abstract class ChainEquipment {
           /// Paving vehicles
           Chain(
             id: 'phid_k_sub_vehicle_paving',
-            icon: null,
             sons: <String>[
               'phid_k_equip_paving_roller',
               'phid_k_equip_paving_asphalt',

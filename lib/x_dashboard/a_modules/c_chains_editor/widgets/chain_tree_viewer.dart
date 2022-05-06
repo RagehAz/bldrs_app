@@ -11,6 +11,7 @@ class ChainTreeViewer extends StatefulWidget {
     @required this.onStripTap,
     @required this.searchValue,
     this.initialLevel = 1,
+    this.initiallyExpanded = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -18,6 +19,7 @@ class ChainTreeViewer extends StatefulWidget {
   final int initialLevel;
   final ValueChanged<String> onStripTap;
   final ValueNotifier<String> searchValue;
+  final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
   @override
   State<ChainTreeViewer> createState() => _ChainTreeViewerState();
@@ -25,7 +27,13 @@ class ChainTreeViewer extends StatefulWidget {
 
 class _ChainTreeViewerState extends State<ChainTreeViewer> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _expanded = ValueNotifier(false); /// tamam disposed
+  ValueNotifier<bool> _expanded; /// tamam disposed
+// ----------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+    _expanded = ValueNotifier(widget.initiallyExpanded);
+  }
 // ----------------------------------------------
   @override
   void dispose() {
@@ -73,6 +81,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                       initialLevel: widget.initialLevel + 1,
                       onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
                       searchValue: widget.searchValue,
+                      initiallyExpanded: widget.initiallyExpanded,
                     );
                   }
               ),

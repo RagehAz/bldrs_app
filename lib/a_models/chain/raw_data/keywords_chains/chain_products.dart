@@ -1,12 +1,10 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/raw_data/keywords_chains/chain_products_sons.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainProducts {
 
   static const Chain chain = Chain(
     id: 'phid_k_flyer_type_product',
-    icon: Iconz.bxProductsOff,
     sons: <Chain>[
 
       appliancesChain,
