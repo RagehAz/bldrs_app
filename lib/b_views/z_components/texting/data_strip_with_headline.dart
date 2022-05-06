@@ -88,7 +88,7 @@ class DataStripKey extends StatelessWidget {
     @required this.height,
     @required this.width,
     @required this.dataKey,
-    @required this.onTap,
+    this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------

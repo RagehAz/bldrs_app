@@ -1,11 +1,9 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainDesigns {
 
   static const Chain chain = Chain(
     id: 'phid_k_flyer_type_design',
-    icon: Iconz.bxDesignsOff,
     sons: <String>[
 
       'phid_k_designType_architecture',

@@ -1,15 +1,18 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/widgets/chain_tree_viewer.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/widgets/chains_data_tree_starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +31,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 // -----------------------------------------------------------------------------
   List<Chain> _allChains;
   List<String> _allChainsPaths;
+  Chain _testChain;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -36,6 +40,20 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     final Chain _keywordsChain = _chainsProvider.keywordsChain;
     final Chain _specsChain = _chainsProvider.specsChain;
+
+    _testChain = Chain(
+      id: 'phid_bldrs',
+      sons: <Chain>[
+
+        Chain(
+          id: 'phid_design',
+          sons: <String>[
+            'phid_contractor',
+          ],
+        ),
+
+      ],
+    );
 
     _allChains = <Chain>[
       _keywordsChain,
@@ -73,14 +91,15 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 
     final double _clearWidth = BottomDialog.clearWidth(context);
 
+    final Chain _pathChain = ChainPathConverter.createChainFromSinglePath(path: phraseIDPath);
+
     await BottomDialog.showBottomDialog(
         context: context,
         draggable: true,
         title: _phraseName,
-        child: Container(
+        child: SizedBox(
           width: _clearWidth,
           height: BottomDialog.clearHeight(context: context, draggable: true, titleIsOn: true),
-          // color: Colorz.bloodTest,
           child: ListView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.only(bottom: Ratioz.horizon),
@@ -90,7 +109,21 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                 dataKey: 'Path',
                 dataValue: phraseIDPath,
                 width: _clearWidth,
+                withHeadline: true,
                 onTap: () => copyToClipboard(context: context, copy: phraseIDPath),
+              ),
+
+              DataStripKey(
+                dataKey: 'Chain',
+                width: Bubble.clearWidth(context),
+                height: DataStripWithHeadline.keyRowHeight,
+              ),
+
+              ChainTreeViewer(
+                chain: _pathChain,
+                onStripTap: (String path){blog(path);},
+                searchValue: null,
+                initiallyExpanded: true,
               ),
 
             ],

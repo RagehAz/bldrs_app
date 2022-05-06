@@ -1,39 +1,33 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 abstract class ChainProperties {
 
   static const Chain chain = Chain(
     id: 'phid_k_flyer_type_property',
-    icon: Iconz.bxPropertiesOff,
     sons: <Chain>[
 
       // -----------------------------------------------
       /// Industrial
       Chain(
         id: 'phid_k_ppt_lic_industrial',
-        icon: null,
         sons: <String>['phid_k_pt_factory',],
       ),
       // -----------------------------------------------
       /// Educational
       Chain(
         id: 'phid_k_ppt_lic_educational',
-        icon: null,
         sons: <String>['phid_k_pt_school',],
       ),
       // -----------------------------------------------
       /// Hotel
       Chain(
         id: 'phid_k_ppt_lic_hotel',
-        icon: null,
         sons: <String>['phid_k_pt_hotel'],
       ),
       // -----------------------------------------------
       /// Entertainment
       Chain(
         id: 'phid_k_ppt_lic_entertainment',
-        icon: null,
         sons: <String>[
           'phid_k_pt_gallery',
           'phid_k_pt_theatre',
@@ -43,7 +37,6 @@ abstract class ChainProperties {
       /// Medical
       Chain(
         id: 'phid_k_ppt_lic_medical',
-        icon: null,
         sons: <String>[
           'phid_k_pt_clinic',
           'phid_k_pt_hospital',
@@ -53,7 +46,6 @@ abstract class ChainProperties {
       /// Sports
       Chain(
         id: 'phid_k_ppt_lic_sports',
-        icon: null,
         sons: <String>[
           'phid_k_pt_football',
           'phid_k_pt_tennis',
@@ -65,7 +57,6 @@ abstract class ChainProperties {
       /// Residential
       Chain(
         id: 'phid_k_ppt_lic_residential',
-        icon: null,
         sons: <String>[
           'phid_k_pt_apartment',
           'phid_k_pt_furnishedApartment',
@@ -88,7 +79,6 @@ abstract class ChainProperties {
       /// Retail
       Chain(
         id: 'phid_k_ppt_lic_retail',
-        icon: null,
         sons: <String>[
           'phid_k_pt_store',
           'phid_k_pt_supermarket',
@@ -104,7 +94,6 @@ abstract class ChainProperties {
       /// Administration
       Chain(
         id: 'phid_k_ppt_lic_administration',
-        icon: null,
         sons: <String>['phid_k_pt_office',],
       ),
       // -----------------------------------------------
