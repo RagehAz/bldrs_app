@@ -298,7 +298,7 @@ Future<void> _handleSearchResult({
 
     _searchProvider.clearSearchResult();
 
-    await NavDialog.showNavDialog(
+    NavDialog.showNavDialog(
       context: context,
       firstLine: 'No result found',
       secondLine: 'Try again with different words',

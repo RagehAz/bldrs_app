@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/widgets/chain_tree_strip.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_viewer_structure/chain_tree_strip.dart';
 import 'package:flutter/material.dart';
 
 class ChainTreeViewer extends StatefulWidget {
@@ -25,6 +24,7 @@ class ChainTreeViewer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<ChainTreeViewer> createState() => _ChainTreeViewerState();
+/// --------------------------------------------------------------------------
 }
 
 class _ChainTreeViewerState extends State<ChainTreeViewer> {

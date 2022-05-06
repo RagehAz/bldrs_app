@@ -51,10 +51,15 @@ Future<int> slideToBackAndGetNewIndex(
   }
 }
 // -----------------------------------------------------------------------------
-Future<void> slideToNext(PageController slidingController, int numberOfSlides,
-    int currentSlide) async {
+Future<void> slideToNext({
+  @required PageController slidingController,
+  @required int numberOfSlides,
+  @required int currentSlide,
+}) async {
   await slidingController.animateToPage(currentSlide + 1,
-      duration: Ratioz.durationSliding400, curve: Curves.easeInOutCirc);
+      duration: Ratioz.durationSliding400,
+      curve: Curves.easeInOutCirc,
+  );
 }
 
 // -----------------------------------------------------------------------------
@@ -118,19 +123,34 @@ SwipeDirection slidingDecision(int numberOfSlides, int currentSlide) {
 }
 
 // -----------------------------------------------------------------------------
-Future<void> slidingAction(PageController slidingController, int numberOfSlides,
-    int currentSlide) async {
+Future<void> slidingAction({
+  @required PageController slidingController,
+  @required int numberOfSlides,
+  @required int currentSlide,
+}) async {
+
   // blog('i: $currentSlide || #: $numberOfSlides || -> before slidingAction');
-  slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next
-      ? await slideToNext(slidingController, numberOfSlides, currentSlide)
-      : slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back
-          ? await slideToBackFrom(slidingController, currentSlide)
-          : slidingDecision(numberOfSlides, currentSlide) ==
-                  SwipeDirection.freeze
-              ? await slideTo(
-                  controller: slidingController, toIndex: currentSlide)
-              : blog('no sliding possible ');
+
+  slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ?
+  await slideToNext(
+      slidingController: slidingController,
+      numberOfSlides: numberOfSlides,
+      currentSlide: currentSlide
+  )
+      :
+  slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ?
+  await slideToBackFrom(slidingController, currentSlide)
+      :
+  slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ?
+  await slideTo(
+      controller: slidingController,
+      toIndex: currentSlide
+  )
+      :
+  blog('no sliding possible ');
+
   // blog('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');
+
 }
 
 // -----------------------------------------------------------------------------
