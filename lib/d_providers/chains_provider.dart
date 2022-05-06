@@ -282,11 +282,12 @@ class ChainsProvider extends ChangeNotifier {
     else if (Phrase.isSpecPhid(_phid)){
       _icon = 'assets/icons/specs/$_phid.svg';
     }
+    else {
+      _icon = 'assets/icons/$_phid.svg';
+    }
 
     return _icon;
   }
-
-
 // -----------------------------------------------------------------------------
 
   /// SELECTED SECTION
