@@ -78,7 +78,6 @@ Future<void> onSearchChains({
   @required ValueNotifier<String> searchValue,
   @required ValueNotifier<bool> isSearching,
   @required List<Chain> allChains,
-  @required List<String> allChainsPaths,
   @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
@@ -97,7 +96,6 @@ Future<void> onSearchChains({
       chains: allChains,
       text: text,
       foundChains: foundChains,
-      allChainsPaths: allChainsPaths
     );
   }
 
@@ -106,22 +104,12 @@ Future<void> onSearchChains({
 void _searchChainsOps({
   @required List<Chain> chains,
   @required String text,
-  @required List<String> allChainsPaths,
   @required ValueNotifier<List<Chain>> foundChains,
 }){
 
-  blog('all paths : $allChainsPaths');
-
-  /// SEARCH CHAINS FOR MATCH CASES
-  final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
-      paths: allChainsPaths,
-      phid: text
-  );
-
-  blog('found paths : $_foundPaths');
-
-  final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(
-    paths: _foundPaths,
+  final List<Chain> _foundPathsChains = ChainPathConverter.findRelatedChains(
+    allChains: chains,
+    phid: text,
   );
 
   /// SET FOUND CHAINS AS SEARCH RESULT

@@ -20,6 +20,7 @@ class DataStrip extends StatelessWidget {
     this.width,
     this.withHeadline = false,
     this.isPercent = false,
+    this.highlightText,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class DataStrip extends StatelessWidget {
   final double width;
   final bool withHeadline;
   final bool isPercent;
+  final ValueNotifier highlightText;
   /// --------------------------------------------------------------------------
   static const double verticalMargin = 2.5;
   static const double height = 50;
@@ -108,6 +110,7 @@ class DataStrip extends StatelessWidget {
         width: width,
         valueBoxColor: color,
         isPercent: isPercent,
+        highlightText: highlightText,
       );
 
     }
