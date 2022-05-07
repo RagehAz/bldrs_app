@@ -90,23 +90,26 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
 
             /// WHEN CHAIN SONS ARE STRINGS (PHRASES IDS)
             if (_sonsAreStrings == true) // its a List<String>
-              ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: _numberOfSons,
-                  shrinkWrap: true,
-                  itemBuilder: (_, index){
-                    final String keywordID = widget.chain.sons[index];
-                    return ChainTreeStrip(
-                      width: widget.width,
-                      level: widget.initialLevel + 1,
-                      phraseID: keywordID,
-                      phraseValue: superPhrase(context, keywordID),
-                      onTriggerExpansion: (){},
-                      onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID/'),
-                      searchValue: widget.searchValue,
-                    );
+              SizedBox(
+                width: widget.width,
+                child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _numberOfSons,
+                    shrinkWrap: true,
+                    itemBuilder: (_, index){
+                      final String keywordID = widget.chain.sons[index];
+                      return ChainTreeStrip(
+                        width: widget.width,
+                        level: widget.initialLevel + 1,
+                        phraseID: keywordID,
+                        phraseValue: superPhrase(context, keywordID),
+                        onTriggerExpansion: (){},
+                        onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID/'),
+                        searchValue: widget.searchValue,
+                      );
 
-                  }
+                    }
+                ),
               ),
 
             /// OTHERWISE

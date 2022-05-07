@@ -11,6 +11,7 @@ class ChainsTreesStarter extends StatelessWidget {
     @required this.chains,
     @required this.onStripTap,
     this.searchValue,
+    this.initiallyExpanded = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -18,6 +19,7 @@ class ChainsTreesStarter extends StatelessWidget {
   final List<Chain> chains;
   final ValueChanged<String> onStripTap;
   final ValueNotifier<String> searchValue;
+  final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class ChainsTreesStarter extends StatelessWidget {
               chain: _chain,
               onStripTap : onStripTap,
               searchValue: searchValue,
+              initiallyExpanded: initiallyExpanded,
             );
 
           }
