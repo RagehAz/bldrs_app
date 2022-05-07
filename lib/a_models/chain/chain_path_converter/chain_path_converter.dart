@@ -482,6 +482,29 @@ class ChainPathConverter {
 
     return _foundPaths;
   }
+// --------------------------------------------
+  static List<Chain> findRelatedChains({
+    @required List<Chain> allChains,
+    @required String phid,
+}){
+
+    final List<String> _allChainsPaths = ChainPathConverter.generateChainsPaths(
+      parentID: '',
+      chains: allChains,
+    );
+
+    /// SEARCH CHAINS FOR MATCH CASES
+    final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
+        paths: _allChainsPaths,
+        phid: phid,
+    );
+
+    final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(
+      paths: _foundPaths,
+    );
+
+    return _foundPathsChains;
+  }
 // -----------------------------------------------------------------------------
 
 /// PATHS MODIFIERS
