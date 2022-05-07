@@ -363,7 +363,9 @@ class Chain {
               chainA: chainsA[i],
               chainB: chainsB[i],
           );
-          blog('( ${chainsA[i].id} ) <=> ( ${chainsB[i].id} ) : are the same : $_twoChainsAreTheSame');
+
+          final String _areTheSame = _twoChainsAreTheSame ? 'ARE THE SAME' : 'ARE NOT THE SAME ----------------------------------- X OPS X';
+          blog('( ${chainsA[i].id} ) <=> ( ${chainsB[i].id} ) : $_areTheSame');
 
           if (_twoChainsAreTheSame == false){
             _listsAreTheSame = false;
@@ -744,7 +746,7 @@ class Chain {
 
     return _cleaned;
 }
-// -----------------------------------------------------------------------------
+// --------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> updateNode({
     @required BuildContext context,
@@ -834,5 +836,33 @@ class Chain {
 
       return _output?.first;
   }
+// --------------------------------------------
+
+  static List<Chain> replaceChainInChains({
+    @required List<Chain> chains,
+    @required Chain chainToReplace,
+}){
+      List<Chain> _output = <Chain>[];
+
+      if (Mapper.canLoopList(chains) == true && chainToReplace != null){
+
+        final int _index = chains.indexWhere((chain) => chainToReplace.id == chain.id);
+
+        /// WHEN NO CHAIN TO UPDATE FOUND
+        if (_index == -1){
+          _output = chains;
+        }
+
+        /// WHEN FOUND
+        else {
+          chains.removeAt(_index);
+          chains.insert(_index, chainToReplace);
+          _output = <Chain>[...chains];
+        }
+
+      }
+
+      return _output;
+}
 // -----------------------------------------------------------------------------
 }
