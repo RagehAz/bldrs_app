@@ -3,15 +3,19 @@ import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.d
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_viewer_structure/chain_tree_viewer.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_viewer_structure/chains_tree_starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +26,7 @@ class ChainEditorPage extends StatelessWidget {
     @required this.textController,
     @required this.path,
     @required this.onUpdateNode,
+    @required this.allChains,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +34,7 @@ class ChainEditorPage extends StatelessWidget {
   final TextEditingController textController;
   final ValueNotifier<String> path;
   final Function onUpdateNode;
+  final List<Chain> allChains;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,6 @@ class ChainEditorPage extends StatelessWidget {
       width: superScreenWidth(context),
       height: screenHeight,
       // color: Colorz.bloodTest,
-      padding: PageBubble.topMargin(AppBarType.search),
       child: ValueListenableBuilder(
         valueListenable: path,
         child: TextFieldBubble(
@@ -57,50 +62,18 @@ class ChainEditorPage extends StatelessWidget {
           final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
           final String _phraseName = superPhrase(context, _phid, providerOverride: _phraseProvider);
 
-          return Column(
+          final List<Chain> _relatedChains = ChainPathConverter.findRelatedChains(
+              allChains: allChains,
+              phid: _phid,
+          );
+
+          return ListView(
+            padding: PageBubble.topMargin(AppBarType.search),
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
+              /// TEXT FIELD
               textField,
-
-              if (_path != null)
-                DataStrip(
-                  dataKey: 'Translation',
-                  dataValue: _phraseName,
-                  width: _clearWidth,
-                  withHeadline: true,
-                  onTap: () => copyToClipboard(
-                    context: context,
-                    copy: _phraseName,
-                  ),
-                ),
-
-              if (_path != null)
-              DataStrip(
-                dataKey: 'Path to root',
-                dataValue: _path,
-                width: _clearWidth,
-                withHeadline: true,
-                onTap: () => copyToClipboard(
-                  context: context,
-                  copy: _path,
-                ),
-              ),
-
-              if (_path != null)
-              DataStripKey(
-                dataKey: 'Chain',
-                width: _clearWidth,
-                height: DataStripWithHeadline.keyRowHeight,
-              ),
-
-              if (_path != null)
-              ChainTreeViewer(
-                width: _clearWidth,
-                chain: _singlePathChain,
-                onStripTap: (String path){blog(path);},
-                searchValue: null,
-                initiallyExpanded: true,
-              ),
 
               SizedBox(
                 width: _clearWidth,
@@ -110,7 +83,6 @@ class ChainEditorPage extends StatelessWidget {
                     DreamBox(
                       height: 40,
                       verse: 'Update',
-                      secondLine: _phid,
                       verseScaleFactor: 0.7,
                       verseColor: Colorz.black255,
                       // verseWeight: VerseWeight.thin,
@@ -124,6 +96,94 @@ class ChainEditorPage extends StatelessWidget {
                 ),
               ),
 
+              const QuestionSeparatorLine(),
+
+              /// TRANSLATION
+              if (_path != null)
+                DataStrip(
+                  dataKey: 'Translation',
+                  dataValue: _phraseName,
+                  width: _clearWidth,
+                  withHeadline: true,
+                  color: Colorz.black255,
+                  onTap: () => copyToClipboard(
+                    context: context,
+                    copy: _phraseName,
+                  ),
+                ),
+
+              /// PATH TO ROOT
+              if (_path != null)
+              DataStrip(
+                dataKey: 'Path to root',
+                dataValue: _path,
+                width: _clearWidth,
+                withHeadline: true,
+                color: Colorz.black255,
+                highlightText: ValueNotifier<String>(_phid),
+                onTap: () => copyToClipboard(
+                  context: context,
+                  copy: _path,
+                ),
+              ),
+
+              /// CHAIN TO ROOT TITLE
+              if (_path != null)
+              DataStripKey(
+                dataKey: 'Chain to Root',
+                width: _clearWidth,
+                height: DataStripWithHeadline.keyRowHeight,
+              ),
+
+              const QuestionSeparatorLine(),
+
+              /// CHAIN TO ROOT
+              if (_path != null)
+              SizedBox(
+                width: _clearWidth,
+                child: ChainTreeViewer(
+                  width: _clearWidth,
+                  chain: _singlePathChain,
+                  onStripTap: (String path){blog(path);},
+                  searchValue: ValueNotifier<String>(_phid),
+                  initiallyExpanded: true,
+                ),
+              ),
+
+              const QuestionSeparatorLine(),
+
+              /// ALL RELATED CHAINS TITLE
+              if (_path != null)
+                DataStripKey(
+                  dataKey: 'Related Chains',
+                  width: _clearWidth,
+                  height: DataStripWithHeadline.keyRowHeight,
+                ),
+
+              SuperVerse(
+                verse: 'All Nodes that include ( $_phid ) in their paths',
+                size: 1,
+                italic: true,
+                centered: false,
+                margin: 5,
+              ),
+
+              /// RELATED CHAINS
+              if (_path != null)
+                PageBubble(
+                  screenHeightWithoutSafeArea: 300,
+                  appBarType: AppBarType.non,
+                  color: Colorz.white20,
+                  child: ChainsTreesStarter(
+                    width: _clearWidth,
+                    chains: _relatedChains,
+                    onStripTap: (String path){blog(path);},
+                    searchValue: ValueNotifier<String>(_phid),
+                    initiallyExpanded: true,
+                  ),
+                ),
+
+              const Horizon(),
 
             ],
           );

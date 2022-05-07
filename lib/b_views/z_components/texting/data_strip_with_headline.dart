@@ -17,6 +17,7 @@ class DataStripWithHeadline extends StatelessWidget {
     this.valueBoxColor = Colorz.white10,
     this.isPercent = false,
     this.onTap,
+    this.highlightText,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,6 +27,7 @@ class DataStripWithHeadline extends StatelessWidget {
   final Color valueBoxColor;
   final bool isPercent;
   final Function onTap;
+  final ValueNotifier<String> highlightText;
   /// --------------------------------------------------------------------------
   static const double rowHeight = 60;
   static const double keyRowHeight = rowHeight * 0.4;
@@ -73,6 +75,7 @@ class DataStripWithHeadline extends StatelessWidget {
               dataValue: dataValue,
               horizontalMargin: Ratioz.appBarMargin,
               valueString: _valueString,
+              highlightText: highlightText,
             ),
 
           ],
@@ -128,6 +131,7 @@ class DataStripValue extends StatelessWidget {
     @required this.dataValue,
     @required this.valueString,
     @required this.horizontalMargin,
+    this.highlightText,
     Key key
   }) : super(key: key);
 
@@ -139,6 +143,7 @@ class DataStripValue extends StatelessWidget {
   final dynamic dataValue;
   final String valueString;
   final double horizontalMargin;
+  final ValueNotifier<String> highlightText;
 
   @override
   Widget build(BuildContext context) {
@@ -174,6 +179,7 @@ class DataStripValue extends StatelessWidget {
                 verse: valueString,
                 centered: false,
                 shadow: true,
+                highlight: highlightText,
               ),
             ),
 

@@ -113,10 +113,11 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onStripTap({
     /// => 'phid_a/phid_b/phid_c/'
-    @required String phraseIDPath,
+    @required String path,
 }) async {
 
-    _selectedPath.value = phraseIDPath;
+    _selectedPath.value = path;
+    _textController.text = ChainPathConverter.getLastPathNode(path);
 
     await slideToNext(
         slidingController: _pageController,
@@ -136,7 +137,6 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
       searchValue: _searchValue,
       isSearching: _isSearching,
       allChains: _allChains,
-      allChainsPaths: _allChainsPaths,
       foundChains: _foundChains,
     );
   }
@@ -186,7 +186,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
               searchValue: _searchValue,
               allChains: _allChains,
               onStripTap: (String path) => _onStripTap(
-                phraseIDPath: path,
+                path: path,
               ),
           ),
 
@@ -194,6 +194,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
             screenHeight: _screenHeight,
             textController: _textController,
             path: _selectedPath,
+            allChains: _allChains,
             onUpdateNode: () => onUpdateNode(
               context: context,
               newPhid: _textController.text,
