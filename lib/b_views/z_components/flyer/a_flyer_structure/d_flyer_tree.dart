@@ -292,8 +292,14 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
     /// WHEN AT ANY OTHER SLIDE
     else {
-      final int _newIndex = await Sliders.slideToBackAndGetNewIndex(_horizontalSlidesController, widget.currentSlideIndex.value);
+
+      final int _newIndex = await Sliders.slideToBackAndGetNewIndex(
+          pageController: _horizontalSlidesController,
+          currentSlide: widget.currentSlideIndex.value,
+      );
+
       blog('onSlideBackTap _newIndex : $_newIndex');
+
     }
 
   }

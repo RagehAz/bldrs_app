@@ -52,9 +52,10 @@ class ChainViewerPage extends StatelessWidget {
 
           else {
             return ChainsTreesStarter(
-                width: PageBubble.width(context),
-                chains: allChains,
-                onStripTap: onStripTap,
+              width: PageBubble.width(context),
+              chains: allChains,
+              onStripTap: onStripTap,
+              searchValue: searchValue,
             );
           }
 
