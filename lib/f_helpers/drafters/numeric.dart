@@ -14,7 +14,9 @@ String separateKilos({@required dynamic number, int fractions = 2}) {
   if (number != null) {
     if (number > -1000 && number < 1000) {
       _result = number.toString();
-    } else {
+    }
+
+    else {
       final double _fractions = getFractions(number: number.toDouble());
       final int _number = number.floor();
       final String _digits = _number.abs().toString();

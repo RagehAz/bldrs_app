@@ -244,7 +244,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
         /// C - slide
         await Sliders.slideToNext(
-            slidingController: _pageController,
+            pageController: _pageController,
             numberOfSlides: _flyers.length,
             currentSlide: _currentPageIndex,
         );
@@ -288,7 +288,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
         /// C - slide
         await Sliders.slideToNext(
-            slidingController: _pageController,
+            pageController: _pageController,
             numberOfSlides: _flyers.length,
             currentSlide: _currentPageIndex,
         );
@@ -309,7 +309,10 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
             _statelessFlyerRemove(_currentPageIndex);
 
             /// F - snap to index 0
-            Sliders.snapTo(_pageController, 0);
+            Sliders.snapTo(
+                pageController: _pageController,
+                currentSlide: 0,
+            );
             // await null;
 
             blog('now i can swipe again');
@@ -345,7 +348,10 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       // blog('_currentIndex before slide : $_draft.currentSlideIndex');
 
       /// C - slide
-      await Sliders.slideToBackFrom(_pageController, _originalIndex);
+      await Sliders.slideToBackFrom(
+          pageController: _pageController,
+          currentSlide: _originalIndex,
+      );
       // blog('_currentIndex after slide : $_draft.currentSlideIndex');
 
       /// E - wait for sliding to end
