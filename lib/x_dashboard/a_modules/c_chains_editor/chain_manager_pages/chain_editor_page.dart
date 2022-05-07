@@ -41,10 +41,9 @@ class ChainEditorPage extends StatelessWidget {
 
     final double _clearWidth = PageBubble.clearWidth(context);
 
-    return Container(
+    return SizedBox(
       width: superScreenWidth(context),
       height: screenHeight,
-      // color: Colorz.bloodTest,
       child: ValueListenableBuilder(
         valueListenable: path,
         child: TextFieldBubble(

@@ -574,7 +574,7 @@ Future<void> onEditPhrase({
   idTextController.text = _enPhrase.id;
 
   await slideToNext(
-      slidingController: pageController,
+      pageController: pageController,
       numberOfSlides: 2,
       currentSlide: 0,
   );
