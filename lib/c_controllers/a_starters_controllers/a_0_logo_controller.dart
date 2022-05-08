@@ -57,20 +57,20 @@ Future<void> initializeLogoScreen({
 Future<bool> _initializeAppState(BuildContext context) async {
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
   await _generalProvider.getsetAppState(context);
-  final AppState _appState = _generalProvider.appState;
+  // final AppState _appState = _generalProvider.appState;
 
-  bool _canContinue = true;
+  const bool _canContinue = true;
 
-  if (_appState.appUpdateRequired == true) {
-    _canContinue = false;
-  }
-  if (_appState.wordzUpdateRequired == true) {}
-  if (_appState.languageUpdateRequired == true) {}
-  if (_appState.termsUpdateRequired == true) {}
-  if (_appState.aboutBldrsUpdateRequired == true) {}
-  if (_appState.notificationsUpdateRequired == true) {}
-  if (_appState.keywordsUpdateRequired == true) {}
-  if (_appState.zonesUpdateRequired == true) {}
+  // if (_appState.appUpdateRequired == true) {
+  //   _canContinue = false;
+  // }
+  // if (_appState.wordzUpdateRequired == true) {}
+  // if (_appState.languageUpdateRequired == true) {}
+  // if (_appState.termsUpdateRequired == true) {}
+  // if (_appState.aboutBldrsUpdateRequired == true) {}
+  // if (_appState.notificationsUpdateRequired == true) {}
+  // if (_appState.keywordsChainVersion == true) {}
+  // if (_appState.zonesUpdateRequired == true) {}
 
   return _canContinue;
 }

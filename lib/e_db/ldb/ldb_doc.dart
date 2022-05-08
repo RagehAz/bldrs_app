@@ -48,6 +48,7 @@
     bzz,
     users,
     keywordsChain,
+    specsChain,
     countries,
     cities,
     continents,

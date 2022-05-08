@@ -522,13 +522,15 @@ Stream<DocumentSnapshot<Object>> streamSubDoc({
 /// UPDATE
 
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT : this creates a new doc that overrides existing doc,, same as createNamedDoc method
+/// TESTED : WORKS PERFECT
 Future<void> updateDoc({
   @required BuildContext context,
   @required String collName,
   @required String docName,
   @required Map<String, dynamic> input,
 }) async {
+
+  /// this creates a new doc that overrides existing doc,, same as createNamedDoc method
 
   await createNamedDoc(
     context: context,

@@ -321,6 +321,7 @@ class ChainPathConverter {
     return _output;
   }
 // -------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getFirstPathNode({
     @required String path
   }){

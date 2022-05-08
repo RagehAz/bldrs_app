@@ -1,8 +1,12 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
+import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
@@ -130,6 +134,7 @@ Future<void> onUpdateNode({
   @required ValueNotifier<String> searchValue,
   @required ValueNotifier<bool> isSearching,
   @required TextEditingController searchController,
+  @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
   minimizeKeyboardOnTapOutSide(context);
@@ -140,21 +145,21 @@ Future<void> onUpdateNode({
 
   else {
 
-    blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
+    final String _phid = ChainPathConverter.getLastPathNode(path);
+
+    // blog('onUpdateNode : updating ( $newPhid ) instead of ( $_phid ) : in path ( $path )');
 
     final String _rootChainID = ChainPathConverter.getFirstPathNode(
       path: path,
     );
+
     final Chain _chain = Chain.getChainFromChainsByID(
       chainID: _rootChainID,
       chains: chains.value,
     );
 
-    _chain.blogChain();
-
-    blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
-
-    final String _phid = ChainPathConverter.getLastPathNode(path);
+    // _chain.blogChain();
+    // blog('onUpdateNode : creating new chain with this ( $newPhid )');
 
     final Chain _newChain = await Chain.updateNode(
       context: context,
@@ -163,39 +168,44 @@ Future<void> onUpdateNode({
       sourceChain: _chain,
     );
 
-    _newChain.blogChain();
-
-    blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
+    // _newChain.blogChain();
+    // blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
 
     final List<Chain> _newChains = Chain.replaceChainInChains(
       chains: chains.value,
+      oldChainID: _rootChainID,
       chainToReplace: _newChain,
     );
 
     chains.value = _newChains;
-    searchController.text = newPhid;
-    searchValue.value = newPhid;
-    isSearching.value = true;
 
     await Sliders.slideToBackFrom(
         pageController: pageController,
         currentSlide: 1,
     );
 
-  }
+    searchController.text = newPhid;
+    await onSearchChains(
+        text: newPhid,
+        searchValue: searchValue,
+        isSearching: isSearching,
+        allChains: chains,
+        foundChains: foundChains
+    );
 
+  }
 
 }
 // ------------------------------------------------
 Future<void> onSync({
   @required BuildContext context,
   @required List<Chain> originalChains,
-  @required ValueNotifier<List<Chain>> updatedChains,
+  @required List<Chain> updatedChains,
 }) async {
 
-  final bool _chainsListsAreTheSame = Chain.chainsListsAreTheSame(
+  final bool _chainsListsAreTheSame = Chain.chainsListPathsAreTheSame(
     chainsA: originalChains,
-    chainsB: updatedChains.value,
+    chainsB: updatedChains,
   );
 
   /// WHEN THERE ARE NO CHANGES
@@ -221,11 +231,120 @@ Future<void> onSync({
 
     if (_result == true){
 
-      blog('Here we go');
+      for (int i = 0; i < updatedChains.length; i++){
+
+        final Chain _updatedChain = updatedChains[i];
+        final Chain _originalChain = originalChains[i];
+        final bool _chainsAreTheSame = Chain.chainsPathsAreTheSame(
+            chainA: _updatedChain,
+            chainB: _originalChain
+        );
+
+        if (_chainsAreTheSame == false){
+
+          /// IF KEYWORDS CHAIN
+          if (chainIsKeywordsChain(_updatedChain) == true){
+            await _updateKeywordsChainOps(
+              context: context,
+              chain: _updatedChain,
+            );
+          }
+          /// IF SPECS CHAIN
+          else if (chainIsSpecsChain(_updatedChain) == true){
+            await _updateSpecsChainOps(
+                context: context,
+                chain: _updatedChain
+            );
+          }
+          /// IF OTHER NEW CHAIN
+          else {
+            blog('this Chain ${_updatedChain.id} was not synced');
+            _updatedChain.blogChain();
+          }
+        }
+
+      }
+
+
 
     }
 
   }
 
+}
+// ------------------------------------------------
+bool chainIsKeywordsChain(Chain chain){
+  return chain.id == 'phid_sections';
+}
+// ------------------------------------------------
+bool chainIsSpecsChain(Chain chain){
+  return chain.id == 'phid_s_specs_chain';
+}
+// ------------------------------------------------
+Future<void> _updateKeywordsChainOps({
+  @required BuildContext context,
+  @required Chain chain,
+}) async {
+
+  if (chainIsKeywordsChain(chain) == true){
+
+  /// 1 - UPDATE ON FIREBASE
+  await ChainOps.updateKeywordsChain(
+      context: context,
+      newKeywordsChain: chain,
+  );
+
+  /// 2 - UPDATE ON LDB
+  await LDBOps.updateMap(
+      objectID: chain.id,
+      input: chain.toMap(),
+      docName: LDBDoc.keywordsChain,
+  );
+
+  /// 3 - UPDATE PROVIDER
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final List<Phrase> _keywordsPhrases = await _chainsProvider.generateKeywordsPhrasesFromKeywordsChain(
+    context: context,
+    keywordsChain: chain,
+  );
+  _chainsProvider.setKeywordsChainAndTheirPhrases(
+      keywordsChain: chain,
+      keywordsChainPhrases: _keywordsPhrases,
+      notify: true,
+  );
+
+  /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
+    await AppStateOps.updateKeywordsChainVersion(context);
+  }
+
+}
+// ------------------------------------------------
+Future<void> _updateSpecsChainOps({
+  @required BuildContext context,
+  @required Chain chain,
+}) async {
+
+  /// 1 - UPDATE ON FIREBASE
+  await ChainOps.updateSpecsChain(
+    context: context,
+    newSpecsChain: chain,
+  );
+
+  /// 2 - UPDATE ON LDB
+  await LDBOps.updateMap(
+    objectID: chain.id,
+    input: chain.toMap(),
+    docName: LDBDoc.specsChain,
+  );
+
+  /// 3 - UPDATE PROVIDER
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  _chainsProvider.setSpecsChain(
+      specsChain: chain,
+      notify: true
+  );
+
+  /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
+  await AppStateOps.updateSpecsChainVersion(context);
 }
 // ------------------------------------------------
