@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
@@ -25,6 +26,9 @@ Future<void> initializeLogoScreen({
 
     /// A - APP LANGUAGE
     await _initializeAppLanguage(context);
+
+    /// B - LOCAL ASSETS PATHS
+    await _initializeLocalAssetsPaths(context);
 
     /// B - APP STATE
     final bool _canContinue = await _initializeAppState(context);
@@ -73,6 +77,11 @@ Future<bool> _initializeAppState(BuildContext context) async {
   // if (_appState.zonesUpdateRequired == true) {}
 
   return _canContinue;
+}
+// -----------------------------------------------------------------------------
+Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  await _uiProvider.getSetLocalAssetsPaths(notify: true);
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeAppLanguage(BuildContext context) async {
