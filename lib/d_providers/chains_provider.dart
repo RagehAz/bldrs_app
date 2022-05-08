@@ -3,9 +3,11 @@ import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
 import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -260,8 +262,6 @@ class ChainsProvider extends ChangeNotifier {
     @required dynamic son,
   }) {
 
-    String _icon;
-
     String _phid;
 
     /// WHEN SON IS KEYWORD ID
@@ -274,19 +274,11 @@ class ChainsProvider extends ChangeNotifier {
       _phid = _chain.id;
     }
 
-    /// WHEN PHID_K_
-    if (Phrase.isKeywordPhid(_phid)){
-      _icon = 'assets/icons/keywords/$_phid.jpg';
-    }
-    /// WHEN PHID_S_
-    else if (Phrase.isSpecPhid(_phid)){
-      _icon = 'assets/icons/specs/$_phid.jpg';
-    }
-    else {
-      _icon = 'assets/icons/$_phid.svg';
-    }
+    return getLocalAssetPath(
+        context: context,
+        assetName: _phid,
+    );
 
-    return _icon;
   }
 // -----------------------------------------------------------------------------
 
