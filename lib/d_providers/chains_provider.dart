@@ -148,12 +148,12 @@ class ChainsProvider extends ChangeNotifier {
 
     final Chain _keywordsChain = await fetchKeywordsChain(context);
 
-    final List<Phrase> _keywordsPhrases = await _generateKeywordsPhrasesFromKeywordsChain(
+    final List<Phrase> _keywordsPhrases = await generateKeywordsPhrasesFromKeywordsChain(
       context: context,
       keywordsChain: _keywordsChain,
     );
 
-    _setKeywordsChainAndTheirPhrases(
+    setKeywordsChainAndTheirPhrases(
       keywordsChain: _keywordsChain,
       keywordsChainPhrases: _keywordsPhrases,
       notify: notify,
@@ -162,7 +162,7 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  void _setKeywordsChainAndTheirPhrases({
+  void setKeywordsChainAndTheirPhrases({
     @required Chain keywordsChain,
     @required List<Phrase> keywordsChainPhrases,
     @required bool notify,
@@ -175,7 +175,7 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<List<Phrase>> _generateKeywordsPhrasesFromKeywordsChain({
+  Future<List<Phrase>> generateKeywordsPhrasesFromKeywordsChain({
     @required Chain keywordsChain,
     @required BuildContext context,
   }) async {
@@ -235,13 +235,13 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
     final Chain _specsChain = await fetchSpecsChain(context);
-    _setSpecsChain(
+    setSpecsChain(
       specsChain: _specsChain,
       notify: notify,
     );
   }
 // -------------------------------------
-  void _setSpecsChain({
+  void setSpecsChain({
     @required Chain specsChain,
     @required bool notify,
   }){

@@ -318,7 +318,7 @@ class Chain {
 
       /// IF SONS ARE CHAINS
       if (sonsAisChains == true){
-        _sonsAreTheSame = chainsListsAreTheSame(
+        _sonsAreTheSame = chainsListsAreTheSameOLDMETHOD(
           chainsA: chainA.sons,
           chainsB: chainB.sons,
         );
@@ -339,10 +339,10 @@ class Chain {
 
     }
 
-      return _sonsAreTheSame;
+    return _sonsAreTheSame;
   }
 // --------------------------------------------
-  static bool chainsListsAreTheSame({
+  static bool chainsListsAreTheSameOLDMETHOD({
     @required List<Chain> chainsA,
     @required List<Chain> chainsB
   }){
@@ -383,6 +383,59 @@ class Chain {
 
     return _listsAreTheSame;
   }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool chainsListPathsAreTheSame({
+    @required List<Chain> chainsA,
+    @required List<Chain> chainsB,
+}){
+
+      final List<String> _pathsA = ChainPathConverter.generateChainsPaths(
+          parentID: '',
+          chains: chainsA
+      );
+
+      final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
+          parentID: '',
+          chains: chainsB
+      );
+
+      bool _areTheSame = true;
+
+      if (_pathsA.length == _pathsB.length){
+
+         for (int i = 0; i < _pathsA.length; i++){
+
+           final String _pathA = _pathsA[i];
+           final String _pathB = _pathsB[i];
+
+           if (_pathA == _pathB){
+             // _areTheSame = true;
+             // blog('Path# ( ${i+1} / ${_pathsA.length} ) : are the same');
+           }
+           else {
+             // blog('Path# ( ${i+1} / ${_pathsA.length} ) : are NOT the same : ( $_pathA ) != ( $_pathB )');
+             _areTheSame = false;
+             // break;
+           }
+
+         }
+
+      }
+
+      return _areTheSame;
+  }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool chainsPathsAreTheSame({
+    @required Chain chainA,
+    @required Chain chainB,
+}){
+      return chainsListPathsAreTheSame(
+          chainsA: [chainA],
+          chainsB: [chainB],
+      );
+}
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool chainIncludeThisPhid({
@@ -841,12 +894,13 @@ class Chain {
   static List<Chain> replaceChainInChains({
     @required List<Chain> chains,
     @required Chain chainToReplace,
+    @required String oldChainID,
 }){
       List<Chain> _output = <Chain>[];
 
       if (Mapper.canLoopList(chains) == true && chainToReplace != null){
 
-        final int _index = chains.indexWhere((chain) => chainToReplace.id == chain.id);
+        final int _index = chains.indexWhere((chain) => oldChainID == chain.id);
 
         /// WHEN NO CHAIN TO UPDATE FOUND
         if (_index == -1){
