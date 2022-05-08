@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -47,5 +48,23 @@ import 'package:flutter/foundation.dart';
     } else {
       blog('LOADING COMPLETE -----------------------------');
     }
+  }
+// -----------------------------------------------------------------------------
+  void blogStrings(List<String> strings){
+
+    if (strings == null){
+      blog('Strings are null and can not be blogged');
+    }
+    else if (strings.isEmpty == true){
+      blog('Strings are empty and can not be blogged');
+    }
+    else {
+
+      for (int i = 0; i < strings.length; i++){
+        blog('blog string [ ${i+1} / ${strings.length} ] : ( ${strings[i]} )');
+      }
+
+    }
+
   }
 // -----------------------------------------------------------------------------
