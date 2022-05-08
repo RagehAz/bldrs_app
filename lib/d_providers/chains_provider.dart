@@ -280,7 +280,7 @@ class ChainsProvider extends ChangeNotifier {
     }
     /// WHEN PHID_S_
     else if (Phrase.isSpecPhid(_phid)){
-      _icon = 'assets/icons/specs/$_phid.svg';
+      _icon = 'assets/icons/specs/$_phid.jpg';
     }
     else {
       _icon = 'assets/icons/$_phid.svg';
