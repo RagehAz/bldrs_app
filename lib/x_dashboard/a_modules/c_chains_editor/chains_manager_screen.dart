@@ -32,8 +32,8 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
   List<String> _allChainsPaths;
   Chain _testChain;
   final PageController _pageController = PageController(); /// tamam disposed
-  final TextEditingController _textController = TextEditingController(); /// tamam disposed
-  final TextEditingController _searchController = TextEditingController();/// tamam disposed
+  TextEditingController _textController; /// tamam disposed
+  TextEditingController _searchController;/// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -42,6 +42,9 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     final Chain _keywordsChain = _chainsProvider.keywordsChain;
     final Chain _specsChain = _chainsProvider.specsChain;
+
+    _textController = TextEditingController(); /// tamam disposed
+    _searchController = TextEditingController();/// tamam disposed
 
     // _testChain = const Chain(
     //   id: 'phid_bldrs',
