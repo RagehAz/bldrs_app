@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:core';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -16,6 +18,7 @@ import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // -----------------------------------------------------------------------------
 String superArrowENRight(BuildContext context) {
@@ -286,5 +289,34 @@ String shareAppIcon(){
   }
 
   return _shareIcon;
+}
+// -----------------------------------------------------------------------------
+Future<List<String>> getLocalAssetsPaths() async {
+
+  final String assets = await rootBundle.loadString('AssetManifest.json');
+  final Map<String, dynamic> _json = json.decode(assets);
+  final List<String> _keys = _json.keys.where((element) => element.startsWith('assets/')).toList();
+
+  final List<String> _allAssetsPaths = <String>[];
+  for (final String key in _keys){
+    _allAssetsPaths.add(_json[key].first);
+  }
+
+  return _allAssetsPaths;
+}
+// -----------------------------------------------------------------------------
+String getLocalAssetPathFromLocalPaths({
+  @required List<String> allAssetsPaths,
+  @required String assetName,
+}){
+
+  final List<String> _assetPath = ChainPathConverter.findPathsContainingPhid(
+    paths: allAssetsPaths,
+    phid: assetName,
+  );
+
+  final String _path = _assetPath.isNotEmpty ? _assetPath?.first : null;
+
+  return _path;
 }
 // -----------------------------------------------------------------------------

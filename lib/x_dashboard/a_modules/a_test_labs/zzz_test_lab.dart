@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -19,6 +21,8 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -30,6 +34,7 @@ import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class TestLab extends StatefulWidget {
@@ -308,7 +313,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             }
             ),
 
-
       ],
       layoutWidget: Column(
         // physics: const BouncingScrollPhysics(),
@@ -443,7 +447,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 // const String _url = 'https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY';
 
-                  _thePic.value = 'assets/icons/gi_exit.svg';
+                  // _thePic.value = 'assets/icons/gi_exit.svg';
+
+                final String _path = getLocalAssetPath(
+                  context: context,
+                  assetName: 'phid_s_arch_style_american',
+                );
+
+                _thePic.value = _path;
 
                 //     File file = await Imagers.getFileFromLocalRasterAsset(
                 //       context: context,
@@ -476,6 +487,29 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
               }
           ),
+
+          /// DO SOMETHING
+          WideButton(
+              color: Colorz.black255,
+              verse: 'PRINT ASSETS',
+              icon: Iconz.contAfrica,
+              onTap: () async {
+
+                final List<String> _allAssetsPaths = await getLocalAssetsPaths();
+
+                final List<String> _assetPath = ChainPathConverter.findPathsContainingPhid(
+                    paths: _allAssetsPaths,
+                    phid: 'phid_s_amperes',
+                );
+
+                final String _path = getLocalAssetPathFromLocalPaths(
+                  assetName: 'phid_s_amperes',
+                  allAssetsPaths: _allAssetsPaths,
+                );
+
+                blog('_path is : ${_assetPath.length} assets : $_path');
+
+              }),
 
           /// PROMOTED FLYERS
           // Selector<FlyersProvider, List<FlyerModel>>(

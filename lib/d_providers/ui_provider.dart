@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,23 @@ enum SearchingModel{
 
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
+// -----------------------------------------------------------------------------
+
+  /// --- LOCAL ASSETS
+
+// -------------------------------------
+  List<String> _localAssetsPaths = <String>[];
+// -------------------------------------
+  List<String> get localAssetsPaths => _localAssetsPaths;
+// -------------------------------------
+  Future<void> getSetLocalAssetsPaths({
+  @required bool notify,
+}) async {
+    final List<String> _paths = await getLocalAssetsPaths();
+    if (notify == true){
+      _localAssetsPaths = _paths;
+    }
+  }
 // -----------------------------------------------------------------------------
 
   /// --- LOADING
@@ -208,4 +226,39 @@ class UiProvider extends ChangeNotifier {
 void triggerUILoading(BuildContext context ,{bool listen = true}){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
   _uiProvider.triggerLoading();
+}
+
+/// TESTED : WORKS PERFECT
+bool localAssetExists({
+  @required BuildContext context,
+  @required String assetName,
+}){
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
+  final String _path = getLocalAssetPathFromLocalPaths(
+      allAssetsPaths: _localAssetsPaths,
+      assetName: assetName
+  );
+
+  if (_path == null){
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+/// TESTED : WORKS PERFECT
+String getLocalAssetPath({
+  @required BuildContext context,
+  @required String assetName,
+}){
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
+  final String _path = getLocalAssetPathFromLocalPaths(
+      allAssetsPaths: _localAssetsPaths,
+      assetName: assetName
+  );
+
+  return _path;
 }

@@ -80,6 +80,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    _uiProvider = Provider.of<UiProvider>(context, listen: false);
     // final Chain _keywordsChain = _chainsProvider.keywordsChain;
     // final Chain _specsChain = _chainsProvider.specsChain;
 
@@ -362,6 +363,20 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                     unawaited(_triggerLoading());
 
                     Phrase.blogPhrases(_phraseProvider.basicPhrases);
+
+                    unawaited(_triggerLoading());
+                  }),
+
+              const BubblesSeparator(),
+
+              WideButton(
+                  color: Colorz.black255,
+                  verse: 'print local Assets paths',
+                  icon: Iconizer.valueIsNotNull(_uiProvider.localAssetsPaths),
+                  onTap: () async {
+                    unawaited(_triggerLoading());
+
+                    blogStrings(_uiProvider.localAssetsPaths);
 
                     unawaited(_triggerLoading());
                   }),
