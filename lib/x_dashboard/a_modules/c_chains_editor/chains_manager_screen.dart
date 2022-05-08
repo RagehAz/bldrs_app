@@ -43,58 +43,58 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     final Chain _keywordsChain = _chainsProvider.keywordsChain;
     final Chain _specsChain = _chainsProvider.specsChain;
 
-    _testChain = const Chain(
-      id: 'phid_bldrs',
-      sons: <Chain>[
-
-        Chain(
-          id: 'phid_design',
-          sons: <String>[
-            'phid_contractor',
-            'phid_craft',
-          ],
-        ),
-
-        Chain(
-          id: 'phid_property',
-          sons: <String>[
-            'phid_product',
-            'phid_equipment',
-          ],
-        ),
-
-        Chain(
-          id: 'phid_enter',
-          sons: <Chain>[
-
-            Chain(
-              id: 'xx',
-              sons: <String>[
-                'yyy',
-                'zzz',
-              ],
-            ),
-
-            Chain(
-              id: 'qqq',
-              sons: <String>[
-                'uuuu',
-                'eeee',
-              ],
-            ),
-          ],
-        ),
-
-      ],
-    );
+    // _testChain = const Chain(
+    //   id: 'phid_bldrs',
+    //   sons: <Chain>[
+    //
+    //     Chain(
+    //       id: 'phid_design',
+    //       sons: <String>[
+    //         'phid_contractor',
+    //         'phid_craft',
+    //       ],
+    //     ),
+    //
+    //     Chain(
+    //       id: 'phid_property',
+    //       sons: <String>[
+    //         'phid_product',
+    //         'phid_equipment',
+    //       ],
+    //     ),
+    //
+    //     Chain(
+    //       id: 'phid_enter',
+    //       sons: <Chain>[
+    //
+    //         Chain(
+    //           id: 'xx',
+    //           sons: <String>[
+    //             'yyy',
+    //             'zzz',
+    //           ],
+    //         ),
+    //
+    //         Chain(
+    //           id: 'qqq',
+    //           sons: <String>[
+    //             'uuuu',
+    //             'eeee',
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //
+    //   ],
+    // );
 
     _originalChains = <Chain>[
       _keywordsChain,
       _specsChain,
-      _testChain,
+      // _testChain,
     ];
 
-    _chains = ValueNotifier<List<Chain>>(_originalChains);
+    _chains = ValueNotifier<List<Chain>>(<Chain>[..._originalChains]);
 
     _allChainsPaths = ChainPathConverter.generateChainsPaths(
         parentID: '',
@@ -174,7 +174,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
             valueListenable: _chains,
             builder: (_, List<Chain> chains, Widget child){
 
-              final bool _inSync = Chain.chainsListsAreTheSame(
+              final bool _inSync = Chain.chainsListPathsAreTheSame(
                   chainsA: _originalChains,
                   chainsB: chains
               );
@@ -183,11 +183,12 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                 height: 40,
                 verse: _inSync ? 'Synced' : 'Not\nSynced',
                 verseScaleFactor: 0.5,
+                verseMaxLines: 2,
                 color: _inSync ? Colorz.green255 : Colorz.red255,
                 onTap: () => onSync(
                   context: context,
                   originalChains: _originalChains,
-                  updatedChains: _chains,
+                  updatedChains: chains,
                 ),
               );
 
@@ -241,6 +242,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                   searchValue: _searchValue,
                   isSearching: _isSearching,
                   searchController: _searchController,
+                  foundChains: _foundChains,
                 ),
               ),
 
