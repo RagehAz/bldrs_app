@@ -46,9 +46,11 @@ class _SearchBarState extends State<SearchBar> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    if (TextChecker.textControllerIsEmpty(_searchTextController)) {
+
+    if (widget.searchController == null){
       _searchTextController.dispose();
     }
+
     super.dispose();
   }
 // -----------------------------------------------------------------------------
