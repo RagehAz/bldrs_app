@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
 
 class Chain {
@@ -75,7 +76,7 @@ class Chain {
       return sons; // List<String>
     }
     else if ( _sonsAreDataCreator == true){
-      return _cipherDataCreator(sons);
+      return cipherDataCreator(sons);
     }
     else {
       return null;
@@ -83,30 +84,30 @@ class Chain {
 
   }
 // --------------------------------------------
-  static String _cipherDataCreator(dynamic sons){
+  static String cipherDataCreator(dynamic sons){
     switch (sons){
-      case DataCreator.price:               return 'price';               break;
-      case DataCreator.currency:            return 'currency';            break;
-      case DataCreator.country:             return 'country';             break;
-      case DataCreator.boolSwitch:          return 'boolSwitch';          break;
-      case DataCreator.doubleCreator:       return 'doubleCreator';       break;
-      case DataCreator.doubleRangeSlider:   return 'doubleRangeSlider';   break;
-      case DataCreator.doubleSlider:        return 'doubleSlider';        break;
-      case DataCreator.integerIncrementer:  return 'integerIncrementer';  break;
+      case DataCreator.price:               return 'DataCreator_price';               break;
+      case DataCreator.currency:            return 'DataCreator_currency';            break;
+      case DataCreator.country:             return 'DataCreator_country';             break;
+      case DataCreator.boolSwitch:          return 'DataCreator_boolSwitch';          break;
+      case DataCreator.doubleCreator:       return 'DataCreator_doubleCreator';       break;
+      case DataCreator.doubleRangeSlider:   return 'DataCreator_doubleRangeSlider';   break;
+      case DataCreator.doubleSlider:        return 'DataCreator_doubleSlider';        break;
+      case DataCreator.integerIncrementer:  return 'DataCreator_integerIncrementer';  break;
       default: return null;
     }
   }
 // --------------------------------------------
-  static DataCreator _decipherDataCreator(String string){
+  static DataCreator decipherDataCreator(String string){
     switch (string){
-      case 'price':               return DataCreator.price;               break;
-      case 'currency':            return DataCreator.currency;            break;
-      case 'country':             return DataCreator.country;             break;
-      case 'boolSwitch':          return DataCreator.boolSwitch;          break;
-      case 'doubleCreator':       return DataCreator.doubleCreator;       break;
-      case 'doubleRangeSlider':   return DataCreator.doubleRangeSlider;   break;
-      case 'doubleSlider':        return DataCreator.doubleSlider;        break;
-      case 'integerIncrementer':  return DataCreator.integerIncrementer;  break;
+      case 'DataCreator_price':               return DataCreator.price;               break;
+      case 'DataCreator_currency':            return DataCreator.currency;            break;
+      case 'DataCreator_country':             return DataCreator.country;             break;
+      case 'DataCreator_boolSwitch':          return DataCreator.boolSwitch;          break;
+      case 'DataCreator_doubleCreator':       return DataCreator.doubleCreator;       break;
+      case 'DataCreator_doubleRangeSlider':   return DataCreator.doubleRangeSlider;   break;
+      case 'DataCreator_doubleSlider':        return DataCreator.doubleSlider;        break;
+      case 'DataCreator_integerIncrementer':  return DataCreator.integerIncrementer;  break;
       default: return null;
     }
   }
@@ -145,20 +146,30 @@ class Chain {
 
     if (sons != null){
 
+      // blog('_decipherSons  : sons type (${sons.runtimeType.toString()}) : son ($sons)');
+
+      /// CHAINS AND STRINGS ARE LIST<dynamic>
       if (sons is List<dynamic>){
 
+        /// FIRST SON IS STRING => SONS ARE STRINGS
         if (sons[0] is String){
-        _output = Mapper.getStringsFromDynamics(dynamics: sons);
+          _output = Mapper.getStringsFromDynamics(dynamics: sons);
         }
+
+        /// FIRST SON IS NOT STRING => SONS ARE CHAINS
         else {
         _output = decipherChains(sons);
         }
 
       }
-      else if (sons is String){
-        _output = _decipherDataCreator(sons);
-      }
 
+      /// DATA CREATOR IS STRING
+      else if (sons is String){
+        final bool _isDataCreator = removeTextAfterFirstSpecialCharacter(sons, '_') == 'DataCreator';
+        if (_isDataCreator == true){
+          _output = decipherDataCreator(sons);
+        }
+      }
 
     }
 
@@ -255,17 +266,24 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool sonsAreDataCreator(dynamic sons){
-    final bool _sonsAreChain = sonsAreChains(sons);
-    final bool _sonsAreStrings = sonsAreStrings(sons);
-    final bool _sonsAreDynamics = sons is List<dynamic>;
-    final bool _areDataCreator =
-            _sonsAreChain == false
-            &&
-            _sonsAreStrings == false
-            &&
-            _sonsAreDynamics == false;
+    // final bool _sonsAreChain = sonsAreChains(sons);
+    // final bool _sonsAreStrings = sonsAreStrings(sons);
+    // // final bool _sonsAreDynamics = sons is List<dynamic>;
+    // final bool _areDataCreator =
+    //         _sonsAreChain == false
+    //         &&
+    //         _sonsAreStrings == false
+    // //         &&
+    // //         _sonsAreDynamics == false
+    // ;
 
-    return _areDataCreator;
+    bool _isDataCreator = false;
+
+    if (sons != null){
+      _isDataCreator = sons.runtimeType.toString() == 'DataCreator';
+    }
+
+    return _isDataCreator;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -395,43 +413,55 @@ class Chain {
           chains: chainsA
       );
 
-      // blogStrings(_pathsA);
 
       final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
           parentID: '',
           chains: chainsB
       );
 
+      // blog('chains : ${_pathsA.length} <=> originals : ${_pathsB.length}');
+
+      // chainsA[1].blogChain();
+
+      // blogStrings(_pathsA);
+
+      // chainsB[1].blogChain();
+
+      return Mapper.listsAreTheSame(
+          list1: _pathsA,
+          list2: _pathsB
+      );
+
       // blogStrings(_pathsB);
 
-      bool _areTheSame = true;
+      // bool _areTheSame = true;
 
-      if (_pathsA.length == _pathsB.length){
+      // if (_pathsA.length == _pathsB.length){
+      //
+      //    for (int i = 0; i < _pathsA.length; i++){
+      //
+      //      final String _pathA = _pathsA[i];
+      //      final String _pathB = _pathsB[i];
+      //
+      //      if (_pathA == _pathB){
+      //        // _areTheSame = true;
+      //        // blog('Path# ( ${i+1} / ${_pathsA.length} ) : are the same');
+      //      }
+      //      else {
+      //        blog('Path# ( ${i+1} / ${_pathsA.length} ) : are NOT the same : ( $_pathA ) != ( $_pathB )');
+      //        _areTheSame = false;
+      //        // break; /// remove the break if you want to print the above dev blog for all differences
+      //      }
+      //
+      //    }
+      //
+      // }
+      // else {
+      //   blog('chainsListPathsAreTheSame : paths A : ${_pathsA.length} != B ${_pathsB.length}');
+      //   _areTheSame = false;
+      // }
 
-         for (int i = 0; i < _pathsA.length; i++){
-
-           final String _pathA = _pathsA[i];
-           final String _pathB = _pathsB[i];
-
-           if (_pathA == _pathB){
-             // _areTheSame = true;
-             // blog('Path# ( ${i+1} / ${_pathsA.length} ) : are the same');
-           }
-           else {
-             blog('Path# ( ${i+1} / ${_pathsA.length} ) : are NOT the same : ( $_pathA ) != ( $_pathB )');
-             _areTheSame = false;
-             // break; /// remove the break if you want to print the above dev blog for all differences
-           }
-
-         }
-
-      }
-      else {
-        blog('chainsListPathsAreTheSame : paths A : ${_pathsA.length} != B ${_pathsB.length}');
-        _areTheSame = false;
-      }
-
-      return _areTheSame;
+      // return _areTheSame;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT

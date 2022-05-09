@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/data_creator.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -366,7 +367,7 @@ class ChainPathConverter {
       // final _chainPath = '$previousPath${chain.id}/';
       // _allPaths.add(_chainPath);
 
-      /// SONS PATHS
+      /// STRINGS SONS PATHS
       if (Chain.sonsAreStrings(chain.sons) == true){
 
         final List<String> _sons = chain.sons;
@@ -380,6 +381,7 @@ class ChainPathConverter {
         _allPaths.addAll(_sonsPaths);
       }
 
+      /// CHAINS SONS PATHS
       if (Chain.sonsAreChains(chain.sons) == true){
 
         final List<Chain> _sons = chain.sons;
@@ -391,6 +393,19 @@ class ChainPathConverter {
         );
 
         _allPaths.addAll(_sonsPaths);
+
+      }
+
+      /// DATA CREATOR SONS PATHS
+      if (Chain.sonsAreDataCreator(chain.sons) == true){
+
+        final DataCreator _sons = chain.sons;
+
+        final String _dc = Chain.cipherDataCreator(_sons);
+
+        final String _path = '$previousPath${chain.id}/$_dc/';
+
+        _allPaths.add(_path);
 
       }
 

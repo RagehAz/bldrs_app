@@ -17,6 +17,7 @@ class CenterDialog extends StatelessWidget {
     @required this.height,
     this.confirmButtonText,
     this.child,
+    this.color = Colorz.skyDarkBlue,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,6 +27,7 @@ class CenterDialog extends StatelessWidget {
   final double height;
   final Widget child;
   final String confirmButtonText;
+  final Color color;
   /// --------------------------------------------------------------------------
   static Future<bool> showCenterDialog({
     @required BuildContext context,
@@ -35,6 +37,7 @@ class CenterDialog extends StatelessWidget {
     double height,
     Widget child,
     String confirmButtonText,
+    Color color = Colorz.skyDarkBlue,
   }) async {
 
     final bool _result = await showDialog(
@@ -47,6 +50,7 @@ class CenterDialog extends StatelessWidget {
         height: height,
         boolDialog: boolDialog,
         confirmButtonText: confirmButtonText,
+        color: color,
         child: child,
       ),
     );
@@ -146,7 +150,7 @@ class CenterDialog extends StatelessWidget {
                   width: _dialogWidth,
                   height: _dialogHeight,
                   decoration: BoxDecoration(
-                      color: Colorz.skyDarkBlue,
+                      color: color,
                       boxShadow: Shadowz.appBarShadow,
                       borderRadius: _dialogBorders),
                   child: Column(

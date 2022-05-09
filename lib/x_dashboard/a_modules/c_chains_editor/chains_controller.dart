@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
@@ -249,6 +250,8 @@ Future<void> onSync({
               context: context,
               chain: _updatedChain,
             );
+
+            await _syncSuccessDialog(context);
           }
           /// IF SPECS CHAIN
           else if (chainIsSpecsChain(_updatedChain) == true){
@@ -256,11 +259,13 @@ Future<void> onSync({
                 context: context,
                 chain: _updatedChain
             );
+            await _syncSuccessDialog(context);
           }
           /// IF OTHER NEW CHAIN
           else {
             blog('this Chain ${_updatedChain.id} was not synced');
             _updatedChain.blogChain();
+            await _syncFailureDialog(context);
           }
         }
 
@@ -271,6 +276,28 @@ Future<void> onSync({
     }
 
   }
+
+}
+// ------------------------------------------------
+Future<void> _syncSuccessDialog(BuildContext context) async {
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Chains Are Synced on database Successfully',
+    body: 'you need to restart this screen to update the red button ma3lesh',
+    confirmButtonText: 'I Understand mashi',
+  );
+
+}
+// ------------------------------------------------
+Future<void> _syncFailureDialog(BuildContext context) async {
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'nothing Synced',
+    body: 'Something went wrong',
+    color: Colorz.bloodTest,
+  );
 
 }
 // ------------------------------------------------
