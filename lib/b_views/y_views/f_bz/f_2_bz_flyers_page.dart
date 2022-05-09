@@ -38,7 +38,7 @@ class BzFlyersPage extends StatelessWidget {
 
     // blog('BzFlyersPage : building ${flyers.length} flyers');
 
-    if (canLoopList(flyers) == true){
+    if (flyers != null){
       return FlyersGrid(
         key: const ValueKey<String>('BzFlyersPage_grid'),
         flyers: flyers,

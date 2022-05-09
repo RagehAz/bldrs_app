@@ -41,6 +41,7 @@ class TextFieldBubble extends StatelessWidget {
     this.isLoading = false,
     this.isError = false,
     this.columnChildren,
+    this.onSubmitted,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -52,6 +53,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextEditingController textController;
   final TextInputType keyboardTextInputType;
   final ValueChanged<String> textOnChanged;
+  final ValueChanged<String> onSubmitted;
   final bool obscured;
   final bool showUnObscure;
   final bool isFormField;
@@ -154,6 +156,7 @@ class TextFieldBubble extends StatelessWidget {
                     maxLength: maxLength,
                     textController: textController,
                     onChanged: textOnChanged,
+                    onSubmitted: onSubmitted,
                     obscured: obscured,
                     onSavedForForm: onSavedForForm,
                     keyboardTextInputAction: keyboardTextInputAction,
