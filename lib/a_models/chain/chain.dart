@@ -241,21 +241,7 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool sonsAreChains(dynamic sons){
-    bool _areChains = false; // || sons is List<dynamic>;
-
-    // if (Mapper.canLoopList(sons) == true){
-    //
-    //   if (sons is List<Chain>){
-    //     _areChains = true;
-    //   }
-    //
-    //   else if (sons.first is Chain){
-    //     _areChains = true;
-    //   }{
-    //     _areChains = false;
-    //   }
-    //
-    // }
+    bool _areChains = false;
 
     if (sons.runtimeType.toString() == 'List<Chain>'){
       _areChains = true;
@@ -266,16 +252,6 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool sonsAreDataCreator(dynamic sons){
-    // final bool _sonsAreChain = sonsAreChains(sons);
-    // final bool _sonsAreStrings = sonsAreStrings(sons);
-    // // final bool _sonsAreDynamics = sons is List<dynamic>;
-    // final bool _areDataCreator =
-    //         _sonsAreChain == false
-    //         &&
-    //         _sonsAreStrings == false
-    // //         &&
-    // //         _sonsAreDynamics == false
-    // ;
 
     bool _isDataCreator = false;
 
