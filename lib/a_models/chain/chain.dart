@@ -395,10 +395,14 @@ class Chain {
           chains: chainsA
       );
 
+      // blogStrings(_pathsA);
+
       final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
           parentID: '',
           chains: chainsB
       );
+
+      // blogStrings(_pathsB);
 
       bool _areTheSame = true;
 
@@ -414,13 +418,17 @@ class Chain {
              // blog('Path# ( ${i+1} / ${_pathsA.length} ) : are the same');
            }
            else {
-             // blog('Path# ( ${i+1} / ${_pathsA.length} ) : are NOT the same : ( $_pathA ) != ( $_pathB )');
+             blog('Path# ( ${i+1} / ${_pathsA.length} ) : are NOT the same : ( $_pathA ) != ( $_pathB )');
              _areTheSame = false;
-             // break;
+             // break; /// remove the break if you want to print the above dev blog for all differences
            }
 
          }
 
+      }
+      else {
+        blog('chainsListPathsAreTheSame : paths A : ${_pathsA.length} != B ${_pathsB.length}');
+        _areTheSame = false;
       }
 
       return _areTheSame;

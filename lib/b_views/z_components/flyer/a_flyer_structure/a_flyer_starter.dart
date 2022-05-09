@@ -138,10 +138,10 @@ class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
 
-      });
-
+      }
+      );
+      _isInit = false;
     }
-    _isInit = false;
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------

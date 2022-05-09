@@ -89,6 +89,13 @@ abstract class FireSubDoc{
   static const String bzz_bz_credits_log = 'log';
   static const String bzz_bz_credits_balance = 'balance';
 
+  static const String admin_backups_phrases_ar = 'ar';
+  static const String admin_backups_phrases_en = 'en';
+  static const String admin_backups_phrases_lastUpdateTime = 'last_update_time';
+
+  static const String admin_backups_chains_keywords = 'keywords';
+  static const String admin_backups_chains_specs = 'specs';
+  static const String admin_backups_chains_lastUpdateTime = 'last_update_time';
 }
 // -----------------------------------------------------------------------------
 abstract class StorageDoc{

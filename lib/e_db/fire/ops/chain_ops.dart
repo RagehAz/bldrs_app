@@ -120,6 +120,32 @@ Future<Chain> readSpecsChain(BuildContext context) async {
 
   return _chain;
 }
+// ------------------------------------------
+/// TESTED : WORKS PERFECT
+Future<List<Chain>> readKeywordsAndSpecsBackups(BuildContext context) async {
+
+  final Map<String, dynamic> _keywordsChainMap = await Fire.readSubDoc(
+      context: context,
+      collName: FireColl.admin,
+      docName: FireDoc.admin_backups,
+      subCollName: FireSubColl.admin_backups_chains,
+      subDocName: FireSubDoc.admin_backups_chains_keywords,
+  );
+
+  final Chain _keywordChain = Chain.decipherChain(_keywordsChainMap);
+
+  final Map<String, dynamic> _specsChainMap = await Fire.readSubDoc(
+    context: context,
+    collName: FireColl.admin,
+    docName: FireDoc.admin_backups,
+    subCollName: FireSubColl.admin_backups_chains,
+    subDocName: FireSubDoc.admin_backups_chains_specs,
+  );
+
+  final Chain _specsChain = Chain.decipherChain(_specsChainMap);
+
+  return <Chain>[_keywordChain, _specsChain];
+}
 // -----------------------------------------------------------------------------
 
 /// UPDATES
@@ -161,6 +187,7 @@ Future<void> addChainsToSpecsChainSons({
 
 }
 // ------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> updateKeywordsChain({
   @required BuildContext context,
   @required Chain newKeywordsChain,
@@ -175,6 +202,7 @@ Future<void> updateKeywordsChain({
 
 }
 // ------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> updateSpecsChain({
   @required BuildContext context,
   @required Chain newSpecsChain,

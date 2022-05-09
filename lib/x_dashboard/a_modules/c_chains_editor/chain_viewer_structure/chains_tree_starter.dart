@@ -40,6 +40,7 @@ class ChainsTreesStarter extends StatelessWidget {
               onStripTap : onStripTap,
               searchValue: searchValue,
               initiallyExpanded: initiallyExpanded,
+              index: index,
             );
 
           }
