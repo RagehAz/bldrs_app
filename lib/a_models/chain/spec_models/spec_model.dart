@@ -364,11 +364,17 @@ class SpecModel {
   }
 // -----------------------------------------------------------------------------
   static void blogSpecs(List<SpecModel> specs) {
-    blog(
-        'SPECS-PRINT -------------------------------------------------- START');
-    for (final SpecModel spec in specs) {
-      blog('${spec.pickerChainID} : ${spec.value}');
+    blog('SPECS-PRINT -------------------------------------------------- START');
+
+    if (Mapper.canLoopList(specs) == true){
+      for (final SpecModel spec in specs) {
+        blog('${spec.pickerChainID} : ${spec.value}');
+      }
     }
+    else{
+      blog('No specs to blog');
+    }
+
     blog('SPECS-PRINT -------------------------------------------------- END');
   }
 // -----------------------------------------------------------------------------

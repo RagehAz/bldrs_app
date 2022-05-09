@@ -347,6 +347,10 @@ class ChainsProvider extends ChangeNotifier {
 Chain superGetChain(BuildContext context, String chainID){
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   final Chain _chain = _chainsProvider.searchAllChainsByID(chainID);
+
+  blog('superGetChain : chain is :-');
+  _chain.blogChain();
+
   return _chain;
 }
 

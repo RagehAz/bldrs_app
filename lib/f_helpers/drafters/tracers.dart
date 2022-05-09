@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/foundation.dart';
 
@@ -35,7 +37,7 @@ import 'package:flutter/foundation.dart';
 
     assert((){
       // ignore: avoid_print
-      print(msg.toString());
+      log(msg.toString());
       return true;
     }(), '_');
 

@@ -599,11 +599,11 @@ const Chain warrantyDurationUnit = Chain(
 );
 // ------------------------------------------
 
-
 const Chain propertySalePrice = Chain(
   id: 'phid_s_PropertySalePrice',
   sons: DataCreator.price,
 );
+
 const Chain propertyRentPrice = Chain(
   id: 'phid_s_propertyRentPrice',
   sons: DataCreator.price,
