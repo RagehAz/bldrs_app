@@ -84,7 +84,7 @@ Future<void> onSearchChains({
   @required String text,
   @required ValueNotifier<String> searchValue,
   @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<Chain>> allChains,
+  @required List<Chain> allChains,
   @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
@@ -109,13 +109,13 @@ Future<void> onSearchChains({
 }
 // ------------------------------------------------
 void _searchChainsOps({
-  @required ValueNotifier<List<Chain>> chains,
+  @required List<Chain> chains,
   @required String text,
   @required ValueNotifier<List<Chain>> foundChains,
 }){
 
   final List<Chain> _foundPathsChains = ChainPathConverter.findRelatedChains(
-    allChains: chains.value,
+    allChains: chains,
     phid: text,
   );
 
@@ -127,7 +127,8 @@ void _searchChainsOps({
 Future<void> onUpdateNode({
   @required BuildContext context,
   @required String path,
-  @required ValueNotifier<List<Chain>> chains,
+  @required List<Chain> chains,
+  @required ValueNotifier<List<Chain>> chainsNotifier,
   // @required List<Chain> oldChains,
   @required String newPhid,
   @required PageController pageController,
@@ -155,7 +156,7 @@ Future<void> onUpdateNode({
 
     final Chain _chain = Chain.getChainFromChainsByID(
       chainID: _rootChainID,
-      chains: chains.value,
+      chains: chains,
     );
 
     // _chain.blogChain();
@@ -172,12 +173,12 @@ Future<void> onUpdateNode({
     // blog('lineeeeeeeeeeeeeeeeeeeeeeeeeee-------------------');
 
     final List<Chain> _newChains = Chain.replaceChainInChains(
-      chains: chains.value,
+      chains: chains,
       oldChainID: _rootChainID,
       chainToReplace: _newChain,
     );
 
-    chains.value = _newChains;
+    chainsNotifier.value = _newChains;
 
     await Sliders.slideToBackFrom(
         pageController: pageController,
