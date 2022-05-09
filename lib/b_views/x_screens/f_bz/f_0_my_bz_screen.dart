@@ -141,7 +141,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     &&
     _bzCity != null
     &&
-    canLoopList(_bzFlyers) == true
+    _bzFlyers != null
     &&
     _isLoading == false
     ){

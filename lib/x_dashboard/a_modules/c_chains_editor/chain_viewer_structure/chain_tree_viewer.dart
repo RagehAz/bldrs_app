@@ -10,6 +10,7 @@ class ChainTreeViewer extends StatefulWidget {
     @required this.chain,
     @required this.onStripTap,
     @required this.searchValue,
+    @required this.index,
     this.initialLevel = 1,
     this.initiallyExpanded = false,
     Key key
@@ -21,6 +22,7 @@ class ChainTreeViewer extends StatefulWidget {
   final ValueChanged<String> onStripTap;
   final ValueNotifier<String> searchValue;
   final bool initiallyExpanded;
+  final int index;
   /// --------------------------------------------------------------------------
   @override
   State<ChainTreeViewer> createState() => _ChainTreeViewerState();
@@ -84,6 +86,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                       onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
                       searchValue: widget.searchValue,
                       initiallyExpanded: widget.initiallyExpanded,
+                      index: index,
                     );
                   }
               ),
@@ -102,7 +105,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                         width: widget.width,
                         level: widget.initialLevel + 1,
                         phraseID: keywordID,
-                        phraseValue: superPhrase(context, keywordID),
+                        phraseValue: '${index + 1} - ${superPhrase(context, keywordID)}',
                         onTriggerExpansion: (){},
                         onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID/'),
                         searchValue: widget.searchValue,
@@ -137,7 +140,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                 width: widget.width,
                 level: widget.initialLevel,
                 phraseID: widget.chain?.id,
-                phraseValue: superPhrase(context, widget.chain?.id),
+                phraseValue: '${widget.index + 1} - ${superPhrase(context, widget.chain?.id)}',
                 expanded: _isExpanded,
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap('$sonID/'),

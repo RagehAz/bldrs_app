@@ -381,7 +381,7 @@ class BzzProvider extends ChangeNotifier {
         bzID: bzID,
     );
 
-    blog('getsetActiveBzFlyers : got ${_flyers.length} flyers');
+    blog('getsetActiveBzFlyers : got ${_flyers?.length} flyers');
 
     _setActiveBzFlyers(
       flyers: _flyers,

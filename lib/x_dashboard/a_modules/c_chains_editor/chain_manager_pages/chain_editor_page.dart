@@ -146,6 +146,7 @@ class ChainEditorPage extends StatelessWidget {
                   onStripTap: (String path){blog(path);},
                   searchValue: ValueNotifier<String>(_phid),
                   initiallyExpanded: true,
+                  index: 0,
                 ),
               ),
 

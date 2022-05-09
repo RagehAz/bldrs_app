@@ -122,7 +122,7 @@ class FlyersProvider extends ChangeNotifier {
     final BzModel _activeBz = _bzzProvider.myActiveBz;
     final List<String> _bzFlyersIDs = _activeBz?.flyersIDs;
 
-    List<FlyerModel> _flyers;
+    List<FlyerModel> _flyers = <FlyerModel>[];
 
     if (Mapper.canLoopList(_bzFlyersIDs)) {
 
@@ -131,7 +131,7 @@ class FlyersProvider extends ChangeNotifier {
           flyersIDs: _bzFlyersIDs,
       );
 
-      blog('fetchAllBzFlyersByBzID : ${_flyers.length} flyers');
+      blog('fetchAllBzFlyersByBzID : ${_flyers?.length} flyers');
     }
 
     return _flyers;
