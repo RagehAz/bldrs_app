@@ -10,17 +10,17 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class SpecSelectorBubble extends StatelessWidget {
+class SpecPickerBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SpecSelectorBubble({
-    @required this.specList,
+  const SpecPickerBubble({
+    @required this.specPicker,
     @required this.selectedSpecs,
     @required this.onSpecTap,
     @required this.bubbleHeight,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final SpecPicker specList;
+  final SpecPicker specPicker;
   final List<SpecModel> selectedSpecs;
   final ValueChanged<String> onSpecTap;
   final double bubbleHeight;
@@ -52,7 +52,7 @@ class SpecSelectorBubble extends StatelessWidget {
             ChainSonsBuilder(
               boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
               chain: Chain.filterSpecListChainRange(
-                specList: specList,
+                specList: specPicker,
                 context: context,
               ),
               onKeywordTap: (String keywordID) => onSpecTap(keywordID),

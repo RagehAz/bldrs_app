@@ -222,9 +222,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
+    blog('SCREEN WIDTH : ($_screenWidth) <=> SCREEN HEIGHT ($_screenHeight)');
 // -----------------------------------------------------------------------------
 
     /// TAMAM THANK YOU ALLAH
