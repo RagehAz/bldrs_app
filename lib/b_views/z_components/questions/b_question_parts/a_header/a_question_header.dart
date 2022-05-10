@@ -230,7 +230,7 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
           flyerBoxWidth: widget.flyerBoxWidth,
           headerColor: _headerColor,
           headerHeightTween: _headerHeightTween,
-          children: <Widget>[
+          stackChildren: <Widget>[
 
             ListView(
               key: const PageStorageKey<String>('FlyerHeader_ListView'),

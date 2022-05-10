@@ -245,7 +245,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
           flyerBoxWidth: widget.flyerBoxWidth,
           headerColor: _headerColor,
           headerHeightTween: _headerHeightTween,
-          children: <Widget>[
+          stackChildren: <Widget>[
 
             ListView(
               key: const PageStorageKey<String>('FlyerHeader_ListView'),

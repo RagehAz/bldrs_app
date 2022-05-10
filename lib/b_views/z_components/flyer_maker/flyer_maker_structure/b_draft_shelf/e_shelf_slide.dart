@@ -177,6 +177,8 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 if (widget.mutableSlide != null)
                 const StaticHeader(
                   flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                  opacity: 0.5,
+                  bzModel: null,
                 ),
 
                 /// HEADLINE

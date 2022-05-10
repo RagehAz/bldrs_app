@@ -57,6 +57,18 @@ class MyBzzSelectorScreen extends StatelessWidget {
             },
           );
 
+          /*
+          /// PLAN : CHANGE THOSE DREAM BOX BUTTONS INTO STATIC HEADERS
+          return StaticHeader(
+            flyerBoxWidth: appBarWidth(context),
+            opacity: 1,
+            bzModel: _bzModel,
+            onTap: () async {
+              await goToNewScreen(context, MyBzScreen(bzModel: _bzModel,));
+              },
+          );
+           */
+
         },
       ),
     );
