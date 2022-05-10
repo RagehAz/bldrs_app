@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
@@ -16,7 +17,6 @@ class SpecPickerTile extends StatelessWidget {
   const SpecPickerTile({
     @required this.onTap,
     @required this.specPicker,
-    @required this.sourceSpecsPickers,
     @required this.selectedSpecs,
     @required this.onDeleteSpec,
     Key key
@@ -24,7 +24,6 @@ class SpecPickerTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Function onTap;
   final SpecPicker specPicker;
-  final List<SpecPicker> sourceSpecsPickers;
   final List<SpecModel> selectedSpecs;
   final Function onDeleteSpec;
   /// --------------------------------------------------------------------------
@@ -51,6 +50,7 @@ class SpecPickerTile extends StatelessWidget {
 // -----------------------------------------------------------------------------
 
     return GestureDetector(
+      key: const ValueKey<String>('SpecPickerTile'),
       onTap: onTap,
       child: Center(
         child: Container(
@@ -70,6 +70,7 @@ class SpecPickerTile extends StatelessWidget {
                 width: _specTileWidth,
                 child: Row(
                   children: <Widget>[
+
                     /// - ICON
                     DreamBox(
                       width: _specTileHeight,
@@ -77,6 +78,8 @@ class SpecPickerTile extends StatelessWidget {
                       color: Colorz.white10,
                       corners: _tileBorders,
                       bubble: false,
+                      icon: superIcon(context, specPicker.chainID),
+                      iconSizeFactor: 0.6,
                     ),
 
                     /// - LIST NAME
@@ -102,6 +105,7 @@ class SpecPickerTile extends StatelessWidget {
                             //   verse: Name.getNameByCurrentLingoFromNames(context, _chain.names),
                             //   centered: false,
                             // ),
+
                           ],
                         ),
                       ),
@@ -116,6 +120,7 @@ class SpecPickerTile extends StatelessWidget {
                       iconSizeFactor: 0.15,
                       bubble: false,
                     ),
+
                   ],
                 ),
               ),
@@ -146,7 +151,7 @@ class SpecPickerTile extends StatelessWidget {
 
                               final SpecModel _spec = selectedSpecs[index];
 
-                              final String _specName = SpecModel.traslateSpec(
+                              final String _specName = SpecModel.translateSpec(
                                 context: context,
                                 spec: _spec,
                               );

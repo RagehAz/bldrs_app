@@ -97,7 +97,7 @@ class SpecPicker {
     SpecPicker _specPicker;
 
     if (Mapper.canLoopList(specsPickers) && pickerChainID != null) {
-      _specPicker = specsPickers.singleWhere(
+      _specPicker = specsPickers.firstWhere(
               (SpecPicker list) => list.chainID == pickerChainID,
           orElse: () => null
       );
