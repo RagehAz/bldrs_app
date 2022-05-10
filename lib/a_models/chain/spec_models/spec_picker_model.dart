@@ -15,6 +15,7 @@ class SpecPicker {
     @required this.canPickMany,
     @required this.isRequired,
     @required this.range,
+    @required this.unitChainID,
     this.deactivators,
   });
   /// --------------------------------------------------------------------------
@@ -32,6 +33,8 @@ class SpecPicker {
   /// if <KW>['id1', 'id2'] only these IDs will be included,
   /// if <int>[1, 5] then only this range is selectable
   final List<dynamic> range;
+  /// FOR DATA CREATORS, they require measurement unit like day meter dollar
+  final String unitChainID;
 // -----------------------------------------------------------------------------
 
   /// CYPHER
@@ -199,6 +202,7 @@ class SpecPicker {
     blog('range : $range');
     blog('canPickMany : $canPickMany');
     blog('isRequired : $isRequired');
+    blog('unitChainID : $unitChainID');
     blog('deactivators : $deactivators');
 
     blog('SPEC-PICKER-PRINT --------------------------------------------------END');

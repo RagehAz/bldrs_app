@@ -474,7 +474,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                 // final List<String> _missingFieldsKeys = MapModel.getKeysFromMapModels(missingFields);
 
-
                 return ListView(
                   physics: const BouncingScrollPhysics(),
                   children: <Widget>[
@@ -620,12 +619,25 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           isFormField: true,
                           key: const Key('bzName'),
                           textController: _bzNameTextController,
-                          title:_title,
+                          title: _title,
                           counterIsOn: true,
                           maxLength: 72,
                           maxLines: 2,
                           keyboardTextInputType: TextInputType.name,
                           fieldIsRequired: true,
+                          validator: (){
+
+                            if (TextChecker.stringIsEmpty(_bzNameTextController.text) == true){
+                              return 'Business Entity name can not be empty';
+                            }
+                            else if (_bzNameTextController.text.length <= 3){
+                              return 'Business Entity name should be more than 3 characters';
+                            }
+                            else {
+                              return null;
+                            }
+
+                          },
                         );
 
                       },
@@ -642,6 +654,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       maxLines: 4,
                       keyboardTextInputType: TextInputType.multiline,
                       fieldIsRequired: true,
+                      validator: (){return null;},
                       // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
                     ),
 
@@ -654,6 +667,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       maxLength: 1000,
                       maxLines: 20,
                       keyboardTextInputType: TextInputType.multiline,
+                      validator: (){return null;},
                     ),
 
                     const BubblesSeparator(),
