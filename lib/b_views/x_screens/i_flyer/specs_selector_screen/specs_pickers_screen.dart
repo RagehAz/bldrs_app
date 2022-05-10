@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/b_views/y_views/i_flyer/flyer_maker/specs_selector_screen_view.dart';
+import 'package:bldrs/b_views/y_views/i_flyer/flyer_maker/specs_pickers_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -217,6 +217,12 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
   @override
   Widget build(BuildContext context) {
 
+    final String _flyerTypeString = FlyerTypeClass.translateFlyerType(
+      context: context,
+      flyerType: widget.flyerType,
+      pluralTranslation: false,
+    );
+
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
@@ -224,7 +230,7 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
       zoneButtonIsOn: false,
       pyramidsAreOn: true,
       // loading: _loading,
-      pageTitle: 'Select Flyer Specifications',
+      pageTitle: '$_flyerTypeString Specifications',
       onBack: (){
         Nav.goBack(context, argument: _allSelectedSpecs.value);
       },

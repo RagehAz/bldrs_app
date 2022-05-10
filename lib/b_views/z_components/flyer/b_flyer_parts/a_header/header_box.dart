@@ -10,7 +10,7 @@ class HeaderBox extends StatelessWidget {
     @required this.headerHeightTween,
     @required this.headerColor,
     @required this.headerBorders,
-    @required this.children,
+    @required this.stackChildren,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -21,7 +21,7 @@ class HeaderBox extends StatelessWidget {
   final dynamic headerHeightTween;
   final Color headerColor;
   final BorderRadius headerBorders;
-  final List<Widget> children;
+  final List<Widget> stackChildren;
   /// --------------------------------------------------------------------------
   static double getHeaderLabelWidth(double flyerBoxWidth) {
     return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
@@ -49,7 +49,7 @@ class HeaderBox extends StatelessWidget {
               borderRadius: headerBorders,
               child: Stack(
                 alignment: Alignment.topCenter,
-                children: children,
+                children: stackChildren,
               ),
             ),
           ),
@@ -75,7 +75,7 @@ class HeaderBox extends StatelessWidget {
               borderRadius: headerBorders,
               child: Stack(
                 alignment: Alignment.topCenter,
-                children: children,
+                children: stackChildren,
               ),
             ),
           ),

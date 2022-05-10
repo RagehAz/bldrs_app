@@ -19,14 +19,14 @@ class IntegerDataCreator extends StatefulWidget {
     @required this.onIntegerChanged,
     @required this.initialValue,
     @required this.onSubmitted,
-    @required this.specList,
+    @required this.specPicker,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<int> onIntegerChanged;
   final int initialValue;
   final Function onSubmitted;
-  final SpecPicker specList;
+  final SpecPicker specPicker;
   /// --------------------------------------------------------------------------
   @override
   State<IntegerDataCreator> createState() => _IntegerDataCreatorState();
@@ -123,7 +123,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
 
     const double _buttonSize = _buttonsBoxWidth - 25;
 
-    final String _hintText = superPhrase(context, widget.specList.chainID);
+    final String _hintText = superPhrase(context, widget.specPicker.chainID);
 
     return Container(
       width: _screenWidth,

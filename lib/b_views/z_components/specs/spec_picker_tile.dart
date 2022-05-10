@@ -38,17 +38,11 @@ class SpecPickerTile extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-//     final double _screenWidth = Scale.superScreenWidth(context);
-//     final double _screenHeight = Scale.superScreenHeight(context);
-// -----------------------------------------------------------------------------
     final double _specTileHeight = height();
     final double _specTileWidth = width(context);
-    final BorderRadius _tileBorders =
-        Borderers.superBorderAll(context, Ratioz.appBarCorner);
+    final BorderRadius _tileBorders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
     final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);
 // -----------------------------------------------------------------------------
-
     return GestureDetector(
       key: const ValueKey<String>('SpecPickerTile'),
       onTap: onTap,
@@ -179,10 +173,12 @@ class SpecPickerTile extends StatelessWidget {
                     ],
                   ),
                 ),
+
             ],
           ),
         ),
       ),
     );
+
   }
 }
