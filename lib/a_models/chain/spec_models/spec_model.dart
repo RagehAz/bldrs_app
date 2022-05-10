@@ -399,7 +399,7 @@ class SpecModel {
     return _result;
   }
 // ------------------------------------------
-  static String traslateSpec({
+  static String translateSpec({
     @required BuildContext context,
     @required SpecModel spec,
   }) {
@@ -509,6 +509,24 @@ class SpecModel {
     }
 
     return _output;
+  }
+// ------------------------------------------
+  static List<SpecModel> removeSpecFromSpecs({
+  @required List<SpecModel> specs,
+  @required SpecModel spec,
+}){
+
+    List<SpecModel> _output = <SpecModel>[];
+
+    if (Mapper.canLoopList(specs) == true){
+      _output = <SpecModel>[...specs];
+
+      _output.remove(spec);
+
+    }
+
+    return _output;
+
   }
 // -----------------------------------------------------------------------------
 }

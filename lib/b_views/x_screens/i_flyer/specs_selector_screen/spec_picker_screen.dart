@@ -6,10 +6,10 @@ import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/specs/double_data_creator.dart';
-import 'package:bldrs/b_views/z_components/specs/integer_data_creator.dart';
-import 'package:bldrs/b_views/z_components/specs/price_data_creator.dart';
-import 'package:bldrs/b_views/z_components/specs/specs_selector_bubble.dart';
+import 'package:bldrs/b_views/z_components/specs/data_creators/double_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/data_creators/integer_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/data_creators/price_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/data_creators/spec_picker_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -281,9 +281,9 @@ class _SpecPickerScreenState extends State<SpecPickerScreen> {
                 valueListenable: _selectedSpecs,
                 builder: (BuildContext ctx, List<SpecModel> value, Widget child) {
 
-                  return SpecSelectorBubble(
+                  return SpecPickerBubble(
                     bubbleHeight: _listZoneHeight,
-                    specList: widget.specPicker,
+                    specPicker: widget.specPicker,
                     selectedSpecs: SpecModel.getSpecsByPickerChainID(
                         specs: value,
                         pickerChainID: widget.specPicker.chainID,

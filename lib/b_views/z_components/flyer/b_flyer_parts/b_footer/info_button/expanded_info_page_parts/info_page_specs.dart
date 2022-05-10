@@ -90,7 +90,7 @@ class InfoPageSpecs extends StatelessWidget {
 
       for (final SpecModel _spec in _flyerSpecsFromThisSpecPicker){
 
-        final String _specName = SpecModel.traslateSpec(
+        final String _specName = SpecModel.translateSpec(
           context: context,
           spec: _spec,
         );
