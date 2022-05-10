@@ -297,6 +297,8 @@ Future<void> onAddSpecsTap({
 
   if (canLoopList(_receivedSpecs) == true){
 
+    SpecModel.blogSpecs(_receivedSpecs);
+
     draft.value = draft.value.copyWith(
       specs: _receivedSpecs,
     );

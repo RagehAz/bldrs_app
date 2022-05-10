@@ -359,3 +359,13 @@ List<Chain> getAllChains(BuildContext context){
   final Chain _specsChain = _chainsProvider.specsChain;
   return <Chain>[_keywordsChain, _specsChain];
 }
+
+String superIcon(BuildContext context, dynamic icon){
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+
+  return _chainsProvider.getKeywordIcon(
+    context: context,
+    son: icon,
+  );
+// -----------------------------------------------------------------------------
+}
