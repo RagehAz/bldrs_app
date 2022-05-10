@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -70,7 +71,7 @@ class PageBubble extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double width(BuildContext context){
-    return Scale.appBarWidth(context);
+    return BldrsAppBar.width(context);
   }
 // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context){
@@ -92,7 +93,7 @@ class PageBubble extends StatelessWidget {
         padding: topMargin(appBarType),
         alignment: Alignment.topCenter,
         child: Container(
-          width: Scale.appBarWidth(context),
+          width: width(context),
           height: height(
               screenHeight: screenHeightWithoutSafeArea,
               appBarType: appBarType,
