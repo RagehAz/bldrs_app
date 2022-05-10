@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/z_components/specs/data_creators/spec_picker_bubbl
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/specs_picker_controller.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -25,11 +24,13 @@ class SpecPickerScreenView extends StatelessWidget {
   const SpecPickerScreenView({
     @required this.specPicker,
     @required this.selectedSpecs,
+    @required this.screenHeight,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final SpecPicker specPicker;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
+  final double screenHeight;
   /// --------------------------------------------------------------------------
   String _getInstructions({
     @required Chain specChain,
@@ -58,10 +59,9 @@ class SpecPickerScreenView extends StatelessWidget {
 
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     final double _listZoneHeight =
-        _screenHeight
+        screenHeight
             - Ratioz.stratosphere
             - SpecPickerScreen.instructionBoxHeight;
 
