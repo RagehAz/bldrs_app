@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -241,7 +242,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         withBottomMargin: true,
         withCounter: true,
     );
-    final double _fieldWidth = Scale.appBarWidth(context) - 50;
+    final double _fieldWidth = BldrsAppBar.width(context) - 50;
 
     return MainLayout(
       key: const ValueKey('test_lab'),

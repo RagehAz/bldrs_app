@@ -348,7 +348,7 @@ Chain superGetChain(BuildContext context, String chainID){
   final Chain _chain = _chainsProvider.searchAllChainsByID(chainID);
 
   blog('superGetChain : chain is :-');
-  _chain.blogChain();
+  _chain?.blogChain();
 
   return _chain;
 }

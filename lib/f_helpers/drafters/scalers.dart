@@ -95,11 +95,6 @@ EdgeInsets superPadding({
   EdgeInsets.only(left: enRight, right: enLeft, top: top, bottom: bottom);
 }
 // -----------------------------------------------------------------------------
-double appBarWidth(BuildContext context){
-  final double _appBarWidth = superScreenWidth(context) - (2 * Ratioz.appBarMargin);
-  return _appBarWidth;
-}
-// -----------------------------------------------------------------------------
 double clearLayoutHeight({
   @required BuildContext context,
   AppBarType appBarType = AppBarType.basic,
