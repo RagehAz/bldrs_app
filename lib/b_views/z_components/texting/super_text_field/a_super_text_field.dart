@@ -474,6 +474,17 @@ class _SuperTextFieldState extends State<SuperTextField> {
     );
   }
 // -----------------------------------------------------------------------------
+  String _validator(String val){
+
+    if (widget.validator == null){
+      return null;
+    }
+    else {
+      return widget.validator();
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -533,7 +544,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               onSubmitted: widget.onSubmitted,
               onSavedForForm: widget.onSavedForForm,
               onEditingComplete: widget.onEditingComplete,
-              validator: (String val) => widget.validator(),
+              validator: _validator,
             );
 
           }

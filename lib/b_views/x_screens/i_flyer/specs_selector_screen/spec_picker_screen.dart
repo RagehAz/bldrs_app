@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/specs_picker_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 
 class SpecPickerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -24,7 +25,7 @@ class SpecPickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // final double _screenWidth = Scale.superScreenWidth(context);
-    // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     // final double _listZoneHeight =
     //           _screenHeight
     //         - Ratioz.stratosphere
@@ -48,6 +49,7 @@ class SpecPickerScreen extends StatelessWidget {
       layoutWidget: SpecPickerScreenView(
         specPicker: specPicker,
         selectedSpecs: selectedSpecs,
+        screenHeight: _screenHeight,
       ),
 
     );
