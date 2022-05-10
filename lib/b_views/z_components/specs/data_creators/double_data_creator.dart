@@ -17,14 +17,14 @@ class DoubleDataCreator extends StatefulWidget {
     @required this.onDoubleChanged,
     @required this.initialValue,
     @required this.onSubmitted,
-    @required this.specList,
+    @required this.specPicker,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<double> onDoubleChanged;
   final double initialValue;
   final Function onSubmitted;
-  final SpecPicker specList;
+  final SpecPicker specPicker;
   /// --------------------------------------------------------------------------
   @override
   State<DoubleDataCreator> createState() => _DoubleDataCreatorState();
@@ -127,7 +127,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
 
     // const double _buttonSize = _buttonsBoxWidth - 25;
 
-    final String _hintText = superPhrase(context, widget.specList.chainID);
+    final String _hintText = superPhrase(context, widget.specPicker.chainID);
 
     return Container(
       width: _screenWidth,

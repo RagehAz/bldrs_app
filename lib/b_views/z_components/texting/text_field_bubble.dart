@@ -162,8 +162,6 @@ class TextFieldBubble extends StatelessWidget {
                     keyboardTextInputAction: keyboardTextInputAction,
                     initialValue: initialTextValue,
                     validator: validator,
-                    key: key,
-
                   ),
 
                   /// SPACER

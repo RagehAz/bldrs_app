@@ -31,6 +31,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
               ]),
         ],
         range: null,
+        unitChainID: null,
     ),
 
     /// PROPERTY LICENSE
@@ -40,6 +41,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: true,
         range: null,
+        unitChainID: null,
     ),
     // ------------------------------------------------------------
     /// - PROPERTY PRICING SPECIFICATIONS
@@ -65,6 +67,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
           ),
         ],
         range: null,
+        unitChainID: null,
     ),
 
     /// PROPERTY PAYMENT METHOD
@@ -84,6 +87,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
               ]
           ),
         ],
+        unitChainID: null,
     ),
 
     /// PROPERTY SALE PRICE
@@ -93,6 +97,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_currency',
     ),
 
     /// PROPERTY RENT PRICE
@@ -102,16 +107,18 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_currency',
     ),
 
-    /// PROPERTY PRICE CURRENCY
-    SpecPicker(
-        chainID: 'phid_s_currency',
-        groupID: 'Pricing',
-        canPickMany: false,
-        isRequired: false,
-        range: null,
-    ),
+    // /// PROPERTY PRICE CURRENCY
+    // SpecPicker(
+    //     chainID: 'phid_s_currency',
+    //     groupID: 'Pricing',
+    //     canPickMany: false,
+    //     isRequired: false,
+    //     range: null,
+    // ),
+
     // ------------------------------------------------------------
     /// - INSTALLMENTS
     // ----------------------------
@@ -122,6 +129,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null,
     ),
 
     /// PROPERTY INSTALLMENTS DURATION
@@ -131,16 +139,17 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_installmentsDurationUnit'
     ),
 
-    /// PROPERTY INSTALLMENTS DURATION UNIT
-    SpecPicker(
-        chainID: 'phid_s_installmentsDurationUnit',
-        groupID: 'Installments',
-        canPickMany: false,
-        isRequired: false,
-        range: null,
-    ),
+    // /// PROPERTY INSTALLMENTS DURATION UNIT
+    // SpecPicker(
+    //     chainID: 'phid_s_installmentsDurationUnit',
+    //     groupID: 'Installments',
+    //     canPickMany: false,
+    //     isRequired: false,
+    //     range: null,
+    // ),
     // ------------------------------------------------------------
     /// - PROPERTY AREA
     // ----------------------------
@@ -151,16 +160,17 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_propertyAreaUnit',
     ),
 
-    /// PROPERTY AREA UNIT
-    SpecPicker(
-        chainID: 'phid_s_propertyAreaUnit',
-        groupID: 'Property Area',
-        canPickMany: false,
-        isRequired: false,
-        range: null,
-    ),
+    // /// PROPERTY AREA UNIT
+    // SpecPicker(
+    //     chainID: 'phid_s_propertyAreaUnit',
+    //     groupID: 'Property Area',
+    //     canPickMany: false,
+    //     isRequired: false,
+    //     range: null,
+    // ),
     // ------------------------------------------------------------
     /// - LOT AREA
     // ----------------------------
@@ -171,26 +181,28 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_propertyAreaUnit',
     ),
 
-    /// LOT AREA UNIT
-    SpecPicker(
-        chainID: 'phid_s_propertyAreaUnit',
-        groupID: 'Lot Area',
-        canPickMany: false,
-        isRequired: false,
-        range: null,
-    ),
+    // /// LOT AREA UNIT
+    // SpecPicker(
+    //     chainID: 'phid_s_propertyAreaUnit',
+    //     groupID: 'Lot Area',
+    //     canPickMany: false,
+    //     isRequired: false,
+    //     range: null,
+    // ),
     // ------------------------------------------------------------
     /// - PROPERTY SPATIAL SPECIFICATION
     // ----------------------------
     /// PROPERTY SPACES
     SpecPicker(
-        chainID: 'phid_s_property_spaces',
+        chainID: 'phid_s_property_spaces', // phid_s_group_space_type has chain but translates (Space type)
         groupID: 'Spatial Specifications',
         canPickMany: true,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
 
     /// PROPERTY FLOOR NUMBER
@@ -200,6 +212,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null,
     ),
 
     /// PROPERTY DEDICATED PARKING LOTS COUNT
@@ -209,24 +222,27 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null,
     ),
 
     /// PROPERTY NUMBER OF BEDROOMS
     SpecPicker(
-      chainID: 'phid_s_propertyNumberOfBedrooms',
-      groupID: 'Spatial Specifications',
-      canPickMany: false,
-      isRequired: false,
-      range: null,
+        chainID: 'phid_s_propertyNumberOfBedrooms',
+        groupID: 'Spatial Specifications',
+        canPickMany: false,
+        isRequired: false,
+        range: null,
+        unitChainID: null,
     ),
 
     /// PROPERTY NUMBER OF BATHROOMS
     SpecPicker(
-      chainID: 'phid_s_propertyNumberOfBathrooms',
-      groupID: 'Spatial Specifications',
-      canPickMany: false,
-      isRequired: false,
-      range: null,
+        chainID: 'phid_s_propertyNumberOfBathrooms',
+        groupID: 'Spatial Specifications',
+        canPickMany: false,
+        isRequired: false,
+        range: null,
+        unitChainID: null,
     ),
     // ------------------------------------------------------------
     /// - PROPERTY FEATURES SPECIFICATIONS
@@ -238,6 +254,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: false,
         range: null,
+        unitChainID: null,
     ),
 
     /// PROPERTY INDOOR FEATURES
@@ -247,6 +264,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
 
     /// PROPERTY FINISHING LEVEL
@@ -256,15 +274,17 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
 
     /// PROPERTY DECORATION STYLE
     SpecPicker(
-      chainID: 'phid_s_propertyDecorationStyle',
-      groupID: 'Property Features',
-      canPickMany: false,
-      isRequired: false,
-      range: null,
+        chainID: 'phid_s_propertyDecorationStyle',
+        groupID: 'Property Features',
+        canPickMany: false,
+        isRequired: false,
+        range: null,
+        unitChainID: null
     ),
     // ------------------------------------------------------------
     /// - COMMUNITY FEATURES SPECIFICATIONS
@@ -276,6 +296,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
 
     /// AMENITIES
@@ -285,6 +306,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
 
     /// COMMUNITY SERVICES
@@ -294,6 +316,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
     // ------------------------------------------------------------
     /// - BUILDING FEATURES SPECIFICATIONS
@@ -305,6 +328,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
 
     /// BUILDING AGE IN YEARS
@@ -314,6 +338,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
 
     /// BUILDING TOTAL UNITS COUNTS
@@ -323,6 +348,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
 
     /// BUILDING TOTAL PARKING LOTS COUNTS
@@ -332,6 +358,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
     // ------------------------------------------------------------
 
@@ -350,6 +377,7 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: true,
         range: null,
+        unitChainID: null
     ),
 
     /// DESIGN SPACES
@@ -359,6 +387,7 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: true,
         range: null,
+        unitChainID: null
     ),
 
     /// DESIGN STYLE
@@ -368,6 +397,7 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: false,
         range: null,
+        unitChainID: null
     ),
     // ------------------------------------------------------------
     /// - PROPERTY SPECIFICATIONS
@@ -379,6 +409,7 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: true,
         range: null,
+        unitChainID: null
     ),
 
     /// PROPERTY LICENSE
@@ -388,6 +419,7 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
         canPickMany: true,
         isRequired: true,
         range: null,
+        unitChainID: null
     ),
     // ------------------------------------------------------------
     /// - CONSTRUCTION COST
@@ -399,46 +431,49 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_currency'
     ),
 
-    /// PROJECT COST CURRENCY
-    SpecPicker(
-      chainID: 'phid_s_currency',
-      groupID: 'Construction Cost',
-      canPickMany: false,
-      isRequired: false,
-      range: null,
-    ),
+    // /// PROJECT COST CURRENCY
+    // SpecPicker(
+    //   chainID: 'phid_s_currency',
+    //   groupID: 'Construction Cost',
+    //   canPickMany: false,
+    //   isRequired: false,
+    //   range: null,
+    // ),
     // ------------------------------------------------------------
     /// - CONSTRUCTION DURATION
     // ----------------------------
     /// Construction DURATION
     SpecPicker(
-      chainID: 'phid_s_constructionDuration',
-      groupID: 'Construction Duration',
-      canPickMany: false,
-      isRequired: false,
-      range: null,
+        chainID: 'phid_s_constructionDuration',
+        groupID: 'Construction Duration',
+        canPickMany: false,
+        isRequired: false,
+        range: null,
+        unitChainID: 'phid_s_constructionDurationUnit',
     ),
 
-    /// Construction DURATION UNIT
-    SpecPicker(
-      chainID: 'phid_s_durationUnit',
-      groupID: 'Construction Duration',
-      canPickMany: false,
-      isRequired: false,
-      range: <String>['phid_s_day', 'phid_s_week', 'phid_s_month', 'phid_s_year'],
-    ),
+    // /// Construction DURATION UNIT
+    // SpecPicker(
+    //   chainID: 'phid_s_durationUnit',
+    //   groupID: 'Construction Duration',
+    //   canPickMany: false,
+    //   isRequired: false,
+    //   range: <String>['phid_s_day', 'phid_s_week', 'phid_s_month', 'phid_s_year'],
+    // ),
     // ------------------------------------------------------------
     /// - CONSTRUCTION ACTIVITIES
     // ----------------------------
     /// CONSTRUCTION ACTIVITIES
     SpecPicker(
-      chainID: 'phid_k_flyer_type_crafts',
-      groupID: 'Construction Activities',
-      canPickMany: true,
-      isRequired: false,
-      range: null,
+        chainID: 'phid_k_flyer_type_crafts',
+        groupID: 'Construction Activities',
+        canPickMany: true,
+        isRequired: false,
+        range: null,
+        unitChainID: null,
     ),
     // ------------------------------------------------------------
     /// - PROPERTY AREA
@@ -450,16 +485,17 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_propertyAreaUnit',
     ),
 
-    /// PROPERTY AREA UNIT
-    SpecPicker(
-        chainID: 'phid_s_propertyAreaUnit',
-        groupID: 'Property Area',
-        canPickMany: false,
-        isRequired: false,
-        range: null,
-    ),
+    // /// PROPERTY AREA UNIT
+    // SpecPicker(
+    //     chainID: 'phid_s_propertyAreaUnit',
+    //     groupID: 'Property Area',
+    //     canPickMany: false,
+    //     isRequired: false,
+    //     range: null,
+    // ),
     // ------------------------------------------------------------
     /// - PROPERTY AREA
     // ----------------------------
@@ -470,16 +506,17 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_lotAreaUnit',
     ),
 
-    /// LOT AREA UNIT
-    SpecPicker(
-        chainID: 'phid_s_lotAreaUnit',
-        groupID: 'Lot Area',
-        canPickMany: false,
-        isRequired: false,
-        range: null,
-    ),
+    // /// LOT AREA UNIT
+    // SpecPicker(
+    //     chainID: 'phid_s_lotAreaUnit',
+    //     groupID: 'Lot Area',
+    //     canPickMany: false,
+    //     isRequired: false,
+    //     range: null,
+    // ),
     // ------------------------------------------------------------
 
 ];
@@ -493,16 +530,17 @@ List<SpecPicker> craftSpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: 'phid_s_currency',
     ),
 
-    /// CONSTRUCTION ACTIVITY PRICE CURRENCY
-    SpecPicker(
-        chainID: 'phid_s_currency',
-        groupID: 'Cost',
-        canPickMany: false,
-        isRequired: false,
-        range: null,
-    ),
+    // /// CONSTRUCTION ACTIVITY PRICE CURRENCY
+    // SpecPicker(
+    //     chainID: 'phid_s_currency',
+    //     groupID: 'Cost',
+    //     canPickMany: false,
+    //     isRequired: false,
+    //     range: null,
+    // ),
 
     /// CONSTRUCTION ACTIVITY MEASUREMENT METHOD
     SpecPicker(
@@ -511,6 +549,7 @@ List<SpecPicker> craftSpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
+        unitChainID: null,
     ),
 
 ];
