@@ -5,10 +5,10 @@ import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/spec_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/specs/data_creators/double_data_creator.dart';
-import 'package:bldrs/b_views/z_components/specs/data_creators/integer_data_creator.dart';
-import 'package:bldrs/b_views/z_components/specs/data_creators/price_data_creator.dart';
-import 'package:bldrs/b_views/z_components/specs/data_creators/spec_picker_bubble.dart';
+import 'package:bldrs/b_views/z_components/specs/data_creators/d_double_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/data_creators/c_integer_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/data_creators/b_price_data_creator.dart';
+import 'package:bldrs/b_views/z_components/specs/data_creators/a_strings_data_creator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/specs_picker_controller.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -57,7 +57,6 @@ class SpecPickerScreenView extends StatelessWidget {
 
     final Chain _specChain = superGetChain(context, specPicker.chainID);
 
-
     final double _screenWidth = Scale.superScreenWidth(context);
 
     final double _listZoneHeight =
@@ -102,8 +101,8 @@ class SpecPickerScreenView extends StatelessWidget {
 
             /// SPECS PICKER SELECTOR
             if (_isDataCreator == false){
-              return SpecPickerBubble(
-                bubbleHeight: _listZoneHeight,
+              return StringsDataCreator(
+                height: _listZoneHeight,
                 specPicker: specPicker,
                 selectedSpecs: SpecModel.getSpecsByPickerChainID(
                   specs: specs,
@@ -191,6 +190,12 @@ class SpecPickerScreenView extends StatelessWidget {
           },
         ),
 
+        if (specPicker.unitChainID != null)
+          Container(
+            width: 100,
+            height: 100,
+            color: Colorz.bloodTest,
+          ),
 
 
 

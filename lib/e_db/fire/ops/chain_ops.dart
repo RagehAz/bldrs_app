@@ -146,6 +146,13 @@ Future<List<Chain>> readKeywordsAndSpecsBackups(BuildContext context) async {
 
   return <Chain>[_keywordChain, _specsChain];
 }
+// ------------------------------------------
+/// TESTED : WORKS PERFECT
+Future<List<Chain>> reloadKeywordsAndSpecsChains(BuildContext context) async {
+  final Chain _keywordsChain = await readKeywordsChain(context);
+  final Chain _specsChain = await readSpecsChain(context);
+  return <Chain>[_keywordsChain, _specsChain];
+}
 // -----------------------------------------------------------------------------
 
 /// UPDATES

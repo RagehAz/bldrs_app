@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
@@ -59,7 +60,7 @@ class TranslationsBubble extends StatelessWidget {
                 final Phrase _arPhrase = _canBuild  ? arPhrases[index] : null;
 
                 return TranslationStrip(
-                  width: Scale.appBarWidth(context) - 20,
+                  width: BldrsAppBar.width(context) - 20,
                   enPhrase: _enPhrase,
                   arPhrase: _arPhrase,
                   onCopyValue: onCopyValue,

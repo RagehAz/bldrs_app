@@ -232,7 +232,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                       context: context,
                       draggable: true,
                       buttonHeight: 40,
-                      numberOfWidgets: 2,
+                      numberOfWidgets: 3,
                       title: 'Back The fuck Up',
                       builder: (BuildContext context, PhraseProvider phraseProvider){
 
@@ -256,6 +256,17 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                               Nav.goBack(context);
 
                               _chainsNotifier.value = _backups;
+                            },
+                          ),
+
+                          /// RELOAD CHAINS
+                          BottomDialog.wideButton(
+                            context: context,
+                            verse: 'Reload chains',
+                            onTap: () async {
+                              final List<Chain> _chains = await reloadKeywordsAndSpecsChains(context);
+                              Nav.goBack(context);
+                              _chainsNotifier.value = _chains;
                             },
                           ),
 
