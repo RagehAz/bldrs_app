@@ -57,7 +57,7 @@ class SpecPickerBubble extends StatelessWidget {
               ),
               onKeywordTap: (String keywordID) => onSpecTap(keywordID),
               selectedKeywordsIDs: SpecModel.getSpecsIDs(selectedSpecs),
-              initiallyExpanded: false,
+              initiallyExpanded: true,
             ),
 
           ],
