@@ -280,21 +280,16 @@ void onPriceChanged({
   selectedSpecs.value = _updatedList;
 }
 // -----------------------------------
-void onAddInteger({
-  @required int integer,
+void onAddIntegerSpecs({
+  @required List<SpecModel> specs,
   @required SpecPicker picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 
-  blog('received integer : $integer');
-  final SpecModel _integerSpec = SpecModel(
-    pickerChainID: picker.chainID,
-    value: integer,
-  );
 
   final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
     parentSpecs: selectedSpecs.value,
-    inputSpecs: <SpecModel>[_integerSpec],
+    inputSpecs: specs,
     canPickMany: picker.canPickMany,
   );
 
@@ -329,3 +324,31 @@ void onGoBackToSpecsPickersScreen({
   Nav.goBack(context, argument: selectedSpecs.value);
 }
 // -----------------------------------------------------------------------------
+
+/*
+              List<SpecModel> _createSpecs(){
+                final List<SpecModel> _output = <SpecModel>[];
+
+                /// when there is value
+                if (stringIsNotEmpty(controller.text) == true){
+                  final SpecModel _valueSpec = SpecModel(
+                    pickerChainID: widget.specPicker.chainID,
+                    value: controller.text,
+                  );
+                  _output.add(_valueSpec);
+
+                  /// when there is unit chain
+                  if (widget.specPicker.unitChainID != null){
+                    final SpecModel _unitSpec = SpecModel(
+                      pickerChainID: widget.specPicker.unitChainID,
+                      value: _selectedUnit.value,
+                    );
+                    _output.add(_unitSpec);
+                  }
+
+                }
+
+                return _output;
+              }
+
+ */
