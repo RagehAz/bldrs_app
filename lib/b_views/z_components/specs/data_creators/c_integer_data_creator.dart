@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -6,34 +7,32 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class IntegerDataCreator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const IntegerDataCreator({
-    @required this.onIntegerChanged,
+    @required this.onExportSpecs,
     @required this.initialValue,
-    @required this.onSubmitted,
+    @required this.initialUnit,
     @required this.specPicker,
+    @required this.onKeyboardSubmitted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueChanged<int> onIntegerChanged;
+  final ValueChanged<List<SpecModel>> onExportSpecs;
   final int initialValue;
-  final Function onSubmitted;
+  final String initialUnit;
   final SpecPicker specPicker;
+  final Function onKeyboardSubmitted;
   /// --------------------------------------------------------------------------
   @override
   State<IntegerDataCreator> createState() => _IntegerDataCreatorState();
@@ -44,18 +43,21 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController(); /// tamam disposed
-  final ValueNotifier<int> _integer = ValueNotifier<int>(null); /// tamam disposed
-  ValueNotifier<String> _selectedUnit;
+
+  ValueNotifier<int> _specValue; /// tamam disposed
+  ValueNotifier<String> _selectedUnit; /// tamam disposed
   Chain _unitChain;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
 // ---------------------------------
     controller.text = widget.initialValue?.toString();
+    _specValue = ValueNotifier(widget.initialValue);
 // ---------------------------------
     _unitChain = superGetChain(context, widget.specPicker.unitChainID);
-    final String _initialUnit = _unitChain == null ? null : _unitChain.sons[0];
+    final String _initialUnit = _unitChain == null ? null : widget.initialUnit ?? _unitChain.sons[0];
     _selectedUnit = ValueNotifier<String>(_initialUnit);
 // ---------------------------------
     blog('initializing data creator with this spec picker : -');
@@ -67,15 +69,19 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
   void dispose() {
     super.dispose();
     controller.dispose();
-    _integer.dispose();
+    _specValue.dispose();
     _selectedUnit.dispose();
   }
-// -----------------------------------------------------------------------------
+
   void _validate() {
     _formKey.currentState.validate();
   }
 // -----------------------------------------------------------------------------
   String _validator() {
+
+    /// NEED TO VALIDATE IF FIELD IS REQUIRED
+    /// IF ITS INT OR DOUBLE
+
     // final int _maxDigits = _currency.value.digits;
     //
     // final String _numberString = controller.text;
@@ -105,12 +111,52 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
     return null;
   }
 // -----------------------------------------------------------------------------
+  List<SpecModel> _createSpecs(){
+    final List<SpecModel> _output = <SpecModel>[];
+
+    /// when there is value
+    if (stringIsNotEmpty(controller.text) == true){
+      final SpecModel _valueSpec = SpecModel(
+        pickerChainID: widget.specPicker.chainID,
+        value: _getIntFromString(controller.text),
+      );
+      _output.add(_valueSpec);
+
+      /// when there is unit chain
+      if (widget.specPicker.unitChainID != null){
+        final SpecModel _unitSpec = SpecModel(
+          pickerChainID: widget.specPicker.unitChainID,
+          value: _selectedUnit.value,
+        );
+        _output.add(_unitSpec);
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+  int _getIntFromString(String input){
+    final double _doubleFromString = Numeric.stringToDouble(input);
+    return _doubleFromString.toInt();
+  }
+// -----------------------------------------------------------------------------
   void _onTextChanged(String val) {
+
+    /// VALIDATE
     _validate();
 
-    final int _intFromString = Numeric.stringToInt(val);
-    _integer.value = _intFromString;
-    widget.onIntegerChanged(_intFromString);
+    /// GET INT FROM STRING
+    final int _intFromString = _getIntFromString(val);
+
+    /// SET FIXED VALUE
+    _specValue.value = _intFromString;
+    // controller.text = '$_intFromString'; /// can not redefine controller, it bugs text field
+
+    /// PASS VALUES UP
+    final List<SpecModel> _specs = _createSpecs();
+    widget.onExportSpecs(_specs);
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onUnitSelectorTap() async {
@@ -140,7 +186,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
                         verse: _unitName,
                         icon: superIcon(context, _unitID),
                         verseCentered: true,
-                        onTap: () => onUnitTap(_unitID),
+                        onTap: () => _onSelectUnit(_unitID),
                       );
 
                     }
@@ -154,12 +200,23 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
 
   }
 // -----------------------------------------------------------------------------
-  void onUnitTap(String unitID){
+  void _onSelectUnit(String unitID){
     blog('selected unit : $unitID');
 
     _selectedUnit.value = unitID;
     Nav.goBack(context);
 
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _onKeyboardSubmitted(String val) async {
+    _onTextChanged(val);
+    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+    // await null;
+
+    await Future<void>.delayed(Ratioz.durationSliding400,
+            () async {
+          widget.onKeyboardSubmitted();
+        });
   }
 // -----------------------------------------------------------------------------
   @override
@@ -183,7 +240,6 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
     );
 
     final String _hintText = superPhrase(context, widget.specPicker.chainID);
-
 
     return Bubble(
       title: 'Add ...',
@@ -213,16 +269,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
                 // labelColor: Colorz.blackSemi255,
                 validator: () => _validator(),
                 onChanged: (String val) => _onTextChanged(val),
-                onSubmitted: (String val) async {
-                  _onTextChanged(val);
-                  Keyboarders.minimizeKeyboardOnTapOutSide(context);
-                  // await null;
-
-                  await Future<void>.delayed(Ratioz.durationSliding400,
-                          () async {
-                        widget.onSubmitted();
-                      });
-                },
+                onSubmitted: _onKeyboardSubmitted,
               ),
             ),
 
