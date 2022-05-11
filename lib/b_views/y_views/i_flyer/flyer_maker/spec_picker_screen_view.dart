@@ -151,15 +151,29 @@ class SpecPickerScreenView extends StatelessWidget {
 
             /// INTEGER INCREMENTER SPECS CREATOR
             else if (_specChain.sons == DataCreator.integerIncrementer){
+
+              final SpecModel _valueSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
+                  specs: selectedSpecs.value,
+                  pickerChainID: specPicker.chainID,
+              );
+
+              final SpecModel _unitSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
+                  specs: selectedSpecs.value,
+                  pickerChainID: specPicker.unitChainID,
+              );
+
+
               return IntegerDataCreator(
-                initialValue: null,
-                specPicker: specPicker,
-                onIntegerChanged: (int integer) => onAddInteger(
-                  integer: integer,
+                initialValue: _valueSpec?.value,
+                initialUnit: _unitSpec?.value,
+                onExportSpecs: (List<SpecModel> specs) => onAddIntegerSpecs(
+                  specs: specs,
                   picker: specPicker,
                   selectedSpecs: selectedSpecs,
                 ),
-                onSubmitted: () => onGoBackToSpecsPickersScreen(
+                specPicker: specPicker,
+
+                onKeyboardSubmitted: () => onGoBackToSpecsPickersScreen(
                   context: context,
                   selectedSpecs: selectedSpecs,
                 ),

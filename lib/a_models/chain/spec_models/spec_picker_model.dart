@@ -93,15 +93,21 @@ class SpecPicker {
   /// GETTERS
 
 // -------------------------------------
-  static SpecPicker getSpecPickerFromSpecsPickersByChainID({
+  static SpecPicker getPickerFromPickersByChainID({
     @required List<SpecPicker> specsPickers,
     @required String pickerChainID,
   }) {
+
+  /// gets the picker where chain ID is the main chain or unit chain ID
+
     SpecPicker _specPicker;
 
     if (Mapper.canLoopList(specsPickers) && pickerChainID != null) {
       _specPicker = specsPickers.firstWhere(
-              (SpecPicker list) => list.chainID == pickerChainID,
+              (SpecPicker picker) =>
+              picker.chainID == pickerChainID
+                  ||
+              picker.unitChainID == pickerChainID,
           orElse: () => null
       );
     }
@@ -149,7 +155,7 @@ class SpecPicker {
     return _groups;
   }
 // -------------------------------------
-  static List<SpecPicker> getSpecsPickersByFlyerType(FlyerTypeClass.FlyerType flyerType) {
+  static List<SpecPicker> getPickersByFlyerType(FlyerTypeClass.FlyerType flyerType) {
     final List<SpecPicker> _specPicker =
     flyerType == FlyerTypeClass.FlyerType.property ? propertySpecsPickers
         :
@@ -172,15 +178,21 @@ class SpecPicker {
   /// CHECKERS
 
 // -------------------------------------
-  static bool specsPickersContainSpecPicker({
-    @required SpecPicker specPicker,
-    @required List<SpecPicker> specsLists,
+  static bool pickersContainPicker({
+    @required SpecPicker picker,
+    @required List<SpecPicker> pickers,
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(specsLists) == true && specPicker != null) {
-      for (int i = 0; i < specsLists.length; i++) {
-        if (specsLists[i].chainID == specPicker.chainID) {
+    if (Mapper.canLoopList(pickers) == true && picker != null) {
+      for (int i = 0; i < pickers.length; i++) {
+
+        final SpecPicker _picker = pickers[i];
+
+        blog('pickersContainPicker : the ( $i ) picker is :-');
+        _picker.blogSpecPicker();
+
+        if (_picker.chainID == picker.chainID) {
           _contains = true;
           break;
         }

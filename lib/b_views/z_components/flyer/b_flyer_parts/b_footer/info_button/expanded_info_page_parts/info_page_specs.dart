@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/b_views/z_components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -27,20 +28,20 @@ class InfoPageSpecs extends StatelessWidget {
   }){
     final List<SpecPicker> _pickers = <SpecPicker>[];
 
-    final List<SpecPicker> _flyerTypePickers = SpecPicker.getSpecsPickersByFlyerType(flyerType);
+    final List<SpecPicker> _flyerTypePickers = SpecPicker.getPickersByFlyerType(flyerType);
 
     if (Mapper.canLoopList(flyerSpecs)){
 
       for (final SpecModel _spec in flyerSpecs){
 
-        final SpecPicker _picker = SpecPicker.getSpecPickerFromSpecsPickersByChainID(
+        final SpecPicker _picker = SpecPicker.getPickerFromPickersByChainID(
           specsPickers: _flyerTypePickers,
           pickerChainID: _spec.pickerChainID,
         );
 
-        final bool _alreadyAdded = SpecPicker.specsPickersContainSpecPicker(
-          specsLists: _pickers,
-          specPicker: _picker,
+        final bool _alreadyAdded = SpecPicker.pickersContainPicker(
+          pickers: _pickers,
+          picker: _picker,
         );
 
         if (_alreadyAdded == false){
@@ -141,6 +142,11 @@ class InfoPageSpecs extends StatelessWidget {
                 specPicker: _specPicker,
               );
 
+              final List<SpecModel> _specsOfThisPicker = SpecModel.getSpecsRelatedToPicker(
+                  specs: specs,
+                  picker: _specPicker,
+              );
+
               return Container(
                 width: pageWidth,
                 decoration: BoxDecoration(
@@ -163,13 +169,12 @@ class InfoPageSpecs extends StatelessWidget {
                       scaleFactor: 1.3,
                     ),
 
-                    /// SPECS
-                    SuperVerse(
-                      verse: _specsInString?.toUpperCase(),
-                      // size: 2,
-                      maxLines: 10,
-                      centered: false,
-                      italic: true,
+                    SpecsWrapper(
+                      boxWidth: pageWidth,
+                      specs: _specsOfThisPicker,
+                      onSpecTap: null,
+                      xIsOn: false,
+                      padding: 5,
                     ),
 
                   ],
