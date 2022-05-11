@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -382,6 +383,26 @@ class SpecModel {
   /// GETTERS
 
 // ------------------------------------------
+  static List<SpecModel> getSpecsRelatedToPicker({
+    @required List<SpecModel> specs,
+    @required SpecPicker picker,
+}){
+    List<SpecModel> _result = <SpecModel>[];
+
+    if (Mapper.canLoopList(specs) == true && picker != null) {
+      _result = specs
+          .where(
+            (SpecModel spec) =>
+            spec.pickerChainID == picker.chainID
+                ||
+                spec.pickerChainID == picker.unitChainID,
+      )
+          .toList();
+    }
+
+    return _result;
+  }
+// ------------------------------------------
   static List<SpecModel> getSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -394,6 +415,23 @@ class SpecModel {
             (SpecModel spec) => spec.pickerChainID == pickerChainID,
           )
           .toList();
+    }
+
+    return _result;
+  }
+// ------------------------------------------
+  static SpecModel getFirstSpecFromSpecsByPickerChainID({
+    @required List<SpecModel> specs,
+    @required String pickerChainID,
+}){
+    SpecModel _result;
+
+    if (Mapper.canLoopList(specs) == true && pickerChainID != null) {
+      _result = specs
+          .firstWhere(
+            (SpecModel spec) => spec.pickerChainID == pickerChainID,
+        orElse: () => null,
+      );
     }
 
     return _result;
@@ -432,12 +470,14 @@ class SpecModel {
   /// MODIFIERS
 
 // ------------------------------------------
-  /// This considers if the specList can or can't pick many spec of same list, then adds if absent and updates or ignores if exists accordingly
   static List<SpecModel> putSpecsInSpecs({
     @required List<SpecModel> parentSpecs,
     @required List<SpecModel> inputSpecs,
     @required bool canPickMany,
   }) {
+  /// This considers if the specPicker can or can't pick many spec of same list,
+  /// then adds if absent and updates or ignores if exists accordingly
+    ///
     final List<SpecModel> _specs = parentSpecs;
 
     if (Mapper.canLoopList(inputSpecs)) {

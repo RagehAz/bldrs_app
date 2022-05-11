@@ -68,7 +68,7 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
     // ------------------------------
     _scrollController = ScrollController();
     // ------------------------------
-    _specsPickersByFlyerType = SpecPicker.getSpecsPickersByFlyerType(widget.flyerType);
+    _specsPickersByFlyerType = SpecPicker.getPickersByFlyerType(widget.flyerType);
     // ------------------------------
     _allSelectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs);
     // ------------------------------
