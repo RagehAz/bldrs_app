@@ -72,7 +72,7 @@ class BackAndSearchButton extends StatelessWidget {
             if (backAndSearchAction == BackAndSearchAction.goBack) {
               Nav.goBack(context);
               final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-              _uiProvider.triggerLoading(setLoadingTo: false);
+              _uiProvider.triggerLoading(setLoadingTo: false, calledName: 'BackAndSearchButton');
               // _uiProvider.triggerIsSearching(setIsSearchingTo: false);
               minimizeKeyboardOnTapOutSide(context);
 

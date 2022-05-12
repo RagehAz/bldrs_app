@@ -75,9 +75,9 @@ class _BldrsAppState extends State<BldrsApp> {
     _loading.value = !_loading.value;
 
     if (_loading.value == true) {
-      blog('LOADING --------------------------------------');
+      blog('main : LOADING --------------------------------------');
     } else {
-      blog('LOADING COMPLETE -----------------------------');
+      blog('main : LOADING COMPLETE -----------------------------');
     }
   }
 // -----------------------------------------------------------------------------

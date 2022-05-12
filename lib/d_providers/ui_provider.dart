@@ -43,7 +43,10 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   bool get isLoading => _loading;
 // -------------------------------------
-  void triggerLoading({bool setLoadingTo}) {
+  void triggerLoading({
+    @required String calledName,
+    bool setLoadingTo,
+  }) {
     /// trigger loading method should remain Future as it starts controllers of
     /// each screen like triggerLoading.then(()=>methods)
     /// in didChangeDependencies override
@@ -61,9 +64,9 @@ class UiProvider extends ChangeNotifier {
     }
 
     if (_loading == true) {
-      blog('LOADING --------------------------------------');
+      blog('$calledName : LOADING --------------------------------------');
     } else {
-      blog('LOADING COMPLETE -----------------------------');
+      blog('$calledName : LOADING COMPLETE -----------------------------');
     }
 
   }
@@ -223,9 +226,13 @@ class UiProvider extends ChangeNotifier {
 
 }
 
-void triggerUILoading(BuildContext context ,{bool listen = true}){
+void triggerUILoading({
+  @required BuildContext context ,
+  @required String callerName,
+  bool listen = true,
+}){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
-  _uiProvider.triggerLoading();
+  _uiProvider.triggerLoading(calledName: callerName);
 }
 
 /// TESTED : WORKS PERFECT
