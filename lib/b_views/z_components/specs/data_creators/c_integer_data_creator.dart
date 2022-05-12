@@ -206,6 +206,8 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
     _selectedUnit.value = unitID;
     Nav.goBack(context);
 
+    _onTextChanged(controller.text);
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onKeyboardSubmitted(String val) async {

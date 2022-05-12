@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -34,10 +35,13 @@ class InfoPageSpecs extends StatelessWidget {
 
       for (final SpecModel _spec in flyerSpecs){
 
-        final SpecPicker _picker = SpecPicker.getPickerFromPickersByChainID(
+        final SpecPicker _picker = SpecPicker.getPickerFromPickersByChainIDOrUnitChainID(
           specsPickers: _flyerTypePickers,
           pickerChainID: _spec.pickerChainID,
         );
+
+        blog('picker chain ID is : ${_spec.pickerChainID}');
+        _picker.blogSpecPicker();
 
         final bool _alreadyAdded = SpecPicker.pickersContainPicker(
           pickers: _pickers,
@@ -47,6 +51,7 @@ class InfoPageSpecs extends StatelessWidget {
         if (_alreadyAdded == false){
           _pickers.add(_picker);
         }
+
       }
 
     }
@@ -172,6 +177,7 @@ class InfoPageSpecs extends StatelessWidget {
                     SpecsWrapper(
                       boxWidth: pageWidth,
                       specs: _specsOfThisPicker,
+                      picker: _specPicker,
                       onSpecTap: null,
                       xIsOn: false,
                       padding: 5,

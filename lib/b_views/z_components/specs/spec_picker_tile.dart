@@ -25,7 +25,7 @@ class SpecPickerTile extends StatelessWidget {
   final Function onTap;
   final SpecPicker specPicker;
   final List<SpecModel> selectedSpecs;
-  final Function onDeleteSpec;
+  final ValueChanged<List<SpecModel>> onDeleteSpec;
   /// --------------------------------------------------------------------------
   static double height() {
     return 70;
@@ -76,7 +76,7 @@ class SpecPickerTile extends StatelessWidget {
                       iconSizeFactor: 0.6,
                     ),
 
-                    /// - LIST NAME
+                    /// - PICKER NAME
                     Expanded(
                       child: SizedBox(
                         height: _specTileHeight,
@@ -136,7 +136,8 @@ class SpecPickerTile extends StatelessWidget {
                       SpecsWrapper(
                         boxWidth: _specTileWidth - _specTileHeight,
                         specs: selectedSpecs,
-                        onSpecTap: (SpecModel spec) => onDeleteSpec(spec),
+                        picker: specPicker,
+                        onSpecTap: (List<SpecModel> specs) => onDeleteSpec(specs),
                         xIsOn: true,
                       ),
 
