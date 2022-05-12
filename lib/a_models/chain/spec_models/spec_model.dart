@@ -482,6 +482,7 @@ class SpecModel {
 
     if (Mapper.canLoopList(inputSpecs)) {
       for (final SpecModel inputSpec in inputSpecs) {
+
         /// A - CAN PICK MANY "of this list ID"
         if (canPickMany == true) {
           final bool _alreadyThere =
@@ -526,6 +527,7 @@ class SpecModel {
           // }
 
         }
+
       }
     }
 
@@ -551,6 +553,7 @@ class SpecModel {
     return _output;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecModel> removeSpecFromSpecs({
   @required List<SpecModel> specs,
   @required SpecModel spec,
@@ -568,6 +571,43 @@ class SpecModel {
     return _output;
 
   }
+// ------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<SpecModel> removeSpecsFromSpecs({
+    @required List<SpecModel> sourceSpecs,
+    @required List<SpecModel> specsToRemove,
+}){
+
+    blog('removeSpecsFromSpecs : removing : ${specsToRemove.length}');
+
+    List<SpecModel> _output = <SpecModel>[...sourceSpecs];
+
+    if (
+    Mapper.canLoopList(_output) == true
+        &&
+    Mapper.canLoopList(specsToRemove) == true
+    ){
+
+      blog('removeSpecsFromSpecs : can remove them');
+
+      for (final SpecModel specToRemove in specsToRemove){
+
+        blog('removeSpecsFromSpecs : removing : ${specToRemove.value} ');
+
+        _output = removeSpecFromSpecs(
+            specs: _output,
+            spec: specToRemove
+        );
+
+      }
+
+    }
+
+    blog('and the output had become :-');
+    SpecModel.blogSpecs(_output);
+
+    return _output;
+}
 // -----------------------------------------------------------------------------
 }
 

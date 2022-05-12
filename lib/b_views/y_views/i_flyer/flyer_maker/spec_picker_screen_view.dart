@@ -204,13 +204,6 @@ class SpecPickerScreenView extends StatelessWidget {
           },
         ),
 
-        if (specPicker.unitChainID != null)
-          Container(
-            width: 100,
-            height: 100,
-            color: Colorz.bloodTest,
-          ),
-
 
 
       ],
