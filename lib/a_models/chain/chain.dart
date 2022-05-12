@@ -96,6 +96,7 @@ class Chain {
       case DataCreator.integerRangeSlider:  return 'DataCreator_integerRangeSlider';  break;
 
       case DataCreator.boolSwitch:          return 'DataCreator_boolSwitch';          break;
+      case DataCreator.country:             return 'DataCreator_country';             break;
       default: return null;
 
     }
@@ -112,6 +113,7 @@ class Chain {
       case 'DataCreator_integerRangeSlider':    return DataCreator.integerRangeSlider;  break;
 
       case 'DataCreator_boolSwitch':            return DataCreator.boolSwitch;          break;
+      case 'DataCreator_country':               return DataCreator.country;             break;
       default: return null;
     }
   }

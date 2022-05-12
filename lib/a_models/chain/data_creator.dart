@@ -12,10 +12,7 @@ enum DataCreator{
   integerRangeSlider,
 
   boolSwitch,
-
-  // price,
-  // currency,
-  // country,
+  country,
 
 }
 // ------------------------------------------------------------
@@ -48,5 +45,12 @@ bool isBoolDataCreator(DataCreator creator){
     default : return false;
   }
 
+}
+// ------------------------------------------------------------
+bool isCountryDataCreator(DataCreator creator){
+  switch (creator){
+    case DataCreator.country : return true; break;
+    default : return false;
+  }
 }
 // ------------------------------------------------------------
