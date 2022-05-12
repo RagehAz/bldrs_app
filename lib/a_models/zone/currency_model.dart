@@ -6,18 +6,16 @@ import 'package:flutter/material.dart';
 class CurrencyModel {
   /// --------------------------------------------------------------------------
   CurrencyModel({
-    @required this.code,
+    @required this.id,
     @required this.countriesIDs,
     @required this.symbol,
-    @required this.nativeSymbol,
     @required this.digits,
   });
 
   /// --------------------------------------------------------------------------
-  final String code;
+  final String id;
   final List<String> countriesIDs;
   final String symbol;
-  final String nativeSymbol;
   final int digits;
 // -----------------------------------------------------------------------------
 
@@ -26,10 +24,9 @@ class CurrencyModel {
 // ----------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'code': code,
+      'id': id,
       'countriesIDs': countriesIDs,
       'symbol': symbol,
-      'nativeSymbol': nativeSymbol,
       'digits': digits,
     };
   }
@@ -39,10 +36,9 @@ class CurrencyModel {
 
     if (map != null) {
       _currency = CurrencyModel(
-        code: map['code'],
+        id: map['id'],
         countriesIDs: Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
         symbol: map['symbol'],
-        nativeSymbol: map['nativeSymbol'],
         digits: map['digits'],
       );
     }
@@ -57,7 +53,7 @@ class CurrencyModel {
       for (final CurrencyModel currency in currencies) {
         _map = Mapper.insertPairInMap(
           map: _map,
-          key: currency.code,
+          key: currency.id,
           value: currency.toMap(),
         );
       }
@@ -88,10 +84,7 @@ class CurrencyModel {
 
 // ----------------------------
   void blogCurrency() {
-    blog('CURRENCY PRINT ----------------------------------------- START ');
-    blog('code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
-    blog('countries : $countriesIDs');
-    blog('CURRENCY PRINT ----------------------------------------- END ');
+    blog('$id ( $symbol ) : ( digits : $digits ) : countries : $countriesIDs');
   }
 // -----------------------------------------------------------------------------
 
@@ -106,7 +99,7 @@ class CurrencyModel {
 
     if (Mapper.canLoopList(currencies) && currencyCode != null) {
       for (final CurrencyModel currency in currencies) {
-        if (currency.code == currencyCode) {
+        if (currency.id == currencyCode) {
           _contains = true;
           break;
         }
