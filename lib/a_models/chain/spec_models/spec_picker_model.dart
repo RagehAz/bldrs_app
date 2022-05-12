@@ -93,7 +93,7 @@ class SpecPicker {
   /// GETTERS
 
 // -------------------------------------
-  static SpecPicker getPickerFromPickersByChainID({
+  static SpecPicker getPickerFromPickersByChainIDOrUnitChainID({
     @required List<SpecPicker> specsPickers,
     @required String pickerChainID,
   }) {
@@ -189,7 +189,7 @@ class SpecPicker {
 
         final SpecPicker _picker = pickers[i];
 
-        blog('pickersContainPicker : the ( $i ) picker is :-');
+        blog('pickersContainPicker : (${pickers.length}) pickers and the index is ( $i ) for picker :-');
         _picker.blogSpecPicker();
 
         if (_picker.chainID == picker.chainID) {

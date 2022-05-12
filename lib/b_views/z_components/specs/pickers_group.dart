@@ -22,7 +22,7 @@ class SpecsPickersGroup extends StatelessWidget {
   final ValueNotifier<List<SpecModel>> allSelectedSpecs;
   final List<SpecPicker> groupPickers;
   final ValueChanged<SpecPicker> onPickerTap;
-  final ValueChanged<SpecModel> onDeleteSpec;
+  final ValueChanged<List<SpecModel>> onDeleteSpec;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -71,9 +71,9 @@ class SpecsPickersGroup extends StatelessWidget {
 
                           final SpecPicker _picker = groupPickers[index];
 
-                          final List<SpecModel> _pickerSelectedSpecs = SpecModel.getSpecsByPickerChainID(
+                          final List<SpecModel> _pickerSelectedSpecs = SpecModel.getSpecsRelatedToPicker(
                             specs: _allSelectedSpecs,
-                            pickerChainID: _picker.chainID,
+                            picker: _picker,
                           );
 
                           return SpecPickerTile(

@@ -132,14 +132,17 @@ void _updateSpecsPickersAndGroups({
   // -------------------------------------------------------------
 }
 // -----------------------------------
-void onRemoveSpec({
+void onRemoveSpecs({
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required SpecModel spec,
+  @required List<SpecModel> specs,
 }){
 
-  final List<SpecModel> _newList = SpecModel.removeSpecFromSpecs(
-    specs: selectedSpecs.value,
-    spec: spec,
+  blog('should remove these specs from the list');
+  SpecModel.blogSpecs(specs);
+
+  final List<SpecModel> _newList = SpecModel.removeSpecsFromSpecs(
+    sourceSpecs: selectedSpecs.value,
+    specsToRemove: specs,
   );
 
   selectedSpecs.value = _newList;
@@ -245,7 +248,7 @@ void onCurrencyChanged({
 }) {
 
   final SpecModel _currencySpec = SpecModel(
-    pickerChainID: 'currency',
+    pickerChainID: 'phid_s_currency',
     value: currency.code,
   );
 
