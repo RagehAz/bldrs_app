@@ -4,10 +4,12 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -96,6 +98,28 @@ class DraftFlyerModel{
     times: times ?? this.times,
     priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
   );
+// -------------------------------------
+  FlyerModel toFlyerModel(){
+    return FlyerModel(
+    id: id,
+    title: title.text,
+    trigram: createTrigram(input: title.text),
+    flyerType: flyerType,
+    flyerState: flyerState,
+    keywordsIDs: keywordsIDs,
+    showsAuthor: showsAuthor,
+    zone: zone,
+    authorID: authorID,
+    bzID: bzID,
+    position: position,
+    slides: SlideModel.getSlidesFromMutableSlides(mutableSlides),
+    isBanned: isBanned,
+    specs: specs,
+    info: info.text,
+    times: times,
+    priceTagIsOn: priceTagIsOn,
+    );
+  }
 // -------------------------------------
   static DraftFlyerModel createNewDraft({
     @required BzModel bzModel,

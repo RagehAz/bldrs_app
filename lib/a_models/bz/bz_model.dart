@@ -144,6 +144,65 @@ class BzModel{
   final List<String> flyersIDs;
 // -----------------------------------------------------------------------------
 
+  /// CLONING
+
+// ------------------------------------------
+  BzModel copyWith({
+    String id,
+    List<BzType> bzTypes,
+    BzForm bzForm,
+    DateTime createdAt,
+    BzAccountType accountType,
+    String name,
+    List<String> trigram,
+    dynamic logo,
+    String scope,
+    ZoneModel zone,
+    String about,
+    GeoPoint position,
+    List<ContactModel> contacts,
+    List<AuthorModel> authors,
+    bool showsTeam,
+    bool isVerified,
+    BzState bzState,
+    int totalFollowers,
+    int totalSaves,
+    int totalShares,
+    int totalSlides,
+    int totalViews,
+    int totalCalls,
+    int totalFlyers,
+    List<String> flyersIDs,
+  }){
+    return BzModel(
+      id : id ?? this.id,
+      bzTypes : bzTypes ?? this.bzTypes,
+      bzForm : bzForm ?? this.bzForm,
+      createdAt : createdAt ?? this.createdAt,
+      accountType : accountType ?? this.accountType,
+      name : name ?? this.name,
+      trigram : trigram ?? this.trigram,
+      logo : logo ?? this.logo,
+      scope : scope ?? this.scope,
+      zone : zone ?? this.zone,
+      about : about ?? this.about,
+      position : position ?? this.position,
+      contacts : contacts ?? this.contacts,
+      authors : authors ?? this.authors,
+      showsTeam : showsTeam ?? this.showsTeam,
+      isVerified : isVerified ?? this.isVerified,
+      bzState : bzState ?? this.bzState,
+      totalFollowers : totalFollowers ?? this.totalFollowers,
+      totalSaves : totalSaves ?? this.totalSaves,
+      totalShares : totalShares ?? this.totalShares,
+      totalSlides : totalSlides ?? this.totalSlides,
+      totalViews : totalViews ?? this.totalViews,
+      totalCalls : totalCalls ?? this.totalCalls,
+      flyersIDs : flyersIDs ?? this.flyersIDs,
+      totalFlyers : totalFlyers ?? this.totalFlyers,
+    );
+}
+// -----------------------------------------------------------------------------
   /// CYPHERS
 
 // ------------------------------------------

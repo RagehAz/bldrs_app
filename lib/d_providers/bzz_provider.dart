@@ -383,14 +383,14 @@ class BzzProvider extends ChangeNotifier {
 
     blog('getsetActiveBzFlyers : got ${_flyers?.length} flyers');
 
-    _setActiveBzFlyers(
+    setActiveBzFlyers(
       flyers: _flyers,
       notify: notify,
     );
 
   }
 // -------------------------------------
-  void _setActiveBzFlyers({
+  void setActiveBzFlyers({
     @required List<FlyerModel> flyers,
     @required bool notify,
   }){
@@ -406,7 +406,7 @@ class BzzProvider extends ChangeNotifier {
   void clearActiveBzFlyers({
   @required bool notify,
 }){
-    _setActiveBzFlyers(
+    setActiveBzFlyers(
       flyers: <FlyerModel>[],
       notify: notify,
     );
