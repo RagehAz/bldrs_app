@@ -54,6 +54,7 @@ abstract class FireSubColl {
 
   static const String admin_backups_phrases = 'phrases';
   static const String admin_backups_chains = 'chains';
+  static const String admin_backups_currencies = 'currencies';
 
   static const String users_user_asks = 'asks' ;
   static const String users_user_records = 'records';
@@ -96,6 +97,8 @@ abstract class FireSubDoc{
   static const String admin_backups_chains_keywords = 'keywords';
   static const String admin_backups_chains_specs = 'specs';
   static const String admin_backups_chains_lastUpdateTime = 'last_update_time';
+
+  static const String admin_backups_currencies_currencies = 'currencies';
 }
 // -----------------------------------------------------------------------------
 abstract class StorageDoc{
