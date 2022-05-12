@@ -3,14 +3,50 @@
 enum DataCreator{
 
   // fromList,
+  doubleKeyboard, // TASK : to be renamed to ( doubleKeyboard)
   doubleSlider,
-  integerIncrementer,
   doubleRangeSlider,
-  boolSwitch,
-  // textKeyboard,
-  doubleCreator,
-  price,
-  currency,
 
-  country,
+  integerKeyboard, // TASK : to be renamed to ( integerKeyboard )
+  integerSlider,
+  integerRangeSlider,
+
+  boolSwitch,
+
+  // price,
+  // currency,
+  // country,
+
 }
+// ------------------------------------------------------------
+bool isDoubleDataCreator(DataCreator creator){
+
+  switch (creator){
+    case DataCreator.doubleKeyboard : return true; break;
+    case DataCreator.doubleRangeSlider : return true; break;
+    case DataCreator.doubleSlider : return true; break;
+
+    default : return false;
+  }
+}
+// ------------------------------------------------------------
+bool isIntDataCreator(DataCreator creator){
+
+  switch (creator){
+    case DataCreator.integerKeyboard : return true; break;
+    case DataCreator.integerSlider : return true; break;
+    case DataCreator.integerRangeSlider : return true; break;
+
+    default : return false;
+  }
+}
+// ------------------------------------------------------------
+bool isBoolDataCreator(DataCreator creator){
+
+  switch (creator){
+    case DataCreator.boolSwitch : return true; break;
+    default : return false;
+  }
+
+}
+// ------------------------------------------------------------
