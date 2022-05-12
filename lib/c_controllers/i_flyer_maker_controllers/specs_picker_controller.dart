@@ -249,7 +249,7 @@ void onCurrencyChanged({
 
   final SpecModel _currencySpec = SpecModel(
     pickerChainID: 'phid_s_currency',
-    value: currency.code,
+    value: currency.id,
   );
 
   final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
