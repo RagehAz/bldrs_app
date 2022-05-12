@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/y_views/i_flyer/flyer_maker/flyer_maker_screen_view.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -85,7 +87,20 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       // loading: _loading,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      appBarRowWidgets: const <Widget>[],
+      appBarRowWidgets: <Widget>[
+
+        const Expander(),
+
+        DreamBox(
+          height: 40,
+          verse: 'blog the specs',
+          verseScaleFactor: 0.7,
+          onTap: (){
+            SpecModel.blogSpecs(_draftFlyer.value.specs);
+          },
+        ),
+
+      ],
       onBack: () => onCancelFlyerCreation(context),
       layoutWidget: FlyerMakerScreenView(
         formKey: _formKey,

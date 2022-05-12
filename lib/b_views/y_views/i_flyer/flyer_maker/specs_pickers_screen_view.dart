@@ -69,8 +69,8 @@ class SpecsSelectorScreenView extends StatelessWidget {
                         refinedPickers: refinedSpecsPickers,
                         sourceSpecPickers: specsPickersByFlyerType,
                       ),
-                      onDeleteSpec: (SpecModel spec) => onRemoveSpec(
-                        spec: spec,
+                      onDeleteSpec: (List<SpecModel> specs) => onRemoveSpecs(
+                        specs: specs,
                         selectedSpecs: allSelectedSpecs,
                       ),
                     );

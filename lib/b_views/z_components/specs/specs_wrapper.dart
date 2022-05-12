@@ -1,6 +1,7 @@
 
 
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/z_components/specs/spec_label.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -13,18 +14,57 @@ class SpecsWrapper extends StatelessWidget {
     @required this.specs,
     @required this.onSpecTap,
     @required this.xIsOn,
+    @required this.picker,
     this.padding = Ratioz.appBarMargin,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double boxWidth;
   final List<SpecModel> specs;
-  final ValueChanged<SpecModel> onSpecTap;
+  final ValueChanged<List<SpecModel>> onSpecTap;
   final bool xIsOn;
+  final SpecPicker picker;
   final dynamic padding;
   /// --------------------------------------------------------------------------
+  static bool combineTheTwoSpecs({
+    @required List<SpecModel> specs,
+    @required SpecPicker picker,
+}){
+    bool _combine = false;
+
+    if (specs.length == 2){
+
+      final SpecModel _first = specs[0];
+      final SpecModel _second = specs[1];
+
+      if (
+      picker.chainID == _first.pickerChainID
+      &&
+      picker.unitChainID == _second.pickerChainID
+      ){
+        _combine = true;
+      }
+
+      else if (
+      picker.unitChainID == _first.pickerChainID
+          &&
+      picker.chainID == _second.pickerChainID
+      ){
+        _combine = true;
+      }
+
+    }
+
+    return _combine;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final bool _combineTwoSpecs = combineTheTwoSpecs(
+        specs: specs,
+        picker: picker,
+    );
 
     return Container(
       width: boxWidth,
@@ -33,6 +73,7 @@ class SpecsWrapper extends StatelessWidget {
         spacing: Ratioz.appBarPadding,
         children: <Widget>[
 
+          if (_combineTwoSpecs == false)
           ...List<Widget>.generate(specs.length,
                   (int index) {
 
@@ -40,11 +81,18 @@ class SpecsWrapper extends StatelessWidget {
 
                 return SpecLabel(
                     xIsOn: xIsOn,
-                    spec: _spec,
-                    onTap: () => onSpecTap(_spec),
+                    value: SpecModel.translateSpec(context: context, spec: _spec,),
+                    onTap: () => onSpecTap(<SpecModel>[_spec]),
                 );
 
               }),
+
+          if (_combineTwoSpecs == true)
+          SpecLabel(
+            xIsOn: xIsOn,
+            value: '${SpecModel.translateSpec(context: context, spec: specs[0],)} ${SpecModel.translateSpec(context: context, spec: specs[1],)}',
+            onTap: () => onSpecTap(<SpecModel>[specs[0], specs[1]]),
+          ),
 
         ],
       ),
