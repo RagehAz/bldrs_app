@@ -283,7 +283,7 @@ void onPriceChanged({
   selectedSpecs.value = _updatedList;
 }
 // -----------------------------------
-void onAddIntegerSpecs({
+void onAddSpecs({
   @required List<SpecModel> specs,
   @required SpecPicker picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
