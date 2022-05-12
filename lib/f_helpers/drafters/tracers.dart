@@ -42,12 +42,15 @@ import 'package:flutter/foundation.dart';
 
   }
 // -----------------------------------------------------------------------------
-  void blogLoading({@required bool loading}){
+  void blogLoading({
+    @required bool loading,
+    @required String callerName,
+  }){
 
     if (loading == true) {
-      blog('LOADING --------------------------------------');
+      blog('$callerName : LOADING --------------------------------------');
     } else {
-      blog('LOADING COMPLETE -----------------------------');
+      blog('$callerName : LOADING COMPLETE -----------------------------');
     }
   }
 // -----------------------------------------------------------------------------

@@ -63,7 +63,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
-    blogLoading(loading: _loading.value);
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'BzEditorScreen',
+    );
   }
 // -----------------------------------------------------------------------------
   @override

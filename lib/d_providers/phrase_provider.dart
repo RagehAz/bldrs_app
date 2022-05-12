@@ -31,7 +31,11 @@ class PhraseProvider extends ChangeNotifier {
     @required String langCode,
   }) async {
 
-    triggerUILoading(context, listen: false);
+    triggerUILoading(
+      context: context,
+      listen: false,
+      callerName: 'changeAppLang',
+    );
 
     final PhraseProvider _phrasePro = getPhraseProvider(context);
 
@@ -51,7 +55,11 @@ class PhraseProvider extends ChangeNotifier {
 
     await Localizer.changeAppLanguage(context, langCode);
 
-    triggerUILoading(context, listen: false);
+    triggerUILoading(
+      context: context,
+      listen: false,
+      callerName: 'changeAppLang',
+    );
 
     WaitDialog.closeWaitDialog(context);
 

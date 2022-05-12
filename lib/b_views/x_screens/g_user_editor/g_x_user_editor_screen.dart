@@ -79,7 +79,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------
   Future<void> _triggerLoading({@required setTo}) async {
     _loading.value = setTo;
-    blogLoading(loading: _loading.value);
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'EditProfileScreen',
+    );
   }
 // -----------------------------------------------------------------------------
   @override

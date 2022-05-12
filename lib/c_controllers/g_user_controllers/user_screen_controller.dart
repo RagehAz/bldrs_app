@@ -308,9 +308,9 @@ Future<void> onImportDeviceContactsTap(BuildContext context) async {
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  _uiProvider.triggerLoading(setLoadingTo: true);
+  _uiProvider.triggerLoading(setLoadingTo: true, calledName: 'onImportDeviceContactsTap');
   final List<Contact> _deviceContacts = await getDeviceContactsOps(context);
-  _uiProvider.triggerLoading(setLoadingTo: false);
+  _uiProvider.triggerLoading(setLoadingTo: false, calledName: 'onImportDeviceContactsTap');
 
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
   _usersProvider.setMyDeviceContacts(_deviceContacts);

@@ -25,7 +25,10 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
-    blogLoading(loading: _loading.value);
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'LocalAssetChecker',
+    );
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _exists = ValueNotifier(false); /// tamam disposed

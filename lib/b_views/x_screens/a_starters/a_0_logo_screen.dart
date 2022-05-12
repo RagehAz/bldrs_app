@@ -32,7 +32,10 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
   /// HAS TO BE A FUTURE TO BE USED IN didChangeDependencies
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
-    blogLoading(loading: _loading.value);
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'LogoScreen',
+    );
   }
 // -----------------------------------------------------------------------------
   @override

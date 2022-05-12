@@ -344,7 +344,10 @@ Future<void> _createFireSearchRecord({
 // -----------------------------------------------------------------------------
 void _setIsLoading(BuildContext context, bool isLoading){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-  _uiProvider.triggerLoading(setLoadingTo: isLoading);
+  _uiProvider.triggerLoading(
+    setLoadingTo: isLoading,
+    calledName: 'SearchController _setIsLoading',
+  );
 }
 // -----------------------------------------------------------------------------
 void _setIsSearching(BuildContext context, bool isSearching){
