@@ -281,7 +281,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
     SpecPicker(
         chainID: 'phid_s_propertyDecorationStyle',
         groupID: 'Property Features',
-        canPickMany: false,
+        canPickMany: true,
         isRequired: false,
         range: null,
         unitChainID: null
