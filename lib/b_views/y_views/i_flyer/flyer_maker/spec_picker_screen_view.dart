@@ -118,39 +118,43 @@ class SpecPickerScreenView extends StatelessWidget {
             }
 
             /// PRICE SPECS CREATOR
-            else if (_specChain.sons == DataCreator.price){
-
-              final List<SpecModel> _priceSpec = SpecModel.getSpecsByPickerChainID(
-                specs: specs,
-                pickerChainID: specPicker.chainID,
-              );
-
-              final double _initialPriceValue = Mapper.canLoopList(_priceSpec) ?
-              _priceSpec[0].value
-                  :
-              null;
-
-              return PriceDataCreator(
-                initialPriceValue: _initialPriceValue,
-                onCurrencyChanged: (CurrencyModel currency) => onCurrencyChanged(
-                  currency: currency,
-                  selectedSpecs: selectedSpecs,
-                ),
-                onValueChanged: (String value) => onPriceChanged(
-                  price: value,
-                  picker: specPicker,
-                  selectedSpecs: selectedSpecs,
-                ),
-                onSubmitted: () => onGoBackToSpecsPickersScreen(
-                  context: context,
-                  selectedSpecs: selectedSpecs,
-                ),
-              );
-
-            }
+            // else if (_specChain.sons == DataCreator.price){
+            //
+            //   final List<SpecModel> _priceSpec = SpecModel.getSpecsByPickerChainID(
+            //     specs: specs,
+            //     pickerChainID: specPicker.chainID,
+            //   );
+            //
+            //   final double _initialPriceValue = Mapper.canLoopList(_priceSpec) ?
+            //   _priceSpec[0].value
+            //       :
+            //   null;
+            //
+            //   return PriceDataCreator(
+            //     initialPriceValue: _initialPriceValue,
+            //     onCurrencyChanged: (CurrencyModel currency) => onCurrencyChanged(
+            //       currency: currency,
+            //       selectedSpecs: selectedSpecs,
+            //     ),
+            //     onValueChanged: (String value) => onPriceChanged(
+            //       price: value,
+            //       picker: specPicker,
+            //       selectedSpecs: selectedSpecs,
+            //     ),
+            //     onSubmitted: () => onGoBackToSpecsPickersScreen(
+            //       context: context,
+            //       selectedSpecs: selectedSpecs,
+            //     ),
+            //   );
+            //
+            // }
 
             /// INTEGER INCREMENTER SPECS CREATOR
-            else if (_specChain.sons == DataCreator.integerIncrementer){
+            else if (
+            _specChain.sons == DataCreator.integerKeyboard
+            ||
+            _specChain.sons == DataCreator.doubleKeyboard
+            ){
 
               final SpecModel _valueSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
                   specs: selectedSpecs.value,
@@ -163,10 +167,11 @@ class SpecPickerScreenView extends StatelessWidget {
               );
 
 
-              return IntegerDataCreator(
+              return IntegerAndDoubleDataCreator(
+                dataCreatorType: _specChain.sons,
                 initialValue: _valueSpec?.value,
                 initialUnit: _unitSpec?.value,
-                onExportSpecs: (List<SpecModel> specs) => onAddIntegerSpecs(
+                onExportSpecs: (List<SpecModel> specs) => onAddSpecs(
                   specs: specs,
                   picker: specPicker,
                   selectedSpecs: selectedSpecs,
@@ -180,22 +185,22 @@ class SpecPickerScreenView extends StatelessWidget {
               );
             }
 
-            /// DOUBLE DATA CREATOR
-            else if (_specChain.sons == DataCreator.doubleCreator){
-              return DoubleDataCreator(
-                initialValue: null,
-                specPicker: specPicker,
-                onDoubleChanged: (double num) => onAddDouble(
-                  num: num,
-                  selectedSpecs: selectedSpecs,
-                  picker: specPicker,
-                ),
-                onSubmitted: () => onGoBackToSpecsPickersScreen(
-                  context: context,
-                  selectedSpecs: selectedSpecs,
-                ),
-              );
-            }
+            // /// DOUBLE DATA CREATOR
+            // else if (_specChain.sons == DataCreator.doubleCreator){
+            //   return DoubleDataCreator(
+            //     initialValue: null,
+            //     specPicker: specPicker,
+            //     onDoubleChanged: (double num) => onAddDouble(
+            //       num: num,
+            //       selectedSpecs: selectedSpecs,
+            //       picker: specPicker,
+            //     ),
+            //     onSubmitted: () => onGoBackToSpecsPickersScreen(
+            //       context: context,
+            //       selectedSpecs: selectedSpecs,
+            //     ),
+            //   );
+            // }
 
             else {
               return const SizedBox();

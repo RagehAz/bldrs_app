@@ -86,28 +86,32 @@ class Chain {
 // --------------------------------------------
   static String cipherDataCreator(dynamic sons){
     switch (sons){
-      case DataCreator.price:               return 'DataCreator_price';               break;
-      case DataCreator.currency:            return 'DataCreator_currency';            break;
-      case DataCreator.country:             return 'DataCreator_country';             break;
-      case DataCreator.boolSwitch:          return 'DataCreator_boolSwitch';          break;
-      case DataCreator.doubleCreator:       return 'DataCreator_doubleCreator';       break;
-      case DataCreator.doubleRangeSlider:   return 'DataCreator_doubleRangeSlider';   break;
+
+      case DataCreator.doubleKeyboard:      return 'DataCreator_doubleKeyboard';      break;
       case DataCreator.doubleSlider:        return 'DataCreator_doubleSlider';        break;
-      case DataCreator.integerIncrementer:  return 'DataCreator_integerIncrementer';  break;
+      case DataCreator.doubleRangeSlider:   return 'DataCreator_doubleRangeSlider';   break;
+
+      case DataCreator.integerKeyboard:     return 'DataCreator_integerKeyboard';     break;
+      case DataCreator.integerSlider:       return 'DataCreator_integerSlider';       break;
+      case DataCreator.integerRangeSlider:  return 'DataCreator_integerRangeSlider';  break;
+
+      case DataCreator.boolSwitch:          return 'DataCreator_boolSwitch';          break;
       default: return null;
+
     }
   }
 // --------------------------------------------
   static DataCreator decipherDataCreator(String string){
     switch (string){
-      case 'DataCreator_price':               return DataCreator.price;               break;
-      case 'DataCreator_currency':            return DataCreator.currency;            break;
-      case 'DataCreator_country':             return DataCreator.country;             break;
-      case 'DataCreator_boolSwitch':          return DataCreator.boolSwitch;          break;
-      case 'DataCreator_doubleCreator':       return DataCreator.doubleCreator;       break;
-      case 'DataCreator_doubleRangeSlider':   return DataCreator.doubleRangeSlider;   break;
-      case 'DataCreator_doubleSlider':        return DataCreator.doubleSlider;        break;
-      case 'DataCreator_integerIncrementer':  return DataCreator.integerIncrementer;  break;
+      case 'DataCreator_doubleKeyboard':        return DataCreator.doubleKeyboard;      break;
+      case 'DataCreator_doubleSlider':          return DataCreator.doubleSlider;        break;
+      case 'DataCreator_doubleRangeSlider':     return DataCreator.doubleRangeSlider;   break;
+
+      case 'DataCreator_integerKeyboard':       return DataCreator.integerKeyboard;     break;
+      case 'DataCreator_integerSlider':         return DataCreator.integerSlider;       break;
+      case 'DataCreator_integerRangeSlider':    return DataCreator.integerRangeSlider;  break;
+
+      case 'DataCreator_boolSwitch':            return DataCreator.boolSwitch;          break;
       default: return null;
     }
   }

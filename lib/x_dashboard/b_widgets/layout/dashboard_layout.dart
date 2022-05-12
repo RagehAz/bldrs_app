@@ -81,7 +81,7 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
           controller: _controller,
           children: <Widget>[
 
-            const Stratosphere(),
+            // const Stratosphere(),
 
             ...widget.listWidgets,
 

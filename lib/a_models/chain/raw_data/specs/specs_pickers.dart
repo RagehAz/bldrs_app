@@ -181,7 +181,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
         canPickMany: false,
         isRequired: false,
         range: null,
-        unitChainID: 'phid_s_propertyAreaUnit',
+        unitChainID: 'phid_s_lotAreaUnit',
     ),
 
     // /// LOT AREA UNIT

@@ -11,6 +11,7 @@ import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bzz_manager_screen.dar
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/i_flyers_manager/all_flyers_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/flyers_auditor_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/k_currency_manager/currency_manager.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/k_pricing_manager/pricing_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/j_statistics/statistics_screen.dart';
@@ -131,14 +132,18 @@ class BldrsDashBoard extends StatelessWidget {
 
       null,
 
-      /// PRICING
+      /// BIGMC
       DashButtonModel(
-          verse: 'Pricing & BigMc',
-          icon: Iconz.dollar,
+          verse: 'BigMc',
+          icon: Iconz.bigMac,
           screen: const PricingScreen(),
       ),
 
-      null,
+      DashButtonModel(
+        verse: 'Currencies',
+        icon: Iconz.dollar,
+        screen: const CurrencyManagerScreen(),
+      ),
 
       /// LDB VIEWER
       DashButtonModel(

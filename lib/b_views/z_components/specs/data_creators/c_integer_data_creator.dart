@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/data_creator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -17,34 +18,36 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class IntegerDataCreator extends StatefulWidget {
+class IntegerAndDoubleDataCreator extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const IntegerDataCreator({
+  const IntegerAndDoubleDataCreator({
     @required this.onExportSpecs,
     @required this.initialValue,
     @required this.initialUnit,
     @required this.specPicker,
     @required this.onKeyboardSubmitted,
+    @required this.dataCreatorType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<List<SpecModel>> onExportSpecs;
-  final int initialValue;
+  final dynamic initialValue;
   final String initialUnit;
   final SpecPicker specPicker;
   final Function onKeyboardSubmitted;
+  final DataCreator dataCreatorType;
   /// --------------------------------------------------------------------------
   @override
-  State<IntegerDataCreator> createState() => _IntegerDataCreatorState();
+  State<IntegerAndDoubleDataCreator> createState() => _IntegerAndDoubleDataCreatorState();
   /// --------------------------------------------------------------------------
 }
 
-class _IntegerDataCreatorState extends State<IntegerDataCreator> {
+class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreator> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController controller = TextEditingController(); /// tamam disposed
 
-  ValueNotifier<int> _specValue; /// tamam disposed
+  ValueNotifier<dynamic> _specValue; /// tamam disposed
   ValueNotifier<String> _selectedUnit; /// tamam disposed
   Chain _unitChain;
 // -----------------------------------------------------------------------------
@@ -118,7 +121,7 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
     if (stringIsNotEmpty(controller.text) == true){
       final SpecModel _valueSpec = SpecModel(
         pickerChainID: widget.specPicker.chainID,
-        value: _getIntFromString(controller.text),
+        value: _specValue.value,
       );
       _output.add(_valueSpec);
 
@@ -136,22 +139,34 @@ class _IntegerDataCreatorState extends State<IntegerDataCreator> {
     return _output;
   }
 // -----------------------------------------------------------------------------
-  int _getIntFromString(String input){
-    final double _doubleFromString = Numeric.stringToDouble(input);
-    return _doubleFromString.toInt();
+  void _fixValueDataTypeAndSetValue(String text){
+    // NOTE : controller.text = '$_value'; => can not redefine controller, it bugs text field
+
+    /// IF INT
+    if (isIntDataCreator(widget.dataCreatorType) == true){
+      final double _doubleFromString = Numeric.stringToDouble(text);
+      _specValue.value = _doubleFromString.toInt();
+    }
+
+    /// IF DOUBLE
+    else if (isDoubleDataCreator(widget.dataCreatorType) == true){
+      _specValue.value = Numeric.stringToDouble(text);
+    }
+
+    /// OTHERWISE
+    else {
+      _specValue.value = text;
+    }
+
   }
 // -----------------------------------------------------------------------------
-  void _onTextChanged(String val) {
+  void _onTextChanged(String text) {
 
     /// VALIDATE
     _validate();
 
-    /// GET INT FROM STRING
-    final int _intFromString = _getIntFromString(val);
-
-    /// SET FIXED VALUE
-    _specValue.value = _intFromString;
-    // controller.text = '$_intFromString'; /// can not redefine controller, it bugs text field
+    /// FIX VALUE TYPE AND SET VALUE NOTIFIER
+    _fixValueDataTypeAndSetValue(text);
 
     /// PASS VALUES UP
     final List<SpecModel> _specs = _createSpecs();
