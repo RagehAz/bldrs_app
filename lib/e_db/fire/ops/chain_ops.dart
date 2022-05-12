@@ -195,6 +195,40 @@ Future<void> addChainsToSpecsChainSons({
 }
 // ------------------------------------------
 /// TESTED : WORKS PERFECT
+Future<void> replaceSonChain({
+  @required BuildContext context,
+  @required Chain sourceChain,
+  @required String sonChainIDToReplace,
+  @required String fireDoc,
+  @required dynamic newSons,
+}) async {
+
+  final List<Chain> _newSons = Chain.replaceChainInChains(
+    chains: sourceChain.sons,
+    oldChainID: sonChainIDToReplace,
+    chainToReplace: Chain(
+      id: sonChainIDToReplace,
+      sons: newSons,
+    ),
+  );
+
+  final Chain _finalChain = Chain(
+    id: sourceChain.id,
+    sons: _newSons,
+  );
+
+  // _finalChain.blogChain();
+
+  await Fire.createNamedDoc(
+    context: context,
+    collName: FireColl.chains,
+    docName: fireDoc,
+    input: _finalChain.toMap(),
+  );
+
+}
+// ------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> updateKeywordsChain({
   @required BuildContext context,
   @required Chain newKeywordsChain,
