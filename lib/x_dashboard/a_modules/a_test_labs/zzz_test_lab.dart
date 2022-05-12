@@ -426,7 +426,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               icon: Iconz.star,
               onTap: () async {
 
-                _uiProvider.triggerLoading(setLoadingTo: true);
+                _uiProvider.triggerLoading(
+                    setLoadingTo: true,
+                    calledName: 'TestLab',
+                );
 
                 // final List<Asset> assets = await takeGalleryMultiPictures(
                 //     context: context,
@@ -461,7 +464,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 //     );
 
 
-                _uiProvider.triggerLoading(setLoadingTo: false);
+                _uiProvider.triggerLoading(
+                  setLoadingTo: false,
+                  calledName: 'TestLab',
+                );
 
 
               }),

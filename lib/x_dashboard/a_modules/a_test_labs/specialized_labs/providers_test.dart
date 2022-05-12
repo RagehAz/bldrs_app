@@ -426,7 +426,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                       verse: 'isLoading is : $isLoading',
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
-                      onTap: () => _uiProvider.triggerLoading(),
+                      onTap: () => _uiProvider.triggerLoading(calledName: 'ProvidersTestScreen : AVOID SET STATE : WAY # 3'),
                     );
 
                 },

@@ -163,7 +163,10 @@ Future<void> controlCountrySearch({
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    _uiProvider.triggerLoading(setLoadingTo: true);
+    _uiProvider.triggerLoading(
+      setLoadingTo: true,
+      calledName: 'controlCountrySearch',
+    );
     _zoneProvider.clearSearchedCountries();
 
     // final List<ZoneModel> _countries = searchCountriesByNames(
@@ -175,7 +178,10 @@ Future<void> controlCountrySearch({
       input: TextMod.fixCountryName(searchText),
     );
 
-    _uiProvider.triggerLoading(setLoadingTo: false);
+    _uiProvider.triggerLoading(
+      setLoadingTo: false,
+      calledName: 'controlCountrySearch',
+    );
 
   }
 
@@ -230,14 +236,20 @@ Future<void> initializeSelectCityScreen({
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  _uiProvider.triggerLoading(setLoadingTo: true);
+  _uiProvider.triggerLoading(
+    setLoadingTo: true,
+    calledName: 'initializeSelectCityScreen',
+  );
 
   await _zoneProvider.getSetSelectedCountryCities(
     context: context,
     countryModel: countryModel,
   );
 
-  _uiProvider.triggerLoading(setLoadingTo: false);
+  _uiProvider.triggerLoading(
+    setLoadingTo: false,
+    calledName: 'initializeSelectCityScreen',
+  );
 
 }
 // -------------------------------------
@@ -256,7 +268,10 @@ Future<void> controlCityOnTap({
     /// A - WHEN SELECTING (COUNTRY AND CITY) ONLY
   if (selectCountryAndCityOnly){
 
-    _uiProvider.triggerLoading(setLoadingTo: false);
+    _uiProvider.triggerLoading(
+      setLoadingTo: false,
+      calledName: 'controlCityOnTap',
+    );
     _searchProvider.triggerIsSearching(
       searchingModel: SearchingModel.city,
       setIsSearchingTo: false,
@@ -316,7 +331,10 @@ Future<void> controlCityOnTap({
 
       }
 
-      _uiProvider.triggerLoading(setLoadingTo: false);
+      _uiProvider.triggerLoading(
+        setLoadingTo: false,
+        calledName: 'controlCityOnTap',
+      );
       _searchProvider.triggerIsSearching(
         searchingModel: SearchingModel.city,
         setIsSearchingTo: false,
@@ -402,11 +420,17 @@ Future<void> initializeSelectDistrictScreen({
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  _uiProvider.triggerLoading(setLoadingTo: true);
+  _uiProvider.triggerLoading(
+    setLoadingTo: true,
+    calledName: 'initializeSelectDistrictScreen',
+  );
 
   _zoneProvider.setSelectedCityDistricts(cityModel.districts);
 
-  _uiProvider.triggerLoading(setLoadingTo: false);
+  _uiProvider.triggerLoading(
+    setLoadingTo: false,
+    calledName: 'initializeSelectDistrictScreen',
+  );
 
 }
 // -------------------------------------
@@ -447,7 +471,10 @@ Future<void> controlDistrictOnTap({
 
   }
 
-  _uiProvider.triggerLoading(setLoadingTo: false);
+  _uiProvider.triggerLoading(
+      setLoadingTo: false,
+      calledName: 'controlDistrictOnTap',
+  );
 
   _searchProvider.closeAllZoneSearches();
   _zoneProvider.clearAllSearchesAndSelections();

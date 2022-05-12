@@ -46,7 +46,10 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
 // -----------------------------------
   Future<void> _triggerLoading({bool setTo}) async {
     _loading.value = setTo ?? !_loading.value;
-    blogLoading(loading: _loading.value);
+    blogLoading(
+        loading: _loading.value,
+        callerName: 'SlidesShelf',
+    );
   }
 // -----------------------------------------------------------------------------
   ScrollController _scrollController; /// tamam disposed
