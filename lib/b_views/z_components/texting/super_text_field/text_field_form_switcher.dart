@@ -255,18 +255,14 @@ class TextFormFieldSwitcher extends StatelessWidget {
         decoration: _inputDecoration,
         textAlignVertical: _textAlignVertical,
 
-
-
         /// counter
         buildCounter: counterIsOn ? counterBuilder : null,
 
         /// functions
         onTap: onTap,
         onChanged: (String val) => onChanged(val),
-        onSubmitted: (String val) => onSubmitted(val),
+        onSubmitted: onSubmitted == null ? null : (String val) => onSubmitted(val),
         onEditingComplete: onEditingComplete,
-
-
 
         /// other stuff
         enabled: true, /// THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
