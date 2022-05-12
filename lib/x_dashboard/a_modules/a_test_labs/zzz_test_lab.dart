@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -19,6 +21,8 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -495,59 +499,44 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.black255,
-              verse: 'DO THE CHAINS',
+              verse: 'DO THE CURRENCIES',
               icon: Iconz.contAfrica,
               onTap: () async {
 
-                // final Chain _specsChain = await readSpecsChain(context);
-                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                // _specsChain.blogChain();
-                //
-                // final Map<String,dynamic> _map = _specsChain.toMap();
-                //
-                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                // blogMap(_map);
-                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                // final Chain _reChain = Chain.decipherChain(_map);
-                //
-                // _reChain.blogChain();
-                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                // final bool _areTheSame = Chain.chainsPathsAreTheSame(
-                //     chainA: _specsChain,
-                //     chainB: _reChain,
-                // );
-                //
-                // blog('are the same : $_areTheSame');
-                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                //
-                // final Chain _thing = Chain.getChainFromChainsByID(
-                //     chainID: 'phid_s_projectCost',
-                //     chains: [_specsChain],
-                // );
-                //
-                // _thing.blogChain();
-                //
-                //
-                //
-                // blog('el zeft : ${Chain.sonsAreDataCreator(_thing.sons)}');
+                final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
 
-                // final List<Map<String, dynamic>> _specsMap = await readAllMaps(
-                //   docName: specsChain,
-                // );
-                //
-                // final Chain _chain = Chain.decipherChain(_specsMap[0]);
-                //
-                // _chain.blogChain();
+                final List<String> _currenciesIDs = CurrencyModel.getCurrenciesIDs(_currencies);
 
-                /*
+                blog(_currenciesIDs);
+                blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
+                final Chain _specsChain = _chainsProvider.specsChain;
 
-                       phid_square_meter,
-                       phid_square_Kilometer,
-                       phid_square_feet,
-                       phid_square_yard,
-                       phid_acre, phid_hectare
+                _specsChain.blogChain();
 
-                 */
+                blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
+
+                final List<Chain> _newSons = Chain.replaceChainInChains(
+                    chains: _specsChain.sons,
+                    oldChainID: 'phid_s_currency',
+                    chainToReplace: Chain(
+                      id: 'phid_s_currency',
+                      sons: _currenciesIDs,
+                    ),
+                );
+
+                final Chain _finalChain = Chain(
+                  id: _specsChain.id,
+                  sons: _newSons,
+                );
+
+                _finalChain.blogChain();
+
+                await createNamedDoc(
+                    context: context,
+                    collName: FireColl.chains,
+                    docName: FireDoc.chains_specs,
+                    input: _finalChain.toMap(),
+                );
 
               }),
 
