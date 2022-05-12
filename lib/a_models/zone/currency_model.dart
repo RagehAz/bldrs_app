@@ -19,9 +19,11 @@ class CurrencyModel {
   final String symbol;
   final String nativeSymbol;
   final int digits;
-
-  /// --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+// ----------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'code': code,
@@ -31,33 +33,7 @@ class CurrencyModel {
       'digits': digits,
     };
   }
-
-// -----------------------------------------------------------------------------
-  void printCurrency() {
-    blog('CURRENCY PRINT ----------------------------------------- START ');
-    blog('code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
-    blog('countries : $countriesIDs');
-    blog('CURRENCY PRINT ----------------------------------------- END ');
-  }
-
-// -----------------------------------------------------------------------------
-  static Map<String, dynamic> cipherCurrencies(List<CurrencyModel> currencies) {
-    Map<String, dynamic> _map = <String, dynamic>{};
-
-    if (Mapper.canLoopList(currencies)) {
-      for (final CurrencyModel currency in currencies) {
-        _map = Mapper.insertPairInMap(
-          map: _map,
-          key: currency.code,
-          value: currency.toMap(),
-        );
-      }
-    }
-
-    return _map;
-  }
-
-// -----------------------------------------------------------------------------
+// ----------------------------
   static CurrencyModel decipherCurrency(Map<String, dynamic> map) {
     CurrencyModel _currency;
 
@@ -73,8 +49,23 @@ class CurrencyModel {
 
     return _currency;
   }
+// ----------------------------
+  static Map<String, dynamic> cipherCurrencies(List<CurrencyModel> currencies) {
+    Map<String, dynamic> _map = <String, dynamic>{};
 
-// -----------------------------------------------------------------------------
+    if (Mapper.canLoopList(currencies)) {
+      for (final CurrencyModel currency in currencies) {
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: currency.code,
+          value: currency.toMap(),
+        );
+      }
+    }
+
+    return _map;
+  }
+// ----------------------------
   static List<CurrencyModel> decipherCurrencies(Map<String, dynamic> map) {
     final List<CurrencyModel> _currencies = <CurrencyModel>[];
 
@@ -91,11 +82,26 @@ class CurrencyModel {
 
     return _currencies;
   }
-
 // -----------------------------------------------------------------------------
-  static bool currenciesContainCurrency(
-      {@required List<CurrencyModel> currencies,
-      @required String currencyCode}) {
+
+  /// BLOGGING
+
+// ----------------------------
+  void blogCurrency() {
+    blog('CURRENCY PRINT ----------------------------------------- START ');
+    blog('code : $code : symbol : $symbol : nativeSymbol : $nativeSymbol : digits : $digits');
+    blog('countries : $countriesIDs');
+    blog('CURRENCY PRINT ----------------------------------------- END ');
+  }
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// ----------------------------
+  static bool currenciesContainCurrency({
+    @required List<CurrencyModel> currencies,
+    @required String currencyCode,
+  }) {
     bool _contains = false;
 
     if (Mapper.canLoopList(currencies) && currencyCode != null) {
@@ -109,10 +115,15 @@ class CurrencyModel {
 
     return _contains;
   }
-
 // -----------------------------------------------------------------------------
-  static CurrencyModel getCurrencyFromCurrenciesByCountryID(
-      {@required List<CurrencyModel> currencies, @required String countryID}) {
+
+  /// GETTERS
+
+// ----------------------------
+  static CurrencyModel getCurrencyFromCurrenciesByCountryID({
+    @required List<CurrencyModel> currencies,
+    @required String countryID,
+  }) {
     CurrencyModel _currency;
 
     if (Mapper.canLoopList(currencies) == true && countryID != null) {
