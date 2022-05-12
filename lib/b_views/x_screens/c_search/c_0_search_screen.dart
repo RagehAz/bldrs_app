@@ -141,7 +141,7 @@ class _SearchScreenState extends State<SearchScreen> {
         _searchProvider.clearSearchRecords();
         _searchProvider.clearSearchResult();
         _searchProvider.triggerIsSearching(searchingModel: SearchingModel.flyersAndBzz, setIsSearchingTo: false);
-        _uiProvider.triggerLoading(setLoadingTo: false);
+        _uiProvider.triggerLoading(setLoadingTo: false, calledName: 'SearchScreen');
 
         goBack(context);
 

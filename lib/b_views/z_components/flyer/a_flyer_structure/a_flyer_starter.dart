@@ -42,7 +42,10 @@ class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------
   Future<void> _triggerLoading({@required setTo}) async {
     _loading.value = setTo;
-    blogLoading(loading: _loading.value);
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'FlyerStarter',
+    );
   }
 // -----------------------------------------------------------------------------
   /// --- FLYER BZ MODEL

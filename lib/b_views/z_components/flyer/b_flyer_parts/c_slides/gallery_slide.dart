@@ -47,9 +47,9 @@ class _GallerySlideState extends State<GallerySlide> {
     }
 
     if (_loading.value == true) {
-      blog('LOADING --------------------------------------');
+      blog('GallerySlide : LOADING --------------------------------------');
     } else {
-      blog('LOADING COMPLETE -----------------------------');
+      blog('GallerySlide : LOADING COMPLETE -----------------------------');
     }
 
   }

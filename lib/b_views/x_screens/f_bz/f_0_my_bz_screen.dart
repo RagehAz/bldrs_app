@@ -64,7 +64,10 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
       _uiProvider.startController(
               () async {
 
-                _uiProvider.triggerLoading(setLoadingTo: true);
+                _uiProvider.triggerLoading(
+                    setLoadingTo: true,
+                    calledName: 'MyBzScreen didChangeDependencies'
+                );
 
                 final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
@@ -95,7 +98,10 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
                   notify: true,
                 );
 
-                _uiProvider.triggerLoading(setLoadingTo: false);
+                _uiProvider.triggerLoading(
+                  setLoadingTo: false,
+                  calledName: 'MyBzScreen didChangeDependencies'
+                );
 
               }
       );
