@@ -1,7 +1,6 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -40,8 +39,8 @@ class InfoPageSpecs extends StatelessWidget {
           pickerChainID: _spec.pickerChainID,
         );
 
-        blog('picker chain ID is : ${_spec.pickerChainID}');
-        _picker.blogSpecPicker();
+        // blog('picker chain ID is : ${_spec.pickerChainID}');
+        // _picker.blogSpecPicker();
 
         final bool _alreadyAdded = SpecPicker.pickersContainPicker(
           pickers: _pickers,

@@ -63,8 +63,8 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
     final String _initialUnit = _unitChain == null ? null : widget.initialUnit ?? _unitChain.sons[0];
     _selectedUnit = ValueNotifier<String>(_initialUnit);
 // ---------------------------------
-    blog('initializing data creator with this spec picker : -');
-    widget.specPicker.blogSpecPicker();
+//     blog('initializing data creator with this spec picker : -');
+//     widget.specPicker.blogSpecPicker();
 // ---------------------------------
   }
 // -----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
     _specValue.dispose();
     _selectedUnit.dispose();
   }
-
+// -----------------------------------------------------------------------------
   void _validate() {
     _formKey.currentState.validate();
   }

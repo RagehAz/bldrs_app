@@ -189,8 +189,8 @@ class SpecPicker {
 
         final SpecPicker _picker = pickers[i];
 
-        blog('pickersContainPicker : (${pickers.length}) pickers and the index is ( $i ) for picker :-');
-        _picker.blogSpecPicker();
+        // blog('pickersContainPicker : (${pickers.length}) pickers and the index is ( $i ) for picker :-');
+        // _picker.blogSpecPicker();
 
         if (_picker.chainID == picker.chainID) {
           _contains = true;
