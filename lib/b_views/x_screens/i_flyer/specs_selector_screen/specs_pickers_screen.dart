@@ -223,22 +223,25 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
       pluralTranslation: false,
     );
 
-    return MainLayout(
-      skyType: SkyType.black,
-      appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
-      pyramidsAreOn: true,
-      // loading: _loading,
-      pageTitle: '$_flyerTypeString Specifications',
-      onBack: (){
-        Nav.goBack(context, argument: _allSelectedSpecs.value);
-      },
-      layoutWidget: SpecsSelectorScreenView(
-        scrollController: _scrollController,
-        allSelectedSpecs: _allSelectedSpecs,
-        refinedSpecsPickers: _refinedSpecsPickers,
-        specsPickersByFlyerType: _specsPickersByFlyerType,
+    return WillPopScope(
+      onWillPop: () async {return false;},
+      child: MainLayout(
+        skyType: SkyType.black,
+        appBarType: AppBarType.basic,
+        sectionButtonIsOn: false,
+        zoneButtonIsOn: false,
+        pyramidsAreOn: true,
+        // loading: _loading,
+        pageTitle: '$_flyerTypeString Specifications',
+        onBack: (){
+          Nav.goBack(context, argument: _allSelectedSpecs.value);
+        },
+        layoutWidget: SpecsSelectorScreenView(
+          scrollController: _scrollController,
+          allSelectedSpecs: _allSelectedSpecs,
+          refinedSpecsPickers: _refinedSpecsPickers,
+          specsPickersByFlyerType: _specsPickersByFlyerType,
+        ),
       ),
     );
   }
