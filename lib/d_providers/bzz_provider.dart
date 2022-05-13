@@ -21,6 +21,7 @@ class BzzProvider extends ChangeNotifier {
   /// FETCHING BZZ
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<BzModel> fetchBzModel({
     @required BuildContext context,
     @required String bzID

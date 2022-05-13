@@ -112,6 +112,7 @@ class AppState {
   /// CYPHERS
 
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool appStatesAreTheSame({
     @required AppState stateA,
     @required AppState stateB,

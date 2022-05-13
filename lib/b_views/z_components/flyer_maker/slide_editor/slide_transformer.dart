@@ -35,7 +35,7 @@ class SlideTransformer extends StatelessWidget {
 
         // blog('matrix is : $m');
 
-        matrix.value = generateSlideMatrix(
+        matrix.value = Trinity.generateSlideMatrix(
             matrix: m,
             flyerBoxWidth: flyerBoxWidth,
             flyerBoxHeight: flyerBoxHeight
@@ -54,7 +54,7 @@ class SlideTransformer extends StatelessWidget {
           blog('rebuilding transforming image');
 
           return Transform(
-            transform: renderSlideMatrix(
+            transform: Trinity.renderSlideMatrix(
               matrix: _matrix,
               flyerBoxWidth: flyerBoxWidth,
               flyerBoxHeight: flyerBoxHeight,
