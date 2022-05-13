@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
@@ -22,16 +22,7 @@ class BzFlyersPage extends StatelessWidget {
   final CountryModel bzCountry;
   final CityModel bzCity;
   /// --------------------------------------------------------------------------
-  Future<void> _onDeleteFlyer({
-    @required FlyerModel flyer,
-    @required BuildContext context,
-  }) async {
 
-    blog('SHOULD DELETE THIS FLYER');
-    blog('if flyer is only 48 hours old');
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -47,7 +38,7 @@ class BzFlyersPage extends StatelessWidget {
         numberOfColumns: 2,
         topPadding: 5,
         authorMode: true,
-        onDeleteFlyer: (FlyerModel flyerModel) => _onDeleteFlyer(
+        onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerOptionsTap(
           context: context,
           flyer: flyerModel,
         ),
