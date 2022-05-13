@@ -1,14 +1,26 @@
+import 'dart:async';
+
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_picker_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
+import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 // -----------------------------------------------------------------------------
@@ -316,5 +328,89 @@ Future<void> onZoneChanged({
   draft.value = draft.value.copyWith(
     zone: zone,
   );
+
+}
+// -----------------------------------------------------------------------------
+Future<void> onPublishFlyer({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required BzModel bzModel,
+  @required GlobalKey<FormState> formKey,
+}) async {
+
+  unawaited(
+      WaitDialog.showWaitDialog(
+        context: context,
+        canManuallyGoBack: false,
+        loadingPhrase: 'Uploading flyer',
+      )
+  );
+
+  blog('onPublish flyer : Starting flyer publish ops');
+
+  blog('onPublish flyer : Draft flyer model is : -');
+  draft.value.blogDraft();
+
+  formKey.currentState.validate();
+
+  blog('onPublish flyer : fields are valid');
+
+  final FlyerModel _flyerModel = draft.value.toFlyerModel();
+  _flyerModel.blogFlyer(methodName: '_onPublish');
+
+  blog('onPublish flyer : new flyer created');
+
+  /// upload to firebase
+  final FlyerModel _uploadedFlyer = await FlyerOps.createFlyerOps(
+      context: context,
+      inputFlyerModel: _flyerModel,
+      bzModel: bzModel
+  );
+
+  blog('onPublish flyer : new flyer uploaded and bzModel updated on firebase');
+
+  /// update ldb
+  final List<String> _newBzFlyersIDsList = <String>[... bzModel.flyersIDs, _uploadedFlyer.id];
+  final BzModel _newBzModel = bzModel.copyWith(
+    flyersIDs: _newBzFlyersIDsList,
+  );
+  await LDBOps.updateMap(
+    objectID: _newBzModel.id,
+    docName: LDBDoc.bzz,
+    input: _newBzModel.toMap(toJSON: true),
+  );
+  blog('onPublish flyer : bz model updated on LDB');
+  await LDBOps.insertMap(
+    primaryKey: 'id',
+    docName: LDBDoc.flyers,
+    input: _flyerModel.toMap(toJSON: true),
+  );
+  blog('onPublish flyer : new flyer stored on LDB');
+
+  /// update providers
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  _bzzProvider.setActiveBzFlyers(
+    flyers: <FlyerModel>[..._bzzProvider.myActiveBzFlyers, _uploadedFlyer],
+    notify: false,
+  );
+  blog('onPublish flyer : myActiveBzFlyers on provider updated');
+  _bzzProvider.setActiveBz(
+    bzModel: _newBzModel,
+    bzCountry: _bzzProvider.myActiveBzCountry,
+    bzCity: _bzzProvider.myActiveBzCity,
+    notify: true,
+  );
+  blog('onPublish flyer : _newBzModel on provider updated');
+
+  WaitDialog.closeWaitDialog(context);
+
+  await TopDialog.showTopDialog(
+    context: context,
+    verse: 'Flyer Has been Published',
+    color: Colorz.green255,
+  );
+
+  Nav.goBack(context);
+
 
 }

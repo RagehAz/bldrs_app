@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -188,25 +188,66 @@ class FlyerModel {
     return _flyersList;
   }
 // ------------------------------------------
-  FlyerModel clone(){
+  /// TESTED : WORKS PERFECT
+  FlyerModel copyWith({
+    String id,
+    String title,
+    List<String> trigram,
+    FlyerTypeClass.FlyerType flyerType,
+    FlyerState flyerState,
+    List<String> keywordsIDs,
+    bool showsAuthor,
+    ZoneModel zone,
+    String authorID,
+    String bzID,
+    GeoPoint position,
+    List<SlideModel> slides,
+    bool isBanned,
+    List<SpecModel> specs,
+    String info,
+    List<PublishTime> times,
+    bool priceTagIsOn,
+    DocumentSnapshot docSnapshot,
+  }){
+    // return FlyerModel(
+    //   id: id,
+    //   title: title,
+    //   trigram: Mapper.cloneListOfStrings(trigram),
+    //   flyerType: flyerType,
+    //   flyerState: flyerState,
+    //   keywordsIDs: Mapper.cloneListOfStrings(keywordsIDs),
+    //   showsAuthor: showsAuthor,
+    //   zone: zone,
+    //   authorID: authorID,
+    //   bzID: bzID,
+    //   position: position,
+    //   slides: SlideModel.cloneSlides(slides),
+    //   isBanned: isBanned,
+    //   specs: SpecModel.cloneSpecs(specs),
+    //   info: info,
+    //   priceTagIsOn: priceTagIsOn,
+    //   times: PublishTime.cloneTimes(times),
+    // );
+
     return FlyerModel(
-      id: id,
-      title: title,
-      trigram: Mapper.cloneListOfStrings(trigram),
-      flyerType: flyerType,
-      flyerState: flyerState,
-      keywordsIDs: Mapper.cloneListOfStrings(keywordsIDs),
-      showsAuthor: showsAuthor,
-      zone: zone,
-      authorID: authorID,
-      bzID: bzID,
-      position: position,
-      slides: SlideModel.cloneSlides(slides),
-      isBanned: isBanned,
-      specs: SpecModel.cloneSpecs(specs),
-      info: info,
-      priceTagIsOn: priceTagIsOn,
-      times: PublishTime.cloneTimes(times),
+      id: id ?? this.id,
+      title: title ?? this.title,
+      trigram: trigram ?? this.trigram,
+      flyerType: flyerType ?? this.flyerType,
+      flyerState: flyerState ?? this.flyerState,
+      keywordsIDs: keywordsIDs ?? this.keywordsIDs,
+      showsAuthor: showsAuthor ?? this.showsAuthor,
+      zone: zone ?? this.zone,
+      authorID: authorID ?? this.authorID,
+      bzID: bzID ?? this.bzID,
+      position: position ?? this.position,
+      slides: slides ?? this.slides,
+      isBanned: isBanned ?? this.isBanned,
+      specs: specs ?? this.specs,
+      info: info ?? this.info,
+      times: times ?? this.times,
+      priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
+      docSnapshot: docSnapshot ?? this.docSnapshot,
     );
   }
 // -----------------------------------------------------------------------------
@@ -332,12 +373,12 @@ class FlyerModel {
     blog('authorID : $authorID');
     blog('bzID : $bzID');
     blog('position : $position');
-    blog('slides : $slides');
     blog('isBanned : $isBanned');
     blog('specs : $specs');
     blog('info : $info');
     blog('times : $times');
     blog('priceTagIsOn : $priceTagIsOn');
+    SlideModel.blogSlides(slides);
 
     blog('FLYER-PRINT --------------------------------------------------END');
   }
@@ -551,31 +592,31 @@ class FlyerModel {
   /// FLYER EDITORS
 
 // ------------------------------------------
-  static FlyerModel replaceSlides({
-    @required FlyerModel flyer,
-    @required List<SlideModel> updatedSlides,
-  }){
-    return
-      FlyerModel(
-        id: flyer.id,
-        title: flyer.title,
-        trigram: flyer.trigram,
-        flyerType: flyer.flyerType,
-        flyerState: flyer.flyerState,
-        keywordsIDs: flyer.keywordsIDs,
-        showsAuthor: flyer.showsAuthor,
-        zone: flyer.zone,
-        authorID: flyer.authorID,
-        bzID: flyer.bzID,
-        position: flyer.position,
-        slides: updatedSlides,
-        isBanned: flyer.isBanned,
-        specs: flyer.specs,
-        info: flyer.info,
-        priceTagIsOn: flyer.priceTagIsOn,
-        times: flyer.times,
-      );
-  }
+//   static FlyerModel replaceSlides({
+//     @required FlyerModel flyer,
+//     @required List<SlideModel> updatedSlides,
+//   }){
+//     return
+//       FlyerModel(
+//         id: flyer.id,
+//         title: flyer.title,
+//         trigram: flyer.trigram,
+//         flyerType: flyer.flyerType,
+//         flyerState: flyer.flyerState,
+//         keywordsIDs: flyer.keywordsIDs,
+//         showsAuthor: flyer.showsAuthor,
+//         zone: flyer.zone,
+//         authorID: flyer.authorID,
+//         bzID: flyer.bzID,
+//         position: flyer.position,
+//         slides: updatedSlides,
+//         isBanned: flyer.isBanned,
+//         specs: flyer.specs,
+//         info: flyer.info,
+//         priceTagIsOn: flyer.priceTagIsOn,
+//         times: flyer.times,
+//       );
+//   }
 // -----------------------------------------------------------------------------
 
   /// FLYER CHECKERS

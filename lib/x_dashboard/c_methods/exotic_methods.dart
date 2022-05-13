@@ -166,6 +166,7 @@ class ExoticMethods {
   return _allModels;
 }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readAllFlyers({
   @required BuildContext context,
   @required int limit,

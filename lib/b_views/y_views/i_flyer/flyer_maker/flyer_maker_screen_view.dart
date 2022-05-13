@@ -34,7 +34,6 @@ class FlyerMakerScreenView extends StatelessWidget {
     @required this.bzModel,
     @required this.draft,
     @required this.headlineController,
-    @required this.onPublish,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -43,7 +42,6 @@ class FlyerMakerScreenView extends StatelessWidget {
   final BzModel bzModel;
   final ValueNotifier<DraftFlyerModel> draft;
   final TextEditingController headlineController;
-  final Function onPublish;
 // -----------------------------------------------------------------------------
 
   @override
@@ -320,7 +318,12 @@ class FlyerMakerScreenView extends StatelessWidget {
                 verseColor: Colorz.black255,
                 verse: superPhrase(context, 'phid_publish'),
                 margins: Ratioz.appBarMargin,
-                onTap: onPublish,
+                onTap: () => onPublishFlyer(
+                    context: context,
+                    draft: draft,
+                    bzModel: bzModel,
+                    formKey: formKey,
+                ),
               ),
             ),
 
