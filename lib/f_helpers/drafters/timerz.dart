@@ -496,6 +496,7 @@ DateTime createDateTimeAfterNumberOfDays({
 /// TIME DIFFERENCE
 
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 int getTimeDifferenceInSeconds({
   @required DateTime from,
   @required DateTime to,
@@ -507,6 +508,7 @@ int getTimeDifferenceInSeconds({
   return to.difference(from).inSeconds;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 int getTimeDifferenceInMinutes({
   @required DateTime from,
   @required DateTime to,
@@ -514,6 +516,7 @@ int getTimeDifferenceInMinutes({
   return to.difference(from).inMinutes;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 int getTimeDifferenceInHours({
   @required DateTime from,
   @required DateTime to,
@@ -521,6 +524,7 @@ int getTimeDifferenceInHours({
   return to.difference(from).inHours;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 int getTimeDifferenceInDays({
   @required DateTime from,
   @required DateTime to,
@@ -528,6 +532,7 @@ int getTimeDifferenceInDays({
   return to.difference(from).inDays;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 int getTimeDifferenceInWeeks({
   @required DateTime from,
   @required DateTime to,
@@ -536,6 +541,7 @@ int getTimeDifferenceInWeeks({
   return (_differenceInDays / 7).floor();
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 int getTimeDifferenceInMonths({
   @required DateTime from,
   @required DateTime to,
@@ -544,6 +550,7 @@ int getTimeDifferenceInMonths({
   return (_differenceInDays / 30).floor();
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 int getTimeDifferenceInYears({
   @required DateTime from,
   @required DateTime to,
@@ -552,6 +559,7 @@ int getTimeDifferenceInYears({
   return (_differenceInDays / 365).floor();
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 String getSuperTimeDifferenceString({
   @required DateTime from,
   @required DateTime to,

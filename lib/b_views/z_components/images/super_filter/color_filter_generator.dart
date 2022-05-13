@@ -21,7 +21,7 @@ class ImageFilterModel {
   /// MATRIX BUILDER
 
 // -------------------------------------
-  /// Build matrix of current filter
+  /// TESTED : WORKS PERFECT : Build matrix of current filter
   static List<double> combineMatrixes({
   @required List<List<double>> matrixes,
 }) {
@@ -71,6 +71,7 @@ class ImageFilterModel {
 
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT :
   static List<double> getStandardMatrix(){
     return <double>[
       1, 0, 0, 0, 0,
@@ -100,10 +101,12 @@ class ImageFilterModel {
   /// BLDRS IMAGE FILTERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static ImageFilterModel noFilter(){
     return bldrsImageFilters[0];
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<ImageFilterModel> bldrsImageFilters = <ImageFilterModel>[
     /// NORMAL
     const ImageFilterModel(
