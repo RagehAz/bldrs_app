@@ -1,13 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 class GeneralProvider extends ChangeNotifier {
