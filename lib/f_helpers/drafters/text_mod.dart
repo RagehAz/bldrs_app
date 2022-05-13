@@ -185,8 +185,9 @@ String removeSpacesFromAString(String string) {
   return _output5;
 }
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacter) {
-  String _result;
+  String _result = verse;
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
@@ -197,15 +198,12 @@ String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacte
     _result = verse?.substring(0, verse.indexOf(specialCharacter));
   }
 
-  else {
-    _result = '';
-  }
-
   return _result;
 }
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharacter) {
-  String _result;
+  String _result = verse;
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
@@ -214,22 +212,21 @@ String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharact
 
   if (_verseContainsChar == true) {
     final int _position = verse?.indexOf(specialCharacter);
-    _result = verse == null
-        ? null
-        : (_position != -1)
-            ? verse.substring(_position + 1, verse.length)
-            : verse;
-  }
-
-  else {
-    _result = '';
+    _result = verse == null ?
+    null
+        :
+    (_position != -1) ?
+    verse.substring(_position + 1, verse.length)
+        :
+    verse;
   }
 
   return _result;
 }
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter) {
-  String _result = '';
+  String _result = verse;
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
@@ -243,8 +240,9 @@ String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter
   return _result;
 }
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacter) {
-  String _result;
+  String _result = verse;
 
   final bool _verseContainsChar = TextChecker.stringContainsSubString(
     string: verse,
@@ -260,13 +258,10 @@ String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacte
     verse;
   }
 
-  else {
-    _result = '';
-  }
-
   return _result;
 }
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String removeAllCharactersAfterNumberOfCharacters({
   @required String input,
   @required int numberOfCharacters,

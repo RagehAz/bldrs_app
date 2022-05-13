@@ -14,6 +14,7 @@
   const String users = 'users';
   const String keywordsChain = 'keywordsChain';
   const String specsChain = 'specsChain';
+  const String specPickers = 'specPickers';
   const String countries = 'countries';
   const String cities = 'cities';
   const String continents = 'continents';
@@ -44,17 +45,17 @@
     reviews,
     questions,
     answers,
+    searches,
     flyers,
     bzz,
     users,
     keywordsChain,
     specsChain,
+    specPickers,
     countries,
     cities,
     continents,
     currencies,
-    searches,
     basicPhrases,
     countriesPhrases,
-
   ];

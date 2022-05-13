@@ -431,7 +431,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           WideButton(
               color: Colorz.red255,
-              verse: 'app state things',
+              verse: 'appVersionNeedUpdate',
               icon: Iconz.star,
               onTap: () async {
 
@@ -440,7 +440,17 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                     calledName: 'TestLab',
                 );
 
-                await AppStateOps.updateSpecsChainVersion(context,);
+                final String _appVersion = await AppStateOps.getAppVersion();
+
+                blog('app version is : $_appVersion');
+
+
+                final bool _needUpdate = AppStateOps.appVersionNeedUpdate(
+                  globalVersion: _appVersion,
+                  userVersion: '0.0.0',
+                );
+
+                blog(_needUpdate);
 
                 _uiProvider.triggerLoading(
                   setLoadingTo: false,
