@@ -20,8 +20,6 @@ import 'package:provider/provider.dart';
 Future<void> initializeHomeScreen(BuildContext context) async {
   /// A - SHOW AD FLYER
 
-  /// C - USER MODEL
-  await _initializeUserModel(context);
 
   /// D - ZONES
   await _initializeUserZone(context);
@@ -53,22 +51,6 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   /// J - SAVED FLYERS
   await _initializeSavedFlyers(context);
 
-}
-// -----------------------------------------------------------------------------
-Future<void> _initializeUserModel(BuildContext context) async {
-
-  if (AuthModel.userIsSignedIn() == true) {
-
-    final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
-    final UserModel _myUserModel = _userProvider.myUserModel;
-
-    if (_myUserModel == null){
-
-      await _userProvider.getsetMyUserModelAndCountryAndCity(context);
-
-    }
-
-  }
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeUserZone(BuildContext context) async {

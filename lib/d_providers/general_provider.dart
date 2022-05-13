@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,31 +11,25 @@ import 'package:provider/provider.dart';
 
 // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 class GeneralProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
-
-  /// APP STATE
-
-  // -------------------------------------
-  AppState _appState = AppState.initialState();
-  // -------------------------------------
-  AppState get appState {
-    return _appState;
-  }
-  // -------------------------------------
-  Future<void> getsetAppState(BuildContext context) async {
-
-    final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
-      collName: FireColl.admin,
-      docName: FireDoc.admin_appState,
-    );
-
-    final AppState _updates = AppState.fromMap(_map);
-
-    _appState = _updates;
-    notifyListeners();
-  }
-  // -----------------------------------------------------------------------------
+// // -----------------------------------------------------------------------------
+//
+//   /// APP STATE
+//
+//   // -------------------------------------
+//   AppState _appState = AppState.initialState();
+//   // -------------------------------------
+//   AppState get appState {
+//     return _appState;
+//   }
+//   // -------------------------------------
+//   Future<void> getsetGlobalAppState(BuildContext context) async {
+//
+//     final AppState _globalAppState = await AppStateOps.readGlobalAppState(context);
+//
+//     _appState = _appState;
+//     notifyListeners();
+//   }
+//   // -----------------------------------------------------------------------------
 
   /// CONNECTIVITY
 

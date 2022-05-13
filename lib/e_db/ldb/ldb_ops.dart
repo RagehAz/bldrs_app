@@ -240,6 +240,20 @@ Future<void> deleteAllAtOnce({
   await Sembast.deleteAllAtOnce(docName: docName);
 
 }
+
+Future<void> wipeOutEntireLDB() async {
+
+  const List<String> _docs = LDBDoc.allDocs;
+
+  for (final String docName in _docs){
+
+    await deleteAllAtOnce(
+        docName: docName
+    );
+
+  }
+
+}
 // -----------------------------------------------------------------------------
 
 /// FIREBASE TO SEMBAST ADAPTERS

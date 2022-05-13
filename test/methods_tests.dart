@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.d
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -572,5 +573,16 @@ void main() {
 
     expect(_result, true);
   });
+// -----------------------------------------------------------------------------
+  test('app need update', () {
 
+    final bool _needUpdate = AppStateOps.appVersionNeedUpdate(
+        globalVersion: '1.2.5+2',
+        userVersion: '1.2.4',
+    );
+
+    expect(_needUpdate, true);
+
+  });
+// -----------------------------------------------------------------------------
 }

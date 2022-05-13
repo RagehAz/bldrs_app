@@ -109,6 +109,39 @@ class AppState {
   }
 // -----------------------------------------------------------------------------
 
+  /// CYPHERS
+
+// -----------------------------------
+  static bool appStatesAreTheSame({
+    @required AppState stateA,
+    @required AppState stateB,
+}){
+    bool _areTheSame = false;
+
+    if (stateA != null && stateB != null){
+
+      if (
+      stateA.appVersion == stateB.appVersion
+      &&
+          stateA.keywordsChainVersion == stateB.keywordsChainVersion
+      &&
+          stateA.ldbVersion == stateB.ldbVersion
+      &&
+          stateA.phrasesVersion == stateB.phrasesVersion
+      &&
+          stateA.specPickersVersion == stateB.specPickersVersion
+      &&
+          stateA.specsChainVersion == stateB.specsChainVersion
+      ){
+        _areTheSame = true;
+      }
+
+    }
+
+    return _areTheSame;
+  }
+// -----------------------------------------------------------------------------
+
   /// DUMMIES
 
 // -----------------------------------
