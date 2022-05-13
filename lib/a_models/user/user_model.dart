@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
@@ -43,6 +44,7 @@ class UserModel {
     @required this.fcmToken,
     @required this.savedFlyersIDs,
     @required this.followedBzzIDs,
+    @required this.appState,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -67,7 +69,146 @@ class UserModel {
   final FCMToken fcmToken;
   final List<String> savedFlyersIDs;
   final List<String> followedBzzIDs;
-  /// --------------------------------------------------------------------------
+  final AppState appState;
+// -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+// -----------------------------------
+  /// create user object based on firebase user
+  static UserModel initializeUserModelStreamFromUser() {
+    final User _user = FireAuthOps.superFirebaseUser();
+
+    return _user == null ? null :
+    UserModel(
+      id: _user.uid,
+      authBy: null,
+      createdAt: DateTime.now(),
+      status: UserStatus.normal,
+      // -------------------------
+      name: _user.displayName,
+      trigram: TextGen.createTrigram(input: _user.displayName),
+      pic: _user.photoURL,
+      title: '',
+      gender: Gender.other,
+      zone: null,
+      language: 'en',
+      position: const GeoPoint(0, 0),
+      contacts: <ContactModel>[],
+      // -------------------------
+      myBzzIDs: <String>[],
+      emailIsVerified: _user.emailVerified,
+      isAdmin: false,
+      fcmToken: null,
+      company: null,
+      savedFlyersIDs: <String>[],
+      followedBzzIDs: <String>[],
+      appState: AppState.initialState(),
+    );
+  }
+// -----------------------------------------------------------------------------
+  static Future<UserModel> createInitialUserModelFromUser({
+    BuildContext context,
+    User user,
+    ZoneModel zone,
+    AuthType authBy,
+  }) async {
+
+    assert(!user.isAnonymous, 'user must not be anonymous');
+    blog('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
+
+    assert(await user.getIdToken() != null, 'user token must not be null');
+    blog('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
+
+    final UserModel _userModel = UserModel(
+      id: user.uid,
+      authBy: authBy,
+      createdAt: DateTime.now(),
+      status: UserStatus.normal,
+      // -------------------------
+      name: user.displayName,
+      trigram: TextGen.createTrigram(input: user.displayName),
+      pic: user.photoURL,
+      title: '',
+      gender: Gender.other,
+      zone: zone,
+      language: '', //Wordz.languageCode(context),
+      position: null,
+      contacts: ContactModel.getContactsFromFirebaseUser(user),
+      // -------------------------
+      myBzzIDs: <String>[],
+      emailIsVerified: user.emailVerified,
+      isAdmin: false,
+      company: null,
+      fcmToken: null,
+      savedFlyersIDs: <String>[],
+      followedBzzIDs: <String>[],
+      appState: AppState.initialState(),
+    );
+
+    _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
+
+    return _userModel;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
+    UserModel copyWith({
+      String id,
+      AuthType authBy,
+      DateTime createdAt,
+      UserStatus status,
+      String name,
+      List<String> trigram,
+      dynamic pic,
+      String title,
+      String company,
+      Gender gender,
+      ZoneModel zone,
+      String language,
+      GeoPoint position,
+      List<ContactModel> contacts,
+      List<String> myBzzIDs,
+      bool emailIsVerified,
+      bool isAdmin,
+      FCMToken fcmToken,
+      List<String> savedFlyersIDs,
+      List<String> followedBzzIDs,
+      AppState appState,
+}){
+    return UserModel(
+      id: id ?? this.id,
+      authBy: authBy ?? this.authBy,
+      createdAt: createdAt ?? this.createdAt,
+      status: status ?? this.status,
+      name: name ?? this.name,
+      trigram: trigram ?? this.trigram,
+      pic: pic ?? this.pic,
+      title: title ?? this.title,
+      company: company ?? this.company,
+      gender: gender ?? this.gender,
+      zone: zone ?? this.zone,
+      language: language ?? this.language,
+      position: position ?? this.position,
+      contacts: contacts ?? this.contacts,
+      myBzzIDs: myBzzIDs ?? this.myBzzIDs,
+      emailIsVerified: emailIsVerified ?? this.emailIsVerified,
+      isAdmin: isAdmin ?? this.isAdmin,
+      fcmToken: fcmToken ?? this.fcmToken,
+      savedFlyersIDs: savedFlyersIDs ?? this.savedFlyersIDs,
+      followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
+      appState: appState ?? this.appState,
+    );
+}
+// -----------------------------------------------------------------------------
+
+  /// USER MODEL CYPHERS
+
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -93,9 +234,11 @@ class UserModel {
       'fcmToken': fcmToken?.toMap(toJSON: toJSON),
       'savedFlyersIDs': savedFlyersIDs ?? <String>[],
       'followedBzzIDs': followedBzzIDs ?? <String>[],
+      'appState' : appState.toMap(),
     };
   }
-// ----------------------------------------------------------------------------
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
   static UserModel decipherUserMap({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -142,10 +285,12 @@ class UserModel {
       followedBzzIDs: Mapper.getStringsFromDynamics(
           dynamics: map['followedBzzIDs'],
       ),
+      appState: AppState.fromMap(map['appState']),
     );
 
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
   static List<UserModel> decipherUsersMaps({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -165,6 +310,11 @@ class UserModel {
     return _users;
   }
 // -----------------------------------------------------------------------------
+
+  /// USER STATUS CYPHERS
+
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
   static UserStatus decipherUserStatus(String status) {
     switch (status) {
       case 'normal':      return UserStatus.normal;       break;
@@ -178,7 +328,8 @@ class UserModel {
       default :           return null;
     }
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
   static String cipherUserStatus(UserStatus status) {
     switch (status) {
       case UserStatus.normal:       return 'normal';      break;
@@ -194,21 +345,10 @@ class UserModel {
     }
   }
 // -----------------------------------------------------------------------------
-  static const List<Gender> gendersList = <Gender>[
-    Gender.male,
-    Gender.female,
-    Gender.other,
-  ];
-// -----------------------------------------------------------------------------
-  static String translateGender(Gender gender) {
-    switch (gender) {
-      case Gender.female:   return 'Female';    break;
-      case Gender.male:     return 'Male';      break;
-      case Gender.other:    return 'Other';     break;
-      default:              return null;
-    }
-  }
-// -----------------------------------------------------------------------------
+
+  /// GENDER
+
+// -----------------------------------
   static Gender decipherGender(String gender) {
     switch (gender) {
       case 'female' :   return Gender.female; break;
@@ -217,7 +357,7 @@ class UserModel {
       default:return null;
     }
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------
   static String cipherGender(Gender gender) {
     switch (gender) {
       case Gender.female:   return 'female';    break;
@@ -226,7 +366,34 @@ class UserModel {
       default:              return null;
     }
   }
+// -----------------------------------
+  static String translateGender(Gender gender) {
+    switch (gender) {
+      case Gender.female:   return 'Female';    break;
+      case Gender.male:     return 'Male';      break;
+      case Gender.other:    return 'Other';     break;
+      default:              return null;
+    }
+  }
+// -----------------------------------
+  static const List<Gender> gendersList = <Gender>[
+    Gender.male,
+    Gender.female,
+    Gender.other,
+  ];
 // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -----------------------------------
+  static String getUserJobLine(UserModel userModel){
+    return '${userModel.title} @ ${userModel.company}';
+  }
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -----------------------------------
   static bool userIsAuthor(UserModel userModel) {
     bool _userIsAuthor = false;
 
@@ -236,106 +403,23 @@ class UserModel {
 
     return _userIsAuthor;
   }
-// -----------------------------------------------------------------------------
-  static const List<UserStatus> userTypesList = <UserStatus>[
-    UserStatus.normal,
-    UserStatus.searching,
-    UserStatus.finishing,
-    UserStatus.planning,
-    UserStatus.building,
-    UserStatus.selling,
-    UserStatus.bzAuthor,
-    UserStatus.deactivated,
-  ];
-// -----------------------------------------------------------------------------
-  static List<String> removeIDFromIDs(List<String> ids, String id) {
-    final int _idIndex = ids.indexWhere((String _id) => _id == id,);
+// -----------------------------------
+  static bool thereAreMissingFields(UserModel userModel){
+    bool _thereAreMissingFields;
 
-    if (_idIndex != null) {
-      ids.removeAt(_idIndex);
-      return ids;
+    final List<String> _missingFields = UserModel.missingFields(userModel);
+
+    if (Mapper.canLoopList(_missingFields) == true){
+      _thereAreMissingFields = true;
     }
 
     else {
-      return null;
+      _thereAreMissingFields = false;
     }
 
+    return _thereAreMissingFields;
   }
-// -----------------------------------------------------------------------------
-  /// create user object based on firebase user
-  static UserModel initializeUserModelStreamFromUser() {
-    final User _user = FireAuthOps.superFirebaseUser();
-
-    return _user == null ? null :
-    UserModel(
-      id: _user.uid,
-      authBy: null,
-      createdAt: DateTime.now(),
-      status: UserStatus.normal,
-      // -------------------------
-      name: _user.displayName,
-      trigram: TextGen.createTrigram(input: _user.displayName),
-      pic: _user.photoURL,
-      title: '',
-      gender: Gender.other,
-      zone: null,
-      language: 'en',
-      position: const GeoPoint(0, 0),
-      contacts: <ContactModel>[],
-      // -------------------------
-      myBzzIDs: <String>[],
-      emailIsVerified: _user.emailVerified,
-      isAdmin: false,
-      fcmToken: null,
-      company: null,
-      savedFlyersIDs: <String>[],
-      followedBzzIDs: <String>[],
-    );
-  }
-// -----------------------------------------------------------------------------
-  static Future<UserModel> createInitialUserModelFromUser({
-    BuildContext context,
-    User user,
-    ZoneModel zone,
-    AuthType authBy,
-  }) async {
-
-    assert(!user.isAnonymous, 'user must not be anonymous');
-    blog('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
-
-    assert(await user.getIdToken() != null, 'user token must not be null');
-    blog('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
-
-    final UserModel _userModel = UserModel(
-      id: user.uid,
-      authBy: authBy,
-      createdAt: DateTime.now(),
-      status: UserStatus.normal,
-      // -------------------------
-      name: user.displayName,
-      trigram: TextGen.createTrigram(input: user.displayName),
-      pic: user.photoURL,
-      title: '',
-      gender: Gender.other,
-      zone: zone,
-      language: '', //Wordz.languageCode(context),
-      position: null,
-      contacts: ContactModel.getContactsFromFirebaseUser(user),
-      // -------------------------
-      myBzzIDs: <String>[],
-      emailIsVerified: user.emailVerified,
-      isAdmin: false,
-      company: null,
-      fcmToken: null,
-      savedFlyersIDs: <String>[],
-      followedBzzIDs: <String>[],
-    );
-
-    _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
-
-    return _userModel;
-  }
-// -----------------------------------------------------------------------------
+// -----------------------------------
   static List<String> missingFields(UserModel userModel) {
     final List<String> _missingFields = <String>[];
 
@@ -396,23 +480,31 @@ class UserModel {
     return _missingFields;
   }
 // -----------------------------------------------------------------------------
-  static bool thereAreMissingFields(UserModel userModel){
-    bool _thereAreMissingFields;
 
-    final List<String> _missingFields = UserModel.missingFields(userModel);
+  /// MODIFIERS
 
-    if (Mapper.canLoopList(_missingFields) == true){
-      _thereAreMissingFields = true;
+// -----------------------------------
+  static List<String> removeIDFromIDs(List<String> ids, String id) {
+    final int _idIndex = ids.indexWhere((String _id) => _id == id,);
+
+    if (_idIndex != null) {
+      ids.removeAt(_idIndex);
+      return ids;
     }
 
     else {
-      _thereAreMissingFields = false;
+      return null;
     }
 
-    return _thereAreMissingFields;
   }
 // -----------------------------------------------------------------------------
-  void blogUserModel({String methodName = 'PRINTING USER MODEL'}) {
+
+  /// BLOGGING
+
+// -----------------------------------
+  void blogUserModel({
+    String methodName = 'PRINTING USER MODEL',
+  }) {
     blog('$methodName : ---------------- START -- ');
 
     blog('id : $id');
@@ -431,48 +523,62 @@ class UserModel {
     blog('myBzzIDs : $myBzzIDs');
     blog('emailIsVerified : $emailIsVerified');
     blog('fcmToken : ${fcmToken?.createdAt}');
+    appState.blogAppState();
 
     blog('$methodName : ---------------- END -- ');
   }
-// -----------------------------------------------------------------------------
-  static Future<UserModel> futureDummyUserModel(BuildContext context) async {
+// -----------------------------------
+  static void blogUsersModels({
+    @required List<UserModel> usersModels,
+    String methodName,
+  }){
 
-    final UserModel _user = await UserFireOps.readUser(
-      context: context,
-      userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
-    );
+    if (Mapper.canLoopList(usersModels) == true){
 
-    return _user;
+      for (final UserModel user in usersModels){
+        user.blogUserModel(methodName: methodName);
+      }
+
+    }
+    else {
+      blog('No User Model to blog');
+    }
+
   }
 // -----------------------------------------------------------------------------
+
+  /// DUMMIES
+
+// -----------------------------------
   static UserModel dummyUserModel(BuildContext context){
 
     final UserModel _userModel = UserModel(
-        id: 'dummy_user_model',
-        authBy: AuthType.emailSignIn,
-        createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
-        status: UserStatus.normal,
-        name: 'Donald duck',
-        trigram: <String>[],
-        pic: Iconz.dvDonaldDuck,
-        title: 'CEO',
-        company: 'Bldrs.LLC',
-        gender: Gender.male,
-        zone: ZoneModel.dummyZone(),
-        language: 'en',
-        position: Atlas.dummyPosition(),
-        contacts: ContactModel.dummyContacts(),
-        myBzzIDs: <String>[],
-        emailIsVerified: true,
-        isAdmin: true,
-        fcmToken: null,
-        savedFlyersIDs: <String>[],
-        followedBzzIDs: <String>[],
+      id: 'dummy_user_model',
+      authBy: AuthType.emailSignIn,
+      createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
+      status: UserStatus.normal,
+      name: 'Donald duck',
+      trigram: <String>[],
+      pic: Iconz.dvDonaldDuck,
+      title: 'CEO',
+      company: 'Bldrs.LLC',
+      gender: Gender.male,
+      zone: ZoneModel.dummyZone(),
+      language: 'en',
+      position: Atlas.dummyPosition(),
+      contacts: ContactModel.dummyContacts(),
+      myBzzIDs: <String>[],
+      emailIsVerified: true,
+      isAdmin: true,
+      fcmToken: null,
+      savedFlyersIDs: <String>[],
+      followedBzzIDs: <String>[],
+      appState: AppState.dummyAppState(),
     );
 
     return _userModel;
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------
   static List<UserModel> dummyUsers({
     int numberOfUsers
   }) {
@@ -516,8 +622,8 @@ class UserModel {
     if (numberOfUsers != null) {
 
       final List<int> _randomIndexes = Numeric.getRandomIndexes(
-          numberOfIndexes: numberOfUsers,
-          maxIndex: _users.length - 1,
+        numberOfIndexes: numberOfUsers,
+        maxIndex: _users.length - 1,
       );
 
       final List<UserModel> _finalList = <UserModel>[];
@@ -531,10 +637,31 @@ class UserModel {
 
     return _users;
   }
-// -----------------------------------------------------------------------------
-  static String userJobLine(UserModel userModel){
-    return '${userModel.title} @ ${userModel.company}';
+// -----------------------------------
+  static Future<UserModel> futureDummyUserModel(BuildContext context) async {
+
+    final UserModel _user = await UserFireOps.readUser(
+      context: context,
+      userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
+    );
+
+    return _user;
   }
+// -----------------------------------------------------------------------------
+
+  /// USER TYPES
+
+// -----------------------------------
+  static const List<UserStatus> userTypesList = <UserStatus>[
+    UserStatus.normal,
+    UserStatus.searching,
+    UserStatus.finishing,
+    UserStatus.planning,
+    UserStatus.building,
+    UserStatus.selling,
+    UserStatus.bzAuthor,
+    UserStatus.deactivated,
+  ];
 // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------

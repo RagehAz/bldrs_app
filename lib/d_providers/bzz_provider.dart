@@ -133,7 +133,7 @@ class BzzProvider extends ChangeNotifier {
 }) async {
     /// 1 - get sponsorsIDs from app state
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-    final List<String> _sponsorsBzzIDs = _generalProvider.appState.sponsors;
+    final List<String> _sponsorsBzzIDs = []; /// TASK : RESTRUCTURE SPONSORS THING
 
     if (Mapper.canLoopList(_sponsorsBzzIDs)) {
       /// 2 - fetch bzz

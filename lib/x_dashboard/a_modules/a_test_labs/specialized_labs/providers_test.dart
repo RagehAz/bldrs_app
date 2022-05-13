@@ -140,7 +140,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     final CityModel _currentCity = _zoneProvider?.currentCity;
     final List<FlyerModel> _promotedFlyers = _flyersProvider?.promotedFlyers;
 
-    final List<FlyerType> _activeSections = _generalProvider?.appState?.activeSections;
     final Chain _keywordsChain = _chainsProvider.keywordsChain;
     final List<Phrase> _keywordsChainPhrases = _chainsProvider.keywordsChainPhrases;
     final Chain _specsChain = _chainsProvider.specsChain;
@@ -274,18 +273,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   }),
 
               const SuperVerse(verse: 'Sections and keywords',),
-
-              WideButton(
-                  color: Colorz.black255,
-                  verse: 'print _activeSections',
-                  icon: Iconizer.valueIsNotNull(_activeSections),
-                  onTap: () async {
-                    unawaited(_triggerLoading());
-
-                    blog('Active sections : $_activeSections');
-
-                    unawaited(_triggerLoading());
-                  }),
 
               WideButton(
                   color: Colorz.black255,

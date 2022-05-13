@@ -329,6 +329,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       fcmToken: widget.userModel.fcmToken,
       followedBzzIDs: widget.userModel.followedBzzIDs,
       savedFlyersIDs: widget.userModel.savedFlyersIDs,
+      appState: widget.userModel.appState,
     );
   }
 // -----------------------------------------------------------------------------
