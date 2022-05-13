@@ -81,6 +81,7 @@ class FlyerModel {
   /// FLYER CYPHERS
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -110,6 +111,7 @@ class FlyerModel {
     };
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Map<String, Object>> cipherFlyers({
     @required List<FlyerModel> flyers,
     @required bool toJSON,
@@ -131,6 +133,7 @@ class FlyerModel {
     return _maps;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerModel decipherFlyer({
     @required dynamic map,
     @required bool fromJSON,
@@ -168,6 +171,7 @@ class FlyerModel {
     return _flyerModel;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerModel> decipherFlyers({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -255,6 +259,7 @@ class FlyerModel {
   /// FLYER INITIALIZERS
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerModel getFlyerModelFromSnapshot(DocumentSnapshot<Object> doc){
     final Object _map = doc.data();
     final FlyerModel _flyerModel = FlyerModel.decipherFlyer(
@@ -264,6 +269,7 @@ class FlyerModel {
     return _flyerModel;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
@@ -279,6 +285,7 @@ class FlyerModel {
     return _controllers;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
@@ -298,6 +305,7 @@ class FlyerModel {
   /// FLYER STATE
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherFlyerState (FlyerState x){
     switch (x){
       case FlyerState.published     :     return  'published'   ;  break;
@@ -311,6 +319,7 @@ class FlyerModel {
     }
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerState decipherFlyerState (String x){
     switch (x){
       case 'published'   :   return  FlyerState.published;     break;  // 1
@@ -324,6 +333,7 @@ class FlyerModel {
     }
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static const List<FlyerState> flyerStatesList = <FlyerState>[
     FlyerState.published,
     FlyerState.draft,
@@ -334,6 +344,7 @@ class FlyerModel {
     FlyerState.suspended,
   ];
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String translateFlyerState({
     @required BuildContext context,
     @required FlyerState state,
@@ -354,6 +365,7 @@ class FlyerModel {
   /// FLYER BLOGGING
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   void blogFlyer({@required String methodName}){
 
     if (methodName != null){
@@ -383,6 +395,7 @@ class FlyerModel {
     blog('FLYER-PRINT --------------------------------------------------END');
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogFlyers({
     @required List<FlyerModel> flyers,
     @required String methodName,
@@ -404,6 +417,7 @@ class FlyerModel {
   /// FLYER DUMMIES
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerModel dummyFlyer(){
     return FlyerModel(
       id : '2fDlDyF01sw8GEYPJ9GN',
@@ -430,6 +444,7 @@ class FlyerModel {
     );
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerModel> dummyFlyers(){
     return <FlyerModel>[
       dummyFlyer(),
@@ -443,6 +458,7 @@ class FlyerModel {
   /// FLYER COUNTERS
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static int getTotalSaves(FlyerModel flyer){
     int _totalSaves = 0;
 
@@ -456,6 +472,7 @@ class FlyerModel {
     return _totalSaves;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static int getTotalShares(FlyerModel flyer){
     int _totalShares = 0;
 
@@ -469,6 +486,7 @@ class FlyerModel {
     return _totalShares;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static int getTotalViews(FlyerModel flyer){
     int _totalViews = 0;
 
@@ -497,14 +515,21 @@ class FlyerModel {
   /// FLYER SEARCHES
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerModel getFlyerFromFlyersByID({
     @required List<FlyerModel> flyers,
     @required String flyerID
   }){
-    final FlyerModel _flyer = flyers.singleWhere((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID, orElse: () => null);
+
+    final FlyerModel _flyer = flyers.singleWhere(
+            (FlyerModel tinyFlyer) => tinyFlyer.id == flyerID,
+        orElse: () => null
+    );
+
     return _flyer;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getFlyersIDsFromFlyers(List<FlyerModel> flyers){
     final List<String> _flyerIDs = <String>[];
 
@@ -519,6 +544,7 @@ class FlyerModel {
     return _flyerIDs;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerModel> filterFlyersByFlyerType({
     @required List<FlyerModel> flyers,
     @required FlyerTypeClass.FlyerType flyerType,
@@ -544,6 +570,7 @@ class FlyerModel {
     return _filteredFlyers;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerModel> getFlyersFromFlyersByAuthorID({
     @required List<FlyerModel> flyers,
     @required String authorID,
@@ -566,6 +593,7 @@ class FlyerModel {
     return _authorFlyers;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool flyersContainThisID({
     @required String flyerID,
     @required List<FlyerModel> flyers
@@ -592,6 +620,7 @@ class FlyerModel {
   /// FLYER EDITORS
 
 // ------------------------------------------
+  /*
 //   static FlyerModel replaceSlides({
 //     @required FlyerModel flyer,
 //     @required List<SlideModel> updatedSlides,
@@ -617,11 +646,13 @@ class FlyerModel {
 //         times: flyer.times,
 //       );
 //   }
+   */
 // -----------------------------------------------------------------------------
 
   /// FLYER CHECKERS
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool canShowFlyerAuthor({
     @required BzModel bzModel,
     @required FlyerModel flyerModel,

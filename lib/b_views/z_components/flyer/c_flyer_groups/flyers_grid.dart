@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class FlyersGrid extends StatelessWidget {
     this.numberOfColumns = 3,
     this.heroTag,
     this.authorMode = false,
-    this.onDeleteFlyer,
+    this.onFlyerOptionsTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,7 +37,7 @@ class FlyersGrid extends StatelessWidget {
   /// when grid is inside a flyer
   final String heroTag;
   final bool authorMode;
-  final ValueChanged<FlyerModel> onDeleteFlyer;
+  final ValueChanged<FlyerModel> onFlyerOptionsTap;
   /// --------------------------------------------------------------------------
   static double getGridWidth({
     @required BuildContext context,
@@ -214,14 +215,16 @@ class FlyersGrid extends StatelessWidget {
                           alignment: superBottomAlignment(context),
                           child: DreamBox(
                             height: FooterBox.collapsedHeight(context: context, flyerBoxWidth: _gridFlyerWidth, tinyMode: true),
-                            width: _gridZoneWidth * 0.2,
-                            verse: superPhrase(context, 'phid_edit'),
-                            verseWeight: VerseWeight.thin,
-                            verseScaleFactor: 0.7,
+                            width: _gridZoneWidth * 0.12,
+                            // verse: superPhrase(context, 'phid_edit'),
+                            // verseScaleFactor: 0.7,
+                            // verseWeight: VerseWeight.thin,
+                            icon: Iconz.more,
+                            iconSizeFactor: 0.7,
                             color: Colorz.black200,
                             corners: superBorderAll(context, FooterBox.boxCornersValue(_gridFlyerWidth)),
                             bubble: false,
-                            onTap: () => onDeleteFlyer(_flyer),
+                            onTap: () => onFlyerOptionsTap(_flyer),
                           ),
                         ),
 
