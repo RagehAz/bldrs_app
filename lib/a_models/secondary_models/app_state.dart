@@ -26,7 +26,7 @@ class AppState {
   final double phrasesVersion;
 
   /// app update
-  final double appVersion;
+  final String appVersion;
   final double ldbVersion; /// this used to wipe out all LDB docs and re fetch everything
 
 // -----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ class AppState {
     double specsChainVersion,
     double specPickersVersion,
     double phrasesVersion,
-    double appVersion,
+    String appVersion,
     double ldbVersion,
 }){
     return AppState(
@@ -152,7 +152,7 @@ class AppState {
       specsChainVersion: 0,
       specPickersVersion: 0,
       phrasesVersion: 0,
-      appVersion: 0,
+      appVersion: '0.0.0',
       ldbVersion: 0,
     );
   }

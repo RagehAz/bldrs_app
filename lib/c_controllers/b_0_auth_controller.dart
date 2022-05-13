@@ -195,7 +195,7 @@ Future<void> _controlAuthResult({
     /// C. ALL USER MODEL REQUIRED FIELDS ARE COMPLETE
     else {
 
-      await _goToHomeScreen(context);
+      await _goToLogoScreen(context);
     }
 
   }
@@ -267,7 +267,7 @@ Future<void> _controlMissingFieldsCase({
         userModel: authModel.userModel,
         onFinish: () async {
 
-          await _goToHomeScreen(context);
+          await _goToLogoScreen(context);
 
         },
       )
@@ -294,8 +294,8 @@ Future<void> showMissingFieldsDialog({
 
 }
 // ------------------------------------------------------
-Future<void> _goToHomeScreen(BuildContext context) async {
-  await Nav.pushNamedAndRemoveAllBelow(context, Routez.home);
+Future<void> _goToLogoScreen(BuildContext context) async {
+  await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
 }
 // -----------------------------------------------------------------------------
 
