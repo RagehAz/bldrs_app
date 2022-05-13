@@ -124,6 +124,7 @@ Future<UserModel> createUser({
     fcmToken: userModel.fcmToken,
     followedBzzIDs: <String>[],
     savedFlyersIDs: <String>[],
+    appState: userModel.appState,
   );
 
   /// create user doc in fireStore
@@ -280,30 +281,10 @@ Future<UserModel> updateUser({
   }
 
   /// B - create final UserModel
-  final UserModel _finalUserModel = UserModel(
-    id: updatedUserModel.id,
-    authBy: oldUserModel.authBy,
-    createdAt: oldUserModel.createdAt,
-    status: updatedUserModel.status,
-    // -------------------------
-    name: updatedUserModel.name,
-    trigram: updatedUserModel.trigram,
+  final UserModel _finalUserModel = updatedUserModel.copyWith(
     pic: _userPicURL ?? oldUserModel.pic,
-    title: updatedUserModel.title,
-    company: updatedUserModel.company,
-    gender: updatedUserModel.gender,
-    zone: updatedUserModel.zone,
-    language: updatedUserModel.language,
-    position: updatedUserModel.position,
-    contacts: updatedUserModel.contacts,
-    // -------------------------
-    myBzzIDs: updatedUserModel.myBzzIDs,
-    isAdmin: updatedUserModel.isAdmin,
-    emailIsVerified: updatedUserModel.emailIsVerified,
-    fcmToken: updatedUserModel.fcmToken,
-    savedFlyersIDs: updatedUserModel.savedFlyersIDs,
-    followedBzzIDs: updatedUserModel.followedBzzIDs,
   );
+
 
   await Fire.updateDoc(
     context: context,

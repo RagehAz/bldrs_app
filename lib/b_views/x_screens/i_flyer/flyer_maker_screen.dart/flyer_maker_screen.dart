@@ -14,15 +14,14 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/draft_shelf_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/flyer_maker_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
+import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
 import 'package:provider/provider.dart';
 
 class FlyerMakerScreen extends StatefulWidget {

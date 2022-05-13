@@ -342,7 +342,7 @@ Future<void> _updateKeywordsChainOps({
   );
 
   /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
-    await AppStateOps.updateKeywordsChainVersion(context);
+    await AppStateOps.updateGlobalKeywordsChainVersion(context);
   }
 
 }

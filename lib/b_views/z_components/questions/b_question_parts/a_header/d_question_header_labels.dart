@@ -46,7 +46,7 @@ class QuestionHeaderLabels extends StatelessWidget {
               ),
 
               SuperVerse(
-                verse: UserModel.userJobLine(userModel),
+                verse: UserModel.getUserJobLine(userModel),
                 scaleFactor: flyerBoxWidth * 0.0035 * 0.9,
                 // size: 2,
                 weight: VerseWeight.thin,

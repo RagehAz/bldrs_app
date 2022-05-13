@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/secondary_models/app_state.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -23,7 +25,9 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -33,6 +37,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
+import 'package:bldrs/x_dashboard/c_methods/exotic_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -351,7 +356,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                           blog('just tapped');
                         },
                         // corners: 50,
-                        autofocus: true,
+                        autofocus: false,
                         hintText: 'fuck you',
                         onSubmitted: (String val){
                           blog('submitted val : $val');
@@ -426,7 +431,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           WideButton(
               color: Colorz.red255,
-              verse: 'image in this',
+              verse: 'app state things',
               icon: Iconz.star,
               onTap: () async {
 
@@ -435,44 +440,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                     calledName: 'TestLab',
                 );
 
-                // final List<Asset> assets = await takeGalleryMultiPictures(
-                //     context: context,
-                //     images: [],
-                //     mounted: mounted,
-                //     accountType: BzAccountType.normal,
-                // );
-
-                // final File file = await takeGalleryPicture(
-                //   picType: PicType.bzLogo,
-                // );
-
-                // final Uint8List _uints = await getUint8ListFromFile(file);
-
-                // final String _base = await getBase64FromFileOrURL(file);
-
-                // const String _url = 'https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY';
-
-                  // _thePic.value = 'assets/icons/gi_exit.svg';
-
-                final String _path = getLocalAssetPath(
-                  context: context,
-                  assetName: 'phid_s_arch_style_american',
-                );
-
-                _thePic.value = _path;
-
-                //     File file = await Imagers.getFileFromLocalRasterAsset(
-                //       context: context,
-                //       width: 200,
-                //       localAsset: Iconz.BldrsAppIcon,
-                //     );
-
+                await AppStateOps.updateSpecsChainVersion(context,);
 
                 _uiProvider.triggerLoading(
                   setLoadingTo: false,
                   calledName: 'TestLab',
                 );
-
 
               }),
 
@@ -503,40 +476,40 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               icon: Iconz.contAfrica,
               onTap: () async {
 
-                final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
-
-                final List<String> _currenciesIDs = CurrencyModel.getCurrenciesIDs(_currencies);
-
-                blog(_currenciesIDs);
-                blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
-                final Chain _specsChain = _chainsProvider.specsChain;
-
-                _specsChain.blogChain();
-
-                blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
-
-                final List<Chain> _newSons = Chain.replaceChainInChains(
-                    chains: _specsChain.sons,
-                    oldChainID: 'phid_s_currency',
-                    chainToReplace: Chain(
-                      id: 'phid_s_currency',
-                      sons: _currenciesIDs,
-                    ),
-                );
-
-                final Chain _finalChain = Chain(
-                  id: _specsChain.id,
-                  sons: _newSons,
-                );
-
-                _finalChain.blogChain();
-
-                await createNamedDoc(
-                    context: context,
-                    collName: FireColl.chains,
-                    docName: FireDoc.chains_specs,
-                    input: _finalChain.toMap(),
-                );
+                // final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
+                //
+                // final List<String> _currenciesIDs = CurrencyModel.getCurrenciesIDs(_currencies);
+                //
+                // blog(_currenciesIDs);
+                // blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
+                // final Chain _specsChain = _chainsProvider.specsChain;
+                //
+                // _specsChain.blogChain();
+                //
+                // blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
+                //
+                // final List<Chain> _newSons = Chain.replaceChainInChains(
+                //     chains: _specsChain.sons,
+                //     oldChainID: 'phid_s_currency',
+                //     chainToReplace: Chain(
+                //       id: 'phid_s_currency',
+                //       sons: _currenciesIDs,
+                //     ),
+                // );
+                //
+                // final Chain _finalChain = Chain(
+                //   id: _specsChain.id,
+                //   sons: _newSons,
+                // );
+                //
+                // _finalChain.blogChain();
+                //
+                // await createNamedDoc(
+                //     context: context,
+                //     collName: FireColl.chains,
+                //     docName: FireDoc.chains_specs,
+                //     input: _finalChain.toMap(),
+                // );
 
               }),
 
