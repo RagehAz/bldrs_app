@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -15,12 +17,14 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -30,6 +34,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
+import 'package:bldrs/x_dashboard/c_methods/exotic_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,6 +59,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   ChainsProvider  _chainsProvider;
   bool _isSignedIn;
   String _fuckingText;
+  BzzProvider _bzzProvider;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -69,7 +75,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-
+    _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
     _scrollController = ScrollController();
 
@@ -403,21 +409,34 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'CLEAR IMAGE',
+              verse: 'Add neo in trinity vagina',
               icon: Iconz.star,
               onTap: () async {
 
-                // _uiProvider.triggerLoading(setLoadingTo: true);
+                final List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(
+                    context: context,
+                    limit: 100,
+                );
 
-                // await _showDialog(null);
+                for (final FlyerModel flyer in _allFlyers){
 
-                // blog('thing is : ${_formKey.currentState.mounted}');
+                  final FlyerModel _reflyer = flyer.copyWith();
 
-                const String _url = 'https://i.picsum.photos/id/1004/5616/3744.jpg?hmac=Or7EJnz-ky5bsKa9_frdDcDCR9VhCP8kMnbZV6-WOrY';
+                  final BzModel _bzModel = await _bzzProvider.fetchBzModel(
+                      context: context,
+                      bzID: _reflyer.bzID,
+                  );
 
-                  _thePic.value = _url;
+                  await updateFlyerOps(
+                      context: context,
+                      updatedFlyer: _reflyer,
+                      originalFlyer: flyer,
+                      bzModel: _bzModel,
+                  );
 
-                // _uiProvider.triggerLoading(setLoadingTo: false);
+                }
+
+
 
               }),
 

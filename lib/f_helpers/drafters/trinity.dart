@@ -1,81 +1,107 @@
 import 'dart:typed_data';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
+
+class Trinity {
+
+  Trinity();
+
 // -----------------------------------------------------------------------------
 
-/// BLOGGING
+  /// CYPHERS
 
 // -------------------------------------
-/*
-blogMatrix(Matrix4 matrix){
+  /// TESTED : WORKS PERFECT
+  static List<double> cipherMatrix(Matrix4 matrix){
+    return matrix?.storage;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Matrix4 decipherMatrix(List<double> doubles){
 
-  blog('kos om ommak');
+    Matrix4 _matrix;
+
+    if (doubles != null && doubles.length == 16){
+      _matrix = Matrix4.fromList(doubles);
+    }
+
+
+    return _matrix;
+  }
+// -----------------------------------------------------------------------------
+  /// BLOGGING
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void blogMatrix(Matrix4 matrix){
+
+  blog('BLOGGING MATRIX\n${matrix.toString()}');
 
 }
- */
 // -----------------------------------------------------------------------------
 
-/// BLOGGING
+  /// BLOGGING
 
 // -------------------------------------
-/// adjust Matrix Translation To Be In Ratio to flyer box sizes
-Matrix4 generateSlideMatrix({
-  @required Matrix4 matrix,
-  @required double flyerBoxWidth,
-  @required double flyerBoxHeight,
-}){
+  /// TESTED : WORKS PERFECT : adjust Matrix Translation To Be In Ratio to flyer box sizes
+  static Matrix4 generateSlideMatrix({
+    @required Matrix4 matrix,
+    @required double flyerBoxWidth,
+    @required double flyerBoxHeight,
+  }){
 
-  /// matrix is received with translation values in pixels
-  final List<double> _m = matrix.storage;
+    /// matrix is received with translation values in pixels
+    final List<double> _m = matrix.storage;
 
-  /// translation values in pixels
-  final double _xTranslation = _m[12]; // this is in pixels
-  final double _yTranslation = _m[13]; // this is in pixels
+    /// translation values in pixels
+    final double _xTranslation = _m[12]; // this is in pixels
+    final double _yTranslation = _m[13]; // this is in pixels
 
-  /// translation value in Ratios to flyer sizes
-  final double _x = _xTranslation / flyerBoxWidth;
-  final double _y = _yTranslation / flyerBoxHeight;
+    /// translation value in Ratios to flyer sizes
+    final double _x = _xTranslation / flyerBoxWidth;
+    final double _y = _yTranslation / flyerBoxHeight;
 
-  final Float64List _list = Float64List.fromList(<double>[
-    _m[0],  _m[1],  _m[2],  _m[3],
-    _m[4],  _m[5],  _m[6],  _m[7],
-    _m[8],  _m[9],  _m[10], _m[11],
-    _x,     _y,     _m[14], _m[15]
-  ]);
+    final Float64List _list = Float64List.fromList(<double>[
+      _m[0],  _m[1],  _m[2],  _m[3],
+      _m[4],  _m[5],  _m[6],  _m[7],
+      _m[8],  _m[9],  _m[10], _m[11],
+      _x,     _y,     _m[14], _m[15]
+    ]);
 
-  final Matrix4 _output = Matrix4.fromFloat64List(_list);
+    final Matrix4 _output = Matrix4.fromFloat64List(_list);
 
-  return _output;
-}
+    return _output;
+  }
 // ----------------------------------------------
-/// adjust Matrix Translation To Be In pixels
-Matrix4 renderSlideMatrix({
-  @required Matrix4 matrix,
-  @required double flyerBoxWidth,
-  @required double flyerBoxHeight,
-}){
+  /// TESTED : WORKS PERFECT : adjust Matrix Translation To Be In pixels
+  static Matrix4 renderSlideMatrix({
+    @required Matrix4 matrix,
+    @required double flyerBoxWidth,
+    @required double flyerBoxHeight,
+  }){
 
-  /// matrix is received with translation values are ratios to flyer sizes
-  final List<double> _m = matrix.storage;
+    /// matrix is received with translation values are ratios to flyer sizes
+    final List<double> _m = matrix.storage;
 
-  /// translation values in ratios
-  final double _xTranslation = _m[12]; // this is in ratios
-  final double _yTranslation = _m[13]; // this is in ratios
+    /// translation values in ratios
+    final double _xTranslation = _m[12]; // this is in ratios
+    final double _yTranslation = _m[13]; // this is in ratios
 
-  /// translation value in Ratios to flyer sizes
-  final double _x = _xTranslation * flyerBoxWidth;
-  final double _y = _yTranslation * flyerBoxHeight;
+    /// translation value in Ratios to flyer sizes
+    final double _x = _xTranslation * flyerBoxWidth;
+    final double _y = _yTranslation * flyerBoxHeight;
 
-  final Float64List _list = Float64List.fromList(<double>[
-    _m[0],  _m[1],  _m[2],  _m[3],
-    _m[4],  _m[5],  _m[6],  _m[7],
-    _m[8],  _m[9],  _m[10], _m[11],
-    _x,     _y,     _m[14], _m[15]
-  ]);
+    final Float64List _list = Float64List.fromList(<double>[
+      _m[0],  _m[1],  _m[2],  _m[3],
+      _m[4],  _m[5],  _m[6],  _m[7],
+      _m[8],  _m[9],  _m[10], _m[11],
+      _x,     _y,     _m[14], _m[15]
+    ]);
 
-  final Matrix4 _output = Matrix4.fromFloat64List(_list);
+    final Matrix4 _output = Matrix4.fromFloat64List(_list);
 
-  return _output;
-}
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
 /*
@@ -128,3 +154,6 @@ Matrix4 renderSlideMatrix({
                     [2] 0.0,0.0,1.0,0.0
                     [3] 0.0,0.0,0.0,1.0
                      */
+
+
+}

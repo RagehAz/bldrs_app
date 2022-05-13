@@ -83,43 +83,55 @@ Future<void> _initializeAppState(BuildContext context) async {
 
       /// APP VERSION
       if (_userState.appVersion != _detectedAppVersion){
-        _updatedUserAppState = _updatedUserAppState.copyWith(appVersion: _detectedAppVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(
+            appVersion: _detectedAppVersion,
+        );
       }
 
       /// KEYWORDS CHAIN
       if (_globalState.keywordsChainVersion > _userState.keywordsChainVersion){
         await LDBOps.deleteAllAtOnce(docName: LDBDoc.keywordsChain,);
-        _updatedUserAppState = _updatedUserAppState.copyWith(keywordsChainVersion: _globalState.keywordsChainVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(
+            keywordsChainVersion: _globalState.keywordsChainVersion,
+        );
       }
 
       /// LDB VERSION
       if (_globalState.ldbVersion > _userState.ldbVersion){
         await LDBOps.wipeOutEntireLDB();
-        _updatedUserAppState = _updatedUserAppState.copyWith(ldbVersion: _globalState.ldbVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(
+            ldbVersion: _globalState.ldbVersion,
+        );
       }
 
       /// PHRASES
       if (_globalState.phrasesVersion > _userState.phrasesVersion){
         await LDBOps.deleteAllAtOnce(docName: LDBDoc.basicPhrases,);
-        _updatedUserAppState = _updatedUserAppState.copyWith(phrasesVersion: _globalState.phrasesVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(
+            phrasesVersion: _globalState.phrasesVersion,
+        );
       }
 
       /// SPEC PICKERS
       if (_globalState.specPickersVersion > _userState.specPickersVersion){
         await LDBOps.deleteAllAtOnce(docName: LDBDoc.specPickers,);
-        _updatedUserAppState = _updatedUserAppState.copyWith(specPickersVersion: _globalState.specPickersVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(
+            specPickersVersion: _globalState.specPickersVersion,
+        );
       }
 
       /// SPEC CHAIN VERSION
       if (_globalState.specsChainVersion > _userState.specsChainVersion){
         await LDBOps.deleteAllAtOnce(docName: LDBDoc.specsChain,);
-        _updatedUserAppState = _updatedUserAppState.copyWith(specsChainVersion: _globalState.specsChainVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(
+            specsChainVersion: _globalState.specsChainVersion,
+        );
       }
 
       /// --- UPDATE USER MODEL'S APP STATE IF CHANGED
       final bool _appStateNeedUpdate = !AppState.appStatesAreTheSame(
           stateA: _userState,
-          stateB: _updatedUserAppState
+          stateB: _updatedUserAppState,
       );
 
       if (_appStateNeedUpdate == true){
