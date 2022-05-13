@@ -87,7 +87,7 @@ class AppStateOps{
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateGlobalAppVersion({
     @required BuildContext context,
-    @required double newVersion,
+    @required String newVersion,
 }) async {
 
     final AppState _appState = await readGlobalAppState(context);
