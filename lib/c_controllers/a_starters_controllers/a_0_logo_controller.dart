@@ -26,37 +26,17 @@ Future<void> initializeLogoScreen({
 
   Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-  /// A - APP LANGUAGE
-  await _initializeAppLanguage(context);
-
-  _showWaitingDialog(
-    context: context,
-    text: 'Bldrs.net',
-  );
-
-  /// B - LOCAL ASSETS PATHS
-  await _initializeLocalAssetsPaths(context);
-
-  _showWaitingDialog(
-    context: context,
-    text: 'The',
-  );
-
-  /// C - USER MODEL
+  /// USER MODEL
   await _initializeUserModel(context);
 
-  _showWaitingDialog(
-    context: context,
-    text: 'Network',
-  );
-
-  /// D - APP STATE
+  /// APP STATE
   await _initializeAppState(context);
 
-  _showWaitingDialog(
-    context: context,
-    text: 'of Builders',
-  );
+  /// APP LANGUAGE
+  await _initializeAppLanguage(context);
+
+  /// LOCAL ASSETS PATHS
+  await _initializeLocalAssetsPaths(context);
 
   await goToRoute(context, Routez.home);
 
@@ -80,60 +60,70 @@ Future<void> _initializeUserModel(BuildContext context) async {
 // -----------------------------------------------------------------------------
 Future<void> _initializeAppState(BuildContext context) async {
 
-  final AppState _global = await AppStateOps.readGlobalAppState(context);
+  final AppState _globalState = await AppStateOps.readGlobalAppState(context);
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  final AppState _user = _usersProvider?.myUserModel?.appState;
+  final AppState _userState = _usersProvider?.myUserModel?.appState;
 
-  if (_user != null){
+  if (_userState != null){
 
+    final String _detectedAppVersion = await AppStateOps.getAppVersion();
+    final bool _userAppNeedUpdate = AppStateOps.appVersionNeedUpdate(
+        globalVersion: _globalState.appVersion,
+        userVersion: _detectedAppVersion
+    );
 
     /// A - WHEN NEED TO UPDATE ENTIRE APP VIA APP STORE
-    if (_global.appVersion > _user.appVersion){
+    if (_userAppNeedUpdate == true){
       await _showUpdateAppDialog(context);
     }
 
     /// B - WHEN APP IS UPDATED
     else {
 
-      AppState _updatedUserAppState = _user;
+      AppState _updatedUserAppState = _userState;
+
+      /// APP VERSION
+      if (_userState.appVersion != _detectedAppVersion){
+        _updatedUserAppState = _updatedUserAppState.copyWith(appVersion: _detectedAppVersion);
+      }
 
       /// KEYWORDS CHAIN
-      if (_global.keywordsChainVersion > _user.keywordsChainVersion){
+      if (_globalState.keywordsChainVersion > _userState.keywordsChainVersion){
         await LDBOps.deleteAllAtOnce(docName: LDBDoc.keywordsChain,);
-        _updatedUserAppState = _user.copyWith(keywordsChainVersion: _global.keywordsChainVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(keywordsChainVersion: _globalState.keywordsChainVersion);
       }
 
       /// LDB VERSION
-      if (_global.ldbVersion > _user.ldbVersion){
+      if (_globalState.ldbVersion > _userState.ldbVersion){
         await LDBOps.wipeOutEntireLDB();
-        _updatedUserAppState = _user.copyWith(ldbVersion: _global.ldbVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(ldbVersion: _globalState.ldbVersion);
       }
 
       /// PHRASES
-      if (_global.phrasesVersion > _user.phrasesVersion){
+      if (_globalState.phrasesVersion > _userState.phrasesVersion){
         await LDBOps.deleteAllAtOnce(docName: LDBDoc.basicPhrases,);
-        _updatedUserAppState = _user.copyWith(phrasesVersion: _global.phrasesVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(phrasesVersion: _globalState.phrasesVersion);
       }
 
       /// SPEC PICKERS
-      if (_global.specPickersVersion > _user.specPickersVersion){
+      if (_globalState.specPickersVersion > _userState.specPickersVersion){
         await LDBOps.deleteAllAtOnce(docName: LDBDoc.specPickers,);
-        _updatedUserAppState = _user.copyWith(specPickersVersion: _global.specPickersVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(specPickersVersion: _globalState.specPickersVersion);
       }
 
       /// SPEC CHAIN VERSION
-      if (_global.specsChainVersion > _user.specsChainVersion){
+      if (_globalState.specsChainVersion > _userState.specsChainVersion){
         await LDBOps.deleteAllAtOnce(docName: LDBDoc.specsChain,);
-        _updatedUserAppState = _user.copyWith(specsChainVersion: _global.specsChainVersion);
+        _updatedUserAppState = _updatedUserAppState.copyWith(specsChainVersion: _globalState.specsChainVersion);
       }
 
       /// --- UPDATE USER MODEL'S APP STATE IF CHANGED
-      final bool _appStateUpdated = !AppState.appStatesAreTheSame(
-          stateA: _user,
+      final bool _appStateNeedUpdate = !AppState.appStatesAreTheSame(
+          stateA: _userState,
           stateB: _updatedUserAppState
       );
 
-      if (_appStateUpdated == true){
+      if (_appStateNeedUpdate == true){
         await AppStateOps.updateUserAppState(
             context: context,
             userID: _usersProvider.myUserModel.id,
@@ -173,15 +163,4 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
   );
 
 }
-
-void _showWaitingDialog({
-  @required BuildContext context,
-  @required String text,
-}) {
-
-  NavDialog.showNavDialog(
-    context: context,
-    firstLine: text,
-  );
-
-}
+// -----------------------------------------------------------------------------
