@@ -132,7 +132,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
 
                         if (_animate == true){
                           return AnimateWidgetToMatrix(
-                            matrix: renderSlideMatrix(
+                            matrix: Trinity.renderSlideMatrix(
                                 matrix: widget.mutableSlide.matrix,
                                 flyerBoxWidth: ShelfSlide.flyerBoxWidth,
                                 flyerBoxHeight: _flyerBoxHeight

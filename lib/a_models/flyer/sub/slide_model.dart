@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ class SlideModel {
     /// TASK : update all methods below to include this boxfit parameter
     @required this.imageSize,
     @required this.midColor,
+    @required this.matrix,
+    @required this.filterID,
     this.slideIndex,
     this.pic,
     this.headline,
@@ -35,6 +38,7 @@ class SlideModel {
   final dynamic pic;
   final String headline;
   final String description;
+  final Matrix4 matrix;
   int sharesCount;
   int viewsCount;
   int savesCount;
@@ -42,6 +46,7 @@ class SlideModel {
   ImageSize imageSize;
   Color midColor;
   final String flyerID;
+  final String filterID;
 // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -59,22 +64,27 @@ class SlideModel {
       'boxFit': ImageSize.cipherBoxFit(picFit),
       'imageSize': imageSize.toMap(),
       'midColor': Colorizer.cipherColor(midColor),
+      'matrix' : Trinity.cipherMatrix(matrix),
+      'filterID' : filterID,
     };
   }
 // -------------------------------------
   static SlideModel decipherSlide(dynamic map) {
     return SlideModel(
-        slideIndex: map['slideIndex'],
-        pic: map['picture'],
-        headline: map['headline'],
-        description: map['description'],
-        // -------------------------
-        sharesCount: map['sharesCount'],
-        viewsCount: map['viewsCount'],
-        savesCount: map['savesCount'],
-        picFit: ImageSize.decipherBoxFit(map['boxFit']),
-        imageSize: ImageSize.decipherImageSize(map['imageSize']),
-        midColor: Colorizer.decipherColor(map['midColor']));
+      slideIndex: map['slideIndex'],
+      pic: map['picture'],
+      headline: map['headline'],
+      description: map['description'],
+      // -------------------------
+      sharesCount: map['sharesCount'],
+      viewsCount: map['viewsCount'],
+      savesCount: map['savesCount'],
+      picFit: ImageSize.decipherBoxFit(map['boxFit']),
+      imageSize: ImageSize.decipherImageSize(map['imageSize']),
+      midColor: Colorizer.decipherColor(map['midColor']),
+      matrix: Trinity.decipherMatrix(map['matrix']),
+      filterID: map['filterID'],
+    );
   }
 // -------------------------------------
   static Map<String, Object> cipherSlides(List<SlideModel> slides) {
@@ -126,29 +136,35 @@ class SlideModel {
   /// CLONING
 
 // -------------------------------------
-  SlideModel clone() {
+  SlideModel copyWith({
+    int slideIndex,
+    dynamic pic,
+    String headline,
+    String description,
+    Matrix4 matrix,
+    int sharesCount,
+    int viewsCount,
+    int savesCount,
+    BoxFit picFit,
+    ImageSize imageSize,
+    Color midColor,
+    String flyerID,
+    String filterID,
+}) {
     return SlideModel(
-      slideIndex: slideIndex,
-      pic: pic,
-      headline: headline,
-      description: description,
-      // -------------------------
-      sharesCount: sharesCount,
-      viewsCount: viewsCount,
-      savesCount: savesCount,
-      imageSize: imageSize,
-      picFit: picFit,
-      midColor: midColor,
+      slideIndex: slideIndex ?? this.slideIndex,
+      pic: pic ?? this.pic,
+      headline: headline ?? this.headline,
+      description: description ?? this.description,
+      sharesCount: sharesCount ?? this.sharesCount,
+      viewsCount: viewsCount ?? this.viewsCount,
+      savesCount: savesCount ?? this.savesCount,
+      imageSize: imageSize ?? this.imageSize,
+      picFit: picFit ?? this.picFit,
+      midColor: midColor ?? this.midColor,
+      matrix: matrix ?? this.matrix,
+      filterID: filterID ?? this.filterID,
     );
-  }
-// -------------------------------------
-  static List<SlideModel> cloneSlides(List<SlideModel> slides) {
-    final List<SlideModel> _newSlides = <SlideModel>[];
-
-    for (final SlideModel slide in slides) {
-      _newSlides.add(slide.clone());
-    }
-    return _newSlides;
   }
 // -----------------------------------------------------------------------------
 
@@ -158,25 +174,31 @@ class SlideModel {
   void blogSlide() {
     blog('SLIDE-PRINT --------------------------------------------------START');
 
-    // blog('SLIDE-PRINT : flyerID : ${flyerID}');
-    blog('SLIDE-PRINT : slideIndex : $slideIndex');
-    blog('SLIDE-PRINT : pic : $pic');
-    blog('SLIDE-PRINT : headline : $headline');
-    blog('SLIDE-PRINT : description : $description');
-    blog('SLIDE-PRINT : sharesCount : $sharesCount');
-    blog('SLIDE-PRINT : viewsCount : $viewsCount');
-    blog('SLIDE-PRINT : savesCount : $savesCount');
-    blog('SLIDE-PRINT : picFit : $picFit');
-    blog('SLIDE-PRINT : imageSize : $imageSize');
-    blog('SLIDE-PRINT : midColor : $midColor');
+    blog('flyerID : $flyerID');
+    blog('slideIndex : $slideIndex');
+    blog('pic : $pic');
+    blog('headline : $headline');
+    blog('description : $description');
+    blog('sharesCount : $sharesCount');
+    blog('viewsCount : $viewsCount');
+    blog('savesCount : $savesCount');
+    blog('picFit : $picFit');
+    blog('imageSize : $imageSize');
+    blog('midColor : $midColor');
+    blog('filterID : $filterID');
+
+    Trinity.blogMatrix(matrix);
 
     blog('SLIDE-PRINT --------------------------------------------------END');
   }
 // -------------------------------------
   static void blogSlides(List<SlideModel> slides) {
-    if (Mapper.canLoopList(slides)) {
+
+    if (Mapper.canLoopList(slides) == false) {
       blog('slides can not be printed : slides are : $slides');
-    } else {
+    }
+
+    else {
       blog('XXX - STARTING TO PRINT ALL ${slides.length} SLIDES');
 
       for (final SlideModel slide in slides) {
@@ -283,18 +305,22 @@ class SlideModel {
     for (final SlideModel slide in inputSlides) {
       final int i = slide.slideIndex;
 
-      final SlideModel _newSlide = SlideModel(
-        slideIndex: inputSlides[i].slideIndex,
-        pic: newPicturesURLs[i],
-        headline: inputSlides[i].headline,
-        description: inputSlides[i].description,
-        savesCount: inputSlides[i].savesCount,
-        sharesCount: inputSlides[i].sharesCount,
-        viewsCount: inputSlides[i].viewsCount,
-        imageSize: inputSlides[i].imageSize,
-        picFit: inputSlides[i].picFit,
-        midColor: inputSlides[i].midColor,
+      final SlideModel _newSlide = inputSlides[i].copyWith(
+          pic: newPicturesURLs[i],
       );
+
+      // SlideModel(
+      //   slideIndex: inputSlides[i].slideIndex,
+      //   pic: newPicturesURLs[i],
+      //   headline: inputSlides[i].headline,
+      //   description: inputSlides[i].description,
+      //   savesCount: inputSlides[i].savesCount,
+      //   sharesCount: inputSlides[i].sharesCount,
+      //   viewsCount: inputSlides[i].viewsCount,
+      //   imageSize: inputSlides[i].imageSize,
+      //   picFit: inputSlides[i].picFit,
+      //   midColor: inputSlides[i].midColor,
+      // );
 
       _outputSlides.add(_newSlide);
     }
@@ -398,6 +424,8 @@ class SlideModel {
         picFit: mSlide.picFit,
         imageSize: mSlide.imageSize,
         midColor: mSlide.midColor,
+        matrix: mSlide.matrix,
+        filterID: mSlide.filter.id,
       );
     }
     return _slideModel;
@@ -447,6 +475,8 @@ class SlideModel {
       picFit: BoxFit.cover,
       imageSize: ImageSize(height: 900, width: 600),
       midColor: Colorz.black255,
+      matrix: Matrix4.identity(),
+      filterID: 'phid_filter_normal',
     );
   }
 // -----------------------------------------------------------------------------

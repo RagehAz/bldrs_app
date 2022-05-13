@@ -306,6 +306,7 @@ Future<List<FlyerModel>> paginateFlyers({
 /// UPDATE
 
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<FlyerModel> updateFlyerOps({
   @required BuildContext context,
   @required FlyerModel updatedFlyer,
@@ -366,19 +367,24 @@ Future<FlyerModel> updateFlyerOps({
         blog('a - slide ${slide.slideIndex} got this URL : $_newPicURL');
 
         /// b - recreate SlideModel with new pic URL
-        final SlideModel _updatedSlide = SlideModel(
-          slideIndex: slide.slideIndex,
+        final SlideModel _updatedSlide = slide.copyWith(
           pic: _newPicURL,
-          headline: slide.headline,
-          description: slide.description,
-          // -------------------------
-          sharesCount: slide.sharesCount,
-          viewsCount: slide.viewsCount,
-          savesCount: slide.savesCount,
           imageSize: _imageSize,
-          picFit: slide.picFit,
-          midColor: slide.midColor,
         );
+
+        // SlideModel(
+        //   slideIndex: slide.slideIndex,
+        //   pic: _newPicURL,
+        //   headline: slide.headline,
+        //   description: slide.description,
+        //   // -------------------------
+        //   sharesCount: slide.sharesCount,
+        //   viewsCount: slide.viewsCount,
+        //   savesCount: slide.savesCount,
+        //   imageSize: _imageSize,
+        //   picFit: slide.picFit,
+        //   midColor: slide.midColor,
+        // );
 
         /// c - add the updated slide into finalSlides
         _finalSlides.add(_updatedSlide);
@@ -397,14 +403,15 @@ Future<FlyerModel> updateFlyerOps({
       blog('A1 - all slides checked');
     }
 
-    /// A2 - replace slides in updatedFlyer with the finalSlides
-    final FlyerModel _updatedFlyer = FlyerModel.replaceSlides(
-      updatedSlides: _finalSlides,
-      flyer: updatedFlyer,
-    );
+    /// deprecated
+    // /// A2 - replace slides in updatedFlyer with the finalSlides
+    // final FlyerModel _updatedFlyer = FlyerModel.replaceSlides(
+    //   updatedSlides: _finalSlides,
+    //   flyer: updatedFlyer,
+    // );
 
     /// A3 - clone updatedFlyer into finalFlyer
-    _finalFlyer = _updatedFlyer.clone();
+    _finalFlyer = updatedFlyer.copyWith(slides: _finalSlides);
   }
 
   /// B - Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
@@ -428,8 +435,7 @@ Future<FlyerModel> updateFlyerOps({
     }
   }
 
-  blog(
-      'B - all slides Got URLs and deleted slides have been overridden or deleted');
+  blog('B - all slides Got URLs and deleted slides have been overridden or deleted');
 
   /// C - update flyer doc in fireStore/flyers/flyerID
   await Fire.updateDoc(
