@@ -18,26 +18,23 @@ class Trinity {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static Matrix4 decipherMatrix(List<double> doubles){
-
     Matrix4 _matrix;
 
     if (doubles != null && doubles.length == 16){
       _matrix = Matrix4.fromList(doubles);
     }
 
-
     return _matrix;
   }
 // -----------------------------------------------------------------------------
+
   /// BLOGGING
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static void blogMatrix(Matrix4 matrix){
-
-  blog('BLOGGING MATRIX\n${matrix.toString()}');
-
-}
+    blog('BLOGGING MATRIX\n${matrix.toString()}');
+  }
 // -----------------------------------------------------------------------------
 
   /// BLOGGING
@@ -154,6 +151,5 @@ class Trinity {
                     [2] 0.0,0.0,1.0,0.0
                     [3] 0.0,0.0,0.0,1.0
                      */
-
 
 }
