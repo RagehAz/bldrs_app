@@ -7,16 +7,103 @@ import 'package:flutter/material.dart';
 class AppStateOps{
 
   AppStateOps();
+// -----------------------------------------------------------------------------
 
-  static Future<void> updateKeywordsChainVersion(BuildContext context) async {
+  /// CREATE
 
-    final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
-      collName: FireColl.admin,
-      docName: FireDoc.admin_appState,
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
+  static Future<void> createGlobalAppState({
+    @required BuildContext context,
+    @required AppState newAppState,
+}) async {
+
+    await Fire.createNamedDoc(
+        context: context,
+        collName: FireColl.admin,
+        docName: FireDoc.admin_appState,
+        input: newAppState.toMap(),
     );
 
-    final AppState _appState = AppState.fromMap(_map);
+  }
+// -----------------------------------------------------------------------------
+
+  /// READ
+
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
+  static Future<AppState> readGlobalAppState(BuildContext context) async {
+
+    final Map<String, dynamic> _map = await Fire.readDoc(
+        context: context,
+        collName: FireColl.admin,
+        docName: FireDoc.admin_appState,
+    );
+
+    return AppState.fromMap(_map);
+  }
+// -----------------------------------------------------------------------------
+
+  /// UPDATE USER APP STATE
+
+// -----------------------------------
+  /// TAMAM : WORKS PERFECTLY
+  static Future<void> updateUserAppState({
+    @required BuildContext context,
+    @required AppState newAppState,
+    @required String userID
+  }) async {
+
+    await Fire.updateDocField(
+      context: context,
+      collName: FireColl.users,
+      docName: userID,
+      field: 'appState',
+      input: newAppState.toMap(),
+    );
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// UPDATE GLOBAL APP STATE
+
+// -----------------------------------
+  /// TAMAM : WORKS PERFECTLY
+  static Future<void> _updateGlobalAppState({
+    @required BuildContext context,
+    @required AppState newAppState,
+  }) async {
+
+    await createGlobalAppState(
+        context: context,
+        newAppState: newAppState
+    );
+
+  }
+// -----------------------------------
+  /// TAMAM : WORKS PERFECTLY
+  static Future<void> updateGlobalAppVersion({
+    @required BuildContext context,
+    @required double newVersion,
+}) async {
+
+    final AppState _appState = await readGlobalAppState(context);
+
+    final AppState _newAppState = _appState.copyWith(
+      appVersion: newVersion,
+    );
+
+    await _updateGlobalAppState(
+        context: context,
+        newAppState: _newAppState,
+    );
+
+  }
+// -----------------------------------
+  /// TAMAM : WORKS PERFECTLY
+  static Future<void> updateGlobalKeywordsChainVersion(BuildContext context) async {
+
+    final AppState _appState = await readGlobalAppState(context);
 
     final double lastVersion = _appState.keywordsChainVersion ?? 0;
 
@@ -24,60 +111,79 @@ class AppStateOps{
       keywordsChainVersion: lastVersion + 1,
     );
 
-    await Fire.updateDoc(
-        context: context,
-        collName: FireColl.admin,
-        docName: FireDoc.admin_appState,
-        input: _newAppState.toMap(),
+    await _updateGlobalAppState(
+      context: context,
+      newAppState: _newAppState
     );
 
   }
+// -----------------------------------
+  /// TAMAM : WORKS PERFECTLY
+  static Future<void> updateGlobalLDBVersion(BuildContext context) async {
 
-  static Future<void> updateSpecsChainVersion(BuildContext context) async {
+    final AppState _appState = await readGlobalAppState(context);
 
-    final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
-      collName: FireColl.admin,
-      docName: FireDoc.admin_appState,
+    final double lastVersion = _appState.ldbVersion ?? 0;
+
+    final AppState _newAppState = _appState.copyWith(
+      ldbVersion: lastVersion + 1,
     );
 
-    final AppState _appState = AppState.fromMap(_map);
+    await _updateGlobalAppState(
+        context: context,
+        newAppState: _newAppState
+    );
+
+  }
+// -----------------------------------
+  /// TAMAM : WORKS PERFECTLY
+  static Future<void> updateGlobalPhrasesVersion(BuildContext context) async {
+
+    final AppState _appState = await readGlobalAppState(context);
+
+    final AppState _newAppState = _appState.copyWith(
+      phrasesVersion: _appState.phrasesVersion + 1,
+    );
+
+    await _updateGlobalAppState(
+        context: context,
+        newAppState: _newAppState,
+    );
+
+  }
+// -----------------------------------
+  /// TAMAM : WORKS PERFECTLY
+  static Future<void> updateSpecsPickersVersion(BuildContext context) async {
+
+    final AppState _appState = await readGlobalAppState(context);
+
+    final double lastVersion = _appState.specPickersVersion ?? 0;
+    final AppState _newAppState = _appState.copyWith(
+      specPickersVersion: lastVersion + 1,
+    );
+
+    await _updateGlobalAppState(
+      context: context,
+      newAppState: _newAppState,
+    );
+
+  }
+// -----------------------------------
+  /// TAMAM : WORKS PERFECTLY
+  static Future<void> updateSpecsChainVersion(BuildContext context) async {
+
+    final AppState _appState = await readGlobalAppState(context);
 
     final double lastVersion = _appState.specsChainVersion ?? 0;
     final AppState _newAppState = _appState.copyWith(
       specsChainVersion: lastVersion + 1,
     );
 
-    await Fire.updateDoc(
+    await _updateGlobalAppState(
       context: context,
-      collName: FireColl.admin,
-      docName: FireDoc.admin_appState,
-      input: _newAppState.toMap(),
+      newAppState: _newAppState,
     );
 
   }
-
-  static Future<void> updatePhrasesVersion(BuildContext context) async {
-
-    final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
-      collName: FireColl.admin,
-      docName: FireDoc.admin_appState,
-    );
-
-    final AppState _appState = AppState.fromMap(_map);
-
-    final AppState _newAppState = _appState.copyWith(
-      phrasesVersion: _appState.phrasesVersion + 1,
-    );
-
-    await Fire.updateDoc(
-      context: context,
-      collName: FireColl.admin,
-      docName: FireDoc.admin_appState,
-      input: _newAppState.toMap(),
-    );
-
-  }
-
+// -----------------------------------
 }
