@@ -1,8 +1,8 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -14,8 +14,8 @@ import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -32,7 +32,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProvidersTestScreen extends StatefulWidget {
-  const ProvidersTestScreen({Key key}) : super(key: key);
+
+  const ProvidersTestScreen({
+    Key key
+  }) : super(key: key);
 
   @override
   _ProvidersTestScreenState createState() => _ProvidersTestScreenState();
@@ -65,9 +68,9 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
       }
     }
 
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+    _loading == true ? blog('LOADING--------------------------------------')
+        :
+    blog('LOADING COMPLETE--------------------------------------');
   }
 // -----------------------------------------------------------------------------
   @override
