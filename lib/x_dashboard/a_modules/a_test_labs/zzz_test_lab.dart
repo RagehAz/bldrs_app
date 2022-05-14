@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -24,7 +23,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -34,7 +33,6 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
-import 'package:bldrs/x_dashboard/c_methods/exotic_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -409,34 +407,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'Add neo in trinity vagina',
+              verse: 'check the ldb user ops',
               icon: Iconz.star,
               onTap: () async {
 
-                final List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(
-                    context: context,
-                    limit: 100,
-                );
+                final UserModel _userModel = await UserLDBOps.readUserOps(userID: FireAuthOps.superUserID());
 
-                for (final FlyerModel flyer in _allFlyers){
-
-                  final FlyerModel _reflyer = flyer.copyWith();
-
-                  final BzModel _bzModel = await _bzzProvider.fetchBzModel(
-                      context: context,
-                      bzID: _reflyer.bzID,
-                  );
-
-                  await updateFlyerOps(
-                      context: context,
-                      updatedFlyer: _reflyer,
-                      originalFlyer: flyer,
-                      bzModel: _bzModel,
-                  );
-
-                }
-
-
+                _userModel.blogUserModel();
 
               }),
 

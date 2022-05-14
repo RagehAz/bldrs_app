@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -46,28 +47,33 @@ class UserLDBOps {
 
 // ----------------------------------------
   static Future<void> removeBzIDFromMyBzIDs({
-    @required String userID,
     @required String bzIDToRemove,
 }) async {
 
+    final String _myUserID = superUserID();
+
     final UserModel _userModel = await readUserOps(
-      userID: userID,
+      userID: _myUserID,
     );
 
-    final List<String> _myBzzIDs = removeStringsFromStrings(
+    if (_userModel != null){
+
+      final List<String> _myBzzIDs = removeStringsFromStrings(
         removeFrom: _userModel.myBzzIDs,
         removeThis: <String>[bzIDToRemove],
-    );
+      );
 
-    final UserModel _updatedModel = _userModel.copyWith(
-      myBzzIDs: _myBzzIDs,
-    );
+      final UserModel _updatedModel = _userModel.copyWith(
+        myBzzIDs: _myBzzIDs,
+      );
 
-    await LDBOps.updateMap(
+      await LDBOps.updateMap(
+        docName: LDBDoc.users,
         input: _updatedModel.toMap(toJSON: true),
-        objectID: userID,
-        docName: LDBDoc.users
-    );
+        objectID: _myUserID,
+      );
+
+    }
 
 }
 // -----------------------------------------------------------------------------
