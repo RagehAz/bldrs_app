@@ -374,6 +374,29 @@ class BzModel{
   }
 // -----------------------------------------------------------------------------
 
+  /// MODIFIERS
+
+// ------------------------------------------
+  static List<String> removeFlyerIDFromBzFlyersIDs({
+    @required BzModel bzModel,
+    @required String flyerIDToRemove,
+}){
+    final List<String> _ids = <String>[...bzModel.flyersIDs];
+
+    if (Mapper.canLoopList(_ids) == true && flyerIDToRemove != null){
+
+      final int _index = _ids.indexWhere((id) => id == flyerIDToRemove);
+
+      if (_index != -1){
+        _ids.removeAt(_index);
+      }
+
+    }
+
+    return _ids;
+  }
+// -----------------------------------------------------------------------------
+
   /// BZ TYPE
 
 // ------------------------------------------

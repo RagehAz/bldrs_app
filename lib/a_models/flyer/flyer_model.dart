@@ -620,6 +620,19 @@ class FlyerModel {
   /// FLYER EDITORS
 
 // ------------------------------------------
+  static List<FlyerModel> removeFlyerFromFlyersByID({
+    @required List<FlyerModel> flyers,
+    @required String flyerIDToRemove,
+}){
+    final List<FlyerModel> _output = <FlyerModel>[...flyers];
+
+    if (Mapper.canLoopList(flyers) == true && flyerIDToRemove != null){
+      _output.removeWhere((flyer) => flyer.id == flyerIDToRemove);
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
   /*
 //   static FlyerModel replaceSlides({
 //     @required FlyerModel flyer,
