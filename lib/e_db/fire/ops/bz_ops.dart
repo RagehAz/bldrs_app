@@ -372,8 +372,10 @@ Future<void> deactivateBz(
 }
 
 // -----------------------------------------------------------------------------
-Future<void> deleteBz(
-    {@required BuildContext context, @required BzModel bzModel}) async {
+Future<void> deleteBzOps({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
   // ----------
   /// 1 - reads then starts delete flyer ops to all bz flyers
   /// 2 - deletes : firestore/tinyBzz/bzID
@@ -390,14 +392,14 @@ Future<void> deleteBz(
   // final List<String> _flyersIDs = bzModel.flyersIDs;
   if (Mapper.canLoopList(bzModel.flyersIDs)) {
     for (final String id in bzModel.flyersIDs) {
+
       blog('a - getting flyer : $id');
       final FlyerModel _flyerModel = await FireFlyerOps.readFlyerOps(
         context: context,
         flyerID: id,
       );
 
-      blog(
-          'b - starting delete flyer ops aho rabbena yostor ------------ - - - ');
+      blog('b - starting delete flyer ops aho rabbena yostor ------------ - - - ');
       await FireFlyerOps.deleteFlyerOps(
         context: context,
         bzModel: bzModel,
@@ -408,9 +410,9 @@ Future<void> deleteBz(
   }
 
   blog("3 - delete bzID : ${bzModel.id} in all author's myBzIDs lists");
-  final List<String> _authorsIDs =
-      AuthorModel.getAuthorsIDsFromAuthors(bzModel.authors);
+  final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.authors);
   for (final String authorID in _authorsIDs) {
+
     blog('a - get user model');
     final UserModel _user = await UserFireOps.readUser(
       context: context,
@@ -418,8 +420,7 @@ Future<void> deleteBz(
     );
 
     blog("b - update user's myBzzIDs");
-    final List<dynamic> _modifiedMyBzzIDs =
-        UserModel.removeIDFromIDs(_user.myBzzIDs, bzModel.id);
+    final List<dynamic> _modifiedMyBzzIDs = UserModel.removeIDFromIDs(_user.myBzzIDs, bzModel.id);
 
     blog('c - update myBzzIDs field in user doc');
     await Fire.updateDocField(
@@ -436,7 +437,8 @@ Future<void> deleteBz(
       context: context,
       collName: FireColl.bzz,
       docName: bzModel.id,
-      subCollName: FireSubColl.bzz_bz_calls);
+      subCollName: FireSubColl.bzz_bz_calls,
+  );
 
   blog('5 - wont delete calls sub collection');
   // dunno if could be done here
@@ -446,7 +448,8 @@ Future<void> deleteBz(
       context: context,
       collName: FireColl.bzz,
       docName: bzModel.id,
-      subCollName: FireSubColl.bzz_bz_follows);
+      subCollName: FireSubColl.bzz_bz_follows,
+  );
 
   blog('7 - delete follows sub collection');
   // dunno if could be done here
@@ -472,8 +475,11 @@ Future<void> deleteBz(
 
   blog('11 - delete all authors pictures');
   for (final String id in _authorsIDs) {
-    final String _authorPicName =
-        AuthorModel.generateAuthorPicID(authorID: id, bzID: bzModel.id);
+
+    final String _authorPicName = AuthorModel.generateAuthorPicID(
+        authorID: id,
+        bzID: bzModel.id,
+    );
 
     await Storage.deleteStoragePic(
       context: context,

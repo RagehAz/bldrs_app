@@ -42,7 +42,7 @@ class FlyerTypeButton extends StatelessWidget {
       iconColor: _iconColor,
       verseMaxLines: 2,
       verseCentered: false,
-      verseScaleFactor: 0.7,
+      verseScaleFactor: 0.7 / iconSizeFactor,
       margins: const EdgeInsets.symmetric(vertical: 5),
       onTap: onTap, //() => _onSetSection(index),
     );

@@ -10,8 +10,8 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dial
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneSearch;
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

@@ -35,7 +35,6 @@ Reference getRef({
 
   return _ref;
 }
-
 // ------------------------------------------------
 Future<Reference> getRefFromURL({
   @required String url,
@@ -205,7 +204,6 @@ Future<String> createStoragePicAndGetURL({
       });
   return _imageURL;
 }
-
 // ------------------------------------------------
 Future<List<String>> createStorageSlidePicsAndGetURLs({
   @required BuildContext context,
@@ -229,7 +227,6 @@ Future<List<String>> createStorageSlidePicsAndGetURLs({
 
   return _picturesURLs;
 }
-
 // ------------------------------------------------
 Future<List<String>> createMultipleStoragePicsAndGetURLs({
   @required BuildContext context,
@@ -257,7 +254,6 @@ Future<List<String>> createMultipleStoragePicsAndGetURLs({
 
   return _picsURLs;
 }
-
 // ------------------------------------------------
 /// TASK : createStoragePicFromAssetAndGetURL not tested properly
 Future<String> createStoragePicFromLocalAssetAndGetURL({
@@ -293,10 +289,11 @@ Future<String> createStoragePicFromLocalAssetAndGetURL({
 /// READ
 
 // ------------------------------------------------
-Future<String> readStoragePicURL(
-    {@required BuildContext context,
-    @required String docName,
-    @required String picName}) async {
+Future<String> readStoragePicURL({
+  @required BuildContext context,
+  @required String docName,
+  @required String picName,
+}) async {
   final Reference _ref = getRef(
     context: context,
     docName: docName,
@@ -314,7 +311,6 @@ Future<String> readStoragePicURL(
 
   return _url;
 }
-
 // ------------------------------------------------
 Future<File> getFileFromPicURL({
   @required BuildContext context,
@@ -335,7 +331,6 @@ Future<File> getFileFromPicURL({
 
   return _file;
 }
-
 // ------------------------------------------------
 Future<File> getFileByPath(
     {@required BuildContext context,
@@ -442,16 +437,21 @@ Future<void> deleteStoragePic({
   @required String docName,
   @required String picName,
 }) async {
+
   final dynamic _result = await tryCatchAndReturnBool(
       context: context,
       methodName: 'deleteStoragePic',
       functions: () async {
-        final Reference _picRef =
-            getRef(context: context, docName: docName, picName: picName);
+
+        final Reference _picRef = getRef(
+            context: context,
+            docName: docName,
+            picName: picName,
+        );
 
         final FullMetadata _metaData = await _picRef?.getMetadata();
 
-        blog('_metaData ------------------------- : $_metaData');
+        blogFullMetaData(_metaData);
 
         await _picRef?.delete();
       });
@@ -494,5 +494,32 @@ Future<void> deleteStoragePic({
 
     blog('picture has been deleted');
   }
+}
+// -----------------------------------------------------------------------------
+
+/// BLOGGING
+
+// ------------------------------------------------
+void blogFullMetaData(FullMetadata metaData){
+
+  blog('BLOGGING STORAGE IMAGE META DATA ------------------------------- START');
+  blog('name : ${metaData.name}');
+  blog('bucket : ${metaData.bucket}');
+  blog('cacheControl : ${metaData.cacheControl}');
+  blog('contentDisposition : ${metaData.contentDisposition}');
+  blog('contentEncoding : ${metaData.contentEncoding}');
+  blog('contentLanguage : ${metaData.contentLanguage}');
+  blog('contentType : ${metaData.contentType}');
+  blog('customMetadata : ${metaData.customMetadata}'); // map
+  blog('fullPath : ${metaData.fullPath}');
+  blog('generation : ${metaData.generation}');
+  blog('md5Hash : ${metaData.md5Hash}');
+  blog('metadataGeneration : ${metaData.metadataGeneration}');
+  blog('metageneration : ${metaData.metageneration}');
+  blog('size : ${metaData.size}');
+  blog('timeCreated : ${metaData.timeCreated}'); // date time
+  blog('updated : ${metaData.updated}'); // date time
+  blog('BLOGGING STORAGE IMAGE META DATA ------------------------------- END');
+
 }
 // -----------------------------------------------------------------------------

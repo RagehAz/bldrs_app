@@ -7,8 +7,8 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -169,6 +169,24 @@ class BzzProvider extends ChangeNotifier {
     );
 
   }
+// -------------------------------------
+  void removeBzFromSponsors({
+    @required String bzIDToRemove,
+    @required bool notify,
+}){
+
+    final int _index = _sponsors.indexWhere((bz) => bz.id == bzIDToRemove);
+
+    if (_index != -1){
+      _sponsors.removeAt(_index);
+
+      if (notify == true){
+        notifyListeners();
+      }
+
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// USER BZZ
@@ -219,27 +237,37 @@ class BzzProvider extends ChangeNotifier {
     );
   }
 // -------------------------------------
-  Future<void> removeBzFromMyBzz({@required String bzID}) async {
-    if (Mapper.canLoopList(_myBzz)) {
-      await LDBOps.deleteMap(
-        objectID: bzID,
-        docName: LDBDoc.bzz,
-      );
+  void removeBzFromMyBzz({
+    @required String bzID,
+    @required bool notify,
+  }) {
 
-      final int _index =
-          _myBzz.indexWhere((BzModel bzModel) => bzModel.id == bzID);
+    if (Mapper.canLoopList(_myBzz)) {
+
+      final int _index = _myBzz.indexWhere((BzModel bzModel) => bzModel.id == bzID);
       _myBzz.removeAt(_index);
 
+      if (notify == true){
+        notifyListeners();
+      }
+
+    }
+  }
+// -------------------------------------
+  void addBzToMyBzz({
+    @required BzModel bzModel,
+    @required bool notify,
+  }) {
+    _myBzz.add(bzModel);
+    if (notify == true){
       notifyListeners();
     }
   }
 // -------------------------------------
-  void addBzToMyBzz(BzModel bzModel) {
-    _myBzz.add(bzModel);
-    notifyListeners();
-  }
-// -------------------------------------
-  Future<void> updateBzInUserBzz(BzModel modifiedBz) async {
+  Future<void> updateBzInUserBzz({
+    @required BzModel modifiedBz,
+    @required bool notify,
+  }) async {
     if (Mapper.canLoopList(_myBzz)) {
       await LDBOps.updateMap(
         input: modifiedBz.toMap(toJSON: true),
@@ -247,12 +275,14 @@ class BzzProvider extends ChangeNotifier {
         docName: LDBDoc.bzz,
       );
 
-      final int _indexOfOldTinyBz =
-          _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
+      final int _indexOfOldTinyBz = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
       _myBzz.removeAt(_indexOfOldTinyBz);
       _myBzz.insert(_indexOfOldTinyBz, modifiedBz);
 
-      notifyListeners();
+      if (notify == true){
+        notifyListeners();
+      }
+
     }
   }
 // -----------------------------------------------------------------------------
@@ -330,6 +360,24 @@ class BzzProvider extends ChangeNotifier {
     // blog('_isFollowing = $_isFollowing');
 
     return _isFollowing;
+  }
+// -------------------------------------
+  void removeBzFromFollowedBzz({
+    @required String bzIDToRemove,
+    @required bool notify,
+}){
+
+    final int _index = _followedBzz.indexWhere((bz) => bz.id == bzIDToRemove);
+
+    if (_index != -1){
+      _followedBzz.removeAt(_index);
+
+      if (notify == true){
+        notifyListeners();
+      }
+
+    }
+
   }
 // -----------------------------------------------------------------------------
 

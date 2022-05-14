@@ -1,15 +1,31 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 
 // -----------------------------------------------------------------------------
 int getInitialMyBzScreenTabIndex(BuildContext context){
@@ -61,12 +77,145 @@ void onChangeMyBzScreenTabIndex({
 }
 // -----------------------------------------------------------------------------
 
+/// BZ FLYERS PAGE
+
+// -------------------------------
+Future<void> onBzAccountOptions({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  final UserModel _myUserModel = _usersProvider.myUserModel;
+
+  await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      buttonHeight: 40,
+      numberOfWidgets: 2,
+      title: '${bzModel.name} Business account options',
+      builder: (_, PhraseProvider pro){
+
+        return <Widget>[
+
+          BottomDialog.wideButton(
+            context: context,
+            verse: 'Edit ${bzModel.name} Business Account',
+            verseCentered: true,
+            onTap: () => _onEditBzAccount(
+              context: context,
+              bzModel: bzModel,
+            ),
+          ),
+
+          BottomDialog.wideButton(
+            context: context,
+            verse: 'Delete ${bzModel.name} Business Account',
+            verseCentered: true,
+            onTap: () => _onDeleteBzAccount(
+              context: context,
+              bzModel: bzModel,
+            ),
+          ),
+
+
+        ];
+
+      }
+  );
+
+
+}
+// -------------------------------
+Future<void> _onEditBzAccount({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+}
+// -------------------------------
+Future<void> _onDeleteBzAccount({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+    // Nav.goBack(context);
+
+    final bool _dialogResult = await CenterDialog.showCenterDialog(
+      context: context,
+      title: '',
+      body: 'Are you sure you want to Delete ${bzModel.name} Business account ?',
+      boolDialog: true,
+    );
+
+    if (_dialogResult == true) {
+
+      /// TASK : NEED TO CHECK USER PERMISSIONS TO BE ABLE TO CONTINUE DELETION PROCESSES
+      /// => IS OWNER IS MASTER
+
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Deleting ${bzModel.name}',
+        canManuallyGoBack: false,
+      ));
+
+      /// DELETE BZ ON FIREBASE
+      await FireBzOps.deleteBzOps(
+        context: context,
+        bzModel: bzModel,
+      );
+
+      /// DELETE BZ ON LDB
+      await BzLDBOps.deleteBzOps(
+        context: context,
+        bzModel: bzModel,
+      );
+      await UserLDBOps.removeBzIDFromMyBzIDs(
+          userID: superUserID(),
+          bzIDToRemove: bzModel.id,
+      );
+
+
+      /// DELETE BZ ON PROVIDER
+      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+      _bzzProvider.removeBzFromMyBzz(
+        bzID: bzModel.id,
+        notify: false,
+      );
+      _bzzProvider.removeBzFromSponsors(
+        bzIDToRemove: bzModel.id,
+        notify: false,
+      );
+      _bzzProvider.removeBzFromFollowedBzz(
+        bzIDToRemove: bzModel.id,
+        notify: false,
+      );
+      _bzzProvider.clearMyActiveBz(
+          notify: true,
+      );
+      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+      _usersProvider.removeBzIDFromMyBzzIDs(
+        bzIDToRemove: bzModel.id,
+        notify: true,
+      );
+
+
+      WaitDialog.closeWaitDialog(context);
+
+      /// re-route back
+      Nav.goBackToHomeScreen(context);
+
+    }
+
+}
+// -----------------------------------------------------------------------------
+
   /// BZ FLYERS PAGE
 
 // -------------------------------
 Future<void> onFlyerOptionsTap({
   @required BuildContext context,
   @required FlyerModel flyer,
+  @required BzModel bzModel,
 }) async {
 
   blog('SHOULD DELETE THIS FLYER');
@@ -101,7 +250,11 @@ Future<void> onFlyerOptionsTap({
             context: context,
             verse: 'Delete flyer',
             verseCentered: true,
-            onTap: () => _onDeleteFlyer(flyer),
+            onTap: () => _onDeleteFlyer(
+              context: context,
+              flyer: flyer,
+              bzModel: bzModel,
+            ),
           ),
 
 
@@ -116,7 +269,91 @@ Future<void> _onEditFlyer(FlyerModel flyer) async {
   blog('should edit flyer');
 }
 // -----------------------------------------------------------------------------
-Future<void> _onDeleteFlyer(FlyerModel flyer) async {
-  blog('should delete flyer now');
+Future<void> _onDeleteFlyer({
+  @required BuildContext context,
+  @required FlyerModel flyer,
+  @required BzModel bzModel,
+}) async {
+
+  blog('_onDeleteFlyer : starting deleting flyer ${flyer.id}');
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Delete Flyer',
+    body: 'This will delete this flyer and all its content and can not be retrieved any more',
+    boolDialog: true,
+    confirmButtonText: 'Yes Delete Flyer',
+  );
+
+  if (_result == true){
+
+    /// TASK : NEED TO CHECK USER PERMISSIONS TO BE ABLE TO CONTINUE DELETION PROCESSES
+    /// => IS OWNER OF STORAGE PICS ?
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Deleting flyer',
+      canManuallyGoBack: false,
+    ));
+
+    /// DELETE FLYER OPS ON FIREBASE
+    await FlyerOps.deleteFlyerOps(
+      context: context,
+      flyerModel: flyer,
+      bzModel: bzModel,
+      deleteFlyerIDFromBzzFlyersIDs: true,
+    );
+
+    /// REMOVE ID FROM BZ FLYERS IDS ON FIREBASE
+    final List<String> _updatedFlyersIDs = BzModel.removeFlyerIDFromBzFlyersIDs(
+      bzModel: bzModel,
+      flyerIDToRemove: flyer.id,
+    );
+    final BzModel _updatedBzModel = bzModel.copyWith(
+      flyersIDs: _updatedFlyersIDs,
+    );
+
+    /// DELETE FLYER ON LDB
+    await LDBOps.deleteMap(
+        objectID: flyer.id,
+        docName: LDBDoc.flyers
+    );
+
+    /// UPDATE BZ ON LDB
+    await LDBOps.updateMap(
+      docName: LDBDoc.bzz,
+      objectID: _updatedBzModel.id,
+      input: _updatedBzModel.toMap(toJSON: true),
+    );
+
+    /// UPDATE BZ ON PROVIDER
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.setActiveBz(
+      bzModel: _updatedBzModel,
+      bzCountry: _bzzProvider.myActiveBzCountry,
+      bzCity: _bzzProvider.myActiveBzCity,
+      notify: false,
+    );
+
+    /// UPDATE ACTIVE BZ FLYERS
+    final List<FlyerModel> _updatedFlyers = FlyerModel.removeFlyerFromFlyersByID(
+      flyers: _bzzProvider.myActiveBzFlyers,
+      flyerIDToRemove: flyer.id,
+    );
+    _bzzProvider.setActiveBzFlyers(
+      flyers: _updatedFlyers,
+      notify: true,
+    );
+
+    WaitDialog.closeWaitDialog(context);
+
+    await TopDialog.showTopDialog(
+      context: context,
+      verse: 'Flyer has been deleted successfully',
+      color: Colorz.yellow255,
+    );
+
+  }
+
 }
 // -----------------------------------------------------------------------------
