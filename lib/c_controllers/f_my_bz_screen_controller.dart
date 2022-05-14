@@ -7,6 +7,9 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -158,6 +161,19 @@ Future<void> _onDeleteBzAccount({
         canManuallyGoBack: false,
       ));
 
+      /// DELETE BZ FLYERS
+      final List<FlyerModel> _flyers = await fetchFlyers(
+          context: context,
+          flyersIDs: bzModel.flyersIDs
+      );
+      for (final FlyerModel flyer in _flyers){
+        await _onDeleteFlyer(
+          bzModel: bzModel,
+          context: context,
+          flyer: flyer,
+        );
+      }
+
       /// DELETE BZ ON FIREBASE
       await FireBzOps.deleteBzOps(
         context: context,
@@ -288,6 +304,12 @@ Future<void> _onDeleteFlyer({
     body: 'This will delete this flyer and all its content and can not be retrieved any more',
     boolDialog: true,
     confirmButtonText: 'Yes Delete Flyer',
+    height: 400,
+    child: FlyerStarter(
+      flyerModel: flyer,
+      minWidthFactor: 100,
+      heroTag: '',
+    ),
   );
 
   if (_result == true){

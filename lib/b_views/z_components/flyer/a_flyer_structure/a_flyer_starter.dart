@@ -78,7 +78,9 @@ class _FlyerStarterState extends State<FlyerStarter> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit && mounted) {
+    if (_isInit && mounted && _flyerModel != null && _flyerModel?.id != null) {
+
+      _flyerModel.blogFlyer(methodName: 'Flyer Starter : didChangeDependencies');
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
