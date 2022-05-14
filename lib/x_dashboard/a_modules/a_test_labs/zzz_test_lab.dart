@@ -21,9 +21,12 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -33,6 +36,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
+import 'package:bldrs/x_dashboard/c_methods/exotic_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -407,13 +411,40 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'check the ldb user ops',
+              verse: 'DELETE SUB DOCS',
               icon: Iconz.star,
               onTap: () async {
 
-                final UserModel _userModel = await UserLDBOps.readUserOps(userID: FireAuthOps.superUserID());
 
-                _userModel.blogUserModel();
+                const List<String> _dogs = <String>[
+                  'br1',
+                  'cn1',
+                  'cn2',
+                  'dr1',
+                  'dr2',
+                  'mn3',
+                  'mn5',
+                  'pp1',
+                  'pp3',
+                ];
+
+                for (final String subDocID in _dogs){
+                  await deleteSubCollection(
+                    context: context,
+                    collName: FireColl.bzz,
+                    docName: subDocID,
+                    subCollName: 'calls',
+                  );
+                  await deleteSubCollection(
+                    context: context,
+                    collName: FireColl.bzz,
+                    docName: subDocID,
+                    subCollName: 'follows',
+                  );
+
+                  blog('tamam with this $subDocID');
+                }
+
 
               }),
 

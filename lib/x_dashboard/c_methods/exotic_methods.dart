@@ -363,7 +363,6 @@ class ExoticMethods {
   // }
 }
 // -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
   static Future<void> takeOwnerShip({
   @required BuildContext context,
   @required String oldUserID, // '60a1SPzftGdH6rt15NF96m0j9Et2'
