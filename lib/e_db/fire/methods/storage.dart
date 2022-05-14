@@ -164,12 +164,14 @@ Future<String> createStoragePicAndGetURL({
   @required String picName,
   @required String ownerID,
 }) async {
+
   String _imageURL;
 
   await tryAndCatch(
       context: context,
       methodName: 'createStoragePicAndGetURL',
       functions: () async {
+
         final Reference _ref = getRef(
           context: context,
           docName: docName,
@@ -211,6 +213,7 @@ Future<List<String>> createStorageSlidePicsAndGetURLs({
   @required String flyerID,
   @required String authorID,
 }) async {
+
   final List<String> _picturesURLs = <String>[];
 
   for (final SlideModel slide in slides) {
@@ -234,11 +237,17 @@ Future<List<String>> createMultipleStoragePicsAndGetURLs({
   @required List<String> names,
   @required String userID,
 }) async {
+
   final List<String> _picsURLs = <String>[];
 
-  if (Mapper.canLoopList(pics) &&
-      Mapper.canLoopList(names) &&
-      pics.length == names.length) {
+  if (
+  Mapper.canLoopList(pics)
+  &&
+  Mapper.canLoopList(names)
+  &&
+  pics.length == names.length
+  ) {
+
     for (int i = 0; i < pics.length; i++) {
       final String _picURL = await createStoragePicAndGetURL(
         context: context,
@@ -294,6 +303,7 @@ Future<String> readStoragePicURL({
   @required String docName,
   @required String picName,
 }) async {
+
   final Reference _ref = getRef(
     context: context,
     docName: docName,
@@ -307,7 +317,8 @@ Future<String> readStoragePicURL({
       methodName: '',
       functions: () async {
         _url = await _ref.getDownloadURL();
-      });
+      }
+      );
 
   return _url;
 }
@@ -319,13 +330,21 @@ Future<File> getFileFromPicURL({
   File _file;
 
   if (url != null) {
-    final Reference _ref = await getRefFromURL(url: url, context: context);
+
+    final Reference _ref = await getRefFromURL(
+        url: url,
+        context: context,
+    );
 
     if (_ref != null) {
+
       final Uint8List _uInts = await _ref.getData();
 
       _file = await Imagers.getFileFromUint8List(
-          uInt8List: _uInts, fileName: _ref.name);
+          uInt8List: _uInts,
+          fileName: _ref.name,
+      );
+
     }
   }
 
@@ -350,15 +369,20 @@ Future<File> getFileByPath(
   //
   // }
 
-  final Reference _ref =
-      getRef(context: context, docName: docName, picName: picName);
-  // await null;
+  final Reference _ref = getRef(
+      context: context,
+      docName: docName,
+      picName: picName,
+  );
+
 
   if (_ref != null) {
     final Uint8List _uInts = await _ref.getData();
 
     _file = await Imagers.getFileFromUint8List(
-        uInt8List: _uInts, fileName: _ref.name);
+        uInt8List: _uInts,
+        fileName: _ref.name
+    );
   }
 
   return _file;
@@ -373,12 +397,18 @@ Future<String> updateExistingPic({
   @required String oldURL,
   @required File newPic,
 }) async {
-  final Reference _ref = await getRefFromURL(url: oldURL, context: context);
+
+  final Reference _ref = await getRefFromURL(
+      url: oldURL,
+      context: context,
+  );
+
   final FullMetadata _fullMeta = await _ref.getMetadata();
   final Map<String, dynamic> _existingMetaData = _fullMeta.customMetadata;
 
-  final SettableMetadata metaData =
-  SettableMetadata(customMetadata: _existingMetaData);
+  final SettableMetadata metaData = SettableMetadata(
+      customMetadata: _existingMetaData,
+  );
 
   await _ref.putFile(newPic, metaData);
 
@@ -454,45 +484,27 @@ Future<void> deleteStoragePic({
         blogFullMetaData(_metaData);
 
         await _picRef?.delete();
-      });
+      },
+    onError: (String error) async {
 
-  blog('checking delete result : $_result');
+        const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
 
-  /// if result is an error, pop a dialog
-  if (_result.runtimeType == String) {
-    /// only if the error is not
-    /// [firebase_storage/object-not-found] No object exists at the desired reference.
-    const String _fileDoesNotExistError =
-        '[firebase_storage/object-not-found] No object exists at the desired reference.';
+        if (error == _noImageError){
 
-    if (_result == _fileDoesNotExistError) {
-      // await superDialog(
-      //   context: context,
-      //   title: '',
-      //   body: 'there is no image to delete',
-      //   boolDialog: false,
-      // );
+          blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $docName : picName : $picName');
 
-      blog('there is no image to delete');
-    } else {
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'Can not delete image',
-        body: _result.toString(),
-      );
+        }
+
     }
+    );
+
+  /// if result is true
+  if (_result == true) {
+    blog('deleteStoragePic : IMAGE HAS BEEN DELETED :docName $docName : picName : $picName');
   }
 
-  /// if result is null, so no error was thrown and procedure succeeded
   else {
-    // await superDialog(
-    //   context: context,
-    //   title: '',
-    //   body: 'Picture has been deleted',
-    //   boolDialog: false,
-    // );
 
-    blog('picture has been deleted');
   }
 }
 // -----------------------------------------------------------------------------

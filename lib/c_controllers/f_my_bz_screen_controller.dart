@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
@@ -86,12 +84,11 @@ Future<void> onBzAccountOptions({
 }) async {
 
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  final UserModel _myUserModel = _usersProvider.myUserModel;
 
   await BottomDialog.showButtonsBottomDialog(
       context: context,
       draggable: true,
-      buttonHeight: 40,
+      buttonHeight: 50,
       numberOfWidgets: 2,
       title: '${bzModel.name} Business account options',
       builder: (_, PhraseProvider pro){
@@ -100,6 +97,7 @@ Future<void> onBzAccountOptions({
 
           BottomDialog.wideButton(
             context: context,
+            height: 50,
             verse: 'Edit ${bzModel.name} Business Account',
             verseCentered: true,
             onTap: () => _onEditBzAccount(
@@ -110,6 +108,7 @@ Future<void> onBzAccountOptions({
 
           BottomDialog.wideButton(
             context: context,
+            height: 50,
             verse: 'Delete ${bzModel.name} Business Account',
             verseCentered: true,
             onTap: () => _onDeleteBzAccount(
@@ -142,8 +141,9 @@ Future<void> _onDeleteBzAccount({
 
     final bool _dialogResult = await CenterDialog.showCenterDialog(
       context: context,
-      title: '',
-      body: 'Are you sure you want to Delete ${bzModel.name} Business account ?',
+      title: 'Delete ${bzModel.name} Business Account ?',
+      body: 'All Account flyers, records and data will be deleted and can not be retrieved',
+      confirmButtonText: 'Yes, Delete',
       boolDialog: true,
     );
 
@@ -170,7 +170,6 @@ Future<void> _onDeleteBzAccount({
         bzModel: bzModel,
       );
       await UserLDBOps.removeBzIDFromMyBzIDs(
-          userID: superUserID(),
           bzIDToRemove: bzModel.id,
       );
 
@@ -203,6 +202,12 @@ Future<void> _onDeleteBzAccount({
 
       /// re-route back
       Nav.goBackToHomeScreen(context);
+
+      await TopDialog.showTopDialog(
+        context: context,
+        verse: 'Business Account has been deleted successfully',
+        color: Colorz.yellow255,
+      );
 
     }
 
@@ -346,6 +351,8 @@ Future<void> _onDeleteFlyer({
     );
 
     WaitDialog.closeWaitDialog(context);
+
+    Nav.goBack(context);
 
     await TopDialog.showTopDialog(
       context: context,
