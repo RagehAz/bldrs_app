@@ -558,7 +558,7 @@ Future<void> deleteFlyerOps({
 
     /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
     blog('D - delete flyer views sub docs');
-    await Fire.deleteAllSubDocs(
+    await Fire.deleteSubCollection(
       context: context,
       collName: FireColl.flyers,
       docName: flyerModel.id,
@@ -567,7 +567,7 @@ Future<void> deleteFlyerOps({
 
     /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
     blog('E - delete shares sub docs');
-    await Fire.deleteAllSubDocs(
+    await Fire.deleteSubCollection(
       context: context,
       collName: FireColl.flyers,
       docName: flyerModel.id,
@@ -576,7 +576,7 @@ Future<void> deleteFlyerOps({
 
     /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
     blog('F - delete saves sub docs');
-    await Fire.deleteAllSubDocs(
+    await Fire.deleteSubCollection(
       context: context,
       collName: FireColl.flyers,
       docName: flyerModel.id,
