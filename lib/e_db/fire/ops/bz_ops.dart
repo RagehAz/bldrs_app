@@ -480,6 +480,7 @@ Future<void> deleteBzOps({
         authorID: id,
         bzID: bzModel.id,
     );
+    blog('11a - should delete this storage pic of author id : $id : authorPicName : $_authorPicName');
 
     await Storage.deleteStoragePic(
       context: context,

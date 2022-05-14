@@ -358,11 +358,12 @@ class BottomDialog extends StatelessWidget {
     @required String verse,
     Function onTap,
     String icon,
+    double height = wideButtonHeight,
     bool verseCentered = false,
   }) {
 
     return DreamBox(
-      height: wideButtonHeight,
+      height: height,
       width: clearWidth(context),
       verse: verse,
       verseScaleFactor: 1.1,
