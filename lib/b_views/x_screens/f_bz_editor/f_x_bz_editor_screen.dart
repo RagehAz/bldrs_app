@@ -356,7 +356,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   }) async {
 
     if (uploadOpsSucceeded == true){
-      await _bzzProvider.updateBzInUserBzz(uploadedBzModel);
+      await _bzzProvider.updateBzInUserBzz(
+        modifiedBz: uploadedBzModel,
+        notify: true,
+      );
     }
 
   }

@@ -5,9 +5,9 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -180,6 +180,32 @@ class UsersProvider extends ChangeNotifier {
     );
 
   }
+// -------------------------------------
+  void removeBzIDFromMyBzzIDs({
+    @required String bzIDToRemove,
+    @required bool notify,
+}){
+
+    if (Mapper.canLoopList(_myUserModel.myBzzIDs)) {
+
+      final List<String> _newList = Mapper.removeStringsFromStrings(
+          removeFrom: _myUserModel.myBzzIDs,
+          removeThis: <String>[bzIDToRemove],
+      );
+
+      final UserModel _updatedUser = _myUserModel.copyWith(
+        myBzzIDs: _newList,
+      );
+
+      _myUserModel = _updatedUser;
+
+      if (notify == true){
+        notifyListeners();
+      }
+
+
+    }
+  }
 // -----------------------------------------------------------------------------
 
   /// MY DEVICE CONTACTS
@@ -203,7 +229,7 @@ class UsersProvider extends ChangeNotifier {
   bool canSearchContacts(){
     bool _canSearch = false;
 
-    if (canLoopList(myDeviceContacts) == true){
+    if (Mapper.canLoopList(myDeviceContacts) == true){
       _canSearch = true;
     }
     else {
@@ -214,7 +240,10 @@ class UsersProvider extends ChangeNotifier {
 // -------------------------------------
   void selectDeviceContact(String contactString){
 
-    final bool _alreadySelected = stringsContainString(strings: _selectedDeviceContacts, string: contactString);
+    final bool _alreadySelected = Mapper.stringsContainString(
+        strings: _selectedDeviceContacts,
+        string: contactString,
+    );
 
     if (_alreadySelected == true){
       _selectedDeviceContacts.remove(contactString);
@@ -227,7 +256,12 @@ class UsersProvider extends ChangeNotifier {
   }
 // -------------------------------------
   bool deviceContactIsSelected(String contactString){
-    final bool _alreadySelected = stringsContainString(strings: _selectedDeviceContacts, string: contactString);
+
+    final bool _alreadySelected = Mapper.stringsContainString(
+        strings: _selectedDeviceContacts,
+        string: contactString,
+    );
+
     return _alreadySelected;
   }
 // -------------------------------------
@@ -236,14 +270,17 @@ class UsersProvider extends ChangeNotifier {
     List<Contact> _foundContacts = <Contact>[];
 
     /// A - WHEN CONTACTS NOT YET IMPORTED
-    if (canLoopList(_myDeviceContacts) == false){
+    if (Mapper.canLoopList(_myDeviceContacts) == false){
       blog('can not search device contacts as they are not yet imported');
     }
 
     /// A - WHEN CONTACTS ARE IMPORTED
     else {
 
-      _triggerIsSearchingDeviceContacts(searchString: searchString, notify: true);
+      _triggerIsSearchingDeviceContacts(
+          searchString: searchString,
+          notify: true,
+      );
 
       _foundContacts = _myDeviceContacts.where((contact){
 
@@ -262,18 +299,24 @@ class UsersProvider extends ChangeNotifier {
     }
 
     /// B - WHEN FOUND CONTACTS
-    if (canLoopList(_foundContacts) == true){
+    if (Mapper.canLoopList(_foundContacts) == true){
       _searchedDeviceContacts = _foundContacts;
       _triggerIsSearchingDeviceContacts(searchString: searchString, notify: false);
       notifyListeners();
     }
     else {
-      _triggerIsSearchingDeviceContacts(searchString: searchString, notify: true);
+      _triggerIsSearchingDeviceContacts(
+          searchString: searchString,
+          notify: true,
+      );
     }
 
   }
 // -------------------------------------
-  void _triggerIsSearchingDeviceContacts({@required String searchString, @required bool notify}){
+  void _triggerIsSearchingDeviceContacts({
+    @required String searchString,
+    @required bool notify,
+  }){
 
     /// A - WHEN SEARCHING IS FALSE
     if (_isSearchingDeviceContacts == false){
@@ -285,7 +328,10 @@ class UsersProvider extends ChangeNotifier {
 
       /// B - WHEN STARTING TO SEARCH
       else {
-        _setIsSearchingDeviceContacts(setTo: true, notify: notify);
+        _setIsSearchingDeviceContacts(
+            setTo: true,
+            notify: notify,
+        );
       }
 
     }
@@ -295,7 +341,10 @@ class UsersProvider extends ChangeNotifier {
 
       /// B - WHEN STOPPED SEARCHING
       if (searchString.isEmpty){
-        _setIsSearchingDeviceContacts(setTo: false, notify: notify);
+        _setIsSearchingDeviceContacts(
+            setTo: false,
+            notify: notify,
+        );
       }
 
       /// B - WHEN CONTINUING THE SEARCH
@@ -307,7 +356,10 @@ class UsersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  void _setIsSearchingDeviceContacts({@required bool setTo, bool notify = true}){
+  void _setIsSearchingDeviceContacts({
+    @required bool setTo,
+    @required bool notify,
+  }){
     _isSearchingDeviceContacts = setTo;
     if (notify == true){
       notifyListeners();

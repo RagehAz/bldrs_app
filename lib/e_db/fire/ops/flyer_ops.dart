@@ -521,6 +521,7 @@ Future<void> deleteFlyerOps({
   @required BuildContext context,
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
+  /// to avoid frequent updates to bz fire doc in delete bz ops
   @required bool deleteFlyerIDFromBzzFlyersIDs,
 }) async {
   // steps ----------
@@ -535,13 +536,14 @@ Future<void> deleteFlyerOps({
   // ----------
 
   if (flyerModel != null && flyerModel.id != null && bzModel != null) {
+
     /// A1 - get flyers IDs of this bzModel
     blog('A1 - get flyers IDs of this bzModel');
     final List<String> _bzFlyersIDs = bzModel.flyersIDs;
 
     /// A2 - update fireStore/bzz/bzID['flyersIDs']
-    if (Mapper.canLoopList(_bzFlyersIDs) &&
-        deleteFlyerIDFromBzzFlyersIDs == true) {
+    if (Mapper.canLoopList(_bzFlyersIDs) && deleteFlyerIDFromBzzFlyersIDs == true) {
+
       _bzFlyersIDs.remove(flyerModel.id);
 
       await Fire.updateDocField(
@@ -551,6 +553,7 @@ Future<void> deleteFlyerOps({
         field: 'flyersIDs',
         input: _bzFlyersIDs,
       );
+
     }
 
     /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
@@ -613,8 +616,7 @@ Future<void> deleteFlyerOps({
       docName: flyerModel.id,
     );
 
-    blog(
-        'DELETE FLYER OPS ENDED for ${flyerModel.id} ---------------------------');
+    blog('DELETE FLYER OPS ENDED for ${flyerModel.id} ---------------------------');
   }
 }
 // -----------------------------------------------------------------------------

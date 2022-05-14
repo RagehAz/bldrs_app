@@ -1,12 +1,10 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/appbar/dialog_of_bz_options.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
+import 'package:bldrs/c_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -33,19 +31,6 @@ class BzAppBar extends StatelessWidget {
   // final CityModel cityModel;
 
   /// --------------------------------------------------------------------------
-  Future<void> _slideBzOptions(BuildContext context, BzModel bzModel) async {
-
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final UserModel _myUserModel = _usersProvider.myUserModel;
-
-    await DialogOfBzOptions.show(
-      context: context,
-      bzModel: bzModel,
-      userModel: _myUserModel,
-    );
-  }
-
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -114,7 +99,10 @@ class BzAppBar extends StatelessWidget {
           iconSizeFactor: 0.6,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           bubble: false,
-          onTap: () => _slideBzOptions(context, _bzModel),
+          onTap: () => onBzAccountOptions(
+              context: context,
+              bzModel: _bzModel,
+          ),
         ),
 
       ],

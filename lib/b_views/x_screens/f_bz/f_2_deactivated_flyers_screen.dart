@@ -165,8 +165,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     /// delete flyer ops
     await FireFlyerOps.deleteFlyerOps(
       context: context,
-      flyerModel:
-          _getFlyerFromDeactivatedFlyersByFlyerID(flyerID: flyerModel.id),
+      flyerModel: _getFlyerFromDeactivatedFlyersByFlyerID(flyerID: flyerModel.id),
       bzModel: widget.bz,
       deleteFlyerIDFromBzzFlyersIDs: true,
     );

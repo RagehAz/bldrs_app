@@ -41,6 +41,7 @@ class BzFlyersPage extends StatelessWidget {
         onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerOptionsTap(
           context: context,
           flyer: flyerModel,
+          bzModel: bzModel,
         ),
       );
     }
