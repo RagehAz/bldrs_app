@@ -433,7 +433,7 @@ Future<void> deleteBzOps({
   }
 
   blog('4 - delete all calls sub docs');
-  await Fire.deleteAllSubDocs(
+  await Fire.deleteSubCollection(
       context: context,
       collName: FireColl.bzz,
       docName: bzModel.id,
@@ -444,7 +444,7 @@ Future<void> deleteBzOps({
   // dunno if could be done here
 
   blog('6 - delete follows sub docs');
-  await Fire.deleteAllSubDocs(
+  await Fire.deleteSubCollection(
       context: context,
       collName: FireColl.bzz,
       docName: bzModel.id,

@@ -70,6 +70,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                   draft: draft,
                   headlineController: headlineController,
                 ),
+
               ],
             ),
 

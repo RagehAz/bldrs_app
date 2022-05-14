@@ -653,10 +653,12 @@ Future<void> deleteSubDoc({
   @required String subCollName,
   @required String subDocName,
 }) async {
+
   await tryAndCatch(
       context: context,
       methodName: 'deleteSubDoc',
       functions: () async {
+
         final DocumentReference<Object> _subDoc = getSubDocRef(
           collName: collName,
           docName: docName,
@@ -667,10 +669,11 @@ Future<void> deleteSubDoc({
         await _subDoc.delete();
 
         blog('deleteSubDoc : deleted : $collName : $docName : $subCollName : $subDocName');
-      });
+      }
+      );
 }
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT : TASK : SHOULD BE EXOTIC METHOD
+/// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 Future<void> deleteAllCollectionDocs({
   @required BuildContext context,
   @required String collName,
@@ -728,7 +731,7 @@ Future<void> deleteAllCollectionDocs({
 
 }
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT : TASK : SHOULD BE EXOTIC METHOD
+/// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 Future<void> _deleteCollectionDocsByIDs({
   @required BuildContext context,
   @required collName,
@@ -751,25 +754,30 @@ Future<void> _deleteCollectionDocsByIDs({
 
 }
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT : TASK : SHOULD BE EXOTIC METHOD
+/// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 Future<void> deleteSubCollection({
   @required BuildContext context,
   @required String collName,
   @required String docName,
   @required String subCollName,
+  bool showAlertDialog = false,
 }) async {
 
   /// TASK : deleting sub collection and all its sub docs require a cloud function
   //
   /// does the same deletion algorithm with [deleteAllCollectionDocs]
 
-  final bool _canContinue = await CenterDialog.showCenterDialog(
-    context: context,
-    title: 'DANGER',
-    body: 'you will delete all documents in [ $collName / $docName / $subCollName ] collection\n Confirm delete ?',
-    boolDialog: true,
-    confirmButtonText: 'YES DELETE ALL',
-  );
+  bool _canContinue = true;
+
+  if (showAlertDialog == true){
+    _canContinue =  await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'DANGER',
+      body: 'you will delete all documents in [ $collName / $docName / $subCollName ] collection\n Confirm delete ?',
+      boolDialog: true,
+      confirmButtonText: 'YES DELETE ALL',
+    );
+  }
 
   if (_canContinue == true){
 
@@ -814,7 +822,7 @@ Future<void> deleteSubCollection({
 
 }
 // ---------------------------------------------------
-/// TESTED : WORKS PERFECT : TASK : SHOULD BE EXOTIC METHOD
+/// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 Future<void> _deleteSubCollectionDocsBySubDocsIDs({
   @required BuildContext context,
   @required collName,
@@ -839,39 +847,6 @@ Future<void> _deleteSubCollectionDocsBySubDocsIDs({
 
   }
 
-}
-// ---------------------------------------------------
-/// ALERT : deleting all sub docs from client device is super dangerous  : TASK : SHOULD BE EXOTIC METHOD
-Future<void> deleteAllSubDocs({
-  @required BuildContext context,
-  @required String collName,
-  @required String docName,
-  @required String subCollName,
-}) async {
-  // /// a - read all sub docs
-  // final List<dynamic> _subDocs = await Fire.readSubCollectionDocs(
-  //   context: context,
-  //   addDocsIDs: true,
-  //   collName: collName,
-  //   docName: docName,
-  //   subCollName: subCollName,
-  //   addDocSnapshotToEachMap: false,
-  //   orderBy: '',
-  // );
-  //
-  // for(var map in _subDocs){
-  //
-  //   final String _docID = map['id'];
-  //
-  //   await Fire.deleteSubDoc(
-  //     context: context,
-  //     collName: collName,
-  //     docName: docName,
-  //     subCollName: subCollName,
-  //     subDocName: _docID,
-  //   );
-  //
-  // }
 }
 // ---------------------------------------------------
 /// TESTED : WORKS PERFECT
