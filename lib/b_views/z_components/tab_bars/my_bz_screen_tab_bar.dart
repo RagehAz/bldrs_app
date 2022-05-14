@@ -61,6 +61,7 @@ class MyBzScreenTabBar extends StatelessWidget {
               key: ValueKey<String>('bz_tab_button_$_bzTabString'),
               verse: _bzTabString,
               icon: _bzTabIcon(_bzTab),
+              iconSizeFactor: 0.6,
               isSelected: _isSelected(
                 context: context,
                 bzTab: _bzTab,

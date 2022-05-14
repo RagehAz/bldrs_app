@@ -1,5 +1,5 @@
-import 'package:bldrs/e_db/ldb/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/e_db/ldb/sembast_api.dart';
+import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

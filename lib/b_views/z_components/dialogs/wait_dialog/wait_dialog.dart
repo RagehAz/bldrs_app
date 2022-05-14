@@ -48,7 +48,7 @@ class WaitDialog extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        return true; //canManuallyGoBack;
+        return canManuallyGoBack;
       },
       child: Scaffold(
         backgroundColor: Colorz.black125,

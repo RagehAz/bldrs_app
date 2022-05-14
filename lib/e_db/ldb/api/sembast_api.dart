@@ -263,8 +263,9 @@ class Sembast  {
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
-    final Finder _finder =
-        Finder(filter: Filter.equals(searchPrimaryKey, searchPrimaryValue));
+    final Finder _finder = Finder(
+        filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
+    );
 
     final int result = await _doc.update(
       _db,
@@ -300,6 +301,8 @@ class Sembast  {
         _db,
         finder: _finder,
       );
+
+      blog('Sembast : deleted : $docName : $searchPrimaryKey : $searchPrimaryValue');
     }
 
   }

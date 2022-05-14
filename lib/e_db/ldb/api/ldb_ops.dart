@@ -1,5 +1,5 @@
-import 'package:bldrs/e_db/ldb/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/sembast_api.dart';
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 
 /// REFERENCES
 
-// ---------------------------------------------------
+// ----------------------------------------
 String getPrimaryKey(String docName) {
   switch (docName) {
     case LDBDoc.follows: return 'followID';
@@ -38,7 +38,7 @@ String getPrimaryKey(String docName) {
 
 /// CREATE
 
-// ---------------------------------------------------
+// ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> insertMap({
   @required String primaryKey,
@@ -55,7 +55,7 @@ Future<void> insertMap({
   // blog('LDBOps inserted in $docName : map :-');
   // blogMap(input);
 }
-// ---------------------------------------------------
+// ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> insertMaps({
   @required String primaryKey,
@@ -72,7 +72,7 @@ Future<void> insertMaps({
 
 /// READ
 
-// ---------------------------------------------------
+// ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<List<Map<String, Object>>> readAllMaps({
   @required String docName,
@@ -86,7 +86,7 @@ Future<List<Map<String, Object>>> readAllMaps({
 
   return _fixedMaps;
 }
-// ---------------------------------------------------
+// ----------------------------------------
 Future<Map<String, Object>> searchFirstMap({
   @required String fieldToSortBy,
   @required String searchField,
@@ -107,7 +107,7 @@ Future<Map<String, Object>> searchFirstMap({
 
   return _fixedMap;
 }
-// ---------------------------------------------------
+// ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<List<Map<String, Object>>> searchAllMaps({
   @required String fieldToSortBy,
@@ -131,7 +131,7 @@ Future<List<Map<String, Object>>> searchAllMaps({
 
   return _fixedMaps;
 }
-// ---------------------------------------------------
+// ----------------------------------------
 Future<List<Map<String, Object>>> searchPhrasesDoc({
   @required dynamic searchValue,
   @required String docName,
@@ -160,7 +160,7 @@ Future<List<Map<String, Object>>> searchPhrasesDoc({
   }
 
 }
-// ---------------------------------------------------
+// ----------------------------------------
 /// deprecated
 Future<List<Map<String, Object>>> searchLDBDocTrigram({
   @required dynamic searchValue,
@@ -182,7 +182,7 @@ Future<List<Map<String, Object>>> searchLDBDocTrigram({
 
 /// UPDATE
 
-// ---------------------------------------------------
+// ----------------------------------------
 Future<void> updateMap({
   @required Map<String, Object> input,
   @required String objectID,
@@ -203,7 +203,7 @@ Future<void> updateMap({
 
 /// DELETE
 
-// ---------------------------------------------------
+// ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> deleteMap({
   @required String objectID,
@@ -219,7 +219,7 @@ Future<void> deleteMap({
   );
 
 }
-// ---------------------------------------------------
+// ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> deleteAllMapsOneByOne({
   @required String docName,
@@ -231,7 +231,7 @@ Future<void> deleteAllMapsOneByOne({
   );
 
 }
-// ---------------------------------------------------
+// ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> deleteAllAtOnce({
   @required String docName,

@@ -680,7 +680,7 @@ Future<dynamic> deleteUser({
 
           /// G - DELETE all deactivable bzz : firestore/bzz/bzID
           for (final BzModel bz in _bzzToDeactivate) {
-            await FireBzOps.deleteBz(
+            await FireBzOps.deleteBzOps(
               context: context,
               bzModel: bz,
             );
