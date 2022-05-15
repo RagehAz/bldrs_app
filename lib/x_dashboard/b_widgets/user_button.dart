@@ -50,6 +50,7 @@ class DashboardUserButton extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _country = _zoneProvider.userCountryModel;
     final CityModel _city = _zoneProvider.userCityModel;
@@ -67,7 +68,7 @@ class DashboardUserButton extends StatelessWidget {
     final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
       city: _city,
-      districtID: userModel.zone.districtID,
+      districtID: userModel.zone?.districtID,
     );
 
     final List<ContactModel> _stringyContacts = ContactModel.getContactsWithStringsFromContacts(userModel.contacts);
