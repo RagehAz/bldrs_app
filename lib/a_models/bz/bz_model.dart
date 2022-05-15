@@ -120,7 +120,7 @@ class BzModel{
   final String name;
   final List<String> trigram;
   final dynamic logo;
-  final String scope;
+  final List<String> scope;
 
   final ZoneModel zone;
   final String about;
@@ -156,7 +156,7 @@ class BzModel{
     String name,
     List<String> trigram,
     dynamic logo,
-    String scope,
+    List<String> scope,
     ZoneModel zone,
     String about,
     GeoPoint position,
@@ -262,11 +262,10 @@ class BzModel{
         name: map['name'],
         trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
         logo: map['logo'],
-        scope: map['scope'],
+        scope: Mapper.getStringsFromDynamics(dynamics: map['scope']),
         zone: ZoneModel.decipherZoneMap(map['zone']),
         about: map['about'],
-        position:
-            Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
+        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts: ContactModel.decipherContacts(map['contacts']),
         authors: AuthorModel.decipherAuthors(map['authors']),
         showsTeam: map['showsTeam'],
@@ -547,7 +546,7 @@ class BzModel{
 
     return _strings;
   }
-
+// ------------------------------------------
   static String generateTranslatedBzTypesString({
     @required BuildContext context,
     @required List<BzType> bzTypes,
@@ -1075,7 +1074,7 @@ class BzModel{
       createdAt: Timers.createDate(year: 1987, month: 10, day: 06),
       about: 'About biz',
       isVerified: true,
-      scope: 'Scope of Bz',
+      scope: <String>['phid_k_designType_architecture'],
       showsTeam: true,
       totalCalls: 1,
       totalSaves: 2,
@@ -1308,7 +1307,7 @@ class BzModel{
       );
     }
 
-    if (stringIsEmpty(bzModel?.scope) == true){
+    if (Mapper.canLoopList(bzModel?.scope) == false){
       _invalidFields.add(
           const AlertModel(
           alertID: 'bzScope',
