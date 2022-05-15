@@ -121,20 +121,22 @@ class DynamicLinksApi {
   }
 
 // -----------------------------------------------------------------------------
-  Future<void> goToFlyerScreenByDynamicLink(
-      {BuildContext context, String link}) async {
+  Future<void> goToFlyerScreenByDynamicLink({
+    @required BuildContext context,
+    @required String link,
+  }) async {
     final String _flyerID = DynamicLinksApi.getFlyerIDFromDynamicLink(link);
     final int _index = DynamicLinksApi.getSlideIndexFromDynamicLink(link);
 
     await Nav.goToNewScreen(
-      context,
-      FlyerScreen(
+      context: context,
+      screen: FlyerScreen(
         flyerID: _flyerID,
         initialSlideIndex: _index,
       ),
     );
-  }
 
+  }
 // -----------------------------------------------------------------------------
   Future<String> createReferralLink(String referralCode) async {
     // final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(

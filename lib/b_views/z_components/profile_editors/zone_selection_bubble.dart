@@ -126,9 +126,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    await Nav.goToNewScreen(context, SelectCountryScreen(
-      onCountryTap: _onSelectCountry,
-    )
+    await Nav.goToNewScreen(
+        context: context,
+        screen: SelectCountryScreen(
+          onCountryTap: _onSelectCountry,
+        )
     );
 
     // final List<MapModel> _countriesMapModels = CountryModel.getAllCountriesNamesMapModels(context);
@@ -178,11 +180,13 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    await Nav.goToNewScreen(context, SelectCityScreen(
-      country: _selectedCountry.value,
-      settingCurrentZone: false,
-      onCityTap: _onSelectCity,
-    )
+    await Nav.goToNewScreen(
+        context: context,
+        screen: SelectCityScreen(
+          country: _selectedCountry.value,
+          settingCurrentZone: false,
+          onCityTap: _onSelectCity,
+        )
     );
 
     // final List<MapModel> _citiesMapModels = CityModel.getCitiesNamesMapModels(
@@ -232,12 +236,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    await Nav.goToNewScreen(context, SelectDistrictScreen(
-      country: _selectedCountry.value,
-      city: _selectedCity.value,
-      settingCurrentZone: false,
-      onDistrictTap: _onSelectDistrict,
-    )
+    await Nav.goToNewScreen(
+        context: context,
+        screen: SelectDistrictScreen(
+          country: _selectedCountry.value,
+          city: _selectedCity.value,
+          settingCurrentZone: false,
+          onDistrictTap: _onSelectDistrict,
+        )
     );
 
     // final List<MapModel> _districtsMapModels = DistrictModel.getDistrictsNamesMapModels(

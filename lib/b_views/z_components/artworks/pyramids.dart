@@ -52,7 +52,10 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
         height: Ratioz.pyramidsHeight,
         child: GestureDetector(
           onDoubleTap: () async {
-            await goToNewScreen(context, const BldrsDashBoard());
+            await goToNewScreen(
+                context: context,
+                screen: const BldrsDashBoard(),
+            );
           },
           child: Selector<UiProvider, bool>(
             selector: (_, UiProvider uiProvider) => uiProvider.isLoading,

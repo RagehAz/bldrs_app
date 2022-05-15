@@ -125,10 +125,11 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     unawaited(_triggerLoading());
 
     final GeoPoint _pickedPoint = await Nav.goToNewScreen(
-        context,
-        const GoogleMapScreen(
+        context: context,
+        screen: const GoogleMapScreen(
           isSelecting: true,
-        ));
+        )
+    );
 
     if (_pickedPoint != null) {
       setState(() {

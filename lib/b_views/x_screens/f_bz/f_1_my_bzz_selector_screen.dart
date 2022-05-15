@@ -50,11 +50,14 @@ class MyBzzSelectorScreen extends StatelessWidget {
             icon: _bzModel.logo,
             onTap: () async {
 
-              await goToNewScreen(context, MyBzScreen(
-                bzModel: _bzModel,
-              ));
+              await goToNewScreen(
+                  context: context,
+                  screen: MyBzScreen(
+                    bzModel: _bzModel,
+                  )
+              );
 
-            },
+              },
           );
 
           /*
