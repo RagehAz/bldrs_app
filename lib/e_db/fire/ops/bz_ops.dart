@@ -3,15 +3,16 @@ import 'dart:io';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -38,112 +39,105 @@ DocumentReference<Object> docRef(String bzID) {
 
 // ------------------------------------------------
 /// create bz operations on firestore
-Future<BzModel> createBz(
-    {@required BuildContext context,
-    @required BzModel inputBz,
-    @required UserModel userModel}) async {
-  // Notes :-
+Future<BzModel> createBz({
+  @required BuildContext context,
+  @required BzModel inputBz,
+  @required UserModel userModel,
+}) async {
+
+  /// Notes :-
   // inputBz has inputBz.bzLogo & inputBz.authors[0].authorPic as Files not URLs
 
-  /// create empty firestore bz doc to get back _bzID
-  final DocumentReference<Object> _docRef = await Fire.createDoc(
+  BzModel _output;
+
+  final bool _result = await tryCatchAndReturnBool(
     context: context,
-    collName: FireColl.bzz,
-    input: <String, dynamic>{},
-  );
-  final String _bzID = _docRef.id;
+    methodName: 'createBz',
+    functions: () async {
 
-  /// save bzLogo to fire storage and get URL
-  String _bzLogoURL;
-  if (inputBz.logo != null) {
-    _bzLogoURL = await Storage.createStoragePicAndGetURL(
-      context: context,
-      inputFile: inputBz.logo,
-      picName: _bzID,
-      docName: StorageDoc.logos,
-      ownerID: userModel.id,
-    );
-  }
+      /// create empty firestore bz doc to get back _bzID
+      final DocumentReference<Object> _docRef = await Fire.createDoc(
+        context: context,
+        collName: FireColl.bzz,
+        input: <String, dynamic>{},
+      );
+      final String _bzID = _docRef.id;
 
-  /// upload authorPic
-  String _authorPicURL;
-  if (inputBz.authors[0].pic == null) {
-    _authorPicURL = userModel.pic;
-  } else {
-    _authorPicURL = await Storage.createStoragePicAndGetURL(
-      context: context,
-      inputFile: inputBz.authors[0].pic,
-      picName:
+      /// save bzLogo to fire storage and get URL
+      String _bzLogoURL;
+      if (inputBz.logo != null) {
+        _bzLogoURL = await Storage.createStoragePicAndGetURL(
+          context: context,
+          inputFile: inputBz.logo,
+          picName: _bzID,
+          docName: StorageDoc.logos,
+          ownerID: userModel.id,
+        );
+      }
+
+      /// upload authorPic
+      String _authorPicURL;
+      if (inputBz.authors[0].pic == null ||  objectIsURL(inputBz.authors[0].pic) == true) {
+        _authorPicURL = userModel.pic;
+      }
+
+      else {
+        _authorPicURL = await Storage.createStoragePicAndGetURL(
+          context: context,
+          inputFile: inputBz.authors[0].pic,
+          picName:
           AuthorModel.generateAuthorPicID(authorID: userModel.id, bzID: _bzID),
-      docName: StorageDoc.authors,
-      ownerID: userModel.id,
-    );
-  }
+          docName: StorageDoc.authors,
+          ownerID: userModel.id,
+        );
+      }
 
-  /// update authorModel with _authorPicURL
-  final AuthorModel _masterAuthor = AuthorModel(
-    userID: userModel.id,
-    name: inputBz.authors[0].name,
-    title: inputBz.authors[0].title,
-    pic: _authorPicURL,
-    isMaster: true,
-    contacts: inputBz.authors[0].contacts,
+      /// update authorModel with _authorPicURL
+      final AuthorModel _masterAuthor = AuthorModel(
+        userID: userModel.id,
+        name: inputBz.authors[0].name,
+        title: inputBz.authors[0].title,
+        pic: _authorPicURL,
+        isMaster: true,
+        contacts: inputBz.authors[0].contacts,
+      );
+
+      /// refactor the bzModel with new pics URLs generated above
+      final BzModel _outputBz = inputBz.copyWith(
+        id: _bzID,
+        createdAt: DateTime.now(),
+        logo: _bzLogoURL,
+        authors: <AuthorModel>[_masterAuthor],
+      );
+
+      /// replace empty bz document with the new refactored one _bz
+      await Fire.updateDoc(
+        context: context,
+        collName: FireColl.bzz,
+        docName: _bzID,
+        input: _outputBz.toMap(toJSON: false),
+      );
+
+      /// add bzID in user's myBzIDs
+      final List<dynamic> _userBzzIDs = userModel.myBzzIDs;
+      _userBzzIDs.insert(0, _bzID);
+      await Fire.updateDocField(
+        context: context,
+        collName: FireColl.users,
+        docName: userModel.id,
+        field: 'myBzzIDs',
+        input: _userBzzIDs,
+      );
+
+      _output = _outputBz;
+
+    },
+      onError: (String error){
+        blog('the create bz error is : $error');
+      }
   );
 
-  /// refactor the bzModel with new pics URLs generated above
-  final BzModel _outputBz = BzModel(
-    id: _bzID,
-    // -------------------------
-    bzTypes: inputBz.bzTypes,
-    bzForm: inputBz.bzForm,
-    createdAt: DateTime.now(),
-    accountType: inputBz.accountType,
-    // -------------------------
-    name: inputBz.name,
-    trigram: inputBz.trigram,
-    logo: _bzLogoURL,
-    scope: inputBz.scope,
-    zone: inputBz.zone,
-    about: inputBz.about,
-    position: inputBz.position,
-    contacts: inputBz.contacts,
-    authors: <AuthorModel>[_masterAuthor],
-    showsTeam: inputBz.showsTeam,
-    // -------------------------
-    isVerified: inputBz.isVerified,
-    bzState: inputBz.bzState,
-    // -------------------------
-    totalFollowers: inputBz.totalFollowers,
-    totalSaves: inputBz.totalSaves,
-    totalShares: inputBz.totalShares,
-    totalSlides: inputBz.totalSlides,
-    totalViews: inputBz.totalViews,
-    totalCalls: inputBz.totalCalls,
-    // -------------------------
-    flyersIDs: inputBz.flyersIDs,
-    totalFlyers: inputBz.totalFlyers,
-  );
-
-  /// replace empty bz document with the new refactored one _bz
-  await Fire.updateDoc(
-    context: context,
-    collName: FireColl.bzz,
-    docName: _bzID,
-    input: _outputBz.toMap(toJSON: false),
-  );
-
-  /// add bzID in user's myBzIDs
-  final List<dynamic> _userBzzIDs = userModel.myBzzIDs;
-  _userBzzIDs.insert(0, _bzID);
-  await Fire.updateDocField(
-    context: context,
-    collName: FireColl.users,
-    docName: userModel.id,
-    field: 'myBzzIDs',
-    input: _userBzzIDs,
-  );
-
-  return _outputBz;
+  return _result == true ? _output : null;
 }
 // -----------------------------------------------------------------------------
 
@@ -168,7 +162,6 @@ Future<BzModel> readBz({
 
   return _bz;
 }
-
 // ------------------------------------------------
 Future<dynamic> readAndFilterTeamlessBzzByUserModel({
   @required BuildContext context,
@@ -185,7 +178,7 @@ Future<dynamic> readAndFilterTeamlessBzzByUserModel({
   final List<BzModel> _bzzToDeactivate = <BzModel>[];
   final List<BzModel> _bzzToKeep = <BzModel>[];
   for (final String id in userModel.myBzzIDs) {
-    final BzModel _bz = await FireBzOps.readBz(
+    final BzModel _bz = await readBz(
       context: context,
       bzID: id,
     );
@@ -317,8 +310,10 @@ Future<BzModel> updateBz({
 }
 
 // -----------------------------------------------------------------------------
-Future<void> deactivateBz(
-    {@required BuildContext context, @required BzModel bzModel}) async {
+Future<void> deactivateBz({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
   // ----------
   /// this
   /// 1 - starts deactivate flyer ops for all bz flyers
@@ -370,7 +365,6 @@ Future<void> deactivateBz(
     input: true,
   );
 }
-
 // -----------------------------------------------------------------------------
 Future<void> deleteBzOps({
   @required BuildContext context,

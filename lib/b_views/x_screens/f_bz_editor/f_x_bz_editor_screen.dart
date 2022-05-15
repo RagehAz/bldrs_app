@@ -14,7 +14,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 /// PLAN : SAVE CURRENT STATES IN LDB IN CASE USER DIDN'T FINISH IN ONE SESSION
 class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -195,6 +194,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzPosition: _bzPosition,
         bzZone: _selectedBzZone,
         initialBzModel: _initialBzModel,
+        userModel: widget.userModel,
       ),
     );
   }

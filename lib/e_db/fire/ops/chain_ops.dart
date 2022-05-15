@@ -69,8 +69,8 @@ Future<void> backupChainsOps(BuildContext context) async {
 
     await TopDialog.showTopDialog(
       context: context,
-      verse: 'Success',
-      secondLine: 'Both Keywords and Specs chains have been backed up successfully',
+      title: 'Success',
+      body: 'Both Keywords and Specs chains have been backed up successfully',
     );
 
   }
@@ -79,8 +79,8 @@ Future<void> backupChainsOps(BuildContext context) async {
 
     await TopDialog.showTopDialog(
       context: context,
-      verse: 'Failed',
-      secondLine: 'Something went wrong, Try again',
+      title: 'Failed',
+      body: 'Something went wrong, Try again',
       color: Colorz.red255,
     );
 

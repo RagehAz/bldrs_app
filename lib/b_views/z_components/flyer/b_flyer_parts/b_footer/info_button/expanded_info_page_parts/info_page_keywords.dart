@@ -30,6 +30,7 @@ class InfoPageKeywords extends StatelessWidget {
       key: const ValueKey<String>('InfoPageKeywords'),
       children: <Widget>[
 
+        if (keywordsIDs?.isNotEmpty)
         ...List<Widget>.generate(keywordsIDs?.length, (int index) {
 
           final String _keywordID = keywordsIDs[index];
