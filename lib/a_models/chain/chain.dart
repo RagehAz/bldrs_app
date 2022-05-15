@@ -620,7 +620,10 @@ class Chain {
 
     Chain _chain;
 
+      blog('getChainFromChainsByID : chains : ${chains?.length}');
+
     if (Mapper.canLoopList(chains) == true){
+
 
       for (final Chain chain in chains){
 

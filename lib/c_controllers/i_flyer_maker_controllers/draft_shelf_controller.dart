@@ -208,8 +208,8 @@ Future<void> onSlideTap({
   Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
   final MutableSlide _result = await Nav.goToNewScreen(
-      context,
-      SlideEditorScreen(
+      context: context,
+      screen: SlideEditorScreen(
         slide: slide,
       )
   );

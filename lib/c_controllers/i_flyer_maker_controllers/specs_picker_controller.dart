@@ -72,8 +72,8 @@ Future<void> _goToSpecPickerScreen({
 }) async {
 
   final List<SpecModel> _result = await Nav.goToNewScreen(
-    context,
-    SpecPickerScreen(
+    context: context,
+    screen: SpecPickerScreen(
       specPicker: specPicker,
       selectedSpecs: selectedSpecs,
     ),

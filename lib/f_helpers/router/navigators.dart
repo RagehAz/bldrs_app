@@ -29,13 +29,16 @@ PageTransition<dynamic> fadeToScreen(Widget screen, RouteSettings settings) {
   );
 }
 // -----------------------------------------------------------------------------
-Future<dynamic> goToNewScreen(BuildContext context, Widget screen, {PageTransitionType transitionType}) async {
-  final PageTransitionType _transition = transitionType ?? PageTransitionType.bottomToTop;
+Future<dynamic> goToNewScreen({
+  @required BuildContext context,
+  @required Widget screen,
+  PageTransitionType transitionType = PageTransitionType.bottomToTop,
+}) async {
 
   final dynamic _result = await Navigator.push(
     context,
     PageTransition<dynamic>(
-      type: _transition,
+      type: transitionType,
       child: screen,
       duration: Ratioz.durationFading200,
       reverseDuration: Ratioz.durationFading200,
@@ -79,12 +82,13 @@ Future<void> openFlyer({
   if (flyer != null) {
 
     await goToNewScreen(
-        context,
-        FlyerScreen(
+        context: context,
+        screen: FlyerScreen(
           flyerModel: flyer,
           flyerID: flyerID,
           isSponsored: isSponsored,
-        ));
+        )
+    );
 
   }
 
