@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -13,7 +13,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
@@ -174,7 +174,7 @@ Future<void> _onDeleteBzAccount({
       }
 
       /// DELETE BZ ON FIREBASE
-      await FireBzOps.deleteBzOps(
+      await BzFireOps.deleteBzOps(
         context: context,
         bzModel: bzModel,
       );
@@ -184,10 +184,12 @@ Future<void> _onDeleteBzAccount({
         context: context,
         bzModel: bzModel,
       );
+      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+      final UserModel _userModel = _usersProvider.myUserModel;
       await UserLDBOps.removeBzIDFromMyBzIDs(
-          bzIDToRemove: bzModel.id,
+        bzIDToRemove: bzModel.id,
+        userModel: _userModel,
       );
-
 
       /// DELETE BZ ON PROVIDER
       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -206,7 +208,6 @@ Future<void> _onDeleteBzAccount({
       _bzzProvider.clearMyActiveBz(
           notify: true,
       );
-      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
       _usersProvider.removeBzIDFromMyBzzIDs(
         bzIDToRemove: bzModel.id,
         notify: true,
@@ -220,7 +221,7 @@ Future<void> _onDeleteBzAccount({
 
       await TopDialog.showTopDialog(
         context: context,
-        verse: 'Business Account has been deleted successfully',
+        title: 'Business Account has been deleted successfully',
         color: Colorz.yellow255,
       );
 
@@ -377,7 +378,7 @@ Future<void> _onDeleteFlyer({
 
     await TopDialog.showTopDialog(
       context: context,
-      verse: 'Flyer has been deleted successfully',
+      title: 'Flyer has been deleted successfully',
       color: Colorz.yellow255,
     );
 

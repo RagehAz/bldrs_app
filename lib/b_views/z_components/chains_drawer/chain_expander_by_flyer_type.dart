@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_chains_drawer_controller.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
@@ -67,6 +68,7 @@ class ChainExpanderByFlyerType extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    blog('flyer type is : $flyerType');
     final Chain _chainByFlyerType = _chainsProvider.getKeywordsChainByFlyerType(flyerType);
     
     return ChainExpanderStarter(

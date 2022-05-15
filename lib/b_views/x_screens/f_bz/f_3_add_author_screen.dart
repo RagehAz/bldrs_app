@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -97,7 +97,7 @@ class AddAuthorScreen extends StatelessWidget {
 
               const String _ragehUserID = 'xxx';
 
-              final BzModel _bzModel = await FireBzOps.readBz(
+              final BzModel _bzModel = await BzFireOps.readBz(
                 context: context,
                 bzID: tinyBz.id,
               );

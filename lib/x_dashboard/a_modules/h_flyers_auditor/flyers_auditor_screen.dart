@@ -153,8 +153,8 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       unawaited(TopDialog.showTopDialog(
           context: context,
-          verse: 'Done',
-          secondLine: 'flyer ${_currentFlyer.id} got verified',
+          title: 'Done',
+          body: 'flyer ${_currentFlyer.id} got verified',
           color: Colorz.green255,
           onTap: () {
             blog('a77aaa ');

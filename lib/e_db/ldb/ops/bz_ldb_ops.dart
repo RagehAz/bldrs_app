@@ -11,7 +11,17 @@ class BzLDBOps {
   /// CREATE
 
 // ----------------------------------------
+  static Future<void> createBzOps({
+  @required BzModel bzModel,
+}) async {
 
+    await LDBOps.insertMap(
+        primaryKey: 'id',
+        docName: LDBDoc.bzz,
+        input: bzModel.toMap(toJSON: true),
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// READ
@@ -23,7 +33,17 @@ class BzLDBOps {
   /// UPDATE
 
 // ----------------------------------------
+  static Future<void> updateBzOps({
+    @required BzModel bzModel,
+  }) async {
 
+    await LDBOps.updateMap(
+        objectID: bzModel.id,
+        docName: LDBDoc.bzz,
+        input: bzModel.toMap(toJSON: true),
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// DELETE

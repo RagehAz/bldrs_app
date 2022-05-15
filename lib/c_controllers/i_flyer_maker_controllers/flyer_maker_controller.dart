@@ -406,7 +406,7 @@ Future<void> onPublishFlyer({
 
   await TopDialog.showTopDialog(
     context: context,
-    verse: 'Flyer Has been Published',
+    title: 'Flyer Has been Published',
     color: Colorz.green255,
   );
 

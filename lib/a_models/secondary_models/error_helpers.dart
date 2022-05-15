@@ -47,7 +47,7 @@ Future<void> tryAndCatch({
   }
 }
 // -----------------------------------------------------------------------------
-/// RETURNS TRUE IF SUCCESS AND FALSE ON FAILURE
+/// TASK : NEED METHOD TEST : RETURNS TRUE IF SUCCESS AND FALSE ON FAILURE
 Future<bool> tryCatchAndReturnBool({
   @required BuildContext context,
   @required Function functions,
@@ -78,14 +78,14 @@ Future<bool> tryCatchAndReturnBool({
 
     // throw(error);
 
-    bool _return;
-    if (error == null) {
-      _return = true;
-    } else {
-      _return = false;
-    }
+    // bool _return;
+    // if (error == null) {
+    //   _return = true;
+    // } else {
+    //   _return = false;
+    // }
 
-    return _return;
+    return false;
   }
 }
 // -----------------------------------------------------------------------------

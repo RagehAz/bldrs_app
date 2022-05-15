@@ -476,8 +476,8 @@ Future<void> onUploadPhrase({
 
       await TopDialog.showTopDialog(
         context: context,
-        verse: 'Added id :$phraseID',
-        secondLine: '$enValue : $arValue',
+        title: 'Added id :$phraseID',
+        body: '$enValue : $arValue',
       );
 
     }

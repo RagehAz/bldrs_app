@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -57,7 +57,7 @@ class BzzProvider extends ChangeNotifier {
     /// 2 - if not found, search firebase
     if (_bz == null) {
       /// 2.1 read firebase bz ops
-      _bz = await FireBzOps.readBz(
+      _bz = await BzFireOps.readBz(
         context: context,
         bzID: bzID,
       );
@@ -264,26 +264,28 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
-  Future<void> updateBzInUserBzz({
+  void updateBzInUserBzz({
     @required BzModel modifiedBz,
     @required bool notify,
-  }) async {
+  }) {
+
     if (Mapper.canLoopList(_myBzz)) {
-      await LDBOps.updateMap(
-        input: modifiedBz.toMap(toJSON: true),
-        objectID: modifiedBz.id,
-        docName: LDBDoc.bzz,
-      );
 
       final int _indexOfOldTinyBz = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
-      _myBzz.removeAt(_indexOfOldTinyBz);
-      _myBzz.insert(_indexOfOldTinyBz, modifiedBz);
+
+      if (_indexOfOldTinyBz != -1){
+        final List<BzModel> _newList = <BzModel>[..._myBzz];
+        _newList.removeAt(_indexOfOldTinyBz);
+        _newList.insert(_indexOfOldTinyBz, modifiedBz);
+        _myBzz = _newList;
+      }
 
       if (notify == true){
         notifyListeners();
       }
 
     }
+
   }
 // -----------------------------------------------------------------------------
 
