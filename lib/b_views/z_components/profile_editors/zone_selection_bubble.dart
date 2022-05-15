@@ -75,7 +75,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+    if (_isInit && mounted) {
 
       _triggerAllLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------

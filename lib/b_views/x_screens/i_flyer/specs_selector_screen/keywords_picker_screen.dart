@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/chain_expander_by_flyer_type.dart';
 import 'package:bldrs/b_views/z_components/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -16,13 +17,13 @@ class KeywordsPickerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const KeywordsPickerScreen({
     @required this.selectedKeywordsIDs,
-    @required this.flyerType,
+    @required this.flyerTypes,
     // @required this.onKeywordTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<String> selectedKeywordsIDs;
-  final FlyerTypeClass.FlyerType flyerType;
+  final List<FlyerTypeClass.FlyerType> flyerTypes;
   // final Function onKeywordTap;
   /// --------------------------------------------------------------------------
   @override
@@ -287,23 +288,30 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
               SizedBox(
                 width: _screenWidth,
                 height: _keywordsZoneHeight,
-                child: ListView(
+                child: ListView.builder(
                   padding: const EdgeInsets.only(
                     top: Ratioz.appBarMargin,
                     bottom: Ratioz.horizon,
                   ),
                   physics: const BouncingScrollPhysics(),
-                  children: <Widget>[
+                  itemCount: widget.flyerTypes.length,
+                  itemBuilder: (_, int index){
 
-                    ChainExpanderByFlyerType(
-                      flyerType: widget.flyerType,
+                    final FlyerType _flyerType = widget.flyerTypes[index];
+
+                    return ChainExpanderByFlyerType(
+                      flyerType: _flyerType,
                       bubbleWidth: _screenWidth,
                       deactivated: false,
                       onKeywordTap: (String id) => _onSelectKeyword(id),
                       selectedKeywordsIDs: selectedIDs,
-                    ),
+                    );
 
-                  ],
+
+                  }
+
+
+
                 ),
               ),
             ],

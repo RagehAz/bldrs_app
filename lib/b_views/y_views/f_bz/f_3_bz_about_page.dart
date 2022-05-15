@@ -1,10 +1,12 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -33,9 +35,9 @@ class BzAboutPage extends StatelessWidget {
 
         /// --- SCOPE
         if (bzModel.scope != null)
-          ParagraphBubble(
-            title: 'Scope of services',
-            paragraph: bzModel.scope,
+          InfoPageKeywords(
+            pageWidth: superScreenWidth(context),
+            keywordsIDs: bzModel.scope,
           ),
 
         if (bzModel.scope != null) const BubblesSeparator(),
