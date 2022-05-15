@@ -301,27 +301,31 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         final bool _userSelected =
                             _selectedUser == _usersModels[index];
 
-                        return _usersModels == <UserModel>[]
-                            ? SizedBox(
-                                width: _dialogClearWidth,
-                                height: 70,
-                                child: const SuperVerse(
-                                  verse: 'No match found',
-                                  size: 1,
-                                  weight: VerseWeight.thin,
-                                  italic: true,
-                                  color: Colorz.white30,
-                                ),
-                              )
-                            : Row(
-                                children: <Widget>[
-                                  DashboardUserButton(
-                                      width: _dialogClearWidth -
-                                          DashboardUserButton.height(),
-                                      userModel: _usersModels[index],
-                                      index: index,
-                                      onDeleteUser: null),
-                                  Container(
+                        return _usersModels == <UserModel>[] ?
+
+                        SizedBox(
+                          width: _dialogClearWidth,
+                          height: 70,
+                          child: const SuperVerse(
+                            verse: 'No match found',
+                            size: 1,
+                            weight: VerseWeight.thin,
+                            italic: true,
+                            color: Colorz.white30,
+                          ),
+                        )
+                            :
+                        Row(
+                          children: <Widget>[
+
+                            DashboardUserButton(
+                                width: _dialogClearWidth - DashboardUserButton.height(),
+                                userModel: _usersModels[index],
+                                index: index,
+                                onTap: null
+                            ),
+
+                            Container(
                                     height: DashboardUserButton.height(),
                                     width: DashboardUserButton.height(),
                                     alignment: Alignment.center,
@@ -348,9 +352,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
                                       },
                                     ),
                                   )
-                                ],
-                              );
-                      }),
+                          ],
+                        );
+                      }
+                      ),
                 ),
               ),
             ],
@@ -362,11 +367,15 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification({bool sendToMyself = false}) async {
-    final String _userID =
-        sendToMyself == true ? FireAuthOps.superUserID() : _selectedUser.id;
-    final String _userName = sendToMyself == true
-        ? 'YOURSELF : ${FireAuthOps.superUserID()}'
-        : _selectedUser.name;
+    final String _userID = sendToMyself == true ?
+    FireAuthOps.superUserID()
+        :
+    _selectedUser.id;
+
+    final String _userName = sendToMyself == true ?
+    'YOURSELF : ${FireAuthOps.superUserID()}'
+        :
+    _selectedUser.name;
 
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
@@ -376,6 +385,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     );
 
     if (_confirmSend == true) {
+
       final String _id = '${Numeric.createUniqueID()}';
 
       dynamic _outputAttachment;
@@ -420,9 +430,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
           await Fire.createNamedSubDoc(
             context: context,
             collName: FireColl.users,
-            docName: sendToMyself == true
-                ? FireAuthOps.superUserID()
-                : _selectedUser.id,
+            docName: sendToMyself == true ?
+            FireAuthOps.superUserID()
+                :
+            _selectedUser.id,
             subCollName: FireSubColl.users_user_notifications,
             input: _newNoti.toMap(toJSON: false),
             subDocName: _id,
@@ -431,6 +442,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
       );
 
       if (result == true) {
+
         await CenterDialog.showCenterDialog(
           context: context,
           title: 'Done',
@@ -445,13 +457,17 @@ class _NotificationMakerState extends State<NotificationMaker> {
           _sendFCMIsOn = false;
           _selectedUser = null;
         });
-      } else {
+
+      }
+
+      else {
         await CenterDialog.showCenterDialog(
           context: context,
           title: 'FAILED',
           body: 'The notification was not sent',
         );
       }
+
     }
   }
 
@@ -476,8 +492,10 @@ class _NotificationMakerState extends State<NotificationMaker> {
   void _onDeleteFlyer(String flyerID) {
     final List<FlyerModel> flyers = _attachment;
 
-    final FlyerModel _flyer =
-        FlyerModel.getFlyerFromFlyersByID(flyers: flyers, flyerID: flyerID);
+    final FlyerModel _flyer = FlyerModel.getFlyerFromFlyersByID(
+        flyers: flyers,
+        flyerID: flyerID,
+    );
 
     flyers.remove(_flyer);
 
@@ -512,8 +530,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
           padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
           child: SuperVerse(
             verse: Timers.generateString_on_dd_month_yyyy(
-                context: context, time: DateTime.now()),
-
+                context: context,
+                time: DateTime.now()
+            ),
             /// task : fix timestamp parsing
             color: Colorz.grey255,
             italic: true,
@@ -528,9 +547,12 @@ class _NotificationMakerState extends State<NotificationMaker> {
         Bubble(
           centered: true,
           margins: const EdgeInsets.symmetric(
-              horizontal: Ratioz.appBarMargin, vertical: Ratioz.appBarPadding),
+              horizontal: Ratioz.appBarMargin,
+              vertical: Ratioz.appBarPadding,
+          ),
           // bubbleOnTap: null,
           columnChildren: <Widget>[
+
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -600,8 +622,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         Container(
                           width: _bodyWidth,
                           height: 60,
-                          alignment:
-                              Aligners.superInverseCenterAlignment(context),
+                          alignment: Aligners.superInverseCenterAlignment(context),
                           child: DreamBox(
                             height: 50,
                             verse: 'Add Attachment',
@@ -697,12 +718,14 @@ class _NotificationMakerState extends State<NotificationMaker> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 if (_selectedUser != null)
+
                   DashboardUserButton(
                     width: TileBubble.childWidth(context),
                     index: 0,
                     userModel: _selectedUser,
-                    onDeleteUser: null,
+                    onTap: null,
                   ),
+
                 if (_selectedUser != null)
                   DreamBox(
                     height: 40,
@@ -715,6 +738,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                       });
                     },
                   ),
+
               ],
             ),
           ),

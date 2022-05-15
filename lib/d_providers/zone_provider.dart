@@ -903,6 +903,59 @@ class ZoneProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -----------------------------------------------------------------------------
+
+  /// PRO GETTERS
+
+// -------------------------------------
+  static Future<ZoneModel> proGetCompleteZoneModel({
+    @required BuildContext context,
+    @required ZoneModel incompleteZoneModel,
+  }) async {
+    /// incomplete zone model is what only has (countryID - cityID - districtID)
+    /// complete zone model is that has all IDs  Models and Names initialized
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+    final CountryModel _country = await _zoneProvider.fetchCountryByID(
+        context: context,
+        countryID: incompleteZoneModel.countryID,
+    );
+    final String _countryName = CountryModel.getTranslatedCountryName(
+      context: context,
+      countryID: incompleteZoneModel.countryID,
+    );
+
+    final CityModel _city = await _zoneProvider.fetchCityByID(
+      context: context,
+      cityID: incompleteZoneModel.cityID,
+    );
+    final String _cityName = CityModel.getTranslatedCityNameFromCity(
+      context: context,
+      city: _city,
+    );
+
+    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
+      context: context,
+      city: _city,
+      districtID: incompleteZoneModel.districtID,
+    );
+
+    final ZoneModel _zone = ZoneModel(
+      countryID: incompleteZoneModel.countryID,
+      cityID: incompleteZoneModel.cityID,
+      districtID: incompleteZoneModel.districtID,
+      countryName: _countryName,
+      cityName: _cityName,
+      districtName: _districtName,
+      countryModel: _country,
+      cityModel: _city,
+    );
+
+
+    return _zone;
+  }
+// -------------------------------------
+
 }
 /// TASK : ACTIVATED & GLOBAL COUNTRIES
 

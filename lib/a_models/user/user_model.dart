@@ -35,7 +35,7 @@ class UserModel {
     @required this.gender,
     @required this.zone,
     @required this.language,
-    @required this.position,
+    @required this.location,
     @required this.contacts,
     // -------------------------
     @required this.myBzzIDs,
@@ -60,7 +60,7 @@ class UserModel {
   final Gender gender;
   final ZoneModel zone;
   final String language;
-  final GeoPoint position;
+  final GeoPoint location;
   final List<ContactModel> contacts;
   // -------------------------
   final List<String> myBzzIDs;
@@ -93,7 +93,7 @@ class UserModel {
       gender: Gender.other,
       zone: null,
       language: 'en',
-      position: const GeoPoint(0, 0),
+      location: const GeoPoint(0, 0),
       contacts: <ContactModel>[],
       // -------------------------
       myBzzIDs: <String>[],
@@ -133,7 +133,7 @@ class UserModel {
       gender: Gender.other,
       zone: zone,
       language: '', //Wordz.languageCode(context),
-      position: null,
+      location: null,
       contacts: ContactModel.getContactsFromFirebaseUser(user),
       // -------------------------
       myBzzIDs: <String>[],
@@ -169,7 +169,7 @@ class UserModel {
       Gender gender,
       ZoneModel zone,
       String language,
-      GeoPoint position,
+      GeoPoint location,
       List<ContactModel> contacts,
       List<String> myBzzIDs,
       bool emailIsVerified,
@@ -192,7 +192,7 @@ class UserModel {
       gender: gender ?? this.gender,
       zone: zone ?? this.zone,
       language: language ?? this.language,
-      position: position ?? this.position,
+      location: location ?? this.location,
       contacts: contacts ?? this.contacts,
       myBzzIDs: myBzzIDs ?? this.myBzzIDs,
       emailIsVerified: emailIsVerified ?? this.emailIsVerified,
@@ -225,7 +225,7 @@ class UserModel {
       'gender': cipherGender(gender),
       'zone': zone?.toMap(),
       'language': language,
-      'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
+      'location': Atlas.cipherGeoPoint(point: location, toJSON: toJSON),
       'contacts': ContactModel.cipherContacts(contacts),
 // -------------------------
       'myBzzIDs': myBzzIDs ?? <String>[],
@@ -264,8 +264,8 @@ class UserModel {
       gender: decipherGender(map['gender']),
       zone: ZoneModel.decipherZoneMap(map['zone']),
       language: map['language'] ?? 'en',
-      position: Atlas.decipherGeoPoint(
-          point: map['position'],
+      location: Atlas.decipherGeoPoint(
+          point: map['location'],
           fromJSON: fromJSON
       ),
       contacts: ContactModel.decipherContacts(map['contacts']),
@@ -425,7 +425,7 @@ class UserModel {
 
     /*
     -> NOT required : status,
-    -> NOT required : position,
+    -> NOT required : location,
     -> NOT required : contacts,
     -> NOT required : myBzzIDs,
     -> NOT required : savedFlyersIDs,
@@ -518,7 +518,7 @@ class UserModel {
     blog('gender : $gender');
     zone.blogZone();
     blog('language : $language');
-    blog('position : $position');
+    blog('location : $location');
     ContactModel.blogContacts(contacts);
     blog('myBzzIDs : $myBzzIDs');
     blog('emailIsVerified : $emailIsVerified');
@@ -565,7 +565,7 @@ class UserModel {
       gender: Gender.male,
       zone: ZoneModel.dummyZone(),
       language: 'en',
-      position: Atlas.dummyPosition(),
+      location: Atlas.dummyLocation(),
       contacts: ContactModel.dummyContacts(),
       myBzzIDs: <String>[],
       emailIsVerified: true,
@@ -674,6 +674,9 @@ enum UserStatus {
   selling,
   bzAuthor,
   deactivated,
+  /*
+  Recon
+   */
 }
 // -----------------------------------------------------------------------------
 enum Gender {
