@@ -27,8 +27,8 @@ class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static Future<void> showTopDialog({
     @required BuildContext context,
-    @required String verse,
-    String secondLine,
+    @required String title,
+    String body,
     Color color,
     Function onTap,
   }) async {
@@ -87,11 +87,11 @@ class TopDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SuperVerse(
-              verse: verse,
+              verse: title,
               color: Colorz.black255,
             ),
             SuperVerse(
-              verse: secondLine,
+              verse: body,
               size: 1,
               color: Colorz.black255,
               weight: VerseWeight.thin,

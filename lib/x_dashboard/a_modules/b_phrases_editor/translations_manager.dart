@@ -113,7 +113,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     else {
       await TopDialog.showTopDialog(
         context: context,
-        verse: 'ID is Empty',
+        title: 'ID is Empty',
       );
     }
 

@@ -17,7 +17,6 @@ PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settings) {
     settings: settings,
   );
 }
-
 // -----------------------------------------------------------------------------
 PageTransition<dynamic> fadeToScreen(Widget screen, RouteSettings settings) {
   return PageTransition<dynamic>(
@@ -29,12 +28,9 @@ PageTransition<dynamic> fadeToScreen(Widget screen, RouteSettings settings) {
     settings: settings,
   );
 }
-
 // -----------------------------------------------------------------------------
-Future<dynamic> goToNewScreen(BuildContext context, Widget screen,
-    {PageTransitionType transitionType}) async {
-  final PageTransitionType _transition =
-      transitionType ?? PageTransitionType.bottomToTop;
+Future<dynamic> goToNewScreen(BuildContext context, Widget screen, {PageTransitionType transitionType}) async {
+  final PageTransitionType _transition = transitionType ?? PageTransitionType.bottomToTop;
 
   final dynamic _result = await Navigator.push(
     context,
@@ -50,13 +46,10 @@ Future<dynamic> goToNewScreen(BuildContext context, Widget screen,
 
   return _result;
 }
-
 // -----------------------------------------------------------------------------
-Future<void> goToRoute(BuildContext context, String routezName,
-    {dynamic arguments}) async {
+Future<void> goToRoute(BuildContext context, String routezName, {dynamic arguments}) async {
   await Navigator.of(context).pushNamed(routezName, arguments: arguments);
 }
-
 // -----------------------------------------------------------------------------
 Future<void> openFlyerOldWay(BuildContext context, String flyerID) async {
   await Navigator.of(context).push(PageRouteBuilder(
@@ -74,7 +67,6 @@ Future<void> openFlyerOldWay(BuildContext context, String flyerID) async {
     },
   ));
 }
-
 // -----------------------------------------------------------------------------
 Future<void> openFlyer({
   @required BuildContext context,
@@ -132,29 +124,34 @@ void goBackUntil(BuildContext context, String routez) {
 void goBackToHomeScreen(BuildContext context) {
   Navigator.popUntil(context, ModalRoute.withName(Routez.home));
 }
-
 // -----------------------------------------------------------------------------
-Future<dynamic> replaceScreen(BuildContext context, Widget screen) async {
-  final dynamic _result = await Navigator.pushReplacement(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
+Future<dynamic> replaceScreen({
+  @required BuildContext context,
+  @required Widget screen,
+}) async {
+
+  final dynamic _result = await Navigator.pushReplacement(
+      context,
+      MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen)
+  );
+
   return _result;
 }
-
 // -----------------------------------------------------------------------------
 Future<void> removeRouteBelow(BuildContext context, Widget screen) async {
-  Navigator.removeRouteBelow(context,
-      MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
+  Navigator.removeRouteBelow(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
+}
+// -----------------------------------------------------------------------------
+Future<void> pushNamedAndRemoveAllBelow(BuildContext context, String goToRoute) async {
+  await Navigator.of(context).pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
 }
 
 // -----------------------------------------------------------------------------
-Future<void> pushNamedAndRemoveAllBelow(
-    BuildContext context, String goToRoute) async {
-  await Navigator.of(context)
-      .pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
-}
+Future<void> pushAndRemoveUntil({
+  @required BuildContext context,
+  @required Widget screen,
+}) async {
 
-// -----------------------------------------------------------------------------
-Future<void> pushAndRemoveUntil(
-    {@required BuildContext context, @required Widget screen}) async {
   await Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute<dynamic>(
@@ -162,11 +159,13 @@ Future<void> pushAndRemoveUntil(
       ),
       (Route<dynamic> route) => route.isFirst);
 }
-
 // -----------------------------------------------------------------------------
 PageTransitionType superHorizontalTransition(BuildContext context) {
-  final PageTransitionType _transition = appIsLeftToRight(context) == true
-      ? PageTransitionType.rightToLeftWithFade
-      : PageTransitionType.leftToRightWithFade;
+  final PageTransitionType _transition =
+  appIsLeftToRight(context) == true ?
+  PageTransitionType.rightToLeftWithFade
+      :
+  PageTransitionType.leftToRightWithFade;
   return _transition;
 }
+// -----------------------------------------------------------------------------

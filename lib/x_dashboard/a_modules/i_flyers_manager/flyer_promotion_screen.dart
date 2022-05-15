@@ -108,8 +108,8 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
       await TopDialog.showTopDialog(
         context: context,
-        verse: 'Flyer is successfully promoted',
-        secondLine: 'in ${_zone.cityName}, ${_zone.countryName}',
+        title: 'Flyer is successfully promoted',
+        body: 'in ${_zone.cityName}, ${_zone.countryName}',
         color: Colorz.yellow255,
       );
 
