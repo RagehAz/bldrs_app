@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
+import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -45,7 +45,7 @@ class AskerLabel extends StatelessWidget {
           UserBalloon(
             userModel: userModel,
             balloonType: userModel.status,
-            balloonWidth: _userLabelBoxHeight,
+            size: _userLabelBoxHeight,
             loading: false,
             // onTap: () {
             //   blog('this person should ask a fucking question');

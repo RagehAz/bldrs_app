@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -12,6 +14,9 @@ class ZoneModel {
     this.countryName,
     this.cityName,
     this.districtName,
+
+    this.countryModel,
+    this.cityModel,
   });
   /// --------------------------------------------------------------------------
   String countryID;
@@ -21,6 +26,8 @@ class ZoneModel {
   String countryName;
   String cityName;
   String districtName;
+  CountryModel countryModel;
+  CityModel cityModel;
 // -----------------------------------------------------------------------------
 
   /// CYPHERS

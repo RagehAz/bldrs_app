@@ -1,5 +1,4 @@
 import 'dart:math' show cos, sqrt, asin, sin, pow;
-
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,16 +8,21 @@ dynamic cipherGeoPoint({
   @required GeoPoint point,
   @required bool toJSON,
 }) {
+
   dynamic _output;
 
   if (point != null) {
+
     if (toJSON == true) {
       final String lat = '${point.latitude}';
       final String lng = '${point.longitude}';
       _output = '${lat}_$lng';
-    } else {
+    }
+
+    else {
       _output = point;
     }
+
   }
 
   return _output;
@@ -32,23 +36,25 @@ GeoPoint decipherGeoPoint({
 
   if (point != null) {
     if (fromJSON == true) {
-      final String _latString =
-          TextMod.removeTextAfterLastSpecialCharacter(point, '_');
+
+      final String _latString = TextMod.removeTextAfterLastSpecialCharacter(point, '_');
       final double _lat = Numeric.stringToDouble(_latString);
-      final String _lngString =
-          TextMod.removeTextBeforeFirstSpecialCharacter(point, '_');
+      final String _lngString = TextMod.removeTextBeforeFirstSpecialCharacter(point, '_');
       final double _lng = Numeric.stringToDouble(_lngString);
 
       _output = GeoPoint(_lat, _lng);
-    } else {
+    }
+
+    else {
       _output = point;
     }
+
   }
 
   return _output;
 }
 // -----------------------------------------------------------------------------
-GeoPoint dummyPosition() {
+GeoPoint dummyLocation() {
   return const GeoPoint(29.979174, 31.134264);
 }
 // -----------------------------------------------------------------------------
@@ -75,7 +81,8 @@ double haversineGeoPoints({
 
     final double _a =
         pow(sin(_dRadLat / 2), 2)
-            + pow(sin(_dRadLng / 2), 2) * cos(_radLatA) * cos(_radLatB);
+        +
+        pow(sin(_dRadLng / 2), 2) * cos(_radLatA) * cos(_radLatB);
 
     final double _c = 2 * asin(sqrt(_a));
 

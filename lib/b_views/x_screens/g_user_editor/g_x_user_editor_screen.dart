@@ -318,7 +318,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       gender: _gender.value,
       zone: _zone.value,
       language: Wordz.languageCode(context),
-      position: _currentPosition,
+      location: _currentPosition,
       contacts: _createContactList(existingContacts: widget.userModel.contacts),
       // -------------------------
       myBzzIDs: widget.userModel.myBzzIDs,

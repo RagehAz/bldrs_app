@@ -1065,7 +1065,7 @@ class BzModel{
       totalFollowers: 1000,
       totalFlyers: 10,
       bzState: BzState.online,
-      position: Atlas.dummyPosition(),
+      position: Atlas.dummyLocation(),
       flyersIDs: <String>[],
       authors: <AuthorModel>[],
       contacts: <ContactModel>[],

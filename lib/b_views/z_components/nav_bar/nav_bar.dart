@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/x_screens/f_bz/f_1_my_bzz_selector_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
+import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
@@ -504,7 +504,7 @@ class NavBar extends StatelessWidget {
                                 screen: const UserProfileScreen()
                             ),
                             clipperWidget: UserBalloon(
-                              balloonWidth: _circleWidth,
+                              size: _circleWidth,
                               loading: false,
                               userModel: _myUserModel,
                             )),
