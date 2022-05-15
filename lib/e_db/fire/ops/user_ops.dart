@@ -12,7 +12,7 @@ import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as FireBzOps;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -428,7 +428,7 @@ Future<dynamic> deactivateUser({
       ));
 
       /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-      final Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
+      final Map<String, dynamic> _userBzzMap = await BzFireOps.readAndFilterTeamlessBzzByUserModel(
         context: context,
         userModel: userModel,
       );
@@ -488,7 +488,7 @@ Future<dynamic> deactivateUser({
 
           /// G - DEACTIVATE all deactivable bzz
           for (final BzModel bz in _bzzToDeactivate) {
-            await FireBzOps.deactivateBz(
+            await BzFireOps.deactivateBz(
               context: context,
               bzModel: bz,
             );
@@ -621,7 +621,7 @@ Future<dynamic> deleteUser({
       ));
 
       /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-      final Map<String, dynamic> _userBzzMap = await FireBzOps.readAndFilterTeamlessBzzByUserModel(
+      final Map<String, dynamic> _userBzzMap = await BzFireOps.readAndFilterTeamlessBzzByUserModel(
         context: context,
         userModel: userModel,
       );
@@ -680,7 +680,7 @@ Future<dynamic> deleteUser({
 
           /// G - DELETE all deactivable bzz : firestore/bzz/bzID
           for (final BzModel bz in _bzzToDeactivate) {
-            await FireBzOps.deleteBzOps(
+            await BzFireOps.deleteBzOps(
               context: context,
               bzModel: bz,
             );

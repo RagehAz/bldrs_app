@@ -181,10 +181,26 @@ class UsersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  void addBzIDToMyBzzIDs({
+    @required String bzIDToAdd,
+    @required bool notify,
+  }) {
+
+    final List<String> _newList = <String>[bzIDToAdd, ..._myUserModel.myBzzIDs];
+    _myUserModel = _myUserModel.copyWith(
+      myBzzIDs: _newList,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // -------------------------------------
   void removeBzIDFromMyBzzIDs({
     @required String bzIDToRemove,
     @required bool notify,
-}){
+  }){
 
     if (Mapper.canLoopList(_myUserModel.myBzzIDs)) {
 

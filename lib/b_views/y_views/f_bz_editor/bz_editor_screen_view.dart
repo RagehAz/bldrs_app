@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -47,6 +48,7 @@ class BzEditorScreenView extends StatelessWidget {
     @required this.bzPosition,
     @required this.bzZone,
     @required this.initialBzModel,
+    @required this.userModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -67,6 +69,7 @@ class BzEditorScreenView extends StatelessWidget {
   final ValueNotifier<GeoPoint> bzPosition;
   final ValueNotifier<List<ContactModel>> bzContacts;
   final BzModel initialBzModel;
+  final UserModel userModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -300,6 +303,7 @@ class BzEditorScreenView extends StatelessWidget {
                                     ],
                                   ),
 
+                                  if (Mapper.canLoopList(_keywords))
                                   InfoPageKeywords(
                                     pageWidth: Bubble.clearWidth(context),
                                     keywordsIDs: _keywords,
@@ -417,6 +421,8 @@ class BzEditorScreenView extends StatelessWidget {
               bzNameTextController: bzNameTextController,
               bzPosition: bzPosition,
               initialBzModel: initialBzModel,
+              userModel: userModel,
+              firstTimer: firstTimer,
             ),
           ),
         ),

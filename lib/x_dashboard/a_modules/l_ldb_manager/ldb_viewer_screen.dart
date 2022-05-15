@@ -178,7 +178,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
     else {
       await TopDialog.showTopDialog(
           context: context,
-          verse: 'Ana 2olt keda bardo',
+          title: 'Ana 2olt keda bardo',
       );
     }
 

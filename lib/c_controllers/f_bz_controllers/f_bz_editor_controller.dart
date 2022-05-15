@@ -1,13 +1,24 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -16,6 +27,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 
 // -----------------------------------------------------------------------------
 
@@ -151,9 +163,11 @@ Future<void> onConfirmTap({
   @required ValueNotifier<GeoPoint> bzPosition,
   @required ValueNotifier<List<ContactModel>> bzContacts,
   @required BzModel initialBzModel,
+  @required bool firstTimer,
+  @required UserModel userModel,
 }) async {
 
-  final BzModel _bzModel = createBzModelFromLocalVariables(
+  final BzModel _newBzModel = createBzModelFromLocalVariables(
     selectedBzTypes: selectedBzTypes,
     selectedScopes: selectedScopes,
     selectedBzForm: selectedBzForm,
@@ -169,33 +183,61 @@ Future<void> onConfirmTap({
   /// ONLY VALIDATION TO INPUTS
   final bool _inputsAreValid = await _validateInputs(
     context: context,
-    bzModel: _bzModel,
+    bzModel: _newBzModel,
     formKey: formKey,
     missingFields: missingFields,
   );
 
   if (_inputsAreValid == true){
 
-    final bool _canContinue = await _showConfirmationDialog(
+    /// REQUEST CONFIRMATION
+    final bool _canContinue = await CenterDialog.showCenterDialog(
       context: context,
+      title: '',
+      body: 'Are you sure you want to continue ?',
+      boolDialog: true,
     );
 
     if (_canContinue == true){
 
-      final BzModel _uploadedBzModel = await _uploadBzModel(_bzModel);
+      if (firstTimer == true){
+        await _firstTimerCreateNewBzOps(
+          context: context,
+          newBzModel: _newBzModel,
+          userModel: userModel,
+        );
+      }
 
-      final bool _opSuccess = _uploadOpsSucceeded(_uploadedBzModel);
+      else {
+        await _updateBzOps(
+          context: context,
+          newBzModel: _newBzModel,
+          oldBzModel: initialBzModel,
+        );
+      }
 
-      await _setNewBzModelLocally(
-        context: context,
-        uploadedBzModel: _uploadedBzModel,
-        uploadOpsSucceeded: _opSuccess,
-      );
 
-      await _onUploadOpsEnd(
-        context: context,
-        onOpSuccess: _opSuccess,
-      );
+
+      // /// ON SUCCESS
+      // if (_uploadedBzModel != null){
+      //
+      //
+      // }
+      //
+      // /// ON FAILURE
+      // else {
+      //
+      //   /// CLOSE WAIT DIALOG
+      //   WaitDialog.closeWaitDialog(context);
+      //
+      //   /// FAILURE DIALOG
+      //   await CenterDialog.showCenterDialog(
+      //     context: context,
+      //     title: 'Ops !',
+      //     body: 'Something went wrong, Please try again',
+      //   );
+      //
+      // }
 
     }
 
@@ -235,107 +277,171 @@ Future<bool> _validateInputs({
   return _inputsAreValid;
 }
 // ----------------------------------
-Future<BzModel> _uploadBzModel(BzModel bzModel) async {
-  final BzModel _uploadedBzModel = bzModel; /// TEMP
-
-  // /// FIRST TIME TO CREATE BZ MODEL
-  // if (widget.firstTimer == true){
-  //   _uploadedBzModel = await FireBzOps.createBz(
-  //         context: context,
-  //         inputBz: bzModel,
-  //         userModel: widget.userModel,
-  //     );
-  // }
-  //
-  // /// UPDATING EXISTING BZ MODEL
-  // else {
-  //     _uploadedBzModel = await FireBzOps.updateBz(
-  //       context: context,
-  //       modifiedBz: bzModel,
-  //       originalBz: _initialBzModel,
-  //       bzLogoFile: _currentBzLogoFile,
-  //       authorPicFile: _currentAuthorPicFile,
-  //     );
-  // }
-
-  /// SHOULD BE NULL IF FAILED TO UPLOAD
-  return _uploadedBzModel;
-}
-// ----------------------------------
-bool _uploadOpsSucceeded(BzModel uploadedBzModel){
-  bool _opsSucceeded;
-
-  if (uploadedBzModel == null){
-    _opsSucceeded = false;
-  }
-
-  else {
-    _opsSucceeded = true;
-  }
-
-  return _opsSucceeded;
-}
-// ----------------------------------
-Future<void> _setNewBzModelLocally({
+Future<void> _firstTimerCreateNewBzOps({
   @required BuildContext context,
-  @required BzModel uploadedBzModel,
-  @required bool uploadOpsSucceeded,
+  @required BzModel newBzModel,
+  @required UserModel userModel,
 }) async {
 
-  if (uploadOpsSucceeded == true){
-
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-
-    await _bzzProvider.updateBzInUserBzz(
-      modifiedBz: uploadedBzModel,
-      notify: true,
-    );
-  }
-
-}
-// ----------------------------------
-Future<bool> _showConfirmationDialog({
-  @required BuildContext context,
-}) async {
-
-  final bool _continueOps = await CenterDialog.showCenterDialog(
+  unawaited(WaitDialog.showWaitDialog(
     context: context,
-    title: '',
-    body: 'Are you sure you want to continue ?',
-    boolDialog: true,
+    loadingPhrase: 'Creating a new Business Account',
+  ));
+
+  /// FIREBASE CREATE BZ OPS
+  final BzModel _uploadedBzModel = await BzFireOps.createBz(
+    context: context,
+    inputBz: newBzModel,
+    userModel: userModel,
   );
 
-  return _continueOps;
-}
-// ----------------------------------
-Future<void> _onUploadOpsEnd({
-  @required BuildContext context,
-  @required bool onOpSuccess,
-}) async {
-
   /// ON SUCCESS
-  if (onOpSuccess == true){
+  if (_uploadedBzModel != null){
 
-    await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Great !',
-      body: 'Successfully updated your Business Account',
+    /// LDB CREATE BZ OPS
+    await BzLDBOps.createBzOps(
+      bzModel: _uploadedBzModel,
+    );
+    /// LDB UPDATE USER MODEL
+    await UserLDBOps.addBzIDToMyBzzIDs(
+      userModel: userModel,
+      bzIDToAdd: _uploadedBzModel.id,
     );
 
-    Nav.goBack(context,
-      /// TASK : need to check this
-      // argument: widget.firstTimer ? null : true,
+    /// SET BZ MODEL LOCALLY
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.addBzToMyBzz(
+      bzModel: _uploadedBzModel,
+      notify: false,
+    );
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+        context: context,
+        countryID: _uploadedBzModel.zone.countryID,
+    );
+    final CityModel _bzCity = await _zoneProvider.fetchCityByID(
+        context: context,
+        cityID: _uploadedBzModel.zone.cityID,
+    );
+    _bzzProvider.setActiveBz(
+      bzModel: _uploadedBzModel,
+      bzCountry: _bzCountry,
+      bzCity: _bzCity,
+      notify: true,
+    );
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    _usersProvider.addBzIDToMyBzzIDs(
+        bzIDToAdd: _uploadedBzModel.id,
+        notify: true,
+    );
+
+    /// CLOSE WAIT DIALOG
+    WaitDialog.closeWaitDialog(context);
+
+    /// SHOW SUCCESS DIALOG
+    await TopDialog.showTopDialog(
+      context: context,
+      title: 'Great !',
+      body: 'Successfully created your Business Account',
+    );
+
+    /// NAVIGATE
+    await Nav.replaceScreen(
+        context: context,
+        screen: MyBzScreen(
+          bzModel: _uploadedBzModel,
+        )
     );
 
   }
 
   /// ON FAILURE
   else {
-    await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Ops !',
-      body: 'Something went wrong, Please try again',
+
+    /// CLOSE WAIT DIALOG
+    WaitDialog.closeWaitDialog(context);
+
+    await _failureDialog(context);
+
+  }
+
+
+}
+// ----------------------------------
+Future<void> _updateBzOps({
+  @required BuildContext context,
+  @required BzModel newBzModel,
+  @required BzModel oldBzModel,
+
+}) async {
+
+  unawaited(WaitDialog.showWaitDialog(
+    context: context,
+    loadingPhrase: 'Updating Business account',
+  ));
+
+  /// FIREBASE UPDATE BZ OPS
+  final BzModel _uploadedBzModel = await BzFireOps.updateBz(
+    context: context,
+    modifiedBz: newBzModel,
+    originalBz: oldBzModel,
+    bzLogoFile: newBzModel.logo,
+    authorPicFile: null,
+  );
+
+  /// ON SUCCESS
+  if (_uploadedBzModel != null){
+
+    /// LDB UPDATE BZ OPS
+    await BzLDBOps.updateBzOps(
+      bzModel: _uploadedBzModel,
     );
+
+    /// SET UPDATED BZ MODEL LOCALLY ( USER BZZ )
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.updateBzInUserBzz(
+      modifiedBz: _uploadedBzModel,
+      notify: false,
+    );
+    /// SET UPDATED BZ MODEL LOCALLY ( MY ACTIVE BZ )
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+      context: context,
+      countryID: _uploadedBzModel.zone.countryID,
+    );
+    final CityModel _bzCity = await _zoneProvider.fetchCityByID(
+      context: context,
+      cityID: _uploadedBzModel.zone.cityID,
+    );
+    _bzzProvider.setActiveBz(
+      bzModel: _uploadedBzModel,
+      bzCountry: _bzCountry,
+      bzCity: _bzCity,
+      notify: true,
+    );
+
+    /// CLOSE WAIT DIALOG
+    WaitDialog.closeWaitDialog(context);
+
+    /// SHOW SUCCESS DIALOG
+    await TopDialog.showTopDialog(
+      context: context,
+      title: 'Great !',
+      body: 'Successfully updated your Business Account',
+    );
+
+    /// GO BACK
+    Nav.goBack(context);
+  }
+
+  /// OF FAILURE
+  else {
+
+  /// CLOSE WAIT DIALOG
+  WaitDialog.closeWaitDialog(context);
+
+  await _failureDialog(context);
+
   }
 
 }
@@ -352,7 +458,7 @@ bool _errorIsOn({
 
   return _isError;
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
 BzModel createBzModelFromLocalVariables({
   @required ValueNotifier<List<BzType>> selectedBzTypes,
   @required ValueNotifier<List<String>> selectedScopes,
@@ -396,3 +502,15 @@ BzModel createBzModelFromLocalVariables({
 
   return _bzModel;
 }
+// ----------------------------------
+Future<void> _failureDialog(BuildContext context) async {
+
+    /// FAILURE DIALOG
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Ops !',
+      body: 'Something went wrong, Please try again',
+    );
+
+}
+// ----------------------------------
