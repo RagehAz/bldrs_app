@@ -83,14 +83,14 @@ void onChangeUserScreenTabIndex({
 Future<void> onMoreOptionsTap (BuildContext context) async {
   blog('more button in user screen');
 
-  const double _buttonHeight = 42;
+  const double _buttonHeight = 50;
 
     await BottomDialog.showButtonsBottomDialog(
       context: context,
       draggable: true,
       buttonHeight: _buttonHeight,
       title: 'Profile options',
-      numberOfWidgets: 13,
+      numberOfWidgets: 10,
       builder: (xxx, phrasePro){
 
         blog('ahoooooooo lalalala');
@@ -100,6 +100,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           /// EDIT PROFILE
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: superPhrase(xxx, 'phid_editProfile', providerOverride: phrasePro),
             icon: Iconz.gears,
             onTap: () => onEditProfileTap(xxx),
@@ -108,6 +109,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           /// CHANGE APP LANGUAGE
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: superPhrase(xxx, 'phid_changeLanguage', providerOverride: phrasePro),
             icon: Iconz.language,
             onTap: () => _onChangeAppLanguageTap(xxx),
@@ -118,6 +120,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           /// ABOUT BLDRS
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: '${superPhrase(xxx, 'phid_about', providerOverride: phrasePro)} ${Wordz.bldrsFullName(xxx)}',
             icon: Iconz.pyramidSingleYellow,
             onTap: () => _onAboutBldrsTap(xxx),
@@ -126,6 +129,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           /// FEEDBACK
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: superPhrase(xxx, 'phid_feedback', providerOverride: phrasePro),
             icon: Iconz.utSearching,
             onTap: () => _onFeedbackTap(xxx),
@@ -134,6 +138,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           /// TERMS AND REGULATIONS
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: superPhrase(xxx, 'phid_termsRegulations', providerOverride: phrasePro),
             icon: Iconz.terms,
             onTap: () => _onTermsAndRegulationsTap(xxx),
@@ -144,6 +149,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           /// CREATE NEW BZ ACCOUNT
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: superPhrase(xxx, 'phid_createBzAccount', providerOverride: phrasePro),
             icon: Iconz.bz,
             onTap: () => _onCreateNewBzTap(xxx),
@@ -152,6 +158,7 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           /// INVITE FRIENDS
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: superPhrase(xxx, 'phid_inviteFriends', providerOverride: phrasePro),
             icon: Iconizer.shareAppIcon(),
             onTap: () => _onInviteFriendsTap(xxx),
@@ -162,16 +169,16 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
           /// DELETE MY ACCOUNT
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: superPhrase(xxx, 'phid_delete_my_account', providerOverride: phrasePro),
             icon: Iconz.xSmall,
             onTap: () => _onDeleteMyAccount(xxx),
           ),
 
-          const BubblesSeparator(bottomMarginIsOn: false,),
-
           /// SIGN OUT
           BottomDialog.wideButton(
             context: xxx,
+            height: _buttonHeight,
             verse: superPhrase(xxx, 'phid_signOut', providerOverride: phrasePro),
             icon: Iconz.exit,
             onTap: () => _onSignOut(xxx),

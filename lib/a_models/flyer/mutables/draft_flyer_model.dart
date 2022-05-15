@@ -324,7 +324,7 @@ class DraftFlyerModel{
 
   /// BLOGGING
 
-//
+// -------------------------------------
   void blogDraft(){
 
     blog('BLOGGIND DRAFT FLYER MODEL ---------------------------------------- START');
@@ -350,4 +350,5 @@ class DraftFlyerModel{
 
     blog('BLOGGIND DRAFT FLYER MODEL ---------------------------------------- END');
   }
+// -----------------------------------------------------------------------------
 }

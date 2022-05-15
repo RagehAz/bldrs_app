@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/y_views/f_bz/f_0_my_bz_screen_view.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/c_controllers/f_my_bz_screen_controller.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
