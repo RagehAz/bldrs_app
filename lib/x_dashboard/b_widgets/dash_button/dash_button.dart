@@ -29,7 +29,10 @@ class DashButton extends StatelessWidget {
       onTap: () async {
 
         if (dashButtonModel.screen != null){
-          await Nav.goToNewScreen(context, dashButtonModel.screen);
+          await Nav.goToNewScreen(
+              context: context,
+              screen: dashButtonModel.screen,
+          );
         }
 
       },

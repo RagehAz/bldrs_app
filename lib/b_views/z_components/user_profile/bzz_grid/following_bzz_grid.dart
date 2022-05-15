@@ -32,13 +32,16 @@ class FollowingBzzGrid extends StatelessWidget {
     bzModel.blogBz(methodName: 'Followed Bz tapped');
 
     if (onBzTap == null) {
+
       await Nav.goToNewScreen(
-          context,
-          BzCardScreen(
+          context: context,
+          screen: BzCardScreen(
             bzID: bzModel.id,
             flyerBoxWidth: Scale.superScreenWidth(context) -
                 Ratioz.appBarMargin * 4,
-          ));
+          )
+      );
+
     }
 
     else {

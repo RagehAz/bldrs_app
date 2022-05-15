@@ -172,7 +172,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                                 // blog('trying to trigger loading');
                                 // _ui.triggerLoading();
 
-                                await Nav.goToNewScreen(context, const BldrsDashBoard());
+                                await Nav.goToNewScreen(
+                                    context: context,
+                                    screen: const BldrsDashBoard(),
+                                );
 
                               // });
 

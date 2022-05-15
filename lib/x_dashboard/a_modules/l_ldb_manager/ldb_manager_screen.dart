@@ -23,8 +23,8 @@ class LDBViewersScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
   Future<void> goToLDBViewer(BuildContext context, String ldbDocName) async {
     await Nav.goToNewScreen(
-        context,
-        LDBViewerScreen(
+        context: context,
+        screen: LDBViewerScreen(
           ldbDocName: ldbDocName,
         )
     );

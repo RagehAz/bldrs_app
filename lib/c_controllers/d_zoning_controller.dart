@@ -25,8 +25,9 @@ import 'package:provider/provider.dart';
 // -------------------------------------
 Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
 
-  final ZoneModel _zone = await goToNewScreen(context,
-      const SelectCountryScreen(
+  final ZoneModel _zone = await goToNewScreen(
+      context: context,
+      screen: const SelectCountryScreen(
         selectCountryIDOnly: true,
       )
   );
@@ -36,8 +37,9 @@ Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
 // -----------------------------------------------------------------------------
 Future<ZoneModel> controlSelectCountryAndCityOnly(BuildContext context) async {
 
-  final ZoneModel _zone = await goToNewScreen(context,
-      const SelectCountryScreen(
+  final ZoneModel _zone = await goToNewScreen(
+      context: context,
+      screen: const SelectCountryScreen(
         selectCountryAndCityOnly: true,
       )
   );
@@ -92,10 +94,13 @@ Future<void> controlCountryOnTap({
       );
 
       /// C - GO SELECT CITY
-      final String _cityID = await Nav.goToNewScreen(context, SelectCityScreen(
-        country: _country,
-        selectCountryAndCityOnly: selectCountryAndCityOnly,
-      ));
+      final String _cityID = await Nav.goToNewScreen(
+          context: context,
+          screen: SelectCityScreen(
+            country: _country,
+            selectCountryAndCityOnly: selectCountryAndCityOnly,
+          )
+      );
 
       /// D - IF CITY IS SELECTED
       if (_cityID != null){
@@ -130,8 +135,9 @@ Future<void> controlCountryOnTap({
           countryID: countryID
       );
 
-      await Nav.goToNewScreen(context,
-          SelectCityScreen(
+      await Nav.goToNewScreen(
+          context: context,
+          screen: SelectCityScreen(
               country: _country
           )
       );
@@ -295,13 +301,15 @@ Future<void> controlCityOnTap({
     /// WHEN CITY HAS DISTRICTS
     if (Mapper.canLoopList(_city.districts)) {
 
-      await Nav.goToNewScreen(context,
-          SelectDistrictScreen(
+      await Nav.goToNewScreen(
+          context: context,
+          screen: SelectDistrictScreen(
             city: _city,
             country: country,
             settingCurrentZone: settingCurrentZone,
           )
       );
+
     }
 
     /// WHEN CITY HAS NO DISTRICTS

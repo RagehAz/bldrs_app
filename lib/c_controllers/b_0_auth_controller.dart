@@ -261,15 +261,15 @@ Future<void> _controlMissingFieldsCase({
     userModel: authModel.userModel,
   );
 
-  await Nav.goToNewScreen(context,
-
-      EditProfileScreen(
+  await Nav.goToNewScreen(
+      context: context,
+      screen: EditProfileScreen(
         userModel: authModel.userModel,
         onFinish: () async {
 
           await _goToLogoScreen(context);
 
-        },
+          },
       )
 
   );

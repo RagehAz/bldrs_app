@@ -79,7 +79,10 @@ class BackAndSearchButton extends StatelessWidget {
             }
 
             else if (backAndSearchAction == BackAndSearchAction.goToSearchScreen) {
-              await Nav.goToNewScreen(context, const SearchScreen());
+              await Nav.goToNewScreen(
+                  context: context,
+                  screen: const SearchScreen(),
+              );
             }
 
             else {

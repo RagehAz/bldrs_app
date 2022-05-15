@@ -132,10 +132,13 @@ Future<void> onAddScopesTap({
   @required ValueNotifier<List<String>> selectedScopes,
 }) async {
 
-  final dynamic _result = await Nav.goToNewScreen(context, KeywordsPickerScreen(
-    flyerTypes: concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
-    selectedKeywordsIDs: selectedScopes.value,
-  ));
+  final dynamic _result = await Nav.goToNewScreen(
+      context: context,
+      screen: KeywordsPickerScreen(
+        flyerTypes: concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
+        selectedKeywordsIDs: selectedScopes.value,
+      )
+  );
 
   final List<String> receivedKeywordsIds = _result;
 
@@ -346,7 +349,8 @@ Future<void> _firstTimerCreateNewBzOps({
     );
 
     /// NAVIGATE
-    await Nav.replaceScreen(
+    Nav.goBackToHomeScreen(context);
+    await Nav.goToNewScreen(
         context: context,
         screen: MyBzScreen(
           bzModel: _uploadedBzModel,

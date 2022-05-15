@@ -31,17 +31,12 @@ class AddFlyerButton extends StatelessWidget {
     blog('going to create new flyer keda');
 
     await Future<void>.delayed(Ratioz.durationFading200, () async {
-      final dynamic _result = await Nav.goToNewScreen(
-          context,
-          // FlyerMakerScreen(
-          //   firstTimer: true,
-          //   bzModel: bzModel,
-          //   flyerModel: null,
-          // )
 
-        FlyerMakerScreen(
-          bzModel: bzModel,
-        )
+      final dynamic _result = await Nav.goToNewScreen(
+          context: context,
+          screen: FlyerMakerScreen(
+            bzModel: bzModel,
+          ),
       );
 
       if (_result.runtimeType == FlyerModel) {
