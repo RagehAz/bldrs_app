@@ -279,7 +279,7 @@ Future<void> onAddKeywordsTap({
 }) async {
 
   final dynamic _result = await Nav.goToNewScreen(context, KeywordsPickerScreen(
-    flyerType: draft.value.flyerType,
+    flyerTypes: <FlyerType>[draft.value.flyerType],
     selectedKeywordsIDs: draft.value.keywordsIDs,
   ));
 
