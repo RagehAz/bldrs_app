@@ -50,20 +50,30 @@ class _NotificationCreatorState extends State<NotificationCreator> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return DashBoardLayout(
       pageTitle: 'Notifications Manager',
       loading: _loading,
       listWidgets: <Widget>[
+
         WideButton(
           verse: 'Templates',
-          onTap: () =>
-              Nav.goToNewScreen(context, const NotificationTemplatesScreen()),
+          onTap: () => Nav.goToNewScreen(
+              context: context,
+              screen: const NotificationTemplatesScreen(),
+          ),
         ),
+
         WideButton(
           verse: 'Send to single user',
-          onTap: () => Nav.goToNewScreen(context, const NotificationMaker()),
+          onTap: () => Nav.goToNewScreen(
+              context: context,
+              screen: const NotificationMaker(),
+          ),
         ),
+
       ],
     );
+
   }
 }

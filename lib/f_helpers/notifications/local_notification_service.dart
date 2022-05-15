@@ -19,9 +19,15 @@ Future<void> initialize(BuildContext context) async {
     if (route != null) {
       blog('initializing localNotificationService : route is : $route');
 
-      await Nav.goToNewScreen(context, const AwesomeNotiTestScreen());
+      await Nav.goToNewScreen(
+        context: context,
+        screen: const AwesomeNotiTestScreen(),
+      );
     }
-  });
+
+  }
+
+  );
 }
 
 Future<void> display(RemoteMessage remoteMessage) async {

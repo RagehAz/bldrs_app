@@ -140,8 +140,10 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
               verseMaxLines: 2,
               verseScaleFactor: 0.6,
               margins: const EdgeInsets.all(7.5),
-              onTap: () => Nav.goToNewScreen(context,
-                  CountryEditorScreen(country: _countries[index])),
+              onTap: () => Nav.goToNewScreen(
+                  context: context,
+                  screen: CountryEditorScreen(country: _countries[index])
+              ),
             );
             },
         ));

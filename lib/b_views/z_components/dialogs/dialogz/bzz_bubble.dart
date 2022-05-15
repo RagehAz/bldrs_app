@@ -52,17 +52,22 @@ class BzzBubble extends StatelessWidget {
           bzzModels: bzzModels ?? <BzModel>[],
           numberOfColumns: numberOfColumns,
           itemOnTap: (BzModel bzModel) {
+
             if (onTap == null) {
               Nav.goToNewScreen(
-                  context,
-                  BzCardScreen(
+                  context: context,
+                  screen: BzCardScreen(
                     bzID: bzModel.id,
                     flyerBoxWidth: Bubble.clearWidth(context),
-                  ));
-            } else {
+                  )
+              );
+            }
+
+            else {
               onTap(bzModel);
             }
-          },
+
+            },
         ),
 
       ],

@@ -301,8 +301,8 @@ class NavBar extends StatelessWidget {
                       blog(_bzModel.id);
 
                       await Nav.goToNewScreen(
-                          context,
-                          MyBzScreen(
+                          context: context,
+                          screen: MyBzScreen(
                             bzModel: _bzModel,
                           )
                       );
@@ -310,7 +310,7 @@ class NavBar extends StatelessWidget {
                       },
                   ),
                 );
-              },
+                },
             ),
           ),
         ),
@@ -420,11 +420,16 @@ class NavBar extends StatelessWidget {
                         icon: Iconz.utPlanning,
                         iconSizeFactor: 0.45,
                         barType: barType,
-                        onTap: () {
+                        onTap: () async {
+
                           blog('fish');
-                          Nav.goToNewScreen(
-                              context, const QScreen());
-                        },
+
+                          await Nav.goToNewScreen(
+                            context: context,
+                            screen: const QScreen(),
+                          );
+
+                          },
                       ),
 
                       _spacer,
@@ -443,8 +448,8 @@ class NavBar extends StatelessWidget {
                             if (_userBzzIDs.length == 1) {
 
                               await Nav.goToNewScreen(
-                                  context,
-                                  MyBzScreen(
+                                  context: context,
+                                  screen: MyBzScreen(
                                     // userModel: _myUserModel,
                                     bzModel: _myBzz[0],
                                   )
@@ -457,8 +462,8 @@ class NavBar extends StatelessWidget {
                               // await _multiBzzSlider(context, _myUserModel, _myBzz);
 
                               await Nav.goToNewScreen(
-                                  context,
-                                  MyBzzSelectorScreen(
+                                  context: context,
+                                  screen: MyBzzSelectorScreen(
                                     userModel: _myUserModel,
                                     bzzModels: _myBzz,
                                   )
@@ -495,8 +500,8 @@ class NavBar extends StatelessWidget {
                             iconSizeFactor: 0.7,
                             barType: barType,
                             onTap: () => Nav.goToNewScreen(
-                                context,
-                                const UserProfileScreen()
+                                context: context,
+                                screen: const UserProfileScreen()
                             ),
                             clipperWidget: UserBalloon(
                               balloonWidth: _circleWidth,
@@ -512,8 +517,13 @@ class NavBar extends StatelessWidget {
                           iconSizeFactor: 0.45,
                           barType: barType,
                           notiDotIsOn: true,
-                          onTap: () {
-                            Nav.goToNewScreen(context, const AuthScreen());
+                          onTap: () async {
+
+                            await Nav.goToNewScreen(
+                                context: context,
+                                screen: const AuthScreen(),
+                            );
+
                           },
                         ),
 

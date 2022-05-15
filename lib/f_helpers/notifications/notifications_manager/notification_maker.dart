@@ -193,8 +193,8 @@ class _NotificationMakerState extends State<NotificationMaker> {
     Keyboarders.closeKeyboard(context);
 
     final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
-      context,
-      const SavedFlyersScreen(
+      context: context,
+      screen: const SavedFlyersScreen(
         selectionMode: true,
       ),
     );

@@ -18,14 +18,24 @@ class UIManager extends StatelessWidget {
           verse: 'Bldrs icons',
           icon: Iconz.dvGouran,
           onTap: () async {
-            await Nav.goToNewScreen(context, const IconsViewerScreen());
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const IconsViewerScreen(),
+            );
+
           },
         ),
         WideButton(
           verse: 'Emojis',
           icon: Iconz.emoji,
           onTap: () async {
-            await Nav.goToNewScreen(context, const EmojiTestScreen());
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const EmojiTestScreen(),
+            );
+
           },
         ),
       ],

@@ -70,7 +70,10 @@ class AuthScreenView extends StatelessWidget {
           buttonVerseShadow: false,
           onTap: () async {
 
-              await Nav.goToNewScreen(context, const EmailAuthScreen());
+              await Nav.goToNewScreen(
+                  context: context,
+                  screen: const EmailAuthScreen(),
+              );
 
           },
         ),

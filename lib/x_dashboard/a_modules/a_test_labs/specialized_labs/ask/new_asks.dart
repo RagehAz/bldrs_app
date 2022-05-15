@@ -34,7 +34,12 @@ class NewAsks extends StatelessWidget {
               verse: 'Go to old Questions screen',
               icon: Iconz.utPlanning,
               onTap: () async {
-                await goToNewScreen(context, const QuestionScreen());
+
+                await goToNewScreen(
+                  context: context,
+                  screen: const QuestionScreen(),
+                );
+
               }
           ),
 
@@ -42,7 +47,12 @@ class NewAsks extends StatelessWidget {
               verse: 'Go to old Ask screen',
               icon: Iconz.utPlanning,
               onTap: () async {
-                await goToNewScreen(context, const OldAskScreen());
+
+                await goToNewScreen(
+                  context: context,
+                  screen: const OldAskScreen(),
+                );
+
               }
           ),
 
@@ -51,7 +61,10 @@ class NewAsks extends StatelessWidget {
               icon: Iconz.utPlanning,
               buttonColor: Colorz.red125,
               onTap: () async {
-                await goToNewScreen(context, const NewQuestionsHome());
+                await goToNewScreen(
+                    context: context,
+                    screen: const NewQuestionsHome(),
+                );
               }
           ),
 

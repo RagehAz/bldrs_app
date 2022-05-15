@@ -195,8 +195,9 @@ Future<void> onFlyerTap({
 
   // blog('OPENING FLYER ID : ${flyer?.id}');
 
-  await Nav.goToNewScreen(context,
-      FlyerScreen(
+  await Nav.goToNewScreen(
+      context: context,
+      screen: FlyerScreen(
         flyerModel: flyer,
         flyerID: flyer.id,
         initialSlideIndex: 0,

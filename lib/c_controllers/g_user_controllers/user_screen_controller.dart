@@ -193,19 +193,31 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 Future<void> _onChangeAppLanguageTap(BuildContext context) async {
-  await Nav.goToNewScreen(context, const SelectAppLanguageScreen());
+  await Nav.goToNewScreen(
+      context: context,
+      screen: const SelectAppLanguageScreen(),
+  );
 }
 // -----------------------------------------------------------------------------
 Future<void> _onAboutBldrsTap(BuildContext context) async {
-  await Nav.goToNewScreen(context, const AboutBldrsScreen());
+  await Nav.goToNewScreen(
+      context: context,
+      screen: const AboutBldrsScreen(),
+  );
 }
 // -----------------------------------------------------------------------------
 Future<void> _onFeedbackTap(BuildContext context) async {
-  await Nav.goToNewScreen(context, const FeedBack());
+  await Nav.goToNewScreen(
+      context: context,
+      screen: const FeedBack(),
+  );
 }
 // -----------------------------------------------------------------------------
 Future<void> _onTermsAndRegulationsTap(BuildContext context) async {
-  await Nav.goToNewScreen(context, const TermsAndRegulationsScreen());
+  await Nav.goToNewScreen(
+      context: context,
+      screen: const TermsAndRegulationsScreen(),
+  );
 }
 // -----------------------------------------------------------------------------
 Future<void> _onCreateNewBzTap(BuildContext context) async {
@@ -214,8 +226,8 @@ Future<void> _onCreateNewBzTap(BuildContext context) async {
   final UserModel _myUserModel = _usersProvider.myUserModel;
 
   await Nav.goToNewScreen(
-      context,
-      BzEditorScreen(
+      context: context,
+      screen: BzEditorScreen(
           firstTimer: true,
           userModel: _myUserModel
       )
@@ -291,13 +303,13 @@ Future<void> onEditProfileTap(BuildContext context) async {
   final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
   final UserModel _myUserModel = _userProvider.myUserModel;
 
-  await Nav.goToNewScreen(context,
-      EditProfileScreen(
+  await Nav.goToNewScreen(
+      context: context,
+      screen: EditProfileScreen(
         userModel: _myUserModel,
         onFinish: () async {
-
           Nav.goBack(context);
-        },
+          },
       )
   );
 
@@ -308,7 +320,10 @@ void onUserPicTap(){
 }
 // -----------------------------------------------------------------------------
 Future<void> onInviteBusinessesTap(BuildContext context) async {
-  await Nav.goToNewScreen(context, const InviteBusinessesScreen());
+  await Nav.goToNewScreen(
+    context: context,
+    screen: const InviteBusinessesScreen(),
+  );
 }
 // -----------------------------------------------------------------------------
 Future<void> onImportDeviceContactsTap(BuildContext context) async {

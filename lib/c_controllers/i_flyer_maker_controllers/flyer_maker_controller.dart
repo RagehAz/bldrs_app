@@ -278,10 +278,13 @@ Future<void> onAddKeywordsTap({
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
-  final dynamic _result = await Nav.goToNewScreen(context, KeywordsPickerScreen(
-    flyerTypes: <FlyerType>[draft.value.flyerType],
-    selectedKeywordsIDs: draft.value.keywordsIDs,
-  ));
+  final dynamic _result = await Nav.goToNewScreen(
+      context: context,
+      screen: KeywordsPickerScreen(
+        flyerTypes: <FlyerType>[draft.value.flyerType],
+        selectedKeywordsIDs: draft.value.keywordsIDs,
+      )
+  );
 
   final List<String> receivedKeywordsIds = _result;
 
@@ -300,10 +303,13 @@ Future<void> onAddSpecsTap({
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
-  final dynamic _result = await Nav.goToNewScreen(context, SpecsPickersScreen(
-    flyerType: draft.value.flyerType,
-    selectedSpecs: draft.value.specs,
-  ));
+  final dynamic _result = await Nav.goToNewScreen(
+      context: context,
+      screen: SpecsPickersScreen(
+        flyerType: draft.value.flyerType,
+        selectedSpecs: draft.value.specs,
+      )
+  );
 
   final List<SpecModel> _receivedSpecs = _result;
 
