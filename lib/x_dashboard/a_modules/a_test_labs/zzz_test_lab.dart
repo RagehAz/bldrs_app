@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -33,6 +34,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
+import 'package:bldrs/x_dashboard/c_methods/exotic_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -410,42 +412,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'DELETE SUB DOCS',
-              icon: Iconz.star,
+              verse: 'LOCATION THING',
+              icon: Iconz.dvGouran,
               onTap: () async {
 
-
-                const List<String> _dogs = <String>[
-                  'br1',
-                  'cn1',
-                  'cn2',
-                  'dr1',
-                  'dr2',
-                  'mn3',
-                  'mn5',
-                  'pp1',
-                  'pp3',
-                ];
-
-                for (final String subDocID in _dogs){
-                  await deleteSubCollection(
-                    context: context,
-                    collName: FireColl.bzz,
-                    docName: subDocID,
-                    subCollName: 'calls',
-                  );
-                  await deleteSubCollection(
-                    context: context,
-                    collName: FireColl.bzz,
-                    docName: subDocID,
-                    subCollName: 'follows',
-                  );
-
-                  blog('tamam with this $subDocID');
-                }
-
-
-              }),
+              }
+              ),
 
           WideButton(
               color: Colorz.red255,

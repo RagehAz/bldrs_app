@@ -66,6 +66,7 @@ class ExoticMethods {
 
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> readAllUserModels({@required int limit}) async {
   // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
@@ -322,47 +323,6 @@ class ExoticMethods {
   blog('Tamam with : ${_maps.length} flyers updated their [$field] field');
 }
 // -----------------------------------------------------------------------------
-  static Future<void> changeFieldName({
-  @required BuildContext context,
-}) async {
-  blog('LET THE GAMES BEGIN');
-
-  //   final List<CountryModel> _allModels = await ExoticMethods.fetchAllCountryModels(context: context);
-  //   final String collName = FireColl.zones;
-  //   final String newField = 'id';
-  //   final String oldField = 'countryID';
-  //
-  //   for (var model in _allModels){
-  //
-  //     String oldID = model.countryID;
-  //     dynamic input = oldID;
-  //
-  //     /// update
-  //     await Fire.updateSubDocField(
-  //       context: context,
-  //       collName: collName,
-  //       docName: 'countries',
-  //       subCollName: 'countries',
-  //       subDocName: oldID,
-  //       field: newField,
-  //       input: input,
-  //     );
-  //
-  //
-  //     /// delete
-  //     await Fire.deleteSubDocField(
-  //       context: context,
-  //       collName: collName,
-  //       docName: 'countries',
-  //       subCollName: 'countries',
-  //       subDocName: oldID,
-  //       field: oldField,
-  //     );
-  //
-  //
-  // }
-}
-// -----------------------------------------------------------------------------
   static Future<void> takeOwnerShip({
   @required BuildContext context,
   @required String oldUserID, // '60a1SPzftGdH6rt15NF96m0j9Et2'
@@ -575,6 +535,43 @@ class ExoticMethods {
         docName: docName,
         input: _doc,
     );
+
+  }
+// -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> changeDocFieldName({
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required String oldFieldName,
+    @required String newFieldName,
+}) async {
+
+    final Map<String, dynamic> _map = await Fire.readDoc(
+        context: context,
+        collName: collName,
+        docName: docName
+    );
+
+    if (_map != null){
+
+      await deleteDocField(
+        context: context,
+        collName: collName,
+        docName: docName,
+        field: oldFieldName,
+      );
+
+
+      await updateDocField(
+          context: context,
+          collName: collName,
+          docName: docName,
+          field: newFieldName,
+          input: _map[oldFieldName],
+      );
+
+    }
 
   }
 /// ----------------------------------------------------------------------------
