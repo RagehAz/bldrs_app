@@ -1,20 +1,42 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/b_widgets/user_button.dart';
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+// -----------------------------------------------------------------------------
+Future<void> onSelectUser({
+  @required BuildContext context,
+  @required UserModel userModel,
+  @required PageController pageController,
+  @required ValueNotifier<UserModel> selectedUserModel,
+  @required ValueNotifier<ZoneModel> selectedUserZone,
+}) async {
 
+  selectedUserModel.value = userModel;
+
+  selectedUserZone.value = await ZoneProvider.proGetCompleteZoneModel(
+    context: context,
+    incompleteZoneModel: userModel.zone,
+  );
+
+  await slideToNext(
+      pageController: pageController,
+      numberOfSlides: 2,
+      currentSlide: 0,
+  );
+
+}
 // -----------------------------------------------------------------------------
 Future<void> readMoreUsers({
   @required BuildContext context,
@@ -69,29 +91,83 @@ Future<void> readMoreUsers({
 }
 // -----------------------------------------------------------------------------
 Future<void> onDeleteUser({
+  @required BuildContext context,
   @required ValueNotifier<List<UserModel>> usersModels,
-  @required String userID,
+  @required UserModel userModel,
 }) async {
 
-  final String _result = await CloudFunctionz.deleteFirebaseUser(
-      userID: userID,
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Delete User ?',
+    body: '${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?',
+    confirmButtonText: 'Yes, Delete This Fucker',
+    boolDialog: true,
   );
 
-  if (_result == 'stop') {
-    blog('operation stopped');
-  }
+  if (_result == true){
 
-  else if (_result == 'deleted') {
+    final String cloudFunctionResponse = await CloudFunctionz.deleteFirebaseUser(
+      userID: userModel.id,
+    );
 
-    final int _userIndex = usersModels.value.indexWhere(
-            (UserModel user) => user.id == userID);
+    if (cloudFunctionResponse == 'stop') {
+      blog('operation stopped');
+    }
 
-    if (_userIndex != -1){
-      final List<UserModel> _newUsers = <UserModel>[...usersModels.value];
-      _newUsers.removeAt(_userIndex);
-      usersModels.value = _newUsers;
+    else if (cloudFunctionResponse == 'deleted') {
+
+      final int _userIndex = usersModels.value.indexWhere(
+              (UserModel user) => user.id == userModel.id);
+
+      if (_userIndex != -1){
+        final List<UserModel> _newUsers = <UserModel>[...usersModels.value];
+        _newUsers.removeAt(_userIndex);
+        usersModels.value = _newUsers;
+      }
+
     }
 
   }
+
+
+}
+// -----------------------------------------------------------------------------
+Future<void> onSelectedUserOptions({
+  @required BuildContext context,
+  @required UserModel userModel,
+  @required ValueNotifier<List<UserModel>> usersModels,
+}) async {
+
+  await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      buttonHeight: 40,
+      numberOfWidgets: 2,
+    builder: (_ , PhraseProvider pro){
+
+        return <Widget>[
+
+          BottomDialog.wideButton(
+              context: context,
+              verse: 'Fuck ${userModel.name}',
+          ),
+
+
+          BottomDialog.wideButton(
+            context: context,
+            verse: 'Delete this Bitch : ${userModel.name}',
+            onTap: () => onDeleteUser(
+                context: context,
+                usersModels: usersModels,
+                userModel: userModel
+            ),
+          ),
+
+
+        ];
+
+    }
+  );
+
 }
 // -----------------------------------------------------------------------------

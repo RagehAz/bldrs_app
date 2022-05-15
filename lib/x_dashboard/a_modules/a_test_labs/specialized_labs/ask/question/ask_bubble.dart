@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon.dart';
+import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
@@ -243,7 +243,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               UserBalloon(
                 userModel: UserModel.dummyUserModel(context),
                 balloonType: _userStatus,
-                balloonWidth: _abButtonsHeight,
+                size: _abButtonsHeight,
                 loading: false,
                 onTap: () {
                   blog('this person should ask a fucking question');

@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/bubble/bubble_title.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -234,20 +235,11 @@ class Bubble extends StatelessWidget {
 
                         /// --- BUBBLE TITLE
                         if (title != null)
-                          Container(
-                            // width: _titleWidth - (_actionBtSize * 0.5),
-                            padding: const EdgeInsets.only(
-                                bottom: Ratioz.appBarMargin,
-                                left: Ratioz.appBarPadding,
-                                right: Ratioz.appBarPadding
-                            ),
-                            child: SuperVerse(
-                              verse: title,
-                              redDot: redDot,
-                              centered: centered,
-                              color: titleColor,
-                              italic: true,
-                            ),
+                          BubbleTitle(
+                            title: title,
+                            centered: centered,
+                            redDot: redDot,
+                            titleColor: titleColor,
                           ),
 
                         /// --- EXPANDER

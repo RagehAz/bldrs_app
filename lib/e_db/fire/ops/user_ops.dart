@@ -115,7 +115,7 @@ Future<UserModel> createUser({
     gender: userModel.gender,
     zone: userModel.zone,
     language: userModel.language,
-    position: userModel.position,
+    location: userModel.location,
     contacts: userModel.contacts,
     // -------------------------
     myBzzIDs: userModel.myBzzIDs,
