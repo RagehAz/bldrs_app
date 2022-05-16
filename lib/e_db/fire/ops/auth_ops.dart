@@ -30,7 +30,7 @@ String superUserID() {
 
 /// DELETE FIREBASE USER
 
-// ---------------------------------------------------
+// ---------------------------------------
 /// TASK : fix this error
 /// deleteFirebaseUser : tryAndCatch ERROR : [firebase_auth/requires-recent-login] This operation is sensitive and requires recent authentication. Log in again before retrying this request.
 Future<bool> deleteFirebaseUser({
@@ -100,7 +100,7 @@ Future<bool> deleteFirebaseUser({
 
 /// AUTHENTICATORS
 
-// ---------------------------------------------------
+// ---------------------------------------
 /// SIGN IN BY EMAIL AND PASSWORD
 Future<AuthModel> signInByEmailAndPassword({
   @required BuildContext context,
@@ -148,7 +148,7 @@ Future<AuthModel> signInByEmailAndPassword({
 
   return _authModel;
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------------
 /// REGISTER BY EMAIL AND PASSWORD
 Future<AuthModel> registerByEmailAndPassword({
   @required BuildContext context,
@@ -204,7 +204,7 @@ Future<AuthModel> registerByEmailAndPassword({
 
   return _authModel;
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------------
 Future<AuthModel> signInByFacebook({
   @required BuildContext context,
   @required ZoneModel currentZone,
@@ -285,7 +285,7 @@ Future<AuthModel> signInByFacebook({
 
   return _authModel;
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------------
 /// returns error string or AuthModel
 Future<AuthModel> signInByGoogle({
   @required BuildContext context,
@@ -373,7 +373,7 @@ Future<AuthModel> signInByGoogle({
 
   return _authModel;
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------------
 Future<AuthModel> signInByApple({
   @required BuildContext context,
   @required ZoneModel currentZone,
@@ -390,7 +390,7 @@ Future<AuthModel> signInByApple({
 
 /// sign out
 
-// ---------------------------------------------------
+// ---------------------------------------
 Future<void> emailSignOutOps(BuildContext context) async {
 
   try {
@@ -407,7 +407,7 @@ Future<void> emailSignOutOps(BuildContext context) async {
   }
 
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------------
 /// google sign out
 Future<bool> googleSignOutOps(BuildContext context) async {
 
@@ -438,7 +438,7 @@ Future<bool> googleSignOutOps(BuildContext context) async {
 
   return _isSignedIn;
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------------
 Future<void> signOut({
   @required BuildContext context,
   @required bool routeToUserChecker,
@@ -452,5 +452,42 @@ Future<void> signOut({
   if (routeToUserChecker == true) {
     await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
   }
+}
+// -----------------------------------------------------------------------------
+
+/// CHECKERS
+
+// ---------------------------------------
+/// TESTED :
+Future<bool> passwordIsCorrect({
+  @required BuildContext context,
+  @required String password,
+  @required String email,
+}) async {
+
+  UserCredential _credential;
+
+  final bool _credentialsAreGood = await tryCatchAndReturnBool(
+      context: context,
+      functions: () async {
+
+        final AuthCredential _authCredential = EmailAuthProvider.credential(
+            email: email,
+            password: password,
+        );
+
+        final FirebaseAuth _auth = FirebaseAuth?.instance;
+        _credential = await _auth.currentUser.reauthenticateWithCredential(_authCredential);
+
+      }
+  );
+
+  if (_credentialsAreGood == true && _credential != null){
+    return true;
+  }
+  else {
+    return false;
+  }
+
 }
 // -----------------------------------------------------------------------------

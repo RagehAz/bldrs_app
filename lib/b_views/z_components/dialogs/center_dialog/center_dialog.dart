@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -30,7 +31,38 @@ class CenterDialog extends StatelessWidget {
   final String confirmButtonText;
   final Color color;
   final Function onOk;
-  /// --------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// SIZES
+
+// -----------------------------------------
+  static double width(BuildContext context) {
+    return Scale.superScreenWidth(context) * 0.85;
+  }
+// -----------------------------------------
+  static double clearWidth(BuildContext context){
+    return width(context) - (2 * Ratioz.appBarMargin);
+  }
+// -----------------------------------------
+  static const double dialogCornerValue = 20;
+// -----------------------------------------
+  static BorderRadius dialogBorders(BuildContext context) {
+    return Borderers.superBorderAll(context, dialogCornerValue);
+  }
+// -----------------------------------------
+  static double Height({
+    @required BuildContext context,
+    double heightOverride,
+  }) {
+    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _height = heightOverride ?? _screenHeight * 0.4;
+    return _height;
+  }
+// -----------------------------------------------------------------------------
+
+  /// LAUNCHERS
+
+// -----------------------------------------
   static Future<bool> showCenterDialog({
     @required BuildContext context,
     dynamic body = '',
@@ -61,23 +93,43 @@ class CenterDialog extends StatelessWidget {
 
     return _result;
   }
-// -----------------------------------------------------------------------------
-  static double width({
-    @required BuildContext context,
-  }) {
-    return Scale.superScreenWidth(context) * 0.85;
+// -----------------------------------------
+  static Future<String> showPasswordDialog(BuildContext context) async {
+
+    String _password;
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      onOk: () async {
+
+        closeCenterDialog(context);
+
+      },
+      child: SuperTextField(
+        width: CenterDialog.width(context),
+        keyboardTextInputType: TextInputType.visiblePassword,
+        keyboardTextInputAction: TextInputAction.go,
+        obscured: true,
+        onChanged: (String text){
+          _password = text;
+        },
+        onSubmitted: (String text) async {
+
+          _password = text;
+          closeCenterDialog(context);
+
+        },
+      ),
+    );
+
+    return _password;
+  }
+// -----------------------------------------
+  static void closeCenterDialog(BuildContext context){
+    Nav.goBack(context);
   }
 // -----------------------------------------------------------------------------
-  static double clearWidth(BuildContext context){
-    return width(context: context) - (2 * Ratioz.appBarMargin);
-  }
-// -----------------------------------------------------------------------------
-  static const double dialogCornerValue = 20;
-// -----------------------------------------------------------------------------
-  static BorderRadius dialogBorders(BuildContext context) {
-    return Borderers.superBorderAll(context, dialogCornerValue);
-  }
-// -----------------------------------------------------------------------------
+  /*
 //   static double dialogVerticalMargin({BuildContext context, double dialogHeight}){
 //     double _screenHeight = Scale.superScreenHeight(context);
 //     return (_screenHeight - dialogHeight) / 2;
@@ -87,12 +139,7 @@ class CenterDialog extends StatelessWidget {
 //     double _screenWidth = Scale.superScreenWidth(context);
 //     return (_screenWidth - dialogWidth) / 2;
 //   }
-// -----------------------------------------------------------------------------
-  static double dialogHeight({BuildContext context, double heightOverride}) {
-    final double _screenHeight = Scale.superScreenHeight(context);
-    final double _height = heightOverride ?? _screenHeight * 0.4;
-    return _height;
-  }
+   */
 // -----------------------------------------------------------------------------
   String _getConfirmButtonText(){
 
@@ -113,12 +160,12 @@ class CenterDialog extends StatelessWidget {
 
     final BorderRadius _dialogBorders = dialogBorders(context);
 
-    final double _dialogHeight = dialogHeight(
+    final double _dialogHeight = Height(
       context: context,
       heightOverride: height,
     );
 
-    final double _dialogWidth = width(context: context);
+    final double _dialogWidth = width(context);
 
     // double _dialogVerticalMargin = dialogVerticalMargin(
     //   context: context,

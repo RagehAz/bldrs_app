@@ -24,6 +24,8 @@
   const String basicPhrases = 'basicPhrases';
   const String countriesPhrases = 'countriesPhrases';
 
+  const String appState = 'appState';
+
   const List<String> bzModelsDocs = <String>[
     bzz,
   ];
@@ -58,4 +60,5 @@
     currencies,
     basicPhrases,
     countriesPhrases,
+    appState,
   ];

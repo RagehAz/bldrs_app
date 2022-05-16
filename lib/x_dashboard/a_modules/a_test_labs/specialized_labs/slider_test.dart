@@ -46,7 +46,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   }
 // -----------------------------------------------------------------------------
   @override
-  dispose(){
+  void dispose(){
     super.dispose();
     _divisionsController.dispose();
     _minController.dispose();

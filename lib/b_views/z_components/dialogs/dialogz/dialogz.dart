@@ -180,8 +180,7 @@ Future<bool> flyersDeactivationDialog({
                 numberOfColumns: 2,
                 title: 'flyers of ${bzzToDeactivate[index].name}',
                 numberOfRows: 1,
-                bubbleWidth: CenterDialog.width(context: context) -
-                    (Ratioz.appBarMargin * 4),
+                bubbleWidth: CenterDialog.width(context) - (Ratioz.appBarMargin * 4),
                 onTap: (String value) {
                   blog(value);
                 },

@@ -15,6 +15,7 @@ class AppState {
     @required this.appVersion,
     @required this.ldbVersion,
 
+    @required this.id,
   });
 // -----------------------------------------------------------------------------
   /// chains
@@ -29,6 +30,7 @@ class AppState {
   final String appVersion;
   final double ldbVersion; /// this used to wipe out all LDB docs and re fetch everything
 
+  final String id; /// either global or user
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -42,8 +44,10 @@ class AppState {
     double phrasesVersion,
     String appVersion,
     double ldbVersion,
+    String id,
 }){
     return AppState(
+      id: id ?? this.id,
       keywordsChainVersion: keywordsChainVersion ?? this.keywordsChainVersion,
       specPickersVersion: specPickersVersion ?? this.specPickersVersion,
       specsChainVersion: specsChainVersion ?? this.specsChainVersion,
@@ -63,6 +67,7 @@ class AppState {
   /// TESTED : WORKS PERFECT
   static AppState initialState() {
     return AppState(
+      id: null,
       keywordsChainVersion : null,
       specsChainVersion : null,
       specPickersVersion : null,
@@ -79,6 +84,7 @@ class AppState {
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id' : id,
       'keywordsChainVersion' : keywordsChainVersion,
       'specsChainVersion' : specsChainVersion,
       'specPickersVersion' : specPickersVersion,
@@ -97,12 +103,13 @@ class AppState {
 
     else {
       return AppState(
-        keywordsChainVersion : map['keywordsChainVersion'],
-        specsChainVersion : map['specsChainVersion'],
-        specPickersVersion : map['specPickersVersion'],
-        phrasesVersion : map['phrasesVersion'],
+        id: map['id'],
+        keywordsChainVersion : map['keywordsChainVersion']?.toDouble(),
+        specsChainVersion : map['specsChainVersion']?.toDouble(),
+        specPickersVersion : map['specPickersVersion']?.toDouble(),
+        phrasesVersion : map['phrasesVersion']?.toDouble(),
         appVersion : map['appVersion'],
-        ldbVersion : map['ldbVersion'],
+        ldbVersion : map['ldbVersion']?.toDouble(),
       );
     }
 
@@ -122,6 +129,8 @@ class AppState {
     if (stateA != null && stateB != null){
 
       if (
+      stateA.id == stateB.id
+      &&
       stateA.appVersion == stateB.appVersion
       &&
           stateA.keywordsChainVersion == stateB.keywordsChainVersion
@@ -149,6 +158,7 @@ class AppState {
   /// TESTED : WORKS PERFECT
   static AppState dummyAppState(){
     return AppState(
+      id: 'dummy',
       keywordsChainVersion: 0,
       specsChainVersion: 0,
       specPickersVersion: 0,
@@ -165,6 +175,7 @@ class AppState {
   /// TESTED : WORKS PERFECT
   void blogAppState(){
     blog('AppState is : -------------------- START');
+    blog('id : $id');
     blog('keywordsChainVersion : $keywordsChainVersion');
     blog('specsChainVersion : $specsChainVersion');
     blog('specPickersVersion : $specPickersVersion');

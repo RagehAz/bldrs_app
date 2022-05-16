@@ -177,7 +177,7 @@ Future<void> onDeleteUser({
 
     if (_result == true){
 
-      bool _credentialsAreGood = true;
+      const bool _credentialsAreGood = true;
       // await _doYouKnowThePassword(
       //     context: context,
       //     userModel: userModel
@@ -286,7 +286,7 @@ Future<bool> _doYouKnowThePassword({
 
     },
     child: SuperTextField(
-      width: CenterDialog.width(context: context),
+      width: CenterDialog.width(context),
       keyboardTextInputType: TextInputType.visiblePassword,
       keyboardTextInputAction: TextInputAction.go,
       onChanged: (String text){
@@ -320,8 +320,11 @@ Future<bool> _couldGetCredentials({
         final UserCredential _credential = await FirebaseAuth
             .instance
             .signInWithEmailAndPassword(
-          email: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.email),
           password: password,
+          email: ContactModel.getAContactValueFromContacts(
+              contacts: userModel.contacts,
+              contactType: ContactType.email,
+          ),
         );
 
         // blog('_credential token : ${_credential.credential.token}');

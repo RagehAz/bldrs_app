@@ -1,30 +1,57 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/e_db/fire/methods/firestore.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 
 // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 class GeneralProvider extends ChangeNotifier {
-// // -----------------------------------------------------------------------------
-//
-//   /// APP STATE
-//
-//   // -------------------------------------
-//   AppState _appState = AppState.initialState();
-//   // -------------------------------------
-//   AppState get appState {
-//     return _appState;
-//   }
-//   // -------------------------------------
-//   Future<void> getsetGlobalAppState(BuildContext context) async {
-//
-//     final AppState _globalAppState = await AppStateOps.readGlobalAppState(context);
-//
-//     _appState = _appState;
-//     notifyListeners();
-//   }
-//   // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// APP STATE
+
+  // -------------------------------------
+  static Future<AppState> fetchGlobalAppState(BuildContext context) async {
+
+    AppState _appState;
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
+        docName: LDBDoc.appState,
+    );
+
+    if (Mapper.canLoopList(_maps) == true){
+      _appState = AppState.fromMap(_maps.first);
+    }
+
+    else {
+
+      final Map<String, dynamic> _appStateMap = await readDoc(
+        context: context,
+        collName: FireColl.admin,
+        docName: FireDoc.admin_appState,
+      );
+
+      _appState = AppState.fromMap(_appStateMap);
+
+      if (_appState != null){
+        await LDBOps.insertMap(
+            primaryKey: 'id',
+            docName: LDBDoc.appState,
+            input: _appStateMap,
+        );
+      }
+
+    }
+
+    return _appState;
+  }
+  // -----------------------------------------------------------------------------
 
   /// CONNECTIVITY
 
