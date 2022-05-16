@@ -47,45 +47,28 @@ Future<void> tryAndCatch({
   }
 }
 // -----------------------------------------------------------------------------
-/// TASK : NEED METHOD TEST : RETURNS TRUE IF SUCCESS AND FALSE ON FAILURE
+/// TESTED : WORKS PERFECT
 Future<bool> tryCatchAndReturnBool({
   @required BuildContext context,
   @required Function functions,
   ValueChanged<String> onError,
-  String methodName,
+  String methodName = 'tryCatchAndReturnBool',
 }) async {
+  /// IF FUNCTIONS SUCCEED RETURN TRUE, IF ERROR CAUGHT RETURNS FALSE
+  bool _success = true;
 
+  /// TRY FUNCTIONS
   try {
     await functions();
-    return true;
   }
 
+  /// CATCH EXCEPTION ERROR
   on Exception catch (error) {
     blog('$methodName : tryAndCatch ERROR : $error');
-
-    if (onError != null) {
-      onError(error.toString());
-    }
-
-    // else {
-    // await CenterDialog.showCenterDialog(
-    //   context: context,
-    //   boolDialog: false,
-    //   body: error,
-    //   title: 'Something Went Wrong !',
-    // );
-    // }
-
-    // throw(error);
-
-    // bool _return;
-    // if (error == null) {
-    //   _return = true;
-    // } else {
-    //   _return = false;
-    // }
-
-    return false;
+    if (onError != null) {onError(error.toString());}
+    _success = false;
   }
+
+  return _success;
 }
 // -----------------------------------------------------------------------------

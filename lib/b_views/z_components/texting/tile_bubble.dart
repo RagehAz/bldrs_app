@@ -56,7 +56,7 @@ class TileBubble extends StatelessWidget {
     0 : 50;
 
     final double _verseWidth = insideDialog == true ?
-    CenterDialog.dialogWidth(context: context) - 30 - 50 - _switchButtonWidth
+    CenterDialog.width(context: context) - 30 - 50 - _switchButtonWidth
         :
     Bubble.clearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth;
 

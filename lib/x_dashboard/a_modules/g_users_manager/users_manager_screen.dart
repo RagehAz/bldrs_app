@@ -143,6 +143,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
             selectedUser: _selectedUser,
             selectedUserZone: _selectedUserZone,
             usersModels: _usersModels,
+            pageController: _pageController,
           ),
 
         ],
