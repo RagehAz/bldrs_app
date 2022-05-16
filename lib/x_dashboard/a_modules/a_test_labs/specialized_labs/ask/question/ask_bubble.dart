@@ -41,8 +41,8 @@ class QuestionBubble extends StatefulWidget {
 }
 
 class _QuestionBubbleState extends State<QuestionBubble> {
-  TextEditingController _bodyController;
-  TextEditingController _titleController;
+  TextEditingController _bodyController; /// tamam disposed
+  TextEditingController _titleController; /// tamam disposed
   bool _askButtonInactive = true;
   List<File> _questionPics;
   List<String> _keywordsIDs;
@@ -76,8 +76,8 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   @override
   void initState() {
     super.initState();
-    _bodyController = TextEditingController();
-    _titleController = TextEditingController();
+    _bodyController = TextEditingController(); /// tamam
+    _titleController = TextEditingController(); /// tamam
     _bodyController.addListener(textListener);
 
     _questionPics = <File>[];

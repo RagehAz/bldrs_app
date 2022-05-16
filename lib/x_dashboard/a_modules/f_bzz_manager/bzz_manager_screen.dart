@@ -29,7 +29,9 @@ class BzzManagerScreen extends StatefulWidget {
 }
 
 class _BzzManagerScreenState extends State<BzzManagerScreen> {
-  final TextEditingController _searchController = TextEditingController();
+
+  final TextEditingController _searchController = TextEditingController(); /// tamam disposed
+
   ZoneProvider _zoneProvider;
   // CountryModel _bzCountry;
   // CityModel _bzCity;
@@ -53,7 +55,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         :
     blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -61,7 +62,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
     super.initState();
   }
-
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -78,7 +78,12 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     }
     _isInit = false;
   }
-
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot<Object> _lastSnapshot;
   final List<BzModel> _bzzModels = <BzModel>[];
@@ -156,9 +161,9 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight =
-        Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     const double _bzButtonHeight = 60;
     const double _bzButtonMargin = Ratioz.appBarPadding;
@@ -166,7 +171,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     final double _clearDialogWidth = BottomDialog.clearWidth(context);
 
     final List<BzModel> _bzz = _searchedBzz.isEmpty ? _bzzModels : _searchedBzz;
-
 
     return _bzzModels == null ?
     const LoadingFullScreenLayer()

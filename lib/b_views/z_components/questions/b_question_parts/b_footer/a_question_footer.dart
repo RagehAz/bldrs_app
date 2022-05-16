@@ -46,18 +46,18 @@ class _QuestionFooterState extends State<QuestionFooter> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _infoPageVerticalController = ScrollController();
-    _reviewPageVerticalController = ScrollController();
-    _reviewTextController = TextEditingController();
+    _infoPageVerticalController = ScrollController(); /// tamam
+    _reviewPageVerticalController = ScrollController(); /// tamam
+    _reviewTextController = TextEditingController(); /// tamam
     super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose();
-    disposeScrollControllerIfPossible(_infoPageVerticalController);
-    disposeScrollControllerIfPossible(_reviewPageVerticalController);
-    disposeControllerIfPossible(_reviewTextController);
+    _infoPageVerticalController.dispose();
+    _reviewPageVerticalController.dispose();
+    _reviewTextController.dispose();
     _infoButtonExpanded.dispose(); /// tamam disposed
     _reviewButtonExpanded.dispose(); /// tamam disposed
     _canShowConvertibleReviewButton.dispose(); /// tamam disposed

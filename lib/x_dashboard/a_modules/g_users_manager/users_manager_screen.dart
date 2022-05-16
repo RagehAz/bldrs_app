@@ -70,15 +70,17 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     _usersModels.dispose();
     _selectedUser.dispose();
     _selectedUserZone.dispose();
+    _pageController.dispose();
+    _scrollController.dispose();
   }
 // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
-  final PageController _pageController = PageController();
+  final ScrollController _scrollController = ScrollController(); /// tamam disposed
+  final PageController _pageController = PageController(); /// tamam disposed
 // -----------------------------------------------------------------------------
-  final ValueNotifier<QueryDocumentSnapshot<Object>> _lastSnapshot = ValueNotifier(null);
-  final ValueNotifier<List<UserModel>> _usersModels = ValueNotifier<List<UserModel>>(<UserModel>[]);
-  final ValueNotifier<UserModel> _selectedUser = ValueNotifier<UserModel>(null);
-  final ValueNotifier<ZoneModel> _selectedUserZone = ValueNotifier<ZoneModel>(null);
+  final ValueNotifier<QueryDocumentSnapshot<Object>> _lastSnapshot = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<List<UserModel>> _usersModels = ValueNotifier<List<UserModel>>(<UserModel>[]); /// tamam disposed
+  final ValueNotifier<UserModel> _selectedUser = ValueNotifier<UserModel>(null); /// tamam disposed
+  final ValueNotifier<ZoneModel> _selectedUserZone = ValueNotifier<ZoneModel>(null); /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

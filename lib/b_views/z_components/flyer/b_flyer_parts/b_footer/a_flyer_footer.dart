@@ -51,17 +51,17 @@ class _FlyerFooterState extends State<FlyerFooter> {
   @override
   void initState() {
     super.initState();
-    _infoPageVerticalController = ScrollController();
-    _reviewPageVerticalController = ScrollController();
-    _reviewTextController = TextEditingController();
+    _infoPageVerticalController = ScrollController(); /// tamam
+    _reviewPageVerticalController = ScrollController(); /// tamam
+    _reviewTextController = TextEditingController(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose();
-    disposeScrollControllerIfPossible(_infoPageVerticalController);
-    disposeScrollControllerIfPossible(_reviewPageVerticalController);
-    disposeControllerIfPossible(_reviewTextController);
+    _infoPageVerticalController.dispose();
+    _reviewPageVerticalController.dispose();
+    _reviewTextController.dispose();
     _infoButtonExpanded.dispose();
     _reviewButtonExpanded.dispose();
     _canShowConvertibleReviewButton.dispose();

@@ -177,10 +177,11 @@ Future<void> onDeleteUser({
 
     if (_result == true){
 
-      final bool _credentialsAreGood = await _doYouKnowThePassword(
-          context: context,
-          userModel: userModel
-      );
+      bool _credentialsAreGood = true;
+      // await _doYouKnowThePassword(
+      //     context: context,
+      //     userModel: userModel
+      // );
 
       blog('_credentialsAreGood : $_credentialsAreGood ');
 

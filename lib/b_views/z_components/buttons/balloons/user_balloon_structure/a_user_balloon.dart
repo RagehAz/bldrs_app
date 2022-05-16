@@ -55,7 +55,7 @@ class UserBalloon extends StatelessWidget {
           ),
 
           /// --- IS AUTHOR ICON
-          if (canLoopList(userModel.myBzzIDs) == true)
+          if (canLoopList(userModel?.myBzzIDs) == true)
           Align(
             alignment: superInverseBottomAlignment(context),
             child: DreamBox(
