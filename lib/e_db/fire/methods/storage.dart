@@ -20,6 +20,8 @@ import 'package:flutter/material.dart';
 
 /// REFERENCES
 
+// ------------------------------------------------
+/// TESTED : WORKS PERFECT
 Reference getRef({
   @required BuildContext context,
   @required String docName,
@@ -298,6 +300,7 @@ Future<String> createStoragePicFromLocalAssetAndGetURL({
 /// READ
 
 // ------------------------------------------------
+/// TESTED : WORKS PERFECT : NOTE : use picName without file extension
 Future<String> readStoragePicURL({
   @required BuildContext context,
   @required String docName,

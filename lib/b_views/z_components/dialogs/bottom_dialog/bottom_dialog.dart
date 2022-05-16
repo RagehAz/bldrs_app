@@ -386,7 +386,7 @@ class BottomDialog extends StatelessWidget {
 
     /// TASK flag is temp
 
-    final TextEditingController _textController = TextEditingController();
+    final TextEditingController _textController = TextEditingController(); /// tamam
 
     const double _ratioOfScreenHeight = 0.65;
     final double _overridingDialogHeight = dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);

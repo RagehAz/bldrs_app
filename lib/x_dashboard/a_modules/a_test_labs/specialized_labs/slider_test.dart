@@ -24,10 +24,10 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   double _onChangeEnd;
   double _onChangeStart;
   double _semanticFormatterCallback;
-  final TextEditingController _minController = TextEditingController();
-  final TextEditingController _maxController = TextEditingController();
+  final TextEditingController _minController = TextEditingController(); /// tamam disposed
+  final TextEditingController _maxController = TextEditingController(); /// tamam disposed
   int _divisions;
-  final TextEditingController _divisionsController = TextEditingController();
+  final TextEditingController _divisionsController = TextEditingController(); /// tamam disposed
   RangeValues _rangeValues;
   final double _startRangeValue = 100000;
   final double _endRangeValue = 500000000;
@@ -44,7 +44,14 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
     _rangeValues = RangeValues(_startRangeValue, _endRangeValue);
     // _rangeLabels = RangeLabels(_stringLabel, _endLabel);
   }
-
+// -----------------------------------------------------------------------------
+  @override
+  dispose(){
+    super.dispose();
+    _divisionsController.dispose();
+    _minController.dispose();
+    _maxController.dispose();
+  }
 // -----------------------------------------------------------------------------
   Widget _button(String verse) {
     return SuperVerse(

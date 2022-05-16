@@ -94,7 +94,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     _setFollowIsOn(_followIsOn);
     // ------------------------------------------
     /// FOR FOOTER & PRICE TAG
-    _footerPageController = PageController();
+    _footerPageController = PageController(); /// tamam
     _horizontalSlidesController.addListener(_listenToHorizontalController);
     // ------------------------------------------
     /// FOR SAVING GRAPHIC

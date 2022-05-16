@@ -20,6 +20,8 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/methods/storage.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -34,6 +36,7 @@ import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -49,8 +52,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   ZoneProvider _zoneProvider;
   PhraseProvider _phraseProvider;
-  ScrollController _scrollController;
-  AnimationController _animationController;
+  ScrollController _scrollController; /// tamam disposed
+  AnimationController _animationController; /// tamam disposed
   UiProvider _uiProvider;
   ChainsProvider  _chainsProvider;
   bool _isSignedIn;
@@ -95,8 +98,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    // subscription.cancel();
     super.dispose();
+    _textController.dispose();
+    _scrollController.dispose();
+    _animationController.dispose();
   }
   // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -215,7 +220,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     return _isSignedIn;
   }
 // -----------------------------------------------------------------------------
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _textController = TextEditingController(); /// tamam disposed
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 // -----------------------------------------------------------------------------
   final ValueNotifier<String> highlightedText = ValueNotifier<String>(null);
@@ -408,9 +413,17 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'LOCATION THING',
+              verse: 'STORAGE THING',
               icon: Iconz.dvGouran,
               onTap: () async {
+
+                final String _url = await readStoragePicURL(
+                  context: context,
+                  docName: StorageDoc.users,
+                  picName: '60a1SPzftGdH6rt15NF96m0j9Et2',
+                );
+
+                blog(_url);
 
               }
               ),

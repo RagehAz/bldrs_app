@@ -23,7 +23,7 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   // final String error;
   // final bool loading;
-  AnimationController _scaleController;
+  AnimationController _scaleController; /// tamam disposed
   static const int _fadeCycleDuration = 750;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK

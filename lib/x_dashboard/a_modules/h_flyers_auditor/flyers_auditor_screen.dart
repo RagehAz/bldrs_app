@@ -30,7 +30,7 @@ class FlyersAuditor extends StatefulWidget {
 }
 
 class _FlyersAuditorState extends State<FlyersAuditor> {
-  PageController _pageController;
+  PageController _pageController; /// tamam disposed
   final List<FlyerModel> _flyers = <FlyerModel>[];
   FlyerModel _currentFlyer;
   int _currentPageIndex;
@@ -60,7 +60,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override
