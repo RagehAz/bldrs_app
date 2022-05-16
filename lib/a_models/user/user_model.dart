@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
@@ -108,10 +109,10 @@ class UserModel {
   }
 // -----------------------------------------------------------------------------
   static Future<UserModel> createInitialUserModelFromUser({
-    BuildContext context,
-    User user,
-    ZoneModel zone,
-    AuthType authBy,
+    @required BuildContext context,
+    @required User user,
+    @required ZoneModel zone,
+    @required AuthType authBy,
   }) async {
 
     assert(!user.isAnonymous, 'user must not be anonymous');
@@ -143,7 +144,7 @@ class UserModel {
       fcmToken: null,
       savedFlyersIDs: <String>[],
       followedBzzIDs: <String>[],
-      appState: AppState.initialState(),
+      appState: await GeneralProvider.fetchGlobalAppState(context),
     );
 
     _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
@@ -394,6 +395,7 @@ class UserModel {
   /// CHECKERS
 
 // -----------------------------------
+  /// TAMAM : WORKS PERFECT
   static bool userIsAuthor(UserModel userModel) {
     bool _userIsAuthor = false;
 

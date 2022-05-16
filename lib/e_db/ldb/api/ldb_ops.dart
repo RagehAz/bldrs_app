@@ -29,8 +29,9 @@ String getPrimaryKey(String docName) {
     case LDBDoc.cities: return 'cityID';
     case LDBDoc.continents: return 'name';
     case LDBDoc.currencies: return 'currencies';
-    case LDBDoc.basicPhrases: return 'primaryKey';
-    case LDBDoc.countriesPhrases: return 'primaryKey';
+    case LDBDoc.basicPhrases: return 'primaryKey'; /// TASK : WTF
+    case LDBDoc.countriesPhrases: return 'primaryKey'; /// TASK : WTF
+    case LDBDoc.appState: return 'id';
     default: return null;
   }
 }
@@ -73,6 +74,23 @@ Future<void> insertMaps({
 /// READ
 
 // ----------------------------------------
+/// TESTED :
+Future<List<Map<String, dynamic>>> readMaps({
+  @required List<String> ids,
+  @required String docName,
+}) async {
+
+  final String _primaryKey = getPrimaryKey(docName);
+
+  final List<Map<String, dynamic>> _maps = await Sembast.readMaps(
+    primaryKeyName: _primaryKey,
+    ids: ids,
+    docName: docName,
+  );
+
+  return _maps;
+}
+// ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<List<Map<String, Object>>> readAllMaps({
   @required String docName,
@@ -82,11 +100,10 @@ Future<List<Map<String, Object>>> readAllMaps({
     docName: docName,
   );
 
-  final List<Map<String, Object>> _fixedMaps = _result; //_decipherSembastMapsToFirebaseMaps(_result);
-
-  return _fixedMaps;
+  return _result;
 }
 // ----------------------------------------
+/// TESTED : WORKS PERFECT
 Future<Map<String, Object>> searchFirstMap({
   @required String fieldToSortBy,
   @required String searchField,
@@ -192,7 +209,7 @@ Future<void> updateMap({
   final String _primaryKey = getPrimaryKey(docName);
 
   await Sembast.update(
-    map: input, //_cipherFirebaseMapToSembastMap(input),
+    map: input,
     docName: docName,
     searchPrimaryKey: _primaryKey,
     searchPrimaryValue: objectID,
@@ -212,10 +229,25 @@ Future<void> deleteMap({
 
   final String _primaryKey = getPrimaryKey(docName);
 
-  await Sembast.delete(
+  await Sembast.deleteMap(
     docName: docName,
     searchPrimaryKey: _primaryKey,
     searchPrimaryValue: objectID,
+  );
+
+}
+// ----------------------------------------
+Future<void> deleteMaps ({
+  @required List<String> ids,
+  @required String docName,
+}) async {
+
+  final String _primaryKey = getPrimaryKey(docName);
+
+  await Sembast.deleteMaps(
+    docName: docName,
+    primaryKeyName: _primaryKey,
+    ids: ids,
   );
 
 }
@@ -233,7 +265,7 @@ Future<void> deleteAllMapsOneByOne({
 }
 // ----------------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> deleteAllAtOnce({
+Future<void> deleteAllMapsAtOnce({
   @required String docName,
 }) async {
 
@@ -247,7 +279,7 @@ Future<void> wipeOutEntireLDB() async {
 
   for (final String docName in _docs){
 
-    await deleteAllAtOnce(
+    await deleteAllMapsAtOnce(
         docName: docName
     );
 

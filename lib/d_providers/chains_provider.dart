@@ -31,8 +31,8 @@ class ChainsProvider extends ChangeNotifier {
   Future<void> reloadAllChains(BuildContext context) async {
 
     /// delete LDB chains
-    await LDBOps.deleteAllAtOnce(docName: LDBDoc.keywordsChain);
-    await LDBOps.deleteAllAtOnce(docName: LDBDoc.specsChain);
+    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain);
+    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain);
 
     /// get set all chains
     await getSetAllChains(context);

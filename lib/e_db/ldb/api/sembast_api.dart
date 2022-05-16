@@ -92,20 +92,25 @@ class Sembast  {
       await _doc.add(_db, map);
     }
   }
-
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertAll({
     @required String primaryKey,
     @required List<Map<String, Object>> inputs,
     @required String docName,
   }) async {
-    if (Mapper.canLoopList(inputs)) {
-      for (final Map<String, Object> map in inputs) {
-        await insert(primaryKey: primaryKey, map: map, docName: docName);
-      }
-    }
-  }
 
+    if (Mapper.canLoopList(inputs)) {
+
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+      final Database _db = await _getDB();
+
+      await _doc.addAll(_db, inputs);
+      blog('SEMBAST : insertAll : inserted ${inputs.length} maps into ( $docName ) : primaryKey : ( $primaryKey )');
+
+    }
+
+  }
 // -----------------------------------------------------------------------------
   /// this should only be used when the ldb is empty,, if
   static Future<void> deleteAllThenInsertAll({
@@ -114,21 +119,60 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    await deleteAllOneByOne(
+    await deleteAllAtOnce(
         docName: docName,
-        primaryKey: primaryKey,
     );
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-    final Database _db = await _getDB();
+    await insertAll(
+      inputs: inputs,
+      docName: docName,
+      primaryKey: primaryKey,
+    );
 
-    await _doc.addAll(_db, inputs);
   }
 // -----------------------------------------------------------------------------
 
   /// READ
 
 // ---------------------------------------------------
+  /// TESTED :
+  static Future<List<Map <String, Object>>> readMaps({
+    @required String docName,
+    @required List<String> ids,
+    @required String primaryKeyName,
+}) async {
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(
+      docName: docName,
+    );
+
+    final Database _db = await _getDB();
+
+    final Finder _finder = Finder(
+      filter: Filter.inList(primaryKeyName, ids),
+    );
+
+    List<Map<String, Object>> _maps;
+
+    if (_db != null && _doc != null){
+
+      final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
+      await _doc.find(
+        _db,
+        finder: _finder,
+      );
+
+       _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
+        return snapshot.value;
+      }).toList();
+
+    }
+      blog('Sembast : readMaps : $docName : $primaryKeyName : $_maps');
+
+    return _maps;
+  }
+// ---------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> readAll({
     @required String docName,
   }) async {
@@ -148,7 +192,6 @@ class Sembast  {
 
     return _maps;
   }
-
 // ---------------------------------------------------
   /// TESTED : WORKS PERFECT
     static Future<List<Map<String, Object>>> searchArrays({
@@ -280,7 +323,8 @@ class Sembast  {
   /// DELETE
 
 // ---------------------------------------------------
-  static Future<void> delete({
+  /// TESTED :
+  static Future<void> deleteMap({
     @required String searchPrimaryKey,
     @required String searchPrimaryValue,
     @required String docName,
@@ -302,7 +346,35 @@ class Sembast  {
         finder: _finder,
       );
 
-      blog('Sembast : deleted : $docName : $searchPrimaryKey : $searchPrimaryValue');
+      blog('Sembast : deleteMap : $docName : $searchPrimaryKey : $searchPrimaryValue');
+    }
+
+  }
+// ---------------------------------------------------
+  /// TESTED :
+  static Future<void> deleteMaps({
+    @required String primaryKeyName,
+    @required List<String> ids,
+    @required String docName,
+}) async {
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName,
+    );
+
+    final Database _db = await _getDB();
+
+    final Finder _finder = Finder(
+      filter: Filter.inList(primaryKeyName, ids),
+    );
+
+    if (_db != null && _doc != null){
+      await _doc.delete(
+        _db,
+        finder: _finder,
+      );
+
+      blog('Sembast : deleteDocs : $docName : $primaryKeyName : $ids');
     }
 
   }
@@ -322,7 +394,7 @@ class Sembast  {
 
         final String _id = map[primaryKey];
 
-        await delete(
+        await deleteMap(
             searchPrimaryKey: primaryKey,
             searchPrimaryValue: _id,
             docName: docName,
@@ -336,6 +408,7 @@ class Sembast  {
 // -----------------------------------------------------------------------------
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAllAtOnce({
   @required String docName,
 }) async {

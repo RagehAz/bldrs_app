@@ -198,8 +198,8 @@ Future<void> onCallTap({
 }) async {
 
   final String _contact = ContactModel.getAContactValueFromContacts(
-      bzModel.contacts,
-      ContactType.phone,
+      contacts: bzModel.contacts,
+      contactType: ContactType.phone,
   );
 
   /// alert user there is no contact to call
