@@ -37,10 +37,11 @@ const String callableRandomNumber = 'randomNumber';
 const String callableSayHello = 'x_sayHello';
 //------------------------------------------------------------------------------
 /// http trigger -> ( callable function - end point request )
-Future<dynamic> callFunction(
-    {@required BuildContext context,
-    String cloudFunctionName,
-    Map<String, dynamic> toDBMap}) async {
+Future<dynamic> callFunction({
+  @required BuildContext context,
+  String cloudFunctionName,
+  Map<String, dynamic> toDBMap,
+}) async {
   final HttpsCallable _function =
       _getCallableFunction(funcName: cloudFunctionName);
 
@@ -77,7 +78,6 @@ Future<dynamic> callFunction(
     // rethrow;
   }
 }
-
 //------------------------------------------------------------------------------
 HttpsCallable _getCallableFunction({String funcName}) {
   return FirebaseFunctions.instance.httpsCallable(

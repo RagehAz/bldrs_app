@@ -47,6 +47,7 @@ Future<bool> deleteFirebaseUser({
       functions: () async {
 
         final FirebaseAuth _auth = FirebaseAuth?.instance;
+
         await _auth.currentUser.delete();
 
       },
