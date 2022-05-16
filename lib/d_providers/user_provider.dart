@@ -420,8 +420,8 @@ class UsersProvider extends ChangeNotifier {
 
 // -------------------------------------
   static UserModel proGetMyUserModel(BuildContext context){
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    return _usersProvider.myUserModel;
+    final UsersProvider _usersProvider = Provider?.of<UsersProvider>(context, listen: false);
+    return _usersProvider?.myUserModel;
   }
 // -------------------------------------
 

@@ -184,7 +184,7 @@ Future<DocumentReference<Object>> createNamedDoc({
   @required String docName,
   @required Map<String, dynamic> input,
 }) async {
-  DocumentReference<Object> _docRef;
+  DocumentReference<Object> _ref;
 
   await tryAndCatch(
       context: context,
@@ -199,9 +199,10 @@ Future<DocumentReference<Object>> createNamedDoc({
         await _docRef.set(input);
 
         blog('createNamedDoc : ${_docRef.id}');
+        _ref = _docRef;
       });
 
-  return _docRef;
+  return _ref;
 }
 // ---------------------------------------------------
 /// TESTED : WORKS PERFECT : creates firestore sub doc with auto ID

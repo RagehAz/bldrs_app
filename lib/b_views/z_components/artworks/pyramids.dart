@@ -1,5 +1,9 @@
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +48,10 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+    final String _pyramidIcon = _userModel?.isAdmin == true ? Iconz.pyramidsCrystal : widget.pyramidsIcon;
+    final Color _pyramidColor = _userModel?.isAdmin == true ? Colorz.red255 : null;
+
     return Positioned(
       bottom: 0,
       right: 0,
@@ -52,14 +60,20 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
         height: Ratioz.pyramidsHeight,
         child: GestureDetector(
           onDoubleTap: () async {
-            await goToNewScreen(
+
+
+            if (_userModel?.isAdmin == true){
+              await goToNewScreen(
                 context: context,
                 screen: const BldrsDashBoard(),
-            );
+              );
+
+            }
+
           },
           child: Selector<UiProvider, bool>(
             selector: (_, UiProvider uiProvider) => uiProvider.isLoading,
-            child: WebsafeSvg.asset(widget.pyramidsIcon),
+            child: WebsafeSvg.asset(_pyramidIcon, color: _pyramidColor),
             // shouldRebuild: ,
             builder: (BuildContext context, bool loading, Widget child){
 

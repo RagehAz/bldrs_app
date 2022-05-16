@@ -628,11 +628,11 @@ class Phrase {
       for (final Phrase secondPhrase in phrases){
 
         final bool _found =
-            firstPhrase.id == secondPhrase.id
+            firstPhrase?.id == secondPhrase?.id
             &&
-            firstPhrase.value == secondPhrase.value
+            firstPhrase?.value == secondPhrase?.value
             &&
-            firstPhrase.langCode == secondPhrase.langCode;
+            firstPhrase?.langCode == secondPhrase?.langCode;
 
        if (_found == true){
          _include = true;
