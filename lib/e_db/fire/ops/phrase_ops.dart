@@ -118,13 +118,13 @@ Future<List<Phrase>> readBasicPhrases({
 /// UPDATE
 
 // -----------------------------
-Future<void> updatePhrases({
+Future<bool> updatePhrases({
   @required BuildContext context,
   @required List<Phrase> enPhrases,
   @required List<Phrase> arPhrases,
 }) async{
 
-  await Fire.createNamedDoc(
+  final DocumentReference<Object> _enDocRef = await Fire.createNamedDoc(
     context: context,
     collName: FireColl.phrases,
     docName: 'en',
@@ -132,12 +132,13 @@ Future<void> updatePhrases({
   );
 
   await Fire.createNamedDoc(
-      context: context,
-      collName: FireColl.phrases,
-      docName: 'ar',
-      input:  Phrase.cipherOneLangPhrasesToMap(phrases: arPhrases),
+    context: context,
+    collName: FireColl.phrases,
+    docName: 'ar',
+    input:  Phrase.cipherOneLangPhrasesToMap(phrases: arPhrases),
   );
 
+  return _enDocRef != null;
 }
 // ---------------------------------------------------------------------------
 

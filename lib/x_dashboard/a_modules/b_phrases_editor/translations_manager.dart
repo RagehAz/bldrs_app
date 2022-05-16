@@ -88,12 +88,6 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   /// BUTTONS
 
   // -----------------------------
-  /*
-  Future<void> _onBldrsTap() async {
-
-  }
-   */
-  // -----------------------------
   Future<void> _onUploadPhrase({
     @required List<Phrase> enPhrases,
     @required List<Phrase> arPhrases,
@@ -289,14 +283,11 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                   appBarType: AppBarType.search,
                   searchHint: 'Search ${_enPhrases.length} phrases by ID only',
                   searchController: _searchController,
-                  // onSearchChanged: (String text) => onSearchPhrases(
-                  //   text: text,
-                  //   arPhrases: _arPhrases,
-                  //   enPhrase: _enPhrases,\
-                  //   isSearching: _isSearching,
-                  //   mixedSearchResult: _mixedSearchedPhrases,
-                  //   searchController: _searchController,
-                  // ),
+                  onSearchChanged: (String text){
+                    if (text.isEmpty){
+                      _isSearching.value = false;
+                    }
+                  },
                   onSearchSubmit: (String text) => onSearchPhrases(
                     text: text,
                     arPhrases: _arPhrases,
