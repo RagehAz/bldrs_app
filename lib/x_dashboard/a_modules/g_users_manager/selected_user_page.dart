@@ -214,6 +214,13 @@ class SelectedUserPage extends StatelessWidget {
 
       const BubblesSeparator(),
 
+      /// IS ADMIN
+      DataStrip(
+        color: Colorz.white20,
+        dataKey: 'is Admin',
+        dataValue: userModel.isAdmin,
+      ),
+
     ];
 
   }
