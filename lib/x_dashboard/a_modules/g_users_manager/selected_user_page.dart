@@ -21,6 +21,7 @@ class SelectedUserPage extends StatelessWidget {
     @required this.selectedUser,
     @required this.selectedUserZone,
     @required this.usersModels,
+    @required this.pageController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class SelectedUserPage extends StatelessWidget {
   final ValueNotifier<UserModel> selectedUser;
   final ValueNotifier<ZoneModel> selectedUserZone;
   final ValueNotifier<List<UserModel>> usersModels;
+  final PageController pageController;
   /// --------------------------------------------------------------------------
   List<Widget> _pageWidgets({
     @required BuildContext context,
@@ -50,6 +52,8 @@ class SelectedUserPage extends StatelessWidget {
             context: context,
             userModel: userModel,
             usersModels: usersModels,
+            selectedUserModel: selectedUser,
+            pageController: pageController,
           ),
         ),
       ),

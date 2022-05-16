@@ -1,42 +1,30 @@
+import 'dart:async';
+
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
-Future<void> onSelectUser({
-  @required BuildContext context,
-  @required UserModel userModel,
-  @required PageController pageController,
-  @required ValueNotifier<UserModel> selectedUserModel,
-  @required ValueNotifier<ZoneModel> selectedUserZone,
-}) async {
 
-  selectedUserModel.value = userModel;
 
-  selectedUserZone.value = await ZoneProvider.proGetCompleteZoneModel(
-    context: context,
-    incompleteZoneModel: userModel.zone,
-  );
-
-  await slideToNext(
-      pageController: pageController,
-      numberOfSlides: 2,
-      currentSlide: 0,
-  );
-
-}
 // -----------------------------------------------------------------------------
 Future<void> readMoreUsers({
   @required BuildContext context,
@@ -48,7 +36,7 @@ Future<void> readMoreUsers({
   final List<dynamic> _maps = await Fire.readCollectionDocs(
     collName: FireColl.users,
     orderBy: 'id',
-    limit: 5,
+    limit: 10,
     startAfter: lastSnapshot?.value,
     addDocSnapshotToEachMap: true,
   );
@@ -90,52 +78,39 @@ Future<void> readMoreUsers({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> onDeleteUser({
+Future<void> onSelectUser({
   @required BuildContext context,
-  @required ValueNotifier<List<UserModel>> usersModels,
   @required UserModel userModel,
+  @required PageController pageController,
+  @required ValueNotifier<UserModel> selectedUserModel,
+  @required ValueNotifier<ZoneModel> selectedUserZone,
 }) async {
 
-  final bool _result = await CenterDialog.showCenterDialog(
+  selectedUserModel.value = userModel;
+
+  selectedUserZone.value = await ZoneProvider.proGetCompleteZoneModel(
     context: context,
-    title: 'Delete User ?',
-    body: '${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?',
-    confirmButtonText: 'Yes, Delete This Fucker',
-    boolDialog: true,
+    incompleteZoneModel: userModel.zone,
   );
 
-  if (_result == true){
-
-    final String cloudFunctionResponse = await CloudFunctionz.deleteFirebaseUser(
-      userID: userModel.id,
-    );
-
-    if (cloudFunctionResponse == 'stop') {
-      blog('operation stopped');
-    }
-
-    else if (cloudFunctionResponse == 'deleted') {
-
-      final int _userIndex = usersModels.value.indexWhere(
-              (UserModel user) => user.id == userModel.id);
-
-      if (_userIndex != -1){
-        final List<UserModel> _newUsers = <UserModel>[...usersModels.value];
-        _newUsers.removeAt(_userIndex);
-        usersModels.value = _newUsers;
-      }
-
-    }
-
-  }
-
+  await slideToNext(
+    pageController: pageController,
+    numberOfSlides: 2,
+    currentSlide: 0,
+  );
 
 }
 // -----------------------------------------------------------------------------
+
+  /// USER OPTIONS
+
+// ------------------------------------
 Future<void> onSelectedUserOptions({
   @required BuildContext context,
   @required UserModel userModel,
   @required ValueNotifier<List<UserModel>> usersModels,
+  @required PageController pageController,
+  @required ValueNotifier<UserModel> selectedUserModel,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -143,13 +118,13 @@ Future<void> onSelectedUserOptions({
       draggable: true,
       buttonHeight: 40,
       numberOfWidgets: 2,
-    builder: (_ , PhraseProvider pro){
+      builder: (_ , PhraseProvider pro){
 
         return <Widget>[
 
           BottomDialog.wideButton(
-              context: context,
-              verse: 'Fuck ${userModel.name}',
+            context: context,
+            verse: 'Fuck ${userModel.name}',
           ),
 
 
@@ -157,17 +132,217 @@ Future<void> onSelectedUserOptions({
             context: context,
             verse: 'Delete this Bitch : ${userModel.name}',
             onTap: () => onDeleteUser(
-                context: context,
-                usersModels: usersModels,
-                userModel: userModel
+              context: context,
+              usersModels: usersModels,
+              userModel: userModel,
+              pageController: pageController,
+              selectedUserModel: selectedUserModel,
             ),
           ),
 
 
         ];
 
-    }
+      }
   );
 
 }
+// ------------------------------------
+Future<void> onDeleteUser({
+  @required BuildContext context,
+  @required ValueNotifier<List<UserModel>> usersModels,
+  @required UserModel userModel,
+  @required PageController pageController,
+  @required ValueNotifier<UserModel> selectedUserModel,
+}) async {
+
+  if (Mapper.canLoopList(userModel.myBzzIDs) == true){
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'User is Author !',
+      body: 'For now, we can not delete this User from here',
+      confirmButtonText: 'Mashi',
+    );
+  }
+
+  else {
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Delete User ?',
+      body: '${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?',
+      confirmButtonText: 'Delete Fucker',
+      boolDialog: true,
+    );
+
+    if (_result == true){
+
+      final bool _credentialsAreGood = await _doYouKnowThePassword(
+          context: context,
+          userModel: userModel
+      );
+
+      blog('_credentialsAreGood : $_credentialsAreGood ');
+
+      if (_credentialsAreGood == true){
+
+        /// CLOSE BOTTOM DIALOG
+        Nav.goBack(context);
+
+        /// START WAITING
+        unawaited(WaitDialog.showWaitDialog(
+          context: context,
+          loadingPhrase: 'Deleting ${userModel.name} : ${userModel.id}',
+        ));
+
+        /// DELETE firebase user : auth/userID
+        final bool _firebaseSuccess = await FireAuthOps.deleteFirebaseUser(
+          context: context,
+          userID: userModel.id,
+        );
+        blog('onDeleteUser : deleted firebase user : operation success is : $_firebaseSuccess');
+
+        /// WHEN COULD DELETE FIREBASE USER
+        if (_firebaseSuccess == true){
+
+          /// DELETE user image : storage/usersPics/userID
+          await Storage.deleteStoragePic(
+            context: context,
+            docName: StorageDoc.users,
+            picName: userModel.id,
+          );
+          blog('onDeleteUser : deleted user pic : [storage/usersPics/${userModel.id}]');
+
+          /// DELETE user doc : firestore/users/userID
+          await Fire.deleteDoc(
+            context: context,
+            collName: FireColl.users,
+            docName: userModel.id,
+          );
+          blog('onDeleteUser : deleted user doc : [firestore/users/${userModel.id}]');
+
+
+          /// DELETE USER FROM USERS MODELS NOTIFIER
+          final int _userIndex = usersModels.value.indexWhere((UserModel user) => user.id == userModel.id);
+          if (_userIndex != -1){
+            final List<UserModel> _newUsers = <UserModel>[...usersModels.value];
+            _newUsers.removeAt(_userIndex);
+            usersModels.value = _newUsers;
+          }
+
+          /// CLOSE WAITING
+          WaitDialog.closeWaitDialog(context);
+
+          await slideToBackFrom(
+            pageController: pageController,
+            currentSlide: 1,
+          );
+
+          selectedUserModel.value = null;
+
+        }
+
+        /// WHEN DELETING FIREBASE USER FAILED\
+        else {
+
+          await CenterDialog.showCenterDialog(
+            context: context,
+            title: 'Failed',
+            body: 'Could not Delete this User',
+          );
+
+          /// CLOSE WAITING
+          WaitDialog.closeWaitDialog(context);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+// ------------------------------------
+Future<bool> _doYouKnowThePassword({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  bool _passwordIsGood = false;
+  String _password;
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Do you know the password ?',
+    onOk: () async {
+
+      _passwordIsGood = await _couldGetCredentials(
+        context: context,
+        password: _password,
+        userModel: userModel,
+      );
+
+    },
+    child: SuperTextField(
+      width: CenterDialog.width(context: context),
+      keyboardTextInputType: TextInputType.visiblePassword,
+      keyboardTextInputAction: TextInputAction.go,
+      onChanged: (String text){
+        _password = text;
+      },
+      onSubmitted: (String text) async {
+
+        _passwordIsGood = await _couldGetCredentials(
+            context: context,
+            password: _password,
+            userModel: userModel,
+        );
+
+      },
+    ),
+  );
+
+  return _passwordIsGood;
+}
+// ------------------------------------
+Future<bool> _couldGetCredentials({
+  @required BuildContext context,
+  @required String password,
+  @required UserModel userModel,
+}) async {
+
+  final bool _credentialsAreGood = await tryCatchAndReturnBool(
+      context: context,
+      functions: () async {
+
+        final UserCredential _credential = await FirebaseAuth
+            .instance
+            .signInWithEmailAndPassword(
+          email: ContactModel.getAContactValueFromContacts(userModel.contacts, ContactType.email),
+          password: password,
+        );
+
+        // blog('_credential token : ${_credential.credential.token}');
+
+      }
+  );
+
+  /// IF COULD SIGN IN
+  if (_credentialsAreGood == true){
+    /// CLOSE CENTER DIALOG
+    Nav.goBack(context);
+  }
+  /// WHEN SIGN IN FAILED
+  else {
+    await TopDialog.showTopDialog(
+      context: context,
+      title: 'Wrong Password',
+      body: 'Can not delete this user',
+    );
+  }
+
+  return _credentialsAreGood;
+}
+
 // -----------------------------------------------------------------------------
