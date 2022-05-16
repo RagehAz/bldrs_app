@@ -316,17 +316,18 @@ class BzModel{
       zone: userModel.zone,
       contacts: <ContactModel>[
         ContactModel(
+            contactType: ContactType.email,
             contact: ContactModel.getAContactValueFromContacts(
-                userModel.contacts,
-                ContactType.email
+                contacts: userModel.contacts,
+                contactType: ContactType.email,
             ),
-            contactType: ContactType.email),
+        ),
         ContactModel(
+            contactType: ContactType.phone,
             contact: ContactModel.getAContactValueFromContacts(
-                userModel.contacts,
-                ContactType.phone
+                contacts: userModel.contacts,
+                contactType: ContactType.phone
             ),
-            contactType: ContactType.phone
         ),
       ],
       authors: <AuthorModel>[

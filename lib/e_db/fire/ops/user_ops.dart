@@ -1,25 +1,18 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
+
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
-import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -154,7 +147,7 @@ Future<UserModel> getOrCreateUserModelFromUser({
   // ----------
 
   /// E - read user ops if existed
-  final UserModel _existingUserModel = await UserFireOps.readUser(
+  final UserModel _existingUserModel = await readUser(
     context: context,
     userID: user.uid,
   );
@@ -174,7 +167,7 @@ Future<UserModel> getOrCreateUserModelFromUser({
     blog('googleSignInOps : _initialUserModel : $_initialUserModel');
 
     /// E2 - create user ops
-    final UserModel _finalUserModel = await UserFireOps.createUser(
+    final UserModel _finalUserModel = await createUser(
       context: context,
       userModel: _initialUserModel,
       authBy: authBy,
@@ -232,7 +225,6 @@ Future<UserModel> readUser({
 
   return _user;
 }
-
 // -----------------------------------------------------------------------------
 /// auth change user stream
 Stream<UserModel> streamInitialUser() {
@@ -372,194 +364,8 @@ Future<void> removeFlyerIDFromSavedFlyersIDs({
 /// DELETE
 
 // ---------------------------------------------------
-Future<dynamic> deactivateUser({
-  @required BuildContext context,
-  @required UserModel userModel,
-}) async {
-  // steps ----------
-  /// de activate user account
-  /// A - if dialog result is false return 'stop' - is true start ops as follow :-
-  /// B - if user is author :-
-  ///   C - read And Filter Teamless Bzz By then show its dialog
-  ///   D - check if user wants to continue or not
-  ///   E - show flyers deactivation dialog
-  ///   F - check if user wants to continue or not
-  ///   G - deactivate all deactivable bzz
-  ///   H - change user status in user doc to deactivated
-  ///   J - SIGN OUT
-  ///
-  /// B - if user is not author :-
-  ///   H - change user status in user doc to deactivated
-  ///   J - SIGN OUT
-  // ----------
-
-  /// A - initial bool dialog alert
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: 'Watch Out !',
-    body:
-        'Your data can not be retrieved after deactivating your account\nAre you sure you want to proceed ?',
-    boolDialog: true,
-  );
-
-  /// A - if user stops
-  if (_result == false) {
-    // do nothing
-    blog('no Do not deactivate ');
-
-    return 'stop';
-  }
-
-  /// A - if user continues
-  else {
-    blog('starting deactivateUserOps()');
-
-    /// B - only if user is author
-    if (UserModel.userIsAuthor(userModel) == true) {
-      /// WAITING DIALOG
-      unawaited(CenterDialog.showCenterDialog(
-        context: context,
-        title: '',
-        boolDialog: null,
-        body: 'Waiting',
-        child: const Loading(
-          loading: true,
-        ),
-      ));
-
-      /// C - read and filter user bzz for which bzz he's the only author of to be deactivated
-      final Map<String, dynamic> _userBzzMap = await BzFireOps.readAndFilterTeamlessBzzByUserModel(
-        context: context,
-        userModel: userModel,
-      );
-
-      final List<BzModel> _bzzToDeactivate = _userBzzMap['bzzToDeactivate'];
-      final List<BzModel> _bzzToKeep = _userBzzMap['bzzToKeep'];
-
-      /// CLOSE WAITING DIALOG
-      Nav.goBack(context);
-
-      /// C - show deactivable bzz dialog
-      final bool _bzzReviewResult = await Dialogz.bzzDeactivationDialog(
-        context: context,
-        bzzToDeactivate: _bzzToDeactivate,
-        bzzToKeep: _bzzToKeep,
-      );
-
-      /// D - if user wants to stop
-      if (_bzzReviewResult == false) {
-        // do nothing
-        blog('no Do not deactivate ');
-        return 'stop';
-      }
-
-      /// D - if user wants to continue
-      else {
-        final List<FlyerModel> _bzFlyers = await FireFlyerOps.readBzzFlyers(
-          context: context,
-          bzzModels: _bzzToDeactivate,
-        );
-
-        /// E - show flyers that will be DEACTIVATED
-        final bool _flyersReviewResult = await Dialogz.flyersDeactivationDialog(
-          context: context,
-          bzzToDeactivate: _bzzToDeactivate,
-          flyers: _bzFlyers,
-        );
-
-        /// F - if user wants to stop
-        if (_flyersReviewResult == false) {
-          blog('no Do not deactivate ');
-          return 'stop';
-        }
-
-        /// F - if user wants to continue
-        else {
-          /// SHOW WAITING DIALOG
-          unawaited(CenterDialog.showCenterDialog(
-            context: context,
-            title: '',
-            boolDialog: null,
-            body: 'Waiting',
-            child: const Loading(
-              loading: true,
-            ),
-          ));
-
-          /// G - DEACTIVATE all deactivable bzz
-          for (final BzModel bz in _bzzToDeactivate) {
-            await BzFireOps.deactivateBz(
-              context: context,
-              bzModel: bz,
-            );
-          }
-
-          /// H - change user status in user doc to deactivated
-          await Fire.updateDocField(
-            context: context,
-            collName: FireColl.users,
-            docName: userModel.id,
-            field: 'userStatus',
-            input: UserModel.cipherUserStatus(UserStatus.deactivated),
-          );
-
-          ///   J - SIGN OUT
-          await FireAuthOps.signOut(
-              context: context,
-              routeToUserChecker: false,
-          );
-
-          /// CLOSE WAITING DIALOG
-          Nav.goBack(context);
-
-          await CenterDialog.showCenterDialog(
-            context: context,
-            title: '',
-            body: 'Done',
-          );
-
-          return 'deactivated';
-        }
-      }
-    }
-
-    /// B - if user in not Author
-    else {
-
-      /// H - change user status in user doc to deactivated
-      await Fire.updateDocField(
-        context: context,
-        collName: FireColl.users,
-        docName: userModel.id,
-        field: 'userStatus',
-        input: UserModel.cipherUserStatus(UserStatus.deactivated),
-      );
-
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: '',
-        body: 'Done',
-      );
-
-      /// J - SIGN OUT
-      await FireAuthOps.signOut(context: context, routeToUserChecker: false);
-
-      /// CLOSE WAITING DIALOG
-      Nav.goBack(context);
-
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: '',
-        body: 'Done',
-      );
-
-      return 'deactivated';
-    }
-  }
-}
-
-// ---------------------------------------------------
-Future<dynamic> deleteUser({
+/*
+Future<dynamic> deleteUserOps({
   @required BuildContext context,
   @required UserModel userModel,
 }) async {
@@ -782,4 +588,51 @@ Future<dynamic> deleteUser({
     }
   }
 }
-// -----------------------------------------------------------------------------
+ */
+// ---------------------------------------------------
+/// TESTED :
+Future<bool> deleteNonAuthorUserOps({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  final bool _success = await tryCatchAndReturnBool(
+    methodName: 'deleteNonAuthorUserOps',
+    context: context,
+    functions: () async {
+
+      /// DELETE firebase user : auth/userID
+      blog('UserFireOps : deleteNonAuthorUserOps : deleting firebase user');
+      final bool _result = await FireAuthOps.deleteFirebaseUser(
+        context: context,
+        userID: userModel.id,
+      );
+
+      if (_result == true){
+
+        /// DELETE user image : storage/usersPics/userID
+        blog('UserFireOps : deleteNonAuthorUserOps : deleting user pic');
+        await Storage.deleteStoragePic(
+          context: context,
+          docName: StorageDoc.users,
+          picName: userModel.id,
+        );
+
+        /// DELETE user doc : firestore/users/userID
+        blog('UserFireOps : deleteNonAuthorUserOps : deleting user doc');
+        await Fire.deleteDoc(
+          context: context,
+          collName: FireColl.users,
+          docName: userModel.id,
+        );
+
+      }
+
+
+    }
+  );
+
+  return _success;
+
+}
+// ---------------------------------------------------

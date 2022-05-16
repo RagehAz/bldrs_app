@@ -65,8 +65,13 @@ Future<bool> tryCatchAndReturnBool({
 
   /// CATCH EXCEPTION ERROR
   on Exception catch (error) {
+
     blog('$methodName : tryAndCatch ERROR : $error');
-    if (onError != null) {onError(error.toString());}
+
+    if (onError != null) {
+      onError(error.toString());
+    }
+
     _success = false;
   }
 
