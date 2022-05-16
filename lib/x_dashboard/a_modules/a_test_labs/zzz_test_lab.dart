@@ -20,8 +20,6 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/e_db/fire/methods/storage.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -412,17 +410,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'STORAGE THING',
+              verse: 'uid',
               icon: Iconz.dvGouran,
               onTap: () async {
 
-                final String _url = await readStoragePicURL(
-                  context: context,
-                  docName: StorageDoc.users,
-                  picName: '60a1SPzftGdH6rt15NF96m0j9Et2',
-                );
-
-                blog(_url);
 
               }
               ),

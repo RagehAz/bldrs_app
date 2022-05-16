@@ -1,4 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/translations_bubble.dart';
 import 'package:flutter/material.dart';
@@ -44,51 +47,69 @@ class TranslationsPage extends StatelessWidget {
             valueListenable: mixedSearchedPhrases,
             builder: (_, List<Phrase> mixedPhrases, Widget child){
 
-              final List<Phrase> _allLanguagesPhrasesOfAllMixedPhrases = Phrase.getAllLanguagesPhrasesOfMixedPhrases(
-                enPhrases : enPhrases,
-                arPhrases : arPhrases,
-                mixedPhrases : mixedPhrases,
-              );
+              if (mixedPhrases.isEmpty == true){
+                return PageBubble(
+                    screenHeightWithoutSafeArea: screenHeight,
+                    appBarType: AppBarType.search,
+                    child: const Center(
+                      child: SuperVerse(
+                        verse: 'No result found',
+                        size: 3,
+                        italic: true,
+                      ),
+                    ),
+                );
+              }
 
-              final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_allLanguagesPhrasesOfAllMixedPhrases);
+              else {
 
-              final List<Phrase> _enSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
-                phrases: _cleaned,
-                langCode: 'en',
-              );
+                final List<Phrase> _allLanguagesPhrasesOfAllMixedPhrases = Phrase.getAllLanguagesPhrasesOfMixedPhrases(
+                  enPhrases : enPhrases,
+                  arPhrases : arPhrases,
+                  mixedPhrases : mixedPhrases,
+                );
 
-              final List<Phrase> _arSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
-                phrases: _cleaned,
-                langCode: 'ar',
-              );
+                final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_allLanguagesPhrasesOfAllMixedPhrases);
 
-              return TranslationsBubble(
-                screenHeight: screenHeight,
-                enPhrases: _enSearchedPhrases,
-                arPhrases: _arSearchedPhrases,
-                scrollController: scrollController,
-                onCopyValue: (String value) => onCopyText(context, value),
-                onDeletePhrase: (String phraseID) => onDeletePhrase(
-                  context: context,
-                  phraseID: phraseID,
-                  enPhrases: enPhrases,
-                  arPhrases: arPhrases,
-                ),
-                onEditPhrase: (String phraseID) async {
+                final List<Phrase> _enSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
+                  phrases: _cleaned,
+                  langCode: 'en',
+                );
 
-                  await onEditPhrase(
+                final List<Phrase> _arSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
+                  phrases: _cleaned,
+                  langCode: 'ar',
+                );
+
+                return TranslationsBubble(
+                  screenHeight: screenHeight,
+                  enPhrases: _enSearchedPhrases,
+                  arPhrases: _arSearchedPhrases,
+                  scrollController: scrollController,
+                  onCopyValue: (String value) => onCopyText(context, value),
+                  onDeletePhrase: (String phraseID) => onDeletePhrase(
                     context: context,
-                    pageController: pageController,
+                    phraseID: phraseID,
                     enPhrases: enPhrases,
                     arPhrases: arPhrases,
-                    phraseID: phraseID,
-                    enTextController: enController,
-                    arTextController: arController,
-                    idTextController: idTextController,
-                  );
+                  ),
+                  onEditPhrase: (String phraseID) async {
 
-                },
-              );
+                    await onEditPhrase(
+                      context: context,
+                      pageController: pageController,
+                      enPhrases: enPhrases,
+                      arPhrases: arPhrases,
+                      phraseID: phraseID,
+                      enTextController: enController,
+                      arTextController: arController,
+                      idTextController: idTextController,
+                    );
+
+                  },
+                );
+
+              }
 
             },
           );
