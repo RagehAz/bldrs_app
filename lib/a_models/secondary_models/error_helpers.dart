@@ -15,6 +15,7 @@ class HttpException implements Exception {
   }
 }
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> tryAndCatch({
   @required BuildContext context,
   @required Function functions,

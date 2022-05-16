@@ -140,9 +140,8 @@ class PriceDataCreator extends StatefulWidget {
 
 class _PriceDataCreatorState extends State<PriceDataCreator> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController controller = TextEditingController();
-  final ValueNotifier<CurrencyModel> _currency =
-      ValueNotifier<CurrencyModel>(null);
+  final TextEditingController controller = TextEditingController(); /// tamam disposed
+  final ValueNotifier<CurrencyModel> _currency = ValueNotifier<CurrencyModel>(null); /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -152,7 +151,13 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     controller.text = widget.initialPriceValue?.toString() ?? '';
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+    _currency.dispose();
+  }
 // -----------------------------------------------------------------------------
   void _onSelectCurrency(CurrencyModel currency) {
     // setState(() {
@@ -166,7 +171,6 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     Nav.goBack(context);
     // await null;
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onCurrencyTap() async {
     await PriceDataCreator.showCurrencyDialog(
@@ -174,12 +178,10 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
       onSelectCurrency: (CurrencyModel currency) => _onSelectCurrency(currency),
     );
   }
-
 // -----------------------------------------------------------------------------
   void _validate() {
     _formKey.currentState.validate();
   }
-
 // -----------------------------------------------------------------------------
   String _validator() {
 
@@ -206,27 +208,23 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
       return null;
     }
   }
-
 // -----------------------------------------------------------------------------
   void _onTextChanged(String val) {
     _validate();
-
     widget.onValueChanged(val);
     widget.onCurrencyChanged(_currency.value);
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _bubbleHeight = 150;
     final double _bubbleWidth = BldrsAppBar.width(context);
-    final BorderRadius _bubbleCorners =
-        Borderers.superBorderAll(context, Ratioz.appBarCorner);
+    final BorderRadius _bubbleCorners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
 
     const double _currencyFieldWidth = 70;
-    final double _textFieldWidth =
-        _bubbleWidth - _currencyFieldWidth - (Ratioz.appBarMargin * 2);
+    final double _textFieldWidth = _bubbleWidth - _currencyFieldWidth - (Ratioz.appBarMargin * 2);
     const double _fieldHeight = 100;
 
     const String _hintText = 'Add price';

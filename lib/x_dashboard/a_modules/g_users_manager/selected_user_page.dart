@@ -162,6 +162,13 @@ class SelectedUserPage extends StatelessWidget {
         dataValue: '${userModel.myBzzIDs.length} Businesses authored',
       ),
 
+      /// NUMBER OF BZZ
+      DataStrip(
+        color: Colorz.black255,
+        dataKey: 'Image URL',
+        dataValue: userModel.pic,
+      ),
+
       const BubblesSeparator(),
 
       /// APP VERSION

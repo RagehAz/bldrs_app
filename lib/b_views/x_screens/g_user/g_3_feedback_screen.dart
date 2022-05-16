@@ -28,7 +28,7 @@ class FeedBack extends StatefulWidget {
 }
 
 class _FeedBackState extends State<FeedBack> {
-  TextEditingController _feedbackController;
+  TextEditingController _feedbackController; /// tamam disposed
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -53,7 +53,7 @@ class _FeedBackState extends State<FeedBack> {
   @override
   void initState() {
     super.initState();
-    _feedbackController = TextEditingController();
+    _feedbackController = TextEditingController(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

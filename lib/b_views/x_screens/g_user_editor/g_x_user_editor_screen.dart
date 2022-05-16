@@ -64,20 +64,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   String _currentLanguageCode;
   GeoPoint _currentPosition;
   // --------------------
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _companyController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _facebookController = TextEditingController();
-  final TextEditingController _linkedInController = TextEditingController();
-  final TextEditingController _instagramController = TextEditingController();
-  final TextEditingController _twitterController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController(); /// tamam disposed
+  final TextEditingController _titleController = TextEditingController(); /// tamam disposed
+  final TextEditingController _companyController = TextEditingController(); /// tamam disposed
+  final TextEditingController _phoneController = TextEditingController(); /// tamam disposed
+  final TextEditingController _emailController = TextEditingController(); /// tamam disposed
+  final TextEditingController _facebookController = TextEditingController(); /// tamam disposed
+  final TextEditingController _linkedInController = TextEditingController(); /// tamam disposed
+  final TextEditingController _instagramController = TextEditingController(); /// tamam disposed
+  final TextEditingController _twitterController = TextEditingController(); /// tamam disposed
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(true); /// tamam disposed
 // -----------------------------------
-  Future<void> _triggerLoading({@required setTo}) async {
+  Future<void> _triggerLoading({
+    @required setTo,
+  }) async {
     _loading.value = setTo;
     blogLoading(
       loading: _loading.value,
@@ -113,15 +115,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    TextChecker.disposeControllerIfPossible(_nameController);
-    TextChecker.disposeControllerIfPossible(_titleController);
-    TextChecker.disposeControllerIfPossible(_companyController);
-    TextChecker.disposeControllerIfPossible(_phoneController);
-    TextChecker.disposeControllerIfPossible(_emailController);
-    TextChecker.disposeControllerIfPossible(_facebookController);
-    TextChecker.disposeControllerIfPossible(_linkedInController);
-    TextChecker.disposeControllerIfPossible(_instagramController);
-    TextChecker.disposeControllerIfPossible(_twitterController);
+    _nameController.dispose();
+    _titleController.dispose();
+    _companyController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _facebookController.dispose();
+    _linkedInController.dispose();
+    _instagramController.dispose();
+    _twitterController.dispose();
     _loading.dispose();
     _canPickImage.dispose();
     _picture.dispose();

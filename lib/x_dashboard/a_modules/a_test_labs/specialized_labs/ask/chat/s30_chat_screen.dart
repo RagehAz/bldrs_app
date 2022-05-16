@@ -39,8 +39,9 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+
   final String _currentUserID = FireAuthOps.superUserID();
-  final TextEditingController _msgController = TextEditingController();
+  final TextEditingController _msgController = TextEditingController(); /// tamam dispose
   // List<MessageModel> _messages;
 
   bool _userSeen;
@@ -51,10 +52,17 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _sendMessage(
-      {String body, List<MessageModel> existingMsgs}) async {
+  @override
+  void dispose(){
+    super.dispose();
+    _msgController.dispose();
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _sendMessage({
+    @required String body,
+    @required List<MessageModel> existingMsgs
+  }) async {
     if (body != null && body.isNotEmpty) {
       Keyboarders.closeKeyboard(context);
 

@@ -45,16 +45,19 @@ import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class NotificationMaker extends StatefulWidget {
-  const NotificationMaker({Key key}) : super(key: key);
+
+  const NotificationMaker({
+    Key key
+  }) : super(key: key);
 
   @override
   _NotificationMakerState createState() => _NotificationMakerState();
 }
 
 class _NotificationMakerState extends State<NotificationMaker> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _bodyController = TextEditingController();
-  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController(); /// tamam disposed
+  final TextEditingController _bodyController = TextEditingController(); /// tamam disposed
+  final TextEditingController _userNameController = TextEditingController(); /// tamam disposed
   UserModel _selectedUser;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -76,14 +79,12 @@ class _NotificationMakerState extends State<NotificationMaker> {
         :
     blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -101,7 +102,14 @@ class _NotificationMakerState extends State<NotificationMaker> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
+    _bodyController.dispose();
+    _userNameController.dispose();
+  }
 // -----------------------------------------------------------------------------
   final NotiPicType _notiPicType = NotiPicType.bldrs;
   final String _notiPic = Iconz.bldrsNameEn;
@@ -116,8 +124,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   Future<void> _onAddAttachment() async {
     blog('choosing attachment');
 
-    final List<NotiAttachmentType> _attachmentTypesList =
-        NotiModel.notiAttachmentTypesList();
+    final List<NotiAttachmentType> _attachmentTypesList = NotiModel.notiAttachmentTypesList();
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -146,23 +153,26 @@ class _NotificationMakerState extends State<NotificationMaker> {
       ),
     );
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _onChooseAttachmentType(
-      NotiAttachmentType attachmentType) async {
+  Future<void> _onChooseAttachmentType(NotiAttachmentType attachmentType) async {
+
     if (attachmentType == NotiAttachmentType.banner) {
       await _attachGalleryPicture();
-    } else if (attachmentType == NotiAttachmentType.flyers) {
+    }
+
+    else if (attachmentType == NotiAttachmentType.flyers) {
       await _attachFlyers();
-    } else {
+    }
+
+    else {
       blog('attachment type is ${attachmentType.toString()}');
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _attachGalleryPicture() async {
-    final File _pic =
-        await Imagers.takeGalleryPicture(picType: Imagers.PicType.slideHighRes);
+    final File _pic = await Imagers.takeGalleryPicture(
+        picType: Imagers.PicType.slideHighRes,
+    );
 
     blog('pic is : $_pic');
 
@@ -187,7 +197,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
       });
     }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _attachFlyers() async {
     Keyboarders.closeKeyboard(context);
@@ -207,7 +216,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
     Nav.goBack(context);
     // await null;
   }
-
 // -----------------------------------------------------------------------------
   void _onDeleteAttachment() {
     setState(() {
@@ -215,7 +223,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
       _attachmentType = NotiAttachmentType.non;
     });
   }
-
 // -----------------------------------------------------------------------------
   bool _sendFCMIsOn = false;
   void _onSwitchSendFCM(bool val) {
@@ -224,7 +231,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
       _sendFCMIsOn = val;
     });
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onTapReciever() async {
     Keyboarders.closeKeyboard(context);
@@ -364,7 +370,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
       },
     );
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification({bool sendToMyself = false}) async {
     final String _userID = sendToMyself == true ?
@@ -470,7 +475,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     }
   }
-
 // -----------------------------------------------------------------------------
   bool _canSendNotification({bool sendToMySelf}) {
     bool _canSend = false;
@@ -487,7 +491,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     return _canSend;
   }
-
 // -----------------------------------------------------------------------------
   void _onDeleteFlyer(String flyerID) {
     final List<FlyerModel> flyers = _attachment;
@@ -512,7 +515,6 @@ class _NotificationMakerState extends State<NotificationMaker> {
       }
     });
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
