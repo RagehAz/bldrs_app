@@ -317,14 +317,14 @@ class BzModel{
       contacts: <ContactModel>[
         ContactModel(
             contactType: ContactType.email,
-            contact: ContactModel.getAContactValueFromContacts(
+            value: ContactModel.getAContactValueFromContacts(
                 contacts: userModel.contacts,
                 contactType: ContactType.email,
             ),
         ),
         ContactModel(
             contactType: ContactType.phone,
-            contact: ContactModel.getAContactValueFromContacts(
+            value: ContactModel.getAContactValueFromContacts(
                 contacts: userModel.contacts,
                 contactType: ContactType.phone
             ),

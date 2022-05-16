@@ -13,6 +13,7 @@ class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TextFieldBubble({
     @required this.title,
+    this.bubbleWidth,
     this.hintText = '...',
     this.counterIsOn = false,
     this.maxLines = 1,
@@ -45,6 +46,7 @@ class TextFieldBubble extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final double bubbleWidth;
   final String title;
   final String hintText;
   final bool counterIsOn;
@@ -108,16 +110,17 @@ class TextFieldBubble extends StatelessWidget {
     final double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
     final double obscureBtSize = showUnObscure == false ? 0 : fieldHeight;
     final double obscureBtSpacing = showUnObscure == false ? 0 : 5;
-    final double bubbleClearWidth = Bubble.clearWidth(context);
+    final double bubbleClearWidth = Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth);
     final double fieldWidth = bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
 
     return Bubble(
+
+        width: Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth),
         bubbleColor: bubbleColor,
         title: title,
         redDot: fieldIsRequired,
         actionBtIcon: actionBtIcon,
         actionBtFunction: actionBtFunction,
-        width: Bubble.defaultWidth(context),
         onBubbleTap: onBubbleTap,
         columnChildren: <Widget>[
 

@@ -134,7 +134,7 @@ class AuthorCard extends StatelessWidget {
 
                     return AuthorCardDetail(
                       icon: superContactIcon(_contact.contactType),
-                      verse: _contact.contact,
+                      verse: _contact.value,
                     );
 
                   }),
