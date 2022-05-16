@@ -66,7 +66,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     );
     // ------------------------------------------
     /// FOR SLIDES
-    _horizontalSlidesController = PageController();
+    _horizontalSlidesController = PageController(); /// tamam
     // ------------------------------------------
     /// FOR SAVING GRAPHIC
     _animationController = AnimationController(

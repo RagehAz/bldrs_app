@@ -30,8 +30,8 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
-  final TextEditingController _searchController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController(); /// tamam disposed
+  final ScrollController _scrollController = ScrollController(); /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   void initState(){
@@ -82,7 +82,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void dispose() {
     super.dispose();
-    TextChecker.disposeControllerIfNotEmpty(_searchController);
+    _searchController.dispose();
+    _scrollController.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSearchSubmit(String searchText) async {

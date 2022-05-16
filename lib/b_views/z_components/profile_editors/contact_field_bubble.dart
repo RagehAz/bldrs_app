@@ -65,9 +65,16 @@ class ContactFieldBubble extends StatefulWidget {
 }
 
 class _ContactFieldBubbleState extends State<ContactFieldBubble> {
+  // --------------------------------------------------------------------------
   String paste = '';
-  final TextEditingController pasteController = TextEditingController();
-
+  final TextEditingController pasteController = TextEditingController(); /// tamam disposed
+  // --------------------------------------------------------------------------
+  @override
+  void dispose() {
+    super.dispose();
+    pasteController.dispose();
+  }
+  // --------------------------------------------------------------------------
   Future<void> _pasteFunction() async {
     final String value = await FlutterClipboard.paste();
     setState(() {
@@ -76,7 +83,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
       // widget.textOnChanged(paste);
     });
   }
-
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     const int titleVerseSize = 2;

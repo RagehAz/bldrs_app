@@ -32,9 +32,9 @@ class KeywordsPickerScreen extends StatefulWidget {
 }
 
 class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
-  ValueNotifier<List<String>> _selectedKeywordsIDs;
+  ValueNotifier<List<String>> _selectedKeywordsIDs; /// tamam disposed
   ChainsProvider _chainsProvider;
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController(); /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -47,6 +47,14 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
     // generateExpansionKeys();
   }
 // -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    super.dispose();
+    _selectedKeywordsIDs.dispose();
+    _selectedKeywordsIDs.dispose();
+  }
+// -----------------------------------------------------------------------------
+/*
 //   List<GlobalKey<GroupTileState>> _expansionKeys = <GlobalKey<GroupTileState>>[];
 //   void generateExpansionKeys(){
 //     _chains.forEach((x) {
@@ -151,6 +159,8 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 //     }
 //
 //   }
+// -----------------------------------------------------------------------------
+ */
 // -----------------------------------------------------------------------------
   String _highlightedKeywordID;
   Future<void> _highlightKeyword(String keywordID, bool canPickMany) async {
@@ -307,10 +317,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
                       selectedKeywordsIDs: selectedIDs,
                     );
 
-
                   }
-
-
 
                 ),
               ),
