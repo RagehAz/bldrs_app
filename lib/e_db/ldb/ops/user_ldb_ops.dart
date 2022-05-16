@@ -98,9 +98,7 @@ class UserLDBOps {
   /// DELETE
 
 // ----------------------------------------
-  static Future<void> deleteUserOps({
-    @required String userID,
-  }) async {
+  static Future<void> deleteUserOps(String userID) async {
 
     await LDBOps.deleteMap(
         docName: LDBDoc.users,

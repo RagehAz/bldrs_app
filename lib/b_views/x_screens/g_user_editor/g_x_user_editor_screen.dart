@@ -17,8 +17,8 @@ import 'package:bldrs/b_views/z_components/profile_editors/gender_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -26,7 +26,6 @@ import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -143,12 +142,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _nameController.text      = widget.userModel.name;
     _companyController.text   = widget.userModel.company;
     _titleController.text     = widget.userModel.title;
-    _phoneController.text     = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.phone);
-    _emailController.text     = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.email);
-    _facebookController.text  = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.facebook);
-    _linkedInController.text  = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.linkedIn);
-    _instagramController.text = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.instagram);
-    _twitterController.text   = ContactModel.getAContactValueFromContacts(widget.userModel.contacts, ContactType.twitter);
+
+    _phoneController.text     = ContactModel.getAContactValueFromContacts(
+        contacts: widget.userModel.contacts,
+        contactType: ContactType.phone
+    );
+    _emailController.text     = ContactModel.getAContactValueFromContacts(
+        contacts: widget.userModel.contacts,
+        contactType: ContactType.email,
+    );
+    _facebookController.text  = ContactModel.getAContactValueFromContacts(
+        contacts: widget.userModel.contacts,
+        contactType: ContactType.facebook,
+    );
+    _linkedInController.text  = ContactModel.getAContactValueFromContacts(
+        contacts: widget.userModel.contacts,
+        contactType: ContactType.linkedIn,
+    );
+    _instagramController.text = ContactModel.getAContactValueFromContacts(
+        contacts: widget.userModel.contacts,
+        contactType: ContactType.instagram,
+    );
+    _twitterController.text   = ContactModel.getAContactValueFromContacts(
+        contacts: widget.userModel.contacts,
+        contactType: ContactType.twitter,
+    );
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true); /// tamam disposed

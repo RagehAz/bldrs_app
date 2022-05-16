@@ -98,7 +98,10 @@ class ContactModel {
     return contactValue;
   }
 // -----------------------------------------------------------------------------
-  static String getAContactValueFromContacts(List<ContactModel> contacts, ContactType contactType) {
+  static String getAContactValueFromContacts({
+    @required List<ContactModel> contacts,
+    @required ContactType contactType,
+  }) {
     final String contactValue = getAContactModelFromContacts(contacts, contactType)?.contact;
     return contactValue;
   }
@@ -194,31 +197,44 @@ class ContactModel {
     List<ContactModel> newContacts,
   ) {
 
-    final String _existingContactValue = getAContactValueFromContacts(existingContacts, type);
+    final String _existingContactValue = getAContactValueFromContacts(
+        contacts: existingContacts,
+        contactType: type,
+    );
 
     bool _contactExistsInExistingContacts;
+
     if (_existingContactValue == null || _existingContactValue == '') {
       _contactExistsInExistingContacts = false;
-    } else {
+    }
+
+    else {
       _contactExistsInExistingContacts = true;
     }
 
     bool _userChangedValue;
+
     if (value == null) {
       _userChangedValue = false;
-    } else {
+    }
+
+    else {
       _userChangedValue = true;
     }
 
     /// when contact already exists in existingContacts
     if (_contactExistsInExistingContacts == true) {
+
       /// if value have changed add this new value otherwise add the existing value
       if (_userChangedValue == true) {
         newContacts.add(ContactModel(contact: value, contactType: type));
-      } else {
+      }
+
+      else {
         newContacts.add(
             ContactModel(contact: _existingContactValue, contactType: type));
       }
+
     }
 
     /// when contact is new to existingContacts

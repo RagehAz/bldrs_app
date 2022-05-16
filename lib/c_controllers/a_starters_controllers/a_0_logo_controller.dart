@@ -90,7 +90,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
       /// KEYWORDS CHAIN
       if (_globalState.keywordsChainVersion > _userState.keywordsChainVersion){
-        await LDBOps.deleteAllAtOnce(docName: LDBDoc.keywordsChain,);
+        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain,);
         _updatedUserAppState = _updatedUserAppState.copyWith(
             keywordsChainVersion: _globalState.keywordsChainVersion,
         );
@@ -106,7 +106,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
       /// PHRASES
       if (_globalState.phrasesVersion > _userState.phrasesVersion){
-        await LDBOps.deleteAllAtOnce(docName: LDBDoc.basicPhrases,);
+        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.basicPhrases,);
         _updatedUserAppState = _updatedUserAppState.copyWith(
             phrasesVersion: _globalState.phrasesVersion,
         );
@@ -114,7 +114,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
       /// SPEC PICKERS
       if (_globalState.specPickersVersion > _userState.specPickersVersion){
-        await LDBOps.deleteAllAtOnce(docName: LDBDoc.specPickers,);
+        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specPickers,);
         _updatedUserAppState = _updatedUserAppState.copyWith(
             specPickersVersion: _globalState.specPickersVersion,
         );
@@ -122,7 +122,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
       /// SPEC CHAIN VERSION
       if (_globalState.specsChainVersion > _userState.specsChainVersion){
-        await LDBOps.deleteAllAtOnce(docName: LDBDoc.specsChain,);
+        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain,);
         _updatedUserAppState = _updatedUserAppState.copyWith(
             specsChainVersion: _globalState.specsChainVersion,
         );

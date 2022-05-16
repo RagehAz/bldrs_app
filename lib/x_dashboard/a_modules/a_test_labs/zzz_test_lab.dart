@@ -36,7 +36,6 @@ import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------

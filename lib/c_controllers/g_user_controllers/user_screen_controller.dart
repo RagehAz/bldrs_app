@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
@@ -9,6 +12,9 @@ import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dar
 import 'package:bldrs/b_views/y_views/g_user/b_4_invite_businesses_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -19,6 +25,8 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/contacts_service/contacts_service.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer show shareAppIcon;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
@@ -30,15 +38,21 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
+
 
 // -----------------------------------------------------------------------------
+
+/// USER SCREEN TABS
+
+// ---------------------------------
 int getInitialUserScreenTabIndex(BuildContext context){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final UserTab _currentTab = _uiProvider.currentUserTab;
   final int _index = getUserTabIndex(_currentTab);
   return _index;
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 void onChangeUserScreenTabIndexWhileAnimation({
   @required BuildContext context,
   @required TabController tabController,
@@ -56,7 +70,7 @@ void onChangeUserScreenTabIndexWhileAnimation({
   }
 
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 void onChangeUserScreenTabIndex({
   @required BuildContext context,
   @required int index,
@@ -80,6 +94,10 @@ void onChangeUserScreenTabIndex({
 
 }
 // -----------------------------------------------------------------------------
+
+/// PROFILE OPTIONS
+
+// ---------------------------------
 Future<void> onMoreOptionsTap (BuildContext context) async {
   blog('more button in user screen');
 
@@ -191,35 +209,52 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
     );
 
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
+Future<void> onEditProfileTap(BuildContext context) async {
+
+  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
+  final UserModel _myUserModel = _userProvider.myUserModel;
+
+  await Nav.goToNewScreen(
+      context: context,
+      screen: EditProfileScreen(
+        userModel: _myUserModel,
+        onFinish: () async {
+          Nav.goBack(context);
+        },
+      )
+  );
+
+}
+// ---------------------------------
 Future<void> _onChangeAppLanguageTap(BuildContext context) async {
   await Nav.goToNewScreen(
       context: context,
       screen: const SelectAppLanguageScreen(),
   );
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> _onAboutBldrsTap(BuildContext context) async {
   await Nav.goToNewScreen(
       context: context,
       screen: const AboutBldrsScreen(),
   );
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> _onFeedbackTap(BuildContext context) async {
   await Nav.goToNewScreen(
       context: context,
       screen: const FeedBack(),
   );
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> _onTermsAndRegulationsTap(BuildContext context) async {
   await Nav.goToNewScreen(
       context: context,
       screen: const TermsAndRegulationsScreen(),
   );
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> _onCreateNewBzTap(BuildContext context) async {
 
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -234,15 +269,164 @@ Future<void> _onCreateNewBzTap(BuildContext context) async {
   );
 
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> _onInviteFriendsTap(BuildContext context) async {
     await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
 }
 // -----------------------------------------------------------------------------
+
+/// DELETION OPS
+
+// ---------------------------------
 Future<void> _onDeleteMyAccount(BuildContext context) async {
   blog('on delete user tap');
+
+  final bool _result = await _showDeleteUserDialog(context);
+
+  if (_result == true){
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+
+    final bool _passwordIsCorrect = await _checkPassword(
+      context: context,
+      userModel: _userModel,
+    );
+
+    /// ON WRONG PASSWORD
+    if (_passwordIsCorrect == false){
+
+      unawaited(
+          TopDialog.showTopDialog(
+            context: context,
+            title: 'Wrong password',
+            body: 'Please try again',
+          ));
+
+    }
+
+    /// ON CORRECT PASSWORD
+    else {
+
+      /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Deleting your Account',
+      ));
+
+      final bool _userIsAuthor = UserModel.userIsAuthor(_userModel);
+
+      /// WHEN USER IS AUTHOR
+      if (_userIsAuthor == true){
+
+        await _deleteAuthorUserOps(
+          context: context,
+          userModel: _userModel,
+        );
+
+      }
+
+      /// WHEN USER IS NOT AUTHOR
+      else {
+
+        await _deleteNonAuthorUserOps(
+          context: context,
+          userModel: _userModel,
+        );
+
+      }
+
+    }
+
+  }
+
+}
+// ---------------------------------
+Future<bool> _showDeleteUserDialog(BuildContext context) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Delete your Account',
+    body: 'Are you sure you want to delete your Account ?',
+    confirmButtonText: 'Yes, Delete',
+    boolDialog: true,
+  );
+
+  return _result;
+}
+// ---------------------------------
+Future<bool> _checkPassword({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  final String _password = await CenterDialog.showPasswordDialog(context);
+
+  final bool _passwordIsCorrect = await FireAuthOps.passwordIsCorrect(
+    context: context,
+    password: _password,
+    email: ContactModel.getAContactValueFromContacts(
+      contacts: userModel.contacts,
+      contactType: ContactType.email,
+    ),
+  );
+
+  return _passwordIsCorrect;
+}
+// ---------------------------------
+Future<void> _deleteNonAuthorUserOps({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  /// TASK SHOULD DELETE QUESTIONS, RECORDS, SEARCHES
+
+  /// FIRE : DELETE USER OPS
+  final bool _success = await UserFireOps.deleteNonAuthorUserOps(
+      context: context,
+      userModel: userModel
+  );
+
+  if (_success == true){
+
+    /// LDB : DELETE USER MODEL
+    await UserLDBOps.deleteUserOps(userModel.id);
+
+    /// LDB : DELETE SAVED FLYERS
+    await FlyersLDBOps.deleteFlyers(userModel.savedFlyersIDs);
+
+    /// CLOSE WAITING
+    WaitDialog.closeWaitDialog(context);
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Account Deleted',
+      body: 'It has been an honor.',
+      confirmButtonText: 'The Honor is Mine',
+
+    );
+
+    /// SIGN OUT OPS
+    await _onSignOut(context);
+  }
+
+}
+// ---------------------------------
+Future<void> _deleteAuthorUserOps({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Should Delete Author User sequence now',
+  );
+
 }
 // -----------------------------------------------------------------------------
+
+/// SIGN OUT OPS
+
+// ---------------------------------
 Future<void> _onSignOut(BuildContext context) async {
 
   /// CLEAR FLYERS
@@ -298,34 +482,17 @@ Future<void> _onSignOut(BuildContext context) async {
 
 }
 // -----------------------------------------------------------------------------
-Future<void> onEditProfileTap(BuildContext context) async {
 
-  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
-  final UserModel _myUserModel = _userProvider.myUserModel;
+/// INVITE BZZ SCREEN
 
-  await Nav.goToNewScreen(
-      context: context,
-      screen: EditProfileScreen(
-        userModel: _myUserModel,
-        onFinish: () async {
-          Nav.goBack(context);
-          },
-      )
-  );
-
-}
-// -----------------------------------------------------------------------------
-void onUserPicTap(){
-  blog('user pic tapped');
-}
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> onInviteBusinessesTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
     screen: const InviteBusinessesScreen(),
   );
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> onImportDeviceContactsTap(BuildContext context) async {
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
@@ -338,7 +505,7 @@ Future<void> onImportDeviceContactsTap(BuildContext context) async {
   _usersProvider.setMyDeviceContacts(_deviceContacts);
 
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 void onDeviceContactsSearch({
   @required BuildContext context,
   @required String value,
@@ -350,5 +517,13 @@ void onDeviceContactsSearch({
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
   _usersProvider.searchDeviceContacts(value);
 
+}
+// -----------------------------------------------------------------------------
+
+/// INVITE BZZ SCREEN
+
+// ---------------------------------
+void onUserPicTap(){
+  blog('user pic tapped');
 }
 // -----------------------------------------------------------------------------

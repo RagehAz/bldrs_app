@@ -139,7 +139,7 @@ class PhraseProvider extends ChangeNotifier {
         );
 
         await LDBOps.insertMaps(
-            primaryKey: 'primaryKey',
+            primaryKey: 'id',
             inputs: _allMaps,
             docName: LDBDoc.basicPhrases,
         );
@@ -201,7 +201,7 @@ class PhraseProvider extends ChangeNotifier {
   Future<void> reloadPhrases(BuildContext context) async {
 
     /// delete LDB phrases
-    await LDBOps.deleteAllAtOnce(docName: LDBDoc.basicPhrases);
+    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.basicPhrases);
 
     /// RELOAD APP LOCALIZATION
     await changeAppLang(
