@@ -1,6 +1,8 @@
+import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
@@ -8,6 +10,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CenterDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -36,12 +39,12 @@ class CenterDialog extends StatelessWidget {
   /// SIZES
 
 // -----------------------------------------
-  static double width(BuildContext context) {
+  static double getWidth(BuildContext context) {
     return Scale.superScreenWidth(context) * 0.85;
   }
 // -----------------------------------------
   static double clearWidth(BuildContext context){
-    return width(context) - (2 * Ratioz.appBarMargin);
+    return getWidth(context) - (2 * Ratioz.appBarMargin);
   }
 // -----------------------------------------
   static const double dialogCornerValue = 20;
@@ -50,7 +53,7 @@ class CenterDialog extends StatelessWidget {
     return Borderers.superBorderAll(context, dialogCornerValue);
   }
 // -----------------------------------------
-  static double Height({
+  static double getHeight({
     @required BuildContext context,
     double heightOverride,
   }) {
@@ -96,33 +99,35 @@ class CenterDialog extends StatelessWidget {
 // -----------------------------------------
   static Future<String> showPasswordDialog(BuildContext context) async {
 
-    String _password;
+    final TextEditingController _password = TextEditingController();
 
     await CenterDialog.showCenterDialog(
       context: context,
+      title: 'Enter Your password',
       onOk: () async {
 
         closeCenterDialog(context);
 
       },
-      child: SuperTextField(
-        width: CenterDialog.width(context),
-        keyboardTextInputType: TextInputType.visiblePassword,
-        keyboardTextInputAction: TextInputAction.go,
-        obscured: true,
-        onChanged: (String text){
-          _password = text;
-        },
-        onSubmitted: (String text) async {
-
-          _password = text;
-          closeCenterDialog(context);
-
-        },
+      child: PasswordBubbles(
+          boxWidth: CenterDialog.clearWidth(context),
+          passwordController: _password,
+          showPasswordOnly: true,
+          passwordValidator: () => passwordValidation(
+            context: context,
+            password: _password.text,
+          ),
+          onObscureTap: (){
+            final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+            _uiProvider.triggerTextFieldsObscured();
+          },
+          passwordConfirmationController: null,
+          passwordConfirmationValidator: null,
+          onSubmitted: (String text) => CenterDialog.closeCenterDialog(context),
       ),
     );
 
-    return _password;
+    return _password.text;
   }
 // -----------------------------------------
   static void closeCenterDialog(BuildContext context){
@@ -160,12 +165,12 @@ class CenterDialog extends StatelessWidget {
 
     final BorderRadius _dialogBorders = dialogBorders(context);
 
-    final double _dialogHeight = Height(
+    final double _dialogHeight = getHeight(
       context: context,
       heightOverride: height,
     );
 
-    final double _dialogWidth = width(context);
+    final double _dialogWidth = getWidth(context);
 
     // double _dialogVerticalMargin = dialogVerticalMargin(
     //   context: context,

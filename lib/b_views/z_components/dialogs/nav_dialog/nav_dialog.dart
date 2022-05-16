@@ -95,7 +95,7 @@ class NavDialog extends StatelessWidget {
                     verse: secondLine,
                     color: Colorz.white200,
                     weight: VerseWeight.thin,
-                    maxLines: 1,
+                    // maxLines: 1,
                     margin: const EdgeInsets.only(
                         left: Ratioz.appBarMargin,
                         right: Ratioz.appBarMargin,

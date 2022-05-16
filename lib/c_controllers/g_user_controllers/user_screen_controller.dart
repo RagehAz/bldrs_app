@@ -35,11 +35,12 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
-
+import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 
 // -----------------------------------------------------------------------------
 
@@ -271,7 +272,10 @@ Future<void> _onCreateNewBzTap(BuildContext context) async {
 }
 // ---------------------------------
 Future<void> _onInviteFriendsTap(BuildContext context) async {
-    await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
+    await Launcher.shareLink(
+        context: context,
+        link: LinkModel.bldrsWebSiteLink,
+    );
 }
 // -----------------------------------------------------------------------------
 
@@ -399,7 +403,7 @@ Future<void> _deleteNonAuthorUserOps({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Account Deleted',
+      title: 'Account is Deleted Successfully',
       body: 'It has been an honor.',
       confirmButtonText: 'The Honor is Mine',
 
@@ -520,10 +524,39 @@ void onDeviceContactsSearch({
 }
 // -----------------------------------------------------------------------------
 
-/// INVITE BZZ SCREEN
+/// USER PROFILE PAGE
 
 // ---------------------------------
 void onUserPicTap(){
   blog('user pic tapped');
+}
+// ---------------------------------
+Future<void> onUserContactTap(ContactModel contact) async {
+
+  if (contact.contactType == ContactType.email){
+    blog('User Email : ${contact.value}');
+  }
+  else if (ContactModel.contactIsSocialMedia(contact) == true) {
+    await Launcher.launchURL('https://${contact.value}');
+  }
+  else if (contact.contactType == ContactType.website){
+    await Launcher.launchURL('https://${contact.value}');
+  }
+  else if (contact.contactType == ContactType.phone){
+    await Launcher.launchCall(contact.value);
+  }
+  else {
+    contact.blogContact(methodName: 'onUserContactTap');
+  }
+
+}
+// ---------------------------------
+Future<void> onUserLocationTap(GeoPoint geoPoint) async {
+
+  Atlas.blogGeoPoint(
+    point: geoPoint,
+    methodName: 'onUserLocationTap',
+  );
+
 }
 // -----------------------------------------------------------------------------

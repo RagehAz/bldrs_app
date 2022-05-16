@@ -51,9 +51,10 @@ Future<void> onChangeHomeSection({
           DialogButton(
             verse: 'Inform a friend',
             width: 133,
-            onTap: () async {
-              await Launcher.shareLink(context, LinkModel.bldrsWebSiteLink);
-            },
+            onTap: () => Launcher.shareLink(
+              context : context,
+              link: LinkModel.bldrsWebSiteLink,
+            ),
           ),
 
           DialogButton(

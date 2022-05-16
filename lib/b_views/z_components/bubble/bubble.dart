@@ -49,25 +49,26 @@ class Bubble extends StatelessWidget {
   final dynamic margins;
   final dynamic corners;
   /// --------------------------------------------------------------------------
-  static double clearWidth(BuildContext context) {
-    final double _bubbleWidth = defaultWidth(context);
+  static double clearWidth(BuildContext context, {double bubbleWidthOverride}) {
+    final double _bubbleWidth = defaultWidth(context, bubbleWidthOverride: bubbleWidthOverride);
     const double _bubblePaddings = Ratioz.appBarMargin * 2;
     final double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
     return _inBubbleClearWidth;
   }
 // -----------------------------------------------------------------------------
-  static double defaultWidth(BuildContext context) {
-    final double _screenWidth = Scale.superScreenWidth(context);
+  static double defaultWidth(BuildContext context, {double bubbleWidthOverride}) {
+    final double _screenWidth = bubbleWidthOverride ?? Scale.superScreenWidth(context);
     const double _bubbleMargins = Ratioz.appBarMargin * 2;
     final double _bubbleWidth = _screenWidth - _bubbleMargins;
     return _bubbleWidth;
   }
 // -----------------------------------------------------------------------------
   static double bubbleWidth({
-    BuildContext context,
+    @required BuildContext context,
+    double bubbleWidthOverride,
     bool stretchy,
   }) {
-    final double _bubbleWidth = stretchy == true ? null : clearWidth(context);
+    final double _bubbleWidth = stretchy == true ? null : clearWidth(context, bubbleWidthOverride: bubbleWidthOverride);
     return _bubbleWidth;
   }
 // -----------------------------------------------------------------------------
