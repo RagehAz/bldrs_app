@@ -18,6 +18,7 @@ class CenterDialog extends StatelessWidget {
     this.confirmButtonText,
     this.child,
     this.color = Colorz.skyDarkBlue,
+    this.onOk,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class CenterDialog extends StatelessWidget {
   final Widget child;
   final String confirmButtonText;
   final Color color;
+  final Function onOk;
   /// --------------------------------------------------------------------------
   static Future<bool> showCenterDialog({
     @required BuildContext context,
@@ -38,6 +40,7 @@ class CenterDialog extends StatelessWidget {
     Widget child,
     String confirmButtonText,
     Color color = Colorz.skyDarkBlue,
+    Function onOk,
   }) async {
 
     final bool _result = await showDialog(
@@ -51,6 +54,7 @@ class CenterDialog extends StatelessWidget {
         boolDialog: boolDialog,
         confirmButtonText: confirmButtonText,
         color: color,
+        onOk: onOk,
         child: child,
       ),
     );
@@ -58,10 +62,14 @@ class CenterDialog extends StatelessWidget {
     return _result;
   }
 // -----------------------------------------------------------------------------
-  static double dialogWidth({
-    BuildContext context,
+  static double width({
+    @required BuildContext context,
   }) {
     return Scale.superScreenWidth(context) * 0.85;
+  }
+// -----------------------------------------------------------------------------
+  static double clearWidth(BuildContext context){
+    return width(context: context) - (2 * Ratioz.appBarMargin);
   }
 // -----------------------------------------------------------------------------
   static const double dialogCornerValue = 20;
@@ -110,7 +118,7 @@ class CenterDialog extends StatelessWidget {
       heightOverride: height,
     );
 
-    final double _dialogWidth = dialogWidth(context: context);
+    final double _dialogWidth = width(context: context);
 
     // double _dialogVerticalMargin = dialogVerticalMargin(
     //   context: context,
@@ -168,6 +176,7 @@ class CenterDialog extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
+
                             /// TITLE
                             Container(
                               width: _dialogWidth,
@@ -222,6 +231,7 @@ class CenterDialog extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
+
                               if (boolDialog == true)
                                 DialogButton(
                                   verse: 'No',
@@ -229,14 +239,15 @@ class CenterDialog extends StatelessWidget {
                                   onTap: () =>
                                       Nav.goBack(context, argument: false),
                                 ),
+
                               DialogButton(
                                 verse: _confirmButtonText,
                                 verseColor: Colorz.black230,
                                 color: Colorz.yellow255,
-                                onTap: boolDialog == true
-                                    ? () => Nav.goBack(context, argument: true)
-                                    : () => Nav.goBack(context),
+                                onTap: boolDialog == true ? () => Nav.goBack(context, argument: true)
+                                    : onOk ?? () => Nav.goBack(context),
                               ),
+
                             ],
                           ),
                         ),
