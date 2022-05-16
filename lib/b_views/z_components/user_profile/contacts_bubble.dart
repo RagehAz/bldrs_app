@@ -2,26 +2,27 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ContactsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ContactsBubble({
     @required this.contacts,
-    this.stretchy = false,
-    this.onTap,
+    @required this.location,
+    @required this.canLaunchOnTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<ContactModel> contacts;
-  final bool stretchy;
-  final Function onTap;
+  final GeoPoint location;
+  final bool canLaunchOnTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -31,70 +32,74 @@ class ContactsBubble extends StatelessWidget {
     final List<ContactModel> _contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
     final List<ContactModel> _socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
 
-    return Bubble(
-      stretchy: stretchy,
-      title: '${superPhrase(context, 'phid_contacts')} :',
-      columnChildren: <Widget>[
-        /// CONTACTS WITH STRINGS
-        Wrap(
-          spacing: _abPadding,
-          children: <Widget>[
+    ContactModel.blogContacts(contacts: contacts, methodName: 'all contacts');
 
-            ...List<Widget>.generate(_contactsWithStrings.length, (int index) {
-              final String _value = _contactsWithStrings[index].contact;
+    return AbsorbPointer(
+      absorbing: !canLaunchOnTap,
+      child: Bubble(
+        title: '${superPhrase(context, 'phid_contacts')} :',
+        columnChildren: <Widget>[
 
-              return DreamBox(
+          /// CONTACTS WITH STRINGS
+          Wrap(
+            spacing: _abPadding,
+            children: <Widget>[
+
+              ...List<Widget>.generate(_contactsWithStrings.length, (int index) {
+
+                final ContactModel _contact = _contactsWithStrings[index];
+
+                return DreamBox(
                   height: _contactBoxHeight,
-                  icon: Iconizer.superContactIcon(
-                      _contactsWithStrings[index].contactType),
+                  icon: Iconizer.superContactIcon(_contact.contactType),
                   margins: const EdgeInsets.all(_abPadding),
-                  verse: _value,
+                  verse: _contact?.value,
                   verseWeight: VerseWeight.thin,
                   verseItalic: true,
                   iconSizeFactor: 0.6,
-                  color: Colorz.bloodTest,
-                  onTap: onTap == null
-                      ? () async {
-                          await Launcher.launchURL(
-                              'https://${_contactsWithStrings[index].contact}');
-                        }
-                      : () => onTap(_value));
-            }),
+                  bubble: false,
+                  color: Colorz.white10,
+                  onTap: () => onUserContactTap(_contact),
+                );
 
-          ],
-        ),
+              }
+              ),
 
-        /// SOCIAL MEDIA CONTACTS
-        Wrap(
-          children: <Widget>[
+            ],
+          ),
 
-            ...List<Widget>.generate(_socialMediaContacts.length, (int index) {
+          /// SOCIAL MEDIA CONTACTS
+          Wrap(
+            children: <Widget>[
 
-              final String _value = _socialMediaContacts[index].contact;
+              ...List<Widget>.generate(_socialMediaContacts.length, (int index) {
 
-              return DreamBox(
+                final ContactModel _contact = _socialMediaContacts[index];
+
+                return DreamBox(
                   height: _contactBoxHeight,
-                  icon: Iconizer.superContactIcon(
-                      _socialMediaContacts[index]?.contactType),
+                  icon: Iconizer.superContactIcon(_contact.contactType),
                   margins: const EdgeInsets.all(_abPadding),
-                  onTap: onTap == null
-                      ? () async {
-                          await Launcher.launchURL(
-                              'https://${_socialMediaContacts[index].contact}');
-                        }
-                      : () => onTap(_value));
-            }),
+                  onTap: () => onUserContactTap(_contact),
+                );
 
-            /// USER LOCATION
-            const DreamBox(
-              height: _contactBoxHeight,
-              icon: Iconz.comMap,
-              margins: EdgeInsets.all(_abPadding),
-            ),
+              }
+              ),
 
-          ],
-        ),
-      ],
+              /// USER LOCATION
+              if (location != null)
+              DreamBox(
+                height: _contactBoxHeight,
+                icon: Iconz.comMap,
+                margins: const EdgeInsets.all(_abPadding),
+                onTap: () => onUserLocationTap(location),
+              ),
+
+            ],
+          ),
+
+        ],
+      ),
     );
   }
 }

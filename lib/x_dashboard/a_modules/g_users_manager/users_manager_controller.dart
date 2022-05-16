@@ -286,7 +286,7 @@ Future<bool> _doYouKnowThePassword({
 
     },
     child: SuperTextField(
-      width: CenterDialog.width(context),
+      width: CenterDialog.getWidth(context),
       keyboardTextInputType: TextInputType.visiblePassword,
       keyboardTextInputAction: TextInputAction.go,
       onChanged: (String text){

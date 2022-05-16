@@ -1333,7 +1333,7 @@
 //       /// or launch call and start call bz ops
 //       else {
 //         /// launch call
-//         await Launcher.launchCall('tel: $_contact');
+//         await Launcher.launchCall(_contact);
 //
 //         /// TASK : start call bz ops
 //         // await RecordOps.callBzOPs(

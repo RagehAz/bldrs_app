@@ -601,33 +601,28 @@ Future<bool> deleteNonAuthorUserOps({
     context: context,
     functions: () async {
 
+      /// DELETE user image : storage/usersPics/userID
+      blog('UserFireOps : deleteNonAuthorUserOps : deleting user pic');
+      await Storage.deleteStoragePic(
+        context: context,
+        docName: StorageDoc.users,
+        picName: userModel.id,
+      );
+
+      /// DELETE user doc : firestore/users/userID
+      blog('UserFireOps : deleteNonAuthorUserOps : deleting user doc');
+      await Fire.deleteDoc(
+        context: context,
+        collName: FireColl.users,
+        docName: userModel.id,
+      );
+
       /// DELETE firebase user : auth/userID
       blog('UserFireOps : deleteNonAuthorUserOps : deleting firebase user');
-      final bool _result = await FireAuthOps.deleteFirebaseUser(
+      await FireAuthOps.deleteFirebaseUser(
         context: context,
         userID: userModel.id,
       );
-
-      if (_result == true){
-
-        /// DELETE user image : storage/usersPics/userID
-        blog('UserFireOps : deleteNonAuthorUserOps : deleting user pic');
-        await Storage.deleteStoragePic(
-          context: context,
-          docName: StorageDoc.users,
-          picName: userModel.id,
-        );
-
-        /// DELETE user doc : firestore/users/userID
-        blog('UserFireOps : deleteNonAuthorUserOps : deleting user doc');
-        await Fire.deleteDoc(
-          context: context,
-          collName: FireColl.users,
-          docName: userModel.id,
-        );
-
-      }
-
 
     }
   );

@@ -91,7 +91,7 @@ class UserModel {
       trigram: TextGen.createTrigram(input: _user.displayName),
       pic: _user.photoURL,
       title: '',
-      gender: Gender.other,
+      gender: Gender.male,
       zone: null,
       language: 'en',
       location: const GeoPoint(0, 0),
@@ -131,7 +131,7 @@ class UserModel {
       trigram: TextGen.createTrigram(input: user.displayName),
       pic: user.photoURL,
       title: '',
-      gender: Gender.other,
+      gender: Gender.male,
       zone: zone,
       language: '', //Wordz.languageCode(context),
       location: null,
@@ -354,7 +354,6 @@ class UserModel {
     switch (gender) {
       case 'female' :   return Gender.female; break;
       case 'male'   :   return Gender.male;   break;
-      case 'other'    :   return Gender.other;    break;
       default:return null;
     }
   }
@@ -363,7 +362,6 @@ class UserModel {
     switch (gender) {
       case Gender.female:   return 'female';    break;
       case Gender.male:     return 'male';      break;
-      case Gender.other:    return 'other';     break;
       default:              return null;
     }
   }
@@ -372,7 +370,6 @@ class UserModel {
     switch (gender) {
       case Gender.female:   return 'Female';    break;
       case Gender.male:     return 'Male';      break;
-      case Gender.other:    return 'Other';     break;
       default:              return null;
     }
   }
@@ -380,7 +377,6 @@ class UserModel {
   static const List<Gender> gendersList = <Gender>[
     Gender.male,
     Gender.female,
-    Gender.other,
   ];
 // -----------------------------------------------------------------------------
 
@@ -521,7 +517,10 @@ class UserModel {
     zone.blogZone();
     blog('language : $language');
     blog('location : $location');
-    ContactModel.blogContacts(contacts);
+    ContactModel.blogContacts(
+      contacts: contacts,
+      methodName: 'blogUserModel',
+    );
     blog('myBzzIDs : $myBzzIDs');
     blog('emailIsVerified : $emailIsVerified');
     blog('fcmToken : ${fcmToken?.createdAt}');
@@ -684,7 +683,6 @@ enum UserStatus {
 enum Gender {
   male,
   female,
-  other,
 }
 // -----------------------------------------------------------------------------
 enum UserTab {

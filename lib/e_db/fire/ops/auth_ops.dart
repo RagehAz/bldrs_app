@@ -41,7 +41,7 @@ Future<bool> deleteFirebaseUser({
   blog('deleting firebase user');
   // String _error;
 
-  final bool _result = await tryCatchAndReturnBool(
+  final bool _success = await tryCatchAndReturnBool(
       context: context,
       methodName: 'deleteFirebaseUser',
       functions: () async {
@@ -55,7 +55,7 @@ Future<bool> deleteFirebaseUser({
         // String _error = error.toString();
       });
 
-  return _result;
+  return _success;
 
   /*
       /// delete firebase user

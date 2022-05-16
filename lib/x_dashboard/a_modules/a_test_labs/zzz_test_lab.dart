@@ -357,7 +357,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                           blog('just tapped');
                         },
                         // corners: 50,
-                        autofocus: false,
+                        // autofocus: false,
                         hintText: 'fuck you',
                         onSubmitted: (String val){
                           blog('submitted val : $val');
