@@ -32,8 +32,6 @@ class ContactsBubble extends StatelessWidget {
     final List<ContactModel> _contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
     final List<ContactModel> _socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
 
-    ContactModel.blogContacts(contacts: contacts, methodName: 'all contacts');
-
     return AbsorbPointer(
       absorbing: !canLaunchOnTap,
       child: Bubble(
