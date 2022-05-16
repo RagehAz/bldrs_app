@@ -4,35 +4,97 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-
+// -----------------------------------------------------------------------------
+enum ContactType {
+  phone,
+  email,
+  website,
+  facebook,
+  linkedIn,
+  youtube,
+  instagram,
+  pinterest,
+  tiktok,
+  twitter,
+}
 // -----------------------------------------------------------------------------
 class ContactModel {
   /// --------------------------------------------------------------------------
   const ContactModel({
-    @required this.contact,
+    @required this.value,
     @required this.contactType,
   });
   /// --------------------------------------------------------------------------
-  final String contact;
+  final String value;
   final ContactType contactType;
-  /// --------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// INITIALIZERS
+
+// ----------------------------------------
+  static const List<ContactType> contactTypesList = <ContactType>[
+    ContactType.phone,
+    ContactType.email,
+    ContactType.website,
+    ContactType.facebook,
+    ContactType.linkedIn,
+    ContactType.youtube,
+    ContactType.instagram,
+    ContactType.pinterest,
+    ContactType.tiktok,
+    ContactType.twitter,
+  ];
+// ----------------------------------------
+  static List<ContactModel> createContactsList({
+    List<ContactModel> existingContacts,
+    String phone,
+    String email,
+    String webSite,
+    String facebook,
+    String linkedIn,
+    String youTube,
+    String instagram,
+    String pinterest,
+    String tikTok,
+    String twitter,
+  }) {
+    final List<ContactModel> _newContacts = <ContactModel>[];
+    // ---------------
+    addContactIfPossibleToANewContactsList(existingContacts, phone, ContactType.phone, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, email, ContactType.email, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, webSite, ContactType.website, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, facebook, ContactType.facebook, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, linkedIn, ContactType.linkedIn, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, youTube, ContactType.youtube, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, instagram, ContactType.instagram, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, pinterest, ContactType.pinterest, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, tikTok, ContactType.tiktok, _newContacts);
+    addContactIfPossibleToANewContactsList(existingContacts, twitter, ContactType.twitter, _newContacts);
+    // ---------------
+    return _newContacts;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+// ----------------------------------------
   Map<String, Object> toMap() {
     return <String, Object>{
-      'contact': contact,
+      'value': value,
       'contactType': cipherContactType(contactType),
     };
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
   static Map<String, Object> cipherContacts(List<ContactModel> contacts) {
     Map<String, Object> _map = <String, Object>{};
 
     if (Mapper.canLoopList(contacts)) {
       for (final ContactModel contact in contacts) {
-        if (contact.contact != null && contact.contact != '') {
+        if (contact.value != null && contact.value != '') {
           _map = Mapper.insertPairInMap(
             map: _map,
             key: cipherContactType(contact.contactType),
-            value: contact.contact,
+            value: contact.value,
           );
         }
       }
@@ -40,7 +102,7 @@ class ContactModel {
 
     return _map;
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
   static List<ContactModel> decipherContacts(Map<String, dynamic> maps) {
     final List<ContactModel> _contacts = <ContactModel>[];
 
@@ -49,16 +111,21 @@ class ContactModel {
 
       if (Mapper.canLoopList(_keys)) {
         for (final String key in _keys) {
+
           final ContactModel _contact = ContactModel(
-              contact: maps[key], contactType: decipherContactType(key));
+              value: maps[key],
+              contactType: decipherContactType(key)
+          );
+
           _contacts.add(_contact);
+
         }
       }
     }
 
     return _contacts;
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
   static ContactType decipherContactType(String contactType) {
     switch (contactType) {
       case 'phone':     return ContactType.phone;     break;
@@ -74,7 +141,7 @@ class ContactModel {
       default:          return null;
     }
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
   static String cipherContactType(ContactType contactType) {
     switch (contactType) {
       case ContactType.phone:     return 'phone';     break;
@@ -90,106 +157,196 @@ class ContactModel {
       default:  return null;
     }
   }
-  // -----------------------------------------------------------------------------
-  static ContactModel getAContactModelFromContacts(List<ContactModel> contacts, ContactType contactType) {
-    final ContactModel contactValue = contacts?.singleWhere(
+// -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// ----------------------------------------
+  static ContactModel getAContactModelFromContacts({
+    @required List<ContactModel> contacts,
+    @required ContactType contactType,
+  }) {
+    final ContactModel contact = contacts?.singleWhere(
         (ContactModel x) => x.contactType == contactType,
         orElse: () => null);
-    return contactValue;
+    return contact;
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
   static String getAContactValueFromContacts({
     @required List<ContactModel> contacts,
     @required ContactType contactType,
   }) {
-    final String contactValue = getAContactModelFromContacts(contacts, contactType)?.contact;
+
+    final String contactValue = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: contactType,
+    )?.value;
+
     return contactValue;
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
+  static List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts) {
   /// contacts with strings
   /// are Phone, Email, WhatsApp, website
   /// which are presented by both string of value and an icon
-  static List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts) {
 
     final List<ContactModel> _contactsList = <ContactModel>[];
 
-    final ContactModel _phone = getAContactModelFromContacts(contacts, ContactType.phone);
-    final ContactModel _email = getAContactModelFromContacts(contacts, ContactType.email);
-    final ContactModel _website = getAContactModelFromContacts(contacts, ContactType.website);
+    final ContactModel _phone = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.phone,
+    );
 
-    if (_phone != null || _phone?.contact?.isNotEmpty == true) {
+    final ContactModel _email = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.email,
+    );
+
+    final ContactModel _website = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.website,
+    );
+
+    if (ContactModel.contactIsEmpty(_phone) == false) {
       _contactsList.add(_phone);
     }
 
-    if (_email != null || _email?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_email) == false) {
       _contactsList.add(_email);
     }
 
-    if (_website != null || _website?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_website) == false) {
       _contactsList.add(_website);
     }
 
     return _contactsList;
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
+  static List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts) {
   /// contacts without strings
   /// are Facebook LinkedIn YouTube Instagram Pinterest TikTok Twitter
-  static List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts) {
     final List<ContactModel> _contactsList = <ContactModel>[];
 
-    final ContactModel _facebook = getAContactModelFromContacts(contacts, ContactType.facebook);
-    final ContactModel _linkedin = getAContactModelFromContacts(contacts, ContactType.linkedIn);
-    final ContactModel _youtube = getAContactModelFromContacts(contacts, ContactType.youtube);
-    final ContactModel _instagram = getAContactModelFromContacts(contacts, ContactType.instagram);
-    final ContactModel _pinterest = getAContactModelFromContacts(contacts, ContactType.pinterest);
-    final ContactModel _tiktok = getAContactModelFromContacts(contacts, ContactType.tiktok);
-    final ContactModel _twitter = getAContactModelFromContacts(contacts, ContactType.twitter);
+    final ContactModel _facebook = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.facebook,
+    );
+    final ContactModel _linkedin = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.linkedIn,
+    );
+    final ContactModel _youtube = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.youtube,
+    );
+    final ContactModel _instagram = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.instagram,
+    );
+    final ContactModel _pinterest = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.pinterest,
+    );
+    final ContactModel _tiktok = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.tiktok,
+    );
+    final ContactModel _twitter = getAContactModelFromContacts(
+        contacts: contacts,
+        contactType: ContactType.twitter,
+    );
 
-    if (_facebook != null && _facebook?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_facebook) == false) {
       _contactsList.add(_facebook);
     }
 
-    if (_linkedin != null && _linkedin?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_linkedin) == false) {
       _contactsList.add(_linkedin);
     }
 
-    if (_youtube != null && _youtube?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_youtube) == false) {
       _contactsList.add(_youtube);
     }
 
-    if (_instagram != null && _instagram?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_instagram) == false) {
       _contactsList.add(_instagram);
     }
 
-    if (_pinterest != null && _pinterest?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_pinterest) == false) {
       _contactsList.add(_pinterest);
     }
 
-    if (_tiktok != null && _tiktok?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_tiktok) == false) {
       _contactsList.add(_tiktok);
     }
 
-    if (_twitter != null && _twitter?.contact?.isNotEmpty == true) {
+    if (ContactModel.contactIsEmpty(_twitter) == false) {
       _contactsList.add(_twitter);
     }
 
     return _contactsList;
   }
-// -----------------------------------------------------------------------------
-  /// will let user to only have one phone contact
+// ----------------------------------------
   static String getFirstPhoneFromContacts(List<ContactModel> contacts) {
+  /// will let user to only have one phone contact
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
     final List<String> phones = <String>[];
 
     for (final ContactModel co in contacts) {
       if (co.contactType == ContactType.phone) {
-        phones.add(co.contact);
+        phones.add(co.value);
       }
     }
 
     return phones.isEmpty ? null : phones[0];
   }
+// ----------------------------------------
+  static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts) {
+    final List<String> values = <String>[];
+
+    if (Mapper.canLoopList(contacts)) {
+      for (final ContactModel co in contacts) {
+        values.add(co.value);
+      }
+    }
+
+    return values;
+  }
+// ----------------------------------------
+  static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts) {
+    final List<String> icons = <String>[];
+
+    if (Mapper.canLoopList(contacts)) {
+      for (final ContactModel co in contacts) {
+        icons.add(Iconizer.superContactIcon(co.contactType));
+      }
+    }
+
+    return icons;
+  }
+// ----------------------------------------
+  static List<ContactModel> getContactsFromFirebaseUser(User user) {
+    final List<ContactModel> _userContacts = <ContactModel>[];
+    final String _userEmail = user.email;
+    final String _userPhone = user.phoneNumber;
+
+    if (_userEmail != null) {
+      _userContacts.add(
+          ContactModel(value: _userEmail, contactType: ContactType.email));
+    }
+
+    if (_userPhone != null) {
+      _userContacts.add(
+          ContactModel(value: _userPhone, contactType: ContactType.phone));
+    }
+
+    return _userContacts;
+  }
 // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// ----------------------------------------
   static void addContactIfPossibleToANewContactsList(
     List<ContactModel> existingContacts,
     String value,
@@ -227,12 +384,12 @@ class ContactModel {
 
       /// if value have changed add this new value otherwise add the existing value
       if (_userChangedValue == true) {
-        newContacts.add(ContactModel(contact: value, contactType: type));
+        newContacts.add(ContactModel(value: value, contactType: type));
       }
 
       else {
         newContacts.add(
-            ContactModel(contact: _existingContactValue, contactType: type));
+            ContactModel(value: _existingContactValue, contactType: type));
       }
 
     }
@@ -241,106 +398,26 @@ class ContactModel {
     else {
       /// add new ContactModel to the new list only if a new value is assigned ( value != null )
       if (_userChangedValue == true) {
-        newContacts.add(ContactModel(contact: value, contactType: type));
+        newContacts.add(ContactModel(value: value, contactType: type));
       }
     }
   }
 // -----------------------------------------------------------------------------
-  static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts) {
-    final List<String> values = <String>[];
 
-    if (Mapper.canLoopList(contacts)) {
-      for (final ContactModel co in contacts) {
-        values.add(co.contact);
-      }
-    }
+  /// DUMMIES
 
-    return values;
-  }
-// -----------------------------------------------------------------------------
-  static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts) {
-    final List<String> icons = <String>[];
-
-    if (Mapper.canLoopList(contacts)) {
-      for (final ContactModel co in contacts) {
-        icons.add(Iconizer.superContactIcon(co.contactType));
-      }
-    }
-
-    return icons;
-  }
-// -----------------------------------------------------------------------------
-  static const List<ContactType> contactTypesList = <ContactType>[
-    ContactType.phone,
-    ContactType.email,
-    ContactType.website,
-    ContactType.facebook,
-    ContactType.linkedIn,
-    ContactType.youtube,
-    ContactType.instagram,
-    ContactType.pinterest,
-    ContactType.tiktok,
-    ContactType.twitter,
-  ];
-// -----------------------------------------------------------------------------
-  static List<ContactModel> createContactsList({
-    List<ContactModel> existingContacts,
-    String phone,
-    String email,
-    String webSite,
-    String facebook,
-    String linkedIn,
-    String youTube,
-    String instagram,
-    String pinterest,
-    String tikTok,
-    String twitter,
-  }) {
-    final List<ContactModel> _newContacts = <ContactModel>[];
-    // ---------------
-    addContactIfPossibleToANewContactsList(existingContacts, phone, ContactType.phone, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, email, ContactType.email, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, webSite, ContactType.website, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, facebook, ContactType.facebook, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, linkedIn, ContactType.linkedIn, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, youTube, ContactType.youtube, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, instagram, ContactType.instagram, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, pinterest, ContactType.pinterest, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, tikTok, ContactType.tiktok, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, twitter, ContactType.twitter, _newContacts);
-    // ---------------
-    return _newContacts;
-  }
-// -----------------------------------------------------------------------------
-  static List<ContactModel> getContactsFromFirebaseUser(User user) {
-    final List<ContactModel> _userContacts = <ContactModel>[];
-    final String _userEmail = user.email;
-    final String _userPhone = user.phoneNumber;
-
-    if (_userEmail != null) {
-      _userContacts.add(
-          ContactModel(contact: _userEmail, contactType: ContactType.email));
-    }
-
-    if (_userPhone != null) {
-      _userContacts.add(
-          ContactModel(contact: _userPhone, contactType: ContactType.phone));
-    }
-
-    return _userContacts;
-  }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
   static List<ContactModel> dummyContacts(){
 
     return const <ContactModel>[
 
       ContactModel(
-          contact: 'rageh@bldrs.net',
+          value: 'rageh@bldrs.net',
           contactType: ContactType.email
       ),
 
       ContactModel(
-          contact: '0123456789',
+          value: '0123456789',
           contactType: ContactType.phone
       ),
 
@@ -348,70 +425,78 @@ class ContactModel {
 
   }
 // -----------------------------------------------------------------------------
-  void blogContact(){
-    blog('$contactType : $contact');
+
+  /// BLOGGING
+
+// ----------------------------------------
+  void blogContact({String methodName = 'ContactModel'}){
+    blog('$methodName : $contactType : $value');
   }
 // -----------------------------------------------------------------------------
-  static void blogContacts(List<ContactModel> contacts){
+  static void blogContacts({
+    @required List<ContactModel> contacts,
+    String methodName = 'Contacts Models',
+  }){
 
     if (Mapper.canLoopList(contacts) == true){
       for (final ContactModel contact in contacts){
-        if (stringIsNotEmpty(contact?.contact)){
-          contact.blogContact();
-        }
+
+        contact.blogContact(
+          methodName: methodName,
+        );
+
       }
     }
 
   }
-}
 // -----------------------------------------------------------------------------
-enum ContactType {
-  phone,
-  email,
-  website,
-  facebook,
-  linkedIn,
-  youtube,
-  instagram,
-  pinterest,
-  tiktok,
-  twitter,
-}
 
-/*
+  /// CHECKERS
 
-OLD SHIT TO DELETE WHEN TAMAM
+// ----------------------------------------
+  static bool contactIsEmpty(ContactModel contact){
+    bool _isEmpty = true;
 
-// -----------------------------------------------------------------------------
-  static ContactModel oldDecipherContactMap(Map<String,dynamic> map){
-    return ContactModel(
-      contact: map['contact'],
-      contactType: oldDecipherContactType(map['contactType']),
-    );
-  }
-// -----------------------------------------------------------------------------
-  static List<ContactModel> oldDecipherContactsMaps(List<dynamic> maps){
-    final List<ContactModel> contacts = <ContactModel>[];
-    maps?.forEach((map) {
-      contacts.add(oldDecipherContactMap(map));
-    });
-    // print('contacts are $contacts');
-    return contacts;
-  }
-// -----------------------------------------------------------------------------
-  static ContactType oldDecipherContactType (int contactType){
-    switch (contactType){
-      case 1:   return  ContactType.phone;      break;
-      case 2:   return  ContactType.email;      break;
-      case 3:   return  ContactType.website;    break;
-      case 4:   return  ContactType.facebook;   break;
-      case 5:   return  ContactType.linkedIn;   break;
-      case 6:   return  ContactType.youtube;    break;
-      case 7:   return  ContactType.instagram;  break;
-      case 8:   return  ContactType.pinterest;  break;
-      case 9:   return  ContactType.tiktok;     break;
-      case 10:  return  ContactType.twitter;    break;
-      default : return   null;
+    if (contact != null){
+
+      if (contact.contactType != null){
+
+        if (stringIsEmpty(contact.value) == false){
+          _isEmpty = false;
+        }
+
+      }
+
     }
+
+    return _isEmpty;
   }
- */
+// ----------------------------------------
+  static bool contactIsSocialMedia(ContactModel contact){
+    bool _isSocialMedia = false;
+
+    if (
+    contact.contactType == ContactType.facebook
+    ||
+    contact.contactType == ContactType.instagram
+    ||
+    contact.contactType == ContactType.linkedIn
+    ||
+    contact.contactType == ContactType.instagram
+    ||
+    contact.contactType == ContactType.pinterest
+    ||
+    contact.contactType == ContactType.tiktok
+    ||
+    contact.contactType == ContactType.twitter
+    ||
+    contact.contactType == ContactType.youtube
+    ){
+      _isSocialMedia = true;
+    }
+
+    return _isSocialMedia;
+  }
+// -----------------------------------------------------------------------------
+}
+// -----------------------------------------------------------------------------

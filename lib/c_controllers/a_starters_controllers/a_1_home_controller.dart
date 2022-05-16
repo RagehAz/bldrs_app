@@ -137,8 +137,7 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
 
   if (AuthModel.userIsSignedIn() == true ){
 
-    final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
-    final UserModel _myUserModel = _userProvider.myUserModel;
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context);
 
     final List<String> _savedFlyersIDs = _myUserModel.savedFlyersIDs;
 

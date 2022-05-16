@@ -1,16 +1,15 @@
+import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -20,8 +19,8 @@ class EmailAuthScreenView extends StatelessWidget {
     @required this.passwordController,
     @required this.passwordConfirmationController,
     @required this.validateEmail,
-    @required this.validatePassword,
-    @required this.validatePasswordConfirmation,
+    @required this.passwordValidator,
+    @required this.passwordConfirmationValidator,
     @required this.onObscureTap,
     @required this.switchSignIn,
     @required this.onSignin,
@@ -35,8 +34,8 @@ class EmailAuthScreenView extends StatelessWidget {
   final TextEditingController passwordController;
   final TextEditingController passwordConfirmationController;
   final String Function() validateEmail;
-  final String Function() validatePassword;
-  final String Function() validatePasswordConfirmation;
+  final String Function() passwordValidator;
+  final String Function() passwordConfirmationValidator;
   final Function onObscureTap;
   final Function switchSignIn;
   final Function onSignin;
@@ -107,62 +106,17 @@ class EmailAuthScreenView extends StatelessWidget {
               ),
 
               /// PASSWORD - CONFIRMATION
-              Selector<UiProvider, bool>(
-                  selector: (_, UiProvider uiProvider) => uiProvider.textFieldsObscured,
-                  builder: (_, bool isObscured, Widget child){
-
-                    return Column(
-
-                      children: <Widget>[
-
-                        /// PASSWORD
-                        TextFieldBubble(
-                          isFormField: true,
-                          key: const ValueKey<String>('password'),
-                          textController: passwordController,
-                          textDirection: TextDirection.ltr,
-                          fieldIsRequired: true,
-                          keyboardTextInputType: TextInputType.visiblePassword,
-                          keyboardTextInputAction: _isSigningIn ? TextInputAction.go : TextInputAction.next,
-                          title: superPhrase(context, 'phid_password'),
-                          validator: validatePassword,
-                          comments:superPhrase(context, 'phid_min6Char'),
-                          obscured: isObscured,
-                          showUnObscure: true,
-                          onObscureTap: onObscureTap,
-                          onSubmitted: (String text) => _onSubmitted(
-                            signingIn: _isSigningIn,
-                            isOnConfirmPassword: false,
-                          ),
-                        ),
-
-                        /// CONFIRM PASSWORD
-                        if (_isSigningIn == false)
-                          TextFieldBubble(
-                            isFormField: true,
-                            key: const ValueKey<String>('confirm'),
-                            textController: passwordConfirmationController,
-                            textDirection: TextDirection.ltr,
-                            fieldIsRequired: true,
-                            keyboardTextInputType: TextInputType.visiblePassword,
-                            keyboardTextInputAction: TextInputAction.done,
-                            title: superPhrase(context, 'phid_confirmPassword'),
-                            validator: validatePasswordConfirmation,
-                            comments:superPhrase(context, 'phid_min6Char'),
-                            obscured: isObscured,
-                            showUnObscure: true,
-                            onObscureTap: onObscureTap,
-                            onSubmitted: (String text) => _onSubmitted(
-                              signingIn: _isSigningIn,
-                              isOnConfirmPassword: true,
-                            ),
-                          ),
-
-                      ],
-
-                    );
-
-                  }
+              PasswordBubbles(
+                passwordController: passwordController,
+                showPasswordOnly: _isSigningIn,
+                passwordValidator: passwordValidator,
+                onObscureTap: onObscureTap,
+                passwordConfirmationController: passwordConfirmationController,
+                passwordConfirmationValidator: passwordConfirmationValidator,
+                onSubmitted: (String text) => _onSubmitted(
+                  signingIn: _isSigningIn,
+                  isOnConfirmPassword: false,
+                ),
               ),
 
               /// SIGN IN - SIGN UP - SWITCHER BUTTONS

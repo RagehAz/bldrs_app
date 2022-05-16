@@ -30,7 +30,7 @@ class UserProfilePage extends StatelessWidget {
 
     final String _countryName = CountryModel.getTranslatedCountryName(
         context: context,
-        countryID: userCountry.id,
+        countryID: userCountry?.id,
     );
 
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
@@ -43,8 +43,6 @@ class UserProfilePage extends StatelessWidget {
       city: userCity,
       districtID: userModel?.zone?.districtID,
     );
-
-    // userCity.blogCity();
 
     return Column(
       children: <Widget>[
@@ -119,6 +117,8 @@ class UserProfilePage extends StatelessWidget {
         /// CONTACTS
         ContactsBubble(
           contacts: userModel?.contacts,
+          location: userModel?.location,
+          canLaunchOnTap: true,
         ),
 
 

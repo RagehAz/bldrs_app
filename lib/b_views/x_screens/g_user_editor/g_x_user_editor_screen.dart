@@ -181,7 +181,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           picType: Imagers.PicType.userPic,
       );
 
-      blog('we got the pic in : ${_imageFile.path}');
+      blog('we got the pic in : ${_imageFile?.path}');
 
       /// IF DID NOT PIC ANY IMAGE
       if (_imageFile == null) {

@@ -19,16 +19,15 @@ class GenderBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static double buttonWidth(BuildContext context){
     const double _spacing = 10;
-    const int _numberOfButtons = 3;
-    const int _numberOfInnerSpacing = 2;
+    const int _numberOfButtons = 2;
+    const int _numberOfInnerSpacing = _numberOfButtons - 1;
 
     final double _bubbleClearWidth = Bubble.clearWidth(context);
 
-    final double _buttonWidth = (
-        _bubbleClearWidth
-            - (_numberOfInnerSpacing * _spacing)
-    )
-        / _numberOfButtons;
+    final double _buttonWidth =
+        (_bubbleClearWidth - (_numberOfInnerSpacing * _spacing))
+            /
+        _numberOfButtons;
 
     return _buttonWidth;
   }
