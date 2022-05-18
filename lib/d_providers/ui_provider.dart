@@ -44,7 +44,8 @@ class UiProvider extends ChangeNotifier {
   bool get isLoading => _loading;
 // -------------------------------------
   void triggerLoading({
-    @required String calledName,
+    @required String callerName,
+    @required bool notify,
     bool setLoadingTo,
   }) {
     /// trigger loading method should remain Future as it starts controllers of
@@ -53,20 +54,26 @@ class UiProvider extends ChangeNotifier {
 
     if (setLoadingTo == null){
       _loading = !_loading;
-      notifyListeners();
-    }
-
-    else {
-      if (_loading != setLoadingTo){
-        _loading = setLoadingTo;
+      if (notify == true) {
         notifyListeners();
       }
     }
 
+    else {
+      if (_loading != setLoadingTo){
+
+        _loading = setLoadingTo;
+        if (notify == true) {
+          notifyListeners();
+        }
+
+      }
+    }
+
     if (_loading == true) {
-      blog('$calledName : LOADING --------------------------------------');
+      blog('$callerName : LOADING --------------------------------------');
     } else {
-      blog('$calledName : LOADING COMPLETE -----------------------------');
+      blog('$callerName : LOADING COMPLETE -----------------------------');
     }
 
   }
@@ -232,7 +239,10 @@ void triggerUILoading({
   bool listen = true,
 }){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
-  _uiProvider.triggerLoading(calledName: callerName);
+  _uiProvider.triggerLoading(
+    callerName: callerName,
+    notify: true,
+  );
 }
 
 /// TESTED : WORKS PERFECT

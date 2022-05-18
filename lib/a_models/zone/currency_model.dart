@@ -85,6 +85,22 @@ class CurrencyModel {
   void blogCurrency() {
     blog('$id ( $symbol ) : ( digits : $digits ) : countries : $countriesIDs');
   }
+
+  static void blogCurrencies(List<CurrencyModel> currencies){
+
+    if (Mapper.canLoopList(currencies) == true){
+      for (final CurrencyModel currency in currencies){
+
+        currency.blogCurrency();
+
+      }
+    }
+
+    else {
+      blog('no currencies to blog');
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// CHECKERS

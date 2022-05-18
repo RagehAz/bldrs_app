@@ -77,7 +77,10 @@ class SearchRecordsView extends StatelessWidget {
                         docName: _searchRecord.recordID,
                     );
 
-                    _searchProvider.deleteASearchRecord(_searchRecord);
+                    _searchProvider.deleteASearchRecord(
+                      record: _searchRecord,
+                      notify: true,
+                    );
 
                   },
                 ),

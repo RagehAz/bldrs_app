@@ -1,5 +1,4 @@
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class LocalAssetChecker extends StatefulWidget {
@@ -25,10 +24,10 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
-    blogLoading(
-      loading: _loading.value,
-      callerName: 'LocalAssetChecker',
-    );
+    // blogLoading(
+    //   loading: _loading.value,
+    //   callerName: 'LocalAssetChecker',
+    // );
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _exists = ValueNotifier(false); /// tamam disposed

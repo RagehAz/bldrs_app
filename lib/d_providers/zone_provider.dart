@@ -385,21 +385,35 @@ class ZoneProvider extends ChangeNotifier {
 // -------------------------------------
   Future<void> getsetContinentByCountryID({
     @required BuildContext context,
-    @required String countryID
+    @required String countryID,
+    @required bool notify,
   }) async {
     final List<Continent> _allContinents = await fetchContinents(context: context);
     final Continent _continent = Continent.getContinentFromContinentsByCountryID(continents: _allContinents, countryID: countryID);
 
-    _setCurrentContinent(_continent);
+    _setCurrentContinent(
+      continent: _continent,
+      notify: notify,
+    );
   }
 // -------------------------------------
-  void _setCurrentContinent(Continent continent){
+  void _setCurrentContinent({
+    @required Continent continent,
+    @required bool notify,
+  }){
     _currentContinent = continent;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearCurrentContinent(){
-    _setCurrentContinent(null);
+  void clearCurrentContinent({
+  @required bool notify,
+}){
+    _setCurrentContinent(
+      continent: null,
+      notify: notify,
+    );
   }
 // -------------------------------------
   Future<List<CountryModel>> getContinentActivatedCountries(BuildContext context) async {
@@ -430,7 +444,8 @@ class ZoneProvider extends ChangeNotifier {
 // -------------------------------------
   Future<void> getsetUserCountryAndCity({
     @required BuildContext context,
-    @required ZoneModel zone
+    @required ZoneModel zone,
+    @required bool notify,
   }) async {
 
     final CountryModel _country = await fetchCountryByID(
@@ -443,18 +458,34 @@ class ZoneProvider extends ChangeNotifier {
         cityID: zone.cityID,
     );
 
-    _setUserCountryAndCityModels(_country, _city);
+    _setUserCountryAndCityModels(
+      country: _country,
+      city: _city,
+      notify: notify,
+    );
 
   }
 // -------------------------------------
-  void _setUserCountryAndCityModels(CountryModel country, CityModel city){
+  void _setUserCountryAndCityModels({
+    @required CountryModel country,
+    @required CityModel city,
+    @required bool notify,
+  }){
     _userCountyModel = country;
     _userCityModel = city;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearUserCountryModel(){
-    _setUserCountryAndCityModels(null, null);
+  void clearUserCountryModel({
+  @required bool notify,
+}){
+    _setUserCountryAndCityModels(
+      country: null,
+      city: null,
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -471,7 +502,8 @@ class ZoneProvider extends ChangeNotifier {
 // -------------------------------------
   Future<void> getsetCurrentZoneAndCountryAndCity({
     @required BuildContext context,
-    @required ZoneModel zone
+    @required ZoneModel zone,
+    @required bool notify,
   }) async {
 
     final CountryModel _country = await fetchCountryByID(
@@ -488,12 +520,16 @@ class ZoneProvider extends ChangeNotifier {
     _currentCountryModel = _country;
     _currentCityModel = _city;
 
-    await _getSetAllCurrenciesAndCurrentCurrency(context: context);
+    await _getSetAllCurrenciesAndCurrentCurrency(
+      context: context,
+      notify: false,
+    );
 
     _setCurrentZoneAndCountryModelAndCityModel(
       zone: zone,
       country: _country,
       city: _city,
+      notify: notify,
     );
 
   }
@@ -502,21 +538,27 @@ class ZoneProvider extends ChangeNotifier {
     @required ZoneModel zone,
     @required CountryModel country,
     @required CityModel city,
+    @required bool notify,
   }){
 
     _currentZone = zone;
     _currentCountryModel = country;
     _currentCityModel = city;
 
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
 
   }
 // -------------------------------------
-  void clearCurrentZoneAndCurrentCountryAndCurrentCity(){
+  void clearCurrentZoneAndCurrentCountryAndCurrentCity({
+  @required bool notify,
+}){
     _setCurrentZoneAndCountryModelAndCityModel(
-        zone: null,
-        country: null,
-        city: null
+      zone: null,
+      country: null,
+      city: null,
+      notify: notify,
     );
   }
 // -----------------------------------------------------------------------------
@@ -621,7 +663,8 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -------------------------------------
   Future<void> _getSetAllCurrenciesAndCurrentCurrency({
-    @required BuildContext context
+    @required BuildContext context,
+    @required bool notify,
   }) async {
 
     final List<CurrencyModel> _currencies = await fetchCurrencies(context: context);
@@ -637,22 +680,29 @@ class ZoneProvider extends ChangeNotifier {
     _setAllCurrenciesAndCurrentCurrency(
       allCurrencies: _currencies,
       currentCurrency: _currencyByCountryID,
+      notify: notify,
     );
   }
 // -------------------------------------
   void _setAllCurrenciesAndCurrentCurrency({
     @required List<CurrencyModel> allCurrencies,
     @required CurrencyModel currentCurrency,
+    @required bool notify,
   }){
     _allCurrencies = allCurrencies;
     _currentCurrency = currentCurrency;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearCurrentCurrencyAndAllCurrencies(){
+  void clearCurrentCurrencyAndAllCurrencies({
+  @required bool notify,
+}){
     _setAllCurrenciesAndCurrentCurrency(
       currentCurrency: null,
       allCurrencies: null,
+      notify: notify,
     );
   }
 // -----------------------------------------------------------------------------
@@ -667,6 +717,7 @@ class ZoneProvider extends ChangeNotifier {
   Future<void> getSetSelectedCountryCities({
     @required BuildContext context,
     @required CountryModel countryModel,
+    @required bool notify,
   }) async {
 
     final List<CityModel> _fetchedCities = await fetchCitiesByIDs(
@@ -674,18 +725,33 @@ class ZoneProvider extends ChangeNotifier {
       citiesIDs: countryModel?.citiesIDs,
     );
 
-    _setSelectedCountryCities(_fetchedCities);
-    clearSearchedCities();
+    _setSelectedCountryCities(
+      cities: _fetchedCities,
+      notify: false,
+    );
+    clearSearchedCities(
+      notify: notify,
+    );
 
   }
 
-  void _setSelectedCountryCities(List<CityModel> cities){
+  void _setSelectedCountryCities({
+    @required List<CityModel> cities,
+    @required bool notify,
+  }){
     _selectedCountryCities = cities;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearSelectedCountryCities(){
-    _setSelectedCountryCities(<CityModel>[]);
+  void clearSelectedCountryCities({
+  @required bool notify,
+}){
+    _setSelectedCountryCities(
+      cities: <CityModel>[],
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -696,14 +762,21 @@ class ZoneProvider extends ChangeNotifier {
 // -------------------------------------
   List<DistrictModel> get selectedCityDistricts => <DistrictModel>[..._selectedCityDistricts];
 // -------------------------------------
-  void setSelectedCityDistricts(List<DistrictModel> districts){
+  void setSelectedCityDistricts({
+    @required List<DistrictModel> districts,
+    @required bool notify,
+  }){
     _selectedCityDistricts = districts;
-    clearSearchedDistricts();
-    notifyListeners();
+    clearSearchedDistricts(
+      notify: notify,
+    );
   }
 // -------------------------------------
-  void clearSelectedCityDistricts(){
-    setSelectedCityDistricts(<DistrictModel>[]);
+  void clearSelectedCityDistricts({@required bool notify}){
+    setSelectedCityDistricts(
+      districts: <DistrictModel>[],
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -769,6 +842,7 @@ class ZoneProvider extends ChangeNotifier {
   Future<void> getSetSearchedCountries({
     @required BuildContext context,
     @required String input,
+    @required bool notify,
   }) async {
 
     /// SEARCH COUNTRIES MODELS FROM FIREBASE
@@ -797,16 +871,29 @@ class ZoneProvider extends ChangeNotifier {
     // }
 
     /// SET FOUND COUNTRIES
-    _setSearchedCountries(_foundCountries);
+    _setSearchedCountries(
+      countriesPhrases: _foundCountries,
+      notify: notify,
+    );
   }
 // -------------------------------------
-  void _setSearchedCountries(List<Phrase> countriesPhrases){
+  void _setSearchedCountries({
+    @required List<Phrase> countriesPhrases,
+    @required bool notify,
+}){
     _searchedCountries = countriesPhrases;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearSearchedCountries(){
-    _setSearchedCountries(<Phrase>[]);
+  void clearSearchedCountries({
+  @required bool notify,
+}){
+    _setSearchedCountries(
+      countriesPhrases: <Phrase>[],
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -820,6 +907,7 @@ class ZoneProvider extends ChangeNotifier {
   Future<void> getSetSearchedCities({
     @required BuildContext context,
     @required String input,
+    @required bool notify,
   }) async {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -842,17 +930,30 @@ class ZoneProvider extends ChangeNotifier {
 
 
     /// SET FOUND CITIES
-    _setSearchedCities(_foundCities);
+    _setSearchedCities(
+      cities: _foundCities,
+      notify: notify,
+    );
 
   }
   // -------------------------------------
-  void _setSearchedCities(List<CityModel> cities){
+  void _setSearchedCities({
+    @required List<CityModel> cities,
+    @required bool notify,
+  }){
     _searchedCities = cities;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
   // -------------------------------------
-  void clearSearchedCities(){
-    _setSearchedCities(<CityModel>[]);
+  void clearSearchedCities({
+  @required bool notify,
+}){
+    _setSearchedCities(
+      cities: <CityModel>[],
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -866,6 +967,7 @@ class ZoneProvider extends ChangeNotifier {
   void getSetSearchedDistricts({
     @required BuildContext context,
     @required String textInput,
+    @required bool notify,
   }){
 
     /// SEARCH SELECTED CITY DISTRICTS
@@ -879,28 +981,45 @@ class ZoneProvider extends ChangeNotifier {
     // blog('${_foundCities[0]}');
 
     /// SET FOUND CITIES
-    _setSearchedDistricts(_foundDistricts);
+    _setSearchedDistricts(
+      districts: _foundDistricts,
+      notify: notify,
+    );
 
   }
 // -------------------------------------
-  void _setSearchedDistricts(List<DistrictModel> districts){
+  void _setSearchedDistricts({
+    @required List<DistrictModel> districts,
+    @required bool notify,
+}){
     _searchedDistricts = districts;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearSearchedDistricts(){
-    _setSearchedDistricts(<DistrictModel>[]);
+  void clearSearchedDistricts({
+  @required bool notify,
+}){
+    _setSearchedDistricts(
+      districts: <DistrictModel>[],
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
-  void clearAllSearchesAndSelections(){
+  void clearAllSearchesAndSelections({
+  @required bool notify,
+}){
 
-    _searchedCountries = [];
-    _searchedCities = [];
+    _searchedCountries = <Phrase>[];
+    _searchedCities = <CityModel>[];
 
-    _selectedCountryCities = [];
-    _selectedCityDistricts = [];
+    _selectedCountryCities = <CityModel>[];
+    _selectedCityDistricts = <DistrictModel>[];
 
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -----------------------------------------------------------------------------
 

@@ -147,7 +147,10 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._savedFlyers];
   }
 // -------------------------------------
-  Future<void> getsetSavedFlyers(BuildContext context) async {
+  Future<void> getsetSavedFlyers({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
 
     /// 1 - get user saved flyers IDs
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -161,19 +164,32 @@ class FlyersProvider extends ChangeNotifier {
         flyersIDs: _savedFlyersIDs,
       );
 
-      _setSavedFlyers(_flyers);
+      _setSavedFlyers(
+        flyers: _flyers,
+        notify: notify,
+      );
 
     }
 
   }
 // -------------------------------------
-  void _setSavedFlyers(List<FlyerModel> flyers){
-    _savedFlyers = flyers;
-    notifyListeners();
+  void _setSavedFlyers({
+    @required List<FlyerModel> flyers,
+    @required bool notify,
+  }){
+    _savedFlyers = flyers ?? <FlyerModel>[];
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearSavedFlyers(){
-    _setSavedFlyers(<FlyerModel>[]);
+  void clearSavedFlyers({
+  @required bool notify,
+}){
+    _setSavedFlyers(
+      flyers: <FlyerModel>[],
+      notify: notify,
+    );
   }
 // -------------------------------------
   bool checkFlyerIsSaved(String flyerID){
@@ -193,6 +209,7 @@ class FlyersProvider extends ChangeNotifier {
   Future<void> saveOrUnSaveFlyer({
     @required BuildContext context,
     @required FlyerModel inputFlyer,
+    @required bool notify,
   }) async {
 
     final FlyerModel _savedFlyer =
@@ -247,7 +264,9 @@ class FlyersProvider extends ChangeNotifier {
 
     }
 
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -----------------------------------------------------------------------------
 
@@ -260,7 +279,10 @@ class FlyersProvider extends ChangeNotifier {
     return [..._promotedFlyers];
   }
 // -------------------------------------
-  Future<void> getSetPromotedFlyers(BuildContext context) async {
+  Future<void> getSetPromotedFlyers({
+    @required BuildContext context,
+    @required bool notify,
+}) async {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final CityModel _currentCity = _zoneProvider.currentCity;
@@ -276,18 +298,33 @@ class FlyersProvider extends ChangeNotifier {
 
       final List<FlyerModel> _flyers = await fetchFlyersByIDs(context: context, flyersIDs: _flyersIDs);
 
-      _setPromotedFlyers(_flyers);
+      _setPromotedFlyers(
+        flyers: _flyers,
+        notify: notify,
+      );
     }
 
   }
 // -------------------------------------
-  void _setPromotedFlyers(List<FlyerModel> flyers){
+  void _setPromotedFlyers({
+    @required List<FlyerModel> flyers,
+    @required bool notify,
+  }){
     _promotedFlyers = flyers;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -------------------------------------
-  void clearPromotedFlyers(){
-    _setPromotedFlyers(<FlyerModel>[]);
+  void clearPromotedFlyers({
+  @required bool notify,
+}){
+    _setPromotedFlyers(
+      flyers: <FlyerModel>[],
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -313,34 +350,59 @@ class FlyersProvider extends ChangeNotifier {
       startAfter: _lastWallFlyer?.docSnapshot,
     );
 
-    _addToWallFlyers(_flyers);
-    _setLastWallFlyer(_flyers);
+    _addToWallFlyers(
+      flyers: _flyers,
+      notify: false,
+    );
+    _setLastWallFlyer(
+      flyers: _flyers,
+      notify: true,
+    );
 
   }
 // -------------------------------------
-  void _addToWallFlyers(List<FlyerModel> flyers) {
+  void _addToWallFlyers({
+    @required List<FlyerModel> flyers,
+    @required bool notify,
+  }) {
     _wallFlyers.addAll(flyers);
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void _setLastWallFlyer(List<FlyerModel> flyers) {
+  void _setLastWallFlyer({
+    @required List<FlyerModel> flyers,
+    @required bool notify,
+  }) {
 
     if (Mapper.canLoopList(flyers)){
 
-  _lastWallFlyer = flyers.last;
-      notifyListeners();
+      _lastWallFlyer = flyers.last;
+
+      if (notify == true){
+        notifyListeners();
+      }
     }
 
   }
 // -------------------------------------
-  void clearWallFlyers(){
+  void clearWallFlyers({
+  @required bool notify,
+}){
     _wallFlyers = <FlyerModel>[];
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
-
-  void clearLastWallFlyer(){
+// -------------------------------------
+  void clearLastWallFlyer({
+  @required bool notify,
+}){
     _lastWallFlyer = null;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -----------------------------------------------------------------------------
 
