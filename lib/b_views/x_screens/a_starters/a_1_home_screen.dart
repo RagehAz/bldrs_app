@@ -25,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// NOT disposed
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
@@ -60,13 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
-    if (_loading != null){_loading.dispose();}
+    // if (_loading != null){_loading.dispose();}
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    // traceWidgetBuild(widgetName: 'Home screen', varName: '_isInit', varValue: _isInit);
+    traceWidgetBuild(widgetName: 'Home screen', varName: '_isInit', varValue: _isInit);
 
     final bool _userIsSignedIn = AuthModel.userIsSignedIn();
 

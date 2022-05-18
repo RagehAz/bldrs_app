@@ -21,6 +21,7 @@ class AuthModel {
     this.firstTimer,
     this.authError,
     this.userCredential,
+    this.authCredential,
     this.firebaseAuth,
     this.authSucceeds,
     this.facebookLoginResult,
@@ -29,7 +30,6 @@ class AuthModel {
     this.googleSignIn,
     this.googleSignInAccount,
     this.googleSignInAuthentication,
-    this.authCredential,
   });
   /// --------------------------------------------------------------------------
   UserModel userModel;
@@ -37,6 +37,7 @@ class AuthModel {
   bool authSucceeds;
   String authError;
   UserCredential userCredential;
+  AuthCredential authCredential;
   FirebaseAuth firebaseAuth;
   LoginResult facebookLoginResult;
   FacebookAuthCredential facebookAuthCredential;
@@ -44,14 +45,18 @@ class AuthModel {
   GoogleSignIn googleSignIn;
   GoogleSignInAccount googleSignInAccount;
   GoogleSignInAuthentication googleSignInAuthentication;
-  AuthCredential authCredential;
 // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// ----------------------------------------
   AuthModel copyWith({
     UserModel userModel,
     bool firstTimer,
     bool authSucceeds,
     String authError,
     UserCredential userCredential,
+    AuthCredential authCredential,
     FirebaseAuth firebaseAuth,
     LoginResult facebookLoginResult,
     FacebookAuthCredential facebookAuthCredential,
@@ -59,7 +64,6 @@ class AuthModel {
     GoogleSignIn googleSignIn,
     GoogleSignInAccount googleSignInAccount,
     GoogleSignInAuthentication googleSignInAuthentication,
-    AuthCredential authCredential,
 }){
     return AuthModel(
       userModel: userModel ?? this.userModel,
@@ -78,6 +82,8 @@ class AuthModel {
     );
 }
 // -----------------------------------------------------------------------------
+  /// CYPHER AUTH BY
+// ------------------
   static AuthType decipherAuthBy(String authBy) {
     switch (authBy) {
       case 'emailRegister':     return AuthType.emailRegister;    break;
@@ -88,7 +94,7 @@ class AuthModel {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
+// ------------------
   static String cipherAuthBy(AuthType authBy) {
     switch (authBy) {
       case AuthType.emailRegister:    return 'emailRegister';     break;
@@ -100,6 +106,10 @@ class AuthModel {
     }
   }
 // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// ----------------------------------------
   static bool userIsSignedIn() {
     bool _userIsSignedIn = false;
 
@@ -114,6 +124,10 @@ class AuthModel {
     return _userIsSignedIn;
   }
 // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+// ----------------------------------------
   void blogAuthModel({String methodName}){
 
     final String _methodName = methodName ?? 'AUTH MODEL';
