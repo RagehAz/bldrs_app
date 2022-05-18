@@ -193,7 +193,7 @@ class AppStateOps{
 /// APP VERSION
 
 // -----------------------------------
-  ///
+  /// TAMAM : WORKS PERFECTLY
   static Future<String> getAppVersion() async {
     final PackageInfo _packageInfo = await PackageInfo.fromPlatform();
     return _packageInfo.version;
