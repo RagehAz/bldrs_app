@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -25,24 +26,69 @@ class UserProfilePage extends StatelessWidget {
   final CountryModel userCountry;
   final CityModel userCity;
   /// --------------------------------------------------------------------------
+  static String generateTitleCompanyString({
+    @required UserModel userModel,
+    @required BuildContext context,
+  }){
+
+    String _string;
+
+    final String _title = userModel?.title;
+    final String _company = userModel.company;
+
+    if (_title == null && _company == null){
+      _string = null;
+    }
+    else if (_title == null && _company != null){
+      _string = _company;
+    }
+    else if (_title != null && _company == null){
+      _string = _title;
+    }
+    else if (_title != null && _company != null){
+      _string = '$_title ${superPhrase(context, 'phid_at')} $_company';
+    }
+    else {
+      _string = null;
+    }
+
+    return _string;
+  }
+// -----------------------------------------------------------------------------
+  bool _canShowTitleCompanyLine(){
+    bool _can = false;
+
+    if (
+    stringIsNotEmpty(userModel?.title) == true
+        ||
+    stringIsNotEmpty(userModel?.company) == true
+    ){
+    _can = true;
+    }
+
+    return _can;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final String _userName = userModel?.name ?? superPhrase(context, 'phid_unknown_bldr');
 
     final String _countryName = CountryModel.getTranslatedCountryName(
         context: context,
         countryID: userCountry?.id,
     );
-
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
       context: context,
       city: userCity,
     );
-
     final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
       city: userCity,
       districtID: userModel?.zone?.districtID,
     );
+
+    final bool _thereAreMissingFields = UserModel.thereAreMissingFields(userModel);
 
     return Column(
       children: <Widget>[
@@ -57,13 +103,16 @@ class UserProfilePage extends StatelessWidget {
           size: 80,
           balloonType: userModel?.status,
           userModel: userModel,
-          onTap: onUserPicTap,
           loading: false,
+          showEditButton: _thereAreMissingFields,
+          onTap: _thereAreMissingFields == false ? null
+              :
+          () => onEditProfileTap(context),
         ),
 
         /// USER NAME
         SuperVerse(
-          verse: userModel?.name,
+          verse: _userName,
           shadow: true,
           size: 4,
           margin: 5,
@@ -72,10 +121,14 @@ class UserProfilePage extends StatelessWidget {
         ),
 
         /// USER JOB TITLE
+        if (_canShowTitleCompanyLine() == true)
         SuperVerse(
-          verse: '${userModel?.title} @ ${userModel?.company}',
           italic: true,
           weight: VerseWeight.thin,
+          verse: generateTitleCompanyString(
+              userModel: userModel,
+              context: context,
+          ),
         ),
 
         /// USER LOCALE
@@ -105,13 +158,12 @@ class UserProfilePage extends StatelessWidget {
           ),
         ),
 
-        /// Joined at
+        /// JOINED AT
         SuperVerse(
           verse: Timers.getString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.grey255,
-          size: 1,
         ),
 
         /// CONTACTS
@@ -120,7 +172,6 @@ class UserProfilePage extends StatelessWidget {
           location: userModel?.location,
           canLaunchOnTap: true,
         ),
-
 
         /// BOTTOM PADDING
         const SizedBox(
