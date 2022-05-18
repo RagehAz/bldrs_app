@@ -1,10 +1,11 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:flutter/material.dart';
 
 class UserBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -18,6 +19,7 @@ class UserBalloon extends StatelessWidget {
     this.balloonColor,
     this.child,
     this.shadowIsOn = true,
+    this.showEditButton = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +32,7 @@ class UserBalloon extends StatelessWidget {
   final Color balloonColor;
   final Widget child;
   final bool shadowIsOn;
+  final bool showEditButton;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,8 +57,8 @@ class UserBalloon extends StatelessWidget {
               child: child
           ),
 
-          /// --- IS AUTHOR ICON
-          if (canLoopList(userModel?.myBzzIDs) == true)
+          /// IS AUTHOR ICON
+          if (UserModel.userIsAuthor(userModel) == true)
           Align(
             alignment: superInverseBottomAlignment(context),
             child: DreamBox(
@@ -63,6 +66,18 @@ class UserBalloon extends StatelessWidget {
               width: size * 0.4,
               icon: Iconz.bz,
               bubble: false,
+            ),
+          ),
+
+          /// EDIT BUTTON
+          if (showEditButton == true)
+          Align(
+            alignment: superInverseTopAlignment(context),
+            child: DreamBox(
+              height: size * 0.4,
+              verse: superPhrase(context, 'phid_edit'),
+              verseScaleFactor: 0.7,
+              color: Colorz.red255,
             ),
           ),
 

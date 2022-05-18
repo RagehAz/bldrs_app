@@ -132,8 +132,9 @@ String askHinter (BuildContext context, BzType bzType){
   return _askHint;
 }
 // -----------------------------------------------------------------------------
-
-List<String> createTrigram({@required String input}){
+List<String> createTrigram({
+  @required String input,
+}){
   List<String> _trigram = <String>[];
 
   if (input != null){
@@ -227,8 +228,11 @@ List<String> createTrigram({@required String input}){
   return _trigram;
 }
 // -----------------------------------------------------------------------------
+String generateStringFromStrings({
+  @required List<String> strings,
+  String stringsSeparator = ', ',
+}){
 /// CREATES ONE STRING OF ALL STRINGS IN LIST AND SEPARATES THEM WITH ', '
-String generateStringFromStrings(List<String> strings){
 
   String _output = '';
 
@@ -242,7 +246,7 @@ String generateStringFromStrings(List<String> strings){
       }
 
       else {
-        _output = '$_output, $_string';
+        _output = '$_output$stringsSeparator$_string';
       }
 
     }

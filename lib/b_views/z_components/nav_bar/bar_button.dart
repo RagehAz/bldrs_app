@@ -11,7 +11,7 @@ class BarButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BarButton({
     @required this.text,
-    @required this.width,
+    @required this.size,
     this.icon,
     this.iconSizeFactor,
     this.clipperWidget,
@@ -29,7 +29,7 @@ class BarButton extends StatelessWidget {
   final Widget clipperWidget;
   final BarType barType;
   final Function onTap;
-  final double width;
+  final double size;
   final double corners;
   final bool notiDotIsOn;
   final int notiCount;
@@ -56,7 +56,7 @@ class BarButton extends StatelessWidget {
         0;
 
     final double _buttonHeight = _circleWidth + (2 * _paddings) + _textBoxHeight;
-    final double _buttonWidth = width;
+    final double _buttonWidth = size;
 
     return GestureDetector(
       onTap: () {
