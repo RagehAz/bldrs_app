@@ -559,8 +559,9 @@ class BzModel{
       pluralTranslation: false,
     );
 
-    final String _bzTypesOneString =
-    TextGen.generateStringFromStrings(_bzTypesStrings);
+    final String _bzTypesOneString = TextGen.generateStringFromStrings(
+      strings: _bzTypesStrings,
+    );
 
     return _bzTypesOneString;
   }

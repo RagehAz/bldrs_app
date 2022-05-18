@@ -1,28 +1,20 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_1_my_bzz_selector_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structure/a_user_balloon.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/bar_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/buttons/nav_bar_profile_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/unfinished_bzz_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -43,37 +35,37 @@ enum BarType {
 class NavBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NavBar({
-    this.barType = _standardBarType,
+    this.theBarType = barType,
     this.sky = SkyType.night,
     // this.myBzz,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final BarType barType;
+  final BarType theBarType;
   final SkyType sky;
   // final List<BzModel> myBzz;
   /// --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
-  static const double _circleWidth = Ratioz.appBarButtonSize;
+  static const double circleWidth = Ratioz.appBarButtonSize;
   static const double navbarPaddings = Ratioz.appBarPadding * 1.5;
-  static const double navBarButtonWidth = _circleWidth + (navbarPaddings * 0.5 * 2) + (navbarPaddings * 0.5 * 2);
+  static const double navBarButtonWidth = circleWidth + (navbarPaddings * 0.5 * 2) + (navbarPaddings * 0.5 * 2);
   static const double _textScaleFactor = 0.95;
   static const int _textSize = 0;
-  static const double buttonCircleCorner = _circleWidth * 0.5;
+  static const double buttonCircleCorner = circleWidth * 0.5;
   static const double _boxCorner = buttonCircleCorner + navbarPaddings;
-  static const BarType _standardBarType = BarType.minWithText;
+  static const BarType barType = BarType.minWithText;
 // -----------------------------------------------------------------------------
   static double navBarHeight({
     @required BuildContext context,
-    BarType barType = _standardBarType,
+    BarType barType = barType,
   }) {
     final double _textBoxHeight = navBarTextBoxHeight(context: context, barType: barType);
 
     final double _boxHeight = barType == BarType.maxWithText || barType == BarType.minWithText ?
-    _circleWidth + (navbarPaddings * 2) + _textBoxHeight
+    circleWidth + (navbarPaddings * 2) + _textBoxHeight
             :
-    _circleWidth + (navbarPaddings * 2);
+    circleWidth + (navbarPaddings * 2);
 
     return _boxHeight;
   }
@@ -81,7 +73,7 @@ class NavBar extends StatelessWidget {
   static double navBarWidth({
     @required BuildContext context,
     @required UserModel userModel,
-    BarType barType = _standardBarType,
+    BarType barType = barType,
   }) {
 
     final int _numberOfButtons = navBarNumberOfButtons(userModel);
@@ -104,7 +96,7 @@ class NavBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double navBarTextBoxHeight({
     @required BuildContext context,
-    BarType barType = _standardBarType,
+    BarType barType = barType,
   }) {
 
     final double _textBoxHeight = barType == BarType.maxWithText || barType == BarType.minWithText ?
@@ -139,7 +131,7 @@ class NavBar extends StatelessWidget {
     @required int numberOfButtons,
     @required int numberOfSpacings,
     @required double spacingFactor,
-    BarType barType = _standardBarType,
+    BarType barType = barType,
   }) {
 
     final double _spacings =
@@ -158,7 +150,6 @@ class NavBar extends StatelessWidget {
 
     return _spacings;
   }
-
 // -----------------------------------------------------------------------------
   static double navBarSpacerWidth(BuildContext context, UserModel userModel) {
     final int _numberOfButtons = navBarNumberOfButtons(userModel);
@@ -177,7 +168,7 @@ class NavBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static BorderRadius navBarCorners({
     @required BuildContext context,
-    BarType barType = _standardBarType,
+    BarType barType = barType,
   }) {
     final BorderRadius _boxBorders = barType == BarType.min ?
     Borderers.superBorderOnly(
@@ -208,7 +199,7 @@ class NavBar extends StatelessWidget {
     return _boxBorders;
   }
 // -----------------------------------------------------------------------------
-  static double navBarBottomOffset({BarType barType = _standardBarType}) {
+  static double navBarBottomOffset({BarType barType = barType}) {
 
     final double _bottomOffset = barType == BarType.min || barType == BarType.minWithText ?
     navbarPaddings
@@ -218,6 +209,7 @@ class NavBar extends StatelessWidget {
     return _bottomOffset;
   }
 // -----------------------------------------------------------------------------
+  /*
   double _myBzzListSlideHeight(BuildContext context, List<BzModel> myBzz) {
     final double _wantedHeight = Scale.superScreenWidth(context) * 0.3 * myBzz.length;
     final double _maxHeight = Scale.superScreenHeight(context) * 0.5;
@@ -317,6 +309,7 @@ class NavBar extends StatelessWidget {
       ),
     );
   }
+  */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -328,9 +321,9 @@ class NavBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _buttonCircleCorner = buttonCircleCorner;
-    final BorderRadius _boxCorners = navBarCorners(context: context, barType: barType);
-    final double _navBarHeight = navBarHeight(context: context, barType: barType);
-    final double _bottomOffset = navBarBottomOffset(barType: barType);
+    final BorderRadius _boxCorners = navBarCorners(context: context, barType: theBarType);
+    final double _navBarHeight = navBarHeight(context: context, barType: theBarType);
+    final double _bottomOffset = navBarBottomOffset(barType: theBarType);
 // -----------------------------------------------------------------------------
     /// TASK : IOS back button needs revision
     const bool _deviceIsIOS = false; //DeviceChecker.deviceIsIOS();
@@ -360,20 +353,20 @@ class NavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-            /// ios back button
-            if (_deviceIsIOS)
-              DreamBox(
-                height: _circleWidth,
-                width: _circleWidth,
-                color: sky == SkyType.black ? Colorz.yellow50 : Colorz.white20,
-                corners: _buttonCircleCorner,
-                margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                icon: Iconizer.superBackIcon(context),
-                blur: Ratioz.blur1,
-                onTap: () => Nav.goBack(context),
-              ),
-
-            _expander,
+            // /// ios back button
+            // if (_deviceIsIOS)
+            //   DreamBox(
+            //     height: _circleWidth,
+            //     width: _circleWidth,
+            //     color: sky == SkyType.black ? Colorz.yellow50 : Colorz.white20,
+            //     corners: _buttonCircleCorner,
+            //     margins: const EdgeInsets.all(Ratioz.appBarPadding),
+            //     icon: Iconizer.superBackIcon(context),
+            //     blur: Ratioz.blur1,
+            //     onTap: () => Nav.goBack(context),
+            //   ),
+            //
+            // _expander,
 
             /// navBar widgets
             Container(
@@ -403,11 +396,11 @@ class NavBar extends StatelessWidget {
                       /// SAVED FLYERS
                       if (_userIsSignedIn == true)
                         BarButton(
-                          width: navBarButtonWidth,
+                          size: navBarButtonWidth,
                           text: superPhrase(context, 'phid_saves'),
                           icon: Iconz.saveOn,
                           iconSizeFactor: 0.7,
-                          barType: barType,
+                          barType: theBarType,
                           onTap: () => Nav.goToRoute(context, Routez.savedFlyers),
                         ),
 
@@ -415,11 +408,11 @@ class NavBar extends StatelessWidget {
 
                       /// QUESTION
                       BarButton(
-                        width: navBarButtonWidth,
+                        size: navBarButtonWidth,
                         text: superPhrase(context, 'phid_question'),
                         icon: Iconz.utPlanning,
                         iconSizeFactor: 0.45,
-                        barType: barType,
+                        barType: theBarType,
                         onTap: () async {
 
                           blog('fish');
@@ -438,8 +431,8 @@ class NavBar extends StatelessWidget {
                       if (UserModel.userIsAuthor(_myUserModel) && _userIsSignedIn == true)
                         BzzButton(
                           width: navBarButtonWidth,
-                          circleWidth: _circleWidth,
-                          barType: barType,
+                          circleWidth: circleWidth,
+                          barType: theBarType,
                           // bzzIDs: _userBzzIDs,
                           onTap: () async {
                             blog('fish');
@@ -491,41 +484,7 @@ class NavBar extends StatelessWidget {
 
                       _spacer,
 
-                      /// PROFILE
-                      if (_userIsSignedIn == true)
-                        BarButton(
-                            width: navBarButtonWidth,
-                            text: superPhrase(context, 'phid_profile'),
-                            icon: Iconz.normalUser,
-                            iconSizeFactor: 0.7,
-                            barType: barType,
-                            onTap: () => Nav.goToNewScreen(
-                                context: context,
-                                screen: const UserProfileScreen()
-                            ),
-                            clipperWidget: UserBalloon(
-                              size: _circleWidth,
-                              loading: false,
-                              userModel: _myUserModel,
-                            )),
-
-                      if (_userIsSignedIn == false)
-                        BarButton(
-                          width: navBarButtonWidth,
-                          text: superPhrase(context, 'phid_sign'),
-                          icon: Iconz.normalUser,
-                          iconSizeFactor: 0.45,
-                          barType: barType,
-                          notiDotIsOn: true,
-                          onTap: () async {
-
-                            await Nav.goToNewScreen(
-                                context: context,
-                                screen: const AuthScreen(),
-                            );
-
-                          },
-                        ),
+                      const NavBarProfileButton(),
 
                       _halfSpacer,
 
@@ -536,15 +495,15 @@ class NavBar extends StatelessWidget {
               ),
             ),
 
-            _expander,
-
-            /// IOS balance container
-            if (_deviceIsIOS)
-              Container(
-                width: _circleWidth,
-                height: _circleWidth,
-                margin: const EdgeInsets.all(Ratioz.appBarPadding),
-              ),
+            // _expander,
+            //
+            // /// IOS balance container
+            // if (_deviceIsIOS)
+            //   Container(
+            //     width: _circleWidth,
+            //     height: _circleWidth,
+            //     margin: const EdgeInsets.all(Ratioz.appBarPadding),
+            //   ),
 
           ],
         ),

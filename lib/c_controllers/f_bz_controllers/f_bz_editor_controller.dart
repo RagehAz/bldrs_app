@@ -266,7 +266,9 @@ Future<bool> _validateInputs({
 
     final List<String> _missingFieldsValues = AlertModel.getAlertsIDs(_missingFieldsFound);
     final List<String> _missingFieldsStrings = Mapper.getStringsFromDynamics(dynamics: _missingFieldsValues);
-    final String _missingFieldsString = TextGen.generateStringFromStrings(_missingFieldsStrings);
+    final String _missingFieldsString = TextGen.generateStringFromStrings(
+        strings: _missingFieldsStrings,
+    );
 
     await CenterDialog.showCenterDialog(
       context: context,

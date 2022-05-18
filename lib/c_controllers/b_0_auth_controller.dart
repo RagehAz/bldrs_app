@@ -282,7 +282,9 @@ Future<void> showMissingFieldsDialog({
 }) async {
 
   final List<String> _missingFields = UserModel.missingFields(userModel);
-  final String _missingFieldsString = TextGen.generateStringFromStrings(_missingFields);
+  final String _missingFieldsString = TextGen.generateStringFromStrings(
+      strings: _missingFields,
+  );
 
   await CenterDialog.showCenterDialog(
     context: context,

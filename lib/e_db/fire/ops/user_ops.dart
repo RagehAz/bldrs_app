@@ -246,7 +246,7 @@ Stream<UserModel> streamInitialUser() {
 Future<UserModel> updateUser({
   @required BuildContext context,
   @required UserModel oldUserModel,
-  @required UserModel updatedUserModel,
+  @required UserModel newUserModel,
 }) async {
   // ----------
   /// UPDATE USER OPS
@@ -258,22 +258,22 @@ Future<UserModel> updateUser({
 
   /// A - if user pic changed
   String _userPicURL;
-  if (ObjectChecker.objectIsFile(updatedUserModel.pic) == true) {
+  if (ObjectChecker.objectIsFile(newUserModel.pic) == true) {
 
     /// A1 - update pic to fireStorage/usersPics/userID and get new URL
     _userPicURL = await Storage.createOrUpdatePic(
       context: context,
       oldURL: oldUserModel.pic,
-      newPic: updatedUserModel.pic,
-      picName: updatedUserModel.id,
-      ownerID: updatedUserModel.id,
+      newPic: newUserModel.pic,
+      picName: newUserModel.id,
+      ownerID: newUserModel.id,
       docName: StorageDoc.users,
     );
 
   }
 
   /// B - create final UserModel
-  final UserModel _finalUserModel = updatedUserModel.copyWith(
+  final UserModel _finalUserModel = newUserModel.copyWith(
     pic: _userPicURL ?? oldUserModel.pic,
   );
 
@@ -281,7 +281,7 @@ Future<UserModel> updateUser({
   await Fire.updateDoc(
     context: context,
     collName: FireColl.users,
-    docName: updatedUserModel.id,
+    docName: newUserModel.id,
     input: _finalUserModel.toMap(toJSON: false),
   );
 
