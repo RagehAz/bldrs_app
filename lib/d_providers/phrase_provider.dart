@@ -81,7 +81,7 @@ class PhraseProvider extends ChangeNotifier {
 
     await _zoneProvider.getSetActiveCountriesPhrases(
       context: context,
-      notify: false,
+      // notify: false,
     );
 
     await getSetBasicPhrases(
@@ -263,17 +263,23 @@ class PhraseProvider extends ChangeNotifier {
     @required bool notify,
 }) async {
 
+    blog('getSetBasicPhrases : starting');
     final List<Phrase> _phrases = await fetchAllPhrasesByEnAndAr(
         context: context,
     );
+    blog('getSetBasicPhrases : fetched ${_phrases.length} phrases');
 
     final List<Phrase> _phrasesByLang = Phrase.getPhrasesByLangFromPhrases(
         phrases: _phrases,
         langCode: _currentLangCode
     );
+    blog('getSetBasicPhrases : got ${_phrases.length} _phrasesByLang');
+
 
     /// phrases received from the fetch include trigrams "that was stored in LDB"
     final List<Phrase> _cleaned = Phrase.removeTrigramsFromPhrases(_phrasesByLang);
+
+    blog('getSetBasicPhrases : got ${_phrases.length} _cleaned phrases trigrams');
 
     _basicPhrases = _cleaned;
 
