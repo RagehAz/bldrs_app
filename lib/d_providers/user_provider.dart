@@ -423,7 +423,7 @@ class UsersProvider extends ChangeNotifier {
 
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
-    return _usersProvider?.myUserModel;
+    return _usersProvider.myUserModel;
 
   }
 // -------------------------------------
