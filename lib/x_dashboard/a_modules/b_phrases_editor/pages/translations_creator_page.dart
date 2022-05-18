@@ -84,6 +84,7 @@ class TranslationsCreatorPage extends StatelessWidget {
             pasteFunction: () => onPasteText(arController),
             actionBtFunction: () => onClearText(arController),
             actionBtIcon: Iconz.xLarge,
+            textDirection: TextDirection.ltr,
           ),
 
           if (keyboardIsOn(context) == true)

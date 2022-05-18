@@ -46,6 +46,38 @@ class AuthModel {
   GoogleSignInAuthentication googleSignInAuthentication;
   AuthCredential authCredential;
 // -----------------------------------------------------------------------------
+  AuthModel copyWith({
+    UserModel userModel,
+    bool firstTimer,
+    bool authSucceeds,
+    String authError,
+    UserCredential userCredential,
+    FirebaseAuth firebaseAuth,
+    LoginResult facebookLoginResult,
+    FacebookAuthCredential facebookAuthCredential,
+    GoogleAuthProvider googleAuthProvider,
+    GoogleSignIn googleSignIn,
+    GoogleSignInAccount googleSignInAccount,
+    GoogleSignInAuthentication googleSignInAuthentication,
+    AuthCredential authCredential,
+}){
+    return AuthModel(
+      userModel: userModel ?? this.userModel,
+      firstTimer: firstTimer ?? this.firstTimer,
+      authError: authError ?? this.authError,
+      userCredential: userCredential ?? this.userCredential,
+      firebaseAuth: firebaseAuth ?? this.firebaseAuth,
+      authSucceeds: authSucceeds ?? this.authSucceeds,
+      facebookLoginResult: facebookLoginResult ?? this.facebookLoginResult,
+      facebookAuthCredential: facebookAuthCredential ?? this.facebookAuthCredential,
+      googleAuthProvider: googleAuthProvider ?? this.googleAuthProvider,
+      googleSignIn: googleSignIn ?? this.googleSignIn,
+      googleSignInAccount: googleSignInAccount ?? this.googleSignInAccount,
+      googleSignInAuthentication: googleSignInAuthentication ?? this.googleSignInAuthentication,
+      authCredential: authCredential ?? this.authCredential,
+    );
+}
+// -----------------------------------------------------------------------------
   static AuthType decipherAuthBy(String authBy) {
     switch (authBy) {
       case 'emailRegister':     return AuthType.emailRegister;    break;

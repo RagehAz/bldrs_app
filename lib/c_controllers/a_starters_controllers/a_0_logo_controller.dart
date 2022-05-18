@@ -43,6 +43,8 @@ Future<void> initializeLogoScreen({
 // -----------------------------------------------------------------------------
 Future<void> _initializeUserModel(BuildContext context) async {
 
+  /// TASK : NEED TO CHECK IF ALL USER MODEL REQUIRED FIELDS ARE NOT EMPTY
+
   if (AuthModel.userIsSignedIn() == true) {
 
     final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);

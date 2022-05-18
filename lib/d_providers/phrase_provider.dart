@@ -354,7 +354,7 @@ PhraseProvider getPhraseProvider(BuildContext context, {bool listen = false}){
 
 String superPhrase(BuildContext context, String id, {PhraseProvider providerOverride}){
   final PhraseProvider _phraseProvider = providerOverride ??
-      Provider.of<PhraseProvider>(context, listen: true);
+      Provider.of<PhraseProvider>(context, listen: false);
 
   return _phraseProvider.getTranslatedPhraseByID(id);
 }
