@@ -294,6 +294,7 @@ class ChainsProvider extends ChangeNotifier {
     @required BuildContext context,
     @required FlyerType section,
     @required String keywordID,
+    @required bool notify,
   }) async {
     blog('Changing section to $section');
 
@@ -310,16 +311,28 @@ class ChainsProvider extends ChangeNotifier {
     _currentKeywordID = keywordID;
     // setSectionGroups();
 
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
   // -------------------------------------
-  void _setCurrentSection(FlyerType section){
+  void _setCurrentSection({
+    @required FlyerType section,
+    @required bool notify,
+  }){
     _currentSection = section;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
   // -------------------------------------
-  void clearCurrentSection(){
-    _setCurrentSection(null);
+  void clearCurrentSection({
+  @required bool notify,
+}){
+    _setCurrentSection(
+      section: null,
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -332,13 +345,23 @@ class ChainsProvider extends ChangeNotifier {
     return _currentKeywordID;
   }
 // -----------------------------------------------------------------------------
-  void _setCurrentKeyword(String keywordID){
+  void _setCurrentKeyword({
+    @required String keywordID,
+    @required bool notify,
+  }){
     _currentKeywordID = keywordID;
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
-  void clearCurrentKeyword(){
-    _setCurrentKeyword(null);
+  void clearCurrentKeyword({
+  @required bool notify,
+}){
+    _setCurrentKeyword(
+      keywordID: null,
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 }

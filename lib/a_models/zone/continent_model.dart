@@ -27,7 +27,6 @@ class Continent {
       'globalCountriesIDs': globalCountriesIDs,
     };
   }
-
 // -----------------------------------------------------------------------------
   static Continent decipherContinent(Map<String, dynamic> map) {
     return Continent(
@@ -39,7 +38,6 @@ class Continent {
           Mapper.getStringsFromDynamics(dynamics: map['globalCountriesIDs']),
     );
   }
-
 // -----------------------------------------------------------------------------
   static Map<String, dynamic> cipherContinents(List<Continent> continents) {
     Map<String, dynamic> _map = <String, dynamic>{};
@@ -56,7 +54,6 @@ class Continent {
 
     return _map;
   }
-
 // -----------------------------------------------------------------------------
   static List<Continent> decipherContinents(Map<String, dynamic> map) {
     final List<Continent> _continents = <Continent>[];
@@ -75,10 +72,11 @@ class Continent {
 
     return _continents;
   }
-
 // -----------------------------------------------------------------------------
-  static bool continentsIncludeContinent(
-      {@required List<Continent> continents, @required String name}) {
+  static bool continentsIncludeContinent({
+    @required List<Continent> continents,
+    @required String name,
+  }) {
     bool _includes = false;
 
     for (final Continent continent in continents) {
@@ -90,20 +88,24 @@ class Continent {
 
     return _includes;
   }
-
 // -----------------------------------------------------------------------------
-  static Continent getContinentFromContinents(
-      {@required List<Continent> continents, @required String name}) {
+  static Continent getContinentFromContinents({
+    @required List<Continent> continents,
+    @required String name,
+  }) {
+
     final Continent cont = continents.firstWhere(
         (Continent continent) => continent.name == name,
         orElse: () => null);
 
     return cont;
   }
-
 // -----------------------------------------------------------------------------
-  static Continent getContinentFromContinentsByCountryID(
-      {@required List<Continent> continents, @required String countryID}) {
+  static Continent getContinentFromContinentsByCountryID({
+    @required List<Continent> continents,
+    @required String countryID,
+  }) {
+
     Continent _cont;
 
     for (final Continent continent in continents) {
@@ -131,9 +133,8 @@ class Continent {
 
     return _cont;
   }
-
 // -----------------------------------------------------------------------------
-  void printContinent({String methodName = 'CONTINENT - PRINT'}) {
+  void blogContinent({String methodName = 'CONTINENT - PRINT'}) {
     blog('$methodName ------------------------------- START');
 
     blog('name : $name');

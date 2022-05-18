@@ -28,7 +28,10 @@ Future<void> initializeSearchScreen(BuildContext context) async {
   _setIsSearching(context, false);
 
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-  await _searchProvider.getSetSearchRecords(context);
+  await _searchProvider.getSetSearchRecords(
+    context: context,
+    notify: true,
+  );
 
   _setIsLoading(context, false);
 }
@@ -100,7 +103,9 @@ void controlOnSearchChange({
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
   if (searchText.isEmpty) {
-    _searchProvider.clearSearchResult();
+    _searchProvider.clearSearchResult(
+      notify: true,
+    );
     _setIsSearching(context, false);
   }
 
@@ -290,13 +295,18 @@ Future<void> _handleSearchResult({
 
   if (allResults.isNotEmpty) {
 
-    _searchProvider.setSearchResult(allResults);
+    _searchProvider.setSearchResult(
+      result: allResults,
+      notify: true,
+    );
 
   }
 
   else {
 
-    _searchProvider.clearSearchResult();
+    _searchProvider.clearSearchResult(
+      notify: true,
+    );
 
     NavDialog.showNavDialog(
       context: context,
@@ -336,7 +346,10 @@ Future<void> _createFireSearchRecord({
     }
 
     final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-    _searchProvider.addToSearchRecords(_record);
+    _searchProvider.addToSearchRecords(
+      record: _record,
+      notify: true,
+    );
 
   }
 
@@ -346,7 +359,8 @@ void _setIsLoading(BuildContext context, bool isLoading){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   _uiProvider.triggerLoading(
     setLoadingTo: isLoading,
-    calledName: 'SearchController _setIsLoading',
+    callerName: 'SearchController _setIsLoading',
+    notify: true,
   );
 }
 // -----------------------------------------------------------------------------
@@ -354,8 +368,9 @@ void _setIsSearching(BuildContext context, bool isSearching){
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
   _searchProvider.triggerIsSearching(
-      searchingModel: SearchingModel.flyersAndBzz,
-      setIsSearchingTo: isSearching,
+    searchingModel: SearchingModel.flyersAndBzz,
+    setIsSearchingTo: isSearching,
+    notify: true,
   );
 
 }

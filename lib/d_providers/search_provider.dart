@@ -27,6 +27,7 @@ class SearchProvider extends ChangeNotifier {
   void triggerIsSearching({
     @required SearchingModel searchingModel,
     @required bool setIsSearchingTo,
+    @required bool notify,
   }){
 
     if (searchingModel == SearchingModel.country){
@@ -45,7 +46,10 @@ class SearchProvider extends ChangeNotifier {
       _isSearchingFlyersAndBzz = setIsSearchingTo;
     }
 
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
@@ -66,6 +70,7 @@ class SearchProvider extends ChangeNotifier {
         triggerIsSearching(
           searchingModel: searchModel,
           setIsSearchingTo: true,
+          notify: true,
         );
       }
     }
@@ -77,6 +82,7 @@ class SearchProvider extends ChangeNotifier {
         triggerIsSearching(
           searchingModel: searchModel,
           setIsSearchingTo: false,
+          notify: true,
         );
       }
 
@@ -85,13 +91,17 @@ class SearchProvider extends ChangeNotifier {
     /// CAUTION : [triggerIsSearching] method has notifyListeners();
   }
 // -------------------------------------
-  void closeAllZoneSearches(){
+  void closeAllZoneSearches({
+  @required bool notify,
+}){
 
     _isSearchingCountry = false;
     _isSearchingCity = false;
     _isSearchingDistrict = false;
 
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
 
   }
 // -----------------------------------------------------------------------------
@@ -105,15 +115,26 @@ class SearchProvider extends ChangeNotifier {
     return [..._searchResult];
   }
 // -------------------------------------
-  void setSearchResult (List<SearchResult> result){
+  void setSearchResult ({
+    @required List<SearchResult> result,
+    @required bool notify,
+  }){
 
     _searchResult = result;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
 
   }
 // -------------------------------------
-  void clearSearchResult(){
-    setSearchResult(<SearchResult>[]);
+  void clearSearchResult({
+  @required bool notify,
+}){
+    setSearchResult(
+      result: <SearchResult>[],
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 
@@ -192,7 +213,10 @@ class SearchProvider extends ChangeNotifier {
     return _records;
   }
 // -------------------------------------
-  Future<void> getSetSearchRecords(BuildContext context) async {
+  Future<void> getSetSearchRecords({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
     final List<RecordModel> _fetchedRecords = await _paginateSearchRecords(context);
 
     final List<RecordModel> _updatedList = RecordModel.insertRecordsToRecords(originalRecords: _searchRecords, addRecords: _fetchedRecords);
@@ -200,28 +224,43 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 // -------------------------------------
-  void addToSearchRecords(RecordModel record){
+  void addToSearchRecords({
+    @required RecordModel record,
+    @required bool notify,
+  }){
 
     final List<RecordModel> _recs = RecordModel.insertRecordToRecords(records: _searchRecords, record: record);
     _searchRecords = _recs;
-    notifyListeners();
 
-  }
-// -----------------------------------------------------------------------------
-  void deleteASearchRecord(RecordModel record){
-
-    final int index = _searchRecords.indexWhere((rec) => rec.recordID == record.recordID);
-
-    if (index != -1){
-      _searchRecords.removeAt(index);
+    if (notify == true){
       notifyListeners();
     }
 
   }
 // -----------------------------------------------------------------------------
-  void clearSearchRecords(){
+  void deleteASearchRecord({
+    @required RecordModel record,
+    @required bool notify,
+  }){
+
+    final int index = _searchRecords.indexWhere((rec) => rec.recordID == record.recordID);
+
+    if (index != -1){
+      _searchRecords.removeAt(index);
+      if (notify == true){
+        notifyListeners();
+      }
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  void clearSearchRecords({
+  @required bool notify,
+}){
     _searchRecords = <RecordModel>[];
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -----------------------------------------------------------------------------
 

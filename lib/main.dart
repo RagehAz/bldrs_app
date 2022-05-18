@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
@@ -16,7 +15,6 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
-import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -185,9 +183,8 @@ class _BldrsAppState extends State<BldrsApp> {
           ChangeNotifierProvider<UiProvider>(
             create: (BuildContext ctx) => UiProvider(),
           ),
-          StreamProvider<UserModel>.value(
-            value: UserFireOps.streamInitialUser(),
-            initialData: UserModel.initializeUserModelStreamFromUser(),
+          ChangeNotifierProvider<UsersProvider>(
+            create: (BuildContext ctx) => UsersProvider(),
           ),
           ChangeNotifierProvider<GeneralProvider>(
             create: (BuildContext ctx) => GeneralProvider(),

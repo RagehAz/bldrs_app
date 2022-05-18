@@ -191,12 +191,13 @@ class _FlyerStarterState extends State<FlyerStarter> {
     await _flyersProvider.saveOrUnSaveFlyer(
       context: context,
       inputFlyer: widget.flyerModel,
+      notify: true,
     );
 
     _flyerIsSaved.value = !_flyerIsSaved.value;
 
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

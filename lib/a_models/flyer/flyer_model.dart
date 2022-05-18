@@ -398,7 +398,7 @@ class FlyerModel {
   /// TESTED : WORKS PERFECT
   static void blogFlyers({
     @required List<FlyerModel> flyers,
-    @required String methodName,
+    String methodName = 'BLOGGING FLYERS',
   }){
 
     if (Mapper.canLoopList(flyers) == true){

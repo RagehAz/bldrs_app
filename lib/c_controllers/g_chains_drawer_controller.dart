@@ -78,6 +78,7 @@ Future<void> onChangeHomeSection({
       context: context,
       section: flyerType,
       keywordID: phid,
+      notify: true,
     );
 
     /// B - close dialog
