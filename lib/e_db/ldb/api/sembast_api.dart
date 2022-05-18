@@ -193,6 +193,28 @@ class Sembast  {
     return _maps;
   }
 // ---------------------------------------------------
+/*
+  static Future<List<Map<String, Object>>> readAllNewMethod({
+  @required String docName,
+}) async {
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+    final Database _db = await _getDB();
+
+    final QueryRef<int, Map<String, Object>> _query = _doc.query();
+
+    final List<RecordSnapshot<int, Map<String, Object>>> _snaps = await _query.getSnapshots(_db);
+
+    final List<Map<String, dynamic>> _maps = [];
+
+    for (final snap in _snaps){
+      _maps.add(snap.value);
+    }
+
+    return _maps;
+  }
+ */
+// ---------------------------------------------------
   /// TESTED : WORKS PERFECT
     static Future<List<Map<String, Object>>> searchArrays({
       @required String fieldToSortBy,

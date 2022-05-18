@@ -22,6 +22,7 @@ import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 // -----------------------------------------------------------------------------
 
 /// AUTHENTICATORS
@@ -177,7 +178,7 @@ Future<void> _controlAuthResult({
   /// B2. IF AUTH SUCCEEDS
   else {
 
-    await setUserAndAuthModelsLocally(
+    await setUserAndAuthModelsLocallyAndOnLDB(
       context: context,
       authModel: authModel,
     );
@@ -217,7 +218,7 @@ Future<void> _controlAuthFailure({
 
 }
 // ------------------------------------------------------
-Future<void> setUserAndAuthModelsLocally({
+Future<void> setUserAndAuthModelsLocallyAndOnLDB({
   @required BuildContext context,
   @required AuthModel authModel,
 }) async {
@@ -245,6 +246,13 @@ Future<void> setUserAndAuthModelsLocally({
   );
 
   /// TASK : SHOULD SAVE AUTH MODEL ON LDB TO HAVE IT WHEN USER CLOSES AND REOPENS THE APP
+
+  // await LDBOps.insertMap(
+  //     primaryKey: primaryKey,
+  //     docName: LDBDoc.auth,
+  //     input: authModel.toMap(),
+  // );
+
   _usersProvider.setMyAuthModel(
     authModel: authModel,
     notify: true,

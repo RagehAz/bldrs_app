@@ -34,6 +34,9 @@ Future<void> initializeHomeScreen(BuildContext context) async {
     notify: true,
   );
 
+  /// J - SAVED FLYERS
+  await _initializeSavedFlyers(context);
+
   /// G - USER BZZ : USES BZZ PROVIDER
     await _initializeUserBzz(
       context: context,
@@ -46,11 +49,10 @@ Future<void> initializeHomeScreen(BuildContext context) async {
     notify: true
   );
 
+
   /// I - KEYWORDS
   await _initializeSpecsAndKeywords(context);
 
-  /// J - SAVED FLYERS
-    await _initializeSavedFlyers(context);
 
 }
 // -----------------------------------------------------------------------------
@@ -176,7 +178,7 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context);
 
-    final List<String> _savedFlyersIDs = _myUserModel.savedFlyersIDs;
+    final List<String> _savedFlyersIDs = _myUserModel?.savedFlyersIDs;
 
     if (Mapper.canLoopList(_savedFlyersIDs)){
 

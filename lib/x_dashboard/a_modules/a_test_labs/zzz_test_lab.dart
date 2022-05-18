@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/user/newAuthModel.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -20,8 +21,10 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -410,43 +413,28 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
           /// DO SOMETHING
           WideButton(
               color: Colorz.red255,
-              verse: 'uid',
+              verse: 'NEW AUTH MODEL',
               icon: Iconz.dvGouran,
               onTap: () async {
 
+                final NewAuthModel _model = NewAuthModel.testModel(context);
+
+                _model.blogAuthModel();
 
               }
               ),
 
           WideButton(
               color: Colorz.red255,
-              verse: 'appVersionNeedUpdate',
+              verse: 'blaaaha',
               icon: Iconz.star,
               onTap: () async {
 
-                _uiProvider.triggerLoading(
-                    setLoadingTo: true,
-                    callerName: 'TestLab',
-                    notify: true
+                final List<Map<String, dynamic>> maps = await Sembast.readAll(
+                  docName: LDBDoc.basicPhrases,
                 );
 
-                final String _appVersion = await AppStateOps.getAppVersion();
-
-                blog('app version is : $_appVersion');
-
-
-                final bool _needUpdate = AppStateOps.appVersionNeedUpdate(
-                  globalVersion: _appVersion,
-                  userVersion: '0.0.0',
-                );
-
-                blog(_needUpdate);
-
-                _uiProvider.triggerLoading(
-                  setLoadingTo: false,
-                  callerName: 'TestLab',
-                  notify: true,
-                );
+                blogMaps(maps);
 
               }),
 
