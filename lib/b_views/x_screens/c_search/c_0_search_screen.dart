@@ -48,7 +48,10 @@ class _SearchScreenState extends State<SearchScreen> {
         blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
 
         final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-        _searchProvider.getSetSearchRecords(context);
+        _searchProvider.getSetSearchRecords(
+          context: context,
+          notify: true,
+        );
 
 
       }
@@ -138,10 +141,18 @@ class _SearchScreenState extends State<SearchScreen> {
       onSearchChanged: _onSearchChanged,
       onBack: () async {
 
-        _searchProvider.clearSearchRecords();
-        _searchProvider.clearSearchResult();
-        _searchProvider.triggerIsSearching(searchingModel: SearchingModel.flyersAndBzz, setIsSearchingTo: false);
-        _uiProvider.triggerLoading(setLoadingTo: false, calledName: 'SearchScreen');
+        _searchProvider.clearSearchRecords(notify: false);
+        _searchProvider.clearSearchResult(notify: false);
+        _searchProvider.triggerIsSearching(
+          searchingModel: SearchingModel.flyersAndBzz,
+          setIsSearchingTo: false,
+          notify: true,
+        );
+        _uiProvider.triggerLoading(
+          setLoadingTo: false,
+          callerName: 'SearchScreen',
+          notify: true,
+        );
 
         goBack(context);
 

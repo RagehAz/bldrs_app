@@ -11,14 +11,19 @@ class NotiProvider extends ChangeNotifier {
     return _notiIsOn;
   }
 // -------------------------------------
-  void triggerNotiIsOn({bool setNotiIsOn}) {
+  void triggerNotiIsOn({
+    @required bool notify,
+    bool setNotiIsOn,
+  }) {
     if (setNotiIsOn == null) {
       _notiIsOn = !_notiIsOn;
     } else {
       _notiIsOn = setNotiIsOn;
     }
 
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -----------------------------------------------------------------------------
 
@@ -31,12 +36,16 @@ class NotiProvider extends ChangeNotifier {
     return [..._unreadNotifications];
   }
 // -------------------------------------
-  void getSetNotiModels() {
+  void getSetNotiModels({
+  @required bool notify,
+}) {
     /// TASK : get notifications
     /// TASK : set notifications
 
     _unreadNotifications = [];
-    notifyListeners();
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -----------------------------------------------------------------------------
 

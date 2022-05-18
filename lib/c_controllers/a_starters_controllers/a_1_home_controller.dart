@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
@@ -34,10 +35,10 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   );
 
   /// G - USER BZZ : USES BZZ PROVIDER
-  await _initializeUserBzz(
-    context: context,
-    notify: true,
-  );
+    await _initializeUserBzz(
+      context: context,
+      notify: true,
+    );
 
   /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
   await _initializeUserFollowedBzz(
@@ -49,7 +50,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   await _initializeSpecsAndKeywords(context);
 
   /// J - SAVED FLYERS
-  await _initializeSavedFlyers(context);
+    await _initializeSavedFlyers(context);
 
 }
 // -----------------------------------------------------------------------------
@@ -61,18 +62,48 @@ Future<void> _initializeUserZone(BuildContext context) async {
 
   /// WHEN USER IS AUTHENTICATED
   if (_myUserModel != null && ZoneModel.zoneHasAllIDs(_myUserModel.zone)) {
-    await zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _myUserModel.zone);
-    await zoneProvider.getsetUserCountryAndCity(context: context, zone: _myUserModel.zone);
-    await zoneProvider.getsetContinentByCountryID(context: context, countryID: _myUserModel.zone.countryID);
+
+    await zoneProvider.getsetCurrentZoneAndCountryAndCity(
+      context: context,
+      zone: _myUserModel.zone,
+      notify: false,
+    );
+
+    await zoneProvider.getsetUserCountryAndCity(
+      context: context,
+      zone: _myUserModel.zone,
+      notify: false,
+    );
+
+    await zoneProvider.getsetContinentByCountryID(
+      context: context,
+      countryID: _myUserModel.zone.countryID,
+      notify: true,
+    );
+
   }
 
   /// WHEN USER IS ANONYMOUS
   else {
     final ZoneModel _zoneByIP = await superGetZone(context);
 
-    await zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zoneByIP);
-    await zoneProvider.getsetUserCountryAndCity(context: context, zone: _zoneByIP);
-    await zoneProvider.getsetContinentByCountryID(context: context, countryID: _zoneByIP.countryID);
+    await zoneProvider.getsetCurrentZoneAndCountryAndCity(
+      context: context,
+      zone: _zoneByIP,
+      notify: false,
+    );
+
+    await zoneProvider.getsetUserCountryAndCity(
+      context: context,
+      zone: _zoneByIP,
+      notify: false,
+    );
+    await zoneProvider.getsetContinentByCountryID(
+      context: context,
+      countryID: _zoneByIP.countryID,
+      notify: true,
+    );
+
   }
 }
 // -----------------------------------------------------------------------------
@@ -115,8 +146,13 @@ Future<void> _initializeUserFollowedBzz({
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {
+
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  await _flyersProvider.getSetPromotedFlyers(context);
+
+  await _flyersProvider.getSetPromotedFlyers(
+    context: context,
+    notify: true,
+  );
 
   /// OPEN FIRST PROMOTED FLYER IF POSSIBLE
   // final List<FlyerModel> _promotedFlyers = _flyersProvider.promotedFlyers;
@@ -131,6 +167,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   //
   //   });
   // }
+
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeSavedFlyers(BuildContext context) async {
@@ -144,7 +181,10 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
     if (Mapper.canLoopList(_savedFlyersIDs)){
 
       final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-      await _flyersProvider.getsetSavedFlyers(context);
+      await _flyersProvider.getsetSavedFlyers(
+        context: context,
+        notify: true,
+      );
     }
 
   }
