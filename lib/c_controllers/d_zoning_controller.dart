@@ -77,7 +77,9 @@ Future<void> controlCountryOnTap({
     /// C - TAMAM
     Nav.goBack(context, argument: _zone);
 
-    _zoneProvider.clearAllSearchesAndSelections();
+    _zoneProvider.clearAllSearchesAndSelections(
+      notify: true,
+    );
 
   }
 
@@ -111,8 +113,12 @@ Future<void> controlCountryOnTap({
           cityID: _cityID,
         );
 
-        _zoneProvider.clearAllSearchesAndSelections();
-        _searchProvider.closeAllZoneSearches();
+        _zoneProvider.clearAllSearchesAndSelections(
+          notify: true,
+        );
+        _searchProvider.closeAllZoneSearches(
+          notify: true,
+        );
 
         /// D.2 GO BACK
         Nav.goBack(context, argument: _zone);
@@ -171,9 +177,12 @@ Future<void> controlCountrySearch({
 
     _uiProvider.triggerLoading(
       setLoadingTo: true,
-      calledName: 'controlCountrySearch',
+      callerName: 'controlCountrySearch',
+      notify: true,
     );
-    _zoneProvider.clearSearchedCountries();
+    _zoneProvider.clearSearchedCountries(
+      notify: false,
+    );
 
     // final List<ZoneModel> _countries = searchCountriesByNames(
     //   text: searchText,
@@ -182,11 +191,13 @@ Future<void> controlCountrySearch({
     await _zoneProvider.getSetSearchedCountries(
       context: context,
       input: TextMod.fixCountryName(searchText),
+      notify: true,
     );
 
     _uiProvider.triggerLoading(
       setLoadingTo: false,
-      calledName: 'controlCountrySearch',
+      callerName: 'controlCountrySearch',
+      notify: true,
     );
 
   }
@@ -203,29 +214,42 @@ void controlCountryScreenOnBack(BuildContext context,){
   _searchProvider.triggerIsSearching(
     searchingModel: SearchingModel.country,
     setIsSearchingTo: false,
+    notify: false,
   );
 
   /// CLOSE SEARCH
   _searchProvider.triggerIsSearching(
     searchingModel: SearchingModel.city,
     setIsSearchingTo: false,
+    notify: false,
   );
 
   /// CLOSE SEARCH
   _searchProvider.triggerIsSearching(
     searchingModel: SearchingModel.district,
     setIsSearchingTo: false,
+    notify: true,
   );
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-  _zoneProvider.clearSearchedCountries();
+  _zoneProvider.clearSearchedCountries(
+    notify: false,
+  );
 
-  _zoneProvider.clearSelectedCountryCities();
-  _zoneProvider.clearSearchedCities();
+  _zoneProvider.clearSelectedCountryCities(
+    notify: false,
+  );
+  _zoneProvider.clearSearchedCities(
+    notify: false,
+  );
 
-  _zoneProvider.clearSelectedCityDistricts();
-  _zoneProvider.clearSearchedDistricts();
+  _zoneProvider.clearSelectedCityDistricts(
+    notify: false,
+  );
+  _zoneProvider.clearSearchedDistricts(
+    notify: true,
+  );
 
 
 }
@@ -244,17 +268,20 @@ Future<void> initializeSelectCityScreen({
 
   _uiProvider.triggerLoading(
     setLoadingTo: true,
-    calledName: 'initializeSelectCityScreen',
+    callerName: 'initializeSelectCityScreen',
+    notify: true,
   );
 
   await _zoneProvider.getSetSelectedCountryCities(
     context: context,
     countryModel: countryModel,
+    notify: true,
   );
 
   _uiProvider.triggerLoading(
     setLoadingTo: false,
-    calledName: 'initializeSelectCityScreen',
+    callerName: 'initializeSelectCityScreen',
+    notify: true,
   );
 
 }
@@ -276,14 +303,19 @@ Future<void> controlCityOnTap({
 
     _uiProvider.triggerLoading(
       setLoadingTo: false,
-      calledName: 'controlCityOnTap',
+      callerName: 'controlCityOnTap',
+      notify: true,
     );
     _searchProvider.triggerIsSearching(
       searchingModel: SearchingModel.city,
       setIsSearchingTo: false,
+      notify: true,
     );
 
-    _zoneProvider.clearAllSearchesAndSelections();
+    _zoneProvider.clearAllSearchesAndSelections(
+      notify: true,
+    );
+
     Nav.goBack(context, argument: cityID);
 
   }
@@ -325,7 +357,11 @@ Future<void> controlCityOnTap({
       if (settingCurrentZone == true){
 
         final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-        await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
+        await _zoneProvider.getsetCurrentZoneAndCountryAndCity(
+          context: context,
+          zone: _zone,
+          notify: true,
+        );
 
         final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
         // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
@@ -341,15 +377,21 @@ Future<void> controlCityOnTap({
 
       _uiProvider.triggerLoading(
         setLoadingTo: false,
-        calledName: 'controlCityOnTap',
+        callerName: 'controlCityOnTap',
+        notify: true,
       );
       _searchProvider.triggerIsSearching(
         searchingModel: SearchingModel.city,
         setIsSearchingTo: false,
+        notify: false,
       );
 
-      _zoneProvider.clearAllSearchesAndSelections();
-      _searchProvider.closeAllZoneSearches();
+      _zoneProvider.clearAllSearchesAndSelections(
+        notify: true,
+      );
+      _searchProvider.closeAllZoneSearches(
+        notify: true,
+      );
 
       Nav.goBackToHomeScreen(context);
     }
@@ -382,6 +424,7 @@ Future<void> controlCitySearch({
     await _zoneProvider.getSetSearchedCities(
       context: context,
       input: TextMod.fixCountryName(searchText),
+      notify: true,
     );
 
   }
@@ -398,21 +441,31 @@ void controlCityScreenOnBack(BuildContext context){
   _searchProvider.triggerIsSearching(
     searchingModel: SearchingModel.city,
     setIsSearchingTo: false,
+    notify: false,
   );
 
   /// CLOSE SEARCH
   _searchProvider.triggerIsSearching(
     searchingModel: SearchingModel.district,
     setIsSearchingTo: false,
+    notify: true,
   );
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-  _zoneProvider.clearSelectedCountryCities();
-  _zoneProvider.clearSearchedCities();
+  _zoneProvider.clearSelectedCountryCities(
+    notify: false,
+  );
+  _zoneProvider.clearSearchedCities(
+    notify: false,
+  );
 
-  _zoneProvider.clearSelectedCityDistricts();
-  _zoneProvider.clearSearchedDistricts();
+  _zoneProvider.clearSelectedCityDistricts(
+    notify: false,
+  );
+  _zoneProvider.clearSearchedDistricts(
+    notify: true,
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -430,14 +483,19 @@ Future<void> initializeSelectDistrictScreen({
 
   _uiProvider.triggerLoading(
     setLoadingTo: true,
-    calledName: 'initializeSelectDistrictScreen',
+    callerName: 'initializeSelectDistrictScreen',
+    notify: true,
   );
 
-  _zoneProvider.setSelectedCityDistricts(cityModel.districts);
+  _zoneProvider.setSelectedCityDistricts(
+    districts: cityModel.districts,
+    notify: true,
+  );
 
   _uiProvider.triggerLoading(
     setLoadingTo: false,
-    calledName: 'initializeSelectDistrictScreen',
+    callerName: 'initializeSelectDistrictScreen',
+    notify: true,
   );
 
 }
@@ -465,7 +523,11 @@ Future<void> controlDistrictOnTap({
   /// WHEN SEQUENCE IS TO SET CURRENT ZONE
   if (settingCurrentZone == true){
 
-    await _zoneProvider.getsetCurrentZoneAndCountryAndCity(context: context, zone: _zone);
+    await _zoneProvider.getsetCurrentZoneAndCountryAndCity(
+      context: context,
+      zone: _zone,
+      notify: true,
+    );
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
@@ -480,12 +542,17 @@ Future<void> controlDistrictOnTap({
   }
 
   _uiProvider.triggerLoading(
-      setLoadingTo: false,
-      calledName: 'controlDistrictOnTap',
+    setLoadingTo: false,
+    callerName: 'controlDistrictOnTap',
+    notify: true,
   );
 
-  _searchProvider.closeAllZoneSearches();
-  _zoneProvider.clearAllSearchesAndSelections();
+  _searchProvider.closeAllZoneSearches(
+    notify: true,
+  );
+  _zoneProvider.clearAllSearchesAndSelections(
+    notify: true,
+  );
 
   Nav.goBackToHomeScreen(context);
 
@@ -513,6 +580,7 @@ Future<void> controlDistrictSearch({
     _zoneProvider.getSetSearchedDistricts(
       context: context,
       textInput: TextMod.fixCountryName(searchText),
+      notify: true,
     );
 
   }
@@ -530,13 +598,18 @@ void controlDistrictScreenOnBack(BuildContext context){
   _searchProvider.triggerIsSearching(
     searchingModel: SearchingModel.district,
     setIsSearchingTo: false,
+    notify: true,
   );
 
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-  _zoneProvider.clearSelectedCityDistricts();
-  _zoneProvider.clearSearchedDistricts();
+  _zoneProvider.clearSelectedCityDistricts(
+    notify: false,
+  );
+  _zoneProvider.clearSearchedDistricts(
+    notify: true,
+  );
 
 }
 // -----------------------------------------------------------------------------

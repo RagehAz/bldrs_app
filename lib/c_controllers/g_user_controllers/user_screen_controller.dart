@@ -435,22 +435,22 @@ Future<void> _onSignOut(BuildContext context) async {
 
   /// CLEAR FLYERS
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  _flyersProvider.clearSavedFlyers();
-  _flyersProvider.clearPromotedFlyers();
-  _flyersProvider.clearWallFlyers();
-  _flyersProvider.clearLastWallFlyer();
+  _flyersProvider.clearSavedFlyers(notify: false);
+  _flyersProvider.clearPromotedFlyers(notify: false);
+  _flyersProvider.clearWallFlyers(notify: false);
+  _flyersProvider.clearLastWallFlyer(notify: true);
 
   /// CLEAR SEARCHES
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-  _searchProvider.clearSearchResult();
-  _searchProvider.clearSearchRecords();
-  _searchProvider.closeAllZoneSearches();
+  _searchProvider.clearSearchResult(notify: false);
+  _searchProvider.clearSearchRecords(notify: false);
+  _searchProvider.closeAllZoneSearches(notify: true);
 
   /// CLEAR KEYWORDS
   final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
   // _keywordsProvider.clearKeywordsChain();
-  _keywordsProvider.clearCurrentKeyword();
-  _keywordsProvider.clearCurrentSection();
+  _keywordsProvider.clearCurrentKeyword(notify: false);
+  _keywordsProvider.clearCurrentSection(notify: true);
 
   /// CLEAR BZZ
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -468,15 +468,15 @@ Future<void> _onSignOut(BuildContext context) async {
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
   // _zoneProvider.clearAllSearchesAndSelections();
-  _zoneProvider.clearCurrentContinent();
-  _zoneProvider.clearUserCountryModel();
-  _zoneProvider.clearCurrentZoneAndCurrentCountryAndCurrentCity();
-  _zoneProvider.clearCurrentCurrencyAndAllCurrencies();
-  _zoneProvider.clearSearchedCountries();
-  _zoneProvider.clearSelectedCountryCities();
-  _zoneProvider.clearSearchedCities();
-  _zoneProvider.clearSelectedCityDistricts();
-  _zoneProvider.clearSearchedDistricts();
+  _zoneProvider.clearCurrentContinent(notify: false);
+  _zoneProvider.clearUserCountryModel(notify: false);
+  _zoneProvider.clearCurrentZoneAndCurrentCountryAndCurrentCity(notify: false);
+  _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
+  _zoneProvider.clearSearchedCountries(notify: false);
+  _zoneProvider.clearSelectedCountryCities(notify: false);
+  _zoneProvider.clearSearchedCities(notify: false);
+  _zoneProvider.clearSelectedCityDistricts(notify: false);
+  _zoneProvider.clearSearchedDistricts(notify: true);
 
   await FireAuthOps.signOut(
       context: context,
@@ -501,9 +501,19 @@ Future<void> onImportDeviceContactsTap(BuildContext context) async {
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  _uiProvider.triggerLoading(setLoadingTo: true, calledName: 'onImportDeviceContactsTap');
+  _uiProvider.triggerLoading(
+    callerName: 'onImportDeviceContactsTap',
+    setLoadingTo: true,
+    notify: true,
+  );
+
   final List<Contact> _deviceContacts = await getDeviceContactsOps(context);
-  _uiProvider.triggerLoading(setLoadingTo: false, calledName: 'onImportDeviceContactsTap');
+
+  _uiProvider.triggerLoading(
+    callerName: 'onImportDeviceContactsTap',
+    setLoadingTo: false,
+    notify: true,
+  );
 
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
   _usersProvider.setMyDeviceContacts(_deviceContacts);

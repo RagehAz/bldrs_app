@@ -426,7 +426,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(
                     setLoadingTo: true,
-                    calledName: 'TestLab',
+                    callerName: 'TestLab',
+                    notify: true
                 );
 
                 final String _appVersion = await AppStateOps.getAppVersion();
@@ -443,7 +444,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 _uiProvider.triggerLoading(
                   setLoadingTo: false,
-                  calledName: 'TestLab',
+                  callerName: 'TestLab',
+                  notify: true,
                 );
 
               }),
