@@ -719,7 +719,7 @@ class ZoneProvider extends ChangeNotifier {
    */
   Future<void> getSetActiveCountriesPhrases({
     @required BuildContext context,
-    @required bool notify,
+    // @required bool notify,
   }) async {
 
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
