@@ -132,7 +132,7 @@ Future<void> confirmEdits({
           userModel: _uploadedUserModel,
         );
 
-        await setUserModelLocally(
+        await setUserAndAuthModelsLocally(
           context: context,
           authModel: _authModel,
         );

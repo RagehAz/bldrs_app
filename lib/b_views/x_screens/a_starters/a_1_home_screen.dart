@@ -52,15 +52,15 @@ class _HomeScreenState extends State<HomeScreen> {
         await _triggerLoading();
       });
 
-    }
     _isInit = false;
+    }
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose();
-    _loading.dispose();
+    if (_loading != null){_loading.dispose();}
   }
 // -----------------------------------------------------------------------------
   @override

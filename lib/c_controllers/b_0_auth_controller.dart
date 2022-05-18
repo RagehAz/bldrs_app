@@ -177,7 +177,7 @@ Future<void> _controlAuthResult({
   /// B2. IF AUTH SUCCEEDS
   else {
 
-    await setUserModelLocally(
+    await setUserAndAuthModelsLocally(
       context: context,
       authModel: authModel,
     );
@@ -217,7 +217,7 @@ Future<void> _controlAuthFailure({
 
 }
 // ------------------------------------------------------
-Future<void> setUserModelLocally({
+Future<void> setUserAndAuthModelsLocally({
   @required BuildContext context,
   @required AuthModel authModel,
 }) async {
@@ -244,6 +244,7 @@ Future<void> setUserModelLocally({
     notify: false,
   );
 
+  /// TASK : SHOULD SAVE AUTH MODEL ON LDB TO HAVE IT WHEN USER CLOSES AND REOPENS THE APP
   _usersProvider.setMyAuthModel(
     authModel: authModel,
     notify: true,
