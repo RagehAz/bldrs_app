@@ -11,13 +11,29 @@ class UserLDBOps {
 
   /// CREATE
 
-// ----------------------------------------
+// ---------------------------------
+  static Future<void> insertUserModel(UserModel userModel) async {
 
+    if (userModel != null){
+
+      final String _primaryKey = LDBOps.getPrimaryKey(LDBDoc.users);
+
+      await LDBOps.insertMap(
+          primaryKey: _primaryKey,
+          docName: LDBDoc.users,
+          input: userModel.toMap(
+              toJSON: true,
+          ),
+      );
+
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// READ
 
-// ----------------------------------------
+// ---------------------------------
   static Future<UserModel> readUserOps({
   @required String userID,
 }) async {
@@ -44,7 +60,23 @@ class UserLDBOps {
 
   /// UPDATE
 
-// ----------------------------------------
+// ---------------------------------
+  static Future<void> updateUserModel(UserModel userModel) async {
+
+    if (userModel != null){
+
+      await LDBOps.updateMap(
+          objectID: userModel.id,
+          docName: LDBDoc.users,
+          input: userModel.toMap(
+              toJSON: true,
+          ),
+      );
+
+    }
+
+  }
+// ---------------------------------
   static Future<void> addBzIDToMyBzzIDs({
     @required String bzIDToAdd,
     @required UserModel userModel,
@@ -61,7 +93,7 @@ class UserLDBOps {
     );
 
   }
-// ----------------------------------------
+// ---------------------------------
   static Future<void> removeBzIDFromMyBzIDs({
     @required String bzIDToRemove,
     @required UserModel userModel,
@@ -97,7 +129,7 @@ class UserLDBOps {
 
   /// DELETE
 
-// ----------------------------------------
+// ---------------------------------
   static Future<void> deleteUserOps(String userID) async {
 
     await LDBOps.deleteMap(

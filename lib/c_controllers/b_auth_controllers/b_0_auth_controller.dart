@@ -14,6 +14,8 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -164,7 +166,7 @@ Future<void> authByEmailRegister({
 // ------------------------------------------------------
 Future<void> _controlAuthResult({
   @required BuildContext context,
-@required AuthModel authModel,
+  @required AuthModel authModel,
 }) async {
 
   /// B1. IF AUTH FAILS
@@ -178,26 +180,11 @@ Future<void> _controlAuthResult({
   /// B2. IF AUTH SUCCEEDS
   else {
 
-    await setUserAndAuthModelsLocallyAndOnLDB(
-      context: context,
-      authModel: authModel,
-    );
+    /// INSERT AUTH AND USER MODEL IN LDB
+    await AuthLDBOps.updateUserModel(authModel);
+    await UserLDBOps.updateUserModel(authModel.userModel);
 
-    final bool _thereAreMissingFields = UserModel.thereAreMissingFields(authModel.userModel);
-
-    /// B. USER MODEL REQUIRED FIELDS ARE MISSING
-    if (_thereAreMissingFields == true){
-      await _controlMissingFieldsCase(
-          context: context,
-          authModel: authModel,
-      );
-    }
-
-    /// C. ALL USER MODEL REQUIRED FIELDS ARE COMPLETE
-    else {
-
-      await _goToLogoScreen(context);
-    }
+    await _goToLogoScreen(context);
 
   }
 
@@ -218,6 +205,7 @@ Future<void> _controlAuthFailure({
 
 }
 // ------------------------------------------------------
+/*
 Future<void> setUserAndAuthModelsLocallyAndOnLDB({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -304,6 +292,7 @@ Future<void> showMissingFieldsDialog({
   );
 
 }
+*/
 // ------------------------------------------------------
 Future<void> _goToLogoScreen(BuildContext context) async {
   await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);

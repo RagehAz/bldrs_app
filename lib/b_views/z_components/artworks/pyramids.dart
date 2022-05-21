@@ -62,13 +62,13 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
           onDoubleTap: () async {
 
 
-            if (_userModel?.isAdmin == true){
+            // if (_userModel?.isAdmin == true){
               await goToNewScreen(
                 context: context,
                 screen: const BldrsDashBoard(),
               );
 
-            }
+            // }
 
           },
           child: Selector<UiProvider, bool>(

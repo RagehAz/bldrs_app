@@ -95,7 +95,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         );
 
         _selectedDistrict.value = DistrictModel.getDistrictFromDistricts(
-            districts: _selectedCity.value.districts,
+            districts: _selectedCity.value?.districts,
             districtID: _selectedZone.districtID,
         );
 

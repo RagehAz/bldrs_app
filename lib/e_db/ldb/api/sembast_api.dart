@@ -172,7 +172,7 @@ class Sembast  {
     return _maps;
   }
 // ---------------------------------------------------
-  /// TESTED : WORKS PERFECT
+  /// TESTED : WORKS PERFECT : TASK : THIS METHOD IS VERY SLOW IN FETCHING PHRASES
   static Future<List<Map<String, Object>>> readAll({
     @required String docName,
   }) async {
@@ -325,8 +325,13 @@ class Sembast  {
     @required String searchPrimaryKey,
     @required String docName,
   }) async {
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+
+      /// SHOULD INSERT A NEW RECORD IF NOT FOUND
+
     final Database _db = await _getDB();
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName,
+    );
 
     final Finder _finder = Finder(
         filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
@@ -337,6 +342,8 @@ class Sembast  {
       map,
       finder: _finder,
     );
+
+    blog('SEMBAST : update : result : result');
 
     return result;
   }

@@ -3,16 +3,24 @@ import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
+import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,24 +49,140 @@ Future<void> initializeLogoScreen({
 
 }
 // -----------------------------------------------------------------------------
+
+/// USER & AUTH MODELS INITIALIZATION
+
+// ---------------------------------
 Future<void> _initializeUserModel(BuildContext context) async {
 
-  /// TASK : NEED TO CHECK IF ALL USER MODEL REQUIRED FIELDS ARE NOT EMPTY
-
+  /// IF USER IS SIGNED IN
   if (AuthModel.userIsSignedIn() == true) {
 
-    final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
-    final UserModel _myUserModel = _userProvider.myUserModel;
+  final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 
-    if (_myUserModel == null){
+  // if (_authModel?.userModel != null){
 
-      await _userProvider.getsetMyUserModelAndCountryAndCity(context);
+    final bool _thereAreMissingFields = UserModel.thereAreMissingFields(_authModel?.userModel);
+
+    /// MISSING FIELDS FOUND
+    if (_thereAreMissingFields == true){
+
+      await _controlMissingFieldsCase(
+        context: context,
+        authModel: _authModel,
+      );
 
     }
 
+    /// NO MISSING FIELDS FOUND
+    else {
+
+      await setUserAndAuthAndCountryAndCityModelsLocally(
+        context: context,
+        authModel: _authModel,
+      );
+
+    }
+
+  // }
+
   }
+
+  /// IF USER IS NOT SIGNED IN
+  // else {
+  /// WILL CONTINUE NORMALLY AS ANONYMOUS
+  // }
+
 }
+// ---------------------------------
+Future<void> setUserAndAuthAndCountryAndCityModelsLocally({
+  @required BuildContext context,
+  @required AuthModel authModel,
+}) async {
+
+  final UserModel _userModel = authModel.userModel;
+
+  /// B.3 - so sign in succeeded returning a userModel, then set it in provider
+  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(
+      context: context,
+      countryID: _userModel.zone.countryID
+  );
+
+  final CityModel _userCity = await _zoneProvider.fetchCityByID(
+      context: context,
+      cityID: _userModel.zone.cityID
+  );
+
+  _usersProvider.setMyUserModelAndCountryAndCity(
+    userModel: _userModel,
+    countryModel: _userCountry,
+    cityModel: _userCity,
+    notify: false,
+  );
+
+  _usersProvider.setMyAuthModel(
+    authModel: authModel,
+    notify: true,
+  );
+
+  /// INSERT AUTH AND USER MODEL IN LDB
+  await AuthLDBOps.updateAuthModel(authModel);
+  await UserLDBOps.updateUserModel(authModel.userModel);
+
+}
+// ---------------------------------
+Future<void> _controlMissingFieldsCase({
+  @required BuildContext context,
+  @required AuthModel authModel,
+}) async {
+
+  await showMissingFieldsDialog(
+    context: context,
+    userModel: authModel?.userModel,
+  );
+
+  await Nav.goToNewScreen(
+      context: context,
+      screen: EditProfileScreen(
+        userModel: authModel.userModel,
+        onFinish: () async {
+
+          await _goToLogoScreen(context);
+
+        },
+      )
+
+  );
+
+}
+// ---------------------------------
+Future<void> showMissingFieldsDialog({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  final List<String> _missingFields = UserModel.missingFields(userModel);
+  final String _missingFieldsString = TextGen.generateStringFromStrings(
+    strings: _missingFields,
+  );
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Complete Your profile',
+    body:
+    'Required fields :\n'
+        '$_missingFieldsString',
+  );
+
+}
+
 // -----------------------------------------------------------------------------
+
+/// APP STATE INITIALIZATION
+
+// ---------------------------------
 Future<void> _initializeAppState(BuildContext context) async {
 
   final AppState _globalState = await AppStateOps.readGlobalAppState(context);
@@ -149,7 +273,7 @@ Future<void> _initializeAppState(BuildContext context) async {
   }
 
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> _showUpdateAppDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
@@ -163,11 +287,19 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
 }
 // -----------------------------------------------------------------------------
+
+/// LOCAL ASSETS PATHS INITIALIZATION
+
+// ---------------------------------
 Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   await _uiProvider.getSetLocalAssetsPaths(notify: true);
 }
 // -----------------------------------------------------------------------------
+
+/// APP LANGUAGE INITIALIZATION
+
+// ---------------------------------
 Future<void> _initializeAppLanguage(BuildContext context) async {
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -175,5 +307,11 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
     context: context,
   );
 
+}
+// -----------------------------------------------------------------------------
+
+// ---------------------------------
+Future<void> _goToLogoScreen(BuildContext context) async {
+  await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
 }
 // -----------------------------------------------------------------------------

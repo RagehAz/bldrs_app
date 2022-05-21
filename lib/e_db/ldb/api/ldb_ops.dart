@@ -32,6 +32,7 @@ String getPrimaryKey(String docName) {
     case LDBDoc.basicPhrases: return 'primaryKey'; /// TASK : WTF
     case LDBDoc.countriesPhrases: return 'primaryKey'; /// TASK : WTF
     case LDBDoc.appState: return 'id';
+    case LDBDoc.authModel: return 'uid';
     default: return null;
   }
 }
