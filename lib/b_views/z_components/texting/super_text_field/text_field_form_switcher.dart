@@ -202,7 +202,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         /// functions
         onTap: onTap,
         onChanged: (String val) => onChanged(val),
-        onFieldSubmitted: (String val) => onSubmitted(val),
+        onFieldSubmitted: onSubmitted == null ? null : (String val) => onSubmitted(val),
         onSaved: (String val) => onSavedForForm(val),
         onEditingComplete: onEditingComplete,
         validator: validator,

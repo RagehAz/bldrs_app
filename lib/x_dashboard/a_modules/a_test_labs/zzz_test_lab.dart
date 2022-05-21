@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/user/newAuthModel.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -417,10 +417,36 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               icon: Iconz.dvGouran,
               onTap: () async {
 
-                final NewAuthModel _model = NewAuthModel.testModel(context);
+                final AuthModel _model = AuthModel.testModel(context);
 
-                _model.blogAuthModel();
 
+                final Map<String, dynamic> _map = _model.toMap(toJSON: false);
+
+                // blog(_map['userModel']['createdAt'].runtimeType);
+
+                final AuthModel _remodel = AuthModel.decipherAuthModel(
+                    map: _map,
+                    fromJSON: false,
+                );
+
+                _remodel.blogAuthModel();
+
+                // final UserModel _user = UserModel.dummyUserModel(context);
+                //
+                // _user.blogUserModel();
+                //
+                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+                //
+                // final Map<String, dynamic> _map = _user.toMap(toJSON: false);
+                //
+                // blogMap(_map);
+                //
+                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+                // final UserModel _reUser = UserModel.decipherUserMap(map: _map, fromJSON: false);
+                //
+                // _reUser.blogUserModel();
+                //
+                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
               }
               ),
 

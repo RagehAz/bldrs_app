@@ -107,20 +107,20 @@ Future<AuthModel> signInByEmailAndPassword({
   @required String email,
   @required String password,
 }) async {
-
-  final AuthModel _authModel = AuthModel();
-
+  // -----------------------------
+  AuthModel _authModel = AuthModel();
+  UserCredential _userCredential;
+  String _authError;
+  // -----------------------------
   /// try sign in and check result
-  _authModel.authSucceeds = await tryCatchAndReturnBool(
+  final bool _authSucceeds = await tryCatchAndReturnBool(
       context: context,
       methodName: 'signInByEmailAndPassword',
       functions: () async {
 
-        _authModel.firebaseAuth = FirebaseAuth?.instance;
+        final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
 
-        _authModel.userCredential = await _authModel
-            .firebaseAuth
-            .signInWithEmailAndPassword(
+        _userCredential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email.trim(),
           password: password,
         );
@@ -128,20 +128,29 @@ Future<AuthModel> signInByEmailAndPassword({
       },
 
       onError: (String error) async {
-        _authModel.authError = error;
+        _authError = error;
       }
 
   );
-
+  // -----------------------------
+  _authModel = AuthModel.create(
+    authSucceeds: _authSucceeds,
+    authError: _authError,
+    userCredential: _userCredential,
+  );
+  // -----------------------------
   /// READ USER MODEL IF AUTH SUCCEEDS
   if (_authModel.authSucceeds == true) {
 
     /// read user ops
-    _authModel.userModel = await UserFireOps.readUser(
+    final UserModel _userModel = await UserFireOps.readUser(
         context: context,
-        userID: _authModel.userCredential.user.uid,
+        userID: _authModel.uid,
     );
 
+    _authModel = _authModel.copyWith(
+      userModel: _userModel,
+    );
   }
 
   _authModel.blogAuthModel(methodName: 'signInByEmailAndPassword');
@@ -156,52 +165,62 @@ Future<AuthModel> registerByEmailAndPassword({
   @required String email,
   @required String password,
 }) async {
-
-  final AuthModel _authModel = AuthModel();
-
+  // -----------------------------
+  AuthModel _authModel = AuthModel();
+  UserCredential _userCredential;
+  String _authError;
+  // -----------------------------
   /// try register and check result
-  _authModel.authSucceeds = await tryCatchAndReturnBool(
+  final bool _authSucceeds = await tryCatchAndReturnBool(
       context: context,
       methodName: 'registerByEmailAndPassword',
       functions: () async {
 
-        _authModel.firebaseAuth = FirebaseAuth?.instance;
+        final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
 
-        _authModel.userCredential = await _authModel
-            .firebaseAuth
-            .createUserWithEmailAndPassword(
+        _userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email.trim(),
           password: password,
         );
 
         },
       onError: (String error) async {
-        _authModel.authError = error;
+        _authError = error;
       }
 
       );
-
-  _authModel.blogAuthModel(methodName: 'registerByEmailAndPassword');
-
+  // -----------------------------
+  _authModel = AuthModel.create(
+    authSucceeds: _authSucceeds,
+    authError: _authError,
+    userCredential: _userCredential,
+  );
+  // -----------------------------
   /// CREATE USER MODEL IS AUTH SUCCEEDS
   if (_authModel.authSucceeds == true) {
 
     final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
       context: context,
-      user: _authModel.userCredential.user,
+      user: _userCredential.user,
       zone: currentZone,
       authBy: AuthType.emailSignIn,
     );
 
     /// create a new firestore document for the user with the userID
-    _authModel.userModel = await UserFireOps.createUser(
+    final UserModel _uploadedUserModel = await UserFireOps.createUser(
       context: context,
       userModel: _initialUserModel,
       authBy: AuthType.emailSignIn,
     );
 
-  }
+    _authModel = _authModel.copyWith(
+      userModel: _uploadedUserModel,
+    );
 
+  }
+  // -----------------------------
+  _authModel.blogAuthModel(methodName: 'registerByEmailAndPassword');
+  // -----------------------------
   return _authModel;
 }
 // ---------------------------------------
@@ -225,35 +244,33 @@ Future<AuthModel> signInByFacebook({
   ///   xx - return firebase user : if auth succeeds
   ///      E - get Or Create UserModel From User
   // ----------
-
-  final AuthModel _authModel = AuthModel();
-
+  AuthModel _authModel = AuthModel();
+  LoginResult _facebookLoginResult;
+  UserCredential _userCredential;
+  String _authError;
+  FacebookAuthCredential _facebookAuthCredential;
   /// X1 - try get firebase user or return error
   // -------------------------------------------------------
   /// xx - try catch return facebook auth
-  _authModel.authSucceeds = await tryCatchAndReturnBool(
+  final bool _authSucceeds = await tryCatchAndReturnBool(
       context: context,
       methodName: 'signInByFacebook',
       functions: () async {
 
-        _authModel.firebaseAuth = FirebaseAuth?.instance;
+        final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
 
         /// get [accessToken]
-        _authModel.facebookLoginResult = await FacebookAuth.instance.login();
-        final AccessToken _accessToken = _authModel.facebookLoginResult?.accessToken;
+        _facebookLoginResult = await FacebookAuth.instance.login();
+        final AccessToken _accessToken = _facebookLoginResult?.accessToken;
 
         /// IF COULD LOGIN BY FACEBOOK
         if (_accessToken != null) {
 
           /// C - Create [credential] from the [access token]
-          _authModel.facebookAuthCredential = FacebookAuthProvider
-              .credential(_accessToken.token,);
-
+          _facebookAuthCredential = FacebookAuthProvider.credential(_accessToken.token);
 
           /// D - get [user credential] by [credential]
-          _authModel.userCredential = await _authModel
-              .firebaseAuth
-              .signInWithCredential(_authModel.authCredential);
+          _userCredential = await _firebaseAuth.signInWithCredential(_facebookAuthCredential);
 
         }
 
@@ -265,20 +282,32 @@ Future<AuthModel> signInByFacebook({
       },
 
       onError: (String error) async {
-        _authModel.authError = error;
+        _authError = error;
       }
   );
+  // -----------------------------
+  _authModel = AuthModel.create(
+    authSucceeds: _authSucceeds,
+    authError: _authError,
+    userCredential: _userCredential,
+    facebookLoginResult: _facebookLoginResult,
+    facebookAuthCredential: _facebookAuthCredential,
 
-
+  );
+  // -----------------------------
   /// xx - return firebase user : if auth succeeds
   if (_authModel.authSucceeds == true) {
 
     /// E - get Or Create UserModel From User
-    _authModel.userModel = await UserFireOps.getOrCreateUserModelFromUser(
+    final UserModel _userModel = await UserFireOps.getOrCreateUserModelFromUser(
       context: context,
       zone: currentZone,
-      user: _authModel.userCredential.user,
+      user: _userCredential.user,
       authBy: AuthType.facebook,
+    );
+
+    _authModel = _authModel.copyWith(
+      userModel: _userModel,
     );
 
   }
@@ -292,28 +321,32 @@ Future<AuthModel> signInByGoogle({
   @required ZoneModel currentZone,
 }) async {
 
-  final AuthModel _authModel = AuthModel();
-
+  AuthModel _authModel = AuthModel();
+  UserCredential _userCredential;
+  String _authError;
+  GoogleAuthProvider _googleAuthProvider;
+  GoogleSignIn _googleSignIn;
+  GoogleSignInAccount _googleSignInAccount;
+  GoogleSignInAuthentication _googleSignInAuthentication;
+  AuthCredential _authCredential;
   /// X1 - try get firebase user or return error
   // -------------------------------------------------------
   /// xx - try catch return google auth
-  _authModel.authSucceeds = await tryCatchAndReturnBool(
+  final bool _authSucceeds = await tryCatchAndReturnBool(
       context: context,
       methodName: 'signInByGoogle',
       functions: () async {
 
-        _authModel.firebaseAuth = FirebaseAuth?.instance;
+        final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
 
         /// A - if on web
         if (kIsWeb) {
 
           /// B - get [auth provider]
-          _authModel.googleAuthProvider = GoogleAuthProvider();
+          _googleAuthProvider = GoogleAuthProvider();
 
           /// C - get [user credential] from [auth provider]
-          _authModel.userCredential = await _authModel
-              .firebaseAuth
-              .signInWithPopup(_authModel.googleAuthProvider);
+          _userCredential = await _firebaseAuth.signInWithPopup(_googleAuthProvider);
 
         }
 
@@ -321,30 +354,24 @@ Future<AuthModel> signInByGoogle({
         else {
 
           /// google sign in instance
-          _authModel.googleSignIn = GoogleSignIn();
+          _googleSignIn = GoogleSignIn();
 
           /// B - get [google sign in account]
-          _authModel.googleSignInAccount = await _authModel
-              .googleSignIn
-              .signIn();
+          _googleSignInAccount = await _googleSignIn.signIn();
 
-          if (_authModel.googleSignInAccount != null) {
+          if (_googleSignInAccount != null) {
 
             /// B - get [google sign in auth] from [google sign in account]
-            _authModel.googleSignInAuthentication = await _authModel
-                .googleSignInAccount
-                .authentication;
+            _googleSignInAuthentication = await _googleSignInAccount.authentication;
 
             /// B - get [auth credential] from [google sign in auth]
-            _authModel.authCredential = GoogleAuthProvider.credential(
-              accessToken: _authModel.googleSignInAuthentication.accessToken,
-              idToken: _authModel.googleSignInAuthentication.idToken,
+            _authCredential = GoogleAuthProvider.credential(
+              accessToken: _googleSignInAuthentication.accessToken,
+              idToken: _googleSignInAuthentication.idToken,
             );
 
             /// C - get [user credential] from [auth credential]
-            _authModel.userCredential = await _authModel
-                .firebaseAuth
-                .signInWithCredential(_authModel.authCredential);
+            _userCredential = await _firebaseAuth.signInWithCredential(_authCredential);
 
           }
 
@@ -352,10 +379,21 @@ Future<AuthModel> signInByGoogle({
 
         },
       onError: (String error) async {
-        _authModel.authError = error;
+        _authError = error;
       }
       );
-
+  // -----------------------------
+  _authModel = AuthModel.create(
+    authSucceeds: _authSucceeds,
+    authError: _authError,
+    userCredential: _userCredential,
+    googleAuthProvider: _googleAuthProvider,
+    googleSignIn: _googleSignIn,
+    googleSignInAccount: _googleSignInAccount,
+    googleSignInAuthentication: _googleSignInAuthentication,
+    authCredential: _authCredential,
+  );
+  // -----------------------------
   /// GET USER MODEL IF AUTH SUCCEEDS
   if (_authModel.authSucceeds == true) {
 
@@ -363,14 +401,14 @@ Future<AuthModel> signInByGoogle({
     _authModel.userModel = await UserFireOps.getOrCreateUserModelFromUser(
       context: context,
       zone: currentZone,
-      user: _authModel.userCredential.user,
+      user: _userCredential.user,
       authBy: AuthType.google,
     );
 
   }
-
+  // -----------------------------
   _authModel.blogAuthModel(methodName: 'signInByGoogle');
-
+  // -----------------------------
   return _authModel;
 }
 // ---------------------------------------
