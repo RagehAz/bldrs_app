@@ -76,7 +76,7 @@ class ConvertibleQuestionHeaderStripPart extends StatelessWidget {
           userModel: userModel,
           loading: false,
           shadowIsOn: false,
-          balloonType: userModel.status,
+          balloonType: userModel?.status,
         ),
 
         /// MIDDLE SPACER

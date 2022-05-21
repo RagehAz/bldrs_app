@@ -36,7 +36,7 @@ class MaxHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final String _bzScope = bzModel != null ? bzModel.scope : '';
+    final List<String> _bzScope = bzModel != null ? bzModel.scope : <String>[];
 // -----------------------------------------------------------------------------
     final List<AuthorModel> _bzAuthors =
     bzModel != null ? bzModel?.authors : <AuthorModel>[];
