@@ -20,18 +20,15 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 
-
 class SpecializedLabs extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const SpecializedLabs({
     Key key
   }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    final double _screenWidth = Scale.superScreenWidth(context);
-    // final double _screenHeight = Scale.superScreenHeight(context);
+  /// --------------------------------------------------------------------------
+  static const double height = 120;
+// -----------------------------------------------------------------------------
+  List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
 
@@ -44,9 +41,9 @@ class SpecializedLabs extends StatelessWidget {
 
       /// SEMBAST TESTER
       DashButtonModel(
-          verse: 'SEMBAST',
-          icon: Iconz.terms,
-          screen: const SembastReaderTestScreen(),
+        verse: 'SEMBAST',
+        icon: Iconz.terms,
+        screen: const SembastReaderTestScreen(),
       ),
 
       /// ASKS
@@ -142,9 +139,19 @@ class SpecializedLabs extends StatelessWidget {
 
     ];
 
+    return _buttons;
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final double _screenWidth = Scale.superScreenWidth(context);
+    // final double _screenHeight = Scale.superScreenHeight(context);
+    final List<DashButtonModel> _buttons = _generateButtonsModels(context);
+
     return Container(
       width: _screenWidth,
-      height: 120,
+      height: height,
       color: Colorz.bloodTest,
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),
@@ -167,4 +174,5 @@ class SpecializedLabs extends StatelessWidget {
       ),
     );
   }
+
 }
