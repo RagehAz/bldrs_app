@@ -12,7 +12,7 @@ class BzPgFields extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final String bzScope;
+  final List<String> bzScope;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,22 +38,24 @@ class BzPgFields extends StatelessWidget {
               maxLines: 2,
             ),
 
-            Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runAlignment: WrapAlignment.center,
-                children: bzScope == '' ?
-                <Widget>[Container()]
-                    :
-                List<Widget>.generate(1, (int index) {
-                  return SuperVerse(
-                    verse: bzScope,
-                    labelColor: Colorz.white50,
-                    margin: flyerBoxWidth * 0.02 * 0,
-                  );
-                }
-                )
-            ),
+            /// TASK : ADD BZ SCOPE TO BZ PAGE
+            // Wrap(
+            //     alignment: WrapAlignment.center,
+            //     crossAxisAlignment: WrapCrossAlignment.center,
+            //     runAlignment: WrapAlignment.center,
+            //     children: bzScope == '' ?
+            //     <Widget>[Container()]
+            //         :
+            //     List<Widget>.generate(1, (int index) {
+            //       return SuperVerse(
+            //         verse: bzScope,
+            //         labelColor: Colorz.white50,
+            //         margin: flyerBoxWidth * 0.02 * 0,
+            //       );
+            //     }
+            //     )
+            // ),
+
           ],
         ),
       ),

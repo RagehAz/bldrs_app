@@ -65,7 +65,10 @@ class UserBalloon extends StatelessWidget {
               height: size * 0.4,
               width: size * 0.4,
               icon: Iconz.bz,
+              iconSizeFactor: 0.8,
               bubble: false,
+              color: Colorz.black125,
+              corners: size * 0.2,
             ),
           ),
 

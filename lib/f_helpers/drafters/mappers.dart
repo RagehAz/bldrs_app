@@ -494,6 +494,7 @@ bool canLoopList(List<dynamic> list) {
   return _canLoop;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 bool mapsAreTheSame({
   Map<String, dynamic> map1,
   Map<String, dynamic> map2,
@@ -666,6 +667,7 @@ bool stringsContainString({
 /// BLOGGING MAPS
 
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 void blogMap(Map<dynamic, dynamic> map) {
   blog('MAP-PRINT --------------------------------------------------START');
 
@@ -684,6 +686,7 @@ void blogMap(Map<dynamic, dynamic> map) {
   blog('MAP-PRINT --------------------------------------------------END');
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 void blogMaps(List<Map<dynamic, dynamic>> maps) {
   if (canLoopList(maps)) {
     for (final Map<dynamic, dynamic> map in maps) {
@@ -692,3 +695,23 @@ void blogMaps(List<Map<dynamic, dynamic>> maps) {
   }
 }
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
+List<double> getDoublesFromDynamics(List<dynamic> dynamics){
+
+  final List<double> _output = <double>[];
+
+  if (canLoopList(dynamics) == true){
+
+    for (final dynamic dyn in dynamics){
+
+      if (dyn is double){
+        final double _double = dyn;
+        _output.add(_double);
+      }
+
+    }
+
+  }
+
+  return _output;
+}

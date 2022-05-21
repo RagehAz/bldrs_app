@@ -384,7 +384,7 @@ class UserModel {
 
 // -----------------------------------
   static String getUserJobLine(UserModel userModel){
-    return '${userModel.title} @ ${userModel.company}';
+    return userModel == null ? null : '${userModel?.title} @ ${userModel?.company}';
   }
 // -----------------------------------------------------------------------------
 

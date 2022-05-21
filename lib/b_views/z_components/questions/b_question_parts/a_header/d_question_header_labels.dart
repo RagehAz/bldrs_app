@@ -40,7 +40,7 @@ class QuestionHeaderLabels extends StatelessWidget {
             children: <Widget>[
 
               SuperVerse(
-                verse: userModel.name,
+                verse: userModel?.name,
                 scaleFactor: flyerBoxWidth * 0.0035,
                 size: 3,
               ),
