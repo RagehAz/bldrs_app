@@ -1,9 +1,8 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:flutter/material.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 
 class AuthLDBOps {
 
