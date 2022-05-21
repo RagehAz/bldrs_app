@@ -71,6 +71,7 @@ final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 /// CYPHERS
 
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 dynamic cipherTime({
   @required DateTime time,
   @required bool toJSON,
@@ -79,14 +80,28 @@ dynamic cipherTime({
   return _output;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 DateTime decipherTime({
   @required dynamic time,
   @required bool fromJSON,
 }){
-  final DateTime _output = fromJSON == true ? _decipherDateTimeIso8601(time) : time?.toDate();
+
+  blog('decipherTime : time : $time : type : ${time.runtimeType}');
+
+  final DateTime _output =
+  fromJSON == true ? _decipherDateTimeIso8601(time)
+      :
+  time?.runtimeType.toString() == 'Timestamp' ? time?.toDate()
+      :
+  time?.runtimeType.toString() == 'DateTime' ? time
+      :
+  time
+  ;
+
   return _output;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 List<dynamic> cipherTimes({
   @required List<DateTime> times,
   @required bool toJSON,
@@ -107,6 +122,7 @@ List<dynamic> cipherTimes({
   return _times;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 List<DateTime> decipherTimes({
   @required List<dynamic> times,
   @required bool fromJSON,
@@ -125,6 +141,7 @@ List<DateTime> decipherTimes({
   return _dateTimes;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 String _cipherDateTimeIso8601(DateTime dateTime){
   String _string;
 
@@ -135,6 +152,7 @@ String _cipherDateTimeIso8601(DateTime dateTime){
   return _string;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 DateTime _decipherDateTimeIso8601(String cipheredDateTimeIso8601){
   DateTime _time;
 
@@ -185,6 +203,7 @@ DateTime tempDecipherDateTimeString(String dateTimeString){
 /// STRING GENERATORS
 
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 String generateMonthNameByInt(BuildContext context, int month){
   switch (month){
     case 1    :    return  superPhrase(context, 'phid_january'); break;
@@ -201,7 +220,8 @@ String generateMonthNameByInt(BuildContext context, int month){
     default : return null;
   }
 }
-
+// -------------------------------------
+/// TESTED : WORKS PERFECT
 String generateDayName(BuildContext context, DateTime time){
   return DateFormat('EEEE').format(time);
 }

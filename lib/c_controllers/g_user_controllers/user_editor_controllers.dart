@@ -5,9 +5,11 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/c_controllers/b_0_auth_controller.dart';
+import 'package:bldrs/c_controllers/a_starters_controllers/a_0_logo_controller.dart';
+import 'package:bldrs/c_controllers/b_auth_controllers/b_0_auth_controller.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
+import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -127,12 +129,12 @@ Future<void> confirmEdits({
 
       if (_uploadedUserModel != null){
 
-        final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-        final AuthModel _authModel = _usersProvider.myAuthModel.copyWith(
+        final AuthModel _originalAuthModel = await AuthLDBOps.readAuthModel();
+        final AuthModel _authModel = _originalAuthModel.copyWith(
           userModel: _uploadedUserModel,
         );
 
-        await setUserAndAuthModelsLocallyAndOnLDB(
+        await setUserAndAuthAndCountryAndCityModelsLocally(
           context: context,
           authModel: _authModel,
         );
