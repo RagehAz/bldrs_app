@@ -325,6 +325,54 @@ Map<String, dynamic> getMapFromURLQuery({
 
   return _output;
 }
+
+// -------------------------------------
+/// TESTED : WORKS PERFECT
+Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic object){
+
+  Map<String, String> _output = {};
+
+  if (object != null){
+
+      blog('1 - FUCK : object ${object.runtimeType}');
+
+      if (object.runtimeType.toString() == 'ImmutableMap<String, Object?>'){
+
+        final Map _map =  object;
+        blog('3 - FUCK : _map : ${_map.runtimeType}');
+        final List<String> _keys = _map.keys.toList();
+
+        if (canLoopList(_keys) == true){
+
+          for (final String key in _keys){
+
+            final String _value = _map[key] is String ? _map[key] : _map[key].toString();
+
+            _output = _insertPairInMapWithStringValue(
+                map: _output,
+                key: key,
+                value: _value,
+            );
+
+          }
+
+        }
+
+      }
+
+      else {
+        blog('getStringStringMapFromImmutableMapStringObject : starts : is NOT IMMUTABLE MAP');
+      }
+
+  }
+
+  blog('4 - getStringStringMapFromImmutableMapStringObject : _output ${_output.runtimeType}');
+  blogMap(_output);
+
+  // assert(_output != null, 'DO NOT CONTINUE BITCH');
+
+  return _output;
+}
 // -----------------------------------------------------------------------------
 
 /// MAP IN MAPS INDEX CHECKERS
@@ -376,6 +424,23 @@ Map<String, dynamic> insertPairInMap({
 }) {
 
   Map<String, dynamic> _result = <String, dynamic>{};
+
+  if (map != null){
+    map.putIfAbsent(key, () => value);
+    _result = _result..addAll(map);
+  }
+
+  return _result;
+}
+// -------------------------------------
+/// TESTED : WORKS PERFECT
+Map<String, String> _insertPairInMapWithStringValue({
+  @required Map<String, String> map,
+  @required String key,
+  @required String value,
+}) {
+
+  Map<String, String> _result = <String, String>{};
 
   if (map != null){
     map.putIfAbsent(key, () => value);
@@ -601,22 +666,27 @@ bool stringsContainString({
 /// BLOGGING MAPS
 
 // -------------------------------------
-void blogMap(Map<String, dynamic> map) {
+void blogMap(Map<dynamic, dynamic> map) {
   blog('MAP-PRINT --------------------------------------------------START');
 
-  final List<String> _keys = map.keys.toList();
-  final List<dynamic> _values = map.values.toList();
+  if (map != null){
+    final List<dynamic> _keys = map.keys.toList();
+    final List<dynamic> _values = map.values.toList();
 
-  for (int i = 0; i < _keys.length; i++) {
-    blog('MAP-PRINT : ${_keys[i]} : ${_values[i]}');
+    for (int i = 0; i < _keys.length; i++) {
+      blog('MAP-PRINT : ${_keys[i]} : ${_values[i]}');
+    }
+  }
+  else {
+    blog('map is null : can not blog');
   }
 
   blog('MAP-PRINT --------------------------------------------------END');
 }
 // -------------------------------------
-void blogMaps(List<Map<String, dynamic>> maps) {
+void blogMaps(List<Map<dynamic, dynamic>> maps) {
   if (canLoopList(maps)) {
-    for (final Map<String, dynamic> map in maps) {
+    for (final Map<dynamic, dynamic> map in maps) {
       blogMap(map);
     }
   }

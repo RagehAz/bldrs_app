@@ -25,7 +25,7 @@
   const String countriesPhrases = 'countriesPhrases';
 
   const String appState = 'appState';
-  const String auth = 'auth';
+  const String authModel = 'authModel';
 
   const List<String> bzModelsDocs = <String>[
     bzz,
@@ -62,4 +62,5 @@
     basicPhrases,
     countriesPhrases,
     appState,
+    authModel,
   ];

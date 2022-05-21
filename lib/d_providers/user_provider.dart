@@ -116,11 +116,23 @@ class UsersProvider extends ChangeNotifier {
     final String _myUserID = FireAuthOps.superUserID();
 
     if (_myUserID != null) {
-      _userModel = await fetchUserByID(context: context, userID: _myUserID);
+
+      _userModel = await fetchUserByID(
+          context: context,
+          userID: _myUserID,
+      );
 
       final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-      _userCountry = await _zoneProvider.fetchCountryByID(context: context, countryID: _userModel.zone.countryID);
-      _userCity = await _zoneProvider.fetchCityByID(context: context, cityID: _userModel.zone.cityID);
+
+      _userCountry = await _zoneProvider.fetchCountryByID(
+          context: context,
+          countryID: _userModel.zone.countryID,
+      );
+
+      _userCity = await _zoneProvider.fetchCityByID(
+          context: context,
+          cityID: _userModel.zone.cityID,
+      );
 
       blog('_userCountry is ${_userCountry.id} ahoooooooooooooo');
       blog('_userCity is ${_userCity.cityID} ahoooooooooooooo');
