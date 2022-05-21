@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -17,11 +18,13 @@ class Trinity {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Matrix4 decipherMatrix(List<double> doubles){
+  static Matrix4 decipherMatrix(List<dynamic> doubles){
     Matrix4 _matrix;
 
-    if (doubles != null && doubles.length == 16){
-      _matrix = Matrix4.fromList(doubles);
+    final List<double> _doubles = Mapper.getDoublesFromDynamics(doubles);
+
+    if (_doubles != null && _doubles.length == 16){
+      _matrix = Matrix4.fromList(_doubles);
     }
 
     return _matrix;

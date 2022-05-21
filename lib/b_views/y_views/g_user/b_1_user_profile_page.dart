@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,22 @@ class UserProfilePage extends StatelessWidget {
     }
 
     return _can;
+  }
+// -----------------------------------------------------------------------------
+  String _getBzzString(){
+
+    userModel.blogUserModel();
+
+    if (UserModel.userIsAuthor(userModel) == true){
+      return generateStringFromStrings(
+        strings: userModel.myBzzIDs,
+        stringsSeparator: ','
+      );
+
+    }
+    else {
+      return null;
+    }
   }
 // -----------------------------------------------------------------------------
   @override
@@ -165,6 +182,14 @@ class UserProfilePage extends StatelessWidget {
           italic: true,
           color: Colorz.grey255,
         ),
+
+        if (UserModel.userIsAuthor(userModel) == true)
+          SuperVerse(
+            verse: 'Author in ${_getBzzString()}',
+            weight: VerseWeight.thin,
+            italic: true,
+            color: Colorz.grey255,
+          ),
 
         /// CONTACTS
         ContactsBubble(
