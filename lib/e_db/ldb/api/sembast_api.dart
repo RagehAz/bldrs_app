@@ -80,17 +80,17 @@ class Sembast  {
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
-    final int result = await update(
-      docName: docName,
-      map: map,
-      searchPrimaryKey: primaryKey,
-      searchPrimaryValue: map[primaryKey],
-    );
-
-    if (result == 0) {
-      /// map not found in ldb so we add it
+    // final int result = await update(
+    //   docName: docName,
+    //   map: map,
+    //   searchPrimaryKey: primaryKey,
+    //   searchPrimaryValue: map[primaryKey],
+    // );
+    //
+    // if (result == 0) {
+    //   /// map not found in ldb so we add it
       await _doc.add(_db, map);
-    }
+    // }
   }
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -319,33 +319,55 @@ class Sembast  {
   /// UPDATE
 
 // ---------------------------------------------------
-  static Future<int> update({
+  /// TESTED :
+  static Future<void> update({
     @required Map<String, Object> map,
     @required String searchPrimaryValue,
     @required String searchPrimaryKey,
     @required String docName,
   }) async {
 
-      /// SHOULD INSERT A NEW RECORD IF NOT FOUND
+      /// UPDATES RECORD IF EXISTED AND ADDS IT IF DOES NOT EXIST
 
-    final Database _db = await _getDB();
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(
-        docName: docName,
-    );
+      final Map<String, dynamic> _map = await findFirst(
+          fieldToSortBy: searchPrimaryKey,
+          searchField: searchPrimaryKey,
+          searchValue: searchPrimaryValue,
+          docName: docName
+      );
 
-    final Finder _finder = Finder(
-        filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
-    );
+      /// IF NOT FOUND
+      if (_map == null){
+        await insert(
+            primaryKey: searchPrimaryKey,
+            docName: docName,
+            map: map,
+        );
+      }
 
-    final int result = await _doc.update(
-      _db,
-      map,
-      finder: _finder,
-    );
+      /// IF FOUND
+      else {
 
-    blog('SEMBAST : update : result : result');
+        final Database _db = await _getDB();
+        final StoreRef<int, Map<String, Object>> _doc = _getStore(
+          docName: docName,
+        );
 
-    return result;
+        final Finder _finder = Finder(
+          filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
+        );
+
+        final int result = await _doc.update(
+          _db,
+          map,
+          finder: _finder,
+        );
+
+        blog('SEMBAST : update : result : result');
+
+      }
+
+    // return result;
   }
 // -----------------------------------------------------------------------------
 
