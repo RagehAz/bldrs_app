@@ -267,7 +267,7 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
                 LinesBelowLogoPart(
                   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
-                  firstLine: widget.userModel.name,
+                  firstLine: widget.userModel?.name,
                   secondLine: UserModel.getUserJobLine(widget.userModel),
                   headerIsExpanded: widget.headerIsExpanded,
                 ),

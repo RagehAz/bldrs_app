@@ -132,6 +132,8 @@ Future<void> onAddScopesTap({
   @required ValueNotifier<List<String>> selectedScopes,
 }) async {
 
+  Keyboarders.minimizeKeyboardOnTapOutSide(context);
+
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
       screen: KeywordsPickerScreen(

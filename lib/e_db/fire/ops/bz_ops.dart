@@ -13,9 +13,11 @@ import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 
 /// create, read, update, delete bz doc in cloud firestore
 
@@ -65,7 +67,7 @@ Future<BzModel> createBz({
 
       /// save bzLogo to fire storage and get URL
       String _bzLogoURL;
-      if (inputBz.logo != null) {
+      if (inputBz.logo != null && ObjectChecker.objectIsFile(inputBz?.logo) == true) {
         _bzLogoURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: inputBz.logo,
@@ -73,6 +75,9 @@ Future<BzModel> createBz({
           docName: StorageDoc.logos,
           ownerID: userModel.id,
         );
+      }
+      else if (ObjectChecker.objectIsURL(inputBz?.logo) == true){
+        _bzLogoURL = inputBz?.logo;
       }
 
       /// upload authorPic
@@ -119,8 +124,11 @@ Future<BzModel> createBz({
       );
 
       /// add bzID in user's myBzIDs
-      final List<dynamic> _userBzzIDs = userModel.myBzzIDs;
-      _userBzzIDs.insert(0, _bzID);
+      final List<dynamic> _userBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+          strings: userModel.myBzzIDs,
+          stringToAdd: _bzID,
+      );
+
       await Fire.updateDocField(
         context: context,
         collName: FireColl.users,
@@ -144,6 +152,7 @@ Future<BzModel> createBz({
 /// READ
 
 // ------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<BzModel> readBz({
   @required BuildContext context,
   @required String bzID,
@@ -308,7 +317,6 @@ Future<BzModel> updateBz({
 
   return _finalBz;
 }
-
 // -----------------------------------------------------------------------------
 Future<void> deactivateBz({
   @required BuildContext context,
