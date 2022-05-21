@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/user/auth_model.dart';
+import 'package:bldrs/b_views/z_components/animators/list_pusher.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -21,20 +19,20 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +54,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   AnimationController _animationController; /// tamam disposed
   UiProvider _uiProvider;
   ChainsProvider  _chainsProvider;
-  bool _isSignedIn;
   String _fuckingText;
   BzzProvider _bzzProvider;
 // -----------------------------------------------------------------------------
@@ -69,7 +66,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         'with a touch of crafts and several other cool '
         'awesome stuff bitch';
 
-    _isSignedIn = _isSignedInCheck();
 
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -102,6 +98,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _textController.dispose();
     _scrollController.dispose();
     _animationController.dispose();
+    _highlightedText.dispose();
+    _thePic.dispose();
   }
   // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -206,38 +204,26 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
-  bool _isSignedInCheck() {
-    bool _isSignedIn;
-
-    final User _firebaseUser = FireAuthOps.superFirebaseUser();
-
-    if (_firebaseUser == null) {
-      _isSignedIn = false;
-    } else {
-      _isSignedIn = true;
-    }
-
-    return _isSignedIn;
-  }
-// -----------------------------------------------------------------------------
   final TextEditingController _textController = TextEditingController(); /// tamam disposed
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 // -----------------------------------------------------------------------------
-  final ValueNotifier<String> highlightedText = ValueNotifier<String>(null);
+  final ValueNotifier<String> _highlightedText = ValueNotifier<String>(null); /// tamam disposed
   void _onTextFieldChanged(String text){
     blog('received text : $text');
 
-    highlightedText.value = text;
+    _highlightedText.value = text;
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<dynamic> _thePic = ValueNotifier(null);
+// -----------------------------------------------------------------------------
+  final ValueNotifier<int> _rebuildListPusher = ValueNotifier(0);
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     blog('SCREEN WIDTH : ($_screenWidth) <=> SCREEN HEIGHT ($_screenHeight)');
 // -----------------------------------------------------------------------------
 
@@ -262,66 +248,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       // navBarIsOn: false,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      appBarRowWidgets: <Widget>[
-
-        /// IS SIGNED IN ?
-        DreamBox(
-          height: Ratioz.appBarButtonSize,
-          verse: _isSignedIn ? 'Signed in' : 'Signed out',
-          color: _isSignedIn ? Colorz.green255 : Colorz.grey80,
-          verseScaleFactor: 0.6,
-          verseColor: _isSignedIn ? Colorz.white255 : Colorz.darkGrey255,
-          bubble: false,
-          onTap: () async {
-
-            final bool _result = await CenterDialog.showCenterDialog(
-              context: context,
-              title: 'Sign out ?',
-              boolDialog: true,
-              confirmButtonText: 'Yes!\nSign out',
-            );
-
-            if (_result == true){
-
-            await FireAuthOps.signOut(
-                context: context,
-                routeToUserChecker: true
-            );
-
-            }
-
-
-          },
-        ),
-
-        /// CONNECTED ?
-        ConnectivitySensor(
-            builder: (bool connected, Widget child){
-
-              return DreamBox(
-                  width: Ratioz.appBarButtonSize,
-                  height: Ratioz.appBarButtonSize,
-                  icon: connected ? Iconz.check : Iconz.xSmall,
-                  color: connected ? Colorz.green255 : Colorz.bloodTest,
-                  verseScaleFactor: 0.6,
-                  bubble: false,
-                  onTap: () async {
-                    // final bool _connected = await checkConnectivity();
-                    //
-                    // await _onConnectivityChanged(_connected);
-
-                    NavDialog.showNavDialog(
-                      context: context,
-                      firstLine: 'Hello There',
-                      secondLine: "Welcome to Bldrs.net the Builders' network",
-                      // color: Colorz.red50,
-                    );
-
-                  }
-                  );
-            }
-            ),
-
+      appBarRowWidgets: const <Widget>[
+        IsSignedInButton(),
+        IsConnectedButton(),
       ],
       layoutWidget: Column(
         // physics: const BouncingScrollPhysics(),
@@ -330,225 +259,240 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
           const Stratosphere(),
 
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+          const SpecializedLabs(),
 
-              Container(
-                color: Colorz.bloodTest,
-                alignment: Alignment.topCenter,
-                child: Stack(
-                  children: [
+          SizedBox(
+            width: _screenWidth,
+            height: _screenHeight - Stratosphere.smallAppBarStratosphere - SpecializedLabs.height,
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: <Widget>[
 
-                    Form(
-                      key: _formKey,
-                      child: SuperTextField(
-                        isFormField: true,
-                        width: _fieldWidth,
-                        textController: _textController,
-                        // fieldColor: Colorz.white20,
-                        maxLines: 1000,
-                        // minLines: numberOfLines,
-                        maxLength: 10,
-                        counterIsOn: true,
-                        onEditingComplete: (){
-                          blog('editing just completed');
-                        },
-                        onTap: (){
-                          blog('just tapped');
-                        },
-                        // corners: 50,
-                        // autofocus: false,
-                        hintText: 'fuck you',
-                        onSubmitted: (String val){
-                          blog('submitted val : $val');
-                        },
-                        // margins: const EdgeInsets.symmetric(vertical: 50),
-                        // textSize: _textSize,
-                        // textSizeFactor: _sizeFactor,
 
-                        keyboardTextInputAction: TextInputAction.newline,
-                        validator: (){
 
-                          if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
-                            return 'you can not say a77a';
-                          }
-                          else {
-                            return null;
-                          }
-
-                        },
-                        onChanged: _onTextFieldChanged,
+                /// TEXT FIELD
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      color: Colorz.bloodTest,
+                      alignment: Alignment.topCenter,
+                      child: Stack(
+                        children: [
+                          Form(
+                            key: _formKey,
+                            child: SuperTextField(
+                              isFormField: true,
+                              width: _fieldWidth,
+                              textController: _textController,
+                              // fieldColor: Colorz.white20,
+                              maxLines: 1000,
+                              // minLines: numberOfLines,
+                              maxLength: 10,
+                              counterIsOn: true,
+                              onEditingComplete: (){
+                                blog('editing just completed');
+                                },
+                              onTap: (){
+                                blog('just tapped');
+                                },
+                              // corners: 50,
+                              // autofocus: false,
+                              hintText: 'fuck you',
+                              onSubmitted: (String val){
+                                blog('submitted val : $val');
+                                },
+                              // margins: const EdgeInsets.symmetric(vertical: 50),
+                              // textSize: _textSize,
+                              // textSizeFactor: _sizeFactor,
+                              keyboardTextInputAction: TextInputAction.newline,
+                              validator: (){
+                                if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
+                                  return 'you can not say a77a';
+                                }
+                                else {
+                                  return null;
+                                }
+                                },
+                              onChanged: _onTextFieldChanged,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-
+                    Container(
+                      width: 50,
+                      height: _concludedHeight,
+                      color: Colorz.yellow255,
+                    ),
                   ],
                 ),
 
-              ),
+                /// PARAGRAPH
+                WidgetFader(
+                  fadeType: FadeType.fadeIn,
+                  curve: Curves.fastOutSlowIn,
+                  child: SuperVerse(
+                    verse: _fuckingText,
+                    maxLines: 10,
+                    centered: false,
+                    margin: 10,
+                    highlight: _highlightedText,
+                  ),
+                ),
 
-              Container(
-                width: 50,
-                height: _concludedHeight,
-                color: Colorz.yellow255,
-              ),
+                const BubblesSeparator(),
 
-            ],
-          ),
+                /// DO SOMETHING
+                WideButton(
+                    color: Colorz.red255,
+                    verse: 'NEW AUTH MODEL',
+                    icon: Iconz.dvGouran,
+                    onTap: () async {
+                      final AuthModel _model = AuthModel.testModel(context);
+                      final Map<String, dynamic> _map = _model.toMap(toJSON: false);
+                      // blog(_map['userModel']['createdAt'].runtimeType);
+                      final AuthModel _remodel = AuthModel.decipherAuthModel(
+                        map: _map,
+                        fromJSON: false,
+                      );
+                      _remodel.blogAuthModel();
+                      // final UserModel _user = UserModel.dummyUserModel(context);
+                      //
+                      // _user.blogUserModel();
+                      //
+                      // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+                      //
+                      // final Map<String, dynamic> _map = _user.toMap(toJSON: false);
+                      //
+                      // blogMap(_map);
+                      //
+                      // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+                      // final UserModel _reUser = UserModel.decipherUserMap(map: _map, fromJSON: false);
+                      //
+                      // _reUser.blogUserModel();
+                      //
+                      // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+                    }
+                    ),
 
-          WidgetFader(
-            fadeType: FadeType.fadeIn,
-            curve: Curves.fastOutSlowIn,
-            child: SuperVerse(
-              verse: _fuckingText,
-              maxLines: 10,
-              centered: false,
-              margin: 10,
-              highlight: highlightedText,
+                WideButton(
+                    color: Colorz.red255,
+                    verse: 'blaaaha',
+                    icon: Iconz.star,
+                    onTap: () async {
+                      final List<Map<String, dynamic>> maps = await Sembast.readAll(
+                        docName: LDBDoc.basicPhrases,
+                      );
+                      blogMaps(maps);
+                    }),
+
+                ValueListenableBuilder(
+                    valueListenable: _thePic,
+                    builder: (_, dynamic pic, Widget child){
+                      return SuperImage(
+                        width: 100,
+                        height: 100,
+                        // scale: 1,
+                        boxFit: BoxFit.fitWidth,
+                        pic: pic ?? Iconz.dumUniverse,
+                        iconColor: Colorz.blue255,
+                        // loading: false,
+                        // backgroundColor: Colorz.black255,
+                        corners: 10,
+                        // greyscale: false,
+                      );
+                    }
+                    ),
+
+                /// DO SOMETHING
+                WideButton(
+                    color: Colorz.black255,
+                    verse: 'DO THE CURRENCIES',
+                    icon: Iconz.contAfrica,
+                    onTap: () async {
+                      // final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
+                      //
+                      // final List<String> _currenciesIDs = CurrencyModel.getCurrenciesIDs(_currencies);
+                      //
+                      // blog(_currenciesIDs);
+                      // blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
+                      // final Chain _specsChain = _chainsProvider.specsChain;
+                      //
+                      // _specsChain.blogChain();
+                      //
+                      // blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
+                      //
+                      // final List<Chain> _newSons = Chain.replaceChainInChains(
+                      //     chains: _specsChain.sons,
+                      //     oldChainID: 'phid_s_currency',
+                      //     chainToReplace: Chain(
+                      //       id: 'phid_s_currency',
+                      //       sons: _currenciesIDs,
+                      //     ),
+                      // );
+                      //
+                      // final Chain _finalChain = Chain(
+                      //   id: _specsChain.id,
+                      //   sons: _newSons,
+                      // );
+                      //
+                      // _finalChain.blogChain();
+                      //
+                      // await createNamedDoc(
+                      //     context: context,
+                      //     collName: FireColl.chains,
+                      //     docName: FireDoc.chains_specs,
+                      //     input: _finalChain.toMap(),
+                      // );
+                    }),
+
+                /// PROMOTED FLYERS
+                // Selector<FlyersProvider, List<FlyerModel>>(
+                //   selector: (_, FlyersProvider flyersProvider) => flyersProvider.promotedFlyers,
+                //   builder: (BuildContext ctx, List<FlyerModel> flyers, Widget child){
+                //
+                //     return
+                //
+                //         FlyersShelf(
+                //           title: 'Promoted Flyers',
+                //           titleIcon: Iconz.flyer,
+                //           flyers: flyers,
+                //           flyerOnTap: (FlyerModel flyer) => onFlyerTap(context: context, flyer: flyer),
+                //           onScrollEnd: (){blog('REACHED SHELF END');},
+                //         );
+                //
+                //   },
+                // ),
+
+                DreamBox(
+                  width: _screenWidth,
+                  height: 100,
+                  color: Colorz.green255,
+                  verse: 'Rebuild the Fucker Bitch',
+                  onTap: (){
+                    _rebuildListPusher.value = _rebuildListPusher.value++;
+                  },
+                ),
+
+                /// LIST PUSHER
+                if (keyboardIsOn(context) == true)
+                ValueListenableBuilder(
+                    valueListenable: _rebuildListPusher,
+                    builder: (_, int rebuilds, Widget child){
+
+                      return ListPusher(
+                        maxHeight: 160,
+                        expand: true,
+                      );
+
+                    }
+                ),
+
+
+              ],
             ),
           ),
-
-          const BubblesSeparator(),
-
-          /// DO SOMETHING
-          WideButton(
-              color: Colorz.red255,
-              verse: 'NEW AUTH MODEL',
-              icon: Iconz.dvGouran,
-              onTap: () async {
-
-                final AuthModel _model = AuthModel.testModel(context);
-
-
-                final Map<String, dynamic> _map = _model.toMap(toJSON: false);
-
-                // blog(_map['userModel']['createdAt'].runtimeType);
-
-                final AuthModel _remodel = AuthModel.decipherAuthModel(
-                    map: _map,
-                    fromJSON: false,
-                );
-
-                _remodel.blogAuthModel();
-
-                // final UserModel _user = UserModel.dummyUserModel(context);
-                //
-                // _user.blogUserModel();
-                //
-                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                //
-                // final Map<String, dynamic> _map = _user.toMap(toJSON: false);
-                //
-                // blogMap(_map);
-                //
-                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                // final UserModel _reUser = UserModel.decipherUserMap(map: _map, fromJSON: false);
-                //
-                // _reUser.blogUserModel();
-                //
-                // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-              }
-              ),
-
-          WideButton(
-              color: Colorz.red255,
-              verse: 'blaaaha',
-              icon: Iconz.star,
-              onTap: () async {
-
-                final List<Map<String, dynamic>> maps = await Sembast.readAll(
-                  docName: LDBDoc.basicPhrases,
-                );
-
-                blogMaps(maps);
-
-              }),
-
-          ValueListenableBuilder(
-              valueListenable: _thePic,
-              builder: (_, dynamic pic, Widget child){
-
-                return SuperImage(
-                  width: 100,
-                  height: 100,
-                  // scale: 1,
-                  boxFit: BoxFit.fitWidth,
-                  pic: pic ?? Iconz.dumUniverse,
-                  iconColor: Colorz.blue255,
-                  // loading: false,
-                  // backgroundColor: Colorz.black255,
-                  corners: 10,
-                  // greyscale: false,
-                );
-
-              }
-          ),
-
-          /// DO SOMETHING
-          WideButton(
-              color: Colorz.black255,
-              verse: 'DO THE CURRENCIES',
-              icon: Iconz.contAfrica,
-              onTap: () async {
-
-                // final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
-                //
-                // final List<String> _currenciesIDs = CurrencyModel.getCurrenciesIDs(_currencies);
-                //
-                // blog(_currenciesIDs);
-                // blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
-                // final Chain _specsChain = _chainsProvider.specsChain;
-                //
-                // _specsChain.blogChain();
-                //
-                // blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
-                //
-                // final List<Chain> _newSons = Chain.replaceChainInChains(
-                //     chains: _specsChain.sons,
-                //     oldChainID: 'phid_s_currency',
-                //     chainToReplace: Chain(
-                //       id: 'phid_s_currency',
-                //       sons: _currenciesIDs,
-                //     ),
-                // );
-                //
-                // final Chain _finalChain = Chain(
-                //   id: _specsChain.id,
-                //   sons: _newSons,
-                // );
-                //
-                // _finalChain.blogChain();
-                //
-                // await createNamedDoc(
-                //     context: context,
-                //     collName: FireColl.chains,
-                //     docName: FireDoc.chains_specs,
-                //     input: _finalChain.toMap(),
-                // );
-
-              }),
-
-          /// PROMOTED FLYERS
-          // Selector<FlyersProvider, List<FlyerModel>>(
-          //   selector: (_, FlyersProvider flyersProvider) => flyersProvider.promotedFlyers,
-          //   builder: (BuildContext ctx, List<FlyerModel> flyers, Widget child){
-          //
-          //     return
-          //
-          //         FlyersShelf(
-          //           title: 'Promoted Flyers',
-          //           titleIcon: Iconz.flyer,
-          //           flyers: flyers,
-          //           flyerOnTap: (FlyerModel flyer) => onFlyerTap(context: context, flyer: flyer),
-          //           onScrollEnd: (){blog('REACHED SHELF END');},
-          //         );
-          //
-          //   },
-          // ),
-
-          const Expander(),
-
-          const SpecializedLabs(),
 
         ],
       ),
@@ -556,44 +500,3 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   }
 }
 
-// Future<void> createCountriesPhrases() async {
-//
-//   final Phrase _enPhrase = Phrase.getPhraseByLangFromPhrases(
-//     phrases: country.phrases,
-//     langCode: 'en',
-//   );
-//   final Phrase _arPhrase = Phrase.getPhraseByLangFromPhrases(
-//     phrases: country.phrases,
-//     langCode: 'ar',
-//   );
-//
-//   final Phrase _enPhraseAdjusted = Phrase(
-//     id: country.id,
-//     value: _enPhrase.value,
-//     trigram: createTrigram(input: _enPhrase.value),
-//   );
-//   final Phrase _arPhraseAdjusted = Phrase(
-//     id: country.id,
-//     value: _arPhrase.value,
-//     trigram: createTrigram(input: _arPhrase.value),
-//   );
-//
-//   await createNamedSubDoc(
-//     context: context,
-//     collName: FireColl.translations,
-//     docName: 'en',
-//     subCollName: FireSubColl.translations_xx_countries,
-//     subDocName: country.id,
-//     input: _enPhraseAdjusted.toMap(addTrigram: true),
-//   );
-//
-//   await createNamedSubDoc(
-//     context: context,
-//     collName: FireColl.translations,
-//     docName: 'ar',
-//     subCollName: FireSubColl.translations_xx_countries,
-//     subDocName: country.id,
-//     input: _arPhraseAdjusted.toMap(addTrigram: true),
-//   );
-//
-// }
