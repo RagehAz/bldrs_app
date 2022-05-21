@@ -10,6 +10,7 @@ enum FadeType{
 }
 
 class WidgetFader extends StatefulWidget {
+  /// --------------------------------------------------------------------------
   const WidgetFader({
     @required this.child,
     @required this.fadeType,
@@ -20,7 +21,7 @@ class WidgetFader extends StatefulWidget {
     this.absorbPointer = false,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final Widget child;
   final FadeType fadeType;
   final double max;
@@ -28,17 +29,18 @@ class WidgetFader extends StatefulWidget {
   final Duration duration;
   final Curve curve;
   final bool absorbPointer;
-
+  /// --------------------------------------------------------------------------
   @override
   _WidgetFaderState createState() => _WidgetFaderState();
+/// --------------------------------------------------------------------------
 }
 
 class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStateMixin {
-
+// -----------------------------------------------------------------------------
   AnimationController _animationController;
   CurvedAnimation _animation;
   // Animation<double> _opacityTween;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
 
@@ -58,14 +60,14 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
 
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _animationController.dispose();
     _animation.dispose();
     super.dispose();
   }
-
+// -----------------------------------------------------------------------------
   Future<void> _animate() async {
 
     if (widget.fadeType == FadeType.fadeIn){
@@ -101,7 +103,7 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
     }
 
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

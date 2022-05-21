@@ -234,16 +234,13 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                     curve: Curves.easeInOutCirc,
                     width: width,
                     height: height,
-                    margin: EdgeInsets.only(
-                        top: condition() == true ? 0 : Ratioz.stratosphere),
-                    color:
-                        condition() == true ? Colorz.red255 : Colorz.yellow255,
+                    margin: EdgeInsets.only(top: condition() == true ? 0 : Ratioz.stratosphere),
+                    color: condition() == true ? Colorz.red255 : Colorz.yellow255,
                     child: Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
                         AnimatedPositioned(
-                          left: condition() == true
-                              ? (Scale.superScreenWidth(context) * 0.5)
+                          left: condition() == true ? (Scale.superScreenWidth(context) * 0.5)
                               : 0,
                           duration: const Duration(seconds: 1),
                           child: DreamBox(
