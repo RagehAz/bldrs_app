@@ -1,8 +1,10 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -13,6 +15,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
@@ -29,6 +32,92 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
+
+/// MY BZ SCREEN INITIALIZERS
+
+// -------------------------------
+Future<void> initializeMyBzScreen({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  final BzModel _completedZoneBzModel = await completeBzZoneModel(
+      context: context,
+      bzModel: bzModel,
+  );
+
+  await _setBzModelAndGetSetBzFlyers(
+    context: context,
+    completedZoneBzModel: _completedZoneBzModel,
+  );
+
+}
+// -------------------------------
+Future<BzModel> completeBzZoneModel({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  BzModel _output = bzModel;
+
+  if (bzModel != null){
+
+    /// COMPLETED ZONE MODEL
+    final ZoneModel _completeZoneModel = await ZoneProvider.proGetCompleteZoneModel(
+        context: context,
+        incompleteZoneModel: bzModel.zone,
+    );
+
+    /// COMPLETED BZ MODEL
+    _output = bzModel.copyWith(
+      zone: _completeZoneModel,
+    );
+
+  }
+
+  return _output;
+}
+// -------------------------------
+Future<void> _setBzModelAndGetSetBzFlyers({
+  @required BuildContext context,
+  @required BzModel completedZoneBzModel,
+}) async {
+
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
+  /// SET ACTIVE BZ
+  _bzzProvider.setActiveBz(
+    bzModel: completedZoneBzModel,
+    notify: false,
+  );
+
+  /// SET ACTIVE BZ FLYERS
+  await _bzzProvider.getsetActiveBzFlyers(
+    context: context,
+    bzID: completedZoneBzModel.id,
+    notify: true,
+  );
+
+
+}
+// -----------------------------------------------------------------------------
+
+/// MY BZ SCREEN CLOSING
+
+// -------------------------------
+void onCloseMyBzScreen({
+  @required BuildContext context,
+}) {
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  _bzzProvider.clearActiveBzFlyers(notify: false);
+  _bzzProvider.clearMyActiveBz(notify: false);
+  Nav.goBack(context);
+}
+// -----------------------------------------------------------------------------
+
+/// BZ TABS
+
+// -------------------------------
 int getInitialMyBzScreenTabIndex(BuildContext context){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final BzTab _currentTab = _uiProvider.currentBzTab;
@@ -379,8 +468,6 @@ Future<void> _onDeleteFlyer({
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _bzzProvider.setActiveBz(
       bzModel: _updatedBzModel,
-      bzCountry: _bzzProvider.myActiveBzCountry,
-      bzCity: _bzzProvider.myActiveBzCity,
       notify: false,
     );
 

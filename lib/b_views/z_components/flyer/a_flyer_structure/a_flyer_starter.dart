@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loadi
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -51,9 +52,6 @@ class _FlyerStarterState extends State<FlyerStarter> {
   /// --- FLYER BZ MODEL
   final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null); /// tamam disposed
 // -----------------------------------------------------------------------------
-  /// FLYER BZ ZONE
-  final ValueNotifier<ZoneModel> _bzZoneNotifier = ValueNotifier(null); /// tamam disposed
-// -----------------------------------------------------------------------------
   /// FLYER ZONE
   final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null); /// tamam disposed
 // -----------------------------------------------------------------------------
@@ -85,19 +83,15 @@ class _FlyerStarterState extends State<FlyerStarter> {
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
         /// BZ MODEL
-        final BzModel _bzModel = await getFlyerBzModel(
+        BzModel _bzModel = await getFlyerBzModel(
           context: context,
           flyerModel: _flyerModel,
         );
 // ------------------------------------------
-        /// BZ ZONE
-        final CountryModel _bzCountry = await getFlyerBzCountry(
-          context: context,
-          countryID: _bzModel?.zone?.countryID,
-        );
-        final CityModel _bzCity = await getFlyerBzCity(
-          context: context,
-          cityID: _bzModel?.zone?.cityID,
+        /// BZ ZONE FIX
+        _bzModel = await completeBzZoneModel(
+            context: context,
+            bzModel: _bzModel,
         );
 // -----------------------------------------------------------------
         /// FLYER ZONE
@@ -125,12 +119,6 @@ class _FlyerStarterState extends State<FlyerStarter> {
         /// SETTERS
 
         _bzModelNotifier.value = _bzModel;
-        _bzZoneNotifier.value = getZoneModel(
-          context: context,
-          countryID: _bzCountry.id,
-          cityModel: _bzCity,
-          districtID: _bzModel.zone.districtID,
-        );
 
         _flyerZoneNotifier.value = getZoneModel(
           context: context,
@@ -155,15 +143,9 @@ class _FlyerStarterState extends State<FlyerStarter> {
     super.dispose();
     _loading?.dispose();
     _bzModelNotifier?.dispose();
-    _bzZoneNotifier?.dispose();
     _flyerZoneNotifier?.dispose();
     _currentSlideIndex?.dispose();
     _flyerIsSaved?.dispose();
-
-    // if (_currentSlideIndex != null){
-    //   _currentSlideIndex.dispose();
-    // }
-
   }
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {
@@ -174,7 +156,6 @@ class _FlyerStarterState extends State<FlyerStarter> {
           flyerModel: _flyerModel,
           bzModel: _bzModelNotifier.value,
           minWidthFactor: widget.minWidthFactor,
-          bzZone: _bzZoneNotifier.value,
           flyerZone: _flyerZoneNotifier.value,
           heroTag: widget.heroTag,
           currentSlideIndex: _currentSlideIndex,
@@ -222,40 +203,32 @@ class _FlyerStarterState extends State<FlyerStarter> {
                 builder: (_, BzModel bzModel, Widget child){
 
                   return ValueListenableBuilder<ZoneModel>(
-                      valueListenable: _bzZoneNotifier,
-                      builder: (_, ZoneModel bzCountry, Widget child){
+                      valueListenable: _flyerZoneNotifier,
+                      builder: (_, ZoneModel flyerZone, Widget child){
 
-                        return ValueListenableBuilder<ZoneModel>(
-                            valueListenable: _flyerZoneNotifier,
-                            builder: (_, ZoneModel flyerZone, Widget child){
+                        if (bzModel == null || widget.flyerModel == null){
+                          return FlyerLoading(flyerBoxWidth: _flyerBoxWidth,);
+                        }
 
-                              if (bzModel == null || widget.flyerModel == null){
-                                return FlyerLoading(flyerBoxWidth: _flyerBoxWidth,);
-                              }
+                        else {
 
-                              else {
+                          return GestureDetector(
+                            onTap: _openFullScreenFlyer,
+                            child: FlyerHero(
+                              key: const ValueKey<String>('Flyer_hero'),
+                              flyerModel: _flyerModel,
+                              bzModel: bzModel,
+                              flyerZone: flyerZone,
+                              minWidthFactor: widget.minWidthFactor,
+                              isFullScreen: widget.isFullScreen,
+                              heroTag: widget.heroTag,
+                              currentSlideIndex: _currentSlideIndex,
+                              onSaveFlyer: onTriggerSave,
+                              flyerIsSaved: _flyerIsSaved,
+                            ),
+                          );
 
-                                return GestureDetector(
-                                  onTap: _openFullScreenFlyer,
-                                  child: FlyerHero(
-                                    key: const ValueKey<String>('Flyer_hero'),
-                                    flyerModel: _flyerModel,
-                                    bzModel: bzModel,
-                                    bzZone: bzCountry,
-                                    flyerZone: flyerZone,
-                                    minWidthFactor: widget.minWidthFactor,
-                                    isFullScreen: widget.isFullScreen,
-                                    heroTag: widget.heroTag,
-                                    currentSlideIndex: _currentSlideIndex,
-                                    onSaveFlyer: onTriggerSave,
-                                    flyerIsSaved: _flyerIsSaved,
-                                  ),
-                                );
-
-                              }
-
-                            }
-                        );
+                        }
 
                       }
                   );

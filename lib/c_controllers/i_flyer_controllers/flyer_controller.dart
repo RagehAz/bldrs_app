@@ -362,7 +362,6 @@ Widget flyerFlightShuttle({
             flyerBoxWidth: _flyerBoxWidth,
             flyerModel: flyerModel,
             bzModel: bzModel,
-            bzZone: null,
             flyerZone: null,
             loading: true,
             flightDirection: _flightDirection,

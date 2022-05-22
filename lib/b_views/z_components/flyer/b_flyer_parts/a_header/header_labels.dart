@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/author_label.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_label.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -10,7 +9,6 @@ class HeaderLabels extends StatelessWidget {
   const HeaderLabels({
     @required this.flyerBoxWidth,
     @required this.bzModel,
-    @required this.bzZone,
     @required this.flyerShowsAuthor,
     @required this.headerIsExpanded,
     @required this.authorID,
@@ -19,7 +17,6 @@ class HeaderLabels extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final BzModel bzModel;
-  final ZoneModel bzZone;
   final bool flyerShowsAuthor;
   final bool headerIsExpanded;
   final String authorID;
@@ -51,7 +48,6 @@ class HeaderLabels extends StatelessWidget {
             BzLabel(
               flyerBoxWidth: flyerBoxWidth,
               bzModel: bzModel,
-              bzZone: bzZone,
               headerIsExpanded: headerIsExpanded,
               flyerShowsAuthor: flyerShowsAuthor,
             ),

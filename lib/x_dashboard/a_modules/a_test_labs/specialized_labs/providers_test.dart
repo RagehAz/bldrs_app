@@ -173,16 +173,16 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
             /// MY USER COUNTRY
             ProviderTestButton(
-              title: 'usersProvider?.myUserCountry',
-              value: usersProvider?.myUserCountry,
-              onTap: () => usersProvider?.myUserCountry?.blogCountry(),
+              title: 'usersProvider?.myUserModel?.zone?.countryModel',
+              value: usersProvider?.myUserModel?.zone?.countryModel,
+              onTap: () => usersProvider?.myUserModel?.zone?.countryModel?.blogCountry(),
             ),
 
             /// MY USER CITY
             ProviderTestButton(
-              title: 'usersProvider?.myUserCity',
-              value: usersProvider?.myUserCity,
-              onTap: () => usersProvider?.myUserCity?.blogCity(),
+              title: 'usersProvider?.myUserModel?.zone?.cityModel',
+              value: usersProvider?.myUserModel?.zone?.cityModel,
+              onTap: () => usersProvider?.myUserModel?.zone?.cityModel?.blogCity(),
             ),
 
             /// BZZ -------------------------------------------------------------
@@ -227,16 +227,16 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
             /// ACTIVE BZ COUNTRY
             ProviderTestButton(
-              title: 'bzzProvider.myActiveBzCountry',
-              value: bzzProvider.myActiveBzCountry,
-              onTap: () => bzzProvider.myActiveBzCountry?.blogCountry(),
+              title: 'bzzProvider.myActiveBz?.zone?.countryModel',
+              value: bzzProvider.myActiveBz?.zone?.countryModel,
+              onTap: () => bzzProvider.myActiveBz?.zone?.countryModel?.blogCountry(),
             ),
 
             /// ACTIVE BZ CITY
             ProviderTestButton(
-              title: 'bzzProvider.myActiveBzCity',
-              value: bzzProvider.myActiveBzCity,
-              onTap: () => bzzProvider.myActiveBzCity?.blogCity(),
+              title: 'bzzProvider.myActiveBz?.zone?.cityModel',
+              value: bzzProvider.myActiveBz?.zone?.cityModel,
+              onTap: () => bzzProvider.myActiveBz?.zone?.cityModel?.blogCity(),
             ),
 
             /// ACTIVE BZ FLYERS

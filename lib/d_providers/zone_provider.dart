@@ -1035,43 +1035,50 @@ class ZoneProvider extends ChangeNotifier {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    final CountryModel _country = await _zoneProvider.fetchCountryByID(
-        context: context,
-        countryID: incompleteZoneModel.countryID,
+    /// BZ COUNTRY
+    final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+      context: context,
+      countryID: incompleteZoneModel.countryID,
     );
+
+    /// BZ CITY
+    final CityModel _bzCity = await _zoneProvider.fetchCityByID(
+      context: context,
+      cityID: incompleteZoneModel.cityID,
+    );
+
+    /// COUNTRY NAME
     final String _countryName = CountryModel.getTranslatedCountryName(
       context: context,
       countryID: incompleteZoneModel.countryID,
     );
 
-    final CityModel _city = await _zoneProvider.fetchCityByID(
-      context: context,
-      cityID: incompleteZoneModel.cityID,
-    );
+    /// CITY NAME
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
       context: context,
-      city: _city,
+      city: _bzCity,
     );
 
+    /// DISTRICT NAME
     final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
       context: context,
-      city: _city,
+      city: _bzCity,
       districtID: incompleteZoneModel.districtID,
     );
 
-    final ZoneModel _zone = ZoneModel(
+    /// COMPLETED ZONE MODEL
+    final ZoneModel _completeZoneModel = ZoneModel(
       countryID: incompleteZoneModel.countryID,
       cityID: incompleteZoneModel.cityID,
       districtID: incompleteZoneModel.districtID,
+      countryModel: _bzCountry,
+      cityModel: _bzCity,
       countryName: _countryName,
       cityName: _cityName,
       districtName: _districtName,
-      countryModel: _country,
-      cityModel: _city,
     );
 
-
-    return _zone;
+    return _completeZoneModel;
   }
 // -------------------------------------
 

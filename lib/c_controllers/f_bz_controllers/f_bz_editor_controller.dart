@@ -6,17 +6,16 @@ import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -27,7 +26,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 
 // -----------------------------------------------------------------------------
 
@@ -317,28 +315,25 @@ Future<void> _firstTimerCreateNewBzOps({
 
     /// SET BZ MODEL LOCALLY
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
+    final BzModel _bzModelWithCompleteZoneModel = await completeBzZoneModel(
+        context: context,
+        bzModel: _uploadedBzModel
+    );
+
     _bzzProvider.addBzToMyBzz(
-      bzModel: _uploadedBzModel,
+      bzModel: _bzModelWithCompleteZoneModel,
       notify: false,
     );
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
-        context: context,
-        countryID: _uploadedBzModel.zone.countryID,
-    );
-    final CityModel _bzCity = await _zoneProvider.fetchCityByID(
-        context: context,
-        cityID: _uploadedBzModel.zone.cityID,
-    );
+
     _bzzProvider.setActiveBz(
-      bzModel: _uploadedBzModel,
-      bzCountry: _bzCountry,
-      bzCity: _bzCity,
+      bzModel: _bzModelWithCompleteZoneModel,
       notify: true,
     );
+
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _usersProvider.addBzIDToMyBzzIDs(
-        bzIDToAdd: _uploadedBzModel.id,
+        bzIDToAdd: _bzModelWithCompleteZoneModel.id,
         notify: true,
     );
 
@@ -406,25 +401,19 @@ Future<void> _updateBzOps({
     );
 
     /// SET UPDATED BZ MODEL LOCALLY ( USER BZZ )
+    final BzModel _bzModelWithCompleteZoneModel = await completeBzZoneModel(
+        context: context,
+        bzModel: _uploadedBzModel,
+    );
+
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _bzzProvider.updateBzInUserBzz(
-      modifiedBz: _uploadedBzModel,
+      modifiedBz: _bzModelWithCompleteZoneModel,
       notify: false,
     );
     /// SET UPDATED BZ MODEL LOCALLY ( MY ACTIVE BZ )
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
-      context: context,
-      countryID: _uploadedBzModel.zone.countryID,
-    );
-    final CityModel _bzCity = await _zoneProvider.fetchCityByID(
-      context: context,
-      cityID: _uploadedBzModel.zone.cityID,
-    );
     _bzzProvider.setActiveBz(
-      bzModel: _uploadedBzModel,
-      bzCountry: _bzCountry,
-      bzCity: _bzCity,
+      bzModel: _bzModelWithCompleteZoneModel,
       notify: true,
     );
 
