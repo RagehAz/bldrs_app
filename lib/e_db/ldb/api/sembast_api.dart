@@ -283,6 +283,7 @@ class Sembast  {
     return _maps;
   }
 // ---------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, Object>> findFirst({
     @required String fieldToSortBy,
     @required String searchField,
@@ -374,7 +375,7 @@ class Sembast  {
   /// DELETE
 
 // ---------------------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteMap({
     @required String searchPrimaryKey,
     @required String searchPrimaryValue,
