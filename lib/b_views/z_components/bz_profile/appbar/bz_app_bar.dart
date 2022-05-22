@@ -37,10 +37,6 @@ class BzAppBar extends StatelessWidget {
       zoneModel: _bzModel?.zone,
     );
 
-    final String _bzTypesString = BzModel.generateTranslatedBzTypesString(
-      context: context,
-      bzTypes: _bzModel.bzTypes,
-    );
 
     return Row(
       children: <Widget>[
@@ -55,9 +51,9 @@ class BzAppBar extends StatelessWidget {
           bubble: false,
           verseScaleFactor: 0.65,
           color: Colorz.white20,
-          secondLine: '$_bzTypesString :  $_zoneString',
-          secondLineColor: Colorz.white200,
-          secondLineScaleFactor: 0.7,
+          // secondLine: '$_bzTypesString :  $_zoneString',
+          // secondLineColor: Colorz.white200,
+          // secondLineScaleFactor: 0.7,
         ),
 
         const SizedBox(

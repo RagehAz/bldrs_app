@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
@@ -47,10 +48,17 @@ class BzBanner extends StatelessWidget {
             maxLines: 3,
           ),
 
+          /// COMPANY TYPE AND FORM
+          BzTypesLine(
+            bzModel: _bzModel,
+            width: size * 2,
+          ),
+
           /// ZONE
           ZoneLine(
             zoneModel: _bzModel.zone,
           ),
+
 
         ],
       ),

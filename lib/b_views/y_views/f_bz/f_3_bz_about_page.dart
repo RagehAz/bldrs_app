@@ -20,6 +20,7 @@ class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: <Widget>[
@@ -62,5 +63,6 @@ class BzAboutPage extends StatelessWidget {
 
       ],
     );
+
   }
 }
