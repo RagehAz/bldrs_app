@@ -17,7 +17,10 @@ class GeneralProvider extends ChangeNotifier {
   /// APP STATE
 
   // -------------------------------------
-  static Future<AppState> fetchGlobalAppState(BuildContext context) async {
+  static Future<AppState> fetchGlobalAppState({
+    @required BuildContext context,
+    @required bool assignToUser,
+  }) async {
 
     AppState _appState;
 
@@ -47,6 +50,13 @@ class GeneralProvider extends ChangeNotifier {
         );
       }
 
+    }
+
+
+    if (_appState != null && assignToUser == true){
+      _appState = _appState.copyWith(
+        id: 'user',
+      );
     }
 
     return _appState;

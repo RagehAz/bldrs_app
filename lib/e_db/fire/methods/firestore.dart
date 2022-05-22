@@ -196,9 +196,14 @@ Future<DocumentReference<Object>> createNamedDoc({
           docName: docName,
         );
 
-        await _docRef.set(input);
+        // final SetOptions options = SetOptions(
+        //   merge: true,
+        //   mergeFields: <Object>[],
+        // );
 
-        blog('createNamedDoc : ${_docRef.id}');
+        await _docRef.set(input, );
+
+        blog('createNamedDoc : ( $collName ) : ${_docRef.id}');
         _ref = _docRef;
       });
 

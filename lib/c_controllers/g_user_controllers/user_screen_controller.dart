@@ -11,28 +11,34 @@ import 'package:bldrs/b_views/x_screens/g_user/g_4_terms_and_regulations_screen.
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/y_views/g_user/b_4_invite_businesses_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/contacts_service/contacts_service.dart';
+import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer show shareAppIcon;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -40,8 +46,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
-import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 
 // -----------------------------------------------------------------------------
 
@@ -286,11 +290,15 @@ Future<void> _onInviteFriendsTap(BuildContext context) async {
 Future<void> _onDeleteMyAccount(BuildContext context) async {
   blog('on delete user tap');
 
-  final bool _result = await _showDeleteUserDialog(context);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+
+  final bool _result = await _showDeleteUserDialog(
+    context: context,
+    userModel: _userModel,
+  );
 
   if (_result == true){
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
 
     final bool _passwordIsCorrect = await _checkPassword(
       context: context,
@@ -346,7 +354,10 @@ Future<void> _onDeleteMyAccount(BuildContext context) async {
 
 }
 // ---------------------------------
-Future<bool> _showDeleteUserDialog(BuildContext context) async {
+Future<bool> _showDeleteUserDialog({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
@@ -354,6 +365,30 @@ Future<bool> _showDeleteUserDialog(BuildContext context) async {
     body: 'Are you sure you want to delete your Account ?',
     confirmButtonText: 'Yes, Delete',
     boolDialog: true,
+    height: superScreenHeight(context) * 0.6,
+    child: Column(
+      children: <Widget>[
+
+        /// USER PIC
+        UserBalloon(
+          size: 80,
+          balloonType: userModel?.status,
+          userModel: userModel,
+          loading: false,
+        ),
+
+        /// USER NAME
+        SuperVerse(
+          verse: userModel?.name,
+          shadow: true,
+          size: 4,
+          margin: 5,
+          maxLines: 2,
+          labelColor: Colorz.white10,
+        ),
+
+      ],
+    ),
   );
 
   return _result;
@@ -425,6 +460,9 @@ Future<void> _deleteAuthorUserOps({
     context: context,
     title: 'Should Delete Author User sequence now',
   );
+
+  /// CLOSE WAITING
+  WaitDialog.closeWaitDialog(context);
 
 }
 // -----------------------------------------------------------------------------

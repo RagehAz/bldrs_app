@@ -40,7 +40,7 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit && mounted) {
+    if (_isInit && mounted && _exists != null) {
 
       _triggerLoading().then((_) async {
 
