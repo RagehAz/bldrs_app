@@ -87,8 +87,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
+    _tabController.dispose();
   }
 // -----------------------------------------------------------------------------
   bool _canBuild(BuildContext context){

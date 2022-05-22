@@ -375,7 +375,6 @@ Future<void> _updateBzOps({
   @required BuildContext context,
   @required BzModel newBzModel,
   @required BzModel oldBzModel,
-
 }) async {
 
   unawaited(WaitDialog.showWaitDialog(
@@ -388,7 +387,6 @@ Future<void> _updateBzOps({
     context: context,
     modifiedBz: newBzModel,
     originalBz: oldBzModel,
-    bzLogoFile: newBzModel.logo,
     authorPicFile: null,
   );
 

@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -125,7 +126,7 @@ int getInitialMyBzScreenTabIndex(BuildContext context){
   final int _index = BzModel.getBzTabIndex(_currentTab);
   return _index;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------
 void onChangeMyBzScreenTabIndexWhileAnimation({
   @required BuildContext context,
   @required TabController tabController,
@@ -143,7 +144,7 @@ void onChangeMyBzScreenTabIndexWhileAnimation({
   }
 
 }
-// -----------------------------------------------------------------------------
+// -------------------------------
 void onChangeMyBzScreenTabIndex({
   @required BuildContext context,
   @required int index,
@@ -216,7 +217,6 @@ Future<void> onBzAccountOptions({
       }
   );
 
-
 }
 // -------------------------------
 Future<void> _onEditBzAccount({
@@ -225,6 +225,16 @@ Future<void> _onEditBzAccount({
 }) async {
 
   blog('SHOULD GO EDIT BZ ACCOUNT NAAAAAW');
+
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+
+  await Nav.goToNewScreen(
+      context: context,
+      screen: BzEditorScreen(
+        userModel: _userModel,
+        bzModel: bzModel,
+      ),
+  );
 
 }
 // -------------------------------
@@ -395,11 +405,11 @@ Future<void> onFlyerOptionsTap({
   );
 
 }
-// -----------------------------------------------------------------------------
+// -------------------------------
 Future<void> _onEditFlyer(FlyerModel flyer) async {
   blog('should edit flyer');
 }
-// -----------------------------------------------------------------------------
+// -------------------------------
 Future<void> _onDeleteFlyer({
   @required BuildContext context,
   @required FlyerModel flyer,

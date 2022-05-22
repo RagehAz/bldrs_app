@@ -129,7 +129,7 @@ class UserProfilePage extends StatelessWidget {
 
         /// USER LOCALE
         ZoneLine(
-          zoneModel: userModel.zone,
+          zoneModel: userModel?.zone,
         ),
 
         /// JOINED AT
