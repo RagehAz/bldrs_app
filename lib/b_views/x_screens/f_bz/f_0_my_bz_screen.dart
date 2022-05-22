@@ -16,7 +16,7 @@ class MyBzScreen extends StatefulWidget {
     @required this.bzModel,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
   @override
