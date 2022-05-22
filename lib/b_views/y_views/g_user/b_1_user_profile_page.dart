@@ -1,10 +1,7 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structure/a_user_balloon.dart';
-import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -18,14 +15,10 @@ class UserProfilePage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserProfilePage({
     @required this.userModel,
-    @required this.userCountry,
-    @required this.userCity,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
-  final CountryModel userCountry;
-  final CityModel userCity;
   /// --------------------------------------------------------------------------
   static String generateTitleCompanyString({
     @required UserModel userModel,
@@ -91,20 +84,6 @@ class UserProfilePage extends StatelessWidget {
 
     final String _userName = userModel?.name ?? superPhrase(context, 'phid_unknown_bldr');
 
-    final String _countryName = CountryModel.getTranslatedCountryName(
-        context: context,
-        countryID: userCountry?.id,
-    );
-    final String _cityName = CityModel.getTranslatedCityNameFromCity(
-      context: context,
-      city: userCity,
-    );
-    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-      context: context,
-      city: userCity,
-      districtID: userModel?.zone?.districtID,
-    );
-
     final bool _thereAreMissingFields = UserModel.thereAreMissingFields(userModel);
 
     return Column(
@@ -149,30 +128,8 @@ class UserProfilePage extends StatelessWidget {
         ),
 
         /// USER LOCALE
-        SizedBox(
-          height: 35,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-
-              FlagBox(
-                size: 20,
-                countryID: userModel?.zone?.countryID,
-              ),
-
-              const SizedBox(
-                width: 5,
-                height: 5,
-              ),
-              SuperVerse(
-                verse: '${superPhrase(context, 'phid_inn')} $_districtName, $_cityName, $_countryName',
-                weight: VerseWeight.thin,
-                italic: true,
-                color: Colorz.grey255,
-                margin: 5,
-              ),
-            ],
-          ),
+        ZoneLine(
+          zoneModel: userModel.zone,
         ),
 
         /// JOINED AT

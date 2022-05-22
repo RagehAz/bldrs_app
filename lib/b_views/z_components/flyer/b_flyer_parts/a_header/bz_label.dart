@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,6 @@ class BzLabel extends StatelessWidget {
     @required this.bzModel,
     @required this.headerIsExpanded,
     @required this.flyerShowsAuthor,
-    @required this.bzZone,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,7 +20,6 @@ class BzLabel extends StatelessWidget {
   final double flyerBoxWidth;
   final bool headerIsExpanded;
   final bool flyerShowsAuthor;
-  final ZoneModel bzZone;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -45,9 +42,9 @@ class BzLabel extends StatelessWidget {
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
 // -----------------------------------------------------------------------------
     /// B.LOCALE
-    final String _businessLocale = TextGen.countryStringerByZoneModel(
+    final String _businessLocale = ZoneModel.generateZoneString(
       context: context,
-      zone: bzZone,
+      zoneModel: bzModel.zone,
     );
 // -----------------------------------------------------------------------------
     final int _bzNameSize = flyerShowsAuthor == true ? 3 : 5;

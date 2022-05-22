@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -11,7 +10,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
@@ -23,7 +22,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 
 // -----------------------------------------------------------------------------
 Future<void> readMoreUsers({
@@ -83,14 +81,11 @@ Future<void> onSelectUser({
   @required UserModel userModel,
   @required PageController pageController,
   @required ValueNotifier<UserModel> selectedUserModel,
-  @required ValueNotifier<ZoneModel> selectedUserZone,
 }) async {
 
-  selectedUserModel.value = userModel;
-
-  selectedUserZone.value = await ZoneProvider.proGetCompleteZoneModel(
+  selectedUserModel.value = await completeUserZoneModel(
     context: context,
-    incompleteZoneModel: userModel.zone,
+    userModel: userModel,
   );
 
   await slideToNext(

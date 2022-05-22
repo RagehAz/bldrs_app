@@ -1,11 +1,9 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/y_views/g_user/b_1_user_profile_page.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
@@ -19,7 +17,6 @@ class SelectedUserPage extends StatelessWidget {
   const SelectedUserPage({
     @required this.screenHeight,
     @required this.selectedUser,
-    @required this.selectedUserZone,
     @required this.usersModels,
     @required this.pageController,
     Key key
@@ -27,14 +24,12 @@ class SelectedUserPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double screenHeight;
   final ValueNotifier<UserModel> selectedUser;
-  final ValueNotifier<ZoneModel> selectedUserZone;
   final ValueNotifier<List<UserModel>> usersModels;
   final PageController pageController;
   /// --------------------------------------------------------------------------
   List<Widget> _pageWidgets({
     @required BuildContext context,
     @required UserModel userModel,
-    @required ZoneModel userZone,
     @required ValueNotifier<List<UserModel>> usersModels,
 }){
 
@@ -61,8 +56,6 @@ class SelectedUserPage extends StatelessWidget {
       /// PROFILE PAGE
       UserProfilePage(
         userModel: userModel,
-        userCountry: userZone.countryModel,
-        userCity: userZone.cityModel,
       ),
 
       /// USER ID
@@ -239,8 +232,6 @@ class SelectedUserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    blog('wtf');
-
     return PageBubble(
       appBarType: AppBarType.search,
       screenHeightWithoutSafeArea: screenHeight,
@@ -255,28 +246,20 @@ class SelectedUserPage extends StatelessWidget {
 
           else {
 
-            return ValueListenableBuilder(
-                valueListenable: selectedUserZone,
-                builder: (_, ZoneModel userZone, Widget child){
+            final List<Widget> _widgets = _pageWidgets(
+              context: context,
+              userModel: userModel,
+              usersModels: usersModels,
+            );
 
-                  final List<Widget> _widgets = _pageWidgets(
-                    context: context,
-                    userModel: userModel,
-                    userZone: userZone,
-                    usersModels: usersModels,
-                  );
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: _widgets.length,
+              itemBuilder: (_, index){
 
-                  return ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: _widgets.length,
-                    itemBuilder: (_, index){
+                return _widgets[index];
 
-                      return _widgets[index];
-
-                    },
-                  );
-
-                }
+              },
             );
 
           }

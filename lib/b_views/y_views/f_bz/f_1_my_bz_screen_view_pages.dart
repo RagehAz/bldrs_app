@@ -1,7 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_2_bz_flyers_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_3_bz_about_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_4_bz_authors_page.dart';
@@ -10,7 +8,6 @@ import 'package:bldrs/b_views/y_views/f_bz/f_6_bz_powers_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_7_bz_network_page.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MyBzScreenViewPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -32,14 +29,16 @@ class MyBzScreenViewPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final BzModel bzModel = _bzzProvider.myActiveBz;
-    final List<FlyerModel> bzFlyers = _bzzProvider.myActiveBzFlyers;
-    final CountryModel bzCountry = _bzzProvider.myActiveBzCountry;
-    final CityModel bzCity = _bzzProvider.myActiveBzCity;
+    final BzModel bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: true,
+    );
 
-    // blog('BUILDING MyBzScreenViewPages WITH ${bzFlyers.length} FLYERS for bz : ${bzModel.id}');
-    // FlyerModel.blogFlyers(bzFlyers);
+    final List<FlyerModel> bzFlyers = BzzProvider.proGetActiveBzFlyers(
+      context: context,
+      listen: true,
+    );
+
 
     return TabBarView(
       physics: const BouncingScrollPhysics(),
@@ -50,8 +49,6 @@ class MyBzScreenViewPages extends StatelessWidget {
             key: const PageStorageKey('BzFlyersPage'),
             bzModel: bzModel,
             flyers: bzFlyers,
-            bzCountry: bzCountry,
-            bzCity: bzCity
         ),
 
         BzAboutPage(

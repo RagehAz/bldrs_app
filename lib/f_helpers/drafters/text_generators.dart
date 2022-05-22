@@ -1,9 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/a_models/zone/district_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -24,91 +20,6 @@ String flyerTypeDescriptionStringer(BuildContext context, FlyerTypeClass.FlyerTy
   Wordz.bldrsShortName(context);
 
   return _description;
-}
-// -----------------------------------------------------------------------------
-String countryStringerByModels ({
-  @required BuildContext context,
-  @required CountryModel country,
-  @required CityModel city,
-  @required ZoneModel zone
-}){
-  String _verse = '...';
-
-  if (country != null && ZoneModel.zoneHasAllIDs(zone)){
-
-    final String _countryName = CountryModel.getTranslatedCountryName(
-        context: context,
-        countryID: country.id,
-    );
-
-    final String _cityName = CityModel.getTranslatedCityNameFromCity(
-      context: context,
-      city: city,
-    );
-
-    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-      context: context,
-      city: city,
-      districtID: zone.districtID,
-    );
-
-    _verse =
-    zone.countryID == null || zone.cityID == null ? '...' :
-    '${superPhrase(context, 'phid_inn')} $_districtName , $_cityName , $_countryName . ';
-
-  }
-
-
-  return _verse;
-}
-// -----------------------------------------------------------------------------
-String countryStringerByZoneModel ({
-  @required BuildContext context,
-  @required ZoneModel zone
-}){
-  String _verse = '...';
-
-  if (zone != null && ZoneModel.zoneHasAllIDs(zone)){
-
-    final String _countryName = zone.countryName;
-
-    final String _cityName = zone.cityName;
-
-    final String _districtName = zone.districtName;
-
-    _verse =
-    zone.countryID == null || zone.cityID == null ? '...' :
-    '${superPhrase(context, 'phid_inn')} $_districtName , $_cityName , $_countryName . ';
-
-  }
-
-
-  return _verse;
-}
-// -----------------------------------------------------------------------------
-String cityCountryStringer ({
-  @required BuildContext context,
-  @required CountryModel country,
-  @required CityModel city,
-  @required ZoneModel zone,
-}){
-
-  String _verse = '...';
-
-  if (country != null && ZoneModel.zoneHasAllIDs(zone)){
-
-    final String _countryName = superPhrase(context, country.id);
-
-    final String _cityName = superPhrase(context, city.cityID);
-
-    _verse =
-    zone.countryID == null || zone.cityID == null ? '...' :
-    '${superPhrase(context, 'phid_inn')}, $_cityName , $_countryName . ';
-
-
-  }
-
-  return _verse;
 }
 // -----------------------------------------------------------------------------
 String functionStringer(Function function) {
