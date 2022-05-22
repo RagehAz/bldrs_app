@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
@@ -98,20 +97,14 @@ class UsersProvider extends ChangeNotifier {
   /// MY USER MODEL
 
 // -------------------------------------
-  UserModel _myUserModel; //UserModel.initializeUserModelStreamFromUser(superFirebaseUser()); needs to be null if didn't find the userModel
-  CountryModel _myUserCountry;
-  CityModel _myUserCity;
+  UserModel _myUserModel;
   AuthModel _myAuthModel;
 // -------------------------------------
   UserModel get myUserModel => _myUserModel;
-  CountryModel get myUserCountry => _myUserCountry;
-  CityModel get myUserCity => _myUserCity;
   AuthModel get myAuthModel => _myAuthModel;
 // -------------------------------------
-  Future<void> getsetMyUserModelAndCountryAndCity(BuildContext context) async {
+  Future<void> getsetMyUserModelAndFixZone(BuildContext context) async {
     UserModel _userModel;
-    CountryModel _userCountry;
-    CityModel _userCity;
 
     final String _myUserID = FireAuthOps.superUserID();
 
@@ -122,25 +115,17 @@ class UsersProvider extends ChangeNotifier {
           userID: _myUserID,
       );
 
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-      _userCountry = await _zoneProvider.fetchCountryByID(
+      final ZoneModel _completeZoneModel = await ZoneProvider.proGetCompleteZoneModel(
           context: context,
-          countryID: _userModel.zone.countryID,
+          incompleteZoneModel: _userModel.zone,
       );
 
-      _userCity = await _zoneProvider.fetchCityByID(
-          context: context,
-          cityID: _userModel.zone.cityID,
+      _userModel = _userModel.copyWith(
+        zone: _completeZoneModel,
       );
 
-      blog('_userCountry is ${_userCountry.id} ahoooooooooooooo');
-      blog('_userCity is ${_userCity.cityID} ahoooooooooooooo');
-
-      setMyUserModelAndCountryAndCity(
+      setMyUserModel(
         userModel: _userModel,
-        countryModel: _userCountry,
-        cityModel: _userCity,
         notify: true,
       );
 
@@ -148,16 +133,12 @@ class UsersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  void setMyUserModelAndCountryAndCity({
+  void setMyUserModel({
     @required UserModel userModel,
-    @required CountryModel countryModel,
-    @required CityModel cityModel,
     @required bool notify,
   }){
 
     _myUserModel = userModel;
-    _myUserCountry = countryModel;
-    _myUserCity = cityModel;
 
     if (notify == true){
       notifyListeners();
@@ -177,12 +158,10 @@ class UsersProvider extends ChangeNotifier {
     }
 }
 // -------------------------------------
-  void clearMyUserModelAndCountryAndCityAndAuthModel(){
+  void clearMyUserModelAndAuthModel(){
 
-    setMyUserModelAndCountryAndCity(
+    setMyUserModel(
       userModel: null,
-      countryModel: null,
-      cityModel: null,
       notify: false,
     );
 
@@ -439,5 +418,31 @@ class UsersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+
+}
+
+Future<UserModel> completeUserZoneModel({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  UserModel _output = userModel;
+
+  if (userModel != null){
+
+    /// COMPLETED ZONE MODEL
+    final ZoneModel _completeZoneModel = await ZoneProvider.proGetCompleteZoneModel(
+      context: context,
+      incompleteZoneModel: userModel.zone,
+    );
+
+    /// COMPLETED USER MODEL
+    _output = userModel.copyWith(
+      zone: _completeZoneModel,
+    );
+
+  }
+
+  return _output;
 
 }

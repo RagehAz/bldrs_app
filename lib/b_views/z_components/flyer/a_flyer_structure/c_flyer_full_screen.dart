@@ -13,7 +13,6 @@ class FlyerFullScreen extends StatelessWidget {
     @required this.minWidthFactor,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzZone,
     @required this.flyerZone,
     @required this.heroTag,
     @required this.currentSlideIndex,
@@ -24,7 +23,6 @@ class FlyerFullScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final ZoneModel bzZone;
   final ZoneModel flyerZone;
   final double minWidthFactor;
   final String heroTag;
@@ -56,7 +54,6 @@ class FlyerFullScreen extends StatelessWidget {
         child: FlyerHero(
           flyerModel: flyerModel,
           bzModel: bzModel,
-          bzZone: bzZone,
           flyerZone: flyerZone,
           isFullScreen: true,
           minWidthFactor: minWidthFactor,

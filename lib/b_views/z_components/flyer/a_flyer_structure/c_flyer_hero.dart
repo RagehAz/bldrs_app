@@ -17,7 +17,6 @@ class FlyerHero extends StatelessWidget {
   const FlyerHero({
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzZone,
     @required this.flyerZone,
     @required this.isFullScreen,
     @required this.minWidthFactor,
@@ -30,7 +29,6 @@ class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final ZoneModel bzZone;
   final ZoneModel flyerZone;
   final bool isFullScreen;
   final double minWidthFactor;
@@ -81,7 +79,6 @@ class FlyerHero extends StatelessWidget {
         flyerBoxWidth: _flyerBoxWidth,
         flyerModel: flyerModel,
         bzModel: bzModel,
-        bzZone: bzZone,
         flyerZone: flyerZone,
         heroTag: _heroTag,
         flightDirection: FlightDirection.non,

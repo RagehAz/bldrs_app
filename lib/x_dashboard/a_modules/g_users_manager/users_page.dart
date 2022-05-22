@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -15,7 +14,6 @@ class UsersPage extends StatelessWidget {
     @required this.scrollController,
     @required this.pageController,
     @required this.selectedUser,
-    @required this.selectedUserZone,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,7 +22,6 @@ class UsersPage extends StatelessWidget {
   final ScrollController scrollController;
   final PageController pageController;
   final ValueNotifier<UserModel> selectedUser;
-  final ValueNotifier<ZoneModel> selectedUserZone;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -53,7 +50,6 @@ class UsersPage extends StatelessWidget {
                   userModel: users[index],
                   pageController: pageController,
                   selectedUserModel: selectedUser,
-                  selectedUserZone: selectedUserZone,
                 ),
               );
 

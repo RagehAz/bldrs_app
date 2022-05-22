@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
@@ -69,7 +68,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     _lastSnapshot.dispose();
     _usersModels.dispose();
     _selectedUser.dispose();
-    _selectedUserZone.dispose();
     _pageController.dispose();
     _scrollController.dispose();
   }
@@ -80,7 +78,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   final ValueNotifier<QueryDocumentSnapshot<Object>> _lastSnapshot = ValueNotifier(null); /// tamam disposed
   final ValueNotifier<List<UserModel>> _usersModels = ValueNotifier<List<UserModel>>(<UserModel>[]); /// tamam disposed
   final ValueNotifier<UserModel> _selectedUser = ValueNotifier<UserModel>(null); /// tamam disposed
-  final ValueNotifier<ZoneModel> _selectedUserZone = ValueNotifier<ZoneModel>(null); /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -132,7 +129,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
           /// USERS PAGE
           UsersPage(
             screenHeight: _screenHeight,
-            selectedUserZone: _selectedUserZone,
             selectedUser: _selectedUser,
             scrollController: _scrollController,
             pageController: _pageController,
@@ -143,7 +139,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
           SelectedUserPage(
             screenHeight: _screenHeight,
             selectedUser: _selectedUser,
-            selectedUserZone: _selectedUserZone,
             usersModels: _usersModels,
             pageController: _pageController,
           ),

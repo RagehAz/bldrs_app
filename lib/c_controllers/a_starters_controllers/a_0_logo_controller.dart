@@ -3,14 +3,11 @@ import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
@@ -77,7 +74,7 @@ Future<void> _initializeUserModel(BuildContext context) async {
     /// NO MISSING FIELDS FOUND
     else {
 
-      await setUserAndAuthAndCountryAndCityModelsLocally(
+      await setUserAndAuthModelsAndCompleteUserZoneLocally(
         context: context,
         authModel: _authModel,
       );
@@ -95,30 +92,22 @@ Future<void> _initializeUserModel(BuildContext context) async {
 
 }
 // ---------------------------------
-Future<void> setUserAndAuthAndCountryAndCityModelsLocally({
+Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   @required BuildContext context,
   @required AuthModel authModel,
 }) async {
 
-  final UserModel _userModel = authModel.userModel;
-
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
+
+  final UserModel _userModel = await completeUserZoneModel(
+      context: context,
+      userModel: authModel.userModel,
+  );
+
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final CountryModel _userCountry = await _zoneProvider.fetchCountryByID(
-      context: context,
-      countryID: _userModel.zone.countryID
-  );
 
-  final CityModel _userCity = await _zoneProvider.fetchCityByID(
-      context: context,
-      cityID: _userModel.zone.cityID
-  );
-
-  _usersProvider.setMyUserModelAndCountryAndCity(
+  _usersProvider.setMyUserModel(
     userModel: _userModel,
-    countryModel: _userCountry,
-    cityModel: _userCity,
     notify: false,
   );
 

@@ -1,8 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -387,15 +385,11 @@ class BzzProvider extends ChangeNotifier {
 
 // -------------------------------------
   BzModel _myActiveBz;
-  CountryModel _myActiveBzCountry;
-  CityModel _myActiveBzCity;
   List<FlyerModel> _myActiveBzFlyers = <FlyerModel>[];
 // -----------------------------------------------------------------------------
   BzModel get myActiveBz {
     return _myActiveBz;
   }
-  CountryModel get myActiveBzCountry => _myActiveBzCountry;
-  CityModel get myActiveBzCity => _myActiveBzCity;
   List<FlyerModel> get myActiveBzFlyers{
 
     blog('GETTING _myActiveBzFlyers : ${_myActiveBzFlyers.length} flyers');
@@ -405,14 +399,10 @@ class BzzProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   void setActiveBz({
     @required BzModel bzModel,
-    @required CountryModel bzCountry,
-    @required CityModel bzCity,
     @required bool notify,
   }) {
     blog('setting active bz to ${bzModel?.id}');
     _myActiveBz = bzModel;
-    _myActiveBzCountry = bzCountry;
-    _myActiveBzCity = bzCity;
 
     if (notify == true){
       notifyListeners();
@@ -468,12 +458,34 @@ class BzzProvider extends ChangeNotifier {
 }){
     setActiveBz(
       bzModel: null,
-      bzCity: null,
-      bzCountry: null,
       notify: notify,
     );
   }
 // -----------------------------------------------------------------------------
+
+  /// PRO GETTERS
+
+// --------------------------------
+  static BzModel proGetActiveBzModel({
+    @required BuildContext context,
+    @required bool listen,
+}) {
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
+    final BzModel _bzModel = _bzzProvider.myActiveBz;
+    return _bzModel;
+  }
+// --------------------------------
+  static List<FlyerModel> proGetActiveBzFlyers({
+    @required BuildContext context,
+    @required bool listen,
+}){
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
+    final List<FlyerModel> _flyers = _bzzProvider.myActiveBzFlyers;
+    return _flyers;
+}
+// --------------------------------
+
+
 }
 
 /*

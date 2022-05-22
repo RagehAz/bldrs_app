@@ -1,47 +1,29 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BzAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzAppBar({
-    // @required this.bzModel,
-    // @required this.userModel,
-    // @required this.countryModel,
-    // @required this.cityModel,
     Key key,
   }) : super(key: key);
-
-  /// --------------------------------------------------------------------------
-  // final BzModel bzModel;
-  // final UserModel userModel;
-  // final CountryModel countryModel;
-  // final CityModel cityModel;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final BzModel _bzModel = _bzzProvider.myActiveBz;
-    final CountryModel _bzCountry = _bzzProvider.myActiveBzCountry;
-    final CityModel _bzCity = _bzzProvider.myActiveBzCity;
-
-    // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
-    // final UserModel _myUserModel = _usersProvider.myUserModel;
-
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: true,
+    );
 
     final double _appBarBzButtonWidth = Scale.superScreenWidth(context) -
         (Ratioz.appBarMargin * 2) -
@@ -50,11 +32,9 @@ class BzAppBar extends StatelessWidget {
         (Ratioz.appBarButtonSize * 1.4) -
         Ratioz.appBarPadding;
 
-    final String _zoneString = TextGen.cityCountryStringer(
+    final String _zoneString = ZoneModel.generateZoneString(
       context: context,
-      zone: _bzModel?.zone,
-      country: _bzCountry,
-      city: _bzCity,
+      zoneModel: _bzModel?.zone,
     );
 
     final String _bzTypesString = BzModel.generateTranslatedBzTypesString(
