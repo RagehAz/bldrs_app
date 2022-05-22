@@ -24,6 +24,7 @@ import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -218,6 +219,25 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   final ValueNotifier<int> _rebuildListPusher = ValueNotifier(0);
 // -----------------------------------------------------------------------------
+  Future<void> _scrollOnKeyboard() async {
+
+    if (keyboardIsOn(context) == true){
+      blog(' + keyboard got on and should scroll +');
+      await scrollTo(
+        controller: _scrollController,
+        offset: _scrollController.position.pixels + 100,
+      );
+    }
+    else {
+      blog(' - keyboard got on and should scroll -');
+      await scrollTo(
+        controller: _scrollController,
+        offset: _scrollController.position.pixels - 100,
+      );
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -240,6 +260,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         withCounter: true,
     );
     final double _fieldWidth = BldrsAppBar.width(context) - 50;
+
 
     return MainLayout(
       key: const ValueKey('test_lab'),
@@ -266,67 +287,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             height: _screenHeight - Stratosphere.smallAppBarStratosphere - SpecializedLabs.height,
             child: ListView(
               physics: const BouncingScrollPhysics(),
+              controller: _scrollController,
               children: <Widget>[
 
-
-
-                /// TEXT FIELD
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      color: Colorz.bloodTest,
-                      alignment: Alignment.topCenter,
-                      child: Stack(
-                        children: [
-                          Form(
-                            key: _formKey,
-                            child: SuperTextField(
-                              isFormField: true,
-                              width: _fieldWidth,
-                              textController: _textController,
-                              // fieldColor: Colorz.white20,
-                              maxLines: 1000,
-                              // minLines: numberOfLines,
-                              maxLength: 10,
-                              counterIsOn: true,
-                              onEditingComplete: (){
-                                blog('editing just completed');
-                                },
-                              onTap: (){
-                                blog('just tapped');
-                                },
-                              // corners: 50,
-                              // autofocus: false,
-                              hintText: 'fuck you',
-                              onSubmitted: (String val){
-                                blog('submitted val : $val');
-                                },
-                              // margins: const EdgeInsets.symmetric(vertical: 50),
-                              // textSize: _textSize,
-                              // textSizeFactor: _sizeFactor,
-                              keyboardTextInputAction: TextInputAction.newline,
-                              validator: (){
-                                if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
-                                  return 'you can not say a77a';
-                                }
-                                else {
-                                  return null;
-                                }
-                                },
-                              onChanged: _onTextFieldChanged,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 50,
-                      height: _concludedHeight,
-                      color: Colorz.yellow255,
-                    ),
-                  ],
-                ),
 
                 /// PARAGRAPH
                 WidgetFader(
@@ -386,6 +349,64 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                       );
                       blogMaps(maps);
                     }),
+
+                /// TEXT FIELD
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      color: Colorz.bloodTest,
+                      alignment: Alignment.topCenter,
+                      child: Stack(
+                        children: [
+                          Form(
+                            key: _formKey,
+                            child: SuperTextField(
+                              isFormField: true,
+                              width: _fieldWidth,
+                              textController: _textController,
+                              // fieldColor: Colorz.white20,
+                              maxLines: 1000,
+                              // minLines: numberOfLines,
+                              maxLength: 10,
+                              counterIsOn: true,
+                              onEditingComplete: (){
+                                blog('editing just completed');
+                              },
+                              onTap: (){
+                                blog('just tapped');
+                              },
+                              // corners: 50,
+                              // autofocus: false,
+                              hintText: 'fuck you',
+                              onSubmitted: (String val){
+                                blog('submitted val : $val');
+                              },
+                              // margins: const EdgeInsets.symmetric(vertical: 50),
+                              // textSize: _textSize,
+                              // textSizeFactor: _sizeFactor,
+                              keyboardTextInputAction: TextInputAction.newline,
+                              validator: (){
+                                if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
+                                  return 'you can not say a77a';
+                                }
+                                else {
+                                  return null;
+                                }
+                              },
+                              onChanged: _onTextFieldChanged,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 50,
+                      height: _concludedHeight,
+                      color: Colorz.yellow255,
+                    ),
+                  ],
+                ),
 
                 ValueListenableBuilder(
                     valueListenable: _thePic,
@@ -465,6 +486,21 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 //   },
                 // ),
 
+                /// LIST PUSHER
+                if (keyboardIsOn(context) == true)
+                ValueListenableBuilder(
+                    valueListenable: _rebuildListPusher,
+                    builder: (_, int rebuilds, Widget child){
+
+                      return ListPusher(
+                        maxHeight: 160,
+                        expand: keyboardIsOn(context) == true,
+                        duration: const Duration(seconds: 1),
+                      );
+
+                    }
+                ),
+
                 DreamBox(
                   width: _screenWidth,
                   height: 100,
@@ -475,21 +511,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                   },
                 ),
 
-                /// LIST PUSHER
-                if (keyboardIsOn(context) == true)
-                ValueListenableBuilder(
-                    valueListenable: _rebuildListPusher,
-                    builder: (_, int rebuilds, Widget child){
-
-                      return ListPusher(
-                        maxHeight: 160,
-                        expand: true,
-                      );
-
-                    }
-                ),
-
-
               ],
             ),
           ),
@@ -499,4 +520,3 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     );
   }
 }
-

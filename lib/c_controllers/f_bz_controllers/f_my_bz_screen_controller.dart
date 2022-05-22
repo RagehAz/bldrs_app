@@ -19,6 +19,7 @@ import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -141,12 +142,9 @@ Future<void> _onDeleteBzAccount({
 }) async {
     // Nav.goBack(context);
 
-    final bool _dialogResult = await CenterDialog.showCenterDialog(
+    final bool _dialogResult = await _showDeleteBzDialog(
       context: context,
-      title: 'Delete ${bzModel.name} Business Account ?',
-      body: 'All Account flyers, records and data will be deleted and can not be retrieved',
-      confirmButtonText: 'Yes, Delete',
-      boolDialog: true,
+      bzModel: bzModel,
     );
 
     if (_dialogResult == true) {
@@ -227,6 +225,30 @@ Future<void> _onDeleteBzAccount({
 
     }
 
+}
+
+Future<bool> _showDeleteBzDialog({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Delete ${bzModel.name} Business Account ?',
+    body: 'All Account flyers, records and data will be deleted and can not be retrieved',
+    confirmButtonText: 'Yes, Delete',
+    boolDialog: true,
+    height: superScreenHeight(context) * 0.7,
+    child: Column(
+      children: <Widget>[
+
+
+
+      ],
+    ),
+  );
+
+  return _result;
 }
 // -----------------------------------------------------------------------------
 

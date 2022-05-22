@@ -51,8 +51,9 @@ Future<BzModel> createBz({
   // inputBz has inputBz.bzLogo & inputBz.authors[0].authorPic as Files not URLs
 
   BzModel _output;
+  bool _result;
 
-  final bool _result = await tryCatchAndReturnBool(
+  _result = await tryCatchAndReturnBool(
     context: context,
     methodName: 'createBz',
     functions: () async {
@@ -61,6 +62,7 @@ Future<BzModel> createBz({
       final DocumentReference<Object> _docRef = await Fire.createDoc(
         context: context,
         collName: FireColl.bzz,
+        addDocID: true,
         input: <String, dynamic>{},
       );
       final String _bzID = _docRef.id;
@@ -115,14 +117,6 @@ Future<BzModel> createBz({
         authors: <AuthorModel>[_masterAuthor],
       );
 
-      /// replace empty bz document with the new refactored one _bz
-      await Fire.updateDoc(
-        context: context,
-        collName: FireColl.bzz,
-        docName: _bzID,
-        input: _outputBz.toMap(toJSON: false),
-      );
-
       /// add bzID in user's myBzIDs
       final List<dynamic> _userBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
           strings: userModel.myBzzIDs,
@@ -137,11 +131,20 @@ Future<BzModel> createBz({
         input: _userBzzIDs,
       );
 
+      /// replace empty bz document with the new refactored one _bz
+      await Fire.updateDoc(
+        context: context,
+        collName: FireColl.bzz,
+        docName: _bzID,
+        input: _outputBz.toMap(toJSON: false),
+      );
+
       _output = _outputBz;
 
     },
       onError: (String error){
         blog('the create bz error is : $error');
+        _result = false;
       }
   );
 

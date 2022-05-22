@@ -144,7 +144,10 @@ class UserModel {
       fcmToken: null,
       savedFlyersIDs: <String>[],
       followedBzzIDs: <String>[],
-      appState: await GeneralProvider.fetchGlobalAppState(context),
+      appState: await GeneralProvider.fetchGlobalAppState(
+        context: context,
+        assignToUser: true,
+      ),
     );
 
     _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');

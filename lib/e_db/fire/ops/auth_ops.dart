@@ -151,10 +151,10 @@ Future<AuthModel> signInByEmailAndPassword({
     _authModel = _authModel.copyWith(
       userModel: _userModel,
     );
+
+    _authModel.blogAuthModel(methodName: 'signInByEmailAndPassword');
   }
-
-  _authModel.blogAuthModel(methodName: 'signInByEmailAndPassword');
-
+  
   return _authModel;
 }
 // ---------------------------------------
