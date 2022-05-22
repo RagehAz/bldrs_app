@@ -8,10 +8,12 @@ class AllCountriesButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AllCountriesButtons({
     @required this.onCountryTap,
+    this.padding,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onCountryTap;
+  final EdgeInsets padding;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,10 @@ class AllCountriesButtons extends StatelessWidget {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: _activeCountriesIDs.length,
-      padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon),
+      padding: padding ?? const EdgeInsets.only(
+          top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,
+          bottom: Ratioz.horizon
+      ),
       shrinkWrap: true,
       itemBuilder: (_, int index) {
 

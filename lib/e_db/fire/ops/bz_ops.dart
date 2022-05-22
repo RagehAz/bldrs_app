@@ -218,7 +218,6 @@ Future<BzModel> updateBz({
   @required BuildContext context,
   @required BzModel modifiedBz,
   @required BzModel originalBz,
-  @required File bzLogoFile,
   @required File authorPicFile,
 }) async {
   // ----------
@@ -228,12 +227,13 @@ Future<BzModel> updateBz({
 
   /// 1 - update bzLogo if changed
   String _bzLogoURL;
-  if (bzLogoFile == null) {
-    // do Nothing, bzLogo was not changed, will keep as
-  } else {
+  if (ObjectChecker.objectIsURL(modifiedBz.logo) == true) {
+    _bzLogoURL = modifiedBz.logo;
+  }
+  else if (ObjectChecker.objectIsFile(modifiedBz.logo) == true){
     _bzLogoURL = await Storage.updateExistingPic(
       context: context,
-      newPic: bzLogoFile,
+      newPic: modifiedBz.logo,
       oldURL: originalBz.logo,
     );
   }
@@ -287,7 +287,7 @@ Future<BzModel> updateBz({
     // -------------------------
     name: modifiedBz.name,
     trigram: modifiedBz.trigram,
-    logo: _bzLogoURL ?? modifiedBz.logo,
+    logo: _bzLogoURL ?? originalBz.logo,
     scope: modifiedBz.scope,
     zone: modifiedBz.zone,
     about: modifiedBz.about,
