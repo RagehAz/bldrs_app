@@ -12,7 +12,6 @@ import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 
 class FlyerHeader extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -20,7 +19,6 @@ class FlyerHeader extends StatefulWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzZone,
     @required this.flyerZone,
     @required this.onHeaderTap,
     @required this.onFollowTap,
@@ -37,7 +35,6 @@ class FlyerHeader extends StatefulWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final ZoneModel bzZone;
   final ZoneModel flyerZone;
   final Function onHeaderTap;
   final Function onFollowTap;
@@ -278,7 +275,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                   headerRightSpacerTween: _headerRightSpacerTween,
                   flyerModel: widget.flyerModel,
                   bzModel: widget.bzModel,
-                  bzZone: widget.bzZone,
                 ),
 
                 /// BZ NAME BELOW LOGO
@@ -286,9 +282,9 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
                   firstLine: widget.bzModel.name,
-                  secondLine: TextGen.countryStringerByZoneModel(
+                  secondLine: ZoneModel.generateZoneString(
                     context: context,
-                    zone: widget.bzZone,
+                    zoneModel: widget.bzModel.zone,
                   ),
                   headerIsExpanded: widget.headerIsExpanded,
                 ),

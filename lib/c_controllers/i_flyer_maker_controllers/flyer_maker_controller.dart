@@ -402,8 +402,6 @@ Future<void> onPublishFlyer({
   blog('onPublish flyer : myActiveBzFlyers on provider updated');
   _bzzProvider.setActiveBz(
     bzModel: _newBzModel,
-    bzCountry: _bzzProvider.myActiveBzCountry,
-    bzCity: _bzzProvider.myActiveBzCity,
     notify: true,
   );
   blog('onPublish flyer : _newBzModel on provider updated');

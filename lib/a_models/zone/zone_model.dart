@@ -1,8 +1,11 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/district_model.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:flutter/material.dart';
 
 class ZoneModel {
   /// --------------------------------------------------------------------------
@@ -161,6 +164,57 @@ class ZoneModel {
       cityID: 'egy_cairo',
       districtID: 'el_rehab',
     );
+  }
+// -----------------------------------------------------------------------------
+
+  /// STRING GENERATORS
+
+// -------------------------------------
+  static String generateZoneString ({
+    @required BuildContext context,
+    @required ZoneModel zoneModel,
+    bool showCity = true,
+    bool showDistrict = true,
+  }){
+
+    String _verse = '...';
+    final String _inn = superPhrase(context, 'phid_inn');
+
+    if (zoneModel?.countryID != null){
+
+      final String _countryName = CountryModel.getTranslatedCountryName(
+        context: context,
+        countryID: zoneModel.countryID,
+      );
+
+      _verse = '$_inn $_countryName';
+
+      if (showCity == true && zoneModel?.cityModel != null){
+
+        final String _cityName = CityModel.getTranslatedCityNameFromCity(
+          context: context,
+          city: zoneModel.cityModel,
+        );
+
+        _verse = '$_inn $_cityName, $_countryName';
+
+        if (showDistrict == true && zoneModel.districtID != null){
+
+          final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
+            context: context,
+            city: zoneModel.cityModel,
+            districtID: zoneModel.districtID,
+          );
+
+          _verse = '$_inn $_districtName, $_cityName, $_countryName';
+
+        }
+
+      }
+
+    }
+
+    return _verse;
   }
 // -----------------------------------------------------------------------------
 }

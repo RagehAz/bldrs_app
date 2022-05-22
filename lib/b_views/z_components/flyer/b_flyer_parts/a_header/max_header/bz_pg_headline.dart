@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -47,11 +47,9 @@ class OldBzPageHeadline extends StatelessWidget {
 
           /// BUSINESS LOCALE
           SuperVerse(
-            verse: TextGen.countryStringerByModels(
+            verse: ZoneModel.generateZoneString(
               context: context,
-              zone: bzModel?.zone,
-              country: country,
-              city: city,
+              zoneModel: bzModel?.zone,
             ),
             italic: true,
             weight: VerseWeight.regular,

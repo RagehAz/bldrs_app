@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_labels.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ class HeaderLabelsTree extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzZone,
     @required this.tinyMode,
     @required this.headerIsExpanded,
     Key key
@@ -26,7 +24,6 @@ class HeaderLabelsTree extends StatelessWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final ZoneModel bzZone;
  final bool tinyMode;
   final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
@@ -49,7 +46,6 @@ class HeaderLabelsTree extends StatelessWidget {
                 HeaderLabels(
                   flyerBoxWidth: flyerBoxWidth  * logoSizeRatioTween.value,
                   authorID: flyerModel.authorID,
-                  bzZone: bzZone,
                   bzModel: bzModel,
                   headerIsExpanded: false, //_headerIsExpanded,
                   flyerShowsAuthor: flyerModel.showsAuthor,

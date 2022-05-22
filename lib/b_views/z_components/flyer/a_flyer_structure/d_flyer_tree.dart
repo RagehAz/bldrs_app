@@ -24,7 +24,6 @@ class FlyerTree extends StatefulWidget {
   const FlyerTree({
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzZone,
     @required this.flyerZone,
     @required this.flyerBoxWidth,
     @required this.flightDirection,
@@ -41,7 +40,6 @@ class FlyerTree extends StatefulWidget {
   final Function onTap;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final ZoneModel bzZone;
   final ZoneModel flyerZone;
   final bool loading;
   final String heroTag;
@@ -422,7 +420,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           flyerBoxWidth: widget.flyerBoxWidth,
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
-          bzZone: widget.bzZone,
           flyerZone: widget.flyerZone,
           onHeaderTap: _onHeaderTap,
           onFollowTap: _onFollowTap,

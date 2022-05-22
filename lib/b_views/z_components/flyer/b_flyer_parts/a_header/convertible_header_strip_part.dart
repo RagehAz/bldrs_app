@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/follow_and_call_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_labels_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_left_spacer_part.dart';
@@ -32,7 +31,6 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
     @required this.headerRightSpacerTween,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.bzZone,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -54,7 +52,6 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
   final Animation<double> headerRightSpacerTween;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final ZoneModel bzZone;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -111,7 +108,6 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           flyerModel: flyerModel,
           bzModel: bzModel,
-          bzZone: bzZone,
           tinyMode: tinyMode,
           headerIsExpanded: headerIsExpanded,
         ),
