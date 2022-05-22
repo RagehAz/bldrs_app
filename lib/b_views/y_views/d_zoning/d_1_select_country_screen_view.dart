@@ -18,32 +18,30 @@ class SelectCountryScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return OldMaxBounceNavigator(
-      child: Scroller(
-        child: Selector<SearchProvider, bool>(
-          selector: (_, SearchProvider searchProvider) => searchProvider.isSearchingCountry,
-          builder: (BuildContext context, bool isSearchingCountry, Widget child){
+    return Scroller(
+      child: Selector<SearchProvider, bool>(
+        selector: (_, SearchProvider searchProvider) => searchProvider.isSearchingCountry,
+        builder: (BuildContext context, bool isSearchingCountry, Widget child){
 
-            if (isSearchingCountry == true){
+          if (isSearchingCountry == true){
 
-              return
-                SearchedCountriesButtons(
-                  onCountryTap: (String countryID) => onCountryTap(countryID),
-                );
+            return
+              SearchedCountriesButtons(
+                onCountryTap: (String countryID) => onCountryTap(countryID),
+              );
 
-            }
+          }
 
-            else {
+          else {
 
-              return
-                AllCountriesButtons(
-                  onCountryTap: (String countryID) => onCountryTap(countryID),
-                );
+            return
+              AllCountriesButtons(
+                onCountryTap: (String countryID) => onCountryTap(countryID),
+              );
 
-            }
+          }
 
-          },
-        ),
+        },
       ),
     );
   }
