@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -223,6 +224,8 @@ Future<void> _onEditBzAccount({
   @required BzModel bzModel,
 }) async {
 
+  blog('SHOULD GO EDIT BZ ACCOUNT NAAAAAW');
+
 }
 // -------------------------------
 Future<void> _onDeleteBzAccount({
@@ -315,7 +318,7 @@ Future<void> _onDeleteBzAccount({
     }
 
 }
-
+// -------------------------------
 Future<bool> _showDeleteBzDialog({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -328,12 +331,8 @@ Future<bool> _showDeleteBzDialog({
     confirmButtonText: 'Yes, Delete',
     boolDialog: true,
     height: superScreenHeight(context) * 0.7,
-    child: Column(
-      children: <Widget>[
-
-
-
-      ],
+    child: BzBanner(
+      bzModel: bzModel,
     ),
   );
 

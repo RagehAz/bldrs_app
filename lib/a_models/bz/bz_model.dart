@@ -7,6 +7,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -491,33 +492,52 @@ class BzModel{
   static String translateBzType({
     @required BuildContext context,
     @required BzType bzType,
+    bool nounTranslation = true,
     bool pluralTranslation = true,
   }){
 
-    /// PLURAL
-    if (pluralTranslation == true){
+    /// NOUN
+    if (nounTranslation == true){
       return
-        bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDevelopers') :
-        bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBrokers') :
-        bzType == BzType.designer ? superPhrase(context, 'phid_designers') :
-        bzType == BzType.contractor ? superPhrase(context, 'phid_contractors') :
-        bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsmen') :
-        bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturers') :
-        bzType == BzType.supplier ? superPhrase(context, 'phid_supplier') :
+        bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDevelopment') :
+        bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBrokerage') :
+        bzType == BzType.designer ? superPhrase(context, 'phid_design') :
+        bzType == BzType.contractor ? superPhrase(context, 'phid_contracting') :
+        bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsmanship') :
+        bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturing') :
+        bzType == BzType.supplier ? superPhrase(context, 'phid_supplying') :
         'Builders';
     }
 
-    /// SINGLE
+    /// NOT NOUN
     else {
-      return
-        bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDeveloper') :
-        bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBroker') :
-        bzType == BzType.designer ? superPhrase(context, 'phid_designer') :
-        bzType == BzType.contractor ? superPhrase(context, 'phid_contractor') :
-        bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsman') :
-        bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturer') :
-        bzType == BzType.supplier ? superPhrase(context, 'phid_suppliers') :
-        'Builder';
+
+      /// PLURAL
+      if (pluralTranslation == true){
+        return
+          bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDevelopers') :
+          bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBrokers') :
+          bzType == BzType.designer ? superPhrase(context, 'phid_designers') :
+          bzType == BzType.contractor ? superPhrase(context, 'phid_contractors') :
+          bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsmen') :
+          bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturers') :
+          bzType == BzType.supplier ? superPhrase(context, 'phid_supplier') :
+          'Builders';
+      }
+
+      /// SINGLE
+      else {
+        return
+          bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDeveloper') :
+          bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBroker') :
+          bzType == BzType.designer ? superPhrase(context, 'phid_designer') :
+          bzType == BzType.contractor ? superPhrase(context, 'phid_contractor') :
+          bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsman') :
+          bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturer') :
+          bzType == BzType.supplier ? superPhrase(context, 'phid_suppliers') :
+          'Builder';
+      }
+
     }
 
   }
@@ -551,6 +571,7 @@ class BzModel{
   static String generateTranslatedBzTypesString({
     @required BuildContext context,
     @required List<BzType> bzTypes,
+    @required BzForm bzForm,
   }){
 
     final List<String> _bzTypesStrings = BzModel.translateBzTypes(
@@ -559,11 +580,22 @@ class BzModel{
       pluralTranslation: false,
     );
 
+    final String _bzFormString = BzModel.translateBzForm(
+        context: context,
+        bzForm: bzForm,
+    );
+
     final String _bzTypesOneString = TextGen.generateStringFromStrings(
       strings: _bzTypesStrings,
     );
 
-    return _bzTypesOneString;
+    String _output = '$_bzTypesOneString\n$_bzFormString';
+
+    if (appIsLeftToRight(context) == false){
+      _output = '$_bzFormString\n$_bzTypesOneString';
+    }
+
+    return _output;
   }
 // ------------------------------------------
   static List<BzType> concludeBzTypeByBzSection(BzSection bzSection){
@@ -812,7 +844,7 @@ class BzModel{
     }
 
     else if (bzForm == BzForm.individual){
-      return superPhrase(context, 'phid_individual');
+      return superPhrase(context, 'phid_professional');
     }
 
     else {
