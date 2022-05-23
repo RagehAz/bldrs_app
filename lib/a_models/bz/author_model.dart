@@ -215,7 +215,7 @@ class AuthorModel {
 
     final List<AuthorModel> _masterAuthor = bzModel.authors.where(
             (AuthorModel author) => author.isMaster == true,
-        );
+        ).toList();
 
     return _masterAuthor;
   }

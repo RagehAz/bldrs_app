@@ -35,7 +35,7 @@ class ZoneLine extends StatelessWidget {
 
           FlagBox(
             size: 20,
-            countryID: zoneModel.countryID,
+            countryID: zoneModel?.countryID,
           ),
 
           const SizedBox(
