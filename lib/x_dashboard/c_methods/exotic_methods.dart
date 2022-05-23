@@ -372,12 +372,8 @@ class ExoticMethods {
         userID: newUserID,
       );
 
-      final AuthorModel _newAuthor = AuthorModel(
+      final AuthorModel _newAuthor = _oldAuthor.copyWith(
         userID: newUserID,
-        title: _oldAuthor.title,
-        contacts: _oldAuthor.contacts,
-        name: _oldAuthor.name,
-        isMaster: _oldAuthor.isMaster,
         pic: _newUserModel.pic,
       );
 

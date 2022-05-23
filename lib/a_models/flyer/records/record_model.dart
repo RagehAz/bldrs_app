@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-enum ActivityType {
+enum RecordType {
   follow,
   unfollow,
   call,
@@ -37,52 +37,50 @@ enum RecordDetailsType{
   searchText,
 }
 
-/// shall store customer journey map in firebase
-/// db : records / {recordID}
 class RecordModel {
   /// --------------------------------------------------------------------------
   const RecordModel({
-    @required this.activityType,
-
+    @required this.recordType,
     @required this.userID,
-    @required this.recordID,
     @required this.timeStamp,
-
     @required this.modelType,
     @required this.modelID,
-
     @required this.recordDetailsType,
     @required this.recordDetails,
+    this.recordID,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
-  final ActivityType activityType;
-
+  final RecordType recordType;
   final String userID;
   final String recordID;
   final DateTime timeStamp;
-
   final ModelType modelType;
   final String modelID; /// flyerID - bzID - QuestionID - AnswerID
-
   final RecordDetailsType recordDetailsType;
   final dynamic recordDetails;
   final DocumentSnapshot<Object> docSnapshot;
+// -----------------------------------------------------------------------------
 
-  /// --------------------------------------------------------------------------
-  Map<String, dynamic> toMap({@required bool toJSON}) {
+  /// MODEL CYPHERS
+
+// ---------------------------------
+  Map<String, dynamic> toMap({
+    @required bool toJSON,
+  }) {
     return <String, dynamic>{
-      'activityType' : cipherActivityType(activityType),
+      'activityType' : cipherActivityType(recordType),
       'userID' : userID,
-      // 'recordID' : recordID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
-      'modelType' : cipherModelType(modelType),
+      'modelType' : _cipherModelType(modelType),
       'modelID' : modelID,
       'recordDetailsType' : _cipherRecordDetailsType(recordDetailsType),
       'recordDetails' : recordDetails,
+      // 'recordID' : recordID,
+      // 'docSnapshot' : docSnapshot,
     };
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------
   static RecordModel decipherRecord({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -92,14 +90,15 @@ class RecordModel {
     if (map != null) {
 
       _record = RecordModel(
-        activityType: decipherActivityType(map['activityType']),
+        recordType: decipherActivityType(map['activityType']),
         userID: map['userID'],
         recordID: map['id'],
-        timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: fromJSON),
-
-        modelType: decipherModelType(map['modelType']),
+        timeStamp: Timers.decipherTime(
+            time: map['timeStamp'],
+            fromJSON: fromJSON,
+        ),
+        modelType: _decipherModelType(map['modelType']),
         modelID: map['modelID'],
-
         recordDetailsType: _decipherRecordDetailsType(map['recordDetailsType']),
         recordDetails: map['recordDetails'],
         docSnapshot: map['docSnapshot'],
@@ -109,8 +108,11 @@ class RecordModel {
 
     return _record;
   }
-// -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherRecords({@required List<RecordModel> records, @required bool toJSON}){
+// ---------------------------------
+  static List<Map<String, dynamic>> cipherRecords({
+    @required List<RecordModel> records,
+    @required bool toJSON,
+  }){
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -127,8 +129,11 @@ class RecordModel {
 
     return _maps;
   }
-// -----------------------------------------------------------------------------
-  static List<RecordModel> decipherRecords({@required List<Map<String, dynamic>> maps, @required bool fromJSON}){
+// ---------------------------------
+  static List<RecordModel> decipherRecords({
+    @required List<Map<String, dynamic>> maps,
+    @required bool fromJSON,
+  }){
     final List<RecordModel> _records = <RecordModel>[];
 
     if (Mapper.canLoopList(maps)){
@@ -148,53 +153,61 @@ class RecordModel {
     return _records;
   }
 // -----------------------------------------------------------------------------
-  static String cipherActivityType(ActivityType activity) {
+
+  /// RECORD TYPE CYPHERS
+
+// ---------------------------------
+  static String cipherActivityType(RecordType activity) {
     switch (activity) {
-      case ActivityType.follow:         return 'follow';          break;
-      case ActivityType.unfollow:       return 'unfollow';        break;
-      case ActivityType.call:           return 'call';            break;
-      case ActivityType.share:          return 'share';           break;
-      case ActivityType.view:           return 'view';            break;
-      case ActivityType.save:           return 'save';            break;
-      case ActivityType.unSave:         return 'unSave';          break;
-      case ActivityType.review:         return 'review';          break;
-      case ActivityType.editReview:     return 'editReview';      break;
-      case ActivityType.deleteReview:   return 'deleteReview';    break;
-      case ActivityType.question:       return 'question';        break;
-      case ActivityType.editQuestion:   return 'editQuestion';    break;
-      case ActivityType.deleteQuestion: return 'deleteQuestion';  break;
-      case ActivityType.answer:         return 'answer';          break;
-      case ActivityType.editAnswer:     return 'editAnswer';      break;
-      case ActivityType.deleteAnswer:   return 'deleteAnswer';    break;
-      case ActivityType.search:         return 'search';          break;
+      case RecordType.follow:         return 'follow';          break;
+      case RecordType.unfollow:       return 'unfollow';        break;
+      case RecordType.call:           return 'call';            break;
+      case RecordType.share:          return 'share';           break;
+      case RecordType.view:           return 'view';            break;
+      case RecordType.save:           return 'save';            break;
+      case RecordType.unSave:         return 'unSave';          break;
+      case RecordType.review:         return 'review';          break;
+      case RecordType.editReview:     return 'editReview';      break;
+      case RecordType.deleteReview:   return 'deleteReview';    break;
+      case RecordType.question:       return 'question';        break;
+      case RecordType.editQuestion:   return 'editQuestion';    break;
+      case RecordType.deleteQuestion: return 'deleteQuestion';  break;
+      case RecordType.answer:         return 'answer';          break;
+      case RecordType.editAnswer:     return 'editAnswer';      break;
+      case RecordType.deleteAnswer:   return 'deleteAnswer';    break;
+      case RecordType.search:         return 'search';          break;
+      default:return null;
+    }
+  }
+// ---------------------------------
+  static RecordType decipherActivityType(String activity) {
+    switch (activity) {
+      case 'follow':          return RecordType.follow;         break;
+      case 'unfollow':        return RecordType.unfollow;       break;
+      case 'call':            return RecordType.call;           break;
+      case 'share':           return RecordType.share;          break;
+      case 'view':            return RecordType.view;           break;
+      case 'save':            return RecordType.save;           break;
+      case 'unSave':          return RecordType.unSave;         break;
+      case 'review':          return RecordType.review;         break;
+      case 'editReview':      return RecordType.editReview;     break;
+      case 'deleteReview':    return RecordType.deleteReview;   break;
+      case 'question':        return RecordType.question;       break;
+      case 'editQuestion':    return RecordType.editQuestion;   break;
+      case 'deleteQuestion':  return RecordType.deleteQuestion; break;
+      case 'answer':          return RecordType.answer;         break;
+      case 'editAnswer':      return RecordType.editAnswer;     break;
+      case 'deleteAnswer':    return RecordType.deleteAnswer;   break;
+      case 'search':          return RecordType.search;         break;
       default:return null;
     }
   }
 // -----------------------------------------------------------------------------
-  static ActivityType decipherActivityType(String activity) {
-    switch (activity) {
-      case 'follow':          return ActivityType.follow;         break;
-      case 'unfollow':        return ActivityType.unfollow;       break;
-      case 'call':            return ActivityType.call;           break;
-      case 'share':           return ActivityType.share;          break;
-      case 'view':            return ActivityType.view;           break;
-      case 'save':            return ActivityType.save;           break;
-      case 'unSave':          return ActivityType.unSave;         break;
-      case 'review':          return ActivityType.review;         break;
-      case 'editReview':      return ActivityType.editReview;     break;
-      case 'deleteReview':    return ActivityType.deleteReview;   break;
-      case 'question':        return ActivityType.question;       break;
-      case 'editQuestion':    return ActivityType.editQuestion;   break;
-      case 'deleteQuestion':  return ActivityType.deleteQuestion; break;
-      case 'answer':          return ActivityType.answer;         break;
-      case 'editAnswer':      return ActivityType.editAnswer;     break;
-      case 'deleteAnswer':    return ActivityType.deleteAnswer;   break;
-      case 'search':          return ActivityType.search;         break;
-      default:return null;
-    }
-  }
-// -----------------------------------------------------------------------------
-  static String cipherModelType(ModelType modelType){
+
+  /// MODEL TYPE CYPHERS
+
+// ---------------------------------
+  static String _cipherModelType(ModelType modelType){
     switch (modelType){
       case ModelType.flyer:     return 'flyer';     break;
       case ModelType.bz:        return 'bz';        break;
@@ -204,8 +217,8 @@ class RecordModel {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
-  static ModelType decipherModelType(String modelType){
+// ---------------------------------
+  static ModelType _decipherModelType(String modelType){
     switch (modelType){
       case 'flyer':     return ModelType.flyer;     break;
       case 'bz':        return ModelType.bz;        break;
@@ -216,6 +229,10 @@ class RecordModel {
     }
   }
 // -----------------------------------------------------------------------------
+
+  /// RECORD DETAILS CYPHERS
+
+// ---------------------------------
   static String _cipherRecordDetailsType(RecordDetailsType recordDetailsType){
     switch (recordDetailsType){
       case RecordDetailsType.slideIndex:        return 'slideIndex';     break;
@@ -223,7 +240,7 @@ class RecordModel {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------
   static RecordDetailsType _decipherRecordDetailsType(String recordDetailsType){
     switch (recordDetailsType){
       case 'slideIndex':      return RecordDetailsType.slideIndex;      break;
@@ -232,7 +249,14 @@ class RecordModel {
     }
   }
 // -----------------------------------------------------------------------------
-  static List<RecordModel> insertRecordToRecords({@required List<RecordModel> records, @required RecordModel record}){
+
+  /// MODIFIERS
+
+// ---------------------------------
+  static List<RecordModel> insertRecordToRecords({
+    @required List<RecordModel> records,
+    @required RecordModel record,
+  }){
 
     final bool _recordsContainRecord = recordsContainRecord(
       records: records,
@@ -245,7 +269,7 @@ class RecordModel {
 
     return records;
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------
   static List<RecordModel> insertRecordsToRecords({
     @required List<RecordModel> originalRecords,
     @required List<RecordModel> addRecords,
@@ -264,7 +288,14 @@ class RecordModel {
     return _output;
   }
 // -----------------------------------------------------------------------------
-  static bool recordsContainRecord({@required List<RecordModel> records, @required RecordModel record}){
+
+  /// CHECKERS
+
+// ---------------------------------
+  static bool recordsContainRecord({
+    @required List<RecordModel> records,
+    @required RecordModel record,
+  }){
 
     bool _contains = false;
 
@@ -283,6 +314,7 @@ class RecordModel {
 
     return _contains;
   }
+
 // -----------------------------------------------------------------------------
 
 

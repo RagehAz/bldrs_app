@@ -485,6 +485,7 @@ class UserModel {
   /// MODIFIERS
 
 // -----------------------------------
+  /*
   static List<String> removeIDFromIDs(List<String> ids, String id) {
     final int _idIndex = ids.indexWhere((String _id) => _id == id,);
 
@@ -498,6 +499,7 @@ class UserModel {
     }
 
   }
+   */
 // -----------------------------------------------------------------------------
 
   /// BLOGGING

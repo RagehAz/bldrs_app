@@ -217,40 +217,52 @@ class SlideModel {
   /// CHECKERS
 
 // -------------------------------------
-  static bool slidesPicsAreTheSame(SlideModel finalSlide, SlideModel originalSlide) {
-    bool _slidesPicsAreTheSame;
+  static bool slidesPicsAreTheSame({
+    @required SlideModel newSlide,
+    @required SlideModel oldSlide,
+  }) {
 
-    if (finalSlide.pic != originalSlide.pic) {
-      _slidesPicsAreTheSame = false;
-    } else {
-      _slidesPicsAreTheSame = true;
-    }
+    final bool _slidesPicsAreTheSame = newSlide?.pic == oldSlide?.pic;
+
+    /// deprecated
+    // if (newSlide.pic != oldSlide.pic) {
+    //   _slidesPicsAreTheSame = false;
+    // }
+    //
+    // else {
+    //   _slidesPicsAreTheSame = true;
+    // }
 
     return _slidesPicsAreTheSame;
   }
 // -------------------------------------
   static bool allSlidesPicsAreTheSame({
-    @required FlyerModel finalFlyer,
-    @required FlyerModel originalFlyer,
+    @required FlyerModel newFlyer,
+    @required FlyerModel oldFlyer,
   }) {
     bool _allSlidesPicsAreTheSame;
 
-    // blog('finalFlyer.slides.length = ${finalFlyer.slides.length}');
-    // blog('originalFlyer.slides.length = ${originalFlyer.slides.length}');
+    if (newFlyer.slides.length == oldFlyer.slides.length) {
+      for (int i = 0; i < newFlyer.slides.length; i++) {
 
-    if (finalFlyer.slides.length == originalFlyer.slides.length) {
-      for (int i = 0; i < finalFlyer.slides.length; i++) {
-        final bool _slidesAreTheSame =
-            slidesPicsAreTheSame(finalFlyer.slides[i], originalFlyer.slides[i]);
+        final bool _slidesAreTheSame = slidesPicsAreTheSame(
+            newSlide: newFlyer.slides[i],
+            oldSlide: oldFlyer.slides[i],
+        );
 
         if (_slidesAreTheSame == false) {
           _allSlidesPicsAreTheSame = false;
           break;
-        } else {
+        }
+
+        else {
           _allSlidesPicsAreTheSame = true;
         }
+
       }
-    } else if (finalFlyer.slides.length != originalFlyer.slides.length) {
+    }
+
+    else if (newFlyer.slides.length != oldFlyer.slides.length) {
       _allSlidesPicsAreTheSame = false;
     }
 
@@ -261,11 +273,13 @@ class SlideModel {
   /// ID GENERATOR AND GETTERS
 
 // -------------------------------------
-  static String generateSlideID(String flyerID, int slideIndex) {
+  static String generateSlideID({
+    @required String flyerID,
+    @required int slideIndex,
+  }) {
     // slide index shall never have more than two digits
-    // ass flyer should never be more than 10 slides long
-    final String _slideIndexString =
-        slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
+    // as flyer should never be more than 10 slides long
+    final String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
     final String _slideID = '${flyerID}_$_slideIndexString';
     return _slideID;
   }
@@ -277,8 +291,14 @@ class SlideModel {
     final List<String> _slidesIDs = <String>[];
 
     for (int i = 0; i < numberOfSlides; i++) {
-      final String _slideID = SlideModel.generateSlideID(flyerID, i);
+
+      final String _slideID = SlideModel.generateSlideID(
+          flyerID: flyerID,
+          slideIndex: i,
+      );
+
       _slidesIDs.add(_slideID);
+
     }
 
     return _slidesIDs;
@@ -300,10 +320,10 @@ class SlideModel {
   /// MODIFIERS
 
 // -------------------------------------
-  static Future<List<SlideModel>> replaceSlidesPicturesWithNewURLs({
+  static List<SlideModel> replaceSlidesPicturesWithNewURLs({
     @required List<String> newPicturesURLs,
     @required List<SlideModel> inputSlides,
-  }) async {
+  }) {
     final List<SlideModel> _outputSlides = <SlideModel>[];
 
     for (final SlideModel slide in inputSlides) {
@@ -313,23 +333,10 @@ class SlideModel {
           pic: newPicturesURLs[i],
       );
 
-      // SlideModel(
-      //   slideIndex: inputSlides[i].slideIndex,
-      //   pic: newPicturesURLs[i],
-      //   headline: inputSlides[i].headline,
-      //   description: inputSlides[i].description,
-      //   savesCount: inputSlides[i].savesCount,
-      //   sharesCount: inputSlides[i].sharesCount,
-      //   viewsCount: inputSlides[i].viewsCount,
-      //   imageSize: inputSlides[i].imageSize,
-      //   picFit: inputSlides[i].picFit,
-      //   midColor: inputSlides[i].midColor,
-      // );
-
       _outputSlides.add(_newSlide);
     }
 
-    blog('slides are $_outputSlides');
+    blog('replaceSlidesPicturesWithNewURLs : slides are $_outputSlides');
 
     return _outputSlides;
   }

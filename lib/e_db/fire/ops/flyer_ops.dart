@@ -14,147 +14,162 @@ import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-/// Should include all flyer firestore functions/operations
-/// except reading data/getting data for widgets injection
-// -----------------------------------------------------------------------------
-
-/// REFERENCES
-
-// ---------------------------------------------------
-//   /// flyers collection reference
-//   CollectionReference _collRef(){
-//     return Fire.getCollectionRef(FireColl.flyers);
-//   }
-// // -----------------------------------------------------------------------------
-//   /// flyer document reference
-//   DocumentReference _flyerDocRef(String flyerID){
-//     return Fire.getDocRef(
-//           collName: FireColl.flyers,
-//           docName: flyerID
-//       );
-//   }
 // -----------------------------------------------------------------------------
 
 /// CREATE
 
-// ---------------------------------------------------
-/// create empty firestore flyer doc and return flyerID 'docID'
+// -----------------------------------
+/// TESTED :
 Future<FlyerModel> createFlyerOps({
   @required BuildContext context,
-  @required FlyerModel inputFlyerModel,
+  @required FlyerModel draftFlyer,
   @required BzModel bzModel,
 }) async {
-  blog('1- staring create flyer ops');
 
-  /// create empty firestore flyer document to get back _flyerID
-  final DocumentReference<Object> _docRef = await Fire.createDoc(
-    context: context,
-    collName: FireColl.flyers,
-    input: inputFlyerModel.toMap(toJSON: false),
-  );
+  blog('createFlyerOps : START');
 
-  final String _flyerID = _docRef.id;
+  FlyerModel _finalFlyer;
 
-  blog('2- flyer doc ID created : $_flyerID');
+  if (draftFlyer != null){
 
-  /// save slide pictures on fireStorage and get back their URLs
-  final List<String> _picturesURLs =
-      await Storage.createStorageSlidePicsAndGetURLs(
-    context: context,
-    slides: inputFlyerModel.slides,
-    flyerID: _flyerID,
-    authorID: inputFlyerModel.authorID,
-  );
+    final String _flyerID = await _createFlyerDoc(
+      context: context,
+      draftFlyer: draftFlyer,
+    );
 
-  blog('3- _picturesURLs created index 0 is : ${_picturesURLs[0]}');
+    if (_flyerID != null){
 
-  /// update slides with URLs
-  final List<SlideModel> _updatedSlides = await SlideModel.replaceSlidesPicturesWithNewURLs(
-      newPicturesURLs: _picturesURLs,
-      inputSlides: inputFlyerModel.slides,
-  );
+      _finalFlyer = await _createFlyerStorageImagesAndUpdateFlyer(
+        context: context,
+        flyerID: _flyerID,
+        draftFlyer: draftFlyer,
+      );
 
-  blog('4- slides updated with URLs');
+      await _addFlyerIDToBzFlyersIDs(
+        context: context,
+        bzModel: bzModel,
+        newFlyerIDToAdd: _flyerID,
+      );
 
-  /// update FlyerModel with newSlides & flyerURL
-  final FlyerModel _finalFlyerModel = FlyerModel(
-    id: _flyerID,
-    title: inputFlyerModel.title,
-    trigram: TextGen.createTrigram(input: inputFlyerModel.title),
-    // -------------------------
-    flyerType: inputFlyerModel.flyerType,
-    flyerState: inputFlyerModel.flyerState,
-    keywordsIDs: inputFlyerModel.keywordsIDs,
-    showsAuthor: inputFlyerModel.showsAuthor,
-    zone: inputFlyerModel.zone,
-    // -------------------------
-    authorID: inputFlyerModel.authorID,
-    bzID: inputFlyerModel.bzID,
-    // -------------------------
-    position: inputFlyerModel.position,
-    // -------------------------
-    slides: _updatedSlides,
-    // -------------------------
-    isBanned: inputFlyerModel.isBanned,
-    times: <PublishTime>[
-      ...inputFlyerModel.times,
-      PublishTime(state: FlyerState.published, time: DateTime.now()),
-    ],
-    info: inputFlyerModel.info,
-    specs: inputFlyerModel.specs,
-    priceTagIsOn: inputFlyerModel.priceTagIsOn,
-  );
+    }
 
-  blog(
-      '5- flyer model updated with flyerID, flyerURL & updates slides pic URLs');
+  }
 
-  /// replace empty flyer document with the new refactored one _finalFlyerModel
-  await Fire.updateDoc(
-    context: context,
-    collName: FireColl.flyers,
-    docName: _flyerID,
-    input: _finalFlyerModel.toMap(toJSON: false),
-  );
+  blog('createFlyerOps : END');
 
-  blog('7- Tiny flyer model added to tinyFlyers/$_flyerID');
+  return _finalFlyer;
+}
+// -----------------------------------
+/// TESTED : : returns Flyer ID
+Future<String> _createFlyerDoc({
+  @required BuildContext context,
+  @required FlyerModel draftFlyer,
+}) async {
 
-  /// add flyer counters sub collection and document in flyer store
-  await Fire.createNamedSubDoc(
-    context: context,
-    collName: FireColl.flyers,
-    docName: _flyerID,
-    subCollName: FireSubColl.flyers_flyer_counters,
-    subDocName: FireSubDoc.flyers_flyer_counters_counters,
-    input: await SlideModel.cipherSlidesCounters(_updatedSlides),
-  );
+  blog('_createFlyerDoc : START');
 
-  blog('9- flyer counters added');
+  DocumentReference<Object> _docRef;
 
-  /// add flyerID to bz document in 'flyersIDs' field
+  if (draftFlyer != null){
+
+    _docRef = await Fire.createDoc(
+      context: context,
+      collName: FireColl.flyers,
+      input: draftFlyer.toMap(
+        toJSON: false,
+      ),
+    );
+
+  }
+
+  blog('_createFlyerDoc : END');
+
+  return _docRef?.id;
+}
+// -----------------------------------
+Future<FlyerModel> _createFlyerStorageImagesAndUpdateFlyer({
+  @required BuildContext context,
+  @required FlyerModel draftFlyer,
+  @required String flyerID,
+}) async {
+  blog('_createFlyerStorageImagesAndUpdateFlyer : START');
+
+  FlyerModel _finalFlyer;
+
+  if (draftFlyer != null){
+
+    final List<String> _picturesURLs = await Storage.createStorageSlidePicsAndGetURLs(
+      context: context,
+      slides: draftFlyer.slides,
+      flyerID: flyerID,
+      authorID: draftFlyer.authorID,
+    );
+
+    if (Mapper.canLoopList(_picturesURLs) == true){
+
+      final List<SlideModel> _updatedSlides = SlideModel.replaceSlidesPicturesWithNewURLs(
+        newPicturesURLs: _picturesURLs,
+        inputSlides: draftFlyer.slides,
+      );
+
+      final List<PublishTime> _updatedPublishTime = <PublishTime>[
+        ...draftFlyer.times,
+        PublishTime(
+          state: FlyerState.published,
+          time: DateTime.now(),
+        ),
+      ];
+
+      _finalFlyer = draftFlyer.copyWith(
+        id: flyerID,
+        slides: _updatedSlides,
+        trigram: TextGen.createTrigram(input: draftFlyer.title),
+        times: _updatedPublishTime,
+      );
+
+      await _updateFlyerDoc(
+          context: context,
+          finalFlyer: _finalFlyer,
+      );
+
+
+    }
+
+  }
+
+  blog('_createFlyerStorageImagesAndUpdateFlyer : END');
+
+  return _finalFlyer;
+}
+// -----------------------------------
+Future<void> _addFlyerIDToBzFlyersIDs({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required String newFlyerIDToAdd,
+}) async {
+
   final List<String> _bzFlyersIDs = bzModel.flyersIDs;
-  _bzFlyersIDs.add(_flyerID);
+  _bzFlyersIDs.add(newFlyerIDToAdd);
+
   await Fire.updateDocField(
     context: context,
     collName: FireColl.bzz,
-    docName: _finalFlyerModel.bzID,
+    docName: bzModel.id,
     field: 'flyersIDs',
     input: _bzFlyersIDs,
   );
 
-  blog('10- tiny flyer added to bzID in bzz/${_finalFlyerModel.bzID}');
-
-  return _finalFlyerModel;
 }
+
+
 // -----------------------------------------------------------------------------
 
 /// READ
 
-// ---------------------------------------------------
+// -----------------------------------
 Future<FlyerModel> readFlyerOps({
   @required BuildContext context,
   @required String flyerID,
@@ -173,7 +188,7 @@ Future<FlyerModel> readFlyerOps({
 
   return _flyer;
 }
-// ---------------------------------------------------
+// -----------------------------------
 Future<List<FlyerModel>> readBzFlyers({
   @required BuildContext context,
   @required BzModel bzModel
@@ -195,7 +210,7 @@ Future<List<FlyerModel>> readBzFlyers({
 
   return _flyers;
 }
-// ---------------------------------------------------
+// -----------------------------------
 Future<List<FlyerModel>> readBzzFlyers({
   @required BuildContext context,
   @required List<BzModel> bzzModels,
@@ -217,29 +232,30 @@ Future<List<FlyerModel>> readBzzFlyers({
 
   return _allFlyers;
 }
-// ---------------------------------------------------
+// -----------------------------------
 Future<List<ReviewModel>> readAllReviews({
   @required BuildContext context,
   @required String flyerID,
 }) async {
-  final List<dynamic> _maps = await Fire.readSubCollectionDocs(
-    context: context,
-    collName: FireColl.flyers,
-    docName: flyerID,
-    subCollName: FireSubColl.flyers_flyer_reviews,
-    addDocsIDs: true,
-    orderBy: 'reviewID',
-    limit: 10,
 
-    /// task : paginate in flyer reviews
-  );
+  // final List<dynamic> _maps = await Fire.readSubCollectionDocs(
+  //   context: context,
+  //   collName: FireColl.flyers,
+  //   docName: flyerID,
+  //   subCollName: FireSubColl.flyers_flyer_reviews,
+  //   addDocsIDs: true,
+  //   orderBy: 'reviewID',
+  //   limit: 10,
+  //
+  //   /// task : paginate in flyer reviews
+  // );
+  //
+  // final List<ReviewModel> _reviews = ReviewModel.decipherReviews(maps: _maps, fromJSON: false);
+  // return _reviews;
 
-  final List<ReviewModel> _reviews =
-      ReviewModel.decipherReviews(maps: _maps, fromJSON: false);
-
-  return _reviews;
+  return null;
 }
-// ---------------------------------------------------
+// -----------------------------------
 Future<List<FlyerModel>> paginateFlyers({
   @required BuildContext context,
   @required ZoneModel zone,
@@ -305,127 +321,119 @@ Future<List<FlyerModel>> paginateFlyers({
 
 /// UPDATE
 
-// ---------------------------------------------------
+// -----------------------------------
 /// TESTED : WORKS PERFECT
 Future<FlyerModel> updateFlyerOps({
   @required BuildContext context,
-  @required FlyerModel updatedFlyer,
-  @required FlyerModel originalFlyer,
+  @required FlyerModel newFlyer,
+  @required FlyerModel oldFlyer,
   @required BzModel bzModel,
 }) async {
-  // steps ----------
-  /// A - if slides changed
-  ///   A1 - loop each slide in updated slides to check which changed
-  ///     x1 - if slide pic changed
-  ///       a - upload File to fireStorage/slidesPics/slideID and get URL
-  ///       b - recreate SlideModel with new pic URL
-  ///       c - add the updated slide into the finalSlides
-  ///     x2 - if slide pic did not change
-  ///       c - add the slide into the finalSlides
-  ///   A2 - replace slides in updatedFlyer with the finalSlides
-  ///   A3 - clone updatedFlyer into finalFlyer
-  /// B - Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
-  ///   B1 - get slides IDs which should be deleted starting first index after updatedFlyer.slides.length
-  ///   B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
-  /// C - update flyer doc in fireStore/flyers/flyerID
-  /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
-  /// F - if tinyFlyer is changed, update tinyFlyer doc
-  ///   F1 - get FinalTinyFlyer from final Flyer
-  ///   F2 - update fireStore/tinyFlyers/flyerID
-  // ----------
 
-  FlyerModel _finalFlyer = updatedFlyer;
+  final FlyerModel _finalFlyer = await _updateSlides(
+    context: context,
+    oldFlyer: oldFlyer,
+    newFlyer: newFlyer,
+  );
 
-  blog('besm allah');
+  await _deleteUnusedSlides(
+    context: context,
+    oldFlyer: oldFlyer,
+    newFlyer: newFlyer,
+  );
 
-  /// A - if slides changed
-  if (SlideModel.allSlidesPicsAreTheSame(
-          finalFlyer: updatedFlyer, originalFlyer: originalFlyer) ==
-      false) {
-    blog('A -  slides are not the same');
+  await _updateFlyerDoc(
+    context: context,
+    finalFlyer: _finalFlyer,
+  );
 
-    /// A1 - loop each slide in updated slides to check which changed
+  return _finalFlyer;
+}
+// -----------------------------------
+Future<FlyerModel> _updateSlides({
+  @required BuildContext context,
+  @required FlyerModel oldFlyer,
+  @required FlyerModel newFlyer,
+}) async {
+
+  FlyerModel _finalFlyer = newFlyer;
+
+  final bool _slidesAreTheSame = SlideModel.allSlidesPicsAreTheSame(
+      oldFlyer: oldFlyer,
+      newFlyer: newFlyer,
+  );
+
+  if (_slidesAreTheSame == false) {
+
+    /// loop each slide in updated slides to check which changed
     final List<SlideModel> _finalSlides = <SlideModel>[];
-    for (final SlideModel slide in updatedFlyer.slides) {
-      blog('A1 - checking slide ${slide.slideIndex}');
 
-      /// x1 - if slide pic changed
+    for (final SlideModel slide in newFlyer.slides) {
+
+      /// if slide pic changed
       if (ObjectChecker.objectIsFile(slide.pic) == true) {
-        blog('x1 - slide ${slide.slideIndex} is FILE');
 
-        /// a - upload File to fireStorage/slidesPics/slideID and get URL
+        /// upload File to fireStorage/slidesPics/slideID and get URL
         final String _newPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           docName: StorageDoc.slides,
-          picName: SlideModel.generateSlideID(updatedFlyer.id, slide.slideIndex),
           inputFile: slide.pic,
-          ownerID: originalFlyer.authorID,
+          ownerID: oldFlyer.authorID,
+          picName: SlideModel.generateSlideID(
+              flyerID: newFlyer.id,
+              slideIndex: slide.slideIndex,
+          ),
         );
 
         final ImageSize _imageSize = await ImageSize.superImageSize(slide.pic);
 
-        blog('a - slide ${slide.slideIndex} got this URL : $_newPicURL');
-
-        /// b - recreate SlideModel with new pic URL
         final SlideModel _updatedSlide = slide.copyWith(
           pic: _newPicURL,
           imageSize: _imageSize,
         );
 
-        // SlideModel(
-        //   slideIndex: slide.slideIndex,
-        //   pic: _newPicURL,
-        //   headline: slide.headline,
-        //   description: slide.description,
-        //   // -------------------------
-        //   sharesCount: slide.sharesCount,
-        //   viewsCount: slide.viewsCount,
-        //   savesCount: slide.savesCount,
-        //   imageSize: _imageSize,
-        //   picFit: slide.picFit,
-        //   midColor: slide.midColor,
-        // );
-
-        /// c - add the updated slide into finalSlides
         _finalSlides.add(_updatedSlide);
 
-        blog('c - slide ${slide.slideIndex} added to the _finalSlides');
       }
 
-      /// x2 - if slide pic did not change
+      /// if slide pic did not change
       else {
-        /// c - add the slide into finalSlides
         _finalSlides.add(slide);
-
-        blog('c - slide ${slide.slideIndex} is URL');
       }
 
-      blog('A1 - all slides checked');
     }
 
-    /// deprecated
-    // /// A2 - replace slides in updatedFlyer with the finalSlides
-    // final FlyerModel _updatedFlyer = FlyerModel.replaceSlides(
-    //   updatedSlides: _finalSlides,
-    //   flyer: updatedFlyer,
-    // );
+    _finalFlyer = newFlyer.copyWith(
+        slides: _finalSlides,
+    );
 
-    /// A3 - clone updatedFlyer into finalFlyer
-    _finalFlyer = updatedFlyer.copyWith(slides: _finalSlides);
   }
 
-  /// B - Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
-  if (originalFlyer.slides.length > _finalFlyer.slides.length) {
+  return _finalFlyer;
+}
+// -----------------------------------
+Future<void> _deleteUnusedSlides({
+  @required BuildContext context,
+  @required FlyerModel oldFlyer,
+  @required FlyerModel newFlyer,
+}) async {
+
+  /// Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
+  if (oldFlyer.slides.length > newFlyer.slides.length) {
+
     final List<String> _slidesIDsToBeDeleted = <String>[];
 
-    /// B1 - get slides IDs which should be deleted starting first index after updatedFlyer.slides.length
-    for (int i = _finalFlyer.slides.length;
-        i < originalFlyer.slides.length;
-        i++) {
-      _slidesIDsToBeDeleted.add(SlideModel.generateSlideID(_finalFlyer.id, i));
+    /// get slides IDs which should be deleted starting first index after updatedFlyer.slides.length
+    for (int i = newFlyer.slides.length; i < oldFlyer.slides.length; i++) {
+      _slidesIDsToBeDeleted.add(
+          SlideModel.generateSlideID(
+              flyerID: newFlyer.id,
+              slideIndex: i
+          )
+      );
     }
 
-    /// B2 - delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
+    /// delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
     for (final String slideID in _slidesIDsToBeDeleted) {
       await Storage.deleteStoragePic(
         context: context,
@@ -433,38 +441,26 @@ Future<FlyerModel> updateFlyerOps({
         picName: slideID,
       );
     }
+
   }
 
-  blog('B - all slides Got URLs and deleted slides have been overridden or deleted');
+}
+// -----------------------------------
+Future<void> _updateFlyerDoc({
+  @required BuildContext context,
+  @required FlyerModel finalFlyer,
+}) async {
 
-  /// C - update flyer doc in fireStore/flyers/flyerID
   await Fire.updateDoc(
     context: context,
     collName: FireColl.flyers,
-    docName: _finalFlyer.id,
-    input: _finalFlyer.toMap(toJSON: false),
+    docName: finalFlyer.id,
+    input: finalFlyer.toMap(toJSON: false),
   );
 
-  blog('C - flyer updated on fireStore in fireStore/flyers/${_finalFlyer.id}');
-
-  /// D - if keywords changed, update flyerKeys doc in : fireStore/flyersKeys/flyerID
-  // if (Mapper.listsAreTheSame(list1: _finalFlyer.keywordsIDs, list2: originalFlyer.keywordsIDs) == false){
-  //   await Fire.updateDoc(
-  //       context: context,
-  //       collName: FireCollection.flyersKeys,
-  //       docName: _finalFlyer.flyerID,
-  //       input: await TextMod.getKeywordsMap(_finalFlyer.keywordsIDs)
-  //   );
-  //
-  //   blog('D - flyer keywords updated on FireStore');
-  //
-  // }
-
-  blog('F - finished uploading flyer');
-
-  return _finalFlyer;
 }
-// ---------------------------------------------------
+// -----------------------------------
+/*
 //   Future<void> switchFlyerShowsAuthor({
 //     @required BuildContext context,
 //     @required String flyerID,
@@ -478,45 +474,12 @@ Future<FlyerModel> updateFlyerOps({
 //       input: val,
 //     );
 //   }
+ */
 // -----------------------------------------------------------------------------
 
 /// DELETE
 
-// ---------------------------------------------------
-Future<void> deactivateFlyerOps(
-    {@required BuildContext context,
-    @required String flyerID,
-    @required BzModel bzModel}) async {
-  // steps ----------
-  /// C - update fireStore/flyers/flyerID['deletionTime']
-  /// D - Update fireStore/flyers/flyerID['flyerState'] to Deactivated
-  // ----------
-
-  /// TASK : can merge the below two doc writes into one method later in optimization
-  /// C - update fireStore/flyers/flyerID['deletionTime']
-  final DateTime _deletionTime = DateTime.now();
-  await Fire.updateDocField(
-    context: context,
-    collName: FireColl.flyers,
-    docName: flyerID,
-    field: 'deletionTime',
-    input: Timers.cipherTime(
-      time: _deletionTime,
-      toJSON: false,
-    ),
-  );
-
-  /// D - Update fireStore/flyers/flyerID['flyerState'] to Deactivated
-  await Fire.updateDocField(
-    context: context,
-    collName: FireColl.flyers,
-    docName: flyerID,
-    field: 'flyerState',
-    input: FlyerModel.cipherFlyerState(FlyerState.unpublished),
-  );
-}
-
-// -----------------------------------------------------------------------------
+// -----------------------------------
 Future<void> deleteFlyerOps({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -524,106 +487,152 @@ Future<void> deleteFlyerOps({
   /// to avoid frequent updates to bz fire doc in delete bz ops
   @required bool deleteFlyerIDFromBzzFlyersIDs,
 }) async {
-  // steps ----------
-  /// A1 - get flyers IDs of this bzModel
-  /// A2 - update fireStore/bzz/bzID['flyersIDs']
-  /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
-  /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
-  /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
-  /// G - delete fireStore/flyers/flyerID/counters/counters
-  /// H - delete fireStorage/slidesPics/slideID for all flyer slides
-  /// I - delete firestore/flyers/flyerID
-  // ----------
+
+  blog('deleteFlyerOps : START : ${flyerModel.id}');
 
   if (flyerModel != null && flyerModel.id != null && bzModel != null) {
 
-    /// A1 - get flyers IDs of this bzModel
-    blog('A1 - get flyers IDs of this bzModel');
-    final List<String> _bzFlyersIDs = bzModel.flyersIDs;
+    /// DELETE FLYER ID FROM BZ FLYERS IDS
+    if (deleteFlyerIDFromBzzFlyersIDs == true) {
 
-    /// A2 - update fireStore/bzz/bzID['flyersIDs']
-    if (Mapper.canLoopList(_bzFlyersIDs) && deleteFlyerIDFromBzzFlyersIDs == true) {
-
-      _bzFlyersIDs.remove(flyerModel.id);
-
-      await Fire.updateDocField(
+      await _deleteFlyerIDFromBzFlyersIDs(
         context: context,
-        collName: FireColl.bzz,
-        docName: bzModel.id,
-        field: 'flyersIDs',
-        input: _bzFlyersIDs,
+        flyerID: flyerModel.id,
+        bzModel: bzModel,
       );
 
     }
 
-    /// D - delete fireStore/flyers/flyerID/views/(all sub docs)
-    blog('D - delete flyer views sub docs');
-    await Fire.deleteSubCollection(
+    /// DELETE FLYER RECORDS
+    await _deleteFlyerRecords(
       context: context,
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-      subCollName: FireSubColl.flyers_flyer_views,
+      flyerModel: flyerModel,
     );
 
-    /// E - delete fireStore/flyers/flyerID/shares/(all sub docs)
-    blog('E - delete shares sub docs');
-    await Fire.deleteSubCollection(
+    /// DELETE FLYER STORAGE IMAGES
+    await _deleteFlyerStorageImages(
       context: context,
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-      subCollName: FireSubColl.flyers_flyer_shares,
+      flyerModel: flyerModel,
     );
 
-    /// F - delete fireStore/flyers/flyerID/saves/(all sub docs)
-    blog('F - delete saves sub docs');
-    await Fire.deleteSubCollection(
+    /// I - delete firestore/flyers/flyerID
+    await _deleteFlyerDoc(
       context: context,
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-      subCollName: FireSubColl.flyers_flyer_saves,
+      flyerID: flyerModel.id,
     );
 
-    /// G - delete fireStore/flyers/flyerID/counters/counters
-    blog('G - delete counters sub doc');
-    await Fire.deleteSubDoc(
-      context: context,
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-      subCollName: FireSubColl.flyers_flyer_counters,
-      subDocName: FireSubDoc.flyers_flyer_counters_counters,
+  }
+
+  else {
+    blog('deleteFlyerOps : COULD NOT DELETE FLYER');
+  }
+
+  blog('deleteFlyerOps : END : ${flyerModel.id}');
+
+}
+// -----------------------------------
+Future<void> _deleteFlyerIDFromBzFlyersIDs({
+  @required BuildContext context,
+  @required String flyerID,
+  @required BzModel bzModel,
+}) async {
+
+  blog('_deleteFlyerIDFromBzFlyersIDs : START');
+  if (bzModel != null && flyerID != null){
+
+    final List<String> _bzFlyersIDs = Mapper.removeStringsFromStrings(
+      removeFrom: bzModel.flyersIDs,
+      removeThis: <String>[flyerID],
     );
 
-    /// H - delete fireStorage/slidesPics/slideID for all flyer slides
-    blog('H - delete flyer slide pics');
+    await Fire.updateDocField(
+      context: context,
+      collName: FireColl.bzz,
+      docName: bzModel.id,
+      field: 'flyersIDs',
+      input: _bzFlyersIDs,
+    );
+
+  }
+  blog('_deleteFlyerIDFromBzFlyersIDs : START');
+
+}
+// -----------------------------------
+Future<void> _deleteFlyerRecords({
+  @required BuildContext context,
+  @required FlyerModel flyerModel,
+}) async {
+
+  if (flyerModel != null){
+
+  /// DELETE VIEWS
+
+  /// DELETE SHARES
+
+  /// DELETE SAVES
+
+  /// DELETE COUNTERS
+
+  }
+
+}
+// -----------------------------------
+Future<void> _deleteFlyerStorageImages({
+  @required BuildContext context,
+  @required FlyerModel flyerModel,
+}) async {
+
+  blog('_deleteFlyerStorageImages : START');
+  if (flyerModel != null){
+
     final List<String> _slidesIDs = SlideModel.generateSlidesIDs(
       flyerID: flyerModel.id,
       numberOfSlides: flyerModel.slides.length,
     );
-    for (final String id in _slidesIDs) {
-      blog('a - delete slideHighRes : $id from ${_slidesIDs.length} slides');
-      await Storage.deleteStoragePic(
-        context: context,
-        picName: id,
-        docName: StorageDoc.slides,
-      );
+
+    if (Mapper.canLoopList(_slidesIDs) == true){
+
+      for (final String id in _slidesIDs) {
+
+        await Storage.deleteStoragePic(
+          context: context,
+          picName: id,
+          docName: StorageDoc.slides,
+        );
+
+      }
+
     }
 
-    /// I - delete firestore/flyers/flyerID
-    blog('I - delete flyer doc');
+  }
+
+  blog('_deleteFlyerStorageImages : END');
+
+}
+// -----------------------------------
+Future<void> _deleteFlyerDoc({
+  @required BuildContext context,
+  @required String flyerID,
+}) async {
+
+  blog('_deleteFlyerDoc : START');
+
+  if (flyerID != null){
     await Fire.deleteDoc(
       context: context,
       collName: FireColl.flyers,
-      docName: flyerModel.id,
+      docName: flyerID,
     );
-
-    blog('DELETE FLYER OPS ENDED for ${flyerModel.id} ---------------------------');
   }
+
+  blog('_deleteFlyerDoc : END');
+
 }
 // -----------------------------------------------------------------------------
 
 /// PROMOTION
 
-// ---------------------------------------------------
+// -----------------------------------
 Future<void> promoteFlyerInCity({
   @required BuildContext context,
   @required FlyerPromotion flyerPromotion,
@@ -657,7 +666,8 @@ Future<void> promoteFlyerInCity({
   }
 
 }
-// ---------------------------------------------------
+// -----------------------------------
+/*
 // Future<void> demoteFlyerInCity({
 //   @required BuildContext context,
 //   @required CityModel cityModel,
@@ -681,4 +691,5 @@ Future<void> promoteFlyerInCity({
 //   }
 //
 // }
+ */
 // -----------------------------------------------------------------------------

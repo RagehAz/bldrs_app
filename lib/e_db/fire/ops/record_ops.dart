@@ -23,7 +23,7 @@ Future<void> createRecord({
 Future<List<RecordModel>> paginateRecords({
   @required BuildContext context,
   @required String userID,
-  @required ActivityType activityType,
+  @required RecordType activityType,
   @required int limit,
   DocumentSnapshot<Object> startAfter,
 }) async {

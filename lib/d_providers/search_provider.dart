@@ -204,7 +204,7 @@ class SearchProvider extends ChangeNotifier {
     final List<RecordModel> _records = await RecordOps.paginateRecords(
       context: context,
       userID: FireAuthOps.superUserID(),
-      activityType: ActivityType.search,
+      activityType: RecordType.search,
       limit: 5,
       startAfter: _lastRecordSnapshot,
     );

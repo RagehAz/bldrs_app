@@ -448,7 +448,7 @@ Future<void> _publishFlyerOps({
   /// upload to firebase
   final FlyerModel _uploadedFlyer = await FlyerOps.createFlyerOps(
       context: context,
-      inputFlyerModel: _flyerToPublish,
+      draftFlyer: _flyerToPublish,
       bzModel: bzModel
   );
   blog('onPublish flyer : new flyer uploaded and bzModel updated on firebase');

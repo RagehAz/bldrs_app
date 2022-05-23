@@ -17,6 +17,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
+
 // -----------------------------------------------------------------------------
 
 /// REFERENCES
@@ -24,11 +25,9 @@ import 'package:flutter/cupertino.dart';
 // ---------------------------------------------------
 /// users firestore collection reference getter
 CollectionReference<Object> collRef() {
-  final CollectionReference<Object> _usersCollectionRef =
-      Fire.getCollectionRef(FireColl.users);
+  final CollectionReference<Object> _usersCollectionRef = Fire.getCollectionRef(FireColl.users);
   return _usersCollectionRef;
 }
-
 // ---------------------------------------------------
 /// user firestore document reference
 DocumentReference<Object> docRef(String userID) {
@@ -43,16 +42,19 @@ DocumentReference<Object> docRef(String userID) {
 
 // ---------------------------------------------------
 /// create or update user document
-Future<void> _createOrUpdateUserDoc(
-    {@required BuildContext context, @required UserModel userModel}) async {
+Future<void> _createOrUpdateUserDoc({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
   await Fire.updateDoc(
     context: context,
     collName: FireColl.users,
     docName: userModel.id,
     input: userModel.toMap(toJSON: false),
   );
-}
 
+}
 // ---------------------------------------------------
 Future<UserModel> createUser({
   @required BuildContext context,
@@ -288,6 +290,10 @@ Future<UserModel> updateUser({
   return _finalUserModel;
 }
 // -----------------------------------------------------------------------------
+
+/// USER FIELD MODIFIERS
+
+// --------------------------------
 /// returns new pic url
 Future<String> updateUserPic({
   @required BuildContext context,
@@ -312,7 +318,7 @@ Future<String> updateUserPic({
 
   return _newURL;
 }
-// ---------------------------------------------------
+// --------------------------------
 Future<void> addFlyerIDToSavedFlyersIDs({
   @required BuildContext context,
   @required String flyerID,
@@ -337,7 +343,7 @@ Future<void> addFlyerIDToSavedFlyersIDs({
   );
 
 }
-// ---------------------------------------------------
+// --------------------------------
 Future<void> removeFlyerIDFromSavedFlyersIDs({
   @required BuildContext context,
   @required String flyerID,
@@ -358,6 +364,32 @@ Future<void> removeFlyerIDFromSavedFlyersIDs({
       input: savedFlyersIDs,
     );
   }
+}
+// --------------------------------
+Future<void> removeBzIDFromUserBzzIDs({
+  @required BuildContext context,
+  @required String bzID,
+  @required String userID,
+}) async {
+
+  final UserModel _userModel = await readUser(
+    context: context,
+    userID: userID,
+  );
+
+  final List<dynamic> _modifiedMyBzzIDs = Mapper.removeStringsFromStrings(
+    removeFrom: _userModel.myBzzIDs,
+    removeThis: <String>[bzID],
+  );
+
+  await Fire.updateDocField(
+    context: context,
+    collName: FireColl.users,
+    docName: userID,
+    field: 'myBzzIDs',
+    input: _modifiedMyBzzIDs,
+  );
+
 }
 // -----------------------------------------------------------------------------
 
