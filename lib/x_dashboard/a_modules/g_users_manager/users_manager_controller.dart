@@ -68,7 +68,7 @@ Future<void> readMoreUsers({
 
     await TopDialog.showTopDialog(
         context: context,
-        title: 'No More Users Found',
+        firstLine: 'No More Users Found',
     );
 
   }
@@ -336,8 +336,8 @@ Future<bool> _couldGetCredentials({
   else {
     await TopDialog.showTopDialog(
       context: context,
-      title: 'Wrong Password',
-      body: 'Can not delete this user',
+      firstLine: 'Wrong Password',
+      secondLine: 'Can not delete this user',
     );
   }
 

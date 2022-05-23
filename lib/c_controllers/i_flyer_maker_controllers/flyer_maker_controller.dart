@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_picker_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -17,11 +18,11 @@ import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 // -----------------------------------------------------------------------------
 /// OLD MULTIPLE SHELVES METHODS
@@ -213,6 +214,10 @@ Future<void> _scrollToBottom({
 }
 */
 // -----------------------------------------------------------------------------
+
+/// CANCEL FLYER EDITING
+
+// ----------------------------------
 Future<void> onCancelFlyerCreation(BuildContext context) async {
 
   final bool result = await CenterDialog.showCenterDialog(
@@ -229,6 +234,10 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 
 }
 // -----------------------------------------------------------------------------
+
+/// FLYER EDITING
+
+// ----------------------------------
 void onUpdateFlyerHeadline({
   @required ValueNotifier<DraftFlyerModel> draft,
   @required TextEditingController headlineController,
@@ -337,69 +346,146 @@ Future<void> onZoneChanged({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> onPublishFlyer({
+
+/// PUBLISHING FLYER
+
+// ----------------------------------
+Future<void> onPublishFlyerButtonTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
   @required BzModel bzModel,
   @required GlobalKey<FormState> formKey,
 }) async {
 
-  unawaited(
-      WaitDialog.showWaitDialog(
+  final bool _canContinue = await _prePublishFlyerCheck(
+    context: context,
+    draft: draft,
+    formKey: formKey,
+  );
+
+  if (_canContinue == true){
+
+    await _publishFlyerOps(
+      context: context,
+      bzModel: bzModel,
+      draft: draft,
+    );
+
+    Nav.goBack(context);
+
+    await TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Flyer Has been Published',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+  }
+
+}
+// ----------------------------------
+Future<bool> _prePublishFlyerCheck({
+  @required BuildContext context,
+  @required GlobalKey<FormState> formKey,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}) async {
+
+  bool _canContinue = false;
+
+
+  if (draft.value.mutableSlides.isEmpty){
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Add Images',
+      body: 'Add at least one image to the flyer',
+    );
+
+  }
+
+  else {
+
+    final bool _isValid = formKey.currentState.validate();
+    blog('_publishFlyerOps : fields are valid : $_isValid');
+
+    if (_isValid == false){
+
+      if (draft.value.title.text.length < 10){
+        NavDialog.showNavDialog(
+          context: context,
+          firstLine: 'Flyer headline can not be less than 10 characters long',
+        );
+      }
+
+    }
+
+    else {
+      _canContinue = true;
+    }
+
+  }
+
+  return _canContinue;
+}
+// ----------------------------------
+Future<void> _publishFlyerOps({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required BzModel bzModel,
+}) async {
+
+  unawaited(WaitDialog.showWaitDialog(
         context: context,
         canManuallyGoBack: false,
         loadingPhrase: 'Uploading flyer',
-      )
+      ));
+
+
+  final FlyerModel _flyerToPublish = draft.value.toFlyerModel().copyWith(
+    flyerState: FlyerState.published,
   );
-
-  blog('onPublish flyer : Starting flyer publish ops');
-
-  blog('onPublish flyer : Draft flyer model is : -');
-  draft.value.blogDraft();
-
-  formKey.currentState.validate();
-
-  blog('onPublish flyer : fields are valid');
-
-  final FlyerModel _flyerModel = draft.value.toFlyerModel();
-  _flyerModel.blogFlyer(methodName: '_onPublish');
-
-  blog('onPublish flyer : new flyer created');
 
   /// upload to firebase
   final FlyerModel _uploadedFlyer = await FlyerOps.createFlyerOps(
       context: context,
-      inputFlyerModel: _flyerModel,
+      inputFlyerModel: _flyerToPublish,
       bzModel: bzModel
   );
-
   blog('onPublish flyer : new flyer uploaded and bzModel updated on firebase');
 
   /// update ldb
-  final List<String> _newBzFlyersIDsList = <String>[... bzModel.flyersIDs, _uploadedFlyer.id];
+  final List<String> _newBzFlyersIDsList = TextMod.addStringToListIfDoesNotContainIt(
+      strings: bzModel.flyersIDs,
+      stringToAdd: _uploadedFlyer.id,
+  );
+
   final BzModel _newBzModel = bzModel.copyWith(
     flyersIDs: _newBzFlyersIDsList,
   );
+
   await LDBOps.updateMap(
     objectID: _newBzModel.id,
     docName: LDBDoc.bzz,
     input: _newBzModel.toMap(toJSON: true),
   );
   blog('onPublish flyer : bz model updated on LDB');
+
   await LDBOps.insertMap(
     primaryKey: 'id',
     docName: LDBDoc.flyers,
-    input: _flyerModel.toMap(toJSON: true),
+    input: _uploadedFlyer.toMap(toJSON: true),
   );
   blog('onPublish flyer : new flyer stored on LDB');
 
   /// update providers
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
   _bzzProvider.setActiveBzFlyers(
     flyers: <FlyerModel>[..._bzzProvider.myActiveBzFlyers, _uploadedFlyer],
     notify: false,
   );
   blog('onPublish flyer : myActiveBzFlyers on provider updated');
+
   _bzzProvider.setActiveBz(
     bzModel: _newBzModel,
     notify: true,
@@ -407,15 +493,6 @@ Future<void> onPublishFlyer({
   blog('onPublish flyer : _newBzModel on provider updated');
 
   WaitDialog.closeWaitDialog(context);
-
-  await TopDialog.showTopDialog(
-    context: context,
-    title: 'Flyer Has been Published',
-    color: Colorz.green255,
-  );
-
-  Nav.goBack(context);
-
 
 }
 // -----------------------------------------------------------------------------

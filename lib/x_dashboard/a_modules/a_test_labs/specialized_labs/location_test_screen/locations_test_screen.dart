@@ -229,7 +229,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                       } else {
                         await TopDialog.showTopDialog(
                             context: context,
-                            title: 'No city found'
+                            firstLine: 'No city found'
                         );
                       }
                     },

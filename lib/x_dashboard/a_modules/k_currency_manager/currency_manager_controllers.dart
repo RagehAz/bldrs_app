@@ -22,7 +22,7 @@ Future<void> onBackupCurrencies(BuildContext context) async {
 
   await TopDialog.showTopDialog(
     context: context,
-    title: 'Currencies have been backed up successfully.',
+    firstLine: 'Currencies have been backed up successfully.',
   );
 
 }

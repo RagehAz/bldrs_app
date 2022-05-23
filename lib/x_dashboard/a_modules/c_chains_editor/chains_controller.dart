@@ -215,8 +215,8 @@ Future<void> onSync({
 
     await TopDialog.showTopDialog(
       context: context,
-      title: 'Chains were not modified',
-      body: 'No Sync required',
+      firstLine: 'Chains were not modified',
+      secondLine: 'No Sync required',
     );
 
   }

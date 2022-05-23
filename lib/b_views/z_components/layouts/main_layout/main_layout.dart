@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/chains_drawer/structure/a_chains_draw
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
+import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -95,22 +96,6 @@ class MainLayout extends StatelessWidget {
     return _backgroundColor;
   }
 // -----------------------------------------------------------------------------
-  Future<void> _refresh(BuildContext context) async {
-    // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
-    // final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
-    // final KW _currentKeyword = _keywordsProvider.currentKeyword;
-
-    // await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
-    //   context: context,
-    //   section: _currentSection,
-    //   kw: _currentKeyword,
-    // );
-
-    blog('SHOULD REFRESH SCREEN');
-
-  }
-// -----------------------------------------------------------------------------
   void _onDrawerChanged(context, bool drawerIsOn){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     _uiProvider.setKeywordsDrawerIsOn(setTo: drawerIsOn);
@@ -201,11 +186,12 @@ class MainLayout extends StatelessWidget {
                 body: canRefreshFlyers ?
 
                 RefreshIndicator(
-                  onRefresh: () => _refresh(context),
+                  onRefresh: () => onRefreshHomeWall(context),
                   color: Colorz.black230,
                   backgroundColor: Colorz.yellow255,
-                  displacement: Ratioz.appBarMargin,
+                  displacement: 50,//Ratioz.appBarMargin,
                   strokeWidth: 4,
+                  edgeOffset: 50,
                   child: _mainLayoutStackWidgets,
                 )
 
