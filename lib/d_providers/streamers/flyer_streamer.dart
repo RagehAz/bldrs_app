@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -114,29 +113,29 @@ Stream<FlyerModel> getFlyerStream(String flyerID) {
 /// get flyer doc stream
 Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
 
-  final Stream<QuerySnapshot<Object>> _reviewsStream = Fire.streamSubCollection(
-    collName: FireColl.flyers,
-    docName: flyerID,
-    subCollName: FireSubColl.flyers_flyer_reviews,
-    descending: true,
-    orderBy: 'time',
-  );
-
-  // blog('getFlyerReviewsStream : _reviewsStream : $_reviewsStream');
+  // final Stream<QuerySnapshot<Object>> _reviewsStream = Fire.streamSubCollection(
+  //   collName: FireColl.flyers,
+  //   docName: flyerID,
+  //   subCollName: FireSubColl.flyers_flyer_reviews,
+  //   descending: true,
+  //   orderBy: 'time',
+  // );
   //
-  final Stream<List<ReviewModel>> _reviews =
-      _reviewsStream.map((QuerySnapshot<Object> qShot) => qShot.docs
-          .map((QueryDocumentSnapshot<Object> doc) => ReviewModel(
-                userID: doc['userID'],
-                time: Timers.decipherTime(time: doc['time'], fromJSON: false),
-                body: doc['body'],
-                reviewID: doc.id,
-              ))
-          .toList());
-  //
-  // blog('getFlyerReviewsStream : _reviews : ${_reviews.length}');
+  // // blog('getFlyerReviewsStream : _reviewsStream : $_reviewsStream');
+  // //
+  // final Stream<List<ReviewModel>> _reviews =
+  //     _reviewsStream.map((QuerySnapshot<Object> qShot) => qShot.docs
+  //         .map((QueryDocumentSnapshot<Object> doc) => ReviewModel(
+  //               userID: doc['userID'],
+  //               time: Timers.decipherTime(time: doc['time'], fromJSON: false),
+  //               body: doc['body'],
+  //               reviewID: doc.id,
+  //             ))
+  //         .toList());
+  // //
+  // // blog('getFlyerReviewsStream : _reviews : ${_reviews.length}');
 
-  return _reviews;
+  return null;
 }
 
 // -----------------------------------------------------------------------------

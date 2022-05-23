@@ -297,7 +297,7 @@ Future<void> _firstTimerCreateNewBzOps({
   /// FIREBASE CREATE BZ OPS
   final BzModel _uploadedBzModel = await BzFireOps.createBz(
     context: context,
-    inputBz: newBzModel,
+    draftBz: newBzModel,
     userModel: userModel,
   );
 
@@ -390,8 +390,8 @@ Future<void> _updateBzOps({
   /// FIREBASE UPDATE BZ OPS
   final BzModel _uploadedBzModel = await BzFireOps.updateBz(
     context: context,
-    modifiedBz: newBzModel,
-    originalBz: oldBzModel,
+    newBzModel: newBzModel,
+    oldBzModel: oldBzModel,
     authorPicFile: null,
   );
 

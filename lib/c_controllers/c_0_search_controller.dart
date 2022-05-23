@@ -331,7 +331,7 @@ Future<void> _createFireSearchRecord({
       recordID: null, /// will be defined as docID and injected into retrieved map
       userID: FireAuthOps.superUserID(),
       timeStamp: DateTime.now(),
-      activityType: ActivityType.search,
+      recordType: RecordType.search,
       modelType: null, /// only used to trace model id
       modelID: null, /// like flyerID, bzID, questionID, answerID
       recordDetailsType: RecordDetailsType.searchText,
