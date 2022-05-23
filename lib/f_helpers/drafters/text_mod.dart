@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 /// STRINGS LIST MODIFIERS
 
 // ----------------------------
+/// TESTED : WORKS PERFECT
 List<String> addStringToListIfDoesNotContainIt({
   @required List<String> strings,
   @required String stringToAdd,

@@ -338,16 +338,16 @@ Future<void> onUploadPhrase({
       if (_success == true){
         await TopDialog.showTopDialog(
           context: context,
-          title: 'Added id :$phraseID',
-          body: '$enValue : $arValue',
+          firstLine: 'Added id :$phraseID',
+          secondLine: '$enValue : $arValue',
         );
       }
 
       else {
         await TopDialog.showTopDialog(
           context: context,
-          title: 'Failed to add :$phraseID',
-          body: '$enValue : $arValue',
+          firstLine: 'Failed to add :$phraseID',
+          secondLine: '$enValue : $arValue',
           color: Colorz.red255,
         );
       }

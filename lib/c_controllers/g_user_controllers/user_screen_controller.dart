@@ -311,8 +311,8 @@ Future<void> _onDeleteMyAccount(BuildContext context) async {
       unawaited(
           TopDialog.showTopDialog(
             context: context,
-            title: 'Wrong password',
-            body: 'Please try again',
+            firstLine: 'Wrong password',
+            secondLine: 'Please try again',
           ));
 
     }
@@ -476,8 +476,7 @@ Future<void> _onSignOut(BuildContext context) async {
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   _flyersProvider.clearSavedFlyers(notify: false);
   _flyersProvider.clearPromotedFlyers(notify: false);
-  _flyersProvider.clearWallFlyers(notify: false);
-  _flyersProvider.clearLastWallFlyer(notify: true);
+  _flyersProvider.clearWallFlyers(notify: true);
 
   /// CLEAR SEARCHES
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);

@@ -27,13 +27,13 @@ class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static Future<void> showTopDialog({
     @required BuildContext context,
-    @required String title,
-    String body,
-    Color color,
+    @required String firstLine,
+    String secondLine,
+    Color color = Colorz.yellow255,
+    Color textColor = Colorz.black255,
     Function onTap,
   }) async {
 
-    final Color _dialogColor = color ?? Colorz.yellow255;
     final double _screenWidth = Scale.superScreenWidth(context);
 
     await Flushbar(
@@ -53,7 +53,7 @@ class TopDialog extends StatelessWidget {
 
       /// COLORING ----------------------------------------------
       routeColor: null, // SCREEN BACKGROUND COLOR
-      backgroundColor: _dialogColor, // DIALOG BACKGROUND COLOR
+      backgroundColor: color, // DIALOG BACKGROUND COLOR
       // barBlur: 50,
       backgroundGradient: null,
       boxShadows: Shadowz.appBarShadow,
@@ -86,18 +86,24 @@ class TopDialog extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
+            /// FIRST LINE
             SuperVerse(
-              verse: title,
-              color: Colorz.black255,
+              verse: firstLine,
+              color: textColor,
+              maxLines: secondLine == null ? 2 : 1,
             ),
+
+            /// SECOND LINE
             SuperVerse(
-              verse: body,
+              verse: secondLine,
               size: 1,
-              color: Colorz.black255,
+              color: textColor,
               weight: VerseWeight.thin,
               italic: true,
               maxLines: 2,
             ),
+
           ],
         ),
       ),

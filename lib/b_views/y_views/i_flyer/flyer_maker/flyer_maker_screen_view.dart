@@ -319,7 +319,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                 verseColor: Colorz.black255,
                 verse: superPhrase(context, 'phid_publish'),
                 margins: Ratioz.appBarMargin,
-                onTap: () => onPublishFlyer(
+                onTap: () => onPublishFlyerButtonTap(
                     context: context,
                     draft: draft,
                     bzModel: bzModel,

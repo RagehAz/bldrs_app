@@ -669,15 +669,17 @@ class AuthModel {
   static Map<String, String> cipherUserInfo(UserInfo userInfo){
     Map<String, String> _map;
 
+    // blog('cipherUserInfo : blog : ${userInfo?.toString()}');
+
     if (userInfo != null){
 
       _map = {
         'displayName': userInfo.displayName,
         'email': userInfo.email,
-        'providerId' : userInfo.providerId,
         'uid' : userInfo.uid,
         'photoURL': userInfo.photoURL,
         'phoneNumber' :userInfo.phoneNumber,
+        'providerId' : userInfo?.providerId,
       };
     }
 
@@ -868,10 +870,10 @@ class AuthModel {
       uid : 'u id',
       providerData : <UserInfo>[
         UserInfo(
-          {
+          <String, String>{
             'displayName': 'display Name',
             'email': 'e mail',
-            'providerId' : 'provider Id',
+            'providerId' : 'xxxxxx',
             'uid' : 'u id',
             'photoURL': 'photo URL',
             'phoneNumber' : 'phone Number',
