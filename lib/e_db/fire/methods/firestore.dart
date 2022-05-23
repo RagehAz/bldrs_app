@@ -158,8 +158,8 @@ Future<DocumentReference<Object>> createDoc({
       context: context,
       methodName: 'createDoc',
       functions: () async {
-        final CollectionReference<Object> _bzCollectionRef =
-            getCollectionRef(collName);
+
+        final CollectionReference<Object> _bzCollectionRef = getCollectionRef(collName);
 
         _docRef = _bzCollectionRef.doc();
 

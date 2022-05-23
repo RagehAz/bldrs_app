@@ -56,27 +56,27 @@ abstract class FireSubColl {
   static const String admin_backups_chains = 'chains';
   static const String admin_backups_currencies = 'currencies';
 
-  static const String users_user_asks = 'asks' ;
-  static const String users_user_records = 'records';
-  static const String users_user_records_bzz = 'follows';
-  static const String users_user_records_flyers = 'saves';
+  // static const String users_user_asks = 'asks' ;
+  // static const String users_user_records = 'records';
+  // static const String users_user_records_bzz = 'follows';
+  // static const String users_user_records_flyers = 'saves';
   static const String users_user_notifications = 'notifications';
 
   static const String questions_question_chats = 'chats';
   static const String questions_question_counters = 'counters';
 
-  static const String bzz_bz_counters = 'counters';
-  static const String bzz_bz_follows = 'follows';
-  static const String bzz_bz_calls = 'calls';
+  // static const String bzz_bz_counters = 'counters';
+  // static const String bzz_bz_follows = 'follows';
+  // static const String bzz_bz_calls = 'calls';
   static const String bzz_bz_chats = 'chats';
   static const String bzz_bz_notifications = 'notifications';
   static const String bzz_bz_credits = 'credits';
 
-  static const String flyers_flyer_counters = 'counters';
-  static const String flyers_flyer_saves = 'saves';
-  static const String flyers_flyer_shares = 'shares';
-  static const String flyers_flyer_views = 'views';
-  static const String flyers_flyer_reviews = 'reviews';
+  // static const String flyers_flyer_counters = 'counters';
+  // static const String flyers_flyer_saves = 'saves';
+  // static const String flyers_flyer_shares = 'shares';
+  // static const String flyers_flyer_views = 'views';
+  // static const String flyers_flyer_reviews = 'reviews';
 
   static const String zones_cities_cities = 'cities';
   static const String zones_countries_countries = 'countries';

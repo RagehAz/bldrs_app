@@ -218,16 +218,24 @@ Future<List<String>> createStorageSlidePicsAndGetURLs({
 
   final List<String> _picturesURLs = <String>[];
 
-  for (final SlideModel slide in slides) {
-    final String _picURL = await createStoragePicAndGetURL(
-      context: context,
-      inputFile: slide.pic,
-      picName: SlideModel.generateSlideID(flyerID, slide.slideIndex),
-      docName: StorageDoc.slides,
-      ownerID: authorID,
-    );
+  if (Mapper.canLoopList(slides) == true && flyerID != null && authorID != null){
 
-    _picturesURLs.add(_picURL);
+    for (final SlideModel slide in slides) {
+
+      final String _picURL = await createStoragePicAndGetURL(
+        context: context,
+        inputFile: slide.pic,
+        docName: StorageDoc.slides,
+        ownerID: authorID,
+        picName: SlideModel.generateSlideID(
+            flyerID: flyerID,
+            slideIndex: slide.slideIndex,
+        ),
+      );
+
+      _picturesURLs.add(_picURL);
+    }
+
   }
 
   return _picturesURLs;
@@ -506,9 +514,9 @@ Future<void> deleteStoragePic({
     blog('deleteStoragePic : IMAGE HAS BEEN DELETED :docName $docName : picName : $picName');
   }
 
-  else {
-
-  }
+  // else {
+  //
+  // }
 }
 // -----------------------------------------------------------------------------
 
