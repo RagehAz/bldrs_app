@@ -180,7 +180,9 @@ class AuthorModel {
     return _currentAuthorIndex;
   }
 // ----------------------------------
-  static List<String> getAuthorsIDsFromAuthors(List<AuthorModel> authors) {
+  static List<String> getAuthorsIDsFromAuthors({
+    @required List<AuthorModel> authors,
+  }) {
     final List<String> _authorsIDs = <String>[];
 
     for (final AuthorModel author in authors) {
@@ -240,57 +242,28 @@ class AuthorModel {
 // ----------------------------------
   static BzModel replaceAuthorModelInBzModel({
     @required BzModel bzModel,
+    @required AuthorModel newAuthor,
     @required AuthorModel oldAuthor,
-    @required AuthorModel newAuthor
   }) {
 
-    final List<AuthorModel> _modifiedAuthorsList =
-        replaceAuthorModelInAuthorsList(
+    final List<AuthorModel> _modifiedAuthorsList = replaceAuthorModelInAuthorsList(
       originalAuthors: bzModel.authors,
       oldAuthor: oldAuthor,
       newAuthor: newAuthor,
     );
 
-    // final List<String> _modifiedAuthorsIDsList =
-    // replaceAuthorIDInAuthorsIDsList(
-    //     originalAuthors: bzModel.authors,
-    //     oldAuthor: oldAuthor,
-    //     newAuthor: newAuthor,
-    // );
-
-    return BzModel(
-      id: bzModel.id,
-      bzTypes: bzModel.bzTypes,
-      bzForm: bzModel.bzForm,
-      createdAt: bzModel.createdAt,
-      accountType: bzModel.accountType,
-      name: bzModel.name,
-      trigram: bzModel.trigram,
-      logo: bzModel.logo,
-      scope: bzModel.scope,
-      zone: bzModel.zone,
-      about: bzModel.about,
-      position: bzModel.position,
-      contacts: bzModel.contacts,
+    final BzModel _updatedBzModel = bzModel.copyWith(
       authors: _modifiedAuthorsList,
-      showsTeam: bzModel.showsTeam,
-      isVerified: bzModel.isVerified,
-      bzState: bzModel.bzState,
-      totalFollowers: bzModel.totalFollowers,
-      totalSaves: bzModel.totalSaves,
-      totalShares: bzModel.totalShares,
-      totalSlides: bzModel.totalSlides,
-      totalViews: bzModel.totalViews,
-      totalCalls: bzModel.totalCalls,
-      flyersIDs: bzModel.flyersIDs,
-      totalFlyers: bzModel.totalFlyers,
     );
+
+    return _updatedBzModel;
   }
 // -----------------------------------------------------------------------------
   static List<AuthorModel> replaceAuthorModelInAuthorsList({
     @required List<AuthorModel> originalAuthors,
+    @required AuthorModel newAuthor,
+    /// this to be able to replace old author with new one
     @required AuthorModel oldAuthor,
-    @required AuthorModel newAuthor
   }) {
     List<AuthorModel> _modifiedAuthorsList;
 
@@ -317,7 +290,9 @@ class AuthorModel {
   }) {
     List<String> _modifiedAuthorsIDsList;
 
-    final List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(originalAuthors);
+    final List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(
+      authors: originalAuthors,
+    );
 
     blog('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
 

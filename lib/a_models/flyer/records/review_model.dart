@@ -2,6 +2,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 
+/// TASK :  should use record model instead of review model
 class ReviewModel {
   /// --------------------------------------------------------------------------
   const ReviewModel({
@@ -30,23 +31,30 @@ class ReviewModel {
   }
 
 // -----------------------------------------------------------------------------
-  static ReviewModel decipherReview(
-      {@required Map<String, dynamic> map, bool fromJSON}) {
+  static ReviewModel decipherReview({
+    @required Map<String, dynamic> map,
+    bool fromJSON
+  }) {
     ReviewModel _review;
 
     if (map != null) {
       _review = ReviewModel(
         body: map['body'],
         userID: map['userID'],
-        time: Timers.decipherTime(time: map['time'], fromJSON: fromJSON),
+        time: Timers.decipherTime(
+            time: map['time'],
+            fromJSON: fromJSON,
+        ),
       );
     }
 
     return _review;
   }
 
-  static List<ReviewModel> decipherReviews(
-      {@required List<Map<String, dynamic>> maps, bool fromJSON}) {
+  static List<ReviewModel> decipherReviews({
+    @required List<Map<String, dynamic>> maps,
+    bool fromJSON
+  }) {
     final List<ReviewModel> _reviews = <ReviewModel>[];
 
     if (Mapper.canLoopList(maps)) {

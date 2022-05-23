@@ -18,130 +18,65 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
-
-/// create, read, update, delete bz doc in cloud firestore
-
-// ------------------------------------------------
-/// REFERENCES
-
-// ------------------------------------------------
-/// bzz firestore collection reference getter
-CollectionReference<Object> collRef() {
-  return Fire.getCollectionRef(FireColl.bzz);
-}
-
-// ------------------------------------------------
-/// bz firestore document reference
-DocumentReference<Object> docRef(String bzID) {
-  return Fire.getDocRef(collName: FireColl.bzz, docName: bzID);
-}
-// -----------------------------------------------------------------------------
+// --------------------------
 
 /// CREATE
 
-// ------------------------------------------------
-/// create bz operations on firestore
+// --------------------------
 Future<BzModel> createBz({
   @required BuildContext context,
-  @required BzModel inputBz,
+  @required BzModel draftBz,
   @required UserModel userModel,
 }) async {
-
-  /// Notes :-
-  // inputBz has inputBz.bzLogo & inputBz.authors[0].authorPic as Files not URLs
 
   BzModel _output;
   bool _result;
 
   _result = await tryCatchAndReturnBool(
-    context: context,
-    methodName: 'createBz',
-    functions: () async {
+      context: context,
+      methodName: 'createBz',
+      functions: () async {
 
-      /// create empty firestore bz doc to get back _bzID
-      final DocumentReference<Object> _docRef = await Fire.createDoc(
-        context: context,
-        collName: FireColl.bzz,
-        addDocID: true,
-        input: <String, dynamic>{},
-      );
-      final String _bzID = _docRef.id;
-
-      /// save bzLogo to fire storage and get URL
-      String _bzLogoURL;
-      if (inputBz.logo != null && ObjectChecker.objectIsFile(inputBz?.logo) == true) {
-        _bzLogoURL = await Storage.createStoragePicAndGetURL(
+        final String _bzID = await _createEmptyBzDocToGetBzID(
           context: context,
-          inputFile: inputBz.logo,
-          picName: _bzID,
-          docName: StorageDoc.logos,
+        );
+
+        final String _bzLogoURL = await _uploadBzLogoAndGetURL(
+          context: context,
+          logo: draftBz.logo,
+          bzID: _bzID,
           ownerID: userModel.id,
         );
-      }
-      else if (ObjectChecker.objectIsURL(inputBz?.logo) == true){
-        _bzLogoURL = inputBz?.logo;
-      }
 
-      /// upload authorPic
-      String _authorPicURL;
-      if (inputBz.authors[0].pic == null ||  objectIsURL(inputBz.authors[0].pic) == true) {
-        _authorPicURL = userModel.pic;
-      }
-
-      else {
-        _authorPicURL = await Storage.createStoragePicAndGetURL(
+        /// update authorModel with _authorPicURL
+        final AuthorModel _masterAuthor = await _uploadAuthorPicAndReturnMasterAuthor(
           context: context,
-          inputFile: inputBz.authors[0].pic,
-          picName:
-          AuthorModel.generateAuthorPicID(authorID: userModel.id, bzID: _bzID),
-          docName: StorageDoc.authors,
-          ownerID: userModel.id,
+          draftBz: draftBz,
+          userModel: userModel,
+          bzID: _bzID,
         );
-      }
 
-      /// update authorModel with _authorPicURL
-      final AuthorModel _masterAuthor = AuthorModel(
-        userID: userModel.id,
-        name: inputBz.authors[0].name,
-        title: inputBz.authors[0].title,
-        pic: _authorPicURL,
-        isMaster: true,
-        contacts: inputBz.authors[0].contacts,
-      );
+        await _addBzIDToUserBzzIDs(
+          context: context,
+          userModel: userModel,
+          bzID: _bzID,
+        );
 
-      /// refactor the bzModel with new pics URLs generated above
-      final BzModel _outputBz = inputBz.copyWith(
-        id: _bzID,
-        createdAt: DateTime.now(),
-        logo: _bzLogoURL,
-        authors: <AuthorModel>[_masterAuthor],
-      );
+        final BzModel _finalBzModel = draftBz.copyWith(
+          id: _bzID,
+          createdAt: DateTime.now(),
+          logo: _bzLogoURL,
+          authors: <AuthorModel>[_masterAuthor],
+        );
 
-      /// add bzID in user's myBzIDs
-      final List<dynamic> _userBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
-          strings: userModel.myBzzIDs,
-          stringToAdd: _bzID,
-      );
+        await _updateBzDoc(
+          context: context,
+          finalBzModel: _finalBzModel,
+        );
 
-      await Fire.updateDocField(
-        context: context,
-        collName: FireColl.users,
-        docName: userModel.id,
-        field: 'myBzzIDs',
-        input: _userBzzIDs,
-      );
+        _output = _finalBzModel;
 
-      /// replace empty bz document with the new refactored one _bz
-      await Fire.updateDoc(
-        context: context,
-        collName: FireColl.bzz,
-        docName: _bzID,
-        input: _outputBz.toMap(toJSON: false),
-      );
-
-      _output = _outputBz;
-
-    },
+      },
       onError: (String error){
         blog('the create bz error is : $error');
         _result = false;
@@ -150,11 +85,120 @@ Future<BzModel> createBz({
 
   return _result == true ? _output : null;
 }
+// --------------------------
+Future<String> _createEmptyBzDocToGetBzID({
+  @required BuildContext context,
+}) async {
+
+  final DocumentReference<Object> _docRef = await Fire.createDoc(
+    context: context,
+    collName: FireColl.bzz,
+    addDocID: true,
+    input: <String, dynamic>{},
+  );
+
+  return _docRef?.id;
+}
+// --------------------------
+Future<String> _uploadBzLogoAndGetURL({
+  @required BuildContext context,
+  @required dynamic logo,
+  @required String bzID,
+  @required String ownerID,
+}) async {
+
+  String _bzLogoURL;
+
+  if (logo != null && ObjectChecker.objectIsFile(logo) == true) {
+
+    _bzLogoURL = await Storage.createStoragePicAndGetURL(
+      context: context,
+      inputFile: logo,
+      picName: bzID,
+      docName: StorageDoc.logos,
+      ownerID: ownerID,
+    );
+
+  }
+
+  else if (ObjectChecker.objectIsURL(logo) == true){
+    _bzLogoURL = logo;
+  }
+
+  return _bzLogoURL;
+}
+// --------------------------
+Future<AuthorModel> _uploadAuthorPicAndReturnMasterAuthor({
+  @required BuildContext context,
+  @required BzModel draftBz,
+  @required UserModel userModel,
+  @required String bzID,
+}) async {
+
+  /// upload authorPic
+  String _authorPicURL;
+
+  if (
+  draftBz.authors[0].pic == null
+      ||
+  objectIsURL(draftBz.authors[0].pic) == true
+  ) {
+    _authorPicURL = userModel.pic;
+  }
+
+  else {
+
+    _authorPicURL = await Storage.createStoragePicAndGetURL(
+      context: context,
+      inputFile: draftBz.authors[0].pic,
+      docName: StorageDoc.authors,
+      ownerID: userModel.id,
+      picName: AuthorModel.generateAuthorPicID(
+          authorID: userModel.id,
+          bzID: bzID,
+      ),
+    );
+
+  }
+
+
+  final AuthorModel _masterAuthor = AuthorModel(
+    userID: userModel.id,
+    name: userModel.name,
+    title: userModel.title,
+    pic: _authorPicURL,
+    isMaster: true,
+    contacts: userModel.contacts,
+  );
+
+  return _masterAuthor;
+}
+// --------------------------
+Future<void> _addBzIDToUserBzzIDs({
+  @required BuildContext context,
+  @required UserModel userModel,
+  @required String bzID,
+}) async {
+
+  final List<dynamic> _userBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+    strings: userModel.myBzzIDs,
+    stringToAdd: bzID,
+  );
+
+  await Fire.updateDocField(
+    context: context,
+    collName: FireColl.users,
+    docName: userModel.id,
+    field: 'myBzzIDs',
+    input: _userBzzIDs,
+  );
+
+}
 // -----------------------------------------------------------------------------
 
 /// READ
 
-// ------------------------------------------------
+// --------------------------
 /// TESTED : WORKS PERFECT
 Future<BzModel> readBz({
   @required BuildContext context,
@@ -174,7 +218,7 @@ Future<BzModel> readBz({
 
   return _bz;
 }
-// ------------------------------------------------
+// --------------------------
 Future<dynamic> readAndFilterTeamlessBzzByUserModel({
   @required BuildContext context,
   @required UserModel userModel,
@@ -213,297 +257,378 @@ Future<dynamic> readAndFilterTeamlessBzzByUserModel({
 
 /// UPDATE
 
-// ------------------------------------------------
+// --------------------------
 Future<BzModel> updateBz({
   @required BuildContext context,
-  @required BzModel modifiedBz,
-  @required BzModel originalBz,
+  @required BzModel newBzModel,
+  @required BzModel oldBzModel,
   @required File authorPicFile,
 }) async {
-  // ----------
-  /// 1 - update bzLogo if changed
-  /// 2 - update authorPic if changed
-  // ----------
 
-  /// 1 - update bzLogo if changed
-  String _bzLogoURL;
-  if (ObjectChecker.objectIsURL(modifiedBz.logo) == true) {
-    _bzLogoURL = modifiedBz.logo;
-  }
-  else if (ObjectChecker.objectIsFile(modifiedBz.logo) == true){
-    _bzLogoURL = await Storage.updateExistingPic(
+  BzModel _output;
+
+  blog('updateBz : START');
+
+  if (newBzModel != null && oldBzModel != null){
+
+    final BzModel _updatedBzModel = await _updateBzLogoIfChangedAndReturnNewBzModel(
       context: context,
-      newPic: modifiedBz.logo,
-      oldURL: originalBz.logo,
+      newBzModel: newBzModel,
+      oldBzModel: oldBzModel,
     );
-  }
 
-  /// 2 - update authorPic if changed
-  final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
-      bz: modifiedBz,
+    final BzModel _finalBzModel = await _updateAuthorPicIfChangedAndReturnNewBzModel(
+      context: context,
+      oldBzModel: _updatedBzModel,
       authorID: FireAuthOps.superUserID(),
-  );
-
-  final String _authorID = _oldAuthor.userID;
-
-  String _authorPicURL;
-  if (authorPicFile != null) {
-    final String _picName = AuthorModel.generateAuthorPicID(
-      authorID: _authorID,
-      bzID: originalBz.id,
+      newAuthorPic: authorPicFile,
     );
 
-    _authorPicURL = await Storage.createStoragePicAndGetURL(
+    await _updateBzDoc(
       context: context,
-      inputFile: authorPicFile,
-      docName: StorageDoc.authors,
-      picName: _picName,
-      ownerID: _oldAuthor.userID,
+      finalBzModel: _finalBzModel,
     );
+
+    _output = _finalBzModel;
   }
 
-  /// update authorsList if authorPicChanged
-  final AuthorModel _newAuthor = AuthorModel(
-    userID: _authorID,
-    name: _oldAuthor.name,
-    pic: _authorPicURL ?? _oldAuthor.pic,
-    title: _oldAuthor.title,
-    isMaster: _oldAuthor.isMaster,
-    contacts: _oldAuthor.contacts,
+  blog('updateBz : END');
+
+  return _output;
+}
+// --------------------------
+Future<BzModel> _updateBzLogoIfChangedAndReturnNewBzModel({
+  @required BuildContext context,
+  @required BzModel newBzModel,
+  @required BzModel oldBzModel,
+}) async {
+
+  String _bzLogoURL = oldBzModel.logo;
+
+  blog('_updateBzLogoIfChangedAndUpdatedBzModel : START');
+
+
+  if (newBzModel?.logo != null){
+
+    /// IF NEW LOGO IS URL
+    if (ObjectChecker.objectIsURL(newBzModel?.logo) == true) {
+
+      /// IF URL IS CHANGED
+      if (newBzModel?.logo != oldBzModel.logo){
+        _bzLogoURL = newBzModel?.logo;
+      }
+
+    }
+
+    /// IF NEW LOGO IS FILE
+    else if (ObjectChecker.objectIsFile(newBzModel?.logo) == true){
+
+      _bzLogoURL = await Storage.updateExistingPic(
+        context: context,
+        newPic: newBzModel?.logo,
+        oldURL: oldBzModel.logo,
+      );
+
+    }
+
+
+  }
+
+  final BzModel _updatedBzModel = newBzModel.copyWith(
+    logo: _bzLogoURL,
   );
 
-  final List<AuthorModel> _finalAuthorList =
-      AuthorModel.replaceAuthorModelInAuthorsList(
-    originalAuthors: modifiedBz.authors,
-    oldAuthor: _oldAuthor,
-    newAuthor: _newAuthor,
-  );
+  blog('_updateBzLogoIfChangedAndUpdatedBzModel : END');
 
-  /// update bzModel if images changed
-  final BzModel _finalBz = BzModel(
-    id: modifiedBz.id,
-    // -------------------------
-    bzTypes: modifiedBz.bzTypes,
-    bzForm: modifiedBz.bzForm,
-    createdAt: modifiedBz.createdAt,
-    accountType: modifiedBz.accountType,
-    // -------------------------
-    name: modifiedBz.name,
-    trigram: modifiedBz.trigram,
-    logo: _bzLogoURL ?? originalBz.logo,
-    scope: modifiedBz.scope,
-    zone: modifiedBz.zone,
-    about: modifiedBz.about,
-    position: modifiedBz.position,
-    contacts: modifiedBz.contacts,
-    authors: _finalAuthorList,
-    showsTeam: modifiedBz.showsTeam,
-    // -------------------------
-    isVerified: modifiedBz.isVerified,
-    bzState: modifiedBz.bzState,
-    // -------------------------
-    totalFollowers: modifiedBz.totalFollowers,
-    totalSaves: modifiedBz.totalSaves,
-    totalShares: modifiedBz.totalShares,
-    totalSlides: modifiedBz.totalSlides,
-    totalViews: modifiedBz.totalViews,
-    totalCalls: modifiedBz.totalCalls,
-    // -------------------------
-    flyersIDs: modifiedBz.flyersIDs,
-    totalFlyers: modifiedBz.totalFlyers,
-  );
+  return _updatedBzModel;
+}
+// --------------------------
+Future<BzModel> _updateAuthorPicIfChangedAndReturnNewBzModel({
+  @required BuildContext context,
+  @required BzModel oldBzModel,
+  @required String authorID,
+  @required File newAuthorPic,
+}) async {
 
-  /// update firestore bz document
-  await Fire.updateDoc(
-    context: context,
-    collName: FireColl.bzz,
-    docName: modifiedBz.id,
-    input: _finalBz.toMap(toJSON: false),
-  );
+  BzModel _finalBz = oldBzModel;
+
+  blog('_updateAuthorPicIfChangedAndUpdateBzModel : START');
+
+  if (authorID != null && newAuthorPic != null){
+
+    final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
+      bz: oldBzModel,
+      authorID: authorID,
+    );
+
+    if (_oldAuthor != null){
+
+      final String _picName = AuthorModel.generateAuthorPicID(
+        authorID: _oldAuthor.userID,
+        bzID: oldBzModel.id,
+      );
+
+      final String _authorPicURL = await Storage.createStoragePicAndGetURL(
+        context: context,
+        inputFile: newAuthorPic,
+        docName: StorageDoc.authors,
+        picName: _picName,
+        ownerID: _oldAuthor.userID,
+      );
+
+      final AuthorModel _updatedAuthor = _oldAuthor.copyWith(
+        pic: _authorPicURL,
+      );
+
+      final List<AuthorModel> _finalAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
+        originalAuthors: oldBzModel.authors,
+        oldAuthor: _oldAuthor,
+        newAuthor: _updatedAuthor,
+      );
+
+      _finalBz = oldBzModel.copyWith(
+        authors: _finalAuthorsList,
+      );
+
+    }
+
+  }
+
+  blog('_updateAuthorPicIfChangedAndUpdateBzModel : END');
 
   return _finalBz;
 }
-// -----------------------------------------------------------------------------
-Future<void> deactivateBz({
+// --------------------------
+Future<void> _updateBzDoc({
   @required BuildContext context,
-  @required BzModel bzModel,
+  @required BzModel finalBzModel,
 }) async {
-  // ----------
-  /// this
-  /// 1 - starts deactivate flyer ops for all bz flyers
-  /// 2 - deletes : firestore/tinyBzz/bzID
-  /// 3 - deletes bzID from each author's userModel in : firestore/users/userID['myBzzIDs']
-  /// 4 - triggers : firestore/bzz/bzID['bzAccountIsDeactivated'] to true
-  // ----------
 
-  /// 1 - perform deactivate flyer ops for all flyers
-  final List<String> _flyersIDs = bzModel.flyersIDs;
+  blog('_updateBzDoc : START');
 
-  if (_flyersIDs.isNotEmpty) {
-    for (final String id in _flyersIDs) {
-      await FireFlyerOps.deactivateFlyerOps(
-        context: context,
-        bzModel: bzModel,
-        flyerID: id,
-      );
-    }
-  }
+  if (finalBzModel != null){
 
-  /// 3 - delete bzID from myBzzIDs for each author
-  final List<AuthorModel> _authors = bzModel.authors;
-  final List<String> _authorsIDs =
-      AuthorModel.getAuthorsIDsFromAuthors(_authors);
-  for (final String id in _authorsIDs) {
-    final UserModel _user =
-        await UserFireOps.readUser(context: context, userID: id);
-
-    final List<String> _myBzzIDs = _user.myBzzIDs;
-    final int _bzIndex = _myBzzIDs.indexWhere((String id) => id == bzModel.id);
-    _myBzzIDs.removeAt(_bzIndex);
-
-    await Fire.updateDocField(
+    await Fire.updateDoc(
       context: context,
-      collName: FireColl.users,
-      docName: id,
-      field: 'myBzzIDs',
-      input: _myBzzIDs,
+      collName: FireColl.bzz,
+      docName: finalBzModel.id,
+      input: finalBzModel.toMap(toJSON: false),
     );
+
   }
 
-  /// 4 - trigger bz deactivation
-  await Fire.updateDocField(
-    context: context,
-    collName: FireColl.bzz,
-    docName: bzModel.id,
-    field: 'bzAccountIsDeactivated',
-    input: true,
-  );
+  blog('_updateBzDoc : END');
+
 }
 // -----------------------------------------------------------------------------
+
+/// DELETE
+
+// --------------------------
 Future<void> deleteBzOps({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {
-  // ----------
-  /// 1 - reads then starts delete flyer ops to all bz flyers
-  /// 2 - deletes : firestore/tinyBzz/bzID
-  /// 3 - deletes bzID from each author's userModel in : firestore/users/userID['myBzzIDs']
-  /// 4 - deletes all docs under : firestore/bzz/bzID/calls
-  /// 5 - deletes all docs under : firestore/bzz/bzID/follows
-  /// 6 - deletes : firestore/bzz/bzID/counters/counters
-  /// 7 - deletes JPG : storage/bzLogos/bzID
-  /// 8 - deletes all JPGs of all bz Authors in : storage/authorsPics/authorID
-  /// 9 - deletes : firestore/bzz/bzID
-  // ----------
+  blog('deleteBzOps : START');
 
-  blog('1 - start delete flyer ops for all flyers');
-  // final List<String> _flyersIDs = bzModel.flyersIDs;
-  if (Mapper.canLoopList(bzModel.flyersIDs)) {
-    for (final String id in bzModel.flyersIDs) {
+  await _deleteBzFlyers(
+    context: context,
+    bzModel: bzModel,
+  );
 
-      blog('a - getting flyer : $id');
-      final FlyerModel _flyerModel = await FireFlyerOps.readFlyerOps(
-        context: context,
-        flyerID: id,
-      );
+  await _deleteBzIDFromAuthorBzIDs(
+    context: context,
+    bzModel: bzModel,
+  );
 
-      blog('b - starting delete flyer ops aho rabbena yostor ------------ - - - ');
-      await FireFlyerOps.deleteFlyerOps(
-        context: context,
-        bzModel: bzModel,
-        flyerModel: _flyerModel,
-        deleteFlyerIDFromBzzFlyersIDs: false,
-      );
+  await _deleteBzRecords(
+    context: context,
+    bzModel: bzModel,
+  );
+
+  await _deleteBzStorageLogo(
+    context: context,
+    bzModel: bzModel,
+  );
+
+  await _deleteBzAuthorsPictures(
+    context: context,
+    bzModel: bzModel,
+  );
+
+  await _deleteBzDoc(
+    context: context,
+    bzModel: bzModel,
+  );
+
+  blog('deleteBzOps : END');
+}
+// --------------------------
+Future<void> _deleteBzFlyers({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  blog('_deleteBzFlyers : START');
+  
+  if (bzModel != null){
+    
+    if (Mapper.canLoopList(bzModel.flyersIDs) == true){
+
+      for (final String id in bzModel.flyersIDs) {
+        
+        final FlyerModel _flyerModel = await FireFlyerOps.readFlyerOps(
+          context: context,
+          flyerID: id,
+        );
+        
+        await FireFlyerOps.deleteFlyerOps(
+          context: context,
+          bzModel: bzModel,
+          flyerModel: _flyerModel,
+          deleteFlyerIDFromBzzFlyersIDs: false,
+        );
+      }
+      
     }
+    
+    else {
+      blog('_deleteBzFlyers : bzModel ${bzModel.id} has no flyers to delete');
+    }
+    
+  }
+  
+  blog('_deleteBzFlyers : END');
+
+}
+// --------------------------
+Future<void> _deleteBzIDFromAuthorBzIDs({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  blog('_deleteBzIDFromBzAuthorsBzIDs : START');
+
+  if (bzModel != null){
+
+    final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
+      authors: bzModel.authors,
+    );
+    
+    if (Mapper.canLoopList(_authorsIDs) == true){
+
+      for (final String authorID in _authorsIDs) {
+
+        await UserFireOps.removeBzIDFromUserBzzIDs(
+            context: context,
+            bzID: bzModel.id,
+            userID: authorID,
+        );
+
+      }
+      
+    }
+
+
+  }
+  
+  blog('_deleteBzIDFromBzAuthorsBzIDs : END');
+
+}
+// --------------------------
+Future<void> _deleteBzRecords({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  blog('_deleteBzRecords : START');
+
+  if (bzModel != null){
+
+    /// DELETE CALLS
+    ///
+    /// DELETE FOLLOWS
+    ///
+    /// DELETE COUNTERS
+    ///
+
   }
 
-  blog("3 - delete bzID : ${bzModel.id} in all author's myBzIDs lists");
-  final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(bzModel.authors);
-  for (final String authorID in _authorsIDs) {
+  blog('_deleteBzRecords : END');
 
-    blog('a - get user model');
-    final UserModel _user = await UserFireOps.readUser(
-      context: context,
-      userID: authorID,
-    );
+}
+// --------------------------
+Future<void> _deleteBzStorageLogo({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
 
-    blog("b - update user's myBzzIDs");
-    final List<dynamic> _modifiedMyBzzIDs = UserModel.removeIDFromIDs(_user.myBzzIDs, bzModel.id);
-
-    blog('c - update myBzzIDs field in user doc');
-    await Fire.updateDocField(
-      context: context,
-      collName: FireColl.users,
-      docName: authorID,
-      field: 'myBzzIDs',
-      input: _modifiedMyBzzIDs,
-    );
-  }
-
-  blog('4 - delete all calls sub docs');
-  await Fire.deleteSubCollection(
-      context: context,
-      collName: FireColl.bzz,
-      docName: bzModel.id,
-      subCollName: FireSubColl.bzz_bz_calls,
-  );
-
-  blog('5 - wont delete calls sub collection');
-  // dunno if could be done here
-
-  blog('6 - delete follows sub docs');
-  await Fire.deleteSubCollection(
-      context: context,
-      collName: FireColl.bzz,
-      docName: bzModel.id,
-      subCollName: FireSubColl.bzz_bz_follows,
-  );
-
-  blog('7 - delete follows sub collection');
-  // dunno if could be done here
-
-  blog('8 - delete counters sub doc');
-  await Fire.deleteSubDoc(
-    context: context,
-    collName: FireColl.bzz,
-    docName: bzModel.id,
-    subCollName: FireSubColl.bzz_bz_counters,
-    subDocName: FireSubDoc.bzz_bz_counters_counters,
-  );
-
-  blog('9 - wont delete counters sub collection');
-  // dunno if could be done here
-
-  blog('10 - delete bz logo');
-  await Storage.deleteStoragePic(
-    context: context,
-    picName: bzModel.id,
-    docName: StorageDoc.logos,
-  );
-
-  blog('11 - delete all authors pictures');
-  for (final String id in _authorsIDs) {
-
-    final String _authorPicName = AuthorModel.generateAuthorPicID(
-        authorID: id,
-        bzID: bzModel.id,
-    );
-    blog('11a - should delete this storage pic of author id : $id : authorPicName : $_authorPicName');
+  blog('_deleteBzStorageLogo : START');
+  if (bzModel != null){
 
     await Storage.deleteStoragePic(
       context: context,
-      picName: _authorPicName,
-      docName: StorageDoc.authors,
+      picName: bzModel.id,
+      docName: StorageDoc.logos,
     );
+
+  }
+  blog('_deleteBzStorageLogo : END');
+
+}
+// --------------------------
+Future<void> _deleteBzAuthorsPictures({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  blog('_deleteBzAuthorsPictures : START');
+
+  if (bzModel != null && Mapper.canLoopList(bzModel.authors) == true){
+
+    final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
+        authors: bzModel.authors,
+    );
+
+    for (final String id in _authorsIDs) {
+
+      final String _authorPicName = AuthorModel.generateAuthorPicID(
+        authorID: id,
+        bzID: bzModel.id,
+      );
+
+      await Storage.deleteStoragePic(
+        context: context,
+        picName: _authorPicName,
+        docName: StorageDoc.authors,
+      );
+
+    }
+
   }
 
-  blog('12 - delete bz doc');
-  await Fire.deleteDoc(
-    context: context,
-    collName: FireColl.bzz,
-    docName: bzModel.id,
-  );
+  blog('_deleteBzAuthorsPictures : END');
 
-  blog('DELETE BZ OPS ENDED ---------------------------');
+}
+// --------------------------
+Future<void> _deleteBzDoc({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  blog('_deleteBzDoc : START');
+
+  if (bzModel != null){
+
+    await Fire.deleteDoc(
+      context: context,
+      collName: FireColl.bzz,
+      docName: bzModel.id,
+    );
+
+  }
+
+  blog('_deleteBzDoc : END');
+
 }
 // -----------------------------------------------------------------------------
