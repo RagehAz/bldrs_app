@@ -12,8 +12,11 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -33,6 +36,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 
 // -----------------------------------------------------------------------------
 
@@ -272,7 +276,7 @@ Future<void> _onDeleteBzButtonTap({
 
     await TopDialog.showTopDialog(
       context: context,
-      title: 'Business Account has been deleted successfully',
+      firstLine: 'Business Account has been deleted successfully',
       color: Colorz.yellow255,
     );
 
@@ -585,7 +589,7 @@ Future<void> _onDeleteFlyerButtonTap({
 
     await TopDialog.showTopDialog(
       context: context,
-      title: 'Flyer has been deleted successfully',
+      firstLine: 'Flyer has been deleted successfully',
       color: Colorz.yellow255,
     );
 
@@ -598,18 +602,26 @@ Future<bool> _showConfirmDeleteFlyerDialog({
   @required FlyerModel flyer,
 }) async {
 
-  bool _result = await CenterDialog.showCenterDialog(
+  final double _screenHeight = Scale.superScreenHeight(context);
+  final double _dialogHeight = _screenHeight * 0.7;
+  final double _flyerBoxHeight = _dialogHeight * 0.5;
+
+  final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     title: 'Delete Flyer',
     body: 'This will delete this flyer and all its content and can not be retrieved any more',
     boolDialog: true,
     confirmButtonText: 'Yes Delete Flyer',
-    height: 400,
-    // child: FlyerStarter(
-    //   flyerModel: flyer,
-    //   minWidthFactor: 100,
-    //   heroTag: '',
-    // ),
+    height: _dialogHeight,
+    child: SizedBox(
+      height: _flyerBoxHeight,
+      child: AbsorbPointer(
+        child: FlyerStarter(
+          flyerModel: flyer,
+          minWidthFactor: FlyerBox.sizeFactorByHeight(context, _flyerBoxHeight),
+        ),
+      ),
+    ),
   );
 
   return _result;
@@ -675,6 +687,13 @@ Future<void> _deleteFlyerOps({
   );
   _bzzProvider.setActiveBzFlyers(
     flyers: _updatedFlyers,
+    notify: true,
+  );
+
+  /// REMOVE FLYER FROM FLYERS PROVIDER
+  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  _flyersProvider.removeFlyerFromFlyersProvider(
+    flyerID: flyer.id,
     notify: true,
   );
 

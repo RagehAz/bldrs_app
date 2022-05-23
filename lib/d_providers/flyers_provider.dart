@@ -22,7 +22,7 @@ import 'package:provider/provider.dart';
 /// getset : a method that fetches a value then sets it in a provider global variable
 // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 class FlyersProvider extends ChangeNotifier {
-// -------------------------------------
+// -----------------------------------------------------------------------------
 
   /// FETCHING FLYERS
 
@@ -135,6 +135,38 @@ class FlyersProvider extends ChangeNotifier {
     }
 
     return _flyers;
+  }
+// -----------------------------------------------------------------------------
+
+  /// REMOVE FLYER FROM FLYERS PROVIDER
+
+// -------------------------------------
+  void removeFlyerFromFlyersProvider({
+    @required String flyerID,
+    @required bool notify,
+  }) {
+
+    _savedFlyers = FlyerModel.removeFlyerFromFlyersByID(
+        flyers: _savedFlyers,
+        flyerIDToRemove: flyerID,
+    );
+    _promotedFlyers = FlyerModel.removeFlyerFromFlyersByID(
+      flyers: _promotedFlyers,
+      flyerIDToRemove: flyerID,
+    );
+    _wallFlyers = FlyerModel.removeFlyerFromFlyersByID(
+      flyers: _wallFlyers,
+      flyerIDToRemove: flyerID,
+    );
+    _selectedFlyers = FlyerModel.removeFlyerFromFlyersByID(
+      flyers: _selectedFlyers,
+      flyerIDToRemove: flyerID,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -----------------------------------------------------------------------------
 
@@ -332,16 +364,19 @@ class FlyersProvider extends ChangeNotifier {
 
 // -------------------------------------
   List<FlyerModel> _wallFlyers = <FlyerModel>[];
-  FlyerModel _lastWallFlyer;
 // -------------------------------------
   List<FlyerModel> get wallFlyers {
     return <FlyerModel>[..._wallFlyers];
   }
-  FlyerModel get lastWallFlyer => _lastWallFlyer;
 // -------------------------------------
   Future<void> paginateWallFlyers(BuildContext context) async {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+    final FlyerModel _lastWallFlyer = Mapper.canLoopList(_wallFlyers) == true ?
+    _wallFlyers.first
+        :
+    null;
 
     final List<FlyerModel> _flyers = await FireFlyerOps.paginateFlyers(
       context: context,
@@ -351,10 +386,6 @@ class FlyersProvider extends ChangeNotifier {
     );
 
     _addToWallFlyers(
-      flyers: _flyers,
-      notify: false,
-    );
-    _setLastWallFlyer(
       flyers: _flyers,
       notify: true,
     );
@@ -371,35 +402,10 @@ class FlyersProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
-  void _setLastWallFlyer({
-    @required List<FlyerModel> flyers,
-    @required bool notify,
-  }) {
-
-    if (Mapper.canLoopList(flyers)){
-
-      _lastWallFlyer = flyers.last;
-
-      if (notify == true){
-        notifyListeners();
-      }
-    }
-
-  }
-// -------------------------------------
   void clearWallFlyers({
   @required bool notify,
 }){
     _wallFlyers = <FlyerModel>[];
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -------------------------------------
-  void clearLastWallFlyer({
-  @required bool notify,
-}){
-    _lastWallFlyer = null;
     if (notify == true){
       notifyListeners();
     }
@@ -461,7 +467,7 @@ class FlyersProvider extends ChangeNotifier {
   /// SELECTED FLYERS
 
 // -------------------------------------
-  final List<FlyerModel> _selectedFlyers = <FlyerModel>[];
+  List<FlyerModel> _selectedFlyers = <FlyerModel>[];
 // -------------------------------------
   List<FlyerModel> get selectedFlyers {
     return <FlyerModel>[..._selectedFlyers];

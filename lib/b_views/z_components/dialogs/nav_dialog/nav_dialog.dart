@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +56,8 @@ class NavDialog extends StatelessWidget {
 
     final double _navBarHeight = NavBar.navBarHeight(context: context);
     final double _navBarClearWidth = _screenWidth - (4 * Ratioz.appBarMargin);
-    final double _titleHeight = secondLine == null ? _navBarHeight : _navBarHeight * 0.35;
-    final double _bodyHeight = secondLine == null ? 0 : (_navBarHeight - _titleHeight);
+    // final double _titleHeight = secondLine == null ? _navBarHeight : _navBarHeight * 0.35;
+    // final double _bodyHeight = secondLine == null ? 0 : (_navBarHeight - _titleHeight);
 
     return GestureDetector(
       onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
@@ -78,6 +79,7 @@ class NavDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
+              /// FIRST LINE
               SizedBox(
                 width: _navBarClearWidth,
                 child: SuperVerse(
@@ -85,9 +87,11 @@ class NavDialog extends StatelessWidget {
                   scaleFactor: 1.1,
                   shadow: true,
                   margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin,),
+                  maxLines: stringIsEmpty(secondLine) == true ? 2 : 1,
                 ),
               ),
 
+              /// SECOND LINE
               if (secondLine != null)
                 SizedBox(
                   width: _navBarClearWidth,

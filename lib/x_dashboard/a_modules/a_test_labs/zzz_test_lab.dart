@@ -16,13 +16,11 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -57,6 +55,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   ChainsProvider  _chainsProvider;
   String _fuckingText;
   BzzProvider _bzzProvider;
+  FlyersProvider _flyersProvider;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -72,6 +71,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     _scrollController = ScrollController();
 
@@ -261,7 +261,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     );
     final double _fieldWidth = BldrsAppBar.width(context) - 50;
 
-
     return MainLayout(
       key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
@@ -341,13 +340,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
                 WideButton(
                     color: Colorz.red255,
-                    verse: 'blaaaha',
+                    verse: 'Do Something',
                     icon: Iconz.star,
                     onTap: () async {
-                      final List<Map<String, dynamic>> maps = await Sembast.readAll(
-                        docName: LDBDoc.basicPhrases,
-                      );
-                      blogMaps(maps);
+
                     }),
 
                 /// TEXT FIELD
