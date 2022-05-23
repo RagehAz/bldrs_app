@@ -12,6 +12,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -244,6 +245,22 @@ Future<void> onFlyerTap({
         initialSlideIndex: 0,
       )
   );
+
+}
+// -----------------------------------------------------------------------------
+Future<void> onRefreshHomeWall(BuildContext context) async {
+  // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
+  // final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
+  // final KW _currentKeyword = _keywordsProvider.currentKeyword;
+
+  // await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+  //   context: context,
+  //   section: _currentSection,
+  //   kw: _currentKeyword,
+  // );
+
+  blog('onRefreshHomeWall : SHOULD REFRESH SCREEN');
 
 }
 // -----------------------------------------------------------------------------

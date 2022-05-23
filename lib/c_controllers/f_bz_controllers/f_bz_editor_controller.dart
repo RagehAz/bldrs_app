@@ -343,8 +343,8 @@ Future<void> _firstTimerCreateNewBzOps({
     /// SHOW SUCCESS DIALOG
     await TopDialog.showTopDialog(
       context: context,
-      title: 'Great !',
-      body: 'Successfully created your Business Account',
+      firstLine: 'Great !',
+      secondLine: 'Successfully created your Business Account',
     );
 
     /// NAVIGATE
@@ -421,8 +421,8 @@ Future<void> _updateBzOps({
     /// SHOW SUCCESS DIALOG
     await TopDialog.showTopDialog(
       context: context,
-      title: 'Great !',
-      body: 'Successfully updated your Business Account',
+      firstLine: 'Great !',
+      secondLine: 'Successfully updated your Business Account',
     );
 
     /// GO BACK

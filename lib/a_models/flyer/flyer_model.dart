@@ -620,6 +620,7 @@ class FlyerModel {
   /// FLYER EDITORS
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerModel> removeFlyerFromFlyersByID({
     @required List<FlyerModel> flyers,
     @required String flyerIDToRemove,
