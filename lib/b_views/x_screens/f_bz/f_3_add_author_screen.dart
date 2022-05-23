@@ -107,9 +107,9 @@ class AddAuthorScreen extends StatelessWidget {
                 userID: _ragehUserID,
               );
 
-              final AuthorModel _ragehAuthor =
-                  AuthorModel.getAuthorModelFromUserModel(
+              final AuthorModel _ragehAuthor = AuthorModel.createAuthorFromUserModel(
                 userModel: _ragehUserModel,
+                isMaster: true,
               );
 
               final List<AuthorModel> _newAuthorsList = <AuthorModel>[

@@ -332,7 +332,10 @@ class BzModel{
         ),
       ],
       authors: <AuthorModel>[
-        AuthorModel.createMasterAuthorModelFromUserModel(userModel)
+        AuthorModel.createAuthorFromUserModel(
+          userModel: userModel,
+          isMaster: true,
+        )
       ],
       showsTeam: true,
       // -------------------------

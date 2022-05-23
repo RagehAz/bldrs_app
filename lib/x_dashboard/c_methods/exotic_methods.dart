@@ -350,8 +350,8 @@ class ExoticMethods {
 // -----------------------------------------------------------------------------
   static Future<void> _takeOverBz({
   @required BuildContext context,
-  @required String oldUserID, // '60a1SPzftGdH6rt15NF96m0j9Et2'
-  @required String newUserID, // 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2'
+  @required String oldUserID,
+  @required String newUserID,
   @required BzModel bzModel,
 }) async {
 
@@ -359,7 +359,10 @@ class ExoticMethods {
 
     final List<AuthorModel> _authors = bzModel.authors;
 
-    final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(bzModel, oldUserID);
+    final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
+        bz: bzModel,
+        authorID: oldUserID,
+    );
 
     if (_oldAuthor != null){
 

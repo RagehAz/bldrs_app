@@ -26,7 +26,6 @@ class AuthorLabel extends StatelessWidget {
     this.labelIsOn = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final String authorID;
@@ -35,7 +34,6 @@ class AuthorLabel extends StatelessWidget {
   final int authorGalleryCount;
   final bool labelIsOn;
   final ValueChanged<String> onTap;
-
   /// --------------------------------------------------------------------------
 // tappingAuthorLabel (){
 //     setState(() {
@@ -86,8 +84,11 @@ class AuthorLabel extends StatelessWidget {
     final double _authorImageCorners =
         flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------
-    final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, authorID);
-
+    final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(
+        bz: bzModel,
+        authorID: authorID,
+    );
+// -----------------------------------------------------------------------------
     return GestureDetector(
       onTap: showLabel == true ? () => onTap(authorID) : null,
       child: Container(
