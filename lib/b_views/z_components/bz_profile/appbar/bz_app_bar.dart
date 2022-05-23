@@ -75,7 +75,7 @@ class BzAppBar extends StatelessWidget {
           iconSizeFactor: 0.6,
           margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
           bubble: false,
-          onTap: () => onBzAccountOptions(
+          onTap: () => onBzAccountOptionsTap(
               context: context,
               bzModel: _bzModel,
           ),
