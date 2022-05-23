@@ -110,7 +110,8 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
         context: context,
         firstLine: 'Flyer is successfully promoted',
         secondLine: 'in ${_zone.cityName}, ${_zone.countryName}',
-        color: Colorz.yellow255,
+        color: Colorz.green255,
+        textColor: Colorz.white255,
       );
 
     }

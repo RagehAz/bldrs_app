@@ -29,6 +29,8 @@ Future<BzModel> createBz({
   @required UserModel userModel,
 }) async {
 
+  blog('createBz : START');
+
   BzModel _output;
   bool _result;
 
@@ -83,6 +85,8 @@ Future<BzModel> createBz({
       }
   );
 
+  blog('createBz : END');
+
   return _result == true ? _output : null;
 }
 // --------------------------
@@ -90,12 +94,16 @@ Future<String> _createEmptyBzDocToGetBzID({
   @required BuildContext context,
 }) async {
 
+  blog('_createEmptyBzDocToGetBzID : START');
+
   final DocumentReference<Object> _docRef = await Fire.createDoc(
     context: context,
     collName: FireColl.bzz,
     addDocID: true,
     input: <String, dynamic>{},
   );
+
+  blog('_createEmptyBzDocToGetBzID : END');
 
   return _docRef?.id;
 }
@@ -106,6 +114,8 @@ Future<String> _uploadBzLogoAndGetURL({
   @required String bzID,
   @required String ownerID,
 }) async {
+
+  blog('_uploadBzLogoAndGetURL : START');
 
   String _bzLogoURL;
 
@@ -123,7 +133,10 @@ Future<String> _uploadBzLogoAndGetURL({
 
   else if (ObjectChecker.objectIsURL(logo) == true){
     _bzLogoURL = logo;
+    blog('_bzLogoURL : used old logo : $_bzLogoURL');
   }
+
+  blog('_uploadBzLogoAndGetURL : END');
 
   return _bzLogoURL;
 }
@@ -134,6 +147,8 @@ Future<AuthorModel> _uploadAuthorPicAndReturnMasterAuthor({
   @required UserModel userModel,
   @required String bzID,
 }) async {
+
+  blog('_uploadAuthorPicAndReturnMasterAuthor : START');
 
   /// upload authorPic
   String _authorPicURL;
@@ -171,6 +186,8 @@ Future<AuthorModel> _uploadAuthorPicAndReturnMasterAuthor({
     contacts: userModel.contacts,
   );
 
+  blog('_uploadAuthorPicAndReturnMasterAuthor : END');
+
   return _masterAuthor;
 }
 // --------------------------
@@ -179,6 +196,8 @@ Future<void> _addBzIDToUserBzzIDs({
   @required UserModel userModel,
   @required String bzID,
 }) async {
+
+  blog('_addBzIDToUserBzzIDs : START');
 
   final List<dynamic> _userBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
     strings: userModel.myBzzIDs,
@@ -192,6 +211,8 @@ Future<void> _addBzIDToUserBzzIDs({
     field: 'myBzzIDs',
     input: _userBzzIDs,
   );
+
+  blog('_addBzIDToUserBzzIDs : END');
 
 }
 // -----------------------------------------------------------------------------
@@ -429,14 +450,10 @@ Future<void> deleteBzOps({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {
+
   blog('deleteBzOps : START');
 
   await _deleteBzFlyers(
-    context: context,
-    bzModel: bzModel,
-  );
-
-  await _deleteBzIDFromAuthorBzIDs(
     context: context,
     bzModel: bzModel,
   );
@@ -457,6 +474,12 @@ Future<void> deleteBzOps({
   );
 
   await _deleteBzDoc(
+    context: context,
+    bzModel: bzModel,
+  );
+
+  /// SHOULD BE LAST DUE TO FIREBASE PERMISSIONS
+  await _deleteBzIDFromAuthorBzIDs(
     context: context,
     bzModel: bzModel,
   );
@@ -564,6 +587,7 @@ Future<void> _deleteBzStorageLogo({
 }) async {
 
   blog('_deleteBzStorageLogo : START');
+
   if (bzModel != null){
 
     await Storage.deleteStoragePic(
@@ -573,6 +597,7 @@ Future<void> _deleteBzStorageLogo({
     );
 
   }
+
   blog('_deleteBzStorageLogo : END');
 
 }

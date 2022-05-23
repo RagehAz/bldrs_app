@@ -13,29 +13,8 @@ import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-
-
-// -----------------------------------------------------------------------------
-
-/// REFERENCES
-
-// ---------------------------------------------------
-/// users firestore collection reference getter
-CollectionReference<Object> collRef() {
-  final CollectionReference<Object> _usersCollectionRef = Fire.getCollectionRef(FireColl.users);
-  return _usersCollectionRef;
-}
-// ---------------------------------------------------
-/// user firestore document reference
-DocumentReference<Object> docRef(String userID) {
-  return Fire.getDocRef(
-    collName: FireColl.users,
-    docName: userID,
-  );
-}
 // -----------------------------------------------------------------------------
 
 /// CREATE

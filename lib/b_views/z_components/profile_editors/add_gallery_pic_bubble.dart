@@ -3,11 +3,9 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 enum BubbleType {
@@ -23,7 +21,8 @@ class AddGalleryPicBubble extends StatelessWidget {
     @required this.picture,
     @required this.onAddPicture,
     @required this.onDeletePicture,
-    this.title = '',
+    @required this.title,
+    @required this.redDot,
     this.bubbleType = BubbleType.none,
     Key key,
   }) : super(key: key);
@@ -33,38 +32,35 @@ class AddGalleryPicBubble extends StatelessWidget {
   final Function onDeletePicture;
   final String title;
   final BubbleType bubbleType;
+  final bool redDot;
   /// --------------------------------------------------------------------------
   static BorderRadius _getPicBorder ({
     @required BuildContext context,
     @required BubbleType bubbleType,
-    @required double corner,
+    @required double picWidth,
   }){
+
+    final double corner = BzLogo.cornersValue(picWidth);
+
     return
       bubbleType == BubbleType.bzLogo ?
-      Borderers.superBorderOnly(
-          context: context,
-          enTopLeft: corner,
-          enBottomLeft: corner,
-          enBottomRight: 0,
-          enTopRight: corner
-      )
+          Borderers.superLogoShape(
+            context: context,
+            corner: corner,
+            zeroCornerEnIsRight: true
+          )
           :
       bubbleType == BubbleType.authorPic ?
-      Borderers.superBorderOnly(
-        context: context,
-        enTopLeft: corner,
-        enBottomLeft: 0,
-        enBottomRight: corner,
-        enTopRight: corner,
+      Borderers.superLogoShape(
+          context: context,
+          corner: corner,
+          zeroCornerEnIsRight: false
       )
           :
-      Borderers.superBorderOnly(
-        context: context,
-        enTopLeft: corner,
-        enBottomLeft: corner,
-        enBottomRight: corner,
-        enTopRight: corner,
-      );
+      bubbleType == BubbleType.userPic ?
+      Borderers.superBorderAll(context, picWidth * 0.5)
+          :
+      Borderers.superBorderAll(context, corner);
   }
 // -----------------------------------------------------------------------------
   @override
@@ -77,11 +73,12 @@ class AddGalleryPicBubble extends StatelessWidget {
     final BorderRadius _picBorders = _getPicBorder(
       context: context,
       bubbleType: bubbleType,
-      corner: Ratioz.boxCorner12,
+      picWidth: picWidth,
     );
 
     return Bubble(
-        centered: true,
+        title: title,
+        redDot: redDot,
         columnChildren: <Widget>[
 
           Stack(
@@ -192,6 +189,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                 child: DreamBox(
                   height: picWidth,
                   width: picWidth,
+                  corners: _picBorders,
                   icon: Iconz.plus,
                   iconSizeFactor: 0.4,
                   bubble: false,
@@ -203,13 +201,6 @@ class AddGalleryPicBubble extends StatelessWidget {
               )
 
             ],
-          ),
-
-          /// BUBBLE TITLE
-          SuperVerse(
-            verse: title,
-            margin: 5,
-            redDot: true,
           ),
 
         ]

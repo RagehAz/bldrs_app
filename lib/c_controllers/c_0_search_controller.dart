@@ -328,7 +328,7 @@ Future<void> _createFireSearchRecord({
   if (searchText.isNotEmpty){
 
     final RecordModel _record = RecordModel(
-      recordID: null, /// will be defined as docID and injected into retrieved map
+      // recordID: null, /// will be defined as docID and injected into retrieved map
       userID: FireAuthOps.superUserID(),
       timeStamp: DateTime.now(),
       recordType: RecordType.search,
