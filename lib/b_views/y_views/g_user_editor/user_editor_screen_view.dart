@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
@@ -10,12 +9,10 @@ import 'package:bldrs/b_views/z_components/profile_editors/gender_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_editor_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
@@ -96,6 +93,8 @@ class UserEditorScreenView extends StatelessWidget {
 
                 /// PICTURE
                 AddGalleryPicBubble(
+                  title: 'Picture',
+                  redDot: true,
                   picture: picture,
                   bubbleType: BubbleType.userPic,
                   onDeletePicture: () => deleteUserPicture(
@@ -250,28 +249,15 @@ class UserEditorScreenView extends StatelessWidget {
             ),
 
             /// --- CONFIRM BUTTON
-            Positioned(
-              bottom: 0,
-              child: DreamBox(
-                height: 50,
-                width: Bubble.clearWidth(context),
-                color: Colorz.yellow255,
-                // icon: Iconz.Check,
-                // iconColor: Colorz.Black225,
-                // iconSizeFactor: 0.5,
-                verse: superPhrase(context, 'phid_updateProfile'),
-                verseColor: Colorz.black230,
-                verseScaleFactor: 0.9,
-                verseWeight: VerseWeight.black,
-                margins: const EdgeInsets.all(10),
-                onTap: () => confirmEdits(
-                    context: context,
-                    formKey: formKey,
-                    newUserModel: createNewUserModel(),
-                    oldUserModel: oldUserModel,
-                    onFinish: onFinish,
-                    loading: loading
-                ),
+            EditorConfirmButton(
+              firstLine: superPhrase(context, 'phid_updateProfile').toUpperCase(),
+              onTap: () => confirmEdits(
+                  context: context,
+                  formKey: formKey,
+                  newUserModel: createNewUserModel(),
+                  oldUserModel: oldUserModel,
+                  onFinish: onFinish,
+                  loading: loading
               ),
             ),
 
