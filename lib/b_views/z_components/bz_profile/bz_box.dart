@@ -26,7 +26,10 @@ class BzLogoBox extends StatelessWidget {
   static const double _boxAspectRatio = 1.25;
   static const double _nameHeightRatio = _boxAspectRatio - 1;
 // -----------------------------------------------------------------------------
-  static double boxHeight({@required double width, @required bool showName}){
+  static double boxHeight({
+    @required double width,
+    @required bool showName,
+  }){
     double _height = width;
 
     if (showName == true){
