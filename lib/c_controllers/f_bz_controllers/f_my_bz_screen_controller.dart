@@ -277,7 +277,8 @@ Future<void> _onDeleteBzButtonTap({
     await TopDialog.showTopDialog(
       context: context,
       firstLine: 'Business Account has been deleted successfully',
-      color: Colorz.yellow255,
+      color: Colorz.green255,
+      textColor: Colorz.white255,
     );
 
   }
@@ -590,7 +591,8 @@ Future<void> _onDeleteFlyerButtonTap({
     await TopDialog.showTopDialog(
       context: context,
       firstLine: 'Flyer has been deleted successfully',
-      color: Colorz.yellow255,
+      color: Colorz.green255,
+      textColor: Colorz.white255,
     );
 
   }

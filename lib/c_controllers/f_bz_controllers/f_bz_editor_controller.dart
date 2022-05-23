@@ -23,6 +23,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -340,20 +341,24 @@ Future<void> _firstTimerCreateNewBzOps({
     /// CLOSE WAIT DIALOG
     WaitDialog.closeWaitDialog(context);
 
+    /// NAVIGATE
+    Nav.goBackToHomeScreen(context);
+    unawaited(
+        Nav.goToNewScreen(
+            context: context,
+            screen: MyBzScreen(
+              bzModel: _uploadedBzModel,
+            )
+        )
+    );
+
     /// SHOW SUCCESS DIALOG
     await TopDialog.showTopDialog(
       context: context,
       firstLine: 'Great !',
       secondLine: 'Successfully created your Business Account',
-    );
-
-    /// NAVIGATE
-    Nav.goBackToHomeScreen(context);
-    await Nav.goToNewScreen(
-        context: context,
-        screen: MyBzScreen(
-          bzModel: _uploadedBzModel,
-        )
+      color: Colorz.green255,
+      textColor: Colorz.white255,
     );
 
   }
@@ -418,15 +423,18 @@ Future<void> _updateBzOps({
     /// CLOSE WAIT DIALOG
     WaitDialog.closeWaitDialog(context);
 
+    /// GO BACK
+    Nav.goBack(context);
+
     /// SHOW SUCCESS DIALOG
     await TopDialog.showTopDialog(
       context: context,
       firstLine: 'Great !',
       secondLine: 'Successfully updated your Business Account',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
     );
 
-    /// GO BACK
-    Nav.goBack(context);
   }
 
   /// OF FAILURE
