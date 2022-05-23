@@ -95,6 +95,7 @@ Future<FlyerModel> _createFlyerStorageImagesAndUpdateFlyer({
   @required FlyerModel draftFlyer,
   @required String flyerID,
 }) async {
+
   blog('_createFlyerStorageImagesAndUpdateFlyer : START');
 
   FlyerModel _finalFlyer;
@@ -151,6 +152,8 @@ Future<void> _addFlyerIDToBzFlyersIDs({
   @required String newFlyerIDToAdd,
 }) async {
 
+  blog('_addFlyerIDToBzFlyersIDs : START');
+
   final List<String> _bzFlyersIDs = bzModel.flyersIDs;
   _bzFlyersIDs.add(newFlyerIDToAdd);
 
@@ -162,9 +165,9 @@ Future<void> _addFlyerIDToBzFlyersIDs({
     input: _bzFlyersIDs,
   );
 
+  blog('_addFlyerIDToBzFlyersIDs : END');
+
 }
-
-
 // -----------------------------------------------------------------------------
 
 /// READ
@@ -330,6 +333,8 @@ Future<FlyerModel> updateFlyerOps({
   @required BzModel bzModel,
 }) async {
 
+  blog('updateFlyerOps : START');
+
   final FlyerModel _finalFlyer = await _updateSlides(
     context: context,
     oldFlyer: oldFlyer,
@@ -347,6 +352,8 @@ Future<FlyerModel> updateFlyerOps({
     finalFlyer: _finalFlyer,
   );
 
+  blog('updateFlyerOps : END');
+
   return _finalFlyer;
 }
 // -----------------------------------
@@ -355,6 +362,8 @@ Future<FlyerModel> _updateSlides({
   @required FlyerModel oldFlyer,
   @required FlyerModel newFlyer,
 }) async {
+
+  blog('_updateSlides : START');
 
   FlyerModel _finalFlyer = newFlyer;
 
@@ -409,6 +418,8 @@ Future<FlyerModel> _updateSlides({
 
   }
 
+  blog('_updateSlides : END');
+
   return _finalFlyer;
 }
 // -----------------------------------
@@ -417,6 +428,8 @@ Future<void> _deleteUnusedSlides({
   @required FlyerModel oldFlyer,
   @required FlyerModel newFlyer,
 }) async {
+
+  blog('_deleteUnusedSlides : START');
 
   /// Delete fire storage pictures if updatedFlyer.slides.length > originalFlyer.slides.length
   if (oldFlyer.slides.length > newFlyer.slides.length) {
@@ -444,6 +457,8 @@ Future<void> _deleteUnusedSlides({
 
   }
 
+  blog('_deleteUnusedSlides : END');
+
 }
 // -----------------------------------
 Future<void> _updateFlyerDoc({
@@ -451,12 +466,16 @@ Future<void> _updateFlyerDoc({
   @required FlyerModel finalFlyer,
 }) async {
 
+  blog('_updateFlyerDoc : START');
+
   await Fire.updateDoc(
     context: context,
     collName: FireColl.flyers,
     docName: finalFlyer.id,
     input: finalFlyer.toMap(toJSON: false),
   );
+
+  blog('_updateFlyerDoc : END');
 
 }
 // -----------------------------------
@@ -488,7 +507,7 @@ Future<void> deleteFlyerOps({
   @required bool deleteFlyerIDFromBzzFlyersIDs,
 }) async {
 
-  blog('deleteFlyerOps : START : ${flyerModel.id}');
+  blog('deleteFlyerOps : START : ${flyerModel?.id}');
 
   if (flyerModel != null && flyerModel.id != null && bzModel != null) {
 
@@ -527,7 +546,7 @@ Future<void> deleteFlyerOps({
     blog('deleteFlyerOps : COULD NOT DELETE FLYER');
   }
 
-  blog('deleteFlyerOps : END : ${flyerModel.id}');
+  blog('deleteFlyerOps : END : ${flyerModel?.id}');
 
 }
 // -----------------------------------
@@ -538,6 +557,7 @@ Future<void> _deleteFlyerIDFromBzFlyersIDs({
 }) async {
 
   blog('_deleteFlyerIDFromBzFlyersIDs : START');
+
   if (bzModel != null && flyerID != null){
 
     final List<String> _bzFlyersIDs = Mapper.removeStringsFromStrings(
@@ -554,6 +574,7 @@ Future<void> _deleteFlyerIDFromBzFlyersIDs({
     );
 
   }
+
   blog('_deleteFlyerIDFromBzFlyersIDs : START');
 
 }
@@ -562,6 +583,8 @@ Future<void> _deleteFlyerRecords({
   @required BuildContext context,
   @required FlyerModel flyerModel,
 }) async {
+
+  blog('_deleteFlyerRecords : START');
 
   if (flyerModel != null){
 
@@ -575,6 +598,8 @@ Future<void> _deleteFlyerRecords({
 
   }
 
+  blog('_deleteFlyerRecords : END');
+
 }
 // -----------------------------------
 Future<void> _deleteFlyerStorageImages({
@@ -583,6 +608,7 @@ Future<void> _deleteFlyerStorageImages({
 }) async {
 
   blog('_deleteFlyerStorageImages : START');
+
   if (flyerModel != null){
 
     final List<String> _slidesIDs = SlideModel.generateSlidesIDs(

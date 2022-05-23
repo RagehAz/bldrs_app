@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
@@ -73,6 +74,7 @@ class BzEditorScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       children: <Widget>[
 
@@ -227,6 +229,7 @@ class BzEditorScreenView extends StatelessWidget {
                     key: const ValueKey<String>('add_logo_bubble'),
                     picture: bzLogo,
                     title: superPhrase(context, 'phid_businessLogo'),
+                    redDot: true,
                     bubbleType: BubbleType.bzLogo,
                     onAddPicture: () => takeBzLogo(
                       bzLogo: bzLogo,
@@ -389,45 +392,31 @@ class BzEditorScreenView extends StatelessWidget {
           ),
         ),
 
-        /// ---  BOTTOM BUTTONS
-        Positioned(
-          key: const ValueKey<String>('confirm_button'),
-          bottom: 0,
-          left: 0,
-          child: DreamBox(
-            height: 50,
-            color: Colorz.yellow255,
-            verseColor: Colorz.black230,
-            verseWeight: VerseWeight.black,
-            verse: 'Confirm',
-            secondLine: firstTimer ?
-            'Create new business profile'
-                :
-            'Update business profile',
-            secondLineColor: Colorz.black255,
-            verseScaleFactor: 0.7,
-            margins: const EdgeInsets.all(10),
-            onTap: () => onConfirmTap(
-              context: context,
-              formKey: formKey,
-              missingFields: missingFields,
-              selectedBzTypes: selectedBzTypes,
-              selectedScopes: selectedScopes,
-              bzZone: bzZone,
-              bzLogo: bzLogo,
-              selectedBzForm: selectedBzForm,
-              bzAboutTextController: bzAboutTextController,
-              bzContacts: bzContacts,
-              bzNameTextController: bzNameTextController,
-              bzPosition: bzPosition,
-              initialBzModel: initialBzModel,
-              userModel: userModel,
-              firstTimer: firstTimer,
-            ),
+        /// ---  CONFIRM BUTTON
+        EditorConfirmButton(
+          firstLine: 'Confirm',
+          secondLine: firstTimer ? 'Create new business profile' : 'Update business profile',
+          onTap: () => onConfirmTap(
+            context: context,
+            formKey: formKey,
+            missingFields: missingFields,
+            selectedBzTypes: selectedBzTypes,
+            selectedScopes: selectedScopes,
+            bzZone: bzZone,
+            bzLogo: bzLogo,
+            selectedBzForm: selectedBzForm,
+            bzAboutTextController: bzAboutTextController,
+            bzContacts: bzContacts,
+            bzNameTextController: bzNameTextController,
+            bzPosition: bzPosition,
+            initialBzModel: initialBzModel,
+            userModel: userModel,
+            firstTimer: firstTimer,
           ),
         ),
 
       ],
     );
+
   }
 }

@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/nav_bar/button_notification_dot.dart'
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -59,10 +58,7 @@ class BarButton extends StatelessWidget {
     final double _buttonWidth = size;
 
     return GestureDetector(
-      onTap: () {
-        onTap();
-        blog('tapped');
-      },
+      onTap: onTap,
       child: Container(
         height: _buttonHeight,
         width: _buttonWidth,

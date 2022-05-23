@@ -362,10 +362,11 @@ Future<File> getFileFromPicURL({
   return _file;
 }
 // ------------------------------------------------
-Future<File> getFileByPath(
-    {@required BuildContext context,
-    @required String docName,
-    @required String picName}) async {
+Future<File> getFileByPath({
+  @required BuildContext context,
+  @required String docName,
+  @required String picName,
+}) async {
   File _file;
 
   // final String _url = await readStoragePicURL(
@@ -490,21 +491,23 @@ Future<void> deleteStoragePic({
             picName: picName,
         );
 
+        blog('pic ref : $_picRef');
+
+
         final FullMetadata _metaData = await _picRef?.getMetadata();
 
         blogFullMetaData(_metaData);
 
-        await _picRef?.delete();
+        // await _picRef?.delete();
       },
     onError: (String error) async {
 
-        const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
-
-        if (error == _noImageError){
-
-          blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $docName : picName : $picName');
-
-        }
+        // const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
+        // if (error == _noImageError){
+        //
+        //   blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $docName : picName : $picName');
+        //
+        // }
 
     }
     );
@@ -518,6 +521,60 @@ Future<void> deleteStoragePic({
   //
   // }
 }
+// -----------------------------------------------------------------------------
+
+/// BLOGGING
+
+// ------------------------------------------------
+/*
+Future<bool> storageImageExist({
+  @required BuildContext context,
+  @required String docName,
+  @required String picName,
+}) async {
+
+  bool _exists = false;
+
+  final bool _result = await tryCatchAndReturnBool(
+    context: context,
+    methodName: 'storageImageExist',
+    functions: () async {
+
+      final Reference _picRef = getRef(
+        context: context,
+        docName: docName,
+        picName: picName,
+      );
+
+      final String _url = await _picRef
+          .getDownloadURL()
+          .then((String url){
+
+            blog('fuck yeah : $url');
+
+            return url;
+            },
+        onError: (Object thing){
+            blog('fuck no : $thing');
+            },
+      );
+
+
+      _exists = stringIsNotEmpty(_url);
+
+    },
+
+  );
+
+  if (_result == false){
+    return false;
+  }
+  else {
+    return _exists;
+  }
+
+}
+ */
 // -----------------------------------------------------------------------------
 
 /// BLOGGING

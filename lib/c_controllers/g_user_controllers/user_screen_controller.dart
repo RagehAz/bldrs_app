@@ -503,7 +503,6 @@ Future<void> _onSignOut(BuildContext context) async {
   _usersProvider.clearMyUserModelAndAuthModel();
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
   // _zoneProvider.clearAllSearchesAndSelections();
   _zoneProvider.clearCurrentContinent(notify: false);
@@ -517,6 +516,7 @@ Future<void> _onSignOut(BuildContext context) async {
   _zoneProvider.clearSearchedDistricts(notify: true);
 
   await AuthLDBOps.deleteAuthModel(FireAuthOps.superUserID());
+  await UserLDBOps.deleteUserOps(FireAuthOps.superUserID());
 
   await FireAuthOps.signOut(
       context: context,

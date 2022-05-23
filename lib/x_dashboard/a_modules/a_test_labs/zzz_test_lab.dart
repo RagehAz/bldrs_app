@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/animators/list_pusher.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -308,33 +307,18 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 /// DO SOMETHING
                 WideButton(
                     color: Colorz.red255,
-                    verse: 'NEW AUTH MODEL',
+                    verse: 'FIRE STORAGE exists ?  BITCH',
                     icon: Iconz.dvGouran,
                     onTap: () async {
-                      final AuthModel _model = AuthModel.testModel(context);
-                      final Map<String, dynamic> _map = _model.toMap(toJSON: false);
-                      // blog(_map['userModel']['createdAt'].runtimeType);
-                      final AuthModel _remodel = AuthModel.decipherAuthModel(
-                        map: _map,
-                        fromJSON: false,
-                      );
-                      _remodel.blogAuthModel();
-                      // final UserModel _user = UserModel.dummyUserModel(context);
+
+                      // final bool  _exists = await storageImageExist(
+                      //   context: context,
+                      //   docName: 'users',
+                      //   picName: 'ILKKlqzgyyZ4QoPuBsaUcHDfKaf21',
+                      // );
                       //
-                      // _user.blogUserModel();
-                      //
-                      // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                      //
-                      // final Map<String, dynamic> _map = _user.toMap(toJSON: false);
-                      //
-                      // blogMap(_map);
-                      //
-                      // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-                      // final UserModel _reUser = UserModel.decipherUserMap(map: _map, fromJSON: false);
-                      //
-                      // _reUser.blogUserModel();
-                      //
-                      // blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+                      // blog('image exists : $_exists');
+
                     }
                     ),
 
