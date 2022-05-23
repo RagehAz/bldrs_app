@@ -240,7 +240,10 @@ Future<BzModel> updateBz({
 
   /// 2 - update authorPic if changed
   final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
-      modifiedBz, FireAuthOps.superUserID());
+      bz: modifiedBz,
+      authorID: FireAuthOps.superUserID(),
+  );
+
   final String _authorID = _oldAuthor.userID;
 
   String _authorPicURL;

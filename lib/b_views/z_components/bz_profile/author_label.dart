@@ -14,6 +14,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
+/// NEED FIXATION
 class OldAuthorLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const OldAuthorLabel({
@@ -84,7 +85,10 @@ class OldAuthorLabel extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _authorImageCorners = flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
 // -----------------------------------------------------------------------------
-    final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(bzModel, authorID);
+    final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(
+        bz: bzModel,
+        authorID: authorID,
+    );
 
     return GestureDetector(
       onTap: showLabel == true ? () => onTap(authorID) : null,
