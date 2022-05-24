@@ -153,7 +153,10 @@ Future<List<FlyerPromotion>> flyerPromotionsByCity({
     valueIs: Search.ValueIs.equalTo,
   );
 
-  final List<FlyerPromotion> _flyerPromotions = FlyerPromotion.decipherFlyersPromotions(maps: _maps);
+  final List<FlyerPromotion> _flyerPromotions = FlyerPromotion.decipherFlyersPromotions(
+    maps: _maps,
+    fromJSON: false,
+  );
 
   return _flyerPromotions;
 }

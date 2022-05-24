@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';

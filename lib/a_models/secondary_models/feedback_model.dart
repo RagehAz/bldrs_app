@@ -11,13 +11,11 @@ class FeedbackModel {
     @required this.feedback,
     this.id,
   });
-
   /// --------------------------------------------------------------------------
   final String id;
   final String userID;
   final DateTime timeStamp;
   final String feedback;
-
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

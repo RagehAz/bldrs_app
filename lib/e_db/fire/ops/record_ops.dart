@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/records/record_model.dart';
+import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;

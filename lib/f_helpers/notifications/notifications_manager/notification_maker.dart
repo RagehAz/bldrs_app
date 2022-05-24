@@ -1,14 +1,12 @@
 import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_card.dart';
@@ -17,23 +15,17 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/notifications/bldrs_notiz.dart' as BldrsNotiModelz;
-import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -111,20 +103,20 @@ class _NotificationMakerState extends State<NotificationMaker> {
     _userNameController.dispose();
   }
 // -----------------------------------------------------------------------------
-  final NotiPicType _notiPicType = NotiPicType.bldrs;
+  final NoteAttachmentType _notiPicType = NoteAttachmentType.banner;
   final String _notiPic = Iconz.bldrsNameEn;
   void _onBalloonTap() {
     blog('on balloon tap');
   }
 // -----------------------------------------------------------------------------
   dynamic _attachment;
-  NotiAttachmentType _attachmentType = NotiAttachmentType.non;
+  NoteAttachmentType _attachmentType = NoteAttachmentType.non;
   double _bannerHeight = 0;
 // -----------------------------------------------------------------------------
   Future<void> _onAddAttachment() async {
     blog('choosing attachment');
 
-    final List<NotiAttachmentType> _attachmentTypesList = NotiModel.notiAttachmentTypesList();
+    const List<NoteAttachmentType> _attachmentTypesList = NoteModel.notiAttachmentTypesList;
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -154,13 +146,13 @@ class _NotificationMakerState extends State<NotificationMaker> {
     );
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onChooseAttachmentType(NotiAttachmentType attachmentType) async {
+  Future<void> _onChooseAttachmentType(NoteAttachmentType attachmentType) async {
 
-    if (attachmentType == NotiAttachmentType.banner) {
+    if (attachmentType == NoteAttachmentType.banner) {
       await _attachGalleryPicture();
     }
 
-    else if (attachmentType == NotiAttachmentType.flyers) {
+    else if (attachmentType == NoteAttachmentType.flyers) {
       await _attachFlyers();
     }
 
@@ -191,7 +183,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     if (_pic != null) {
       setState(() {
-        _attachmentType = NotiAttachmentType.banner;
+        _attachmentType = NoteAttachmentType.banner;
         _attachment = _pic;
         _bannerHeight = _picViewHeight;
       });
@@ -209,7 +201,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     );
 
     setState(() {
-      _attachmentType = NotiAttachmentType.flyers;
+      _attachmentType = NoteAttachmentType.flyers;
       _attachment = _selectedFlyers;
     });
 
@@ -220,7 +212,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
   void _onDeleteAttachment() {
     setState(() {
       _attachment = null;
-      _attachmentType = NotiAttachmentType.non;
+      _attachmentType = NoteAttachmentType.non;
     });
   }
 // -----------------------------------------------------------------------------
@@ -370,109 +362,109 @@ class _NotificationMakerState extends State<NotificationMaker> {
     );
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSendNotification({bool sendToMyself = false}) async {
-    final String _userID = sendToMyself == true ?
-    FireAuthOps.superUserID()
-        :
-    _selectedUser.id;
-
-    final String _userName = sendToMyself == true ?
-    'YOURSELF : ${FireAuthOps.superUserID()}'
-        :
-    _selectedUser.name;
-
-    final bool _confirmSend = await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Send ?',
-      body: 'Do you want to confirm sending this notification to $_userName',
-      boolDialog: true,
-    );
-
-    if (_confirmSend == true) {
-
-      final String _id = '${Numeric.createUniqueID()}';
-
-      dynamic _outputAttachment;
-
-      if (_attachment != null && _attachmentType == NotiAttachmentType.banner) {
-        _outputAttachment = await Storage.createStoragePicAndGetURL(
-          context: context,
-          inputFile: _attachment,
-          picName: _id,
-          docName: StorageDoc.notiBanners,
-          ownerID: _userID,
-        );
-      }
-
-      if (_attachment != null && _attachmentType == NotiAttachmentType.flyers) {
-        _outputAttachment = FlyerModel.getFlyersIDsFromFlyers(_attachment);
-      }
-
-      final NotiModel _newNoti = NotiModel(
-        id: _id,
-        name: 'targeted notification',
-        sudo: null,
-        senderID: BldrsNotiModelz.bldrsSenderID,
-        pic: BldrsNotiModelz.bldrsLogoURL,
-        notiPicType: NotiPicType.bldrs,
-        title: _titleController.text,
-        timeStamp: DateTime.now(),
-        body: _bodyController.text,
-        attachment: _outputAttachment,
-        attachmentType: _attachmentType,
-        dismissed: false,
-        sendFCM: _sendFCMIsOn,
-        metaData: BldrsNotiModelz.notiDefaultMap,
-      );
-
-      // _newNoti.printNotiModel(methodName: '_onSendNotification');
-
-      final bool result = await tryCatchAndReturnBool(
-        context: context,
-        methodName: '_onSendNotification',
-        functions: () async {
-          await Fire.createNamedSubDoc(
-            context: context,
-            collName: FireColl.users,
-            docName: sendToMyself == true ?
-            FireAuthOps.superUserID()
-                :
-            _selectedUser.id,
-            subCollName: FireSubColl.users_user_notifications,
-            input: _newNoti.toMap(toJSON: false),
-            subDocName: _id,
-          );
-        },
-      );
-
-      if (result == true) {
-
-        await CenterDialog.showCenterDialog(
-          context: context,
-          title: 'Done',
-          body: 'Notification has been sent to $_userName',
-        );
-
-        setState(() {
-          _titleController.clear();
-          _bodyController.clear();
-          _attachment = null;
-          _attachmentType = NotiAttachmentType.non;
-          _sendFCMIsOn = false;
-          _selectedUser = null;
-        });
-
-      }
-
-      else {
-        await CenterDialog.showCenterDialog(
-          context: context,
-          title: 'FAILED',
-          body: 'The notification was not sent',
-        );
-      }
-
-    }
+  Future<void> _onSendNotification({
+    bool sendToMyself = false
+  }) async {
+    // final String _userID = sendToMyself == true ?
+    // FireAuthOps.superUserID()
+    //     :
+    // _selectedUser.id;
+    //
+    // final String _userName = sendToMyself == true ?
+    // 'YOURSELF : ${FireAuthOps.superUserID()}'
+    //     :
+    // _selectedUser.name;
+    //
+    // final bool _confirmSend = await CenterDialog.showCenterDialog(
+    //   context: context,
+    //   title: 'Send ?',
+    //   body: 'Do you want to confirm sending this notification to $_userName',
+    //   boolDialog: true,
+    // );
+    //
+    // if (_confirmSend == true) {
+    //
+    //   final String _id = '${Numeric.createUniqueID()}';
+    //
+    //   dynamic _outputAttachment;
+    //
+    //   if (_attachment != null && _attachmentType == NotiAttachmentType.banner) {
+    //     _outputAttachment = await Storage.createStoragePicAndGetURL(
+    //       context: context,
+    //       inputFile: _attachment,
+    //       picName: _id,
+    //       docName: StorageDoc.notiBanners,
+    //       ownerID: _userID,
+    //     );
+    //   }
+    //
+    //   if (_attachment != null && _attachmentType == NotiAttachmentType.flyers) {
+    //     _outputAttachment = FlyerModel.getFlyersIDsFromFlyers(_attachment);
+    //   }
+    //
+    //   final NotiModel _newNoti = NotiModel(
+    //     id: 'targeted notification',
+    //     senderID: BldrsNotiModelz.bldrsSenderID,
+    //     pic: BldrsNotiModelz.bldrsLogoURL,
+    //     notiPicType: NotiPicType.bldrs,
+    //     title: _titleController.text,
+    //     timeStamp: DateTime.now(),
+    //     body: _bodyController.text,
+    //     attachment: _outputAttachment,
+    //     attachmentType: _attachmentType,
+    //     dismissed: false,
+    //     sendFCM: _sendFCMIsOn,
+    //     metaData: BldrsNotiModelz.notiDefaultMap,
+    //   );
+    //
+    //   // _newNoti.printNotiModel(methodName: '_onSendNotification');
+    //
+    //   final bool result = await tryCatchAndReturnBool(
+    //     context: context,
+    //     methodName: '_onSendNotification',
+    //     functions: () async {
+    //       await Fire.createNamedSubDoc(
+    //         context: context,
+    //         collName: FireColl.users,
+    //         docName: sendToMyself == true ?
+    //         FireAuthOps.superUserID()
+    //             :
+    //         _selectedUser.id,
+    //         subCollName: FireSubColl.users_user_notifications,
+    //         input: _newNoti.toMap(toJSON: false),
+    //         subDocName: _id,
+    //       );
+    //     },
+    //   );
+    //
+    //   if (result == true) {
+    //
+    //     await CenterDialog.showCenterDialog(
+    //       context: context,
+    //       title: 'Done',
+    //       body: 'Notification has been sent to $_userName',
+    //     );
+    //
+    //     setState(() {
+    //       _titleController.clear();
+    //       _bodyController.clear();
+    //       _attachment = null;
+    //       _attachmentType = NotiAttachmentType.non;
+    //       _sendFCMIsOn = false;
+    //       _selectedUser = null;
+    //     });
+    //
+    //   }
+    //
+    //   else {
+    //     await CenterDialog.showCenterDialog(
+    //       context: context,
+    //       title: 'FAILED',
+    //       body: 'The notification was not sent',
+    //     );
+    //   }
+    //
+    // }
   }
 // -----------------------------------------------------------------------------
   bool _canSendNotification({bool sendToMySelf}) {
@@ -510,7 +502,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
       _attachment = flyers;
 
       if (_attachmentIsEmpty == true) {
-        _attachmentType = NotiAttachmentType.non;
+        _attachmentType = NoteAttachmentType.non;
       }
     });
   }
@@ -634,7 +626,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                       /// FLYERS ATTACHMENT
                       if (_attachment != null &&
-                          _attachmentType == NotiAttachmentType.flyers)
+                          _attachmentType == NoteAttachmentType.flyers)
                         NotificationFlyers(
                           bodyWidth: _bodyWidth,
                           flyers: _attachment,
@@ -645,7 +637,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                       /// BANNER
                       if (_attachment != null
                           &&
-                          _attachmentType == NotiAttachmentType.banner
+                          _attachmentType == NoteAttachmentType.banner
                       )
                         NotiBannerEditor(
                           width: _bodyWidth,
@@ -656,7 +648,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                       /// BUTTONS
                       if (_attachment != null &&
-                          _attachmentType == NotiAttachmentType.buttons &&
+                          _attachmentType == NoteAttachmentType.buttons &&
                           _attachment is List<String>)
                         SizedBox(
                           width: _bodyWidth,
