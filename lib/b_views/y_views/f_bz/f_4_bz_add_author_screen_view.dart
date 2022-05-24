@@ -132,7 +132,7 @@ class AddAuthorScreenView extends StatelessWidget {
                                       ),
                                       onInviteTap: () => onInviteUserButtonTap(
                                         context: context,
-                                        userModel: _user,
+                                        selectedUser: _user,
                                         bzModel: bzModel,
                                       ),
                                     );

@@ -31,7 +31,7 @@ class NoteModel {
   const NoteModel({
     @required this.id,
     @required this.senderID,
-    @required this.recieverID,
+    @required this.receiverID,
     @required this.title,
     @required this.body,
     @required this.metaData,
@@ -45,7 +45,7 @@ class NoteModel {
   /// --------------------------------------------------------------------------
   final String id;
   final String senderID;
-  final String recieverID;
+  final String receiverID;
   final String title; /// max 30 char
   final String body; /// max 80 char
   final dynamic metaData;
@@ -57,13 +57,28 @@ class NoteModel {
   final bool sendFCM;
 // -----------------------------------------------------------------------------
 
-  /// CLONNING
+  /// CONSTANTS
+
+// -------------------------------------
+  static const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
+  static const String notiSound = 'default';
+  static const String notiStatus = 'done';
+  static const String bldrsSenderID = 'bldrs';
+  static const dynamic defaultMetaData = <String, dynamic>{
+    'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+    'sound': notiSound,
+    'status': notiStatus,
+    'screen': '',
+  };
+// -----------------------------------------------------------------------------
+
+  /// CLONING
 
 // -------------------------------------
   NoteModel copyWith({
     String id,
     String senderID,
-    String recieverID,
+    String receiverID,
     String title,
     String body,
     dynamic metaData,
@@ -77,7 +92,7 @@ class NoteModel {
     return NoteModel(
         id: id ?? this.id,
         senderID: senderID ?? this.senderID,
-        recieverID: recieverID ?? this.recieverID,
+        receiverID: receiverID ?? this.receiverID,
         title: title ?? this.title,
         body: body ?? this.body,
         metaData: metaData ?? this.metaData,
@@ -100,7 +115,7 @@ class NoteModel {
     return <String, dynamic>{
       // 'id': id, /// no need
       'senderID': senderID,
-      'recieverID': recieverID,
+      'receiverID': receiverID,
       /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
       'notification': _cipherNotificationField(),
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
@@ -135,7 +150,7 @@ class NoteModel {
       _noti = NoteModel(
         id: map['id'],
         senderID: map['senderID'],
-        recieverID: map['recieverID'],
+        receiverID: map['receiverID'],
         title: map['notification']['notification']['title'],
         body: map['notification']['notification']['body'],
         metaData: map['notification']['data'],
@@ -283,7 +298,7 @@ class NoteModel {
 
     blog('id : $id');
     blog('senderID : $senderID');
-    blog('recieverID : $recieverID');
+    blog('receiverID : $receiverID');
     blog('title : $title');
     blog('body : $body');
     blog('metaData : ${metaData.toString()}');
