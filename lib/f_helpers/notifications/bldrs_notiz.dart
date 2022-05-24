@@ -78,22 +78,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 ///         N -
 ///
 // -----------------------------------------------------------------------------
-const String notiSound = 'default';
-const String notiStatus = 'done';
-const dynamic notiDefaultMap = <String, dynamic>{
-  'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-  'sound': notiSound,
-  'status': notiStatus,
-  'screen': '',
-};
-const String bldrsSenderID = 'bldrs';
-// -----------------------------------------------------------------------------
-const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
-final BzModel _dummyBz = BzModel.dummyBz('ar1');
-final FlyerModel _dummyFlyer = FlyerModel.dummyFlyers()[0];
-final UserModel _dummyUser = UserModel.dummyUsers(numberOfUsers: 1)[0];
-final AuthorModel _dummyAuthor = AuthorModel.dummyAuthor();
-// -----------------------------------------------------------------------------
 /*
 /// 1 - 28 days reminder
 NotiModel buildSomething() {
