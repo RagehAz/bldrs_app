@@ -223,6 +223,7 @@ class UserModel {
       'status': cipherUserStatus(status),
 // -------------------------
       'name': name,
+      'trigram': trigram,
       'pic': pic,
       'title': title,
       'company': company,
@@ -259,9 +260,7 @@ class UserModel {
       status: decipherUserStatus(map['status']),
       // -------------------------
       name: map['name'],
-      trigram: Mapper.getStringsFromDynamics(
-          dynamics: map['trigram'],
-      ),
+      trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram'],),
       pic: map['pic'],
       title: map['title'],
       company: map['company'],

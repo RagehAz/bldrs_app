@@ -358,17 +358,17 @@ class Sembast  {
           filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
         );
 
-        final int result = await _doc.update(
+        final int _result = await _doc.update(
           _db,
           map,
           finder: _finder,
         );
 
-        blog('SEMBAST : update : result : result');
+        blog('SEMBAST : update : _result : $_result');
 
       }
 
-    // return result;
+    // return _result;
   }
 // -----------------------------------------------------------------------------
 
