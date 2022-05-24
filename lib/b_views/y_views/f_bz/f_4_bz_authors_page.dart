@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/author_card.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/invite_authors_controller.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -101,9 +101,7 @@ class BzAuthorsPage extends StatelessWidget {
                 verseScaleFactor: 1.4,
                 margins: 10,
                 corners: AuthorCard.bubbleCornerValue(),
-                onTap: (){
-                  blog('Should go to add author page naaw');
-                },
+                onTap: () => onGoToAddAuthorsScreen(context),
               ),
 
             ],

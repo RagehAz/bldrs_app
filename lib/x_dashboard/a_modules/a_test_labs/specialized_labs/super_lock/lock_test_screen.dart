@@ -20,15 +20,18 @@ class LockTestScreen extends StatefulWidget {
 
 class _LockTestScreenState extends State<LockTestScreen> {
   // --------------------
+  static const int _indexA = 3;
+  static const int _indexB = 5;
+  static const int _indexC = 1;
   String _a;
   String _b;
   String _c;
   // --------------------
   @override
   void initState() {
-    _a = LockWheel.standardLockIcons[0].key;
-    _b = LockWheel.standardLockIcons[0].key;
-    _c = LockWheel.standardLockIcons[0].key;
+    _a = LockWheel.standardLockIcons[_indexA].key;
+    _b = LockWheel.standardLockIcons[_indexB].key;
+    _c = LockWheel.standardLockIcons[_indexC].key;
     super.initState();
   }
   // --------------------
@@ -112,15 +115,24 @@ class _LockTestScreenState extends State<LockTestScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
 
-                LockWheel(onChanged: _changeA,),
+                LockWheel(
+                  onChanged: _changeA,
+                  startingIndex: _indexA,
+                ),
 
                 const SizedBox(width: 10,),
 
-                LockWheel(onChanged: _changeB,),
+                LockWheel(
+                  onChanged: _changeB,
+                  startingIndex: _indexB,
+                ),
 
                 const SizedBox(width: 10,),
 
-                LockWheel(onChanged: _changeC,),
+                LockWheel(
+                  onChanged: _changeC,
+                  startingIndex: _indexC,
+                ),
 
               ],
             ),
