@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/audioz.dart' as Audioz;
-import 'package:bldrs/f_helpers/notifications/notification_api.dart' as NotiOps;
+import 'package:bldrs/c_controllers/notifications_controllers/notes_controller.dart' as NotiOps;
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/notifications/test_screens/second_noti_test_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;

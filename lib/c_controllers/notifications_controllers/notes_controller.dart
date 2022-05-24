@@ -4,10 +4,9 @@ import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dar
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/audioz.dart' as Audioz;
-import 'package:bldrs/f_helpers/notifications/local_notification_service.dart' as LocalNotificationService;
+import 'package:bldrs/c_controllers/notifications_controllers/local_notification_controller.dart' as LocalNotificationService;
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -16,12 +15,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
-//   String _ahmedURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/slidesPics%2FXmwKpOsu1RZW3YfDAkli_00.jpg?alt=media&token=a4c8a548-74d2-4086-b3db-1678f46db00a';
 
+/// CONSTANTS
+
+// -----------------------------------
+//   String _ahmedURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/slidesPics%2FXmwKpOsu1RZW3YfDAkli_00.jpg?alt=media&token=a4c8a548-74d2-4086-b3db-1678f46db00a';
 const String _redBldrsBanner = 'resource://drawable/res_red_bldrs';
 const String _flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
-
 // -----------------------------------------------------------------------------
+
+/// INITIALIZATION
+
+// -----------------------------------
 /// THIS GOES BEFORE RUNNING THE BLDRS APP
 Future<void> preInitializeNoti() async {
   FirebaseMessaging.onBackgroundMessage(fcmPushHandler);
@@ -36,9 +41,9 @@ Future<void> preInitializeNoti() async {
     ],
   );
 }
-// -----------------------------------------------------------------------------
+// -----------------------------------
 /// THIS GOES IN MAIN WIDGET INIT
-Future<void> initializeNoti() async {
+Future<void> initializeNoti(BuildContext context) async {
   final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
   if (initialRemoteMessage != null) {
@@ -64,21 +69,33 @@ Future<void> initializeNoti() async {
   );
 
   /// when app running in foreground
-  FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
+  FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
+
     final Map<String, dynamic> _msgMap = remoteMessage.data;
 
-    receiveAndActUponNoti(msgMap: _msgMap, notiType: NotiType.onMessage);
+    await receiveAndActUponNoti(
+      context: context,
+      msgMap: _msgMap,
+      notiType: NotiType.onMessage,
+    );
+
   });
 
   /// when launching the app
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage event) {
+
     blogRemoteMessage(
       methodName: 'initializeNoti',
       remoteMessage: event,
     );
 
     final Map<String, dynamic> _msgMap = event.data;
-    receiveAndActUponNoti(msgMap: _msgMap, notiType: NotiType.onLaunch);
+
+    receiveAndActUponNoti(
+      context: context,
+      msgMap: _msgMap,
+      notiType: NotiType.onLaunch,
+    );
 
     /// to display the notification while app in foreground
     LocalNotificationService.display(event);
@@ -91,12 +108,13 @@ Future<void> initializeNoti() async {
   // fbm.getToken();
   await _fbm.subscribeToTopic('flyers');
 }
-// -----------------------------------------------------------------------------
+// -----------------------------------
 Future<NoteModel> receiveAndActUponNoti({
-  BuildContext context,
-  dynamic msgMap,
-  NotiType notiType,
+  @required BuildContext context,
+  @required dynamic msgMap,
+  @required NotiType notiType,
 }) async {
+
   blog('receiveAndActUponNoti : notiType : $notiType');
 
   NoteModel _noti;
@@ -116,10 +134,15 @@ Future<NoteModel> receiveAndActUponNoti({
   return _noti;
 }
 // -----------------------------------------------------------------------------
+
+/// FCM
+
+// -----------------------------------
 /// fcm on background
 //  AndroidNotificationChannel channel;
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 Future<void> fcmPushHandler(RemoteMessage message) async {
+
   blog('Handling a background message ${message.messageId}');
 
   blogRemoteMessage(
@@ -347,71 +370,3 @@ void blogRemoteMessage({
 
   blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
 }
-// -----------------------------------------------------------------------------
-Widget notiStreamBuilder({
-  BuildContext context,
-  NotiModelsWidgetsBuilder builder,
-  String userID,
-}) {
-  return StreamBuilder<List<NoteModel>>(
-    key: const ValueKey<String>('notifications_stream_builder'),
-    stream: getNotiModelsStream(context, userID),
-    initialData: const <NoteModel>[],
-    builder: (BuildContext ctx, AsyncSnapshot<List<NoteModel>> snapshot) {
-
-      if (StreamChecker.connectionIsLoading(snapshot) == true) {
-        blog('the shit is looooooooooooooooooooooooading');
-        return const LoadingFullScreenLayer();
-      }
-
-      else {
-        final List<NoteModel> notiModels = snapshot.data;
-        blog('the shit is getting reaaaaaaaaaaaaaaaaaaaaaaal');
-        return builder(ctx, notiModels);
-      }
-
-    },
-  );
-}
-// -----------------------------------------------------------------------------
-/// get NotiModels stream
-Stream<List<NoteModel>> getNotiModelsStream(BuildContext context, String userID) {
-  Stream<List<NoteModel>> _notiModelsStream;
-
-  tryAndCatch(
-      context: context,
-      methodName: 'getNotiModelsStream',
-      functions: () {
-        final Stream<QuerySnapshot<Object>> _querySnapshots =
-            Fire.streamSubCollection(
-          collName: FireColl.users,
-          docName: userID,
-          subCollName: FireSubColl.users_user_notifications,
-          orderBy: 'timeStamp', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
-          descending: true,
-          field: 'dismissed', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
-          compareValue: false,
-        );
-
-        blog('getNotiModelsStream : _querySnapshots : $_querySnapshots');
-
-        _notiModelsStream = _querySnapshots.map((QuerySnapshot<Object> qShot) =>
-            qShot.docs
-                .map((QueryDocumentSnapshot<Object> doc) =>
-                    NoteModel.decipherNoteModel(
-                      map: doc,
-                      fromJSON: false,
-                    ))
-                .toList());
-
-        blog('getNotiModelsStream : _notiModelsStream : $_notiModelsStream');
-      });
-
-  return _notiModelsStream;
-}
-// -----------------------------------------------------------------------------
-typedef NotiModelsWidgetsBuilder = Widget Function(
-  BuildContext context,
-  List<NoteModel> notiModels,
-);
-// -----------------------------------------------------------------------------
