@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/records/record_model.dart';
+import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_controllers/c_0_search_controller.dart';
 import 'package:bldrs/d_providers/search_provider.dart';

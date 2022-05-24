@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/balloons/user_balloon_structu
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/author_label.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
-import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:flutter/material.dart';
 
 class NotificationSenderBalloon extends StatelessWidget {
@@ -15,7 +15,7 @@ class NotificationSenderBalloon extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final NotiPicType sender;
+  final NoteAttachmentType sender;
   final String pic;
   /// --------------------------------------------------------------------------
   static const double balloonWidth = 40;
@@ -25,7 +25,7 @@ class NotificationSenderBalloon extends StatelessWidget {
 
     // double _screenWidth = Scale.superScreenWidth(context);
 
-    return sender == NotiPicType.bz?
+    return sender == NoteAttachmentType.bz?
     BzLogo(
       width: balloonWidth,
       image: pic,
@@ -33,7 +33,7 @@ class NotificationSenderBalloon extends StatelessWidget {
 
         :
 
-    sender == NotiPicType.author ?
+    sender == NoteAttachmentType.author ?
     AuthorPic(
       authorPic: pic,
       width: balloonWidth,
@@ -41,7 +41,7 @@ class NotificationSenderBalloon extends StatelessWidget {
 
         :
 
-    sender == NotiPicType.user ?
+    sender == NoteAttachmentType.user ?
     Balloona(
       balloonWidth: balloonWidth,
       pic: pic,
@@ -60,14 +60,14 @@ class NotificationSenderBalloon extends StatelessWidget {
 
         :
 
-    sender == NotiPicType.bldrs ?
+    sender == NoteAttachmentType.bldrs ?
     const BldrsName(
       size: balloonWidth,
     )
 
         :
 
-    sender == NotiPicType.country ?
+    sender == NoteAttachmentType.country ?
     DreamBox(
       width: balloonWidth,
       height: balloonWidth,

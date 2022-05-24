@@ -18,7 +18,13 @@ class FlyerPromotion {
   final DateTime to;
   final List<String> districtsIDs;
 // -----------------------------------------------------------------------------
-  Map<String, dynamic> toMap({bool toJSON = false}){
+
+  /// CYPHERS
+
+// ------------------------------------------
+  Map<String, dynamic> toMap({
+    @required bool toJSON,
+  }){
     return
         {
           'cityID' : cityID,
@@ -28,8 +34,11 @@ class FlyerPromotion {
           'districtsIDs' : districtsIDs,
         };
   }
-// -----------------------------------------------------------------------------
-  static FlyerPromotion decipherFlyerPromotion({@required Map<String, dynamic> map, bool fromJSON = false}){
+// ------------------------------------------
+  static FlyerPromotion decipherFlyerPromotion({
+    @required Map<String, dynamic> map,
+    bool fromJSON = false,
+  }){
 
     FlyerPromotion _promotion;
 
@@ -48,8 +57,11 @@ class FlyerPromotion {
 
     return _promotion;
   }
-// -----------------------------------------------------------------------------
-  static List<Map<String, dynamic>> cipherFlyersPromotions({@required List<FlyerPromotion> flyersPromotions, bool toJSON = false}){
+// ------------------------------------------
+  static List<Map<String, dynamic>> cipherFlyersPromotions({
+    @required List<FlyerPromotion> flyersPromotions,
+    @required bool toJSON,
+  }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     if (Mappers.canLoopList(flyersPromotions)){
@@ -64,8 +76,11 @@ class FlyerPromotion {
 
     return _maps;
   }
-// -----------------------------------------------------------------------------
-  static List<FlyerPromotion> decipherFlyersPromotions({@required List<Map<String, dynamic>> maps, bool fromJSON = false}){
+// ------------------------------------------
+  static List<FlyerPromotion> decipherFlyersPromotions({
+    @required List<Map<String, dynamic>> maps,
+    @required bool fromJSON,
+  }){
     final List<FlyerPromotion> _promotions = <FlyerPromotion>[];
 
     if (Mappers.canLoopList(maps)){
@@ -81,7 +96,13 @@ class FlyerPromotion {
     return _promotions;
   }
 // -----------------------------------------------------------------------------
-  static List<String> getFlyersIDsFromFlyersPromotions({@required List<FlyerPromotion> promotions}){
+
+  /// GETTERS
+
+// ------------------------------------------
+  static List<String> getFlyersIDsFromFlyersPromotions({
+    @required List<FlyerPromotion> promotions
+  }){
 
     final List<String> _flyersIDs = <String>[];
 

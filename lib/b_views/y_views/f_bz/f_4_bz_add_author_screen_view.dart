@@ -89,11 +89,11 @@ class AddAuthorScreenView extends StatelessWidget {
 
               ],
             ),
-            builder: (_, bool _isSearching, Widget child){
+            builder: (_, bool _isSearching, Widget childA){
 
               return ValueListenableBuilder(
                 valueListenable: isLoading,
-                builder: (_, bool _isLoading, Widget child){
+                builder: (_, bool _isLoading, Widget childB){
 
                   /// SEARCHING
                   if (_isSearching == true){
@@ -158,7 +158,7 @@ class AddAuthorScreenView extends StatelessWidget {
                   /// NOT SEARCHING
                   else {
 
-                    return child;
+                    return childA;
 
                   }
 

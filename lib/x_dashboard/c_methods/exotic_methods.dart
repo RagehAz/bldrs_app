@@ -18,7 +18,7 @@ import 'package:bldrs/e_db/fire/search/fire_search.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -103,7 +103,7 @@ class ExoticMethods {
   return _allUserModels;
 }
 // -----------------------------------------------------------------------------
-  static Future<List<NotiModel>> readAllNotiModels({
+  static Future<List<NoteModel>> readAllNotiModels({
   @required BuildContext context,
   @required String userID,
 }) async {
@@ -121,7 +121,7 @@ class ExoticMethods {
     orderBy: 'id',
   );
 
-  final List<NotiModel> _allModels = NotiModel.decipherNotiModels(
+  final List<NoteModel> _allModels = NoteModel.decipherNotesModels(
     maps: _maps,
     fromJSON: false,
   );

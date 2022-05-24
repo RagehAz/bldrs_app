@@ -8,7 +8,7 @@ import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/audioz.dart' as Audioz;
 import 'package:bldrs/f_helpers/notifications/local_notification_service.dart' as LocalNotificationService;
-import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -91,23 +91,22 @@ Future<void> initializeNoti() async {
   // fbm.getToken();
   await _fbm.subscribeToTopic('flyers');
 }
-
 // -----------------------------------------------------------------------------
-Future<NotiModel> receiveAndActUponNoti({
+Future<NoteModel> receiveAndActUponNoti({
   BuildContext context,
   dynamic msgMap,
   NotiType notiType,
 }) async {
   blog('receiveAndActUponNoti : notiType : $notiType');
 
-  NotiModel _noti;
+  NoteModel _noti;
 
   await tryAndCatch(
     context: context,
     onError: (String error) => blog(error),
     methodName: 'receiveAndActUponNoti',
     functions: () {
-      _noti = NotiModel.decipherNotiModel(
+      _noti = NoteModel.decipherNoteModel(
         map: msgMap,
         fromJSON: false,
       );
@@ -116,7 +115,6 @@ Future<NotiModel> receiveAndActUponNoti({
 
   return _noti;
 }
-
 // -----------------------------------------------------------------------------
 /// fcm on background
 //  AndroidNotificationChannel channel;
@@ -129,8 +127,7 @@ Future<void> fcmPushHandler(RemoteMessage message) async {
     remoteMessage: message,
   );
 
-  final bool _thing =
-      await AwesomeNotifications().createNotificationFromJsonData(message.data);
+  final bool _thing = await AwesomeNotifications().createNotificationFromJsonData(message.data);
 
   blog('thing is : $_thing');
 
@@ -163,23 +160,20 @@ Future<void> fcmPushHandler(RemoteMessage message) async {
   // );
   // }
 }
-
 // -----------------------------------------------------------------------------
-String getNotiChannelName(NotiChannel channel) {
+String getNotiChannelName(NoteChannel channel) {
   switch (channel) {
-    case NotiChannel.basic: return 'Basic Notifications';break;
-    case NotiChannel.scheduled: return 'Scheduled Notifications';break;
+    case NoteChannel.basic: return 'Basic Notifications';break;
+    case NoteChannel.scheduled: return 'Scheduled Notifications';break;
     default: return 'Basic Notifications';
   }
 }
-
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 Future<void> createWelcomeNotification() async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: Numeric.createUniqueID(),
-      channelKey: getNotiChannelName(NotiChannel.basic),
+      channelKey: getNotiChannelName(NoteChannel.basic),
       title: '${Emojis.shape_red_triangle_pointed_up} Welcome to Bldrs.net',
       body: 'Browse Thousands of flyers and pick your choices',
       bigPicture: _redBldrsBanner,
@@ -189,13 +183,13 @@ Future<void> createWelcomeNotification() async {
     ),
   );
 }
-
 // -----------------------------------------------------------------------------
 Future<void> createScheduledNotification() async {
+
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: Numeric.createUniqueID(),
-      channelKey: getNotiChannelName(NotiChannel.scheduled),
+      channelKey: getNotiChannelName(NoteChannel.scheduled),
       title: '${Emojis.hotel_bellhop_bell} Alert from Bldrs.net',
       body:
           'You need to open the app now, not tomorrow, not after tomorrow, NOW !, Do I make my self clear ? or you want me to repeat What I have just wrote,, read again !',
@@ -244,17 +238,15 @@ Future<void> createScheduledNotification() async {
     // ),
   );
 }
-
 // -----------------------------------------------------------------------------
 Future<void> cancelScheduledNotification() async {
   await AwesomeNotifications().cancelAllSchedules();
 }
-
 // -----------------------------------------------------------------------------
 NotificationChannel basicNotificationChannel() {
   return NotificationChannel(
-    channelKey: getNotiChannelName(NotiChannel.basic),
-    channelName: getNotiChannelName(NotiChannel.basic),
+    channelKey: getNotiChannelName(NoteChannel.basic),
+    channelName: getNotiChannelName(NoteChannel.basic),
     channelDescription:
         'this is for testing', // this will be visible to user in android notification settings
     defaultColor: Colorz.yellow255,
@@ -269,12 +261,11 @@ NotificationChannel basicNotificationChannel() {
     enableVibration: true,
   );
 }
-
 // -----------------------------------------------------------------------------
 NotificationChannel scheduledNotificationChannel() {
   return NotificationChannel(
-    channelKey: getNotiChannelName(NotiChannel.scheduled),
-    channelName: getNotiChannelName(NotiChannel.scheduled),
+    channelKey: getNotiChannelName(NoteChannel.scheduled),
+    channelName: getNotiChannelName(NoteChannel.scheduled),
     channelDescription:
         'This is the first scheduled notification', // this will be visible to user in android notification settings
     defaultColor: Colorz.yellow255,
@@ -289,9 +280,9 @@ NotificationChannel scheduledNotificationChannel() {
     soundSource: Audioz.randomBldrsNameSoundPath(),
   );
 }
-
 // -----------------------------------------------------------------------------
 Future<void> onNotifyButtonTap(BuildContext context, Widget screenToGoToOnNotiTap) async {
+
   await notify();
 
   AwesomeNotifications().actionStream.listen((ReceivedAction receivedNoti) {
@@ -300,8 +291,8 @@ Future<void> onNotifyButtonTap(BuildContext context, Widget screenToGoToOnNotiTa
       screen: screenToGoToOnNotiTap,
     );
   });
-}
 
+}
 // -----------------------------------------------------------------------------
 Future<void> notify() async {
   // String _timeZone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
@@ -317,9 +308,12 @@ Future<void> notify() async {
     ),
   );
 }
-
 // -----------------------------------------------------------------------------
-void blogRemoteMessage({String methodName, RemoteMessage remoteMessage}) {
+void blogRemoteMessage({
+  String methodName,
+  RemoteMessage remoteMessage
+}) {
+
   final RemoteNotification remoteNotification = remoteMessage.notification;
   final String category = remoteMessage.category;
   final String collapseKey = remoteMessage.collapseKey;
@@ -354,17 +348,16 @@ void blogRemoteMessage({String methodName, RemoteMessage remoteMessage}) {
   blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
 }
 // -----------------------------------------------------------------------------
-
 Widget notiStreamBuilder({
   BuildContext context,
   NotiModelsWidgetsBuilder builder,
   String userID,
 }) {
-  return StreamBuilder<List<NotiModel>>(
+  return StreamBuilder<List<NoteModel>>(
     key: const ValueKey<String>('notifications_stream_builder'),
     stream: getNotiModelsStream(context, userID),
-    initialData: const <NotiModel>[],
-    builder: (BuildContext ctx, AsyncSnapshot<List<NotiModel>> snapshot) {
+    initialData: const <NoteModel>[],
+    builder: (BuildContext ctx, AsyncSnapshot<List<NoteModel>> snapshot) {
 
       if (StreamChecker.connectionIsLoading(snapshot) == true) {
         blog('the shit is looooooooooooooooooooooooading');
@@ -372,7 +365,7 @@ Widget notiStreamBuilder({
       }
 
       else {
-        final List<NotiModel> notiModels = snapshot.data;
+        final List<NoteModel> notiModels = snapshot.data;
         blog('the shit is getting reaaaaaaaaaaaaaaaaaaaaaaal');
         return builder(ctx, notiModels);
       }
@@ -380,11 +373,10 @@ Widget notiStreamBuilder({
     },
   );
 }
-
 // -----------------------------------------------------------------------------
 /// get NotiModels stream
-Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID) {
-  Stream<List<NotiModel>> _notiModelsStream;
+Stream<List<NoteModel>> getNotiModelsStream(BuildContext context, String userID) {
+  Stream<List<NoteModel>> _notiModelsStream;
 
   tryAndCatch(
       context: context,
@@ -406,7 +398,7 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
         _notiModelsStream = _querySnapshots.map((QuerySnapshot<Object> qShot) =>
             qShot.docs
                 .map((QueryDocumentSnapshot<Object> doc) =>
-                    NotiModel.decipherNotiModel(
+                    NoteModel.decipherNoteModel(
                       map: doc,
                       fromJSON: false,
                     ))
@@ -418,9 +410,8 @@ Stream<List<NotiModel>> getNotiModelsStream(BuildContext context, String userID)
   return _notiModelsStream;
 }
 // -----------------------------------------------------------------------------
-
 typedef NotiModelsWidgetsBuilder = Widget Function(
   BuildContext context,
-  List<NotiModel> notiModels,
+  List<NoteModel> notiModels,
 );
 // -----------------------------------------------------------------------------

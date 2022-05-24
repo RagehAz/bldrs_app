@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/records/review_model.dart';
+import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
 import 'package:flutter/material.dart';
 

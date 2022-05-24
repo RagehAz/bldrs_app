@@ -11,7 +11,6 @@ class ReviewModel {
     @required this.time,
     this.reviewID,
   });
-
   /// --------------------------------------------------------------------------
   final String reviewID; // has to be the userID for security rules
   final String body;
@@ -21,16 +20,21 @@ class ReviewModel {
   /// TASK : Review model should be
   // final List<ReviewPost> posts; // ReviewPost(body:, time: , bzReply:, bzReplyTime: ,replyAuthorID: )
   // final DateTime lastTimeStamp; // to help firebase query
-  /// --------------------------------------------------------------------------
-  Map<String, dynamic> toMap({bool toJSON = false}) {
+// -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+// ------------------------------------------
+  Map<String, dynamic> toMap({
+    bool toJSON = false
+  }) {
     return <String, dynamic>{
       'body': body,
       'userID': userID,
       'time': Timers.cipherTime(time: time, toJSON: toJSON),
     };
   }
-
-// -----------------------------------------------------------------------------
+// ------------------------------------------
   static ReviewModel decipherReview({
     @required Map<String, dynamic> map,
     bool fromJSON
@@ -50,7 +54,7 @@ class ReviewModel {
 
     return _review;
   }
-
+// ------------------------------------------
   static List<ReviewModel> decipherReviews({
     @required List<Map<String, dynamic>> maps,
     bool fromJSON
@@ -67,8 +71,11 @@ class ReviewModel {
     }
     return _reviews;
   }
-
 // -----------------------------------------------------------------------------
+
+  /// DUMMIES
+
+// ------------------------------------------
   static ReviewModel dummyReview() {
     return ReviewModel(
       body:
@@ -78,9 +85,5 @@ class ReviewModel {
     );
   }
 // -----------------------------------------------------------------------------
-//   Stream<ReviewModel> decipherReviewsStream(Stream<QuerySnapshot> snapshots){
-//     // final Stream<QuerySnapshot> _chatSnapshots = _chatsCollection.orderBy(
-//     //     'at', descending: false).snapshots();
-//
-//   }
+
 }
