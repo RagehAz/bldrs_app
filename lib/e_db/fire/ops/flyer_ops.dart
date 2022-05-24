@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
-import 'package:bldrs/a_models/flyer/records/review_model.dart';
+import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
+import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
@@ -676,7 +676,9 @@ Future<void> promoteFlyerInCity({
               context: context,
               collName: FireColl.flyersPromotions,
               docName: flyerPromotion.flyerID,
-              input: flyerPromotion.toMap(),
+              input: flyerPromotion.toMap(
+                toJSON: true,
+              ),
           );
 
         },

@@ -9,8 +9,8 @@ import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/notifications/noti_ops.dart';
-import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/f_helpers/notifications/notification_api.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -168,7 +168,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           notiStreamBuilder(
               context: context,
               userID: FireAuthOps.superUserID(),
-              builder: (BuildContext ctx, List<NotiModel> notiModels) {
+              builder: (BuildContext ctx, List<NoteModel> notiModels) {
                 blog('the shit is : notiModels : $notiModels');
 
                 return notiModels == null || notiModels.isEmpty ?
@@ -182,7 +182,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       top: Ratioz.stratosphere, bottom: Ratioz.horizon),
                   itemBuilder: (BuildContext ctx, int index) {
 
-                    final NotiModel _notiModel =
+                    final NoteModel _notiModel =
                               notiModels == null ? null : notiModels[index];
 
                           return Dismissible(

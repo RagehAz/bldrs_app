@@ -80,11 +80,11 @@ Future<void> onShowUserDialog({
 }) async {
 
   await BottomDialog.showBottomDialog(
-      context: context,
+    context: context,
     draggable: true,
     child: UserProfilePage(
       userModel: userModel,
-      showContacts: false,
+      // showContacts: false,
     ),
   );
 
@@ -108,7 +108,7 @@ Future<void> onInviteUserButtonTap({
     height: 500,
     child: UserProfilePage(
       userModel: userModel,
-      showContacts: false,
+      // showContacts: false,
     ),
   );
 

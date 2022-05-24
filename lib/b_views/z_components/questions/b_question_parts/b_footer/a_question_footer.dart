@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/flyer/records/review_model.dart';
+import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
