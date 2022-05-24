@@ -251,6 +251,7 @@ class UserEditorScreenView extends StatelessWidget {
             /// --- CONFIRM BUTTON
             EditorConfirmButton(
               firstLine: superPhrase(context, 'phid_updateProfile').toUpperCase(),
+              positionedAlignment: Alignment.bottomLeft,
               onTap: () => confirmEdits(
                   context: context,
                   formKey: formKey,

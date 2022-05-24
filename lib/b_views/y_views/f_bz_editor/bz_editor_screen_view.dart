@@ -396,6 +396,7 @@ class BzEditorScreenView extends StatelessWidget {
         EditorConfirmButton(
           firstLine: 'Confirm',
           secondLine: firstTimer ? 'Create new business profile' : 'Update business profile',
+          positionedAlignment: Alignment.bottomLeft,
           onTap: () => onConfirmTap(
             context: context,
             formKey: formKey,

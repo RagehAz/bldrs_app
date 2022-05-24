@@ -1,10 +1,9 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/text_lines_analyzer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/text_lines_analyzer.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -91,9 +90,9 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 
     final TextStyle _paragraphTextStyle = SuperVerse.createStyle(
       context: context,
-      color: Colorz.white255,
+      // color: Colorz.white255,
       weight: VerseWeight.thin,
-      size: 2,
+      // size: 2,
       italic: false,
       shadow: false,
     );
