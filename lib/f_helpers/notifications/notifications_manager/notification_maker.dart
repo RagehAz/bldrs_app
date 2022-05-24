@@ -15,13 +15,13 @@ import 'package:bldrs/b_views/z_components/notifications/notification_card.dart'
 import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
-import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/methods/paths.dart';
 import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/search/user_search.dart' as UserSearch;
+import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -276,8 +276,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                   onSubmitted: (String val) async {
                     blog('submitted : val : $val');
 
-                    final List<UserModel> _resultUsers =
-                        await UserSearch.usersByUserName(
+                    final List<UserModel> _resultUsers = await UserFireSearch.usersByUserName(
                       context: context,
                       name: val,
                     );

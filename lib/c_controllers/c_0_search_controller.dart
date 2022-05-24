@@ -16,7 +16,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
-import 'package:bldrs/e_db/fire/search/user_search.dart' as UserSearchOps;
+import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -220,7 +220,7 @@ Future<List<SearchResult>> _searchAuthors({
 
   final List<SearchResult> _results = <SearchResult>[];
 
-  final List<UserModel> _users = await UserSearchOps.usersByNameAndIsAuthor(
+  final List<UserModel> _users = await UserFireSearch.usersByNameAndIsAuthor(
     context: context,
     name: searchText,
   );

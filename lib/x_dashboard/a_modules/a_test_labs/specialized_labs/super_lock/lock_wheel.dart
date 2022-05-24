@@ -13,6 +13,7 @@ class LockWheel extends StatelessWidget {
     this.size = 80,
     this.isIcon = true,
     this.unitColor = Colorz.black255,
+    this.startingIndex = 0,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -20,16 +21,17 @@ class LockWheel extends StatelessWidget {
   final bool isIcon;
   final Color unitColor;
   final ValueChanged<String> onChanged;
+  final int startingIndex;
   /// --------------------------------------------------------------------------
   static const List<MapModel> standardLockIcons = <MapModel>[
   /// key is Icon : value is size factor
-  MapModel(key: Iconz.dvRageh, value: 1),
   MapModel(key: Iconz.cleopatra, value: 0.6),
   MapModel(key: Iconz.pyramidSingleYellow, value: 0.6),
   MapModel(key: Iconz.save, value: 0.6),
   MapModel(key: Iconz.bz, value: 0.6),
   MapModel(key: Iconz.contAfrica, value: 0.6),
   MapModel(key: Iconz.sexyStar, value: 0.6),
+  MapModel(key: Iconz.dvRageh, value: 1),
   MapModel(key: Iconz.sphinx, value: 0.6),
   MapModel(key: Iconz.viewsIcon, value: 0.6),
   ];
@@ -84,7 +86,7 @@ class LockWheel extends StatelessWidget {
 
             // ------
             /// WHEEL STARTING INDEX
-            // startPosition: 0,
+            startPosition: startingIndex,
             /// ROTATION DIRECTION
             // horizontal: false,
             /// LOOPS THE WHEEL LIST
