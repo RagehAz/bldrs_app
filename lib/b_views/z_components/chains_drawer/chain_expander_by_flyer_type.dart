@@ -70,8 +70,13 @@ class ChainExpanderByFlyerType extends StatelessWidget {
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     blog('flyer type is : $flyerType');
     final Chain _chainByFlyerType = _chainsProvider.getKeywordsChainByFlyerType(flyerType);
-    
-    return ChainExpanderStarter(
+
+    if (_chainByFlyerType == null){
+      return const SizedBox();
+    }
+
+    else {
+      return ChainExpanderStarter(
       key: PageStorageKey<String>(flyerType.toString()),
       chain: _chainByFlyerType,
       boxWidth: bubbleWidth - (2 * Ratioz.appBarMargin),
@@ -88,6 +93,8 @@ class ChainExpanderByFlyerType extends StatelessWidget {
       selectedKeywordsIDs: selectedKeywordsIDs,
       initialColor: Colorz.white10,
     );
+    }
+
 
   }
 }
