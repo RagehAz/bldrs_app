@@ -177,12 +177,18 @@ class ContactModel {
     @required ContactType contactType,
   }) {
 
-    final String contactValue = getAContactModelFromContacts(
+    String _contactValue;
+
+    if (Mapper.canLoopList(contacts) == true){
+
+      _contactValue = getAContactModelFromContacts(
         contacts: contacts,
         contactType: contactType,
-    )?.value;
+      )?.value;
 
-    return contactValue;
+    }
+
+    return _contactValue;
   }
 // ----------------------------------------
   static List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts) {

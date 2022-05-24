@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/y_views/g_user_editor/user_editor_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/c_controllers/g_user_controllers/user_editor_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -203,32 +204,45 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return MainLayout(
-      skyType: SkyType.black,
-      zoneButtonIsOn: false,
-      sectionButtonIsOn: false,
-      historyButtonIsOn: false,
-      appBarType: AppBarType.basic,
-      pageTitle: superPhrase(context, 'phid_updateProfile'),
-      layoutWidget: UserEditorScreenView(
-        loading: _loading,
-        formKey: _formKey,
-        picture: _picture,
-        canPickImage: _canPickImage,
-        nameController: _nameController,
-        genderNotifier: _gender,
-        titleController: _titleController,
-        companyController: _companyController,
-        zone: _zone,
-        emailController: _emailController,
-        phoneController: _phoneController,
-        facebookController: _facebookController,
-        instagramController: _instagramController,
-        linkedInController: _linkedInController,
-        twitterController: _twitterController,
-        oldUserModel: widget.userModel,
-        createNewUserModel: _createUserModelFromLocalVariables,
-        onFinish: widget.onFinish,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: MainLayout(
+        skyType: SkyType.black,
+        zoneButtonIsOn: false,
+        sectionButtonIsOn: false,
+        historyButtonIsOn: false,
+        appBarType: AppBarType.basic,
+        pageTitle: superPhrase(context, 'phid_updateProfile'),
+        onBack: () => confirmEdits(
+            context: context,
+            formKey: _formKey,
+            newUserModel: _createUserModelFromLocalVariables(),
+            oldUserModel: widget.userModel,
+            onFinish: widget.onFinish,
+            loading: _loading
+        ),
+        layoutWidget: UserEditorScreenView(
+          loading: _loading,
+          formKey: _formKey,
+          picture: _picture,
+          canPickImage: _canPickImage,
+          nameController: _nameController,
+          genderNotifier: _gender,
+          titleController: _titleController,
+          companyController: _companyController,
+          zone: _zone,
+          emailController: _emailController,
+          phoneController: _phoneController,
+          facebookController: _facebookController,
+          instagramController: _instagramController,
+          linkedInController: _linkedInController,
+          twitterController: _twitterController,
+          oldUserModel: widget.userModel,
+          createNewUserModel: _createUserModelFromLocalVariables,
+          onFinish: widget.onFinish,
+        ),
       ),
     );
 
