@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dar
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/notifications/notification_model/noti_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -18,7 +18,7 @@ class NotificationCard extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final NotiModel notiModel;
+  final NoteModel notiModel;
   /// --------------------------------------------------------------------------
   static double bubbleWidth(BuildContext context) {
     return Bubble.defaultWidth(context);
@@ -33,7 +33,7 @@ class NotificationCard extends StatelessWidget {
   static const double bannerCorners = Bubble.cornersValue - Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
   void _onBubbleTap() {
-    blog('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.timeStamp} : dif : ${Timers.getTimeDifferenceInSeconds(from: notiModel.timeStamp, to: DateTime.now())}');
+    blog('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.sentTime} : dif : ${Timers.getTimeDifferenceInSeconds(from: notiModel.sentTime, to: DateTime.now())}');
   }
 // -----------------------------------------------------------------------------
   void _onButtonTap(String value) {
@@ -55,7 +55,7 @@ class NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _bodyWidth = bodyWidth(context);
-    final bool _notiHasButtons = notiModel?.attachmentType == NotiAttachmentType.buttons;
+    final bool _notiHasButtons = notiModel?.attachmentType == NoteAttachmentType.buttons;
 
     return Bubble(
       centered: true,
@@ -71,11 +71,11 @@ class NotificationCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            /// SENDER BALLOON
-            NotificationSenderBalloon(
-              sender: notiModel?.notiPicType,
-              pic: notiModel?.pic,
-            ),
+            // /// SENDER BALLOON
+            // NotificationSenderBalloon(
+            //   sender: notiModel?.notiPicType,
+            //   pic: notiModel?.pic,
+            // ),
 
             /// SPACER
             const SizedBox(
@@ -100,7 +100,7 @@ class NotificationCard extends StatelessWidget {
                   /// TIME STAMP
                   SuperVerse(
                     verse: Timers.getSuperTimeDifferenceString(
-                        from: notiModel.timeStamp, to: DateTime.now()),
+                        from: notiModel.sentTime, to: DateTime.now()),
                     color: Colorz.grey255,
                     italic: true,
                     weight: VerseWeight.thin,
@@ -124,7 +124,7 @@ class NotificationCard extends StatelessWidget {
                   ),
 
                   /// WELCOME BANNER
-                  if (notiModel.attachmentType == NotiAttachmentType.banner)
+                  if (notiModel.attachmentType == NoteAttachmentType.banner)
                     NotiBannerEditor(
                       width: _bodyWidth,
                       height: 300,
@@ -137,14 +137,14 @@ class NotificationCard extends StatelessWidget {
                   //   corners: _bannerCorner,
                   // ),
 
-                  if (notiModel.attachmentType == NotiAttachmentType.flyers)
+                  if (notiModel.attachmentType == NoteAttachmentType.flyers)
                     NotificationFlyers(
                       bodyWidth: _bodyWidth,
                       flyers: notiModel.attachment,
                     ),
 
                   /// BUTTONS
-                  if (notiModel.attachmentType == NotiAttachmentType.buttons &&
+                  if (notiModel.attachmentType == NoteAttachmentType.buttons &&
                       notiModel.attachment is List<String>)
                     SizedBox(
                       width: _bodyWidth,

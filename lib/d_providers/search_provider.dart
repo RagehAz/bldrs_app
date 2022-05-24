@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/records/record_model.dart';
+import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;

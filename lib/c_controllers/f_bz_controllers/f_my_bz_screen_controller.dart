@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
+import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';

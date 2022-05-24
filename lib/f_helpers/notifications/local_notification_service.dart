@@ -10,19 +10,23 @@ final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlu
 const String _flatBldrsNotiIcon = 'res_flat_logo'; //'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
 
 Future<void> initialize(BuildContext context) async {
+
   const InitializationSettings initializationSettings = InitializationSettings(
     android: AndroidInitializationSettings(_flatBldrsNotiIcon),
   );
 
   await _notiPlugin.initialize(initializationSettings,
       onSelectNotification: (String route) async {
+
     if (route != null) {
+
       blog('initializing localNotificationService : route is : $route');
 
       await Nav.goToNewScreen(
         context: context,
         screen: const AwesomeNotiTestScreen(),
       );
+
     }
 
   }
@@ -31,6 +35,7 @@ Future<void> initialize(BuildContext context) async {
 }
 
 Future<void> display(RemoteMessage remoteMessage) async {
+
   try {
     final int _id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     final String _title = remoteMessage.notification.title;
@@ -55,4 +60,5 @@ Future<void> display(RemoteMessage remoteMessage) async {
   } on Exception catch (e) {
     blog('display : notification error caught : $e');
   }
+
 }
