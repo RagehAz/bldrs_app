@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_1_change_app_language_screen.dart';
@@ -292,59 +293,62 @@ Future<void> _onDeleteMyAccount(BuildContext context) async {
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
 
-  final bool _result = await _showDeleteUserDialog(
-    context: context,
-    userModel: _userModel,
-  );
+  if (_userModel != null){
 
-  if (_result == true){
-
-
-    final bool _passwordIsCorrect = await _checkPassword(
+    final bool _result = await _showDeleteUserDialog(
       context: context,
       userModel: _userModel,
     );
 
-    /// ON WRONG PASSWORD
-    if (_passwordIsCorrect == false){
+    if (_result == true){
 
-      unawaited(
-          TopDialog.showTopDialog(
-            context: context,
-            firstLine: 'Wrong password',
-            secondLine: 'Please try again',
-          ));
-
-    }
-
-    /// ON CORRECT PASSWORD
-    else {
-
-      /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
-      unawaited(WaitDialog.showWaitDialog(
+      final bool _passwordIsCorrect = await _checkPassword(
         context: context,
-        loadingPhrase: 'Deleting your Account',
-      ));
+        userModel: _userModel,
+      );
 
-      final bool _userIsAuthor = UserModel.userIsAuthor(_userModel);
+      /// ON WRONG PASSWORD
+      if (_passwordIsCorrect == false){
 
-      /// WHEN USER IS AUTHOR
-      if (_userIsAuthor == true){
-
-        await _deleteAuthorUserOps(
-          context: context,
-          userModel: _userModel,
-        );
+        unawaited(
+            TopDialog.showTopDialog(
+              context: context,
+              firstLine: 'Wrong password',
+              secondLine: 'Please try again',
+            ));
 
       }
 
-      /// WHEN USER IS NOT AUTHOR
+      /// ON CORRECT PASSWORD
       else {
 
-        await _deleteNonAuthorUserOps(
+        /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
+        unawaited(WaitDialog.showWaitDialog(
           context: context,
-          userModel: _userModel,
-        );
+          loadingPhrase: 'Deleting your Account',
+        ));
+
+        final bool _userIsAuthor = UserModel.userIsAuthor(_userModel);
+
+        /// WHEN USER IS AUTHOR
+        if (_userIsAuthor == true){
+
+          await _deleteAuthorUserOps(
+            context: context,
+            userModel: _userModel,
+          );
+
+        }
+
+        /// WHEN USER IS NOT AUTHOR
+        else {
+
+          await _deleteNonAuthorUserOps(
+            context: context,
+            userModel: _userModel,
+          );
+
+        }
 
       }
 
@@ -401,13 +405,17 @@ Future<bool> _checkPassword({
 
   final String _password = await CenterDialog.showPasswordDialog(context);
 
+  final AuthModel _authModel = await AuthLDBOps.readAuthModel();
+
+  final String _email = ContactModel.getAContactValueFromContacts(
+    contacts: userModel?.contacts,
+    contactType: ContactType.email,
+  ) ?? _authModel.email;
+
   final bool _passwordIsCorrect = await FireAuthOps.passwordIsCorrect(
     context: context,
     password: _password,
-    email: ContactModel.getAContactValueFromContacts(
-      contacts: userModel.contacts,
-      contactType: ContactType.email,
-    ),
+    email: _email,
   );
 
   return _passwordIsCorrect;
@@ -430,6 +438,7 @@ Future<void> _deleteNonAuthorUserOps({
 
     /// LDB : DELETE USER MODEL
     await UserLDBOps.deleteUserOps(userModel.id);
+    await AuthLDBOps.deleteAuthModel(userModel.id);
 
     /// LDB : DELETE SAVED FLYERS
     await FlyersLDBOps.deleteFlyers(userModel.savedFlyersIDs);

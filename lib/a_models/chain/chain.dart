@@ -627,16 +627,16 @@ class Chain {
 
       for (final Chain chain in chains){
 
-        if (chain.id == chainID){
+        if (chain?.id == chainID){
           _chain = chain;
           break;
         }
 
-        else if (sonsAreChains(chain.sons) == true){
+        else if (sonsAreChains(chain?.sons) == true){
 
           final Chain _son = getChainFromChainsByID(
               chainID: chainID,
-              chains: chain.sons,
+              chains: chain?.sons,
           );
 
           if (_son != null){

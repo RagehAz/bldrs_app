@@ -6,10 +6,8 @@ import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart'
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -70,50 +68,38 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final bool _userIsSignedIn = AuthModel.userIsSignedIn();
 
-    return WillPopScope(
-      onWillPop: () async {
+    return MainLayout(
+      key: const ValueKey<String>('mainLayout'),
+      navBarIsOn: true,
+      appBarType: AppBarType.main,
+      canRefreshFlyers: true,
+      layoutWidget: ValueListenableBuilder(
+        valueListenable: _loading,
+        builder: (_, bool loading, Widget child){
 
-        /// TO CLOSE DRAWER IF OPEN
-        final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-        _uiProvider.closeDrawerIfOpen(context);
+              /// LOADING
+              if (loading == true) {
+                return const Center(child: Loading(loading: true,));
+              }
 
-        /// prevents going back from home screen
-        // final bool thing = await Future<bool>.value(false);
-        return false;
-      },
-      child: MainLayout(
-        key: const ValueKey<String>('mainLayout'),
-        navBarIsOn: true,
-        appBarType: AppBarType.main,
-        canRefreshFlyers: true,
-        layoutWidget: ValueListenableBuilder(
-          valueListenable: _loading,
-          builder: (_, bool loading, Widget child){
+              /// FOR ANONYMOUS USER
+              else if (_userIsSignedIn == false){
+                return const AnonymousHomeScreenView();
+              }
 
-                /// LOADING
-                if (loading == true) {
-                  return const Center(child: Loading(loading: true,));
-                }
+              /// FOR KNOWN SIGNED IN USER
+              else if (_userIsSignedIn == true){
+                return const UserHomeScreen();
+              }
 
-                /// FOR ANONYMOUS USER
-                else if (_userIsSignedIn == false){
-                  return const AnonymousHomeScreenView();
-                }
+              /// UNKNOWN CONDITION
+              else {
+                return Container();
+              }
 
-                /// FOR KNOWN SIGNED IN USER
-                else if (_userIsSignedIn == true){
-                  return const UserHomeScreen();
-                }
-
-                /// UNKNOWN CONDITION
-                else {
-                  return Container();
-                }
-
-          },
-        ),
-
+        },
       ),
+
     );
   }
 }
