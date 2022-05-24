@@ -175,7 +175,7 @@ class SuperTextField extends StatefulWidget {
       context: context,
       color: Colorz.red255,
       weight: VerseWeight.thin,
-      italic: true,
+      // italic: true,
       size: textSize,
       scaleFactor: textSizeFactor,
       shadow: false,

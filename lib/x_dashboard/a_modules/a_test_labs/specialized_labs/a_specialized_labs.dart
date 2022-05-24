@@ -9,6 +9,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animati
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_asks.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/cloud_functions_test.dart';
@@ -32,12 +33,21 @@ class SpecializedLabs extends StatelessWidget {
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
 
-      /// SEMBAST TESTER
+      /// PROVIDER TEST
       DashButtonModel(
         verse: 'Providers Test',
         icon: Iconz.check,
         screen: const ProvidersTestScreen(),
       ),
+
+
+      /// SPINNER
+      DashButtonModel(
+        verse: 'Lock Test',
+        icon: Iconz.password,
+        screen: const LockTestScreen(),
+      ),
+
 
       /// SEMBAST TESTER
       DashButtonModel(
