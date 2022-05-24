@@ -34,6 +34,11 @@ class UiProvider extends ChangeNotifier {
       _localAssetsPaths = _paths;
     }
   }
+// -------------------------------------
+  static List<String> proGetLocalAssetsPaths(BuildContext context){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    return _uiProvider.localAssetsPaths;
+  }
 // -----------------------------------------------------------------------------
 
   /// --- LOADING
