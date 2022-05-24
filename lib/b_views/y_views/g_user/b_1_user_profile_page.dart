@@ -15,10 +15,12 @@ class UserProfilePage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserProfilePage({
     @required this.userModel,
+    this.showContacts = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
+  final bool showContacts;
   /// --------------------------------------------------------------------------
   static String generateTitleCompanyString({
     @required UserModel userModel,
@@ -149,6 +151,7 @@ class UserProfilePage extends StatelessWidget {
           ),
 
         /// CONTACTS
+        if (showContacts == true)
         ContactsBubble(
           contacts: userModel?.contacts,
           location: userModel?.location,

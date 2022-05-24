@@ -307,17 +307,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 /// DO SOMETHING
                 WideButton(
                     color: Colorz.red255,
-                    verse: 'FIRE STORAGE exists ?  BITCH',
+                    verse: 'DO SOMETHING',
                     icon: Iconz.dvGouran,
                     onTap: () async {
-
-                      // final bool  _exists = await storageImageExist(
-                      //   context: context,
-                      //   docName: 'users',
-                      //   picName: 'ILKKlqzgyyZ4QoPuBsaUcHDfKaf21',
-                      // );
-                      //
-                      // blog('image exists : $_exists');
 
                     }
                     ),
