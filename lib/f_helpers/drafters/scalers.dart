@@ -84,15 +84,26 @@ double getUniformRowItemWidth(BuildContext context, int numberOfItems) {
 }
 // -----------------------------------------------------------------------------
 EdgeInsets superPadding({
-  BuildContext context,
-  double enLeft,
-  double enRight,
-  double top,
-  double bottom
+  @required BuildContext context,
+  double enLeft = 0,
+  double enRight = 0,
+  double top = 0,
+  double bottom = 0,
 }) {
-  return appIsLeftToRight(context) ? EdgeInsets.only(left: enLeft, right: enRight, top: top, bottom: bottom)
+  return appIsLeftToRight(context) ?
+  EdgeInsets.only(
+      left: enLeft,
+      right: enRight,
+      top: top,
+      bottom: bottom
+  )
       :
-  EdgeInsets.only(left: enRight, right: enLeft, top: top, bottom: bottom);
+  EdgeInsets.only(
+    left: enRight,
+    right: enLeft,
+    top: top,
+    bottom: bottom,
+  );
 }
 // -----------------------------------------------------------------------------
 double clearLayoutHeight({

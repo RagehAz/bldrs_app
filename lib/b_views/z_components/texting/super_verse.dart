@@ -111,11 +111,11 @@ class SuperVerse extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static TextStyle createStyle({
     @required BuildContext context,
-    @required Color color,
-    @required VerseWeight weight,
-    @required bool italic,
-    @required int size,
-    @required bool shadow,
+    Color color = Colorz.white255,
+    VerseWeight weight = VerseWeight.black,
+    bool italic = true,
+    int size = 2,
+    bool shadow = true,
     double scaleFactor = 1,
     bool strikeThrough = false,
   }) {
@@ -430,11 +430,12 @@ class SuperVerse extends StatelessWidget {
   static TextStyle superVerseDefaultStyle(BuildContext context) {
     return SuperVerse.createStyle(
         context: context,
-        color: Colorz.white255,
+        // color: Colorz.white255,
         weight: VerseWeight.thin,
-        italic: true,
-        size: 2,
-        shadow: true);
+        // italic: true,
+        // size: 2,
+        // shadow: true
+    );
   }
 // -----------------------------------------------------------------------------
   @override

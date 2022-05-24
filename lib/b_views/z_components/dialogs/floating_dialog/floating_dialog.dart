@@ -48,7 +48,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
         color: Colorz.red230,
         weight: VerseWeight.thin,
         italic: false,
-        size: 2,
+        // size: 2,
         shadow: false);
 
     return Bubble(

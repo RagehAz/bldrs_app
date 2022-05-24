@@ -86,8 +86,8 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         context: context,
         enLeft: Ratioz.appBarMargin,
         enRight: _flyerBoxWidth,
-        bottom: 0,
-        top: 0,
+        // bottom: 0,
+        // top: 0,
       ),
 
       // cacheExtent: screenHeight*5,
