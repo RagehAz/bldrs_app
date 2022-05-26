@@ -1,5 +1,5 @@
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/chat/chat_model.dart';
 import 'package:flutter/material.dart';
 

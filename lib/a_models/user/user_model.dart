@@ -46,6 +46,7 @@ class UserModel {
     @required this.savedFlyersIDs,
     @required this.followedBzzIDs,
     @required this.appState,
+    this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -71,6 +72,8 @@ class UserModel {
   final List<String> savedFlyersIDs;
   final List<String> followedBzzIDs;
   final AppState appState;
+  final DocumentSnapshot docSnapshot;
+
 // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -289,6 +292,7 @@ class UserModel {
           dynamics: map['followedBzzIDs'],
       ),
       appState: AppState.fromMap(map['appState']),
+      docSnapshot: map['docSnapshot']
     );
 
   }

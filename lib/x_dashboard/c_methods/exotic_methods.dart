@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/big_mac.dart';
 import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -10,15 +11,14 @@ import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/firestore.dart';
-import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/e_db/fire/search/fire_search.dart' as FireSearch;
-import 'package:bldrs/e_db/fire/search/fire_search.dart';
+import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -437,17 +437,26 @@ class ExoticMethods {
 }
 /// ----------------------------------------------------------------------------
   static Future<List<BzModel>> searchBzzByAuthorID({
-  @required BuildContext context,
-  @required String authorID,
+    @required BuildContext context,
+    @required String authorID,
+    @required QueryDocumentSnapshot<Object> startAfter,
+    int limit = 10,
 }) async {
 
-  final List<Map<String, dynamic>> _bzzMaps = await FireSearch.mapsByFieldValue(
-    context: context,
+  final List<Map<String, dynamic>> _bzzMaps = await Fire.readCollectionDocs(
     collName: FireColl.bzz,
-    field: 'authors.$authorID.userID',
-    compareValue: authorID,
-    valueIs: ValueIs.equalTo,
-    limit: 100,
+    limit: limit,
+    startAfter: startAfter,
+    addDocSnapshotToEachMap: true,
+    finders: <FireFinder>[
+
+      FireFinder(
+        field: 'authors.$authorID.userID',
+        comparison: FireComparison.equalTo,
+        value: authorID,
+      ),
+
+    ],
   );
 
   final List<BzModel> _foundBzz = BzModel.decipherBzz(maps: _bzzMaps, fromJSON: false);

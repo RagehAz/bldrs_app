@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/e_db/fire/methods/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

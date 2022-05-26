@@ -1,7 +1,4 @@
-import 'package:bldrs/a_models/bz/author_model.dart';
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
+
 
 // -----------------------------------------------------------------------------
 /// BLDRS.NET notifications classification

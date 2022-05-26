@@ -3,9 +3,9 @@ import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
-import 'package:bldrs/e_db/fire/search/fire_search.dart' as Search;
+import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -106,23 +106,37 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
   @required BuildContext context,
   @required ZoneModel zone,
   @required String title,
+  @required QueryDocumentSnapshot<Object> startAfter,
   bool addDocsIDs = false,
-  bool addDocSnapshotToEachMap = false,
-  int limit = 3,
+  int limit = 6,
 }) async {
 
-  final List<Map<String, dynamic>> _maps = await Search.mapsByFieldValue(
-    context: context,
+  final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
     collName: FireColl.flyers,
-    field: 'trigram',
-    compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: title.trim(),
-      numberOfCharacters: Standards.maxTrigramLength,
-    ),
-    addDocsIDs: addDocsIDs,
-    addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-    valueIs: Search.ValueIs.arrayContains,
+    // orderBy: 'score',
+    addDocSnapshotToEachMap: true,
     limit: limit,
+    startAfter: startAfter,
+    finders: <FireFinder>[
+      FireFinder(
+        field: 'trigram',
+        comparison: FireComparison.arrayContains,
+        value: TextMod.removeAllCharactersAfterNumberOfCharacters(
+          input: title.trim(),
+          numberOfCharacters: Standards.maxTrigramLength,
+        )
+      ),
+      FireFinder(
+        field: 'zone.countryID',
+        comparison: FireComparison.equalTo,
+        value: zone.countryID,
+      ),
+      FireFinder(
+        field: 'zone.cityID',
+        comparison: FireComparison.equalTo,
+        value: zone.cityID,
+      ),
+    ],
   );
 
   List<FlyerModel> _result = <FlyerModel>[];
@@ -145,12 +159,16 @@ Future<List<FlyerPromotion>> flyerPromotionsByCity({
   // @required DateTime timeLimit,
 }) async {
 
-  final List<Map<String, dynamic>> _maps = await Search.mapsByFieldValue(
-    context: context,
+  final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
     collName: FireColl.flyersPromotions,
-    field: 'cityID',
-    compareValue: cityID,
-    valueIs: Search.ValueIs.equalTo,
+    limit: 10,
+    finders: <FireFinder>[
+      FireFinder(
+        field: 'cityID',
+        comparison: FireComparison.equalTo,
+        value: cityID,
+      ),
+    ],
   );
 
   final List<FlyerPromotion> _flyerPromotions = FlyerPromotion.decipherFlyersPromotions(

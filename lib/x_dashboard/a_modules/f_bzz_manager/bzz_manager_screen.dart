@@ -9,8 +9,8 @@ import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dar
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;

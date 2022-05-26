@@ -1,18 +1,25 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/c_controllers/notifications_controllers/local_notification_controller.dart' as LocalNotificationService;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/audioz.dart' as Audioz;
-import 'package:bldrs/c_controllers/notifications_controllers/local_notification_controller.dart' as LocalNotificationService;
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+
+enum FCMTiming {
+  onMessage,
+  onResume,
+  onLaunch,
+}
+
+enum FCMChannel {
+  basic,
+  scheduled,
+}
 
 // -----------------------------------------------------------------------------
 
@@ -76,7 +83,7 @@ Future<void> initializeNoti(BuildContext context) async {
     await receiveAndActUponNoti(
       context: context,
       msgMap: _msgMap,
-      notiType: NotiType.onMessage,
+      // FCMTiming: FCMTiming.onMessage,
     );
 
   });
@@ -94,7 +101,7 @@ Future<void> initializeNoti(BuildContext context) async {
     receiveAndActUponNoti(
       context: context,
       msgMap: _msgMap,
-      notiType: NotiType.onLaunch,
+      // FCMTiming: FCMTiming.onLaunch,
     );
 
     /// to display the notification while app in foreground
@@ -112,10 +119,10 @@ Future<void> initializeNoti(BuildContext context) async {
 Future<NoteModel> receiveAndActUponNoti({
   @required BuildContext context,
   @required dynamic msgMap,
-  @required NotiType notiType,
+  // @required FCMTiming FCMTiming,
 }) async {
 
-  blog('receiveAndActUponNoti : notiType : $notiType');
+  // blog('receiveAndActUponNoti : FCMTiming : $FCMTiming');
 
   NoteModel _noti;
 
@@ -184,10 +191,10 @@ Future<void> fcmPushHandler(RemoteMessage message) async {
   // }
 }
 // -----------------------------------------------------------------------------
-String getNotiChannelName(NoteChannel channel) {
+String getNotiChannelName(FCMChannel channel) {
   switch (channel) {
-    case NoteChannel.basic: return 'Basic Notifications';break;
-    case NoteChannel.scheduled: return 'Scheduled Notifications';break;
+    case FCMChannel.basic: return 'Basic Notifications';break;
+    case FCMChannel.scheduled: return 'Scheduled Notifications';break;
     default: return 'Basic Notifications';
   }
 }
@@ -196,7 +203,7 @@ Future<void> createWelcomeNotification() async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: Numeric.createUniqueID(),
-      channelKey: getNotiChannelName(NoteChannel.basic),
+      channelKey: getNotiChannelName(FCMChannel.basic),
       title: '${Emojis.shape_red_triangle_pointed_up} Welcome to Bldrs.net',
       body: 'Browse Thousands of flyers and pick your choices',
       bigPicture: _redBldrsBanner,
@@ -212,7 +219,7 @@ Future<void> createScheduledNotification() async {
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: Numeric.createUniqueID(),
-      channelKey: getNotiChannelName(NoteChannel.scheduled),
+      channelKey: getNotiChannelName(FCMChannel.scheduled),
       title: '${Emojis.hotel_bellhop_bell} Alert from Bldrs.net',
       body:
           'You need to open the app now, not tomorrow, not after tomorrow, NOW !, Do I make my self clear ? or you want me to repeat What I have just wrote,, read again !',
@@ -268,8 +275,8 @@ Future<void> cancelScheduledNotification() async {
 // -----------------------------------------------------------------------------
 NotificationChannel basicNotificationChannel() {
   return NotificationChannel(
-    channelKey: getNotiChannelName(NoteChannel.basic),
-    channelName: getNotiChannelName(NoteChannel.basic),
+    channelKey: getNotiChannelName(FCMChannel.basic),
+    channelName: getNotiChannelName(FCMChannel.basic),
     channelDescription:
         'this is for testing', // this will be visible to user in android notification settings
     defaultColor: Colorz.yellow255,
@@ -287,8 +294,8 @@ NotificationChannel basicNotificationChannel() {
 // -----------------------------------------------------------------------------
 NotificationChannel scheduledNotificationChannel() {
   return NotificationChannel(
-    channelKey: getNotiChannelName(NoteChannel.scheduled),
-    channelName: getNotiChannelName(NoteChannel.scheduled),
+    channelKey: getNotiChannelName(FCMChannel.scheduled),
+    channelName: getNotiChannelName(FCMChannel.scheduled),
     channelDescription:
         'This is the first scheduled notification', // this will be visible to user in android notification settings
     defaultColor: Colorz.yellow255,
