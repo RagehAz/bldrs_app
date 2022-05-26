@@ -7,8 +7,8 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_start
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

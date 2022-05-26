@@ -4,14 +4,9 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
-enum NotiType {
-  onMessage,
-  onResume,
-  onLaunch,
-}
-enum NoteChannel {
-  basic,
-  scheduled,
+enum NoteType {
+  /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
+  authorship,
 }
 // -----------------------------------------------------------------------------
 enum NoteAttachmentType {
@@ -41,6 +36,7 @@ class NoteModel {
     @required this.seen,
     @required this.seenTime,
     @required this.sendFCM,
+    @required this.noteType,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -55,6 +51,7 @@ class NoteModel {
   final bool seen; /// TASK : CREATE NEW FIREBASE QUERY INDEX
   final DateTime seenTime;
   final bool sendFCM;
+  final NoteType noteType;
 // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -88,6 +85,7 @@ class NoteModel {
     bool seen,
     DateTime seenTime,
     bool sendFCM,
+    NoteType noteType,
 }){
     return NoteModel(
         id: id ?? this.id,
@@ -102,6 +100,7 @@ class NoteModel {
         seen: seen ?? this.seen,
         seenTime: seenTime ?? this.seenTime,
         sendFCM: sendFCM ?? this.sendFCM,
+        noteType: noteType ?? this.noteType,
     );
 }
 // -----------------------------------------------------------------------------
@@ -124,6 +123,7 @@ class NoteModel {
       'seen': seen,
       'seenTime': Timers.cipherTime(time: seenTime, toJSON: toJSON),
       'sendFCM': sendFCM,
+      'noteType': cipherNoteType(noteType),
     };
   }
 // -------------------------------------
@@ -169,6 +169,7 @@ class NoteModel {
             fromJSON: fromJSON,
         ),
         sendFCM: map['sendFCM'],
+        noteType: decipherNoteType(map['noteType']),
       );
     }
 
@@ -204,6 +205,24 @@ class NoteModel {
       fromJSON: false,
     );
     return _notiModels;
+  }
+// -----------------------------------------------------------------------------
+
+  /// NOTE TYPE CYPHERS
+
+// -------------------------------------
+  static String cipherNoteType(NoteType noteType){
+    switch(noteType){
+      case NoteType.authorship: return 'authorship'; break;
+      default : return null;
+    }
+  }
+// -------------------------------------
+  static NoteType decipherNoteType(String noteType){
+    switch(noteType){
+      case 'authorship': return NoteType.authorship; break;
+      default: return null;
+    }
   }
 // -----------------------------------------------------------------------------
 

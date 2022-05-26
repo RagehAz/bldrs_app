@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
