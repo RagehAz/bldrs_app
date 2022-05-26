@@ -2,13 +2,13 @@ import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/search/fire_search.dart' as FireSearch;
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 
 // -----------------------------------------------------------------------------
 
@@ -31,28 +31,34 @@ Future<void> createNote({
 }
 // -----------------------------------------------------------------------------
 
-/// READ
+/// ALL NOTES PAGINATION
 
 // -----------------------------------
-Future<List<NoteModel>> readSentNotes({
+Future<List<NoteModel>> paginateAllSentNotes({
   @required BuildContext context,
   @required String senderID,
   @required int limit,
+  @required QueryDocumentSnapshot<Object> startAfter,
 }) async {
 
   List<NoteModel> _notes = <NoteModel>[];
 
   if (senderID != null){
 
-    final List<Map<String, dynamic>> _maps = await FireSearch.mapsByFieldValue(
-      context: context,
+    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       collName: FireColl.notes,
-      field: 'senderID',
-      compareValue: senderID,
-      valueIs: FireSearch.ValueIs.equalTo,
+      startAfter: startAfter,
+      orderBy: 'sentTime',
       addDocsIDs: true,
       addDocSnapshotToEachMap: true,
       limit: limit,
+      finders: <FireFinder>[
+        FireFinder(
+          field: 'senderID',
+          comparison: FireComparison.equalTo,
+          value: senderID,
+        ),
+      ],
     );
 
     if (Mapper.canLoopList(_maps) == true){
@@ -69,27 +75,32 @@ Future<List<NoteModel>> readSentNotes({
   return _notes;
 }
 // -----------------------------------
-Future<List<NoteModel>> readReceivedNotes({
+Future<List<NoteModel>> paginateAllReceivedNotes({
   @required BuildContext context,
   @required String recieverID,
   @required int limit,
+  @required QueryDocumentSnapshot<Object> startAfter,
 }) async {
 
   List<NoteModel> _notes = <NoteModel>[];
 
   if (recieverID != null){
 
-    final List<Map<String, dynamic>> _maps = await FireSearch.mapsByFieldValue(
-      context: context,
+    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       collName: FireColl.notes,
-      field: 'recieverID',
-      compareValue: recieverID,
-      valueIs: FireSearch.ValueIs.equalTo,
+      startAfter: startAfter,
+      orderBy: 'sentTime',
       addDocsIDs: true,
       addDocSnapshotToEachMap: true,
       limit: limit,
+      finders: <FireFinder>[
+        FireFinder(
+          field: 'recieverID',
+          comparison: FireComparison.equalTo,
+          value: recieverID,
+        ),
+      ],
     );
-
 
     if (Mapper.canLoopList(_maps) == true){
 
@@ -105,6 +116,100 @@ Future<List<NoteModel>> readReceivedNotes({
   return _notes;
 }
 // -----------------------------------------------------------------------------
+
+/// AUTHORSHIP NOTES PAGINATION
+
+// -----------------------------------
+Future<List<NoteModel>> paginateSentAuthorshipNotes({
+  @required BuildContext context,
+  @required String senderID,
+  @required int limit,
+  @required QueryDocumentSnapshot<Object> startAfter,
+}) async {
+
+  List<NoteModel> _notes = <NoteModel>[];
+
+  if (senderID != null){
+
+    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+      collName: FireColl.notes,
+      limit: limit,
+      addDocSnapshotToEachMap: true,
+      addDocsIDs: true,
+      orderBy: 'sentTime',
+      startAfter: startAfter,
+      finders: <FireFinder>[
+        FireFinder(
+          field: 'senderID',
+          comparison: FireComparison.equalTo,
+          value: senderID,
+        ),
+        FireFinder(
+          field: 'noteType',
+          comparison: FireComparison.equalTo,
+          value: NoteModel.cipherNoteType(NoteType.authorship),
+        ),
+      ],
+    );
+
+    if (Mapper.canLoopList(_maps) == true){
+
+      _notes = NoteModel.decipherNotesModels(
+        maps: _maps,
+        fromJSON: false,
+      );
+
+    }
+  }
+
+  return _notes;
+}
+// -----------------------------------
+Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
+  @required BuildContext context,
+  @required String receiverID,
+  @required int limit,
+  @required QueryDocumentSnapshot<Object> startAfter,
+}) async {
+
+  List<NoteModel> _notes = <NoteModel>[];
+
+  if (receiverID != null){
+
+    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+      collName: FireColl.notes,
+      startAfter: startAfter,
+      limit: limit,
+      addDocSnapshotToEachMap: true,
+      addDocsIDs: true,
+      orderBy: 'sentTime',
+      finders: <FireFinder>[
+        FireFinder(
+          field: 'receiverID',
+          comparison: FireComparison.equalTo,
+          value: receiverID,
+        ),
+        FireFinder(
+          field: 'noteType',
+          comparison: FireComparison.equalTo,
+          value: NoteModel.cipherNoteType(NoteType.authorship),
+        ),
+      ],
+    );
+
+    if (Mapper.canLoopList(_maps) == true){
+
+      _notes = NoteModel.decipherNotesModels(
+        maps: _maps,
+        fromJSON: false,
+      );
+
+    }
+  }
+
+  return _notes;
+}
+// -----------------------------------
 
 /// STREAMING
 
@@ -220,4 +325,3 @@ Future<void> deleteAllSentNotes({
   }
 
 }
-// -----------------------------------------------------------------------------

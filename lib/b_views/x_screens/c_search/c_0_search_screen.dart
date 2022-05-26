@@ -91,8 +91,10 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<void> _onSearchSubmit(String searchText) async {
 
     await controlOnSearchSubmit(
-        context: context,
-        searchText: _searchController.text,
+      context: context,
+      searchText: _searchController.text,
+      lastBzSnapshot: null, /// TASK : PAGINATE SEARCH RESULTS
+      lastFlyerSnapshot: null,
     );
 
   }

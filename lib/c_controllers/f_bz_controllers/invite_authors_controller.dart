@@ -61,6 +61,7 @@ Future<void> onSearchUsers({
     final List<UserModel> _users = await UserFireSearch.usersByUserName(
       context: context,
       name: _fixedText,
+      startAfter: foundUsers?.value?.last?.docSnapshot,
     );
 
     foundUsers.value = _users;
@@ -135,6 +136,7 @@ Future<void> onInviteUserButtonTap({
       seen: false,
       seenTime: null,
       sendFCM: true,
+      noteType: NoteType.authorship,
     );
 
     await NoteFireOps.createNote(

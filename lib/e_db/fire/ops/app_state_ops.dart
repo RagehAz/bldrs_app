@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';

@@ -201,11 +201,10 @@ List<Map<String, dynamic>> getMapsFromQuerySnapshot({
   @required bool addDocsIDs,
   @required bool addDocSnapshotToEachMap,
 }) {
-  final List<QueryDocumentSnapshot<Object>> _docsSnapshots =
-      querySnapshot?.docs;
 
-  final List<Map<String, dynamic>> _maps =
-      getMapsFromQueryDocumentSnapshotsList(
+  final List<QueryDocumentSnapshot<Object>> _docsSnapshots = querySnapshot?.docs;
+
+  final List<Map<String, dynamic>> _maps = getMapsFromQueryDocumentSnapshotsList(
     queryDocumentSnapshots: _docsSnapshots,
     addDocsIDs: addDocsIDs,
     addDocSnapshotToEachMap: addDocSnapshotToEachMap,
@@ -219,6 +218,7 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
   @required bool addDocsIDs,
   @required bool addDocSnapshotToEachMap,
 }) {
+
   final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
   if (canLoopList(queryDocumentSnapshots)) {

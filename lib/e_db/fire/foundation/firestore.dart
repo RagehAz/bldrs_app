@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -55,20 +56,27 @@ Future<QuerySnapshot<Object>> _superCollectionQuery({
   String orderBy,
   int limit,
   QueryDocumentSnapshot<Object> startAfter,
+  List<FireFinder> finders,
 }) async {
-
 
   Query<Map<String, dynamic>> query = FirebaseFirestore.instance.collection(collRef.path);
 
-  /// ORDER IS REQUIRED
+  /// ASSIGN SEARCH FINDERS
+  if (Mapper.canLoopList(finders) == true){
+    query = FireFinder.createCompositeQueryByFinders(
+        query: query,
+        finders: finders
+    );
+  }
+  /// ORDER BY A FIELD NAME
   if (orderBy != null){
     query = query.orderBy(orderBy);
   }
-  /// LIMIT IS REQUIRED
+  /// LIMIT NUMBER OR RESULTS
   if (limit != null){
     query = query.limit(limit);
   }
-  /// START AFTER IS REQUIRED
+  /// START AFTER A SPECIFIC SNAPSHOT
   if (startAfter != null){
     query = query.startAfterDocument(startAfter);
   }
@@ -123,6 +131,7 @@ DocumentReference<Object> getSubDocRef({
   @required String subCollName,
   @required String subDocName,
 }) {
+
   final CollectionReference<Object> _subCollection = FirebaseFirestore
       .instance
       .collection('$collName/$docName/$subCollName');
@@ -244,6 +253,7 @@ Future<DocumentReference<Object>> createNamedSubDoc({
   @required String subDocName,
   @required Map<String, dynamic> input,
 }) async {
+
   /// creates a new sub doc and new sub collection if didn't exists
   /// and uses the same directory if existed to add a new doc
   /// updates the sub doc if existed
@@ -301,6 +311,7 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
   QueryDocumentSnapshot<Object> startAfter,
   bool addDocSnapshotToEachMap = false,
   bool addDocsIDs = false,
+  List<FireFinder> finders,
 }) async {
 
   final CollectionReference<Object> _collRef = getCollectionRef(collName);
@@ -310,6 +321,7 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
     orderBy: orderBy,
     limit: limit,
     startAfter: startAfter,
+    finders: finders,
   );
 
   final List<QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
@@ -387,6 +399,7 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
   QueryDocumentSnapshot<Object> startAfter,
   bool addDocsIDs = false,
   bool addDocSnapshotToEachMap = false,
+  List<FireFinder> finders,
 }) async {
 
   List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -407,6 +420,7 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
           orderBy: orderBy,
           limit: limit,
           startAfter: startAfter,
+          finders: finders,
         );
 
         final List<QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
@@ -452,10 +466,13 @@ Future<dynamic> readSubDoc({
 
   return _map;
 }
+// -----------------------------------------------------------------------------
+
+/// STREAMING
+
 // ---------------------------------------------------
 Stream<QuerySnapshot<Object>> streamCollection(String collectionName) {
-  final CollectionReference<Object> _collection =
-      getCollectionRef(collectionName);
+  final CollectionReference<Object> _collection = getCollectionRef(collectionName);
   final Stream<QuerySnapshot<Object>> _snapshots = _collection.snapshots();
   return _snapshots;
 }
@@ -469,6 +486,7 @@ Stream<QuerySnapshot<Object>> streamSubCollection({
   String field,
   dynamic compareValue,
 }) {
+
   final CollectionReference<Object> _collection = getSubCollectionRef(
     collName: collName,
     docName: docName,
@@ -524,6 +542,33 @@ Stream<DocumentSnapshot<Object>> streamSubDoc({
   return _snapshots;
 }
 // -----------------------------------------------------------------------------
+
+/// PAGINATION
+
+// ---------------------------------------------------
+/// TESTED :
+Future<dynamic> paginateDocs({
+  @required BuildContext context,
+  @required String collName,
+  @required int limit,
+  @required QueryDocumentSnapshot<Object> startAfter,
+  String orderBy = 'id',
+  List<FireFinder> finders,
+}) async {
+
+  final List<Map<String, dynamic>> _maps = await readCollectionDocs(
+    collName: collName,
+    addDocsIDs: true,
+    addDocSnapshotToEachMap: true,
+    limit: limit,
+    orderBy: orderBy,
+    startAfter: startAfter,
+    finders: finders,
+  );
+
+  return _maps;
+}
+// ---------------------------------------------------
 
 /// UPDATE
 
@@ -601,14 +646,16 @@ Future<void> updateSubDoc({
 }
 // ---------------------------------------------------
 /// this updates a field if exists, if absent it creates a new field and inserts the value
-Future<void> updateSubDocField(
-    {@required BuildContext context,
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName,
-    @required String field,
-    @required dynamic input}) async {
+Future<void> updateSubDocField({
+  @required BuildContext context,
+  @required String collName,
+  @required String docName,
+  @required String subCollName,
+  @required String subDocName,
+  @required String field,
+  @required dynamic input
+}) async {
+
   final DocumentReference<Object> _subDoc = getSubDocRef(
     collName: collName,
     docName: docName,
@@ -621,7 +668,9 @@ Future<void> updateSubDocField(
       methodName: 'updateSubDocField',
       functions: () async {
         await _subDoc.update(<String, dynamic>{field: input});
-      });
+      }
+      );
+
 }
 // -----------------------------------------------------------------------------
 
@@ -896,6 +945,7 @@ Future<void> deleteSubDocField({
   @required String subCollName,
   @required String subDocName,
 }) async {
+
   final DocumentReference<Object> _docRef = getSubDocRef(
     collName: collName,
     docName: docName,
