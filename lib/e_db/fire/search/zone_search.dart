@@ -1,8 +1,9 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/e_db/fire/methods/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/methods/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/search/fire_search.dart' as Search;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -24,6 +25,7 @@ Future<List<CountryModel>> countriesModelsByCountryName({
   List<CountryModel> _countries = <CountryModel>[];
 
   if (countryName != null && countryName.isNotEmpty) {
+
     final List<Map<String, dynamic>> _result = await Search.subCollectionMapsByFieldValue(
       context: context,
       collName: FireColl.zones,
@@ -34,7 +36,7 @@ Future<List<CountryModel>> countriesModelsByCountryName({
         input: TextMod.fixCountryName(countryName),
         numberOfCharacters: Standards.maxTrigramLength,
       ),
-      valueIs: Search.ValueIs.arrayContains,
+      valueIs: FireComparison.arrayContains,
     );
 
     if (Mapper.canLoopList(_result)) {
@@ -66,7 +68,7 @@ Future<List<CityModel>> citiesByCityName({
         input: TextMod.fixCountryName(cityName),
         numberOfCharacters: Standards.maxTrigramLength,
       ),
-      valueIs: Search.ValueIs.arrayContains,
+      valueIs: FireComparison.arrayContains,
     );
 
     if (Mapper.canLoopList(_result)) {

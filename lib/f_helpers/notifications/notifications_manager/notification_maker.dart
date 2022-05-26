@@ -271,6 +271,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                     final List<UserModel> _resultUsers = await UserFireSearch.usersByUserName(
                       context: context,
                       name: val,
+                      startAfter: null,
                     );
 
                     if (_resultUsers == <UserModel>[]) {

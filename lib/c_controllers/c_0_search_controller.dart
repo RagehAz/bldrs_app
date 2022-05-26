@@ -19,6 +19,7 @@ import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -------------------------------------------------------
@@ -39,6 +40,8 @@ Future<void> initializeSearchScreen(BuildContext context) async {
 Future<void> controlOnSearchSubmit({
   @required BuildContext context,
   @required String searchText,
+  @required QueryDocumentSnapshot<Object> lastBzSnapshot,
+  @required QueryDocumentSnapshot<Object> lastFlyerSnapshot,
 }) async {
 
   _setIsLoading(context, true);
@@ -67,6 +70,7 @@ Future<void> controlOnSearchSubmit({
   final List<SearchResult> _bzzResults = await _searchBzz(
     context: context,
     searchText: searchText,
+    startAfter: lastBzSnapshot,
   );
   final List<SearchResult> _authorsResults = await _searchAuthors(
     context: context,
@@ -75,6 +79,7 @@ Future<void> controlOnSearchSubmit({
   final List<SearchResult> _flyersResults = await _searchFlyersByTitle(
     context: context,
     searchText: searchText,
+    startAfter: lastFlyerSnapshot,
   );
 
   final List<SearchResult> _all = <SearchResult>[
@@ -128,7 +133,12 @@ Future<void> onSearchRecordTap({
 
   if (_recordText != null){
 
-    await controlOnSearchSubmit(context: context, searchText: _recordText);
+    await controlOnSearchSubmit(
+      context: context,
+      searchText: _recordText,
+      lastBzSnapshot: null,
+      lastFlyerSnapshot: null,
+    );
 
   }
 
@@ -179,14 +189,17 @@ Future<List<SearchResult>> _searchKeywords({
 Future<List<SearchResult>> _searchBzz({
   @required BuildContext context,
   @required String searchText,
+  @required QueryDocumentSnapshot<Object> startAfter,
 }) async {
   final List<SearchResult> _results = <SearchResult>[];
 
   blog('_onSearchBzz : _searchController.text : $searchText');
 
-  final List<BzModel> _bzz = await BzSearch.bzzByBzName(
+  final List<BzModel> _bzz = await BzSearch.paginateBzzBySearchingBzName(
     context: context,
     bzName: searchText,
+    limit: 10,
+    startAfter: startAfter,
   );
 
   if (Mapper.canLoopList(_bzz)) {
@@ -263,6 +276,7 @@ Future<List<SearchResult>> _searchAuthors({
 Future<List<SearchResult>> _searchFlyersByTitle({
   @required BuildContext context,
   @required String searchText,
+  @required QueryDocumentSnapshot<Object> startAfter,
 }) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -273,6 +287,7 @@ Future<List<SearchResult>> _searchFlyersByTitle({
     context: context,
     zone: _zoneProvider.currentZone,
     title: searchText,
+    startAfter: startAfter,
   );
 
   if (_flyers.isNotEmpty) {
