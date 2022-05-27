@@ -18,11 +18,13 @@ class AuthorCard extends StatelessWidget {
   const AuthorCard({
     @required this.author,
     @required this.bzModel,
+    this.bubbleWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final AuthorModel author;
   final BzModel bzModel;
+  final double bubbleWidth;
   /// --------------------------------------------------------------------------
   static List<FlyerModel> _getNumberOfAuthorFlyers({
     @required AuthorModel author,
@@ -45,8 +47,9 @@ class AuthorCard extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double authorTextDetailsClearWidth({
     @required BuildContext context,
+    @required double bubbleWidth,
   }){
-    final double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _bubbleClearWidth = Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth);
     final double _bubblePaddingValue = Bubble.paddingValue();
     const double _spaceBetweenImageAndText = spaceBetweenImageAndText;
     const double _imageWidth = authorPicSize;
@@ -72,9 +75,13 @@ class AuthorCard extends StatelessWidget {
 
     final List<FlyerModel> _authorFlyers = _getNumberOfAuthorFlyers(author: author, context: context);
     final int _authorNumberOfFlyers = _authorFlyers.length;
-    final double _textAreaWidth = authorTextDetailsClearWidth(context: context);
+    final double _textAreaWidth = authorTextDetailsClearWidth(
+      context: context,
+      bubbleWidth: bubbleWidth,
+    );
 
     return Bubble(
+      width: bubbleWidth,
       corners: bubbleCornerValue(),
       columnChildren: <Widget>[
         Row(
@@ -125,6 +132,7 @@ class AuthorCard extends StatelessWidget {
                   AuthorCardDetail(
                     verse: '$_authorNumberOfFlyers published flyers',
                     icon: Iconz.flyer,
+                    bubbleWidth: bubbleWidth,
                   ),
 
                   /// CONTACTS
@@ -135,6 +143,7 @@ class AuthorCard extends StatelessWidget {
                     return AuthorCardDetail(
                       icon: superContactIcon(_contact.contactType),
                       verse: _contact.value,
+                      bubbleWidth: bubbleWidth,
                     );
 
                   }),

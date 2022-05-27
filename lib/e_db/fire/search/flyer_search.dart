@@ -112,6 +112,7 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
 }) async {
 
   final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+    context: context,
     collName: FireColl.flyers,
     // orderBy: 'score',
     addDocSnapshotToEachMap: true,
@@ -160,6 +161,7 @@ Future<List<FlyerPromotion>> flyerPromotionsByCity({
 }) async {
 
   final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+    context: context,
     collName: FireColl.flyersPromotions,
     limit: 10,
     finders: <FireFinder>[

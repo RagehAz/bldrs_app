@@ -668,8 +668,8 @@ bool stringsContainString({
 
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-void blogMap(Map<dynamic, dynamic> map) {
-  blog('MAP-PRINT --------------------------------------------------START');
+void blogMap(Map<dynamic, dynamic> map, {String methodName = ''}) {
+  blog('MAP-PRINT $methodName : --------------------------------------------------START');
 
   if (map != null){
     final List<dynamic> _keys = map.keys.toList();
@@ -683,14 +683,14 @@ void blogMap(Map<dynamic, dynamic> map) {
     blog('map is null : can not blog');
   }
 
-  blog('MAP-PRINT --------------------------------------------------END');
+  blog('MAP-PRINT $methodName : --------------------------------------------------END');
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-void blogMaps(List<Map<dynamic, dynamic>> maps) {
+void blogMaps(List<Map<dynamic, dynamic>> maps, {String methodName}) {
   if (canLoopList(maps)) {
     for (final Map<dynamic, dynamic> map in maps) {
-      blogMap(map);
+      blogMap(map, methodName: methodName);
     }
   }
 }
