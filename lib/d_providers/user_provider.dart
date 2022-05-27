@@ -68,16 +68,22 @@ class UsersProvider extends ChangeNotifier {
     return _userModel;
   }
 // -------------------------------------
-  /*
   /// fetch Users By IDs
-  Future<List<UserModel>> _fetchUsersByIDs({BuildContext context, List<String> usersIDs}) async {
-    List<UserModel> _userModels = <UserModel>[];
+  Future<List<UserModel>> fetchUsersByIDs({
+    @required BuildContext context,
+    @required List<String> usersIDs,
+  }) async {
 
-    if (usersIDs != null && usersIDs.isNotEmpty){
+    final List<UserModel> _userModels = <UserModel>[];
 
-      for (String userID in usersIDs){
+    if (Mapper.canLoopList(usersIDs) == true){
 
-        final UserModel _userModel = await _fetchUserByID(context: context, userID: userID);
+      for (final String userID in usersIDs){
+
+        final UserModel _userModel = await fetchUserByID(
+            context: context,
+            userID: userID,
+        );
 
         if (_userModel != null){
 
@@ -91,7 +97,6 @@ class UsersProvider extends ChangeNotifier {
 
     return _userModels;
   }
-   */
 // -----------------------------------------------------------------------------
 
   /// MY USER MODEL
@@ -418,7 +423,27 @@ class UsersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  static Future<List<UserModel>> proGetUsersModels({
+    @required BuildContext context,
+    @required List<String> usersIDs,
+}) async {
 
+    List<UserModel> _output = <UserModel>[];
+
+    if (Mapper.canLoopList(usersIDs) == true){
+
+      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+      final List<UserModel> _users = await _usersProvider.fetchUsersByIDs(
+        context: context,
+        usersIDs: usersIDs,
+      );
+
+      _output = _users;
+    }
+
+    return _output;
+  }
+// -------------------------------------
 }
 
 Future<UserModel> completeUserZoneModel({

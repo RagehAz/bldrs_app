@@ -332,5 +332,25 @@ class NoteModel {
   }
 // -----------------------------------------------------------------------------
 
+  /// GETTERS
+
+// -------------------------------------
+static List<String> getReceiversIDs({
+  @required List<NoteModel> notes,
+}){
+
+    final List<String> _output = <String>[];
+
+    if (Mapper.canLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+        _output.add(note.receiverID);
+      }
+
+    }
+
+    return _output;
+}
+// -------------------------------------
 }
 // -----------------------------------------------------------------------------
