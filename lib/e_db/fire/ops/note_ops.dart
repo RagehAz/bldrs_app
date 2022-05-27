@@ -46,12 +46,13 @@ Future<List<NoteModel>> paginateAllSentNotes({
   if (senderID != null){
 
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+      context: context,
       collName: FireColl.notes,
-      startAfter: startAfter,
-      orderBy: 'sentTime',
+      // startAfter: startAfter,
+      // orderBy: 'sentTime',
       addDocsIDs: true,
       addDocSnapshotToEachMap: true,
-      limit: limit,
+      // limit: limit,
       finders: <FireFinder>[
         FireFinder(
           field: 'senderID',
@@ -60,6 +61,8 @@ Future<List<NoteModel>> paginateAllSentNotes({
         ),
       ],
     );
+
+    Mapper.blogMaps(_maps, methodName: 'paginateAllSentNotes');
 
     if (Mapper.canLoopList(_maps) == true){
 
@@ -87,6 +90,7 @@ Future<List<NoteModel>> paginateAllReceivedNotes({
   if (recieverID != null){
 
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+      context: context,
       collName: FireColl.notes,
       startAfter: startAfter,
       orderBy: 'sentTime',
@@ -132,6 +136,7 @@ Future<List<NoteModel>> paginateSentAuthorshipNotes({
   if (senderID != null){
 
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+      context: context,
       collName: FireColl.notes,
       limit: limit,
       addDocSnapshotToEachMap: true,
@@ -177,6 +182,7 @@ Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
   if (receiverID != null){
 
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+      context: context,
       collName: FireColl.notes,
       startAfter: startAfter,
       limit: limit,

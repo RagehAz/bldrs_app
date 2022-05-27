@@ -25,6 +25,7 @@ class UserFireSearch{
   }) async {
 
     final List<Map<String, dynamic>> _result = await Fire.readCollectionDocs(
+      context: context,
       collName: FireColl.users,
       addDocSnapshotToEachMap: true,
       limit: limit,

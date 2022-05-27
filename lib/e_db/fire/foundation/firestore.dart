@@ -305,6 +305,7 @@ Future<dynamic> _getMapByDocRef(DocumentReference<Object> docRef) async {
 // ---------------------------------------------------
 /// TESTED : WORKS PERFECT
 Future<List<Map<String, dynamic>>> readCollectionDocs({
+  @required BuildContext context,
   @required String collName,
   String orderBy,
   int limit,
@@ -314,23 +315,33 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
   List<FireFinder> finders,
 }) async {
 
-  final CollectionReference<Object> _collRef = getCollectionRef(collName);
+  List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
 
-  final QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
-    collRef: _collRef,
-    orderBy: orderBy,
-    limit: limit,
-    startAfter: startAfter,
-    finders: finders,
+  await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        final CollectionReference<Object> _collRef = getCollectionRef(collName);
+
+        final QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
+          collRef: _collRef,
+          orderBy: orderBy,
+          limit: limit,
+          startAfter: startAfter,
+          finders: finders,
+        );
+
+        final List<QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
+
+        _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
+            queryDocumentSnapshots: _queryDocumentSnapshots,
+            addDocsIDs: addDocsIDs,
+            addDocSnapshotToEachMap: addDocSnapshotToEachMap
+        );
+
+      }
   );
 
-  final List<QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
-
-  final List<Map<String, dynamic>> _maps =Mapper.getMapsFromQueryDocumentSnapshotsList(
-      queryDocumentSnapshots: _queryDocumentSnapshots,
-      addDocsIDs: addDocsIDs,
-      addDocSnapshotToEachMap: addDocSnapshotToEachMap
-  );
 
   return _maps;
 }
@@ -557,6 +568,7 @@ Future<dynamic> paginateDocs({
 }) async {
 
   final List<Map<String, dynamic>> _maps = await readCollectionDocs(
+    context: context,
     collName: collName,
     addDocsIDs: true,
     addDocSnapshotToEachMap: true,
@@ -754,6 +766,7 @@ Future<void> deleteAllCollectionDocs({
     for (int i = 0; i < 1000; i++){
 
       final List<Map<String, dynamic>> _maps = await readCollectionDocs(
+        context: context,
         collName: collName,
         limit: 5,
         addDocsIDs: true,

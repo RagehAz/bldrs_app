@@ -15,6 +15,8 @@ class UserTileButton extends StatelessWidget {
     this.inviteButtonIsOn = false,
     this.onInviteTap,
     this.onUserTap,
+    this.bubble = true,
+    this.color,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,6 +25,8 @@ class UserTileButton extends StatelessWidget {
   final bool inviteButtonIsOn;
   final Function onUserTap;
   final Function onInviteTap;
+  final bool bubble;
+  final Color color;
   /// --------------------------------------------------------------------------
   static const double boxHeight = 80;
   static const double inviteButtonWidth = 80;
@@ -62,7 +66,11 @@ class UserTileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
+    final double _boxWidth = getBoxWidth(
+        context: context,
+        boxWidthOverride: boxWidth,
+    );
+
     final double _userButtonWidth = getUserButtonWidth(
         context: context,
         inviteButtonIsOn: inviteButtonIsOn,
@@ -86,6 +94,8 @@ class UserTileButton extends StatelessWidget {
             secondLine: UserModel.getUserJobLine(userModel),
             secondLineScaleFactor: 1.2,
             verseScaleFactor: 0.8,
+            bubble: bubble,
+            color: color,
             onTap: onUserTap,
           ),
 
