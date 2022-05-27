@@ -94,6 +94,7 @@ service cloud.firestore {
     // ---------------------------
     function isBzAuthor(bzID){
       let userBzzIDs = getUserModel().myBzzIDs;
+
       return bzID in userBzzIDs;
     }
     // ---------------------------

@@ -29,6 +29,7 @@ class ExoticMethods {
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
+    @required BuildContext context,
     @required String collName,
     String orderBy,
     bool addDocsIDs = false,
@@ -36,6 +37,7 @@ class ExoticMethods {
   }) async {
 
     final List<Map<String, dynamic>> _maps = await readCollectionDocs(
+      context: context,
       collName: collName,
       limit: limit,
       orderBy: orderBy,
@@ -67,7 +69,10 @@ class ExoticMethods {
   }
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<UserModel>> readAllUserModels({@required int limit}) async {
+  static Future<List<UserModel>> readAllUserModels({
+    @required BuildContext context,
+    @required int limit,
+  }) async {
   // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
   List<UserModel> _allUserModels = <UserModel>[];
@@ -78,6 +83,7 @@ class ExoticMethods {
 
   if (_ldbUsers.length < 4) {
     final List<dynamic> _maps = await Fire.readCollectionDocs(
+      context: context,
       limit: limit ?? 100,
       collName: FireColl.users,
       orderBy: 'id',
@@ -136,6 +142,7 @@ class ExoticMethods {
   // List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: limit);
 
   final List<dynamic> _maps = await Fire.readCollectionDocs(
+    context: context,
     limit: limit ?? 100,
     collName: FireColl.bzz,
     orderBy: 'id',
@@ -156,6 +163,7 @@ class ExoticMethods {
   // List<FeedbackModel> _allFeedbacks = await ExoticMethods.readAllFeedbacks(context: context, limit: limit);
 
   final List<dynamic> _maps = await Fire.readCollectionDocs(
+    context: context,
     limit: limit ?? 100,
     collName: FireColl.feedbacks,
     addDocsIDs: true,
@@ -175,6 +183,7 @@ class ExoticMethods {
   // List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(context: context, limit: limit);
 
   final List<dynamic> _maps = await Fire.readCollectionDocs(
+    context: context,
     limit: limit ?? 100,
     collName: FireColl.flyers,
     orderBy: 'id',
@@ -305,6 +314,7 @@ class ExoticMethods {
 }) async {
 
   final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+    context: context,
     limit: 1000,
     collName: collName,
     addDocsIDs: true,
@@ -444,6 +454,7 @@ class ExoticMethods {
 }) async {
 
   final List<Map<String, dynamic>> _bzzMaps = await Fire.readCollectionDocs(
+    context: context,
     collName: FireColl.bzz,
     limit: limit,
     startAfter: startAfter,

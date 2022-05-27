@@ -161,8 +161,6 @@ Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
 }
 // -----------------------------------------------
 
-/*
-// -----------------------------------------------
 Future<dynamic> mapsByFieldValue({
   @required BuildContext context,
   @required String collName,
@@ -199,6 +197,10 @@ Future<dynamic> mapsByFieldValue({
 
   return _maps;
 }
+
+
+/*
+// -----------------------------------------------
 // -----------------------------------------------
 Future<dynamic> mapsByValueInArray({
   @required BuildContext context,

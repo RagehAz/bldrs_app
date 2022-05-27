@@ -87,8 +87,10 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot<Object> _lastSnapshot;
   final List<BzModel> _bzzModels = <BzModel>[];
+
   Future<dynamic> _readMoreBzz() async {
     final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
+      context: context,
       collName: FireColl.bzz,
       orderBy: 'id',
       limit: 100,

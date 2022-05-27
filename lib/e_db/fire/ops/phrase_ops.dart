@@ -162,6 +162,7 @@ Future<void> backupPhrasesOps(BuildContext context) async {
 
         /// GET ALL PHRASES MAPS BY THEIR LANG CODES
         final List<Map<String, dynamic>> _allLangMaps = await Fire.readCollectionDocs(
+          context: context,
           collName: FireColl.phrases,
           addDocsIDs: true,
         );
