@@ -49,7 +49,7 @@ class CollapsedReviewButtonTree extends StatelessWidget {
         icon: Iconz.utPlanning,
         verse: 'Review',
         isOn: false,
-        tinyMode: false,
+        canTap: true,
         onTap: onReviewButtonTap,
       ),
 

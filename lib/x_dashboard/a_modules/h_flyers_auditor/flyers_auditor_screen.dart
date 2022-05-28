@@ -1,48 +1,30 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
-import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
-import 'package:bldrs/x_dashboard/b_widgets/layout/floating_layout.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/flyer_auditor_controller.dart';
 import 'package:flutter/material.dart';
 
 class FlyersAuditor extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const FlyersAuditor({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _FlyersAuditorState createState() => _FlyersAuditorState();
-
+/// --------------------------------------------------------------------------
 }
 
 class _FlyersAuditorState extends State<FlyersAuditor> {
-  final PageController _pageController = PageController(); /// tamam disposed
-  final List<FlyerModel> _flyers = <FlyerModel>[];
-  FlyerModel _currentFlyer;
-  int _currentPageIndex;
-  Sliders.SwipeDirection _lastSwipeDirection;
-  List<double> _pagesOpacities = <double>[];
-  double _progressBarOpacity = 1;
+  // -----------------------------------------------------------------------------
+  final ScrollController _scrollController = ScrollController(); /// tamam disposed
+  ValueNotifier<List<FlyerModel>> _flyers;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -58,12 +40,12 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   @override
   void initState() {
     super.initState();
-
+    _flyers = ValueNotifier(<FlyerModel>[]);
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _pageController.dispose();
+    _scrollController.dispose();
     _loading.dispose();
     super.dispose();
   }
@@ -75,8 +57,12 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 
       _triggerLoading().then((_) async {
 
-        await _readMoreFlyers();
+        await readMoreUnVerifiedFlyers(
+          context: context,
+          flyers: _flyers,
+        );
 
+        _loading.value = false;
       });
 
       _isInit = false;
@@ -84,115 +70,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
-  QueryDocumentSnapshot<Object> _lastSnapshot;
-  Future<void> _readMoreFlyers() async {
-
-    if (_loading.value == false) {
-        _loading.value = true;
-    }
-
-    final List<dynamic> _maps = await Fire.readCollectionDocs(
-      context: context,
-      collName: FireColl.flyers,
-      orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
-      limit: 5,
-      startAfter: _lastSnapshot,
-      addDocSnapshotToEachMap: true,
-      finders: <FireFinder>[
-        FireFinder(
-          field: 'publishState',
-          comparison: FireComparison.equalTo,
-          value: FlyerModel.cipherPublishState(PublishState.published),
-        ),
-        FireFinder(
-          field: 'auditState',
-          comparison: FireComparison.equalTo,
-          value: null,
-        ),
-      ],
-    );
-
-    final List<FlyerModel> _fetchedModels = FlyerModel.decipherFlyers(
-        maps: _maps,
-        fromJSON: false,
-    );
-
-    _fetchedModels[1].blogFlyer(
-      methodName: 'auditor screen : [_readMoreFlyers method]',
-    );
-
-    setState(() {
-      _lastSnapshot = _maps[_maps.length - 1]['docSnapshot'];
-      _flyers.addAll(_fetchedModels);
-      _currentPageIndex = 0;
-      _currentFlyer = _flyers[0];
-      _numberOfStrips = _flyers.length;
-      _lastSwipeDirection = Sliders.SwipeDirection.next;
-      _pagesOpacities = _createPagesOpacities(_numberOfStrips);
-    });
-
-      _loading.value = false;
-
-  }
-// -----------------------------------------------------------------------------
-//   Future<void> _onSwipeFlyer(
-//       Sliders.SwipeDirection direction,
-//       int pageIndex
-//       ) async {
-//     _lastSwipeDirection = direction;
-//
-//     if (direction == Sliders.SwipeDirection.next) {
-//       if (pageIndex + 1 != _flyers.length) {
-//         await Sliders.slideToNext(_pageController, _flyers.length, pageIndex);
-//       }
-//     } else if (direction == Sliders.SwipeDirection.back) {
-//       if (pageIndex != 0) {
-//         await Sliders.slideToBackFrom(_pageController, pageIndex);
-//       }
-//     }
-//   }
-// -----------------------------------------------------------------------------
-  Future<void> _onVerify() async {
-
-    blog('currentFlyer : ${_currentFlyer?.slides?.length} slides');
-
-    if (_currentFlyer.auditState != AuditState.verified) {
-
-      await Fire.updateDocField(
-        context: context,
-        collName: FireColl.flyers,
-        docName: _currentFlyer.id,
-        field: 'auditState',
-        input: FlyerModel.cipherAuditState(AuditState.verified),
-      );
-
-      await _onRemoveFlyerFromStack(_currentFlyer);
-
-      unawaited(
-          TopDialog.showTopDialog(
-            context: context,
-            firstLine: 'Done',
-            secondLine: 'flyer ${_currentFlyer.id} got verified',
-            color: Colorz.green255,
-            textColor: Colorz.white255,
-          )
-      );
-
-    }
-
-    else {
-
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'Already Verified',
-        body: 'This flyer is already verified, check the next one. please',
-      );
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _onAudit() async {}
-// -----------------------------------------------------------------------------
+  /*
   bool _canDelete = true;
   int _numberOfStrips;
   Future<void> _onRemoveFlyerFromStack(FlyerModel flyerModel) async {
@@ -351,8 +229,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   }
 // -----------------------------------------------------o
   Future<void> _deleteMiddleOrLastSlide() async {
-    blog(
-        'XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
+    blog('XXXXX ----- DELETING STARTS AT (MIDDLE) index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
 
     final int _originalIndex = _currentPageIndex;
 
@@ -390,8 +267,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       // blog('XXX after third LAST rebuild AT (MIDDLE) index : $_draft.currentSlideIndex, numberOfSlides : $_draft.numberOfSlides');
     });
 
-    blog(
-        'XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
+    blog('XXXXX -------  DELETING ENDS AT (MIDDLE) : index : $_currentPageIndex, numberOfSlides : ${_flyers.length}');
   }
 // -----------------------------------------------------o
   void _statelessTriggerPageVisibility(int index) {
@@ -520,140 +396,60 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     // }
   }
 // -----------------------------------------------------o
+   */
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _clearScreenHeight = DashBoardLayout.clearScreenHeight(context);
-    const double _footerZoneHeight = 70;
-    final double _progressBarHeight = StaticStrips.boxHeight(_screenWidth);
-    final double _bodyZoneHeight = _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
-    const double _flyerSizeFactor = 0.7;
+    final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
       pageTitle: 'Flyers Auditor',
       appBarType: AppBarType.basic,
-      pyramidsAreOn: false,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       loading: _loading,
-      layoutWidget: FloatingLayout(
-        child: Column(
-          children: <Widget>[
+      skyType: SkyType.black,
+      layoutWidget: Stack(
+        children: <Widget>[
 
-            /// FLYERS
-            Container(
-              width: _screenWidth,
-              height: _bodyZoneHeight,
-              alignment: Alignment.center,
-              child: Mapper.canLoopList(_flyers) == true ?
-              PageView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _flyers.length,
-                  controller: _pageController,
-                  allowImplicitScrolling: true,
-                  onPageChanged: (int i) => _onPageChange(i),
-                  // scrollBehavior: ScrollBehavior().,
-                  itemBuilder: (BuildContext ctx, int index) {
-                    return AnimatedOpacity(
-                      opacity: _pagesOpacities[index],
-                      duration: Ratioz.durationFading200,
-                      child: FlyerStarter(
-                        minWidthFactor: _flyerSizeFactor,
-                        flyerModel: _flyers[index],
-                        // onSwipeFlyer: (Sliders.SwipeDirection direction) => _onSwipeFlyer(direction, index),
-                      ),
-                    );
-                  }
-              )
+          /// FLYERS
+          ValueListenableBuilder(
+              valueListenable: _flyers,
+              builder: (_, List<FlyerModel> flyers, Widget child){
 
-                  :
+                if (Mapper.canLoopList(flyers) == true){
+                  return FlyersGrid(
+                    flyers: flyers,
+                    gridWidth: _screenWidth,
+                    gridHeight: _screenHeight,
+                    scrollController: _scrollController,
+                    numberOfColumns: 2,
+                    onFlyerOptionsTap: (FlyerModel flyer) => onFlyerOptionsTap(
+                      context: context,
+                      flyerModel: flyer,
+                    ),
 
-              Container(),
+                  );
+                }
 
-            ),
+                else {
+                  return const Center(
+                    child: SuperVerse(
+                      verse: 'No Flyers Left',
+                      weight: VerseWeight.black,
+                      italic: true,
+                      size: 4,
+                    ),
+                  );
+                }
 
-            /// BUTTONS
-            Container(
-              width: _screenWidth,
-              height: _footerZoneHeight,
-              color: Colorz.white10,
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  /// AUDIT
-                  AuditorButton(
-                    verse: 'Audit',
-                    color: Colorz.red255,
-                    icon: Iconz.xSmall,
-                    onTap: _onAudit,
-                  ),
+              }
+          ),
 
-                  /// VERIFY
-                  AuditorButton(
-                    verse: 'Verify',
-                    color: Colorz.green255,
-                    icon: Iconz.check,
-                    onTap: _onVerify,
-                  ),
-                ],
-              ),
-            ),
-
-          ],
-        ),
+        ],
       ),
     );
   }
-}
-
-class AuditorButton extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const AuditorButton({
-    @required this.verse,
-    @required this.onTap,
-    @required this.color,
-    @required this.icon,
-    Key key,
-  }) : super(key: key);
-
-  /// --------------------------------------------------------------------------
-  final String verse;
-  final Color color;
-  final String icon;
-  final Function onTap;
-
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    const int _numberOfItems = 2;
-    final double _buttonWidth =
-        Scale.getUniformRowItemWidth(context, _numberOfItems);
-
-    return DreamBox(
-      height: 50,
-      width: _buttonWidth,
-      verse: verse,
-      verseScaleFactor: 1.3,
-      icon: icon,
-      iconColor: Colorz.white230,
-      iconSizeFactor: 0.5,
-      onTap: onTap,
-      color: color,
-    );
-  }
-
-  /// --------------------------------------------------------------------------
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<String>('verse', verse));
-    properties.add(DiagnosticsProperty<Color>('color', color));
-    properties.add(DiagnosticsProperty<String>('icon', icon));
-    properties.add(DiagnosticsProperty<Function>('onTap', onTap));
-  }
-
-  /// --------------------------------------------------------------------------
 }

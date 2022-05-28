@@ -69,7 +69,7 @@ class FlyerFooterButtons extends StatelessWidget {
             icon: Iconz.share,
             verse: superPhrase(context, 'phid_send'),
             isOn: false,
-            tinyMode: tinyMode,
+              canTap: !tinyMode,
             onTap: onShareFlyer,
           ),
 
@@ -83,7 +83,7 @@ class FlyerFooterButtons extends StatelessWidget {
             icon: Iconz.utPlanning,
             verse: superPhrase(context, 'phid_comment'),
             isOn: false,
-            tinyMode: tinyMode,
+            canTap: !tinyMode,
             onTap: onReviewFlyer,
           ),
 
@@ -105,7 +105,7 @@ class FlyerFooterButtons extends StatelessWidget {
                 icon: Iconz.save,
                 verse: _isSaved == true ? superPhrase(context, 'phid_saved') : superPhrase(context, 'phid_save'),
                 isOn: _isSaved,
-                tinyMode: tinyMode,
+                canTap: true,
                 onTap: onSaveFlyer,
               );
 
