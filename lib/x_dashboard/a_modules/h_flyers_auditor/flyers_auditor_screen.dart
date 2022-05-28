@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
-import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
@@ -17,20 +18,25 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/floating_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FlyersAuditor extends StatefulWidget {
-  const FlyersAuditor({Key key}) : super(key: key);
+
+  const FlyersAuditor({
+    Key key
+  }) : super(key: key);
 
   @override
   _FlyersAuditorState createState() => _FlyersAuditorState();
+
 }
 
 class _FlyersAuditorState extends State<FlyersAuditor> {
-  PageController _pageController; /// tamam disposed
+  final PageController _pageController = PageController(); /// tamam disposed
   final List<FlyerModel> _flyers = <FlyerModel>[];
   FlyerModel _currentFlyer;
   int _currentPageIndex;
@@ -38,59 +44,51 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   List<double> _pagesOpacities = <double>[];
   double _progressBarOpacity = 1;
 // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (function == null) {
-      setState(() {
-        _loading = !_loading;
-      });
-    } else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------------------------------
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'AddAuthorScreen',
+    );
   }
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(); /// tamam
+
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     _pageController.dispose();
+    _loading.dispose();
     super.dispose();
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
-      _triggerLoading(function: () {}).then((_) async {
-        /// ---------------------------------------------------------0
+    if (_isInit && mounted) {
+
+      _triggerLoading().then((_) async {
 
         await _readMoreFlyers();
 
-        /// ---------------------------------------------------------0
       });
+
+      _isInit = false;
     }
-    _isInit = false;
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot<Object> _lastSnapshot;
   Future<void> _readMoreFlyers() async {
-    if (_loading == false) {
-      setState(() {
-        _loading = true;
-      });
+
+    if (_loading.value == false) {
+        _loading.value = true;
     }
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
@@ -100,17 +98,30 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       limit: 5,
       startAfter: _lastSnapshot,
       addDocSnapshotToEachMap: true,
+      finders: <FireFinder>[
+        FireFinder(
+          field: 'publishState',
+          comparison: FireComparison.equalTo,
+          value: FlyerModel.cipherPublishState(PublishState.published),
+        ),
+        FireFinder(
+          field: 'auditState',
+          comparison: FireComparison.equalTo,
+          value: null,
+        ),
+      ],
     );
 
-    final List<FlyerModel> _fetchedModels =
-        FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
+    final List<FlyerModel> _fetchedModels = FlyerModel.decipherFlyers(
+        maps: _maps,
+        fromJSON: false,
+    );
 
     _fetchedModels[1].blogFlyer(
       methodName: 'auditor screen : [_readMoreFlyers method]',
     );
 
     setState(() {
-      _loading = false;
       _lastSnapshot = _maps[_maps.length - 1]['docSnapshot'];
       _flyers.addAll(_fetchedModels);
       _currentPageIndex = 0;
@@ -119,6 +130,9 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       _lastSwipeDirection = Sliders.SwipeDirection.next;
       _pagesOpacities = _createPagesOpacities(_numberOfStrips);
     });
+
+      _loading.value = false;
+
   }
 // -----------------------------------------------------------------------------
 //   Future<void> _onSwipeFlyer(
@@ -139,34 +153,42 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
 //   }
 // -----------------------------------------------------------------------------
   Future<void> _onVerify() async {
-    blog('currentFlyer : ${_currentFlyer.slides.length} slides');
 
-    if (_currentFlyer.flyerState != FlyerState.verified) {
+    blog('currentFlyer : ${_currentFlyer?.slides?.length} slides');
+
+    if (_currentFlyer.auditState != AuditState.verified) {
+
       await Fire.updateDocField(
         context: context,
         collName: FireColl.flyers,
         docName: _currentFlyer.id,
-        field: 'flyerState',
-        input: FlyerModel.cipherFlyerState(FlyerState.verified),
+        field: 'auditState',
+        input: FlyerModel.cipherAuditState(AuditState.verified),
       );
 
       await _onRemoveFlyerFromStack(_currentFlyer);
 
-      unawaited(TopDialog.showTopDialog(
-          context: context,
-          firstLine: 'Done',
-          secondLine: 'flyer ${_currentFlyer.id} got verified',
-          color: Colorz.green255,
-          onTap: () {
-            blog('a77aaa ');
-          }));
-    } else {
+      unawaited(
+          TopDialog.showTopDialog(
+            context: context,
+            firstLine: 'Done',
+            secondLine: 'flyer ${_currentFlyer.id} got verified',
+            color: Colorz.green255,
+            textColor: Colorz.white255,
+          )
+      );
+
+    }
+
+    else {
+
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'A77a',
+        title: 'Already Verified',
         body: 'This flyer is already verified, check the next one. please',
       );
     }
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onAudit() async {}
@@ -508,98 +530,81 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final double _bodyZoneHeight = _clearScreenHeight - _footerZoneHeight - _progressBarHeight;
     const double _flyerSizeFactor = 0.7;
 
-    return DashBoardLayout(
+    return MainLayout(
       pageTitle: 'Flyers Auditor',
-      onBldrsTap: () {
-        blog('aho');
-      },
-      listWidgets: <Widget>[
+      appBarType: AppBarType.basic,
+      pyramidsAreOn: false,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
+      loading: _loading,
+      layoutWidget: FloatingLayout(
+        child: Column(
+          children: <Widget>[
 
-        FloatingLayout(
-          child: Column(
-            children: <Widget>[
-              /// PROGRESS BAR
-              SizedBox(
-                width: _screenWidth,
-                height: _progressBarHeight,
-                // color: Colorz.BloodTest,
-                // alignment: Alignment.center,
-                child: StaticProgressBar(
-                  index: _currentPageIndex,
-                  numberOfSlides: _numberOfStrips,
-                  opacity: _progressBarOpacity,
-                  swipeDirection: _lastSwipeDirection,
-                  loading: _loading,
-                  flyerBoxWidth: _screenWidth,
-                  margins: EdgeInsets.zero,
-                ),
+            /// FLYERS
+            Container(
+              width: _screenWidth,
+              height: _bodyZoneHeight,
+              alignment: Alignment.center,
+              child: Mapper.canLoopList(_flyers) == true ?
+              PageView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: _flyers.length,
+                  controller: _pageController,
+                  allowImplicitScrolling: true,
+                  onPageChanged: (int i) => _onPageChange(i),
+                  // scrollBehavior: ScrollBehavior().,
+                  itemBuilder: (BuildContext ctx, int index) {
+                    return AnimatedOpacity(
+                      opacity: _pagesOpacities[index],
+                      duration: Ratioz.durationFading200,
+                      child: FlyerStarter(
+                        minWidthFactor: _flyerSizeFactor,
+                        flyerModel: _flyers[index],
+                        // onSwipeFlyer: (Sliders.SwipeDirection direction) => _onSwipeFlyer(direction, index),
+                      ),
+                    );
+                  }
+              )
+
+                  :
+
+              Container(),
+
+            ),
+
+            /// BUTTONS
+            Container(
+              width: _screenWidth,
+              height: _footerZoneHeight,
+              color: Colorz.white10,
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  /// AUDIT
+                  AuditorButton(
+                    verse: 'Audit',
+                    color: Colorz.red255,
+                    icon: Iconz.xSmall,
+                    onTap: _onAudit,
+                  ),
+
+                  /// VERIFY
+                  AuditorButton(
+                    verse: 'Verify',
+                    color: Colorz.green255,
+                    icon: Iconz.check,
+                    onTap: _onVerify,
+                  ),
+                ],
               ),
+            ),
 
-              /// FLYERS
-              Container(
-                width: _screenWidth,
-                height: _bodyZoneHeight,
-                alignment: Alignment.center,
-                child: Mapper.canLoopList(_flyers) == true ?
-                PageView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: _flyers.length,
-                    controller: _pageController,
-                    allowImplicitScrolling: true,
-                    onPageChanged: (int i) => _onPageChange(i),
-                    // scrollBehavior: ScrollBehavior().,
-                    itemBuilder: (BuildContext ctx, int index) {
-                          return AnimatedOpacity(
-                            opacity: _pagesOpacities[index],
-                            duration: Ratioz.durationFading200,
-                            child: FlyerStarter(
-                              minWidthFactor: _flyerSizeFactor,
-                              flyerModel: _flyers[index],
-                              // onSwipeFlyer: (Sliders.SwipeDirection direction) => _onSwipeFlyer(direction, index),
-                            ),
-                          );
-                        }
-                        )
-
-                    :
-
-                Container(),
-
-              ),
-
-              /// BUTTONS
-              Container(
-                width: _screenWidth,
-                height: _footerZoneHeight,
-                color: Colorz.white10,
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    /// AUDIT
-                    AuditorButton(
-                      verse: 'Audit',
-                      color: Colorz.red255,
-                      icon: Iconz.xSmall,
-                      onTap: _onAudit,
-                    ),
-
-                    /// VERIFY
-                    AuditorButton(
-                      verse: 'Verify',
-                      color: Colorz.green255,
-                      icon: Iconz.check,
-                      onTap: _onVerify,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          ],
         ),
-
-      ],
+      ),
     );
   }
 }

@@ -508,7 +508,7 @@ Future<void> onFlyerOptionsTap({
   final String _age = Timers.getSuperTimeDifferenceString(
     from: PublishTime.getPublishTimeFromTimes(
       times: flyer.times,
-      state: FlyerState.published,
+      state: PublishState.published,
     )?.time,
     to: DateTime.now(),
   );

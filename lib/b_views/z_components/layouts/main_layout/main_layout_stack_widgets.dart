@@ -20,7 +20,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.appBarRowWidgets,
     @required this.pageTitle,
     @required this.onBack,
-    // @required this.loading,
+    @required this.loading,
     @required this.appBarScrollController,
     @required this.searchController,
     @required this.onSearchSubmit,
@@ -28,9 +28,9 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.sectionButtonIsOn,
     @required this.historyButtonIsOn,
     @required this.zoneButtonIsOn,
-    this.pyramidsAreOn = false,
-    this.navBarIsOn = true,
-    this.searchHint,
+    @required this.pyramidsAreOn,
+    @required this.navBarIsOn,
+    @required this.searchHint,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -52,6 +52,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool sectionButtonIsOn;
   final bool zoneButtonIsOn;
   final String searchHint;
+  final ValueNotifier<bool> loading;
   /// --------------------------------------------------------------------------
   String _pyramidsIcon(){
 
@@ -75,6 +76,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       key: key,
       alignment: alignment,
@@ -86,28 +88,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
           skyType: skyType,
           gradientIsOn: pyramidsAreOn,
         ),
-
-        // Selector<GeneralProvider, bool>(
-        //     selector: (_, GeneralProvider generalProvider) => generalProvider.isConnected,
-        //     // child: ,
-        //     // shouldRebuild: ,
-        //     builder: (BuildContext context, bool isConnected, Widget child){
-        //
-        //       blog('MAIN LAYOUT LISTENS TO CONNECTIVITY CHANGES AHO : isConnected : $isConnected');
-        //
-        //       // if (isConnected == false){
-        //       //   TopDialog.showTopDialog(
-        //       //     context: context,
-        //       //     verse: 'Disconnected',
-        //       //     secondLine: 'Check your Internet connection',
-        //       //     color: Colorz.bloodTest,
-        //       //   );
-        //       // }
-        //
-        //       return const SizedBox();
-        //
-        //     }
-        // ),
 
         /// --- LAYOUT WIDGET
         if (layoutWidget != null)
@@ -127,7 +107,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             appBarRowWidgets: appBarRowWidgets,
             pageTitle: pageTitle,
             onBack: onBack,
-            // loading: loading,
+            loading: loading,
             appBarScrollController: appBarScrollController,
             sectionButtonIsOn: sectionButtonIsOn,
             searchController: searchController,
@@ -143,7 +123,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
           Pyramids(
             key: const ValueKey<String>('pyramids'),
             pyramidsIcon: _pyramidsIcon(),
-            // loading: loading,
+            loading: loading,
           ),
 
         /// --- NAV BAR
