@@ -442,7 +442,7 @@ Future<void> _publishFlyerOps({
 
 
   final FlyerModel _flyerToPublish = draft.value.toFlyerModel().copyWith(
-    flyerState: FlyerState.published,
+    publishState: PublishState.published,
   );
 
   /// upload to firebase
