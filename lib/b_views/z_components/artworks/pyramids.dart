@@ -70,23 +70,29 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
             // }
 
           },
-          child: ValueListenableBuilder(
+          child: widget.loading == null ?
+
+          WebsafeSvg.asset(_pyramidIcon, color: _pyramidColor)
+
+              :
+
+          ValueListenableBuilder(
             valueListenable: widget.loading,
             child: WebsafeSvg.asset(_pyramidIcon, color: _pyramidColor),
             builder: (_, bool loading, Widget child){
 
-                  if (loading == true) {
-                    _controller.repeat(reverse: true);
-                  }
+              if (loading == true) {
+                _controller.repeat(reverse: true);
+              }
 
-                  else {
-                    _controller.forward();
-                  }
+              else {
+                _controller.forward();
+              }
 
-                  return FadeTransition(
-                    opacity: _controller,
-                    child: child,
-                  );
+              return FadeTransition(
+                opacity: _controller,
+                child: child,
+              );
 
             },
           ),

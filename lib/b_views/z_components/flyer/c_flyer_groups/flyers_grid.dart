@@ -1,13 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +17,8 @@ class FlyersGrid extends StatelessWidget {
     this.heroTag,
     this.authorMode = false,
     this.onFlyerOptionsTap,
+    this.selectedFlyers,
+    this.onSelectFlyer,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,6 +32,8 @@ class FlyersGrid extends StatelessWidget {
   final String heroTag;
   final bool authorMode;
   final ValueChanged<FlyerModel> onFlyerOptionsTap;
+  final List<FlyerModel> selectedFlyers;
+  final ValueChanged<FlyerModel> onSelectFlyer;
   /// --------------------------------------------------------------------------
   static double getGridWidth({
     @required BuildContext context,
@@ -184,62 +182,32 @@ class FlyersGrid extends StatelessWidget {
               itemCount: _numberOfItems,
               itemBuilder: (BuildContext ctx, int index){
 
-                /// A - WHEN ADD FLYER BUTTON IS ON
-                if (authorMode == true){
-
-                  /// B2 - WHEN AT FIRST ELEMENT
-                  if (index == 0){
-                    return AddFlyerButton(
-                      flyerBoxWidth: _gridFlyerWidth,
-                    );
-                  }
-
-                  /// B3 - WHEN AT ANY ELEMENT AFTER FIRST
-                  else {
-
-                    final FlyerModel _flyer = flyers[index-1];
-
-                    return Stack(
-                      children: <Widget>[
-
-                        FlyerStarter(
-                          key: ValueKey<String>('Flyers_grid_FlyerStarter_${_flyer.id}'),
-                          flyerModel: _flyer,
-                          minWidthFactor: _minWidthFactor,
-                          heroTag: heroTag,
-                        ),
-
-                        Align(
-                          alignment: superBottomAlignment(context),
-                          child: DreamBox(
-                            height: FooterBox.collapsedHeight(context: context, flyerBoxWidth: _gridFlyerWidth, tinyMode: true),
-                            width: _gridZoneWidth * 0.12,
-                            // verse: superPhrase(context, 'phid_edit'),
-                            // verseScaleFactor: 0.7,
-                            // verseWeight: VerseWeight.thin,
-                            icon: Iconz.more,
-                            iconSizeFactor: 0.7,
-                            color: Colorz.black200,
-                            corners: superBorderAll(context, FooterBox.boxCornersValue(_gridFlyerWidth)),
-                            bubble: false,
-                            onTap: () => onFlyerOptionsTap(_flyer),
-                          ),
-                        ),
-
-                      ],
-                    );
-                  }
-
+                /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
+                if (authorMode == true && index == 0){
+                  return AddFlyerButton(
+                    flyerBoxWidth: _gridFlyerWidth,
+                  );
                 }
 
-                /// A - WHEN ONLY SHOWING FLYERS
+                /// OTHERWISE
                 else {
-                  return FlyerStarter(
-                    key: const ValueKey<String>('Flyers_grid_FlyerStarter'),
-                    flyerModel: flyers[index],
-                    minWidthFactor: _minWidthFactor,
-                    heroTag: heroTag,
+
+                  final FlyerModel _flyer = authorMode == true ? flyers[index-1] : flyers[index];
+
+                  final bool _isSelected = FlyerModel.flyersContainThisID(
+                    flyers: selectedFlyers,
+                    flyerID: _flyer.id,
                   );
+
+                  return FlyerSelectionStack(
+                    flyerModel: _flyer,
+                    flyerBoxWidth: _gridFlyerWidth,
+                    heroTag: heroTag,
+                    onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
+                    onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
+                    isSelected: _isSelected,
+                  );
+
                 }
 
               }

@@ -1,5 +1,5 @@
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
 class FloatingLayout extends StatelessWidget {
@@ -15,7 +15,7 @@ class FloatingLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: Scale.superScreenWidth(context),
-      height: DashBoardLayout.clearScreenHeight(context),
+      height: MainLayout.clearHeight(context),
       child: child,
     );
   }
