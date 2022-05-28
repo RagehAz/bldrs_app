@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -93,7 +93,7 @@ Future<List<NoteModel>> paginateAllReceivedNotes({
       context: context,
       collName: FireColl.notes,
       startAfter: startAfter,
-      orderBy: 'sentTime',
+      orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
       addDocsIDs: true,
       addDocSnapshotToEachMap: true,
       limit: limit,
@@ -141,7 +141,7 @@ Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
       limit: limit,
       addDocSnapshotToEachMap: true,
       addDocsIDs: true,
-      orderBy: 'sentTime',
+      orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
       startAfter: startAfter,
       finders: <FireFinder>[
         FireFinder(
@@ -193,7 +193,7 @@ Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
       limit: limit,
       addDocSnapshotToEachMap: true,
       addDocsIDs: true,
-      orderBy: 'sentTime',
+      orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
       finders: <FireFinder>[
         FireFinder(
           field: 'receiverID',
@@ -225,14 +225,14 @@ Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
 /// STREAMING
 
 // -----------------------------------
-Widget notiStreamBuilder({
-  BuildContext context,
-  NotiModelsWidgetsBuilder builder,
-  String userID,
+Widget noteStreamBuilder({
+  @required BuildContext context,
+  @required NotiModelsWidgetsBuilder builder,
+  @required Stream<List<NoteModel>> stream,
 }) {
   return StreamBuilder<List<NoteModel>>(
     key: const ValueKey<String>('notifications_stream_builder'),
-    stream: getNotiModelsStream(context, userID),
+    stream: stream,
     initialData: const <NoteModel>[],
     builder: (BuildContext ctx, AsyncSnapshot<List<NoteModel>> snapshot) {
 
@@ -251,34 +251,39 @@ Widget notiStreamBuilder({
   );
 }
 // -----------------------------------------------------------------------------
-Stream<List<NoteModel>> getNotiModelsStream(BuildContext context, String userID) {
+Stream<List<NoteModel>> getSentNoteModelsStream({
+  @required BuildContext context,
+  @required String senderID,
+  QueryDocumentSnapshot<Object> startAfter,
+  int limit,
+  Fire.QueryOrderBy orderBy,
+  List<FireFinder> finders,
+}) {
   Stream<List<NoteModel>> _notiModelsStream;
 
   tryAndCatch(
       context: context,
-      methodName: 'getNotiModelsStream',
+      methodName: 'getNoteModelsStream',
       functions: () {
-        final Stream<QuerySnapshot<Object>> _querySnapshots =
-        Fire.streamSubCollection(
-          collName: FireColl.users,
-          docName: userID,
-          subCollName: FireSubColl.users_user_notifications,
-          orderBy: 'timeStamp', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
-          descending: true,
-          field: 'dismissed', // NEVER CHANGE THIS -> OR CREATE NEW FIREBASE QUERY INDEX
-          compareValue: false,
+
+        final Stream<QuerySnapshot<Object>> _querySnapshots = Fire.streamCollection(
+          collName: FireColl.notes,
+          startAfter: startAfter,
+          limit: limit,
+          orderBy: orderBy,
+          finders: finders,
         );
 
         blog('getNotiModelsStream : _querySnapshots : $_querySnapshots');
 
         _notiModelsStream = _querySnapshots.map((QuerySnapshot<Object> qShot) =>
-            qShot.docs
-                .map((QueryDocumentSnapshot<Object> doc) =>
-                NoteModel.decipherNoteModel(
-                  map: doc,
-                  fromJSON: false,
-                ))
-                .toList());
+            qShot.docs.map(
+                    (QueryDocumentSnapshot<Object> doc) => NoteModel.decipherNoteModel(
+                      map: doc,
+                      fromJSON: false,
+                    )
+            ).toList()
+        );
 
         blog('getNotiModelsStream : _notiModelsStream : $_notiModelsStream');
       });

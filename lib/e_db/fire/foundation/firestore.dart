@@ -1,10 +1,12 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
+export 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -48,42 +50,6 @@ CollectionReference<Object> getCollectionRef(String collName) {
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   final CollectionReference<Object> _collection = _fireInstance.collection(collName);
   return _collection;
-}
-// ---------------------------------------------------
-/// TESTED : WORKS PERFECT
-Future<QuerySnapshot<Object>> _superCollectionQuery({
-  @required CollectionReference<Object> collRef,
-  String orderBy,
-  int limit,
-  QueryDocumentSnapshot<Object> startAfter,
-  List<FireFinder> finders,
-}) async {
-
-  Query<Map<String, dynamic>> query = FirebaseFirestore.instance.collection(collRef.path);
-
-  /// ASSIGN SEARCH FINDERS
-  if (Mapper.canLoopList(finders) == true){
-    query = FireFinder.createCompositeQueryByFinders(
-        query: query,
-        finders: finders
-    );
-  }
-  /// ORDER BY A FIELD NAME
-  if (orderBy != null){
-    query = query.orderBy(orderBy);
-  }
-  /// LIMIT NUMBER OR RESULTS
-  if (limit != null){
-    query = query.limit(limit);
-  }
-  /// START AFTER A SPECIFIC SNAPSHOT
-  if (startAfter != null){
-    query = query.startAfterDocument(startAfter);
-  }
-
-  final QuerySnapshot<Object> _collectionSnapshot = await query.get();
-
-  return _collectionSnapshot;
 }
 // ---------------------------------------------------
 /// TESTED : WORKS PERFECT
@@ -147,6 +113,65 @@ DocumentReference<Object> getSubDocRef({
   ///     .doc(subDocName);
 
   return _subDocRef;
+}
+// -----------------------------------------------------------------------------
+
+/// QUERIES
+
+// ---------------------------------------------------
+Query<Map<String, dynamic>> _superQuery({
+  @required CollectionReference<Object> collRef,
+  QueryOrderBy orderBy,
+  int limit,
+  QueryDocumentSnapshot<Object> startAfter,
+  List<FireFinder> finders,
+}){
+
+  Query<Map<String, dynamic>> query = FirebaseFirestore.instance.collection(collRef.path);
+
+  /// ASSIGN SEARCH FINDERS
+  if (Mapper.canLoopList(finders) == true){
+    query = FireFinder.createCompositeQueryByFinders(
+        query: query,
+        finders: finders
+    );
+  }
+  /// ORDER BY A FIELD NAME
+  if (orderBy != null){
+    query = query.orderBy(orderBy.fieldName, descending: orderBy.descending);
+  }
+  /// LIMIT NUMBER OR RESULTS
+  if (limit != null){
+    query = query.limit(limit);
+  }
+  /// START AFTER A SPECIFIC SNAPSHOT
+  if (startAfter != null){
+    query = query.startAfterDocument(startAfter);
+  }
+
+  return query;
+}
+// ---------------------------------------------------
+/// TESTED : WORKS PERFECT
+Future<QuerySnapshot<Object>> _superCollectionQuery({
+  @required CollectionReference<Object> collRef,
+  QueryOrderBy orderBy,
+  int limit,
+  QueryDocumentSnapshot<Object> startAfter,
+  List<FireFinder> finders,
+}) async {
+
+  final Query<Map<String, dynamic>> query = _superQuery(
+    collRef: collRef,
+    orderBy: orderBy,
+    limit: limit,
+    startAfter: startAfter,
+    finders: finders,
+  );
+
+  final QuerySnapshot<Object> _collectionSnapshot = await query.get();
+
+  return _collectionSnapshot;
 }
 // -----------------------------------------------------------------------------
 
@@ -291,23 +316,10 @@ Future<DocumentReference<Object>> createNamedSubDoc({
 
 // ---------------------------------------------------
 /// TESTED : WORKS PERFECT
-Future<dynamic> _getMapByDocRef(DocumentReference<Object> docRef) async {
-  dynamic _map;
-
-  final DocumentSnapshot<Object> snapshot = await docRef.get();
-
-  if (snapshot.exists == true) {
-    _map = Mapper.getMapFromDocumentSnapshot(snapshot);
-  }
-
-  return _map;
-}
-// ---------------------------------------------------
-/// TESTED : WORKS PERFECT
 Future<List<Map<String, dynamic>>> readCollectionDocs({
   @required BuildContext context,
   @required String collName,
-  String orderBy,
+  QueryOrderBy orderBy,
   int limit,
   QueryDocumentSnapshot<Object> startAfter,
   bool addDocSnapshotToEachMap = false,
@@ -347,6 +359,19 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
 }
 // ---------------------------------------------------
 /// TESTED : WORKS PERFECT
+Future<dynamic> _getMapByDocRef(DocumentReference<Object> docRef) async {
+  dynamic _map;
+
+  final DocumentSnapshot<Object> snapshot = await docRef.get();
+
+  if (snapshot.exists == true) {
+    _map = Mapper.getMapFromDocumentSnapshot(snapshot);
+  }
+
+  return _map;
+}
+// ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<Map<String, dynamic>> readDoc({
   @required BuildContext context,
   @required String collName,
@@ -376,29 +401,6 @@ Future<Map<String, dynamic>> readDoc({
   return _result.runtimeType == String ? null : _map;
 }
 // ---------------------------------------------------
-/// TASK : delete Fire.readDocField if not used in release mode
-Future<dynamic> readDocField({
-  @required BuildContext context,
-  @required String collName,
-  @required String docName,
-  @required String fieldName,
-}) async {
-  dynamic _map;
-
-  await tryAndCatch(
-      context: context,
-      methodName: 'readDocField',
-      functions: () async {
-        _map = await readDoc(
-          context: context,
-          collName: collName,
-          docName: docName,
-        );
-      });
-
-  return _map[fieldName];
-}
-// ---------------------------------------------------
 /// TESTED : WORKS PERFECT
 Future<List<Map<String, dynamic>>> readSubCollectionDocs({
   @required BuildContext context,
@@ -406,7 +408,7 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
   @required String docName,
   @required String subCollName,
   int limit,
-  String orderBy,
+  QueryOrderBy orderBy,
   QueryDocumentSnapshot<Object> startAfter,
   bool addDocsIDs = false,
   bool addDocSnapshotToEachMap = false,
@@ -482,9 +484,26 @@ Future<dynamic> readSubDoc({
 /// STREAMING
 
 // ---------------------------------------------------
-Stream<QuerySnapshot<Object>> streamCollection(String collectionName) {
-  final CollectionReference<Object> _collection = getCollectionRef(collectionName);
-  final Stream<QuerySnapshot<Object>> _snapshots = _collection.snapshots();
+Stream<QuerySnapshot<Object>> streamCollection({
+  @required String collName,
+  QueryOrderBy orderBy,
+  int limit,
+  QueryDocumentSnapshot<Object> startAfter,
+  List<FireFinder> finders,
+}) {
+
+  final CollectionReference<Object> _collRef = getCollectionRef(collName);
+
+  final Query<Map<String, dynamic>> _query = _superQuery(
+    collRef: _collRef,
+    orderBy: orderBy,
+    startAfter: startAfter,
+    limit: limit,
+    finders: finders,
+  );
+
+  final Stream<QuerySnapshot<Object>> _snapshots = _query.snapshots();
+
   return _snapshots;
 }
 // ---------------------------------------------------
@@ -492,30 +511,27 @@ Stream<QuerySnapshot<Object>> streamSubCollection({
   @required String collName,
   @required String docName,
   @required String subCollName,
-  @required bool descending,
-  @required String orderBy, // field name to order by
-  String field,
-  dynamic compareValue,
+  QueryOrderBy orderBy,
+  QueryDocumentSnapshot<Object> startAfter,
+  int limit,
+  List<FireFinder> finders,
 }) {
 
-  final CollectionReference<Object> _collection = getSubCollectionRef(
+  final CollectionReference<Object> _collRef = getSubCollectionRef(
     collName: collName,
     docName: docName,
     subCollName: subCollName,
   );
 
-  Stream<QuerySnapshot<Object>> _snapshots;
+  final Query<Map<String, dynamic>> _query = _superQuery(
+    collRef: _collRef,
+    orderBy: orderBy,
+    startAfter: startAfter,
+    limit: limit,
+    finders: finders,
+  );
 
-  if (field != null && compareValue != null) {
-    _snapshots = _collection
-        .orderBy(orderBy, descending: descending)
-        .where(field, isEqualTo: compareValue)
-        .limit(10)
-        .snapshots();
-  } else {
-    _snapshots =
-        _collection.orderBy(orderBy, descending: descending).snapshots();
-  }
+  final Stream<QuerySnapshot<Object>> _snapshots = _query.snapshots();
 
   return _snapshots;
 }
@@ -525,12 +541,12 @@ Stream<DocumentSnapshot<Object>> streamDoc({
   @required String docName,
 }) {
 
-  final DocumentReference<Object> _document = getDocRef(
+  final DocumentReference<Object> _docRef = getDocRef(
       collName: collName,
       docName: docName,
   );
 
-  final Stream<DocumentSnapshot<Object>> _snapshots = _document.snapshots();
+  final Stream<DocumentSnapshot<Object>> _snapshots = _docRef.snapshots();
 
   return _snapshots;
 }
@@ -541,44 +557,17 @@ Stream<DocumentSnapshot<Object>> streamSubDoc({
   @required String subCollName,
   @required String subDocName,
 }) {
-  final DocumentReference<Object> _document = getSubDocRef(
+
+  final DocumentReference<Object> _docRef = getSubDocRef(
     collName: collName,
     docName: docName,
     subCollName: subCollName,
     subDocName: subDocName,
   );
 
-  final Stream<DocumentSnapshot<Object>> _snapshots = _document.snapshots();
+  final Stream<DocumentSnapshot<Object>> _snapshots = _docRef.snapshots();
 
   return _snapshots;
-}
-// -----------------------------------------------------------------------------
-
-/// PAGINATION
-
-// ---------------------------------------------------
-/// TESTED :
-Future<dynamic> paginateDocs({
-  @required BuildContext context,
-  @required String collName,
-  @required int limit,
-  @required QueryDocumentSnapshot<Object> startAfter,
-  String orderBy = 'id',
-  List<FireFinder> finders,
-}) async {
-
-  final List<Map<String, dynamic>> _maps = await readCollectionDocs(
-    context: context,
-    collName: collName,
-    addDocsIDs: true,
-    addDocSnapshotToEachMap: true,
-    limit: limit,
-    orderBy: orderBy,
-    startAfter: startAfter,
-    finders: finders,
-  );
-
-  return _maps;
 }
 // ---------------------------------------------------
 
