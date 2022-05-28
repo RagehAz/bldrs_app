@@ -96,7 +96,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final List<dynamic> _maps = await Fire.readCollectionDocs(
       context: context,
       collName: FireColl.flyers,
-      orderBy: 'id',
+      orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
       limit: 5,
       startAfter: _lastSnapshot,
       addDocSnapshotToEachMap: true,

@@ -92,7 +92,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       docName: 'countries',
       subCollName: 'countries',
       limit: 5,
-      orderBy: 'id',
+      orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
       startAfter: _lastSnap,
       addDocSnapshotToEachMap: true,
     );

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
