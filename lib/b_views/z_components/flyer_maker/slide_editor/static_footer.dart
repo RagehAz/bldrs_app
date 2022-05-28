@@ -84,7 +84,7 @@ class StaticFooter extends StatelessWidget {
                 icon: null, // Iconz.share,
                 verse: '', // superPhrase(context, 'phid_send'),
                 isOn: false,
-                tinyMode: false,
+                canTap: true,
                 onTap: (){},
               ),
 
@@ -96,7 +96,7 @@ class StaticFooter extends StatelessWidget {
                 icon: null, // Iconz.utPlanning,
                 verse: '', // superPhrase(context, 'phid_comment'),
                 isOn: false,
-                tinyMode: false,
+                canTap: false,
                 onTap: (){},
               ),
 
@@ -108,7 +108,7 @@ class StaticFooter extends StatelessWidget {
                 icon: null, // Iconz.save,
                 verse: '', // superPhrase(context, 'phid_save'),
                 isOn: false,
-                tinyMode: false,
+                canTap: false,
                 onTap: (){},
               ),
 

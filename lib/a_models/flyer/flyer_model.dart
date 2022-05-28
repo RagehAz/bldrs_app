@@ -9,6 +9,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -694,6 +695,18 @@ class FlyerModel {
       _canShow = false;
     }
     return _canShow;
+  }
+// -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// ------------------------------------------
+  String getShortTitle({int numberOfCharacters = 10}){
+    final String _shortTitle = removeAllCharactersAfterNumberOfCharacters(
+        input: title,
+        numberOfCharacters: numberOfCharacters
+    );
+    return _shortTitle;
   }
 // -----------------------------------------------------------------------------
 }
