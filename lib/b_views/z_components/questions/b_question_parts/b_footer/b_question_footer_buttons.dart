@@ -62,7 +62,7 @@ class QuestionFooterButtons extends StatelessWidget {
               icon: Iconz.share,
               verse: superPhrase(context, 'phid_share'),
               isOn: false,
-              tinyMode: tinyMode,
+              canTap: !tinyMode,
               onTap: onShareFlyer,
             ),
 
@@ -76,7 +76,7 @@ class QuestionFooterButtons extends StatelessWidget {
               icon: Iconz.utPlanning,
               verse: 'Review',
               isOn: false,
-              tinyMode: tinyMode,
+              canTap: !tinyMode,
               onTap: onReviewFlyer,
             ),
 
@@ -93,7 +93,7 @@ class QuestionFooterButtons extends StatelessWidget {
                 icon: Iconz.star,
                 verse: 'Nice',
                 isOn: isSaved,
-                tinyMode: tinyMode,
+                canTap: true,
                 onTap: onSaveFlyer,
               );
 

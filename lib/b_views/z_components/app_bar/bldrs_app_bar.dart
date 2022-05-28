@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
@@ -351,11 +352,11 @@ class BldrsAppBar extends StatelessWidget {
                     return StaticProgressBar(
                       index: 0,
                       numberOfSlides: 1,
-                      opacity: 1,
+                      opacity: 0.4,
                       swipeDirection: SwipeDirection.freeze,
                       loading: isLoading,
                       flyerBoxWidth: _abWidth,
-                      margins: EdgeInsets.zero,
+                      margins: EdgeInsets.only(top: Ratioz.appBarSmallHeight - StaticStrips.stripThickness(_abWidth)),
                     );
                   }
 

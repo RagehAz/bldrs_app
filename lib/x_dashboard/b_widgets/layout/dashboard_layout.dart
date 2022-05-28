@@ -3,8 +3,6 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardLayout extends StatefulWidget {
@@ -26,11 +24,7 @@ class DashBoardLayout extends StatefulWidget {
   final bool scrollable;
   final bool scrollerIsOn;
   /// --------------------------------------------------------------------------
-  static double clearScreenHeight(BuildContext context) {
-    return Scale.superScreenHeight(context) -
-        Ratioz.stratosphere -
-        (2 * Ratioz.appBarMargin);
-  }
+
 
   @override
   State<DashBoardLayout> createState() => _DashBoardLayoutState();

@@ -14,7 +14,7 @@ class FooterButton extends StatelessWidget {
     @required this.onTap,
     @required this.verse,
     @required this.isOn,
-    @required this.tinyMode,
+    @required this.canTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,7 +23,7 @@ class FooterButton extends StatelessWidget {
   final Function onTap;
   final String verse;
   final bool isOn;
-  final bool tinyMode;
+  final bool canTap;
   /// --------------------------------------------------------------------------
   static double buttonMargin({
     @required BuildContext context,
@@ -83,13 +83,13 @@ class FooterButton extends StatelessWidget {
     final double _saveBTRadius = buttonRadius(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
+      tinyMode: !canTap,
     );
 
     final double _buttonSize = buttonSize(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
+      tinyMode: !canTap,
     );
 
     final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
@@ -109,7 +109,7 @@ class FooterButton extends StatelessWidget {
             height: _buttonSize,
             corners: _saveBTRadius,
             color: FooterButton.buttonColor(buttonIsOn: isOn),
-            onTap: tinyMode == true ? null : onTap,
+            onTap: canTap == true ? onTap : null,
             childAlignment: Alignment.topCenter,
             splashColor: _splashColor,
             bubble: false,
@@ -128,7 +128,7 @@ class FooterButton extends StatelessWidget {
           ),
 
           /// verse
-          if (tinyMode == false)
+          if (FlyerBox.isTinyMode(context, flyerBoxWidth) == false)
             Positioned(
               bottom: flyerBoxWidth * 0.01,
               child: SuperVerse(

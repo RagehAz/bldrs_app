@@ -8,6 +8,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -81,6 +82,10 @@ class MainLayout extends StatelessWidget {
     width: 10,
     height: 10,
   );
+// -----------------------------------------------------------------------------
+  static double clearHeight(BuildContext context) {
+    return Scale.superScreenHeight(context) - Ratioz.stratosphere - (2 * Ratioz.appBarMargin);
+  }
 // -----------------------------------------------------------------------------
   static Color _mainLayoutBackGroundColor(SkyType skyType){
 
