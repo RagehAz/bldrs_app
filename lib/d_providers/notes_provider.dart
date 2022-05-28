@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:flutter/material.dart';
 
-// final NotiProvider _notiProvider = Provider.of<NotiProvider>(context, listen: false);
-class NotiProvider extends ChangeNotifier {
+// final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+class NotesProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
   /// NOTIFICATION IS ON
   bool _notiIsOn = false;
