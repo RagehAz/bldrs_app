@@ -138,6 +138,8 @@ Future<void> onInviteUserButtonTap({
       seenTime: null,
       sendFCM: true,
       noteType: NoteType.authorship,
+      response: null,
+      responseTime: null,
     );
 
     await NoteFireOps.createNote(

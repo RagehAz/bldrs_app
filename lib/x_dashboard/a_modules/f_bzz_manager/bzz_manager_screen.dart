@@ -92,7 +92,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
       context: context,
       collName: FireColl.bzz,
-      orderBy: 'id',
+      orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
       limit: 100,
       startAfter: _lastSnapshot,
       addDocSnapshotToEachMap: true,

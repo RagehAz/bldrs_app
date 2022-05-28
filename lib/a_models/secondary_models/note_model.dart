@@ -37,6 +37,8 @@ class NoteModel {
     @required this.seenTime,
     @required this.sendFCM,
     @required this.noteType,
+    @required this.response,
+    @required this.responseTime,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -52,6 +54,8 @@ class NoteModel {
   final DateTime seenTime;
   final bool sendFCM;
   final NoteType noteType;
+  final String response;
+  final DateTime responseTime;
 // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -86,21 +90,25 @@ class NoteModel {
     DateTime seenTime,
     bool sendFCM,
     NoteType noteType,
+    dynamic response,
+    DateTime responseTime,
 }){
     return NoteModel(
-        id: id ?? this.id,
-        senderID: senderID ?? this.senderID,
-        receiverID: receiverID ?? this.receiverID,
-        title: title ?? this.title,
-        body: body ?? this.body,
-        metaData: metaData ?? this.metaData,
-        sentTime: sentTime ?? this.sentTime,
-        attachment: attachment ?? this.attachment,
-        attachmentType: attachmentType ?? this.attachmentType,
-        seen: seen ?? this.seen,
-        seenTime: seenTime ?? this.seenTime,
-        sendFCM: sendFCM ?? this.sendFCM,
-        noteType: noteType ?? this.noteType,
+      id: id ?? this.id,
+      senderID: senderID ?? this.senderID,
+      receiverID: receiverID ?? this.receiverID,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      metaData: metaData ?? this.metaData,
+      sentTime: sentTime ?? this.sentTime,
+      attachment: attachment ?? this.attachment,
+      attachmentType: attachmentType ?? this.attachmentType,
+      seen: seen ?? this.seen,
+      seenTime: seenTime ?? this.seenTime,
+      sendFCM: sendFCM ?? this.sendFCM,
+      noteType: noteType ?? this.noteType,
+      response: response ?? this.response,
+      responseTime: responseTime ?? this.responseTime,
     );
 }
 // -----------------------------------------------------------------------------
@@ -124,6 +132,8 @@ class NoteModel {
       'seenTime': Timers.cipherTime(time: seenTime, toJSON: toJSON),
       'sendFCM': sendFCM,
       'noteType': cipherNoteType(noteType),
+      'response': response,
+      'responseTime': Timers.cipherTime(time: responseTime, toJSON: toJSON),
     };
   }
 // -------------------------------------
@@ -155,21 +165,26 @@ class NoteModel {
         body: map['notification']['notification']['body'],
         metaData: map['notification']['data'],
         sentTime: Timers.decipherTime(
-            time: map['sentTime'],
-            fromJSON: fromJSON,
+          time: map['sentTime'],
+          fromJSON: fromJSON,
         ),
         attachment: decipherNoteAttachment(
-            attachmentType: _attachmentType,
-            attachment: map['attachment'],
+          attachmentType: _attachmentType,
+          attachment: map['attachment'],
         ),
         attachmentType: _attachmentType,
         seen: map['seen'],
         seenTime: Timers.decipherTime(
-            time: map['seenTime'],
-            fromJSON: fromJSON,
+          time: map['seenTime'],
+          fromJSON: fromJSON,
         ),
         sendFCM: map['sendFCM'],
         noteType: decipherNoteType(map['noteType']),
+        response: map['response'],
+        responseTime: Timers.decipherTime(
+          time: map['responseTime'],
+          fromJSON: fromJSON,
+        ),
       );
     }
 

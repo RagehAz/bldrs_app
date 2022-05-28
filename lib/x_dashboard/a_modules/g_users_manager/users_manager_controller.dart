@@ -34,7 +34,7 @@ Future<void> readMoreUsers({
   final List<dynamic> _maps = await Fire.readCollectionDocs(
     context: context,
     collName: FireColl.users,
-    orderBy: 'id',
+    orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
     limit: 10,
     startAfter: lastSnapshot?.value,
     addDocSnapshotToEachMap: true,

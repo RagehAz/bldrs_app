@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -45,11 +46,22 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         : blog('LOADING COMPLETE--------------------------------------');
   }
 
+  Stream<List<NoteModel>> _sentNotesStream;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     // _notifications.addAll(BldrsNotiModelz.allNotifications());
     super.initState();
+
+    _sentNotesStream = getSentNoteModelsStream(
+      context: context,
+      senderID: superUserID(),
+      limit: 20,
+      // startAfter: null,
+      // finders: null,
+      // orderBy: null
+    );
+
   }
 
 // -----------------------------------------------------------------------------
@@ -165,9 +177,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           //
           //     :
 
-          notiStreamBuilder(
+          noteStreamBuilder(
               context: context,
-              userID: FireAuthOps.superUserID(),
+              stream: _sentNotesStream,
               builder: (BuildContext ctx, List<NoteModel> notiModels) {
                 blog('the shit is : notiModels : $notiModels');
 

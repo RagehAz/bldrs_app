@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 class NotesProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
+
+  /// USER NOTES
+
+// -------------------------------------
   /// NOTIFICATION IS ON
   bool _notiIsOn = false;
 // -------------------------------------
@@ -27,14 +31,12 @@ class NotesProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// UNREAD NOTIFICATIONS
+  /// UNREAD NOTES
 
 // -------------------------------------
-  List<NoteModel> _unreadNotifications;
+  List<NoteModel> _unseenUserNotes = <NoteModel>[];
 // -------------------------------------
-  List<NoteModel> get unreadNotifications {
-    return [..._unreadNotifications];
-  }
+  List<NoteModel> get unreadNotifications => _unseenUserNotes;
 // -------------------------------------
   void getSetNotiModels({
   @required bool notify,
@@ -42,14 +44,26 @@ class NotesProvider extends ChangeNotifier {
     /// TASK : get notifications
     /// TASK : set notifications
 
-    _unreadNotifications = [];
+    _unseenUserNotes = [];
     if (notify == true){
       notifyListeners();
     }
   }
 // -----------------------------------------------------------------------------
 
-  /*
+  /// BZZ NOTES
+
+// -------------------------------------
+
+  /// P
+
+  List<NoteModel> _unseenBzzNotes = <NoteModel>[];
+  List<NoteModel> get unseenBzzNotes => _unseenBzzNotes;
+// -------------------------------------
+
+}
+
+/*
 
   //   NotiModel _noti;
   bool _notiIsOn = false;
@@ -74,5 +88,3 @@ Future<void> receiveAndActUponNoti({dynamic msgMap, NotiType notiType}) async {
 
 
    */
-
-}
