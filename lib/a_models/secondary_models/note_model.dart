@@ -352,5 +352,24 @@ static List<String> getReceiversIDs({
     return _output;
 }
 // -------------------------------------
+static NoteModel getFirstNoteByRecieverID({
+  @required List<NoteModel> notes,
+  @required String receiverID,
+}){
+
+    NoteModel _output;
+
+    if (Mapper.canLoopList(notes) == true && receiverID != null){
+
+      _output = notes.firstWhere(
+              (note) => note.receiverID == receiverID,
+          orElse: ()=> null
+      );
+
+    }
+
+    return _output;
+}
+// -------------------------------------
 }
 // -----------------------------------------------------------------------------

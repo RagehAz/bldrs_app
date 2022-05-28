@@ -20,7 +20,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/c_controllers/notifications_controllers/local_notification_controller.dart' as LocalNotificationService;
 import 'package:bldrs/c_controllers/notifications_controllers/notes_controller.dart' as NotiOps;
-import 'package:bldrs/f_helpers/notifications/noti_provider.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
@@ -189,8 +189,8 @@ class _BldrsAppState extends State<BldrsApp> {
           ChangeNotifierProvider<GeneralProvider>(
             create: (BuildContext ctx) => GeneralProvider(),
           ),
-          ChangeNotifierProvider<NotiProvider>(
-            create: (BuildContext ctx) => NotiProvider(),
+          ChangeNotifierProvider<NotesProvider>(
+            create: (BuildContext ctx) => NotesProvider(),
           ),
           ChangeNotifierProvider<UsersProvider>(
             create: (BuildContext ctx) => UsersProvider(),

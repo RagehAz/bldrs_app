@@ -10,10 +10,10 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 class UserTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserTileButton({
+    @required this.boxWidth,
     @required this.userModel,
-    this.boxWidth,
-    this.inviteButtonIsOn = false,
-    this.onInviteTap,
+    this.sideButton,
+    this.onSideButtonTap,
     this.onUserTap,
     this.bubble = true,
     this.color,
@@ -22,9 +22,9 @@ class UserTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final UserModel userModel;
   final double boxWidth;
-  final bool inviteButtonIsOn;
+  final String sideButton;
   final Function onUserTap;
-  final Function onInviteTap;
+  final Function onSideButtonTap;
   final bool bubble;
   final Color color;
   /// --------------------------------------------------------------------------
@@ -43,20 +43,21 @@ class UserTileButton extends StatelessWidget {
   static double getUserButtonWidth({
     @required BuildContext context,
     @required bool inviteButtonIsOn,
-    @required double boxWidthOverride,
+    @required double boxWidth,
   }){
 
     double _width;
+
     final double _boxWidth = getBoxWidth(
       context: context,
-      boxWidthOverride: boxWidthOverride,
+      boxWidthOverride: boxWidth,
     );
 
     if (inviteButtonIsOn == true){
-      _width = _boxWidth - (boxPadding * 3) - inviteButtonWidth;
+      _width = _boxWidth - boxPadding - inviteButtonWidth;
     }
     else {
-      _width = _boxWidth - (boxPadding * 2);
+      _width = _boxWidth;
 
     }
 
@@ -66,23 +67,17 @@ class UserTileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _boxWidth = getBoxWidth(
-        context: context,
-        boxWidthOverride: boxWidth,
-    );
-
     final double _userButtonWidth = getUserButtonWidth(
         context: context,
-        inviteButtonIsOn: inviteButtonIsOn,
-        boxWidthOverride: boxWidth,
+        inviteButtonIsOn: sideButton.isNotEmpty,
+        boxWidth: boxWidth,
     );
 
-    return Container(
-      width: _boxWidth,
+    return SizedBox(
+      width: boxWidth,
       height: boxHeight,
-      padding: Scale.superMargins(margins: boxPadding),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
           DreamBox(
@@ -99,14 +94,17 @@ class UserTileButton extends StatelessWidget {
             onTap: onUserTap,
           ),
 
-          if (inviteButtonIsOn == true)
+          if (sideButton.isNotEmpty)
+            const SizedBox(width: boxPadding,),
+
+            if (sideButton.isNotEmpty)
           DreamBox(
             width: inviteButtonWidth,
             height: buttonHeight,
-            verse: superPhrase(context, 'phid_invite'),
+            verse: sideButton,
             verseScaleFactor: 0.7,
             verseMaxLines: 2,
-            onTap: onInviteTap,
+            onTap: onSideButtonTap,
           ),
 
         ],

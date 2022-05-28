@@ -1,12 +1,14 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/invite_authors_controller.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/author_invitations_controller.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -119,18 +121,20 @@ class AddAuthorScreenView extends StatelessWidget {
                                 height: Scale.superScreenHeight(context),
                                 child: ListView.builder(
                                   itemCount: _users.length,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (_, index){
 
                                     final UserModel _user = _users[index];
 
                                     return UserTileButton(
+                                      boxWidth: BldrsAppBar.width(context),
                                       userModel: _user,
-                                      inviteButtonIsOn: true,
+                                      sideButton: superPhrase(context, 'phid_invite'),
                                       onUserTap: () => onShowUserDialog(
                                         context: context,
                                         userModel: _user,
                                       ),
-                                      onInviteTap: () => onInviteUserButtonTap(
+                                      onSideButtonTap: () => onInviteUserButtonTap(
                                         context: context,
                                         selectedUser: _user,
                                         bzModel: bzModel,
