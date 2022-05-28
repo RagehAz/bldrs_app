@@ -46,6 +46,7 @@ class MainLayout extends StatelessWidget {
     this.sectionButtonIsOn = true,
     this.zoneButtonIsOn = true,
     this.searchHint,
+    this.loading,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -69,6 +70,7 @@ class MainLayout extends StatelessWidget {
   final bool sectionButtonIsOn;
   final bool zoneButtonIsOn;
   final String searchHint;
+  final ValueNotifier<bool> loading;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -134,7 +136,7 @@ class MainLayout extends StatelessWidget {
       appBarRowWidgets: appBarRowWidgets,
       pageTitle: pageTitle,
       onBack: () => _onBack(context),
-      // loading: loading,
+      loading: loading,
       appBarScrollController: appBarScrollController,
       sectionButtonIsOn: sectionButtonIsOn,
       zoneButtonIsOn: zoneButtonIsOn,

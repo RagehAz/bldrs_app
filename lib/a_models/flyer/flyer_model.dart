@@ -14,14 +14,17 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 /// ---------------------
-enum FlyerState{
-  published,
+enum PublishState{
   draft,
-  deleted,
+  published,
   unpublished,
-  banned,
+  deleted,
+}
+
+enum AuditState{
   verified,
   suspended,
+  banned,
 }
 /// ---------------------
 class FlyerModel {
@@ -32,6 +35,8 @@ class FlyerModel {
     @required this.trigram,
     // -------------------------
     @required this.flyerType,
+    @required this.publishState,
+    @required this.auditState,
     @required this.keywordsIDs,
     @required this.zone,
     // -------------------------
@@ -42,14 +47,12 @@ class FlyerModel {
     // -------------------------
     @required this.slides,
     // -------------------------
-    @required this.isBanned,
     @required this.specs,
     @required this.info,
     @required this.times,
     @required this.priceTagIsOn,
     // -------------------------
-    this.flyerState = FlyerState.draft,
-    this.showsAuthor = false,
+    @required this.showsAuthor,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -58,7 +61,8 @@ class FlyerModel {
   final List<String> trigram;
   // -------------------------
   final FlyerTypeClass.FlyerType flyerType;
-  final FlyerState flyerState;
+  final PublishState publishState;
+  final AuditState auditState;
   final List<String> keywordsIDs;
   final bool showsAuthor;
   final ZoneModel zone;
@@ -70,7 +74,6 @@ class FlyerModel {
   // -------------------------
   final List<SlideModel> slides; // TASK : only 10 max slides per flyer
   // -------------------------
-  final bool isBanned;
   final List<SpecModel> specs;
   final String info;
   final List<PublishTime> times;
@@ -91,7 +94,8 @@ class FlyerModel {
       'trigram' : TextGen.createTrigram(input: slides[0].headline), //trigram,
       // -------------------------
       'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
-      'flyerState' : cipherFlyerState(flyerState),
+      'publishState' : cipherPublishState(publishState),
+      'auditState' : cipherAuditState(auditState),
       'keywordsIDs' : keywordsIDs,
       'showsAuthor' : showsAuthor,
       'zone' : zone.toMap(),
@@ -103,7 +107,6 @@ class FlyerModel {
       // -------------------------
       'slides' : SlideModel.cipherSlides(slides),
       // -------------------------
-      'isBanned' : isBanned,
       'specs' : SpecModel.cipherSpecs(specs),
       'info' : info,
       'priceTagIsOn' : priceTagIsOn,
@@ -146,7 +149,8 @@ class FlyerModel {
         trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
         // -------------------------
         flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
-        flyerState: FlyerModel.decipherFlyerState(map['flyerState']),
+        publishState: decipherFlyerState(map['publishState']),
+        auditState: decipherAuditState(map['auditState']),
         keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZoneMap(map['zone']),
@@ -158,7 +162,6 @@ class FlyerModel {
         // -------------------------
         slides: SlideModel.decipherSlides(map['slides']),
         // -------------------------
-        isBanned: map['isBanned'],
         specs: SpecModel.decipherSpecs(map['specs']),
         info: map['info'],
         priceTagIsOn: map['priceTagIsOn'],
@@ -198,7 +201,8 @@ class FlyerModel {
     String title,
     List<String> trigram,
     FlyerTypeClass.FlyerType flyerType,
-    FlyerState flyerState,
+    PublishState publishState,
+    AuditState auditState,
     List<String> keywordsIDs,
     bool showsAuthor,
     ZoneModel zone,
@@ -213,32 +217,14 @@ class FlyerModel {
     bool priceTagIsOn,
     DocumentSnapshot docSnapshot,
   }){
-    // return FlyerModel(
-    //   id: id,
-    //   title: title,
-    //   trigram: Mapper.cloneListOfStrings(trigram),
-    //   flyerType: flyerType,
-    //   flyerState: flyerState,
-    //   keywordsIDs: Mapper.cloneListOfStrings(keywordsIDs),
-    //   showsAuthor: showsAuthor,
-    //   zone: zone,
-    //   authorID: authorID,
-    //   bzID: bzID,
-    //   position: position,
-    //   slides: SlideModel.cloneSlides(slides),
-    //   isBanned: isBanned,
-    //   specs: SpecModel.cloneSpecs(specs),
-    //   info: info,
-    //   priceTagIsOn: priceTagIsOn,
-    //   times: PublishTime.cloneTimes(times),
-    // );
 
     return FlyerModel(
       id: id ?? this.id,
       title: title ?? this.title,
       trigram: trigram ?? this.trigram,
       flyerType: flyerType ?? this.flyerType,
-      flyerState: flyerState ?? this.flyerState,
+      publishState: publishState ?? this.publishState,
+      auditState: auditState ?? this.auditState,
       keywordsIDs: keywordsIDs ?? this.keywordsIDs,
       showsAuthor: showsAuthor ?? this.showsAuthor,
       zone: zone ?? this.zone,
@@ -246,13 +232,13 @@ class FlyerModel {
       bzID: bzID ?? this.bzID,
       position: position ?? this.position,
       slides: slides ?? this.slides,
-      isBanned: isBanned ?? this.isBanned,
       specs: specs ?? this.specs,
       info: info ?? this.info,
       times: times ?? this.times,
       priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
       docSnapshot: docSnapshot ?? this.docSnapshot,
     );
+
   }
 // -----------------------------------------------------------------------------
 
@@ -302,61 +288,89 @@ class FlyerModel {
   }
 // -----------------------------------------------------------------------------
 
-  /// FLYER STATE
+  /// PUBLISH STATE CYPHERS
 
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
-  static String cipherFlyerState (FlyerState x){
+  static String cipherPublishState (PublishState x){
     switch (x){
-      case FlyerState.published     :     return  'published'   ;  break;
-      case FlyerState.draft         :     return  'draft'       ;  break;
-      case FlyerState.deleted       :     return  'deleted'     ;  break;
-      case FlyerState.unpublished   :     return  'unpublished' ;  break;
-      case FlyerState.banned        :     return  'banned'      ;  break;
-      case FlyerState.verified      :     return  'verified'    ;  break;
-      case FlyerState.suspended     :     return  'suspended'   ;  break;
+      case PublishState.draft         :     return  'draft'       ;  break;
+      case PublishState.published     :     return  'published'   ;  break;
+      case PublishState.unpublished   :     return  'unpublished' ;  break;
+      case PublishState.deleted       :     return  'deleted'     ;  break;
       default : return null;
     }
   }
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
-  static FlyerState decipherFlyerState (String x){
+  static PublishState decipherFlyerState (String x){
     switch (x){
-      case 'published'   :   return  FlyerState.published;     break;  // 1
-      case 'draft'       :   return  FlyerState.draft;         break;  // 2
-      case 'deleted'     :   return  FlyerState.deleted;       break;  // 3
-      case 'unpublished' :   return  FlyerState.unpublished;   break;  // 4
-      case 'banned'      :   return  FlyerState.banned;        break;  // 5
-      case 'verified'    :   return  FlyerState.verified;      break;  // 6
-      case 'suspended'   :   return  FlyerState.suspended;     break;  // 7
+      case 'draft'       :   return  PublishState.draft;         break;
+      case 'published'   :   return  PublishState.published;     break;
+      case 'unpublished' :   return  PublishState.unpublished;   break;
+      case 'deleted'     :   return  PublishState.deleted;       break;
       default : return   null;
     }
   }
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
-  static const List<FlyerState> flyerStatesList = <FlyerState>[
-    FlyerState.published,
-    FlyerState.draft,
-    FlyerState.deleted,
-    FlyerState.unpublished,
-    FlyerState.banned,
-    FlyerState.verified,
-    FlyerState.suspended,
+  static const List<PublishState> publishStates = <PublishState>[
+    PublishState.draft,
+    PublishState.published,
+    PublishState.unpublished,
+    PublishState.deleted,
   ];
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
-  static String translateFlyerState({
+  static String translatePublishState({
     @required BuildContext context,
-    @required FlyerState state,
-}){
+    @required PublishState state,
+  }){
     switch (state){
-      case FlyerState.published     :     return  superPhrase(context, 'phid_published')          ;  break;
-      case FlyerState.draft         :     return  superPhrase(context, 'phid_draft_flyer')        ;  break;
-      case FlyerState.deleted       :     return  superPhrase(context, 'phid_deleted_flyer')      ;  break;
-      case FlyerState.unpublished   :     return  superPhrase(context, 'phid_unpublished_flyer')  ;  break;
-      case FlyerState.banned        :     return  superPhrase(context, 'phid_banned_flyer')       ;  break;
-      case FlyerState.verified      :     return  superPhrase(context, 'phid_verified_flyer')     ;  break;
-      case FlyerState.suspended     :     return  superPhrase(context, 'phid_suspended_flyer')    ;  break;
+      case PublishState.published     :     return  superPhrase(context, 'phid_published')          ;  break;
+      case PublishState.draft         :     return  superPhrase(context, 'phid_draft_flyer')        ;  break;
+      case PublishState.deleted       :     return  superPhrase(context, 'phid_deleted_flyer')      ;  break;
+      case PublishState.unpublished   :     return  superPhrase(context, 'phid_unpublished_flyer')  ;  break;
+      default : return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// AUDIT STATE CYPHERS
+
+// ------------------------------------------
+  static String cipherAuditState(AuditState auditState){
+    switch(auditState){
+      case AuditState.verified:     return 'verified';    break;
+      case AuditState.suspended:    return 'suspended';   break;
+      case AuditState.banned:       return 'banned';      break;
+      default: return null;
+    }
+  }
+// ------------------------------------------
+  static AuditState decipherAuditState(String state){
+    switch(state){
+      case 'verified':  return AuditState.verified;   break;
+      case 'suspended': return AuditState.suspended;  break;
+      case 'banned':    return AuditState.banned;     break;
+      default: return null;
+    }
+  }
+// ------------------------------------------
+  static const List<AuditState> auditStates = <AuditState>[
+    AuditState.verified,
+    AuditState.suspended,
+    AuditState.banned,
+  ];
+// ------------------------------------------
+  static String translateAuditState({
+    @required BuildContext context,
+    @required AuditState state,
+  }){
+    switch (state){
+      case AuditState.verified      :     return  superPhrase(context, 'phid_verified_flyer')     ;  break;
+      case AuditState.suspended     :     return  superPhrase(context, 'phid_suspended_flyer')    ;  break;
+      case AuditState.banned        :     return  superPhrase(context, 'phid_banned_flyer')       ;  break;
       default : return null;
     }
   }
@@ -378,14 +392,14 @@ class FlyerModel {
     blog('title : $title');
     blog('trigram : $trigram');
     blog('flyerType : $flyerType');
-    blog('flyerState : $flyerState');
+    blog('publishState : $publishState');
+    blog('auditState : $auditState');
     blog('keywordsIDs : $keywordsIDs');
     blog('showsAuthor : $showsAuthor');
     blog('zone : $zone');
     blog('authorID : $authorID');
     blog('bzID : $bzID');
     blog('position : $position');
-    blog('isBanned : $isBanned');
     blog('specs : $specs');
     blog('info : $info');
     blog('times : $times');
@@ -425,7 +439,8 @@ class FlyerModel {
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
       authorID: superUserID(),
       flyerType : FlyerTypeClass.FlyerType.property,
-      flyerState : FlyerState.published,
+      publishState : PublishState.published,
+      auditState: AuditState.verified,
       keywordsIDs : <String>[],
       showsAuthor : true,
       bzID: 'br1',
@@ -433,11 +448,10 @@ class FlyerModel {
       slides : <SlideModel>[
         SlideModel.dummySlide(),
       ],
-      isBanned : false,
       specs : <SpecModel>[],
       info : 'Nothing just dummmy',
       times : <PublishTime>[
-        PublishTime(state: FlyerState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
+        PublishTime(state: PublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
       priceTagIsOn : true,
       zone: ZoneModel.dummyZone(),

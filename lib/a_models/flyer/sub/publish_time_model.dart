@@ -10,7 +10,7 @@ class PublishTime {
     @required this.time,
   });
   /// --------------------------------------------------------------------------
-  final FlyerState state;
+  final PublishState state;
   final DateTime time;
 // -----------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ class PublishTime {
     @required bool toJSON,
   }) {
     return <String, dynamic>{
-      'state': FlyerModel.cipherFlyerState(state),
+      'state': FlyerModel.cipherPublishState(state),
       'time': Timers.cipherTime(time: time, toJSON: toJSON),
     };
   }
@@ -58,7 +58,7 @@ class PublishTime {
       for (final PublishTime time in times) {
         _outPut = Mapper.insertPairInMap(
           map: _outPut,
-          key: FlyerModel.cipherFlyerState(time.state),
+          key: FlyerModel.cipherPublishState(time.state),
           value: Timers.cipherTime(time: time.time, toJSON: toJSON),
         );
       }
@@ -79,7 +79,7 @@ class PublishTime {
 
       if (Mapper.canLoopList(_keys) && Mapper.canLoopList(_values)) {
         for (int i = 0; i < _keys.length; i++) {
-          final FlyerState _flyerStateString =
+          final PublishState _flyerStateString =
           FlyerModel.decipherFlyerState(_keys[i]);
           final DateTime _time =
           Timers.decipherTime(time: _values[i], fromJSON: fromJSON);
@@ -101,28 +101,20 @@ class PublishTime {
   /// CHECKERS
 
 // -------------------------------------
-  static bool flyerIsBanned(List<PublishTime> times) {
-    bool _flyerIsBanned = false;
+  /*
+  static bool flyerIsBanned(AuditState auditState) {
 
-    if (times != null) {
-      for (int i = 0; i < times.length; i++) {
-        final PublishTime _time = times[i];
-        if (_time.state == FlyerState.banned) {
-          _flyerIsBanned = true;
-          break;
-        }
-      }
-    }
+    return  auditState == AuditState.banned;
 
-    return _flyerIsBanned;
   }
+   */
 // -----------------------------------------------------------------------------
 
   /// GETTERS
 
 // -------------------------------------
   static PublishTime getPublishTimeFromTimes({
-    FlyerState state,
+    PublishState state,
     List<PublishTime> times,
   }) {
 

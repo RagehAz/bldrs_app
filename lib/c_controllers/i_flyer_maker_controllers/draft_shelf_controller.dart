@@ -157,10 +157,12 @@ Future<void> onAddNewSlides({
         );
 
         final List<MutableSlide> _combinedSlides = <MutableSlide>[... _newMutableSlides];
-        final DraftFlyerModel _newDraft = draftFlyer.value.replaceSlides(_combinedSlides,);
+
+        final DraftFlyerModel _newDraft = draftFlyer.value.copyWith(
+          mutableSlides: _combinedSlides,
+        );
 
         draftFlyer.value = _newDraft;
-        // setState(() {});
 
         await Future.delayed(Ratioz.duration150ms,() async {
           await Scrollers.scrollTo(

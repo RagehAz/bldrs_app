@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class BldrsAppBar extends StatelessWidget {
     this.onBack,
     this.pageTitle,
     this.appBarRowWidgets,
-    // this.loading = false,
+    this.loading,
     this.appBarScrollController,
     this.sectionButtonIsOn,
     this.searchController,
@@ -36,7 +38,7 @@ class BldrsAppBar extends StatelessWidget {
   final Function onBack;
   final String pageTitle;
   final List<Widget> appBarRowWidgets;
-  // final bool loading;
+  final ValueNotifier<bool> loading;
   final ScrollController appBarScrollController;
   final bool sectionButtonIsOn;
   final TextEditingController searchController;
@@ -219,7 +221,7 @@ class BldrsAppBar extends StatelessWidget {
             alignment: Aligners.superCenterAlignment(context),
             children: <Widget>[
 
-              /// --- APPBAR BLUR
+              /// BLUR
               BlurLayer(
                 width: _abWidth,
                 height: _abHeight,
@@ -227,7 +229,7 @@ class BldrsAppBar extends StatelessWidget {
                     Radius.circular(Ratioz.appBarCorner)),
               ),
 
-              /// APP BAR CONTENTS
+              /// CONTENTS
               SizedBox(
                 width: _abWidth,
                 height: _abHeight,
@@ -337,6 +339,31 @@ class BldrsAppBar extends StatelessWidget {
 
                   ],
                 ),
+              ),
+
+              /// LOADING
+              if (loading != null)
+              ValueListenableBuilder(
+                valueListenable: loading,
+                builder: (_, bool isLoading, Widget child){
+
+                  if (isLoading == true){
+                    return StaticProgressBar(
+                      index: 0,
+                      numberOfSlides: 1,
+                      opacity: 1,
+                      swipeDirection: SwipeDirection.freeze,
+                      loading: isLoading,
+                      flyerBoxWidth: _abWidth,
+                      margins: EdgeInsets.zero,
+                    );
+                  }
+
+                  else {
+                    return const SizedBox();
+                  }
+
+                },
               ),
 
             ],
