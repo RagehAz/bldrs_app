@@ -11,7 +11,7 @@ import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/foundation/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -31,7 +31,7 @@ class ExoticMethods {
   static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
     @required BuildContext context,
     @required String collName,
-    String orderBy,
+    Fire.QueryOrderBy orderBy,
     bool addDocsIDs = false,
     int limit = 1000,
   }) async {
@@ -52,7 +52,7 @@ class ExoticMethods {
     @required String collName,
     @required String docName,
     @required String subCollName,
-    @required String orderBy,
+    @required Fire.QueryOrderBy orderBy,
   }) async {
 
     final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
@@ -86,7 +86,7 @@ class ExoticMethods {
       context: context,
       limit: limit ?? 100,
       collName: FireColl.users,
-      orderBy: 'id',
+      orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
     );
 
     _allUserModels = UserModel.decipherUsersMaps(
@@ -109,7 +109,7 @@ class ExoticMethods {
   return _allUserModels;
 }
 // -----------------------------------------------------------------------------
-  static Future<List<NoteModel>> readAllNotiModels({
+  static Future<List<NoteModel>> readAllNoteModels({
   @required BuildContext context,
   @required String userID,
 }) async {
@@ -124,7 +124,7 @@ class ExoticMethods {
     limit: 50,
 
     /// TASK : CHECK NOTI LIMIT WHILE READING THEM
-    orderBy: 'id',
+    orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
   );
 
   final List<NoteModel> _allModels = NoteModel.decipherNotesModels(
@@ -145,7 +145,7 @@ class ExoticMethods {
     context: context,
     limit: limit ?? 100,
     collName: FireColl.bzz,
-    orderBy: 'id',
+    orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
   );
 
   final List<BzModel> _allModels = BzModel.decipherBzz(
@@ -167,7 +167,7 @@ class ExoticMethods {
     limit: limit ?? 100,
     collName: FireColl.feedbacks,
     addDocsIDs: true,
-    orderBy: 'timeStamp',
+    orderBy: const Fire.QueryOrderBy(fieldName: 'timeStamp', descending: true),
   );
 
   final List<FeedbackModel> _allModels = FeedbackModel.decipherFeedbacks(_maps);
@@ -186,7 +186,7 @@ class ExoticMethods {
     context: context,
     limit: limit ?? 100,
     collName: FireColl.flyers,
-    orderBy: 'id',
+    orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
   );
 
   final List<FlyerModel> _allModels =
@@ -297,7 +297,7 @@ class ExoticMethods {
     docName: 'bigMac',
     subCollName: 'bigMacs',
     limit: 250,
-    orderBy: 'countryID',
+    orderBy: const Fire.QueryOrderBy(fieldName: 'countryID', descending: true),
   );
 
   final List<BigMac> _allBigMacs = BigMac.decipherBigMacs(_allMaps);
@@ -318,7 +318,7 @@ class ExoticMethods {
     limit: 1000,
     collName: collName,
     addDocsIDs: true,
-    orderBy: 'id',
+    orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
   );
 
   for (final Map<String, dynamic> map in _maps) {
@@ -524,7 +524,7 @@ class ExoticMethods {
       collName: FireColl.zones,
       docName: FireDoc.zones_countries,
       subCollName: FireSubColl.zones_countries_countries,
-      orderBy: 'id',
+      orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
     );
 
     final List<CountryModel> _countries = CountryModel.decipherCountriesMaps(
