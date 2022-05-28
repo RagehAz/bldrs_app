@@ -11,6 +11,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -61,7 +62,7 @@ Future<void> onSearchUsers({
     final List<UserModel> _users = await UserFireSearch.usersByUserName(
       context: context,
       name: _fixedText,
-      startAfter: foundUsers?.value?.last?.docSnapshot,
+      startAfter: canLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
     );
 
     foundUsers.value = _users;
@@ -148,6 +149,39 @@ Future<void> onInviteUserButtonTap({
       context: context,
       firstLine: 'Invitation Sent',
       secondLine: 'Account authorship invitation has been sent to ${selectedUser.name} successfully',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// CANCEL SENT INVITATION
+
+// -------------------------------
+Future<void> cancelSentAuthorshipInvitation ({
+  @required BuildContext context,
+  @required List<NoteModel> pendingNotes,
+  @required String receiverID,
+}) async {
+
+  final NoteModel _note = NoteModel.getFirstNoteByRecieverID(
+    notes: pendingNotes,
+    receiverID: receiverID,
+  );
+
+  if (_note != null){
+
+    await NoteFireOps.deleteNote(
+      context: context,
+      noteID: _note.id,
+    );
+
+    await TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Invitation request has been cancelled',
       color: Colorz.green255,
       textColor: Colorz.white255,
     );

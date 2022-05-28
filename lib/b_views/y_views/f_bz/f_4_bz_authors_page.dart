@@ -7,12 +7,13 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/author_card.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/invite_authors_controller.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/author_invitations_controller.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -87,7 +88,8 @@ class BzAuthorsPage extends StatefulWidget {
 
 class _BzAuthorsPageState extends State<BzAuthorsPage> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<List<UserModel>> _pendingRequests = ValueNotifier(null);
+  final ValueNotifier<List<UserModel>> _pendingRequestsUsers = ValueNotifier(null);
+  List<NoteModel> _pendingNotes = <NoteModel>[];
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -113,17 +115,17 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 
       _triggerLoading().then((_) async {
 
-        final List<NoteModel> _pendingSentRequests = await paginateAllSentNotes(
+        _pendingNotes = await NoteFireOps.paginatePendingSentAuthorshipNotes(
             context: context,
             senderID: superUserID(),
             limit: 10,
             startAfter: null,
         );
 
-        if (canLoopList(_pendingSentRequests) == true){
+        if (canLoopList(_pendingNotes) == true){
 
           final List<String> _usersIDs = NoteModel.getReceiversIDs(
-            notes: _pendingSentRequests,
+            notes: _pendingNotes,
           );
 
           final List<UserModel> _users = await UsersProvider.proGetUsersModels(
@@ -131,7 +133,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
             usersIDs: _usersIDs,
           );
 
-          _pendingRequests.value = _users;
+          _pendingRequestsUsers.value = _users;
 
         }
 
@@ -166,7 +168,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 
         /// PENDING REQUESTS
         ValueListenableBuilder(
-            valueListenable: _pendingRequests,
+            valueListenable: _pendingRequestsUsers,
             builder: (_, List<UserModel> usersModels, Widget child){
 
               if (canLoopList(usersModels) == false){
@@ -188,6 +190,12 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
                         userModel: _userModel,
                         color: Colorz.white10,
                         bubble: false,
+                        sideButton: 'Cancel',
+                        onSideButtonTap: () => cancelSentAuthorshipInvitation(
+                          context: context,
+                          receiverID: _userModel.id,
+                          pendingNotes: _pendingNotes,
+                        ),
                       );
 
                     }),
@@ -208,10 +216,10 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
             const BubblesSeparator(),
 
             DreamBox(
-              width: Scale.superScreenWidth(context) - 20,
+              width: BldrsAppBar.width(context),
               height: 80,
               bubble: false,
-              color: Colorz.white20,
+              color: Colorz.white10,
               verseCentered: false,
               verse: 'Add Authors to the team',
               icon: Iconz.plus,
