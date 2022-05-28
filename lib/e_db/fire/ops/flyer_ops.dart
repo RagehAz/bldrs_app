@@ -119,7 +119,7 @@ Future<FlyerModel> _createFlyerStorageImagesAndUpdateFlyer({
       final List<PublishTime> _updatedPublishTime = <PublishTime>[
         ...draftFlyer.times,
         PublishTime(
-          state: FlyerState.published,
+          state: PublishState.published,
           time: DateTime.now(),
         ),
       ];

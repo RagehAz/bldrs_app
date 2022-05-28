@@ -22,7 +22,8 @@ class DraftFlyerModel{
     @required this.id,
     @required this.title,
     @required this.flyerType,
-    @required this.flyerState,
+    @required this.publishState,
+    @required this.auditState,
     @required this.keywordsIDs,
     @required this.showsAuthor,
     @required this.zone,
@@ -30,7 +31,6 @@ class DraftFlyerModel{
     @required this.bzID,
     @required this.position,
     @required this.mutableSlides,
-    @required this.isBanned,
     @required this.specs,
     @required this.info,
     @required this.times,
@@ -41,7 +41,8 @@ class DraftFlyerModel{
   TextEditingController title;
   // -------------------------
   FlyerTypeClass.FlyerType flyerType;
-  FlyerState flyerState;
+  PublishState publishState;
+  AuditState auditState;
   List<String> keywordsIDs;
   bool showsAuthor;
   ZoneModel zone;
@@ -53,7 +54,6 @@ class DraftFlyerModel{
   // -------------------------
   List<MutableSlide> mutableSlides;
   // -------------------------
-  bool isBanned;
   List<SpecModel> specs;
   TextEditingController info;
   List<PublishTime> times;
@@ -67,7 +67,8 @@ class DraftFlyerModel{
     String id,
     TextEditingController title,
     FlyerTypeClass.FlyerType flyerType,
-    FlyerState flyerState,
+    PublishState publishState,
+    AuditState auditState,
     List<String> keywordsIDs,
     bool showsAuthor,
     ZoneModel zone,
@@ -75,7 +76,6 @@ class DraftFlyerModel{
     String bzID,
     GeoPoint position,
     List<MutableSlide> mutableSlides,
-    bool isBanned,
     List<SpecModel> specs,
     TextEditingController info,
     List<PublishTime> times,
@@ -84,7 +84,8 @@ class DraftFlyerModel{
     id: id ?? this.id,
     title: title ?? this.title,
     flyerType: flyerType ?? this.flyerType,
-    flyerState: flyerState ?? this.flyerState,
+    publishState: publishState ?? this.publishState,
+    auditState: auditState ?? this.auditState,
     keywordsIDs: keywordsIDs ?? this.keywordsIDs,
     showsAuthor: showsAuthor ?? this.showsAuthor,
     zone: zone ?? this.zone,
@@ -92,7 +93,6 @@ class DraftFlyerModel{
     bzID: bzID ?? this.bzID,
     position: position ?? this.position,
     mutableSlides: mutableSlides ?? this.mutableSlides,
-    isBanned: isBanned ?? this.isBanned,
     specs: specs ?? this.specs,
     info: info ?? this.info,
     times: times ?? this.times,
@@ -105,7 +105,8 @@ class DraftFlyerModel{
     title: title.text,
     trigram: createTrigram(input: title.text),
     flyerType: flyerType,
-    flyerState: flyerState,
+    publishState: publishState,
+    auditState: auditState,
     keywordsIDs: keywordsIDs,
     showsAuthor: showsAuthor,
     zone: zone,
@@ -113,7 +114,6 @@ class DraftFlyerModel{
     bzID: bzID,
     position: position,
     slides: SlideModel.getSlidesFromMutableSlides(mutableSlides),
-    isBanned: isBanned,
     specs: specs,
     info: info.text,
     times: times,
@@ -140,7 +140,8 @@ class DraftFlyerModel{
       id: createUniqueID().toString(),
       title: TextEditingController(),
       flyerType: _flyerType,
-      flyerState: FlyerState.draft,
+      publishState: PublishState.draft,
+      auditState: null,
       keywordsIDs: <String>[],
       showsAuthor: FlyerModel.canShowFlyerAuthor(
           bzModel: bzModel,
@@ -151,7 +152,6 @@ class DraftFlyerModel{
       bzID: bzModel.id,
       position: null,
       mutableSlides: <MutableSlide>[],
-      isBanned: false,
       specs: <SpecModel>[],
       info: TextEditingController(),
       times: <PublishTime>[],
@@ -171,7 +171,8 @@ class DraftFlyerModel{
         id: flyerModel.id,
         title: TextEditingController(text: flyerModel.title),
         flyerType: flyerModel.flyerType,
-        flyerState: flyerModel.flyerState,
+        publishState: flyerModel.publishState,
+        auditState: flyerModel.auditState,
         keywordsIDs: flyerModel.keywordsIDs,
         showsAuthor: flyerModel.showsAuthor,
         zone: flyerModel.zone,
@@ -181,7 +182,6 @@ class DraftFlyerModel{
         mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
             slides: flyerModel.slides
         ),
-        isBanned: flyerModel.isBanned,
         specs: flyerModel.specs,
         info: TextEditingController(text: flyerModel.info),
         times: flyerModel.times,
@@ -222,7 +222,7 @@ class DraftFlyerModel{
       context: context,
       time: publishTime?.time,
     );
-    final String _stateString = FlyerModel.translateFlyerState(
+    final String _stateString = FlyerModel.translatePublishState(
         context: context,
         state: publishTime?.state
     );
@@ -232,17 +232,19 @@ class DraftFlyerModel{
 // -------------------------------------
   static String generateShelfTitle({
     @required BuildContext context,
-    @required FlyerState flyerState,
+    @required PublishState publishState,
     @required List<PublishTime> times,
     @required int shelfNumber,
 }){
 
     final PublishTime _publishTime = PublishTime.getPublishTimeFromTimes(
-      state: FlyerState.banned,
+      state: publishState,
       times: times,
     );
 
-    final String _stateTimeString = _publishTime == null ? '' :
+    final String _stateTimeString = _publishTime == null ?
+    ''
+        :
     _generateStateTimeString(
       context: context,
       publishTime: _publishTime,
@@ -256,28 +258,7 @@ class DraftFlyerModel{
 
   /// MODIFIERS
 
-// -------------------------------------
-  DraftFlyerModel replaceSlides(List<MutableSlide> newSlides){
-    return
-        DraftFlyerModel(
-            id: id,
-            title: title,
-            flyerType: flyerType,
-            flyerState: flyerState,
-            keywordsIDs: keywordsIDs,
-            showsAuthor: showsAuthor,
-            zone: zone,
-            authorID: authorID,
-            bzID: bzID,
-            position: position,
-            mutableSlides: newSlides,
-            isBanned: isBanned,
-            specs: specs,
-            info: info,
-            times: times,
-            priceTagIsOn: priceTagIsOn,
-        );
-  }
+
 // -------------------------------------
   static DraftFlyerModel updateHeadline({
     @required TextEditingController controller,
@@ -332,7 +313,8 @@ class DraftFlyerModel{
     blog('id : $id');
     blog('title : $title');
     blog('flyerType : $flyerType');
-    blog('flyerState : $flyerState');
+    blog('publishState : $publishState');
+    blog('auditState : auditState');
     blog('keywordsIDs : $keywordsIDs');
     blog('showsAuthor : $showsAuthor');
     blog('zone : $zone');
@@ -340,7 +322,6 @@ class DraftFlyerModel{
     blog('bzID : $bzID');
     blog('position : $position');
     blog('mutableSlides : ${mutableSlides.length} slides');
-    blog('isBanned : $isBanned');
     blog('specs : $specs');
     blog('info : $info');
     blog('times : $times');

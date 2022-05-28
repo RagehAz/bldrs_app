@@ -95,8 +95,9 @@ class WaitDialog extends StatelessWidget {
               ),
             ),
 
-            const Pyramids(
+            Pyramids(
               pyramidsIcon: Iconz.pyramidzYellow,
+              loading: ValueNotifier(true),
             ),
 
           ],

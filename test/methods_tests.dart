@@ -291,12 +291,17 @@ void main() {
   });
 // -----------------------------------------------------------------------------
   test('sqlCipherPublishTimes and sqlDecipherPublishTimes', () {
+
     final PublishTime timeA = PublishTime(
-        state: FlyerState.suspended,
-        time: Timers.createDate(year: 1987, month: 06, day: 10));
+        state: PublishState.published,
+        time: Timers.createDate(year: 1987, month: 06, day: 10),
+    );
+
     final PublishTime timeB = PublishTime(
-        state: FlyerState.banned,
-        time: Timers.createDate(year: 2011, month: 02, day: 26));
+        state: PublishState.draft,
+        time: Timers.createDate(year: 2011, month: 02, day: 26)
+    );
+
     final List<PublishTime> _times = <PublishTime>[timeA, timeB];
 
     blog('2 : _times[0].timeStamp : ${_times[0].time}');
