@@ -124,7 +124,7 @@ Future<List<NoteModel>> paginateAllReceivedNotes({
 /// AUTHORSHIP NOTES PAGINATION
 
 // -----------------------------------
-Future<List<NoteModel>> paginateSentAuthorshipNotes({
+Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
   @required BuildContext context,
   @required String senderID,
   @required int limit,
@@ -153,6 +153,11 @@ Future<List<NoteModel>> paginateSentAuthorshipNotes({
           field: 'noteType',
           comparison: FireComparison.equalTo,
           value: NoteModel.cipherNoteType(NoteType.authorship),
+        ),
+        FireFinder(
+          field: 'seen',
+          comparison: FireComparison.equalTo,
+          value: false,
         ),
       ],
     );
@@ -331,3 +336,21 @@ Future<void> deleteAllSentNotes({
   }
 
 }
+// -----------------------------------
+Future<void> deleteNote({
+  @required BuildContext context,
+  @required String noteID,
+}) async {
+
+  if (noteID != null){
+
+    await Fire.deleteDoc(
+        context: context,
+        collName: FireColl.notes,
+        docName: noteID,
+    );
+
+  }
+
+}
+// -----------------------------------
