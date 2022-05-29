@@ -5,6 +5,8 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
@@ -14,6 +16,7 @@ import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -372,7 +375,7 @@ class FlyersProvider extends ChangeNotifier {
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZoneIDs(context);
 
     final FlyerModel _lastWallFlyer = Mapper.canLoopList(_wallFlyers) == true ?
-    _wallFlyers.first
+    _wallFlyers.last
         :
     null;
 
@@ -381,7 +384,10 @@ class FlyersProvider extends ChangeNotifier {
       countryID: _currentZone.countryID,
       cityID: _currentZone.cityID,
       // districtID: _currentZone.districtID,
-      // auditState: AuditState,
+      auditState: AuditState.verified,
+      publishState: PublishState.published,
+      specs: <String>[ChainsProvider.proGetHomeWallPhid(context)],
+      flyerType: ChainsProvider.proGetHomeWallFlyerType(context),
       limit: 6,
       startAfter: _lastWallFlyer?.docSnapshot,
     );

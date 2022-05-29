@@ -274,7 +274,6 @@ Future<List<FlyerModel>> paginateFlyers({
   bool priceTagIsOn,
   DocumentSnapshot<Object> startAfter,
   List<String> specs,
-  bool hideSuspendedFlyers = true,
 }) async {
 
   final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
@@ -286,12 +285,11 @@ Future<List<FlyerModel>> paginateFlyers({
     addDocSnapshotToEachMap: true,
     finders: <FireFinder>[
 
-      if (hideSuspendedFlyers == true)
-        FireFinder(
-          field: 'auditState',
-          comparison: FireComparison.notEqualTo,
-          value: FlyerModel.cipherAuditState(AuditState.suspended),
-        ),
+      FireFinder(
+        field: 'score',
+        comparison: FireComparison.greaterOrEqualThan,
+        value: 0,
+      ),
 
       if (flyerType != null)
         FireFinder(
@@ -356,7 +354,7 @@ Future<List<FlyerModel>> paginateFlyers({
           value: true,
         ),
 
-      if (Mapper.canLoopList(specs) == true)
+      if (Mapper.canLoopList(specs) == true && Mapper.listHasNullValue(specs) == false)
         FireFinder(
           field: 'specs',
           comparison: FireComparison.arrayContainsAny,

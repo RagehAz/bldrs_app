@@ -495,6 +495,19 @@ bool canLoopList(List<dynamic> list) {
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
+bool listHasNullValue(List<dynamic> list){
+  bool _hasNull = false;
+
+  if (canLoopList(list) == true){
+
+    _hasNull = list.contains(null);
+
+  }
+
+  return _hasNull;
+}
+// -------------------------------------
+/// TESTED : WORKS PERFECT
 bool mapsAreTheSame({
   Map<String, dynamic> map1,
   Map<String, dynamic> map2,

@@ -74,10 +74,10 @@ Future<void> onChangeHomeSection({
 
     final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
-    await _keywordsProvider.changeSection(
+    await _keywordsProvider.changeHomeWallFlyerType(
       context: context,
-      section: flyerType,
-      keywordID: phid,
+      flyerType: flyerType,
+      phid: phid,
       notify: true,
     );
 

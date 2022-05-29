@@ -3,11 +3,11 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_controller.dart';
-import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_fire_ops.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.dart';
 import 'package:flutter/material.dart';
 
@@ -40,18 +40,17 @@ class _AppControlsManagerState extends State<AppControlsManager> {
   @override
   void initState() {
     super.initState();
-    final AppControlsModel _initialModel = AppControlsModel(showOnlyVerifiedFlyersInHomeWall: false);
+    final AppControlsModel _initialModel = GeneralProvider.proGerAppControls(context);
     _appControls = ValueNotifier(_initialModel);
   }
 // -----------------------------------------------------------------------------
+  /*
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
       _triggerLoading().then((_) async {
-
-        _appControls.value = await AppControlsFireOps.readAppControls(context);
 
         await _triggerLoading();
       });
@@ -60,6 +59,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
     }
     super.didChangeDependencies();
   }
+   */
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
