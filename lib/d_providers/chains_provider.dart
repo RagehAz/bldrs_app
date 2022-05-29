@@ -83,7 +83,6 @@ class ChainsProvider extends ChangeNotifier {
       if (_keywordsChain != null){
         // blog('keywords chain is found in FIREBASE and inserted');
         await LDBOps.insertMap(
-            primaryKey: 'id',
             input: _keywordsChain.toMap(),
             docName: LDBDoc.keywordsChain,
         );
@@ -118,7 +117,6 @@ class ChainsProvider extends ChangeNotifier {
       if (_specsChain != null){
 
         await LDBOps.insertMap(
-          primaryKey: 'id',
           input: _specsChain.toMap(),
           docName: LDBDoc.specsChain,
         );

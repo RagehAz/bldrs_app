@@ -471,7 +471,6 @@ Future<void> _publishFlyerOps({
   blog('onPublish flyer : bz model updated on LDB');
 
   await LDBOps.insertMap(
-    primaryKey: 'id',
     docName: LDBDoc.flyers,
     input: _uploadedFlyer.toMap(toJSON: true),
   );

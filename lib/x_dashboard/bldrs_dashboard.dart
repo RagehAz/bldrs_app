@@ -18,6 +18,7 @@ import 'package:bldrs/x_dashboard/a_modules/j_statistics/statistics_screen.dart'
 import 'package:bldrs/x_dashboard/a_modules/m_ui_manager/ui_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/g_users_manager/users_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/e_zones_editor/zones_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_manager.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_manager.dart';
@@ -52,8 +53,6 @@ class BldrsDashBoard extends StatelessWidget {
 // -------------------------------------------------------
     final List<DashButtonModel> _buttons = <DashButtonModel>[
 
-      null,
-
       /// TEST LAB
       DashButtonModel(
           verse: 'Test Lab',
@@ -62,6 +61,14 @@ class BldrsDashBoard extends StatelessWidget {
       ),
 
       null,
+
+      /// TEST LAB
+      DashButtonModel(
+          verse: 'App Controls',
+          icon: Iconz.dashBoard,
+          screen: const AppControlsManager()
+      ),
+
 
       /// PHRASES EDITOR
       DashButtonModel(

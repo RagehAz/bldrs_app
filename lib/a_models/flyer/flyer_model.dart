@@ -25,7 +25,6 @@ enum PublishState{
 enum AuditState{
   verified,
   suspended,
-  banned,
 }
 /// ---------------------
 class FlyerModel {
@@ -54,6 +53,7 @@ class FlyerModel {
     @required this.priceTagIsOn,
     // -------------------------
     @required this.showsAuthor,
+    @required this.score,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -80,6 +80,7 @@ class FlyerModel {
   final List<PublishTime> times;
   final bool priceTagIsOn;
   final DocumentSnapshot docSnapshot;
+  final int score;
 // -----------------------------------------------------------------------------
 
   /// FLYER CYPHERS
@@ -112,6 +113,7 @@ class FlyerModel {
       'info' : info,
       'priceTagIsOn' : priceTagIsOn,
       'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
+      'score' : score,
     };
   }
 // ------------------------------------------
@@ -167,7 +169,7 @@ class FlyerModel {
         info: map['info'],
         priceTagIsOn: map['priceTagIsOn'],
         times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
-
+        score: map['score'],
         docSnapshot: map['docSnapshot'],
       );
 
@@ -217,6 +219,7 @@ class FlyerModel {
     List<PublishTime> times,
     bool priceTagIsOn,
     DocumentSnapshot docSnapshot,
+    int score,
   }){
 
     return FlyerModel(
@@ -238,6 +241,7 @@ class FlyerModel {
       times: times ?? this.times,
       priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
       docSnapshot: docSnapshot ?? this.docSnapshot,
+      score: score ?? this.score,
     );
 
   }
@@ -344,7 +348,6 @@ class FlyerModel {
     switch(auditState){
       case AuditState.verified:     return 'verified';    break;
       case AuditState.suspended:    return 'suspended';   break;
-      case AuditState.banned:       return 'banned';      break;
       default: return null;
     }
   }
@@ -353,7 +356,6 @@ class FlyerModel {
     switch(state){
       case 'verified':  return AuditState.verified;   break;
       case 'suspended': return AuditState.suspended;  break;
-      case 'banned':    return AuditState.banned;     break;
       default: return null;
     }
   }
@@ -361,7 +363,6 @@ class FlyerModel {
   static const List<AuditState> auditStates = <AuditState>[
     AuditState.verified,
     AuditState.suspended,
-    AuditState.banned,
   ];
 // ------------------------------------------
   static String translateAuditState({
@@ -371,7 +372,6 @@ class FlyerModel {
     switch (state){
       case AuditState.verified      :     return  superPhrase(context, 'phid_verified_flyer')     ;  break;
       case AuditState.suspended     :     return  superPhrase(context, 'phid_suspended_flyer')    ;  break;
-      case AuditState.banned        :     return  superPhrase(context, 'phid_banned_flyer')       ;  break;
       default : return null;
     }
   }
@@ -381,7 +381,9 @@ class FlyerModel {
 
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
-  void blogFlyer({@required String methodName}){
+  void blogFlyer({
+    @required String methodName,
+  }){
 
     if (methodName != null){
       blog(methodName);
@@ -405,6 +407,7 @@ class FlyerModel {
     blog('info : $info');
     blog('times : $times');
     blog('priceTagIsOn : $priceTagIsOn');
+    blog('score : $score');
     SlideModel.blogSlides(slides);
 
     blog('FLYER-PRINT --------------------------------------------------END');
@@ -456,6 +459,7 @@ class FlyerModel {
       ],
       priceTagIsOn : true,
       zone: ZoneModel.dummyZone(),
+      score: 0,
     );
   }
 // ------------------------------------------

@@ -67,7 +67,7 @@ class _AnonymousHomeScreenViewState extends State<AnonymousHomeScreenView> {
       return  FlyersGrid(
         gridWidth: Scale.superScreenWidth(context),
         gridHeight: Scale.superScreenHeight(context),
-        numberOfColumns: 2,
+        // numberOfColumns: 2,
         flyers: _wallFlyers,
         scrollController: _scrollController,
         heroTag: 'anonymous_home_screen',

@@ -1,12 +1,13 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
@@ -261,61 +262,112 @@ Future<List<ReviewModel>> readAllReviews({
 // -----------------------------------
 Future<List<FlyerModel>> paginateFlyers({
   @required BuildContext context,
-  @required ZoneModel zone,
-  @required int limit,
-  // @required FlyerType flyerType,
-  // @required List<Keyword> keywords, or just one keyword
+  @required String countryID,
+  @required String cityID,
+  String districtID,
+  int limit,
+  FlyerTypeClass.FlyerType flyerType,
+  PublishState publishState,
+  AuditState auditState,
+  String authorID,
+  String bzID,
+  bool priceTagIsOn,
   DocumentSnapshot<Object> startAfter,
+  List<String> specs,
+  bool hideSuspendedFlyers = true,
 }) async {
 
-  final CollectionReference<Object> _collRef = Fire.getCollectionRef(FireColl.flyers);
-  QuerySnapshot<Object> _collectionSnapshot;
-
-  /// INITIAL QUERY
-  if (startAfter == null){
-
-    final Query _initialQuery = _collRef
-        .where('isBanned', isEqualTo: false)
-        .where('zone.countryID', isEqualTo: zone.countryID)
-        .where('zone.cityID', isEqualTo: zone.cityID)
-        // .where('zone.districtID', isEqualTo: zone.districtID)
-        // .where('keywordsIDs', arrayContains: keyword.id)
-        // .where('flyerType', isEqualTo: flyerType)
-        // .orderBy('score')
-        .orderBy('id', descending: true) /// temp until we fix the scoring system
-        .limit(limit);
-
-    _collectionSnapshot = await _initialQuery.get();
-
-  }
-
-  /// CONTINUE QUERY
-  else {
-
-    final Query _continueQuery = _collRef
-        .where('isBanned', isEqualTo: false)
-        .where('zone.countryID', isEqualTo: zone.countryID)
-        .where('zone.cityID', isEqualTo: zone.cityID)
-        // .where('zone.districtID', isEqualTo: zone.districtID)
-        // .where('keywordsIDs', arrayContains: keyword.id)
-        // .where('flyerType', isEqualTo: flyerType)
-        // .orderBy('score')
-        .orderBy('id', descending: true) /// temp until we fix the scoring system
-        .startAfterDocument(startAfter)
-        .limit(limit);
-
-    _collectionSnapshot = await _continueQuery.get();
-  }
-
-  final List<Map<String, dynamic>> _foundMaps = Mapper.getMapsFromQuerySnapshot(
-    querySnapshot: _collectionSnapshot,
-    addDocsIDs: true,
+  final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+    context: context, 
+    collName: FireColl.flyers,
+    orderBy: const Fire.QueryOrderBy(fieldName: 'score', descending: true),
+    startAfter: startAfter,
+    limit: limit,
     addDocSnapshotToEachMap: true,
+    finders: <FireFinder>[
+
+      if (hideSuspendedFlyers == true)
+        FireFinder(
+          field: 'auditState',
+          comparison: FireComparison.notEqualTo,
+          value: FlyerModel.cipherAuditState(AuditState.suspended),
+        ),
+
+      if (flyerType != null)
+        FireFinder(
+          field: 'flyerType',
+          comparison: FireComparison.equalTo,
+          value: FlyerTypeClass.cipherFlyerType(flyerType),
+        ),
+
+      if (publishState != null)
+        FireFinder(
+          field: 'publishState',
+          comparison: FireComparison.equalTo,
+          value: FlyerModel.cipherPublishState(publishState),
+        ),
+
+      if (auditState != null)
+        FireFinder(
+            field: 'auditState',
+            comparison: FireComparison.equalTo,
+            value: FlyerModel.cipherAuditState(auditState),
+        ),
+
+      if (countryID != null)
+        FireFinder(
+          field: 'zone.countryID',
+          comparison: FireComparison.equalTo,
+          value: countryID,
+        ),
+
+      if (cityID != null)
+        FireFinder(
+          field: 'zone.cityID',
+          comparison: FireComparison.equalTo,
+          value: cityID,
+        ),
+
+      if (districtID != null)
+        FireFinder(
+          field: 'zone.districtID',
+          comparison: FireComparison.equalTo,
+          value: districtID,
+        ),
+
+      if (authorID != null)
+        FireFinder(
+          field: 'authorID',
+          comparison: FireComparison.equalTo,
+          value: authorID,
+        ),
+
+      if (bzID != null)
+        FireFinder(
+          field: 'bzID',
+          comparison: FireComparison.equalTo,
+          value: bzID,
+        ),
+
+      if (priceTagIsOn != null)
+        FireFinder(
+          field: 'priceTagIsOn',
+          comparison: FireComparison.equalTo,
+          value: true,
+        ),
+
+      if (Mapper.canLoopList(specs) == true)
+        FireFinder(
+          field: 'specs',
+          comparison: FireComparison.arrayContainsAny,
+          value: specs,
+        ),
+    ],
   );
 
   final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
-      maps: _foundMaps,
-      fromJSON: false,
+    maps: _maps,
+    fromJSON: false,
   );
 
   return _flyers;

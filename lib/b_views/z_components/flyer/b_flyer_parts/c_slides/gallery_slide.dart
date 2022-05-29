@@ -167,7 +167,7 @@ class _GallerySlideState extends State<GallerySlide> {
               gridHeight: widget.flyerBoxHeight,
               flyers: flyers,
               topPadding: _headerAndProgressHeights,
-              numberOfColumns: 2,
+              // numberOfColumns: 2,
               heroTag: widget.heroTag,
               scrollController: _scrollController,
             );

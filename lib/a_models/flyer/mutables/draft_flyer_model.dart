@@ -35,6 +35,7 @@ class DraftFlyerModel{
     @required this.info,
     @required this.times,
     @required this.priceTagIsOn,
+    @required this.score,
   });
   /// --------------------------------------------------------------------------
   String id;
@@ -58,6 +59,7 @@ class DraftFlyerModel{
   TextEditingController info;
   List<PublishTime> times;
   bool priceTagIsOn;
+  int score;
 // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -80,6 +82,7 @@ class DraftFlyerModel{
     TextEditingController info,
     List<PublishTime> times,
     bool priceTagIsOn,
+    int score,
   }) => DraftFlyerModel(
     id: id ?? this.id,
     title: title ?? this.title,
@@ -97,27 +100,30 @@ class DraftFlyerModel{
     info: info ?? this.info,
     times: times ?? this.times,
     priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
+    score: score ?? this.score,
   );
 // -------------------------------------
   FlyerModel toFlyerModel(){
     return FlyerModel(
-    id: id,
-    title: title.text,
-    trigram: createTrigram(input: title.text),
-    flyerType: flyerType,
-    publishState: publishState,
-    auditState: auditState,
-    keywordsIDs: keywordsIDs,
-    showsAuthor: showsAuthor,
-    zone: zone,
-    authorID: authorID,
-    bzID: bzID,
-    position: position,
-    slides: SlideModel.getSlidesFromMutableSlides(mutableSlides),
-    specs: specs,
-    info: info.text,
-    times: times,
-    priceTagIsOn: priceTagIsOn,
+      id: id,
+      title: title.text,
+      trigram: createTrigram(input: title.text),
+      flyerType: flyerType,
+      publishState: publishState,
+      auditState: auditState,
+      keywordsIDs: keywordsIDs,
+      showsAuthor: showsAuthor,
+      zone: zone,
+      authorID: authorID,
+      bzID: bzID,
+      position: position,
+      slides: SlideModel.getSlidesFromMutableSlides(mutableSlides),
+      specs: specs,
+      info: info.text,
+      times: times,
+      priceTagIsOn: priceTagIsOn,
+      score: score,
+
     );
   }
 // -------------------------------------
@@ -156,6 +162,7 @@ class DraftFlyerModel{
       info: TextEditingController(),
       times: <PublishTime>[],
       priceTagIsOn: false,
+      score: 0,
     );
 
     return _draft;
@@ -186,6 +193,7 @@ class DraftFlyerModel{
         info: TextEditingController(text: flyerModel.info),
         times: flyerModel.times,
         priceTagIsOn: flyerModel.priceTagIsOn,
+        score: flyerModel.score,
       );
 
     }

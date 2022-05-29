@@ -60,7 +60,6 @@ class UsersProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: _userModel.toMap(toJSON: true),
           docName: LDBDoc.users,
-          primaryKey: 'id',
         );
       }
     }
