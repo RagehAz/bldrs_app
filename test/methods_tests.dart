@@ -590,4 +590,34 @@ void main() {
 
   });
 // -----------------------------------------------------------------------------
+//listHasNullValue
+  test('list has null value', () {
+
+    final List<String> _list1 = <String>[
+      'wa7ed',
+      'etneen',
+      null,
+    ];
+
+    final List<String> _list2 = <String>[
+      null,
+      'etneen',
+      null,
+    ];
+
+    final List<String> _list3 = <String>[
+      'etneen',
+      'null',
+    ];
+
+    final bool _hasNull1 = Mapper.listHasNullValue(_list1);
+    final bool _hasNull2 = Mapper.listHasNullValue(_list2);
+    final bool _hasNull3 = Mapper.listHasNullValue(_list3);
+
+    expect(_hasNull1, true);
+    expect(_hasNull2, true);
+    expect(_hasNull3, false);
+
+  });
+
 }

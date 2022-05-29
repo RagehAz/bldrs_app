@@ -96,6 +96,7 @@ class AppState {
       'phrasesVersion' : phrasesVersion,
       'appVersion' : appVersion,
       'ldbVersion' : ldbVersion,
+      'appControlsVersion': appControlsVersion,
     };
   }
 // -----------------------------------------------------------------------------

@@ -279,22 +279,22 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// SELECTED SECTION
+  /// SELECTED HOME WALL FLYER TYPE
 
 // -------------------------------------
-  FlyerType _currentSection;
+  FlyerType _homeWallFlyerType;
 // -------------------------------------
-  FlyerType get currentSection {
-    return _currentSection ?? FlyerType.design;
+  FlyerType get homeWallFlyerType {
+    return _homeWallFlyerType ?? FlyerType.design;
   }
   // -------------------------------------
-  Future<void> changeSection({
+  Future<void> changeHomeWallFlyerType({
     @required BuildContext context,
-    @required FlyerType section,
-    @required String keywordID,
+    @required FlyerType flyerType,
+    @required String phid,
     @required bool notify,
   }) async {
-    blog('Changing section to $section');
+    blog('Changing section to $flyerType');
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
@@ -305,8 +305,8 @@ class ChainsProvider extends ChangeNotifier {
         context
     );
 
-    _currentSection = section;
-    _currentKeywordID = keywordID;
+    _homeWallFlyerType = flyerType;
+    _wallPhid = phid;
     // setSectionGroups();
 
     if (notify == true){
@@ -314,52 +314,62 @@ class ChainsProvider extends ChangeNotifier {
     }
   }
   // -------------------------------------
-  void _setCurrentSection({
-    @required FlyerType section,
+  void _setHomeWallFlyerType({
+    @required FlyerType flyerType,
     @required bool notify,
   }){
-    _currentSection = section;
+    _homeWallFlyerType = flyerType;
     if (notify == true){
       notifyListeners();
     }
   }
   // -------------------------------------
-  void clearCurrentSection({
+  void clearHomeWallFlyerType({
   @required bool notify,
 }){
-    _setCurrentSection(
-      section: null,
+    _setHomeWallFlyerType(
+      flyerType: null,
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
-
-  /// CURRENT KEYWORD
-
-// -------------------------------------
-  String _currentKeywordID;
-// -------------------------------------
-  String get currentKeywordID {
-    return _currentKeywordID;
+  // -------------------------------------
+  static FlyerType proGetHomeWallFlyerType(BuildContext context){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    return _chainsProvider.homeWallFlyerType;
   }
 // -----------------------------------------------------------------------------
-  void _setCurrentKeyword({
+
+  /// SELECTED HOME WALL PHRASE ID (PHID)
+
+// -------------------------------------
+  String _wallPhid;
+// -------------------------------------
+  String get wallPhid {
+    return _wallPhid;
+  }
+// -----------------------------------------------------------------------------
+  void _setWallPhid({
     @required String keywordID,
     @required bool notify,
   }){
-    _currentKeywordID = keywordID;
+    _wallPhid = keywordID;
     if (notify == true){
       notifyListeners();
     }
   }
 // -------------------------------------
-  void clearCurrentKeyword({
+  void clearWallPhid({
   @required bool notify,
 }){
-    _setCurrentKeyword(
+    _setWallPhid(
       keywordID: null,
       notify: notify,
     );
+  }
+// -------------------------------------
+  static String proGetHomeWallPhid(BuildContext context){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    return _chainsProvider.wallPhid;
   }
 // -----------------------------------------------------------------------------
 }
