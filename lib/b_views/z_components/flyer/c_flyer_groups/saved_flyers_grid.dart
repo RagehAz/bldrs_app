@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
@@ -63,6 +64,16 @@ class SavedFlyersGrid extends StatelessWidget {
           flyerID: _flyer.id,
         );
 
+        return FlyerSelectionStack(
+          flyerModel: _flyer,
+          flyerBoxWidth: _flyerBoxWidth,
+          heroTag: null,
+          onSelectFlyer: selectionMode == false ? null : () => onSelectFlyer(_flyer),
+          onFlyerOptionsTap: null, //onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
+          isSelected: _isSelected,
+        );
+
+        /*
         /// SELECTION MODE FLYER
         return selectionMode == true ?
         GestureDetector(
@@ -142,6 +153,8 @@ class SavedFlyersGrid extends StatelessWidget {
               gridZoneWidth: superScreenWidth(context)
           ),
         );
+         */
+
         },
     );
   }
