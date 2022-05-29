@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -60,9 +61,9 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         await readMoreUnVerifiedFlyers(
           context: context,
           flyers: _flyers,
+          loading: _loading,
         );
 
-        _loading.value = false;
       });
 
       _isInit = false;
@@ -411,6 +412,20 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       zoneButtonIsOn: false,
       loading: _loading,
       skyType: SkyType.black,
+      appBarRowWidgets: <Widget>[
+
+        const Expander(),
+
+        AppBarButton(
+          verse: 'load more',
+          onTap: () => readMoreUnVerifiedFlyers(
+            context: context,
+            flyers: _flyers,
+            loading: _loading,
+          ),
+        ),
+
+      ],
       layoutWidget: Stack(
         children: <Widget>[
 
@@ -429,6 +444,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                     onFlyerOptionsTap: (FlyerModel flyer) => onFlyerOptionsTap(
                       context: context,
                       flyerModel: flyer,
+                      flyers: _flyers,
                     ),
 
                   );

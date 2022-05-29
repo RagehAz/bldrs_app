@@ -24,7 +24,7 @@ class NavDialog extends StatelessWidget {
     @required String firstLine,
     String secondLine,
     Color color = Colorz.black255,
-    double seconds,
+    int seconds,
   }) {
 
     final Color _color = color ?? Colorz.darkRed255;
