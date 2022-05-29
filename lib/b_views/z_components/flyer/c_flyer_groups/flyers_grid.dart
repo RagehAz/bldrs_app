@@ -13,7 +13,7 @@ class FlyersGrid extends StatelessWidget {
     @required this.gridHeight,
     @required this.scrollController,
     this.topPadding = Ratioz.stratosphere,
-    this.numberOfColumns = 3,
+    this.numberOfColumns = 2,
     this.heroTag,
     this.authorMode = false,
     this.onFlyerOptionsTap,
@@ -152,72 +152,68 @@ class FlyersGrid extends StatelessWidget {
       gridSpacingValue: _gridSpacingValue,
     );
 // ----------------------------------------------------------
+/*
     final double _minWidthFactor =  getFlyerMinWidthFactor(
       gridFlyerWidth: _gridFlyerWidth,
       gridZoneWidth: _gridZoneWidth,
     );
+ */
 // ----------------------------------------------------------
     final int _numberOfItems = getNumberOfFlyers(
       flyers: flyers,
       addFlyerButtonIsOn: authorMode,
     );
 // ----------------------------------------------------------
-    return Stack(
+    return SizedBox(
       key: const ValueKey<String>('Stack_of_flyers_grid'),
-      children: <Widget>[
-
-        SizedBox(
-          width: _gridZoneWidth,
-          height: _gridZoneHeight,
-          child: GridView.builder(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              padding: _gridPadding,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                crossAxisSpacing: _gridSpacingValue,
-                mainAxisSpacing: _gridSpacingValue,
-                childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
-                maxCrossAxisExtent: _gridFlyerWidth,
-              ),
-              itemCount: _numberOfItems,
-              itemBuilder: (BuildContext ctx, int index){
-
-                /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
-                if (authorMode == true && index == 0){
-                  return AddFlyerButton(
-                    flyerBoxWidth: _gridFlyerWidth,
-                  );
-                }
-
-                /// OTHERWISE
-                else {
-
-                  final FlyerModel _flyer = authorMode == true ? flyers[index-1] : flyers[index];
-
-                  final bool _isSelected = FlyerModel.flyersContainThisID(
-                    flyers: selectedFlyers,
-                    flyerID: _flyer.id,
-                  );
-
-                  return FlyerSelectionStack(
-                    flyerModel: _flyer,
-                    flyerBoxWidth: _gridFlyerWidth,
-                    heroTag: heroTag,
-                    onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
-                    onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
-                    isSelected: _isSelected,
-                  );
-
-                }
-
-              }
-
-
+      width: _gridZoneWidth,
+      height: _gridZoneHeight,
+      child: GridView.builder(
+          controller: scrollController,
+          physics: const BouncingScrollPhysics(),
+          padding: _gridPadding,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            crossAxisSpacing: _gridSpacingValue,
+            mainAxisSpacing: _gridSpacingValue,
+            childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
+            maxCrossAxisExtent: _gridFlyerWidth,
           ),
+          itemCount: _numberOfItems,
+          itemBuilder: (BuildContext ctx, int index){
 
-        ),
+            /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
+            if (authorMode == true && index == 0){
+              return AddFlyerButton(
+                flyerBoxWidth: _gridFlyerWidth,
+              );
+            }
 
-      ],
+            /// OTHERWISE
+            else {
+
+              final FlyerModel _flyer = authorMode == true ? flyers[index-1] : flyers[index];
+
+              final bool _isSelected = FlyerModel.flyersContainThisID(
+                flyers: selectedFlyers,
+                flyerID: _flyer.id,
+              );
+
+              return FlyerSelectionStack(
+                flyerModel: _flyer,
+                flyerBoxWidth: _gridFlyerWidth,
+                heroTag: heroTag,
+                onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
+                onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
+                isSelected: _isSelected,
+              );
+
+            }
+
+          }
+
+
+      ),
+
     );
   }
 }

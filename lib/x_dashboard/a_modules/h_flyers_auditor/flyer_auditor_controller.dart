@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
@@ -22,25 +23,28 @@ import 'package:flutter/material.dart';
 Future<void> readMoreUnVerifiedFlyers({
   @required BuildContext context,
   @required ValueNotifier<List<FlyerModel>> flyers,
+  @required ValueNotifier<bool> loading,
 }) async {
+
+  loading.value = true;
 
   final List<dynamic> _maps = await Fire.readCollectionDocs(
     context: context,
     collName: FireColl.flyers,
     orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
-    limit: 5,
+    limit: 6,
     startAfter: canLoopList(flyers.value) == true ? flyers.value.last.docSnapshot : null,
     addDocSnapshotToEachMap: true,
     finders: <FireFinder>[
       FireFinder(
+        field: 'auditState',
+        comparison: FireComparison.nullValue,
+        value: true,
+      ),
+      FireFinder(
         field: 'publishState',
         comparison: FireComparison.equalTo,
         value: FlyerModel.cipherPublishState(PublishState.published),
-      ),
-      FireFinder(
-        field: 'auditState',
-        comparison: FireComparison.equalTo,
-        value: null,
       ),
     ],
   );
@@ -50,7 +54,18 @@ Future<void> readMoreUnVerifiedFlyers({
     fromJSON: false,
   );
 
-  flyers.value = <FlyerModel>[...flyers.value, ..._fetchedModels];
+  if (canLoopList(_fetchedModels) == true){
+    flyers.value = <FlyerModel>[...flyers.value, ..._fetchedModels];
+  }
+  else {
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'DONE !',
+      body: 'No more flyers need verification',
+    );
+  }
+
+  loading.value = false;
 
 }
 // -----------------------------------------------------------------------------
@@ -61,6 +76,7 @@ Future<void> readMoreUnVerifiedFlyers({
 Future<void> onFlyerOptionsTap({
   @required BuildContext context,
   @required FlyerModel flyerModel,
+  @required ValueNotifier<List<FlyerModel>> flyers,
 }) async {
 
   const double _dialogHeight = 120;
@@ -71,12 +87,13 @@ Future<void> onFlyerOptionsTap({
     titleIsOn: true,
   );
   final double _buttonHeight = _clearHeight - Ratioz.appBarMargin;
+  final String _shortTitle = flyerModel.getShortTitle();
 
   await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: _dialogHeight,
-      title: 'Audit Options',
+      title: 'Audit Flyer : $_shortTitle',
       child: Container(
         width: BottomDialog.clearWidth(context),
         height: _clearHeight,
@@ -106,8 +123,9 @@ Future<void> onFlyerOptionsTap({
               color: Colorz.green255,
               icon: Iconz.check,
               onTap: () => onVerifyFlyer(
-                  context: context,
-                  flyerModel: flyerModel,
+                context: context,
+                flyerModel: flyerModel,
+                flyers: flyers,
               ),
             ),
 
@@ -121,6 +139,7 @@ Future<void> onFlyerOptionsTap({
 Future<void> onVerifyFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
+  @required ValueNotifier<List<FlyerModel>> flyers,
 }) async {
 
   blog('currentFlyer : ${flyerModel?.slides?.length} slides');
@@ -136,16 +155,19 @@ Future<void> onVerifyFlyer({
       input: FlyerModel.cipherAuditState(AuditState.verified),
     );
 
-    // await _onRemoveFlyerFromStack(_currentFlyer);
+    _removeFlyerFromFlyers(
+      flyers: flyers,
+      flyerIDToRemove: flyerModel.id,
+    );
 
-    unawaited(
-        TopDialog.showTopDialog(
-          context: context,
-          firstLine: 'Done',
-          secondLine: 'flyer ${flyerModel.getShortTitle()}... got verified',
-          color: Colorz.green255,
-          textColor: Colorz.white255,
-        )
+    CenterDialog.closeCenterDialog(context);
+
+    NavDialog.showNavDialog(
+      context: context,
+      firstLine: 'Done',
+      secondLine: 'flyer ${flyerModel.getShortTitle()}... got verified',
+      color: Colorz.green255,
+      seconds: 1,
     );
 
   }
@@ -159,6 +181,20 @@ Future<void> onVerifyFlyer({
       body: 'This flyer is already verified, check the next one. please',
     );
   }
+
+}
+// -------------------------------------
+void _removeFlyerFromFlyers({
+  @required ValueNotifier<List<FlyerModel>> flyers,
+  @required String flyerIDToRemove,
+}){
+
+  final List<FlyerModel> _updatedList = FlyerModel.removeFlyerFromFlyersByID(
+      flyers: flyers.value,
+      flyerIDToRemove: flyerIDToRemove,
+  );
+
+  flyers.value = _updatedList;
 
 }
 // -------------------------------------

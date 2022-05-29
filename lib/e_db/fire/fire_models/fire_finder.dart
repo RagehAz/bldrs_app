@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,7 @@ class FireFinder {
   /// QUERY CREATOR
 
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static Query<Map<String, dynamic>> createQueryByFinder({
     @required Query<Map<String, dynamic>> query,
     @required FireFinder finder,
@@ -44,59 +46,60 @@ class FireFinder {
     }
 
     /// IF GREATER THAN
-    else if (finder.comparison == FireComparison.greaterThan) {
-      _output = _output..where(finder.field, isGreaterThan: finder.value);
+    if (finder.comparison == FireComparison.greaterThan) {
+      _output = _output.where(finder.field, isGreaterThan: finder.value);
     }
 
     /// IF GREATER THAN OR EQUAL
-    else if (finder.comparison == FireComparison.greaterOrEqualThan) {
+    if (finder.comparison == FireComparison.greaterOrEqualThan) {
       _output = _output.where(finder.field, isGreaterThanOrEqualTo: finder.value);
     }
 
     /// IF LESS THAN
-    else if (finder.comparison == FireComparison.lessThan) {
+    if (finder.comparison == FireComparison.lessThan) {
       _output = _output.where(finder.field, isLessThan: finder.value);
     }
 
     /// IF LESS THAN OR EQUAL
-    else if (finder.comparison == FireComparison.lessOrEqualThan) {
+    if (finder.comparison == FireComparison.lessOrEqualThan) {
       _output = _output.where(finder.field, isLessThanOrEqualTo: finder.value);
     }
 
     /// IF IS NOT EQUAL TO
-    else if (finder.comparison == FireComparison.notEqualTo) {
+    if (finder.comparison == FireComparison.notEqualTo) {
       _output = _output.where(finder.field, isNotEqualTo: finder.value);
     }
 
     /// IF IS NULL
-    else if (finder.comparison == FireComparison.nullValue) {
+    if (finder.comparison == FireComparison.nullValue) {
       _output = _output.where(finder.field, isNull: finder.value);
 
     }
 
     /// IF whereIn
-    else if (finder.comparison == FireComparison.whereIn) {
+    if (finder.comparison == FireComparison.whereIn) {
       _output = _output.where(finder.field, whereIn: finder.value);
     }
 
     /// IF whereNotIn
-    else if (finder.comparison == FireComparison.whereNotIn) {
+    if (finder.comparison == FireComparison.whereNotIn) {
       _output = _output.where(finder.field, whereNotIn: finder.value);
     }
 
     /// IF array contains
-    else if (finder.comparison == FireComparison.arrayContains) {
+    if (finder.comparison == FireComparison.arrayContains) {
       _output = _output.where(finder.field, arrayContains: finder.value);
     }
 
     /// IF array contains any
-    else if (finder.comparison == FireComparison.arrayContainsAny) {
+    if (finder.comparison == FireComparison.arrayContainsAny) {
       _output = _output.where(finder.field, arrayContainsAny: finder.value);
     }
 
     return _output;
   }
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static Query<Map<String, dynamic>> createCompositeQueryByFinders({
     @required Query<Map<String, dynamic>> query,
     @required List<FireFinder> finders,
@@ -104,11 +107,14 @@ class FireFinder {
 
     Query<Map<String, dynamic>> _output = query;
 
-    for (final FireFinder finder in finders){
-      _output = createQueryByFinder(
-          query: query,
+    if (canLoopList(finders) == true){
+
+      for (final FireFinder finder in finders){
+        _output = createQueryByFinder(
+          query: _output,
           finder: finder,
-      );
+        );
+      }
 
     }
 

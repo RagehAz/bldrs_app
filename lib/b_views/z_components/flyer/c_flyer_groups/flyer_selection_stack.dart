@@ -47,6 +47,7 @@ class FlyerSelectionStack extends StatelessWidget {
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // ----------------------------------------------------------
     return Stack(
+      // alignment: Alignment.center,
       children: <Widget>[
 
         AbsorbPointer(
