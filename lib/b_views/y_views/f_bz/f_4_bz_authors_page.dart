@@ -102,8 +102,8 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -141,6 +141,13 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
       _isInit = false;
     }
     super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    super.dispose();
+    _loading.dispose();
+    _pendingRequestsUsers.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

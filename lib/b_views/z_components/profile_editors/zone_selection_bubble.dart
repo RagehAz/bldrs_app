@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart'
 import 'package:bldrs/b_views/x_screens/d_zoning/d_2_select_city_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_3_select_district_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -290,8 +290,8 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         columnChildren: <Widget>[
 
           if (Mapper.canLoopList(widget.notes))
-            BubbleNotes(
-              notes: widget.notes,
+            BubbleBulletPoints(
+              bulletPoints: widget.notes,
             ),
 
           /// COUNTRY BUTTON

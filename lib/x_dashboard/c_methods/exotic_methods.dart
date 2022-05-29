@@ -98,7 +98,6 @@ class ExoticMethods {
       await LDBOps.insertMap(
         docName: LDBDoc.users,
         input: user.toMap(toJSON: true),
-        primaryKey: 'id',
       );
     }
   } else {

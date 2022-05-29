@@ -5,21 +5,21 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class BubbleNotes extends StatelessWidget {
+class BubbleBulletPoints extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BubbleNotes({
-    @required this.notes,
+  const BubbleBulletPoints({
+    @required this.bulletPoints,
     this.bubbleWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<String> notes;
+  final List<String> bulletPoints;
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.canLoopList(notes) == false){
+    if (Mapper.canLoopList(bulletPoints) == false){
       return const SizedBox();
     }
     else {
@@ -29,13 +29,13 @@ class BubbleNotes extends StatelessWidget {
       return Column(
         children: <Widget>[
 
-          ...List.generate(notes.length, (index){
+          ...List.generate(bulletPoints.length, (index){
 
             return SizedBox(
               width: _bubbleWidth,
               child: SuperVerse(
-                verse: notes[index],
-                margin: 5,
+                verse: bulletPoints[index],
+                margin: 0,
                 // size: 2,
                 maxLines: 10,
                 centered: false,

@@ -14,8 +14,10 @@ class AppState {
 
     @required this.appVersion,
     @required this.ldbVersion,
+    @required this.appControlsVersion,
 
     @required this.id,
+
   });
 // -----------------------------------------------------------------------------
   /// chains
@@ -29,6 +31,7 @@ class AppState {
   /// app update
   final String appVersion;
   final double ldbVersion; /// this used to wipe out all LDB docs and re fetch everything
+  final double appControlsVersion;
 
   final String id; /// either global or user
 // -----------------------------------------------------------------------------
@@ -44,6 +47,7 @@ class AppState {
     double phrasesVersion,
     String appVersion,
     double ldbVersion,
+    double appControlsVersion,
     String id,
 }){
     return AppState(
@@ -56,7 +60,7 @@ class AppState {
 
       appVersion: appVersion ?? this.appVersion,
       ldbVersion: ldbVersion?? this.ldbVersion,
-
+      appControlsVersion: appControlsVersion ?? this.appControlsVersion,
     );
 }
 // -----------------------------------------------------------------------------
@@ -74,6 +78,7 @@ class AppState {
       phrasesVersion : null,
       appVersion : null,
       ldbVersion : null,
+      appControlsVersion: null,
     );
   }
 // -----------------------------------------------------------------------------
@@ -110,6 +115,7 @@ class AppState {
         phrasesVersion : map['phrasesVersion']?.toDouble(),
         appVersion : map['appVersion'],
         ldbVersion : map['ldbVersion']?.toDouble(),
+        appControlsVersion: map['appControlsVersion']?.toDouble(),
       );
     }
 
@@ -142,6 +148,8 @@ class AppState {
           stateA.specPickersVersion == stateB.specPickersVersion
       &&
           stateA.specsChainVersion == stateB.specsChainVersion
+      &&
+        stateA.appControlsVersion == stateB.appControlsVersion
       ){
         _areTheSame = true;
       }
@@ -165,6 +173,7 @@ class AppState {
       phrasesVersion: 0,
       appVersion: '0.0.0',
       ldbVersion: 0,
+      appControlsVersion: 0,
     );
   }
 // -----------------------------------------------------------------------------
@@ -182,6 +191,7 @@ class AppState {
     blog('phrasesVersion : $phrasesVersion');
     blog('appVersion : $appVersion');
     blog('ldbVersion : $ldbVersion');
+    blog('appControlsVersion : $appControlsVersion');
     blog('AppState ------------------------ END');
   }
 // -----------------------------------------------------------------------------
