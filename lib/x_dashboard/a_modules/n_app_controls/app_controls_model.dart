@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppControlsModel {
   /// --------------------------------------------------------------------------
   AppControlsModel({
-    @required this.showOnlyVerifiedFlyersInHomeWall,
+    @required this.showOnlyVerifiedFlyersInHomeWall, /// fakes maloosh lazma khalas, we always show only verified flyers
 });
   /// --------------------------------------------------------------------------
   final bool showOnlyVerifiedFlyersInHomeWall;
@@ -13,7 +13,7 @@ class AppControlsModel {
 
 // -------------------------------------
   AppControlsModel copyWith({
-    bool showOnlyVerifiedFlyersInHomeWall
+    bool showOnlyVerifiedFlyersInHomeWall,
   }){
 
     return AppControlsModel(

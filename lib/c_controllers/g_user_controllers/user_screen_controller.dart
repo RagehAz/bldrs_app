@@ -496,8 +496,8 @@ Future<void> _onSignOut(BuildContext context) async {
   /// CLEAR KEYWORDS
   final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
   // _keywordsProvider.clearKeywordsChain();
-  _keywordsProvider.clearCurrentKeyword(notify: false);
-  _keywordsProvider.clearCurrentSection(notify: true);
+  _keywordsProvider.clearWallPhid(notify: false);
+  _keywordsProvider.clearHomeWallFlyerType(notify: true);
 
   /// CLEAR BZZ
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
