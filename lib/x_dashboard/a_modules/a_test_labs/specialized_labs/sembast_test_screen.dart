@@ -1,7 +1,6 @@
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_manager_screen.dart';
@@ -123,17 +122,17 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
             /// INSERT FROM LDB
             SmallFuckingButton(
-              verse: 'insert',
+              verse: 'xxx',
               onTap: () async {
 
-                await LDBOps.insertMap(
-                    primaryKey: 'id',
-                    docName: _docName,
-                    input: {
-                      'id' : '${createRandomIndex()}',
-                      'data' : 'bitch',
-                },
-                );
+                // await LDBOps.insertMap(
+                //     primaryKey: 'id',
+                //     docName: _docName,
+                //     input: {
+                //       'id' : '${createRandomIndex()}',
+                //       'data' : 'bitch',
+                // },
+                // );
 
                 await _readSembast();
 

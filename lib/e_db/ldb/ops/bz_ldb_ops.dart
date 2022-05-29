@@ -16,7 +16,6 @@ class BzLDBOps {
 }) async {
 
     await LDBOps.insertMap(
-        primaryKey: 'id',
         docName: LDBDoc.bzz,
         input: bzModel.toMap(toJSON: true),
     );

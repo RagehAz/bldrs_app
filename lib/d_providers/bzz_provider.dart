@@ -65,7 +65,7 @@ class BzzProvider extends ChangeNotifier {
         await LDBOps.insertMap(
             input: _bz.toMap(toJSON: true),
             docName: LDBDoc.bzz,
-            primaryKey: 'id');
+        );
       }
     }
 

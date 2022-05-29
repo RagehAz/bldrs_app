@@ -3,12 +3,14 @@ import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_fire_ops.dart';
+import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 
 // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 class GeneralProvider extends ChangeNotifier {
@@ -44,7 +46,6 @@ class GeneralProvider extends ChangeNotifier {
 
       if (_appState != null){
         await LDBOps.insertMap(
-            primaryKey: 'id',
             docName: LDBDoc.appState,
             input: _appStateMap,
         );
@@ -60,6 +61,64 @@ class GeneralProvider extends ChangeNotifier {
     }
 
     return _appState;
+  }
+// -----------------------------------------------------------------------------
+
+  /// APP CONTROLS
+
+  // -------------------------------------
+  static Future<AppControlsModel> fetchAppControls({
+    @required BuildContext context,
+  }) async {
+
+    AppControlsModel _model;
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
+        docName: LDBDoc.appControls,
+    );
+
+    if (Mapper.canLoopList(_maps) == true){
+      final Map<String, dynamic> _map = _maps.first;
+      _model = AppControlsModel.decipherAppControlsModel(_map);
+    }
+
+    else {
+      _model = await AppControlsFireOps.readAppControls(context);
+
+      if (_model != null){
+        await LDBOps.insertMap(
+            docName: LDBDoc.appControls,
+            input: _model.toMap(),
+        );
+      }
+
+    }
+
+    return _model;
+  }
+  // -------------------------------------
+  AppControlsModel _appControls;
+  // -------------------------------------
+  AppControlsModel get appControls => _appControls;
+  // -------------------------------------
+  Future<void> getSetAppControls({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+
+    final AppControlsModel _controls = await fetchAppControls(context: context);
+
+    _appControls = _controls;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // -------------------------------------
+  static AppControlsModel proGerAppControls(BuildContext context, {bool listen = true}){
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: listen);
+    return _generalProvider.appControls;
   }
   // -----------------------------------------------------------------------------
 

@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
@@ -300,8 +300,8 @@ class BzEditorScreenView extends StatelessWidget {
                                 title: 'Scope of services',
                                 columnChildren: <Widget>[
 
-                                  const BubbleNotes(
-                                    notes: <String>[
+                                  const BubbleBulletPoints(
+                                    bulletPoints: <String>[
                                       'Select at least 1 keyword to help search engines show your content in its dedicated place',
                                     ],
                                   ),

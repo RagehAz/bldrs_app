@@ -72,7 +72,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       return FlyersGrid(
         gridWidth: Scale.superScreenWidth(context),
         gridHeight: Scale.superScreenHeight(context),
-        numberOfColumns: 2,
+        // numberOfColumns: 2,
         flyers: _wallFlyers,
         scrollController: _scrollController,
         heroTag: 'user_home_screen',

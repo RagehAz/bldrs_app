@@ -139,7 +139,6 @@ class PhraseProvider extends ChangeNotifier {
         );
 
         await LDBOps.insertMaps(
-            primaryKey: 'id',
             inputs: _allMaps,
             docName: LDBDoc.basicPhrases,
         );
@@ -184,7 +183,6 @@ class PhraseProvider extends ChangeNotifier {
 
     /// THEN STORE THEM IN LDB
       await LDBOps.insertMaps(
-          primaryKey: 'primaryKey',
           inputs: Phrase.cipherMixedLangPhrases(phrases: _countriesMixedLangPhrases),
           docName: LDBDoc.countriesPhrases,
       );

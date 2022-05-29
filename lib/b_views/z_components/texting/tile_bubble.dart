@@ -1,9 +1,11 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class TileBubble extends StatelessWidget {
     this.insideDialog = false,
     this.moreBtOnTap,
     this.child,
+    this.bulletPoints,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -40,6 +43,7 @@ class TileBubble extends StatelessWidget {
   final bool insideDialog;
   final Function moreBtOnTap;
   final Widget child;
+  final List<String> bulletPoints;
   static const double iconBoxWidth = 30;
   /// --------------------------------------------------------------------------
   static double childWidth(BuildContext context) {
@@ -64,6 +68,7 @@ class TileBubble extends StatelessWidget {
       onBubbleTap: btOnTap,
       columnChildren: <Widget>[
 
+        /// HEADER ( LEADING ICON - TITLE - SWITCHER - MORE BUTTON )
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -108,18 +113,6 @@ class TileBubble extends StatelessWidget {
                     centered: false,
                   ),
 
-                  if (secondLine != null)
-                    SuperVerse(
-                      verse: secondLine,
-                      color: Colorz.white200,
-                      scaleFactor: 0.75,
-                      italic: true,
-                      maxLines: 10,
-                      centered: false,
-                      weight: VerseWeight.thin,
-                      margin: 5,
-                    ),
-
                 ],
               ),
             ),
@@ -153,6 +146,46 @@ class TileBubble extends StatelessWidget {
           ],
         ),
 
+        /// BULLET POINTS
+        Padding(
+          padding: superInsets(context: context, enLeft: iconBoxWidth),
+          child: BubbleBulletPoints(
+              bulletPoints: bulletPoints,
+          ),
+        ),
+
+        /// SECOND LINE
+        if (secondLine != null)
+          SizedBox(
+            width: Bubble.bubbleWidth(context: context, stretchy: false),
+            child: Row(
+              children: <Widget>[
+
+                /// UNDER LEADING ICON AREA
+                const SizedBox(
+                  width: iconBoxWidth,
+                ),
+
+                /// SECOND LINE
+                SizedBox(
+                  width: childWidth(context),
+                  child: SuperVerse(
+                    verse: secondLine,
+                    color: Colorz.white200,
+                    // scaleFactor: 1,
+                    italic: true,
+                    maxLines: 100,
+                    centered: false,
+                    weight: VerseWeight.thin,
+                    margin: 5,
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+
+        /// CHILD
         if (child != null)
           SizedBox(
             width: Bubble.bubbleWidth(context: context, stretchy: false),
@@ -162,21 +195,18 @@ class TileBubble extends StatelessWidget {
             child: Row(
               children: <Widget>[
 
-                /// under leading icon area
-                Container(
+                /// UNDER LEADING ICON AREA
+                const SizedBox(
                   width: iconBoxWidth,
-                  // height: 1,
-                  // color: Colorz.BloodTest,
                 ),
 
-                /// child
+                /// CHILD
                 Container(
                   width: childWidth(context),
-                  // height: 200,
                   decoration: BoxDecoration(
                       color: Colorz.white10,
-                      borderRadius: Borderers.superBorderAll(
-                          context, Bubble.clearCornersValue)),
+                      borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue)
+                  ),
                   alignment: Alignment.center,
                   child: child,
                 ),
