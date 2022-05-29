@@ -102,14 +102,14 @@ class SectionsButton extends StatelessWidget {
 
                     final String _titleVerse = getTitle(
                         context: context,
-                        currentKeywordID: keywordsProvider.currentKeywordID,
-                        currentSection: keywordsProvider.currentSection,
+                        currentKeywordID: keywordsProvider.wallPhid,
+                        currentSection: keywordsProvider.homeWallFlyerType,
                     );
 
                     final String _sectionVerse = getBody(
                         context: context,
-                        currentKeywordID: keywordsProvider.currentKeywordID,
-                        currentSection: keywordsProvider.currentSection
+                        currentKeywordID: keywordsProvider.wallPhid,
+                        currentSection: keywordsProvider.homeWallFlyerType
                     );
 
                     return Column(
