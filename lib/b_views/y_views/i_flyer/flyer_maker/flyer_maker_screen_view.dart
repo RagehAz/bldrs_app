@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_notes.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
@@ -188,8 +188,8 @@ class FlyerMakerScreenView extends StatelessWidget {
                       title: 'Flyer Keywords',
                       columnChildren: <Widget>[
 
-                        const BubbleNotes(
-                          notes: <String>[
+                        const BubbleBulletPoints(
+                          bulletPoints: <String>[
                             'Select at least 1 flyer keyword to help search engines show your flyer in its dedicated place',
                           ],
                         ),
@@ -242,8 +242,8 @@ class FlyerMakerScreenView extends StatelessWidget {
                     title: 'Specifications',
                     columnChildren: <Widget>[
 
-                      BubbleNotes(
-                        notes: <String>[
+                      BubbleBulletPoints(
+                        bulletPoints: <String>[
                           'Add $_translatedFlyerType specification to describe and allow advanced search criteria',
                         ],
                       ),

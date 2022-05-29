@@ -25,6 +25,7 @@
   const String countriesPhrases = 'countriesPhrases';
 
   const String appState = 'appState';
+  const String appControls = 'appControls';
   const String authModel = 'authModel';
 
   const List<String> bzModelsDocs = <String>[

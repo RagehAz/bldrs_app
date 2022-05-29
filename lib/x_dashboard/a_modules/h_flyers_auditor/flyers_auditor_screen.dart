@@ -440,7 +440,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                     gridWidth: _screenWidth,
                     gridHeight: _screenHeight,
                     scrollController: _scrollController,
-                    numberOfColumns: 2,
+                    // numberOfColumns: 2,
                     onFlyerOptionsTap: (FlyerModel flyer) => onFlyerOptionsTap(
                       context: context,
                       flyerModel: flyer,

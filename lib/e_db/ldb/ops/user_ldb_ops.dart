@@ -16,10 +16,7 @@ class UserLDBOps {
 
     if (userModel != null){
 
-      final String _primaryKey = LDBOps.getPrimaryKey(LDBDoc.users);
-
       await LDBOps.insertMap(
-          primaryKey: _primaryKey,
           docName: LDBDoc.users,
           input: userModel.toMap(
               toJSON: true,

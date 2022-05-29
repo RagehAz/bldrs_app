@@ -13,10 +13,12 @@ class FloatingLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: Scale.superScreenWidth(context),
       height: MainLayout.clearHeight(context),
       child: child,
     );
+
   }
 }

@@ -30,6 +30,7 @@ abstract class FireDoc {
   static const String admin_statistics = 'statistics';
   static const String admin_appState = 'appState';
   static const String admin_backups = 'backups';
+  static const String admin_appControls = 'appControls';
 
   static const String zones_cities = 'cities';
   static const String zones_countries = 'countries';

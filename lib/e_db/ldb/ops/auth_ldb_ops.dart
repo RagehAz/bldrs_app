@@ -17,7 +17,6 @@ class AuthLDBOps {
 
    if (authModel != null){
      await LDBOps.insertMap(
-       primaryKey: LDBOps.getPrimaryKey(LDBDoc.authModel),
        docName: LDBDoc.authModel,
        input: authModel.toMap(toJSON: true),
      );

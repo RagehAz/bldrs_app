@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -35,6 +36,9 @@ Future<void> initializeLogoScreen({
 
   /// APP STATE
   await _initializeAppState(context);
+
+  /// APP CONTROLS
+  await _initializeAppControls(context);
 
   /// APP LANGUAGE
   await _initializeAppLanguage(context);
@@ -197,11 +201,11 @@ Future<void> _initializeAppState(BuildContext context) async {
     /// B - WHEN APP IS UPDATED
     else {
 
-      AppState _updatedUserAppState = _userState;
+      AppState _userAppState = _userState;
 
       /// APP VERSION
       if (_userState.appVersion != _detectedAppVersion){
-        _updatedUserAppState = _updatedUserAppState.copyWith(
+        _userAppState = _userAppState.copyWith(
             appVersion: _detectedAppVersion,
         );
       }
@@ -209,7 +213,7 @@ Future<void> _initializeAppState(BuildContext context) async {
       /// KEYWORDS CHAIN
       if (_globalState.keywordsChainVersion > _userState.keywordsChainVersion){
         await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain,);
-        _updatedUserAppState = _updatedUserAppState.copyWith(
+        _userAppState = _userAppState.copyWith(
             keywordsChainVersion: _globalState.keywordsChainVersion,
         );
       }
@@ -217,7 +221,7 @@ Future<void> _initializeAppState(BuildContext context) async {
       /// LDB VERSION
       if (_globalState.ldbVersion > _userState.ldbVersion){
         await LDBOps.wipeOutEntireLDB();
-        _updatedUserAppState = _updatedUserAppState.copyWith(
+        _userAppState = _userAppState.copyWith(
             ldbVersion: _globalState.ldbVersion,
         );
       }
@@ -225,7 +229,7 @@ Future<void> _initializeAppState(BuildContext context) async {
       /// PHRASES
       if (_globalState.phrasesVersion > _userState.phrasesVersion){
         await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.basicPhrases,);
-        _updatedUserAppState = _updatedUserAppState.copyWith(
+        _userAppState = _userAppState.copyWith(
             phrasesVersion: _globalState.phrasesVersion,
         );
       }
@@ -233,7 +237,7 @@ Future<void> _initializeAppState(BuildContext context) async {
       /// SPEC PICKERS
       if (_globalState.specPickersVersion > _userState.specPickersVersion){
         await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specPickers,);
-        _updatedUserAppState = _updatedUserAppState.copyWith(
+        _userAppState = _userAppState.copyWith(
             specPickersVersion: _globalState.specPickersVersion,
         );
       }
@@ -241,24 +245,34 @@ Future<void> _initializeAppState(BuildContext context) async {
       /// SPEC CHAIN VERSION
       if (_globalState.specsChainVersion > _userState.specsChainVersion){
         await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain,);
-        _updatedUserAppState = _updatedUserAppState.copyWith(
+        _userAppState = _userAppState.copyWith(
             specsChainVersion: _globalState.specsChainVersion,
+        );
+      }
+
+      /// APP CONTROLS VERSION
+      if (_globalState.appControlsVersion > _userState.appControlsVersion){
+        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.appControls);
+        _userAppState = _userAppState.copyWith(
+          appControlsVersion: _globalState.appControlsVersion,
         );
       }
 
       /// --- UPDATE USER MODEL'S APP STATE IF CHANGED
       final bool _appStateNeedUpdate = !AppState.appStatesAreTheSame(
           stateA: _userState,
-          stateB: _updatedUserAppState,
+          stateB: _userAppState,
       );
 
       if (_appStateNeedUpdate == true){
         await AppStateOps.updateUserAppState(
             context: context,
             userID: _usersProvider.myUserModel.id,
-            newAppState: _updatedUserAppState,
+            newAppState: _userAppState,
         );
       }
+
+
 
     }
 
@@ -277,6 +291,18 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
   await Launcher.launchURL('www.pinterest.com');
 
+}
+// -----------------------------------------------------------------------------
+
+/// APP CONTROLS INITIALIZATION
+
+// ---------------------------------
+Future<void> _initializeAppControls(BuildContext context) async {
+  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  await _generalProvider.getSetAppControls(
+      context: context,
+      notify: true,
+  );
 }
 // -----------------------------------------------------------------------------
 
@@ -301,6 +327,8 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 
 }
 // -----------------------------------------------------------------------------
+
+/// NAVIGATION
 
 // ---------------------------------
 Future<void> _goToLogoScreen(BuildContext context) async {

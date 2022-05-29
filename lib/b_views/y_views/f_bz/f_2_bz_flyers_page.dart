@@ -27,7 +27,7 @@ class BzFlyersPage extends StatelessWidget {
         gridWidth: superScreenWidth(context),
         gridHeight: superScreenHeight(context),
         scrollController: null,
-        numberOfColumns: 2,
+        // numberOfColumns: 2,
         topPadding: 5,
         authorMode: true,
         onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerOptionsTap(

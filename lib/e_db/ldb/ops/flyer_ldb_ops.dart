@@ -15,7 +15,6 @@ class FlyersLDBOps {
   static Future<void> insertFlyer(FlyerModel flyerModel) async {
         
     await LDBOps.insertMap(
-        primaryKey: 'id', 
         docName: LDBDoc.flyers,
         input: flyerModel.toMap(toJSON: true),
     );
@@ -26,7 +25,6 @@ class FlyersLDBOps {
   static Future<void> insertFlyers(List<FlyerModel> flyers) async {
     
     await LDBOps.insertMaps(
-      primaryKey: 'id',
       docName: LDBDoc.flyers,
       inputs: FlyerModel.cipherFlyers(
           flyers: flyers,

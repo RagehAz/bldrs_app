@@ -28,10 +28,11 @@ String getPrimaryKey(String docName) {
     case LDBDoc.countries: return 'id';
     case LDBDoc.cities: return 'cityID';
     case LDBDoc.continents: return 'name';
-    case LDBDoc.currencies: return 'currencies';
+    case LDBDoc.currencies: return 'id';
     case LDBDoc.basicPhrases: return 'primaryKey'; /// TASK : WTF
     case LDBDoc.countriesPhrases: return 'primaryKey'; /// TASK : WTF
     case LDBDoc.appState: return 'id';
+    case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF
     case LDBDoc.authModel: return 'uid';
     default: return null;
   }
@@ -43,15 +44,16 @@ String getPrimaryKey(String docName) {
 // ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> insertMap({
-  @required String primaryKey,
   @required Map<String, Object> input,
   @required String docName,
 }) async {
 
+  final String _primaryKey = getPrimaryKey(docName);
+
   await Sembast.insertAll(
     inputs: <Map<String, Object>>[input], //_cipherFirebaseMapsToSembastMaps(<Map<String, Object>>[input]),
     docName: docName,
-    primaryKey: primaryKey,
+    primaryKey: _primaryKey,
   );
 
   // blog('LDBOps inserted in $docName : map :-');
@@ -60,15 +62,18 @@ Future<void> insertMap({
 // ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> insertMaps({
-  @required String primaryKey,
   @required List<Map<String, Object>> inputs,
   @required String docName,
 }) async {
+
+  final String _primaryKey = getPrimaryKey(docName);
+
   await Sembast.insertAll(
-    inputs: inputs, //_cipherFirebaseMapsToSembastMaps(inputs),
+    inputs: inputs,
     docName: docName,
-    primaryKey: primaryKey,
+    primaryKey: _primaryKey,
   );
+
 }
 // -----------------------------------------------------------------------------
 

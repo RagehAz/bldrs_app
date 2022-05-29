@@ -71,7 +71,6 @@ class ZoneProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: _countryModel.toMap(toJSON: true),
           docName: LDBDoc.countries,
-          primaryKey: 'id',
         );
 
       }
@@ -151,7 +150,6 @@ class ZoneProvider extends ChangeNotifier {
           await LDBOps.insertMap(
             input: _cityModel.toMap(toJSON: true),
             docName: LDBDoc.cities,
-            primaryKey: 'cityID',
           );
 
         }
@@ -226,7 +224,6 @@ class ZoneProvider extends ChangeNotifier {
               await LDBOps.insertMap(
                 input: city.toMap(toJSON: true),
                 docName: LDBDoc.cities,
-                primaryKey: 'cityID',
               );
             }
 
@@ -323,7 +320,6 @@ class ZoneProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: Continent.cipherContinents(_continents),
           docName: LDBDoc.continents,
-          primaryKey: 'name',
         );
 
       }
@@ -362,7 +358,6 @@ class ZoneProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: CurrencyModel.cipherCurrencies(_currencies),
           docName: LDBDoc.currencies,
-          primaryKey: 'code',
         );
 
       }
@@ -1079,6 +1074,11 @@ class ZoneProvider extends ChangeNotifier {
     );
 
     return _completeZoneModel;
+  }
+// -------------------------------------
+  static ZoneModel proGetCurrentZoneIDs(BuildContext context){
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    return _zoneProvider.currentZone;
   }
 // -------------------------------------
 

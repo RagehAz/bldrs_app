@@ -78,7 +78,6 @@ class FlyersProvider extends ChangeNotifier {
         await LDBOps.insertMap(
           input: _flyer.toMap(toJSON: true),
           docName: LDBDoc.flyers,
-          primaryKey: 'id',
         );
 
       }
@@ -260,7 +259,6 @@ class FlyersProvider extends ChangeNotifier {
       await LDBOps.insertMap(
         docName: LDBDoc.flyers,
         input: inputFlyer.toMap(toJSON: true),
-        primaryKey: 'id',
       );
 
       /// updated saved flyers ids in firebase
@@ -371,7 +369,7 @@ class FlyersProvider extends ChangeNotifier {
 // -------------------------------------
   Future<void> paginateWallFlyers(BuildContext context) async {
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZoneIDs(context);
 
     final FlyerModel _lastWallFlyer = Mapper.canLoopList(_wallFlyers) == true ?
     _wallFlyers.first
@@ -380,7 +378,10 @@ class FlyersProvider extends ChangeNotifier {
 
     final List<FlyerModel> _flyers = await FireFlyerOps.paginateFlyers(
       context: context,
-      zone: _zoneProvider.currentZone,
+      countryID: _currentZone.countryID,
+      cityID: _currentZone.cityID,
+      // districtID: _currentZone.districtID,
+      // auditState: AuditState,
       limit: 6,
       startAfter: _lastWallFlyer?.docSnapshot,
     );
