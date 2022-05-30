@@ -17,6 +17,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -115,9 +116,13 @@ Future<void> _setBzModelAndFetchSetBzFlyers({
 void onCloseMyBzScreen({
   @required BuildContext context,
 }) {
+  blog('onCloseMyBzScreen : CLOSING');
+
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
   _bzzProvider.clearActiveBzFlyers(notify: false);
-  _bzzProvider.clearMyActiveBz(notify: false);
+  _bzzProvider.clearMyActiveBz(notify: true);
+  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+  _notesProvider.clearPendingSentAuthorshipNotes(notify: true);
   Nav.goBack(context);
 }
 // -----------------------------------------------------------------------------

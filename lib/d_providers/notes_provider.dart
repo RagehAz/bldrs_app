@@ -76,11 +76,7 @@ class NotesProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    if (
-    canLoopList(_pendingSentAuthorshipUsers) == true
-    ||
-    canLoopList(_pendingSentAuthorshipUsers) == true
-    ){
+    if (canLoopList(_pendingSentAuthorshipNotes) == false){
 
       final List<NoteModel> _pendingNotes = await NoteFireOps.paginatePendingSentAuthorshipNotes(
         context: context,
@@ -89,7 +85,7 @@ class NotesProvider extends ChangeNotifier {
         startAfter: null,
       );
 
-      if (canLoopList(_pendingNotes) == true) {
+      if (canLoopList(_pendingNotes) == true)   {
         final List<String> _usersIDs = NoteModel.getReceiversIDs(
           notes: _pendingNotes,
         );
@@ -101,15 +97,60 @@ class NotesProvider extends ChangeNotifier {
 
         _pendingSentAuthorshipNotes = _pendingNotes;
         _pendingSentAuthorshipUsers = _users;
+
+        if (notify == true){
+          notifyListeners();
+        }
       }
 
     }
 
+  }
+  // ----------------------------
+  Future<void> addNewPendingSentAuthorshipNote({
+    @required BuildContext context,
+    @required NoteModel note,
+    @required bool notify,
+  }) async {
+
+    final UserModel _user = await UsersProvider.proFetchUserModel(
+        context: context,
+        userID: note.receiverID,
+    );
+
+    _pendingSentAuthorshipNotes.add(note);
+    _pendingSentAuthorshipUsers.add(_user);
+
+    if (notify == true){
+      notifyListeners();
+    }
 
   }
-// -------------------------------------
+  // ----------------------------
+  void removeSentAuthorshipNote({
+    @required NoteModel note,
+    @required bool notify,
+  }){
 
+    _pendingSentAuthorshipNotes.removeWhere((n) => n.id == note.id);
+    _pendingSentAuthorshipUsers.removeWhere((u) => u.id == note.receiverID);
 
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // ----------------------------
+  void clearPendingSentAuthorshipNotes({
+    @required bool notify,
+  }){
+    _pendingSentAuthorshipUsers = <UserModel>[];
+    _pendingSentAuthorshipNotes = <NoteModel>[];
+
+    if (notify == true){
+      notifyListeners();
+    }
+  }
 // -----------------------------------------------------------------------------
 }
 

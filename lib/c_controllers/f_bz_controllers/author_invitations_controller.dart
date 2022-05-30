@@ -5,8 +5,10 @@ import 'package:bldrs/b_views/x_screens/f_bz/f_3_add_author_screen.dart';
 import 'package:bldrs/b_views/y_views/g_user/b_1_user_profile_page.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
@@ -17,6 +19,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// NAVIGATION
@@ -147,12 +150,18 @@ Future<void> onInviteUserButtonTap({
         noteModel: _note,
     );
 
-    await TopDialog.showTopDialog(
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    await _notesProvider.addNewPendingSentAuthorshipNote(
+      context: context,
+      note: _note,
+      notify: true,
+    );
+
+    NavDialog.showNavDialog(
       context: context,
       firstLine: 'Invitation Sent',
       secondLine: 'Account authorship invitation has been sent to ${selectedUser.name} successfully',
       color: Colorz.green255,
-      textColor: Colorz.white255,
     );
 
   }
@@ -179,6 +188,12 @@ Future<void> cancelSentAuthorshipInvitation ({
     await NoteFireOps.deleteNote(
       context: context,
       noteID: _note.id,
+    );
+
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    _notesProvider.removeSentAuthorshipNote(
+      note: _note,
+      notify: true,
     );
 
     await TopDialog.showTopDialog(

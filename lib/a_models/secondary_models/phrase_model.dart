@@ -22,6 +22,24 @@ class Phrase {
   final List<String> trigram;
 // -----------------------------------------------------------------------------
 
+  /// CLONING
+
+// -------------------------------------
+  Phrase copyWith({
+    String id,
+    String langCode,
+    String value,
+    List<String> trigram,
+}){
+    return Phrase(
+      id: id ?? this.id,
+      langCode: langCode ?? this.langCode,
+      value: value ?? this.value,
+      trigram: trigram ?? this.trigram,
+    );
+}
+// -----------------------------------------------------------------------------
+
   /// CYPHERS
 
 // -------------------------------------

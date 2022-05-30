@@ -42,6 +42,34 @@ class CountryModel {
   final List<Phrase> phrases;
 // -----------------------------------------------------------------------------
 
+  /// CLONING
+
+// -------------------------------------
+  CountryModel copyWith({
+    String id,
+    String region,
+    String continent,
+    bool isActivated,
+    bool isGlobal,
+    List<String> citiesIDs,
+    String language,
+    String currency,
+    List<Phrase> phrases,
+  }){
+    return CountryModel(
+      id: id ?? this.id,
+      region: region ?? this.region,
+      continent: continent ?? this.continent,
+      isActivated: isActivated ?? this.isActivated,
+      isGlobal: isGlobal ?? this.isGlobal,
+      citiesIDs: citiesIDs ?? this.citiesIDs,
+      language: language ?? this.language,
+      currency: currency ?? this.currency,
+      phrases: phrases ?? this.phrases,
+    );
+  }
+// -----------------------------------------------------------------------------
+
   /// CYPHERS
 
 // -------------------------------------
@@ -200,11 +228,49 @@ class CountryModel {
     return _includes;
   }
 // -------------------------------------
-  static bool countriesAreTheSame(CountryModel countryA, CountryModel countryB) {
+  /// TESTED : WORKS PERFECT
+  static bool countriesIDsAreTheSame(CountryModel countryA, CountryModel countryB) {
     bool _areTheSame = false;
 
     if (countryA != null && countryB != null) {
       if (countryA.id == countryB.id) {
+        _areTheSame = true;
+      }
+    }
+
+    return _areTheSame;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool countriesModelsAreTheSame(CountryModel countryA, CountryModel countryB) {
+    bool _areTheSame = false;
+
+    if (countryA != null && countryB != null) {
+      if (
+      countryA.id == countryB.id
+      &&
+      countryA.continent == countryB.continent
+      &&
+      countryA.region == countryB.region
+      &&
+      countryA.currency == countryB.currency
+      &&
+      countryA.language == countryB.language
+      &&
+      Phrase.phrasesListsAreTheSame(
+          firstPhrases: countryA.phrases,
+          secondPhrases: countryB.phrases,
+      ) == true
+      &&
+      countryA.isActivated == countryB.isActivated
+      &&
+      countryA.isGlobal == countryB.isGlobal
+      &&
+      Mapper.listsAreTheSame(
+          list1: countryA.citiesIDs,
+          list2: countryB.citiesIDs
+      ) == true
+      ) {
         _areTheSame = true;
       }
     }

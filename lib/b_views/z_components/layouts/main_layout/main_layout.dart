@@ -37,6 +37,7 @@ class MainLayout extends StatelessWidget {
     this.canRefreshFlyers = false,
     // this.loading = false,
     this.onBack,
+    this.canGoBack = true,
     this.scaffoldKey,
     // this.myTinyBzz,
     this.appBarScrollController,
@@ -61,6 +62,7 @@ class MainLayout extends StatelessWidget {
   final bool canRefreshFlyers;
   // final bool loading;
   final Function onBack;
+  final bool canGoBack;
   final Key scaffoldKey;
   // final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
@@ -155,58 +157,64 @@ class MainLayout extends StatelessWidget {
       layoutWidget: layoutWidget,
     );
 
-    return GestureDetector(
+    return WillPopScope(
       key: const ValueKey<String>('Main_layout'),
-      onTap: () => Keyboarders.minimizeKeyboardOnTapOutSide(context),
-      child: SafeArea(
-        child: ConnectivitySensor(
-          child: Stack(
-            children: <Widget>[
+      onWillPop: () async {
+        _onBack(context);
+        return canGoBack;
+      },
+      child: GestureDetector(
+        onTap: () => Keyboarders.minimizeKeyboardOnTapOutSide(context),
+        child: SafeArea(
+          child: ConnectivitySensor(
+            child: Stack(
+              children: <Widget>[
 
-              if (skyType == SkyType.non)
-                Container(
-                  key: const ValueKey<String>('noSkyBackground'),
-                  width: Scale.superScreenWidth(context),
-                  height: Scale.superScreenHeight(context),
-                  color: _backgroundColor,
+                if (skyType == SkyType.non)
+                  Container(
+                    key: const ValueKey<String>('noSkyBackground'),
+                    width: Scale.superScreenWidth(context),
+                    height: Scale.superScreenHeight(context),
+                    color: _backgroundColor,
+                  ),
+
+                Scaffold(
+                  key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
+
+                  /// INSETS
+                  resizeToAvoidBottomInset: false, /// this false prevents keyboard from pushing pyramids up
+                  // resizeToAvoidBottomPadding: false,
+
+                  /// BACK GROUND COLOR
+                  backgroundColor: _backgroundColor,
+
+                  /// DRAWER
+                  drawer: const ChainsDrawerStarter(),
+                  drawerEdgeDragWidth: ChainsDrawerStarter.drawerEdgeDragWidth,
+                  drawerScrimColor: ChainsDrawerStarter.drawerScrimColor,
+                  onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
+
+                  /// BODY CONTENT
+                  body: canRefreshFlyers ?
+
+                  RefreshIndicator(
+                    onRefresh: () => onRefreshHomeWall(context),
+                    color: Colorz.black230,
+                    backgroundColor: Colorz.yellow255,
+                    displacement: 50,//Ratioz.appBarMargin,
+                    strokeWidth: 4,
+                    edgeOffset: 50,
+                    child: _mainLayoutStackWidgets,
+                  )
+
+                      :
+
+                  _mainLayoutStackWidgets,
+
                 ),
 
-              Scaffold(
-                key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
-
-                /// INSETS
-                resizeToAvoidBottomInset: false, /// this false prevents keyboard from pushing pyramids up
-                // resizeToAvoidBottomPadding: false,
-
-                /// BACK GROUND COLOR
-                backgroundColor: _backgroundColor,
-
-                /// DRAWER
-                drawer: const ChainsDrawerStarter(),
-                drawerEdgeDragWidth: ChainsDrawerStarter.drawerEdgeDragWidth,
-                drawerScrimColor: ChainsDrawerStarter.drawerScrimColor,
-                onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
-
-                /// BODY CONTENT
-                body: canRefreshFlyers ?
-
-                RefreshIndicator(
-                  onRefresh: () => onRefreshHomeWall(context),
-                  color: Colorz.black230,
-                  backgroundColor: Colorz.yellow255,
-                  displacement: 50,//Ratioz.appBarMargin,
-                  strokeWidth: 4,
-                  edgeOffset: 50,
-                  child: _mainLayoutStackWidgets,
-                )
-
-                    :
-
-                _mainLayoutStackWidgets,
-
-              ),
-
-            ],
+              ],
+            ),
           ),
         ),
       ),
