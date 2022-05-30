@@ -21,21 +21,25 @@ class ChainsProvider extends ChangeNotifier {
 
 // -------------------------------------
   /// All chains are [ Keywords chain - specs chain ]
-  Future<void> getSetAllChains(BuildContext context) async {
+  Future<void> fetchSetAllChains(BuildContext context) async {
 
-    await _getsetKeywordsChain(context: context, notify: true);
-    await _getsetSpecsChain(context: context, notify: true);
+    await _fetchSetKeywordsChain(context: context, notify: false);
+    await _fetchSetSpecsChain(context: context, notify: true);
 
   }
 // -------------------------------------
-  Future<void> reloadAllChains(BuildContext context) async {
+  Future<void> reFetchAllChains(BuildContext context) async {
 
     /// delete LDB chains
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain);
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain);
 
+    _keywordsChain = null;
+    _specsChain = null;
+
     /// get set all chains
-    await getSetAllChains(context);
+    await fetchSetAllChains(context);
+
   }
 // -----------------------------------------------------------------------------
 
@@ -140,7 +144,7 @@ class ChainsProvider extends ChangeNotifier {
   List<Phrase> get keywordsChainPhrases => _keywordsChainPhrases;
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _getsetKeywordsChain({
+  Future<void> _fetchSetKeywordsChain({
     @required BuildContext context,
     @required bool notify,
   }) async {
@@ -229,15 +233,18 @@ class ChainsProvider extends ChangeNotifier {
 // -------------------------------------
   Chain get specsChain => _specsChain;
 // -------------------------------------
-  Future<void> _getsetSpecsChain({
+  Future<void> _fetchSetSpecsChain({
     @required BuildContext context,
     @required bool notify,
   }) async {
+
     final Chain _specsChain = await fetchSpecsChain(context);
+
     setSpecsChain(
       specsChain: _specsChain,
       notify: notify,
     );
+
   }
 // -------------------------------------
   void setSpecsChain({

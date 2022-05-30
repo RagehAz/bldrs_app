@@ -151,7 +151,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     final ZoneProvider _zoneProvider =
         Provider.of<ZoneProvider>(context, listen: false);
 
-    final ZoneModel _zoneModel = await _zoneProvider.getZoneModelByGeoPoint(
+    final ZoneModel _zoneModel = await _zoneProvider.fetchZoneModelByGeoPoint(
         context: context,
         geoPoint: geoPoint
     );

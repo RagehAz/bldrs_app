@@ -15,12 +15,10 @@ class NotesProvider extends ChangeNotifier {
 // -------------------------------------
   /// NOTIFICATION IS ON
   bool _notiIsOn = false;
-
 // -------------------------------------
   bool get notiIsOn {
     return _notiIsOn;
   }
-
 // -------------------------------------
   void triggerNotiIsOn({
     @required bool notify,
@@ -36,17 +34,17 @@ class NotesProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 // -----------------------------------------------------------------------------
 
   /// UNREAD NOTES
 
 // -------------------------------------
+  /*
   List<NoteModel> _unseenUserNotes = <NoteModel>[];
 // -------------------------------------
   List<NoteModel> get unreadNotifications => _unseenUserNotes;
 // -------------------------------------
-  void getSetNotiModels({
+  void fetchSetNotiModels({
     @required bool notify,
   }) {
     /// TASK : get notifications
@@ -57,7 +55,7 @@ class NotesProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
+   */
 // -----------------------------------------------------------------------------
 
   /// BZZ SENT NOTES
@@ -73,31 +71,40 @@ class NotesProvider extends ChangeNotifier {
   // ----------------------------
   List<UserModel> get pendingSentAuthorshipUsers => _pendingSentAuthorshipUsers;
   // ----------------------------
-  Future<void> getSetPendingSentAuthorshipNotes({
+  Future<void> recallPendingSentAuthorshipNotes({
     @required BuildContext context,
     @required bool notify,
   }) async {
 
-    final List<NoteModel> _pendingNotes = await NoteFireOps.paginatePendingSentAuthorshipNotes(
-      context: context,
-      senderID: superUserID(),
-      limit: 100,
-      startAfter: null,
-    );
+    if (
+    canLoopList(_pendingSentAuthorshipUsers) == true
+    ||
+    canLoopList(_pendingSentAuthorshipUsers) == true
+    ){
 
-    if (canLoopList(_pendingNotes) == true) {
-      final List<String> _usersIDs = NoteModel.getReceiversIDs(
-        notes: _pendingNotes,
-      );
-
-      final List<UserModel> _users = await UsersProvider.proGetUsersModels(
+      final List<NoteModel> _pendingNotes = await NoteFireOps.paginatePendingSentAuthorshipNotes(
         context: context,
-        usersIDs: _usersIDs,
+        senderID: superUserID(),
+        limit: 100,
+        startAfter: null,
       );
 
-      _pendingSentAuthorshipNotes = _pendingNotes;
-      _pendingSentAuthorshipUsers = _users;
+      if (canLoopList(_pendingNotes) == true) {
+        final List<String> _usersIDs = NoteModel.getReceiversIDs(
+          notes: _pendingNotes,
+        );
+
+        final List<UserModel> _users = await UsersProvider.proFetchUsersModels(
+          context: context,
+          usersIDs: _usersIDs,
+        );
+
+        _pendingSentAuthorshipNotes = _pendingNotes;
+        _pendingSentAuthorshipUsers = _users;
+      }
+
     }
+
 
   }
 // -------------------------------------
