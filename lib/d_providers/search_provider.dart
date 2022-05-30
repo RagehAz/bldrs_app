@@ -213,7 +213,7 @@ class SearchProvider extends ChangeNotifier {
     return _records;
   }
 // -------------------------------------
-  Future<void> getSetSearchRecords({
+  Future<void> paginateSetSearchRecords({
     @required BuildContext context,
     @required bool notify,
   }) async {

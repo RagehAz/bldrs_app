@@ -1,12 +1,5 @@
 /*
 
-لهواة المسامير، و أجراس بصوت عصافير
-يا بخت من لقى مسماره، و و عرف يأجر عقاره
-و يا خوفي من لقى عقار اختاره قبل ما يشوف جاره
-
-
-من الأرض لحد الورد
-
 double tap double tap slide tap tap tap
 
  */
@@ -47,69 +40,45 @@ have a lovely little old rectangular green french silver whittling knife
  */
 
 
-/// PITCH DIALOG
-
-/// mixed irrelevant posts
-// Now -- is the time -to transform industries -into their own specialized digital platforms,
-// We have all seen the expansion of social media platforms -and their efforts to aggregate
-// all what they can collect - into one digital platform - or another.
-
-/// after removal of irrelevant content
-// While human psychology -- requires focus -- to get things done properly.
-
-/// PROJECT SCOPES SLIDES
-// I'm Architect Rage7 Azzazi, and I've been working in the construction industry
-// for the past 10 years -- I've managed more than 500 customers projects.
-
-/// CONSTRUCTION PAINS SLIDES
-// and please allow me to tell you -- you don't only need someone you know in
-// your most expensive life journey -of building and construction
-//  - without losing the upto 50% budget safe guard
-//  - without losing the upto 200% delay
-//  - without losing the upto 30% flawed quality reworks
-
-/// Bldrs.net without the categories
-// what you need -- Ladies and Gentlemen -- is the right - TEAM - of professional BUILDERS.
-
-/// Bldrs.net relations diagram
-// Bldrs.net is the open BUILDERS NETWORK,
-// for Designers, Contractors, Craftsmen and CUSTOMERS to MATCH - according
-// to their COMMON NEEDS,
-
-/// CUSTOMER JOURNEY SLIDE
-// A B2B -- B2C -- and C2B Platform
-// where CUSTOMERS seek & filter BUSINESSES - for their projects.
-// And BUSINESSES seek & filter OTHER BUSINESSES - for those projects.
-// meanwhile -- BUSINESSES can still seek & filter - LABELLED - POTENTIAL - CUSTOMERS
-// who manually chose to be notified about construction services - they need RIGHT NOW
-
-/// COMPETITION DIAGRAM
-// and while we are not the only ones - in this digital market.
-// The majority of platforms are specialized in one field or another - all aiming
-// to get more traffic - in which the Bldrs.net provides.
-
-/// MONETIZATION DIAGRAM
-// and as we only monetize - through providing business accounts - tailored
-// subscription packages which can help them obtain bigger market exposure.
-
-/// REFERRAL AND LOYALTY DIAGRAMS
-// Bldrs.net incentives - businesses contribution - in growing the network -
-// by its rewarding referral and loyalty systems
-
-/// MARKET SIZE DIAGRAM
-// Egypt has got an annual spending on construction of - 450 Billion pounds,
-// in Which gives us a market size - of annual - 11 Billion pounds those
-// businesses spend on customer acquisition.
-
-/// TIME LINE DIAGRAM
-// and where are about to hit the market starting Q3 2022
-
-/// GO TO MARKET SLIDE
-// so will approach the market starting with our 200+ business accounts - in our
-// collected data base - and personal networks.
-// as well as pitching 5000+ Egyptian businesses - already existent on the internet.
-// just before - we get on ground - to pitch those - who are not - yet online.
-
-/// PYRAMID NETWORK
-// meanwhile -- seeking who are going to be -- the construction market leaders -
-// of this act of -- digital transcendence
+/// DEV TERMINOLOGIES
+// ------------------------------
+/// Create
+/// xxx
+// ------------------------------
+/// Read
+/// xxx
+// ------------------------------
+/// Update
+/// xxx
+// ------------------------------
+/// Delete
+/// xxx
+// ------------------------------
+/// Insert
+/// xxx
+// ------------------------------
+/// Put
+/// xxx
+// ------------------------------
+/// Fetch
+/// is operation of reading data model from LDB (Local data base) and to be read from firebase
+/// if not found in LDB, then to be inserted in LDB if found on firestore
+// ------------------------------
+/// Refetch
+/// clear both local provider and LDB values then fetch it again
+// ------------------------------
+/// proFetch
+/// one line static method to fetch data madel
+// ------------------------------
+/// fetchSet
+/// operation to fetch data model then set it in provider
+// ------------------------------
+/// Reload
+/// xxx
+// ------------------------------
+/// ReCall
+/// operation to re-read data model and re-set on provider if local value is null
+// ------------------------------
+/// Clear
+/// operation of setting a value to null
+// ------------------------------

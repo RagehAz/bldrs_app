@@ -188,7 +188,7 @@ Future<void> controlCountrySearch({
     //   text: searchText,
     // );
 
-    await _zoneProvider.getSetSearchedCountries(
+    await _zoneProvider.searchSetCountriesByName(
       context: context,
       input: TextMod.fixCountryName(searchText),
       notify: true,
@@ -272,7 +272,7 @@ Future<void> initializeSelectCityScreen({
     notify: true,
   );
 
-  await _zoneProvider.getSetSelectedCountryCities(
+  await _zoneProvider.fetchSetSelectedCountryCities(
     context: context,
     countryModel: countryModel,
     notify: true,
@@ -357,7 +357,7 @@ Future<void> controlCityOnTap({
       if (settingCurrentZone == true){
 
         final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-        await _zoneProvider.getsetCurrentZoneAndCountryAndCity(
+        await _zoneProvider.fetchSetCurrentZoneAndCountryAndCity(
           context: context,
           zone: _zone,
           notify: true,
@@ -421,7 +421,7 @@ Future<void> controlCitySearch({
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    await _zoneProvider.getSetSearchedCities(
+    await _zoneProvider.searchSetCitiesByName(
       context: context,
       input: TextMod.fixCountryName(searchText),
       notify: true,
@@ -523,7 +523,7 @@ Future<void> controlDistrictOnTap({
   /// WHEN SEQUENCE IS TO SET CURRENT ZONE
   if (settingCurrentZone == true){
 
-    await _zoneProvider.getsetCurrentZoneAndCountryAndCity(
+    await _zoneProvider.fetchSetCurrentZoneAndCountryAndCity(
       context: context,
       zone: _zone,
       notify: true,
@@ -577,7 +577,7 @@ Future<void> controlDistrictSearch({
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    _zoneProvider.getSetSearchedDistricts(
+    _zoneProvider.searchSetDistrictsByName(
       context: context,
       textInput: TextMod.fixCountryName(searchText),
       notify: true,

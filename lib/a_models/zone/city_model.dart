@@ -256,7 +256,7 @@ class CityModel {
     return _citiesIDs;
   }
 // -------------------------------------
-  static String getCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
+  static String translateCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
     // final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
     //     context: context,
     //     phrases: cityModel?.phrases

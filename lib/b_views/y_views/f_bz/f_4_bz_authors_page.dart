@@ -126,7 +126,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
             notes: _pendingNotes,
           );
 
-          final List<UserModel> _users = await UsersProvider.proGetUsersModels(
+          final List<UserModel> _users = await UsersProvider.proFetchUsersModels(
             context: context,
             usersIDs: _usersIDs,
           );

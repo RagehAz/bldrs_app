@@ -48,7 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
         blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
 
         final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-        _searchProvider.getSetSearchRecords(
+        _searchProvider.paginateSetSearchRecords(
           context: context,
           notify: true,
         );
