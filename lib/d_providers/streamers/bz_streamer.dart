@@ -77,7 +77,7 @@ Stream<BzModel> getBzStream(String bzID) {
           docName: bzID
       );
 
-  final Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.getBzModelFromSnapshot);
+  final Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.convertDocSnapshotIntoBzModel);
 
   return _bzStream;
 }

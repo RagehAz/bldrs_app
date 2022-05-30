@@ -3,12 +3,11 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_card.dart';
+import 'package:bldrs/b_views/z_components/notifications/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -18,7 +17,10 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsScreen extends StatefulWidget {
-  const NotificationsScreen({Key key}) : super(key: key);
+
+  const NotificationsScreen({
+    Key key
+  }) : super(key: key);
 
   @override
   _NotificationsScreenState createState() => _NotificationsScreenState();
@@ -53,14 +55,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     // _notifications.addAll(BldrsNotiModelz.allNotifications());
     super.initState();
 
-    _sentNotesStream = getSentNoteModelsStream(
-      context: context,
-      senderID: superUserID(),
-      limit: 20,
-      // startAfter: null,
-      // finders: null,
-      // orderBy: null
-    );
+    // _sentNotesStream = getNoteModelsStream(
+    //   context: context,
+    //   senderID: superUserID(),
+    //   limit: 20,
+    //   // startAfter: null,
+    //   // finders: null,
+    //   // orderBy: null
+    // );
 
   }
 
@@ -111,7 +113,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     //   _notifications.removeWhere((notiModel) => notiModel.id == id,);
     // });
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -247,8 +248,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                     Bubble.cornersValue + Ratioz.appBarMargin),
                                 // color: Colorz.BloodTest,
                               ),
-                              child: NotificationCard(
-                                notiModel: _notiModel,
+                              child: NoteCard(
+                                noteModel: _notiModel,
                               ),
                             ),
                           );

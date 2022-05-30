@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/y_views/i_flyer/flyer_maker/specs_pickers_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -15,7 +15,7 @@ class SpecsPickersScreen extends StatefulWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FlyerTypeClass.FlyerType flyerType;
+  final FlyerType flyerType;
   final List<SpecModel> selectedSpecs;
   /// --------------------------------------------------------------------------
   @override
@@ -217,7 +217,7 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
   @override
   Widget build(BuildContext context) {
 
-    final String _flyerTypeString = FlyerTypeClass.translateFlyerType(
+    final String _flyerTypeString = FlyerTyper.translateFlyerType(
       context: context,
       flyerType: widget.flyerType,
       pluralTranslation: false,

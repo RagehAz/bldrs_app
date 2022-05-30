@@ -3,7 +3,7 @@
 // import 'package:bldrs/controllers/theme/ratioz.dart';
 // import 'package:bldrs/controllers/theme/wordz.dart';
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/a_models/keywords/group_model.dart';
 // import 'package:bldrs/a_models/keywords/keyword_model.dart';
 // import 'package:bldrs/a_models/keywords/sequence_model.dart';

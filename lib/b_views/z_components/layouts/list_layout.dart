@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
+import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -68,10 +68,11 @@ class ListLayout extends StatelessWidget {
           if (pageIcon != null)
             DreamBox(
               height: Ratioz.appBarSmallHeight,
-              corners: Iconizer.iconIsContinent(pageIcon)
-                  ? Ratioz.appBarSmallHeight / 2
-                  : Ratioz.boxCorner12,
               icon: pageIcon,
+              corners: Continent.checkIconIsContinent(pageIcon) ?
+              Ratioz.appBarSmallHeight / 2
+                  :
+              Ratioz.boxCorner12,
             ),
 
           if (pageIconVerse != null)

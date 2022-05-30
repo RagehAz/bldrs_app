@@ -568,7 +568,7 @@ class UserModel {
       status: UserStatus.normal,
       name: 'Donald duck',
       trigram: <String>[],
-      pic: Iconz.dvDonaldDuck,
+      pic: Iconz.dvRageh,
       title: 'CEO',
       company: 'Bldrs.LLC',
       gender: Gender.male,
@@ -661,7 +661,7 @@ class UserModel {
   /// USER TYPES
 
 // -----------------------------------
-  static const List<UserStatus> userTypesList = <UserStatus>[
+  static const List<UserStatus> userStatuses = <UserStatus>[
     UserStatus.normal,
     UserStatus.searching,
     UserStatus.finishing,
@@ -672,6 +672,7 @@ class UserModel {
     UserStatus.deactivated,
   ];
 // -----------------------------------------------------------------------------
+
 }
 // -----------------------------------------------------------------------------
 enum UserStatus {

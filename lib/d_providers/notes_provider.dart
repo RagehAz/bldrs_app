@@ -1,10 +1,13 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 class NotesProvider extends ChangeNotifier {
@@ -39,6 +42,43 @@ class NotesProvider extends ChangeNotifier {
   /// UNREAD NOTES
 
 // -------------------------------------
+  Stream<List<NoteModel>> _receivedNotesStream;
+  Stream<List<NoteModel>> get receivedNotesStream => _receivedNotesStream;
+  void startSetUserNotesStream({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final Stream<List<NoteModel>> _stream = NoteFireOps.getNoteModelsStream(
+      context: context,
+      limit: 100,
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+      finders: <FireFinder>[
+
+        FireFinder(
+          field: 'receiverID',
+          comparison: FireComparison.equalTo,
+          value: superUserID(),
+        ),
+
+      ],
+    );
+
+    _receivedNotesStream = _stream;
+
+    if(notify == true){
+      notifyListeners();
+    }
+  }
+// -------------------------------------
+  static Stream<List<NoteModel>> proGetUserNotesStream({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    return _notesProvider.receivedNotesStream;
+  }
+// -----------------------------------------------------------------------------
   /*
   List<NoteModel> _unseenUserNotes = <NoteModel>[];
 // -------------------------------------

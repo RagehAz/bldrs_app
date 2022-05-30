@@ -1,5 +1,5 @@
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/stacks/saved_flyers_grid.dart';
 // import 'package:bldrs/c_controllers/e_saves_controller.dart';
 // import 'package:flutter/material.dart';

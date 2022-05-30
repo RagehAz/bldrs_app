@@ -1,4 +1,4 @@
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/a_models/keywords/keyword_model.dart';
 // import 'package:bldrs/a_models/keywords/keywordz.dart';
 // import 'package:bldrs/a_models/keywords/section_class.dart';

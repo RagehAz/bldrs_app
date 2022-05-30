@@ -4,7 +4,7 @@
 // import 'package:bldrs/controllers/theme/iconz.dart';
 // import 'package:bldrs/controllers/theme/ratioz.dart';
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/d_providers/flyers_and_bzz/old_flyers_provider.dart';
 // import 'package:bldrs/d_providers/flyers_provider.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/main_layout.dart';

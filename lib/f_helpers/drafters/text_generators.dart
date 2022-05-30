@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -8,14 +8,14 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
-String flyerTypeDescriptionStringer(BuildContext context, FlyerTypeClass.FlyerType flyerType){
+String flyerTypeDescriptionStringer(BuildContext context, FlyerType flyerType){
   final String _description =
-  flyerType == FlyerTypeClass.FlyerType.property ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
-  flyerType == FlyerTypeClass.FlyerType.design ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
-  flyerType == FlyerTypeClass.FlyerType.project ? 'By Contractors' : //Wordz.constructionTagLine(context) :
-  flyerType == FlyerTypeClass.FlyerType.craft ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
-  flyerType == FlyerTypeClass.FlyerType.product ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
-  flyerType == FlyerTypeClass.FlyerType.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
+  flyerType == FlyerType.property ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
+  flyerType == FlyerType.design ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
+  flyerType == FlyerType.project ? 'By Contractors' : //Wordz.constructionTagLine(context) :
+  flyerType == FlyerType.craft ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
+  flyerType == FlyerType.product ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
+  flyerType == FlyerType.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
 
   Wordz.bldrsShortName(context);
 

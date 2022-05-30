@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -49,7 +48,7 @@ class ContactsBubble extends StatelessWidget {
 
                 return DreamBox(
                   height: _contactBoxHeight,
-                  icon: Iconizer.superContactIcon(_contact.contactType),
+                  icon: ContactModel.getContactIcon(_contact.contactType),
                   margins: const EdgeInsets.all(_abPadding),
                   verse: _contact?.value,
                   verseWeight: VerseWeight.thin,
@@ -76,7 +75,7 @@ class ContactsBubble extends StatelessWidget {
 
                 return DreamBox(
                   height: _contactBoxHeight,
-                  icon: Iconizer.superContactIcon(_contact.contactType),
+                  icon: ContactModel.getContactIcon(_contact.contactType),
                   margins: const EdgeInsets.all(_abPadding),
                   onTap: () => onUserContactTap(_contact),
                 );

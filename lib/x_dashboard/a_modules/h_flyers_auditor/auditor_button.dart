@@ -25,7 +25,10 @@ class AuditorButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const int _numberOfItems = 2;
-    final double _buttonWidth = Scale.getUniformRowItemWidth(context, _numberOfItems);
+    final double _buttonWidth = Scale.getUniformRowItemWidth(
+        context: context,
+        numberOfItems: _numberOfItems,
+    );
 
     return DreamBox(
       height: height,

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/raw_data/specs/specs_pickers.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_deactivator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -155,19 +155,19 @@ class SpecPicker {
     return _groups;
   }
 // -------------------------------------
-  static List<SpecPicker> getPickersByFlyerType(FlyerTypeClass.FlyerType flyerType) {
+  static List<SpecPicker> getPickersByFlyerType(FlyerType flyerType) {
     final List<SpecPicker> _specPicker =
-    flyerType == FlyerTypeClass.FlyerType.property ? propertySpecsPickers
+    flyerType == FlyerType.property ? propertySpecsPickers
         :
-    flyerType == FlyerTypeClass.FlyerType.design ? designSpecsPickers
+    flyerType == FlyerType.design ? designSpecsPickers
         :
-    flyerType == FlyerTypeClass.FlyerType.craft ? craftSpecsPickers
+    flyerType == FlyerType.craft ? craftSpecsPickers
         :
-    flyerType == FlyerTypeClass.FlyerType.project ? designSpecsPickers
+    flyerType == FlyerType.project ? designSpecsPickers
         :
-    flyerType == FlyerTypeClass.FlyerType.product ? productSpecsPickers
+    flyerType == FlyerType.product ? productSpecsPickers
         :
-    flyerType == FlyerTypeClass.FlyerType.equipment ? equipmentSpecsPickers
+    flyerType == FlyerType.equipment ? equipmentSpecsPickers
         :
     <SpecPicker>[];
 
