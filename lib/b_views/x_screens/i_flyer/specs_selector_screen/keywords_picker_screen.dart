@@ -269,7 +269,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
       pyramidsAreOn: true,
       skyType: SkyType.black,
       onBack: () {
-        Nav.goBack(context, argument: _selectedKeywordsIDs.value);
+        Nav.goBack(context, passedData: _selectedKeywordsIDs.value);
         // await null
       },
       onSearchChanged: _onSearchChain,

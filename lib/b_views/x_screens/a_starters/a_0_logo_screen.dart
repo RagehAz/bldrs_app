@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/c_controllers/a_starters_controllers/a_0_logo_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
 class LogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -84,11 +85,13 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
 
     _scaleController.repeat(reverse: true, min: 0.97, max: 1);
 
-    // traceWidgetBuild(widgetName: 'Logo screen', varName: '_isInit', varValue: _isInit);
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
-      // loading: true,
+      loading: _loading,
+      onBack: (){
+        Nav.closeApp(context);
+      },
       layoutWidget: LogoScreenView(
         scaleController: _scaleController,
       ),

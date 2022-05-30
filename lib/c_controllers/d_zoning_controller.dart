@@ -75,7 +75,7 @@ Future<void> controlCountryOnTap({
     );
 
     /// C - TAMAM
-    Nav.goBack(context, argument: _zone);
+    Nav.goBack(context, passedData: _zone);
 
     _zoneProvider.clearAllSearchesAndSelections(
       notify: true,
@@ -121,7 +121,7 @@ Future<void> controlCountryOnTap({
         );
 
         /// D.2 GO BACK
-        Nav.goBack(context, argument: _zone);
+        Nav.goBack(context, passedData: _zone);
 
 
       }
@@ -316,7 +316,7 @@ Future<void> controlCityOnTap({
       notify: true,
     );
 
-    Nav.goBack(context, argument: cityID);
+    Nav.goBack(context, passedData: cityID);
 
   }
 
