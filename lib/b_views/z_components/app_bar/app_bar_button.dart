@@ -10,6 +10,9 @@ class AppBarButton extends StatelessWidget {
     this.verseColor = Colorz.white255,
     this.buttonColor = Colorz.white20,
     this.onTap,
+    this.icon,
+    this.bubble = true,
+    this.isDeactivated = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -17,6 +20,9 @@ class AppBarButton extends StatelessWidget {
   final Color verseColor;
   final Color buttonColor;
   final Function onTap;
+  final String icon;
+  final bool bubble;
+  final bool isDeactivated;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -25,11 +31,14 @@ class AppBarButton extends StatelessWidget {
       // width: Ratioz.appBarButtonSize * 3.5,
       margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
       verse: verse,
+      icon: icon,
       verseColor: verseColor,
       verseScaleFactor: 0.9,
       color: buttonColor,
       iconSizeFactor: 0.6,
+      bubble: bubble,
       onTap: onTap,
+      isDeactivated: isDeactivated,
       // loading: loading,
     );
   }
