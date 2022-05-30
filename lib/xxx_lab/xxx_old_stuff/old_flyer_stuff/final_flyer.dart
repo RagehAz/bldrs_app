@@ -6,7 +6,7 @@
 // import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
 // import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
 // import 'package:bldrs/a_models/flyer/records/review_model.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 // import 'package:bldrs/a_models/chain/kw.dart';
 // import 'package:bldrs/a_models/secondary_models/contact_model.dart';
@@ -862,7 +862,7 @@
 // //     return new FlyerModel(
 // //       flyerID : SuperFlyer.draftID, // no need
 // //       // -------------------------
-// //       flyerType : FlyerTypeClass.concludeFlyerType(_bzModel.bzType),
+// //       flyerType : concludeFlyerType(_bzModel.bzType),
 // //       flyerState : FlyerState.Draft,
 // //       keywords : _superFlyer?.keywords,
 // //       flyerShowsAuthor : true,
@@ -2083,7 +2083,7 @@
 //       draggable: true,
 //       child: FlyerTypeSelector(
 //         superFlyer: _superFlyer,
-//         onChangeFlyerType: (FlyerTypeClass.FlyerType flyerType) {
+//         onChangeFlyerType: (FlyerType flyerType) {
 //           setState(() {
 //             _superFlyer.flyerType = flyerType;
 //           });

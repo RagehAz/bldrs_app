@@ -483,6 +483,7 @@ Future<dynamic> readSubDoc({
 /// STREAMING
 
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Stream<QuerySnapshot<Object>> streamCollection({
   @required String collName,
   QueryOrderBy orderBy,
@@ -506,6 +507,7 @@ Stream<QuerySnapshot<Object>> streamCollection({
   return _snapshots;
 }
 // ---------------------------------------------------
+/// TESTED : WORKS PERFECT
 Stream<QuerySnapshot<Object>> streamSubCollection({
   @required String collName,
   @required String docName,

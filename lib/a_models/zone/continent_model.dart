@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 class Continent {
   /// --------------------------------------------------------------------------
@@ -11,14 +12,16 @@ class Continent {
     @required this.activatedCountriesIDs,
     @required this.globalCountriesIDs,
   });
-
   /// --------------------------------------------------------------------------
   final String name;
   final List<Region> regions;
   final List<String> activatedCountriesIDs;
   final List<String> globalCountriesIDs;
+// -----------------------------------------------------------------------------
 
-  /// --------------------------------------------------------------------------
+  /// CYPHERS
+
+// -----------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
@@ -73,7 +76,11 @@ class Continent {
     return _continents;
   }
 // -----------------------------------------------------------------------------
-  static bool continentsIncludeContinent({
+
+  /// CHECKERS
+
+// -----------------------------------
+  static bool checkContinentsIncludeContinent({
     @required List<Continent> continents,
     @required String name,
   }) {
@@ -88,7 +95,30 @@ class Continent {
 
     return _includes;
   }
+// -----------------------------------
+  static bool checkIconIsContinent(String icon) {
+    bool _iconIsContinent;
+
+    if (icon == Iconz.contAfrica ||
+        icon == Iconz.contAsia ||
+        icon == Iconz.contSouthAmerica ||
+        icon == Iconz.contNorthAmerica ||
+        icon == Iconz.contEurope ||
+        icon == Iconz.contAustralia) {
+      _iconIsContinent = true;
+    }
+
+    else {
+      _iconIsContinent = false;
+    }
+
+    return _iconIsContinent;
+  }
 // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// -----------------------------------
   static Continent getContinentFromContinents({
     @required List<Continent> continents,
     @required String name,
@@ -134,7 +164,58 @@ class Continent {
     return _cont;
   }
 // -----------------------------------------------------------------------------
-  void blogContinent({String methodName = 'CONTINENT - PRINT'}) {
+  static String getContinentIcon(Continent continent) {
+    final String _name = continent.name;
+
+    switch (_name) {
+      case 'Africa': return Iconz.contAfrica; break;
+      case 'Asia': return Iconz.contAsia; break;
+      case 'Oceania': return Iconz.contAustralia; break;
+      case 'Europe': return Iconz.contEurope; break;
+      case 'North America': return Iconz.contNorthAmerica; break;
+      case 'South America': return Iconz.contSouthAmerica; break;
+      default: return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// LISTS
+
+// -----------------------------------
+  static const List<Map<String, dynamic>> continentsMaps = <Map<String, dynamic>>[
+    <String, dynamic>{
+      'name': 'Africa',
+      'icon': Iconz.contAfrica,
+    },
+    <String, dynamic>{
+      'name': 'Asia',
+      'icon': Iconz.contAsia,
+    },
+    <String, dynamic>{
+      'name': 'Oceania',
+      'icon': Iconz.contAustralia,
+    },
+    <String, dynamic>{
+      'name': 'Europe',
+      'icon': Iconz.contEurope,
+    },
+    <String, dynamic>{
+      'name': 'North America',
+      'icon': Iconz.contNorthAmerica,
+    },
+    <String, dynamic>{
+      'name': 'South America',
+      'icon': Iconz.contSouthAmerica,
+    },
+  ];
+// -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+// -----------------------------------
+  void blogContinent({
+    String methodName = 'CONTINENT - BLOG',
+  }) {
     blog('$methodName ------------------------------- START');
 
     blog('name : $name');

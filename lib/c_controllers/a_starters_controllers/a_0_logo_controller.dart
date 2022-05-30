@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -47,6 +48,9 @@ Future<void> initializeLogoScreen({
 
   /// LOCAL ASSETS PATHS
   await _initializeLocalAssetsPaths(context);
+
+  /// INITIALIZE USER NOTES STREAM
+  _initializeUserNotesStream(context);
 
   await Nav.replaceScreen(
       context: context,
@@ -351,6 +355,20 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
   await _phraseProvider.fetchSetCurrentLangAndPhrases(
     context: context,
+  );
+
+}
+// -----------------------------------------------------------------------------
+
+/// NOTES STREAM INITIALIZATION
+
+// ---------------------------------
+void _initializeUserNotesStream(BuildContext context){
+
+  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+  _notesProvider.startSetUserNotesStream(
+    context: context,
+    notify: true,
   );
 
 }

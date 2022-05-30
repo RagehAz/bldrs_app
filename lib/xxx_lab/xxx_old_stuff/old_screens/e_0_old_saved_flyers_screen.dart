@@ -1,5 +1,5 @@
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart' as FlyerTypeClass;
 // import 'package:bldrs/b_views/widgets/general/buttons/flyer_type_button.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/tab_layout.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/stacks/saved_flyers_grid.dart';

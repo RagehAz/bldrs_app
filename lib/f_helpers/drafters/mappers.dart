@@ -171,7 +171,7 @@ List<String> putStringInStringsIfAbsent({
 
   return _output;
 }
-
+// -------------------------------------
 List<String> cleanDuplicateStrings({
   @required List<String> strings,
 }){
@@ -213,6 +213,7 @@ List<Map<String, dynamic>> getMapsFromQuerySnapshot({
   return _maps;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
   @required List<QueryDocumentSnapshot<Object>> queryDocumentSnapshots,
   @required bool addDocsIDs,
@@ -325,7 +326,6 @@ Map<String, dynamic> getMapFromURLQuery({
 
   return _output;
 }
-
 // -------------------------------------
 /// TESTED : WORKS PERFECT
 Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic object){

@@ -17,7 +17,7 @@ class BzTypesLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _bzTypesString = BzModel.generateTranslatedBzTypesString(
+    final String _bzTypesString = BzModel.translateBzTypesIntoString(
       context: context,
       bzTypes: bzModel.bzTypes,
       bzForm: bzModel.bzForm,

@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_1_anonymous_home_screen_view.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// NOT disposed
+  Stream<List<NoteModel>> _receivedNotesStream;
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
@@ -32,10 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
       callerName: 'HomeScreen',
     );
   }
+
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
     super.initState();
+
+
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -64,10 +71,51 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    traceWidgetBuild(widgetName: 'Home screen', varName: '_isInit', varValue: _isInit);
-
     final bool _userIsSignedIn = AuthModel.userIsSignedIn();
 
+    return NoteFireOps.noteStreamBuilder(
+        context: context,
+        stream: _receivedNotesStream,
+        builder: (_, List<NoteModel> notes){
+
+          return MainLayout(
+            key: const ValueKey<String>('mainLayout'),
+            navBarIsOn: true,
+            appBarType: AppBarType.main,
+            canRefreshFlyers: true,
+            layoutWidget: ValueListenableBuilder(
+              valueListenable: _loading,
+              builder: (_, bool loading, Widget child){
+
+                /// LOADING
+                if (loading == true) {
+                  return const Center(child: Loading(loading: true,));
+                }
+
+                /// FOR ANONYMOUS USER
+                else if (_userIsSignedIn == false){
+                  return const AnonymousHomeScreenView();
+                }
+
+                /// FOR KNOWN SIGNED IN USER
+                else if (_userIsSignedIn == true){
+                  return const UserHomeScreen();
+                }
+
+                /// UNKNOWN CONDITION
+                else {
+                  return Container();
+                }
+
+              },
+            ),
+
+          );
+
+        },
+    );
+
+    /*
     return MainLayout(
       key: const ValueKey<String>('mainLayout'),
       navBarIsOn: true,
@@ -101,5 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
     );
+     */
+
   }
 }

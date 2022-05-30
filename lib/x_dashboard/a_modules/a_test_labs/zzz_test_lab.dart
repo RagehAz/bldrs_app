@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/animators/list_pusher.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -19,6 +20,10 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
@@ -307,9 +312,34 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 /// DO SOMETHING
                 WideButton(
                     color: Colorz.red255,
-                    verse: 'DO SOMETHING',
+                    verse: 'STREAM IT',
                     icon: Iconz.dvGouran,
                     onTap: () async {
+
+                      final Stream<List<NoteModel>> _stream = getNoteModelsStream(
+                        context: context,
+                        limit: 100,
+                        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+                        finders: <FireFinder>[
+
+                          FireFinder(
+                            field: 'receiverID',
+                            comparison: FireComparison.equalTo,
+                            value: superUserID(),
+                          ),
+
+                        ],
+                      );
+
+
+                      final List<NoteModel> _notes = await _stream.first;
+
+                      NoteModel.blogNotes(
+                        notes: _notes,
+                        methodName: 'CHECK THIS STREAM',
+                      );
+
+
 
                     }
                     ),

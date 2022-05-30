@@ -40,8 +40,8 @@ import 'package:flutter/material.dart';
 
     if (
     _connectionIsWaiting(snapshot) == true
-        ||
-    _connectionHasData(snapshot) == false
+    //     ||
+    // _connectionHasData(snapshot) == false
     //     ||
     // snapshot.error == null
     ){

@@ -1,12 +1,11 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -34,7 +33,7 @@ Future<void> onChangeHomeSection({
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final String _currentCityID = _zoneProvider.currentZone.cityID;
 
-    final String _flyerTypeString = translateFlyerType(
+    final String _flyerTypeString = FlyerTyper.translateFlyerType(
         context: context,
         flyerType: flyerType
     );
@@ -98,9 +97,9 @@ String getSectionIcon({
   String _icon;
 
   if (inActiveMode == true) {
-    _icon = Iconizer.flyerTypeIconOff(section);
+    _icon = FlyerTyper.flyerTypeIconOff(section);
   } else {
-    _icon = Iconizer.flyerTypeIconOn(section);
+    _icon = FlyerTyper.flyerTypeIconOn(section);
   }
 
   return _icon;

@@ -134,7 +134,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
           subString: val.toLowerCase(),
         );
 
-        final bool _alreadyInList = BzModel.bzzContainThisBz(
+        final bool _alreadyInList = BzModel.checkBzzContainThisBz(
               bzz: _searchedBzz,
               bzModel: tinyBz,
             ) ==

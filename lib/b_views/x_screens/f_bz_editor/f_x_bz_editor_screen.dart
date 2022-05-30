@@ -97,7 +97,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void _initializeBzModelVariables(){
     // -------------------------
     _initialBzModel = widget.firstTimer == true ?
-    BzModel.createInitialBzModelFromUserData(widget.userModel)
+    BzModel.convertFireUserDataIntoInitialBzModel(widget.userModel)
         :
     widget.bzModel;
     // -------------------------
@@ -124,11 +124,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -------------------------------------
   void _initializeHelperVariables(){
     final BzSection _concludedBzSection = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
-    final List<BzType> _concludedInactiveBzTypes = BzModel.generateInactiveBzTypesBySection(
+    final List<BzType> _concludedInactiveBzTypes = BzModel.concludeInactiveBzTypesBySection(
       bzSection: _concludedBzSection,
       initialBzTypes: _initialBzModel.bzTypes,
     );
-    final List<BzForm> _concludedInactiveBzForms = BzModel.generateInactiveBzForms(_concludedInactiveBzTypes);
+    final List<BzForm> _concludedInactiveBzForms = BzModel.concludeInactiveBzFormsByBzTypes(_concludedInactiveBzTypes);
     _selectedBzSection  = ValueNotifier(_concludedBzSection);
     _inactiveBzTypes = ValueNotifier(_concludedInactiveBzTypes);
     _inactiveBzForms = ValueNotifier(_concludedInactiveBzForms);

@@ -1,6 +1,6 @@
 // import 'package:bldrs/controllers/drafters/mappers.dart' as Mapper;
 // import 'package:bldrs/controllers/localization/lingo.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/a_models/keywords/group_model.dart';
 // import 'package:bldrs/a_models/keywords/sequence_model.dart';
 // import 'package:bldrs/a_models/zone/district_model.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -43,7 +43,7 @@ void onSelectBzSection({
 }){
 
   final BzSection _selectedSection = BzModel.bzSectionsList[index];
-  final List<BzType> _generatedInactiveBzTypes = BzModel.generateInactiveBzTypesBySection(
+  final List<BzType> _generatedInactiveBzTypes = BzModel.concludeInactiveBzTypesBySection(
     bzSection: _selectedSection,
   );
 
@@ -68,20 +68,20 @@ void onSelectBzType({
   final BzType _selectedBzType = BzModel.bzTypesList[index];
 
   /// UPDATE SELECTED BZ TYPES
-  selectedBzTypes.value = BzModel.editSelectedBzTypes(
+  selectedBzTypes.value = BzModel.addOrRemoveBzTypeToBzzTypes(
     selectedBzTypes: selectedBzTypes.value,
     newSelectedBzType: _selectedBzType,
   );
 
   /// INACTIVE OTHER BZ TYPES
-  inactiveBzTypes.value = BzModel.generateInactiveBzTypesBasedOnCurrentSituation(
+  inactiveBzTypes.value = BzModel.concludeInactiveBzTypesBasedOnSelectedBzTypes(
     newSelectedType: _selectedBzType,
     selectedBzTypes: selectedBzTypes.value,
     selectedBzSection: selectedBzSection.value,
   );
 
   /// INACTIVATE BZ FORMS
-  inactiveBzForms.value = BzModel.generateInactiveBzForms(selectedBzTypes.value);
+  inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(selectedBzTypes.value);
 
   /// UN SELECT BZ FORM
   selectedBzForm.value = null;
@@ -136,7 +136,7 @@ Future<void> onAddScopesTap({
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
       screen: KeywordsPickerScreen(
-        flyerTypes: concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
+        flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
         selectedKeywordsIDs: selectedScopes.value,
       )
   );
