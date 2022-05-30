@@ -1,19 +1,14 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dart';
+import 'package:bldrs/b_views/z_components/notes/note_attachment.dart';
+import 'package:bldrs/b_views/z_components/notes/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +27,7 @@ class NoteCard extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static double bodyWidth(BuildContext context) {
     return Bubble.defaultWidth(context) -
-        NotificationSenderBalloon.balloonWidth -
+        NoteSenderBalloon.balloonWidth -
         (Ratioz.appBarMargin * 4);
   }
 // -----------------------------------------------------------------------------
@@ -77,44 +72,13 @@ class NoteCard extends StatelessWidget {
       onBubbleTap: _noteHasButtons ? null : _onBubbleTap,
       columnChildren: <Widget>[
 
-        Container(
-          width: _clearWidth,
-          height: 100,
-          color: Colorz.bloodTest,
-          child: StaticHeader(
-            flyerBoxWidth: _clearWidth,
-            logo: dvRageh,
-            authorImage: dvGouran,
-            firstLine: 'Fuck',
-            secondLine: 'you',
-            thirdLine: 'Bitch',
-            fourthLine: 'ass',
-            fifthLine: 'mother fucker',
-          ),
-        ),
-
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            /// SENDER BALLOON
-            if (noteModel?.noteSenderType == NoteSenderType.author)
-            FutureBuilder<BzModel>(
-                future: BzzProvider.proFetchBzModel(
-                  context: context,
-                  bzID: noteModel.attachment,
-                ),
-                builder: (BuildContext ctx, AsyncSnapshot<Object> snapshot){
-
-                  final BzModel _bzModel = snapshot.data;
-
-                  return NotificationSenderBalloon(
-                    senderType: noteModel?.noteSenderType,
-                    pic: _bzModel?.logo,
-                  );
-
-                }
-                ),
+            NoteSenderBalloon(
+              noteModel: noteModel,
+            ),
 
             /// SPACER
             const SizedBox(
@@ -132,7 +96,7 @@ class NoteCard extends StatelessWidget {
                   /// TITLE
                   SuperVerse(
                     verse: noteModel?.title,
-                    maxLines: 3,
+                    maxLines: 5,
                     centered: false,
                   ),
 
@@ -154,7 +118,7 @@ class NoteCard extends StatelessWidget {
                   SuperVerse(
                     verse: noteModel.body,
                     weight: VerseWeight.thin,
-                    maxLines: 10,
+                    maxLines: 20,
                     centered: false,
                   ),
 
@@ -164,36 +128,11 @@ class NoteCard extends StatelessWidget {
                     height: Ratioz.appBarPadding,
                   ),
 
-                  if (noteModel.attachmentType == NoteAttachmentType.bzID)
-                    FutureBuilder(
-                      future: BzzProvider.proFetchBzModel(
-                        context: context,
-                        bzID: noteModel.attachment,
-                      ),
-                        builder: (_, AsyncSnapshot<Object> snapshot){
-                        return Container();
-                    }
-                    ),
-
-                  /// WELCOME BANNER
-                  if (noteModel.attachmentType == NoteAttachmentType.imageURL)
-                    NotiBannerEditor(
-                      width: _bodyWidth,
-                      height: 300,
-                      attachment: noteModel.attachment,
-                      onDelete: null,
-                    ),
-
-                  // BldrsWelcomeBanner(
-                  //   width: _bodyWidth,
-                  //   corners: _bannerCorner,
-                  // ),
-
-                  if (noteModel.attachmentType == NoteAttachmentType.flyersIDs)
-                    NotificationFlyers(
-                      bodyWidth: _bodyWidth,
-                      flyers: noteModel.attachment,
-                    ),
+                  /// ATTACHMENT
+                  NoteAttachment(
+                    noteModel: noteModel,
+                    boxWidth: _bodyWidth,
+                  ),
 
                   /// BUTTONS
                   if (Mapper.canLoopList(noteModel.buttons) == true)
@@ -217,7 +156,7 @@ class NoteCard extends StatelessWidget {
 
                             return DreamBox(
                               width: _width,
-                              height: 60,
+                              height: 40,
                               verse: _phid,
                               verseScaleFactor: 0.7,
                               color: Colorz.blue80,

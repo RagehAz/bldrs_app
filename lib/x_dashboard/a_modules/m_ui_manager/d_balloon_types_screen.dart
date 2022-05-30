@@ -44,7 +44,7 @@ class BalloonTypesScreen extends StatelessWidget {
                 children: <Widget>[
 
                   UserBalloon(
-                    balloonType: _balloonType,
+                    userStatus: _balloonType,
                     userModel: UserModel.dummyUserModel(context),
                     size: 50,
                     loading: false,

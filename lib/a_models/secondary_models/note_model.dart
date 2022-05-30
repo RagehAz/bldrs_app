@@ -19,7 +19,7 @@ enum NoteAttachmentType {
 enum NoteSenderType {
   bldrs,
   user,
-  author,
+  // author,
   bz,
   country,
 }
@@ -29,6 +29,7 @@ class NoteModel {
   const NoteModel({
     @required this.id,
     @required this.senderID,
+    @required this.senderImageURL,
     @required this.noteSenderType,
     @required this.receiverID,
     @required this.title,
@@ -48,6 +49,7 @@ class NoteModel {
   /// --------------------------------------------------------------------------
   final String id;
   final String senderID;
+  final String senderImageURL;
   final NoteSenderType noteSenderType;
   final String receiverID;
   final String title; /// max 30 char
@@ -86,6 +88,7 @@ class NoteModel {
   NoteModel copyWith({
     String id,
     String senderID,
+    String senderImageURL,
     NoteSenderType noteSenderType,
     String receiverID,
     String title,
@@ -105,6 +108,7 @@ class NoteModel {
     return NoteModel(
       id: id ?? this.id,
       senderID: senderID ?? this.senderID,
+      senderImageURL: senderImageURL ?? this.senderImageURL,
       noteSenderType: noteSenderType ?? this.noteSenderType,
       receiverID: receiverID ?? this.receiverID,
       title: title ?? this.title,
@@ -133,6 +137,7 @@ class NoteModel {
     return <String, dynamic>{
       // 'id': id, /// no need
       'senderID': senderID,
+      'senderImageURL': senderImageURL,
       'noteSenderType': cipherNoteSenderType(noteSenderType),
       'receiverID': receiverID,
       /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
@@ -173,6 +178,7 @@ class NoteModel {
       _noti = NoteModel(
         id: map['id'],
         senderID: map['senderID'],
+        senderImageURL: map['senderImageURL'],
         noteSenderType: decipherNoteSenderType(map['noteSenderType']),
         receiverID: map['receiverID'],
         title: map['notification']['notification']['title'],
@@ -324,7 +330,7 @@ class NoteModel {
   static String cipherNoteSenderType(NoteSenderType type){
     switch (type) {
       case NoteSenderType.bz:           return 'bz';      break; /// data type : String bzID
-      case NoteSenderType.author:       return 'author';  break; /// data type : String authorID
+      // case NoteSenderType.author:       return 'author';  break; /// data type : String authorID
       case NoteSenderType.user:         return 'user';    break; /// data type : String userID
       case NoteSenderType.country:      return 'country'; break; /// data type : String countryID
       case NoteSenderType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
@@ -336,7 +342,7 @@ class NoteModel {
     switch (type) {
       case 'bldrs':   return NoteSenderType.bldrs;    break;
       case 'user':    return NoteSenderType.user;     break;
-      case 'author':  return NoteSenderType.author;   break;
+      // case 'author':  return NoteSenderType.author;   break;
       case 'bz':      return NoteSenderType.bz;       break;
       case 'country': return NoteSenderType.country;  break;
       default:        return null;
@@ -345,7 +351,7 @@ class NoteModel {
 // -------------------------------------
   static const List<NoteSenderType> noteSenderTypesList = <NoteSenderType>[
     NoteSenderType.bz,
-    NoteSenderType.author,
+    // NoteSenderType.author,
     NoteSenderType.user,
     NoteSenderType.country,
     NoteSenderType.bldrs,
