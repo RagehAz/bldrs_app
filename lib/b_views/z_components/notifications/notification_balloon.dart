@@ -10,12 +10,12 @@ import 'package:flutter/material.dart';
 class NotificationSenderBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NotificationSenderBalloon({
-    @required this.sender,
+    @required this.senderType,
     @required this.pic,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final NoteAttachmentType sender;
+  final NoteSenderType senderType;
   final String pic;
   /// --------------------------------------------------------------------------
   static const double balloonWidth = 40;
@@ -25,7 +25,7 @@ class NotificationSenderBalloon extends StatelessWidget {
 
     // double _screenWidth = Scale.superScreenWidth(context);
 
-    return sender == NoteAttachmentType.bz?
+    return senderType == NoteSenderType.bz?
     BzLogo(
       width: balloonWidth,
       image: pic,
@@ -33,7 +33,7 @@ class NotificationSenderBalloon extends StatelessWidget {
 
         :
 
-    sender == NoteAttachmentType.author ?
+    senderType == NoteSenderType.author ?
     AuthorPic(
       authorPic: pic,
       width: balloonWidth,
@@ -41,7 +41,7 @@ class NotificationSenderBalloon extends StatelessWidget {
 
         :
 
-    sender == NoteAttachmentType.user ?
+    senderType == NoteSenderType.user ?
     Balloona(
       balloonWidth: balloonWidth,
       pic: pic,
@@ -60,14 +60,14 @@ class NotificationSenderBalloon extends StatelessWidget {
 
         :
 
-    sender == NoteAttachmentType.bldrs ?
+    senderType == NoteSenderType.bldrs ?
     const BldrsName(
       size: balloonWidth,
     )
 
         :
 
-    sender == NoteAttachmentType.country ?
+    senderType == NoteSenderType.country ?
     DreamBox(
       width: balloonWidth,
       height: balloonWidth,

@@ -288,7 +288,10 @@ Future<void> showMissingFieldsDialog({
 */
 // ------------------------------------------------------
 Future<void> _goToLogoScreen(BuildContext context) async {
-  await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
+  await Nav.pushNamedAndRemoveAllBelow(
+      context: context,
+      goToRoute: Routez.logoScreen,
+  );
 }
 // -----------------------------------------------------------------------------
 

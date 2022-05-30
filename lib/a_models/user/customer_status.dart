@@ -129,7 +129,9 @@ class CustomerStatus {
 /// BLOGGING
 
 // -----------------------------------
-  void blogCustomerStatus({String methodName = 'CUSTOMER STATUS BLOG'}){
+  void blogCustomerStatus({
+    String methodName = 'CUSTOMER STATUS BLOG',
+  }){
     blog('$methodName ---------------------------- START');
 
     blog('bldrPhase : ${bldrPhase.toString()}');

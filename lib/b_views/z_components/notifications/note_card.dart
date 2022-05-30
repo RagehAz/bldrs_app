@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -56,7 +57,7 @@ class NoteCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _bodyWidth = bodyWidth(context);
-    final bool _noteHasButtons = noteModel?.attachmentType == NoteAttachmentType.buttons;
+    final bool _noteHasButtons = Mapper.canLoopList(noteModel.buttons);
 
     return Bubble(
       centered: true,
@@ -127,7 +128,7 @@ class NoteCard extends StatelessWidget {
                   ),
 
                   /// WELCOME BANNER
-                  if (noteModel.attachmentType == NoteAttachmentType.banner)
+                  if (noteModel.attachmentType == NoteAttachmentType.imageURL)
                     NotiBannerEditor(
                       width: _bodyWidth,
                       height: 300,
@@ -140,15 +141,14 @@ class NoteCard extends StatelessWidget {
                   //   corners: _bannerCorner,
                   // ),
 
-                  if (noteModel.attachmentType == NoteAttachmentType.flyers)
+                  if (noteModel.attachmentType == NoteAttachmentType.flyersIDs)
                     NotificationFlyers(
                       bodyWidth: _bodyWidth,
                       flyers: noteModel.attachment,
                     ),
 
                   /// BUTTONS
-                  if (noteModel.attachmentType == NoteAttachmentType.buttons &&
-                      noteModel.attachment is List<String>)
+                  if (Mapper.canLoopList(noteModel.buttons) == true)
                     Container(
                       width: _bodyWidth,
                       height: 70,
@@ -160,6 +160,8 @@ class NoteCard extends StatelessWidget {
                           ...List<Widget>.generate(noteModel.attachment.length,
                               (int index) {
 
+                            final String _phid = noteModel.buttons[index];
+
                             final double _width = Scale.getUniformRowItemWidth(
                               context: context,
                               numberOfItems: noteModel.attachment.length,
@@ -169,11 +171,11 @@ class NoteCard extends StatelessWidget {
                             return DreamBox(
                               width: _width,
                               height: 60,
-                              verse: noteModel.attachment[index],
+                              verse: _phid,
                               verseScaleFactor: 0.7,
                               color: Colorz.blue80,
                               splashColor: Colorz.yellow255,
-                              onTap: () => _onButtonTap(noteModel.attachment[index]),
+                              onTap: () => _onButtonTap(_phid),
                             );
 
                           }
