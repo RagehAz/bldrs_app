@@ -324,7 +324,7 @@ void onGoBackToSpecsPickersScreen({
   @required BuildContext context,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
-  Nav.goBack(context, argument: selectedSpecs.value);
+  Nav.goBack(context, passedData: selectedSpecs.value);
 }
 // -----------------------------------------------------------------------------
 

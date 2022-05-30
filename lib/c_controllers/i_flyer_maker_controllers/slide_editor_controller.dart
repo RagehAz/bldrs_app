@@ -39,7 +39,7 @@ Future<void> onConfirmSlideEdits({
     filter: filter.value,
   );
 
-  Nav.goBack(context, argument: _slide);
+  Nav.goBack(context, passedData: _slide);
 
 }
 // -----------------------------------------------------------------------------

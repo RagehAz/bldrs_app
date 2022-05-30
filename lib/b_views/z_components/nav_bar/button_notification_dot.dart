@@ -18,9 +18,13 @@ class ButtonNotificationDot extends StatelessWidget {
 
     if (count == null || count == 0) {
       _count = null;
-    } else if (count > 1 && count <= 99) {
+    }
+
+    else if (count > 0 && count <= 99) {
       _count = '$count';
-    } else {
+    }
+
+    else {
       _count = '99+';
     }
 

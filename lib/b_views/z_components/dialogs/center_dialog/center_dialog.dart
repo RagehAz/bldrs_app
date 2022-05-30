@@ -289,14 +289,14 @@ class CenterDialog extends StatelessWidget {
                                   verse: 'No',
                                   color: Colorz.white80,
                                   onTap: () =>
-                                      Nav.goBack(context, argument: false),
+                                      Nav.goBack(context, passedData: false),
                                 ),
 
                               DialogButton(
                                 verse: _confirmButtonText,
                                 verseColor: Colorz.black230,
                                 color: Colorz.yellow255,
-                                onTap: boolDialog == true ? () => Nav.goBack(context, argument: true)
+                                onTap: boolDialog == true ? () => Nav.goBack(context, passedData: true)
                                     : onOk ?? () => Nav.goBack(context),
                               ),
 

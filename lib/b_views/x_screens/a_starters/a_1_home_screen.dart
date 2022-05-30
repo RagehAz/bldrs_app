@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HomeScreen({
@@ -77,6 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
       navBarIsOn: true,
       appBarType: AppBarType.main,
       canRefreshFlyers: true,
+      onBack: (){
+        Nav.closeApp(context);
+      },
       layoutWidget: ValueListenableBuilder(
         valueListenable: _loading,
         builder: (_, bool loading, Widget child){
