@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/clip_shadow_path.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/c_balloon_components.dart';
@@ -17,14 +16,14 @@ class Balloona extends StatelessWidget {
     this.child,
     this.balloonColor = Colorz.white10,
     this.blackAndWhite = false,
-    this.userStatus = UserStatus.normal,
+    this.balloonType = BalloonType.circle,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double balloonWidth;
   final Function onTap;
   final dynamic pic;
-  final UserStatus userStatus;
+  final BalloonType balloonType;
   final bool shadowIsOn;
   final Widget child;
   final bool loading;
@@ -34,7 +33,7 @@ class Balloona extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final CustomClipper _clipper = concludeBalloonByUserStatus(userStatus);
+    final CustomClipper _clipper = getBalloonClipPath(balloonType) ;
 
     return SizedBox(
       width: balloonWidth,

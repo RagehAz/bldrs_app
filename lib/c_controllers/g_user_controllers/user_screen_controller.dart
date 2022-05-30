@@ -376,7 +376,7 @@ Future<bool> _showDeleteUserDialog({
         /// USER PIC
         UserBalloon(
           size: 80,
-          balloonType: userModel?.status,
+          userStatus: userModel?.status,
           userModel: userModel,
           loading: false,
         ),
