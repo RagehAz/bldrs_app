@@ -44,7 +44,7 @@ class AskerLabel extends StatelessWidget {
           /// ASKER PICTURE
           UserBalloon(
             userModel: userModel,
-            balloonType: userModel.status,
+            userStatus: userModel.status,
             size: _userLabelBoxHeight,
             loading: false,
             // onTap: () {

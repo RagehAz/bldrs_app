@@ -1,10 +1,9 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_zero_cornered_balloon.dart';
 import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_arrowed_balloon.dart';
 import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_circle_balloon.dart';
 import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_speaking_balloon.dart';
 import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_thinking_balloon.dart';
-import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_round_cornered_balloon.dart';
+import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_zero_cornered_balloon.dart';
 import 'package:flutter/material.dart';
 
 enum BalloonType{
@@ -31,24 +30,24 @@ CustomClipper<Path> getBalloonClipPath(BalloonType type) {
 
 }
 // -----------------------------------------------------------------------------
-CustomClipper<Path> concludeBalloonByUserStatus(UserStatus userStatus) {
+BalloonType concludeBalloonByUserStatus(UserStatus userStatus) {
 
-  final CustomClipper<Path> userBalloon =
-  userStatus == UserStatus.normal ? PathOfCircleBalloon()
+  final BalloonType userBalloon =
+  userStatus == UserStatus.normal ? BalloonType.circle
       :
-  userStatus == UserStatus.searching ? PathOfThinkingBalloon()
+  userStatus == UserStatus.searching ? BalloonType.thinking
       :
-  userStatus == UserStatus.finishing ? PathOfArrowedBalloon()
+  userStatus == UserStatus.finishing ? BalloonType.arrowed
       :
-  userStatus == UserStatus.planning ? PathOfSpeakingBalloon()
+  userStatus == UserStatus.planning ? BalloonType.speaking
       :
-  userStatus == UserStatus.building ? PathOfZeroCorneredBalloon()
+  userStatus == UserStatus.building ? BalloonType.zeroCornered
       :
-  userStatus == UserStatus.selling ? PathOfRoundCorneredBalloon()
+  userStatus == UserStatus.selling ? BalloonType.roundCornered
       :
-  userStatus == null ? PathOfCircleBalloon()
+  userStatus == null ? BalloonType.circle
       :
-  PathOfCircleBalloon();
+  BalloonType.circle;
 
   return userBalloon;
 }

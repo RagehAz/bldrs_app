@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -156,7 +157,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                         balloonWidth: picWidth,
                         loading: false,
                         pic: pic,
-                        userStatus: UserStatus.searching,
+                        balloonType: concludeBalloonByUserStatus(UserStatus.searching),
                       )
                           :
                       DreamBox(

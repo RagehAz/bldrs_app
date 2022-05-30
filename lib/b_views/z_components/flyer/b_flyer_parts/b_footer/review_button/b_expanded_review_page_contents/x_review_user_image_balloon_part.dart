@@ -31,7 +31,7 @@ class ReviewUserImageBalloonPart extends StatelessWidget {
         loading: false,
         onTap: (){blog('tapping user balloon in reviews');},
         // balloonColor: ,
-        balloonType: UserStatus.planning,
+        userStatus: UserStatus.planning,
         shadowIsOn: false,
       ),
     );

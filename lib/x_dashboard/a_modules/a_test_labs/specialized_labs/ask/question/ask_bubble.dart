@@ -242,7 +242,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               /// USER PICTURE
               UserBalloon(
                 userModel: UserModel.dummyUserModel(context),
-                balloonType: _userStatus,
+                userStatus: _userStatus,
                 size: _abButtonsHeight,
                 loading: false,
                 onTap: () {
