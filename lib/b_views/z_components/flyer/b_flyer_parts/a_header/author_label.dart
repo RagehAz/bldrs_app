@@ -35,30 +35,70 @@ class AuthorLabel extends StatelessWidget {
   final bool labelIsOn;
   final ValueChanged<String> onTap;
   /// --------------------------------------------------------------------------
-// tappingAuthorLabel (){
-//     setState(() {
-//       labelIsOn == true ? labelIsOn = false : labelIsOn = true;
-//     });
-// }
+  static double getAuthorLabelBoxHeight({
+    @required double flyerBoxWidth
+  }){
+    // flyerShowsAuthor == true ?
+    return flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth;
+    //     :
+    // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
+  }
+// -----------------------------------------------------------------------------
+  static double getAuthorLabelBoxWidth({
+    @required double flyerBoxWidth,
+    @required bool labelIsOn,
+  }){
+    final double _authorLabelBoxHeight = getAuthorLabelBoxHeight(
+      flyerBoxWidth: flyerBoxWidth,
+    );
 
+    final double _authorDataWidth = flyerBoxWidth *
+        (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+
+    return labelIsOn == true ? _authorDataWidth : _authorLabelBoxHeight;
+
+  }
+// -----------------------------------------------------------------------------
+  static double getAuthorImageCorners({
+  @required double flyerBoxWidth,
+}){
+    return flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
+}
+// -----------------------------------------------------------------------------
+  static BorderRadius getAuthorImageBorders({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+}){
+
+    final double _authorImageCorners = getAuthorImageCorners(
+      flyerBoxWidth: flyerBoxWidth,
+    );
+
+    return Borderers.superBorderOnly(
+        context: context,
+        enTopLeft: _authorImageCorners,
+        enBottomLeft: 0,
+        enBottomRight: _authorImageCorners,
+        enTopRight: _authorImageCorners
+    );
+
+}
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     // const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
-    final double _headerTextSidePadding =
-        flyerBoxWidth * Ratioz.xxflyersGridSpacing;
+    final double _headerTextSidePadding = flyerBoxWidth * Ratioz.xxflyersGridSpacing;
 // -----------------------------------------------------------------------------
-    final double _authorDataHeight =
-    // flyerShowsAuthor == true ?
-    flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth
-    //     :
-    // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
-        ;
+    final double _authorLabelBoxHeight = getAuthorLabelBoxHeight(
+      flyerBoxWidth: flyerBoxWidth,
+    );
 // -----------------------------------------------------------------------------
-    final double _authorDataWidth = flyerBoxWidth *
-        (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    final double _authorLabelBoxWidth = getAuthorLabelBoxWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      labelIsOn: labelIsOn,
+    );
 // -----------------------------------------------------------------------------
     /// --- FOLLOWERS COUNTER
     final int _followersCount = bzModel?.totalFollowers;
@@ -81,8 +121,9 @@ class AuthorLabel extends StatelessWidget {
         '$_galleryCountCalibrated '
         '${superPhrase(context, 'phid_flyers')}';
 // -----------------------------------------------------------------------------
-    final double _authorImageCorners =
-        flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
+    final double _authorImageCorners = getAuthorImageCorners(
+      flyerBoxWidth: flyerBoxWidth,
+    );
 // -----------------------------------------------------------------------------
     final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(
         bz: bzModel,
@@ -92,17 +133,15 @@ class AuthorLabel extends StatelessWidget {
     return GestureDetector(
       onTap: showLabel == true ? () => onTap(authorID) : null,
       child: Container(
-        height: _authorDataHeight,
-        width: labelIsOn == true ? _authorDataWidth : _authorDataHeight,
+        height: _authorLabelBoxHeight,
+        width: _authorLabelBoxWidth,
         // margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerBoxWidth * 0.01) : const EdgeInsets.all(0),
         decoration: BoxDecoration(
           color: showLabel == false ? Colorz.nothing : Colorz.white20,
-          borderRadius: Borderers.superBorderOnly(
-              context: context,
-              enTopLeft: _authorImageCorners,
-              enBottomLeft: 0,
-              enBottomRight: _authorImageCorners,
-              enTopRight: _authorImageCorners),
+          borderRadius: getAuthorImageBorders(
+            context: context,
+            flyerBoxWidth: flyerBoxWidth,
+          ),
         ),
 
         child: Row(

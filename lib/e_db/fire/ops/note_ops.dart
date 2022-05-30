@@ -6,7 +6,6 @@ import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -229,6 +228,7 @@ Widget noteStreamBuilder({
   @required BuildContext context,
   @required NotiModelsWidgetsBuilder builder,
   @required Stream<List<NoteModel>> stream,
+  Widget loadingWidget,
 }) {
   return StreamBuilder<List<NoteModel>>(
     key: const ValueKey<String>('notifications_stream_builder'),
@@ -236,9 +236,11 @@ Widget noteStreamBuilder({
     initialData: const <NoteModel>[],
     builder: (BuildContext ctx, AsyncSnapshot<List<NoteModel>> snapshot) {
 
-      if (StreamChecker.connectionIsLoading(snapshot) == true) {
+      blog('stream connection state is : ${snapshot.connectionState.toString()}');
+
+      if (snapshot.connectionState == ConnectionState.waiting){
         blog('the shit is looooooooooooooooooooooooading');
-        return const LoadingFullScreenLayer();
+        return loadingWidget ?? const LoadingFullScreenLayer();
       }
 
       else {
