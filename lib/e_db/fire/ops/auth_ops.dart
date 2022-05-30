@@ -488,7 +488,10 @@ Future<void> signOut({
   // Nav.goToRoute(context, Routez.Starting);
 
   if (routeToUserChecker == true) {
-    await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
+    await Nav.pushNamedAndRemoveAllBelow(
+        context: context,
+        goToRoute: Routez.logoScreen,
+    );
   }
 }
 // -----------------------------------------------------------------------------

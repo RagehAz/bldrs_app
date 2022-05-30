@@ -8,17 +8,20 @@ enum NoteType {
   /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
   authorship,
 }
-// -----------------------------------------------------------------------------
+// ------------------------
 enum NoteAttachmentType {
   non,
-  flyers,
-  banner,
-  buttons,
-  bz,
-  author,
-  user,
-  country,
+  flyersIDs,
+  bzID,
+  imageURL,
+}
+// ------------------------
+enum NoteSenderType {
   bldrs,
+  user,
+  author,
+  bz,
+  country,
 }
 // -----------------------------------------------------------------------------
 class NoteModel {
@@ -26,6 +29,7 @@ class NoteModel {
   const NoteModel({
     @required this.id,
     @required this.senderID,
+    @required this.noteSenderType,
     @required this.receiverID,
     @required this.title,
     @required this.body,
@@ -39,10 +43,12 @@ class NoteModel {
     @required this.noteType,
     @required this.response,
     @required this.responseTime,
+    @required this.buttons,
   });
   /// --------------------------------------------------------------------------
   final String id;
   final String senderID;
+  final NoteSenderType noteSenderType;
   final String receiverID;
   final String title; /// max 30 char
   final String body; /// max 80 char
@@ -56,7 +62,7 @@ class NoteModel {
   final NoteType noteType;
   final String response;
   final DateTime responseTime;
-  // final UserBalloon
+  final List<String> buttons;
 // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -80,6 +86,7 @@ class NoteModel {
   NoteModel copyWith({
     String id,
     String senderID,
+    NoteSenderType noteSenderType,
     String receiverID,
     String title,
     String body,
@@ -93,10 +100,12 @@ class NoteModel {
     NoteType noteType,
     dynamic response,
     DateTime responseTime,
+    List<String> buttons,
 }){
     return NoteModel(
       id: id ?? this.id,
       senderID: senderID ?? this.senderID,
+      noteSenderType: noteSenderType ?? this.noteSenderType,
       receiverID: receiverID ?? this.receiverID,
       title: title ?? this.title,
       body: body ?? this.body,
@@ -110,6 +119,7 @@ class NoteModel {
       noteType: noteType ?? this.noteType,
       response: response ?? this.response,
       responseTime: responseTime ?? this.responseTime,
+      buttons: buttons ?? this.buttons,
     );
 }
 // -----------------------------------------------------------------------------
@@ -123,6 +133,7 @@ class NoteModel {
     return <String, dynamic>{
       // 'id': id, /// no need
       'senderID': senderID,
+      'noteSenderType': cipherNoteSenderType(noteSenderType),
       'receiverID': receiverID,
       /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
       'notification': _cipherNotificationField(),
@@ -135,6 +146,7 @@ class NoteModel {
       'noteType': cipherNoteType(noteType),
       'response': response,
       'responseTime': Timers.cipherTime(time: responseTime, toJSON: toJSON),
+      'buttons': buttons,
     };
   }
 // -------------------------------------
@@ -161,6 +173,7 @@ class NoteModel {
       _noti = NoteModel(
         id: map['id'],
         senderID: map['senderID'],
+        noteSenderType: decipherNoteSenderType(map['noteSenderType']),
         receiverID: map['receiverID'],
         title: map['notification']['notification']['title'],
         body: map['notification']['notification']['body'],
@@ -186,6 +199,7 @@ class NoteModel {
           time: map['responseTime'],
           fromJSON: fromJSON,
         ),
+        buttons: Mapper.getStringsFromDynamics(dynamics: map['buttons']),
       );
     }
 
@@ -258,11 +272,8 @@ class NoteModel {
       // output is null
     }
     /// flyers  : data type : List<String> flyersIDs
-    /// buttons : data type : List<String> buttonsIDs
     else if (
-    attachmentType == NoteAttachmentType.flyers
-    ||
-    attachmentType == NoteAttachmentType.buttons
+    attachmentType == NoteAttachmentType.flyersIDs
     ){
       final List<String> _strings = Mapper.getStringsFromDynamics(
         dynamics: attachment,
@@ -271,10 +282,6 @@ class NoteModel {
     }
     /// banner  : data type : String imageURL
     /// bz      : data type : String bzID
-    /// author  : data type : String authorID
-    /// user    : data type : String userID
-    /// country : data type : String countryID
-    /// bldrs   : data type : String graphicID
     else {
       _output = attachment;
     }
@@ -284,52 +291,73 @@ class NoteModel {
 // -------------------------------------
   static NoteAttachmentType decipherNoteAttachmentType(String attachmentType) {
     switch (attachmentType) {
-      case 'non':     return NoteAttachmentType.non;      break;
-      case 'flyers':  return NoteAttachmentType.flyers;   break;
-      case 'banner':  return NoteAttachmentType.banner;   break;
-      case 'buttons': return NoteAttachmentType.buttons;  break;
-      case 'bz':      return NoteAttachmentType.bz;       break;
-      case 'author':  return NoteAttachmentType.author;   break;
-      case 'user':    return NoteAttachmentType.user;     break;
-      case 'country': return NoteAttachmentType.country;  break;
-      case 'bldrs':   return NoteAttachmentType.bldrs;    break;
-      default:        return NoteAttachmentType.non;
+      case 'non':       return NoteAttachmentType.non;        break;
+      case 'flyersIDs': return NoteAttachmentType.flyersIDs;  break;
+      case 'bzID':      return NoteAttachmentType.bzID;       break;
+      case 'imageURL':  return NoteAttachmentType.imageURL;   break;
+      default:          return NoteAttachmentType.non;
     }
   }
 // -------------------------------------
   static String cipherNoteAttachmentType(NoteAttachmentType attachmentType) {
     switch (attachmentType) {
-      case NoteAttachmentType.non:          return 'non';     break; /// data type : null
-      case NoteAttachmentType.flyers:       return 'flyers';  break; /// data type : List<String> flyersIDs
-      case NoteAttachmentType.banner:       return 'banner';  break; /// data type : String imageURL
-      case NoteAttachmentType.buttons:      return 'buttons'; break; /// data type : List<String> buttonsIDs
-      case NoteAttachmentType.bz:           return 'bz';      break; /// data type : String bzID
-      case NoteAttachmentType.author:       return 'author';  break; /// data type : String authorID
-      case NoteAttachmentType.user:         return 'user';    break; /// data type : String userID
-      case NoteAttachmentType.country:      return 'country'; break; /// data type : String countryID
-      case NoteAttachmentType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
+      case NoteAttachmentType.non:          return 'non';       break; /// data type : null
+      case NoteAttachmentType.flyersIDs:    return 'flyersIDs'; break; /// data type : List<String> flyersIDs
+      case NoteAttachmentType.imageURL:     return 'imageURL';  break; /// data type : String imageURL
+      case NoteAttachmentType.bzID:         return 'bzID';      break; /// data type : String bzID
       default:return 'non';
     }
   }
 // -------------------------------------
   static const List<NoteAttachmentType> notiAttachmentTypesList = <NoteAttachmentType>[
       NoteAttachmentType.non,
-      NoteAttachmentType.flyers,
-      NoteAttachmentType.banner,
-      NoteAttachmentType.buttons,
-      NoteAttachmentType.bz,
-      NoteAttachmentType.author,
-      NoteAttachmentType.user,
-      NoteAttachmentType.country,
-      NoteAttachmentType.bldrs,
+      NoteAttachmentType.flyersIDs,
+      NoteAttachmentType.imageURL,
+      NoteAttachmentType.bzID,
       NoteAttachmentType.non,
     ];
+// -----------------------------------------------------------------------------
+
+  /// NOTE SENDER TYPE CYPHERS
+
+// -------------------------------------
+  static String cipherNoteSenderType(NoteSenderType type){
+    switch (type) {
+      case NoteSenderType.bz:           return 'bz';      break; /// data type : String bzID
+      case NoteSenderType.author:       return 'author';  break; /// data type : String authorID
+      case NoteSenderType.user:         return 'user';    break; /// data type : String userID
+      case NoteSenderType.country:      return 'country'; break; /// data type : String countryID
+      case NoteSenderType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
+      default:return 'non';
+    }
+  }
+// -------------------------------------
+  static NoteSenderType decipherNoteSenderType(String type){
+    switch (type) {
+      case 'bldrs':   return NoteSenderType.bldrs;    break;
+      case 'user':    return NoteSenderType.user;     break;
+      case 'author':  return NoteSenderType.author;   break;
+      case 'bz':      return NoteSenderType.bz;       break;
+      case 'country': return NoteSenderType.country;  break;
+      default:        return null;
+    }
+  }
+// -------------------------------------
+  static const List<NoteSenderType> noteSenderTypesList = <NoteSenderType>[
+    NoteSenderType.bz,
+    NoteSenderType.author,
+    NoteSenderType.user,
+    NoteSenderType.country,
+    NoteSenderType.bldrs,
+  ];
 // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
 // -------------------------------------
-  void blogNoteModel({String methodName}) {
+  void blogNoteModel({
+    String methodName,
+  }) {
     blog('BLOGGING NoteModel : $methodName ---------------- START -- ');
 
     blog('id : $id');
@@ -347,7 +375,7 @@ class NoteModel {
 
     blog('BLOGGING NoteModel : $methodName ---------------- END -- ');
   }
-
+// -------------------------------------
   static void blogNotes({
     @required List<NoteModel> notes,
     String methodName,
