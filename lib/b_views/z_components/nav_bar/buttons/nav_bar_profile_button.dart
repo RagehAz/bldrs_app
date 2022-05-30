@@ -1,19 +1,19 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/bar_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:flutter/material.dart';
 
 class NavBarProfileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -82,6 +82,8 @@ class NavBarProfileButton extends StatelessWidget {
             thereAreMissingFields: _thereAreMissingFields,
             notes : notes,
           );
+
+          // blog('the notes count is wtfffff : $_notesCount');
 
           return BarButton(
               size: NavBar.navBarButtonWidth,

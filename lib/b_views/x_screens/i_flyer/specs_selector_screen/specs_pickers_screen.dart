@@ -234,7 +234,7 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
         // loading: _loading,
         pageTitle: '$_flyerTypeString Specifications',
         onBack: (){
-          Nav.goBack(context, argument: _allSelectedSpecs.value);
+          Nav.goBack(context, passedData: _allSelectedSpecs.value);
         },
         layoutWidget: SpecsSelectorScreenView(
           scrollController: _scrollController,
