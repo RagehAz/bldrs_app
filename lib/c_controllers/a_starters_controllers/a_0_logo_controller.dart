@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -52,9 +51,9 @@ Future<void> initializeLogoScreen({
   /// INITIALIZE USER NOTES STREAM
   _initializeUserNotesStream(context);
 
-  await Nav.replaceScreen(
+  await Nav.pushNamedAndRemoveAllBelow(
       context: context,
-      screen: const HomeScreen(),
+      goToRoute: Routez.home,
   );
 
 }
@@ -378,6 +377,9 @@ void _initializeUserNotesStream(BuildContext context){
 
 // ---------------------------------
 Future<void> _goToLogoScreen(BuildContext context) async {
-  await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
+  await Nav.pushNamedAndRemoveAllBelow(
+      context: context,
+      goToRoute: Routez.logoScreen,
+  );
 }
 // -----------------------------------------------------------------------------

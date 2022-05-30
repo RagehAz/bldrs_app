@@ -62,7 +62,11 @@ class PhraseProvider extends ChangeNotifier {
 
     WaitDialog.closeWaitDialog(context);
 
-    await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
+    await Nav.pushNamedAndRemoveAllBelow(
+        context: context,
+        goToRoute: Routez.logoScreen,
+    );
+
   }
 // -------------------------------------
   Future<void> fetchSetCurrentLangAndPhrases({

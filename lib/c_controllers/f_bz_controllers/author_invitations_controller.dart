@@ -127,22 +127,27 @@ Future<void> onInviteUserButtonTap({
 
     final UserModel _myUserModel = UsersProvider.proFetchMyUserModel(context);
 
+    final String _noteLang = selectedUser.language;
+
     final NoteModel _note = NoteModel(
       id: null, // will be defined in note create fire ops
       senderID: superUserID(),
+      noteSenderType: NoteSenderType.author,
       receiverID: selectedUser.id,
       title: 'Business Account Invitation',
       body: '${_myUserModel.name} sent you an invitation to become an Author for ${bzModel.name} business page',
       metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
-      attachment: <String>['Accept', 'Decline'],
-      attachmentType: NoteAttachmentType.buttons,
+      attachment: bzModel.id,
+      attachmentType: NoteAttachmentType.bzID,
       seen: false,
       seenTime: null,
       sendFCM: true,
       noteType: NoteType.authorship,
       response: null,
       responseTime: null,
+      // senderImageURL:
+      buttons: <String>['phid_accept', 'phid_decline'],
     );
 
     await NoteFireOps.createNote(

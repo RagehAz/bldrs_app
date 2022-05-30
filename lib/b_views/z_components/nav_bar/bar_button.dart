@@ -17,8 +17,8 @@ class BarButton extends StatelessWidget {
     this.barType = BarType.maxWithText,
     this.onTap,
     this.corners,
-    this.notiDotIsOn = false,
-    this.notiCount,
+    this.notesDotIsOn = false,
+    this.notesCount,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,8 +30,8 @@ class BarButton extends StatelessWidget {
   final Function onTap;
   final double size;
   final double corners;
-  final bool notiDotIsOn;
-  final int notiCount;
+  final bool notesDotIsOn;
+  final int notesCount;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -112,10 +112,10 @@ class BarButton extends StatelessWidget {
             ),
 
             /// RED DOT
-            if (notiDotIsOn == true)
+            if (notesDotIsOn == true)
               ButtonNotificationDot(
                 buttonWidth: _buttonWidth,
-                count: notiCount,
+                count: notesCount,
               ),
 
           ],
