@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -13,7 +14,7 @@ class UserBalloon extends StatelessWidget {
     @required this.userModel,
     @required this.size,
     @required this.loading,
-    this.balloonType,
+    this.userStatus,
     this.blackAndWhite = false,
     this.onTap,
     this.balloonColor,
@@ -23,7 +24,7 @@ class UserBalloon extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final UserStatus balloonType;
+  final UserStatus userStatus;
   final UserModel userModel;
   final double size;
   final bool blackAndWhite;
@@ -48,7 +49,7 @@ class UserBalloon extends StatelessWidget {
           Balloona(
               balloonWidth: size,
               onTap: onTap,
-              userStatus: balloonType ?? UserStatus.normal,
+              balloonType: concludeBalloonByUserStatus(userStatus ?? UserStatus.normal),
               pic: userModel?.pic,
               shadowIsOn: shadowIsOn,
               loading: loading,

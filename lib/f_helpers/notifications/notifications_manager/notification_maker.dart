@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
-import 'package:bldrs/b_views/z_components/notifications/note_card.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dart';
+import 'package:bldrs/b_views/z_components/notes/note_card.dart';
+import 'package:bldrs/b_views/z_components/notes/notification_flyers.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -25,7 +25,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -103,7 +102,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     _userNameController.dispose();
   }
 // -----------------------------------------------------------------------------
-  final NoteSenderType _noteSenderType = NoteSenderType.author;
+  final NoteSenderType _noteSenderType = NoteSenderType.bldrs;
   final String _notiPic = Iconz.bldrsNameEn;
   void _onBalloonTap() {
     blog('on balloon tap');
@@ -559,10 +558,11 @@ class _NotificationMakerState extends State<NotificationMaker> {
                 /// SENDER BALLOON
                 GestureDetector(
                   onTap: _onBalloonTap,
-                  child: NotificationSenderBalloon(
-                    senderType: _noteSenderType,
-                    pic: _notiPic,
-                  ),
+                  // child: NoteSenderBalloon(
+                  //   noteModel: _noteModel,
+                  //   // senderType: _noteSenderType,
+                  //   // pic: _notiPic,
+                  // ),
                 ),
 
                 /// SPACER
@@ -637,8 +637,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                         NotificationFlyers(
                           bodyWidth: _bodyWidth,
                           flyers: _attachment,
-                          onFlyerTap: (String flyerID) =>
-                              _onDeleteFlyer(flyerID),
+                          onFlyerTap: (FlyerModel flyer) => _onDeleteFlyer(flyer.id),
                         ),
 
                       /// BANNER
@@ -646,7 +645,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           &&
                           _attachmentType == NoteAttachmentType.imageURL
                       )
-                        NotiBannerEditor(
+                        NoteBannerEditor(
                           width: _bodyWidth,
                           height: _bannerHeight,
                           attachment: _attachment,

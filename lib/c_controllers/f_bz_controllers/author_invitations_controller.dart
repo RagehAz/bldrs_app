@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -9,7 +10,6 @@ import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
@@ -125,17 +125,21 @@ Future<void> onInviteUserButtonTap({
 
   if (_result == true){
 
-    final UserModel _myUserModel = UsersProvider.proFetchMyUserModel(context);
+    final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
+      bz: bzModel,
+      authorID: superUserID(),
+    );
 
     final String _noteLang = selectedUser.language;
 
     final NoteModel _note = NoteModel(
       id: null, // will be defined in note create fire ops
-      senderID: superUserID(),
-      noteSenderType: NoteSenderType.author,
+      senderID: bzModel.id,
+      senderImageURL: _myAuthorModel.pic,
+      noteSenderType: NoteSenderType.bz,
       receiverID: selectedUser.id,
       title: 'Business Account Invitation',
-      body: '${_myUserModel.name} sent you an invitation to become an Author for ${bzModel.name} business page',
+      body: "'${_myAuthorModel.name}' sent you an invitation to become an Author for '${bzModel.name}' business page",
       metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
       attachment: bzModel.id,

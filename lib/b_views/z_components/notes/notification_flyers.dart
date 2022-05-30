@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +13,10 @@ class NotificationFlyers extends StatelessWidget {
     this.onFlyerTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double bodyWidth;
-  final dynamic flyers;
-  final Function onFlyerTap;
-
+  final List<FlyerModel> flyers;
+  final ValueChanged<FlyerModel> onFlyerTap;
   /// --------------------------------------------------------------------------
   bool _absorbFlyerTap() {
     bool _absorb;
@@ -30,10 +29,10 @@ class NotificationFlyers extends StatelessWidget {
 
     return _absorb;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: bodyWidth,
       height: 20 + 200.0,
@@ -44,20 +43,23 @@ class NotificationFlyers extends StatelessWidget {
           FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 220)),
         ),
       ),
-      child: ListView.builder(
+      child: canLoopList(flyers) == false ?
+      const SizedBox()
+          :
+      ListView.builder(
           physics: const BouncingScrollPhysics(),
           itemCount: flyers.length,
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 5),
           itemBuilder: (BuildContext ctx, int index) {
-            final String _flyerID =
-                flyers[0].runtimeType == String ? flyers[index] : null;
-            final FlyerModel _flyer =
-                flyers[0].runtimeType == FlyerModel ? flyers[index] : null;
+
+            final FlyerModel _flyer = flyers[index];
 
             return GestureDetector(
-              onTap: onFlyerTap == null ? null
-                  : () => onFlyerTap(_flyerID ?? _flyer.id),
+              onTap: onFlyerTap == null ?
+              null
+                  :
+                  () => onFlyerTap(_flyer),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: AbsorbPointer(
@@ -69,7 +71,10 @@ class NotificationFlyers extends StatelessWidget {
                 ),
               ),
             );
-          }),
+
+          }
+
+          ),
     );
   }
 }
