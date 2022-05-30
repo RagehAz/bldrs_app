@@ -704,6 +704,11 @@ class ZoneProvider extends ChangeNotifier {
       notify: notify,
     );
   }
+// -------------------------------------
+  static List<CurrencyModel> proGetAllCurrencies(BuildContext context){
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    return _zoneProvider.allCurrencies;
+  }
 // -----------------------------------------------------------------------------
 
   /// SELECTED COUNTRY CITIES
