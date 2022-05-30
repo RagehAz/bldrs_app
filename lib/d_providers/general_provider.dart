@@ -101,7 +101,7 @@ class GeneralProvider extends ChangeNotifier {
   // -------------------------------------
   AppControlsModel get appControls => _appControls;
   // -------------------------------------
-  Future<void> getSetAppControls({
+  Future<void> fetchSetAppControls({
     @required BuildContext context,
     @required bool notify,
   }) async {

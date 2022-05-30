@@ -25,7 +25,7 @@ class NavBarProfileButton extends StatelessWidget {
     /// SIGNED IN
     if (_userIsSignedIn == true){
 
-      final UserModel _userModel = UsersProvider.proGetMyUserModel(context, listen: true);
+      final UserModel _userModel = UsersProvider.proFetchMyUserModel(context, listen: true);
       final bool _thereAreMissingFields = UserModel.thereAreMissingFields(_userModel);
 
       return BarButton(

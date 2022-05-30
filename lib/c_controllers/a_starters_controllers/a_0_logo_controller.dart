@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
@@ -96,6 +98,32 @@ Future<void> _initializeUserModel(BuildContext context) async {
   // else {
   /// WILL CONTINUE NORMALLY AS ANONYMOUS
   // }
+
+}
+// ---------------------------------
+Future<UserModel> completeUserZoneModel({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  UserModel _output = userModel;
+
+  if (userModel != null){
+
+    /// COMPLETED ZONE MODEL
+    final ZoneModel _completeZoneModel = await ZoneProvider.proFetchCompleteZoneModel(
+      context: context,
+      incompleteZoneModel: userModel.zone,
+    );
+
+    /// COMPLETED USER MODEL
+    _output = userModel.copyWith(
+      zone: _completeZoneModel,
+    );
+
+  }
+
+  return _output;
 
 }
 // ---------------------------------
@@ -299,7 +327,7 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 // ---------------------------------
 Future<void> _initializeAppControls(BuildContext context) async {
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-  await _generalProvider.getSetAppControls(
+  await _generalProvider.fetchSetAppControls(
       context: context,
       notify: true,
   );
@@ -321,7 +349,7 @@ Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
 Future<void> _initializeAppLanguage(BuildContext context) async {
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-  await _phraseProvider.getSetCurrentLangAndPhrases(
+  await _phraseProvider.fetchSetCurrentLangAndPhrases(
     context: context,
   );
 

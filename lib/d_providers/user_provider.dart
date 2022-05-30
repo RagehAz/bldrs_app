@@ -67,7 +67,6 @@ class UsersProvider extends ChangeNotifier {
     return _userModel;
   }
 // -------------------------------------
-  /// fetch Users By IDs
   Future<List<UserModel>> fetchUsersByIDs({
     @required BuildContext context,
     @required List<String> usersIDs,
@@ -107,7 +106,7 @@ class UsersProvider extends ChangeNotifier {
   UserModel get myUserModel => _myUserModel;
   AuthModel get myAuthModel => _myAuthModel;
 // -------------------------------------
-  Future<void> getsetMyUserModelAndFixZone(BuildContext context) async {
+  Future<void> fetchSetMyUserModelAndFixZone(BuildContext context) async {
     UserModel _userModel;
 
     final String _myUserID = FireAuthOps.superUserID();
@@ -119,7 +118,7 @@ class UsersProvider extends ChangeNotifier {
           userID: _myUserID,
       );
 
-      final ZoneModel _completeZoneModel = await ZoneProvider.proGetCompleteZoneModel(
+      final ZoneModel _completeZoneModel = await ZoneProvider.proFetchCompleteZoneModel(
           context: context,
           incompleteZoneModel: _userModel.zone,
       );
@@ -411,10 +410,10 @@ class UsersProvider extends ChangeNotifier {
    */
 // -----------------------------------------------------------------------------
 
-  /// PRO GETTERS
+  /// PRO FETCHERS
 
 // -------------------------------------
-  static UserModel proGetMyUserModel(BuildContext context, {bool listen = false}){
+  static UserModel proFetchMyUserModel(BuildContext context, {bool listen = false}){
 
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
 
@@ -422,7 +421,7 @@ class UsersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  static Future<List<UserModel>> proGetUsersModels({
+  static Future<List<UserModel>> proFetchUsersModels({
     @required BuildContext context,
     @required List<String> usersIDs,
 }) async {
@@ -442,31 +441,5 @@ class UsersProvider extends ChangeNotifier {
 
     return _output;
   }
-// -------------------------------------
-}
-
-Future<UserModel> completeUserZoneModel({
-  @required BuildContext context,
-  @required UserModel userModel,
-}) async {
-
-  UserModel _output = userModel;
-
-  if (userModel != null){
-
-    /// COMPLETED ZONE MODEL
-    final ZoneModel _completeZoneModel = await ZoneProvider.proGetCompleteZoneModel(
-      context: context,
-      incompleteZoneModel: userModel.zone,
-    );
-
-    /// COMPLETED USER MODEL
-    _output = userModel.copyWith(
-      zone: _completeZoneModel,
-    );
-
-  }
-
-  return _output;
-
+// -----------------------------------------------------------------------------
 }

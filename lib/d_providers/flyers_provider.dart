@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
@@ -16,13 +15,9 @@ import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// fetch : a method that returns searched value in LDB, then in firebase, and stores in LDB if found
-/// get : a method that returns processed inputs with provider global variables
-/// getset : a method that fetches a value then sets it in a provider global variable
 // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 class FlyersProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
@@ -181,7 +176,7 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._savedFlyers];
   }
 // -------------------------------------
-  Future<void> getsetSavedFlyers({
+  Future<void> fetchSetSavedFlyers({
     @required BuildContext context,
     @required bool notify,
   }) async {
@@ -312,7 +307,7 @@ class FlyersProvider extends ChangeNotifier {
     return [..._promotedFlyers];
   }
 // -------------------------------------
-  Future<void> getSetPromotedFlyers({
+  Future<void> fetchSetPromotedFlyers({
     @required BuildContext context,
     @required bool notify,
 }) async {

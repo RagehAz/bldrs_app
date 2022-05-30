@@ -66,19 +66,19 @@ Future<void> _initializeUserZone(BuildContext context) async {
   /// WHEN USER IS AUTHENTICATED
   if (_myUserModel != null && ZoneModel.zoneHasAllIDs(_myUserModel.zone)) {
 
-    await zoneProvider.getsetCurrentZoneAndCountryAndCity(
+    await zoneProvider.fetchSetCurrentZoneAndCountryAndCity(
       context: context,
       zone: _myUserModel.zone,
       notify: false,
     );
 
-    await zoneProvider.getsetUserCountryAndCity(
+    await zoneProvider.fetchSetUserCountryAndCity(
       context: context,
       zone: _myUserModel.zone,
       notify: false,
     );
 
-    await zoneProvider.getsetContinentByCountryID(
+    await zoneProvider.fetchSetContinentByCountryID(
       context: context,
       countryID: _myUserModel.zone.countryID,
       notify: true,
@@ -90,18 +90,18 @@ Future<void> _initializeUserZone(BuildContext context) async {
   else {
     final ZoneModel _zoneByIP = await superGetZone(context);
 
-    await zoneProvider.getsetCurrentZoneAndCountryAndCity(
+    await zoneProvider.fetchSetCurrentZoneAndCountryAndCity(
       context: context,
       zone: _zoneByIP,
       notify: false,
     );
 
-    await zoneProvider.getsetUserCountryAndCity(
+    await zoneProvider.fetchSetUserCountryAndCity(
       context: context,
       zone: _zoneByIP,
       notify: false,
     );
-    await zoneProvider.getsetContinentByCountryID(
+    await zoneProvider.fetchSetContinentByCountryID(
       context: context,
       countryID: _zoneByIP.countryID,
       notify: true,
@@ -115,7 +115,7 @@ Future<void> _initializeSponsors({
   @required bool notify,
 }) async {
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.getSetSponsors(
+  await _bzzProvider.fetchSetSponsors(
     context: context,
     notify: notify,
   );
@@ -123,7 +123,7 @@ Future<void> _initializeSponsors({
 // -----------------------------------------------------------------------------
 Future<void> _initializeSpecsAndKeywords(BuildContext context) async {
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  await _chainsProvider.getSetAllChains(context);
+  await _chainsProvider.fetchSetAllChains(context);
 }
 // -----------------------------------------------------------------------------
 Future<void> _initializeUserBzz({
@@ -131,7 +131,7 @@ Future<void> _initializeUserBzz({
   @required bool notify,
 }) async {
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.getSetMyBzz(
+  await _bzzProvider.fetchSetMyBzz(
     context: context,
     notify: notify,
   );
@@ -142,7 +142,7 @@ Future<void> _initializeUserFollowedBzz({
   @required bool notify,
 }) async {
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.getsetFollowedBzz(
+  await _bzzProvider.fetchSetFollowedBzz(
     context: context,
     notify: notify,
   );
@@ -152,7 +152,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
-  await _flyersProvider.getSetPromotedFlyers(
+  await _flyersProvider.fetchSetPromotedFlyers(
     context: context,
     notify: true,
   );
@@ -177,14 +177,14 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
 
   if (AuthModel.userIsSignedIn() == true ){
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context);
+    final UserModel _myUserModel = UsersProvider.proFetchMyUserModel(context);
 
     final List<String> _savedFlyersIDs = _myUserModel?.savedFlyersIDs;
 
     if (Mapper.canLoopList(_savedFlyersIDs)){
 
       final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-      await _flyersProvider.getsetSavedFlyers(
+      await _flyersProvider.fetchSetSavedFlyers(
         context: context,
         notify: true,
       );

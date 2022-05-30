@@ -291,7 +291,7 @@ Future<void> _onInviteFriendsTap(BuildContext context) async {
 Future<void> _onDeleteMyAccount(BuildContext context) async {
   blog('on delete user tap');
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+  final UserModel _userModel = UsersProvider.proFetchMyUserModel(context);
 
   if (_userModel != null){
 

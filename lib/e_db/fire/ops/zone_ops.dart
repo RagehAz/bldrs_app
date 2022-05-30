@@ -296,7 +296,7 @@ Future<ZoneModel> _getZoneByGeoLocator({
     final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    _zoneModel = await _zoneProvider.getZoneModelByGeoPoint(
+    _zoneModel = await _zoneProvider.fetchZoneModelByGeoPoint(
         context: context,
         geoPoint: _geoPoint
     );

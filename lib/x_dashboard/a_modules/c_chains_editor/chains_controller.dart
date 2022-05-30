@@ -32,7 +32,7 @@ Future<void> onAddMoreSpecsChainsToExistingSpecsChains({
       chainsToAdd: chainsToAdd,
     );
 
-    await _chainsProvider.reloadAllChains(context);
+    await _chainsProvider.reFetchAllChains(context);
 
   }
 
