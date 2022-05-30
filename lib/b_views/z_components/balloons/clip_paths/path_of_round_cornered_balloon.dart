@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SellingBalloon extends CustomClipper<Path> {
+class PathOfRoundCorneredBalloon extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final Path path = Path();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class NormalCircle extends CustomClipper<Path> {
+class PathOfCircleBalloon extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
