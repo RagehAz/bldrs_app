@@ -19,7 +19,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/video_p
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sembast_test_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 
 class SpecializedLabs extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -93,7 +93,7 @@ class SpecializedLabs extends StatelessWidget {
         verse: 'Specs Selector',
         icon: Iconz.keyword,
         screen: const SpecsPickersScreen(
-          flyerType: FlyerTypeClass.FlyerType.design,
+          flyerType: FlyerType.design,
           selectedSpecs: <SpecModel>[],
         ),
       ),

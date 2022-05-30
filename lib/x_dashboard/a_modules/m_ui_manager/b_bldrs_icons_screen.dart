@@ -26,7 +26,10 @@ class IconsViewerScreen extends StatelessWidget {
 
     const int _numberOfIconsInARow = 3;
 
-    final double _iconBoxSize = Scale.getUniformRowItemWidth(context, _numberOfIconsInARow);
+    final double _iconBoxSize = Scale.getUniformRowItemWidth(
+        context: context,
+        numberOfItems: _numberOfIconsInARow,
+    );
 
     final SliverGridDelegate _gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisSpacing: _gridSpacing,

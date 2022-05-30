@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
-import 'package:bldrs/b_views/z_components/notifications/notification_card.dart';
+import 'package:bldrs/b_views/z_components/notifications/note_card.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -173,7 +173,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     blog('_picSize is : W ${_picSize.width} x H ${_picSize.height}');
 
     final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(
-      width: NotificationCard.bodyWidth(context),
+      width: NoteCard.bodyWidth(context),
       graphicWidth: _picSize.width,
       graphicHeight: _picSize.height,
     );
@@ -513,7 +513,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     // double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
 
-    final double _bodyWidth = NotificationCard.bodyWidth(context);
+    final double _bodyWidth = NoteCard.bodyWidth(context);
 
     return DashBoardLayout(
       loading: _loading,

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -30,7 +30,7 @@ class SectionsButton extends StatelessWidget {
     }
 
     else {
-      final String _sectionName = translateFlyerType(
+      final String _sectionName = FlyerTyper.translateFlyerType(
         context: context,
         flyerType: currentSection,
       );
@@ -51,7 +51,7 @@ class SectionsButton extends StatelessWidget {
       _body = superPhrase(context, currentKeywordID);
     }
     else {
-      final String _sectionName = translateFlyerType(
+      final String _sectionName = FlyerTyper.translateFlyerType(
         context: context,
         flyerType: currentSection,
       );

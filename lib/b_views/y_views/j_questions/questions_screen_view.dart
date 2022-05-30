@@ -1,9 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_sliver_app_bar_small.dart';
 import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 import 'package:bldrs/b_views/z_components/questions/questions_grid.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class QuestionsScreenView extends StatelessWidget {
                   controller: ScrollController(),
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: savedFlyersTabs.length,
+                  itemCount: FlyerTyper.savedFlyersTabs.length,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   itemBuilder: (_, index){
 
@@ -84,7 +83,7 @@ class QuestionsScreenView extends StatelessWidget {
                               context: context,
                               bzType: _bzType
                           ),
-                          icon: Iconizer.bzTypeIconOff(_bzType),
+                          icon: BzModel.getBzTypeIconOff(_bzType),
                           isSelected: _typeIsSelected,
                           onTap: () => onChangeCurrentFlyerType(_bzType),
                         ),

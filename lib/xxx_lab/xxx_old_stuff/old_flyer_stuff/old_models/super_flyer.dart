@@ -7,7 +7,7 @@
 // import 'package:bldrs/a_models/flyer/mutables/flyer_recorder.dart';
 // import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 // import 'package:bldrs/a_models/flyer/records/publish_time_model.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart' as FlyerTypeClass;
 // import 'package:bldrs/a_models/kw/kw.dart';
 // import 'package:bldrs/a_models/kw/specs/spec_model.dart';
 // import 'package:bldrs/a_models/zone/city_model.dart';

@@ -77,8 +77,12 @@ EdgeInsets superMargins({dynamic margins}) {
 // -----------------------------------------------------------------------------
 /// this concludes item width after dividing screen width over number of items
 /// while considering 10 pixels spacing between them
-double getUniformRowItemWidth(BuildContext context, int numberOfItems) {
-  final double _screenWidth = superScreenWidth(context);
+double getUniformRowItemWidth({
+  @required BuildContext context,
+  @required int numberOfItems,
+  double boxWidth,
+}) {
+  final double _screenWidth = boxWidth ?? superScreenWidth(context);
   final double _width = (_screenWidth - (Ratioz.appBarMargin * (numberOfItems + 1))) / numberOfItems;
   return _width;
 }

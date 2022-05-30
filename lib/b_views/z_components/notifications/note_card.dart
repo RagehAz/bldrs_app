@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_balloon.dart';
 import 'package:bldrs/b_views/z_components/notifications/notification_flyers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
@@ -11,14 +12,14 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class NotificationCard extends StatelessWidget {
+class NoteCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NotificationCard({
-    @required this.notiModel,
+  const NoteCard({
+    @required this.noteModel,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final NoteModel notiModel;
+  final NoteModel noteModel;
   /// --------------------------------------------------------------------------
   static double bubbleWidth(BuildContext context) {
     return Bubble.defaultWidth(context);
@@ -33,7 +34,7 @@ class NotificationCard extends StatelessWidget {
   static const double bannerCorners = Bubble.cornersValue - Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
   void _onBubbleTap() {
-    blog('_onBubbleTap : noti id is : ${notiModel.id} : ${notiModel.sentTime} : dif : ${Timers.getTimeDifferenceInSeconds(from: notiModel.sentTime, to: DateTime.now())}');
+    blog('_onBubbleTap : noti id is : ${noteModel.id} : ${noteModel.sentTime} : dif : ${Timers.getTimeDifferenceInSeconds(from: noteModel.sentTime, to: DateTime.now())}');
   }
 // -----------------------------------------------------------------------------
   void _onButtonTap(String value) {
@@ -55,7 +56,7 @@ class NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _bodyWidth = bodyWidth(context);
-    final bool _notiHasButtons = notiModel?.attachmentType == NoteAttachmentType.buttons;
+    final bool _noteHasButtons = noteModel?.attachmentType == NoteAttachmentType.buttons;
 
     return Bubble(
       centered: true,
@@ -64,7 +65,7 @@ class NotificationCard extends StatelessWidget {
           horizontal: Ratioz.appBarMargin,
           vertical: Ratioz.appBarPadding,
       ),
-      onBubbleTap: _notiHasButtons ? null : _onBubbleTap,
+      onBubbleTap: _noteHasButtons ? null : _onBubbleTap,
       columnChildren: <Widget>[
 
         Row(
@@ -73,7 +74,7 @@ class NotificationCard extends StatelessWidget {
 
             // /// SENDER BALLOON
             // NotificationSenderBalloon(
-            //   sender: notiModel?.notiPicType,
+            //   sender: noteModel?.notiPicType,
             //   pic: notiModel?.pic,
             // ),
 
@@ -92,7 +93,7 @@ class NotificationCard extends StatelessWidget {
 
                   /// TITLE
                   SuperVerse(
-                    verse: notiModel?.title,
+                    verse: noteModel?.title,
                     maxLines: 3,
                     centered: false,
                   ),
@@ -100,7 +101,9 @@ class NotificationCard extends StatelessWidget {
                   /// TIME STAMP
                   SuperVerse(
                     verse: Timers.getSuperTimeDifferenceString(
-                        from: notiModel.sentTime, to: DateTime.now()),
+                        from: noteModel.sentTime,
+                        to: DateTime.now(),
+                    ),
                     color: Colorz.grey255,
                     italic: true,
                     weight: VerseWeight.thin,
@@ -111,7 +114,7 @@ class NotificationCard extends StatelessWidget {
 
                   /// BODY
                   SuperVerse(
-                    verse: notiModel.body,
+                    verse: noteModel.body,
                     weight: VerseWeight.thin,
                     maxLines: 10,
                     centered: false,
@@ -124,11 +127,11 @@ class NotificationCard extends StatelessWidget {
                   ),
 
                   /// WELCOME BANNER
-                  if (notiModel.attachmentType == NoteAttachmentType.banner)
+                  if (noteModel.attachmentType == NoteAttachmentType.banner)
                     NotiBannerEditor(
                       width: _bodyWidth,
                       height: 300,
-                      attachment: notiModel.attachment,
+                      attachment: noteModel.attachment,
                       onDelete: null,
                     ),
 
@@ -137,38 +140,40 @@ class NotificationCard extends StatelessWidget {
                   //   corners: _bannerCorner,
                   // ),
 
-                  if (notiModel.attachmentType == NoteAttachmentType.flyers)
+                  if (noteModel.attachmentType == NoteAttachmentType.flyers)
                     NotificationFlyers(
                       bodyWidth: _bodyWidth,
-                      flyers: notiModel.attachment,
+                      flyers: noteModel.attachment,
                     ),
 
                   /// BUTTONS
-                  if (notiModel.attachmentType == NoteAttachmentType.buttons &&
-                      notiModel.attachment is List<String>)
-                    SizedBox(
+                  if (noteModel.attachmentType == NoteAttachmentType.buttons &&
+                      noteModel.attachment is List<String>)
+                    Container(
                       width: _bodyWidth,
                       height: 70,
+                      color: Colorz.bloodTest,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
 
-                          ...List<Widget>.generate(notiModel.attachment.length,
+                          ...List<Widget>.generate(noteModel.attachment.length,
                               (int index) {
 
-                            final double _width = (_bodyWidth -
-                                    ((notiModel.attachment.length + 1) *
-                                        Ratioz.appBarMargin)) /
-                                (notiModel.attachment.length);
+                            final double _width = Scale.getUniformRowItemWidth(
+                              context: context,
+                              numberOfItems: noteModel.attachment.length,
+                              boxWidth: _bodyWidth,
+                            );
 
                             return DreamBox(
                               width: _width,
                               height: 60,
-                              verse: notiModel.attachment[index],
+                              verse: noteModel.attachment[index],
                               verseScaleFactor: 0.7,
                               color: Colorz.blue80,
                               splashColor: Colorz.yellow255,
-                              onTap: () => _onButtonTap(notiModel.attachment[index]),
+                              onTap: () => _onButtonTap(noteModel.attachment[index]),
                             );
 
                           }
@@ -177,9 +182,11 @@ class NotificationCard extends StatelessWidget {
                         ],
                       ),
                     ),
+
                 ],
               ),
             ),
+
           ],
         ),
       ],

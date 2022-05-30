@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
@@ -266,7 +266,7 @@ Future<List<FlyerModel>> paginateFlyers({
   @required String cityID,
   String districtID,
   int limit,
-  FlyerTypeClass.FlyerType flyerType,
+  FlyerType flyerType,
   PublishState publishState,
   AuditState auditState,
   String authorID,
@@ -295,7 +295,7 @@ Future<List<FlyerModel>> paginateFlyers({
         FireFinder(
           field: 'flyerType',
           comparison: FireComparison.equalTo,
-          value: FlyerTypeClass.cipherFlyerType(flyerType),
+          value: FlyerTyper.cipherFlyerType(flyerType),
         ),
 
       if (publishState != null)

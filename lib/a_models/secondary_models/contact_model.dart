@@ -1,9 +1,10 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+
 // -----------------------------------------------------------------------------
 enum ContactType {
   phone,
@@ -31,19 +32,6 @@ class ContactModel {
 
   /// INITIALIZERS
 
-// ----------------------------------------
-  static const List<ContactType> contactTypesList = <ContactType>[
-    ContactType.phone,
-    ContactType.email,
-    ContactType.website,
-    ContactType.facebook,
-    ContactType.linkedIn,
-    ContactType.youtube,
-    ContactType.instagram,
-    ContactType.pinterest,
-    ContactType.tiktok,
-    ContactType.twitter,
-  ];
 // ----------------------------------------
   static List<ContactModel> createContactsList({
     List<ContactModel> existingContacts,
@@ -213,15 +201,15 @@ class ContactModel {
         contactType: ContactType.website,
     );
 
-    if (ContactModel.contactIsEmpty(_phone) == false) {
+    if (ContactModel.checkContactIsEmpty(_phone) == false) {
       _contactsList.add(_phone);
     }
 
-    if (ContactModel.contactIsEmpty(_email) == false) {
+    if (ContactModel.checkContactIsEmpty(_email) == false) {
       _contactsList.add(_email);
     }
 
-    if (ContactModel.contactIsEmpty(_website) == false) {
+    if (ContactModel.checkContactIsEmpty(_website) == false) {
       _contactsList.add(_website);
     }
 
@@ -262,31 +250,31 @@ class ContactModel {
         contactType: ContactType.twitter,
     );
 
-    if (ContactModel.contactIsEmpty(_facebook) == false) {
+    if (ContactModel.checkContactIsEmpty(_facebook) == false) {
       _contactsList.add(_facebook);
     }
 
-    if (ContactModel.contactIsEmpty(_linkedin) == false) {
+    if (ContactModel.checkContactIsEmpty(_linkedin) == false) {
       _contactsList.add(_linkedin);
     }
 
-    if (ContactModel.contactIsEmpty(_youtube) == false) {
+    if (ContactModel.checkContactIsEmpty(_youtube) == false) {
       _contactsList.add(_youtube);
     }
 
-    if (ContactModel.contactIsEmpty(_instagram) == false) {
+    if (ContactModel.checkContactIsEmpty(_instagram) == false) {
       _contactsList.add(_instagram);
     }
 
-    if (ContactModel.contactIsEmpty(_pinterest) == false) {
+    if (ContactModel.checkContactIsEmpty(_pinterest) == false) {
       _contactsList.add(_pinterest);
     }
 
-    if (ContactModel.contactIsEmpty(_tiktok) == false) {
+    if (ContactModel.checkContactIsEmpty(_tiktok) == false) {
       _contactsList.add(_tiktok);
     }
 
-    if (ContactModel.contactIsEmpty(_twitter) == false) {
+    if (ContactModel.checkContactIsEmpty(_twitter) == false) {
       _contactsList.add(_twitter);
     }
 
@@ -324,7 +312,7 @@ class ContactModel {
 
     if (Mapper.canLoopList(contacts)) {
       for (final ContactModel co in contacts) {
-        icons.add(Iconizer.superContactIcon(co.contactType));
+        icons.add(ContactModel.getContactIcon(co.contactType));
       }
     }
 
@@ -347,6 +335,39 @@ class ContactModel {
     }
 
     return _userContacts;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CONTACT TYPE GETTERS
+
+// ----------------------------------------
+  static const List<ContactType> contactTypesList = <ContactType>[
+    ContactType.phone,
+    ContactType.email,
+    ContactType.website,
+    ContactType.facebook,
+    ContactType.linkedIn,
+    ContactType.youtube,
+    ContactType.instagram,
+    ContactType.pinterest,
+    ContactType.tiktok,
+    ContactType.twitter,
+  ];
+// ----------------------------------------
+  static String getContactIcon(ContactType contactType) {
+    switch (contactType) {
+      case ContactType.phone: return Iconz.comPhone; break;
+      case ContactType.email: return Iconz.comEmail; break;
+      case ContactType.website: return Iconz.comWebsite; break;
+      case ContactType.facebook: return Iconz.comFacebook; break;
+      case ContactType.linkedIn: return Iconz.comLinkedin; break;
+      case ContactType.youtube: return Iconz.comYoutube; break;
+      case ContactType.instagram: return Iconz.comInstagram; break;
+      case ContactType.pinterest: return Iconz.comPinterest; break;
+      case ContactType.tiktok: return Iconz.comTikTok; break;
+      case ContactType.twitter: return Iconz.comTwitter; break;
+      default: return null;
+    }
   }
 // -----------------------------------------------------------------------------
 
@@ -435,7 +456,9 @@ class ContactModel {
   /// BLOGGING
 
 // ----------------------------------------
-  void blogContact({String methodName = 'ContactModel'}){
+  void blogContact({
+    String methodName = 'ContactModel',
+  }){
     blog('$methodName : $contactType : $value');
   }
 // -----------------------------------------------------------------------------
@@ -460,7 +483,7 @@ class ContactModel {
   /// CHECKERS
 
 // ----------------------------------------
-  static bool contactIsEmpty(ContactModel contact){
+  static bool checkContactIsEmpty(ContactModel contact){
     bool _isEmpty = true;
 
     if (contact != null){
@@ -478,7 +501,7 @@ class ContactModel {
     return _isEmpty;
   }
 // ----------------------------------------
-  static bool contactIsSocialMedia(ContactModel contact){
+  static bool checkContactIsSocialMedia(ContactModel contact){
     bool _isSocialMedia = false;
 
     if (

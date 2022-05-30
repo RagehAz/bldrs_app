@@ -306,10 +306,10 @@ class BzModel{
   }
 // -----------------------------------------------------------------------------
 
-  /// BZ INITIALIZERS
+  /// BZ CONVERTERS
 
 // ------------------------------------------
-  static BzModel createInitialBzModelFromUserData(UserModel userModel) {
+  static BzModel convertFireUserDataIntoInitialBzModel(UserModel userModel) {
     return BzModel(
       id: null,
       name: userModel.company,
@@ -362,7 +362,7 @@ class BzModel{
     );
   }
 // ------------------------------------------
-  static BzModel getBzModelFromSnapshot(DocumentSnapshot<Object> doc) {
+  static BzModel convertDocSnapshotIntoBzModel(DocumentSnapshot<Object> doc) {
 
     final DocumentSnapshot<Object> _docSnap = doc.data();
     final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(_docSnap);
@@ -401,7 +401,7 @@ class BzModel{
   }
 // -----------------------------------------------------------------------------
 
-  /// BZ TYPE
+  /// BZ TYPE CYPHERS
 
 // ------------------------------------------
   static String cipherBzType(BzType x) {
@@ -461,6 +461,20 @@ class BzModel{
 
     return _bzTypes;
   }
+// -----------------------------------------------------------------------------
+
+  /// BZ TYPE GETTERS
+
+// ------------------------------------------
+  static const List<BzType> bzTypesList = <BzType>[
+    BzType.developer,
+    BzType.broker,
+    BzType.designer,
+    BzType.contractor,
+    BzType.craftsman,
+    BzType.manufacturer,
+    BzType.supplier,
+  ];
 // ------------------------------------------
   static List<BzType> getBzTypesListWithoutOneType(BzType removeThisType){
     const List<BzType> _allTypes = bzTypesList;
@@ -475,7 +489,54 @@ class BzModel{
     return _output;
   }
 // ------------------------------------------
-  static bool bzTypesContainThisType({
+  static String getBzTypeIconOff(BzType bzType) {
+
+    final String icon = bzType == BzType.developer ? Iconz.bxPropertiesOff
+        :
+    bzType == BzType.broker ? Iconz.bxPropertiesOff
+        :
+    bzType == BzType.manufacturer ? Iconz.bxProductsOff
+        :
+    bzType == BzType.supplier ? Iconz.bxProductsOff
+        :
+    bzType == BzType.designer ? Iconz.bxDesignsOff
+        :
+    bzType == BzType.contractor ? Iconz.bxProjectsOff
+        :
+    bzType == BzType.craftsman ? Iconz.bxCraftsOff
+        :
+    null;
+
+    return icon;
+  }
+// ------------------------------------------
+  static String getBzTypeIconOn(BzType bzType) {
+
+    final String icon =
+    bzType == BzType.developer ? Iconz.bxPropertiesOn
+        :
+    bzType == BzType.broker ? Iconz.bxPropertiesOn
+        :
+    bzType == BzType.manufacturer ? Iconz.bxProductsOn
+        :
+    bzType == BzType.supplier ? Iconz.bxProductsOn
+        :
+    bzType == BzType.designer ? Iconz.bxDesignsOn
+        :
+    bzType == BzType.contractor ? Iconz.bxProjectsOn
+        :
+    bzType == BzType.craftsman ? Iconz.bxCraftsOn
+        :
+    null;
+
+    return icon;
+  }
+// -----------------------------------------------------------------------------
+
+  /// BZ TYPE CHECKERS
+
+// ------------------------------------------
+  static bool checkBzTypesContainThisType({
     @required BzType bzType,
     @required List<BzType> bzTypes,
   }){
@@ -491,6 +552,10 @@ class BzModel{
 
     return _contains;
   }
+// -----------------------------------------------------------------------------
+
+  /// BZ TYPE TRANSLATIONS
+
 // ------------------------------------------
   static String translateBzType({
     @required BuildContext context,
@@ -571,7 +636,7 @@ class BzModel{
     return _strings;
   }
 // ------------------------------------------
-  static String generateTranslatedBzTypesString({
+  static String translateBzTypesIntoString({
     @required BuildContext context,
     @required List<BzType> bzTypes,
     @required BzForm bzForm,
@@ -600,6 +665,10 @@ class BzModel{
 
     return _output;
   }
+// -----------------------------------------------------------------------------
+
+  /// BZ TYPE CONCLUDERS
+
 // ------------------------------------------
   static List<BzType> concludeBzTypeByBzSection(BzSection bzSection){
 
@@ -623,7 +692,7 @@ class BzModel{
     return _bzTypes;
   }
 // ------------------------------------------
-  static List<BzType> generateInactiveBzTypesBySection({
+  static List<BzType> concludeInactiveBzTypesBySection({
     @required BzSection bzSection,
     List<BzType> initialBzTypes,
   }){
@@ -655,7 +724,7 @@ class BzModel{
     return _bzTypes;
   }
 // ------------------------------------------
-  static List<BzType> getMixableBzTypes({
+  static List<BzType> concludeMixableBzTypes({
     @required BzType bzType,
 }){
 
@@ -711,11 +780,11 @@ class BzModel{
     return _mixableTypes;
   }
 // ------------------------------------------
-  static List<BzType> generateInactiveBzTypesBySelectedType({
+  static List<BzType> concludeInactiveBzTypesBySelectedType({
   @required BzType selectedBzType,
 }){
 
-    final List<BzType> _mixableTypes = getMixableBzTypes(
+    final List<BzType> _mixableTypes = concludeMixableBzTypes(
         bzType: selectedBzType
     );
 
@@ -730,7 +799,7 @@ class BzModel{
     return _inactiveTypes;
   }
 // ------------------------------------------
-  static List<BzType> generateInactiveBzTypesBasedOnCurrentSituation({
+  static List<BzType> concludeInactiveBzTypesBasedOnSelectedBzTypes({
     @required BzType newSelectedType,
     @required List<BzType> selectedBzTypes,
     @required BzSection selectedBzSection,
@@ -740,7 +809,7 @@ class BzModel{
 
     /// INACTIVATE BZ TYPES ACCORDING TO SECTION WHEN NOTHING IS SELECTED
     if (selectedBzTypes.isEmpty){
-      _inactiveBzTypes = BzModel.generateInactiveBzTypesBySection(
+      _inactiveBzTypes = BzModel.concludeInactiveBzTypesBySection(
           bzSection: selectedBzSection,
       );
 
@@ -748,22 +817,26 @@ class BzModel{
 
     /// INACTIVATE BZ TYPES ACCORDING TO SELECTION
     else {
-      _inactiveBzTypes = BzModel.generateInactiveBzTypesBySelectedType(
+      _inactiveBzTypes = BzModel.concludeInactiveBzTypesBySelectedType(
         selectedBzType: newSelectedType,
       );
     }
 
     return _inactiveBzTypes;
   }
+// -----------------------------------------------------------------------------
+
+  /// BZ TYPE MODIFIERS
+
 // ------------------------------------------
-  static List<BzType> editSelectedBzTypes({
+  static List<BzType> addOrRemoveBzTypeToBzzTypes({
     @required BzType newSelectedBzType,
     @required List<BzType> selectedBzTypes,
 }){
 
     final List<BzType> _outputTypes = <BzType>[...selectedBzTypes];
 
-    final bool _alreadySelected = BzModel.bzTypesContainThisType(
+    final bool _alreadySelected = BzModel.checkBzTypesContainThisType(
       bzTypes: selectedBzTypes,
       bzType: newSelectedBzType,
     );
@@ -778,16 +851,6 @@ class BzModel{
 
     return _outputTypes;
   }
-// ------------------------------------------
-  static const List<BzType> bzTypesList = <BzType>[
-    BzType.developer,
-    BzType.broker,
-    BzType.designer,
-    BzType.contractor,
-    BzType.craftsman,
-    BzType.manufacturer,
-    BzType.supplier,
-  ];
 // -----------------------------------------------------------------------------
 
   /// BZ ACCOUNT TYPE
@@ -836,6 +899,10 @@ class BzModel{
       default:  return null;
     }
   }
+// -----------------------------------------------------------------------------
+
+  /// BZ FORM TRANSLATION
+
 // ------------------------------------------
   static String translateBzForm({
     @required BuildContext context,
@@ -876,6 +943,10 @@ class BzModel{
 
     return _strings;
   }
+// -----------------------------------------------------------------------------
+
+  /// BZ FORM CHECKERS
+
 // ------------------------------------------
   static bool bzFormsContainThisForm({
     @required List<BzForm> bzForms,
@@ -893,16 +964,20 @@ class BzModel{
 
     return _contains;
   }
+// -----------------------------------------------------------------------------
+
+  /// BZ FORM CHECKERS
+
 // ------------------------------------------
-  static List<BzForm> generateInactiveBzForms(List<BzType> bzTypes){
+  static List<BzForm> concludeInactiveBzFormsByBzTypes(List<BzType> selectedBzTypes){
 
     /// INITIAL LIST OF ALL BZ FORMS
     List<BzForm> _bzForms = <BzForm>[...BzModel.bzFormsList];
 
-    if (Mapper.canLoopList(bzTypes) == true){
+    if (Mapper.canLoopList(selectedBzTypes) == true){
 
       /// MORE THAN ONE BZ TYPE
-      if (bzTypes.length > 1){
+      if (selectedBzTypes.length > 1){
         _bzForms.remove(BzForm.company);
       }
 
@@ -910,7 +985,7 @@ class BzModel{
       else {
 
         /// BZ FORMS BY SECTION
-        final List<BzForm> _bzFormsBySection = concludeBzFormsByBzType(bzTypes[0]);
+        final List<BzForm> _bzFormsBySection = concludeBzFormsByBzType(selectedBzTypes[0]);
 
         /// REMOVE SELECTED BZ FORMS FROM THE LIST
         for (final BzForm bzForm in _bzFormsBySection){
@@ -929,42 +1004,42 @@ class BzModel{
     return _bzForms;
   }
 // ------------------------------------------
-  static List<BzForm> concludeBzFormsByBzType(BzType bzType){
+  static List<BzForm> concludeBzFormsByBzType(BzType selectedBzType){
 
     List<BzForm> _bzForm = <BzForm>[];
 
     /// DEVELOPER
-    if (bzType == BzType.developer){
+    if (selectedBzType == BzType.developer){
       _bzForm = <BzForm>[BzForm.company];
     }
 
     /// BROKER
-    else if (bzType == BzType.broker){
+    else if (selectedBzType == BzType.broker){
       _bzForm = <BzForm>[BzForm.company, BzForm.individual];
     }
 
     /// DESIGNER
-    else if (bzType == BzType.designer){
+    else if (selectedBzType == BzType.designer){
       _bzForm = <BzForm>[BzForm.company, BzForm.individual];
     }
 
     /// CONTRACTOR
-    else if (bzType == BzType.contractor){
+    else if (selectedBzType == BzType.contractor){
       _bzForm = <BzForm>[BzForm.company, BzForm.individual];
     }
 
     /// CRAFTSMAN
-    else if (bzType == BzType.craftsman){
+    else if (selectedBzType == BzType.craftsman){
       _bzForm = <BzForm>[BzForm.individual];
     }
 
     /// SUPPLIER
-    else if (bzType == BzType.supplier){
+    else if (selectedBzType == BzType.supplier){
       _bzForm = <BzForm>[BzForm.company];
     }
 
     /// MANUFACTURER
-    else if (bzType == BzType.manufacturer){
+    else if (selectedBzType == BzType.manufacturer){
       _bzForm = <BzForm>[BzForm.company];
     }
 
@@ -1055,11 +1130,11 @@ class BzModel{
     return _strings;
   }
 // ------------------------------------------
-  static BzSection concludeBzSectionByBzTypes(List<BzType> bzTypes){
+  static BzSection concludeBzSectionByBzTypes(List<BzType> selectedBzTypes){
 
     BzType _bzType;
-    if (Mapper.canLoopList(bzTypes) == true){
-      _bzType = bzTypes[0];
+    if (Mapper.canLoopList(selectedBzTypes) == true){
+      _bzType = selectedBzTypes[0];
     }
 
     switch (_bzType){
@@ -1185,7 +1260,7 @@ class BzModel{
   }
 // -----------------------------------------------------------------------------
 
-  /// BZ SEARCHERS
+  /// BZ GETTERS
 
 // ------------------------------------------
   static BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID) {
@@ -1217,7 +1292,7 @@ class BzModel{
       for (final BzModel bz in bzz){
 
         final List<BzType> _bzTypesOfThisBz = bz.bzTypes;
-        final bool _containsThisType = BzModel.bzTypesContainThisType(
+        final bool _containsThisType = BzModel.checkBzTypesContainThisType(
             bzTypes: _bzTypesOfThisBz,
             bzType: bzType,
         );
@@ -1232,7 +1307,24 @@ class BzModel{
     return _output;
   }
 // ------------------------------------------
-  static bool bzzContainThisBz({
+  static List<String> getBzTeamIDs(BzModel bzModel) {
+    final List<AuthorModel> _authors = bzModel.authors;
+    final List<String> _bzTeamIDs = <String>[];
+
+    if (_authors != null) {
+      for (final AuthorModel author in _authors) {
+        _bzTeamIDs.add(author.userID);
+      }
+    }
+
+    return _bzTeamIDs;
+  }
+// -----------------------------------------------------------------------------
+
+  /// BZ CHECKERS
+
+// ------------------------------------------
+  static bool checkBzzContainThisBz({
     @required List<BzModel> bzz,
     @required BzModel bzModel,
   }) {
@@ -1248,19 +1340,6 @@ class BzModel{
     }
 
     return _contains;
-  }
-// -----------------------------------------------------------------------------
-  static List<String> getBzTeamIDs(BzModel bzModel) {
-    final List<AuthorModel> _authors = bzModel.authors;
-    final List<String> _bzTeamIDs = <String>[];
-
-    if (_authors != null) {
-      for (final AuthorModel author in _authors) {
-        _bzTeamIDs.add(author.userID);
-      }
-    }
-
-    return _bzTeamIDs;
   }
 // -----------------------------------------------------------------------------
 
