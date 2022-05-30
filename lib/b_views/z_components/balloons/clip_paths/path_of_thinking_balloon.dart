@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // --- Previously Normal
-class SearchingThinking extends CustomClipper<Path> {
+class PathOfThinkingBalloon extends CustomClipper<Path> {
 
   @override
   Path getClip(Size size) {
