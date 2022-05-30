@@ -441,5 +441,18 @@ class UsersProvider extends ChangeNotifier {
 
     return _output;
   }
+// -------------------------------------
+  static Future<UserModel> proFetchUserModel({
+    @required BuildContext context,
+    @required String userID,
+  }) async {
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UserModel _userModel = await _usersProvider.fetchUserByID(
+        context: context,
+        userID: userID
+    );
+
+    return _userModel;
+  }
 // -----------------------------------------------------------------------------
 }

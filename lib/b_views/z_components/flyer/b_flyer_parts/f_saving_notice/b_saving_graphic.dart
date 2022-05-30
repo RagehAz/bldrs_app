@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SavedGraphic extends StatelessWidget {
@@ -23,9 +24,10 @@ class SavedGraphic extends StatelessWidget {
 
     final String _verse = isStarGraphic ? 'Nice' : isSaved ? 'saved' : 'unSaved';
 
-    return SizedBox(
+    return Container(
       width: flyerBoxWidth,
       height: flyerBoxHeight,
+      color: Colorz.yellow200,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[

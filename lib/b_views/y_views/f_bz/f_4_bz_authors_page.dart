@@ -10,13 +10,12 @@ import 'package:bldrs/b_views/z_components/bz_profile/author_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/author_invitations_controller.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /*
 
@@ -86,9 +85,6 @@ class BzAuthorsPage extends StatefulWidget {
 
 class _BzAuthorsPageState extends State<BzAuthorsPage> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<List<UserModel>> _pendingRequestsUsers = ValueNotifier(null);
-  List<NoteModel> _pendingNotes = <NoteModel>[];
-// -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
@@ -113,27 +109,11 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 
       _triggerLoading().then((_) async {
 
-        _pendingNotes = await NoteFireOps.paginatePendingSentAuthorshipNotes(
-            context: context,
-            senderID: superUserID(),
-            limit: 10,
-            startAfter: null,
+        final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+        await _notesProvider.recallPendingSentAuthorshipNotes(
+          context: context,
+          notify: true,
         );
-
-        if (canLoopList(_pendingNotes) == true){
-
-          final List<String> _usersIDs = NoteModel.getReceiversIDs(
-            notes: _pendingNotes,
-          );
-
-          final List<UserModel> _users = await UsersProvider.proFetchUsersModels(
-            context: context,
-            usersIDs: _usersIDs,
-          );
-
-          _pendingRequestsUsers.value = _users;
-
-        }
 
         await _triggerLoading();
       });
@@ -147,7 +127,6 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
   void dispose() {
     super.dispose();
     _loading.dispose();
-    _pendingRequestsUsers.dispose();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -171,46 +150,48 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
         }
         ),
 
-        /// PENDING REQUESTS
-        ValueListenableBuilder(
-            valueListenable: _pendingRequestsUsers,
-            builder: (_, List<UserModel> usersModels, Widget child){
+        /// PENDING SENT AUTHORSHIP REQUESTS
+        Consumer<NotesProvider>(
+          builder: (BuildContext ctx, NotesProvider notesProvider, Widget child) {
 
-              if (canLoopList(usersModels) == false){
-                return const SizedBox();
-              }
+            final List<UserModel> _notesUsers = notesProvider.pendingSentAuthorshipUsers;
+            final List<NoteModel> _notes = notesProvider.pendingSentAuthorshipNotes;
 
-              else {
+            if (canLoopList(_notesUsers) == false){
+              return const SizedBox();
+            }
 
-                return Bubble(
-                  title: 'Pending Invitation requests',
-                  width: BldrsAppBar.width(context),
-                  columnChildren: <Widget>[
+            else {
 
-                    ...List.generate(usersModels.length, (index){
+              return Bubble(
+                title: 'Pending Invitation requests',
+                width: BldrsAppBar.width(context),
+                columnChildren: <Widget>[
 
-                      final UserModel _userModel = usersModels[index];
-                      return UserTileButton(
-                        boxWidth: Bubble.clearWidth(context),
-                        userModel: _userModel,
-                        color: Colorz.white10,
-                        bubble: false,
-                        sideButton: 'Cancel',
-                        onSideButtonTap: () => cancelSentAuthorshipInvitation(
-                          context: context,
-                          receiverID: _userModel.id,
-                          pendingNotes: _pendingNotes,
-                        ),
-                      );
+                  ...List.generate(_notesUsers.length, (index){
 
-                    }),
+                    final UserModel _userModel = _notesUsers[index];
+                    return UserTileButton(
+                      boxWidth: Bubble.clearWidth(context),
+                      userModel: _userModel,
+                      color: Colorz.white10,
+                      bubble: false,
+                      sideButton: 'Cancel',
+                      onSideButtonTap: () => cancelSentAuthorshipInvitation(
+                        context: context,
+                        receiverID: _userModel.id,
+                        pendingNotes: _notes,
+                      ),
+                    );
 
-                  ],
-                );
+                  }),
 
-              }
+                ],
+              );
 
             }
+
+          },
         ),
 
         /// ADD BUTTON

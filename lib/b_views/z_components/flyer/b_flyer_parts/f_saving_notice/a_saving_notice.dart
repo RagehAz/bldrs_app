@@ -90,7 +90,7 @@ class _SavingNoticeState extends State<SavingNotice> {
                   width: widget.flyerBoxWidth,
                   height: widget.flyerBoxHeight,
                   pic: widget.isStarGraphic ? Iconz.sexyStar : Iconz.saveOn,
-                  scale: widget.isStarGraphic ? 7 : 10,
+                  scale: widget.isStarGraphic ? 0.7 : 0.8,
                 ),
                 builder: (_, bool isSaved, Widget ankhChild){
 
