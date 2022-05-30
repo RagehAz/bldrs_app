@@ -146,10 +146,12 @@ Future<void> removeRouteBelow(BuildContext context, Widget screen) async {
   Navigator.removeRouteBelow(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
 }
 // -----------------------------------------------------------------------------
-Future<void> pushNamedAndRemoveAllBelow(BuildContext context, String goToRoute) async {
+Future<void> pushNamedAndRemoveAllBelow({
+  @required BuildContext context,
+  @required String goToRoute,
+}) async {
   await Navigator.of(context).pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
 }
-
 // -----------------------------------------------------------------------------
 Future<void> pushAndRemoveUntil({
   @required BuildContext context,

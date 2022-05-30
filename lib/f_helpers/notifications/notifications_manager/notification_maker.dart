@@ -103,7 +103,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     _userNameController.dispose();
   }
 // -----------------------------------------------------------------------------
-  final NoteAttachmentType _notiPicType = NoteAttachmentType.banner;
+  final NoteSenderType _noteSenderType = NoteSenderType.author;
   final String _notiPic = Iconz.bldrsNameEn;
   void _onBalloonTap() {
     blog('on balloon tap');
@@ -125,12 +125,14 @@ class _NotificationMakerState extends State<NotificationMaker> {
       child: Column(
         children: <Widget>[
           ...List<Widget>.generate(_attachmentTypesList.length, (int index) {
-            final String _attachmentTypeString =
-                TextMod.removeTextBeforeLastSpecialCharacter(
+
+            final String _attachmentTypeString = TextMod.removeTextBeforeLastSpecialCharacter(
                     _attachmentTypesList[index].toString(), '.');
-            final Color _color = _attachmentType == _attachmentTypesList[index]
-                ? Colorz.yellow255
-                : Colorz.blue20;
+
+            final Color _color = _attachmentType == _attachmentTypesList[index] ?
+            Colorz.yellow255
+                :
+            Colorz.blue20;
 
             return DreamBox(
               height: 50,
@@ -140,7 +142,9 @@ class _NotificationMakerState extends State<NotificationMaker> {
               color: _color,
               onTap: () => _onChooseAttachmentType(_attachmentTypesList[index]),
             );
-          }),
+
+          }
+          ),
         ],
       ),
     );
@@ -148,11 +152,11 @@ class _NotificationMakerState extends State<NotificationMaker> {
 // -----------------------------------------------------------------------------
   Future<void> _onChooseAttachmentType(NoteAttachmentType attachmentType) async {
 
-    if (attachmentType == NoteAttachmentType.banner) {
+    if (attachmentType == NoteAttachmentType.imageURL) {
       await _attachGalleryPicture();
     }
 
-    else if (attachmentType == NoteAttachmentType.flyers) {
+    else if (attachmentType == NoteAttachmentType.flyersIDs) {
       await _attachFlyers();
     }
 
@@ -183,7 +187,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     if (_pic != null) {
       setState(() {
-        _attachmentType = NoteAttachmentType.banner;
+        _attachmentType = NoteAttachmentType.imageURL;
         _attachment = _pic;
         _bannerHeight = _picViewHeight;
       });
@@ -201,7 +205,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
     );
 
     setState(() {
-      _attachmentType = NoteAttachmentType.flyers;
+      _attachmentType = NoteAttachmentType.flyersIDs;
       _attachment = _selectedFlyers;
     });
 
@@ -510,6 +514,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     // double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
 
@@ -519,6 +524,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
       loading: _loading,
       pageTitle: 'Notification Maker',
       listWidgets: <Widget>[
+
         /// TIME STAMP
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
@@ -554,7 +560,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                 GestureDetector(
                   onTap: _onBalloonTap,
                   child: NotificationSenderBalloon(
-                    sender: _notiPicType,
+                    senderType: _noteSenderType,
                     pic: _notiPic,
                   ),
                 ),
@@ -627,7 +633,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
                       /// FLYERS ATTACHMENT
                       if (_attachment != null &&
-                          _attachmentType == NoteAttachmentType.flyers)
+                          _attachmentType == NoteAttachmentType.flyersIDs)
                         NotificationFlyers(
                           bodyWidth: _bodyWidth,
                           flyers: _attachment,
@@ -638,7 +644,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
                       /// BANNER
                       if (_attachment != null
                           &&
-                          _attachmentType == NoteAttachmentType.banner
+                          _attachmentType == NoteAttachmentType.imageURL
                       )
                         NotiBannerEditor(
                           width: _bodyWidth,
@@ -647,36 +653,37 @@ class _NotificationMakerState extends State<NotificationMaker> {
                           onDelete: _onDeleteAttachment,
                         ),
 
-                      /// BUTTONS
-                      if (_attachment != null &&
-                          _attachmentType == NoteAttachmentType.buttons &&
-                          _attachment is List<String>)
-                        SizedBox(
-                          width: _bodyWidth,
-                          height: 70,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              ...List<Widget>.generate(_attachment.length,
-                                  (int index) {
-                                final double _width = (_bodyWidth -
-                                        ((_attachment.length + 1) *
-                                            Ratioz.appBarMargin)) /
-                                    (_attachment.length);
+                      // /// BUTTONS
+                      // if (_attachment != null &&
+                      //     _attachmentType == NoteAttachmentType.buttons &&
+                      //     _attachment is List<String>)
+                      //   SizedBox(
+                      //     width: _bodyWidth,
+                      //     height: 70,
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //       children: <Widget>[
+                      //         ...List<Widget>.generate(_attachment.length,
+                      //             (int index) {
+                      //           final double _width = (_bodyWidth -
+                      //                   ((_attachment.length + 1) *
+                      //                       Ratioz.appBarMargin)) /
+                      //               (_attachment.length);
+                      //
+                      //           return DreamBox(
+                      //             width: _width,
+                      //             height: 60,
+                      //             verse: _attachment[index],
+                      //             verseScaleFactor: 0.7,
+                      //             color: Colorz.blue80,
+                      //             splashColor: Colorz.yellow255,
+                      //             // onTap: () => _onButtonTap(notiModel.attachment[index]),
+                      //           );
+                      //         }),
+                      //       ],
+                      //     ),
+                      //   ),
 
-                                return DreamBox(
-                                  width: _width,
-                                  height: 60,
-                                  verse: _attachment[index],
-                                  verseScaleFactor: 0.7,
-                                  color: Colorz.blue80,
-                                  splashColor: Colorz.yellow255,
-                                  // onTap: () => _onButtonTap(notiModel.attachment[index]),
-                                );
-                              }),
-                            ],
-                          ),
-                        ),
                     ],
                   ),
                 ),
@@ -776,6 +783,7 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
         /// HORIZON
         const Horizon(),
+
       ],
     );
   }
