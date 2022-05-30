@@ -2,19 +2,18 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 
 class DraftFlyerModel{
   /// --------------------------------------------------------------------------
@@ -41,7 +40,7 @@ class DraftFlyerModel{
   String id;
   TextEditingController title;
   // -------------------------
-  FlyerTypeClass.FlyerType flyerType;
+  FlyerType flyerType;
   PublishState publishState;
   AuditState auditState;
   List<String> keywordsIDs;
@@ -68,7 +67,7 @@ class DraftFlyerModel{
   DraftFlyerModel copyWith({
     String id,
     TextEditingController title,
-    FlyerTypeClass.FlyerType flyerType,
+    FlyerType flyerType,
     PublishState publishState,
     AuditState auditState,
     List<String> keywordsIDs,
@@ -132,7 +131,7 @@ class DraftFlyerModel{
     @required String authorID,
 }){
 
-    final List<FlyerType> _possibleFlyerType = concludePossibleFlyerTypesByBzTypes(
+    final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
       bzTypes: bzModel.bzTypes,
     );
 

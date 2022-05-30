@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -61,7 +61,7 @@ class FlyerModel {
   final String title;
   final List<String> trigram;
   // -------------------------
-  final FlyerTypeClass.FlyerType flyerType;
+  final FlyerType flyerType;
   final PublishState publishState;
   final AuditState auditState;
   final List<String> keywordsIDs;
@@ -95,7 +95,7 @@ class FlyerModel {
       'title' : slides[0].headline,//title,
       'trigram' : TextGen.createTrigram(input: slides[0].headline), //trigram,
       // -------------------------
-      'flyerType' : FlyerTypeClass.cipherFlyerType(flyerType),
+      'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
       'publishState' : cipherPublishState(publishState),
       'auditState' : cipherAuditState(auditState),
       'keywordsIDs' : keywordsIDs,
@@ -151,7 +151,7 @@ class FlyerModel {
         title: map['title'],
         trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
         // -------------------------
-        flyerType: FlyerTypeClass.decipherFlyerType(map['flyerType']),
+        flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: decipherFlyerState(map['publishState']),
         auditState: decipherAuditState(map['auditState']),
         keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
@@ -203,7 +203,7 @@ class FlyerModel {
     String id,
     String title,
     List<String> trigram,
-    FlyerTypeClass.FlyerType flyerType,
+    FlyerType flyerType,
     PublishState publishState,
     AuditState auditState,
     List<String> keywordsIDs,
@@ -442,7 +442,7 @@ class FlyerModel {
       title: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
       authorID: superUserID(),
-      flyerType : FlyerTypeClass.FlyerType.property,
+      flyerType : FlyerType.property,
       publishState : PublishState.published,
       auditState: AuditState.verified,
       keywordsIDs : <String>[],
@@ -566,13 +566,13 @@ class FlyerModel {
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> filterFlyersByFlyerType({
     @required List<FlyerModel> flyers,
-    @required FlyerTypeClass.FlyerType flyerType,
+    @required FlyerType flyerType,
   }){
     List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
     if(Mapper.canLoopList(flyers)){
 
-      if (flyerType == FlyerTypeClass.FlyerType.all){
+      if (flyerType == FlyerType.all){
         _filteredFlyers = flyers;
       }
 

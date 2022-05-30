@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -124,11 +124,11 @@ class FlyerMakerScreenView extends StatelessWidget {
                       bzTypes: bzModel.bzTypes
                   );
 
-                  final List<FlyerType> _allowableTypes = concludePossibleFlyerTypesByBzTypes(
+                  final List<FlyerType> _allowableTypes = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
                     bzTypes: bzModel.bzTypes,
                   );
 
-                  final List<String> _flyerTypesTranslation = translateFlyerTypes(
+                  final List<String> _flyerTypesTranslation = FlyerTyper.translateFlyerTypes(
                       context: context,
                       flyerTypes: _allowableTypes,
                   );
@@ -140,13 +140,13 @@ class FlyerMakerScreenView extends StatelessWidget {
                       'Business accounts of types ${_bzTypeTranslation.toString()} can publish ${_flyerTypesTranslation.toString()} flyers.',
                       'Each Flyer Should have one flyer type',
                     ],
-                    buttonsList: translateFlyerTypes(
+                    buttonsList: FlyerTyper.translateFlyerTypes(
                       context: context,
-                      flyerTypes: flyerTypesList,
+                      flyerTypes: FlyerTyper.flyerTypesList,
                       pluralTranslation: false,
                     ),
                     selectedButtons: <String>[
-                      translateFlyerType(
+                      FlyerTyper.translateFlyerType(
                         context: context,
                         flyerType: _draft.flyerType,
                         pluralTranslation: false,
@@ -158,9 +158,9 @@ class FlyerMakerScreenView extends StatelessWidget {
                     ),
                     isInError: false,
                     inactiveButtons: <String>[
-                      ...translateFlyerTypes(
+                      ...FlyerTyper.translateFlyerTypes(
                         context: context,
-                        flyerTypes: concludeInactiveFlyerTypesByBzModel(
+                        flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
                           bzModel: bzModel,
                         ),
                         pluralTranslation: false,
@@ -227,7 +227,7 @@ class FlyerMakerScreenView extends StatelessWidget {
               valueListenable: draft,
               builder: (_, DraftFlyerModel _draft, Widget child){
 
-                final String _translatedFlyerType = translateFlyerType(
+                final String _translatedFlyerType = FlyerTyper.translateFlyerType(
                   context: context,
                   flyerType: _draft.flyerType,
                   pluralTranslation: false,

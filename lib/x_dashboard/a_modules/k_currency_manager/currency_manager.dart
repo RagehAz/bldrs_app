@@ -101,7 +101,6 @@ class CurrencyManagerScreen extends StatelessWidget {
                                 final String _countryID = _currency.countriesIDs[index];
 
                                 return FlagBox(
-                                  size: 35,
                                   countryID: _countryID,
                                 );
 
@@ -113,7 +112,6 @@ class CurrencyManagerScreen extends StatelessWidget {
 
                     ),
                   ),
-
 
                 ],
               );

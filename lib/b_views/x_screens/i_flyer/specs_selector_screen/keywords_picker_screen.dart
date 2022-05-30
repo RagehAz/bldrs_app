@@ -1,5 +1,4 @@
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/chain_expander_by_flyer_type.dart';
 import 'package:bldrs/b_views/z_components/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -23,7 +22,7 @@ class KeywordsPickerScreen extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<String> selectedKeywordsIDs;
-  final List<FlyerTypeClass.FlyerType> flyerTypes;
+  final List<FlyerType> flyerTypes;
   // final Function onKeywordTap;
   /// --------------------------------------------------------------------------
   @override

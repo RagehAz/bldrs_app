@@ -1,10 +1,9 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_chains_drawer_controller.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -38,9 +37,9 @@ class ChainExpanderByFlyerType extends StatelessWidget {
     String _icon;
 
     if (inActiveMode == true) {
-      _icon = Iconizer.flyerTypeIconOff(section);
+      _icon = FlyerTyper.flyerTypeIconOff(section);
     } else {
-      _icon = Iconizer.flyerTypeIconOn(section);
+      _icon = FlyerTyper.flyerTypeIconOn(section);
     }
 
     return _icon;
@@ -82,7 +81,7 @@ class ChainExpanderByFlyerType extends StatelessWidget {
       boxWidth: bubbleWidth - (2 * Ratioz.appBarMargin),
       alignment: Alignment.center,
       icon: _sectionIcon(section: flyerType, inActiveMode: deactivated),
-      firstHeadline: translateFlyerType(
+      firstHeadline: FlyerTyper.translateFlyerType(
         context: context,
         flyerType: flyerType,
       ),

@@ -9,7 +9,7 @@
 // import 'package:bldrs/controllers/theme/ratioz.dart';
 // import 'package:bldrs/e_db/fire/zone_search.dart';
 // import 'package:bldrs/a_models/bz/bz_model.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/a_models/keywords/group_model.dart';
 // import 'package:bldrs/a_models/keywords/keyword_model.dart';
 // import 'package:bldrs/a_models/kw/kw.dart';

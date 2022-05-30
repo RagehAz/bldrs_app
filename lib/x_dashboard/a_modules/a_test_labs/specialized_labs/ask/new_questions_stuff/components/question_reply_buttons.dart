@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_b
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -97,7 +96,7 @@ class QuestionReplyButtons extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: BottomDialog.wideButton(
                         context: context,
-                        icon: Iconizer.bzTypeIconOff(_bzType),
+                        icon: BzModel.getBzTypeIconOff(_bzType),
                         verse: BzModel.translateBzType(
                           context: context,
                           bzType: _bzType,

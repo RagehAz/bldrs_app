@@ -228,7 +228,7 @@ class ExoticMethods {
 
   for (final CountryModel country in _allCountries) {
     /// add continent
-    final bool _continentIsAddedAlready = Continent.continentsIncludeContinent(
+    final bool _continentIsAddedAlready = Continent.checkContinentsIncludeContinent(
       name: country.continent,
       continents: _continents,
     );

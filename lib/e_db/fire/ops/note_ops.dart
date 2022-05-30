@@ -251,14 +251,15 @@ Widget noteStreamBuilder({
   );
 }
 // -----------------------------------------------------------------------------
-Stream<List<NoteModel>> getSentNoteModelsStream({
+/// TESTED : WORKS PERFECT
+Stream<List<NoteModel>> getNoteModelsStream({
   @required BuildContext context,
-  @required String senderID,
   QueryDocumentSnapshot<Object> startAfter,
   int limit,
   Fire.QueryOrderBy orderBy,
   List<FireFinder> finders,
 }) {
+
   Stream<List<NoteModel>> _notiModelsStream;
 
   tryAndCatch(
@@ -274,16 +275,23 @@ Stream<List<NoteModel>> getSentNoteModelsStream({
           finders: finders,
         );
 
-        blog('getNotiModelsStream : _querySnapshots : $_querySnapshots');
+        blog('x getNotiModelsStream : _querySnapshots : $_querySnapshots : id : ${_querySnapshots.first}');
 
-        _notiModelsStream = _querySnapshots.map((QuerySnapshot<Object> qShot) =>
-            qShot.docs.map(
-                    (QueryDocumentSnapshot<Object> doc) => NoteModel.decipherNoteModel(
-                      map: doc,
-                      fromJSON: false,
-                    )
-            ).toList()
-        );
+        _notiModelsStream = _querySnapshots.map((QuerySnapshot<Object> querySnapshot){
+
+          final List<Map<String, dynamic>> _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
+            queryDocumentSnapshots: querySnapshot.docs,
+            addDocsIDs: true,
+            addDocSnapshotToEachMap: true,
+          );
+
+          final List<NoteModel> _notes = NoteModel.decipherNotesModels(
+              maps: _maps,
+              fromJSON: false
+          );
+
+          return _notes;
+        });
 
         blog('getNotiModelsStream : _notiModelsStream : $_notiModelsStream');
       });

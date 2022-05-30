@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 int getInitialSavedFlyersTabIndex(BuildContext context){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final FlyerType _currentTab = _uiProvider.currentSavedFlyerTypeTab;
-  final int _index = getFlyerTypeIndexFromSectionsTabs(_currentTab);
+  final int _index = FlyerTyper.getFlyerTypeIndexFromSectionsTabs(_currentTab);
   return _index;
 }
 // -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ void onChangeSavedFlyersTabIndex({
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  final FlyerType _newFlyerType = savedFlyersTabs[index];
+  final FlyerType _newFlyerType = FlyerTyper.savedFlyersTabs[index];
   final FlyerType _previousTab = _uiProvider.currentSavedFlyerTypeTab;
 
   /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS

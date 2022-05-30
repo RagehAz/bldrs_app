@@ -1,4 +1,4 @@
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 // import 'package:bldrs/b_views/z_components/tab_bars/bldrs_sliver_tab_bar.dart';
 // import 'package:bldrs/c_controllers/e_saves_controller.dart';

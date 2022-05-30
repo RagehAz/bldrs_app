@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_picker_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_pickers_screen.dart';
@@ -275,7 +275,7 @@ void onSelectFlyerType({
 
   blog('tapped on index : $index');
 
-  final FlyerType _selectedFlyerType = flyerTypesList[index];
+  final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
 
   draft.value = draft.value.copyWith(
     flyerType: _selectedFlyerType,

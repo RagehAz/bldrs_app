@@ -1,10 +1,9 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class InfoPageMainDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _flyerTypeString = translateFlyerType(
+    final String _flyerTypeString = FlyerTyper.translateFlyerType(
       context: context,
       flyerType: flyerModel.flyerType,
       pluralTranslation: false,
@@ -49,7 +48,7 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth,
           verse: 'Flyer Type : $_flyerTypeString',
-          icon: Iconizer.flyerTypeIconOff(flyerModel.flyerType),
+          icon: FlyerTyper.flyerTypeIconOff(flyerModel.flyerType),
           iconSizeFactor: 1,
           verseScaleFactor: 0.85 * 0.7,
         ),

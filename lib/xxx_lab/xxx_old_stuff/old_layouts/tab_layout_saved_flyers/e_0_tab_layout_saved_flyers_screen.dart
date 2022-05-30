@@ -1,4 +1,4 @@
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/widgets/general/layouts/unfinished_night_sky.dart';
 // import 'package:bldrs/c_controllers/e_saves_controller.dart';

@@ -1,5 +1,5 @@
 // import 'package:bldrs/a_models/flyer/mutables/super_flyer.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart' as FlyerTypeClass;
 // import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 // import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 // import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;

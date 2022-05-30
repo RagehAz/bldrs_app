@@ -1,5 +1,5 @@
 // import 'package:bldrs/a_models/flyer/flyer_model.dart';
-// import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart';
+// import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 // import 'package:bldrs/b_views/z_components/tab_bars/saved_flyers_screen_tab_bar.dart';
 // import 'package:bldrs/d_providers/flyers_provider.dart';

@@ -594,7 +594,7 @@ Future<void> onUserContactTap(ContactModel contact) async {
   if (contact.contactType == ContactType.email){
     blog('User Email : ${contact.value}');
   }
-  else if (ContactModel.contactIsSocialMedia(contact) == true) {
+  else if (ContactModel.checkContactIsSocialMedia(contact) == true) {
     await Launcher.launchURL('https://${contact.value}');
   }
   else if (contact.contactType == ContactType.website){

@@ -56,6 +56,7 @@ class NoteModel {
   final NoteType noteType;
   final String response;
   final DateTime responseTime;
+  // final UserBalloon
 // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -201,6 +202,7 @@ class NoteModel {
 
     if (Mapper.canLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
+
         final NoteModel _notiModel = decipherNoteModel(
           map: map,
           fromJSON: fromJSON,
@@ -344,6 +346,29 @@ class NoteModel {
     blog('sendFCM : ${sendFCM.toString()}');
 
     blog('BLOGGING NoteModel : $methodName ---------------- END -- ');
+  }
+
+  static void blogNotes({
+    @required List<NoteModel> notes,
+    String methodName,
+  }){
+
+    if (Mapper.canLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+
+        note.blogNoteModel(
+          methodName: methodName,
+        );
+
+      }
+
+    }
+
+    else {
+      blog('NOTES ARE EMPTY AND NOTHING TO BLOG HERE');
+    }
+
   }
 // -----------------------------------------------------------------------------
 

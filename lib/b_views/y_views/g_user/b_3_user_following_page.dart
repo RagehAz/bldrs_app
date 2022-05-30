@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/following_bzz_g
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -53,7 +52,7 @@ class UserFollowingPage extends StatelessWidget {
                 bzType: _bzType
             );
 
-            final String _bzTypeIcon = Iconizer.bzTypeIconOff(_bzType);
+            final String _bzTypeIcon = BzModel.getBzTypeIconOff(_bzType);
 
             return FollowingBzzGrid(
               bzzModels: _bzzOfThisType,

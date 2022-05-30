@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_type_class.dart' as FlyerTypeClass;
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 Future<List<FlyerModel>> flyersByZoneAndFlyerType({
   @required BuildContext context,
   @required ZoneModel zone,
-  @required FlyerTypeClass.FlyerType flyerType,
+  @required FlyerType flyerType,
   bool addDocsIDs = false,
   bool addDocSnapshotToEachMap = false,
 }) async {
@@ -35,7 +35,7 @@ Future<List<FlyerModel>> flyersByZoneAndFlyerType({
         final CollectionReference<Object> _flyersCollection =
         Fire.getCollectionRef(FireColl.flyers);
 
-        final String _flyerType = FlyerTypeClass.cipherFlyerType(flyerType);
+        final String _flyerType = FlyerTyper.cipherFlyerType(flyerType);
         final ZoneModel _zone = zone;
 
         blog('searching flyers of type : $_flyerType : in $_zone');

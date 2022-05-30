@@ -15,7 +15,7 @@ import 'package:bldrs/x_dashboard/a_modules/k_currency_manager/currency_manager.
 import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/k_pricing_manager/pricing_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/j_statistics/statistics_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/m_ui_manager/ui_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/m_ui_manager/a_ui_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/g_users_manager/users_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/e_zones_editor/zones_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_manager.dart';
