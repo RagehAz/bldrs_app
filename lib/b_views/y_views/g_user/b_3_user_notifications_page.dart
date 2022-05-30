@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/notifications/note_card.dart';
-import 'package:bldrs/d_providers/notes_provider.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -12,10 +11,12 @@ class UserNotificationsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserNotificationsPage({
     @required this.userModel,
+    @required this.notes,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
+  final List<NoteModel> notes;
   /// --------------------------------------------------------------------------
   Future<void> _dismissNotification({
     @required String id,
@@ -49,34 +50,37 @@ class UserNotificationsPage extends StatelessWidget {
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
-    return NoteFireOps.noteStreamBuilder(
-        context: context,
-        stream: NotesProvider.proGetUserNotesStream(context: context, listen: true),
-        builder: (BuildContext ctx, List<NoteModel> notiModels) {
+    if (Mapper.canLoopList(notes) == false){
 
-          blog('the shit is : notiModels : $notiModels');
+      return const SizedBox();
 
-          return notiModels == null || notiModels.isEmpty ?
-          const SizedBox()
-              :
-          ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            controller: ScrollController(),
-            itemCount: notiModels?.length,
-            padding: const EdgeInsets.only(
-                // top: Ratioz.stratosphere,
-                bottom: Ratioz.horizon,
-            ),
-            itemBuilder: (BuildContext ctx, int index) {
+    }
 
-              final NoteModel _notiModel = notiModels == null ? null : notiModels[index];
+    else {
 
-              return NoteCard(
-                noteModel: _notiModel,
-              );
-            },
+      NoteModel.blogNotes(notes: notes, methodName: 'BUILDEEEEER');
+
+
+      return ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        controller: ScrollController(),
+        itemCount: notes?.length,
+        padding: const EdgeInsets.only(
+          // top: Ratioz.stratosphere,
+          bottom: Ratioz.horizon,
+        ),
+        itemBuilder: (BuildContext ctx, int index) {
+
+          final NoteModel _notiModel = Mapper.canLoopList(notes) == true ? notes[index] : null;
+
+          return NoteCard(
+            noteModel: _notiModel,
           );
-        });
+
+        },
+      );
+
+    }
 
   }
 }

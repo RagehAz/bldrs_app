@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -13,8 +14,11 @@ import 'package:flutter/material.dart';
 class UserProfileScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const UserProfileScreen({
+    @required this.notes,
     Key key
   }) : super(key: key);
+
+  final List<NoteModel> notes;
   /// --------------------------------------------------------------------------
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
@@ -75,6 +79,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SingleTicker
       ],
       layoutWidget: UserScreenView(
         tabController: _tabController,
+        notes: widget.notes,
       ),
 
     );
