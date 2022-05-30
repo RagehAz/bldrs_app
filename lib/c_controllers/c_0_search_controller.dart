@@ -29,7 +29,7 @@ Future<void> initializeSearchScreen(BuildContext context) async {
   _setIsSearching(context, false);
 
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-  await _searchProvider.getSetSearchRecords(
+  await _searchProvider.paginateSetSearchRecords(
     context: context,
     notify: true,
   );

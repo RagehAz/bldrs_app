@@ -7,7 +7,6 @@ import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneSearch;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
@@ -290,7 +289,9 @@ class ZoneProvider extends ChangeNotifier {
     return _cities;
   }
 // -------------------------------------
-  Future<List<Continent>> fetchContinents({@required BuildContext context}) async {
+  Future<List<Continent>> fetchContinents({
+    @required BuildContext context,
+  }) async {
 
     List<Continent> _continents;
 
@@ -330,7 +331,9 @@ class ZoneProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  Future<List<CurrencyModel>> fetchCurrencies({@required BuildContext context}) async {
+  Future<List<CurrencyModel>> fetchCurrencies({
+    @required BuildContext context,
+  }) async {
 
     List<CurrencyModel> _currencies;
 
@@ -378,11 +381,12 @@ class ZoneProvider extends ChangeNotifier {
     return _currentContinent;
   }
 // -------------------------------------
-  Future<void> getsetContinentByCountryID({
+  Future<void> fetchSetContinentByCountryID({
     @required BuildContext context,
     @required String countryID,
     @required bool notify,
   }) async {
+
     final List<Continent> _allContinents = await fetchContinents(context: context);
     final Continent _continent = Continent.getContinentFromContinentsByCountryID(continents: _allContinents, countryID: countryID);
 
@@ -411,7 +415,7 @@ class ZoneProvider extends ChangeNotifier {
     );
   }
 // -------------------------------------
-  Future<List<CountryModel>> getContinentActivatedCountries(BuildContext context) async {
+  Future<List<CountryModel>> fetchContinentActivatedCountries(BuildContext context) async {
 
     final List<String> _countriesIDs = _currentContinent.activatedCountriesIDs;
 
@@ -437,7 +441,7 @@ class ZoneProvider extends ChangeNotifier {
     return _userCityModel;
   }
 // -------------------------------------
-  Future<void> getsetUserCountryAndCity({
+  Future<void> fetchSetUserCountryAndCity({
     @required BuildContext context,
     @required ZoneModel zone,
     @required bool notify,
@@ -495,7 +499,7 @@ class ZoneProvider extends ChangeNotifier {
   CountryModel get currentCountry{return _currentCountryModel;}
   CityModel get currentCity{return _currentCityModel;}
 // -------------------------------------
-  Future<void> getsetCurrentZoneAndCountryAndCity({
+  Future<void> fetchSetCurrentZoneAndCountryAndCity({
     @required BuildContext context,
     @required ZoneModel zone,
     @required bool notify,
@@ -515,7 +519,7 @@ class ZoneProvider extends ChangeNotifier {
     _currentCountryModel = _country;
     _currentCityModel = _city;
 
-    await _getSetAllCurrenciesAndCurrentCurrency(
+    await _fetchSetAllCurrenciesAndCurrentCurrency(
       context: context,
       notify: false,
     );
@@ -561,24 +565,24 @@ class ZoneProvider extends ChangeNotifier {
   /// ZONES NAMES
 
 // -------------------------------------
-  String getCurrentCountryNameByCurrentLingo(BuildContext context) {
-    final String _name = superPhrase(context, _currentCountryModel.id);
-    return _name;
-  }
+//   String translateCurrentCountryNameByCurrentLingo(BuildContext context) {
+//     final String _name = superPhrase(context, _currentCountryModel.id);
+//     return _name;
+//   }
 // -------------------------------------
-  String getCurrentCityName(BuildContext context){
-    final String _cityName = CityModel.getCityNameWithCurrentLingoIfPossible(context, _currentCityModel);
-    return _cityName;
-  }
+//   String translateCurrentCityName(BuildContext context){
+//     final String _cityName = CityModel.translateCityNameWithCurrentLingoIfPossible(context, _currentCityModel);
+//     return _cityName;
+//   }
 // -----------------------------------------------------------------------------
-  String getCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
-
-    final String _nameInCurrentLanguage = superPhrase(context, cityID);
-
-    return _nameInCurrentLanguage ?? cityID;
-  }
+//   String translateCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
+//
+//     final String _nameInCurrentLanguage = superPhrase(context, cityID);
+//
+//     return _nameInCurrentLanguage ?? cityID;
+//   }
 // -----------------------------------------------------------------------------
-  Future<ZoneModel> getZoneModelByGeoPoint({
+  Future<ZoneModel> fetchZoneModelByGeoPoint({
     @required BuildContext context,
     @required GeoPoint geoPoint
   }) async {
@@ -657,7 +661,7 @@ class ZoneProvider extends ChangeNotifier {
     return _allCurrencies;
   }
 // -------------------------------------
-  Future<void> _getSetAllCurrenciesAndCurrentCurrency({
+  Future<void> _fetchSetAllCurrenciesAndCurrentCurrency({
     @required BuildContext context,
     @required bool notify,
   }) async {
@@ -709,7 +713,7 @@ class ZoneProvider extends ChangeNotifier {
 // -------------------------------------
   List<CityModel> get selectedCountryCities => <CityModel>[..._selectedCountryCities];
 // -------------------------------------
-  Future<void> getSetSelectedCountryCities({
+  Future<void> fetchSetSelectedCountryCities({
     @required BuildContext context,
     @required CountryModel countryModel,
     @required bool notify,
@@ -724,12 +728,13 @@ class ZoneProvider extends ChangeNotifier {
       cities: _fetchedCities,
       notify: false,
     );
+
     clearSearchedCities(
       notify: notify,
     );
 
   }
-
+// -------------------------------------
   void _setSelectedCountryCities({
     @required List<CityModel> cities,
     @required bool notify,
@@ -785,26 +790,26 @@ class ZoneProvider extends ChangeNotifier {
    List<Phrase> get countriesPhrases => _countriesPhrases;
 // -------------------------------------
    */
-  Future<void> getSetActiveCountriesPhrases({
-    @required BuildContext context,
-    // @required bool notify,
-  }) async {
-
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-    final List<Phrase> _phrases = await _phraseProvider.generateActiveCountriesMixedLangPhrases(
-        context: context
-    );
-
-    blog('fetched ${_phrases.length} countries phrases');
-
-    //
-    // _countriesPhrases = _phrases;
-
-    // if (notify == true){
-    //   notifyListeners();
-    // }
-
-  }
+  // Future<void> getSetActiveCountriesPhrases({
+  //   @required BuildContext context,
+  //   // @required bool notify,
+  // }) async {
+  //
+  //   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+  //   final List<Phrase> _phrases = await _phraseProvider.generateActiveCountriesMixedLangPhrases(
+  //       context: context
+  //   );
+  //
+  //   blog('fetched ${_phrases.length} countries phrases');
+  //
+  //   //
+  //   // _countriesPhrases = _phrases;
+  //
+  //   // if (notify == true){
+  //   //   notifyListeners();
+  //   // }
+  //
+  // }
 // -------------------------------------
   Future<List<Phrase>> searchCountriesPhrasesByName({
     @required BuildContext context,
@@ -834,7 +839,7 @@ class ZoneProvider extends ChangeNotifier {
 // -------------------------------------
   List<Phrase> get searchedCountries => <Phrase>[..._searchedCountries];
 // -------------------------------------
-  Future<void> getSetSearchedCountries({
+  Future<void> searchSetCountriesByName({
     @required BuildContext context,
     @required String input,
     @required bool notify,
@@ -899,7 +904,7 @@ class ZoneProvider extends ChangeNotifier {
 // -------------------------------------
   List<CityModel> get searchedCities => <CityModel>[..._searchedCities];
 // -------------------------------------
-  Future<void> getSetSearchedCities({
+  Future<void> searchSetCitiesByName({
     @required BuildContext context,
     @required String input,
     @required bool notify,
@@ -959,7 +964,7 @@ class ZoneProvider extends ChangeNotifier {
 // -------------------------------------
   List<DistrictModel> get searchedDistricts => <DistrictModel>[..._searchedDistricts];
 // -------------------------------------
-  void getSetSearchedDistricts({
+  void searchSetDistrictsByName({
     @required BuildContext context,
     @required String textInput,
     @required bool notify,
@@ -1021,7 +1026,7 @@ class ZoneProvider extends ChangeNotifier {
   /// PRO GETTERS
 
 // -------------------------------------
-  static Future<ZoneModel> proGetCompleteZoneModel({
+  static Future<ZoneModel> proFetchCompleteZoneModel({
     @required BuildContext context,
     @required ZoneModel incompleteZoneModel,
   }) async {

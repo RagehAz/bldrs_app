@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
@@ -48,7 +47,7 @@ class PhraseProvider extends ChangeNotifier {
         )
     );
 
-    await getSetCurrentLangAndPhrases(
+    await fetchSetCurrentLangAndPhrases(
       context: context,
       setLangCode: langCode,
     );
@@ -66,7 +65,7 @@ class PhraseProvider extends ChangeNotifier {
     await Nav.pushNamedAndRemoveAllBelow(context, Routez.logoScreen);
   }
 // -------------------------------------
-  Future<void> getSetCurrentLangAndPhrases({
+  Future<void> fetchSetCurrentLangAndPhrases({
     @required BuildContext context,
     String setLangCode,
   }) async {
@@ -77,14 +76,13 @@ class PhraseProvider extends ChangeNotifier {
       setLangCode: setLangCode,
     );
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    // await _zoneProvider.getSetActiveCountriesPhrases(
+    //   context: context,
+    //   // notify: false,
+    // );
 
-    await _zoneProvider.getSetActiveCountriesPhrases(
-      context: context,
-      // notify: false,
-    );
-
-    await getSetBasicPhrases(
+    await fetchSetBasicPhrases(
         context: context,
         notify: true
     );
@@ -256,7 +254,7 @@ class PhraseProvider extends ChangeNotifier {
 // -------------------------------------
   List<Phrase> get basicPhrases  => _basicPhrases;
 // -------------------------------------
-  Future<void> getSetBasicPhrases({
+  Future<void> fetchSetBasicPhrases({
     @required BuildContext context,
     @required bool notify,
 }) async {

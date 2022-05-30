@@ -122,7 +122,7 @@ Future<void> onInviteUserButtonTap({
 
   if (_result == true){
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context);
+    final UserModel _myUserModel = UsersProvider.proFetchMyUserModel(context);
 
     final NoteModel _note = NoteModel(
       id: null, // will be defined in note create fire ops

@@ -53,7 +53,7 @@ Future<void> initializeMyBzScreen({
     bzModel: bzModel,
   );
 
-  await _setBzModelAndGetSetBzFlyers(
+  await _setBzModelAndFetchSetBzFlyers(
     context: context,
     completedZoneBzModel: _completedZoneBzModel,
   );
@@ -70,7 +70,7 @@ Future<BzModel> completeBzZoneModel({
   if (bzModel != null){
 
     /// COMPLETED ZONE MODEL
-    final ZoneModel _completeZoneModel = await ZoneProvider.proGetCompleteZoneModel(
+    final ZoneModel _completeZoneModel = await ZoneProvider.proFetchCompleteZoneModel(
       context: context,
       incompleteZoneModel: bzModel.zone,
     );
@@ -85,7 +85,7 @@ Future<BzModel> completeBzZoneModel({
   return _output;
 }
 // -------------------------------
-Future<void> _setBzModelAndGetSetBzFlyers({
+Future<void> _setBzModelAndFetchSetBzFlyers({
   @required BuildContext context,
   @required BzModel completedZoneBzModel,
 }) async {
@@ -99,7 +99,7 @@ Future<void> _setBzModelAndGetSetBzFlyers({
   );
 
   /// SET ACTIVE BZ FLYERS
-  await _bzzProvider.getsetActiveBzFlyers(
+  await _bzzProvider.fetchSetActiveBzFlyers(
     context: context,
     bzID: completedZoneBzModel.id,
     notify: true,
@@ -233,7 +233,7 @@ Future<void> _onEditBzButtonTap({
   @required BzModel bzModel,
 }) async {
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+  final UserModel _userModel = UsersProvider.proFetchMyUserModel(context);
 
   await Nav.goToNewScreen(
     context: context,

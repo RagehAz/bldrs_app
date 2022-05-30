@@ -126,7 +126,7 @@ class BzzProvider extends ChangeNotifier {
   /// FETCH SPONSORS
   /// 1 - get sponsors from app state
   /// 2 - fetch each bzID if found
-  Future<void> getSetSponsors({
+  Future<void> fetchSetSponsors({
     @required BuildContext context,
     @required bool notify,
 }) async {
@@ -196,10 +196,11 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel>[..._myBzz];
   }
 // -------------------------------------
-  Future<void> getSetMyBzz({
+  Future<void> fetchSetMyBzz({
     @required BuildContext context,
     @required bool notify,
 }) async {
+
     /// 1 - get userBzzIDs from userModel
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final List<String> _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
@@ -296,7 +297,7 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel>[..._followedBzz];
   }
 // -------------------------------------
-  Future<void> getsetFollowedBzz({
+  Future<void> fetchSetFollowedBzz({
     @required BuildContext context,
     @required bool notify,
 }) async {
@@ -397,20 +398,7 @@ class BzzProvider extends ChangeNotifier {
     return _myActiveBzFlyers;
   }
 // -----------------------------------------------------------------------------
-  void setActiveBz({
-    @required BzModel bzModel,
-    @required bool notify,
-  }) {
-    blog('setting active bz to ${bzModel?.id}');
-    _myActiveBz = bzModel;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-// -------------------------------------
-  Future<void> getsetActiveBzFlyers({
+  Future<void> fetchSetActiveBzFlyers({
     @required BuildContext context,
     @required String bzID,
     @required bool notify,
@@ -428,6 +416,19 @@ class BzzProvider extends ChangeNotifier {
       flyers: _flyers,
       notify: notify,
     );
+
+  }
+// -------------------------------------
+  void setActiveBz({
+    @required BzModel bzModel,
+    @required bool notify,
+  }) {
+    blog('setting active bz to ${bzModel?.id}');
+    _myActiveBz = bzModel;
+
+    if (notify == true){
+      notifyListeners();
+    }
 
   }
 // -------------------------------------
@@ -471,8 +472,7 @@ class BzzProvider extends ChangeNotifier {
     @required bool listen,
 }) {
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
-    final BzModel _bzModel = _bzzProvider.myActiveBz;
-    return _bzModel;
+    return _bzzProvider.myActiveBz;
   }
 // --------------------------------
   static List<FlyerModel> proGetActiveBzFlyers({
@@ -480,11 +480,10 @@ class BzzProvider extends ChangeNotifier {
     @required bool listen,
 }){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
-    final List<FlyerModel> _flyers = _bzzProvider.myActiveBzFlyers;
-    return _flyers;
+    return _bzzProvider.myActiveBzFlyers;
+
 }
 // --------------------------------
-
 
 }
 
