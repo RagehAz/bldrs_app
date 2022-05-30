@@ -71,6 +71,24 @@ class NavBarProfileButton extends StatelessWidget {
       return NoteFireOps.noteStreamBuilder(
         context: context,
         stream: NotesProvider.proGetUserNotesStream(context: context, listen: true),
+        loadingWidget: BarButton(
+            size: NavBar.navBarButtonWidth,
+            text: superPhrase(context, 'phid_profile'),
+            icon: Iconz.normalUser,
+            iconSizeFactor: 0.7,
+            barType: NavBar.barType,
+            onTap: () => Nav.goToNewScreen(
+                context: context,
+                screen: const UserProfileScreen(
+                  notes: <NoteModel>[],
+                )
+            ),
+            clipperWidget: UserBalloon(
+              size: NavBar.circleWidth,
+              loading: false,
+              userModel: _userModel,
+            )
+        ),
         builder: (_, List<NoteModel> notes){
 
           final bool _noteDotIsOn = _checkNoteDotIsOn(
@@ -95,7 +113,9 @@ class NavBarProfileButton extends StatelessWidget {
               notesCount: _notesCount,
               onTap: () => Nav.goToNewScreen(
                   context: context,
-                  screen: const UserProfileScreen()
+                  screen: UserProfileScreen(
+                    notes: notes,
+                  )
               ),
               clipperWidget: UserBalloon(
                 size: NavBar.circleWidth,
@@ -124,7 +144,7 @@ class NavBarProfileButton extends StatelessWidget {
             context: context,
             screen: const AuthScreen(),
           );
-          },
+        },
       );
 
     }

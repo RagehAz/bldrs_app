@@ -111,6 +111,18 @@ class BzzProvider extends ChangeNotifier {
 
     return _bzz;
   }
+// -------------------------------------
+  static Future<BzModel> proFetchBzModel({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzModel _bzModel = await _bzzProvider.fetchBzModel(
+      context: context,
+      bzID: bzID,
+    );
+    return _bzModel;
+  }
 // -----------------------------------------------------------------------------
 
   /// SPONSORS

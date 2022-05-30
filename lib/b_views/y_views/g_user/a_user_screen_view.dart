@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/y_views/g_user/b_0_user_screen_view_pages.dart';
 import 'package:bldrs/b_views/z_components/tab_bars/user_screen_tab_bar.dart';
@@ -10,10 +11,12 @@ class UserScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserScreenView({
     @required this.tabController,
+    @required this.notes,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TabController tabController;
+  final List<NoteModel> notes;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,6 +57,7 @@ class UserScreenView extends StatelessWidget {
               UserScreenViewPages(
                 tabController: tabController,
                 userModel: _myUserModel,
+                notes: notes,
               );
 
         },

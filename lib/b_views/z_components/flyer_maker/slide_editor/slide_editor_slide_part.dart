@@ -169,7 +169,6 @@ class SlideEditorSlidePart extends StatelessWidget {
                 StaticHeader(
                   flyerBoxWidth: _flyerBoxWidth,
                   opacity: 0.5,
-                  bzModel: null,
                 ),
 
               ],
