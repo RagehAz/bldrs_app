@@ -85,7 +85,7 @@ class UserTileButton extends StatelessWidget {
             icon: userModel.pic,
             verse: userModel.name,
             verseCentered: false,
-            secondLine: UserModel.getUserJobLine(userModel),
+            secondLine: UserModel.generateUserJobLine(userModel),
             secondLineScaleFactor: 1.2,
             verseScaleFactor: 0.8,
             bubble: bubble,

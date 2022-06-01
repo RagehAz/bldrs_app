@@ -11,7 +11,7 @@ class DashBoardLayout extends StatefulWidget {
   const DashBoardLayout({
     @required this.listWidgets,
     this.pageTitle,
-    this.loading = false,
+    this.loading,
     this.onBldrsTap,
     this.scrollable = true,
     this.scrollerIsOn = true,
@@ -20,7 +20,7 @@ class DashBoardLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final List<Widget> listWidgets;
   final String pageTitle;
-  final bool loading;
+  final ValueNotifier<bool> loading;
   final Function onBldrsTap;
   final bool scrollable;
   final bool scrollerIsOn;
@@ -54,7 +54,7 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitle: widget.pageTitle,
-      // loading: loading,
+      loading: widget.loading,
       appBarRowWidgets: <Widget>[
         const Expander(),
         BldrsNameButton(

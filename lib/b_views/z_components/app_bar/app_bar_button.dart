@@ -26,6 +26,7 @@ class AppBarButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return DreamBox(
       height: Ratioz.appBarButtonSize,
       width: verse == null ? Ratioz.appBarButtonSize : null,
@@ -42,5 +43,6 @@ class AppBarButton extends StatelessWidget {
       isDeactivated: isDeactivated,
       // loading: loading,
     );
+
   }
 }

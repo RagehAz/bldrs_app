@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/images/super_filter/color_layers.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 import 'package:matrix2d/matrix2d.dart';
 
@@ -30,7 +30,7 @@ class ImageFilterModel {
 
     blog('combineMatrixes : input are : ${matrixes.length} matrixes ');
 
-    if (canLoopList(matrixes) == true){
+    if (Mapper.canLoopList(matrixes) == true){
 
       const Matrix2d m2d = Matrix2d();
 

@@ -21,7 +21,6 @@ import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_bz_editor_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -291,7 +290,7 @@ class BzEditorScreenView extends StatelessWidget {
                             return WidgetFader(
                               fadeType: Mapper.canLoopList(bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                               min: 0.35,
-                              absorbPointer: canLoopList(bzTypes) == false,
+                              absorbPointer: Mapper.canLoopList(bzTypes) == false,
                               child: Bubble(
                                 width: Bubble.bubbleWidth(
                                   context: context,
@@ -315,7 +314,7 @@ class BzEditorScreenView extends StatelessWidget {
                                   DreamBox(
                                     height: KeywordBarButton.height,
                                     // width: Bubble.clearWidth(context),
-                                    verse: canLoopList(_keywords) ? 'Edit Scopes' : 'Add Scopes',
+                                    verse: Mapper.canLoopList(_keywords) ? 'Edit Scopes' : 'Add Scopes',
                                     bubble: false,
                                     color: Colorz.white20,
                                     verseScaleFactor: 1.5,

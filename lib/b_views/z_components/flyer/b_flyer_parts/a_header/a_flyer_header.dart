@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_b
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -117,7 +117,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     //--------------------------------o
     _backgroundColorTween
       ..begin = widget.tinyMode == true ? Colorz.nothing : Colorz.blackSemi230
-      ..end = canLoopList(widget.flyerModel.slides) == false ?
+      ..end = Mapper.canLoopList(widget.flyerModel.slides) == false ?
       Colorz.blackSemi230
           :
       widget.flyerModel.slides[0].midColor;

@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/y_views/g_user/b_1_user_profile_page.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -54,7 +54,7 @@ Future<void> onSearchUsers({
     final List<UserModel> _users = await UserFireSearch.usersByUserName(
       context: context,
       name: _fixedText,
-      startAfter: canLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
+      startAfter: Mapper.canLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
     );
 
     foundUsers.value = _users;

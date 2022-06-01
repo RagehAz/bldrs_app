@@ -1,6 +1,6 @@
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
@@ -170,7 +170,7 @@ Future<List<Map<String, Object>>> searchPhrasesDoc({
     searchField: 'trigram',
   );
 
-  if (canLoopList(_result) == true){
+  if (Mapper.canLoopList(_result) == true){
     blog('searchPhrases : found ${_result.length} phrases');
 
     return _result;

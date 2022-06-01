@@ -291,7 +291,7 @@ Future<void> _onInviteFriendsTap(BuildContext context) async {
 Future<void> _onDeleteMyAccount(BuildContext context) async {
   blog('on delete user tap');
 
-  final UserModel _userModel = UsersProvider.proFetchMyUserModel(context);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
 
   if (_userModel != null){
 
@@ -328,7 +328,7 @@ Future<void> _onDeleteMyAccount(BuildContext context) async {
           loadingPhrase: 'Deleting your Account',
         ));
 
-        final bool _userIsAuthor = UserModel.userIsAuthor(_userModel);
+        final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
 
         /// WHEN USER IS AUTHOR
         if (_userIsAuthor == true){

@@ -46,7 +46,7 @@ class NoteCard extends StatelessWidget {
 
     final double _bodyWidth = bodyWidth(context);
     const double _moreButtonSize = 35;
-    final bool _noteHasButtons = Mapper.canLoopList(noteModel.buttons);
+    final bool _noteHasButtons = Mapper.canLoopList(noteModel?.buttons);
 
     unawaited(markNoteAsSeen(
       context: context,
@@ -60,7 +60,7 @@ class NoteCard extends StatelessWidget {
           vertical: Ratioz.appBarPadding,
       ),
       onBubbleTap: _noteHasButtons ? null : _onBubbleTap,
-      bubbleColor: noteModel.seen == true ? Colorz.white10 : Colorz.yellow10,
+      bubbleColor: noteModel?.seen == true ? Colorz.white10 : Colorz.yellow10,
       columnChildren: <Widget>[
 
         /// SENDER BALLOON - TITLE - TIMESTAMP - BODY
@@ -95,7 +95,7 @@ class NoteCard extends StatelessWidget {
                   /// TIME STAMP
                   SuperVerse(
                     verse: Timers.getSuperTimeDifferenceString(
-                        from: noteModel.sentTime,
+                        from: noteModel?.sentTime,
                         to: DateTime.now(),
                     ),
                     color: Colorz.grey255,
@@ -108,7 +108,7 @@ class NoteCard extends StatelessWidget {
 
                   /// BODY
                   SuperVerse(
-                    verse: noteModel.body,
+                    verse: noteModel?.body,
                     weight: VerseWeight.thin,
                     maxLines: 20,
                     centered: false,
@@ -146,7 +146,7 @@ class NoteCard extends StatelessWidget {
         ),
 
         /// BUTTONS
-        if (Mapper.canLoopList(noteModel.buttons) == true)
+        if (Mapper.canLoopList(noteModel?.buttons) == true)
           NoteCardButtons(
             boxWidth: _bodyWidth,
             noteModel: noteModel,
