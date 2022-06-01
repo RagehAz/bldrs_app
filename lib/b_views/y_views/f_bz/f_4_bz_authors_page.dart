@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/author_invitations_controller.dart';
 import 'package:bldrs/c_controllers/notes_controllers/notes_controller.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -158,7 +158,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
             final List<UserModel> _notesUsers = notesProvider.pendingSentAuthorshipUsers;
             final List<NoteModel> _notes = notesProvider.pendingSentAuthorshipNotes;
 
-            if (canLoopList(_notesUsers) == false){
+            if (Mapper.canLoopList(_notesUsers) == false){
               return const SizedBox();
             }
 

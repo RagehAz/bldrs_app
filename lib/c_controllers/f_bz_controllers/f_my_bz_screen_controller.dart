@@ -238,7 +238,7 @@ Future<void> _onEditBzButtonTap({
   @required BzModel bzModel,
 }) async {
 
-  final UserModel _userModel = UsersProvider.proFetchMyUserModel(context);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
 
   await Nav.goToNewScreen(
     context: context,

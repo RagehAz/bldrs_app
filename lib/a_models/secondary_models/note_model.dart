@@ -7,6 +7,9 @@ import 'package:flutter/foundation.dart';
 enum NoteType {
   /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
   authorship,
+  /// WHEN BLDRS.NET SENDS A USER SOME NEWS
+  announcement,
+
 }
 // ------------------------
 enum NoteAttachmentType {
@@ -250,14 +253,16 @@ class NoteModel {
 // -------------------------------------
   static String cipherNoteType(NoteType noteType){
     switch(noteType){
-      case NoteType.authorship: return 'authorship'; break;
+      case NoteType.authorship:   return 'authorship';    break;
+      case NoteType.announcement: return 'announcement';  break;
       default : return null;
     }
   }
 // -------------------------------------
   static NoteType decipherNoteType(String noteType){
     switch(noteType){
-      case 'authorship': return NoteType.authorship; break;
+      case 'authorship': return NoteType.authorship;      break;
+      case 'announcement': return NoteType.announcement;  break;
       default: return null;
     }
   }

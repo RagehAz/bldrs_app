@@ -287,7 +287,7 @@ Future<UserModel> _modifyUserAuthorshipOps({
   @required BzModel bzModel,
 }) async {
 
-  final UserModel _oldUserModel = UsersProvider.proFetchMyUserModel(context);
+  final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(context);
 
   /// FIRE OPS
   final UserModel _newUserModel = await UserFireOps.addBzIDToUserBzzIDs(

@@ -13,7 +13,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/c_controllers/notes_controllers/local_notification_controller.dart' as LocalNotificationService;
@@ -145,7 +145,7 @@ class _BldrsAppState extends State<BldrsApp> {
           blog('_firebaseApp.name : ${_firebaseApp.name}');
           blog('_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
           blog('_firebaseApp.options :-');
-          blogMap(_firebaseApp.options.asMap);
+          Mapper.blogMap(_firebaseApp.options.asMap);
         },
         onError: (String error) {
           _fireError.value = error;

@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_district_button.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class SearchedDistrictsButtons extends StatelessWidget {
     final List<DistrictModel> _searchedDistricts = _zoneProvider.searchedDistricts;
 
     /// WHEN SEARCH RESULTS
-    if (canLoopList(_searchedDistricts)){
+    if (Mapper.canLoopList(_searchedDistricts)){
 
       return ListView.builder(
           physics: const BouncingScrollPhysics(),

@@ -59,7 +59,7 @@ class UserBalloon extends StatelessWidget {
           ),
 
           /// IS AUTHOR ICON
-          if (UserModel.userIsAuthor(userModel) == true)
+          if (UserModel.checkUserIsAuthor(userModel) == true)
           Align(
             alignment: superInverseBottomAlignment(context),
             child: DreamBox(
