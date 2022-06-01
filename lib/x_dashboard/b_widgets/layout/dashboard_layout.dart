@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:flutter/material.dart';
 
 class DashBoardLayout extends StatefulWidget {
@@ -72,6 +73,7 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
           const NeverScrollableScrollPhysics(),
 
           controller: _controller,
+          padding: Stratosphere.stratosphereInsets,
           children: <Widget>[
 
             // const Stratosphere(),
