@@ -62,8 +62,9 @@ class BzBanner extends StatelessWidget {
           ),
 
           /// ZONE
+          if (_bzModel?.zone != null)
           ZoneLine(
-            zoneModel: _bzModel.zone,
+            zoneModel: _bzModel?.zone,
           ),
 
 
