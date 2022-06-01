@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -107,7 +107,7 @@ class FireFinder {
 
     Query<Map<String, dynamic>> _output = query;
 
-    if (canLoopList(finders) == true){
+    if (Mapper.canLoopList(finders) == true){
 
       for (final FireFinder finder in finders){
         _output = createQueryByFinder(

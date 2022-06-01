@@ -10,7 +10,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -67,7 +67,7 @@ TextEditingController initializeHeadlineController({
 
     blog('text controller : ${_controller.text}');
 
-    if (canLoopList(draftFlyer.value.mutableSlides) == true){
+    if (Mapper.canLoopList(draftFlyer.value.mutableSlides) == true){
 
       draftFlyer.value = DraftFlyerModel.updateHeadline(
         controller : _controller,
@@ -91,7 +91,7 @@ void onDeleteSlide({
 
   final List<MutableSlide> _slides = draftFlyer.value.mutableSlides;
 
-  if (canLoopList(_slides) == true){
+  if (Mapper.canLoopList(_slides) == true){
 
     _slides.removeAt(index);
 
@@ -315,7 +315,7 @@ void onFlyerHeadlineChanged({
 }){
   formKey.currentState.validate();
 
-  if (canLoopList(draftFlyer.value.mutableSlides) == true){
+  if (Mapper.canLoopList(draftFlyer.value.mutableSlides) == true){
     draftFlyer.value = DraftFlyerModel.updateHeadline(
       draft: draftFlyer.value,
       controller: controller,

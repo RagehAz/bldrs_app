@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
@@ -42,7 +42,7 @@ class ChainEditorPage extends StatelessWidget {
     final double _clearWidth = PageBubble.clearWidth(context);
 
     return SizedBox(
-      width: superScreenWidth(context),
+      width: Scale.superScreenWidth(context),
       height: screenHeight,
       child: ValueListenableBuilder(
         valueListenable: path,

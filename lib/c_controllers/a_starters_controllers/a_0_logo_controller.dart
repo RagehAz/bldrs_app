@@ -72,7 +72,7 @@ Future<void> _initializeUserModel(BuildContext context) async {
 
   // if (_authModel?.userModel != null){
 
-    final bool _thereAreMissingFields = UserModel.thereAreMissingFields(_authModel?.userModel);
+    final bool _thereAreMissingFields = UserModel.checkMissingFields(_authModel?.userModel);
 
     /// MISSING FIELDS FOUND
     if (_thereAreMissingFields == true){

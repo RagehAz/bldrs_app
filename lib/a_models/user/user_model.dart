@@ -386,10 +386,10 @@ class UserModel {
   ];
 // -----------------------------------------------------------------------------
 
-  /// CHECKERS
+  /// GENERATORS
 
 // -----------------------------------
-  static String getUserJobLine(UserModel userModel){
+  static String generateUserJobLine(UserModel userModel){
     return userModel == null ? null : '${userModel?.title} @ ${userModel?.company}';
   }
 // -----------------------------------------------------------------------------
@@ -398,7 +398,7 @@ class UserModel {
 
 // -----------------------------------
   /// TAMAM : WORKS PERFECT
-  static bool userIsAuthor(UserModel userModel) {
+  static bool checkUserIsAuthor(UserModel userModel) {
     bool _userIsAuthor = false;
 
     if (userModel != null && Mapper.canLoopList(userModel?.myBzzIDs)) {
@@ -408,7 +408,7 @@ class UserModel {
     return _userIsAuthor;
   }
 // -----------------------------------
-  static bool thereAreMissingFields(UserModel userModel){
+  static bool checkMissingFields(UserModel userModel){
     bool _thereAreMissingFields;
 
     final List<String> _missingFields = UserModel.missingFields(userModel);
@@ -423,6 +423,32 @@ class UserModel {
 
     return _thereAreMissingFields;
   }
+// -----------------------------------
+  static bool checkUsersContainThisUser({
+    @required List<UserModel> usersModels,
+    @required UserModel userModel,
+  }){
+    bool _contains = false;
+
+    if (Mapper.canLoopList(usersModels) == true && userModel != null){
+
+      for (final UserModel user in usersModels){
+
+        if (user.id == userModel.id){
+          _contains = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _contains;
+  }
+// -----------------------------------------------------------------------------
+
+  /// GETTERS
+
 // -----------------------------------
   static List<String> missingFields(UserModel userModel) {
     final List<String> _missingFields = <String>[];
@@ -487,6 +513,31 @@ class UserModel {
 
   /// MODIFIERS
 
+// -----------------------------------
+  static List<UserModel> addOrRemoveUserToUsers({
+    @required List<UserModel> usersModels,
+    @required UserModel userModel,
+  }){
+    final List<UserModel> _output = <UserModel>[...usersModels];
+
+    if (userModel != null){
+
+      final bool _alreadySelected = checkUsersContainThisUser(
+          usersModels: _output,
+          userModel: userModel
+      );
+
+      if (_alreadySelected == true){
+        _output.removeWhere((user) => user.id == userModel.id);
+      }
+      else {
+        _output.add(userModel);
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------
   /*
   static List<String> removeIDFromIDs(List<String> ids, String id) {

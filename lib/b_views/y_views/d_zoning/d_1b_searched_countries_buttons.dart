@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dar
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class SearchedCountriesButtons extends StatelessWidget {
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
     /// WHEN SEARCH RESULTS
-    if (canLoopList(_searchedCountries)){
+    if (Mapper.canLoopList(_searchedCountries)){
 
       return ListView.builder(
           physics: const BouncingScrollPhysics(),

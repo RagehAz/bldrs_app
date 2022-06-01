@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loadi
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:image_editor/image_editor.dart' as image_editor;
@@ -35,7 +35,7 @@ class SuperFilteredImage extends StatefulWidget {
     @required ImageFilterModel filterModel,
 }) async {
 
-    if (filterModel != null && canLoopList(filterModel.matrixes) == true){
+    if (filterModel != null && Mapper.canLoopList(filterModel.matrixes) == true){
 
       Uint8List _uint8List = await Imagers.getUint8ListFromFile(input);
 
@@ -80,7 +80,7 @@ class SuperFilteredImage extends StatefulWidget {
   }){
     Widget tree = child;
 
-    if (canLoopList(matrixes) == true){
+    if (Mapper.canLoopList(matrixes) == true){
       for (int i = 0; i < matrixes.length; i++) {
         tree = ColorFiltered(
           colorFilter: ColorFilter.matrix(matrixes[i]),

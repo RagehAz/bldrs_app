@@ -4,7 +4,7 @@ import 'package:bldrs/c_controllers/c_0_search_controller.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +50,7 @@ class SearchRecordsView extends StatelessWidget {
 
                 DreamBox(
                   height: 50,
-                  width: superScreenWidth(context) - (2 * Ratioz.appBarMargin) - 60,
+                  width: Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin) - 60,
                   verse: _searchRecord?.recordDetails.toString(),
                   icon: Iconz.clock,
                   iconSizeFactor: 0.4,

@@ -21,6 +21,7 @@ class AddAuthorScreen extends StatefulWidget {
 }
 
 class _AddAuthorScreenState extends State<AddAuthorScreen> {
+// -----------------------------------------------------------------------------
   final ValueNotifier<List<UserModel>> _foundUsers = ValueNotifier(null);
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
 // -----------------------------------------------------------------------------

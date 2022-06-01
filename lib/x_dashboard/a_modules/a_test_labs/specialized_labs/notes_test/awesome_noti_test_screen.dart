@@ -13,7 +13,7 @@ import 'package:bldrs/f_helpers/drafters/sounds.dart' as Audioz;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/test_screens/second_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/second_noti_test_screen.dart';
 import 'package:flutter/material.dart';
 
 class AwesomeNotiTestScreen extends StatefulWidget {

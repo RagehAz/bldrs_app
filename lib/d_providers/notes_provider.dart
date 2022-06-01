@@ -5,7 +5,7 @@ import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -116,7 +116,7 @@ class NotesProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    if (canLoopList(_pendingSentAuthorshipNotes) == false){
+    if (Mapper.canLoopList(_pendingSentAuthorshipNotes) == false){
 
       final List<NoteModel> _pendingNotes = await NoteFireOps.paginatePendingSentAuthorshipNotes(
         context: context,
@@ -125,7 +125,7 @@ class NotesProvider extends ChangeNotifier {
         startAfter: null,
       );
 
-      if (canLoopList(_pendingNotes) == true)   {
+      if (Mapper.canLoopList(_pendingNotes) == true)   {
         final List<String> _usersIDs = NoteModel.getReceiversIDs(
           notes: _pendingNotes,
         );
