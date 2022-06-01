@@ -1,5 +1,5 @@
-import 'package:bldrs/f_helpers/notifications/notifications_manager/notification_maker.dart';
-import 'package:bldrs/f_helpers/notifications/notifications_manager/notification_templates_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notification_maker.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/template_notes_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
@@ -60,7 +60,7 @@ class _NotificationCreatorState extends State<NotificationCreator> {
           verse: 'Templates',
           onTap: () => Nav.goToNewScreen(
               context: context,
-              screen: const NotificationTemplatesScreen(),
+              screen: const TemplateNotesScreen(),
           ),
         ),
 
