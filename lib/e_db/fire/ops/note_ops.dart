@@ -310,6 +310,22 @@ typedef NotiModelsWidgetsBuilder = Widget Function(
 /// UPDATE
 
 // -----------------------------------
+Future<void> updateNote({
+@required BuildContext context,
+@required NoteModel newNoteModel,
+}) async {
+
+  if (newNoteModel != null){
+    await Fire.updateDoc(
+      context: context,
+      collName: FireColl.notes,
+      docName: newNoteModel.id,
+      input: newNoteModel.toMap(toJSON: false),
+    );
+  }
+
+}
+// -----------------------------------
 Future<void> updateNoteSeen({
   @required BuildContext context,
   @required NoteModel noteModel
@@ -322,11 +338,9 @@ Future<void> updateNoteSeen({
       seenTime: DateTime.now(),
     );
 
-    await Fire.updateDoc(
-        context: context,
-        collName: FireColl.notes,
-        docName: noteModel.id,
-        input: _updatedNote.toMap(toJSON: false),
+    await updateNote(
+      context: context,
+      newNoteModel: _updatedNote,
     );
 
   }

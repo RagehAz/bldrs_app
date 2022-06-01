@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
@@ -542,10 +543,16 @@ Future<void> _deleteBzIDFromAuthorBzIDs({
 
       for (final String authorID in _authorsIDs) {
 
+        /// TASK :  SHOULD NOT FETCH STUFF IN BZ OPS API
+        final UserModel _authorUserModel = await UsersProvider.proFetchUserModel(
+            context: context,
+            userID: authorID
+        );
+
         await UserFireOps.removeBzIDFromUserBzzIDs(
             context: context,
             bzID: bzModel.id,
-            userID: authorID,
+            oldUserModel: _authorUserModel,
         );
 
       }

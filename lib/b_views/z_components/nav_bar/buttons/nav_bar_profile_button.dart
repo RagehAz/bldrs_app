@@ -34,7 +34,7 @@ class NavBarProfileButton extends StatelessWidget {
     else {
 
       if (Mapper.canLoopList(notes) == true){
-        _isOn = true;
+        _isOn = NoteModel.checkThereAreUnSeenNotes(notes);
       }
 
     }
@@ -50,7 +50,7 @@ class NavBarProfileButton extends StatelessWidget {
 
     if (thereAreMissingFields == false){
       if (Mapper.canLoopList(notes) == true){
-        _count = notes?.length;
+        _count = NoteModel.getNumberOfUnseenNotes(notes);
       }
     }
 
@@ -79,8 +79,8 @@ class NavBarProfileButton extends StatelessWidget {
             barType: NavBar.barType,
             onTap: () => Nav.goToNewScreen(
                 context: context,
-                screen: const UserProfileScreen(
-                  notes: <NoteModel>[],
+                screen: UserProfileScreen(
+                  notes: ValueNotifier<List<NoteModel>>([]),
                 )
             ),
             clipperWidget: UserBalloon(
@@ -89,16 +89,18 @@ class NavBarProfileButton extends StatelessWidget {
               userModel: _userModel,
             )
         ),
-        builder: (_, List<NoteModel> notes){
+        builder: (_, List<NoteModel> notesFromStream){
+
+          final ValueNotifier<List<NoteModel>> notes = ValueNotifier(notesFromStream);
 
           final bool _noteDotIsOn = _checkNoteDotIsOn(
             thereAreMissingFields: _thereAreMissingFields,
-            notes : notes,
+            notes : notes.value,
           );
 
           final int _notesCount = _getNotesCount(
             thereAreMissingFields: _thereAreMissingFields,
-            notes : notes,
+            notes : notes.value,
           );
 
           // blog('the notes count is wtfffff : $_notesCount');

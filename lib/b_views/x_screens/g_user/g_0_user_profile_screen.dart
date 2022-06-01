@@ -18,7 +18,7 @@ class UserProfileScreen extends StatefulWidget {
     Key key
   }) : super(key: key);
 
-  final List<NoteModel> notes;
+  final ValueNotifier<List<NoteModel>> notes;
   /// --------------------------------------------------------------------------
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
