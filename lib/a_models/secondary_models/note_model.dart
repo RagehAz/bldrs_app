@@ -445,5 +445,37 @@ static NoteModel getFirstNoteByRecieverID({
     return _output;
 }
 // -------------------------------------
+static int getNumberOfUnseenNotes(List<NoteModel> notes){
+    int _count;
+    if (Mapper.canLoopList(notes) == true){
+      final List<NoteModel> _unSeens = notes.where((note) => note.seen != true).toList();
+      _count = _unSeens.length;
+    }
+    return _count;
+}
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -------------------------------------
+static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
+    bool _thereAreUnseenNotes = false;
+
+    if (Mapper.canLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+
+        if (note.seen != true){
+          _thereAreUnseenNotes = true;
+          break;
+        }
+
+      }
+
+    }
+
+    return _thereAreUnseenNotes;
+}
+// -------------------------------------
 }
 // -----------------------------------------------------------------------------

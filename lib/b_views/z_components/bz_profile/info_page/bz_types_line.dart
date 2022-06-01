@@ -19,8 +19,8 @@ class BzTypesLine extends StatelessWidget {
 
     final String _bzTypesString = BzModel.translateBzTypesIntoString(
       context: context,
-      bzTypes: bzModel.bzTypes,
-      bzForm: bzModel.bzForm,
+      bzTypes: bzModel?.bzTypes,
+      bzForm: bzModel?.bzForm,
     );
 
     return SizedBox(

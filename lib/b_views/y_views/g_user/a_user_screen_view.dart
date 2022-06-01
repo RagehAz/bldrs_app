@@ -16,7 +16,7 @@ class UserScreenView extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TabController tabController;
-  final List<NoteModel> notes;
+  final ValueNotifier<List<NoteModel>> notes;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

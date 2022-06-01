@@ -7,18 +7,18 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class UserNotificationsPage extends StatelessWidget {
+class UserNotesPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const UserNotificationsPage({
+  const UserNotesPage({
     @required this.userModel,
     @required this.notes,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
-  final List<NoteModel> notes;
+  final ValueNotifier<List<NoteModel>> notes;
   /// --------------------------------------------------------------------------
-  Future<void> _dismissNotification({
+  Future<void> _dismissNote({
     @required String id,
     @required int notiModelsLength,
   }) async {
@@ -50,37 +50,42 @@ class UserNotificationsPage extends StatelessWidget {
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
-    if (Mapper.canLoopList(notes) == false){
+    return ValueListenableBuilder(
+        valueListenable: notes,
+        builder: (_, List<NoteModel> _notes, Widget child){
 
-      return const SizedBox();
+          if (Mapper.canLoopList(_notes) == false){
 
-    }
+            return const SizedBox();
 
-    else {
+          }
 
-      NoteModel.blogNotes(notes: notes, methodName: 'BUILDEEEEER');
+          else {
 
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              controller: ScrollController(),
+              itemCount: _notes?.length,
+              padding: const EdgeInsets.only(
+                // top: Ratioz.stratosphere,
+                bottom: Ratioz.horizon,
+              ),
+              itemBuilder: (BuildContext ctx, int index) {
 
-      return ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        controller: ScrollController(),
-        itemCount: notes?.length,
-        padding: const EdgeInsets.only(
-          // top: Ratioz.stratosphere,
-          bottom: Ratioz.horizon,
-        ),
-        itemBuilder: (BuildContext ctx, int index) {
+                final NoteModel _notiModel = Mapper.canLoopList(_notes) == true ? _notes[index] : null;
 
-          final NoteModel _notiModel = Mapper.canLoopList(notes) == true ? notes[index] : null;
+                return NoteCard(
+                  noteModel: _notiModel,
+                );
 
-          return NoteCard(
-            noteModel: _notiModel,
-          );
+              },
+            );
 
-        },
-      );
+          }
 
-    }
+        }
+    );
+
 
   }
 }

@@ -299,7 +299,7 @@ Future<bool> _preDeleteBzAccountChecks({
 
   bool _canContinue = false;
 
-  final bool _authorIsMaster = AuthorModel.userIsMasterAuthor(
+  final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
     userID: superUserID(),
     bzModel: bzModel,
   );
