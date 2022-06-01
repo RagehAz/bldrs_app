@@ -7,16 +7,19 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
-import 'package:bldrs/b_views/z_components/notes/notification_flyers.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -24,51 +27,43 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/noti_banner_editor.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/template_notes_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/user_button.dart';
-import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
-class NotificationMaker extends StatefulWidget {
+class NotesCreatorScreen extends StatefulWidget {
 
-  const NotificationMaker({
+  const NotesCreatorScreen({
     Key key
   }) : super(key: key);
 
   @override
-  _NotificationMakerState createState() => _NotificationMakerState();
+  _NotesCreatorScreenState createState() => _NotesCreatorScreenState();
 }
 
-class _NotificationMakerState extends State<NotificationMaker> {
+class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final TextEditingController _titleController = TextEditingController(); /// tamam disposed
   final TextEditingController _bodyController = TextEditingController(); /// tamam disposed
   final TextEditingController _userNameController = TextEditingController(); /// tamam disposed
   UserModel _selectedUser;
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (function == null) {
-      setState(() {
-        _loading = !_loading;
-      });
-    } else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
 
-    _loading == true ?
-    blog('LOADING--------------------------------------')
-        :
-    blog('LOADING COMPLETE--------------------------------------');
+  final ValueNotifier<NoteModel> _note = ValueNotifier<NoteModel>(null);
+// -----------------------------------------------------------------------------
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------------------------------
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'NotesCreatorScreen',
+    );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -79,24 +74,22 @@ class _NotificationMakerState extends State<NotificationMaker> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
-      _triggerLoading(function: () {}).then((_) async {
-        /// ---------------------------------------------------------0
+    if (_isInit && mounted) {
 
-        /// ---------------------------------------------------------0
+      _triggerLoading().then((_) async {
+        _note.value = createInitialNote(context);
+        await _triggerLoading();
       });
 
-      if (_loading == true) {
-        _triggerLoading();
-      }
+      _isInit = false;
     }
-    _isInit = false;
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose();
+    _loading.dispose();
     _titleController.dispose();
     _bodyController.dispose();
     _userNameController.dispose();
@@ -519,271 +512,305 @@ class _NotificationMakerState extends State<NotificationMaker> {
 
     final double _bodyWidth = NoteCard.bodyWidth(context);
 
-    return DashBoardLayout(
+    return MainLayout(
       loading: _loading,
-      pageTitle: 'Notification Maker',
-      listWidgets: <Widget>[
+      pageTitle: 'Note Creator',
+      sectionButtonIsOn: false,
+      pyramidsAreOn: true,
+      zoneButtonIsOn: false,
+      skyType: SkyType.black,
+      appBarType: AppBarType.basic,
+      appBarRowWidgets: <Widget>[
 
-        /// TIME STAMP
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-          child: SuperVerse(
-            verse: Timers.generateString_on_dd_month_yyyy(
-                context: context,
-                time: DateTime.now()
-            ),
-            /// task : fix timestamp parsing
-            color: Colorz.grey255,
-            italic: true,
-            weight: VerseWeight.thin,
-            size: 1,
-            maxLines: 2,
-            centered: false,
+        const Expander(),
+
+        AppBarButton(
+          verse: 'Templates',
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const TemplateNotesScreen(),
           ),
         ),
 
-        /// CONTENT CREATOR
-        Bubble(
-          centered: true,
-          margins: const EdgeInsets.symmetric(
-              horizontal: Ratioz.appBarMargin,
-              vertical: Ratioz.appBarPadding,
-          ),
-          // bubbleOnTap: null,
-          columnChildren: <Widget>[
+      ],
+      layoutWidget: Stack(
+        children: <Widget>[
 
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                /// SENDER BALLOON
-                GestureDetector(
-                  onTap: _onBalloonTap,
-                  // child: NoteSenderBalloon(
-                  //   noteModel: _noteModel,
-                  //   // senderType: _noteSenderType,
-                  //   // pic: _notiPic,
-                  // ),
+          ListView(
+            padding: Stratosphere.stratosphereInsets,
+            physics: const BouncingScrollPhysics(),
+            children:  <Widget>[
+
+              /// TIME STAMP
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+                child: SuperVerse(
+                  verse: Timers.generateString_on_dd_month_yyyy(
+                      context: context,
+                      time: DateTime.now()
+                  ),
+                  color: Colorz.grey255,
+                  italic: true,
+                  weight: VerseWeight.thin,
+                  size: 1,
+                  maxLines: 2,
+                  centered: false,
                 ),
+              ),
 
-                /// SPACER
-                const SizedBox(
-                  width: Ratioz.appBarMargin,
-                  height: Ratioz.appBarMargin,
-                ),
+              const QuestionSeparatorLine(),
 
-                /// NOTIFICATION CONTENT
-                SizedBox(
-                  width: _bodyWidth,
+              ValueListenableBuilder(
+                  valueListenable: _note,
+                  builder: (_, NoteModel noteModel, Widget child){
+                    return NoteCard(
+                        noteModel: noteModel
+                    );
+                  }
+              ),
+
+              const QuestionSeparatorLine(),
+
+              // /// CONTENT CREATOR
+              // Bubble(
+              //   width: Bubble.defaultWidth(context),
+              //   centered: true,
+              //   margins: const EdgeInsets.symmetric(
+              //       horizontal: Ratioz.appBarMargin,
+              //       vertical: Ratioz.appBarPadding,
+              //   ),
+              //   bubbleColor: Colorz.bloodTest,
+              //   // bubbleOnTap: null,
+              //   columnChildren: <Widget>[
+              //
+              //     Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: <Widget>[
+              //         /// SENDER BALLOON
+              //         GestureDetector(
+              //           onTap: _onBalloonTap,
+              //           // child: NoteSenderBalloon(
+              //           //   noteModel: _noteModel,
+              //           //   // senderType: _noteSenderType,
+              //           //   // pic: _notiPic,
+              //           // ),
+              //         ),
+              //
+              //         /// SPACER
+              //         const SizedBox(
+              //           width: Ratioz.appBarMargin,
+              //           height: Ratioz.appBarMargin,
+              //         ),
+              //
+              //         /// NOTIFICATION CONTENT
+              //         SizedBox(
+              //           width: _bodyWidth,
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: <Widget>[
+              //
+              //               /// TITLE
+              //               SuperTextField(
+              //                 width: _bodyWidth,
+              //                 // formKey: _formKey,
+              //                 // height: 80,
+              //                 textController: _titleController,
+              //                 hintText: 'Title',
+              //                 keyboardTextInputAction: TextInputAction.next,
+              //                 maxLength: 30,
+              //                 maxLines: 2,
+              //
+              //                 // validator: (){}, // TASK : question body must include question mark '?'
+              //               ),
+              //
+              //               /// SPACER
+              //               const SizedBox(
+              //                 width: Ratioz.appBarMargin,
+              //                 height: Ratioz.appBarMargin,
+              //               ),
+              //
+              //               /// BODY
+              //               SuperTextField(
+              //                 width: _bodyWidth,
+              //                 // formKey: _formKey,
+              //                 textController: _bodyController,
+              //                 hintText: 'body',
+              //                 keyboardTextInputType: TextInputType.multiline,
+              //                 maxLength: 80,
+              //                 maxLines: 10,
+              //                 textWeight: VerseWeight.thin,
+              //                 // validator: (){}, // TASK : question body must include question mark '?'
+              //               ),
+              //
+              //               /// SPACER
+              //               const SizedBox(
+              //                 width: Ratioz.appBarPadding,
+              //                 height: Ratioz.appBarPadding,
+              //               ),
+              //
+              //               /// ADD ATTACHMENT BUTTON
+              //               if (_attachment == null || _attachment.length == 0)
+              //                 Container(
+              //                   width: _bodyWidth,
+              //                   height: 60,
+              //                   alignment: Aligners.superInverseCenterAlignment(context),
+              //                   child: DreamBox(
+              //                     height: 50,
+              //                     verse: 'Add Attachment',
+              //                     verseScaleFactor: 0.6,
+              //                     onTap: _onAddAttachment,
+              //                   ),
+              //                 ),
+              //
+              //               /// FLYERS ATTACHMENT
+              //               if (_attachment != null &&
+              //                   _attachmentType == NoteAttachmentType.flyersIDs)
+              //                 NotificationFlyers(
+              //                   bodyWidth: _bodyWidth,
+              //                   flyers: _attachment,
+              //                   onFlyerTap: (FlyerModel flyer) => _onDeleteFlyer(flyer.id),
+              //                 ),
+              //
+              //               /// BANNER
+              //               if (_attachment != null
+              //                   &&
+              //                   _attachmentType == NoteAttachmentType.imageURL
+              //               )
+              //                 NoteBannerEditor(
+              //                   width: _bodyWidth,
+              //                   height: _bannerHeight,
+              //                   attachment: _attachment,
+              //                   onDelete: _onDeleteAttachment,
+              //                 ),
+              //
+              //               // /// BUTTONS
+              //               // if (_attachment != null &&
+              //               //     _attachmentType == NoteAttachmentType.buttons &&
+              //               //     _attachment is List<String>)
+              //               //   SizedBox(
+              //               //     width: _bodyWidth,
+              //               //     height: 70,
+              //               //     child: Row(
+              //               //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //               //       children: <Widget>[
+              //               //         ...List<Widget>.generate(_attachment.length,
+              //               //             (int index) {
+              //               //           final double _width = (_bodyWidth -
+              //               //                   ((_attachment.length + 1) *
+              //               //                       Ratioz.appBarMargin)) /
+              //               //               (_attachment.length);
+              //               //
+              //               //           return DreamBox(
+              //               //             width: _width,
+              //               //             height: 60,
+              //               //             verse: _attachment[index],
+              //               //             verseScaleFactor: 0.7,
+              //               //             color: Colorz.blue80,
+              //               //             splashColor: Colorz.yellow255,
+              //               //             // onTap: () => _onButtonTap(notiModel.attachment[index]),
+              //               //           );
+              //               //         }),
+              //               //       ],
+              //               //     ),
+              //               //   ),
+              //
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //
+              //   ],
+              // ),
+
+              /// FCM SWITCH
+              TileBubble(
+                verse: 'Send FCM',
+                secondLine:
+                'This sends firebase cloud message to the receiver or to a group of receivers through a channel',
+                icon: Iconz.news,
+                iconSizeFactor: 0.5,
+                iconBoxColor: Colorz.grey50,
+                switchIsOn: _sendFCMIsOn,
+                switching: (bool val) => _onSwitchSendFCM(val),
+              ),
+
+              /// USER SELECTOR
+              TileBubble(
+                verse: 'Reciever',
+                secondLine: 'Choose who to send this notification to',
+                icon: Iconz.normalUser,
+                iconSizeFactor: 0.5,
+                iconBoxColor: Colorz.grey50,
+                btOnTap: _onTapReciever,
+                child: SizedBox(
+                  width: Bubble.clearWidth(context),
+                  // height: 50,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      if (_selectedUser != null)
 
-                      /// TITLE
-                      SuperTextField(
-                        width: _bodyWidth,
-                        // formKey: _formKey,
-                        // height: 80,
-                        textController: _titleController,
-                        hintText: 'Title',
-                        keyboardTextInputAction: TextInputAction.next,
-                        maxLength: 30,
-                        maxLines: 2,
-
-                        // validator: (){}, // TASK : question body must include question mark '?'
-                      ),
-
-                      /// SPACER
-                      const SizedBox(
-                        width: Ratioz.appBarMargin,
-                        height: Ratioz.appBarMargin,
-                      ),
-
-                      /// BODY
-                      SuperTextField(
-                        width: _bodyWidth,
-                        // formKey: _formKey,
-                        textController: _bodyController,
-                        hintText: 'body',
-                        keyboardTextInputType: TextInputType.multiline,
-                        maxLength: 80,
-                        maxLines: 10,
-                        textWeight: VerseWeight.thin,
-                        // validator: (){}, // TASK : question body must include question mark '?'
-                      ),
-
-                      /// SPACER
-                      const SizedBox(
-                        width: Ratioz.appBarPadding,
-                        height: Ratioz.appBarPadding,
-                      ),
-
-                      /// ADD ATTACHMENT BUTTON
-                      if (_attachment == null || _attachment.length == 0)
-                        Container(
-                          width: _bodyWidth,
-                          height: 60,
-                          alignment: Aligners.superInverseCenterAlignment(context),
-                          child: DreamBox(
-                            height: 50,
-                            verse: 'Add Attachment',
-                            verseScaleFactor: 0.6,
-                            onTap: _onAddAttachment,
-                          ),
+                        DashboardUserButton(
+                          width: TileBubble.childWidth(context),
+                          index: 0,
+                          userModel: _selectedUser,
+                          onTap: null,
                         ),
 
-                      /// FLYERS ATTACHMENT
-                      if (_attachment != null &&
-                          _attachmentType == NoteAttachmentType.flyersIDs)
-                        NotificationFlyers(
-                          bodyWidth: _bodyWidth,
-                          flyers: _attachment,
-                          onFlyerTap: (FlyerModel flyer) => _onDeleteFlyer(flyer.id),
+                      if (_selectedUser != null)
+                        DreamBox(
+                          height: 40,
+                          verse: 'Delete ${_selectedUser.name}',
+                          icon: Iconz.xSmall,
+                          iconSizeFactor: 0.5,
+                          onTap: () {
+                            setState(() {
+                              _selectedUser = null;
+                            });
+                          },
                         ),
-
-                      /// BANNER
-                      if (_attachment != null
-                          &&
-                          _attachmentType == NoteAttachmentType.imageURL
-                      )
-                        NoteBannerEditor(
-                          width: _bodyWidth,
-                          height: _bannerHeight,
-                          attachment: _attachment,
-                          onDelete: _onDeleteAttachment,
-                        ),
-
-                      // /// BUTTONS
-                      // if (_attachment != null &&
-                      //     _attachmentType == NoteAttachmentType.buttons &&
-                      //     _attachment is List<String>)
-                      //   SizedBox(
-                      //     width: _bodyWidth,
-                      //     height: 70,
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //       children: <Widget>[
-                      //         ...List<Widget>.generate(_attachment.length,
-                      //             (int index) {
-                      //           final double _width = (_bodyWidth -
-                      //                   ((_attachment.length + 1) *
-                      //                       Ratioz.appBarMargin)) /
-                      //               (_attachment.length);
-                      //
-                      //           return DreamBox(
-                      //             width: _width,
-                      //             height: 60,
-                      //             verse: _attachment[index],
-                      //             verseScaleFactor: 0.7,
-                      //             color: Colorz.blue80,
-                      //             splashColor: Colorz.yellow255,
-                      //             // onTap: () => _onButtonTap(notiModel.attachment[index]),
-                      //           );
-                      //         }),
-                      //       ],
-                      //     ),
-                      //   ),
 
                     ],
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
 
-        /// FCM SWITCH
-        TileBubble(
-          verse: 'Send FCM',
-          secondLine:
-              'This sends firebase cloud message to the receiver or to a group of receivers through a channel',
-          icon: Iconz.news,
-          iconSizeFactor: 0.5,
-          iconBoxColor: Colorz.grey50,
-          switchIsOn: _sendFCMIsOn,
-          switching: (bool val) => _onSwitchSendFCM(val),
-        ),
+              /// HORIZON
+              const Horizon(),
 
-        /// USER SELECTOR
-        TileBubble(
-          verse: 'Reciever',
-          secondLine: 'Choose who to send this notification to',
-          icon: Iconz.normalUser,
-          iconSizeFactor: 0.5,
-          iconBoxColor: Colorz.grey50,
-          btOnTap: _onTapReciever,
-          child: SizedBox(
-            width: Bubble.clearWidth(context),
-            // height: 50,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                if (_selectedUser != null)
-
-                  DashboardUserButton(
-                    width: TileBubble.childWidth(context),
-                    index: 0,
-                    userModel: _selectedUser,
-                    onTap: null,
-                  ),
-
-                if (_selectedUser != null)
-                  DreamBox(
-                    height: 40,
-                    verse: 'Delete ${_selectedUser.name}',
-                    icon: Iconz.xSmall,
-                    iconSizeFactor: 0.5,
-                    onTap: () {
-                      setState(() {
-                        _selectedUser = null;
-                      });
-                    },
-                  ),
-
-              ],
-            ),
+            ],
           ),
-        ),
 
-        SizedBox(
-          width: _screenWidth,
-          height: 50,
-        ),
-
-        /// SEND BUTTON
-        SizedBox(
-          width: _screenWidth,
-          // height: 150,
-          child: Center(
-            child: WideButton(
-              verse: 'Send Notification',
-              icon: Iconz.share,
-              onTap: _onSendNotification,
-              color: Colorz.yellow255,
-              isActive: _canSendNotification(sendToMySelf: false),
-            ),
+          EditorConfirmButton(
+            firstLine: 'Send',
+            secondLine: 'to Folan',
+            positionedAlignment: Alignment.bottomLeft,
+            isDeactivated: !_canSendNotification(sendToMySelf: false),
+            onTap: _onSendNotification,
           ),
-        ),
 
-        /// SEND TO MYSELF
-        SizedBox(
-          width: _screenWidth,
-          // height: 150,
-          child: Center(
-            child: WideButton(
-              verse: 'Send To Myself',
-              verseColor: Colorz.black255,
-              icon: Iconz.share,
-              onTap: () => _onSendNotification(sendToMyself: true),
-              color: Colorz.yellow255,
-              isActive: _canSendNotification(sendToMySelf: true),
-            ),
-          ),
-        ),
-
-        /// HORIZON
-        const Horizon(),
-
-      ],
+        ],
+      ),
     );
   }
+
 }
+
+/*
+    // /// SEND TO MYSELF
+    // SizedBox(
+    //   width: _screenWidth,
+    //   // height: 150,
+    //   child: Center(
+    //     child: WideButton(
+    //       verse: 'Send To Myself',
+    //       verseColor: Colorz.black255,
+    //       icon: Iconz.share,
+    //       onTap: () => _onSendNotification(sendToMyself: true),
+    //       color: Colorz.yellow255,
+    //       isActive: _canSendNotification(sendToMySelf: true),
+    //     ),
+    //   ),
+    // ),
+ */

@@ -11,6 +11,7 @@ class EditorConfirmButton extends StatelessWidget {
     @required this.firstLine,
     @required this.positionedAlignment,
     this.secondLine,
+    this.isDeactivated = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -18,11 +19,13 @@ class EditorConfirmButton extends StatelessWidget {
   final String firstLine;
   final String secondLine;
   final Alignment positionedAlignment;
+  final bool isDeactivated;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final Widget _button = DreamBox(
+      isDeactivated: isDeactivated,
       height: 50,
       color: Colorz.yellow255,
       verseColor: Colorz.black230,

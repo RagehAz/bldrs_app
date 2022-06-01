@@ -65,8 +65,8 @@ class NavBarProfileButton extends StatelessWidget {
     /// SIGNED IN
     if (_userIsSignedIn == true){
 
-      final UserModel _userModel = UsersProvider.proFetchMyUserModel(context, listen: true);
-      final bool _thereAreMissingFields = UserModel.thereAreMissingFields(_userModel);
+      final UserModel _userModel = UsersProvider.proGetMyUserModel(context, listen: true);
+      final bool _thereAreMissingFields = UserModel.checkMissingFields(_userModel);
 
       return NoteFireOps.noteStreamBuilder(
         context: context,

@@ -22,7 +22,7 @@ class NoteAttachment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (noteModel.attachmentType == NoteAttachmentType.bzID){
+    if (noteModel?.attachmentType == NoteAttachmentType.bzID){
 
       return FutureBuilder<BzModel>(
         future: BzzProvider.proFetchBzModel(
@@ -42,7 +42,7 @@ class NoteAttachment extends StatelessWidget {
       );
     }
 
-    else if (noteModel.attachmentType == NoteAttachmentType.flyersIDs){
+    else if (noteModel?.attachmentType == NoteAttachmentType.flyersIDs){
 
       return FutureBuilder<List<FlyerModel>>(
           future: FlyersProvider.proFetchFlyers(
@@ -63,7 +63,7 @@ class NoteAttachment extends StatelessWidget {
 
     }
 
-    else if (noteModel.attachmentType == NoteAttachmentType.imageURL){
+    else if (noteModel?.attachmentType == NoteAttachmentType.imageURL){
 
       return NoteBannerEditor(
         width: boxWidth,

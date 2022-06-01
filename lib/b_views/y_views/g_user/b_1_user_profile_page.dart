@@ -69,7 +69,7 @@ class UserProfilePage extends StatelessWidget {
 
     userModel.blogUserModel();
 
-    if (UserModel.userIsAuthor(userModel) == true){
+    if (UserModel.checkUserIsAuthor(userModel) == true){
       return generateStringFromStrings(
         strings: userModel.myBzzIDs,
         stringsSeparator: ','
@@ -86,7 +86,7 @@ class UserProfilePage extends StatelessWidget {
 
     final String _userName = userModel?.name ?? superPhrase(context, 'phid_unknown_bldr');
 
-    final bool _thereAreMissingFields = UserModel.thereAreMissingFields(userModel);
+    final bool _thereAreMissingFields = UserModel.checkMissingFields(userModel);
 
     return Column(
       children: <Widget>[
@@ -142,7 +142,7 @@ class UserProfilePage extends StatelessWidget {
           color: Colorz.grey255,
         ),
 
-        if (UserModel.userIsAuthor(userModel) == true)
+        if (UserModel.checkUserIsAuthor(userModel) == true)
           SuperVerse(
             verse: 'Author in ${_getBzzString()}',
             weight: VerseWeight.thin,

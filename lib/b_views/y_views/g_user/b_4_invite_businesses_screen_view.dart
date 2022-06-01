@@ -4,9 +4,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:contacts_service/contacts_service.dart';
@@ -58,7 +57,7 @@ class InviteBusinessesScreenView extends StatelessWidget {
     final List<Contact> _searchedContacts = _usersProvider.searchedDeviceContacts;
     final bool _isSearching = _usersProvider.isSearchingDeviceContacts;
 
-    if (canLoopList(_allContacts) == false){
+    if (Mapper.canLoopList(_allContacts) == false){
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,7 +137,7 @@ class InviteBusinessesScreenView extends StatelessWidget {
             alignment: Aligners.superCenterAlignment(context),
             child: DreamBox(
               height: 35,
-              width: superScreenWidth(context) - 10,
+              width: Scale.superScreenWidth(context) - 10,
               verse: _contactString,
               verseColor: _verseColor,
               margins: const EdgeInsets.symmetric(horizontal: 5),

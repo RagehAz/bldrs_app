@@ -48,7 +48,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _userModel = UsersProvider.proFetchMyUserModel(context);
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
     final String _pyramidIcon = _userModel?.isAdmin == true ? Iconz.pyramidsCrystal : widget.pyramidsIcon;
     final Color _pyramidColor = _userModel?.isAdmin == true ? Colorz.red255 : null;
 

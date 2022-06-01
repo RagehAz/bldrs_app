@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notifications_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
@@ -57,7 +57,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
           verse: 'Test Lab',
           icon: Iconz.lab,
-          screen: const TestLab()
+          screen: const TestLab(),
       ),
 
       null,
@@ -66,7 +66,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
           verse: 'App Controls',
           icon: Iconz.dashBoard,
-          screen: const AppControlsManager()
+          screen: const AppControlsManager(),
       ),
 
 
@@ -74,49 +74,49 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
           verse: 'Phrases\nEditor',
           icon: Iconz.language,
-          screen: const TranslationsManager()
+          screen: const TranslationsManager(),
       ),
 
       /// CHAINS EDITOR
       DashButtonModel(
           verse: 'Chains\nEditor',
           icon: Iconz.keyword,
-          screen: const ChainsManagerScreen()
+          screen: const ChainsManagerScreen(),
       ),
 
       /// NOTIFICATIONS CREATOR
       DashButtonModel(
-          verse: 'Notifications CREATOR',
+          verse: 'Notes\nCreator',
           icon: Iconz.news,
-          screen: const NotificationCreator()
+          screen: const NotesCreatorScreen(),
       ),
 
       /// ZONES EDITOR
       DashButtonModel(
           verse: 'Zones Editor',
           icon: Iconz.earth,
-          screen: const ZonesEditorScreen()
+          screen: const ZonesEditorScreen(),
       ),
 
       /// BZZ MANAGER
       DashButtonModel(
           verse: 'Businesses Manager',
           icon: Iconz.bz,
-          screen: const BzzManagerScreen()
+          screen: const BzzManagerScreen(),
       ),
 
       /// USERS MANAGER
       DashButtonModel(
           verse: 'Users Manager',
           icon: Iconz.users,
-          screen: const UsersManagerScreen()
+          screen: const UsersManagerScreen(),
       ),
 
       /// FLYERS AUDITOR
       DashButtonModel(
           verse: 'Flyers Auditor',
           icon: Iconz.verifyFlyer,
-          screen: const FlyersAuditor()
+          screen: const FlyersAuditor(),
       ),
 
       null,
@@ -125,7 +125,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
           verse: 'All Flyers',
           icon: Iconz.flyerScale,
-          screen: const AllFlyersScreen()
+          screen: const AllFlyersScreen(),
       ),
 
       null,
@@ -134,7 +134,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
           verse: 'Statistics',
           icon: Iconz.statistics,
-          screen: const GeneralStatistics()
+          screen: const GeneralStatistics(),
       ),
 
       null,
@@ -156,7 +156,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
           verse: 'Local db viewers',
           icon: Iconz.terms,
-          screen: const LDBViewersScreen()
+          screen: const LDBViewersScreen(),
       ),
 
       null,
@@ -165,7 +165,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
           verse: 'UI Manager',
           icon: Iconz.dvDonaldDuck,
-          screen: const UIManager()
+          screen: const UIManager(),
       ),
 
     ];

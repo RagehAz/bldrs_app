@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:flutter/material.dart';
 
 class BzAboutPage extends StatelessWidget {
@@ -44,7 +44,7 @@ class BzAboutPage extends StatelessWidget {
             columnChildren: <Widget>[
 
               InfoPageKeywords(
-                pageWidth: superScreenWidth(context),
+                pageWidth: Scale.superScreenWidth(context),
                 keywordsIDs: bzModel.scope,
               ),
 

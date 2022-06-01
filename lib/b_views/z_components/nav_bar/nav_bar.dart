@@ -113,7 +113,7 @@ class NavBar extends StatelessWidget {
 
     if (AuthModel.userIsSignedIn() == false) {
       _numberOfButtons = 2;
-    } else if (UserModel.userIsAuthor(userModel)) {
+    } else if (UserModel.checkUserIsAuthor(userModel)) {
       _numberOfButtons = 4;
     } else {
       _numberOfButtons = 3;
@@ -424,7 +424,7 @@ class NavBar extends StatelessWidget {
                       _spacer,
 
                       /// BZZ BUTTON
-                      if (UserModel.userIsAuthor(_myUserModel) && _userIsSignedIn == true)
+                      if (UserModel.checkUserIsAuthor(_myUserModel) && _userIsSignedIn == true)
                         BzzButton(
                           width: navBarButtonWidth,
                           circleWidth: circleWidth,
