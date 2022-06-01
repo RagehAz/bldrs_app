@@ -1,15 +1,14 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
-import 'package:bldrs/b_views/x_screens/f_bz/f_1_my_bzz_selector_screen.dart';
 import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/bar_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/buttons/nav_bar_profile_button.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/unfinished_bzz_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/buttons/unfinished_bzz_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_controllers/a_starters_controllers/nav_bar_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -37,14 +36,11 @@ class NavBar extends StatelessWidget {
   const NavBar({
     this.theBarType = barType,
     this.sky = SkyType.night,
-    // this.myBzz,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BarType theBarType;
   final SkyType sky;
-  // final List<BzModel> myBzz;
-  /// --------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   /// --- MAIN CONTROLS
   static const double circleWidth = Ratioz.appBarButtonSize;
@@ -433,37 +429,11 @@ class NavBar extends StatelessWidget {
                           width: navBarButtonWidth,
                           circleWidth: circleWidth,
                           barType: theBarType,
-                          // bzzIDs: _userBzzIDs,
-                          onTap: () async {
-                            blog('fish');
-
-                            /// IF HAS ONLY ONE BZ ACCOUNT
-                            if (_userBzzIDs.length == 1) {
-
-                              await Nav.goToNewScreen(
-                                  context: context,
-                                  screen: MyBzScreen(
-                                    // userModel: _myUserModel,
-                                    bzModel: _myBzz[0],
-                                  )
-                              );
-
-                            }
-
-                            /// IF HAS MULTIPLE BZZ ACCOUNTS
-                            else {
-                              // await _multiBzzSlider(context, _myUserModel, _myBzz);
-
-                              await Nav.goToNewScreen(
-                                  context: context,
-                                  screen: MyBzzSelectorScreen(
-                                    userModel: _myUserModel,
-                                    bzzModels: _myBzz,
-                                  )
-                              );
-
-                            }
-                          },
+                          onTap: () => onNavBarBzzButtonTap(
+                            context: context,
+                            myBzz: _myBzz,
+                            myUserModel: _myUserModel,
+                          ),
                         ),
 
                       // _spacer,

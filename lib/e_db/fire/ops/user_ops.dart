@@ -12,6 +12,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -345,26 +346,45 @@ Future<void> removeFlyerIDFromSavedFlyersIDs({
   }
 }
 // --------------------------------
+Future<UserModel> addBzIDToUserBzzIDs({
+  @required BuildContext context,
+  @required String bzID,
+  @required UserModel oldUserModel,
+}) async {
+
+  final List<String> _newBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+      strings: oldUserModel.myBzzIDs,
+      stringToAdd: bzID,
+  );
+
+  final UserModel _updatedUserModel = oldUserModel.copyWith(
+    myBzzIDs: _newBzzIDs,
+  );
+
+  final UserModel _uploadedModel = await updateUser(
+      context: context,
+      oldUserModel: oldUserModel,
+      newUserModel: _updatedUserModel,
+  );
+
+  return _uploadedModel;
+}
+// --------------------------------
 Future<void> removeBzIDFromUserBzzIDs({
   @required BuildContext context,
   @required String bzID,
-  @required String userID,
+  @required UserModel oldUserModel,
 }) async {
 
-  final UserModel _userModel = await readUser(
-    context: context,
-    userID: userID,
-  );
-
   final List<dynamic> _modifiedMyBzzIDs = Mapper.removeStringsFromStrings(
-    removeFrom: _userModel.myBzzIDs,
+    removeFrom: oldUserModel.myBzzIDs,
     removeThis: <String>[bzID],
   );
 
   await Fire.updateDocField(
     context: context,
     collName: FireColl.users,
-    docName: userID,
+    docName: oldUserModel.id,
     field: 'myBzzIDs',
     input: _modifiedMyBzzIDs,
   );

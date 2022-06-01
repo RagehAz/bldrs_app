@@ -258,7 +258,7 @@ class AuthorModel {
 
     return _updatedBzModel;
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------
   static List<AuthorModel> replaceAuthorModelInAuthorsList({
     @required List<AuthorModel> originalAuthors,
     @required AuthorModel newAuthor,
@@ -282,7 +282,7 @@ class AuthorModel {
 
     return _modifiedAuthorsList;
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------
   static List<String> replaceAuthorIDInAuthorsIDsList({
     @required List<AuthorModel> originalAuthors,
     @required AuthorModel oldAuthor,
@@ -309,12 +309,33 @@ class AuthorModel {
 
     return _modifiedAuthorsIDsList;
   }
+// ----------------------------------
+  static List<AuthorModel> addNewUserToAuthors({
+    @required List<AuthorModel> authors,
+    @required UserModel newUserModel,
+  }){
+
+    final List<AuthorModel> _output = <AuthorModel>[...authors];
+
+    if (newUserModel != null){
+
+      final AuthorModel _newAuthor = AuthorModel.createAuthorFromUserModel(
+        userModel: newUserModel,
+        isMaster: false,
+      );
+
+      _output.add(_newAuthor);
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
 // ----------------------------------
-  static bool userIsMasterAuthor({
+  static bool checkUserIsMasterAuthor({
     @required String userID,
     @required BzModel bzModel,
 }){
@@ -389,7 +410,7 @@ class AuthorModel {
       title: 'The CEO And Founder of this'
     );
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------
   static List<AuthorModel> dummyAuthors() {
     return <AuthorModel>[
       dummyAuthor(),
@@ -403,7 +424,9 @@ class AuthorModel {
   /// BLOGGING
 
 // ----------------------------------
-  void blogAuthor({String methodName}) {
+  void blogAuthor({
+    String methodName = 'Blogging Author',
+  }) {
     final String _methodName = methodName ?? 'AUTHOR';
 
     blog('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
@@ -416,6 +439,26 @@ class AuthorModel {
     blog('contacts : $contacts');
 
     blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
+  }
+// ----------------------------------
+  static void blogAuthors({
+    @required List<AuthorModel> authors,
+    String methodName,
+}){
+
+    if (Mapper.canLoopList(authors) == true){
+
+      for (final AuthorModel author in authors){
+        author.blogAuthor(
+          methodName: methodName,
+        );
+      }
+
+    }
+    else {
+      blog('no Authors to blog here : $methodName');
+    }
+
   }
 // -----------------------------------------------------------------------------
 }
