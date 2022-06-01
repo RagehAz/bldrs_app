@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/notifications/notifications_manager/notifications_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notifications_manager_screen.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';

@@ -25,7 +25,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/notifications/notifications_manager/noti_banner_editor.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/noti_banner_editor.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
