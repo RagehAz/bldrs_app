@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class AppBarButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AppBarButton({
-    @required this.verse,
+    this.verse,
     this.verseColor = Colorz.white255,
     this.buttonColor = Colorz.white20,
     this.onTap,
@@ -28,6 +28,7 @@ class AppBarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return DreamBox(
       height: Ratioz.appBarButtonSize,
+      width: verse == null ? Ratioz.appBarButtonSize : null,
       // width: Ratioz.appBarButtonSize * 3.5,
       margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
       verse: verse,
