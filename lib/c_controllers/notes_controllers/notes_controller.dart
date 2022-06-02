@@ -48,7 +48,7 @@ Future<void> markNoteAsSeen({
   @required NoteModel noteModel,
 }) async {
 
-  if (noteModel != null){
+  if (noteModel.noteType != null){
 
     await NoteFireOps.updateNoteSeen(
         context: context,

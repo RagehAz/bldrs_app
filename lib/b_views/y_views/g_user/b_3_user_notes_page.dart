@@ -76,6 +76,7 @@ class UserNotesPage extends StatelessWidget {
 
                 return NoteCard(
                   noteModel: _notiModel,
+                  isDraftNote: false,
                 );
 
               },

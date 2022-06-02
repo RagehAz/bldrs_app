@@ -252,6 +252,28 @@ class Localizer {
     return _isArabic;
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> translateLangCodeName({
+    @required BuildContext context,
+    @required String langCode,
+  }) async {
+
+    /// while app lang is english : langCode is ar : this should be : 'Arabic'
+    final String _langNameByActiveAppLang = await getTranslationFromJSONByLangCode(
+      context: context,
+      langCode: langCode,
+      jsonKey: 'activeLanguage',
+    );
+
+    // /// while app lang is english : langCode is ar : this should be : 'عربي'
+    // final String _langNameByLangItself = await getTranslationFromJSONByLangCode(
+    //   context: context,
+    //   langCode: langCode,
+    //   jsonKey: 'languageName',
+    // );
+
+    return '( $_langNameByActiveAppLang ) ';
+  }
 }
 // -----------------------------------------------------------------------------
 class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {

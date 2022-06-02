@@ -168,6 +168,7 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
               ),
               child: NoteCard(
                 noteModel: _notiModel,
+                isDraftNote: true,
               ),
             ),
           );
