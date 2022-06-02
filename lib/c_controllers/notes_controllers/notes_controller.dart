@@ -15,7 +15,7 @@ import 'package:bldrs/c_controllers/a_starters_controllers/nav_bar_controller.da
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
@@ -111,7 +111,7 @@ Future<void> sendAuthorshipInvitation({
 
     final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
       bz: bzModel,
-      authorID: superUserID(),
+      authorID: AuthFireOps.superUserID(),
     );
 
     final String _noteLang = selectedUser.language;

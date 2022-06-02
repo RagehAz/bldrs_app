@@ -1,5 +1,5 @@
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:flutter/material.dart';
 
 class SuperTextFieldBox extends StatelessWidget {
@@ -24,9 +24,9 @@ class SuperTextFieldBox extends StatelessWidget {
     return Container(
       key: const ValueKey<String>('SuperTextFieldBox'),
       width: width,
-      margin: superMargins(margins: margins),
+      margin: Scale.superMargins(margins: margins),
       decoration: BoxDecoration(
-        borderRadius: superBorderAll(context, corners),
+        borderRadius: Borderers.superBorderAll(context, corners),
       ),
       alignment: Alignment.topCenter,
       child: child,

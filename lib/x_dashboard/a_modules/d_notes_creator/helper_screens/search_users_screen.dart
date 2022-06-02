@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/author_invitations_controller.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -16,6 +17,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 class SearchUsersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SearchUsersScreen({
+    @required this.excludeMyself,
     this.multipleSelection = false,
     this.selectedUsers,
     this.onUserTap,
@@ -25,6 +27,7 @@ class SearchUsersScreen extends StatefulWidget {
   final bool multipleSelection;
   final List<UserModel> selectedUsers;
   final ValueChanged<UserModel> onUserTap;
+  final bool excludeMyself;
   /// --------------------------------------------------------------------------
   @override
   _SearchUsersScreenState createState() => _SearchUsersScreenState();
@@ -64,6 +67,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       loading: _loading,
       foundUsers: _foundUsers,
       isSearching: _isSearching,
+      excludeMyself: widget.excludeMyself,
     );
 
   }
@@ -177,11 +181,16 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
                                           usersModels: selectedUsers,
                                           userModel: _user,
                                         );
+                                        final bool _isMe = _user.id == AuthFireOps.superUserID();
 
                                         return UserTileButton(
                                           boxWidth: BldrsAppBar.width(context),
                                           userModel: _user,
-                                          color: _isSelected == true ? Colorz.green255 : null,
+                                          color: _isSelected == true ? Colorz.green255
+                                              :
+                                          _isMe == true ? Colorz.black255
+                                              :
+                                          null,
                                           onUserTap: () => onUserTap(_user),
                                         );
 

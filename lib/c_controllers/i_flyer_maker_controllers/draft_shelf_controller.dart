@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/x_screens/i_flyer/flyer_maker_screen.dart/slide_ed
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -43,7 +43,7 @@ Future<DraftFlyerModel> initializeDraftFlyerModel({
 
     _draft = DraftFlyerModel.createNewDraft(
       bzModel: bzModel,
-      authorID: superUserID(),
+      authorID: AuthFireOps.superUserID(),
     );
 
   }
@@ -258,7 +258,7 @@ Future<void> onMoreTap({
   await BottomDialog.showButtonsBottomDialog(
     context: context,
     draggable: true,
-    buttonHeight: BottomDialog.wideButtonHeight,
+    // buttonHeight: BottomDialog.wideButtonHeight,
     numberOfWidgets: 3,
     builder: (BuildContext ctx, PhraseProvider phraseProvider){
 

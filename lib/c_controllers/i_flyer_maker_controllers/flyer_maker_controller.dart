@@ -14,10 +14,10 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -297,7 +297,7 @@ Future<void> onAddKeywordsTap({
 
   final List<String> receivedKeywordsIds = _result;
 
-  if (canLoopList(receivedKeywordsIds) == true){
+  if (Mapper.canLoopList(receivedKeywordsIds) == true){
 
     draft.value = draft.value.copyWith(
       keywordsIDs: receivedKeywordsIds,
@@ -322,7 +322,7 @@ Future<void> onAddSpecsTap({
 
   final List<SpecModel> _receivedSpecs = _result;
 
-  if (canLoopList(_receivedSpecs) == true){
+  if (Mapper.canLoopList(_receivedSpecs) == true){
 
     SpecModel.blogSpecs(_receivedSpecs);
 
@@ -446,7 +446,7 @@ Future<void> _publishFlyerOps({
   );
 
   /// upload to firebase
-  final FlyerModel _uploadedFlyer = await FlyerOps.createFlyerOps(
+  final FlyerModel _uploadedFlyer = await FlyerFireOps.createFlyerOps(
       context: context,
       draftFlyer: _flyerToPublish,
       bzModel: bzModel

@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class UiProvider extends ChangeNotifier {
   Future<void> getSetLocalAssetsPaths({
   @required bool notify,
 }) async {
-    final List<String> _paths = await getLocalAssetsPaths();
+    final List<String> _paths = await Iconizer.getLocalAssetsPaths();
     if (notify == true){
       _localAssetsPaths = _paths;
     }
@@ -155,7 +155,7 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   void closeDrawerIfOpen(BuildContext context){
     if (_keywordsDrawerIsOn == true){
-      goBack(context);
+      Nav.goBack(context);
     }
   }
 // -----------------------------------------------------------------------------
@@ -257,7 +257,7 @@ bool localAssetExists({
 }){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
-  final String _path = getLocalAssetPathFromLocalPaths(
+  final String _path = Iconizer.getLocalAssetPathFromLocalPaths(
       allAssetsPaths: _localAssetsPaths,
       assetName: assetName
   );
@@ -277,7 +277,7 @@ String getLocalAssetPath({
 }){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
-  final String _path = getLocalAssetPathFromLocalPaths(
+  final String _path = Iconizer.getLocalAssetPathFromLocalPaths(
       allAssetsPaths: _localAssetsPaths,
       assetName: assetName
   );

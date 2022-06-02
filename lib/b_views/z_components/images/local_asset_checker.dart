@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:flutter/material.dart';
 
 class LocalAssetChecker extends StatefulWidget {
@@ -44,7 +44,7 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
 
       _triggerLoading().then((_) async {
 
-        final bool _assetExists = await localAssetExists(widget.asset);
+        final bool _assetExists = await Imagers.localAssetExists(widget.asset);
         _exists.value = _assetExists;
 
         await _triggerLoading();

@@ -14,7 +14,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
@@ -193,7 +193,7 @@ Future<void> onDeleteUser({
         ));
 
         /// DELETE firebase user : auth/userID
-        final bool _firebaseSuccess = await FireAuthOps.deleteFirebaseUser(
+        final bool _firebaseSuccess = await AuthFireOps.deleteFirebaseUser(
           context: context,
           userID: userModel.id,
         );

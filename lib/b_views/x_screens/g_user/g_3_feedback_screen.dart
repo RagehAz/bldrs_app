@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -71,7 +71,7 @@ class _FeedBackState extends State<FeedBack> {
       collName: FireColl.feedbacks,
       addDocID: true,
       input: FeedbackModel(
-        userID: FireAuthOps.superUserID(),
+        userID: AuthFireOps.superUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedbackController.text,
       ).toMap(),

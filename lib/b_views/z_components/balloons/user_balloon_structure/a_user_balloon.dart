@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -61,7 +61,7 @@ class UserBalloon extends StatelessWidget {
           /// IS AUTHOR ICON
           if (UserModel.checkUserIsAuthor(userModel) == true)
           Align(
-            alignment: superInverseBottomAlignment(context),
+            alignment: Aligners.superInverseBottomAlignment(context),
             child: DreamBox(
               height: size * 0.4,
               width: size * 0.4,
@@ -76,7 +76,7 @@ class UserBalloon extends StatelessWidget {
           /// EDIT BUTTON
           if (showEditButton == true)
           Align(
-            alignment: superInverseTopAlignment(context),
+            alignment: Aligners.superInverseTopAlignment(context),
             child: DreamBox(
               height: size * 0.4,
               verse: superPhrase(context, 'phid_edit'),

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -829,7 +829,7 @@ class AuthModel {
   static bool userIsSignedIn() {
     bool _userIsSignedIn = false;
 
-    if (FireAuthOps.superFirebaseUser() == null) {
+    if (AuthFireOps.superFirebaseUser() == null) {
       _userIsSignedIn = false;
     } else {
       _userIsSignedIn = true;

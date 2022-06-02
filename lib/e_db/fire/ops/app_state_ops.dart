@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -226,13 +226,13 @@ class AppStateOps{
     final List<int> _divisions = <int>[];
 
     if (version != null){
-      final String _removedBuildNumber = removeTextAfterLastSpecialCharacter(version, '+');
+      final String _removedBuildNumber = TextMod.removeTextAfterLastSpecialCharacter(version, '+');
 
       final List<String> _strings = _removedBuildNumber.split('.');
 
       for (final String string in _strings){
 
-        final int _int = stringToInt(string);
+        final int _int = Numeric.stringToInt(string);
 
         _divisions.add(_int);
       }

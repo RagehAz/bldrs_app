@@ -1,13 +1,13 @@
 import 'dart:async';
+
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 
 typedef ConnectivityBuilder = Widget Function(
     bool connected,
@@ -46,7 +46,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
     subscription = Connectivity().onConnectivityChanged
         .listen((ConnectivityResult result) async {
 
-          final bool _connected = await checkConnectivity(
+          final bool _connected = await DeviceChecker.checkConnectivity(
             context: context,
           );
 

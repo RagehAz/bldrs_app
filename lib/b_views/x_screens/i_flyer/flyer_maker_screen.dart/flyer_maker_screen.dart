@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/draft_shelf_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/flyer_maker_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:flutter/material.dart';
 
 class FlyerMakerScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
     final DraftFlyerModel _draft = DraftFlyerModel.createNewDraft(
       bzModel: widget.bzModel,
-      authorID: superUserID(),
+      authorID: AuthFireOps.superUserID(),
     );
     _draftFlyer = ValueNotifier(_draft);
 

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class LockWheel extends StatelessWidget {
       height: boxHeight,
       decoration: BoxDecoration(
         color: Colorz.white10,
-        borderRadius: superBorderAll(context, unitWidth * 0.3)
+        borderRadius: Borderers.superBorderAll(context, unitWidth * 0.3)
       ),
 
       child: Stack(

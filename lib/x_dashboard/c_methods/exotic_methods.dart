@@ -13,7 +13,6 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
@@ -36,7 +35,7 @@ class ExoticMethods {
     int limit = 1000,
   }) async {
 
-    final List<Map<String, dynamic>> _maps = await readCollectionDocs(
+    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       context: context,
       collName: collName,
       limit: limit,
@@ -573,7 +572,7 @@ class ExoticMethods {
 
     if (_map != null){
 
-      await deleteDocField(
+      await Fire.deleteDocField(
         context: context,
         collName: collName,
         docName: docName,
@@ -581,7 +580,7 @@ class ExoticMethods {
       );
 
 
-      await updateDocField(
+      await Fire.updateDocField(
           context: context,
           collName: collName,
           docName: docName,

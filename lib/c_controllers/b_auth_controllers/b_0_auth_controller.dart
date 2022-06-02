@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -27,7 +27,7 @@ Future<void> authByGoogle(BuildContext context) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final ZoneModel _currentZone = _zoneProvider.currentZone;
-  final AuthModel _authModel = await FireAuthOps.signInByGoogle(
+  final AuthModel _authModel = await AuthFireOps.signInByGoogle(
     context: context,
     currentZone: _currentZone,
   );
@@ -43,7 +43,7 @@ Future<void> authByFacebook(BuildContext context) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final ZoneModel _currentZone = _zoneProvider.currentZone;
-  final AuthModel _authModel = await FireAuthOps.signInByFacebook(
+  final AuthModel _authModel = await AuthFireOps.signInByFacebook(
     context: context,
     currentZone: _currentZone,
   );
@@ -59,7 +59,7 @@ Future<void> authByApple(BuildContext context) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final ZoneModel _currentZone = _zoneProvider.currentZone;
-  final AuthModel _authModel = await FireAuthOps.signInByApple(
+  final AuthModel _authModel = await AuthFireOps.signInByApple(
     context: context,
     currentZone: _currentZone,
   );
@@ -89,7 +89,7 @@ Future<void> authByEmailSignIn({
   if (_allFieldsAreValid == true) {
 
     /// C - FIRE SIGN IN OPS
-    _authModel = await FireAuthOps.signInByEmailAndPassword(
+    _authModel = await AuthFireOps.signInByEmailAndPassword(
       context: context,
       email: email,
       password: password,
@@ -132,7 +132,7 @@ Future<void> authByEmailRegister({
 
     /// C - START REGISTER OPS
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    _authModel = await FireAuthOps.registerByEmailAndPassword(
+    _authModel = await AuthFireOps.registerByEmailAndPassword(
         context: context,
         currentZone: _zoneProvider.currentZone,
         email: email,
