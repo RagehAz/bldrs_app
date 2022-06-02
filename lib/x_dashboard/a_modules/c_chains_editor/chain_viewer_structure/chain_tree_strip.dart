@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -58,7 +58,7 @@ class ChainTreeStrip extends StatelessWidget {
             child: Container(
               width: _levelPaddingWidth,
               height: stripHeight,
-              alignment: superInverseCenterAlignment(context),
+              alignment: Aligners.superInverseCenterAlignment(context),
               child:
               expanded == null ?
               const SizedBox()
@@ -66,7 +66,7 @@ class ChainTreeStrip extends StatelessWidget {
               DreamBox(
                 width: stripHeight,
                 height: stripHeight,
-                icon: expanded ? Iconz.arrowDown : superArrowENRight(context),
+                icon: expanded ? Iconz.arrowDown : Iconizer.superArrowENRight(context),
                 iconSizeFactor: 0.3,
                 bubble: false,
               ),
@@ -83,7 +83,7 @@ class ChainTreeStrip extends StatelessWidget {
             child: Container(
               width: _stringsWidth,
               height: stripHeight,
-              alignment: superCenterAlignment(context),
+              alignment: Aligners.superCenterAlignment(context),
               // color: Colorz.white10,
               child: ListView(
                 physics: const BouncingScrollPhysics(),

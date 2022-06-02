@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +70,7 @@ class UserProfilePage extends StatelessWidget {
     userModel.blogUserModel();
 
     if (UserModel.checkUserIsAuthor(userModel) == true){
-      return generateStringFromStrings(
+      return TextGen.generateStringFromStrings(
         strings: userModel.myBzzIDs,
         stringsSeparator: ','
       );

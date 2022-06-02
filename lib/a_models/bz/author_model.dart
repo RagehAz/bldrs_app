@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -383,7 +383,7 @@ class AuthorModel {
 
       if (Mapper.canLoopList(_names) == true){
 
-        _string = generateStringFromStrings(
+        _string = TextGen.generateStringFromStrings(
           strings: _names,
           stringsSeparator: ' - ',
         );

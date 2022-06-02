@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -35,7 +35,7 @@ class NewAsks extends StatelessWidget {
               icon: Iconz.utPlanning,
               onTap: () async {
 
-                await goToNewScreen(
+                await Nav.goToNewScreen(
                   context: context,
                   screen: const QuestionScreen(),
                 );
@@ -48,7 +48,7 @@ class NewAsks extends StatelessWidget {
               icon: Iconz.utPlanning,
               onTap: () async {
 
-                await goToNewScreen(
+                await Nav.goToNewScreen(
                   context: context,
                   screen: const OldAskScreen(),
                 );
@@ -61,7 +61,7 @@ class NewAsks extends StatelessWidget {
               icon: Iconz.utPlanning,
               buttonColor: Colorz.red125,
               onTap: () async {
-                await goToNewScreen(
+                await Nav.goToNewScreen(
                     context: context,
                     screen: const NewQuestionsHome(),
                 );

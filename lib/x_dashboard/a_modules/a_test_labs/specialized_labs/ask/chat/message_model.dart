@@ -1,4 +1,4 @@
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 
@@ -73,7 +73,7 @@ class MessageModel {
   static List<MessageModel> addToMessages(
       {String body, List<MessageModel> existingMsgs}) {
     final MessageModel _newMessage = MessageModel(
-      ownerID: FireAuthOps.superUserID(),
+      ownerID: AuthFireOps.superUserID(),
       body: body,
       time: DateTime.now(),
     );

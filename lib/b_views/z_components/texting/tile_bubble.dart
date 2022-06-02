@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -147,7 +147,10 @@ class TileBubble extends StatelessWidget {
 
         /// BULLET POINTS
         Padding(
-          padding: superInsets(context: context, enLeft: iconBoxWidth),
+          padding: Scale.superInsets(
+              context: context,
+              enLeft: iconBoxWidth,
+          ),
           child: BubbleBulletPoints(
               bulletPoints: bulletPoints,
           ),

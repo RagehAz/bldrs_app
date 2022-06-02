@@ -9,9 +9,9 @@ import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_d
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/d_shelf_slides_part.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/c_controllers/i_flyer_maker_controllers/draft_shelf_controller.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -89,13 +89,13 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     final double _slideZoneHeight = ShelfSlide.shelfSlideZoneHeight(context);
 
     return Container(
-      width: superScreenWidth(context),
+      width: Scale.superScreenWidth(context),
       height: ShelfBox.height(context),
       decoration: BoxDecoration(
         // color: Colorz.white10,
-        borderRadius: superBorderAll(context, Bubble.clearCornersValue),
+        borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue),
       ),
-      alignment: superCenterAlignment(context),
+      alignment: Aligners.superCenterAlignment(context),
       child: ValueListenableBuilder(
         valueListenable: widget.draft,
         builder: (_, DraftFlyerModel draft, Widget child){

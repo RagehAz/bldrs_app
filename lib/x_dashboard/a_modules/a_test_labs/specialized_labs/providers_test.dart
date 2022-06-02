@@ -21,7 +21,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -144,13 +144,13 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             /// SUPER USER ID
             ProviderTestButton(
               title: 'AuthOps.superUserID()',
-              value: AuthOps.superUserID(),
+              value: AuthFireOps.superUserID(),
             ),
 
             /// SUPER FIREBASE USER
             ProviderTestButton(
               title: 'AuthOps.superFirebaseUser()',
-              value: AuthOps.superFirebaseUser(),
+              value: AuthFireOps.superFirebaseUser(),
             ),
 
             /// AUTH MODEL

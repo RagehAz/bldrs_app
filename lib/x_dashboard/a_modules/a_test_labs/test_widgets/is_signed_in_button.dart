@@ -4,7 +4,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 
 class IsSignedInButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -15,7 +15,7 @@ class IsSignedInButton extends StatelessWidget {
   bool _isSignedInCheck() {
     bool _isSignedIn;
 
-    final User _firebaseUser = FireAuthOps.superFirebaseUser();
+    final User _firebaseUser = AuthFireOps.superFirebaseUser();
 
     if (_firebaseUser == null) {
       _isSignedIn = false;
@@ -49,7 +49,7 @@ class IsSignedInButton extends StatelessWidget {
 
         if (_result == true){
 
-          await FireAuthOps.signOut(
+          await AuthFireOps.signOut(
               context: context,
               routeToUserChecker: true
           );

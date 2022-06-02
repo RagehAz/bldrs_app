@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -33,6 +33,7 @@ Future<void> onSearchUsers({
   @required ValueNotifier<List<UserModel>> foundUsers,
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<bool> loading,
+  @required bool excludeMyself,
 }) async {
 
   blog('starting onSearchUsers : text : $text');
@@ -49,12 +50,13 @@ Future<void> onSearchUsers({
 
     loading.value = true;
 
-    final String _fixedText = fixSearchText(text);
+    final String _fixedText = TextMod.fixSearchText(text);
 
     final List<UserModel> _users = await UserFireSearch.usersByUserName(
       context: context,
       name: _fixedText,
       startAfter: Mapper.canLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
+      excludeMyself: excludeMyself,
     );
 
     foundUsers.value = _users;

@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +21,7 @@ class UserFireSearch{
     @required BuildContext context,
     @required String name,
     @required QueryDocumentSnapshot<Object> startAfter,
+    @required bool excludeMyself,
     int limit = 10,
   }) async {
 
@@ -48,7 +49,9 @@ class UserFireSearch{
       );
     }
 
-    _usersModels.removeWhere((user) => user.id == superUserID());
+    if (excludeMyself == true){
+      _usersModels.removeWhere((user) => user.id == AuthFireOps.superUserID());
+    }
 
     return _usersModels;
   }

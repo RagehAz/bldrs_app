@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class ChainsDrawerSearchBarPart extends StatelessWidget {
                   onTap: () async {
 
                     if (_isSearching == true){
-                      minimizeKeyboardOnTapOutSide(context);
+                      Keyboarders.minimizeKeyboardOnTapOutSide(context);
                       isSearching.value = false;
                       searchController.text = '';
                     }

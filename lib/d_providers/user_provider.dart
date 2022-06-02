@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
@@ -109,7 +109,7 @@ class UsersProvider extends ChangeNotifier {
   Future<void> fetchSetMyUserModelAndFixZone(BuildContext context) async {
     UserModel _userModel;
 
-    final String _myUserID = FireAuthOps.superUserID();
+    final String _myUserID = AuthFireOps.superUserID();
 
     if (_myUserID != null) {
 

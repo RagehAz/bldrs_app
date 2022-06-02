@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +45,7 @@ class ButtonNotificationDot extends StatelessWidget {
         maxWidth: _count == null ? buttonWidth * 0.3 : buttonWidth,
       ),
       decoration: BoxDecoration(
-        borderRadius: superBorderAll(context, buttonWidth * 0.3 * 0.5),
+        borderRadius: Borderers.superBorderAll(context, buttonWidth * 0.3 * 0.5),
         color: Colorz.red255,
       ),
       padding: EdgeInsets.symmetric(horizontal: buttonWidth * 0.08),

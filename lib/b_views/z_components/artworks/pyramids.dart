@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -62,7 +62,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
           onDoubleTap: () async {
 
             // if (_userModel?.isAdmin == true){
-              await goToNewScreen(
+              await Nav.goToNewScreen(
                 context: context,
                 screen: const BldrsDashBoard(),
               );

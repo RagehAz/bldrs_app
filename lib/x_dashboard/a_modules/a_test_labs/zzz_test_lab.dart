@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/animators/list_pusher.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -20,13 +19,9 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/scrollers.dart';
+import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -225,16 +220,16 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   Future<void> _scrollOnKeyboard() async {
 
-    if (keyboardIsOn(context) == true){
+    if (Keyboarders.keyboardIsOn(context) == true){
       blog(' + keyboard got on and should scroll +');
-      await scrollTo(
+      await Scrollers.scrollTo(
         controller: _scrollController,
         offset: _scrollController.position.pixels + 100,
       );
     }
     else {
       blog(' - keyboard got on and should scroll -');
-      await scrollTo(
+      await Scrollers.scrollTo(
         controller: _scrollController,
         offset: _scrollController.position.pixels - 100,
       );
@@ -312,35 +307,17 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 /// DO SOMETHING
                 WideButton(
                     color: Colorz.red255,
-                    verse: 'STREAM IT',
+                    verse: 'GET THE IMAGE THING',
                     icon: Iconz.dvGouran,
                     onTap: () async {
 
-                      final Stream<List<NoteModel>> _stream = getNoteModelsStream(
-                        context: context,
-                        limit: 100,
-                        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-                        finders: <FireFinder>[
+                      final String _url = '';
 
-                          FireFinder(
-                            field: 'receiverID',
-                            comparison: FireComparison.equalTo,
-                            value: superUserID(),
-                          ),
+                      /// do somthing;
 
-                        ],
-                      );
+                      final String _fileName = '';
 
-
-                      final List<NoteModel> _notes = await _stream.first;
-
-                      NoteModel.blogNotes(
-                        notes: _notes,
-                        methodName: 'CHECK THIS STREAM',
-                      );
-
-
-
+                      blog('file name is : ( $_fileName )');
                     }
                     ),
 
@@ -489,14 +466,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 // ),
 
                 /// LIST PUSHER
-                if (keyboardIsOn(context) == true)
+                if (Keyboarders.keyboardIsOn(context) == true)
                 ValueListenableBuilder(
                     valueListenable: _rebuildListPusher,
                     builder: (_, int rebuilds, Widget child){
 
                       return ListPusher(
                         maxHeight: 160,
-                        expand: keyboardIsOn(context) == true,
+                        expand: Keyboarders.keyboardIsOn(context) == true,
                         duration: const Duration(seconds: 1),
                       );
 

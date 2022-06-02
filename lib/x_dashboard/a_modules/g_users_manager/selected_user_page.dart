@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -36,7 +36,7 @@ class SelectedUserPage extends StatelessWidget {
     return <Widget>[
 
       Align(
-        alignment: superInverseCenterAlignment(context),
+        alignment: Aligners.superInverseCenterAlignment(context),
         child: DreamBox(
           height: 40,
           width: 40,

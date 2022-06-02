@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -67,7 +67,7 @@ class IconsViewerScreen extends StatelessWidget {
                     corners: 0,
                     color: Colorz.bloodTest,
                     bubble: false,
-                    onTap: () => copyToClipboard(
+                    onTap: () => Keyboarders.copyToClipboard(
                         context: context,
                         copy: _icons[index],
                     ),

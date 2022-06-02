@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -545,14 +545,14 @@ Future<dynamic> deleteUserOps({
           blog('L - deleting firebase user');
 
           /// TASK : NEED TO MANAGE IF THIS FAILS
-          await FireAuthOps.deleteFirebaseUser(
+          await AuthFireOps.deleteFirebaseUser(
               context: context,
               userID: userModel.id,
           );
 
           /// K - SIGN OUT
           blog('K - user is signing out');
-          await FireAuthOps.signOut(
+          await AuthFireOps.signOut(
               context: context,
               routeToUserChecker: false,
           );
@@ -599,14 +599,14 @@ Future<dynamic> deleteUserOps({
       blog('L - deleting firebase user');
 
       /// TASK : NEED TO MANAGE IF THIS FAILS
-      await FireAuthOps.deleteFirebaseUser(
+      await AuthFireOps.deleteFirebaseUser(
           context: context,
           userID: userModel.id,
       );
 
       /// K - SIGN OUT
       blog('K - user is signing out');
-      await FireAuthOps.signOut(
+      await AuthFireOps.signOut(
           context: context,
           routeToUserChecker: false,
       );
@@ -650,7 +650,7 @@ Future<bool> deleteNonAuthorUserOps({
 
       /// DELETE firebase user : auth/userID
       blog('UserFireOps : deleteNonAuthorUserOps : deleting firebase user');
-      await FireAuthOps.deleteFirebaseUser(
+      await AuthFireOps.deleteFirebaseUser(
         context: context,
         userID: userModel.id,
       );

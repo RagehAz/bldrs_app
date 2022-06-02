@@ -7,7 +7,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -139,7 +139,7 @@ Future<void> onUpdateNode({
   @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
-  minimizeKeyboardOnTapOutSide(context);
+  Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
   if (stringIsEmpty(newPhid) == true){
     blog('new phid value is empty man');

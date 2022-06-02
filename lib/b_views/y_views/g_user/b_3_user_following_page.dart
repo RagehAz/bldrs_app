@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/following_bzz_grid.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -81,7 +81,7 @@ class InviteBzzButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: superBottomAlignment(context),
+      alignment: Aligners.superBottomAlignment(context),
       child: DreamBox(
         height: 50,
         margins: const EdgeInsets.all(Ratioz.appBarMargin),
