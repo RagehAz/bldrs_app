@@ -15,7 +15,7 @@ import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -264,7 +264,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
     /// WHEN AT LAST INDEX
     if (widget.currentSlideIndex.value == _lastIndex){
-      goBack(context);
+      Nav.goBack(context);
     }
 
     /// WHEN AT ANY OTHER INDEX
@@ -285,7 +285,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
     /// WHEN AT FIRST INDEX
     if (widget.currentSlideIndex.value == 0){
-      goBack(context);
+      Nav.goBack(context);
     }
 
     /// WHEN AT ANY OTHER SLIDE
@@ -305,7 +305,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   Future<void> _onSaveFlyer() async {
 
     if (widget.flyerIsSaved.value == true){
-      goBack(context);
+      Nav.goBack(context);
     }
 
     await widget.onSaveFlyer();

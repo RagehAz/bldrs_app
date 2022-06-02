@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -163,7 +163,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     Nav.goBack(context);
 
     /// delete flyer ops
-    await FireFlyerOps.deleteFlyerOps(
+    await FlyerFireOps.deleteFlyerOps(
       context: context,
       flyerModel: _getFlyerFromDeactivatedFlyersByFlyerID(flyerID: flyerModel.id),
       bzModel: widget.bz,

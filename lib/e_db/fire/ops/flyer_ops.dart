@@ -11,7 +11,7 @@ import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -223,7 +223,7 @@ Future<List<FlyerModel>> readBzzFlyers({
 
   if (Mapper.canLoopList(bzzModels)) {
     for (final BzModel bz in bzzModels) {
-      final List<FlyerModel> _bzFlyers = await FireFlyerOps.readBzFlyers(
+      final List<FlyerModel> _bzFlyers = await FlyerFireOps.readBzFlyers(
         context: context,
         bzModel: bz,
       );

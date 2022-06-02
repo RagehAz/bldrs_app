@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:flutter/material.dart';
 
 class Chain {
@@ -171,7 +171,7 @@ class Chain {
 
       /// DATA CREATOR IS STRING
       else if (sons is String){
-        final bool _isDataCreator = removeTextAfterFirstSpecialCharacter(sons, '_') == 'DataCreator';
+        final bool _isDataCreator = TextMod.removeTextAfterFirstSpecialCharacter(sons, '_') == 'DataCreator';
         if (_isDataCreator == true){
           _output = decipherDataCreator(sons);
         }

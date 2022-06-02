@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
-import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -406,8 +405,8 @@ class CityModel {
 
     /// sorting
     cities.sort((CityModel cityA, CityModel cityB){
-      final double _distanceA = haversineGeoPoints(pointA: cityA.position, pointB: city.position);
-      final double _distanceB = haversineGeoPoints(pointA: cityB.position, pointB: city.position);
+      final double _distanceA = Atlas.haversineGeoPoints(pointA: cityA.position, pointB: city.position);
+      final double _distanceB = Atlas.haversineGeoPoints(pointA: cityB.position, pointB: city.position);
       return _distanceA.compareTo(_distanceB);
     });
 

@@ -9,16 +9,15 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 // --------------------------
 
 /// CREATE
@@ -156,8 +155,8 @@ Future<AuthorModel> _uploadAuthorPicAndReturnMasterAuthor({
 
   if (
   draftBz.authors[0].pic == null
-      ||
-  objectIsURL(draftBz.authors[0].pic) == true
+  ||
+  ObjectChecker.objectIsURL(draftBz.authors[0].pic) == true
   ) {
     _authorPicURL = userModel.pic;
   }
@@ -302,7 +301,7 @@ Future<BzModel> updateBz({
     final BzModel _finalBzModel = await _updateAuthorPicIfChangedAndReturnNewBzModel(
       context: context,
       oldBzModel: _updatedBzModel,
-      authorID: FireAuthOps.superUserID(),
+      authorID: AuthFireOps.superUserID(),
       newAuthorPic: authorPicFile,
     );
 
@@ -501,12 +500,12 @@ Future<void> _deleteBzFlyers({
 
       for (final String id in bzModel.flyersIDs) {
         
-        final FlyerModel _flyerModel = await FireFlyerOps.readFlyerOps(
+        final FlyerModel _flyerModel = await FlyerFireOps.readFlyerOps(
           context: context,
           flyerID: id,
         );
         
-        await FireFlyerOps.deleteFlyerOps(
+        await FlyerFireOps.deleteFlyerOps(
           context: context,
           bzModel: bzModel,
           flyerModel: _flyerModel,

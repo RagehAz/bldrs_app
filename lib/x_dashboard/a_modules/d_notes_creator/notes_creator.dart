@@ -16,10 +16,10 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/author_invitations_controller.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -648,7 +648,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     considerAllFields: false,
                   );
 
-                  final String _missingFieldsString = generateStringFromStrings(
+                  final String _missingFieldsString = TextGen.generateStringFromStrings(
                     strings: _missingNoteFields,
                     stringsSeparator: ' - ',
                   );
@@ -685,7 +685,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                             Container(
                               width: 220,
                               height: 50,
-                              alignment: superTopAlignment(context),
+                              alignment: Aligners.superTopAlignment(context),
                               child: SuperVerse(
                                 verse: 'Missing Fields :-\n$_missingFieldsString',
                                 color: Colorz.red255,

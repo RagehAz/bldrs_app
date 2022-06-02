@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_b
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +82,7 @@ class ReviewCreatorTextBalloonPart extends StatelessWidget {
           borderRadius: _reviewBalloonBorders,
         ),
         padding: EdgeInsets.all(bubbleMarginValue),
-        alignment: superTopAlignment(context),
+        alignment: Aligners.superTopAlignment(context),
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[

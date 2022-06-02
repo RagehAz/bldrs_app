@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
@@ -58,7 +58,7 @@ class NotesProvider extends ChangeNotifier {
         FireFinder(
           field: 'receiverID',
           comparison: FireComparison.equalTo,
-          value: superUserID(),
+          value: AuthFireOps.superUserID(),
         ),
 
       ],
@@ -120,7 +120,7 @@ class NotesProvider extends ChangeNotifier {
 
       final List<NoteModel> _pendingNotes = await NoteFireOps.paginatePendingSentAuthorshipNotes(
         context: context,
-        senderID: superUserID(),
+        senderID: AuthFireOps.superUserID(),
         limit: 100,
         startAfter: null,
       );

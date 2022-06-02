@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,7 @@ class ChainBox extends StatelessWidget {
       opacity: isDisabled == true ? 0.3 : 1,
       child: Container(
         width: boxWidth,
-        alignment: alignment ?? superInverseCenterAlignment(context),
+        alignment: alignment ?? Aligners.superInverseCenterAlignment(context),
         // margin: const EdgeInsets.all(Ratioz.appBarPadding),
         child: child,
       ),

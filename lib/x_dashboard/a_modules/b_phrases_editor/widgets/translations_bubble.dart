@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/translation_strip.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +34,9 @@ class TranslationsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final bool _canBuildPhrases =
-        canLoopList(enPhrases) == true
-            &&
-            canLoopList(arPhrases) == true;
+        Mapper.canLoopList(enPhrases) == true
+        &&
+        Mapper.canLoopList(arPhrases) == true;
 
     return PageBubble(
         screenHeightWithoutSafeArea: screenHeight,

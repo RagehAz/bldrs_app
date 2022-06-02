@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
@@ -36,7 +36,7 @@ class GeneralProvider extends ChangeNotifier {
 
     else {
 
-      final Map<String, dynamic> _appStateMap = await readDoc(
+      final Map<String, dynamic> _appStateMap = await Fire.readDoc(
         context: context,
         collName: FireColl.admin,
         docName: FireDoc.admin_appState,

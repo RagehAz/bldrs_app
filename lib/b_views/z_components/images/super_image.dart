@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:bldrs/b_views/z_components/images/local_asset_checker.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -115,7 +115,7 @@ class SuperImage extends StatelessWidget {
 
       return ClipRRect(
         key: const ValueKey<String>('SuperImage'),
-        borderRadius: superBorder(
+        borderRadius: Borderers.superBorder(
           context: context,
           corners: corners,
         ),

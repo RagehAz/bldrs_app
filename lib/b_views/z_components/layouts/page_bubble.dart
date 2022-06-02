@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -83,7 +83,7 @@ class PageBubble extends StatelessWidget {
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
-    final BorderRadius _borders = superBorderAll(context, Ratioz.appBarCorner);
+    final BorderRadius _borders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
 
 
     return Container(

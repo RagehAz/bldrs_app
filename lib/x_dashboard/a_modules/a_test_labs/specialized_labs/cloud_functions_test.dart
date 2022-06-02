@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -96,7 +96,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                   context: context,
                   cloudFunctionName: 'n001_notifyUser',
                   toDBMap: <String, dynamic>{
-                    'from': FireAuthOps.superUserID(),
+                    'from': AuthFireOps.superUserID(),
                     'to': '60a1SPzftGdH6rt15NF96m0j9Et2', // rageh by facebook
                     'title': 'Targetted notification',
                     'body':

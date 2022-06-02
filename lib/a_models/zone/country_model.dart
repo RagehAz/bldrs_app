@@ -5,8 +5,8 @@ import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
@@ -191,8 +191,8 @@ class CountryModel {
             id: zoneID,
             langCode: key,
             value: phrasesMap[key]['value'],
-            trigram: createTrigram(
-                input: fixCountryName(phrasesMap[key]['value']),
+            trigram: TextGen.createTrigram(
+                input: TextMod.fixCountryName(phrasesMap[key]['value']),
             ),
           );
 
@@ -432,7 +432,7 @@ class CountryModel {
         id: id,
         value: _countryName,
         langCode: langCode,
-        trigram: createTrigram(input: _countryName),
+        trigram: TextGen.createTrigram(input: _countryName),
       );
 
       _output.add(_phrase);

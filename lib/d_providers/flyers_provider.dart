@@ -8,7 +8,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FireFlyerOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
@@ -64,7 +64,7 @@ class FlyersProvider extends ChangeNotifier {
       blog('fetchFlyerByID : flyer NOT found in local db');
 
       /// 2.1 read firebase flyer ops
-      _flyer = await FireFlyerOps.readFlyerOps(
+      _flyer = await FlyerFireOps.readFlyerOps(
         context: context,
         flyerID: flyerID,
       );
@@ -374,7 +374,7 @@ class FlyersProvider extends ChangeNotifier {
         :
     null;
 
-    final List<FlyerModel> _flyers = await FireFlyerOps.paginateFlyers(
+    final List<FlyerModel> _flyers = await FlyerFireOps.paginateFlyers(
       context: context,
       countryID: _currentZone.countryID,
       cityID: _currentZone.cityID,

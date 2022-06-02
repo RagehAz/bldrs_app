@@ -20,8 +20,8 @@ import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_bzz_screen.dart';
@@ -155,6 +155,7 @@ Future<void> onSelectNoteReceiverTap({
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
       context: context,
       screen: const SearchUsersScreen(
+        excludeMyself: false,
         // multipleSelection: false,
         // selectedUsers: null,
       ),
@@ -457,7 +458,9 @@ Future<void> _onSelectUserAsNoteSender({
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
     context: context,
-    screen: const SearchUsersScreen(),
+    screen: const SearchUsersScreen(
+      excludeMyself: false,
+    ),
   );
 
   final bool _newSelection = Mapper.canLoopList(_selectedUsers);
@@ -587,7 +590,7 @@ void onAddNoteButton({
   @required String button,
 }){
 
-  final List<String> _updatedButtons = addOrRemoveStringToStrings(
+  final List<String> _updatedButtons = TextMod.addOrRemoveStringToStrings(
       strings: note.value?.buttons,
       string: button,
   );
@@ -843,7 +846,7 @@ Future<void> _modifyAttachmentIfFile({
   @required ValueNotifier<NoteModel> note,
 }) async {
 
-  if (note != null && objectIsFile(note.value.attachment) == true){
+  if (note != null && ObjectChecker.objectIsFile(note.value.attachment) == true){
 
       final String _id = '${Numeric.createUniqueID()}';
 

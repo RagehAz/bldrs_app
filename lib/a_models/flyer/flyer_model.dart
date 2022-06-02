@@ -5,11 +5,11 @@ import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -441,7 +441,7 @@ class FlyerModel {
       id : '2fDlDyF01sw8GEYPJ9GN',
       title: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
-      authorID: superUserID(),
+      authorID: AuthFireOps.superUserID(),
       flyerType : FlyerType.property,
       publishState : PublishState.published,
       auditState: AuditState.verified,
@@ -706,7 +706,7 @@ class FlyerModel {
 
 // ------------------------------------------
   String getShortTitle({int numberOfCharacters = 10}){
-    final String _shortTitle = removeAllCharactersAfterNumberOfCharacters(
+    final String _shortTitle = TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: title,
         numberOfCharacters: numberOfCharacters
     );
