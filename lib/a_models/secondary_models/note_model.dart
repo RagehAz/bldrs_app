@@ -1,8 +1,11 @@
+import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 // -----------------------------------------------------------------------------
 enum NoteType {
   /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
@@ -83,6 +86,14 @@ class NoteModel {
     'status': notiStatus,
     'screen': '',
   };
+  static const MapModel bldrsSenderModel =  MapModel(
+    key: 'Bldrs.net',
+    value: Iconz.bldrsNameEn,
+  );
+  static const List<String> noteButtonsList = <String>[
+    'phid_accept',
+    'phid_decline',
+  ];
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -266,6 +277,11 @@ class NoteModel {
       default: return null;
     }
   }
+
+  static const List<NoteType> noteTypesList = <NoteType>[
+    NoteType.announcement,
+    NoteType.authorship,
+  ];
 // -----------------------------------------------------------------------------
 
   /// ATTACHMENT TYPE CYPHERS
@@ -320,12 +336,11 @@ class NoteModel {
     }
   }
 // -------------------------------------
-  static const List<NoteAttachmentType> notiAttachmentTypesList = <NoteAttachmentType>[
+  static const List<NoteAttachmentType> noteAttachmentTypesList = <NoteAttachmentType>[
       NoteAttachmentType.non,
       NoteAttachmentType.flyersIDs,
       NoteAttachmentType.imageURL,
       NoteAttachmentType.bzID,
-      NoteAttachmentType.non,
     ];
 // -----------------------------------------------------------------------------
 
@@ -369,22 +384,28 @@ class NoteModel {
   void blogNoteModel({
     String methodName,
   }) {
-    blog('BLOGGING NoteModel : $methodName ---------------- START -- ');
+    blog('BLOGGING NoteModel : $methodName -------------------------------- START -- ');
 
     blog('id : $id');
     blog('senderID : $senderID');
+    blog('senderImageURL : $senderImageURL');
+    blog('noteSenderType : $noteSenderType');
     blog('receiverID : $receiverID');
     blog('title : $title');
     blog('body : $body');
-    blog('metaData : ${metaData.toString()}');
-    blog('sentTime : ${sentTime.toString()}');
-    blog('attachment : ${attachment.toString()}');
-    blog('attachmentType : ${attachmentType.toString()}');
+    blog('metaData : $metaData');
+    blog('sentTime : $sentTime');
+    blog('attachment : ${attachment?.toString()}');
+    blog('attachmentType : $attachmentType');
     blog('seen : $seen');
     blog('seenTime : $seenTime');
-    blog('sendFCM : ${sendFCM.toString()}');
+    blog('sendFCM : $sendFCM');
+    blog('noteType : $noteType');
+    blog('response : $response');
+    blog('responseTime : $responseTime');
+    blog('buttons : ${buttons?.toString()}');
 
-    blog('BLOGGING NoteModel : $methodName ---------------- END -- ');
+    blog('BLOGGING NoteModel : $methodName -------------------------------- END -- ');
   }
 // -------------------------------------
   static void blogNotes({
@@ -458,6 +479,99 @@ static int getNumberOfUnseenNotes(List<NoteModel> notes){
     }
     return _count;
 }
+// -------------------------------------
+static List<String> getMissingNoteFields({
+  @required NoteModel note,
+  /// if consider all fields is false, this will get only fields required to send a note
+  @required bool considerAllFields,
+}){
+    List<String> _missingFields;
+
+    if (note != null){
+
+      _missingFields = <String>[];
+
+      if (note.senderID == null) {
+        _missingFields.add('senderID');
+      }
+
+      if (note.senderImageURL == null){
+        _missingFields.add('senderImageURL');
+      }
+
+      if (note.noteSenderType == null){
+        _missingFields.add('noteSenderType');
+      }
+
+      if (note.receiverID == null){
+        _missingFields.add('receiverID');
+      }
+
+      if (stringIsEmpty(note.title) == true){
+        _missingFields.add('title');
+      }
+
+      if (stringIsEmpty(note.body) == true){
+        _missingFields.add('body');
+      }
+
+      if (note.metaData == null){
+        _missingFields.add('metaData');
+      }
+
+      if (note.sentTime == null){
+        _missingFields.add('sentTime');
+      }
+
+      if (note.sendFCM == null){
+        _missingFields.add('sendFCM');
+      }
+
+      if (note.noteType == null){
+        _missingFields.add('noteType');
+      }
+
+      /// IF NOT ONLY ESSENTIAL FIELDS REQUIRED TO SEND A NOTE ARE TO BE CONSIDERED
+      if (considerAllFields == true){
+
+        if (note.id == null) {
+          _missingFields.add('id');
+        }
+
+        if (note.attachment == null){
+          _missingFields.add('attachment');
+        }
+
+        if (note.attachmentType == null){
+          _missingFields.add('attachmentType');
+        }
+
+        if (note.seen == null){
+          _missingFields.add('seen');
+        }
+
+        if (note.seenTime == null){
+          _missingFields.add('seenTime');
+        }
+
+        if (note.response == null){
+          _missingFields.add('response');
+        }
+
+        if (note.responseTime == null){
+          _missingFields.add('responseTime');
+        }
+
+        if (note.buttons == null){
+          _missingFields.add('buttons');
+        }
+
+      }
+
+    }
+
+    return _missingFields;
+}
 // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -482,5 +596,37 @@ static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     return _thereAreUnseenNotes;
 }
 // -------------------------------------
+static bool checkCanSendNote(NoteModel noteModel){
+    bool _canSend = false;
+
+    if (noteModel != null){
+
+      if (
+      // noteModel.id != null &&
+      noteModel.senderID != null &&
+      noteModel.senderImageURL != null &&
+      noteModel.noteSenderType != null &&
+      noteModel.receiverID != null &&
+      noteModel.title != null &&
+      noteModel.body != null &&
+      noteModel.metaData != null &&
+      noteModel.sentTime != null &&
+      // noteModel.attachment != null &&
+      // noteModel.attachmentType != null &&
+      // noteModel.seen != null &&
+      // noteModel.seenTime != null &&
+      noteModel.sendFCM != null &&
+      noteModel.noteType != null
+      // && noteModel.response != null &&
+      // noteModel.responseTime != null &&
+      // noteModel.buttons != null
+      ){
+        _canSend = true;
+      }
+
+    }
+
+    return _canSend;
+}
 }
 // -----------------------------------------------------------------------------

@@ -399,6 +399,33 @@ class BzModel{
 
     return _ids;
   }
+// ------------------------------------------
+  static List<BzModel> addOrRemoveBzToBzz({
+    @required List<BzModel> bzzModels,
+    @required BzModel bzModel,
+  }){
+    final List<BzModel> _output = <BzModel>[...bzzModels];
+
+    if (bzModel != null){
+
+      final bool _alreadySelected = checkBzzContainThisBz(
+          bzz: _output,
+          bzModel: bzModel
+      );
+
+      if (_alreadySelected == true){
+        _output.removeWhere((bz) => bz.id == bzModel.id);
+      }
+      else {
+        _output.add(bzModel);
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------
+
 // -----------------------------------------------------------------------------
 
   /// BZ TYPE CYPHERS

@@ -94,7 +94,7 @@ abstract class StorageDoc{
   static const String logos         = 'logos';        /// storage/logos/{bzID}
   static const String slides        = 'slides';       /// storage/slides/{flyerID__XX} => XX is two digits for slideIndex
   static const String askPics       = 'askPics';      /// not used till now
-  static const String notiBanners   = 'notiBanners';  /// storage/notiBanners/{notiID}
+  static const String notesBanners  = 'notesBanners'; /// storage/notesBanners/{notiID}
   static const String authors       = 'authors';
 
 }
