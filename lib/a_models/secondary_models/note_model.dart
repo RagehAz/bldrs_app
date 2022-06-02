@@ -51,6 +51,7 @@ class NoteModel {
     @required this.response,
     @required this.responseTime,
     @required this.buttons,
+    this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -71,6 +72,7 @@ class NoteModel {
   final String response;
   final DateTime responseTime;
   final List<String> buttons;
+  final QueryDocumentSnapshot<Object> docSnapshot;
 // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -220,6 +222,7 @@ class NoteModel {
           fromJSON: fromJSON,
         ),
         buttons: Mapper.getStringsFromDynamics(dynamics: map['buttons']),
+        docSnapshot: map['docSnapshot'],
       );
     }
 
@@ -232,7 +235,7 @@ class NoteModel {
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
   }) {
-    final List<NoteModel> _notiModels = <NoteModel>[];
+    final List<NoteModel> _notesModels = <NoteModel>[];
 
     if (Mapper.canLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
@@ -242,11 +245,11 @@ class NoteModel {
           fromJSON: fromJSON,
         );
 
-        _notiModels.add(_notiModel);
+        _notesModels.add(_notiModel);
       }
     }
 
-    return _notiModels;
+    return _notesModels;
   }
 // -------------------------------------
   static List<NoteModel> getNotesModelsFromSnapshot(DocumentSnapshot<Object> doc) {
@@ -404,6 +407,7 @@ class NoteModel {
     blog('response : $response');
     blog('responseTime : $responseTime');
     blog('buttons : ${buttons?.toString()}');
+    blog('docSnapshot : $docSnapshot');
 
     blog('BLOGGING NoteModel : $methodName -------------------------------- END -- ');
   }
@@ -628,5 +632,39 @@ static bool checkCanSendNote(NoteModel noteModel){
 
     return _canSend;
 }
+// -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+static List<NoteModel> removeNoteFromNotes({
+  @required List<NoteModel> notes,
+  @required NoteModel noteModel,
+}){
+
+    final List<NoteModel> _output = notes == null ?
+    <NoteModel>[]
+        :
+    <NoteModel>[...notes];
+
+    // blog('removeNoteFromNotes : notes : ${_output.length}');
+
+    if (Mapper.canLoopList(notes) == true){
+
+      final int _index = notes.indexWhere((note) => note.id == noteModel.id);
+
+      if (_index != -1){
+        // blog('removeNoteFromNotes : removing note _index : $_index');
+        _output.removeAt(_index);
+      }
+
+    }
+
+    // blog('removeNoteFromNotes : notes : ${_output.length}');
+
+    return _output;
+}
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------

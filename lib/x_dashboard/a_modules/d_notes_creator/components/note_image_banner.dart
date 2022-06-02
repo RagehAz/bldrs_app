@@ -8,9 +8,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class NoteBannerEditor extends StatelessWidget {
+class NoteImageBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NoteBannerEditor({
+  const NoteImageBanner({
     @required this.width,
     @required this.height,
     @required this.attachment,
@@ -25,15 +25,16 @@ class NoteBannerEditor extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: width,
       height: height,
       child: ClipRRect(
-        borderRadius:
-            Borderers.superBorderAll(context, NoteCard.bannerCorners),
+        borderRadius: Borderers.superBorderAll(context, NoteCard.bannerCorners),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
+
             SizedBox(
               width: width,
               height: height,
@@ -44,6 +45,7 @@ class NoteBannerEditor extends StatelessWidget {
                 height: height,
               ),
             ),
+
             if (onDelete != null)
               Align(
                 alignment: Aligners.superBottomAlignment(context),
@@ -57,6 +59,7 @@ class NoteBannerEditor extends StatelessWidget {
                   onTap: onDelete,
                 ),
               ),
+
           ],
         ),
       ),

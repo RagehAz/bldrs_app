@@ -193,6 +193,38 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
   }
 }
 // -----------------------------------------------------------------------------
+bool fuckingPaginator({
+  @required BuildContext context,
+  @required ScrollController scrollController,
+  @required bool canPaginate,
+  @required Function function,
+}){
+  bool _canPaginate = canPaginate;
+
+  scrollController.addListener(() async {
+
+    final double _maxScroll = scrollController.position.maxScrollExtent;
+    final double _currentScroll = scrollController.position.pixels;
+    // final double _screenHeight = Scale.superScreenHeight(context);
+    const double _paginationHeightLight = Ratioz.horizon * 3;
+
+    if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
+
+      // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
+
+      _canPaginate = false;
+
+      await function();
+
+      _canPaginate = true;
+
+    }
+
+  });
+
+  return _canPaginate;
+}
+
 bool initializeFlyersPagination({
   @required BuildContext context,
   @required ScrollController scrollController,
