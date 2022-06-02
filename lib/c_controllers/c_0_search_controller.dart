@@ -12,7 +12,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
@@ -344,7 +344,7 @@ Future<void> _createFireSearchRecord({
 
     final RecordModel _record = RecordModel(
       // recordID: null, /// will be defined as docID and injected into retrieved map
-      userID: FireAuthOps.superUserID(),
+      userID: AuthFireOps.superUserID(),
       timeStamp: DateTime.now(),
       recordType: RecordType.search,
       modelType: null, /// only used to trace model id

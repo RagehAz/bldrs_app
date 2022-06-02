@@ -12,11 +12,9 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 // -----------------------------------------------------------------------------
 
@@ -25,7 +23,7 @@ import 'package:provider/provider.dart';
 // -------------------------------------
 Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
 
-  final ZoneModel _zone = await goToNewScreen(
+  final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
       screen: const SelectCountryScreen(
         selectCountryIDOnly: true,
@@ -37,7 +35,7 @@ Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
 // -----------------------------------------------------------------------------
 Future<ZoneModel> controlSelectCountryAndCityOnly(BuildContext context) async {
 
-  final ZoneModel _zone = await goToNewScreen(
+  final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
       screen: const SelectCountryScreen(
         selectCountryAndCityOnly: true,
@@ -207,7 +205,7 @@ Future<void> controlCountrySearch({
 // -------------------------------------
 void controlCountryScreenOnBack(BuildContext context,){
 
-  goBack(context);
+  Nav.goBack(context);
 
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
@@ -434,7 +432,7 @@ Future<void> controlCitySearch({
 // -------------------------------------
 void controlCityScreenOnBack(BuildContext context){
 
-  goBack(context);
+  Nav.goBack(context);
 
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
@@ -591,7 +589,7 @@ Future<void> controlDistrictSearch({
 // -------------------------------------
 void controlDistrictScreenOnBack(BuildContext context){
 
-  goBack(context);
+  Nav.goBack(context);
 
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 

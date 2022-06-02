@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -156,7 +156,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         time: DateTime.now(),
         keywordsIDs: _keywordsIDs,
         headline: _titleController.text,
-        ownerID: FireAuthOps.superUserID(),
+        ownerID: AuthFireOps.superUserID(),
         questionIsOpen: true,
         directedTo: _questionDirectedTo,
         totalChats: 0,
@@ -171,7 +171,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
       await QuestionOps.createQuestionOps(
         context: context,
         question: _question,
-        userID: FireAuthOps.superUserID(),
+        userID: AuthFireOps.superUserID(),
       );
 
       NavDialog.showNavDialog(

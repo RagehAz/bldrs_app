@@ -7,12 +7,11 @@ import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_gene
 import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-
 
 class FiltersSelectorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -100,7 +99,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                             child: DreamBox(
                               width: _boxWidth,
                               height: _boxWidth,
-                              icon: superBackIcon(context),
+                              icon: Iconizer.superBackIcon(context),
                               bubble: false,
                               onTap: onBack,
                               iconSizeFactor: 0.6,

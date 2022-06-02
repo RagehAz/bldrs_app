@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
@@ -429,7 +429,7 @@ Future<void> onEditPhrase({
   @required TextEditingController idTextController,
 }) async {
 
-  goBack(context);
+  Nav.goBack(context);
 
   final Phrase _enPhrase = Phrase.getPhraseFromPhrasesByID(
     phrases: enPhrases,

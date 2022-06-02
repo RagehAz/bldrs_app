@@ -8,7 +8,7 @@ import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bz_long_button.dart';
@@ -38,7 +38,7 @@ Future<void> onSearchBzz({
 
     loading.value = true;
 
-    final String _fixedText = fixSearchText(text);
+    final String _fixedText = TextMod.fixSearchText(text);
 
     final List<BzModel> _bzz = await BzFireSearch.paginateBzzBySearchingBzName(
       context: context,

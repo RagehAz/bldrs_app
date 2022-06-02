@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -81,7 +81,7 @@ class UserModel {
 // -----------------------------------
   /// create user object based on firebase user
   static UserModel initializeUserModelStreamFromUser() {
-    final User _user = FireAuthOps.superFirebaseUser();
+    final User _user = AuthFireOps.superFirebaseUser();
 
     return _user == null ? null :
     UserModel(

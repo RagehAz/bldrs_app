@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -33,7 +33,7 @@ class ShelfSlidesPart extends StatelessWidget {
       key: const ValueKey<String>('ShelfSlidesPart'),
       width: Scale.superScreenWidth(context),
       height: slideZoneHeight,
-      alignment: superCenterAlignment(context),
+      alignment: Aligners.superCenterAlignment(context),
       child: ValueListenableBuilder(
         valueListenable: loading,
         child: Container(

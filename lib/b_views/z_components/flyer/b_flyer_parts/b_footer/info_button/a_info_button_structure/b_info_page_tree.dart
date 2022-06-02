@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/c_collapsed_info_button_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/e_expanded_info_page_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -74,7 +74,7 @@ class InfoPageTree extends StatelessWidget {
 
                 /// COLLAPSED INFO BUTTON TREE
                 Align(
-                  alignment: superCenterAlignment(context),
+                  alignment: Aligners.superCenterAlignment(context),
                   child: Container(
                     width: InfoButtonStarter.getWidth(
                         context: context,

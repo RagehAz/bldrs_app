@@ -12,10 +12,9 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
 import 'package:flutter/material.dart';
-
 
 class AllNotesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -183,7 +182,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
                   return Container(
                     width: BldrsAppBar.width(context),
-                    margin: superInsets(context: context, enBottom: 5),
+                    margin: Scale.superInsets(context: context, enBottom: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -192,7 +191,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
                           verse: _noteModel.id,
                           italic: true,
                           size: 1,
-                          margin: superInsets(context: context, enLeft: 20, enTop: 5),
+                          margin: Scale.superInsets(context: context, enLeft: 20, enTop: 5),
                           weight: VerseWeight.thin,
                         ),
 

@@ -7,8 +7,8 @@ import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
-import 'package:bldrs/e_db/fire/ops/note_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -98,7 +98,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     await Fire.updateSubDocField(
       context: context,
       collName: FireColl.users,
-      docName: FireAuthOps.superUserID(),
+      docName: AuthFireOps.superUserID(),
       subCollName: FireSubColl.users_user_notifications,
       subDocName: id,
       field: 'dismissed',
@@ -179,85 +179,83 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           //
           //     :
 
-          noteStreamBuilder(
-              context: context,
-              stream: _sentNotesStream,
-              builder: (BuildContext ctx, List<NoteModel> notiModels) {
-                blog('the shit is : notiModels : $notiModels');
+      NoteFireOps.noteStreamBuilder(
+          context: context,
+          stream: _sentNotesStream,
+          builder: (BuildContext ctx, List<NoteModel> notiModels) {
+            blog('the shit is : notiModels : $notiModels');
 
-                return notiModels == null || notiModels.isEmpty ?
-                Container()
-                    :
-                ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  controller: ScrollController(),
-                  itemCount: notiModels?.length,
-                  padding: const EdgeInsets.only(
-                      top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-                  itemBuilder: (BuildContext ctx, int index) {
+            return notiModels == null || notiModels.isEmpty ?
+            Container()
+                :
+            ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              controller: ScrollController(),
+              itemCount: notiModels?.length,
+              padding: const EdgeInsets.only(
+                  top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+              itemBuilder: (BuildContext ctx, int index) {
 
-                    final NoteModel _notiModel =
-                              notiModels == null ? null : notiModels[index];
+                final NoteModel _notiModel =
+                notiModels == null ? null : notiModels[index];
 
-                          return Dismissible(
-                            // onResize: (){
-                            // blog('resizing');
-                            // },
-                            // background: Container(
-                            //   alignment: Aligners.superCenterAlignment(context),
-                            //   // color: Colorz.White10,
-                            //   child: SuperVerse(
-                            //     verse: 'Dismiss -->',
-                            //     size: 2,
-                            //     weight: VerseWeight.thin,
-                            //     italic: true,
-                            //     color: Colorz.White10,
-                            //   ),
-                            // ),
-                            // behavior: HitTestBehavior.translucent,
-                            // secondaryBackground: Container(
-                            //   width: _screenWidth,
-                            //   height: 50,
-                            //   color: Colorz.BloodTest,
-                            // ),
-                            // dismissThresholds: {
-                            //   DismissDirection.down : 10,
-                            //   DismissDirection.endToStart : 20,
-                            // },
-                            // dragStartBehavior: DragStartBehavior.start,
-                            key: UniqueKey(),
-                            movementDuration: const Duration(milliseconds: 250),
-                            resizeDuration: const Duration(milliseconds: 250),
-                            confirmDismiss: (DismissDirection direction) async {
-                              // blog('confirmDismiss : direction is : $direction');
-
-                              /// if needed to make the bubble un-dismissible set to false
-                              const bool _dismissible = true;
-
-                              return _dismissible;
-                            },
-                            onDismissed: (DismissDirection direction) async {
-                              await _dismissNotification(
-                                id: _notiModel.id,
-                                notiModelsLength: notiModels.length,
-                              );
-                            },
-                            child: Container(
-                              width: _screenWidth,
-                              decoration: BoxDecoration(
-                                borderRadius: Borderers.superBorderAll(context,
-                                    Bubble.cornersValue + Ratioz.appBarMargin),
-                                // color: Colorz.BloodTest,
-                              ),
-                              child: NoteCard(
-                                noteModel: _notiModel,
-                                isDraftNote: true,
-                              ),
-                            ),
-                          );
-                        },
-                      );
-              }),
+                return Dismissible(
+                  // onResize: (){
+                  // blog('resizing');
+                  // },
+                  // background: Container(
+                  //   alignment: Aligners.superCenterAlignment(context),
+                  //   // color: Colorz.White10,
+                  //   child: SuperVerse(
+                  //     verse: 'Dismiss -->',
+                  //     size: 2,
+                  //     weight: VerseWeight.thin,
+                  //     italic: true,
+                  //     color: Colorz.White10,
+                  //   ),
+                  // ),
+                  // behavior: HitTestBehavior.translucent,
+                  // secondaryBackground: Container(
+                  //   width: _screenWidth,
+                  //   height: 50,
+                  //   color: Colorz.BloodTest,
+                  // ),
+                  // dismissThresholds: {
+                  //   DismissDirection.down : 10,
+                  //   DismissDirection.endToStart : 20,
+                  // },
+                  // dragStartBehavior: DragStartBehavior.start,
+                  key: UniqueKey(),
+                  movementDuration: const Duration(milliseconds: 250),
+                  resizeDuration: const Duration(milliseconds: 250),
+                  confirmDismiss: (DismissDirection direction) async {
+                    // blog('confirmDismiss : direction is : $direction');
+                    /// if needed to make the bubble un-dismissible set to false
+                    const bool _dismissible = true;
+                    return _dismissible;
+                    },
+                  onDismissed: (DismissDirection direction) async {
+                    await _dismissNotification(
+                      id: _notiModel.id,
+                      notiModelsLength: notiModels.length,
+                    );
+                    },
+                  child: Container(
+                    width: _screenWidth,
+                    decoration: BoxDecoration(
+                      borderRadius: Borderers.superBorderAll(context,
+                          Bubble.cornersValue + Ratioz.appBarMargin),
+                      // color: Colorz.BloodTest,
+                    ),
+                    child: NoteCard(
+                      noteModel: _notiModel,
+                      isDraftNote: true,
+                    ),
+                  ),
+                );
+                },
+            );
+          }),
     );
   }
 }

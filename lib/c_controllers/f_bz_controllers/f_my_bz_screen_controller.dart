@@ -22,14 +22,14 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -37,7 +37,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 
 // -----------------------------------------------------------------------------
 
@@ -300,7 +299,7 @@ Future<bool> _preDeleteBzAccountChecks({
   bool _canContinue = false;
 
   final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
-    userID: superUserID(),
+    userID: AuthFireOps.superUserID(),
     bzModel: bzModel,
   );
 
@@ -364,7 +363,7 @@ Future<bool> _showConfirmDeleteBzDialog({
     body: 'All Account flyers, records and data will be deleted and can not be retrieved',
     confirmButtonText: 'Yes, Delete',
     boolDialog: true,
-    height: superScreenHeight(context) * 0.7,
+    height: Scale.superScreenHeight(context) * 0.7,
     child: BzBanner(
       bzModel: bzModel,
     ),
@@ -650,7 +649,7 @@ Future<void> _deleteFlyerOps({
   }
 
   /// DELETE FLYER OPS ON FIREBASE
-  await FlyerOps.deleteFlyerOps(
+  await FlyerFireOps.deleteFlyerOps(
     context: context,
     flyerModel: flyer,
     bzModel: bzModel,

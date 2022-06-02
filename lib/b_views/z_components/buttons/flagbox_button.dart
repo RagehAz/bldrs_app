@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class FlagBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final String _flagIcon = Flag.getFlagIconByCountryID(countryID);
-    final BorderRadius _borderRadius = superBorderAll(context, corners ?? size * 0.3);
+    final BorderRadius _borderRadius = Borderers.superBorderAll(context, corners ?? size * 0.3);
 
     return DreamBox(
       width: size,

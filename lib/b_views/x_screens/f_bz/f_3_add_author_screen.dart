@@ -44,6 +44,7 @@ class _AddAuthorScreenState extends State<AddAuthorScreen> {
       loading: _loading,
       foundUsers: _foundUsers,
       isSearching: _isSearching,
+      excludeMyself: true,
     );
 
   }

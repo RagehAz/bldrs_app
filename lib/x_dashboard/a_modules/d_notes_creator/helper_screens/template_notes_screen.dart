@@ -13,13 +13,14 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class TemplateNotesScreen extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const TemplateNotesScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _TemplateNotesScreenState createState() => _TemplateNotesScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _TemplateNotesScreenState extends State<TemplateNotesScreen> {

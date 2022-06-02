@@ -27,7 +27,7 @@ import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
@@ -36,7 +36,7 @@ import 'package:bldrs/f_helpers/contacts_service/contacts_service.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer show shareAppIcon;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -369,7 +369,7 @@ Future<bool> _showDeleteUserDialog({
     body: 'Are you sure you want to delete your Account ?',
     confirmButtonText: 'Yes, Delete',
     boolDialog: true,
-    height: superScreenHeight(context) * 0.6,
+    height: Scale.superScreenHeight(context) * 0.6,
     child: Column(
       children: <Widget>[
 
@@ -412,7 +412,7 @@ Future<bool> _checkPassword({
     contactType: ContactType.email,
   ) ?? _authModel.email;
 
-  final bool _passwordIsCorrect = await FireAuthOps.passwordIsCorrect(
+  final bool _passwordIsCorrect = await AuthFireOps.passwordIsCorrect(
     context: context,
     password: _password,
     email: _email,
@@ -524,10 +524,10 @@ Future<void> _onSignOut(BuildContext context) async {
   _zoneProvider.clearSelectedCityDistricts(notify: false);
   _zoneProvider.clearSearchedDistricts(notify: true);
 
-  await AuthLDBOps.deleteAuthModel(FireAuthOps.superUserID());
-  await UserLDBOps.deleteUserOps(FireAuthOps.superUserID());
+  await AuthLDBOps.deleteAuthModel(AuthFireOps.superUserID());
+  await UserLDBOps.deleteUserOps(AuthFireOps.superUserID());
 
-  await FireAuthOps.signOut(
+  await AuthFireOps.signOut(
       context: context,
       routeToUserChecker: true
   );
