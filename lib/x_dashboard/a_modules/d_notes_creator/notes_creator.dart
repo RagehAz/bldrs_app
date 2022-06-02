@@ -28,8 +28,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/components/note_sender_dynamic_button.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/all_notes_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/template_notes_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/template_notes_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/user_button.dart';
 import 'package:flutter/material.dart';
 
@@ -138,6 +139,14 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       appBarRowWidgets: <Widget>[
 
         const Expander(),
+
+        AppBarButton(
+          verse: 'All Notes',
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const AllNotesScreen(),
+          ),
+        ),
 
         AppBarButton(
           verse: 'Templates',
@@ -649,7 +658,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       builder: (_, UserModel receiver, Widget child){
 
                         return Row(
-
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
 
                             /// CONFIRM BUTTON

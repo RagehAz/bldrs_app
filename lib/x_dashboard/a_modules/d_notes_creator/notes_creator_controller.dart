@@ -14,18 +14,20 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/search_screens/search_bzz_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/search_users_screen.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_bzz_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_users_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 
 // -----------------------------------------------------------------------------
 
@@ -882,7 +884,7 @@ String _concludeImageOwnerID(NoteModel noteModel){
 
   return _ownerID;
 }
-
+// -----------------------------------------------------------------------------
 void _clearNote({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -898,6 +900,73 @@ void _clearNote({
   selectedReciever.value = null;
   selectedSenderType.value = NoteSenderType.bldrs;
   selectedSenderModel.value = null;
+
+}
+// -----------------------------------------------------------------------------
+
+/// DELETE NOTE
+
+// -------------------------------
+Future<void> onDeleteNote({
+  @required BuildContext context,
+  @required NoteModel noteModel,
+  @required ValueNotifier<List<NoteModel>> notes,
+  @required ValueNotifier<bool> loading,
+}) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Delete Note ?',
+    body: 'Will Delete on Database and can never be recovered',
+    boolDialog: true,
+  );
+
+  if (_result == true){
+
+    Nav.goBack(context);
+    loading.value = true;
+
+    /// DELETE ATTACHMENT IF IMAGE
+    if (noteModel.attachmentType == NoteAttachmentType.imageURL){
+
+      final Reference _ref = await Storage.getRefFromURL(
+        context: context,
+        url: noteModel.attachment,
+      );
+
+      await Storage.deleteStoragePic(
+          context: context,
+          docName: StorageDoc.notesBanners,
+          picName: _ref.name, /// TASK : DOES NOT WORK SHIT
+      );
+
+    }
+
+    /// DELETE ON FIRESTORE
+    await NoteFireOps.deleteNote(
+      context: context,
+      noteID: noteModel.id,
+    );
+
+    /// DELETE LOCALLY
+    final List<NoteModel> _newList = NoteModel.removeNoteFromNotes(
+      notes: notes.value,
+      noteModel: noteModel,
+    );
+    notes.value = _newList;
+
+    loading.value = false;
+
+    /// SHOW CONFIRMATION DIALOG
+    await TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Note Deleted',
+      secondLine: 'Tamam keda',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+  }
 
 }
 // -----------------------------------------------------------------------------

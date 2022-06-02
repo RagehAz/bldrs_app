@@ -22,11 +22,13 @@ class NoteCard extends StatelessWidget {
   const NoteCard({
     @required this.noteModel,
     @required this.isDraftNote,
+    this.onTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel noteModel;
   final bool isDraftNote;
+  final Function onTap;
   /// --------------------------------------------------------------------------
   static double bubbleWidth(BuildContext context) {
     return Bubble.defaultWidth(context);
@@ -42,8 +44,25 @@ class NoteCard extends StatelessWidget {
     blog('_onBubbleTap : noti id is : ${noteModel.id} : ${noteModel.sentTime} : dif : ${Timers.getTimeDifferenceInSeconds(from: noteModel.sentTime, to: DateTime.now())}');
   }
 // -----------------------------------------------------------------------------
+  Future<void> _onNoteOptionsTap({
+    @required BuildContext context,
+  }) async {
 
+    if (onTap != null){
+      onTap();
+    }
 
+    else {
+
+      await onShowNoteOptions(
+        context: context,
+        noteModel: noteModel,
+      );
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -51,9 +70,9 @@ class NoteCard extends StatelessWidget {
     const double _moreButtonSize = 35;
     final bool _noteHasButtons = Mapper.canLoopList(noteModel?.buttons);
 
-    if (noteModel != null){
-      noteModel.blogNoteModel(methodName: 'Rebuilding note card');
-    }
+    // if (noteModel != null){
+    //   noteModel.blogNoteModel(methodName: 'Rebuilding note card');
+    // }
 
     if (isDraftNote == false){
       unawaited(markNoteAsSeen(
@@ -63,6 +82,7 @@ class NoteCard extends StatelessWidget {
     }
 
     return Bubble(
+      width: bubbleWidth(context),
       centered: true,
       margins: const EdgeInsets.symmetric(
           horizontal: Ratioz.appBarMargin,
@@ -133,10 +153,7 @@ class NoteCard extends StatelessWidget {
               width: _moreButtonSize,
               icon: Iconz.more,
               iconSizeFactor: 0.7,
-              onTap: () => onShowNoteOptions(
-                context: context,
-                noteModel: noteModel,
-              ),
+              onTap: _onNoteOptionsTap,
             ),
 
           ],
