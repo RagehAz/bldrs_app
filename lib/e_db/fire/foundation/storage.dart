@@ -186,8 +186,7 @@ Future<String> createStoragePicAndGetURL({
 
         blog('X2 - image size is ${imageSize.height} * ${imageSize.width}');
 
-        final SettableMetadata metaData =
-            SettableMetadata(customMetadata: <String, String>{
+        final SettableMetadata metaData = SettableMetadata(customMetadata: <String, String>{
           'width': '${imageSize.width}',
           'height': '${imageSize.height}',
           'owner': ownerID,

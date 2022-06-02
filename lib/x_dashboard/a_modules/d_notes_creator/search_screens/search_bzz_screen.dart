@@ -1,40 +1,81 @@
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/author_invitations_controller.dart';
+import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bz_long_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
-class SearchUsersScreen extends StatefulWidget {
+Future<void> onSearchBzz({
+  @required BuildContext context,
+  @required String text,
+  @required ValueNotifier<List<BzModel>> foundBzz,
+  @required ValueNotifier<bool> isSearching,
+  @required ValueNotifier<bool> loading,
+  QueryDocumentSnapshot<Object> startAfter,
+}) async {
+
+  blog('starting onSearchUsers : text : $text');
+
+  triggerIsSearchingNotifier(
+      text: text,
+      isSearching: isSearching,
+      onSwitchOff: (){
+        foundBzz.value = null;
+      }
+  );
+
+  if (isSearching.value == true){
+
+    loading.value = true;
+
+    final String _fixedText = fixSearchText(text);
+
+    final List<BzModel> _bzz = await BzFireSearch.paginateBzzBySearchingBzName(
+      context: context,
+      bzName: _fixedText,
+      limit: 10,
+      startAfter: startAfter,
+    );
+
+    foundBzz.value = _bzz;
+    loading.value = false;
+
+  }
+
+}
+
+class SearchBzzScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const SearchUsersScreen({
+  const SearchBzzScreen({
     this.multipleSelection = false,
-    this.selectedUsers,
-    this.onUserTap,
+    this.selectedBzz,
+    this.onBzTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool multipleSelection;
-  final List<UserModel> selectedUsers;
-  final ValueChanged<UserModel> onUserTap;
+  final List<BzModel> selectedBzz;
+  final ValueChanged<BzModel> onBzTap;
   /// --------------------------------------------------------------------------
   @override
-  _SearchUsersScreenState createState() => _SearchUsersScreenState();
+  _SearchBzzScreenState createState() => _SearchBzzScreenState();
 /// --------------------------------------------------------------------------
 }
 
-class _SearchUsersScreenState extends State<SearchUsersScreen> {
+class _SearchBzzScreenState extends State<SearchBzzScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<List<UserModel>> _foundUsers = ValueNotifier(null);
-  ValueNotifier<List<UserModel>> _selectedUsers;
+  final ValueNotifier<List<BzModel>> _foundBzz = ValueNotifier(null);
+  ValueNotifier<List<BzModel>> _selectedBzz;
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
@@ -43,73 +84,63 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedUsers = ValueNotifier<List<UserModel>>(widget.selectedUsers);
+    _selectedBzz = ValueNotifier<List<BzModel>>(widget.selectedBzz);
   }
-// -----------------------------------------------------------------------------
-  /*
-  Future<void> _triggerLoading() async {
-    _loading.value = !_loading.value;
-    blogLoading(
-      loading: _loading.value,
-      callerName: 'AddAuthorScreen',
-    );
-  }
-   */
 // -----------------------------------------------------------------------------
   Future<void> _onSearch(String text) async {
 
-    await onSearchUsers(
+    await onSearchBzz(
       context: context,
       text: text,
       loading: _loading,
-      foundUsers: _foundUsers,
+      foundBzz: _foundBzz,
       isSearching: _isSearching,
     );
 
   }
 // -----------------------------------------------------------------------------
-  Future<void> onUserTap(UserModel userModel) async {
+  Future<void> onBzTap(BzModel bzModel) async {
 
     /// WHEN SELECTION FUNCTION IS HANDLED INTERNALLY
-    if (widget.onUserTap == null){
+    if (widget.onBzTap == null){
 
       /// CAN SELECT MULTIPLE USERS
       if (widget.multipleSelection == true){
-        final List<UserModel> _newList = UserModel.addOrRemoveUserToUsers(
-          usersModels: _selectedUsers.value,
-          userModel: userModel,
+        final List<BzModel> _newList = BzModel.addOrRemoveBzToBzz(
+          bzzModels: _selectedBzz.value,
+          bzModel: bzModel,
         );
-        _selectedUsers.value = _newList;
+        _selectedBzz.value = _newList;
       }
 
       /// CAN SELECT ONLY ONE USER
       else {
-        final bool _isSelected = UserModel.checkUsersContainThisUser(
-            usersModels: _selectedUsers.value,
-            userModel: userModel
+
+        final bool _isSelected = BzModel.checkBzzContainThisBz(
+            bzz: _selectedBzz.value,
+            bzModel: bzModel,
         );
 
         if (_isSelected == true){
-          _selectedUsers.value = null;
+          _selectedBzz.value = null;
         }
         else {
-          _selectedUsers.value = <UserModel>[userModel];
+          _selectedBzz.value = <BzModel>[bzModel];
         }
-
       }
 
     }
 
     /// WHEN FUNCTION IS EXTERNALLY PASSED
     else {
-      widget.onUserTap(userModel);
+      widget.onBzTap(bzModel);
     }
 
   }
 // -----------------------------------------------------------------------------
   void _onBack(){
 
-    Nav.goBack(context, passedData: _selectedUsers.value);
+    Nav.goBack(context, passedData: _selectedBzz.value);
 
   }
 // -----------------------------------------------------------------------------
@@ -120,8 +151,8 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       skyType: SkyType.black,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      pageTitle: 'Search Users',
-      searchHint: 'Search Users by name',
+      pageTitle: 'Search Businesses',
+      searchHint: 'Search Business accounts by name',
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
       onSearchSubmit: _onSearch,
@@ -154,35 +185,34 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
                     /// NOT LOADING
                     else {
                       return ValueListenableBuilder(
-                          valueListenable: _foundUsers,
-                          builder: (_, List<UserModel> foundUsers, Widget child){
+                          valueListenable: _foundBzz,
+                          builder: (_, List<BzModel> foundBzz, Widget child){
 
                             /// FOUND USERS
-                            if (Mapper.canLoopList(foundUsers) == true){
+                            if (Mapper.canLoopList(foundBzz) == true){
 
                               return ValueListenableBuilder(
-                                valueListenable: _selectedUsers,
-                                builder: (_, List<UserModel> selectedUsers, Widget child){
+                                valueListenable: _selectedBzz,
+                                builder: (_, List<BzModel> selectedBzz, Widget child){
 
                                   return SizedBox(
                                     width: Scale.superScreenWidth(context),
                                     height: Scale.superScreenHeight(context),
                                     child: ListView.builder(
-                                      itemCount: foundUsers.length,
+                                      itemCount: foundBzz.length,
                                       physics: const NeverScrollableScrollPhysics(),
                                       itemBuilder: (_, index){
 
-                                        final UserModel _user = foundUsers[index];
-                                        final bool _isSelected = UserModel.checkUsersContainThisUser(
-                                          usersModels: selectedUsers,
-                                          userModel: _user,
+                                        final BzModel _bzModel = foundBzz[index];
+                                        final bool _isSelected = BzModel.checkBzzContainThisBz(
+                                          bzz: selectedBzz,
+                                          bzModel: _bzModel,
                                         );
 
-                                        return UserTileButton(
-                                          boxWidth: BldrsAppBar.width(context),
-                                          userModel: _user,
-                                          color: _isSelected == true ? Colorz.green255 : null,
-                                          onUserTap: () => onUserTap(_user),
+                                        return BzLongButton(
+                                          bzModel: _bzModel,
+                                          isSelected: _isSelected,
+                                          onTap: () => onBzTap(_bzModel),
                                         );
 
                                       },

@@ -47,9 +47,10 @@ Future<ZoneModel> controlSelectCountryAndCityOnly(BuildContext context) async {
   return _zone;
 }
 // -----------------------------------------------------------------------------
+/*
 Future<ZoneModel> controlSelectZone(BuildContext context) async {
-
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// COUNTRY CONTROLLERS
