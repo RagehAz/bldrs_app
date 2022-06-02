@@ -14,7 +14,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as FireAuthOps;
 import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
-import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzSearch;
+import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -195,7 +195,7 @@ Future<List<SearchResult>> _searchBzz({
 
   blog('_onSearchBzz : _searchController.text : $searchText');
 
-  final List<BzModel> _bzz = await BzSearch.paginateBzzBySearchingBzName(
+  final List<BzModel> _bzz = await BzFireSearch.paginateBzzBySearchingBzName(
     context: context,
     bzName: searchText,
     limit: 10,

@@ -12,15 +12,46 @@ List<String> addStringToListIfDoesNotContainIt({
   @required List<String> strings,
   @required String stringToAdd,
 }) {
-  List<String> _result = strings;
 
-  final bool _containsIt = strings.contains(stringToAdd) == true;
+  final List<String> _result = strings ?? <String>[];
+
+  final bool _containsIt = Mapper.stringsContainString(
+    strings: strings,
+    string: stringToAdd,
+  );
 
   if (_containsIt == false) {
-    _result = <String>[...strings, stringToAdd];
+    _result.add(stringToAdd);
   }
 
   return _result;
+}
+// ----------------------------
+/// TESTED : WORKS PERFECT
+List<String> addOrRemoveStringToStrings({
+  @required List<String> strings,
+  @required String string,
+}){
+
+  final List<String> _output = strings ?? <String>[];
+
+  if ( string != null){
+
+    final bool _containsIt = Mapper.stringsContainString(
+        strings: _output,
+        string: string
+    );
+
+    if (_containsIt == true){
+      _output.remove(string);
+    }
+    else {
+      _output.add(string);
+    }
+
+  }
+
+  return _output;
 }
 // -----------------------------------------------------------------------------
 
@@ -468,7 +499,7 @@ String fixSearchText(String input){
 
   if (input != null && input != ''){
 
-    _output = input;
+    _output = input.trim().toLowerCase();
         // removeSpacesFromAString(input.trim());
     // _output = fixArabicText(_output);
 

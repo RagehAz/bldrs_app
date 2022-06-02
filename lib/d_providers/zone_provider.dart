@@ -1091,7 +1091,18 @@ class ZoneProvider extends ChangeNotifier {
     return _zoneProvider.currentZone;
   }
 // -------------------------------------
-
+  static Future<CountryModel> proFetchCountry({
+    @required BuildContext context,
+    @required String countryID,
+}) async {
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final CountryModel _country = await _zoneProvider.fetchCountryByID(
+        context: context,
+        countryID: countryID,
+    );
+    return _country;
+  }
+// -------------------------------------
 }
 /// TASK : ACTIVATED & GLOBAL COUNTRIES
 

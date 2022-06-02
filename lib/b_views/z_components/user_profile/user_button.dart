@@ -68,7 +68,7 @@ class UserTileButton extends StatelessWidget {
 
     final double _userButtonWidth = getUserButtonWidth(
         context: context,
-        inviteButtonIsOn: sideButton.isNotEmpty,
+        inviteButtonIsOn: sideButton?.isNotEmpty == true,
         boxWidth: boxWidth,
     );
 
@@ -93,10 +93,10 @@ class UserTileButton extends StatelessWidget {
             onTap: onUserTap,
           ),
 
-          if (sideButton.isNotEmpty)
+          if (sideButton?.isNotEmpty == true)
             const SizedBox(width: boxPadding,),
 
-            if (sideButton.isNotEmpty)
+            if (sideButton?.isNotEmpty == true)
           DreamBox(
             width: inviteButtonWidth,
             height: buttonHeight,

@@ -33,7 +33,7 @@ class TheBoxOfDreamBox extends StatelessWidget {
       children: <Widget>[
         IntrinsicWidth(
           child: Opacity(
-            opacity: inActiveMode == true ? 0.35 : opacity,
+            opacity: inActiveMode == true ? 0.7 : opacity,
             child: Padding(
               padding: boxMargins,
               child: ClipRRect(

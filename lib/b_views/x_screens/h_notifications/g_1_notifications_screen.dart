@@ -251,6 +251,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               ),
                               child: NoteCard(
                                 noteModel: _notiModel,
+                                isDraftNote: true,
                               ),
                             ),
                           );

@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -203,10 +202,10 @@ class TileBubble extends StatelessWidget {
                 /// CHILD
                 Container(
                   width: childWidth(context),
-                  decoration: BoxDecoration(
-                      color: Colorz.white10,
-                      borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue)
-                  ),
+                  // decoration: BoxDecoration(
+                  //     color: Colorz.white10,
+                  //     borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue)
+                  // ),
                   alignment: Alignment.center,
                   child: child,
                 ),

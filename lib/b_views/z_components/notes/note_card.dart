@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/notes/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/notes_controllers/notes_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -20,10 +21,12 @@ class NoteCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteCard({
     @required this.noteModel,
+    @required this.isDraftNote,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel noteModel;
+  final bool isDraftNote;
   /// --------------------------------------------------------------------------
   static double bubbleWidth(BuildContext context) {
     return Bubble.defaultWidth(context);
@@ -48,10 +51,16 @@ class NoteCard extends StatelessWidget {
     const double _moreButtonSize = 35;
     final bool _noteHasButtons = Mapper.canLoopList(noteModel?.buttons);
 
-    unawaited(markNoteAsSeen(
-      context: context,
-      noteModel: noteModel,
-    ));
+    if (noteModel != null){
+      noteModel.blogNoteModel(methodName: 'Rebuilding note card');
+    }
+
+    if (isDraftNote == false){
+      unawaited(markNoteAsSeen(
+        context: context,
+        noteModel: noteModel,
+      ));
+    }
 
     return Bubble(
       centered: true,
@@ -87,7 +96,7 @@ class NoteCard extends StatelessWidget {
 
                   /// TITLE
                   SuperVerse(
-                    verse: noteModel?.title,
+                    verse: stringIsNotEmpty(noteModel?.title) == true ? noteModel?.title : 'Title',
                     maxLines: 5,
                     centered: false,
                   ),
@@ -108,7 +117,7 @@ class NoteCard extends StatelessWidget {
 
                   /// BODY
                   SuperVerse(
-                    verse: noteModel?.body,
+                    verse: stringIsNotEmpty(noteModel?.body) == true ? noteModel?.body : '...',
                     weight: VerseWeight.thin,
                     maxLines: 20,
                     centered: false,
