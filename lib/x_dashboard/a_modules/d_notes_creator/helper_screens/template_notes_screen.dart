@@ -1,15 +1,15 @@
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/bldrs_notes/bldrs_notiz.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
 class TemplateNotesScreen extends StatefulWidget {
@@ -25,25 +25,17 @@ class TemplateNotesScreen extends StatefulWidget {
 
 class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
 // -----------------------------------------------------------------------------
-  final List<NoteModel> _notifications = <NoteModel>[];
+  final List<NoteModel> _notes = noteTemplates;
 // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (function == null) {
-      setState(() {
-        _loading = !_loading;
-      });
-    } else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------------------------------
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'BzAuthorsPage',
+    );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -56,28 +48,16 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading(function: () {}).then((_) async {
+      _triggerLoading().then((_) async {
         /// ---------------------------------------------------------0
 
         /// ---------------------------------------------------------0
+        await _triggerLoading();
       });
 
-      if (_loading == true) {
-        _triggerLoading();
-      }
     }
     _isInit = false;
     super.didChangeDependencies();
-  }
-// -----------------------------------------------------------------------------
-  void _dismissNotification(String id) {
-    blog('removing noti with id : $id');
-
-    setState(() {
-      _notifications.removeWhere(
-        (NoteModel notiModel) => notiModel.id == id,
-      );
-    });
   }
 // -----------------------------------------------------------------------------
   @override
@@ -99,7 +79,7 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
       pageTitle: 'News & Notifications',
       skyType: SkyType.black,
       pyramidsAreOn: true,
-      layoutWidget: _notifications.isEmpty ?
+      layoutWidget: _notes.isEmpty ?
       const Center(
         child: SuperVerse(
           verse: 'No new Notifications',
@@ -112,66 +92,40 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
       ListView.builder(
         physics: const BouncingScrollPhysics(),
         controller: ScrollController(),
-        itemCount: _notifications.length,
+        itemCount: _notes.length,
         padding: const EdgeInsets.only(
             top: Ratioz.stratosphere,
             bottom: Ratioz.horizon,
         ),
         itemBuilder: (BuildContext ctx, int index) {
 
-          final NoteModel _notiModel = _notifications[index];
+          final NoteModel _noteModel = _notes[index];
 
-          return Dismissible(
-            // onResize: (){
-            // blog('resizing');
-            // },
-            // background: Container(
-            //   alignment: Aligners.superCenterAlignment(context),
-            //   // color: Colorz.White10,
-            //   child: SuperVerse(
-            //     verse: 'Dismiss -->',
-            //     size: 2,
-            //     weight: VerseWeight.thin,
-            //     italic: true,
-            //     color: Colorz.White10,
-            //   ),
-            // ),
-            // behavior: HitTestBehavior.translucent,
-            // secondaryBackground: Container(
-            //   width: _screenWidth,
-            //   height: 50,
-            //   color: Colorz.BloodTest,
-            // ),
-            // dismissThresholds: {
-            //   DismissDirection.down : 10,
-            //   DismissDirection.endToStart : 20,
-            // },
-            // dragStartBehavior: DragStartBehavior.start,
-            key: ValueKey<String>(_notiModel.id),
-            movementDuration: const Duration(milliseconds: 250),
-            resizeDuration: const Duration(milliseconds: 250),
-            confirmDismiss: (DismissDirection direction) async {
-              // blog('confirmDismiss : direction is : $direction');
-              /// if needed to make the bubble un-dismissible set to false
-              const bool _dismissible = true;
-              return _dismissible;
-              },
-            onDismissed: (DismissDirection direction) {
-              _dismissNotification(_notiModel.id);
-              // blog('onDismissed : direction is : $direction');
-            },
-            child: Container(
-              width: _screenWidth,
-              decoration: BoxDecoration(
-                borderRadius: Borderers.superBorderAll(
-                    context, Bubble.cornersValue + Ratioz.appBarMargin),
-                // color: Colorz.BloodTest,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+
+              const SizedBox(height: 5),
+
+              SuperVerse(
+                verse: _noteModel.id,
+                centered: false,
+                size: 1,
+                italic: true,
+                weight: VerseWeight.thin,
+                margin: const EdgeInsets.symmetric(horizontal: 25),
               ),
-              child: NoteCard(
-                noteModel: _notiModel,
+
+              NoteCard(
+                noteModel: _noteModel,
                 isDraftNote: true,
+                onCardTap: () => onSelectNoteTemplateTap(
+                  context: context,
+                  noteModel: _noteModel,
+                ),
               ),
-            ),
+
+            ],
           );
 
           },

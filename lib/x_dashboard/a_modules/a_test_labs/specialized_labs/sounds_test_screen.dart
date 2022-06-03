@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
@@ -237,38 +238,26 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final List<String> _allSounds = Sounder.allSounds();
+
     return DashBoardLayout(
         loading: _loading,
         listWidgets: <Widget>[
 
-          WideButton(
-            verse: 'The Voice',
-            onTap: () async {
+          ...List.generate(_allSounds.length, (index){
 
-              blog('fuck the voice');
-              await _player.setAsset(Sounder.whip_long);
-              await _player.play();
-              blog('fucker ended');
+            final String _sound = _allSounds[index];
 
-            },
-          ),
+            return WideButton(
+              verse: removeTextBeforeLastSpecialCharacter(_sound, '/'),
+              onTap: () async {
 
+                await Sounder.playAssetSound(_sound);
 
-          WideButton(
-            verse: 'SIGLETOZ',
-            onTap: () async {
+              },
+            );
 
-              // final AudioPlayer _audioPlayer = AudioPlayer();
-              //
-              // blog('fuck the voice');
-              // await _audioPlayer.setAsset(Soundz.whip_long);
-              // await _audioPlayer.play();
-              // blog('fucker ended');
-
-              await Sounder.playAssetSound(Sounder.whip_long);
-
-            },
-          ),
+          }),
 
 
         ],

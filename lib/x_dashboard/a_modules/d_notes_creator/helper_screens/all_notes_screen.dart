@@ -198,7 +198,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
                         NoteCard(
                           noteModel: _noteModel,
                           isDraftNote: false,
-                          onTap: () => _onNoteTap(_noteModel),
+                          onNoteOptionsTap: () => _onNoteTap(_noteModel),
                         ),
 
                       ],
