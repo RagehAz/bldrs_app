@@ -74,6 +74,18 @@ class Sounder  {
   static const String click_c = '$_soundsPath/click_c.mp3' ;
 
   static const String bldrs_intro = '$_soundsPath/bldrs_intro.mp3' ;
+// -------------------------------------
+  static List<String> allSounds(){
+    return <String>[
+      whip_high,
+      whip_long,
+      zip,
+      click_a,
+      click_b,
+      click_c,
+      bldrs_intro,
+    ];
+  }
 // -----------------------------------------------------------------------------
 
   /// FCM SOUNDS

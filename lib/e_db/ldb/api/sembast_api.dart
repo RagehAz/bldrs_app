@@ -77,6 +77,7 @@ class Sembast  {
     @required Map<String, Object> map,
     @required String docName,
   }) async {
+
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
