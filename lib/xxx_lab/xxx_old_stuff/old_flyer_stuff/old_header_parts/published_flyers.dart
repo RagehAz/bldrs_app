@@ -1,5 +1,5 @@
 // import 'package:bldrs/02_widgets/flyer/grids/old_flyers_grid.dart';
-// import 'package:bldrs/02_widgets/flyer/header/mini_header/mini_header_items/mini_header_strip/mini_header_strip_items/labels/author_label.dart';
+// import 'package:bldrs/02_widgets/flyer/header/mini_header/mini_header_items/mini_header_strip/mini_header_strip_items/labels/old_author_label.dart';
 // import 'package:bldrs/view_brain.x_ui_stuff/colorz.dart';
 // import 'package:flutter/material.dart';
 //

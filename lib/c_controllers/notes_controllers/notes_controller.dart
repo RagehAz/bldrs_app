@@ -173,6 +173,8 @@ Future<void> cancelSentAuthorshipInvitation ({
     receiverID: receiverID,
   );
 
+  // if (_note.sen)
+
   if (_note != null){
 
     await NoteFireOps.deleteNote(
