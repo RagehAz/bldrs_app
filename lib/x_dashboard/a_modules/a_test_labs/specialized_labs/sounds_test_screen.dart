@@ -1,11 +1,10 @@
-// // import 'package:audioplayers/audio_cache.dart';
-// // import 'package:audioplayers/audioplayers.dart';
-// import 'package:bldrs/view_brains/theme/iconz.dart';
-// import 'package:bldrs/view_brains/theme/soundz.dart';
-// import 'package:bldrs/b_views/widgets/buttons/dream_box.dart';
-// import 'package:bldrs/b_views/widgets/layouts/main_layout.dart';
-// import 'package:flutter/material.dart';
-//
+// import 'package:audioplayers/audio_cache.dart';
+// import 'package:audioplayers/audioplayers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
+import 'package:flutter/material.dart';
+
 // typedef void OnError(Exception exception);
 //
 //
@@ -128,3 +127,88 @@
 //     );
 //   }
 // }
+
+class SoundsTestScreen extends StatefulWidget {
+
+  const SoundsTestScreen({
+    Key key
+  }) : super(key: key);
+
+  @override
+  _SoundsTestScreenState createState() => _SoundsTestScreenState();
+}
+
+class _SoundsTestScreenState extends State<SoundsTestScreen> {
+// -----------------------------------------------------------------------------
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------------------------------
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'BzAuthorsPage',
+    );
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit && mounted) {
+
+      _triggerLoading().then((_) async {
+
+        /// FUCK
+
+        await _triggerLoading();
+      });
+
+      _isInit = false;
+    }
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    super.dispose();
+    _loading.dispose();
+  }
+// -----------------------------------------------------------------------------
+  void initPlayer() {
+    // advancedPlayer = new AudioPlayer();
+    // audioCache = new AudioCache(fixedPlayer: advancedPlayer);
+    //
+    // advancedPlayer.durationHandler = (d) => setState(() {
+    //   _duration = d;
+    // });
+    //
+    // advancedPlayer.positionHandler = (p) => setState(() {
+    //   _position = p;
+    // });
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return DashBoardLayout(
+        loading: _loading,
+        listWidgets: <Widget>[
+
+          WideButton(
+            verse: 'The Voice',
+            onTap: (){
+              blog('fuck the voice');
+            },
+          ),
+
+        ],
+    );
+
+  }
+}

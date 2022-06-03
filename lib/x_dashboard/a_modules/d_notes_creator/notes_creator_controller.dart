@@ -10,7 +10,6 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/d_zoning_controller.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -21,12 +20,12 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_bzz_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_users_screen.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -772,6 +771,7 @@ Future<void> onSendNote({
   @required ValueNotifier<UserModel> selectedReciever,
   @required ValueNotifier<NoteSenderType> selectedSenderType,
   @required ValueNotifier<dynamic> selectedSenderModel,
+  @required ScrollController scrollController,
 }) async {
 
   final bool _formIsValid = formKey.currentState.validate();
@@ -787,7 +787,7 @@ Future<void> onSendNote({
 
     if (_confirmSend == true){
 
-      blog('should send note naaaaaw');
+      // blog('should send note naaaaaw');
 
       await _modifyAttachmentIfFile(
         context: context,
@@ -807,12 +807,6 @@ Future<void> onSendNote({
       /// MAYBE SAVE A REFERENCE OF THIS NOTE ID SOMEWHERE ON SUB DOC OF BZ
       /// TO BE EASY TO TRACE AND DELETE WHILE IN DELETE BZ OPS
 
-      await TopDialog.showTopDialog(
-        context: context,
-        firstLine: 'Note Sent',
-        secondLine: 'Alf Mabrouk ya5oya',
-      );
-
       _clearNote(
         context: context,
         note: note,
@@ -821,6 +815,16 @@ Future<void> onSendNote({
         selectedSenderModel: selectedSenderModel,
         selectedSenderType: selectedSenderType,
         selectedReciever: selectedReciever,
+      );
+
+      await Scrollers.scrollToTop(
+          controller: scrollController,
+      );
+
+      await TopDialog.showTopDialog(
+        context: context,
+        firstLine: 'Note Sent',
+        secondLine: 'Alf Mabrouk ya5oya',
       );
 
       /// FAILED SCENARIO
@@ -932,15 +936,16 @@ Future<void> onDeleteNote({
     /// DELETE ATTACHMENT IF IMAGE
     if (noteModel.attachmentType == NoteAttachmentType.imageURL){
 
-      final Reference _ref = await Storage.getRefFromURL(
+      final String _picName = await Storage.getImageNameByURL(
         context: context,
         url: noteModel.attachment,
+        withExtension: false,
       );
 
       await Storage.deleteStoragePic(
           context: context,
           docName: StorageDoc.notesBanners,
-          picName: _ref.name, /// TASK : DOES NOT WORK SHIT
+          picName: _picName,
       );
 
     }

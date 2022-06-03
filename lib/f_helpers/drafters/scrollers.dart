@@ -11,27 +11,25 @@ enum SlidingDirection {
 }
 // -----------------------------------------------------------------------------
 ScrollPhysics superScroller({@required bool trigger}) {
-  final ScrollPhysics scroller = trigger == true
-      ? const BouncingScrollPhysics()
-      : const NeverScrollableScrollPhysics();
+  final ScrollPhysics scroller = trigger == true ?
+  const BouncingScrollPhysics()
+      :
+  const NeverScrollableScrollPhysics();
 
   return scroller;
 }
-
 // -----------------------------------------------------------------------------
 bool isAtTop(ScrollController scrollController) {
   final bool _atTop =
       scrollController.offset == scrollController.position.minScrollExtent;
   return _atTop;
 }
-
 // -----------------------------------------------------------------------------
 bool isAtBottom(ScrollController scrollController) {
   final bool _atTop =
       scrollController.offset == scrollController.position.maxScrollExtent;
   return _atTop;
 }
-
 // -----------------------------------------------------------------------------
 bool isGoingDown(ScrollController scrollController) {
   bool _goingDown;
@@ -45,17 +43,18 @@ bool isGoingDown(ScrollController scrollController) {
 
   return _goingDown;
 }
-
 // -----------------------------------------------------------------------------
 bool isGoingUp(ScrollController scrollController) {
   final bool _goingUp =
       scrollController.position.userScrollDirection == ScrollDirection.reverse;
   return _goingUp;
 }
-
 // -----------------------------------------------------------------------------
-bool isAtPercentFromTop(
-    {ScrollController scrollController, double percent, double maxHeight}) {
+bool isAtPercentFromTop({
+  ScrollController scrollController,
+  double percent,
+  double maxHeight,
+}) {
   final double _min = scrollController.position.minScrollExtent;
   final double _max = maxHeight; //scrollController.position.maxScrollExtent;
   final double _fraction = percent / 100;
@@ -65,7 +64,6 @@ bool isAtPercentFromTop(
 
   return _isAtTenPercentFromTop;
 }
-
 // -----------------------------------------------------------------------------
 bool canSlide({
   @required ScrollUpdateNotification details,
@@ -110,8 +108,8 @@ Future<void> scrollTo({
   );
   // }
 }
-
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> scrollToEnd({
   @required ScrollController controller,
 }) async {
@@ -125,3 +123,16 @@ Future<void> scrollToEnd({
 
 }
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> scrollToTop({
+  @required ScrollController controller,
+}) async {
+
+  blog('scrolling to Top of scroll controller ${controller.position.maxScrollExtent}');
+
+  await controller.animateTo(controller.position.minScrollExtent,
+    duration: Ratioz.durationSliding400,
+    curve: Curves.easeInOutCirc,
+  );
+
+}
