@@ -19,6 +19,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
@@ -288,7 +289,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               controller: _scrollController,
               children: <Widget>[
 
-
                 /// PARAGRAPH
                 WidgetFader(
                   fadeType: FadeType.fadeIn,
@@ -307,17 +307,31 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 /// DO SOMETHING
                 WideButton(
                     color: Colorz.red255,
-                    verse: 'GET THE IMAGE THING',
+                    verse: 'GET THE IMAGE THINGy',
                     icon: Iconz.dvGouran,
                     onTap: () async {
 
-                      final String _url = '';
+                      const String _url = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/notesBanners%2F1654159842665023.jpg?alt=media&token=cf0e2f0a-e3c5-492e-9f44-bb7217bd20fd';
 
-                      /// do somthing;
+                      _thePic.value = _url;
 
-                      final String _fileName = '';
+                      final String _with = await Storage.getImageNameByURL(
+                        url: _url,
+                        context: context,
+                        withExtension: true,
+                      );
 
-                      blog('file name is : ( $_fileName )');
+                      final String _without = await Storage.getImageNameByURL(
+                        url: _url,
+                        context: context,
+                        withExtension: false,
+                      );
+
+
+                      // final String _fileName = '';
+                      blog('file name is : _with : ( $_with )');
+                      blog('file name is : _without : ( $_without )');
+
                     }
                     ),
 
