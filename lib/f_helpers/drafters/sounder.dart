@@ -35,10 +35,28 @@ class Sounder  {
   /// PLAY ASSET
 
 // ---------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> playAssetSound(String asset) async {
     final AudioPlayer _audioPlayer = _getPlayer();
     await _audioPlayer.setAsset(asset);
     await _audioPlayer.play();
+  }
+// ---------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> playButtonClick() async {
+
+    const List<String> _sounds = <String>[
+      click_a,
+      click_b,
+      click_c,
+    ];
+
+    final int _index = Numeric.createRandomIndex(
+        listLength: _sounds.length,
+    );
+
+    await playAssetSound(_sounds[_index]);
+
   }
 // -----------------------------------------------------------------------------
 
@@ -49,6 +67,13 @@ class Sounder  {
 // -------------------------------------
   static const String whip_high = '$_soundsPath/whip_high.mp3' ;
   static const String whip_long = '$_soundsPath/whip_long.mp3' ;
+
+  static const String zip = '$_soundsPath/zip.mp3' ;
+  static const String click_a = '$_soundsPath/click_a.mp3' ;
+  static const String click_b = '$_soundsPath/click_b.mp3' ;
+  static const String click_c = '$_soundsPath/click_c.mp3' ;
+
+  static const String bldrs_intro = '$_soundsPath/bldrs_intro.mp3' ;
 // -----------------------------------------------------------------------------
 
   /// FCM SOUNDS
