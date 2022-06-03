@@ -123,6 +123,28 @@ Future<List<NoteModel>> paginateAllReceivedNotes({
 /// AUTHORSHIP NOTES PAGINATION
 
 // -----------------------------------
+List<FireFinder> generatePendingSentAuthorshipNotesFireFinder({
+  @required String senderID,
+}){
+  return <FireFinder>[
+    FireFinder(
+      field: 'senderID',
+      comparison: FireComparison.equalTo,
+      value: senderID,
+    ),
+    FireFinder(
+      field: 'noteType',
+      comparison: FireComparison.equalTo,
+      value: NoteModel.cipherNoteType(NoteType.authorship),
+    ),
+    FireFinder(
+      field: 'seen',
+      comparison: FireComparison.equalTo,
+      value: false,
+    ),
+  ];
+}
+// -----------------------------------
 Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
   @required BuildContext context,
   @required String senderID,
@@ -142,23 +164,9 @@ Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
       addDocsIDs: true,
       orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
       startAfter: startAfter,
-      finders: <FireFinder>[
-        FireFinder(
-          field: 'senderID',
-          comparison: FireComparison.equalTo,
-          value: senderID,
-        ),
-        FireFinder(
-          field: 'noteType',
-          comparison: FireComparison.equalTo,
-          value: NoteModel.cipherNoteType(NoteType.authorship),
-        ),
-        FireFinder(
-          field: 'seen',
-          comparison: FireComparison.equalTo,
-          value: false,
-        ),
-      ],
+      finders: generatePendingSentAuthorshipNotesFireFinder(
+        senderID: senderID,
+      ),
     );
 
     if (Mapper.canLoopList(_maps) == true){

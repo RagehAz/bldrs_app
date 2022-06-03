@@ -2,15 +2,12 @@ import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
-import 'package:bldrs/b_views/x_screens/h_notifications/g_1_notifications_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> allRoutes(RouteSettings settings) {
-  /// TASK : check passing arguments inside Routerer
-  // final _arg = settings.arguments;
 
   switch (settings.name) {
 
@@ -35,10 +32,10 @@ Route<dynamic> allRoutes(RouteSettings settings) {
       return Nav.slideToScreen(const SavedFlyersScreen(), settings);
       break;
 // -----------------------------------------------------------------------------
-    /// s13
-    case Routez.news:
-      return Nav.slideToScreen(const NotificationsScreen(), settings);
-      break;
+//     /// s13
+//     case Routez.news:
+//       return Nav.slideToScreen(const NotificationsScreen(), settings);
+//       break;
 // -----------------------------------------------------------------------------
 //     /// s14
 //       case Routez.More:

@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/author_card_details.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/author_label.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_details.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -87,7 +87,7 @@ class AuthorCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            AuthorPic(
+            AuthorPicInBzPage(
               width: authorPicSize,
               authorPic: author.pic,
               cornerOverride: 15,
