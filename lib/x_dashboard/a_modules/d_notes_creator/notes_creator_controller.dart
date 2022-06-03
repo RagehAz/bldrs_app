@@ -26,7 +26,9 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_bzz_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_users_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/template_notes_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -764,7 +766,6 @@ void _onClearAttachments({
 Future<void> onSendNote({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required ValueNotifier<UserModel> reciever,
   @required GlobalKey<FormState> formKey,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
@@ -781,7 +782,7 @@ Future<void> onSendNote({
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
       title: 'Send ?',
-      body: 'Do you want to confirm sending this notification to ${reciever.value.name}',
+      body: 'Do you want to confirm sending this notification to ${selectedReciever.value.name}',
       boolDialog: true,
     );
 
@@ -911,7 +912,7 @@ void _clearNote({
 }
 // -----------------------------------------------------------------------------
 
-/// DELETE NOTE
+/// DELETE NOTE (ALL NOTES PAGINATOR SCREEN)
 
 // -------------------------------
 Future<void> onDeleteNote({
@@ -978,3 +979,50 @@ Future<void> onDeleteNote({
 
 }
 // -----------------------------------------------------------------------------
+
+/// TEMPLATE NOTES
+
+// -------------------------------
+Future<void> onGoToNoteTemplatesScreen({
+  @required BuildContext context,
+  @required ValueNotifier<NoteModel> note,
+  @required TextEditingController titleController,
+  @required TextEditingController bodyController,
+  @required ValueNotifier<NoteSenderType> selectedSenderType,
+  @required ScrollController scrollController,
+  @required ValueNotifier<UserModel> selectedReciever,
+  @required ValueNotifier<dynamic> selectedSenderModel,
+}) async {
+
+  final NoteModel _templateNote = await Nav.goToNewScreen(
+    context: context,
+    screen: const TemplateNotesScreen(),
+    transitionType: PageTransitionType.rightToLeft,
+  );
+
+  if (_templateNote != null){
+
+    note.value = _templateNote;
+    titleController.text = _templateNote.title;
+    bodyController.text = _templateNote.body;
+    selectedSenderType.value = _templateNote.noteSenderType;
+    selectedReciever.value = null;
+    selectedSenderModel.value = null;
+
+    await Scrollers.scrollToTop(
+      controller: scrollController,
+    );
+
+  }
+
+}
+// -------------------------------
+Future<void> onSelectNoteTemplateTap({
+  @required BuildContext context,
+  @required NoteModel noteModel,
+}) async {
+
+  Nav.goBack(context, passedData: noteModel);
+
+}
+// -------------------------------

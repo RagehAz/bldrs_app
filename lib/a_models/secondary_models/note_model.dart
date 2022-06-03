@@ -81,7 +81,7 @@ class NoteModel {
   static const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
   static const String notiSound = 'default';
   static const String notiStatus = 'done';
-  static const String bldrsSenderID = 'bldrs';
+  static const String bldrsSenderID = 'Bldrs.net';
   static const dynamic defaultMetaData = <String, dynamic>{
     'click_action': 'FLUTTER_NOTIFICATION_CLICK',
     'sound': notiSound,
