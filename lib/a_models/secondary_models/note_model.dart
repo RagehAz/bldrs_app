@@ -73,11 +73,11 @@ class NoteModel {
   final DateTime responseTime;
   final List<String> buttons;
   final QueryDocumentSnapshot<Object> docSnapshot;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONSTANTS
 
-// -------------------------------------
+  // -------------------------------------
   static const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
   static const String notiSound = 'default';
   static const String notiStatus = 'done';
@@ -96,11 +96,11 @@ class NoteModel {
     'phid_accept',
     'phid_decline',
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -------------------------------------
+  // -------------------------------------
   NoteModel copyWith({
     String id,
     String senderID,
@@ -120,7 +120,7 @@ class NoteModel {
     dynamic response,
     DateTime responseTime,
     List<String> buttons,
-}){
+  }){
     return NoteModel(
       id: id ?? this.id,
       senderID: senderID ?? this.senderID,
@@ -141,12 +141,12 @@ class NoteModel {
       responseTime: responseTime ?? this.responseTime,
       buttons: buttons ?? this.buttons,
     );
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
-/// MODEL CYPHERS
+  /// MODEL CYPHERS
 
-// -------------------------------------
+  // -------------------------------------
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -170,7 +170,7 @@ class NoteModel {
       'buttons': buttons,
     };
   }
-// -------------------------------------
+  // -------------------------------------
   Map<String, dynamic> _cipherNotificationField(){
     return <String, dynamic>{
       'notification': <String, dynamic>{
@@ -180,7 +180,7 @@ class NoteModel {
       'data': metaData,
     };
   }
-// -------------------------------------
+  // -------------------------------------
   static NoteModel decipherNoteModel({
     @required dynamic map,
     @required bool fromJSON
@@ -230,7 +230,7 @@ class NoteModel {
 
     return _noti;
   }
-// -------------------------------------
+  // -------------------------------------
   static List<NoteModel> decipherNotesModels({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -251,7 +251,7 @@ class NoteModel {
 
     return _notesModels;
   }
-// -------------------------------------
+  // -------------------------------------
   static List<NoteModel> getNotesModelsFromSnapshot(DocumentSnapshot<Object> doc) {
     final Object _maps = doc.data();
     final List<NoteModel> _notiModels = decipherNotesModels(
@@ -260,11 +260,11 @@ class NoteModel {
     );
     return _notiModels;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// NOTE TYPE CYPHERS
 
-// -------------------------------------
+  // -------------------------------------
   static String cipherNoteType(NoteType noteType){
     switch(noteType){
       case NoteType.authorship:   return 'authorship';    break;
@@ -272,7 +272,7 @@ class NoteModel {
       default : return null;
     }
   }
-// -------------------------------------
+  // -------------------------------------
   static NoteType decipherNoteType(String noteType){
     switch(noteType){
       case 'authorship': return NoteType.authorship;      break;
@@ -285,15 +285,15 @@ class NoteModel {
     NoteType.announcement,
     NoteType.authorship,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ATTACHMENT TYPE CYPHERS
 
-// -------------------------------------
+  // -------------------------------------
   static dynamic decipherNoteAttachment({
-  @required NoteAttachmentType attachmentType,
-  @required dynamic attachment,
-}){
+    @required NoteAttachmentType attachmentType,
+    @required dynamic attachment,
+  }){
 
     dynamic _output;
 
@@ -316,9 +316,9 @@ class NoteModel {
       _output = attachment;
     }
 
-  return _output;
+    return _output;
   }
-// -------------------------------------
+  // -------------------------------------
   static NoteAttachmentType decipherNoteAttachmentType(String attachmentType) {
     switch (attachmentType) {
       case 'non':       return NoteAttachmentType.non;        break;
@@ -328,7 +328,7 @@ class NoteModel {
       default:          return NoteAttachmentType.non;
     }
   }
-// -------------------------------------
+  // -------------------------------------
   static String cipherNoteAttachmentType(NoteAttachmentType attachmentType) {
     switch (attachmentType) {
       case NoteAttachmentType.non:          return 'non';       break; /// data type : null
@@ -338,29 +338,29 @@ class NoteModel {
       default:return 'non';
     }
   }
-// -------------------------------------
+  // -------------------------------------
   static const List<NoteAttachmentType> noteAttachmentTypesList = <NoteAttachmentType>[
-      NoteAttachmentType.non,
-      NoteAttachmentType.flyersIDs,
-      NoteAttachmentType.imageURL,
-      NoteAttachmentType.bzID,
-    ];
-// -----------------------------------------------------------------------------
+    NoteAttachmentType.non,
+    NoteAttachmentType.flyersIDs,
+    NoteAttachmentType.imageURL,
+    NoteAttachmentType.bzID,
+  ];
+  // -----------------------------------------------------------------------------
 
   /// NOTE SENDER TYPE CYPHERS
 
-// -------------------------------------
+  // -------------------------------------
   static String cipherNoteSenderType(NoteSenderType type){
     switch (type) {
       case NoteSenderType.bz:           return 'bz';      break; /// data type : String bzID
-      // case NoteSenderType.author:       return 'author';  break; /// data type : String authorID
+    // case NoteSenderType.author:       return 'author';  break; /// data type : String authorID
       case NoteSenderType.user:         return 'user';    break; /// data type : String userID
       case NoteSenderType.country:      return 'country'; break; /// data type : String countryID
       case NoteSenderType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
       default:return 'non';
     }
   }
-// -------------------------------------
+  // -------------------------------------
   static NoteSenderType decipherNoteSenderType(String type){
     switch (type) {
       case 'bldrs':   return NoteSenderType.bldrs;    break;
@@ -371,7 +371,7 @@ class NoteModel {
       default:        return null;
     }
   }
-// -------------------------------------
+  // -------------------------------------
   static const List<NoteSenderType> noteSenderTypesList = <NoteSenderType>[
     NoteSenderType.bz,
     // NoteSenderType.author,
@@ -379,11 +379,11 @@ class NoteModel {
     NoteSenderType.country,
     NoteSenderType.bldrs,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -------------------------------------
+  // -------------------------------------
   void blogNoteModel({
     String methodName,
   }) {
@@ -411,7 +411,7 @@ class NoteModel {
 
     blog('BLOGGING NoteModel : $methodName -------------------------------- END -- ');
   }
-// -------------------------------------
+  // -------------------------------------
   static void blogNotes({
     @required List<NoteModel> notes,
     String methodName,
@@ -434,14 +434,14 @@ class NoteModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
-static List<String> getReceiversIDs({
-  @required List<NoteModel> notes,
-}){
+  // -------------------------------------
+  static List<String> getReceiversIDs({
+    @required List<NoteModel> notes,
+  }){
 
     final List<String> _output = <String>[];
 
@@ -454,12 +454,12 @@ static List<String> getReceiversIDs({
     }
 
     return _output;
-}
-// -------------------------------------
-static NoteModel getFirstNoteByRecieverID({
-  @required List<NoteModel> notes,
-  @required String receiverID,
-}){
+  }
+  // -------------------------------------
+  static NoteModel getFirstNoteByRecieverID({
+    @required List<NoteModel> notes,
+    @required String receiverID,
+  }){
 
     NoteModel _output;
 
@@ -473,22 +473,22 @@ static NoteModel getFirstNoteByRecieverID({
     }
 
     return _output;
-}
-// -------------------------------------
-static int getNumberOfUnseenNotes(List<NoteModel> notes){
+  }
+  // -------------------------------------
+  static int getNumberOfUnseenNotes(List<NoteModel> notes){
     int _count;
     if (Mapper.canLoopList(notes) == true){
       final List<NoteModel> _unSeens = notes.where((note) => note.seen != true).toList();
       _count = _unSeens.length;
     }
     return _count;
-}
-// -------------------------------------
-static List<String> getMissingNoteFields({
-  @required NoteModel note,
-  /// if consider all fields is false, this will get only fields required to send a note
-  @required bool considerAllFields,
-}){
+  }
+  // -------------------------------------
+  static List<String> getMissingNoteFields({
+    @required NoteModel note,
+    /// if consider all fields is false, this will get only fields required to send a note
+    @required bool considerAllFields,
+  }){
     List<String> _missingFields;
 
     if (note != null){
@@ -575,13 +575,13 @@ static List<String> getMissingNoteFields({
     }
 
     return _missingFields;
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
-static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
+  // -------------------------------------
+  static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     bool _thereAreUnseenNotes = false;
 
     if (Mapper.canLoopList(notes) == true){
@@ -598,9 +598,9 @@ static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     }
 
     return _thereAreUnseenNotes;
-}
-// -------------------------------------
-static bool checkCanSendNote(NoteModel noteModel){
+  }
+  // -------------------------------------
+  static bool checkCanSendNote(NoteModel noteModel){
     bool _canSend = false;
 
     if (noteModel != null){
@@ -608,19 +608,19 @@ static bool checkCanSendNote(NoteModel noteModel){
       if (
       // noteModel.id != null &&
       noteModel.senderID != null &&
-      noteModel.senderImageURL != null &&
-      noteModel.noteSenderType != null &&
-      noteModel.receiverID != null &&
-      noteModel.title != null &&
-      noteModel.body != null &&
-      noteModel.metaData != null &&
-      noteModel.sentTime != null &&
-      // noteModel.attachment != null &&
-      // noteModel.attachmentType != null &&
-      // noteModel.seen != null &&
-      // noteModel.seenTime != null &&
-      noteModel.sendFCM != null &&
-      noteModel.noteType != null
+          noteModel.senderImageURL != null &&
+          noteModel.noteSenderType != null &&
+          noteModel.receiverID != null &&
+          noteModel.title != null &&
+          noteModel.body != null &&
+          noteModel.metaData != null &&
+          noteModel.sentTime != null &&
+          // noteModel.attachment != null &&
+          // noteModel.attachmentType != null &&
+          // noteModel.seen != null &&
+          // noteModel.seenTime != null &&
+          noteModel.sendFCM != null &&
+          noteModel.noteType != null
       // && noteModel.response != null &&
       // noteModel.responseTime != null &&
       // noteModel.buttons != null
@@ -631,17 +631,91 @@ static bool checkCanSendNote(NoteModel noteModel){
     }
 
     return _canSend;
-}
-// -----------------------------------------------------------------------------
+  }
+  // -------------------------------------
+  /// TASK : NEED TEST
+  static bool checkNotesAreTheSame({
+    @required NoteModel note1,
+    @required NoteModel note2,
+  }){
+    bool _areTheSame = false;
+
+    if (note1 != null && note2 != null){
+
+      if (
+      note1.id == note2.id &&
+          note1.senderID == note2.senderID &&
+          note1.senderImageURL == note2.senderImageURL &&
+          note1.noteSenderType == note2.noteSenderType &&
+          note1.receiverID == note2.receiverID &&
+          note1.title == note2.title &&
+          note1.body == note2.body &&
+          Mapper.mapsAreTheSame(map1: note1.metaData, map2: note2.metaData) == true &&
+          Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: note1.sentTime, timeB: note2.sentTime) &&
+          note1.attachment == note2.attachment &&
+          note1.attachmentType == note2.attachmentType &&
+          note1.seen == note2.seen &&
+          Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: note1.seenTime, timeB: note2.seenTime) &&
+          note1.sendFCM == note2.sendFCM &&
+          note1.noteType == note2.noteType &&
+          note1.response == note2.response &&
+          Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: note1.responseTime, timeB: note2.responseTime) &&
+          Mapper.listsAreTheSame(list1: note1.buttons, list2: note2.buttons)
+      ){
+        _areTheSame = true;
+      }
+
+    }
+
+    return _areTheSame;
+  }
+  // -------------------------------------
+  /// TASK : NEED TEST
+  static bool checkNotesListsAreTheSame({
+    @required List<NoteModel> notes1,
+    @required List<NoteModel> notes2,
+  }){
+    bool _areTheSame = true;
+
+    if (Mapper.canLoopList(notes1) == true && Mapper.canLoopList(notes2) == true){
+
+      if (notes1.length != notes2.length){
+        _areTheSame = false;
+      }
+
+      else {
+        for (int i = 0; i < notes1.length; i++){
+
+          final note1 = notes1[i];
+          final note2 = notes2[i];
+
+          final bool _theSame = checkNotesAreTheSame(
+              note1: note1,
+              note2: note2
+          );
+
+          if (_theSame == false){
+            _areTheSame = false;
+            break;
+          }
+
+        }
+      }
+
+    }
+
+    return _areTheSame;
+  }
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// -------------------------------------
+  // -------------------------------------
   /// TESTED : WORKS PERFECT
-static List<NoteModel> removeNoteFromNotes({
-  @required List<NoteModel> notes,
-  @required NoteModel noteModel,
-}){
+  static List<NoteModel> removeNoteFromNotes({
+    @required List<NoteModel> notes,
+    @required NoteModel noteModel,
+  }){
 
     final List<NoteModel> _output = notes == null ?
     <NoteModel>[]
@@ -664,7 +738,7 @@ static List<NoteModel> removeNoteFromNotes({
     // blog('removeNoteFromNotes : notes : ${_output.length}');
 
     return _output;
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 // import 'package:bldrs/a_models/bz/bz_model.dart';
 // import 'package:bldrs/a_models/zone/city_model.dart';
 // import 'package:bldrs/a_models/zone/country_model.dart';
-// import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/author_label.dart';
+// import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/author_bubble/old_author_label.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/header_parts/old_bz_label.dart';
 // import 'package:bldrs/f_helpers/theme/ratioz.dart';
 // import 'package:flutter/material.dart';
