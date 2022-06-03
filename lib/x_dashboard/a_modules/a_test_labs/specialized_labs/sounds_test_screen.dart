@@ -1,9 +1,11 @@
-// import 'package:audioplayers/audio_cache.dart';
-// import 'package:audioplayers/audioplayers.dart';
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:audio_session/audio_session.dart';
 
 // typedef void OnError(Exception exception);
 //
@@ -139,6 +141,7 @@ class SoundsTestScreen extends StatefulWidget {
 }
 
 class _SoundsTestScreenState extends State<SoundsTestScreen> {
+  final AudioPlayer _player = AudioPlayer();
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -154,7 +157,7 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
   @override
   void initState() {
     super.initState();
-
+    // _init();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -178,20 +181,58 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
   void dispose() {
     super.dispose();
     _loading.dispose();
+    _player.dispose();
   }
 // -----------------------------------------------------------------------------
-  void initPlayer() {
-    // advancedPlayer = new AudioPlayer();
-    // audioCache = new AudioCache(fixedPlayer: advancedPlayer);
-    //
-    // advancedPlayer.durationHandler = (d) => setState(() {
-    //   _duration = d;
-    // });
-    //
-    // advancedPlayer.positionHandler = (p) => setState(() {
-    //   _position = p;
-    // });
+  Future<void> _init() async {
+
+    /// Inform the operating system of our app's audio attributes etc.
+    /// We pick a reasonable default for an app that plays speech.
+    final session = await AudioSession.instance;
+    await session.configure(const AudioSessionConfiguration.speech());
+
+    /// Listen to errors during playback.
+    _player.playbackEventStream.listen((event) {},
+        onError: (Object e, StackTrace stackTrace) {
+          blog('A stream error occurred: $e');
+        });
+
+    /// Try to load audio from a source and catch any errors.
+    await tryAndCatch(
+      context: context,
+      methodName: 'init sounds',
+      functions: () async {
+
+        // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
+        const String _url = 'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
+        final Uri _uri = Uri.parse(_url);
+        final AudioSource _audioSource = AudioSource.uri(_uri);
+        await _player.setAudioSource(_audioSource);
+
+      }
+    );
+
   }
+// -----------------------------------------------------------------------------
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      // Release the player's resources when not in use. We use "stop" so that
+      // if the app resumes later, it will still remember what position to
+      // resume from.
+      _player.stop();
+    }
+  }
+// -----------------------------------------------------------------------------
+  /*
+  Stream<PositionData> get _positionDataStream =>
+      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+          _player.positionStream,
+          _player.bufferedPositionStream,
+          _player.durationStream,
+              (position, bufferedPosition, duration) => PositionData(
+              position, bufferedPosition, duration ?? Duration.zero));
+   */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -202,13 +243,37 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
 
           WideButton(
             verse: 'The Voice',
-            onTap: (){
+            onTap: () async {
+
               blog('fuck the voice');
+              await _player.setAsset(Sounder.whip_long);
+              await _player.play();
+              blog('fucker ended');
+
             },
           ),
+
+
+          WideButton(
+            verse: 'SIGLETOZ',
+            onTap: () async {
+
+              // final AudioPlayer _audioPlayer = AudioPlayer();
+              //
+              // blog('fuck the voice');
+              // await _audioPlayer.setAsset(Soundz.whip_long);
+              // await _audioPlayer.play();
+              // blog('fucker ended');
+
+              await Sounder.playAssetSound(Sounder.whip_long);
+
+            },
+          ),
+
 
         ],
     );
 
   }
+
 }

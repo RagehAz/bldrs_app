@@ -9,10 +9,10 @@ import 'package:bldrs/c_controllers/notes_controllers/fcm_controller.dart';
 import 'package:bldrs/c_controllers/notes_controllers/fcm_controller.dart' as FCMOps;
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/drafters/sounds.dart' as Audioz;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/second_noti_test_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -201,7 +201,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   Future<void> _multiFlickerPyramids() async {
     await _flickerPyramids();
 
-    final String _audio = Audioz.randomBldrsNameSoundPath();
+    final String _audio = Sounder.randomBldrsNameSoundPath();
     blog(_audio);
   }
 
