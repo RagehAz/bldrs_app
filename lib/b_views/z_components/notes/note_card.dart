@@ -11,7 +11,6 @@ import 'package:bldrs/c_controllers/notes_controllers/notes_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -22,13 +21,15 @@ class NoteCard extends StatelessWidget {
   const NoteCard({
     @required this.noteModel,
     @required this.isDraftNote,
-    this.onTap,
+    this.onNoteOptionsTap,
+    this.onCardTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel noteModel;
   final bool isDraftNote;
-  final Function onTap;
+  final Function onNoteOptionsTap;
+  final Function onCardTap;
   /// --------------------------------------------------------------------------
   static double bubbleWidth(BuildContext context) {
     return Bubble.defaultWidth(context);
@@ -40,16 +41,12 @@ class NoteCard extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static const double bannerCorners = Bubble.cornersValue - Ratioz.appBarMargin;
 // -----------------------------------------------------------------------------
-  void _onBubbleTap() {
-    blog('_onBubbleTap : noti id is : ${noteModel.id} : ${noteModel.sentTime} : dif : ${Timers.getTimeDifferenceInSeconds(from: noteModel.sentTime, to: DateTime.now())}');
-  }
-// -----------------------------------------------------------------------------
   Future<void> _onNoteOptionsTap({
     @required BuildContext context,
   }) async {
 
-    if (onTap != null){
-      onTap();
+    if (onNoteOptionsTap != null){
+      onNoteOptionsTap();
     }
 
     else {
@@ -88,7 +85,7 @@ class NoteCard extends StatelessWidget {
           horizontal: Ratioz.appBarMargin,
           vertical: Ratioz.appBarPadding,
       ),
-      onBubbleTap: _noteHasButtons ? null : _onBubbleTap,
+      onBubbleTap: _noteHasButtons ? null : onCardTap,
       bubbleColor: noteModel?.seen == true ? Colorz.white10 : Colorz.yellow10,
       columnChildren: <Widget>[
 

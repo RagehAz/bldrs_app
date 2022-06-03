@@ -29,7 +29,6 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/components/note_sender_dynamic_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/all_notes_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/template_notes_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
 import 'package:bldrs/x_dashboard/b_widgets/user_button.dart';
 import 'package:flutter/material.dart';
@@ -152,9 +151,15 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
         AppBarButton(
           verse: 'Templates',
-          onTap: () => Nav.goToNewScreen(
+          onTap: () => onGoToNoteTemplatesScreen(
             context: context,
-            screen: const TemplateNotesScreen(),
+            scrollController: _scrollController,
+            selectedReciever: _selectedReciever,
+            selectedSenderType: _selectedSenderType,
+            selectedSenderModel: _selectedSenderModel,
+            note: _note,
+            bodyController: _bodyController,
+            titleController: _titleController,
           ),
         ),
 
@@ -673,7 +678,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                               onTap: () => onSendNote(
                                 context: context,
                                 note: _note,
-                                reciever: _selectedReciever,
                                 formKey: _formKey,
                                 titleController: _titleController,
                                 bodyController: _bodyController,
