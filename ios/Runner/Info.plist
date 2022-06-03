@@ -31,7 +31,7 @@
 	<key>NSContactsUsageDescription</key>
     <string>Allow access to your contacts.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow access to Microphone.</string>
+	<string>Allow access to Microphone to be able to record voice notes.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow access to Photo Library.</string>
 	<key>UILaunchStoryboardName</key>
