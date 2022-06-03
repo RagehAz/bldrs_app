@@ -1,6 +1,7 @@
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 class SlideShadow extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -13,15 +14,22 @@ class SlideShadow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return Container(
+
+    final double _height = FlyerBox.height(context, flyerBoxWidth);
+
+    return SizedBox(
       key: const ValueKey<String>('SlideShadow'),
       width: flyerBoxWidth,
-      height: flyerBoxWidth * 0.6,
-      decoration: BoxDecoration(
-        borderRadius: Borderers.superHeaderShadowCorners(context, flyerBoxWidth),
-        gradient: Colorizer.superSlideGradient(),
-
-        /// TASK : can optimize this by adding svg instead
+      height: _height,
+      // decoration: BoxDecoration(
+      //   borderRadius: Borderers.superHeaderShadowCorners(context, flyerBoxWidth),
+      // ),
+      // alignment: Alignment.topCenter,
+      child: WebsafeSvg.asset(
+        Iconz.headerShadow,
+        fit: BoxFit.cover,
+        width: flyerBoxWidth,
+        height: _height,
       ),
     );
   }

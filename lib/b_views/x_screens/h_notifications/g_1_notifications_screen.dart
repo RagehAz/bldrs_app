@@ -92,8 +92,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
 // -----------------------------------------------------------------------------
   Future<void> _dismissNotification({String id, int notiModelsLength}) async {
-    blog(
-        'removing noti with id : $id ---------------------------------------------------------------------------------xxxxx ');
+    blog('removing noti with id : $id ---------------------------------------------------------------------------------xxxxx ');
 
     await Fire.updateSubDocField(
       context: context,

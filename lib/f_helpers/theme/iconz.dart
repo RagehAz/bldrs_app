@@ -9,6 +9,8 @@
   const String bldrsAppIcon = '$_artworkPath/aw_bldrs_app_icon.png' ;
   const String whiteGradient = '$_artworkPath/white_gradient.svg';
   const String blackGradient = '$_artworkPath/black_gradient.svg';
+  const String headerShadow = '$_artworkPath/header_shadow.svg';
+  const String footerShadow = '$_artworkPath/footer_shadow.svg';
 
   const String welcomeToBldrsBanner_22x18 = '$_artworkPath/welcome.svg'; /// w22 * h18
   // -----------------------------------------------------------------------------
