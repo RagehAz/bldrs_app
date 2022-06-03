@@ -55,6 +55,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final ValueNotifier<dynamic> _selectedSenderModel = ValueNotifier<dynamic>(NoteModel.bldrsSenderModel);
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -102,6 +103,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     _selectedSenderModel.dispose();
     _titleController.dispose();
     _bodyController.dispose();
+    _scrollController.dispose();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -163,6 +165,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           Form(
             key: _formKey,
             child: ListView(
+              controller: _scrollController,
               padding: Stratosphere.stratosphereInsets,
               physics: const BouncingScrollPhysics(),
               children:  <Widget>[
@@ -677,6 +680,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                 selectedReciever: _selectedReciever,
                                 selectedSenderType: _selectedSenderType,
                                 selectedSenderModel: _selectedSenderModel,
+                                scrollController: _scrollController,
                               ),
                             ),
 

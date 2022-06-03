@@ -13,6 +13,7 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 
 /// FIREBASE STORAGE METHODS
 
@@ -38,6 +39,7 @@ Reference getRef({
   return _ref;
 }
 // ------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<Reference> getRefFromURL({
   @required String url,
   @required BuildContext context,
@@ -304,11 +306,11 @@ Future<String> createStoragePicFromLocalAssetAndGetURL({
 }
 // -----------------------------------------------------------------------------
 
-/// READ
+/// READ (GETTERS)
 
 // ------------------------------------------------
 /// TESTED : WORKS PERFECT : NOTE : use picName without file extension
-Future<String> readStoragePicURL({
+Future<String> getImageURLByPath({
   @required BuildContext context,
   @required String docName,
   @required String picName,
@@ -333,7 +335,8 @@ Future<String> readStoragePicURL({
   return _url;
 }
 // ------------------------------------------------
-Future<File> getFileFromPicURL({
+/// TESTED : WORKS PERFECT
+Future<File> getImageFileByURL({
   @required BuildContext context,
   @required String url,
 }) async {
@@ -361,7 +364,7 @@ Future<File> getFileFromPicURL({
   return _file;
 }
 // ------------------------------------------------
-Future<File> getFileByPath({
+Future<File> getImageFileByPath({
   @required BuildContext context,
   @required String docName,
   @required String picName,
@@ -397,6 +400,29 @@ Future<File> getFileByPath({
   }
 
   return _file;
+}
+// ------------------------------------------------
+/// TESTED : WORKS PERFECT
+Future<String> getImageNameByURL({
+  @required BuildContext context,
+  @required String url,
+  @required bool withExtension,
+}) async {
+
+  final Reference _ref = await getRefFromURL(
+    context: context,
+    url: url,
+  );
+
+  /// NAME WITH EXTENSION
+  String _output = _ref.name;
+
+  /// WITHOUT EXTENSION
+  if (withExtension == false){
+    _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '.');
+  }
+
+  return _output;
 }
 // -----------------------------------------------------------------------------
 
@@ -473,6 +499,7 @@ Future<String> createOrUpdatePic({
 /// DELETE
 
 // ------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteStoragePic({
   @required BuildContext context,
   @required String docName,
@@ -490,23 +517,23 @@ Future<void> deleteStoragePic({
             picName: picName,
         );
 
-        blog('pic ref : $_picRef');
+        // blog('pic ref : $_picRef');
+        // final FullMetadata _metaData = await _picRef?.getMetadata();
+        // blogFullMetaData(_metaData);
 
-
-        final FullMetadata _metaData = await _picRef?.getMetadata();
-
-        blogFullMetaData(_metaData);
-
-        // await _picRef?.delete();
+        await _picRef?.delete();
       },
     onError: (String error) async {
 
-        // const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
-        // if (error == _noImageError){
-        //
-        //   blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $docName : picName : $picName');
-        //
-        // }
+        const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
+        if (error == _noImageError){
+
+          blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $docName : picName : $picName');
+
+        }
+        else {
+          blog('deleteStoragePic : error : $error');
+        }
 
     }
     );
@@ -522,7 +549,7 @@ Future<void> deleteStoragePic({
 }
 // -----------------------------------------------------------------------------
 
-/// BLOGGING
+/// CHECKER
 
 // ------------------------------------------------
 /*
@@ -579,6 +606,7 @@ Future<bool> storageImageExist({
 /// BLOGGING
 
 // ------------------------------------------------
+/// TESTED : WORKS PERFECT
 void blogFullMetaData(FullMetadata metaData){
 
   blog('BLOGGING STORAGE IMAGE META DATA ------------------------------- START');
@@ -600,5 +628,20 @@ void blogFullMetaData(FullMetadata metaData){
   blog('updated : ${metaData.updated}'); // date time
   blog('BLOGGING STORAGE IMAGE META DATA ------------------------------- END');
 
+}
+// ------------------------------------------------
+/// TESTED : WORKS PERFECT
+void blogReference(Reference ref){
+  blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- START');
+
+  blog('name : ${ref.name}');
+  blog('fullPath : ${ref.fullPath}');
+  blog('bucket : ${ref.bucket}');
+  blog('hashCode : ${ref.hashCode}');
+  blog('parent : ${ref.parent}');
+  blog('root : ${ref.root}');
+  blog('storage : ${ref.storage}');
+
+  blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- END');
 }
 // -----------------------------------------------------------------------------
