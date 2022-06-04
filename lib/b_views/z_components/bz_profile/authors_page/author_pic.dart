@@ -18,7 +18,6 @@ class AuthorPicInBzPage extends StatelessWidget {
     this.cornerOverride,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final bool isAddAuthorButton;
   final double width;

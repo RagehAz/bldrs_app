@@ -11,6 +11,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +51,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     _initStreamListener(_stream);
 
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose();
@@ -68,9 +69,12 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
         notes2: notesFromStream,
       );
 
+        // setState(() {
+          _streamedNotes = notesFromStream;
+        // });
+
       if (_notesListsAreTheSame == false){
         blog('_handleStreamedNotes : note have changed baby and we could fucking catch that change');
-        _streamedNotes = notesFromStream;
       }
       else {
         blog('_handleStreamedNotes : notes are the same : very weird');
@@ -79,7 +83,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     }
 
   }
-
+// -----------------------------------------------------------------------------
   void _initStreamListener(Stream stream){
 
     _sub = stream.listen((dynamic data) {
@@ -102,26 +106,25 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
 
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 
-
-
     return noteStreamBuilder(
-        context: context,
-        stream: _stream,
-        builder: (_, List<NoteModel> notes){
+      context: context,
+      stream: _stream,
+      builder: (_, List<NoteModel> notes){
 
+        if (Mapper.canLoopList(notes) == true){
           return Bubble(
             title: 'Pending Invitation requests',
             width: BldrsAppBar.width(context),
+            onBubbleTap: (){
+              NoteModel.blogNotes(notes: _streamedNotes);
+            },
             columnChildren: <Widget>[
 
               ...List.generate(notes.length, (index){
-
                 final NoteModel _noteModel = notes[index];
-
                 return FutureUserTileButton(
                   boxWidth: Bubble.clearWidth(context),
                   userID: _noteModel.receiverID,
@@ -150,18 +153,65 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
                       );
 
                     }
-
                   },
                 );
-
               }),
 
             ],
           );
+        }
 
-    },
+        else {
+          return const SizedBox();
+        }
+
+        },
     );
 
   }
 
 }
+
+/// old pending notes with provider and pagination
+// Consumer<NotesProvider>(
+//   builder: (BuildContext ctx, NotesProvider notesProvider, Widget child) {
+//
+//     final List<UserModel> _notesUsers = notesProvider.pendingSentAuthorshipUsers;
+//     final List<NoteModel> _notes = notesProvider.pendingSentAuthorshipNotes;
+//
+//     if (Mapper.canLoopList(_notesUsers) == false){
+//       return const SizedBox();
+//     }
+//
+//     else {
+//
+//       return Bubble(
+//         title: 'Pending Invitation requests',
+//         width: BldrsAppBar.width(context),
+//         columnChildren: <Widget>[
+//
+//           ...List.generate(_notesUsers.length, (index){
+//
+//             final UserModel _userModel = _notesUsers[index];
+//             return UserTileButton(
+//               boxWidth: Bubble.clearWidth(context),
+//               userModel: _userModel,
+//               color: Colorz.white10,
+//               bubble: false,
+//               sideButton: 'Cancel',
+//               onSideButtonTap: () => cancelSentAuthorshipInvitation(
+//                 context: context,
+//                 receiverID: _userModel.id,
+//                 pendingNotes: _notes,
+//               ),
+//             );
+//
+//           }),
+//
+//         ],
+//       );
+//
+//     }
+//
+//   },
+// ),

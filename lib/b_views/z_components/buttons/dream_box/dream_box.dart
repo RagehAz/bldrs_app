@@ -56,6 +56,7 @@ class DreamBox extends StatelessWidget {
     this.secondLineScaleFactor = 1,
     this.loading = false,
     this.iconBackgroundColor,
+    this.onDeactivatedTap,
     Key key,
   }) : super(key: key);
 
@@ -102,6 +103,7 @@ class DreamBox extends StatelessWidget {
   final double secondLineScaleFactor;
   final bool loading;
   final Color iconBackgroundColor;
+  final Function onDeactivatedTap;
   /// --------------------------------------------------------------------------
   static Color getIconColor({
     bool blackAndWhite = false,
@@ -355,7 +357,7 @@ class DreamBox extends StatelessWidget {
             ),
 
           /// --- RIPPLE & TAP LAYER
-          if (onTap != null && isDeactivated == false)
+          if (onTap != null || onDeactivatedTap != null)
             DreamBoxTapLayer(
                 key: const ValueKey<String>('DreamBoxTapLayer'),
                 width: width,
@@ -365,7 +367,8 @@ class DreamBox extends StatelessWidget {
                 onTapUp: onTapUp,
                 onTapDown: onTapDown,
                 onTapCancel: onTapCancel,
-                deactivated: isDeactivated
+                deactivated: isDeactivated,
+                onDeactivatedTap: onDeactivatedTap,
             ),
 
         ],

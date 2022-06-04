@@ -232,6 +232,7 @@ Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
 /// STREAMING
 
 // -----------------------------------
+/// TESTED : WORKS PERFECT
 Widget noteStreamBuilder({
   @required BuildContext context,
   @required NotiModelsWidgetsBuilder builder,
@@ -260,7 +261,7 @@ Widget noteStreamBuilder({
     },
   );
 }
-// -----------------------------------------------------------------------------
+// -----------------------------------
 /// TESTED : WORKS PERFECT
 Stream<List<NoteModel>> getNoteModelsStream({
   @required BuildContext context,
@@ -308,7 +309,8 @@ Stream<List<NoteModel>> getNoteModelsStream({
 
   return _notiModelsStream;
 }
-// -----------------------------------------------------------------------------
+// -----------------------------------
+/// TESTED : WORKS PERFECT
 typedef NotiModelsWidgetsBuilder = Widget Function(
     BuildContext context,
     List<NoteModel> notiModels,

@@ -35,7 +35,7 @@ class BalloonTypesScreen extends StatelessWidget {
 
             return Container(
               padding: Scale.superMargins(margins: 10),
-              margin: Scale.superInsets(context: context, enBottom: 2),
+              margin: Scale.superInsets(context: context, bottom: 2),
               decoration: BoxDecoration(
                 color: Colorz.white10,
                 borderRadius: Borderers.superBorderAll(context, 15),
