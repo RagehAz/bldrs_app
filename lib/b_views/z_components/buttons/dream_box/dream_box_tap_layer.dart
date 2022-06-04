@@ -16,6 +16,7 @@ class DreamBoxTapLayer extends StatelessWidget {
     @required this.onTapDown,
     @required this.onTapCancel,
     @required this.deactivated,
+    @required this.onDeactivatedTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,17 +28,27 @@ class DreamBoxTapLayer extends StatelessWidget {
   final Function onTapDown;
   final Function onTapCancel;
   final bool deactivated;
+  final Function onDeactivatedTap;
   /// --------------------------------------------------------------------------
   Future<void> _onTap(BuildContext context) async {
 
     unawaited(Sounder.playButtonClick());
-
     Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-    await Future.delayed(
-        const Duration(milliseconds: 200,),
-            () async { onTap(); }
-    );
+    if (deactivated == true){
+      if (onDeactivatedTap != null){
+        onDeactivatedTap();
+      }
+    }
+
+    else {
+      if (onTap != null){
+        await Future.delayed(
+            const Duration(milliseconds: 200,),
+                () async { onTap(); }
+        );
+      }
+    }
 
   }
 // -----------------------------------------------------------------------------
@@ -59,8 +70,8 @@ class DreamBoxTapLayer extends StatelessWidget {
               :
               (TapUpDetails details) => onTapUp(),
           child: InkWell(
-            splashColor: deactivated == true ? null : splashColor,
-            onTap: onTap == null ? null : () => _onTap(context),
+            splashColor: deactivated == true ? Colorz.white20 : splashColor,
+            onTap: onTap == null && onDeactivatedTap == null ? null : () => _onTap(context),
             onTapCancel: onTapCancel,
           ),
         ),

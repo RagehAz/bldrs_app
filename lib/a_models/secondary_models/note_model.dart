@@ -61,7 +61,7 @@ class NoteModel {
   final String receiverID;
   final String title; /// max 30 char
   final String body; /// max 80 char
-  final dynamic metaData;
+  final Map<String, dynamic> metaData;
   final DateTime sentTime; /// TASK : CREATE NEW FIREBASE QUERY INDEX
   final dynamic attachment;
   final NoteAttachmentType attachmentType;
@@ -632,8 +632,8 @@ class NoteModel {
 
     return _canSend;
   }
-  // -------------------------------------
-  /// TASK : NEED TEST
+  // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkNotesAreTheSame({
     @required NoteModel note1,
     @required NoteModel note2,
@@ -669,8 +669,8 @@ class NoteModel {
 
     return _areTheSame;
   }
-  // -------------------------------------
-  /// TASK : NEED TEST
+  // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkNotesListsAreTheSame({
     @required List<NoteModel> notes1,
     @required List<NoteModel> notes2,
@@ -740,5 +740,44 @@ class NoteModel {
     return _output;
   }
   // -----------------------------------------------------------------------------
+
+  /// DUMMIES
+
+  // -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static NoteModel dummyNote(){
+    return NoteModel(
+      id: 'id',
+      senderID: 'senderID',
+      senderImageURL: 'senderImageURL',
+      noteSenderType: NoteSenderType.bldrs,
+      receiverID: 'receiverID',
+      title: 'title',
+      body: 'body',
+      metaData: {'metaData' : 'thing'},
+      sentTime: Timers.createClock(hour: 12, minute: 10),
+      attachment: 'attachment',
+      attachmentType: NoteAttachmentType.bzID,
+      seen: true,
+      seenTime: Timers.createDate(year: 1950, month: 10, day: 6),
+      sendFCM: true,
+      noteType: NoteType.announcement,
+      response: 'response',
+      responseTime: Timers.createClock(hour: 10, minute: 50),
+      buttons: <String>['Fuck', 'You'],
+    );
+  }
+  // -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<NoteModel> dummyNotes(){
+
+    return <NoteModel>[
+      dummyNote(),
+      dummyNote(),
+      dummyNote(),
+    ];
+
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------

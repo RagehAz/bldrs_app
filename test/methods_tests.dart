@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.d
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
@@ -590,7 +591,6 @@ void main() {
 
   });
 // -----------------------------------------------------------------------------
-//listHasNullValue
   test('list has null value', () {
 
     final List<String> _list1 = <String>[
@@ -619,5 +619,42 @@ void main() {
     expect(_hasNull3, false);
 
   });
+// -----------------------------------------------------------------------------
+  test('notes are the same', () {
 
+    final NoteModel note1 = NoteModel.dummyNote().copyWith(seenTime: Timers.createDateTime(hour: 1,millisecond: 5, microsecond: 2));
+    final NoteModel note2 = NoteModel.dummyNote().copyWith(seenTime: Timers.createDateTime(hour: 1,millisecond: 5, microsecond: 2));
+
+    final bool _areTheSame = NoteModel.checkNotesAreTheSame(
+        note1: note1,
+        note2: note2,
+    );
+
+    expect(_areTheSame, true);
+
+  });
+// -----------------------------------------------------------------------------
+  test('notes Lists are the same', () {
+
+    final List<NoteModel> note1 = <NoteModel>[
+      NoteModel.dummyNote(),
+      NoteModel.dummyNote().copyWith(body: 'blah'),
+      NoteModel.dummyNote().copyWith(title: 'things'),
+    ];
+
+    final List<NoteModel> note2 = <NoteModel>[
+    NoteModel.dummyNote(),
+    NoteModel.dummyNote().copyWith(body: 'blah'),
+    NoteModel.dummyNote().copyWith(title: 'thing'),
+    ];
+
+    final bool _areTheSame = NoteModel.checkNotesListsAreTheSame(
+      notes1: note1,
+      notes2: note2,
+    );
+
+    expect(_areTheSame, false);
+
+  });
+// -----------------------------------------------------------------------------
 }
