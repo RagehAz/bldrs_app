@@ -180,9 +180,9 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
     _player.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _init() async {

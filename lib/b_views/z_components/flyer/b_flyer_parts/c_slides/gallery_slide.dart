@@ -87,7 +87,7 @@ class _GallerySlideState extends State<GallerySlide> {
     _scrollController.dispose();
     _loadedFlyers.dispose();
     _loading.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _addScrollListener() async {

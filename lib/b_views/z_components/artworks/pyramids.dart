@@ -42,7 +42,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
   @override
   void dispose() {
     _controller.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

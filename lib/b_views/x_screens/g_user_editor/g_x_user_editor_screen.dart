@@ -147,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _gender.dispose();
     _zone.dispose();
 
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
 

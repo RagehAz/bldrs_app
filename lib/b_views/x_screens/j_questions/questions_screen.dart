@@ -47,10 +47,10 @@ class _QScreenState extends State<QScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _currentQuestionsBzType.dispose();
     _questionsGridScrollController.dispose();
     _sliverNestedScrollController.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<BzType> _currentQuestionsBzType = ValueNotifier(BzType.developer); /// tamam disposed

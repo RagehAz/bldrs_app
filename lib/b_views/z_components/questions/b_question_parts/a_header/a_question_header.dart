@@ -94,8 +94,8 @@ class _QuestionHeaderState extends State<QuestionHeader> with SingleTickerProvid
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _animation.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
 

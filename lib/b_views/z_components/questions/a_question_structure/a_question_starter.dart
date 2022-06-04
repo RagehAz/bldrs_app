@@ -76,13 +76,13 @@ class _QuestionStarterState extends State<QuestionStarter> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
 
     // if (_currentSlideIndex != null){
     //   _currentSlideIndex.dispose();
     // }
 
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {

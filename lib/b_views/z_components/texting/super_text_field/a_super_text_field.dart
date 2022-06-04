@@ -326,7 +326,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-    super.dispose();
 
     if (widget.textController == null){
       _controller.dispose();
@@ -335,6 +334,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // _textLength.dispose();
     // _errors.dispose();
     _textDirection.dispose();
+
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   TextEditingController _initializeTextController(){

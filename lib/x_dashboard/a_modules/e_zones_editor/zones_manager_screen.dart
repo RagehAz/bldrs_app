@@ -73,11 +73,11 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
     _countries.dispose();
     _pageController.dispose();
     _scrollController.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _readMoreCountries() async {

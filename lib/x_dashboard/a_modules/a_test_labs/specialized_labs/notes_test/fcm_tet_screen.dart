@@ -127,7 +127,7 @@
 //   @override
 //   void dispose() {
 //     _stopWatchTimer.dispose();
-//     super.dispose();
+//     super.dispose(); /// tamam
 //   }
 //
 //   void _startCounter() {

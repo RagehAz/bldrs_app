@@ -83,9 +83,9 @@ class _SearchScreenState extends State<SearchScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _searchController.dispose();
     _scrollController.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSearchSubmit(String searchText) async {

@@ -214,18 +214,3 @@ class AuthorCard extends StatelessWidget {
 
   }
 }
-
-class Thing extends StatelessWidget {
-
-  const Thing({
-    @required this.onPressed,
-    Key key
-  }) : super(key: key);
-
-  final Function onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(onPressed: onPressed);
-  }
-}

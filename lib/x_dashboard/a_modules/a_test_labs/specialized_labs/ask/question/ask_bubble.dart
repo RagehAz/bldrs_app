@@ -90,7 +90,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     // if (textControllerHasNoValue(_askTitleController))_askTitleController.dispose();
     _bodyController.dispose();
     _titleController.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
   // ----------------------------------------------------------------------
   void textListener() {

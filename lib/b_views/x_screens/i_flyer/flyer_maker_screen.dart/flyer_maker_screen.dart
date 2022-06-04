@@ -55,11 +55,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-    super.dispose();
     _scrollController.dispose();
     _draftFlyer.dispose();
     // disposeControllerIfPossible(_headlineController);
     /// task : dispose draft slides text controllers
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

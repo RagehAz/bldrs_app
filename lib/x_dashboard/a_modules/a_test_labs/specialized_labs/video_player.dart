@@ -37,9 +37,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
-
 
   @override
   Widget build(BuildContext context) {

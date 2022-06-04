@@ -105,7 +105,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   void dispose() {
     _awesomeNotification.actionSink.close();
     _awesomeNotification.createdSink.close();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 
 // -----------------------------------------------------------------------------

@@ -50,7 +50,7 @@ class _SearchBarState extends State<SearchBar> {
       _searchTextController.dispose();
     }
 
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

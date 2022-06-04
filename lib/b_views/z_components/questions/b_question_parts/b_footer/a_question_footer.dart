@@ -52,7 +52,6 @@ class _QuestionFooterState extends State<QuestionFooter> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _infoPageVerticalController.dispose();
     _reviewPageVerticalController.dispose();
     _reviewTextController.dispose();
@@ -60,6 +59,7 @@ class _QuestionFooterState extends State<QuestionFooter> {
     _reviewButtonExpanded.dispose(); /// tamam disposed
     _canShowConvertibleReviewButton.dispose(); /// tamam disposed
     _isEditingReview.dispose(); /// tamam disposed
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _onShareQuestion(){
