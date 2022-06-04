@@ -360,6 +360,8 @@ class BottomDialog extends StatelessWidget {
     String icon,
     double height = wideButtonHeight,
     bool verseCentered = false,
+    bool isDeactivated = false,
+    Function onDeactivatedTap,
   }) {
 
     return DreamBox(
@@ -374,6 +376,8 @@ class BottomDialog extends StatelessWidget {
       verseCentered: verseCentered,
       verseMaxLines: 2,
       onTap: onTap,
+      isDeactivated: isDeactivated,
+      onDeactivatedTap: onDeactivatedTap,
     );
 
   }

@@ -410,7 +410,8 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
 /// CREATORS
 
-// -------------------------------------
+// -----------------------------------
+/// TESTED : WORKS PERFECT
 DateTime createDateTime({
   int year,
   int month,
@@ -437,7 +438,8 @@ DateTime createDateTime({
 
   return _output;
 }
-// -------------------------------------
+// -----------------------------------
+/// TESTED : WORKS PERFECT
 DateTime createDate({
   @required int year,
   @required int month,
@@ -455,7 +457,8 @@ DateTime createDate({
       microsecond: 0,
     );
 }
-// -------------------------------------
+// -----------------------------------
+/// TESTED : WORKS PERFECT
 DateTime createClock({
   @required int hour,
   @required int minute,
@@ -473,7 +476,8 @@ DateTime createClock({
       microsecond: 0,
     );
 }
-// -------------------------------------
+// -----------------------------------
+/// TESTED : WORKS PERFECT
 DateTime createDateAndClock({
   @required int year,
   @required int month,
@@ -695,7 +699,8 @@ List<DateTime> getHoursAndMinutesFromDateTimes({
 
 /// CHECKERS
 
-// -------------------------------------
+// -----------------------------------
+/// TESTED : WORKS PERFECT
 bool timesAreTheSame({
   @required TimeAccuracy accuracy,
   @required DateTime timeA,

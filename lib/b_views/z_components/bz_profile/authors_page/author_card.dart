@@ -3,10 +3,14 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_details.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/authors_pages_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -43,22 +47,24 @@ class AuthorCard extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static const double authorPicSize = 80;
   static const double spaceBetweenImageAndText = 5;
+  static const double moreButtonSize = 40;
 // -----------------------------------------------------------------------------
   static double authorTextDetailsClearWidth({
     @required BuildContext context,
     @required double bubbleWidth,
   }){
+
     final double _bubbleClearWidth = Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth);
-    final double _bubblePaddingValue = Bubble.paddingValue();
-    const double _spaceBetweenImageAndText = spaceBetweenImageAndText;
-    const double _imageWidth = authorPicSize;
+    // final double _bubblePaddingValue = Bubble.paddingValue() * 0;
+    // const double _spaceBetweenImageAndText = spaceBetweenImageAndText;
 
     final double _clearTextWidth =
         _bubbleClearWidth
-            - (2 * _bubblePaddingValue)
-            - _spaceBetweenImageAndText
-            - _imageWidth
-            - 5; // for margin
+            // - (2 * _bubblePaddingValue)
+            // - _spaceBetweenImageAndText
+            - authorPicSize
+            - moreButtonSize
+            ; // for margin
 
     return _clearTextWidth;
   }
@@ -69,69 +75,105 @@ class AuthorCard extends StatelessWidget {
     return imageCornerValue + Bubble.paddingValue();
   }
 // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
     final List<FlyerModel> _authorFlyers = _getNumberOfAuthorFlyers(author: author, context: context);
     final int _authorNumberOfFlyers = _authorFlyers.length;
-    final double _textAreaWidth = authorTextDetailsClearWidth(
+    final double _textAreaBoxWidth = authorTextDetailsClearWidth(
       context: context,
       bubbleWidth: bubbleWidth,
     );
+    final double _textAreaWidth = _textAreaBoxWidth - 20;
+
+    final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
+      userID: author.userID,
+      bzModel: bzModel,
+    );
+
+    final String _role = _authorIsMaster == true ? 'Account Admin' : 'Team member';
+    final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
 
     return Bubble(
       width: bubbleWidth,
       corners: bubbleCornerValue(),
+      margins: superInsets(context: context, bottom: 10, enLeft: 10, enRight: 10),
       columnChildren: <Widget>[
+
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
+            /// PICTURE
             AuthorPicInBzPage(
               width: authorPicSize,
               authorPic: author.pic,
               cornerOverride: 15,
             ),
 
+            /// BODY ( NAME - TITLE - LINE - ROLE - FLYERS COUNT - CONTACTS )
             Container(
-              width: _textAreaWidth,
-              margin: const EdgeInsets.symmetric(horizontal: spaceBetweenImageAndText),
+              width: _textAreaBoxWidth,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
-                  /// NAME
-                  SuperVerse(
-                    verse: author.name,
-                    size: 3,
-                    maxLines: 2,
-                    margin: 5,
-                    centered: false,
-                  ),
-
-                  /// TITLE
-                  SuperVerse(
-                    verse: '${author.title} @ ${bzModel.name}',
-                    italic: true,
-                    weight: VerseWeight.thin,
-                    margin: 5,
-                    maxLines: 2,
-                    centered: false,
-                  ),
-
-                  /// SEPARATOR LINE
-                  Container(
+                  /// AUTHOR NAME - TITLE - SEPARATOR LINE
+                  SizedBox(
                     width: _textAreaWidth,
-                    height: 0.25,
-                    color: Colorz.yellow200,
-                    margin: const EdgeInsets.all(5),
+                    height: authorPicSize,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+
+                        const Expander(),
+
+                        /// NAME
+                        SuperVerse(
+                          verse: author.name,
+                          size: 3,
+                          centered: false,
+                        ),
+
+                        /// TITLE
+                        SuperVerse(
+                          verse: '${author.title} @ ${bzModel.name}',
+                          italic: true,
+                          weight: VerseWeight.thin,
+                          maxLines: 2,
+                          centered: false,
+                        ),
+
+                        const Expander(),
+
+                        /// SEPARATOR LINE
+                        Container(
+                          width: _textAreaWidth,
+                          height: 0.25,
+                          color: Colorz.yellow200,
+                          // margin: const EdgeInsets.all(5),
+                        ),
+
+                      ],
+                    ),
+                  ),
+
+                  /// Role
+                  AuthorCardDetail(
+                    verse: _role,
+                    icon: Iconz.bz,
+                    iconColor: _roleIconColor,
+                    boxWidth: _textAreaWidth,
                   ),
 
                   /// NUMBER OF FLYERS
                   AuthorCardDetail(
                     verse: '$_authorNumberOfFlyers published flyers',
                     icon: Iconz.flyer,
-                    bubbleWidth: bubbleWidth,
+                    boxWidth: _textAreaWidth,
                   ),
 
                   /// CONTACTS
@@ -142,7 +184,7 @@ class AuthorCard extends StatelessWidget {
                     return AuthorCardDetail(
                       icon: ContactModel.getContactIcon(_contact.contactType),
                       verse: _contact.value,
-                      bubbleWidth: bubbleWidth,
+                      boxWidth: _textAreaWidth,
                     );
 
                   }),
@@ -151,7 +193,17 @@ class AuthorCard extends StatelessWidget {
               ),
             ),
 
-
+            DreamBox(
+              width: moreButtonSize,
+              height: moreButtonSize,
+              icon: Iconz.more,
+              iconSizeFactor: 0.6,
+              onTap: () => onMoreTap(
+                context: context,
+                bzModel: bzModel,
+                authorModel: author,
+              ),
+            ),
 
 
           ],
@@ -162,7 +214,6 @@ class AuthorCard extends StatelessWidget {
 
   }
 }
-
 
 class Thing extends StatelessWidget {
 

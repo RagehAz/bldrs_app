@@ -30,6 +30,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/contacts_service/contacts_service.dart';
@@ -526,6 +527,8 @@ Future<void> _onSignOut(BuildContext context) async {
 
   await AuthLDBOps.deleteAuthModel(AuthFireOps.superUserID());
   await UserLDBOps.deleteUserOps(AuthFireOps.superUserID());
+  await BzLDBOps.wipeOut(context);
+  await FlyersLDBOps.wipeOut(context);
 
   await AuthFireOps.signOut(
       context: context,

@@ -74,7 +74,7 @@ class CurrencyManagerScreen extends StatelessWidget {
                         color: Colorz.bloodTest,
                         borderRadius: Borderers.superBorderAll(context, 50 * 0.15)
                     ),
-                    margin: superInsets(context: context, enBottom: 5),
+                    margin: superInsets(context: context, bottom: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
