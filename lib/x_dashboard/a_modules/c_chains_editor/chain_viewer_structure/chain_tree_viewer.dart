@@ -41,8 +41,8 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
 // ----------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _expanded.dispose();
+    super.dispose(); /// tamam
   }
 // ----------------------------------------------
   void _triggerExpansion(){

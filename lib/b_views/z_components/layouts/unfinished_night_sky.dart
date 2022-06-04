@@ -44,7 +44,7 @@ import 'package:flutter/material.dart';
 //   @override
 //   void dispose() {
 //     // _controllers.forEach((AnimationController c) => c.dispose());
-//     super.dispose();
+//     super.dispose(); /// tamam
 //   }
 // // -----------------------------------------------------------------------------
 // //     for (final controller in _controllers) {

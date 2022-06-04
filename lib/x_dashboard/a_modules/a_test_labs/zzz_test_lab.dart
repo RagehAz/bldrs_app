@@ -95,12 +95,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _textController.dispose();
     _scrollController.dispose();
     _animationController.dispose();
     _highlightedText.dispose();
     _thePic.dispose();
+    super.dispose(); /// tamam
   }
   // -----------------------------------------------------------------------------
   bool _isInit = true;

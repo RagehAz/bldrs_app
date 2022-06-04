@@ -55,8 +55,8 @@ class _ChatScreenState extends State<ChatScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-    super.dispose();
     _msgController.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _sendMessage({

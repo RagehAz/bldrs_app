@@ -78,7 +78,7 @@
 //   @override
 //   void dispose() {
 //     _ankhAniController.dispose();
-//     super.dispose();
+//     super.dispose(); /// tamam
 //   }
 //
 // // -----------------------------------------------------------------------------

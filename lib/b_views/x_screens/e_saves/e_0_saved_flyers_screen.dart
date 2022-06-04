@@ -49,8 +49,8 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
 
   @override
   void dispose() {
-    super.dispose();
     _currentFlyerType.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _passSelectedFlyersBack(){

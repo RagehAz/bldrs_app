@@ -57,9 +57,9 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
     _exists.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

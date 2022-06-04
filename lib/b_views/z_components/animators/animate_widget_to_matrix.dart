@@ -46,7 +46,7 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
   @override
   void dispose() {
     _animationController.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 
   @override

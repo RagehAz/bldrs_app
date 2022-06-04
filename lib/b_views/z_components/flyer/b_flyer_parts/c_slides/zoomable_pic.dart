@@ -55,7 +55,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     _transformationController.dispose();
     _zoomAnimationController.dispose();
 
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _resetZoom() async {

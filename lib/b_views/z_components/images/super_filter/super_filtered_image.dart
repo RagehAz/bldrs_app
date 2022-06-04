@@ -116,8 +116,8 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-    super.dispose();
     _loading.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   File _file;

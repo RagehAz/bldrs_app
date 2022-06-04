@@ -57,8 +57,8 @@ class _ShelfSlideState extends State<ShelfSlide> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _animateSlide.dispose();
+    super.dispose(); /// tamam
   }
   @override
   Widget build(BuildContext context) {

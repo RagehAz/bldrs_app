@@ -104,7 +104,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
   @override
   void dispose() {
     _animationController.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

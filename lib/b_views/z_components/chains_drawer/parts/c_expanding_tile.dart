@@ -186,10 +186,10 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
     _isExpanded.dispose();
     _easeInAnimation.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void expand() {

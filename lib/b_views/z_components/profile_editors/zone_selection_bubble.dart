@@ -110,7 +110,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 // -----------------------------------------------------------------------------
   @override
   void dispose(){
-    super.dispose();
     _selectedCountry.dispose();
     _selectedCountryCities.dispose();
     _selectedCity.dispose();
@@ -118,6 +117,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     _isLoadingCountries.dispose();
     _isLoadingCities.dispose();
     _isLoadingDistricts.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _onShowCountriesTap({

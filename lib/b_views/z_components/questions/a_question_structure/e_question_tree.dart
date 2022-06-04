@@ -120,7 +120,6 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _headerAnimationController.dispose();
     _headerScrollController.dispose();
     _horizontalSlidesController.dispose();
@@ -133,6 +132,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     _flyerIsSaved.dispose();
     _graphicIsOn.dispose();
     _graphicOpacity.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   /// FOLLOW IS ON

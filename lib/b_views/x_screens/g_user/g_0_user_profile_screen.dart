@@ -50,7 +50,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SingleTicker
   @override
   void dispose() {
     _tabController.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

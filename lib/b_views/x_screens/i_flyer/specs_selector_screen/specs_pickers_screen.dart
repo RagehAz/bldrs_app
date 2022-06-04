@@ -87,11 +87,11 @@ class _SpecsPickersScreenState extends State<SpecsPickersScreen> with SingleTick
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     // _loading.dispose();
     _groupsIDs.dispose();
     _refinedSpecsPickers.dispose();
     _allSelectedSpecs.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   /*

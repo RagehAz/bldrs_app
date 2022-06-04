@@ -115,7 +115,7 @@ class _BldrsAppState extends State<BldrsApp> {
     _loading.dispose();
     _locale.dispose();
     _fireError.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Locale _localeResolutionCallback(Locale deviceLocale, Iterable<Locale> supportedLocales) {

@@ -65,7 +65,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _search() async {

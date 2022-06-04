@@ -94,7 +94,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
     _note.dispose();
     _selectedReciever.dispose();
@@ -103,6 +102,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     _titleController.dispose();
     _bodyController.dispose();
     _scrollController.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

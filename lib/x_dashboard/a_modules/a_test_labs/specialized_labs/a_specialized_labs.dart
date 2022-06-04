@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_pick
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/animations_lab.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/new_logo_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_asks.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
@@ -39,6 +40,13 @@ class SpecializedLabs extends StatelessWidget {
         verse: 'Providers Test',
         icon: Iconz.check,
         screen: const ProvidersTestScreen(),
+      ),
+
+      /// NEW LOGO SCREEN
+      DashButtonModel(
+        verse: 'New Logo Screen',
+        icon: Iconz.bldrsNameEn,
+        screen: const NewLogoScreen(),
       ),
 
       /// PROVIDER TEST

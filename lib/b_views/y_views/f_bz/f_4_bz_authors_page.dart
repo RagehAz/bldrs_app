@@ -120,8 +120,8 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override
