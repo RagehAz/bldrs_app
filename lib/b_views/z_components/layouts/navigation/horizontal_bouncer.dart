@@ -42,7 +42,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
   @override
   void dispose() {
     _canNavigate.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void navigate() {

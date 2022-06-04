@@ -63,9 +63,9 @@ class _AppControlsManagerState extends State<AppControlsManager> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
     _showOnlyVerifiedFlyers.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

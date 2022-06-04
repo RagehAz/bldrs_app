@@ -104,7 +104,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   @override
   void dispose() {
     _animation.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
 

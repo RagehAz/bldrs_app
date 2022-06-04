@@ -140,12 +140,12 @@ class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading?.dispose();
     _bzModelNotifier?.dispose();
     _flyerZoneNotifier?.dispose();
     _currentSlideIndex?.dispose();
     _flyerIsSaved?.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {

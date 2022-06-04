@@ -154,9 +154,9 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     controller.dispose();
     _currency.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _onSelectCurrency(CurrencyModel currency) {

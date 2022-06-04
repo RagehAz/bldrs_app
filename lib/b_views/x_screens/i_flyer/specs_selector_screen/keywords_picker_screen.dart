@@ -48,9 +48,8 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _selectedKeywordsIDs.dispose();
-
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
 /*

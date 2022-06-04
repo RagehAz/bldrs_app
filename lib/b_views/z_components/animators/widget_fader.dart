@@ -65,7 +65,7 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
   void dispose() {
     _animationController.dispose();
     _animation.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _animate() async {

@@ -42,8 +42,8 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _selectedZone.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier(null); /// tamam disposed

@@ -157,7 +157,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _headerAnimationController.dispose();
     _headerScrollController.dispose();
     _animationController.dispose();
@@ -170,6 +169,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     _swipeDirection.dispose();
     _graphicIsOn.dispose();
     _graphicOpacity.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _listenToHorizontalController(){

@@ -136,7 +136,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
 
     _disposeTextControllers();
 
@@ -152,6 +151,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _selectedBzSection.dispose();
     _inactiveBzTypes.dispose();
     _inactiveBzForms.dispose();
+
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _disposeTextControllers(){
