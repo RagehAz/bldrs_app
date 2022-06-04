@@ -116,7 +116,6 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _isSearching.dispose();
     _foundChains.dispose();
     _searchValue.dispose();
@@ -124,6 +123,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     _textController.dispose();
     _searchController.dispose();
     _chainsNotifier.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _onStripTap({

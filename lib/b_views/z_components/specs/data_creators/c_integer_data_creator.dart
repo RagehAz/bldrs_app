@@ -70,10 +70,10 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     controller.dispose();
     _specValue.dispose();
     _selectedUnit.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _validate() {

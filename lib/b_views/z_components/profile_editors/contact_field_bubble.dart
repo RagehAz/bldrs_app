@@ -71,8 +71,8 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   // --------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     pasteController.dispose();
+    super.dispose(); /// tamam
   }
   // --------------------------------------------------------------------------
   Future<void> _pasteFunction() async {

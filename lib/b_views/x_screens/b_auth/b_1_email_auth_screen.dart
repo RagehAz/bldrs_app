@@ -36,13 +36,13 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
 
     _emailController.dispose();
     _passwordController.dispose();
     _passwordConfirmationController.dispose();
     _isSigningIn.dispose();
 
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _switchSignIn() {

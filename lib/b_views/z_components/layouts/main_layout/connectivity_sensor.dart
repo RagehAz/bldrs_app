@@ -62,7 +62,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
   @override
   void dispose() {
     subscription.cancel();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> initConnectivity() async {

@@ -109,6 +109,10 @@ Future<void> onMoreTap({
   final bool _itIsMine = superUserID() == authorModel.userID;
   final bool _iAmMaster = AuthorModel.checkUserIsMasterAuthor(userID: superUserID(), bzModel: bzModel);
 
+  final bool _canChangeRoles = _iAmMaster;
+  final bool _canEditAuthor = _itIsMine;
+  final bool _canRemoveAuthor = _iAmMaster || _itIsMine;
+
   final List<Widget> _buttons = <Widget>[
 
     /// CHANGE ROLE
@@ -116,7 +120,7 @@ Future<void> onMoreTap({
       context: context,
       verse: 'Change team role for ${authorModel.name}',
       icon: Iconz.bz,
-      isDeactivated: _iAmMaster,
+      isDeactivated: !_canChangeRoles,
       onDeactivatedTap: () => _onShowCanNotChangeAuthorRoleDialog(
         context: context,
         authorModel: authorModel,
@@ -133,7 +137,7 @@ Future<void> onMoreTap({
       context: context,
       verse: 'Edit ${authorModel.name} Author details',
       icon: Iconz.gears,
-      isDeactivated: _itIsMine,
+      isDeactivated: !_canEditAuthor,
       onDeactivatedTap: () => _onShowCanNotEditAuthorDialog(
         context: context,
         authorModel: authorModel,
@@ -150,7 +154,7 @@ Future<void> onMoreTap({
       context: context,
       verse: 'Remove ${authorModel.name} from the team',
       icon: Iconz.xSmall,
-      isDeactivated: _iAmMaster == true || _itIsMine == true,
+      isDeactivated: !_canRemoveAuthor,
       onDeactivatedTap: () => _onShowCanNotRemoveAuthorDialog(
         context: context,
         authorModel: authorModel,
@@ -186,7 +190,7 @@ Future<void> _onDeleteAuthorFromTheTeam({
   blog('SHOULD REMOVE THIS AUTHOR ${authorModel.name} from this bz ${bzModel.name} naaaw');
 
 }
-
+// -------------------------------
 Future<void> _onEditAuthor({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -214,7 +218,7 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'You can not Edit ${authorModel.name}',
+    title: 'You can not Change team member roles',
     body: 'Only Account Admins can change the roles of other team members',
   );
 
@@ -241,7 +245,8 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     title: 'You can not remove ${authorModel.name}',
-    body: 'Only kaza and kaza',
+    body: 'Only Account Admins can remove other team members,\n'
+        'however you can remove only yourself from this business account',
   );
 
 }

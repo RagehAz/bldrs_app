@@ -72,7 +72,6 @@ class _TranslationsManagerState extends State<TranslationsManager> {
   // -------------------------------------
   @override
   void dispose(){
-    super.dispose();
     _idController.dispose();
     _englishController.dispose();
     _arabicController.dispose();
@@ -82,6 +81,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     _newID.dispose();
     _isSearching.dispose();
     _mixedSearchedPhrases.dispose();
+    super.dispose(); /// tamam
   }
   // ---------------------------------------------------------------------------
 

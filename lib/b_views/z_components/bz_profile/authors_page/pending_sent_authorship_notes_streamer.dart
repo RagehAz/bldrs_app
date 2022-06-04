@@ -54,8 +54,8 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _sub.cancel();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   List<NoteModel> _streamedNotes =<NoteModel>[];

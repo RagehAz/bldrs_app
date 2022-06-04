@@ -63,13 +63,13 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
     _lastSnapshot.dispose();
     _usersModels.dispose();
     _selectedUser.dispose();
     _pageController.dispose();
     _scrollController.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController(); /// tamam disposed

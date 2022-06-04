@@ -46,9 +46,9 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
 
   @override
   void dispose() {
-    super.dispose();
     _double.dispose();
     controller.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _validate() {

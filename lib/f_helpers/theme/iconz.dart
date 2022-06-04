@@ -7,6 +7,7 @@
   /// artworks
   const String bldrsNameEn = '$_artworkPath/aw_bldrs_name_en.svg' ;
   const String bldrsAppIcon = '$_artworkPath/aw_bldrs_app_icon.png' ;
+  const String bldrsNameSingleLine = '$_artworkPath/aw_bldrs_name_single_line.svg' ;
   const String whiteGradient = '$_artworkPath/white_gradient.svg';
   const String blackGradient = '$_artworkPath/black_gradient.svg';
   const String headerShadow = '$_artworkPath/header_shadow.svg';

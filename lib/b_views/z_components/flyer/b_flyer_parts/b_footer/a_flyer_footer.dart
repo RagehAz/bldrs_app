@@ -57,7 +57,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _infoPageVerticalController.dispose();
     _reviewPageVerticalController.dispose();
     _reviewTextController.dispose();
@@ -65,6 +64,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _reviewButtonExpanded.dispose();
     _canShowConvertibleReviewButton.dispose();
     _isEditingReview.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _onShareFlyer(){

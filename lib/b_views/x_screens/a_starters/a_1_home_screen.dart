@@ -63,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     // if (_loading != null){_loading.dispose();}
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override

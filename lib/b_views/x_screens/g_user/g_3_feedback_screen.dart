@@ -59,7 +59,7 @@ class _FeedBackState extends State<FeedBack> {
   @override
   void dispose() {
     _feedbackController.dispose();
-    super.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _uploadFeedBack() async {

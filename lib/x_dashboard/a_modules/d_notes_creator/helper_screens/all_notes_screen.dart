@@ -76,9 +76,9 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose();
     _loading.dispose();
     _notes.dispose();
+    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _paginateAllNotes() async {
