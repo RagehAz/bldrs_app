@@ -39,25 +39,25 @@ double superDeviceRatio(BuildContext context) {
 // -----------------------------------------------------------------------------
 EdgeInsets superInsets({
   @required BuildContext context,
-  double enBottom = 0,
+  double bottom = 0,
   double enLeft = 0,
   double enRight = 0,
-  double enTop = 0,
+  double top = 0,
 }) {
 
   return appIsLeftToRight(context) ?
   EdgeInsets.only(
-      bottom: enBottom,
+      bottom: bottom,
       left: enLeft,
       right: enRight,
-      top: enTop
+      top: top
   )
       :
   EdgeInsets.only(
-      bottom: enBottom,
+      bottom: bottom,
       left: enRight,
       right: enLeft,
-      top: enTop
+      top: top
   );
 }
 // -----------------------------------------------------------------------------

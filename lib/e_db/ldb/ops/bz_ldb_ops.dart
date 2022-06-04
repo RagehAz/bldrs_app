@@ -59,5 +59,11 @@ class BzLDBOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------------
+  static Future<void> wipeOut(BuildContext context) async {
+
+    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bzz);
+
+  }
+// ----------------------------------------
 }

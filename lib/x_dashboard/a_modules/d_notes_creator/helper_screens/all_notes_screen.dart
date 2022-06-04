@@ -182,7 +182,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
                   return Container(
                     width: BldrsAppBar.width(context),
-                    margin: Scale.superInsets(context: context, enBottom: 5),
+                    margin: Scale.superInsets(context: context, bottom: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -191,7 +191,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
                           verse: _noteModel.id,
                           italic: true,
                           size: 1,
-                          margin: Scale.superInsets(context: context, enLeft: 20, enTop: 5),
+                          margin: Scale.superInsets(context: context, enLeft: 20, top: 5),
                           weight: VerseWeight.thin,
                         ),
 

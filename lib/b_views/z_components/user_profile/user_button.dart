@@ -87,6 +87,7 @@ class UserTileButton extends StatelessWidget {
             secondLine: UserModel.generateUserJobLine(userModel),
             secondLineScaleFactor: 1.2,
             verseScaleFactor: 0.8,
+            secondVerseMaxLines: 1,
             bubble: bubble,
             color: color,
             onTap: onUserTap,

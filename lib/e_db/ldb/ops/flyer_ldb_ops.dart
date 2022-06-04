@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:flutter/material.dart';
 
 class FlyersLDBOps {
 
@@ -101,4 +102,10 @@ class FlyersLDBOps {
 
   }
 // ----------------------------------------
+  static Future<void> wipeOut(BuildContext context) async {
+
+    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.flyers);
+
+  }
+// -----------------------------------------------------------------------------
 }
