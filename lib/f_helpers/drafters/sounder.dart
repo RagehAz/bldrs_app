@@ -1,4 +1,6 @@
 // ignore_for_file: constant_identifier_names
+import 'dart:async';
+
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:just_audio/just_audio.dart';
 
@@ -57,6 +59,10 @@ class Sounder  {
 
     await playAssetSound(_sounds[_index]);
 
+  }
+
+  static Future<void> playIntro() async {
+    unawaited(Sounder.playAssetSound(Sounder.bldrs_intro));
   }
 // -----------------------------------------------------------------------------
 

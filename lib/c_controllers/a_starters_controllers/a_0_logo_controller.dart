@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -20,7 +19,6 @@ import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
-import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
@@ -32,8 +30,6 @@ Future<void> initializeLogoScreen({
   @required BuildContext context,
   @required bool mounted,
 }) async {
-
-  unawaited(Sounder.playAssetSound(Sounder.bldrs_intro));
 
   Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
@@ -55,10 +51,6 @@ Future<void> initializeLogoScreen({
   /// INITIALIZE USER NOTES STREAM
   _initializeUserNotesStream(context);
 
-  await Nav.replaceScreen(
-      context: context,
-      screen: const HomeScreen(),
-  );
 
 }
 // -----------------------------------------------------------------------------

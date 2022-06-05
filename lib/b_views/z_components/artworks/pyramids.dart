@@ -8,15 +8,28 @@ import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
+enum PyramidType{
+  yellow,
+  crystalYellow,
+
+  white,
+  crystalWhite,
+
+  crystalBlue,
+  glass,
+
+  non,
+}
+
 class Pyramids extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const Pyramids({
-    @required this.pyramidsIcon,
+    @required this.pyramidType,
     @required this.loading,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String pyramidsIcon;
+  final PyramidType pyramidType;
   final ValueNotifier<bool> loading;
   /// --------------------------------------------------------------------------
   @override
@@ -45,11 +58,26 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
+  String getPyramid(PyramidType type){
+
+    switch (type){
+      case PyramidType.yellow:        return Iconz.pyramidsYellow; break;
+      case PyramidType.crystalYellow: return Iconz.pyramidzYellow; break;
+      case PyramidType.white:         return Iconz.pyramidsWhite; break;
+      case PyramidType.crystalWhite:  return Iconz.pyramidzWhite; break;
+      case PyramidType.crystalBlue:   return Iconz.pyramidsCrystal; break;
+      case PyramidType.glass:         return Iconz.pyramidsGlass; break;
+      case PyramidType.non:           return null; break;
+      default: return Iconz.pyramidzYellow;
+    }
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
-    final String _pyramidIcon = _userModel?.isAdmin == true ? Iconz.pyramidsCrystal : widget.pyramidsIcon;
+    final String _pyramidIcon = _userModel?.isAdmin == true ? Iconz.pyramidsCrystal : getPyramid(widget.pyramidType);
     final Color _pyramidColor = _userModel?.isAdmin == true ? Colorz.red255 : null;
 
     return Positioned(

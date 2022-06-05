@@ -1,26 +1,28 @@
-import 'dart:async';
+// import 'dart:async';
+//
+// import 'package:bldrs/b_views/y_views/a_starters/a_0_logo_screen_view.dart';
+// import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+// import 'package:bldrs/c_controllers/a_starters_controllers/a_0_logo_controller.dart';
+// import 'package:bldrs/f_helpers/drafters/tracers.dart';
+// import 'package:flutter/material.dart';
+// import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
-import 'package:bldrs/b_views/y_views/a_starters/a_0_logo_screen_view.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/c_controllers/a_starters_controllers/a_0_logo_controller.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-
-class LogoScreen extends StatefulWidget {
+/// OLD LOGO SCREEN
+/*
+class OldLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const LogoScreen({
+  const OldLogoScreen({
     // @required this.error,
     // @required this.loading,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<LogoScreen> createState() => _LogoScreenState();
+  State<OldLogoScreen> createState() => _OldLogoScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
+class _OldLogoScreenState extends State<OldLogoScreen> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   // final String error;
   // final bool loading;
@@ -98,11 +100,4 @@ class _LogoScreenState extends State<LogoScreen> with TickerProviderStateMixin {
     );
   }
 }
-
-/// TASK : NEED TO PUT THESE STATEMENTS FOR BZZ
-///  - NO SUBSCRIPTION FEES
-///  - NO SALES COMMISSION
-///  - SHARE YOUR WORK AND YOUR SOCIAL MEDIA LINKS
-///  - BLDRS COMMUNITY IS REFERRAL COMMUNITY
-///  - NO VIOLATIONS ALLOWED
-///  ...
+*/

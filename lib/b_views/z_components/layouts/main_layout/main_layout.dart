@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/structure/a_chains_drawer_starter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
@@ -49,6 +50,7 @@ class MainLayout extends StatelessWidget {
     this.zoneButtonIsOn = true,
     this.searchHint,
     this.loading,
+    this.pyramidType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -74,6 +76,7 @@ class MainLayout extends StatelessWidget {
   final bool zoneButtonIsOn;
   final String searchHint;
   final ValueNotifier<bool> loading;
+  final PyramidType pyramidType;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -155,6 +158,7 @@ class MainLayout extends StatelessWidget {
       navBarIsOn: navBarIsOn,
       searchHint: searchHint,
       layoutWidget: layoutWidget,
+      pyramidType: pyramidType,
     );
 
     return WillPopScope(
