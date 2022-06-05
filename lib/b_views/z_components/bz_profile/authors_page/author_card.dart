@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_d
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/authors_pages_controller.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/f_bz_authors_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

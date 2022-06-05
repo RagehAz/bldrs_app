@@ -5,14 +5,13 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/c_controllers/notes_controllers/fcm_controller.dart';
-import 'package:bldrs/c_controllers/notes_controllers/fcm_controller.dart' as FCMOps;
+import 'package:bldrs/f_helpers/notifications/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
+import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/second_noti_test_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -138,7 +137,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
       _awesomeNotification.actionStream.listen((ReceivedAction notification) async {
 
-        final bool _isBasicChannel = notification.channelKey == FCMOps.getNotiChannelName(FCMChannel.basic);
+        final bool _isBasicChannel = notification.channelKey == FCM.getFCMChannelName(FCMChannel.basic);
 
         final bool _isIOS = DeviceChecker.deviceIsIOS();
 
@@ -161,12 +160,12 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification() async {
-    await FCMOps.createWelcomeNotification();
+    await FCM.createWelcomeNotification();
   }
 
 // -----------------------------------------------------------------------------
   Future<void> _onSendScheduledNotification() async {
-    await FCMOps.createScheduledNotification();
+    await FCM.createScheduledNotification();
   }
 
 // -----------------------------------------------------------------------------
@@ -270,7 +269,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             verseColor: Colorz.black255,
             verseShadow: false,
             onTap: () async {
-              await FCMOps.cancelScheduledNotification();
+              await FCM.cancelScheduledNotification();
             },
           ),
 
