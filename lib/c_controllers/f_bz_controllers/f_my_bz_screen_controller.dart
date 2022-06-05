@@ -186,7 +186,7 @@ Future<void> onBzAccountOptionsTap({
   @required BzModel bzModel,
 }) async {
 
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
   await BottomDialog.showButtonsBottomDialog(
       context: context,

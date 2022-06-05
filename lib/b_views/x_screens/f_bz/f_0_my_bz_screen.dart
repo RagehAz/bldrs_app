@@ -28,13 +28,11 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 // -----------------------------------------------------------------------------
   TabController _tabController;
   UiProvider _uiProvider;
-  BzzProvider _bzzProvider;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
 
     _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
     _tabController = TabController(
       vsync: this,

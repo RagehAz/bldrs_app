@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_1_anonymous_home_screen_view.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/home_loading_flyers_widget.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:flutter/material.dart';
+
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HomeScreen({
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// NOT disposed
-  Stream<List<NoteModel>> _receivedNotesStream;
+  // Stream<List<NoteModel>> _receivedNotesStream;
 // -----------------------------------
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// LOADING
               if (loading == true) {
-                return const Center(child: Loading(loading: true,));
+                return const HomeLoadingFlyersWidget();
               }
 
               /// FOR ANONYMOUS USER

@@ -1,14 +1,11 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_0_logo_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
@@ -20,7 +17,6 @@ import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -261,6 +257,7 @@ Future<void> onDeleteUser({
 
 }
 // ------------------------------------
+/*
 Future<bool> _doYouKnowThePassword({
   @required BuildContext context,
   @required UserModel userModel,
@@ -302,7 +299,9 @@ Future<bool> _doYouKnowThePassword({
 
   return _passwordIsGood;
 }
+ */
 // ------------------------------------
+/*
 Future<bool> _couldGetCredentials({
   @required BuildContext context,
   @required String password,
@@ -323,7 +322,7 @@ Future<bool> _couldGetCredentials({
           ),
         );
 
-        // blog('_credential token : ${_credential.credential.token}');
+        blog('_credential token : ${_credential.credential.token}');
 
       }
   );
@@ -344,5 +343,5 @@ Future<bool> _couldGetCredentials({
 
   return _credentialsAreGood;
 }
-
+ */
 // -----------------------------------------------------------------------------

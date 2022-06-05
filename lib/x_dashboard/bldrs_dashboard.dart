@@ -39,7 +39,7 @@ class BldrsDashBoard extends StatelessWidget {
     // -------------------------------------------------------
     const double _gridSpacing = 10;
     const int numberOfColumns = 3;
-    const double _itemHeight = 50;
+    // const double _itemHeight = 50;
 
     final double _boxSize = (_screenWidth - ((numberOfColumns + 1) * _gridSpacing)) / 3;
 

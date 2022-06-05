@@ -30,30 +30,28 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   unawaited(_initializePromotedFlyers(context));
 
   /// F - SPONSORS : USES BZZ PROVIDER
-  await _initializeSponsors(
+  unawaited(_initializeSponsors(
     context: context,
     notify: true,
-  );
+  ));
 
   /// J - SAVED FLYERS
-  await _initializeSavedFlyers(context);
+  unawaited( _initializeSavedFlyers(context));
 
   /// G - USER BZZ : USES BZZ PROVIDER
-    await _initializeUserBzz(
-      context: context,
-      notify: true,
-    );
+  unawaited(_initializeUserBzz(
+    context: context,
+    notify: true,
+  ));
 
   /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
-  await _initializeUserFollowedBzz(
-    context: context,
-    notify: true
-  );
-
+  unawaited(_initializeUserFollowedBzz(
+      context: context,
+      notify: true
+  ));
 
   /// I - KEYWORDS
   await _initializeSpecsAndKeywords(context);
-
 
 }
 // -----------------------------------------------------------------------------

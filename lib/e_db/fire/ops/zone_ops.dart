@@ -180,6 +180,8 @@ Future<ZoneModel> _getZoneByIP_ipApi({
                       cityEnName: _cityName
                   );
 
+                  _city.blogCity();
+
                 }
               }
             }
@@ -243,10 +245,10 @@ Future<ZoneModel> _getZoneByIP_ipRegistry({
 
               if (_countryID != null) {
 
-                final CountryModel _country = await _zoneProvider.fetchCountryByID(
-                    context: context,
-                    countryID: _countryID,
-                );
+                // final CountryModel _country = await _zoneProvider.fetchCountryByID(
+                //     context: context,
+                //     countryID: _countryID,
+                // );
 
                 final CityModel _city = await _zoneProvider.fetchCityByName(
                     context: context,

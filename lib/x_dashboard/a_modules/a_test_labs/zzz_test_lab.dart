@@ -1,11 +1,12 @@
-import 'dart:async';
-
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/list_pusher.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -22,16 +23,13 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
-import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -56,7 +54,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   String _fuckingText;
   BzzProvider _bzzProvider;
   FlyersProvider _flyersProvider;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
 
@@ -118,6 +116,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /*
   /// DIALOG THAT LISTENS TO PROVIDER CHANGES
   Future<void> _showDialog(Function onTap) async {
 
@@ -203,7 +202,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       },
     );
 
-  }
+  }*/
 // -----------------------------------------------------------------------------
   final TextEditingController _textController = TextEditingController(); /// tamam disposed
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -219,6 +218,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   final ValueNotifier<int> _rebuildListPusher = ValueNotifier(0);
 // -----------------------------------------------------------------------------
+  /*
   Future<void> _scrollOnKeyboard() async {
 
     if (Keyboarders.keyboardIsOn(context) == true){
@@ -237,9 +237,26 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     }
 
   }
-
+*/
+// -----------------------------------------------------------------------------
+  void blogEverything(){
+    final ZoneModel _currentZone = _zoneProvider.currentZone;
+    _currentZone.blogZone();
+    final bool _isLoading = _uiProvider.isLoading;
+    blogLoading(loading: _isLoading, callerName: 'TestScreen');
+    final List<Phrase> _phrases = _phraseProvider.basicPhrases;
+    Phrase.blogPhrases(_phrases);
+    final List<FlyerModel> _savedFlyers = _flyersProvider.savedFlyers;
+    FlyerModel.blogFlyers(flyers: _savedFlyers);
+    final BzModel _myActiveBz = _bzzProvider.myActiveBz;
+    _myActiveBz.blogBz();
+    final String _wallPhid = _chainsProvider.wallPhid;
+    blog('wall phid : $_wallPhid');
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
 
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);

@@ -121,9 +121,9 @@ class AuthorLabel extends StatelessWidget {
         '$_galleryCountCalibrated '
         '${superPhrase(context, 'phid_flyers')}';
 // -----------------------------------------------------------------------------
-    final double _authorImageCorners = getAuthorImageCorners(
-      flyerBoxWidth: flyerBoxWidth,
-    );
+//     final double _authorImageCorners = getAuthorImageCorners(
+//       flyerBoxWidth: flyerBoxWidth,
+//     );
 // -----------------------------------------------------------------------------
     final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(
         bz: bzModel,

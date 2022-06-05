@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
@@ -143,7 +142,7 @@ class BzzProvider extends ChangeNotifier {
     @required bool notify,
 }) async {
     /// 1 - get sponsorsIDs from app state
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final List<String> _sponsorsBzzIDs = []; /// TASK : RESTRUCTURE SPONSORS THING
 
     if (Mapper.canLoopList(_sponsorsBzzIDs)) {

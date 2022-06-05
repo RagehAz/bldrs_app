@@ -58,6 +58,7 @@ class InfoPageSpecs extends StatelessWidget {
     return _pickers;
   }
 // -----------------------------------------------------------------------------
+  /*
   String _generateTranslateSpecsString({
     @required BuildContext context,
     @required List<SpecModel> flyerSpecs,
@@ -113,6 +114,7 @@ class InfoPageSpecs extends StatelessWidget {
 
     return _output == null || _output == '' ? null : _output;
   }
+   */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -140,11 +142,11 @@ class InfoPageSpecs extends StatelessWidget {
 
               // blog('_pickerName is : $_pickerName');
 
-              final String _specsInString = _generateTranslateSpecsString(
-                context: context,
-                flyerSpecs: specs,
-                specPicker: _specPicker,
-              );
+              // final String _specsInString = _generateTranslateSpecsString(
+              //   context: context,
+              //   flyerSpecs: specs,
+              //   specPicker: _specPicker,
+              // );
 
               final List<SpecModel> _specsOfThisPicker = SpecModel.getSpecsRelatedToPicker(
                   specs: specs,

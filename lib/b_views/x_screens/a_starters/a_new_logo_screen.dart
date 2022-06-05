@@ -107,26 +107,29 @@ class _NewLogoScreenState extends State<NewLogoScreen> with TickerProviderStateM
 
       _triggerLoading().then((_) async {
 
-        await Future.delayed(const Duration(milliseconds: 250), () async {
+        await Future.delayed(const Duration(milliseconds: 500), () async {
 
-          unawaited(initializeLogoScreen(
-            context: context,
-            mounted: mounted,
-          ));
+          await Future.wait(<Future<void>>[
 
-          await _startAnimationSequence();
+            initializeLogoScreen(
+              context: context,
+              mounted: mounted,
+            ),
 
-          await Nav.replaceScreen(
-            context: context,
-            screen: const HomeScreen(),
-            transitionType: PageTransitionType.fade,
-          );
+            _startAnimationSequence(),
 
+          ]);
+
+            await Nav.replaceScreen(
+              context: context,
+              screen: const HomeScreen(),
+              transitionType: PageTransitionType.fade,
+            );
 
         });
 
 
-        await _triggerLoading();
+        // await _triggerLoading();
       });
 
     }
@@ -145,8 +148,6 @@ class _NewLogoScreenState extends State<NewLogoScreen> with TickerProviderStateM
 
 // ----------------------------------------
   void _initializeAnimationControllers(){
-
-    // _duration = const Duration(seconds: 2);
 
     /// LOGO CONTROLLERS
     _logoAniController = AnimationController(
@@ -187,11 +188,11 @@ class _NewLogoScreenState extends State<NewLogoScreen> with TickerProviderStateM
 
 // ----------------------------------------
   Future<void> _startAnimationSequence() async {
-    _isPlaying.value = true;
-    _restartControllers();
+    // _isPlaying.value = true;
+    // _restartControllers();
     unawaited(Sounder.playIntro());
     await _animateLogoLine();
-    _isPlaying.value = false;
+    // _isPlaying.value = false;
   }
 // ----------------------------------------
   Future<void> _animateLogoLine() async {
@@ -202,11 +203,13 @@ class _NewLogoScreenState extends State<NewLogoScreen> with TickerProviderStateM
   /// RESTARTING ( FOR TESTING ONLY)
 
 // ----------------------------------------
+  /*
   void _restartControllers(){
     _logoAniController.value = 0;
   }
-// -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isPlaying = ValueNotifier(false);
+   */
+// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -311,16 +314,12 @@ class _NewLogoScreenState extends State<NewLogoScreen> with TickerProviderStateM
                               // color: Colorz.bloodTest,
                               alignment: Alignment.bottomRight,
                               padding: EdgeInsets.only(right: _val * 300),
-                              child: Container(
-                                // color: Colorz.bloodTest,
-                                child: SuperVerse(
-                                  verse: "THE BUILDER'S NETWORK",
-                                  shadow: true,
-                                  size: 2,
-                                  scaleFactor: 1.8,
-                                  margin: superInsets(context: context, bottom: 10),
-                                  // italic: true,
-                                ),
+                              child: SuperVerse(
+                                verse: "THE BUILDER'S NETWORK",
+                                shadow: true,
+                                scaleFactor: 1.8,
+                                margin: superInsets(context: context, bottom: 10),
+                                // italic: true,
                               ),
                             ),
                           );

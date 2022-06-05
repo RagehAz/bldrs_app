@@ -316,23 +316,23 @@ class NavBar extends StatelessWidget {
     final List<BzModel> _myBzz = _bzzProvider.myBzz;
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    const double _buttonCircleCorner = buttonCircleCorner;
+    // const double _buttonCircleCorner = buttonCircleCorner;
     final BorderRadius _boxCorners = navBarCorners(context: context, barType: theBarType);
     final double _navBarHeight = navBarHeight(context: context, barType: theBarType);
     final double _bottomOffset = navBarBottomOffset(barType: theBarType);
 // -----------------------------------------------------------------------------
     /// TASK : IOS back button needs revision
-    const bool _deviceIsIOS = false; //DeviceChecker.deviceIsIOS();
+    // const bool _deviceIsIOS = false; //DeviceChecker.deviceIsIOS();
 // -----------------------------------------------------------------------------
-    final Widget _expander = _deviceIsIOS ?
-    Expanded(child: Container(),) : Container();
+//     final Widget _expander = _deviceIsIOS ?
+//     Expanded(child: Container(),) : Container();
 // -----------------------------------------------------------------------------
     final double _spacerWidth = navBarSpacerWidth(context, _myUserModel);
     final Widget _spacer = SizedBox(width: _spacerWidth,);
     final Widget _halfSpacer = SizedBox(width: _spacerWidth * 0.5,);
 
     final double _navBarWidth = navBarWidth(context: context, userModel: _myUserModel);
-    final List<String> _userBzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
+    // final List<String> _userBzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
 
     // List<dynamic> _followedBzzIDs = _myUserModel != null ? _myUserModel?.followedBzzIDs : [];
     // String _bzID = _followedBzzIDs.length > 0 ?  _followedBzzIDs[0] : '';
