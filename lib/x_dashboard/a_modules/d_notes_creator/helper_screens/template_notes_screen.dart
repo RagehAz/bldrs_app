@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -62,7 +61,8 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final double _screenWidth = Scale.superScreenWidth(context);
+
+    // final double _screenWidth = Scale.superScreenWidth(context);
 
     return MainLayout(
       appBarType: AppBarType.basic,

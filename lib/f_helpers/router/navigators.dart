@@ -74,8 +74,8 @@ Future<dynamic> replaceScreen({
       PageTransition<dynamic>(
         type: transitionType,
         child: screen,
-        duration: Ratioz.durationFading200,
-        reverseDuration: Ratioz.durationFading200,
+        duration: Ratioz.duration750ms,
+        reverseDuration: Ratioz.duration750ms,
         curve: Curves.fastOutSlowIn,
         alignment: Alignment.bottomCenter,
       )

@@ -1,20 +1,11 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class DeactivatedFlyerScreen extends StatefulWidget {
@@ -37,7 +28,7 @@ class DeactivatedFlyerScreen extends StatefulWidget {
 class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   bool _isInit = true;
   List<FlyerModel> _allFlyers;
-  List<FlyerModel> _deactivatedFlyers;
+  // List<FlyerModel> _deactivatedFlyers;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -88,6 +79,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
   }
 
 // -----------------------------------------------------------------------------
+  /*
   FlyerModel _getFlyerFromDeactivatedFlyersByFlyerID({String flyerID}) {
     final int _index = _deactivatedFlyers.indexWhere(
       (FlyerModel flyer) => flyer.id == flyerID,
@@ -96,8 +88,9 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     final FlyerModel _flyer = _deactivatedFlyers[_index];
     return _flyer;
   }
-
+   */
 // -----------------------------------------------------------------------------
+  /*
   void _slideFlyerOptions(BuildContext context, FlyerModel flyerModel) {
     const double _buttonHeight = 50;
 
@@ -154,7 +147,6 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
       },
     );
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _deleteFlyerOnTap(FlyerModel flyerModel) async {
     blog('deleting flyer : ${flyerModel.id}');
@@ -196,6 +188,7 @@ class _DeactivatedFlyerScreenState extends State<DeactivatedFlyerScreen> {
     blog('Editing flyer : ${flyerModel.id}');
   }
 // -----------------------------------------------------------------------------
+   */
 
   @override
   Widget build(BuildContext context) {

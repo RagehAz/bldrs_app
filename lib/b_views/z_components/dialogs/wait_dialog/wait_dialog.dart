@@ -24,7 +24,7 @@ class WaitDialog extends StatelessWidget {
     String loadingPhrase,
   }) async {
 
-    final bool _result = await showDialog(
+    await showDialog(
       context: context,
       builder: (BuildContext ctx) => WaitDialog(
         canManuallyGoBack: canManuallyGoBack,

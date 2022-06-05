@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/c_question_full_screen.dart';
 import 'package:bldrs/b_views/z_components/questions/a_question_structure/d_question_hero.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -102,7 +101,7 @@ class _QuestionStarterState extends State<QuestionStarter> {
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBoxWidth = FlyerBox.width(context, widget.minWidthFactor);
+    // final double _flyerBoxWidth = FlyerBox.width(context, widget.minWidthFactor);
 
     return ValueListenableBuilder(
         key: ValueKey<String>('QuestionStarter_${widget.questionModel?.id}'),

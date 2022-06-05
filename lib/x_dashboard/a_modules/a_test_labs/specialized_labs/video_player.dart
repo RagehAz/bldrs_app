@@ -84,7 +84,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         :
                     VideoPlayer(_videoPlayerController),
                   ),
-                  if (!_value?.isPlaying)
+                  if (_value?.isPlaying == false)
                     const Center(
                         child: Icon(Icons.play_arrow,
                             size: 50,

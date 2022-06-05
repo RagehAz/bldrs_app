@@ -659,7 +659,7 @@ packages:
     source: hosted
     version: "1.5.0"
   image_editor:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_editor
       url: "https://pub.flutter-io.cn"
@@ -785,7 +785,7 @@ packages:
     source: hosted
     version: "0.1.3"
   matrix2d:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: matrix2d
       url: "https://pub.flutter-io.cn"

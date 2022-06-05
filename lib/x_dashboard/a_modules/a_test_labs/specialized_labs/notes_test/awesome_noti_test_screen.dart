@@ -195,6 +195,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         _pyramids = Iconz.pyramidsYellow;
       });
     });
+
+    blog('pyramids : $_pyramids');
   }
 
 // -----------------------------------------------------------------------------
