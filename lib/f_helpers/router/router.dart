@@ -1,10 +1,10 @@
-import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/a_new_logo_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> allRoutes(RouteSettings settings) {
@@ -14,7 +14,7 @@ Route<dynamic> allRoutes(RouteSettings settings) {
 // -----------------------------------------------------------------------------
     /// s00
     case Routez.logoScreen:
-      return Nav.fadeToScreen(const LogoScreen(), settings);
+      return Nav.fadeToScreen(const NewLogoScreen(), settings);
       break;
 // -----------------------------------------------------------------------------
     /// s01
@@ -77,5 +77,5 @@ Route<dynamic> allRoutes(RouteSettings settings) {
 // -----------------------------------------------------------------------------
 
   }
-  return Nav.fadeToScreen(const LogoScreen(), settings);
+  return Nav.fadeToScreen(const NewLogoScreen(), settings);
 }
