@@ -232,7 +232,7 @@ class AppStateOps{
 
       for (final String string in _strings){
 
-        final int _int = Numeric.stringToInt(string);
+        final int _int = Numeric.transformStringToInt(string);
 
         _divisions.add(_int);
       }

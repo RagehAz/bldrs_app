@@ -4,7 +4,8 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/bar_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/loading_user_profile_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/nav_bar_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -71,24 +72,7 @@ class NavBarProfileButton extends StatelessWidget {
       return NoteFireOps.noteStreamBuilder(
         context: context,
         stream: NotesProvider.proGetUserNotesStream(context: context, listen: true),
-        loadingWidget: BarButton(
-            size: NavBar.navBarButtonWidth,
-            text: superPhrase(context, 'phid_profile'),
-            icon: Iconz.normalUser,
-            iconSizeFactor: 0.7,
-            barType: NavBar.barType,
-            onTap: () => Nav.goToNewScreen(
-                context: context,
-                screen: UserProfileScreen(
-                  notes: ValueNotifier<List<NoteModel>>([]),
-                )
-            ),
-            clipperWidget: UserBalloon(
-              size: NavBar.circleWidth,
-              loading: false,
-              userModel: _userModel,
-            )
-        ),
+        loadingWidget: const LoadingUserProfileButton(),
         builder: (_, List<NoteModel> notesFromStream){
 
           final ValueNotifier<List<NoteModel>> notes = ValueNotifier(notesFromStream);
@@ -105,7 +89,7 @@ class NavBarProfileButton extends StatelessWidget {
 
           // blog('the notes count is wtfffff : $_notesCount');
 
-          return BarButton(
+          return NavBarButton(
               size: NavBar.navBarButtonWidth,
               text: superPhrase(context, 'phid_profile'),
               icon: Iconz.normalUser,
@@ -134,7 +118,7 @@ class NavBarProfileButton extends StatelessWidget {
     /// NOT SIGNED IN
     else {
 
-      return BarButton(
+      return NavBarButton(
         size: NavBar.navBarButtonWidth,
         text: superPhrase(context, 'phid_sign'),
         icon: Iconz.normalUser,

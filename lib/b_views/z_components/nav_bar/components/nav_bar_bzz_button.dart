@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/nav_bar_nano_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
@@ -27,20 +28,6 @@ class BzzButton extends StatelessWidget {
   final double circleWidth;
   // final List<dynamic> bzzIDs;
   /// --------------------------------------------------------------------------
-  Widget _nanoBzLogo(BuildContext context, BzModel bzModel) {
-    return SizedBox(
-      height: circleWidth * 0.47,
-      width: circleWidth * 0.47,
-      child: DreamBox(
-        height: circleWidth * 0.47,
-        width: circleWidth * 0.47,
-        corners: circleWidth * 0.47 * 0.25,
-        icon: bzModel.logo,
-        onTap: onTap,
-      ),
-    );
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -76,8 +63,6 @@ class BzzButton extends StatelessWidget {
         height: _buttonHeight,
         width: _buttonWidth,
         color: Colorz.nothing,
-        // padding: EdgeInsets.symmetric(horizontal: _paddings * 0.25),
-        // alignment: Alignment.topCenter,
         child: Column(
           children: <Widget>[
 
@@ -157,8 +142,8 @@ class BzzButton extends StatelessWidget {
                           crossAxisAlignment:
                           CrossAxisAlignment.start,
                           children: <Widget>[
-                            _nanoBzLogo(context, _myBzz[0]),
-                            _nanoBzLogo(context, _myBzz[1]),
+                            NanoBzLogo(bzModel: _myBzz[0]),
+                            NanoBzLogo(bzModel: _myBzz[1]),
                           ],
                         ),
 
@@ -167,7 +152,7 @@ class BzzButton extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
 
-                            _nanoBzLogo(context, _myBzz[2]),
+                            NanoBzLogo(bzModel: _myBzz[2]),
 
                             Container(
                               width: _circleWidth * 0.47,
@@ -194,8 +179,8 @@ class BzzButton extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
-                          _nanoBzLogo(context, _myBzz[0]),
-                          _nanoBzLogo(context, _myBzz[1]),
+                          NanoBzLogo(bzModel: _myBzz[0]),
+                          NanoBzLogo(bzModel: _myBzz[1]),
 
                         ],
                                         ),
@@ -203,8 +188,8 @@ class BzzButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          _nanoBzLogo(context, _myBzz[2]),
-                          _nanoBzLogo(context, _myBzz[3]),
+                          NanoBzLogo(bzModel: _myBzz[2]),
+                          NanoBzLogo(bzModel: _myBzz[3]),
                         ],
                       ),
                     ],
@@ -223,8 +208,8 @@ class BzzButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          _nanoBzLogo(context, _myBzz[0]),
-                          _nanoBzLogo(context, _myBzz[1]),
+                          NanoBzLogo(bzModel: _myBzz[0]),
+                          NanoBzLogo(bzModel: _myBzz[1]),
                         ],
                       ),
 
@@ -233,7 +218,8 @@ class BzzButton extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
-                          _nanoBzLogo(context, _myBzz[2]),
+                          NanoBzLogo(bzModel: _myBzz[2]),
+
                           DreamBox(
                             height: _circleWidth * 0.47,
                             width: _circleWidth * 0.47,
@@ -243,6 +229,7 @@ class BzzButton extends StatelessWidget {
                             bubble: false,
                             onTap: onTap,
                           ),
+
                         ],
                       ),
 

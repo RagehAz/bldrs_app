@@ -35,7 +35,7 @@ class QuestionButton extends StatelessWidget {
       iconSizeFactor: 0.5,
       verseCentered: false,
       iconColor: iconColor,
-      secondLine: Numeric.counterCaliber(context, count),
+      secondLine: Numeric.formatNumToCounterCaliber(context, count),
       bubble: false,
       color: Colorz.white20,
       onTap: onTap,

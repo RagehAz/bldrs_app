@@ -60,7 +60,7 @@ class BzPgCounter extends StatelessWidget {
 
               /// COUNT
               SuperVerse(
-                verse: Numeric.separateKilos(number: count),
+                verse: Numeric.formatNumToSeparatedKilos(number: count),
                 margin: bzPageStripSideMargin * 0.1,
               ),
 
