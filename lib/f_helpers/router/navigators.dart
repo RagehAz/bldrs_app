@@ -66,11 +66,19 @@ Future<void> goToRoute(BuildContext context, String routezName, {dynamic argumen
 Future<dynamic> replaceScreen({
   @required BuildContext context,
   @required Widget screen,
+  PageTransitionType transitionType = PageTransitionType.bottomToTop,
 }) async {
 
   final dynamic _result = await Navigator.pushReplacement(
       context,
-      MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen)
+      PageTransition<dynamic>(
+        type: transitionType,
+        child: screen,
+        duration: Ratioz.durationFading200,
+        reverseDuration: Ratioz.durationFading200,
+        curve: Curves.fastOutSlowIn,
+        alignment: Alignment.bottomCenter,
+      )
   );
 
   return _result;

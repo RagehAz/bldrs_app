@@ -17,7 +17,6 @@ class DashButton extends StatelessWidget {
   final DashButtonModel dashButtonModel;
   final double size;
   final Color color;
-
   @override
   Widget build(BuildContext context) {
 
@@ -30,8 +29,9 @@ class DashButton extends StatelessWidget {
 
         if (dashButtonModel.screen != null){
           await Nav.goToNewScreen(
-              context: context,
-              screen: dashButtonModel.screen,
+            context: context,
+            screen: dashButtonModel.screen,
+            transitionType: dashButtonModel.transitionType,
           );
         }
 
