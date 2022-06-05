@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 
 /// NOTE OPTIONS
 
-// -------------------------------
+// ------------------------------------------
 Future<void> onShowNoteOptions({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -36,7 +36,8 @@ Future<void> onShowNoteOptions({
 
 /// NOTE RESPONSES
 
-// -------------------------------
+// ------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> markNoteAsSeen({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -44,15 +45,24 @@ Future<void> markNoteAsSeen({
 
   if (noteModel.noteType != null){
 
-    await NoteFireOps.updateNoteSeen(
-      context: context,
-      noteModel: noteModel,
-    );
+    if (noteModel.seen != true){
+
+      final NoteModel _updatedNote = noteModel.copyWith(
+        seen: true,
+        seenTime: DateTime.now(),
+      );
+
+      await NoteFireOps.updateNote(
+        context: context,
+        newNoteModel: _updatedNote,
+      );
+
+    }
 
   }
 
 }
-// -------------------------------
+// ------------------------------------------
 Future<void> onNoteButtonTap({
   @required BuildContext context,
   @required String response,
@@ -81,7 +91,7 @@ Future<void> onNoteButtonTap({
 
 /// AUTHORSHIP NOTE RESPONSES
 
-// -------------------------------
+// ------------------------------------------
 /// USER RESPONSE TO AUTHORSHIP INVITATION
 Future<void> _respondToAuthorshipNote({
   @required BuildContext context,
@@ -108,8 +118,11 @@ Future<void> _respondToAuthorshipNote({
   }
 
 }
-// -------------------------------
-/// USER ACCEPT AUTHORSHIP INVITATION
+// ------------------------------------------
+
+/// ACCEPT AUTHORSHIP INVITATION
+
+// -------------------
 Future<void> _acceptAuthorshipInvitation({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -166,7 +179,7 @@ Future<void> _acceptAuthorshipInvitation({
   }
 
 }
-// -------------------------------
+// -------------------
 Future<UserModel> _modifyUserAuthorshipOps({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -202,7 +215,7 @@ Future<UserModel> _modifyUserAuthorshipOps({
 
   return _newUserModel;
 }
-// -------------------------------
+// -------------------
 Future<void> _modifyBzAuthorshipOps({
   @required BuildContext context,
   @required UserModel newUserModel,
@@ -237,8 +250,11 @@ Future<void> _modifyBzAuthorshipOps({
   await BzLDBOps.createBzOps(bzModel: _uploadedBzModel);
 
 }
+// ------------------------------------------
 
-// -------------------------------
+/// DECLINE AUTHORSHIP INVITATION
+
+// -------------------
 /// USER DECLINE AUTHORSHIP INVITATION
 Future<void> _declineAuthorshipInvitation({
   @required BuildContext context,
@@ -265,7 +281,7 @@ Future<void> _declineAuthorshipInvitation({
   }
 
 }
-// -------------------------------
+// -------------------
 Future<void> _modifyNoteResponse({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -283,4 +299,4 @@ Future<void> _modifyNoteResponse({
   );
 
 }
-// -------------------------------
+// ------------------------------------------
