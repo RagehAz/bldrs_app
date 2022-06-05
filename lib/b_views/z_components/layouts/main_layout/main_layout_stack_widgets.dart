@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class MainLayoutStackWidgets extends StatelessWidget {
@@ -31,6 +30,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.pyramidsAreOn,
     @required this.navBarIsOn,
     @required this.searchHint,
+    @required this.pyramidType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -53,23 +53,24 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool zoneButtonIsOn;
   final String searchHint;
   final ValueNotifier<bool> loading;
+  final PyramidType pyramidType;
   /// --------------------------------------------------------------------------
-  String _pyramidsIcon(){
+  PyramidType _concludePyramidTypePerSkyType(){
 
     if (skyType == SkyType.black){
-      return Iconz.pyramidzWhite;
+      return PyramidType.crystalWhite;
     }
 
     else if (skyType == SkyType.night){
-      return Iconz.pyramidzYellow;
+      return PyramidType.crystalYellow;
     }
 
     else if (skyType == SkyType.non){
-      return Iconz.pyramidsCrystal;
+      return PyramidType.crystalBlue;
     }
 
     else {
-      return Iconz.pyramidsGlass;
+      return PyramidType.glass;
     }
 
   }
@@ -122,7 +123,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
         if (pyramidsAreOn == true)
           Pyramids(
             key: const ValueKey<String>('pyramids'),
-            pyramidsIcon: _pyramidsIcon(),
+            pyramidType: pyramidType ?? _concludePyramidTypePerSkyType(),
             loading: loading,
           ),
 

@@ -5,7 +5,6 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class WaitDialog extends StatelessWidget {
@@ -96,7 +95,7 @@ class WaitDialog extends StatelessWidget {
             ),
 
             Pyramids(
-              pyramidsIcon: Iconz.pyramidzYellow,
+              pyramidType: PyramidType.crystalYellow,
               loading: ValueNotifier(true),
             ),
 

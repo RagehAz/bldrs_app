@@ -1,12 +1,15 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/a_0_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/c_controllers/notes_controllers/fcm_controller.dart' as NotiOps;
+import 'package:bldrs/c_controllers/notes_controllers/local_notification_controller.dart' as LocalNotificationService;
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -16,11 +19,9 @@ import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/c_controllers/notes_controllers/local_notification_controller.dart' as LocalNotificationService;
-import 'package:bldrs/c_controllers/notes_controllers/fcm_controller.dart' as NotiOps;
-import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
+import 'package:bldrs/b_views/x_screens/a_starters/a_new_logo_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -164,10 +165,7 @@ class _BldrsAppState extends State<BldrsApp> {
             return ValueListenableBuilder<String>(
                 valueListenable: _fireError,
                 builder: (_, String error, Widget child) {
-                  return const LogoScreen(
-                    // loading: loading,
-                    // error: error,
-                  );
+                  return const NewLogoScreen();
                 });
           });
     }
@@ -243,7 +241,7 @@ class _BldrsAppState extends State<BldrsApp> {
               routes: <String, Widget Function(BuildContext)>{
 
                 /// STARTERS
-                Routez.logoScreen: (BuildContext ctx) => const LogoScreen(key: ValueKey<String>('LogoScreen'),),
+                Routez.logoScreen: (BuildContext ctx) => const NewLogoScreen(key: ValueKey<String>('LogoScreen'),),
                 Routez.home: (BuildContext ctx) => const HomeScreen(),
 
                 Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
