@@ -144,13 +144,13 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
 
     /// IF INT
     if (isIntDataCreator(widget.dataCreatorType) == true){
-      final double _doubleFromString = Numeric.stringToDouble(text);
+      final double _doubleFromString = Numeric.transformStringToDouble(text);
       _specValue.value = _doubleFromString.toInt();
     }
 
     /// IF DOUBLE
     else if (isDoubleDataCreator(widget.dataCreatorType) == true){
-      _specValue.value = Numeric.stringToDouble(text);
+      _specValue.value = Numeric.transformStringToDouble(text);
     }
 
     /// OTHERWISE

@@ -273,17 +273,19 @@ class SlideModel {
   /// ID GENERATOR AND GETTERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String generateSlideID({
     @required String flyerID,
     @required int slideIndex,
   }) {
-    // slide index shall never have more than two digits
-    // as flyer should never be more than 10 slides long
+    /// NOTE : slide index shall never have more than two digits
+    /// and flyer should never be more than 10 slides long
     final String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
     final String _slideID = '${flyerID}_$_slideIndexString';
     return _slideID;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> generateSlidesIDs({
     @required String flyerID,
     @required int numberOfSlides,
@@ -304,15 +306,17 @@ class SlideModel {
     return _slidesIDs;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static int getSlideIndexFromSlideID(String slideID) {
-    // slide index shall never have more than two digits
-    final int _slideIndex = Numeric.lastTwoIntegersFromAString(slideID);
+    /// NOTE : slide index shall never have more than two digits
+    final String _lastTwoSubStrings = TextMod.cutLastTwoCharactersFromAString(slideID);
+    final int _slideIndex = Numeric.transformStringToInt(_lastTwoSubStrings);
     return _slideIndex;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getFlyerIDFromSlideID(String slideID) {
-    final String _flyerID =
-    TextMod.removeTextAfterFirstSpecialCharacter(slideID, '_');
+    final String _flyerID = TextMod.removeTextAfterFirstSpecialCharacter(slideID, '_');
     return _flyerID;
   }
 // -----------------------------------------------------------------------------

@@ -88,7 +88,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
   void _onTextChanged(String val) {
     _validate();
 
-    final double _doubleFromString = Numeric.stringToDouble(val);
+    final double _doubleFromString = Numeric.transformStringToDouble(val);
     _double.value = _doubleFromString;
     widget.onDoubleChanged(_doubleFromString);
   }

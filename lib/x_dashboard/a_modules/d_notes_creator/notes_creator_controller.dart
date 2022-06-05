@@ -35,6 +35,7 @@ import 'package:page_transition/page_transition.dart';
 /// INITIALIZATION
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 void initializeVariables({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -43,6 +44,7 @@ void initializeVariables({
   note.value = _initialNote;
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 NoteModel createInitialNote(BuildContext context) {
 
   final NoteModel _noteModel = NoteModel(
@@ -73,6 +75,7 @@ NoteModel createInitialNote(BuildContext context) {
 /// NOTE TYPE
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onChangeNoteType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -145,6 +148,7 @@ Future<void> onChangeNoteType({
 /// NOTE RECEIVER
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSelectNoteReceiverTap({
   @required BuildContext context,
   @required ValueNotifier<UserModel> receiver,
@@ -169,152 +173,9 @@ Future<void> onSelectNoteReceiverTap({
       );
     }
 
-
-    /*
-    // -----------------------------------------------------------------------------
-  Future<void> _onSelectReciever() async {
-
-
-
-    // final double _dialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.85);
-    //
-    // final double _dialogClearWidth = BottomDialog.clearWidth(context);
-    // final double _dialogClearHeight = BottomDialog.clearHeight(
-    //   context: context,
-    //   draggable: true,
-    //   titleIsOn: true,
-    //   overridingDialogHeight: _dialogHeight,
-    // );
-    // const double _textFieldHeight = 70;
-    //
-    // List<UserModel> _usersModels = <UserModel>[];
-    //
-    // await BottomDialog.showStatefulBottomDialog(
-    //   context: context,
-    //   draggable: true,
-    //   title: 'Search for a user',
-    //   height: _dialogHeight,
-    //   builder: (BuildContext ctx, String title) {
-    //     return StatefulBuilder(
-    //         builder: (BuildContext xxx, void Function(void Function()) setDialogState) {
-    //       return Column(
-    //         children: <Widget>[
-    //           /// USER NAME TEXT FIELD
-    //           SizedBox(
-    //             width: _dialogClearWidth,
-    //             height: _textFieldHeight,
-    //             child: SuperTextField(
-    //                width: _dialogClearWidth,
-    //               // height: _textFieldHeight,
-    //               // formKey: null,
-    //               textController: _userNameController,
-    //               hintText: 'user name ...',
-    //               keyboardTextInputType: TextInputType.multiline,
-    //               maxLength: 30,
-    //               maxLines: 2,
-    //               keyboardTextInputAction: TextInputAction.search,
-    //               onSubmitted: (String val) async {
-    //                 blog('submitted : val : $val');
-    //
-    //                 final List<UserModel> _resultUsers = await UserFireSearch.usersByUserName(
-    //                   context: context,
-    //                   name: val,
-    //                   startAfter: null,
-    //                 );
-    //
-    //                 if (_resultUsers == <UserModel>[]) {
-    //                   blog('result is null, no result found');
-    //                 } else {
-    //                   blog('_result found : ${_resultUsers.length} matches');
-    //
-    //                   setDialogState(() {
-    //                     _usersModels = _resultUsers;
-    //                   });
-    //                 }
-    //               },
-    //             ),
-    //           ),
-    //
-    //           SizedBox(
-    //             width: _dialogClearWidth,
-    //             height: _dialogClearHeight - _textFieldHeight,
-    //             child: OldMaxBounceNavigator(
-    //               child: ListView.builder(
-    //                   physics: const BouncingScrollPhysics(),
-    //                   padding: const EdgeInsets.only(bottom: Ratioz.horizon),
-    //                   itemCount: _usersModels.length,
-    //                   itemBuilder: (BuildContext ctx, int index) {
-    //                     final bool _userSelected =
-    //                         _selectedUser == _usersModels[index];
-    //
-    //                     return _usersModels == <UserModel>[] ?
-    //
-    //                     SizedBox(
-    //                       width: _dialogClearWidth,
-    //                       height: 70,
-    //                       child: const SuperVerse(
-    //                         verse: 'No match found',
-    //                         size: 1,
-    //                         weight: VerseWeight.thin,
-    //                         italic: true,
-    //                         color: Colorz.white30,
-    //                       ),
-    //                     )
-    //                         :
-    //                     Row(
-    //                       children: <Widget>[
-    //
-    //                         DashboardUserButton(
-    //                             width: _dialogClearWidth - DashboardUserButton.height(),
-    //                             userModel: _usersModels[index],
-    //                             index: index,
-    //                             onTap: null
-    //                         ),
-    //
-    //                         Container(
-    //                                 height: DashboardUserButton.height(),
-    //                                 width: DashboardUserButton.height(),
-    //                                 alignment: Alignment.center,
-    //                                 child: DreamBox(
-    //                                   height: 50,
-    //                                   width: 50,
-    //                                   icon: Iconz.check,
-    //                                   iconSizeFactor: 0.5,
-    //                                   iconColor: _userSelected == true
-    //                                       ? Colorz.green255
-    //                                       : Colorz.white50,
-    //                                   color: null,
-    //                                   onTap: () async {
-    //                                     setDialogState(() {
-    //                                       _selectedUser = _usersModels[index];
-    //                                     });
-    //
-    //                                     setState(() {
-    //                                       _selectedUser = _usersModels[index];
-    //                                     });
-    //
-    //                                     Nav.goBack(context);
-    //                                     // await null;
-    //                                   },
-    //                                 ),
-    //                               )
-    //                       ],
-    //                     );
-    //                   }
-    //                   ),
-    //             ),
-    //           ),
-    //         ],
-    //       );
-    //     });
-    //   },
-    // );
-  }
-
-     */
-
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 void deleteSelectedReciever({
   @required ValueNotifier<UserModel> selectedUser,
 }){
@@ -327,6 +188,7 @@ void deleteSelectedReciever({
 /// BODY AND TITLE
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 void onTitleChanged({
   @required String text,
   @required ValueNotifier<NoteModel> note,
@@ -339,6 +201,7 @@ void onTitleChanged({
   note.value = _updated;
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 void onBodyChanged({
   @required String text,
   @required ValueNotifier<NoteModel> note,
@@ -355,6 +218,7 @@ void onBodyChanged({
 /// SENDER
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSelectNoteSender({
   @required BuildContext context,
   @required NoteSenderType senderType,
@@ -419,6 +283,7 @@ Future<void> onSelectNoteSender({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<bool> _showEthicalConfirmationDialog({
   @required BuildContext context,
   @required NoteSenderType senderType,
@@ -449,6 +314,7 @@ Future<bool> _showEthicalConfirmationDialog({
   return _canContinue;
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<dynamic> selectedSenderModel,
@@ -484,6 +350,7 @@ Future<void> _onSelectUserAsNoteSender({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<dynamic> selectedSenderModel,
@@ -517,6 +384,7 @@ Future<void> _onSelectBzAsNoteSender({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<dynamic> selectedSenderModel,
@@ -548,6 +416,7 @@ Future<void> _onSelectCountryAsNoteSender({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<dynamic> selectedSenderModel,
@@ -586,6 +455,7 @@ void onSwitchSendFCM({
 /// BUTTONS
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 void onAddNoteButton({
   @required ValueNotifier<NoteModel> note,
   @required String button,
@@ -606,6 +476,7 @@ void onAddNoteButton({
 /// ATTACHMENTS
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSelectAttachmentType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -648,6 +519,7 @@ Future<void> onSelectAttachmentType({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectBzAsAttachment({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -676,6 +548,7 @@ Future<void> _onSelectBzAsAttachment({
 
 }
 // -------------------------------
+/// TESTED :
 Future<void> _onSelectFlyersIDsAsAttachment({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -705,6 +578,7 @@ Future<void> _onSelectFlyersIDsAsAttachment({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectImageURLAsAttachment({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -729,6 +603,7 @@ Future<void> _onSelectImageURLAsAttachment({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 void _onClearAttachments({
   @required ValueNotifier<NoteModel> note,
 }){
@@ -763,6 +638,7 @@ void _onClearAttachments({
 /// SEND
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSendNote({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -846,6 +722,7 @@ Future<void> onSendNote({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _modifyAttachmentIfFile({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -873,6 +750,7 @@ Future<void> _modifyAttachmentIfFile({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 String _concludeImageOwnerID(NoteModel noteModel){
 
   String _ownerID;
@@ -892,7 +770,8 @@ String _concludeImageOwnerID(NoteModel noteModel){
 
   return _ownerID;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------
+/// TESTED : WORKS PERFECT
 void _clearNote({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -915,6 +794,7 @@ void _clearNote({
 /// DELETE NOTE (ALL NOTES PAGINATOR SCREEN)
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onDeleteNote({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -1017,6 +897,7 @@ Future<void> onGoToNoteTemplatesScreen({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSelectNoteTemplateTap({
   @required BuildContext context,
   @required NoteModel noteModel,

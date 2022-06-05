@@ -4,9 +4,9 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/bar_button.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/buttons/nav_bar_profile_button.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/buttons/unfinished_bzz_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/nav_bar_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/nav_bar_bzz_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/nav_bar_profile_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/nav_bar_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -205,108 +205,6 @@ class NavBar extends StatelessWidget {
     return _bottomOffset;
   }
 // -----------------------------------------------------------------------------
-  /*
-  double _myBzzListSlideHeight(BuildContext context, List<BzModel> myBzz) {
-    final double _wantedHeight = Scale.superScreenWidth(context) * 0.3 * myBzz.length;
-    final double _maxHeight = Scale.superScreenHeight(context) * 0.5;
-
-    double _finalHeight;
-    if (_wantedHeight >= _maxHeight) {
-      _finalHeight = _maxHeight;
-    } else {
-      _finalHeight = _wantedHeight;
-    }
-
-    return _finalHeight;
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _multiBzzSlider(BuildContext context, UserModel userModel, List<BzModel> myBzz) async {
-    final double _sliderHeight = _myBzzListSlideHeight(context, myBzz);
-    // double _sliderHeightRatio = _sliderHeight / Scale.superScreenHeight(context);
-    final double _bzButtonWidth = Scale.superScreenWidth(context) - BottomDialog.draggerZoneHeight(draggable: true) * 2;
-
-    // int _titleSize = 2;
-    // double _titleMargin = 5;
-    // double _titleZoneHeight = superVerseRealHeight(context, _titleSize, 1, null) + (_titleMargin * 2);
-
-    final double _bzzButtonsZoneHeight = BottomDialog.clearHeight(
-        context: context,
-        overridingDialogHeight: _sliderHeight,
-        titleIsOn: true,
-        draggable: true);
-
-
-    await BottomDialog.showBottomDialog(
-      context: context,
-      draggable: true,
-      height: _sliderHeight,
-      title: 'My Business accounts',
-      child: NotificationListener<ScrollUpdateNotification>(
-        onNotification: (ScrollUpdateNotification details) {
-          final bool _canPageUp = Scrollers.canSlide(
-            details: details,
-            boxDistance: _bzzButtonsZoneHeight,
-            goesBackOnly: true,
-            axis: Axis.vertical,
-          );
-
-          if (_canPageUp) {
-            Nav.goBackToHomeScreen(context);
-          }
-
-          return true;
-        },
-        child: SizedBox(
-          height: _bzzButtonsZoneHeight,
-          child: Scroller(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(navbarPaddings),
-              physics: const BouncingScrollPhysics(),
-              // controller: _myBzzListController,
-              itemCount: myBzz.length,
-              itemBuilder: (BuildContext context, int index) {
-
-                final BzModel _bzModel = myBzz[index];
-
-                final String _bzTypesString = BzModel.generateTranslatedBzTypesString(
-                  context: context,
-                  bzTypes: _bzModel.bzTypes,
-                );
-
-                return Align(
-                  alignment: Aligners.superCenterAlignment(context),
-                  child: DreamBox(
-                    height: 60,
-                    width: _bzButtonWidth,
-                    margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                    icon: _bzModel.logo,
-                    verse: _bzModel.name,
-                    secondLine: _bzTypesString,
-                    verseScaleFactor: 0.7,
-                    verseCentered: false,
-                    onTap: () async {
-
-                      blog(_bzModel.id);
-
-                      await Nav.goToNewScreen(
-                          context: context,
-                          screen: MyBzScreen(
-                            bzModel: _bzModel,
-                          )
-                      );
-
-                      },
-                  ),
-                );
-                },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-  */
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -391,7 +289,7 @@ class NavBar extends StatelessWidget {
 
                       /// SAVED FLYERS
                       if (_userIsSignedIn == true)
-                        BarButton(
+                        NavBarButton(
                           size: navBarButtonWidth,
                           text: superPhrase(context, 'phid_saves'),
                           icon: Iconz.saveOn,
@@ -403,7 +301,7 @@ class NavBar extends StatelessWidget {
                       _spacer,
 
                       /// QUESTION
-                      BarButton(
+                      NavBarButton(
                         size: navBarButtonWidth,
                         text: superPhrase(context, 'phid_question'),
                         icon: Iconz.utPlanning,
@@ -435,22 +333,6 @@ class NavBar extends StatelessWidget {
                             myUserModel: _myUserModel,
                           ),
                         ),
-
-                      // _spacer,
-                      //
-                      // /// NEWS
-                      // if (_userIsSignedIn == true)
-                      //   BarButton(
-                      //     width: navBarButtonWidth,
-                      //     text: Wordz.news(context),
-                      //     icon: Iconz.news,
-                      //     iconSizeFactor: 0.45,
-                      //     barType: barType,
-                      //     onTap: () {
-                      //       Nav.goToNewScreen(
-                      //           context, const NotificationsScreen());
-                      //     },
-                      //   ),
 
                       _spacer,
 

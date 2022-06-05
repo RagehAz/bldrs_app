@@ -56,7 +56,7 @@ class CurrencyManagerScreen extends StatelessWidget {
             itemBuilder: (_, index){
 
               final CurrencyModel _currency = _currencies[index];
-              final String _number = Numeric.getNumberWithinDigits(num: index + 1, digits: 3);
+              final String _number = Numeric.formatNumberWithinDigits(num: index + 1, digits: 3);
 
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,

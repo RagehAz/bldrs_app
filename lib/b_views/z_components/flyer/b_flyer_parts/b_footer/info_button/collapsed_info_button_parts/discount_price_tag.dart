@@ -38,7 +38,7 @@ class DiscountPriceTag extends StatelessWidget {
     const double _currentPrice = 14019.50;
     final String _currency = _currentCountry?.currency;
     const double _oldPrice = 17800;
-    final int _discountPercentage = Numeric.discountPercentage(
+    final int _discountPercentage = Numeric.calculateDiscountPercentage(
       oldPrice: _oldPrice,
       currentPrice: _currentPrice,
     );

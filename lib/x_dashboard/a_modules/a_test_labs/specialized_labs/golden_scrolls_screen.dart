@@ -5,11 +5,11 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/only_fo
 import 'package:flutter/material.dart';
 
 class GoldenScrollsScreen extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const GoldenScrollsScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return MainLayout(
