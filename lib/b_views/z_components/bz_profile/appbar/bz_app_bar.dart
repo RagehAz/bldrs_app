@@ -62,8 +62,8 @@ class BzAppBar extends StatelessWidget {
 
         BzCreditsCounter(
           width: Ratioz.appBarButtonSize * 1.4,
-          slidesCredit: Numeric.counterCaliber(context, 1234),
-          ankhsCredit: Numeric.counterCaliber(context, 123),
+          slidesCredit: Numeric.formatNumToCounterCaliber(context, 1234),
+          ankhsCredit: Numeric.formatNumToCounterCaliber(context, 123),
         ),
 
         /// -- SLIDE BZ ACCOUNT OPTIONS

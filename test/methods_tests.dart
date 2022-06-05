@@ -453,12 +453,12 @@ void main() {
   });
 // -----------------------------------------------------------------------------
   test('power', () async {
-    final int _output = Numeric.power(num: 5, power: 3);
+    final int _output = Numeric.calculateIntegerPower(num: 5, power: 3);
     expect(_output, 125);
   });
 // -----------------------------------------------------------------------------
   test('get Number Within Digits', () async {
-    final String _output = Numeric.getNumberWithinDigits(num: 957, digits: 4);
+    final String _output = Numeric.formatNumberWithinDigits(num: 957, digits: 4);
     expect(_output, '0957');
   });
 // -----------------------------------------------------------------------------

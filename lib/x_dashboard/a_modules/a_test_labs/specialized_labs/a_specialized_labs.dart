@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/a_new_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_pickers_screen.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -17,6 +16,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/provide
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/streaming_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/video_player.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
@@ -43,12 +43,12 @@ class SpecializedLabs extends StatelessWidget {
         screen: const ProvidersTestScreen(),
       ),
 
-      /// NEW LOGO SCREEN
+      /// STREAMING
       DashButtonModel(
-        verse: 'New Logo Screen',
-        icon: Iconz.bldrsNameEn,
-        screen: const NewLogoScreen(),
-        transitionType: PageTransitionType.fade,
+        verse: 'STREAMING TEST',
+        icon: Iconz.statistics,
+        screen: const StreamingTest(),
+        transitionType: PageTransitionType.leftToRightWithFade,
       ),
 
       /// PROVIDER TEST

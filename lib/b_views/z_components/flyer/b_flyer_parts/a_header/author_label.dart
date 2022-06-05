@@ -104,7 +104,7 @@ class AuthorLabel extends StatelessWidget {
     final int _followersCount = bzModel?.totalFollowers;
     final int _bzGalleryCount = bzModel?.totalFlyers;
 
-    final String _galleryCountCalibrated = Numeric.counterCaliber(context, _bzGalleryCount);
+    final String _galleryCountCalibrated = Numeric.formatNumToCounterCaliber(context, _bzGalleryCount);
     final String _followersCounter =
     (authorGalleryCount == 0 && _followersCount == 0)
         ||
@@ -113,10 +113,10 @@ class AuthorLabel extends StatelessWidget {
     ''
         :
     showLabel == true ?
-    '${Numeric.separateKilos(number: authorGalleryCount)} '
+    '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
         '${superPhrase(context, 'phid_flyers')}'
         :
-    '${Numeric.counterCaliber(context, _followersCount)} '
+    '${Numeric.formatNumToCounterCaliber(context, _followersCount)} '
         '${superPhrase(context, 'phid_followers')} . '
         '$_galleryCountCalibrated '
         '${superPhrase(context, 'phid_flyers')}';

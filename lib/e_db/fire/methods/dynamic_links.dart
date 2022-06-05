@@ -114,7 +114,7 @@ class DynamicLinksApi {
     final String indexString =
         TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
 
-    int _index = Numeric.stringToInt(indexString);
+    int _index = Numeric.transformStringToInt(indexString);
 
     /// so return zero if _index was null
     return _index ??= 0;

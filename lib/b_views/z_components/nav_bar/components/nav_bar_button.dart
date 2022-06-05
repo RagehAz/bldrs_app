@@ -1,14 +1,14 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/button_notification_dot.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/button_notification_dot.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class BarButton extends StatelessWidget {
+class NavBarButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BarButton({
+  const NavBarButton({
     @required this.text,
     @required this.size,
     this.icon,

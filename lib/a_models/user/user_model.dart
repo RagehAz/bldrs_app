@@ -681,7 +681,7 @@ class UserModel {
 
     if (numberOfUsers != null) {
 
-      final List<int> _randomIndexes = Numeric.getRandomIndexes(
+      final List<int> _randomIndexes = Numeric.createRandomIndexes(
         numberOfIndexes: numberOfUsers,
         maxIndex: _users.length - 1,
       );

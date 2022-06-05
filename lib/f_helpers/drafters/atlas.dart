@@ -43,9 +43,9 @@ GeoPoint decipherGeoPoint({
     if (fromJSON == true) {
 
       final String _latString = TextMod.removeTextAfterLastSpecialCharacter(point, '_');
-      final double _lat = Numeric.stringToDouble(_latString);
+      final double _lat = Numeric.transformStringToDouble(_latString);
       final String _lngString = TextMod.removeTextBeforeFirstSpecialCharacter(point, '_');
-      final double _lng = Numeric.stringToDouble(_lngString);
+      final double _lng = Numeric.transformStringToDouble(_lngString);
 
       _output = GeoPoint(_lat, _lng);
     }
