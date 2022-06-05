@@ -309,10 +309,11 @@ Future<String> createStoragePicFromLocalAssetAndGetURL({
 /// READ (GETTERS)
 
 // ------------------------------------------------
-/// TESTED : WORKS PERFECT : NOTE : use picName without file extension
+/// TESTED : WORKS PERFECT : NOTE
 Future<String> getImageURLByPath({
   @required BuildContext context,
   @required String docName,
+  /// Note : use picName without file extension
   @required String picName,
 }) async {
 

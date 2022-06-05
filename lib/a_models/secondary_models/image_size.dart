@@ -208,11 +208,11 @@ class ImageSize {
     if (sqlImageSize != null) {
       final String _widthString =
           TextMod.removeTextAfterFirstSpecialCharacter(sqlImageSize, '#');
-      final double _width = Numeric.stringToDouble(_widthString);
+      final double _width = Numeric.transformStringToDouble(_widthString);
 
       final String _heightString =
           TextMod.removeTextBeforeFirstSpecialCharacter(sqlImageSize, '#');
-      final double _height = Numeric.stringToDouble(_heightString);
+      final double _height = Numeric.transformStringToDouble(_heightString);
 
       _imageSize = ImageSize(
         width: _width,

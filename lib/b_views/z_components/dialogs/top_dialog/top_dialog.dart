@@ -25,6 +25,19 @@ class TopDialog extends StatelessWidget {
   final Function onTap;
   // final int duration;
   /// --------------------------------------------------------------------------
+  static Future<void> showSuccessDialog({
+  @required BuildContext context,
+}) async {
+
+    await showTopDialog(
+      context: context,
+      firstLine: 'Success',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+}
+// -----------------------------------------------------------------------------
   static Future<void> showTopDialog({
     @required BuildContext context,
     @required String firstLine,
@@ -146,7 +159,6 @@ class TopDialog extends StatelessWidget {
       // userInputForm: ,
     ).show(context);
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

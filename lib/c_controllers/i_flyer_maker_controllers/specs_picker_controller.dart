@@ -267,7 +267,7 @@ void onPriceChanged({
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 
-  final double _priceDouble = Numeric.stringToDouble(price);
+  final double _priceDouble = Numeric.transformStringToDouble(price);
 
   final SpecModel _priceSpec = SpecModel(
       pickerChainID: picker.chainID,

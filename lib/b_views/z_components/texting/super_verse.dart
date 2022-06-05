@@ -85,7 +85,7 @@ class SuperVerse extends StatelessWidget {
       children: <Widget>[
 
         SuperVerse(
-          verse: Numeric.separateKilos(number: price, fractions: 3),
+          verse: Numeric.formatNumToSeparatedKilos(number: price, fractions: 3),
           color: color,
           weight: isBold ? VerseWeight.black : VerseWeight.bold,
           size: 6,
@@ -134,8 +134,8 @@ class SuperVerse extends StatelessWidget {
     const double _shadowYOffset = 0;
     final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    final Color _leftShadow = Colorizer.isBlack(color) == true ? Colorz.white200 : Colorz.black230;
-    final Color _rightShadow = Colorizer.isBlack(color) == true ? Colorz.white80 : Colorz.white20;
+    final Color _leftShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white200 : Colorz.black230;
+    final Color _rightShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white80 : Colorz.white20;
 
     return TextStyle(
         backgroundColor: _boxColor,

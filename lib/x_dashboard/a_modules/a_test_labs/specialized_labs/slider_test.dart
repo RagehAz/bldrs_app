@@ -11,10 +11,14 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class SliderTestScreen extends StatefulWidget {
-  const SliderTestScreen({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const SliderTestScreen({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   @override
   _SliderTestScreenState createState() => _SliderTestScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _SliderTestScreenState extends State<SliderTestScreen> {
@@ -85,7 +89,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               actionBtFunction: () {
                 blog('value is : ${_minController.text}');
 
-                final int _value = Numeric.stringToInt(_minController.text);
+                final int _value = Numeric.transformStringToInt(_minController.text);
 
                 setState(() {
                   _minValue = _value.toDouble();
@@ -101,7 +105,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               actionBtFunction: () {
                 blog('value is : ${_maxController.text}');
 
-                final int _value = Numeric.stringToInt(_maxController.text);
+                final int _value = Numeric.transformStringToInt(_maxController.text);
 
                 setState(() {
                   _maxValue = _value.toDouble();
@@ -118,7 +122,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 blog('value is : ${_divisionsController.text}');
 
                 final int _value =
-                    Numeric.stringToInt(_divisionsController.text);
+                    Numeric.transformStringToInt(_divisionsController.text);
 
                 setState(() {
                   _divisions = _value;
