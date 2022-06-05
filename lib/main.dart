@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
-import 'package:bldrs/c_controllers/notes_controllers/fcm_controller.dart' as NotiOps;
-import 'package:bldrs/c_controllers/notes_controllers/local_notification_controller.dart' as LocalNotificationService;
+import 'package:bldrs/f_helpers/notifications/fcm.dart';
+import 'package:bldrs/f_helpers/notifications/local_note.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -43,7 +43,7 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
 
-  await NotiOps.preInitializeNoti();
+  await FCM.preInitializeNoti();
 
   runApp(const BldrsApp());
 }
@@ -96,8 +96,8 @@ class _BldrsAppState extends State<BldrsApp> {
         await _initializeFlutterFire();
 
         /// NOTIFICATIONS
-        await LocalNotificationService.initialize(context);
-        await NotiOps.initializeNoti(context);
+        await LocalNote.initialize(context);
+        await FCM.initializeNoti(context);
 
         /// DYNAMIC LINKS
         await DynamicLinksApi().initializeDynamicLinks(context);
