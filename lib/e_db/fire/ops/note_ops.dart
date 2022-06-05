@@ -320,6 +320,7 @@ typedef NotiModelsWidgetsBuilder = Widget Function(
 /// UPDATE
 
 // -----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> updateNote({
 @required BuildContext context,
 @required NoteModel newNoteModel,
@@ -333,28 +334,6 @@ Future<void> updateNote({
       input: newNoteModel.toMap(toJSON: false),
     );
   }
-
-}
-// -----------------------------------
-Future<void> updateNoteSeen({
-  @required BuildContext context,
-  @required NoteModel noteModel
-}) async {
-
-  if (noteModel.seen != true){
-
-    final NoteModel _updatedNote = noteModel.copyWith(
-      seen: true,
-      seenTime: DateTime.now(),
-    );
-
-    await updateNote(
-      context: context,
-      newNoteModel: _updatedNote,
-    );
-
-  }
-
 
 }
 // -----------------------------------------------------------------------------

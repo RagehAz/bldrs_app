@@ -1,28 +1,27 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/a_new_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_pickers_screen.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/home_loading_flyers_widget.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/animations_lab.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/a_new_logo_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_asks.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sembast_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/video_player.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/cloud_functions_test.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/video_player.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sembast_test_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SpecializedLabs extends StatelessWidget {
@@ -50,15 +49,6 @@ class SpecializedLabs extends StatelessWidget {
         icon: Iconz.bldrsNameEn,
         screen: const NewLogoScreen(),
         transitionType: PageTransitionType.fade,
-      ),
-
-
-      /// LOADING FLYERS GRID
-      DashButtonModel(
-        verse: 'Loading flyers grid',
-        icon: Iconz.flyerGrid,
-        screen: const HomeLoadingFlyersWidget(),
-        transitionType: PageTransitionType.rotate,
       ),
 
       /// PROVIDER TEST

@@ -67,10 +67,6 @@ class NoteCard extends StatelessWidget {
     const double _moreButtonSize = 35;
     final bool _noteHasButtons = Mapper.canLoopList(noteModel?.buttons);
 
-    // if (noteModel != null){
-    //   noteModel.blogNoteModel(methodName: 'Rebuilding note card');
-    // }
-
     if (isDraftNote == false){
       unawaited(markNoteAsSeen(
         context: context,

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_1_anonymous_home_screen_view.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
-import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/home_loading_flyers_widget.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/loading_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// LOADING
               if (loading == true) {
-                return const HomeLoadingFlyersWidget();
+                return const LoadingFlyersGrid();
               }
 
               /// FOR ANONYMOUS USER
