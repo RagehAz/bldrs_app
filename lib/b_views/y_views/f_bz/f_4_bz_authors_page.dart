@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/pending_sent_authorship_notes_streamer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/authors_pages_controller.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/f_bz_authors_controller.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
