@@ -16,9 +16,11 @@ import 'package:flutter/material.dart';
     return _isWaiting;
   }
 // -----------------------------------------------------------------------------
+/*
   bool _connectionHasData(AsyncSnapshot<dynamic> snapshot){
     return snapshot?.hasData ;
   }
+ */
 // -----------------------------------------------------------------------------
   bool valueIsLoading(dynamic value){
 

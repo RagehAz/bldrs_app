@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
@@ -40,6 +38,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
+  /*
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
     blogLoading(
@@ -47,6 +46,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       callerName: 'BzEditorScreen',
     );
   }
+   */
 // -----------------------------------------------------------------------------
   @override
   void initState() {

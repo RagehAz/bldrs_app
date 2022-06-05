@@ -115,6 +115,7 @@ class SpecPicker {
     return _specPicker;
   }
 // -------------------------------------
+  /*
   static int _getSpecPickerIndexByID({
     @required List<SpecPicker> specsPickers,
     @required String specPickerChainID,
@@ -122,6 +123,7 @@ class SpecPicker {
     final int _index = specsPickers.indexWhere((SpecPicker pick) => pick.chainID == specPickerChainID);
     return _index;
   }
+   */
 // -------------------------------------
   static List<SpecPicker> getSpecsPickersByGroupID({
     @required List<SpecPicker> specsPickers,

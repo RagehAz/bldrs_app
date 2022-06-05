@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
@@ -32,10 +31,10 @@ class BzAppBar extends StatelessWidget {
         (Ratioz.appBarButtonSize * 1.4) -
         Ratioz.appBarPadding;
 
-    final String _zoneString = ZoneModel.generateZoneString(
-      context: context,
-      zoneModel: _bzModel?.zone,
-    );
+    // final String _zoneString = ZoneModel.generateZoneString(
+    //   context: context,
+    //   zoneModel: _bzModel?.zone,
+    // );
 
 
     return Row(

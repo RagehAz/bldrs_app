@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -6,7 +5,7 @@ import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:audio_session/audio_session.dart';
+
 
 // typedef void OnError(Exception exception);
 //
@@ -185,45 +184,45 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
-  Future<void> _init() async {
-
-    /// Inform the operating system of our app's audio attributes etc.
-    /// We pick a reasonable default for an app that plays speech.
-    final session = await AudioSession.instance;
-    await session.configure(const AudioSessionConfiguration.speech());
-
-    /// Listen to errors during playback.
-    _player.playbackEventStream.listen((event) {},
-        onError: (Object e, StackTrace stackTrace) {
-          blog('A stream error occurred: $e');
-        });
-
-    /// Try to load audio from a source and catch any errors.
-    await tryAndCatch(
-      context: context,
-      methodName: 'init sounds',
-      functions: () async {
-
-        // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
-        const String _url = 'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
-        final Uri _uri = Uri.parse(_url);
-        final AudioSource _audioSource = AudioSource.uri(_uri);
-        await _player.setAudioSource(_audioSource);
-
-      }
-    );
-
-  }
+//   Future<void> _init() async {
+//
+//     /// Inform the operating system of our app's audio attributes etc.
+//     /// We pick a reasonable default for an app that plays speech.
+//     final session = await AudioSession.instance;
+//     await session.configure(const AudioSessionConfiguration.speech());
+//
+//     /// Listen to errors during playback.
+//     _player.playbackEventStream.listen((event) {},
+//         onError: (Object e, StackTrace stackTrace) {
+//           blog('A stream error occurred: $e');
+//         });
+//
+//     /// Try to load audio from a source and catch any errors.
+//     await tryAndCatch(
+//       context: context,
+//       methodName: 'init sounds',
+//       functions: () async {
+//
+//         // AAC example: https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.aac
+//         const String _url = 'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3';
+//         final Uri _uri = Uri.parse(_url);
+//         final AudioSource _audioSource = AudioSource.uri(_uri);
+//         await _player.setAudioSource(_audioSource);
+//
+//       }
+//     );
+//
+//   }
 // -----------------------------------------------------------------------------
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      // Release the player's resources when not in use. We use "stop" so that
-      // if the app resumes later, it will still remember what position to
-      // resume from.
-      _player.stop();
-    }
-  }
+//   @override
+//   void didChangeAppLifecycleState(AppLifecycleState state) {
+//     if (state == AppLifecycleState.paused) {
+//       // Release the player's resources when not in use. We use "stop" so that
+//       // if the app resumes later, it will still remember what position to
+//       // resume from.
+//       _player.stop();
+//     }
+//   }
 // -----------------------------------------------------------------------------
   /*
   Stream<PositionData> get _positionDataStream =>

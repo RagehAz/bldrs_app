@@ -116,6 +116,7 @@ class QuestionReviewPageStarter extends StatelessWidget {
 //     return _margin;
 //   }
 // --------------------------------
+  /*
   static double _collapsedRightEnMargin({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -137,7 +138,9 @@ class QuestionReviewPageStarter extends StatelessWidget {
 
     return _rightEnMargin * 0;
   }
+   */
 // --------------------------------
+  /*
   static double _expandedRightEnMargin({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -150,6 +153,7 @@ class QuestionReviewPageStarter extends StatelessWidget {
 
     return _expandedRightMargin;
   }
+   */
 // --------------------------------
   static double _leftEnMargin({
     @required BuildContext context,
@@ -381,16 +385,16 @@ class QuestionReviewPageStarter extends StatelessWidget {
       tinyMode: tinyMode,
     );
 
-    final double _collapsedRightMargin = _collapsedRightEnMargin(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
-    );
+    // final double _collapsedRightMargin = _collapsedRightEnMargin(
+    //   context: context,
+    //   flyerBoxWidth: flyerBoxWidth,
+    //   tinyMode: tinyMode,
+    // );
 
-    final double _expandedRightMargin = _expandedRightEnMargin(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth
-    );
+    // final double _expandedRightMargin = _expandedRightEnMargin(
+    //     context: context,
+    //     flyerBoxWidth: flyerBoxWidth
+    // );
 
     final EdgeInsets _margins = Scale.superInsets(
       context: context,

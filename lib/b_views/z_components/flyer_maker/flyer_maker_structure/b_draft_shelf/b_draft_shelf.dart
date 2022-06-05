@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
@@ -12,7 +10,6 @@ import 'package:bldrs/c_controllers/i_flyer_maker_controllers/draft_shelf_contro
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +41,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
+  /*
   Future<void> _triggerLoading({bool setTo}) async {
     _loading.value = setTo ?? !_loading.value;
     blogLoading(
@@ -51,6 +49,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
         callerName: 'SlidesShelf',
     );
   }
+   */
 // -----------------------------------------------------------------------------
   ScrollController _scrollController; /// tamam disposed
   @override

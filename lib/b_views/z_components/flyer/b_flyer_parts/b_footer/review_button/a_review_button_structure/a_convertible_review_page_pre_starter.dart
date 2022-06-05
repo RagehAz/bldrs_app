@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +38,7 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
   final ValueChanged<ReviewModel> onShowReviewOptions;
   final bool centeredInFooter;
   /// --------------------------------------------------------------------------
+  /*
   static double _offsetFixToCenter({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -58,6 +58,7 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
 
     return _buttonSize + _spacing;
   }
+   */
 // -----------------------------------------------------------------------------
   static double _getPositionFromRight({
     @required BuildContext context,
