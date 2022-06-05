@@ -449,6 +449,7 @@ Future<void> _updateBzOps({
 
 }
 // ----------------------------------
+/*
 bool _errorIsOn({
   @required List<String> missingFieldsKeys,
   @required String fieldKey,
@@ -460,7 +461,8 @@ bool _errorIsOn({
   );
 
   return _isError;
-}
+
+ */
 // ----------------------------------
 BzModel createBzModelFromLocalVariables({
   @required ValueNotifier<List<BzType>> selectedBzTypes,

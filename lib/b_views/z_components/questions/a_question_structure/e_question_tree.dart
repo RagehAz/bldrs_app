@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/a
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/b_footer/a_question_footer.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/c_question_body/a_question_body.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -137,7 +136,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
 // -----------------------------------------------------------------------------
   /// FOLLOW IS ON
   final ValueNotifier<bool> _followIsOn = ValueNotifier(false); /// tamam disposed
-  void _setFollowIsOn(bool setTo) => _followIsOn.value = setTo;
+  // void _setFollowIsOn(bool setTo) => _followIsOn.value = setTo;
 // -----------------------------------------------------------------------------
   /// PROGRESS BAR OPACITY
   final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1); /// tamam disposed
@@ -167,6 +166,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
 
   }
 // -----------------------------------------------------------------------------
+  /*
   void _onSwipeSlide(int index){
 
     onHorizontalSlideSwipe(
@@ -179,6 +179,7 @@ class _QuestionTreeState extends State<QuestionTree> with TickerProviderStateMix
     // blog('index has become ${widget.currentSlideIndex.value}');
 
   }
+   */
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier(false); /// tamam disposed
   Future<void> _onSaveFlyer() async {

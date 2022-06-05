@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -15,7 +14,6 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bz_long_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BzzManagerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -32,7 +30,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
   final TextEditingController _searchController = TextEditingController(); /// tamam disposed
 
-  ZoneProvider _zoneProvider;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -47,7 +44,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
     super.initState();
   }

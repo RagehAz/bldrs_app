@@ -28,7 +28,7 @@ class KeywordBarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const double _corners = Ratioz.boxCorner12;
+    // const double _corners = Ratioz.boxCorner12;
 
     return DreamBox(
       height: height,

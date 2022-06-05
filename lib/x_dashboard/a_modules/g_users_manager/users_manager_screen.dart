@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -83,7 +82,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   Widget build(BuildContext context) {
 
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    final double _clearWidth = PageBubble.clearWidth(context);
+    // final double _clearWidth = PageBubble.clearWidth(context);
 
     return MainLayout(
       key: const ValueKey<String>('UsersManagerScreen'),

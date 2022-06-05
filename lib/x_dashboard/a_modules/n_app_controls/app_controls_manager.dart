@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_controller.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.dart';
@@ -29,6 +28,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
+  /*
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
     blogLoading(
@@ -36,6 +36,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
       callerName: 'BzAuthorsPage',
     );
   }
+   */
 // -----------------------------------------------------------------------------
   @override
   void initState() {

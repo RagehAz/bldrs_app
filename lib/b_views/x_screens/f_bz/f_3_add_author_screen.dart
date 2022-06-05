@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/authors_pages_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class AddAuthorScreen extends StatefulWidget {
@@ -13,7 +12,6 @@ class AddAuthorScreen extends StatefulWidget {
   const AddAuthorScreen({
     Key key,
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
   /// --------------------------------------------------------------------------
   @override
   State<AddAuthorScreen> createState() => _AddAuthorScreenState();
@@ -28,6 +26,7 @@ class _AddAuthorScreenState extends State<AddAuthorScreen> {
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
+  /*
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
     blogLoading(
@@ -35,6 +34,7 @@ class _AddAuthorScreenState extends State<AddAuthorScreen> {
       callerName: 'AddAuthorScreen',
     );
   }
+   */
 // -----------------------------------------------------------------------------
   Future<void> _onSearch(String text) async {
 

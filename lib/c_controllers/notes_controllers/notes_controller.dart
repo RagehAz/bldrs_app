@@ -114,7 +114,7 @@ Future<void> sendAuthorshipInvitation({
       authorID: AuthFireOps.superUserID(),
     );
 
-    final String _noteLang = selectedUser.language;
+    // final String _noteLang = selectedUser.language;
 
     final NoteModel _note = NoteModel(
       id: null, // will be defined in note create fire ops

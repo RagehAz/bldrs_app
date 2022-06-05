@@ -16,7 +16,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -45,7 +44,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
   UsersProvider usersProvider;
   ZoneProvider zoneProvider;
   FlyersProvider flyersProvider;
-  GeneralProvider _generalProvider;
   ChainsProvider _chainsProvider;
   AnimationController _animationController;
   UiProvider _uiProvider;
@@ -69,7 +67,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     usersProvider = Provider.of<UsersProvider>(context, listen: false);
     zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     _uiProvider = Provider.of<UiProvider>(context, listen: false);
@@ -122,7 +119,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     final Chain _specsChain = _chainsProvider.specsChain;
 
     final BzzProvider bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final List<BzModel> _myBzz = bzzProvider.myBzz;
+    // final List<BzModel> _myBzz = bzzProvider.myBzz;
 
     return MainLayout(
       appBarType: AppBarType.basic,

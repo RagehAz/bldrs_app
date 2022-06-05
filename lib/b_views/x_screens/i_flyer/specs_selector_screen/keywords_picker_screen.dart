@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -32,7 +31,6 @@ class KeywordsPickerScreen extends StatefulWidget {
 
 class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
   ValueNotifier<List<String>> _selectedKeywordsIDs; /// tamam disposed
-  ChainsProvider _chainsProvider;
   final TextEditingController _searchController = TextEditingController(); /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
@@ -161,6 +159,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
  */
 // -----------------------------------------------------------------------------
   String _highlightedKeywordID;
+  /*
   Future<void> _highlightKeyword(String keywordID, bool canPickMany) async {
 
     int _index;
@@ -190,6 +189,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
     });
 
   }
+   */
 // -----------------------------------------------------------------------------
   ItemScrollController _scrollController;
   ItemPositionsListener _itemPositionListener;
