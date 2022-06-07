@@ -136,7 +136,7 @@ class UserProfilePage extends StatelessWidget {
 
         /// JOINED AT
         SuperVerse(
-          verse: Timers.getString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
+          verse: Timers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.grey255,
