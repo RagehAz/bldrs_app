@@ -1,8 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -39,44 +37,31 @@ class NotesProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// UNREAD NOTES
+  /// USER NOTES
 
 // -------------------------------------
-  Stream<List<NoteModel>> _receivedNotesStream;
-  Stream<List<NoteModel>> get receivedNotesStream => _receivedNotesStream;
-  void startSetUserNotesStream({
-    @required BuildContext context,
+  List<NoteModel> _userNotes;
+  List<NoteModel> get userNotes => _userNotes;
+// -------------------------------------
+  void setUserNotes({
+    @required List<NoteModel> notes,
     @required bool notify,
   }){
 
-    final Stream<List<NoteModel>> _stream = NoteFireOps.getNoteModelsStream(
-      context: context,
-      limit: 100,
-      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-      finders: <FireFinder>[
+    _userNotes = notes;
 
-        FireFinder(
-          field: 'receiverID',
-          comparison: FireComparison.equalTo,
-          value: AuthFireOps.superUserID(),
-        ),
-
-      ],
-    );
-
-    _receivedNotesStream = _stream;
-
-    if(notify == true){
+    if (notify == true){
       notifyListeners();
     }
+
   }
 // -------------------------------------
-  static Stream<List<NoteModel>> proGetUserNotesStream({
+  static List<NoteModel> proGetUserNotes({
     @required BuildContext context,
     @required bool listen,
   }){
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-    return _notesProvider.receivedNotesStream;
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
+    return _notesProvider.userNotes;
   }
 // -----------------------------------------------------------------------------
   /*
