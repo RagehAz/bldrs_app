@@ -1,18 +1,14 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_bz_authors_controller.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:flutter/material.dart';
+import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/components/users_wide_buttons_list.dart';
+import 'package:flutter/material.dart';
 
 class SearchUsersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -37,19 +33,12 @@ class SearchUsersScreen extends StatefulWidget {
 class _SearchUsersScreenState extends State<SearchUsersScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<List<UserModel>> _foundUsers = ValueNotifier(null);
+  final ValueNotifier<List<UserModel>> _historyUsers = ValueNotifier(<UserModel>[]);
   ValueNotifier<List<UserModel>> _selectedUsers;
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------------------------------
-  @override
-  void initState() {
-    super.initState();
-    _selectedUsers = ValueNotifier<List<UserModel>>(widget.selectedUsers);
-  }
-// -----------------------------------------------------------------------------
-  /*
   Future<void> _triggerLoading() async {
     _loading.value = !_loading.value;
     blogLoading(
@@ -57,7 +46,40 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       callerName: 'AddAuthorScreen',
     );
   }
-   */
+// -----------------------------------
+  @override
+  void initState() {
+    super.initState();
+    _selectedUsers = ValueNotifier<List<UserModel>>(widget.selectedUsers);
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit && mounted) {
+
+      _triggerLoading().then((_) async {
+
+        final List<UserModel> _history = await UserLDBOps.readAll();
+        _historyUsers.value = _history;
+
+        await _triggerLoading();
+      });
+
+      _isInit = false;
+    }
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _historyUsers.dispose();
+    _loading.dispose();
+    _foundUsers.dispose();
+    _isSearching.dispose();
+    _selectedUsers.dispose();
+    super.dispose();
+  }
 // -----------------------------------------------------------------------------
   Future<void> _onSearch(String text) async {
 
@@ -69,6 +91,14 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       isSearching: _isSearching,
       excludeMyself: widget.excludeMyself,
     );
+
+    final List<UserModel> _history = UserModel.addUniqueUsersToUsers(
+      usersToGet: _historyUsers.value,
+      usersToAdd: _foundUsers.value,
+    );
+    _historyUsers.value = _history;
+
+    await UserLDBOps.insertUsers(_history);
 
   }
 // -----------------------------------------------------------------------------
@@ -88,7 +118,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
       /// CAN SELECT ONLY ONE USER
       else {
-        final bool _isSelected = UserModel.checkUsersContainThisUser(
+        final bool _isSelected = UserModel.checkUsersContainUser(
             usersModels: _selectedUsers.value,
             userModel: userModel
         );
@@ -133,6 +163,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       loading: _loading,
       onBack: _onBack,
       layoutWidget: ListView(
+        physics: const BouncingScrollPhysics(),
         children: <Widget>[
 
           const Stratosphere(bigAppBar: true),
@@ -157,68 +188,24 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
                     /// NOT LOADING
                     else {
-                      return ValueListenableBuilder(
-                          valueListenable: _foundUsers,
-                          builder: (_, List<UserModel> foundUsers, Widget child){
 
-                            /// FOUND USERS
-                            if (Mapper.canLoopList(foundUsers) == true){
-
-                              return ValueListenableBuilder(
-                                valueListenable: _selectedUsers,
-                                builder: (_, List<UserModel> selectedUsers, Widget child){
-
-                                  return SizedBox(
-                                    width: Scale.superScreenWidth(context),
-                                    height: Scale.superScreenHeight(context),
-                                    child: ListView.builder(
-                                      itemCount: foundUsers.length,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (_, index){
-
-                                        final UserModel _user = foundUsers[index];
-                                        final bool _isSelected = UserModel.checkUsersContainThisUser(
-                                          usersModels: selectedUsers,
-                                          userModel: _user,
-                                        );
-                                        final bool _isMe = _user.id == AuthFireOps.superUserID();
-
-                                        return UserTileButton(
-                                          boxWidth: BldrsAppBar.width(context),
-                                          userModel: _user,
-                                          color: _isSelected == true ? Colorz.green255
-                                              :
-                                          _isMe == true ? Colorz.black255
-                                              :
-                                          null,
-                                          onUserTap: () => onUserTap(_user),
-                                        );
-
-                                      },
-                                    ),
-                                  );
-
-                                },
-                              );
-
-                            }
-
-                            /// NO USERS FOUND
-                            else {
-                              return const SuperVerse(
-                                verse: 'No users found with this name',
-                              );
-                            }
-
-                          }
+                      return UsersWideButtonsList(
+                          usersModels: _foundUsers,
+                          selectedUsers: _selectedUsers,
+                          onUserTap: onUserTap
                       );
+
                     }
 
                   }
 
                   /// NOT SEARCHING
                   else {
-                    return const SizedBox();
+                    return UsersWideButtonsList(
+                        usersModels: _historyUsers,
+                        selectedUsers: _selectedUsers,
+                        onUserTap: onUserTap
+                    );
                   }
 
                 },

@@ -1,7 +1,13 @@
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/api/sembast_api.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_viewer_screen.dart';
@@ -9,16 +15,18 @@ import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
 class SembastReaderTestScreen extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const SembastReaderTestScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _SembastReaderTestScreenState createState() => _SembastReaderTestScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
+// -----------------------------------------------------------------------------
   final String _docName = 'test';
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
@@ -57,7 +65,10 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
     if (_isInit) {
       _triggerLoading().then((_) async {
-        await _readSembast();
+
+        await _deleteAll();
+        await _readAllMaps();
+
       });
     }
     _isInit = false;
@@ -68,20 +79,28 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
-  Future<void> _search() async {
 
-    final List<Map<String, dynamic>> _result = await LDBOps.searchLDBDocTrigram(
-        searchValue: 'Cairo',
-        docName: _docName,
-        lingoCode: 'en',
-    );
+  /// CRUD
 
-    Mapper.blogMaps(_result);
-  }
-// -----------------------------------------------------------------------------
   List<Map<String, Object>> _maps;
 
-  Future<void> _readSembast() async {
+// ----------------------------------------
+  Future<void> _createRandomMap() async {
+
+    final Map<String, dynamic> _map = {
+      'id' : 'x${Numeric.createRandomIndex(listLength: 6)}',
+      'color' : cipherColor(createRandomColor()),
+    };
+
+    await LDBOps.insertMap(
+        input: _map,
+        docName: _docName,
+    );
+
+    await _readAllMaps();
+  }
+// ----------------------------------------
+  Future<void> _readAllMaps() async {
 
     final List<Map<String, Object>> _readMaps = await Sembast.readAll(
       docName: _docName,
@@ -93,6 +112,98 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
     });
 
   }
+// ----------------------------------------
+  Future<void> _updateMap(Map<String, dynamic> map) async {
+
+    final String _newID = await BottomDialog.keyboardDialog(
+      context: context,
+      hintText: 'Wtf is this',
+      title: 'Add new ID instead of Old ( ${map['id']} )',
+    );
+
+    final Color _newColor = createRandomColor();
+
+    final Map<String, dynamic> _newMap = {
+      'id' : _newID,
+      'color': cipherColor(_newColor),
+    };
+
+    await LDBOps.updateMap(
+        docName: _docName,
+        input: _newMap,
+        objectID: map['id'],
+    );
+
+    await _readAllMaps();
+
+    goBack(context);
+  }
+// ----------------------------------------
+  Future<void> _deleteAll() async {
+
+    await LDBOps.deleteAllMapsAtOnce(
+        docName: _docName,
+    );
+
+    await _readAllMaps();
+  }
+// ----------------------------------------
+  Future<void> _deleteMap(Map<String, dynamic> map) async {
+
+    await LDBOps.deleteMap(
+        objectID: map['id'],
+        docName: _docName,
+    );
+
+    await _readAllMaps();
+
+  }
+// ----------------------------------------
+  Future<void> _onRowOptionsTap(Map<String, dynamic> map) async {
+
+    Mapper.blogMap(map);
+
+    final List<Widget> _buttons = <Widget>[
+
+      BottomDialog.wideButton(
+        context: context,
+        verse: 'Delete',
+        onTap: () => _deleteMap(map),
+      ),
+
+      BottomDialog.wideButton(
+        context: context,
+        verse: 'Update',
+        onTap: () => _updateMap(map),
+      ),
+
+    ];
+
+    await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      numberOfWidgets: _buttons.length,
+      builder: (_, PhraseProvider phrasePro){
+
+        return _buttons;
+
+      }
+    );
+
+  }
+// ----------------------------------------
+  Future<void> _search() async {
+
+    final List<Map<String, dynamic>> _result = await LDBOps.searchLDBDocTrigram(
+        searchValue: 'Cairo',
+        docName: _docName,
+        lingoCode: 'en',
+    );
+
+    Mapper.blogMaps(_result);
+  }
+// ----------------------------------------
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -105,64 +216,49 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
       listWidgets: <Widget>[
 
         /// LDB Buttons
-        Row(
-          children: <Widget>[
+        Container(
+          width: superScreenWidth(context),
+          height: 50,
+          color: Colorz.bloodTest,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
 
-            /// READ AL  LDB
-            SmallFuckingButton(
-              verse: 'read all',
-              onTap: _readSembast,
-            ),
+              /// CREATE RANDOM
+              SmallFuckingButton(
+                  verse: 'Create',
+                  onTap: _createRandomMap
+              ),
 
-            /// REPLACE FROM LDB
-            SmallFuckingButton(
-              verse: 'Search',
-              onTap: _search,
-            ),
+              /// READ
+              SmallFuckingButton(
+                verse: 'read all',
+                onTap: _readAllMaps,
+              ),
 
-            /// INSERT FROM LDB
-            SmallFuckingButton(
-              verse: 'xxx',
-              onTap: () async {
+              /// UPDATE
+              SmallFuckingButton(
+                verse: 'Update',
+                onTap: _updateMap,
+              ),
 
-                // await LDBOps.insertMap(
-                //     primaryKey: 'id',
-                //     docName: _docName,
-                //     input: {
-                //       'id' : '${createRandomIndex()}',
-                //       'data' : 'bitch',
-                // },
-                // );
+              /// DELETE ALL
+              SmallFuckingButton(
+                verse: 'Delete All',
+                onTap: _deleteAll,
+              ),
 
-                await _readSembast();
-
-              },
-            ),
-
-            /// DELETE ALL LDB
-            SmallFuckingButton(
-              verse: 'DELETE ALL AT ONCE',
-              onTap: () async {
-
-                await Sembast.deleteAllAtOnce(
-                  docName: _docName,
-                );
-
-                await _readSembast();
-
-              },
-            ),
-
-          ],
+            ],
+          ),
         ),
 
         if (Mapper.canLoopList(_maps))
           ...LDBViewerScreen.rows(
             context: context,
-            color: Colorz.green125,
-            primaryKey: 'flyerID',
+            userColorField: true,
             maps: _maps,
-            onRowTap: null,
+            onRowOptionsTap: _onRowOptionsTap,
           ),
 
       ],

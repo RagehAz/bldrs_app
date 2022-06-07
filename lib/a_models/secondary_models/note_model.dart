@@ -523,10 +523,6 @@ class NoteModel {
         _missingFields.add('metaData');
       }
 
-      if (note.sentTime == null){
-        _missingFields.add('sentTime');
-      }
-
       if (note.sendFCM == null){
         _missingFields.add('sendFCM');
       }
@@ -537,6 +533,10 @@ class NoteModel {
 
       /// IF NOT ONLY ESSENTIAL FIELDS REQUIRED TO SEND A NOTE ARE TO BE CONSIDERED
       if (considerAllFields == true){
+
+        if (note.sentTime == null){
+          _missingFields.add('sentTime');
+        }
 
         if (note.id == null) {
           _missingFields.add('id');

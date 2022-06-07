@@ -2,9 +2,8 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -384,15 +383,13 @@ class BottomDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static Future<String> keyboardDialog({
     @required BuildContext context,
-    @required String countryID,
+    @required String title,
     String hintText,
   }) async {
 
-    /// TASK flag is temp
-
     final TextEditingController _textController = TextEditingController(); /// tamam
 
-    const double _ratioOfScreenHeight = 0.65;
+    const double _ratioOfScreenHeight = 0.75;
     final double _overridingDialogHeight = dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
     final double _clearWidth = clearWidth(context);
     final double _clearHeight = clearHeight(
@@ -402,8 +399,6 @@ class BottomDialog extends StatelessWidget {
         titleIsOn: false
     );
 
-    final double _corners = dialogClearCornerValue();
-
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
@@ -411,28 +406,17 @@ class BottomDialog extends StatelessWidget {
       child: SizedBox(
         width: _clearWidth,
         height: _clearHeight,
-        // color: Colorz.BloodTest,
         child: Column(
           children: <Widget>[
 
-            SuperTextField(
-              // height: 200,
-              // keyboardTextInputAction: TextInputAction.done,
+            TextFieldBubble(
+              title: title,
               textController: _textController,
-              width: _clearWidth,
-              maxLines: 2,
-              onSubmitted: (String val) {
-                Nav.goBack(context);
-                // await null;
-              },
+              bubbleWidth: _clearWidth,
+              maxLines: 3,
+              onSubmitted: (String val) {Nav.goBack(context);},
               hintText: hintText ?? 'text here ...',
-              corners: _corners,
             ),
-
-            if (countryID != null)
-              FlagBox(
-                countryID: countryID,
-              ),
 
           ],
         ),

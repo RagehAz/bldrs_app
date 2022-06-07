@@ -34,6 +34,7 @@ String getPrimaryKey(String docName) {
     case LDBDoc.appState: return 'id';
     case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF
     case LDBDoc.authModel: return 'uid';
+    case 'test': return 'id';
     default: return null;
   }
 }
@@ -212,13 +213,10 @@ Future<void> updateMap({
   @required String docName,
 }) async {
 
-  final String _primaryKey = getPrimaryKey(docName);
-
   await Sembast.update(
     map: input,
     docName: docName,
-    searchPrimaryKey: _primaryKey,
-    searchPrimaryValue: objectID,
+    objectID: objectID,
   );
 
 }
@@ -233,12 +231,9 @@ Future<void> deleteMap({
   @required String docName,
 }) async {
 
-  final String _primaryKey = getPrimaryKey(docName);
-
   await Sembast.deleteMap(
     docName: docName,
-    searchPrimaryKey: _primaryKey,
-    searchPrimaryValue: objectID,
+    objectID: objectID,
   );
 
 }
@@ -265,7 +260,6 @@ Future<void> deleteAllMapsOneByOne({
 
   await Sembast.deleteAllOneByOne(
     docName: docName,
-    primaryKey: getPrimaryKey(docName),
   );
 
 }

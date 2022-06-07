@@ -43,7 +43,7 @@ class UserFireSearch{
     List<UserModel> _usersModels = <UserModel>[];
 
     if (Mapper.canLoopList(_result)) {
-      _usersModels = UserModel.decipherUsersMaps(
+      _usersModels = UserModel.decipherUsers(
         maps: _result,
         fromJSON: false,
       );
@@ -86,7 +86,7 @@ class UserFireSearch{
 
           if (Mapper.canLoopList(_maps)) {
             _usersModels =
-                UserModel.decipherUsersMaps(maps: _maps, fromJSON: false);
+                UserModel.decipherUsers(maps: _maps, fromJSON: false);
           }
         });
 
