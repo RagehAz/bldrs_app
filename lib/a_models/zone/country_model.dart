@@ -126,7 +126,7 @@ class CountryModel {
   }) {
     final List<CountryModel> _countries = <CountryModel>[];
 
-    if (Mapper.canLoopList(maps)) {
+    if (Mapper.checkCanLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
         _countries.add(
             decipherCountryMap(
@@ -151,7 +151,7 @@ class CountryModel {
   }){
     Map<String, dynamic> _output = {};
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -183,7 +183,7 @@ class CountryModel {
 
       final List<String> _keys = phrasesMap.keys.toList(); // lang codes
 
-      if (Mapper.canLoopList(_keys) == true){
+      if (Mapper.checkCanLoopList(_keys) == true){
 
         for (final String key in _keys){
 
@@ -266,7 +266,7 @@ class CountryModel {
       &&
       countryA.isGlobal == countryB.isGlobal
       &&
-      Mapper.listsAreTheSame(
+      Mapper.checkListsAreTheSame(
           list1: countryA.citiesIDs,
           list2: countryB.citiesIDs
       ) == true
@@ -398,7 +398,7 @@ class CountryModel {
 // -------------------------------------
   static void blogCountries(List<CountryModel> countries){
 
-    if (Mapper.canLoopList(countries) == true){
+    if (Mapper.checkCanLoopList(countries) == true){
 
       for (final CountryModel country in countries){
 
@@ -448,7 +448,7 @@ class CountryModel {
 
     final List<Phrase> _countriesPhrases = <Phrase>[];
 
-    if (Mapper.canLoopList(langCodes) == true){
+    if (Mapper.checkCanLoopList(langCodes) == true){
 
       for (final String langCode in langCodes){
         final List<Phrase> _phrases = await _createCountriesPhrasesByLangCode(

@@ -101,7 +101,7 @@ bool canShowGalleryPage({
 
   if (bzModel != null){
 
-    if (Mapper.canLoopList(bzModel.flyersIDs)){
+    if (Mapper.checkCanLoopList(bzModel.flyersIDs)){
 
       /// only CAN SHOW : WHEN BZ FLYERS ARE MORE THAN THE SHOWN FLYER
       final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
@@ -212,7 +212,7 @@ List<String> splitHeroTagIntoFlyersIDs({
 
   List<String> _output = <String>[];
 
-  if (Mapper.canLoopList(_flyersIDs)){
+  if (Mapper.checkCanLoopList(_flyersIDs)){
     _output = [..._flyersIDs];
   }
 
@@ -254,14 +254,14 @@ List<String> getNextFlyersIDs({
 
       final String _flyerID = allFlyersIDs[i];
 
-      final bool _alreadyLoaded = Mapper.stringsContainString(
+      final bool _alreadyLoaded = Mapper.checkStringsContainString(
         strings: loadedFlyersIDs,
         string: _flyerID,
       );
 
       final List<String> _parentFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
 
-      final bool _alreadyAParentFlyer = Mapper.stringsContainString(
+      final bool _alreadyAParentFlyer = Mapper.checkStringsContainString(
           strings: _parentFlyersIDs,
           string: _flyerID
       );

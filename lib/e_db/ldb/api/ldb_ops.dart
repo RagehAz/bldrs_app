@@ -29,8 +29,8 @@ String getPrimaryKey(String docName) {
     case LDBDoc.cities: return 'cityID';
     case LDBDoc.continents: return 'name';
     case LDBDoc.currencies: return 'id';
-    case LDBDoc.basicPhrases: return 'primaryKey'; /// TASK : WTF
-    case LDBDoc.countriesPhrases: return 'primaryKey'; /// TASK : WTF
+    case LDBDoc.basicPhrases: return 'id';
+    case LDBDoc.countriesPhrases: return 'id';
     case LDBDoc.appState: return 'id';
     case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF
     case LDBDoc.authModel: return 'uid';
@@ -47,32 +47,29 @@ String getPrimaryKey(String docName) {
 Future<void> insertMap({
   @required Map<String, Object> input,
   @required String docName,
+  bool allowDuplicateIDs = false,
 }) async {
 
-  final String _primaryKey = getPrimaryKey(docName);
-
-  await Sembast.insertAll(
-    inputs: <Map<String, Object>>[input], //_cipherFirebaseMapsToSembastMaps(<Map<String, Object>>[input]),
+  await Sembast.insert(
+    map: input,
     docName: docName,
-    primaryKey: _primaryKey,
+    allowDuplicateIDs: allowDuplicateIDs,
   );
 
-  // blog('LDBOps inserted in $docName : map :-');
-  // blogMap(input);
 }
 // ----------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> insertMaps({
   @required List<Map<String, Object>> inputs,
   @required String docName,
+  bool allowDuplicateIDs = false,
 }) async {
 
-  final String _primaryKey = getPrimaryKey(docName);
 
   await Sembast.insertAll(
-    inputs: inputs,
+    maps: inputs,
     docName: docName,
-    primaryKey: _primaryKey,
+    allowDuplicateIDs: allowDuplicateIDs,
   );
 
 }
@@ -171,7 +168,7 @@ Future<List<Map<String, Object>>> searchPhrasesDoc({
     searchField: 'trigram',
   );
 
-  if (Mapper.canLoopList(_result) == true){
+  if (Mapper.checkCanLoopList(_result) == true){
     blog('searchPhrases : found ${_result.length} phrases');
 
     return _result;
@@ -201,24 +198,6 @@ Future<List<Map<String, Object>>> searchLDBDocTrigram({
   );
 
   return _result;
-}
-// -----------------------------------------------------------------------------
-
-/// UPDATE
-
-// ----------------------------------------
-Future<void> updateMap({
-  @required Map<String, Object> input,
-  @required String objectID,
-  @required String docName,
-}) async {
-
-  await Sembast.update(
-    map: input,
-    docName: docName,
-    objectID: objectID,
-  );
-
 }
 // -----------------------------------------------------------------------------
 

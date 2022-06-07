@@ -83,7 +83,7 @@ class Phrase {
     /// WHEN INCLUDING TRIGRAM
     if (includeTrigram == true){
 
-      final bool _trigramExists = Mapper.canLoopList(trigram);
+      final bool _trigramExists = Mapper.checkCanLoopList(trigram);
 
       _map = Mapper.insertPairInMap(
         map: _map,
@@ -107,7 +107,7 @@ class Phrase {
   }) {
     Map<String, dynamic> _phrasesMap = <String, dynamic>{};
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -139,7 +139,7 @@ class Phrase {
 
     final List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -191,7 +191,7 @@ class Phrase {
 
     final List<String> _keys = map?.keys?.toList();
 
-    if (Mapper.canLoopList(_keys)){
+    if (Mapper.checkCanLoopList(_keys)){
 
       for (int i = 0; i<_keys.length; i++){
 
@@ -220,7 +220,7 @@ class Phrase {
 
     final List<Phrase> _phrases = <Phrase>[];
 
-    if (Mapper.canLoopList(maps) == true){
+    if (Mapper.checkCanLoopList(maps) == true){
 
       for (int i = 0; i< maps.length; i++){
 
@@ -247,7 +247,7 @@ class Phrase {
 }){
     final List<Phrase> _phrases = <Phrase>[];
 
-    if (Mapper.canLoopList(maps) == true){
+    if (Mapper.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> map in maps){
 
@@ -274,7 +274,7 @@ class Phrase {
 }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -340,7 +340,7 @@ class Phrase {
 
     int _count = 1;
 
-    if (Mapper.canLoopList(phrases)){
+    if (Mapper.checkCanLoopList(phrases)){
 
       for (final Phrase phrase in phrases){
         blog(
@@ -372,7 +372,7 @@ class Phrase {
     final String _currentLanguageCode = Wordz.languageCode(context);
     Phrase _phrase;
 
-    if (Mapper.canLoopList(phrases)){
+    if (Mapper.checkCanLoopList(phrases)){
       _phrase = getPhraseByLangFromPhrases(
         phrases: phrases,
         langCode: _currentLanguageCode,
@@ -394,7 +394,7 @@ class Phrase {
 
     Phrase _phrase;
 
-    if (Mapper.canLoopList(phrases)) {
+    if (Mapper.checkCanLoopList(phrases)) {
 
       _phrase = phrases.singleWhere(
               (Phrase phrase) => phrase.langCode == langCode,
@@ -413,7 +413,7 @@ class Phrase {
 }){
     List<Phrase> _output = <Phrase>[];
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
       _output = phrases.where((phr) => phr.langCode == langCode).toList();
     }
 
@@ -427,7 +427,7 @@ class Phrase {
 }){
     Phrase _phrase;
 
-    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(id) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(id) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -456,7 +456,7 @@ class Phrase {
   }){
     Phrase _phrase;
 
-    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(value) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(value) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -476,7 +476,7 @@ class Phrase {
 
     final List<String> _langCodes = <String>[];
 
-    if (Mapper.canLoopList(phrases)){
+    if (Mapper.checkCanLoopList(phrases)){
 
       for (final Phrase phrase in phrases){
         _langCodes.add(phrase.langCode);
@@ -494,7 +494,7 @@ class Phrase {
 }){
     final List<Phrase> _output = <Phrase>[];
 
-    if (Mapper.canLoopList(mixedPhrases) == true){
+    if (Mapper.checkCanLoopList(mixedPhrases) == true){
 
       for (final Phrase phrase in mixedPhrases){
 
@@ -529,7 +529,7 @@ class Phrase {
 }){
     final List<Phrase> _result = <Phrase>[];
 
-    if (Mapper.canLoopList(phrases) && text.isNotEmpty){
+    if (Mapper.checkCanLoopList(phrases) && text.isNotEmpty){
 
       if (byID == true){
 
@@ -580,7 +580,7 @@ class Phrase {
 
       final List<String> _trigram = source.trigram;
 
-      final bool _trigramContains = Mapper.stringsContainString(
+      final bool _trigramContains = Mapper.checkStringsContainString(
           strings: _trigram,
           string: _fixedString
       );
@@ -599,7 +599,7 @@ class Phrase {
 
     final List<String> _output = <String>[];
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase phrase in phrases){
         _output.add(phrase.id);
@@ -619,7 +619,7 @@ class Phrase {
 
     Phrase _phrase;
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
        _phrase = phrases.firstWhere(
             (ph) => ph.id == phid && ph.langCode == langCode,
@@ -641,7 +641,7 @@ class Phrase {
 }){
     bool _include = false;
 
-    if (Mapper.canLoopList(phrases) == true && firstPhrase != null){
+    if (Mapper.checkCanLoopList(phrases) == true && firstPhrase != null){
 
       for (final Phrase secondPhrase in phrases){
 
@@ -672,7 +672,7 @@ class Phrase {
 
     bool _phraseInclude = false;
 
-    if (Mapper.canLoopList(phrases)){
+    if (Mapper.checkCanLoopList(phrases)){
 
       for (final Phrase phrase in phrases){
 
@@ -699,7 +699,7 @@ class Phrase {
 }){
     bool _include = false;
 
-    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(id) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(id) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -721,7 +721,7 @@ class Phrase {
   }){
     bool _include = false;
 
-    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(value) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(value) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -751,7 +751,7 @@ class Phrase {
 
         if (firstPhrase.value == secondPhrase.value){
 
-          if (Mapper.listsAreTheSame(list1: firstPhrase.trigram, list2: secondPhrase.trigram)){
+          if (Mapper.checkListsAreTheSame(list1: firstPhrase.trigram, list2: secondPhrase.trigram)){
 
             _namesAreTheSame = true;
 
@@ -774,7 +774,7 @@ class Phrase {
 
     bool _listsAreTheSame = false;
 
-    if (Mapper.canLoopList(firstPhrases) && Mapper.canLoopList(secondPhrases)){
+    if (Mapper.checkCanLoopList(firstPhrases) && Mapper.checkCanLoopList(secondPhrases)){
 
       if (firstPhrases.length == secondPhrases.length){
 
@@ -841,7 +841,7 @@ class Phrase {
 // -------------------------------------
   static List<Phrase> sortNamesAlphabetically(List<Phrase> phrases){
 
-    if (Mapper.canLoopList(phrases)){
+    if (Mapper.checkCanLoopList(phrases)){
       phrases.sort((Phrase a, Phrase b) => a.value.compareTo(b.value));
     }
 
@@ -850,7 +850,7 @@ class Phrase {
 // -------------------------------------
   static List<Phrase> sortPhrasesByID({@required List<Phrase> phrases}){
 
-    if (Mapper.canLoopList(phrases)){
+    if (Mapper.checkCanLoopList(phrases)){
       phrases.sort((Phrase a, Phrase b) => a.id.compareTo(b.id));
     }
 
@@ -966,11 +966,11 @@ class Phrase {
 
     final List<Phrase> _output = <Phrase>[];
 
-    if (Mapper.canLoopList(insertIn) == true){
+    if (Mapper.checkCanLoopList(insertIn) == true){
       _output.addAll(insertIn);
     }
 
-    if (Mapper.canLoopList(phrasesToInsert) == true){
+    if (Mapper.checkCanLoopList(phrasesToInsert) == true){
 
       List<Phrase> _phrasesToInsert = phrasesToInsert;
 
@@ -996,7 +996,7 @@ class Phrase {
 }){
     final List<Phrase> _output = <Phrase>[];
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -1030,7 +1030,7 @@ class Phrase {
     <Phrase>[]
     ;
 
-    if (Mapper.canLoopList(phrasesToInsert)){
+    if (Mapper.checkCanLoopList(phrasesToInsert)){
 
       for (final Phrase phrase in phrasesToInsert){
 
@@ -1055,7 +1055,7 @@ class Phrase {
   static List<Phrase> cleanIdenticalPhrases(List<Phrase> phrases){
     final List<Phrase> _output = <Phrase>[];
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase firstPhrase in phrases){
 
@@ -1085,7 +1085,7 @@ class Phrase {
 
     final List<Phrase> _output = <Phrase>[...phrases];
 
-    if (Mapper.canLoopList(phrases) == true && stringIsNotEmpty(phraseID) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(phraseID) == true){
 
       _output.removeWhere((ph) => ph.id == phraseID);
 
@@ -1100,7 +1100,7 @@ class Phrase {
 }){
     final List<Phrase> _output = <Phrase>[];
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -1128,7 +1128,7 @@ class Phrase {
 
     if (includeTrigram == true){
 
-      final bool _hasExitingOne = Mapper.canLoopList(existingTrigram);
+      final bool _hasExitingOne = Mapper.checkCanLoopList(existingTrigram);
 
       if (_hasExitingOne == true){
         _output = existingTrigram;
@@ -1146,7 +1146,7 @@ class Phrase {
   static List<Phrase> removeTrigramsFromPhrases(List<Phrase> phrases){
     final List<Phrase> _output = <Phrase>[];
 
-    if (Mapper.canLoopList(phrases) == true){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
       for (final Phrase phrase in phrases){
 

@@ -136,7 +136,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
                   valueListenable: _countries,
                   builder: (_, List<CountryModel> _countries, Widget child){
 
-                    if (Mapper.canLoopList(_countries) == false){
+                    if (Mapper.checkCanLoopList(_countries) == false){
                       return const SizedBox();
                     }
 

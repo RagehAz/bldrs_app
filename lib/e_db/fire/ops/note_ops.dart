@@ -63,7 +63,7 @@ Future<List<NoteModel>> paginateAllSentNotes({
 
     Mapper.blogMaps(_maps, methodName: 'paginateAllSentNotes');
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
 
       _notes = NoteModel.decipherNotesModels(
         maps: _maps,
@@ -105,7 +105,7 @@ Future<List<NoteModel>> paginateAllReceivedNotes({
       ],
     );
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
 
       _notes = NoteModel.decipherNotesModels(
         maps: _maps,
@@ -169,7 +169,7 @@ Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
       ),
     );
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
 
       _notes = NoteModel.decipherNotesModels(
         maps: _maps,
@@ -215,7 +215,7 @@ Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
       ],
     );
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
 
       _notes = NoteModel.decipherNotesModels(
         maps: _maps,

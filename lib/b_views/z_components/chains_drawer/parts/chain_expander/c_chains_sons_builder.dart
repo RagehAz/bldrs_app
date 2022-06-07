@@ -32,7 +32,7 @@ class ChainSonsBuilder extends StatelessWidget {
         parentLevel: parentLevel,
     );
 
-    if (Mapper.canLoopList(chain.sons) == false){
+    if (Mapper.checkCanLoopList(chain.sons) == false){
       return const SizedBox();
     }
 

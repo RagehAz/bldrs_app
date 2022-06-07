@@ -42,7 +42,7 @@ class UserFireSearch{
 
     List<UserModel> _usersModels = <UserModel>[];
 
-    if (Mapper.canLoopList(_result)) {
+    if (Mapper.checkCanLoopList(_result)) {
       _usersModels = UserModel.decipherUsers(
         maps: _result,
         fromJSON: false,
@@ -84,7 +84,7 @@ class UserFireSearch{
             addDocSnapshotToEachMap: addDocSnapshotToEachMap,
           );
 
-          if (Mapper.canLoopList(_maps)) {
+          if (Mapper.checkCanLoopList(_maps)) {
             _usersModels =
                 UserModel.decipherUsers(maps: _maps, fromJSON: false);
           }

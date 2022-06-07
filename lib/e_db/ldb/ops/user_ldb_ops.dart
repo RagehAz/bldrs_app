@@ -30,7 +30,7 @@ class UserLDBOps {
 // ---------------------------------
   static Future<void> insertUsers(List<UserModel> users) async {
 
-    if (Mapper.canLoopList(users) == true){
+    if (Mapper.checkCanLoopList(users) == true){
 
       await LDBOps.insertMaps(
         docName: LDBDoc.users,
@@ -95,8 +95,7 @@ class UserLDBOps {
 
     if (userModel != null){
 
-      await LDBOps.updateMap(
-          objectID: userModel.id,
+      await LDBOps.insertMap(
           docName: LDBDoc.users,
           input: userModel.toMap(
               toJSON: true,
@@ -116,9 +115,8 @@ class UserLDBOps {
       myBzzIDs: <String>[bzIDToAdd, ...userModel.myBzzIDs],
     );
 
-    await LDBOps.updateMap(
+    await LDBOps.insertMap(
         docName: LDBDoc.users,
-        objectID: _updatedUserModel.id,
         input: _updatedUserModel.toMap(toJSON: true),
     );
 
@@ -146,10 +144,9 @@ class UserLDBOps {
         myBzzIDs: _myBzzIDs,
       );
 
-      await LDBOps.updateMap(
+      await LDBOps.insertMap(
         docName: LDBDoc.users,
         input: _updatedModel.toMap(toJSON: true),
-        objectID: _updatedModel.id,
       );
 
     }

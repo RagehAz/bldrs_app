@@ -179,7 +179,7 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
 
     final List<String> _savedFlyersIDs = _myUserModel?.savedFlyersIDs;
 
-    if (Mapper.canLoopList(_savedFlyersIDs)){
+    if (Mapper.checkCanLoopList(_savedFlyersIDs)){
 
       final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
       await _flyersProvider.fetchSetSavedFlyers(

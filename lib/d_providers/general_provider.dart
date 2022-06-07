@@ -30,7 +30,7 @@ class GeneralProvider extends ChangeNotifier {
         docName: LDBDoc.appState,
     );
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
       _appState = AppState.fromMap(_maps.first);
     }
 
@@ -77,7 +77,7 @@ class GeneralProvider extends ChangeNotifier {
         docName: LDBDoc.appControls,
     );
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
       final Map<String, dynamic> _map = _maps.first;
       _model = AppControlsModel.decipherAppControlsModel(_map);
     }

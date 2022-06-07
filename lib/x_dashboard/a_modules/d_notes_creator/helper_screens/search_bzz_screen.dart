@@ -189,7 +189,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
                           builder: (_, List<BzModel> foundBzz, Widget child){
 
                             /// FOUND USERS
-                            if (Mapper.canLoopList(foundBzz) == true){
+                            if (Mapper.checkCanLoopList(foundBzz) == true){
 
                               return ValueListenableBuilder(
                                 valueListenable: _selectedBzz,

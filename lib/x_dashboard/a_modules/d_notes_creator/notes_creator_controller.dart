@@ -166,7 +166,7 @@ Future<void> onSelectNoteReceiverTap({
       ),
   );
 
-    if (Mapper.canLoopList(_selectedUsers) == true){
+    if (Mapper.checkCanLoopList(_selectedUsers) == true){
       receiver.value = _selectedUsers.first;
       note.value = note.value.copyWith(
         receiverID: _selectedUsers.first.id,
@@ -330,7 +330,7 @@ Future<void> _onSelectUserAsNoteSender({
     ),
   );
 
-  final bool _newSelection = Mapper.canLoopList(_selectedUsers);
+  final bool _newSelection = Mapper.checkCanLoopList(_selectedUsers);
   if (_newSelection == true){
 
     final UserModel _userModel = _newSelection == true ?
@@ -364,10 +364,10 @@ Future<void> _onSelectBzAsNoteSender({
     screen: const SearchBzzScreen(),
   );
 
-  final bool _newSelection = Mapper.canLoopList(_bzModels);
+  final bool _newSelection = Mapper.checkCanLoopList(_bzModels);
   if (_newSelection == true){
 
-    final BzModel _bzModel = Mapper.canLoopList(_bzModels) == true ?
+    final BzModel _bzModel = Mapper.checkCanLoopList(_bzModels) == true ?
     _bzModels.first
         :
     null;
@@ -531,10 +531,10 @@ Future<void> _onSelectBzAsAttachment({
     screen: const SearchBzzScreen(),
   );
 
-  final bool _newSelection = Mapper.canLoopList(_bzModels);
+  final bool _newSelection = Mapper.checkCanLoopList(_bzModels);
   if (_newSelection == true){
 
-    final BzModel _bzModel = Mapper.canLoopList(_bzModels) == true ?
+    final BzModel _bzModel = Mapper.checkCanLoopList(_bzModels) == true ?
     _bzModels.first
         :
     null;
@@ -564,7 +564,7 @@ Future<void> _onSelectFlyersIDsAsAttachment({
     ),
   );
 
-  final bool _newSelection = Mapper.canLoopList(_selectedFlyers);
+  final bool _newSelection = Mapper.checkCanLoopList(_selectedFlyers);
   if (_newSelection == true){
 
     _ids = FlyerModel.getFlyersIDsFromFlyers(_selectedFlyers);

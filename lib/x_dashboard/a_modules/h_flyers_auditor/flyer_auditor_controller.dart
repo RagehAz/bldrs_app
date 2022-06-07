@@ -32,7 +32,7 @@ Future<void> readMoreUnVerifiedFlyers({
     collName: FireColl.flyers,
     orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
     limit: 6,
-    startAfter: Mapper.canLoopList(flyers.value) == true ? flyers.value.last.docSnapshot : null,
+    startAfter: Mapper.checkCanLoopList(flyers.value) == true ? flyers.value.last.docSnapshot : null,
     addDocSnapshotToEachMap: true,
     finders: <FireFinder>[
       FireFinder(
@@ -53,7 +53,7 @@ Future<void> readMoreUnVerifiedFlyers({
     fromJSON: false,
   );
 
-  if (Mapper.canLoopList(_fetchedModels) == true){
+  if (Mapper.checkCanLoopList(_fetchedModels) == true){
     flyers.value = <FlyerModel>[...flyers.value, ..._fetchedModels];
   }
   else {

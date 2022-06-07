@@ -189,7 +189,7 @@ class MutableSlide {
 
     final List<MutableSlide> _output = <MutableSlide>[];
 
-    if (Mapper.canLoopList(assets) == true){
+    if (Mapper.checkCanLoopList(assets) == true){
 
       for (int i = 0; i < assets.length; i++){
 
@@ -361,7 +361,7 @@ class MutableSlide {
     @required List<MutableSlide> mutableSlides,
   }) {
 
-    if (Mapper.canLoopList(mutableSlides)) {
+    if (Mapper.checkCanLoopList(mutableSlides)) {
       for (final MutableSlide mSlide in mutableSlides) {
         TextChecker.disposeControllerIfPossible(mSlide.headline);
         TextChecker.disposeControllerIfPossible(mSlide.description);

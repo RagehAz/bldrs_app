@@ -67,7 +67,7 @@ TextEditingController initializeHeadlineController({
 
     blog('text controller : ${_controller.text}');
 
-    if (Mapper.canLoopList(draftFlyer.value.mutableSlides) == true){
+    if (Mapper.checkCanLoopList(draftFlyer.value.mutableSlides) == true){
 
       draftFlyer.value = DraftFlyerModel.updateHeadline(
         controller : _controller,
@@ -91,7 +91,7 @@ void onDeleteSlide({
 
   final List<MutableSlide> _slides = draftFlyer.value.mutableSlides;
 
-  if (Mapper.canLoopList(_slides) == true){
+  if (Mapper.checkCanLoopList(_slides) == true){
 
     _slides.removeAt(index);
 
@@ -315,7 +315,7 @@ void onFlyerHeadlineChanged({
 }){
   formKey.currentState.validate();
 
-  if (Mapper.canLoopList(draftFlyer.value.mutableSlides) == true){
+  if (Mapper.checkCanLoopList(draftFlyer.value.mutableSlides) == true){
     draftFlyer.value = DraftFlyerModel.updateHeadline(
       draft: draftFlyer.value,
       controller: controller,

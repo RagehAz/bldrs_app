@@ -185,7 +185,7 @@ Future<List<String>> _searchKeywordsPhrases({
 
   blog('_searchKeywordsPhrases : found ${_searched.length} phrases');
 
-  if (Mapper.canLoopList(_searched) == true) {
+  if (Mapper.checkCanLoopList(_searched) == true) {
 
     _phidKs = Phrase.getKeywordsIDsFromPhrases(allPhrases: _searched);
 
@@ -210,7 +210,7 @@ List<Chain> _getChainsFromPhids({
 
   List<Chain> _chains = <Chain>[];
 
-  if (Mapper.canLoopList(phids) == true){
+  if (Mapper.checkCanLoopList(phids) == true){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
@@ -233,7 +233,7 @@ Future<void> _setFoundResults({
 }) async {
 
   /// found results
-  if (Mapper.canLoopList(searchedPhids) == true) {
+  if (Mapper.checkCanLoopList(searchedPhids) == true) {
 
     foundPhids.value = searchedPhids;
     foundChains.value = chainsFromPhids;

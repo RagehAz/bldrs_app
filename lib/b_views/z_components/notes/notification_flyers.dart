@@ -43,7 +43,7 @@ class NotificationFlyers extends StatelessWidget {
           FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 220)),
         ),
       ),
-      child: Mapper.canLoopList(flyers) == false ?
+      child: Mapper.checkCanLoopList(flyers) == false ?
       const SizedBox()
           :
       ListView.builder(

@@ -39,7 +39,7 @@ class ChainSonStarter extends StatelessWidget {
 
       final String _keywordID = son;
 
-      final bool _isSelected = Mapper.stringsContainString(
+      final bool _isSelected = Mapper.checkStringsContainString(
           strings: selectedKeywordsIDs,
           string: _keywordID,
       );

@@ -330,7 +330,7 @@ Future<void> controlCityOnTap({
     );
 
     /// WHEN CITY HAS DISTRICTS
-    if (Mapper.canLoopList(_city.districts)) {
+    if (Mapper.checkCanLoopList(_city.districts)) {
 
       await Nav.goToNewScreen(
           context: context,

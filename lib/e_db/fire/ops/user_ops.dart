@@ -308,7 +308,7 @@ Future<void> addFlyerIDToSavedFlyersIDs({
 
   final List<String> _savedFlyersIDs = <String>[];
 
-  if (Mapper.canLoopList(savedFlyersIDs)) {
+  if (Mapper.checkCanLoopList(savedFlyersIDs)) {
     _savedFlyersIDs.addAll(savedFlyersIDs);
   }
 

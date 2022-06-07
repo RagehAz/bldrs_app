@@ -102,7 +102,7 @@ class QuestionModel {
 
     QuestionModel _question;
 
-    if (Mapper.canLoopList(picsURLS)) {
+    if (Mapper.checkCanLoopList(picsURLS)) {
       _question = QuestionModel(
         id: question.id,
         ownerID: question.ownerID,
@@ -153,7 +153,7 @@ class QuestionModel {
         &&
         originalQuestion.ownerID == updateQuestion.ownerID
         &&
-        Mapper.listsAreTheSame(
+        Mapper.checkListsAreTheSame(
           list1: originalQuestion.keywordsIDs,
           list2: updateQuestion.keywordsIDs
         ) == true
@@ -211,7 +211,7 @@ class QuestionModel {
 
     List<QuestionModel> _filteredQuestions = <QuestionModel>[];
 
-    if(Mapper.canLoopList(questions)){
+    if(Mapper.checkCanLoopList(questions)){
 
       if (bzType == null){
         _filteredQuestions = questions;

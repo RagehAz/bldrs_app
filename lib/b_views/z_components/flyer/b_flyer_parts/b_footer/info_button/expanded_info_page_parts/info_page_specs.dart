@@ -30,7 +30,7 @@ class InfoPageSpecs extends StatelessWidget {
 
     final List<SpecPicker> _flyerTypePickers = SpecPicker.getPickersByFlyerType(flyerType);
 
-    if (Mapper.canLoopList(flyerSpecs)){
+    if (Mapper.checkCanLoopList(flyerSpecs)){
 
       for (final SpecModel _spec in flyerSpecs){
 

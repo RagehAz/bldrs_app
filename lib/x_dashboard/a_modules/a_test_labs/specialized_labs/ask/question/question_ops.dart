@@ -61,7 +61,7 @@ class QuestionOps {
     QuestionModel _question;
 
     /// A - save image attachments if existed
-    if (Mapper.canLoopList(question?.pics)) {
+    if (Mapper.checkCanLoopList(question?.pics)) {
       /// A2 - create pics names
       final List<String> _picsNames = <String>[];
       for (int i = 0; i < question.pics.length; i++) {

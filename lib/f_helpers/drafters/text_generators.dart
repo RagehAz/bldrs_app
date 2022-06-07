@@ -147,7 +147,7 @@ String generateStringFromStrings({
 
   String _output = '';
 
-  if (Mapper.canLoopList(strings) == true){
+  if (Mapper.checkCanLoopList(strings) == true){
 
     for (final String _string in strings){
 

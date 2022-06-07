@@ -64,7 +64,7 @@ class FlyerPromotion {
   }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mappers.canLoopList(flyersPromotions)){
+    if (Mappers.checkCanLoopList(flyersPromotions)){
 
       for (final FlyerPromotion promo in flyersPromotions){
 
@@ -83,7 +83,7 @@ class FlyerPromotion {
   }){
     final List<FlyerPromotion> _promotions = <FlyerPromotion>[];
 
-    if (Mappers.canLoopList(maps)){
+    if (Mappers.checkCanLoopList(maps)){
 
       for (final Map<String, dynamic> map in maps){
 
@@ -106,7 +106,7 @@ class FlyerPromotion {
 
     final List<String> _flyersIDs = <String>[];
 
-    if (Mappers.canLoopList(promotions)){
+    if (Mappers.checkCanLoopList(promotions)){
 
       for (final FlyerPromotion promo in promotions){
 

@@ -651,7 +651,7 @@ class AuthModel {
 
     List<Map<String, String>> _maps;
 
-    if (Mapper.canLoopList(userInfos) == true){
+    if (Mapper.checkCanLoopList(userInfos) == true){
 
       _maps = <Map<String, String>>[];
 
@@ -691,7 +691,7 @@ class AuthModel {
 
     List<UserInfo> _userInfos;
 
-    if (Mapper.canLoopList(maps) == true){
+    if (Mapper.checkCanLoopList(maps) == true){
 
       _userInfos = <UserInfo>[];
 
@@ -729,7 +729,7 @@ class AuthModel {
 
     final List<Map<String, String>> _output = <Map<String, String>>[];
 
-    if (Mapper.canLoopList(_list) == true){
+    if (Mapper.checkCanLoopList(_list) == true){
       for (final dynamic object in _list){
 
         final Map<String, String> _stringStringMap = Mapper.getStringStringMapFromImmutableMapStringObject(object);
