@@ -88,13 +88,32 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
   Future<void> _createRandomMap() async {
 
     final Map<String, dynamic> _map = {
-      'id' : 'x${Numeric.createRandomIndex(listLength: 6)}',
+      'id' : 'x${Numeric.createRandomIndex(listLength: 10)}',
       'color' : cipherColor(createRandomColor()),
     };
 
     await LDBOps.insertMap(
-        input: _map,
-        docName: _docName,
+      input: _map,
+      docName: _docName,
+    );
+
+    await _readAllMaps();
+  }
+// ----------------------------------------
+  Future<void> _createMultipleMaps() async {
+
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+    for (int i = 0; i < 6; i++){
+      final Map<String, dynamic> _map = {
+        'id' :'x$i',
+        'color' : cipherColor(Colorz.red255),
+      };
+      _maps.add(_map);
+    }
+
+    await LDBOps.insertMaps(
+      inputs: _maps,
+      docName: _docName,
     );
 
     await _readAllMaps();
@@ -128,10 +147,9 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
       'color': cipherColor(_newColor),
     };
 
-    await LDBOps.updateMap(
-        docName: _docName,
-        input: _newMap,
-        objectID: map['id'],
+    await LDBOps.insertMap(
+      docName: _docName,
+      input: _newMap,
     );
 
     await _readAllMaps();
@@ -192,7 +210,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
   }
 // ----------------------------------------
-  Future<void> _search() async {
+/*  Future<void> _search() async {
 
     final List<Map<String, dynamic>> _result = await LDBOps.searchLDBDocTrigram(
         searchValue: 'Cairo',
@@ -202,8 +220,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
     Mapper.blogMaps(_result);
   }
-// ----------------------------------------
-
+ */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -225,10 +242,16 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
             scrollDirection: Axis.horizontal,
             children: <Widget>[
 
+              /// CREATE SINGLE
+              SmallFuckingButton(
+                  verse: 'Create single',
+                  onTap: _createRandomMap
+              ),
+
               /// CREATE RANDOM
               SmallFuckingButton(
-                  verse: 'Create',
-                  onTap: _createRandomMap
+                  verse: 'Create Multi',
+                  onTap: _createMultipleMaps
               ),
 
               /// READ
@@ -253,7 +276,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
           ),
         ),
 
-        if (Mapper.canLoopList(_maps))
+        if (Mapper.checkCanLoopList(_maps))
           ...LDBViewerScreen.rows(
             context: context,
             userColorField: true,

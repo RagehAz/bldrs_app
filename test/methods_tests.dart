@@ -36,8 +36,8 @@ void main() {
       'name': 'meshmesh',
     };
 
-    final bool _result = Mapper.listOfMapsContainMap(
-      listOfMaps: _listOfMaps,
+    final bool _result = Mapper.checkMapsContainMap(
+      maps: _listOfMaps,
       map: _aMapInTheList,
     );
 
@@ -61,8 +61,8 @@ void main() {
       },
     ];
 
-    final bool _result = Mapper.listOfMapsContainMap(
-      listOfMaps: _listOfMaps,
+    final bool _result = Mapper.checkMapsContainMap(
+      maps: _listOfMaps,
       map: _aMapNotInTheListByOneField,
     );
 
@@ -86,8 +86,8 @@ void main() {
       },
     ];
 
-    final bool _result = Mapper.listOfMapsContainMap(
-      listOfMaps: _listOfMaps,
+    final bool _result = Mapper.checkMapsContainMap(
+      maps: _listOfMaps,
       map: _aMapNotInTheListByTwoFields,
     );
 
@@ -105,7 +105,7 @@ void main() {
       'name': 'meshmesh',
     };
 
-    final bool _result = Mapper.mapsAreTheSame(
+    final bool _result = Mapper.checkMapsAreTheSame(
         map1: _aMapInTheList,
         map2: _aMapInTheListCopy
     );
@@ -124,7 +124,7 @@ void main() {
       'name': 'meshmeshaaaaaaaaayaaaaaaa',
     };
 
-    final bool _result = Mapper.mapsAreTheSame(
+    final bool _result = Mapper.checkMapsAreTheSame(
       map1: _aMapInTheList,
       map2: _aMapNotInTheListByOneField,
     );
@@ -161,7 +161,7 @@ void main() {
       'bikes/city/harley/bobo/',
     ];
 
-    final bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
+    final bool _result = Mapper.checkListsAreTheSame(list1: _list1, list2: _list2);
 
     expect(_result, true);
   });
@@ -170,7 +170,7 @@ void main() {
     final List<String> _list1 = <String>['1', '2', '3'];
     final List<String> _list2 = <String>['1', '2', '4'];
 
-    final bool _result = Mapper.listsAreTheSame(list1: _list1, list2: _list2);
+    final bool _result = Mapper.checkListsAreTheSame(list1: _list1, list2: _list2);
 
     expect(_result, false);
   });
@@ -610,9 +610,9 @@ void main() {
       'null',
     ];
 
-    final bool _hasNull1 = Mapper.listHasNullValue(_list1);
-    final bool _hasNull2 = Mapper.listHasNullValue(_list2);
-    final bool _hasNull3 = Mapper.listHasNullValue(_list3);
+    final bool _hasNull1 = Mapper.checkListHasNullValue(_list1);
+    final bool _hasNull2 = Mapper.checkListHasNullValue(_list2);
+    final bool _hasNull3 = Mapper.checkListHasNullValue(_list3);
 
     expect(_hasNull1, true);
     expect(_hasNull2, true);

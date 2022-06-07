@@ -109,7 +109,7 @@ class PhraseProvider extends ChangeNotifier {
       docName: LDBDoc.basicPhrases,
     );
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
       blog('fetchPhrasesByLangCode : phrases found in local db ');
       _allPhrases = Phrase.decipherMixedLangPhrases(
         maps: _maps,
@@ -117,7 +117,7 @@ class PhraseProvider extends ChangeNotifier {
     }
 
     /// 2 - if not found in LDB , read from firebase
-    if (Mapper.canLoopList(_allPhrases) == false){
+    if (Mapper.checkCanLoopList(_allPhrases) == false){
       blog('fetchPhrasesByLangCode : phrases NOT found in local db');
 
       /// 2.1 read from firebase
@@ -132,7 +132,7 @@ class PhraseProvider extends ChangeNotifier {
       _allPhrases = <Phrase>[..._en??[], ..._ar??[]];
 
       /// 2.2 if found on firebase, store in LDB
-      if (Mapper.canLoopList(_allPhrases) == true){
+      if (Mapper.checkCanLoopList(_allPhrases) == true){
         blog('fetchPhrasesByLangCode : phrases found in Firestore');
 
         final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrases(
@@ -141,8 +141,9 @@ class PhraseProvider extends ChangeNotifier {
         );
 
         await LDBOps.insertMaps(
-            inputs: _allMaps,
-            docName: LDBDoc.basicPhrases,
+          inputs: _allMaps,
+          docName: LDBDoc.basicPhrases,
+          allowDuplicateIDs: true,
         );
 
       }
@@ -165,7 +166,7 @@ class PhraseProvider extends ChangeNotifier {
       docName: LDBDoc.countriesPhrases,
     );
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
       blog('fetchCountriesMixedLangPhrases : ${_maps.length} phrases found in LDB doc countriesMixedPhrases');
 
       _countriesMixedLangPhrases = Phrase.decipherMixedLangPhrases(
@@ -296,7 +297,7 @@ class PhraseProvider extends ChangeNotifier {
     if (
     _basicPhrases != null
         &&
-    Mapper.canLoopList(_basicPhrases) == true
+    Mapper.checkCanLoopList(_basicPhrases) == true
     ){
 
       final Phrase _phrase = _basicPhrases.singleWhere(
@@ -319,7 +320,7 @@ class PhraseProvider extends ChangeNotifier {
 
     List<Phrase> _phrases = <Phrase>[];
 
-    if (Mapper.canLoopList(phids) == true){
+    if (Mapper.checkCanLoopList(phids) == true){
 
       for (final String phid in phids){
 

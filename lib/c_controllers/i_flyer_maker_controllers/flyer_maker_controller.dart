@@ -297,7 +297,7 @@ Future<void> onAddKeywordsTap({
 
   final List<String> receivedKeywordsIds = _result;
 
-  if (Mapper.canLoopList(receivedKeywordsIds) == true){
+  if (Mapper.checkCanLoopList(receivedKeywordsIds) == true){
 
     draft.value = draft.value.copyWith(
       keywordsIDs: receivedKeywordsIds,
@@ -322,7 +322,7 @@ Future<void> onAddSpecsTap({
 
   final List<SpecModel> _receivedSpecs = _result;
 
-  if (Mapper.canLoopList(_receivedSpecs) == true){
+  if (Mapper.checkCanLoopList(_receivedSpecs) == true){
 
     SpecModel.blogSpecs(_receivedSpecs);
 
@@ -463,8 +463,7 @@ Future<void> _publishFlyerOps({
     flyersIDs: _newBzFlyersIDsList,
   );
 
-  await LDBOps.updateMap(
-    objectID: _newBzModel.id,
+  await LDBOps.insertMap(
     docName: LDBDoc.bzz,
     input: _newBzModel.toMap(toJSON: true),
   );

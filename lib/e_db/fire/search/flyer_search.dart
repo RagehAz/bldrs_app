@@ -142,7 +142,7 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
 
   List<FlyerModel> _result = <FlyerModel>[];
 
-  if (Mapper.canLoopList(_maps)) {
+  if (Mapper.checkCanLoopList(_maps)) {
     _result = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
   }
 

@@ -122,7 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
 
-                if (Mapper.canLoopList(chatModel.messages))
+                if (Mapper.checkCanLoopList(chatModel.messages))
                   Container(
                     width: _screenWidth,
                     height: _screenHeight - _convBoxHeight,

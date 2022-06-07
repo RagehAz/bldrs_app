@@ -30,7 +30,7 @@ class SearchedCountriesButtons extends StatelessWidget {
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
 
     /// WHEN SEARCH RESULTS
-    if (Mapper.canLoopList(_searchedCountries)){
+    if (Mapper.checkCanLoopList(_searchedCountries)){
 
       return ListView.builder(
           physics: const BouncingScrollPhysics(),

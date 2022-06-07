@@ -101,7 +101,7 @@ class NotesProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    if (Mapper.canLoopList(_pendingSentAuthorshipNotes) == false){
+    if (Mapper.checkCanLoopList(_pendingSentAuthorshipNotes) == false){
 
       final List<NoteModel> _pendingNotes = await NoteFireOps.paginatePendingSentAuthorshipNotes(
         context: context,
@@ -110,7 +110,7 @@ class NotesProvider extends ChangeNotifier {
         startAfter: null,
       );
 
-      if (Mapper.canLoopList(_pendingNotes) == true)   {
+      if (Mapper.checkCanLoopList(_pendingNotes) == true)   {
         final List<String> _usersIDs = NoteModel.getReceiversIDs(
           notes: _pendingNotes,
         );

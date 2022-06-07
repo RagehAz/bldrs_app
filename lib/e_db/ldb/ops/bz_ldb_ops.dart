@@ -36,8 +36,7 @@ class BzLDBOps {
     @required BzModel bzModel,
   }) async {
 
-    await LDBOps.updateMap(
-        objectID: bzModel.id,
+    await LDBOps.insertMap(
         docName: LDBDoc.bzz,
         input: bzModel.toMap(toJSON: true),
     );

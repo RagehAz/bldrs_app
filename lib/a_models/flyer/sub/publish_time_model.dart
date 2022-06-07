@@ -26,7 +26,7 @@ class PublishTime {
   static List<PublishTime> cloneTimes(List<PublishTime> times) {
     final List<PublishTime> _times = <PublishTime>[];
 
-    if (Mapper.canLoopList(times)) {
+    if (Mapper.checkCanLoopList(times)) {
       for (final PublishTime time in times) {
         _times.add(time.clone());
       }
@@ -54,7 +54,7 @@ class PublishTime {
   }) {
     Map<String, dynamic> _outPut = <String, dynamic>{};
 
-    if (Mapper.canLoopList(times)) {
+    if (Mapper.checkCanLoopList(times)) {
       for (final PublishTime time in times) {
         _outPut = Mapper.insertPairInMap(
           map: _outPut,
@@ -77,7 +77,7 @@ class PublishTime {
       final List<String> _keys = map.keys.toList();
       final List<dynamic> _values = map.values.toList();
 
-      if (Mapper.canLoopList(_keys) && Mapper.canLoopList(_values)) {
+      if (Mapper.checkCanLoopList(_keys) && Mapper.checkCanLoopList(_values)) {
         for (int i = 0; i < _keys.length; i++) {
           final PublishState _flyerStateString =
           FlyerModel.decipherFlyerState(_keys[i]);
@@ -132,7 +132,7 @@ class PublishTime {
   static PublishTime getLastRecord(List<PublishTime> publishTimes){
     PublishTime _publishTime;
 
-    if (Mapper.canLoopList(publishTimes) == true){
+    if (Mapper.checkCanLoopList(publishTimes) == true){
 
       _publishTime = publishTimes[0];
 

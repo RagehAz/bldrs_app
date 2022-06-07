@@ -394,7 +394,7 @@ Future<File> getFileFromPickerAsset(Asset asset) async {
 Future<List<File>> getFilesFromPickerAssets(List<Asset> assets) async {
   final List<File> _files = <File>[];
 
-  if (Mapper.canLoopList(assets)) {
+  if (Mapper.checkCanLoopList(assets)) {
     for (final Asset asset in assets) {
       final File _file = await getFileFromPickerAsset(asset);
       _files.add(_file);
@@ -511,7 +511,7 @@ Asset getOnlyAssetFromDynamic(dynamic input) {
 List<Asset> getOnlyAssetsFromDynamics(List<dynamic> inputs) {
   final List<Asset> _assets = <Asset>[];
 
-  if (Mapper.canLoopList(inputs)) {
+  if (Mapper.checkCanLoopList(inputs)) {
     for (final dynamic x in inputs) {
       _assets.add(getOnlyAssetFromDynamic(x));
     }
@@ -727,7 +727,7 @@ Future<Uint8List> getUint8ListFromFile(File file) async {
 Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
   final List<Uint8List> _screenShots = <Uint8List>[];
 
-  if (Mapper.canLoopList(files)) {
+  if (Mapper.checkCanLoopList(files)) {
     for (final File file in files) {
       final Uint8List _uInt = await getUint8ListFromFile(file);
       _screenShots.add(_uInt);

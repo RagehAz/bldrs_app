@@ -93,7 +93,7 @@ class QuestionBody extends StatelessWidget {
 
 
                 /// QUESTION PICTURES
-                if (Mapper.canLoopList(questionModel?.pics))
+                if (Mapper.checkCanLoopList(questionModel?.pics))
                   QuestionPicturesBuilder(
                     questionModel: questionModel,
                     height: _bodyHeight * 0.4,

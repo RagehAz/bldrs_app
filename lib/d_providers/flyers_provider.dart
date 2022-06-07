@@ -91,7 +91,7 @@ class FlyersProvider extends ChangeNotifier {
   }) async {
     final List<FlyerModel> _flyers = <FlyerModel>[];
 
-    if (Mapper.canLoopList(flyersIDs)){
+    if (Mapper.checkCanLoopList(flyersIDs)){
 
       for (final String flyerID in flyersIDs){
 
@@ -121,7 +121,7 @@ class FlyersProvider extends ChangeNotifier {
 
     List<FlyerModel> _flyers = <FlyerModel>[];
 
-    if (Mapper.canLoopList(_bzFlyersIDs)) {
+    if (Mapper.checkCanLoopList(_bzFlyersIDs)) {
 
       _flyers = await fetchFlyersByIDs(
           context: context,
@@ -186,7 +186,7 @@ class FlyersProvider extends ChangeNotifier {
     final UserModel _myUserModel = _usersProvider.myUserModel;
     final List<String> _savedFlyersIDs = _myUserModel?.savedFlyersIDs;
 
-    if (Mapper.canLoopList(_savedFlyersIDs)){
+    if (Mapper.checkCanLoopList(_savedFlyersIDs)){
 
       final List<FlyerModel> _flyers = await fetchFlyersByIDs(
         context: context,
@@ -369,7 +369,7 @@ class FlyersProvider extends ChangeNotifier {
 
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZoneIDs(context);
 
-    final FlyerModel _lastWallFlyer = Mapper.canLoopList(_wallFlyers) == true ?
+    final FlyerModel _lastWallFlyer = Mapper.checkCanLoopList(_wallFlyers) == true ?
     _wallFlyers.last
         :
     null;
@@ -445,7 +445,7 @@ class FlyersProvider extends ChangeNotifier {
     final List<String> _flyersIDs = <String>[];
     final List<FlyerModel> _bzFlyers = <FlyerModel>[];
 
-    if (bz != null && Mapper.canLoopList(bz.flyersIDs) == true){
+    if (bz != null && Mapper.checkCanLoopList(bz.flyersIDs) == true){
 
       final int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
 

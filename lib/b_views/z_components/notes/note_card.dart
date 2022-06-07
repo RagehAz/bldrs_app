@@ -65,7 +65,7 @@ class NoteCard extends StatelessWidget {
 
     final double _bodyWidth = bodyWidth(context);
     const double _moreButtonSize = 35;
-    final bool _noteHasButtons = Mapper.canLoopList(noteModel?.buttons);
+    final bool _noteHasButtons = Mapper.checkCanLoopList(noteModel?.buttons);
 
     if (isDraftNote == false){
       unawaited(markNoteAsSeen(
@@ -165,7 +165,7 @@ class NoteCard extends StatelessWidget {
         ),
 
         /// BUTTONS
-        if (Mapper.canLoopList(noteModel?.buttons) == true)
+        if (Mapper.checkCanLoopList(noteModel?.buttons) == true)
           NoteCardButtons(
             boxWidth: _bodyWidth,
             noteModel: noteModel,

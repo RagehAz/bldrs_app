@@ -35,7 +35,7 @@ class SuperFilteredImage extends StatefulWidget {
     @required ImageFilterModel filterModel,
 }) async {
 
-    if (filterModel != null && Mapper.canLoopList(filterModel.matrixes) == true){
+    if (filterModel != null && Mapper.checkCanLoopList(filterModel.matrixes) == true){
 
       Uint8List _uint8List = await Imagers.getUint8ListFromFile(input);
 
@@ -80,7 +80,7 @@ class SuperFilteredImage extends StatefulWidget {
   }){
     Widget tree = child;
 
-    if (Mapper.canLoopList(matrixes) == true){
+    if (Mapper.checkCanLoopList(matrixes) == true){
       for (int i = 0; i < matrixes.length; i++) {
         tree = ColorFiltered(
           colorFilter: ColorFilter.matrix(matrixes[i]),

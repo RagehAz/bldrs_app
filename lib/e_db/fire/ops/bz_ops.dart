@@ -496,7 +496,7 @@ Future<void> _deleteBzFlyers({
   
   if (bzModel != null){
     
-    if (Mapper.canLoopList(bzModel.flyersIDs) == true){
+    if (Mapper.checkCanLoopList(bzModel.flyersIDs) == true){
 
       for (final String id in bzModel.flyersIDs) {
         
@@ -538,7 +538,7 @@ Future<void> _deleteBzIDFromAuthorBzIDs({
       authors: bzModel.authors,
     );
     
-    if (Mapper.canLoopList(_authorsIDs) == true){
+    if (Mapper.checkCanLoopList(_authorsIDs) == true){
 
       for (final String authorID in _authorsIDs) {
 
@@ -615,7 +615,7 @@ Future<void> _deleteBzAuthorsPictures({
 
   blog('_deleteBzAuthorsPictures : START');
 
-  if (bzModel != null && Mapper.canLoopList(bzModel.authors) == true){
+  if (bzModel != null && Mapper.checkCanLoopList(bzModel.authors) == true){
 
     final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
         authors: bzModel.authors,

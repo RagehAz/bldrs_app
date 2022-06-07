@@ -71,7 +71,7 @@ class CityModel {
 
     Map<String, dynamic> _citiesMap = <String, dynamic>{};
 
-    if (Mapper.canLoopList(cities)) {
+    if (Mapper.checkCanLoopList(cities)) {
       for (final CityModel city in cities) {
         _citiesMap = Mapper.insertPairInMap(
           map: _citiesMap,
@@ -118,7 +118,7 @@ class CityModel {
   }) {
     final List<CityModel> _cities = <CityModel>[];
 
-    if (Mapper.canLoopList(maps)) {
+    if (Mapper.checkCanLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
         _cities.add(
             decipherCityMap(
@@ -184,7 +184,7 @@ class CityModel {
   }) {
     final List<MapModel> _citiesMapModels = <MapModel>[];
 
-    if (Mapper.canLoopList(cities)) {
+    if (Mapper.checkCanLoopList(cities)) {
       for (final CityModel city in cities) {
 
         _citiesMapModels.add(MapModel(
@@ -211,7 +211,7 @@ class CityModel {
     @required String cityID,
   }) {
     CityModel _city;
-    if (Mapper.canLoopList(cities)) {
+    if (Mapper.checkCanLoopList(cities)) {
       _city = cities.firstWhere((CityModel city) => city.cityID == cityID,
           orElse: () => null);
     }
@@ -246,7 +246,7 @@ class CityModel {
 
     final List<String> _citiesIDs = <String>[];
 
-    if (Mapper.canLoopList(cities)) {
+    if (Mapper.checkCanLoopList(cities)) {
       for (final CityModel city in cities) {
         _citiesIDs.add(city.cityID);
       }
@@ -272,7 +272,7 @@ class CityModel {
   }){
     final List<CityModel> _foundCities = <CityModel>[];
 
-    if (Mapper.canLoopList(sourceCities) && Mapper.canLoopList(phrases)){
+    if (Mapper.checkCanLoopList(sourceCities) && Mapper.checkCanLoopList(phrases)){
 
       for (final Phrase phrase in phrases){
 
@@ -318,7 +318,7 @@ class CityModel {
   /// TESTED : WORKS PERFECT
   static void blogCities(List<CityModel> cities){
 
-    if (Mapper.canLoopList(cities)){
+    if (Mapper.checkCanLoopList(cities)){
 
       for (final CityModel city in cities){
 

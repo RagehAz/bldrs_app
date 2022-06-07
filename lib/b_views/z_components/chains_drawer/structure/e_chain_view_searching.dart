@@ -37,16 +37,16 @@ class ChainViewSearching extends StatelessWidget {
               builder: (_, List<Chain> _foundChains, Widget childB){
 
                 final bool _noResultsFound =
-                    Mapper.canLoopList(_foundPhids) == false
+                    Mapper.checkCanLoopList(_foundPhids) == false
                         &&
-                        Mapper.canLoopList(_foundChains) == false;
+                        Mapper.checkCanLoopList(_foundChains) == false;
 
 
                 return Column(
                   children: <Widget>[
 
                     /// FOUND SEARCH RESULT
-                    if (Mapper.canLoopList(_foundPhids) == true)
+                    if (Mapper.checkCanLoopList(_foundPhids) == true)
                       ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,

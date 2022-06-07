@@ -73,7 +73,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
     /// 2 - all keywords chain found in LDB
-    if (Mapper.canLoopList(_maps)) {
+    if (Mapper.checkCanLoopList(_maps)) {
       // blog('keywords chain found in LDB');
       _keywordsChain = Chain.decipherChain(_maps[0]);
     }
@@ -109,7 +109,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
     /// 2 - all keywords chain found in LDB
-    if (Mapper.canLoopList(_maps)) {
+    if (Mapper.checkCanLoopList(_maps)) {
       _specsChain = Chain.decipherChain(_maps[0]);
     }
 

@@ -149,7 +149,7 @@ class CustomerStatus {
     String methodName,
   }){
 
-    if (canLoopList(statuses) == true){
+    if (checkCanLoopList(statuses) == true){
 
       for (final CustomerStatus status in statuses){
         status.blogCustomerStatus(

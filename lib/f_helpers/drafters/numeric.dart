@@ -203,7 +203,7 @@ int createUniqueIndex({
 
   // blog('random number is : $_randomNumber');
 
-  if (Mapper.canLoopList(existingIndexes)) {
+  if (Mapper.checkCanLoopList(existingIndexes)) {
     if (existingIndexes.contains(_randomNumber)) {
       _randomNumber = createUniqueIndex(
           existingIndexes: existingIndexes,
@@ -303,7 +303,7 @@ List<int> getValuesFromKeys({
 }) {
   final List<int> _values = <int>[];
 
-  if (Mapper.canLoopList(keys)) {
+  if (Mapper.checkCanLoopList(keys)) {
     for (final ValueKey<int> key in keys) {
       _values.add(key.value);
     }

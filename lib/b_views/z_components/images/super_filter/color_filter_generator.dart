@@ -30,7 +30,7 @@ class ImageFilterModel {
 
     blog('combineMatrixes : input are : ${matrixes.length} matrixes ');
 
-    if (Mapper.canLoopList(matrixes) == true){
+    if (Mapper.checkCanLoopList(matrixes) == true){
 
       const Matrix2d m2d = Matrix2d();
 

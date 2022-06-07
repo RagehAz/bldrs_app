@@ -31,7 +31,7 @@ class UsersWideButtonsList extends StatelessWidget {
         builder: (_, List<UserModel> foundUsers, Widget child){
 
           /// FOUND USERS
-          if (Mapper.canLoopList(foundUsers) == true){
+          if (Mapper.checkCanLoopList(foundUsers) == true){
 
             return ValueListenableBuilder(
               valueListenable: selectedUsers,

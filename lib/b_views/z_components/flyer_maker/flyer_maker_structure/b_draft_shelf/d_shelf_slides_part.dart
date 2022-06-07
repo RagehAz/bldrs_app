@@ -59,7 +59,7 @@ class ShelfSlidesPart extends StatelessWidget {
               children: <Widget>[
 
                 /// SLIDES
-                if (Mapper.canLoopList(mutableSlides) == true)
+                if (Mapper.checkCanLoopList(mutableSlides) == true)
                 ...List.generate(mutableSlides.length, (index){
 
                   final MutableSlide _mutableSlide = mutableSlides[index];

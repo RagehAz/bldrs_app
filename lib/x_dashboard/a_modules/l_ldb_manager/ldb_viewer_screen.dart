@@ -224,7 +224,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
 
         const Horizon(),
 
-        if (Mapper.canLoopList(_maps))
+        if (Mapper.checkCanLoopList(_maps))
           ...LDBViewerScreen.rows(
             context: context,
             // color: Colorz.Green125,

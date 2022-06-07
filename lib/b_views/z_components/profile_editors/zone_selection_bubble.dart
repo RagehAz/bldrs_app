@@ -224,7 +224,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     _isLoadingDistricts.value = false;
 
-    if (Mapper.canLoopList(_selectedCity.value?.districts) == true){
+    if (Mapper.checkCanLoopList(_selectedCity.value?.districts) == true){
       await _onShowDistricts(context: context);
     }
 
@@ -289,7 +289,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         redDot: true,
         columnChildren: <Widget>[
 
-          if (Mapper.canLoopList(widget.notes))
+          if (Mapper.checkCanLoopList(widget.notes))
             BubbleBulletPoints(
               bulletPoints: widget.notes,
             ),
@@ -364,7 +364,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
                 final List<DistrictModel> _cityDistricts = cityModel?.districts;
 
-                if (Mapper.canLoopList(_cityDistricts) == true){
+                if (Mapper.checkCanLoopList(_cityDistricts) == true){
                   return districtButton;
                 }
 

@@ -276,7 +276,7 @@ class DraftFlyerModel{
 
     if (draft != null){
 
-      if (Mapper.canLoopList(_draft.mutableSlides) == true){
+      if (Mapper.checkCanLoopList(_draft.mutableSlides) == true){
 
         final MutableSlide _newSlide = _draft.mutableSlides.first.copyWith(
           headline: controller,
@@ -303,7 +303,7 @@ class DraftFlyerModel{
 
 // -------------------------------------
   static TextEditingController getDraftHeadlineController(DraftFlyerModel draft){
-    return Mapper.canLoopList(draft?.mutableSlides) == true ?
+    return Mapper.checkCanLoopList(draft?.mutableSlides) == true ?
     draft.mutableSlides[0].headline
         :
     null;

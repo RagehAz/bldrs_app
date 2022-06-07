@@ -86,7 +86,7 @@ class ZoneProvider extends ChangeNotifier {
 
     final List<CountryModel> _countries = <CountryModel>[];
 
-    if (Mapper.canLoopList(countriesIDs)){
+    if (Mapper.checkCanLoopList(countriesIDs)){
 
       for (final String id in countriesIDs){
 
@@ -189,12 +189,12 @@ class ZoneProvider extends ChangeNotifier {
           lingoCode: lingoCode,
         );
         /// B-2 - if found results in ldb
-        if (Mapper.canLoopList(_ldbCitiesMaps)){
+        if (Mapper.checkCanLoopList(_ldbCitiesMaps)){
           _foundCities = CityModel.decipherCitiesMaps(maps: _ldbCitiesMaps, fromJSON: true);
         }
 
         /// C - trial 3 search firebase if no result found in LDB
-        if (Mapper.canLoopList(_foundCities) == false){
+        if (Mapper.checkCanLoopList(_foundCities) == false){
 
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null){
@@ -216,7 +216,7 @@ class ZoneProvider extends ChangeNotifier {
           }
 
           /// C-2 - if firebase returned results
-          if (Mapper.canLoopList(_foundCities) == true){
+          if (Mapper.checkCanLoopList(_foundCities) == true){
 
             /// insert all cities in ldb
             for (final CityModel city in _foundCities){
@@ -231,7 +231,7 @@ class ZoneProvider extends ChangeNotifier {
         }
 
         /// D - if firebase or LDB found any cities
-        if (Mapper.canLoopList(_foundCities) == true){
+        if (Mapper.checkCanLoopList(_foundCities) == true){
 
           blog('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
 
@@ -270,7 +270,7 @@ class ZoneProvider extends ChangeNotifier {
 
     final List<CityModel> _cities = <CityModel>[];
 
-    if (Mapper.canLoopList(citiesIDs)){
+    if (Mapper.checkCanLoopList(citiesIDs)){
 
       for (final String id in citiesIDs){
 
@@ -300,7 +300,7 @@ class ZoneProvider extends ChangeNotifier {
       docName: LDBDoc.continents,
     );
 
-    if (Mapper.canLoopList(_maps)){
+    if (Mapper.checkCanLoopList(_maps)){
       blog('fetchCountryByID : country found in local db : ${LDBDoc.continents}');
       _continents = Continent.decipherContinents(_maps[0]);
     }
@@ -342,7 +342,7 @@ class ZoneProvider extends ChangeNotifier {
       docName: LDBDoc.currencies,
     );
 
-    if (Mapper.canLoopList(_maps)){
+    if (Mapper.checkCanLoopList(_maps)){
       blog('fetchCurrencies : currencies found in local db : ${LDBDoc.currencies}');
       _currencies = CurrencyModel.decipherCurrencies(_maps[0]);
     }
@@ -595,7 +595,7 @@ class ZoneProvider extends ChangeNotifier {
 
       blog('_getCountryData : got place marks : ${_marks.length}');
 
-      if (Mapper.canLoopList(_marks)){
+      if (Mapper.checkCanLoopList(_marks)){
 
         final Placemark _mark = _marks[0];
 
@@ -829,7 +829,7 @@ class ZoneProvider extends ChangeNotifier {
       lingCode: lingoCode,
       searchValue: countryName,
     );
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
       _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
     }
 

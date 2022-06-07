@@ -39,7 +39,7 @@ Future<List<CountryModel>> countriesModelsByCountryName({
       valueIs: FireComparison.arrayContains,
     );
 
-    if (Mapper.canLoopList(_result)) {
+    if (Mapper.checkCanLoopList(_result)) {
       _countries = CountryModel.decipherCountriesMaps(
         maps: _result,
         fromJSON: false,
@@ -71,7 +71,7 @@ Future<List<CityModel>> citiesByCityName({
       valueIs: FireComparison.arrayContains,
     );
 
-    if (Mapper.canLoopList(_result)) {
+    if (Mapper.checkCanLoopList(_result)) {
       _cities = CityModel.decipherCitiesMaps(
         maps: _result,
         fromJSON: false,

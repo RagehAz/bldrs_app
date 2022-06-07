@@ -41,7 +41,7 @@ Future<List<BzModel>> paginateBzzBySearchingBzName({
 
   List<BzModel> _bzz = <BzModel>[];
 
-  if (Mapper.canLoopList(_result)) {
+  if (Mapper.checkCanLoopList(_result)) {
     _bzz = BzModel.decipherBzz(
       maps: _result,
       fromJSON: false,
