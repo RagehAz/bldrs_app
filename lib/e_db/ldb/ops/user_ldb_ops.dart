@@ -12,6 +12,7 @@ class UserLDBOps {
   /// CREATE
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertUserModel(UserModel userModel) async {
 
     if (userModel != null){
@@ -26,11 +27,43 @@ class UserLDBOps {
     }
 
   }
+// ---------------------------------
+  static Future<void> insertUsers(List<UserModel> users) async {
+
+    if (Mapper.canLoopList(users) == true){
+
+      await LDBOps.insertMaps(
+        docName: LDBDoc.users,
+          inputs: UserModel.cipherUsers(
+              users: users,
+              toJSON: true,
+          ),
+      );
+
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// READ
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<UserModel>> readAll() async {
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
+      docName: LDBDoc.users,
+    );
+
+    final List<UserModel> _users = UserModel.decipherUsers(
+        maps: _maps,
+        fromJSON: true,
+    );
+
+    return _users;
+  }
+// ---------------------------------
+
   static Future<UserModel> readUserOps({
   @required String userID,
 }) async {
@@ -45,7 +78,7 @@ class UserLDBOps {
     UserModel _userModel;
 
     if (_userMap != null){
-      _userModel = UserModel.decipherUserMap(
+      _userModel = UserModel.decipherUser(
           map: _userMap,
           fromJSON: true,
       );

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -73,28 +74,34 @@ class SmallFuckingButton extends StatelessWidget {
   const SmallFuckingButton({
     @required this.verse,
     @required this.onTap,
+    this.width = 80,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String verse;
   final Function onTap;
+  final double width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _buttonWidth = _screenWidth / 8;
+    final double _buttonWidth = width ?? Scale.getUniformRowItemWidth(
+      context: context,
+      numberOfItems: 4,
+      boxWidth: BldrsAppBar.width(context),
+    );
 
     return DreamBox(
-      height: 30,
+      height: 50,
       width: _buttonWidth,
-      color: Colorz.blue80,
+      color: Colorz.black255,
       margins: const EdgeInsets.symmetric(horizontal: 1),
-      verse: verse,
-      verseScaleFactor: 0.4,
-      verseWeight: VerseWeight.thin,
+      verse: verse.toUpperCase(),
+      verseScaleFactor: 0.6,
+      verseWeight: VerseWeight.black,
       verseMaxLines: 2,
       onTap: onTap,
+      verseItalic: true,
     );
   }
 

@@ -39,7 +39,7 @@ Future<void> readMoreUsers({
   /// WHEN FOUND MORE USERS
   if (Mapper.canLoopList(_maps) == true){
 
-    final List<UserModel> _fetchedModel = UserModel.decipherUsersMaps(
+    final List<UserModel> _fetchedModel = UserModel.decipherUsers(
       maps: _maps,
       fromJSON: false,
     );

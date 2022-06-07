@@ -527,7 +527,7 @@ class AuthModel {
     if (map != null){
 
       _model = AuthModel(
-        userModel: UserModel.decipherUserMap(
+        userModel: UserModel.decipherUser(
           map: map['userModel'],
           fromJSON: fromJSON,
         ),
