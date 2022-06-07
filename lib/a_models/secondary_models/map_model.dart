@@ -27,7 +27,7 @@ class MapModel{
   static Map<String, dynamic> cipherMapModels(List<MapModel> maps){
     Map<String, dynamic> _bigMap = {};
 
-    if (Mapper.canLoopList(maps) == true){
+    if (Mapper.checkCanLoopList(maps) == true){
 
       for (final MapModel map in maps){
 
@@ -65,7 +65,7 @@ class MapModel{
       /// looping key algorithm
       if (loopingAlgorithm == true){
         final List<String> _bigMapKeys = bigMap.keys;
-        if (Mapper.canLoopList(_bigMapKeys) == true){
+        if (Mapper.checkCanLoopList(_bigMapKeys) == true){
 
           for (final String key in _bigMapKeys){
 
@@ -135,7 +135,7 @@ class MapModel{
   static List<dynamic> getValuesFromMapModels(List<MapModel> mapModels){
     final List<dynamic> _values = <dynamic>[];
 
-    if (Mapper.canLoopList(mapModels) == true){
+    if (Mapper.checkCanLoopList(mapModels) == true){
 
       for (final MapModel mm in mapModels){
 
@@ -151,7 +151,7 @@ class MapModel{
   static List<String> getKeysFromMapModels(List<MapModel> mapModels){
     final List<String> _values = <String>[];
 
-    if (Mapper.canLoopList(mapModels) == true){
+    if (Mapper.checkCanLoopList(mapModels) == true){
       for (final MapModel mm in mapModels){
         _values.add(mm.key);
       }

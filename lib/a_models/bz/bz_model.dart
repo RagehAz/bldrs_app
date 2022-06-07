@@ -387,7 +387,7 @@ class BzModel{
 }){
     final List<String> _ids = <String>[...bzModel.flyersIDs];
 
-    if (Mapper.canLoopList(_ids) == true && flyerIDToRemove != null){
+    if (Mapper.checkCanLoopList(_ids) == true && flyerIDToRemove != null){
 
       final int _index = _ids.indexWhere((id) => id == flyerIDToRemove);
 
@@ -447,7 +447,7 @@ class BzModel{
   static List<String> cipherBzTypes(List<BzType> bzTypes){
     final List<String> _bzTypes = <String>[];
 
-    if (Mapper.canLoopList(bzTypes) == true){
+    if (Mapper.checkCanLoopList(bzTypes) == true){
 
       for (final BzType bzType in bzTypes){
         final String _ciphered = cipherBzType(bzType);
@@ -475,7 +475,7 @@ class BzModel{
   static List<BzType> decipherBzTypes(List<dynamic> bzTypes){
     final List<BzType> _bzTypes = <BzType>[];
 
-    if (Mapper.canLoopList(bzTypes) == true){
+    if (Mapper.checkCanLoopList(bzTypes) == true){
 
       final List<String> _strings = Mapper.getStringsFromDynamics(dynamics: bzTypes);
 
@@ -569,7 +569,7 @@ class BzModel{
   }){
     bool _contains = false;
 
-    if (Mapper.canLoopList(bzTypes) == true){
+    if (Mapper.checkCanLoopList(bzTypes) == true){
 
       if (bzTypes.contains(bzType) == true){
         _contains = true;
@@ -644,7 +644,7 @@ class BzModel{
   }){
     final List<String> _strings = <String>[];
 
-    if (Mapper.canLoopList(bzTypes) == true){
+    if (Mapper.checkCanLoopList(bzTypes) == true){
 
       for (final BzType type in bzTypes){
 
@@ -736,7 +736,7 @@ class BzModel{
     }
 
     /// ADD CRAFTSMEN IF STARTING WITH DESIGNERS OR CONTRACTORS
-    if (Mapper.canLoopList(initialBzTypes) == true){
+    if (Mapper.checkCanLoopList(initialBzTypes) == true){
       if (bzSection == BzSection.construction){
         if (
         initialBzTypes.contains(BzType.designer)
@@ -956,7 +956,7 @@ class BzModel{
   }){
     final List<String> _strings = <String>[];
 
-    if (Mapper.canLoopList(bzForms) == true){
+    if (Mapper.checkCanLoopList(bzForms) == true){
 
       for (final BzForm bzForm in bzForms){
         final String _translation = translateBzForm(
@@ -981,7 +981,7 @@ class BzModel{
   }){
     bool _contains = false;
 
-    if (Mapper.canLoopList(bzForms) == true){
+    if (Mapper.checkCanLoopList(bzForms) == true){
 
       if (bzForms.contains(bzForm) == true){
         _contains = true;
@@ -1001,7 +1001,7 @@ class BzModel{
     /// INITIAL LIST OF ALL BZ FORMS
     List<BzForm> _bzForms = <BzForm>[...BzModel.bzFormsList];
 
-    if (Mapper.canLoopList(selectedBzTypes) == true){
+    if (Mapper.checkCanLoopList(selectedBzTypes) == true){
 
       /// MORE THAN ONE BZ TYPE
       if (selectedBzTypes.length > 1){
@@ -1142,7 +1142,7 @@ class BzModel{
   }){
     final List<String> _strings = <String>[];
 
-    if (Mapper.canLoopList(bzSections) == true){
+    if (Mapper.checkCanLoopList(bzSections) == true){
 
       for (final BzSection section in bzSections){
         final String _translation = translateBzSection(
@@ -1160,7 +1160,7 @@ class BzModel{
   static BzSection concludeBzSectionByBzTypes(List<BzType> selectedBzTypes){
 
     BzType _bzType;
-    if (Mapper.canLoopList(selectedBzTypes) == true){
+    if (Mapper.checkCanLoopList(selectedBzTypes) == true){
       _bzType = selectedBzTypes[0];
     }
 
@@ -1276,7 +1276,7 @@ class BzModel{
     String methodName,
   }){
 
-    if (Mapper.canLoopList(bzz)){
+    if (Mapper.checkCanLoopList(bzz)){
 
       for (final BzModel bz in bzz){
         bz.blogBz(methodName: methodName);
@@ -1299,7 +1299,7 @@ class BzModel{
   static List<String> getBzzIDsFromBzz(List<BzModel> bzzModels) {
     final List<String> _ids = <String>[];
 
-    if (Mapper.canLoopList(bzzModels)) {
+    if (Mapper.checkCanLoopList(bzzModels)) {
       for (final BzModel bz in bzzModels) {
         _ids.add(bz.id);
       }
@@ -1315,7 +1315,7 @@ class BzModel{
 
     final List<BzModel> _output = <BzModel>[];
 
-    if (Mapper.canLoopList(bzz) && bzType != null){
+    if (Mapper.checkCanLoopList(bzz) && bzType != null){
       for (final BzModel bz in bzz){
 
         final List<BzType> _bzTypesOfThisBz = bz.bzTypes;
@@ -1357,7 +1357,7 @@ class BzModel{
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(bzz) && bzModel != null) {
+    if (Mapper.checkCanLoopList(bzz) && bzModel != null) {
       for (final BzModel bz in bzz) {
         if (bz.id == bzModel.id) {
           _contains = true;
@@ -1410,7 +1410,7 @@ class BzModel{
     //     _bzAboutTextController.text.length < 6
     //     // _currentBzContacts.length == 0 ||
 
-    if (Mapper.canLoopList(bzModel?.bzTypes) == false){
+    if (Mapper.checkCanLoopList(bzModel?.bzTypes) == false){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzType',
@@ -1450,7 +1450,7 @@ class BzModel{
       );
     }
 
-    if (Mapper.canLoopList(bzModel?.scope) == false){
+    if (Mapper.checkCanLoopList(bzModel?.scope) == false){
       _invalidFields.add(
           const AlertModel(
           alertID: 'bzScope',

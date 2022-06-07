@@ -129,7 +129,7 @@ Query<Map<String, dynamic>> _superQuery({
   Query<Map<String, dynamic>> query = FirebaseFirestore.instance.collection(collRef.path);
 
   /// ASSIGN SEARCH FINDERS
-  if (Mapper.canLoopList(finders) == true){
+  if (Mapper.checkCanLoopList(finders) == true){
     query = FireFinder.createCompositeQueryByFinders(
         query: query,
         finders: finders
@@ -796,7 +796,7 @@ Future<void> _deleteCollectionDocsByIDs({
   @required List<String> docsIDs,
 }) async {
 
-  if (Mapper.canLoopList(docsIDs) == true){
+  if (Mapper.checkCanLoopList(docsIDs) == true){
 
     for (final String id in docsIDs){
 
@@ -889,7 +889,7 @@ Future<void> _deleteSubCollectionDocsBySubDocsIDs({
   @required List<String> subDocsIDs,
 }) async {
 
-  if (Mapper.canLoopList(subDocsIDs) == true){
+  if (Mapper.checkCanLoopList(subDocsIDs) == true){
 
     for (final String subDocID in subDocsIDs){
 

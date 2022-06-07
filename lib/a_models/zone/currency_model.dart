@@ -48,7 +48,7 @@ class CurrencyModel {
   static Map<String, dynamic> cipherCurrencies(List<CurrencyModel> currencies) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.canLoopList(currencies)) {
+    if (Mapper.checkCanLoopList(currencies)) {
       for (final CurrencyModel currency in currencies) {
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -67,7 +67,7 @@ class CurrencyModel {
     if (map != null) {
       final List<String> _keys = map.keys.toList();
 
-      if (Mapper.canLoopList(_keys)) {
+      if (Mapper.checkCanLoopList(_keys)) {
         for (final String key in _keys) {
           final CurrencyModel _currency = decipherCurrency(map[key]);
           _currencies.add(_currency);
@@ -88,7 +88,7 @@ class CurrencyModel {
 
   static void blogCurrencies(List<CurrencyModel> currencies){
 
-    if (Mapper.canLoopList(currencies) == true){
+    if (Mapper.checkCanLoopList(currencies) == true){
       for (final CurrencyModel currency in currencies){
 
         currency.blogCurrency();
@@ -112,7 +112,7 @@ class CurrencyModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(currencies) && currencyCode != null) {
+    if (Mapper.checkCanLoopList(currencies) && currencyCode != null) {
       for (final CurrencyModel currency in currencies) {
         if (currency.id == currencyCode) {
           _contains = true;
@@ -134,9 +134,9 @@ class CurrencyModel {
   }) {
     CurrencyModel _currency;
 
-    if (Mapper.canLoopList(currencies) == true && countryID != null) {
+    if (Mapper.checkCanLoopList(currencies) == true && countryID != null) {
       final CurrencyModel _currencyFound = currencies.firstWhere(
-          (CurrencyModel curr) => Mapper.stringsContainString(
+          (CurrencyModel curr) => Mapper.checkStringsContainString(
               strings: curr.countriesIDs, string: countryID),
           orElse: () => null);
 
@@ -152,7 +152,7 @@ class CurrencyModel {
   static List<String> getCurrenciesIDs(List<CurrencyModel> currencies){
     final List<String> _ids = <String>[];
 
-    if (Mapper.canLoopList(currencies) == true){
+    if (Mapper.checkCanLoopList(currencies) == true){
 
       for (final CurrencyModel currency in currencies){
         _ids.add(currency.id);

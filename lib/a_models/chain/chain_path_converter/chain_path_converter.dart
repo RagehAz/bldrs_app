@@ -25,7 +25,7 @@ class ChainPathConverter {
 // --------------------------------------------
   static void blogPaths(List<String> paths){
 
-    if (Mapper.canLoopList(paths) == true){
+    if (Mapper.checkCanLoopList(paths) == true){
       blog('blogging ${paths.length} paths ---------------- start');
 
       for (final String string in paths){
@@ -55,7 +55,7 @@ class ChainPathConverter {
         paths: <String>[path],
       );
 
-      if (Mapper.canLoopList(chains)){
+      if (Mapper.checkCanLoopList(chains)){
         _chain = chains.first;
       }
     }
@@ -204,7 +204,7 @@ class ChainPathConverter {
 
     final String _space = Chain.getChainBlogTreeSpacing(level);
 
-    if (Mapper.canLoopList(nestedSonsIDs) == true && parentChain != null){
+    if (Mapper.checkCanLoopList(nestedSonsIDs) == true && parentChain != null){
       _dBlog('$_space A - starting to add nested sons IDs ( $nestedSonsIDs ) to chainID ( ${parentChain.id} )');
 
       /// A - CHECK IF PARENT CHAIN HAS THIS SON ID
@@ -315,7 +315,7 @@ class ChainPathConverter {
 
     List<String> _output;
 
-    if (Mapper.canLoopList(dividedPath) == true){
+    if (Mapper.checkCanLoopList(dividedPath) == true){
       _output = dividedPath.sublist(1);
     }
 
@@ -422,7 +422,7 @@ class ChainPathConverter {
   }){
     final List<String> _allPaths = <String>[];
 
-    if (Mapper.canLoopList(chains) == true && parentID != null){
+    if (Mapper.checkCanLoopList(chains) == true && parentID != null){
 
       for (final Chain sonChain in chains){
 
@@ -455,7 +455,7 @@ class ChainPathConverter {
 
     final List<String> _paths = <String>[];
 
-    if (Mapper.canLoopList(sons) == true && parentID != null){
+    if (Mapper.checkCanLoopList(sons) == true && parentID != null){
 
       for (final String son in sons){
 
@@ -479,7 +479,7 @@ class ChainPathConverter {
   }){
     final List<String> _foundPaths = <String>[];
 
-    if (Mapper.canLoopList(paths) && phid != null){
+    if (Mapper.checkCanLoopList(paths) && phid != null){
 
       for (final String path in paths){
 
@@ -565,7 +565,7 @@ class ChainPathConverter {
   static String combinePathNodes(List<String> nodes){
     String _path = '';
 
-    if (Mapper.canLoopList(nodes) == true){
+    if (Mapper.checkCanLoopList(nodes) == true){
 
       for (final String node in nodes){
 

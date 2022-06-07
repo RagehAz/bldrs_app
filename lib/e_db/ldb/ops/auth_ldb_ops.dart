@@ -43,7 +43,7 @@ class AuthLDBOps {
        docName: LDBDoc.authModel,
    );
 
-   if (Mapper.canLoopList(_list) == true){
+   if (Mapper.checkCanLoopList(_list) == true){
 
      _authModel = AuthModel.decipherAuthModel(
          map: _list.first,
@@ -69,8 +69,7 @@ class AuthLDBOps {
 
    if (newAuthModel != null){
 
-     await LDBOps.updateMap(
-       objectID: newAuthModel.uid,
+     await LDBOps.insertMap(
        docName: LDBDoc.authModel,
        input: newAuthModel.toMap(toJSON: true),
      );

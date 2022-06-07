@@ -55,7 +55,7 @@ class KeywordsBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// STRINGS
-        if (Mapper.canLoopList(keywordsIDs))
+        if (Mapper.checkCanLoopList(keywordsIDs))
           Wrap(
             children: <Widget>[
 

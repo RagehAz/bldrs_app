@@ -237,7 +237,7 @@ class NoteModel {
   }) {
     final List<NoteModel> _notesModels = <NoteModel>[];
 
-    if (Mapper.canLoopList(maps)) {
+    if (Mapper.checkCanLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
 
         final NoteModel _notiModel = decipherNoteModel(
@@ -417,7 +417,7 @@ class NoteModel {
     String methodName,
   }){
 
-    if (Mapper.canLoopList(notes) == true){
+    if (Mapper.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -445,7 +445,7 @@ class NoteModel {
 
     final List<String> _output = <String>[];
 
-    if (Mapper.canLoopList(notes) == true){
+    if (Mapper.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
         _output.add(note.receiverID);
@@ -463,7 +463,7 @@ class NoteModel {
 
     NoteModel _output;
 
-    if (Mapper.canLoopList(notes) == true && receiverID != null){
+    if (Mapper.checkCanLoopList(notes) == true && receiverID != null){
 
       _output = notes.firstWhere(
               (note) => note.receiverID == receiverID,
@@ -477,7 +477,7 @@ class NoteModel {
   // -------------------------------------
   static int getNumberOfUnseenNotes(List<NoteModel> notes){
     int _count;
-    if (Mapper.canLoopList(notes) == true){
+    if (Mapper.checkCanLoopList(notes) == true){
       final List<NoteModel> _unSeens = notes.where((note) => note.seen != true).toList();
       _count = _unSeens.length;
     }
@@ -584,7 +584,7 @@ class NoteModel {
   static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     bool _thereAreUnseenNotes = false;
 
-    if (Mapper.canLoopList(notes) == true){
+    if (Mapper.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
 
@@ -650,7 +650,7 @@ class NoteModel {
           note1.receiverID == note2.receiverID &&
           note1.title == note2.title &&
           note1.body == note2.body &&
-          Mapper.mapsAreTheSame(map1: note1.metaData, map2: note2.metaData) == true &&
+          Mapper.checkMapsAreTheSame(map1: note1.metaData, map2: note2.metaData) == true &&
           Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: note1.sentTime, timeB: note2.sentTime) &&
           note1.attachment == note2.attachment &&
           note1.attachmentType == note2.attachmentType &&
@@ -660,7 +660,7 @@ class NoteModel {
           note1.noteType == note2.noteType &&
           note1.response == note2.response &&
           Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: note1.responseTime, timeB: note2.responseTime) &&
-          Mapper.listsAreTheSame(list1: note1.buttons, list2: note2.buttons)
+          Mapper.checkListsAreTheSame(list1: note1.buttons, list2: note2.buttons)
       ){
         _areTheSame = true;
       }
@@ -677,7 +677,7 @@ class NoteModel {
   }){
     bool _areTheSame = true;
 
-    if (Mapper.canLoopList(notes1) == true && Mapper.canLoopList(notes2) == true){
+    if (Mapper.checkCanLoopList(notes1) == true && Mapper.checkCanLoopList(notes2) == true){
 
       if (notes1.length != notes2.length){
         _areTheSame = false;
@@ -724,7 +724,7 @@ class NoteModel {
 
     // blog('removeNoteFromNotes : notes : ${_output.length}');
 
-    if (Mapper.canLoopList(notes) == true){
+    if (Mapper.checkCanLoopList(notes) == true){
 
       final int _index = notes.indexWhere((note) => note.id == noteModel.id);
 

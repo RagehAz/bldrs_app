@@ -80,8 +80,7 @@ class FlyersLDBOps {
   /// TESTED :
   static Future<void> updateFlyer(FlyerModel flyer) async {
 
-    await LDBOps.updateMap(
-        objectID: flyer.id,
+    await LDBOps.insertMap(
         docName: LDBDoc.flyers,
         input: flyer.toMap(toJSON: true),
     );

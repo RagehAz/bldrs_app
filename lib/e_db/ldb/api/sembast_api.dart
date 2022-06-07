@@ -29,8 +29,9 @@ class Sembast  {
   /// to transform from synchronous into asynchronous
   Completer<Database> _dbOpenCompleter;
 // -----------------------------
-  /// db object accessor
+  /// TESTED : WORKS PERFECT
   Future<Database> get database async {
+    /// NOTE :this is db object accessor
     if (_dbOpenCompleter == null) {
       _dbOpenCompleter = Completer();
 
@@ -40,6 +41,7 @@ class Sembast  {
     return _dbOpenCompleter.future;
   }
 // -----------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _openDatabase() async {
     final Directory _appDocDir = await getApplicationDocumentsDirectory();
 
@@ -56,11 +58,13 @@ class Sembast  {
   /// final StoreRef<int, Map<String, Object>> _doc = intMapStoreFactory.store(_storeName);
   /// Future<Database> get _db async => await AppDatabase.instance.database;
 // -----------------------------
+  /// TESTED : WORKS PERFECT
   static Future<Database> _getDB() async {
     final Database _result = await Sembast.instance.database;
     return _result;
   }
 // -----------------------------
+  /// TESTED : WORKS PERFECT
   static StoreRef<int, Map<String, Object>> _getStore({
     @required String docName,
   }) {
@@ -71,51 +75,164 @@ class Sembast  {
   /// CREATE
 
 // -----------------------------
-  /// TESTED :
-  static Future<void> insert({
+  /// TESTED : WORKS PERFECT
+  static Future<void> _addMap({
+    @required Map<String, Object> map,
+    @required String docName,
+}) async {
+
+    /// NOTE : this ignores if there is an existing map with same ID
+    final Database _db = await _getDB();
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(
+      docName: docName,
+    );
+
+    if (map != null){
+      await _doc.add(_db, map);
+      blog('SEMBAST : _addMap : added to ( $docName) : map : $map');
+    }
+
+  }
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _addMaps({
+  @required List<Map<String, Object>> maps,
+  @required String docName,
+}) async {
+
+    /// NOTE : this allows duplicate IDs
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      final Database _db = await _getDB();
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName,
+      );
+      await _doc.addAll(_db, maps);
+
+    }
+
+
+}
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _updateExistingMap({
     @required Map<String, Object> map,
     @required String docName,
   }) async {
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(
+      docName: docName,
+    );
 
-    // final int result = await update(
-    //   docName: docName,
-    //   map: map,
-    //   searchPrimaryKey: primaryKey,
-    //   searchPrimaryValue: map[primaryKey],
-    // );
-    //
-    // if (result == 0) {
-    //   /// map not found in ldb so we add it
-      await _doc.add(_db, map);
-    // }
+    final String _primaryKey = getPrimaryKey(docName);
+    final String _objectID = map[_primaryKey];
+
+    final Finder _finder = Finder(
+      filter: Filter.equals(_primaryKey, _objectID),
+    );
+
+    final int _result = await _doc.update(
+      _db,
+      map,
+      finder: _finder,
+    );
+
+    blog('SEMBAST : _updateExistingMap : updated in ( $docName ) : result : $_result : map : $map');
+
   }
 // -----------------------------
-  /// TESTED :
-  static Future<void> insertAll({
-    @required String primaryKey,
-    @required List<Map<String, Object>> inputs,
+  /// TESTED : WORKS PERFECT
+  static Future<void> insert({
+    @required Map<String, Object> map,
     @required String docName,
+    bool allowDuplicateIDs = false,
   }) async {
 
-    if (Mapper.canLoopList(inputs)) {
+    /// Note : either updates all existing maps with this primary key "ID"
+    /// or inserts new map
 
-      final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-      final Database _db = await _getDB();
+    if (allowDuplicateIDs == true){
+      await _addMap(
+        docName: docName,
+        map: map,
+      );
+    }
 
-      await _doc.addAll(_db, inputs);
-      blog('SEMBAST : insertAll : inserted ${inputs.length} maps into ( $docName ) : primaryKey : ( $primaryKey )');
+    else {
+
+      final bool _exists = await checkMapExists(
+        docName: docName,
+        map: map,
+      );
+
+      /// ADD IF NOT FOUND
+      if (_exists == false){
+        await _addMap(
+          docName: docName,
+          map: map,
+        );
+      }
+
+      /// UPDATE IF FOUND
+      else {
+        await _updateExistingMap(
+          docName: docName,
+          map: map,
+        );
+      }
 
     }
 
   }
 // -----------------------------
-  /// TESTED :
-  static Future<void> deleteAllThenInsertAll({
-    @required String primaryKey,
-    @required List<Map<String, Object>> inputs,
+  /// TESTED : WORKS PERFECT
+  static Future<void> insertAll({
+    @required List<Map<String, Object>> maps,
+    @required String docName,
+    bool allowDuplicateIDs = false,
+  }) async {
+
+    if (Mapper.checkCanLoopList(maps)) {
+
+      if (allowDuplicateIDs == true){
+        await _addMaps(
+          docName: docName,
+          maps: maps,
+        );
+      }
+
+      else {
+
+        final List<Map<String, dynamic>> _existingMaps = await readAll(
+            docName: docName,
+        );
+
+        final String _primaryKey = getPrimaryKey(docName);
+
+        final List<Map<String, dynamic>> _cleanedMaps = Mapper.cleanMapsOfDuplicateIDs(
+          /// do not change this order of maps to overwrite the new values
+          maps: [...maps,..._existingMaps,],
+          idFieldName: _primaryKey,
+        );
+
+        await deleteAllThenAddAll(
+            maps: _cleanedMaps,
+            docName: docName
+        );
+
+      }
+
+      blog('SEMBAST : insertAll : inserted ${maps.length} maps into ( $docName ) ');
+
+    }
+
+  }
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteAllThenAddAll({
+    @required List<Map<String, Object>> maps,
     @required String docName,
   }) async {
 
@@ -123,10 +240,9 @@ class Sembast  {
         docName: docName,
     );
 
-    await insertAll(
-      inputs: inputs,
+    await _addMaps(
+      maps: maps,
       docName: docName,
-      primaryKey: primaryKey,
     );
 
   }
@@ -321,61 +437,6 @@ class Sembast  {
   }
 // -----------------------------------------------------------------------------
 
-  /// UPDATE
-
-// -----------------------------
-  /// TESTED :
-  static Future<void> update({
-    @required Map<String, Object> map,
-    @required String objectID,
-    @required String docName,
-  }) async {
-
-    /// Note : either updates all existing maps with this primary key "ID"
-    /// or inserts new map
-
-
-      final bool _exists = await checkMapExists(
-          docName: docName,
-          id: objectID,
-      );
-
-      /// IF NOT FOUND
-      if (_exists == false){
-        await insert(
-            docName: docName,
-            map: map,
-        );
-      }
-
-      /// IF FOUND
-      else {
-
-        final Database _db = await _getDB();
-        final StoreRef<int, Map<String, Object>> _doc = _getStore(
-          docName: docName,
-        );
-
-        final String _primaryKey = getPrimaryKey(docName);
-
-        final Finder _finder = Finder(
-          filter: Filter.equals(_primaryKey, objectID),
-        );
-
-        final int _result = await _doc.update(
-          _db,
-          map,
-          finder: _finder,
-        );
-
-        blog('SEMBAST : update : _result : $_result');
-
-      }
-
-    // return _result;
-  }
-// -----------------------------------------------------------------------------
-
   /// DELETE
 
 // -----------------------------
@@ -448,7 +509,7 @@ class Sembast  {
         docName: docName,
     );
 
-    if (Mapper.canLoopList(_allMaps) == true){
+    if (Mapper.checkCanLoopList(_allMaps) == true){
 
       final String _primaryKey = getPrimaryKey(docName);
 
@@ -488,17 +549,19 @@ class Sembast  {
   /// CHECKERS
 
 // -----------------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkMapExists({
     @required String docName,
-    @required String id,
+    @required Map<String, dynamic> map,
 }) async {
 
       final String _primaryKey = getPrimaryKey(docName);
+      final String _objectID = map[_primaryKey];
 
       final Map<String, dynamic> _map = await findFirst(
         fieldToSortBy: _primaryKey,
         searchField: _primaryKey,
-        searchValue: id,
+        searchValue: _objectID,
         docName: docName,
       );
 

@@ -67,7 +67,7 @@ class AuthorModel {
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz) {
     final List<AuthorModel> _allAuthors = <AuthorModel>[];
 
-    if (Mapper.canLoopList(allBzz)) {
+    if (Mapper.checkCanLoopList(allBzz)) {
       for (final BzModel bz in allBzz) {
         _allAuthors.addAll(bz.authors);
       }
@@ -105,7 +105,7 @@ class AuthorModel {
   static Map<String, Object> cipherAuthors(List<AuthorModel> authors) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.canLoopList(authors)) {
+    if (Mapper.checkCanLoopList(authors)) {
       for (final AuthorModel author in authors) {
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -123,7 +123,7 @@ class AuthorModel {
 
     final List<String> _keys = maps.keys.toList();
 
-    if (Mapper.canLoopList(_keys)) {
+    if (Mapper.checkCanLoopList(_keys)) {
       for (final String key in _keys) {
         final AuthorModel _author = decipherAuthor(maps[key]);
         _authors.add(_author);
@@ -146,7 +146,7 @@ class AuthorModel {
 
     final List<String> _authorFlyersIDs = <String>[];
 
-    if (Mapper.canLoopList(_authorFlyersIDs)){
+    if (Mapper.checkCanLoopList(_authorFlyersIDs)){
       for (final FlyerModel flyerModel in bzFlyers) {
         if (flyerModel.authorID == _authorID) {
           _authorFlyersIDs.add(flyerModel.id);
@@ -198,7 +198,7 @@ class AuthorModel {
   }) {
     final List<AuthorModel> _bzAuthors = <AuthorModel>[];
 
-    if (Mapper.canLoopList(allAuthors) && Mapper.canLoopList(authorsIDs)) {
+    if (Mapper.checkCanLoopList(allAuthors) && Mapper.checkCanLoopList(authorsIDs)) {
       for (final String id in authorsIDs) {
         final AuthorModel _author = allAuthors.singleWhere(
                 (AuthorModel author) => author.userID == id,
@@ -225,7 +225,7 @@ class AuthorModel {
   static List<String> getAuthorsNames({List<AuthorModel> authors}){
     final List<String> _names = <String>[];
 
-    if (Mapper.canLoopList(authors) == true){
+    if (Mapper.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors){
         _names.add(author.name);
@@ -375,13 +375,13 @@ class AuthorModel {
 
     final List<AuthorModel> _masterAuthors = getMasterAuthorsFromBz(bzModel);
 
-    if (Mapper.canLoopList(_masterAuthors) == true){
+    if (Mapper.checkCanLoopList(_masterAuthors) == true){
 
       final List<String> _names = getAuthorsNames(
         authors: _masterAuthors,
       );
 
-      if (Mapper.canLoopList(_names) == true){
+      if (Mapper.checkCanLoopList(_names) == true){
 
         _string = TextGen.generateStringFromStrings(
           strings: _names,
@@ -446,7 +446,7 @@ class AuthorModel {
     String methodName,
 }){
 
-    if (Mapper.canLoopList(authors) == true){
+    if (Mapper.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors){
         author.blogAuthor(

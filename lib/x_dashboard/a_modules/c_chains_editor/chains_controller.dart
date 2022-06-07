@@ -23,7 +23,7 @@ Future<void> onAddMoreSpecsChainsToExistingSpecsChains({
   @required List<Chain> chainsToAdd,
 }) async {
 
-  if (Mapper.canLoopList(chainsToAdd) == true){
+  if (Mapper.checkCanLoopList(chainsToAdd) == true){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
@@ -323,8 +323,7 @@ Future<void> _updateKeywordsChainOps({
   );
 
   /// 2 - UPDATE ON LDB
-  await LDBOps.updateMap(
-      objectID: chain.id,
+  await LDBOps.insertMap(
       input: chain.toMap(),
       docName: LDBDoc.keywordsChain,
   );
@@ -359,8 +358,7 @@ Future<void> _updateSpecsChainOps({
   );
 
   /// 2 - UPDATE ON LDB
-  await LDBOps.updateMap(
-    objectID: chain.id,
+  await LDBOps.insertMap(
     input: chain.toMap(),
     docName: LDBDoc.specsChain,
   );

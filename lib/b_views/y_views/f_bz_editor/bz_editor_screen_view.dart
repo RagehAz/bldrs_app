@@ -288,9 +288,9 @@ class BzEditorScreenView extends StatelessWidget {
                           builder: (_, List<String> _keywords, Widget child){
 
                             return WidgetFader(
-                              fadeType: Mapper.canLoopList(bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
+                              fadeType: Mapper.checkCanLoopList(bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                               min: 0.35,
-                              absorbPointer: Mapper.canLoopList(bzTypes) == false,
+                              absorbPointer: Mapper.checkCanLoopList(bzTypes) == false,
                               child: Bubble(
                                 width: Bubble.bubbleWidth(
                                   context: context,
@@ -305,7 +305,7 @@ class BzEditorScreenView extends StatelessWidget {
                                     ],
                                   ),
 
-                                  if (Mapper.canLoopList(_keywords))
+                                  if (Mapper.checkCanLoopList(_keywords))
                                   InfoPageKeywords(
                                     pageWidth: Bubble.clearWidth(context),
                                     keywordsIDs: _keywords,
@@ -314,7 +314,7 @@ class BzEditorScreenView extends StatelessWidget {
                                   DreamBox(
                                     height: KeywordBarButton.height,
                                     // width: Bubble.clearWidth(context),
-                                    verse: Mapper.canLoopList(_keywords) ? 'Edit Scopes' : 'Add Scopes',
+                                    verse: Mapper.checkCanLoopList(_keywords) ? 'Edit Scopes' : 'Add Scopes',
                                     bubble: false,
                                     color: Colorz.white20,
                                     verseScaleFactor: 1.5,

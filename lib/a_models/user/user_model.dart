@@ -254,7 +254,7 @@ class UserModel {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.canLoopList(users) == true){
+    if (Mapper.checkCanLoopList(users) == true){
 
       for (final UserModel user in users){
 
@@ -326,7 +326,7 @@ class UserModel {
   }) {
     final List<UserModel> _users = <UserModel>[];
 
-    if (Mapper.canLoopList(maps)) {
+    if (Mapper.checkCanLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
         _users.add(decipherUser(
             map: map,
@@ -423,7 +423,7 @@ class UserModel {
   static bool checkUserIsAuthor(UserModel userModel) {
     bool _userIsAuthor = false;
 
-    if (userModel != null && Mapper.canLoopList(userModel?.myBzzIDs)) {
+    if (userModel != null && Mapper.checkCanLoopList(userModel?.myBzzIDs)) {
       _userIsAuthor = true;
     }
 
@@ -435,7 +435,7 @@ class UserModel {
 
     final List<String> _missingFields = UserModel.missingFields(userModel);
 
-    if (Mapper.canLoopList(_missingFields) == true){
+    if (Mapper.checkCanLoopList(_missingFields) == true){
       _thereAreMissingFields = true;
     }
 
@@ -452,7 +452,7 @@ class UserModel {
   }){
     bool _contains = false;
 
-    if (Mapper.canLoopList(usersModels) == true && userModel != null){
+    if (Mapper.checkCanLoopList(usersModels) == true && userModel != null){
 
       for (final UserModel user in usersModels){
 
@@ -591,7 +591,7 @@ class UserModel {
 
     List<UserModel> _output = usersToGet;
 
-    if (Mapper.canLoopList(usersToAdd) == true){
+    if (Mapper.checkCanLoopList(usersToAdd) == true){
 
       for (final UserModel user in usersToAdd){
 
@@ -661,7 +661,7 @@ class UserModel {
     String methodName,
   }){
 
-    if (Mapper.canLoopList(usersModels) == true){
+    if (Mapper.checkCanLoopList(usersModels) == true){
 
       for (final UserModel user in usersModels){
         user.blogUserModel(methodName: methodName);

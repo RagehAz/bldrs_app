@@ -195,7 +195,7 @@ class SearchProvider extends ChangeNotifier {
 
     DocumentSnapshot<Object> _lastRecordSnapshot;
 
-    if (Mapper.canLoopList(_searchRecords)){
+    if (Mapper.checkCanLoopList(_searchRecords)){
       final int _length = _searchRecords.length;
       final RecordModel _lastRecord = _searchRecords[_length - 1];
       _lastRecordSnapshot = _lastRecord.docSnapshot;

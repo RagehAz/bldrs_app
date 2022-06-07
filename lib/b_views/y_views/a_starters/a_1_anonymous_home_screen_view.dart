@@ -60,7 +60,7 @@ class _AnonymousHomeScreenViewState extends State<AnonymousHomeScreenView> {
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
     final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
 
-    if (Mapper.canLoopList(_wallFlyers) == false){
+    if (Mapper.checkCanLoopList(_wallFlyers) == false){
       return const LoadingFlyersGrid();
     }
 

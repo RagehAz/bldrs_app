@@ -74,7 +74,7 @@ class FlyerTyper{
 
     final List<String> _strings = <String>[];
 
-    if (Mapper.canLoopList(flyersTypes) == true){
+    if (Mapper.checkCanLoopList(flyersTypes) == true){
 
       for (final FlyerType type in flyersTypes){
         _strings.add(cipherFlyerType(type));
@@ -88,7 +88,7 @@ class FlyerTyper{
 
     final List<FlyerType> _flyersTypes = <FlyerType>[];
 
-    if (Mapper.canLoopList(strings) == true){
+    if (Mapper.checkCanLoopList(strings) == true){
       for (final String str in strings){
         _flyersTypes.add(decipherFlyerType(str));
       }
@@ -202,7 +202,7 @@ class FlyerTyper{
   }){
     final List<FlyerType> _flyerTypes = <FlyerType>[];
 
-    if (Mapper.canLoopList(bzTypes) == true){
+    if (Mapper.checkCanLoopList(bzTypes) == true){
 
       for (final BzType bzType in bzTypes){
 
@@ -252,7 +252,7 @@ class FlyerTyper{
   }){
     bool _includes = false;
 
-    if (Mapper.canLoopList(flyerTypes) == true){
+    if (Mapper.checkCanLoopList(flyerTypes) == true){
       if (flyerTypes.contains(flyerType) == true){
         _includes = true;
       }
@@ -306,7 +306,7 @@ class FlyerTyper{
   }){
     final List<String> _strings = <String>[];
 
-    if (Mapper.canLoopList(flyerTypes) == true){
+    if (Mapper.checkCanLoopList(flyerTypes) == true){
 
       for (final FlyerType type in flyerTypes){
 

@@ -108,7 +108,7 @@ List<dynamic> cipherTimes({
 }){
   final List<dynamic> _times = <String>[];
 
-  if (Mapper.canLoopList(times)){
+  if (Mapper.checkCanLoopList(times)){
 
     for (final DateTime time in times){
       _times.add(cipherTime(
@@ -691,7 +691,7 @@ List<DateTime> getHoursAndMinutesFromDateTimes({
 
   List<DateTime> _result = <DateTime>[];
 
-  if (Mapper.canLoopList(times)){
+  if (Mapper.checkCanLoopList(times)){
 
     for (final DateTime time in times){
 
@@ -862,7 +862,7 @@ bool timesContainTime({
 }){
   bool _contains = false;
 
-  if (Mapper.canLoopList(times) && time != null){
+  if (Mapper.checkCanLoopList(times) && time != null){
 
     for (int i =0; i < times.length; i++){
 

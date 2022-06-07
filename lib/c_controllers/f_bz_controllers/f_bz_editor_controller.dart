@@ -143,7 +143,7 @@ Future<void> onAddScopesTap({
 
   final List<String> receivedKeywordsIds = _result;
 
-  if (Mapper.canLoopList(receivedKeywordsIds) == true){
+  if (Mapper.checkCanLoopList(receivedKeywordsIds) == true){
     selectedScopes.value = receivedKeywordsIds;
   }
 

@@ -34,9 +34,9 @@ class TranslationsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final bool _canBuildPhrases =
-        Mapper.canLoopList(enPhrases) == true
+        Mapper.checkCanLoopList(enPhrases) == true
         &&
-        Mapper.canLoopList(arPhrases) == true;
+        Mapper.checkCanLoopList(arPhrases) == true;
 
     return PageBubble(
         screenHeightWithoutSafeArea: screenHeight,

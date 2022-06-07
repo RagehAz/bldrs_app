@@ -114,7 +114,7 @@ class AddAuthorScreenView extends StatelessWidget {
                           valueListenable: foundUsers,
                           builder: (_, List<UserModel> _users, Widget child){
 
-                            if (Mapper.canLoopList(_users) == true){
+                            if (Mapper.checkCanLoopList(_users) == true){
 
                               return SizedBox(
                                 width: Scale.superScreenWidth(context),

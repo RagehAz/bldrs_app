@@ -15,7 +15,7 @@ List<String> addStringToListIfDoesNotContainIt({
 
   final List<String> _result = strings ?? <String>[];
 
-  final bool _containsIt = Mapper.stringsContainString(
+  final bool _containsIt = Mapper.checkStringsContainString(
     strings: strings,
     string: stringToAdd,
   );
@@ -37,7 +37,7 @@ List<String> addOrRemoveStringToStrings({
 
   if ( string != null){
 
-    final bool _containsIt = Mapper.stringsContainString(
+    final bool _containsIt = Mapper.checkStringsContainString(
         strings: _output,
         string: string
     );
@@ -318,7 +318,7 @@ String removeAllCharactersAfterNumberOfCharacters({
 String sqlCipherStrings(List<String> strings) {
   String _output;
 
-  if (Mapper.canLoopList(strings)) {
+  if (Mapper.checkCanLoopList(strings)) {
     for (final String string in strings) {
       if (_output == null) {
         _output = string;

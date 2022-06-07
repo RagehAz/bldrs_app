@@ -74,7 +74,7 @@ class UsersProvider extends ChangeNotifier {
 
     final List<UserModel> _userModels = <UserModel>[];
 
-    if (Mapper.canLoopList(usersIDs) == true){
+    if (Mapper.checkCanLoopList(usersIDs) == true){
 
       for (final String userID in usersIDs){
 
@@ -196,7 +196,7 @@ class UsersProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    if (Mapper.canLoopList(_myUserModel.myBzzIDs)) {
+    if (Mapper.checkCanLoopList(_myUserModel.myBzzIDs)) {
 
       final List<String> _newList = Mapper.removeStringsFromStrings(
           removeFrom: _myUserModel.myBzzIDs,
@@ -239,7 +239,7 @@ class UsersProvider extends ChangeNotifier {
   bool canSearchContacts(){
     bool _canSearch = false;
 
-    if (Mapper.canLoopList(myDeviceContacts) == true){
+    if (Mapper.checkCanLoopList(myDeviceContacts) == true){
       _canSearch = true;
     }
     else {
@@ -250,7 +250,7 @@ class UsersProvider extends ChangeNotifier {
 // -------------------------------------
   void selectDeviceContact(String contactString){
 
-    final bool _alreadySelected = Mapper.stringsContainString(
+    final bool _alreadySelected = Mapper.checkStringsContainString(
         strings: _selectedDeviceContacts,
         string: contactString,
     );
@@ -267,7 +267,7 @@ class UsersProvider extends ChangeNotifier {
 // -------------------------------------
   bool deviceContactIsSelected(String contactString){
 
-    final bool _alreadySelected = Mapper.stringsContainString(
+    final bool _alreadySelected = Mapper.checkStringsContainString(
         strings: _selectedDeviceContacts,
         string: contactString,
     );
@@ -280,7 +280,7 @@ class UsersProvider extends ChangeNotifier {
     List<Contact> _foundContacts = <Contact>[];
 
     /// A - WHEN CONTACTS NOT YET IMPORTED
-    if (Mapper.canLoopList(_myDeviceContacts) == false){
+    if (Mapper.checkCanLoopList(_myDeviceContacts) == false){
       blog('can not search device contacts as they are not yet imported');
     }
 
@@ -309,7 +309,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
     /// B - WHEN FOUND CONTACTS
-    if (Mapper.canLoopList(_foundContacts) == true){
+    if (Mapper.checkCanLoopList(_foundContacts) == true){
       _searchedDeviceContacts = _foundContacts;
       _triggerIsSearchingDeviceContacts(searchString: searchString, notify: false);
       notifyListeners();
@@ -428,7 +428,7 @@ class UsersProvider extends ChangeNotifier {
 
     List<UserModel> _output = <UserModel>[];
 
-    if (Mapper.canLoopList(usersIDs) == true){
+    if (Mapper.checkCanLoopList(usersIDs) == true){
 
       final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
       final List<UserModel> _users = await _usersProvider.fetchUsersByIDs(

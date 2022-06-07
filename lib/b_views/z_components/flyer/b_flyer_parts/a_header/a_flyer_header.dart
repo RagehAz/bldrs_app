@@ -117,7 +117,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     //--------------------------------o
     _backgroundColorTween
       ..begin = widget.tinyMode == true ? Colorz.nothing : Colorz.blackSemi230
-      ..end = Mapper.canLoopList(widget.flyerModel.slides) == false ?
+      ..end = Mapper.checkCanLoopList(widget.flyerModel.slides) == false ?
       Colorz.blackSemi230
           :
       widget.flyerModel.slides[0].midColor;

@@ -77,7 +77,7 @@ class BzzProvider extends ChangeNotifier {
   }) async {
     final List<BzModel> _bzz = <BzModel>[];
 
-    if (Mapper.canLoopList(bzzIDs)) {
+    if (Mapper.checkCanLoopList(bzzIDs)) {
       for (final String bzID in bzzIDs) {
         final BzModel _bz = await fetchBzModel(context: context, bzID: bzID);
 
@@ -98,7 +98,7 @@ class BzzProvider extends ChangeNotifier {
      List<BzModel> _bzz = <BzModel>[];
 
     if (userModel != null) {
-      if (Mapper.canLoopList(userModel.myBzzIDs)) {
+      if (Mapper.checkCanLoopList(userModel.myBzzIDs)) {
 
         _bzz = await fetchBzzModels(
             context: context,
@@ -145,7 +145,7 @@ class BzzProvider extends ChangeNotifier {
     // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final List<String> _sponsorsBzzIDs = []; /// TASK : RESTRUCTURE SPONSORS THING
 
-    if (Mapper.canLoopList(_sponsorsBzzIDs)) {
+    if (Mapper.checkCanLoopList(_sponsorsBzzIDs)) {
       /// 2 - fetch bzz
       final List<BzModel> _bzzSponsors = await fetchBzzModels(
           context: context,
@@ -216,7 +216,7 @@ class BzzProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final List<String> _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
 
-    if (Mapper.canLoopList(_userBzzIDs)) {
+    if (Mapper.checkCanLoopList(_userBzzIDs)) {
       /// 2 - fetch bzz
       final List<BzModel> _bzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
 
@@ -252,7 +252,7 @@ class BzzProvider extends ChangeNotifier {
     @required bool notify,
   }) {
 
-    if (Mapper.canLoopList(_myBzz)) {
+    if (Mapper.checkCanLoopList(_myBzz)) {
 
       final int _index = _myBzz.indexWhere((BzModel bzModel) => bzModel.id == bzID);
       _myBzz.removeAt(_index);
@@ -279,7 +279,7 @@ class BzzProvider extends ChangeNotifier {
     @required bool notify,
   }) {
 
-    if (Mapper.canLoopList(_myBzz)) {
+    if (Mapper.checkCanLoopList(_myBzz)) {
 
       final int _indexOfOldTinyBz = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
 
@@ -317,7 +317,7 @@ class BzzProvider extends ChangeNotifier {
     final UserModel _myUserModel = _usersProvider.myUserModel;
     final List<String> _followedBzzIDs = _myUserModel?.followedBzzIDs;
 
-    if (Mapper.canLoopList(_followedBzzIDs)) {
+    if (Mapper.checkCanLoopList(_followedBzzIDs)) {
 
       final List<BzModel> _bzz = await fetchBzzModels(
         context: context,

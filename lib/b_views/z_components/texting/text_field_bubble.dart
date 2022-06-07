@@ -220,7 +220,7 @@ class TextFieldBubble extends StatelessWidget {
               leadingDot: true,
             ),
 
-          if (Mapper.canLoopList(columnChildren) == true)
+          if (Mapper.checkCanLoopList(columnChildren) == true)
           ...columnChildren,
 
         ]

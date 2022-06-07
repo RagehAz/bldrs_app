@@ -52,14 +52,14 @@ class SpecPicker {
   }) {
     final List<SpecPicker> _pickers = <SpecPicker>[];
 
-    if (Mapper.canLoopList(sourceSpecsPickers)) {
+    if (Mapper.checkCanLoopList(sourceSpecsPickers)) {
       final List<String> _allPickersIDsToDeactivate = <String>[];
 
       /// GET DEACTIVATED PICKERS
       for (final SpecPicker picker in sourceSpecsPickers) {
         final List<SpecDeactivator> _deactivators = picker.deactivators;
 
-        if (Mapper.canLoopList(_deactivators)) {
+        if (Mapper.checkCanLoopList(_deactivators)) {
           for (final SpecDeactivator deactivator in _deactivators) {
             final bool _isSelected = SpecModel.specsContainThisSpecValue(
                 specs: selectedSpecs,
@@ -75,7 +75,7 @@ class SpecPicker {
 
       /// REFINE
       for (final SpecPicker picker in sourceSpecsPickers) {
-        final bool _listShouldBeDeactivated = Mapper.stringsContainString(
+        final bool _listShouldBeDeactivated = Mapper.checkStringsContainString(
             strings: _allPickersIDsToDeactivate,
             string: picker.chainID
         );
@@ -102,7 +102,7 @@ class SpecPicker {
 
     SpecPicker _specPicker;
 
-    if (Mapper.canLoopList(specsPickers) && pickerChainID != null) {
+    if (Mapper.checkCanLoopList(specsPickers) && pickerChainID != null) {
       _specPicker = specsPickers.firstWhere(
               (SpecPicker picker) =>
               picker.chainID == pickerChainID
@@ -131,7 +131,7 @@ class SpecPicker {
   }) {
     final List<SpecPicker> _specsPicker = <SpecPicker>[];
 
-    if (Mapper.canLoopList(specsPickers)) {
+    if (Mapper.checkCanLoopList(specsPickers)) {
       for (final SpecPicker list in specsPickers) {
         if (list.groupID == groupID) {
           _specsPicker.add(list);
@@ -186,7 +186,7 @@ class SpecPicker {
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(pickers) == true && picker != null) {
+    if (Mapper.checkCanLoopList(pickers) == true && picker != null) {
       for (int i = 0; i < pickers.length; i++) {
 
         final SpecPicker _picker = pickers[i];
@@ -223,7 +223,7 @@ class SpecPicker {
   }
 // -------------------------------------
   static void blogSpecsPickers(List<SpecPicker> specsPickers) {
-    if (Mapper.canLoopList(specsPickers)) {
+    if (Mapper.checkCanLoopList(specsPickers)) {
       for (final SpecPicker _picker in specsPickers) {
         _picker.blogSpecPicker();
       }

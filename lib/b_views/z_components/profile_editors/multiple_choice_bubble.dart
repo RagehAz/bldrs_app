@@ -50,12 +50,12 @@ class MultipleChoiceBubble extends StatelessWidget {
 
                 final String _button = buttonsList[index];
 
-                final bool _isSelected = Mapper.stringsContainString(
+                final bool _isSelected = Mapper.checkStringsContainString(
                     strings: selectedButtons,
                     string: _button,
                 );
 
-                final bool _isInactive = Mapper.stringsContainString(
+                final bool _isInactive = Mapper.checkStringsContainString(
                   strings: inactiveButtons,
                   string: _button,
                 );

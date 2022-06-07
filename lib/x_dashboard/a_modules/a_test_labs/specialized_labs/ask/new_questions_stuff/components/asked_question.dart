@@ -46,7 +46,7 @@ class AskedQuestion extends StatelessWidget {
         const QuestionSeparatorLine(lineIsON: false,),
 
         /// QUESTION PICTURES
-        if (Mapper.canLoopList(questionModel?.pics))
+        if (Mapper.checkCanLoopList(questionModel?.pics))
         QuestionPicturesBuilder(
           questionModel: questionModel,
           height: 200,

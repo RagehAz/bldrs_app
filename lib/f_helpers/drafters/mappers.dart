@@ -53,7 +53,7 @@ List<String> getStringsFromDynamics({
 }) {
   final List<String> _strings = <String>[];
 
-  if (canLoopList(dynamics)) {
+  if (checkCanLoopList(dynamics)) {
     for (final dynamic thing in dynamics) {
       if (thing is String == true) {
         _strings.add(thing);
@@ -74,7 +74,7 @@ List<String> getUniqueStringsFromStrings({
 
   final List<String> _output = <String>[];
 
-  if (canLoopList(strings) == true){
+  if (checkCanLoopList(strings) == true){
 
     for (final String string in strings){
 
@@ -97,7 +97,7 @@ List<String> getMapsPrimaryKeysValues({
 
   final List<String> _primaryKeys = <String>[];
 
-  if (canLoopList(maps) == true){
+  if (checkCanLoopList(maps) == true){
 
     for (final Map<String, dynamic> map in maps){
 
@@ -124,11 +124,11 @@ List<String> removeStringsFromStrings({
 
   final List<String> _output = <String>[];
 
-  if (canLoopList(removeFrom) == true){
+  if (checkCanLoopList(removeFrom) == true){
 
       for (final String string in removeFrom){
 
-        final bool _canRemove = stringsContainString(
+        final bool _canRemove = checkStringsContainString(
             strings: removeThis,
             string: string
         );
@@ -154,11 +154,11 @@ List<String> putStringInStringsIfAbsent({
 
   List<String> _output = <String>[];
 
-  if (canLoopList(strings) == true){
+  if (checkCanLoopList(strings) == true){
 
     _output = <String>[...strings];
 
-    final bool _contains = stringsContainString(
+    final bool _contains = checkStringsContainString(
         strings: strings,
         string: string,
     );
@@ -177,7 +177,7 @@ List<String> cleanDuplicateStrings({
 }){
   final List<String> _output = <String>[];
 
-  if (canLoopList(strings) == true){
+  if (checkCanLoopList(strings) == true){
 
     for (final String string in strings){
 
@@ -222,7 +222,7 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
 
   final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-  if (canLoopList(queryDocumentSnapshots)) {
+  if (checkCanLoopList(queryDocumentSnapshots)) {
     for (final QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots) {
 
       Map<String, dynamic> _map = docSnapshot.data();
@@ -249,7 +249,7 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
 List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
   final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-  if (canLoopList(dynamics)) {
+  if (checkCanLoopList(dynamics)) {
     for (final dynamic map in dynamics) {
       _maps.add(map);
     }
@@ -342,7 +342,7 @@ Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic objec
         blog('3 - FUCK : _map : ${_map.runtimeType}');
         final List<String> _keys = _map.keys.toList();
 
-        if (canLoopList(_keys) == true){
+        if (checkCanLoopList(_keys) == true){
 
           for (final String key in _keys){
 
@@ -382,7 +382,7 @@ int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String, dy
   final int _indexOfTheMap =
       listOfMaps.indexWhere(
               (Map<String, dynamic> m) =>
-                  mapsAreTheSame(
+                  checkMapsAreTheSame(
                      map1: m,
                      map2: map
                  )
@@ -479,13 +479,63 @@ Map<String, Object> removePair({
 
   return _map;
 }
+// -------------------------------------
+/// TESTED : WORKS PERFECT
+List<Map<String, dynamic>> cleanDuplicateMaps({
+  @required List<Map<String, dynamic>> maps,
+}){
+  final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+  
+  if (checkCanLoopList(maps) == true){
+    
+    for (final Map<String, dynamic> map in maps){
+      
+      final bool _exists = checkMapsContainMap(
+          maps: _output,
+          map: map,
+      );
+      
+      if (_exists == false){
+        _output.add(map);
+      }
+      
+    }
+    
+  }
+  
+  return _output;
+}
+// -------------------------------------
+/// TESTED : WORKS PERFECT
+List<Map<String, dynamic>> cleanMapsOfDuplicateIDs({
+  @required List<Map<String, dynamic>> maps,
+  @required String idFieldName,
+}){
+  final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+
+  if (checkCanLoopList(maps) == true){
+
+    for (final Map<String, dynamic> map in maps){
+
+      final int _index = _output.indexWhere((m) => m[idFieldName] == map[idFieldName]);
+
+      if (_index == -1){
+        _output.add(map);
+      }
+
+    }
+
+  }
+
+  return _output;
+}
 // -----------------------------------------------------------------------------
 
 /// CHECKERS
 
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool canLoopList(List<dynamic> list) {
+bool checkCanLoopList(List<dynamic> list) {
   bool _canLoop = false;
 
   if (list != null && list.isNotEmpty) {
@@ -495,10 +545,10 @@ bool canLoopList(List<dynamic> list) {
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool listHasNullValue(List<dynamic> list){
+bool checkListHasNullValue(List<dynamic> list){
   bool _hasNull = false;
 
-  if (canLoopList(list) == true){
+  if (checkCanLoopList(list) == true){
 
     _hasNull = list.contains(null);
 
@@ -508,7 +558,7 @@ bool listHasNullValue(List<dynamic> list){
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool mapsAreTheSame({
+bool checkMapsAreTheSame({
   Map<String, dynamic> map1,
   Map<String, dynamic> map2,
 }) {
@@ -534,8 +584,8 @@ bool mapsAreTheSame({
     if (_map1Keys.length != _map2Keys.length) {
       _mapsAreTheSame = false;
     } else {
-      if (listsAreTheSame(list1: _map1Keys, list2: _map2Keys) == true &&
-          listsAreTheSame(list1: _map1Values, list2: _map2Values) == true) {
+      if (checkListsAreTheSame(list1: _map1Keys, list2: _map2Keys) == true &&
+          checkListsAreTheSame(list1: _map1Values, list2: _map2Values) == true) {
         _mapsAreTheSame = true;
       } else {
         _mapsAreTheSame = false;
@@ -547,7 +597,7 @@ bool mapsAreTheSame({
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool mapsListsAreTheSame({
+bool checkMapsListsAreTheSame({
   @required List<Map<String, dynamic>> maps1,
   @required List<Map<String, dynamic>> maps2,
 }){
@@ -560,7 +610,7 @@ bool mapsListsAreTheSame({
     listsAreTheSame = true;
   }
 
-  else if (canLoopList(maps1) == true && canLoopList(maps2) == true){
+  else if (checkCanLoopList(maps1) == true && checkCanLoopList(maps2) == true){
 
     if (maps1.length != maps2.length) {
       // blog('lists do not have the same length : list1 is ${maps1.length} : list2 is ${maps2.length}');
@@ -572,7 +622,7 @@ bool mapsListsAreTheSame({
     else {
       for (int i = 0; i < maps1.length; i++) {
 
-        final bool _mapsAreTheSame = mapsAreTheSame(
+        final bool _mapsAreTheSame = checkMapsAreTheSame(
           map1: maps1[i],
           map2: maps2[i],
         );
@@ -596,7 +646,7 @@ bool mapsListsAreTheSame({
 
 }
 // -------------------------------------
-bool listOfMapsContainValue({
+bool checkMapsContainValue({
   @required List<Map<String, dynamic>> listOfMaps,
   @required String field,
   @required String value,
@@ -615,8 +665,8 @@ bool listOfMapsContainValue({
   return _listOfMapContainsTheValue;
 }
 // -------------------------------------
-bool listOfMapsContainMap({
-  @required List<Map<String, dynamic>> listOfMaps,
+bool checkMapsContainMap({
+  @required List<Map<String, dynamic>> maps,
   @required Map<String, dynamic> map,
 }) {
 
@@ -631,7 +681,7 @@ bool listOfMapsContainMap({
   // ---------------------------------
   bool _inputsAreInvalid;
 
-  if (listOfMaps == null || listOfMaps.isEmpty || map == null) {
+  if (maps == null || maps.isEmpty || map == null) {
     _inputsAreInvalid = true;
   } else {
     _inputsAreInvalid = false;
@@ -645,9 +695,9 @@ bool listOfMapsContainMap({
 
   else {
 
-    for (final Map<String, dynamic> _map in listOfMaps) {
+    for (final Map<String, dynamic> _map in maps) {
 
-      final bool _mapsAreTheSame = mapsAreTheSame(
+      final bool _mapsAreTheSame = checkMapsAreTheSame(
         map1: _map,
         map2: map,
       );
@@ -668,7 +718,7 @@ bool listOfMapsContainMap({
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool listsAreTheSame({
+bool checkListsAreTheSame({
   @required List<dynamic> list1,
   @required List<dynamic> list2
 }) {
@@ -681,7 +731,7 @@ bool listsAreTheSame({
     listsAreTheSame = true;
   }
 
-  else if (canLoopList(list1) == true && canLoopList(list2) == true){
+  else if (checkCanLoopList(list1) == true && checkCanLoopList(list2) == true){
 
     if (list1.length != list2.length) {
       // blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
@@ -712,13 +762,13 @@ bool listsAreTheSame({
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool stringsContainString({
+bool checkStringsContainString({
   @required List<String> strings,
   @required String string,
 }) {
   bool _containsIt = false;
 
-  if (canLoopList(strings) && string != null) {
+  if (checkCanLoopList(strings) && string != null) {
     _containsIt = strings.contains(string);
   }
 
@@ -750,7 +800,7 @@ void blogMap(Map<dynamic, dynamic> map, {String methodName = ''}) {
 // -------------------------------------
 /// TESTED : WORKS PERFECT
 void blogMaps(List<Map<dynamic, dynamic>> maps, {String methodName}) {
-  if (canLoopList(maps)) {
+  if (checkCanLoopList(maps)) {
     for (final Map<dynamic, dynamic> map in maps) {
       blogMap(map, methodName: methodName);
     }
@@ -766,7 +816,7 @@ List<double> getDoublesFromDynamics(List<dynamic> dynamics){
 
   final List<double> _output = <double>[];
 
-  if (canLoopList(dynamics) == true){
+  if (checkCanLoopList(dynamics) == true){
 
     for (final dynamic dyn in dynamics){
 

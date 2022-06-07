@@ -116,7 +116,7 @@ class RecordModel {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.canLoopList(records)){
+    if (Mapper.checkCanLoopList(records)){
 
       for (final RecordModel record in records){
 
@@ -136,7 +136,7 @@ class RecordModel {
   }){
     final List<RecordModel> _records = <RecordModel>[];
 
-    if (Mapper.canLoopList(maps)){
+    if (Mapper.checkCanLoopList(maps)){
 
       for (final Map<String, dynamic> map in maps){
 
@@ -277,7 +277,7 @@ class RecordModel {
 
     List<RecordModel> _output = <RecordModel>[];
 
-    if (Mapper.canLoopList(addRecords)){
+    if (Mapper.checkCanLoopList(addRecords)){
 
       for (final RecordModel record in addRecords){
         _output = insertRecordToRecords(records: originalRecords, record: record);
@@ -299,7 +299,7 @@ class RecordModel {
 
     bool _contains = false;
 
-    if (Mapper.canLoopList(records) && record != null){
+    if (Mapper.checkCanLoopList(records) && record != null){
 
       for (final RecordModel rec in records){
 

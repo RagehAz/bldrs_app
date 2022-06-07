@@ -45,7 +45,7 @@ class Continent {
   static Map<String, dynamic> cipherContinents(List<Continent> continents) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.canLoopList(continents)) {
+    if (Mapper.checkCanLoopList(continents)) {
       for (final Continent continent in continents) {
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -64,7 +64,7 @@ class Continent {
     if (map != null) {
       final List<String> _keys = map.keys.toList();
 
-      if (Mapper.canLoopList(_keys)) {
+      if (Mapper.checkCanLoopList(_keys)) {
         for (final String key in _keys) {
           final Continent _continent = decipherContinent(map[key]);
 

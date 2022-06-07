@@ -433,7 +433,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
               valueListenable: _flyers,
               builder: (_, List<FlyerModel> flyers, Widget child){
 
-                if (Mapper.canLoopList(flyers) == true){
+                if (Mapper.checkCanLoopList(flyers) == true){
                   return FlyersGrid(
                     flyers: flyers,
                     gridWidth: _screenWidth,
