@@ -70,7 +70,7 @@ class BzStatsBubble extends StatelessWidget {
 
           /// BIRTH
           StatsLine(
-            verse: Timers.getString_in_bldrs_since_month_yyyy(context, _myActiveBzModel.createdAt),
+            verse: Timers.generateString_in_bldrs_since_month_yyyy(context, _myActiveBzModel.createdAt),
             icon: Iconz.calendar,
           ),
 

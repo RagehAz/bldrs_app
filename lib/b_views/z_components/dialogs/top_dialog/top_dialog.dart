@@ -45,6 +45,7 @@ class TopDialog extends StatelessWidget {
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,
     Function onTap,
+    int seconds = 6,
   }) async {
 
     final double _screenWidth = Scale.superScreenWidth(context);
@@ -78,7 +79,7 @@ class TopDialog extends StatelessWidget {
 
       /// ANIMATION ----------------------------------------------
       forwardAnimationCurve: Curves.easeInOut,
-      duration: const Duration(seconds: 6),
+      duration: Duration(seconds: seconds),
       animationDuration: const Duration(milliseconds: 400),
       reverseAnimationCurve: Curves.easeInOut,
 
