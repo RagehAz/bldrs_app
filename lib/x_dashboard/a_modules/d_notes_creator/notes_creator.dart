@@ -724,21 +724,3 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   }
 
 }
-
-/*
-    // /// SEND TO MYSELF
-    // SizedBox(
-    //   width: _screenWidth,
-    //   // height: 150,
-    //   child: Center(
-    //     child: WideButton(
-    //       verse: 'Send To Myself',
-    //       verseColor: Colorz.black255,
-    //       icon: Iconz.share,
-    //       onTap: () => _onSendNotification(sendToMyself: true),
-    //       color: Colorz.yellow255,
-    //       isActive: _canSendNotification(sendToMySelf: true),
-    //     ),
-    //   ),
-    // ),
- */

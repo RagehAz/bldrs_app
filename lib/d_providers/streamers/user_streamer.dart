@@ -62,7 +62,7 @@ Widget userModelBuilder({
           return Container(); // superDialog(context, snapshot.error, 'error');
         } else {
           final Map<String, dynamic> _map = snapshot.data;
-          final UserModel userModel = UserModel.decipherUserMap(
+          final UserModel userModel = UserModel.decipherUser(
             map: _map,
             fromJSON: false,
           );

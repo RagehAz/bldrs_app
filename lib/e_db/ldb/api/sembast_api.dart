@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/e_db/ldb/api/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
@@ -15,19 +16,19 @@ class Sembast  {
 
   /// REFERENCES
 
-// ---------------------------------------------------
+// -----------------------------
   /// private constructor to create instances of this class only in itself
   Sembast._thing();
-// ---------------------------------------------------
+// -----------------------------
   /// Singleton instance
   static final Sembast _singleton = Sembast._thing();
-// ---------------------------------------------------
+// -----------------------------
   /// Singleton accessor
   static Sembast get instance => _singleton;
-// ---------------------------------------------------
+// -----------------------------
   /// to transform from synchronous into asynchronous
   Completer<Database> _dbOpenCompleter;
-// ---------------------------------------------------
+// -----------------------------
   /// db object accessor
   Future<Database> get database async {
     if (_dbOpenCompleter == null) {
@@ -38,8 +39,7 @@ class Sembast  {
 
     return _dbOpenCompleter.future;
   }
-
-// ---------------------------------------------------
+// -----------------------------
   Future<void> _openDatabase() async {
     final Directory _appDocDir = await getApplicationDocumentsDirectory();
 
@@ -51,29 +51,28 @@ class Sembast  {
 
     return _db;
   }
-
-// ---------------------------------------------------
+// -----------------------------
   /// static const String _storeName = 'blah';
   /// final StoreRef<int, Map<String, Object>> _doc = intMapStoreFactory.store(_storeName);
   /// Future<Database> get _db async => await AppDatabase.instance.database;
-// ---------------------------------------------------
+// -----------------------------
   static Future<Database> _getDB() async {
     final Database _result = await Sembast.instance.database;
     return _result;
   }
-
-// ---------------------------------------------------
-  static StoreRef<int, Map<String, Object>> _getStore(
-      {@required String docName}) {
+// -----------------------------
+  static StoreRef<int, Map<String, Object>> _getStore({
+    @required String docName,
+  }) {
     return intMapStoreFactory.store(docName);
   }
 // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ---------------------------------------------------
+// -----------------------------
+  /// TESTED :
   static Future<void> insert({
-    @required String primaryKey,
     @required Map<String, Object> map,
     @required String docName,
   }) async {
@@ -93,8 +92,8 @@ class Sembast  {
       await _doc.add(_db, map);
     // }
   }
-// -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
+// -----------------------------
+  /// TESTED :
   static Future<void> insertAll({
     @required String primaryKey,
     @required List<Map<String, Object>> inputs,
@@ -112,8 +111,8 @@ class Sembast  {
     }
 
   }
-// -----------------------------------------------------------------------------
-  /// this should only be used when the ldb is empty,, if
+// -----------------------------
+  /// TESTED :
   static Future<void> deleteAllThenInsertAll({
     @required String primaryKey,
     @required List<Map<String, Object>> inputs,
@@ -135,7 +134,7 @@ class Sembast  {
 
   /// READ
 
-// ---------------------------------------------------
+// -----------------------------
   /// TESTED :
   static Future<List<Map <String, Object>>> readMaps({
     @required String docName,
@@ -172,11 +171,14 @@ class Sembast  {
 
     return _maps;
   }
-// ---------------------------------------------------
-  /// TESTED : WORKS PERFECT : TASK : THIS METHOD IS VERY SLOW IN FETCHING PHRASES
+// -----------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> readAll({
     @required String docName,
   }) async {
+
+    /// TASK : THIS METHOD IS VERY SLOW IN FETCHING PHRASES
+
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
 
@@ -193,7 +195,7 @@ class Sembast  {
 
     return _maps;
   }
-// ---------------------------------------------------
+// -----------------------------
 /*
   static Future<List<Map<String, Object>>> readAllNewMethod({
   @required String docName,
@@ -215,7 +217,7 @@ class Sembast  {
     return _maps;
   }
  */
-// ---------------------------------------------------
+// -----------------------------
   /// TESTED : WORKS PERFECT
     static Future<List<Map<String, Object>>> searchArrays({
       @required String fieldToSortBy,
@@ -245,7 +247,8 @@ class Sembast  {
 
     return _maps;
   }
-// ---------------------------------------------------
+// -----------------------------
+  /// TESTED :
   static Future<List<Map<String, Object>>> search({
     @required String fieldToSortBy,
     @required String searchField,
@@ -283,7 +286,7 @@ class Sembast  {
 
     return _maps;
   }
-// ---------------------------------------------------
+// -----------------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, Object>> findFirst({
     @required String fieldToSortBy,
@@ -320,28 +323,26 @@ class Sembast  {
 
   /// UPDATE
 
-// ---------------------------------------------------
+// -----------------------------
   /// TESTED :
   static Future<void> update({
     @required Map<String, Object> map,
-    @required String searchPrimaryValue,
-    @required String searchPrimaryKey,
+    @required String objectID,
     @required String docName,
   }) async {
 
-      /// UPDATES RECORD IF EXISTED AND ADDS IT IF DOES NOT EXIST
+    /// Note : either updates all existing maps with this primary key "ID"
+    /// or inserts new map
 
-      final Map<String, dynamic> _map = await findFirst(
-          fieldToSortBy: searchPrimaryKey,
-          searchField: searchPrimaryKey,
-          searchValue: searchPrimaryValue,
-          docName: docName
+
+      final bool _exists = await checkMapExists(
+          docName: docName,
+          id: objectID,
       );
 
       /// IF NOT FOUND
-      if (_map == null){
+      if (_exists == false){
         await insert(
-            primaryKey: searchPrimaryKey,
             docName: docName,
             map: map,
         );
@@ -355,8 +356,10 @@ class Sembast  {
           docName: docName,
         );
 
+        final String _primaryKey = getPrimaryKey(docName);
+
         final Finder _finder = Finder(
-          filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
+          filter: Filter.equals(_primaryKey, objectID),
         );
 
         final int _result = await _doc.update(
@@ -375,35 +378,39 @@ class Sembast  {
 
   /// DELETE
 
-// ---------------------------------------------------
+// -----------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteMap({
-    @required String searchPrimaryKey,
-    @required String searchPrimaryValue,
+    @required String objectID,
     @required String docName,
   }) async {
+
+      /// NOTE : Deletes all maps with the given primary key,
+      /// as LDB allows duplicate maps of same ID "same value of the primary key"
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(
         docName: docName
     );
-
     final Database _db = await _getDB();
+    final String _primaryKey = getPrimaryKey(docName);
 
     final Finder _finder = Finder(
-      filter: Filter.equals(searchPrimaryKey, searchPrimaryValue),
+      filter: Filter.equals(_primaryKey, objectID),
     );
 
     if (_db != null && _doc != null){
+
       await _doc.delete(
         _db,
         finder: _finder,
       );
 
-      blog('Sembast : deleteMap : $docName : $searchPrimaryKey : $searchPrimaryValue');
+      blog('Sembast : deleteMap : $docName : $_primaryKey : $objectID');
+
     }
 
   }
-// ---------------------------------------------------
+// -----------------------------
   /// TESTED :
   static Future<void> deleteMaps({
     @required String primaryKeyName,
@@ -431,10 +438,10 @@ class Sembast  {
     }
 
   }
-// ---------------------------------------------------
+// -----------------------------
+  /// TESTED :
   static Future<void> deleteAllOneByOne({
     @required String docName,
-    @required String primaryKey,
   }) async {
 
     final List<Map<String, Object>> _allMaps = await readAll(
@@ -443,13 +450,14 @@ class Sembast  {
 
     if (Mapper.canLoopList(_allMaps) == true){
 
+      final String _primaryKey = getPrimaryKey(docName);
+
       for (final Map<String, Object> map in _allMaps) {
 
-        final String _id = map[primaryKey];
+        final String _id = map[_primaryKey];
 
         await deleteMap(
-            searchPrimaryKey: primaryKey,
-            searchPrimaryValue: _id,
+            objectID: _id,
             docName: docName,
         );
 
@@ -474,6 +482,27 @@ class Sembast  {
 
     await _doc.delete(_db,);
 
+  }
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -----------------------------
+  static Future<bool> checkMapExists({
+    @required String docName,
+    @required String id,
+}) async {
+
+      final String _primaryKey = getPrimaryKey(docName);
+
+      final Map<String, dynamic> _map = await findFirst(
+        fieldToSortBy: _primaryKey,
+        searchField: _primaryKey,
+        searchValue: id,
+        docName: docName,
+      );
+
+      return _map != null;
   }
 // -----------------------------------------------------------------------------
 }

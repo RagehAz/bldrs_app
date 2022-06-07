@@ -88,7 +88,7 @@ class ExoticMethods {
       orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
     );
 
-    _allUserModels = UserModel.decipherUsersMaps(
+    _allUserModels = UserModel.decipherUsers(
       maps: _maps,
       fromJSON: false,
     );
@@ -101,7 +101,7 @@ class ExoticMethods {
     }
   } else {
     _allUserModels =
-        UserModel.decipherUsersMaps(maps: _ldbUsers, fromJSON: true);
+        UserModel.decipherUsers(maps: _ldbUsers, fromJSON: true);
   }
 
   return _allUserModels;
