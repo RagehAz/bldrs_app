@@ -47,17 +47,17 @@ class Sounder  {
   /// TESTED : WORKS PERFECT
   static Future<void> playButtonClick() async {
 
-    const List<String> _sounds = <String>[
-      click_a,
-      click_b,
-      click_c,
-    ];
-
-    final int _index = Numeric.createRandomIndex(
-        listLength: _sounds.length,
-    );
-
-    await playAssetSound(_sounds[_index]);
+    // const List<String> _sounds = <String>[
+    //   click_a,
+    //   click_b,
+    //   click_c,
+    // ];
+    //
+    // final int _index = Numeric.createRandomIndex(
+    //     listLength: _sounds.length,
+    // );
+    //
+    // await playAssetSound(_sounds[_index]);
 
   }
 
