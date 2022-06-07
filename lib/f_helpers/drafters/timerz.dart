@@ -252,7 +252,7 @@ String generateString_dd_month_yyyy({
 }
 // -------------------------------------
 /// GENERATES => [ 'dd / MM / yyyy' ]
-String getString_dd_I_MM_I_yyyy({
+String generateString_dd_I_MM_I_yyyy({
   @required BuildContext context,
   @required DateTime time
 }){
@@ -276,7 +276,7 @@ String generateString_hh_i_mm_ampm({
   return _timeString;
 }
 // -------------------------------------
-String getString_in_bldrs_since_month_yyyy(BuildContext context, DateTime time){
+String generateString_in_bldrs_since_month_yyyy(BuildContext context, DateTime time){
 
   String _output = '';
 
@@ -475,6 +475,22 @@ DateTime createClock({
       millisecond: 0,
       microsecond: 0,
     );
+}
+// -----------------------------------
+/// TESTED : WORKS PERFECT
+DateTime createClockFromSeconds(int seconds){
+
+  final int _hours = (seconds / 3600).floor();
+  final int _remainingSeconds = seconds - (_hours * 3600);
+  final int _minutes = (_remainingSeconds / 60).floor();
+  final int _seconds = seconds - (60 * _minutes);
+
+  return createClock(
+    hour: _hours,
+    minute: _minutes,
+    second: _seconds,
+  );
+
 }
 // -----------------------------------
 /// TESTED : WORKS PERFECT

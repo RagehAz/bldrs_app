@@ -546,6 +546,56 @@ bool mapsAreTheSame({
   return _mapsAreTheSame;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
+bool mapsListsAreTheSame({
+  @required List<Map<String, dynamic>> maps1,
+  @required List<Map<String, dynamic>> maps2,
+}){
+  bool listsAreTheSame = false;
+
+  if (maps1 == null && maps2 == null){
+    listsAreTheSame = true;
+  }
+  else if (maps1 == [] && maps2 == []){
+    listsAreTheSame = true;
+  }
+
+  else if (canLoopList(maps1) == true && canLoopList(maps2) == true){
+
+    if (maps1.length != maps2.length) {
+      // blog('lists do not have the same length : list1 is ${maps1.length} : list2 is ${maps2.length}');
+      // blog(' ---> lis1 is ( ${maps1.toString()} )');
+      // blog(' ---> lis2 is ( ${maps2.toString()} )');
+      listsAreTheSame = false;
+    }
+
+    else {
+      for (int i = 0; i < maps1.length; i++) {
+
+        final bool _mapsAreTheSame = mapsAreTheSame(
+          map1: maps1[i],
+          map2: maps2[i],
+        );
+
+        if (_mapsAreTheSame == false) {
+          // blog('items at index ( $i ) do not match : ( ${maps1[i]} ) <=> ( ${maps2[i]} )');
+          listsAreTheSame = false;
+          break;
+        }
+
+        else {
+          listsAreTheSame = true;
+        }
+
+      }
+    }
+
+  }
+
+  return listsAreTheSame;
+
+}
+// -------------------------------------
 bool listOfMapsContainValue({
   @required List<Map<String, dynamic>> listOfMaps,
   @required String field,
@@ -617,6 +667,7 @@ bool listOfMapsContainMap({
   return _listOfMapContainsTheMap;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 bool listsAreTheSame({
   @required List<dynamic> list1,
   @required List<dynamic> list2
@@ -633,9 +684,9 @@ bool listsAreTheSame({
   else if (canLoopList(list1) == true && canLoopList(list2) == true){
 
     if (list1.length != list2.length) {
-      blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
-      blog(' ---> lis1 is ( ${list1.toString()} )');
-      blog(' ---> lis2 is ( ${list2.toString()} )');
+      // blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
+      // blog(' ---> lis1 is ( ${list1.toString()} )');
+      // blog(' ---> lis2 is ( ${list2.toString()} )');
       listsAreTheSame = false;
     }
 
@@ -643,7 +694,7 @@ bool listsAreTheSame({
       for (int i = 0; i < list1.length; i++) {
 
         if (list1[i] != list2[i]) {
-          blog('items at index ( $i ) do not match : ( ${list1[i]} ) <=> ( ${list2[i]} )');
+          // blog('items at index ( $i ) do not match : ( ${list1[i]} ) <=> ( ${list2[i]} )');
           listsAreTheSame = false;
           break;
         }
@@ -656,8 +707,6 @@ bool listsAreTheSame({
     }
 
   }
-
-
 
   return listsAreTheSame;
 }
@@ -708,6 +757,10 @@ void blogMaps(List<Map<dynamic, dynamic>> maps, {String methodName}) {
   }
 }
 // -----------------------------------------------------------------------------
+
+/// ?
+
+// -------------------------------------
 /// TESTED : WORKS PERFECT
 List<double> getDoublesFromDynamics(List<dynamic> dynamics){
 
