@@ -105,7 +105,7 @@ Future<List<CityModel>> readCountryCitiesOps({
   if (_country != null) {
     final List<String> _citiesIDs = _country.citiesIDs;
 
-    if (Mapper.canLoopList(_citiesIDs)) {
+    if (Mapper.checkCanLoopList(_citiesIDs)) {
       for (final String id in _citiesIDs) {
 
         final CityModel _city = await readCityOps(

@@ -202,7 +202,7 @@ Future<List<SearchResult>> _searchBzz({
     startAfter: startAfter,
   );
 
-  if (Mapper.canLoopList(_bzz)) {
+  if (Mapper.checkCanLoopList(_bzz)) {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
@@ -210,7 +210,7 @@ Future<List<SearchResult>> _searchBzz({
       final List<FlyerModel> _bzFlyers = await _flyersProvider
           .fetchFirstFlyersByBzModel(context: context, bz: bz);
 
-      if (Mapper.canLoopList(_bzFlyers)) {
+      if (Mapper.checkCanLoopList(_bzFlyers)) {
         _results.add(SearchResult(
           title: 'Flyers by ${bz.name}',
           icon: bz.logo,
@@ -238,18 +238,18 @@ Future<List<SearchResult>> _searchAuthors({
     name: searchText,
   );
 
-  if (Mapper.canLoopList(_users)) {
+  if (Mapper.checkCanLoopList(_users)) {
     for (final UserModel user in _users) {
       /// task should get only bzz showing teams
       final List<BzModel> _userBzz = await _bzzProvider.fetchUserBzz(context: context, userModel: user);
 
-      if (Mapper.canLoopList(_userBzz)) {
+      if (Mapper.checkCanLoopList(_userBzz)) {
         for (final BzModel bz in _userBzz) {
           /// task should get only flyers showing authors
           final List<FlyerModel> _bzFlyers = await _flyersProvider
               .fetchFirstFlyersByBzModel(context: context, bz: bz);
 
-          if (Mapper.canLoopList(_bzFlyers)) {
+          if (Mapper.checkCanLoopList(_bzFlyers)) {
             _results.add(SearchResult(
               title: 'Flyers from ${bz.name} published by ${user.name}',
               icon: user.pic,

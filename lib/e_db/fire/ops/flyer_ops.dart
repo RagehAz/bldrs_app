@@ -110,7 +110,7 @@ Future<FlyerModel> _createFlyerStorageImagesAndUpdateFlyer({
       authorID: draftFlyer.authorID,
     );
 
-    if (Mapper.canLoopList(_picturesURLs) == true){
+    if (Mapper.checkCanLoopList(_picturesURLs) == true){
 
       final List<SlideModel> _updatedSlides = SlideModel.replaceSlidesPicturesWithNewURLs(
         newPicturesURLs: _picturesURLs,
@@ -199,7 +199,7 @@ Future<List<FlyerModel>> readBzFlyers({
 }) async {
   final List<FlyerModel> _flyers = <FlyerModel>[];
 
-  if (Mapper.canLoopList(bzModel?.flyersIDs)) {
+  if (Mapper.checkCanLoopList(bzModel?.flyersIDs)) {
     for (final String id in bzModel.flyersIDs) {
       final FlyerModel _flyer = await readFlyerOps(
         context: context,
@@ -221,14 +221,14 @@ Future<List<FlyerModel>> readBzzFlyers({
 }) async {
   final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
-  if (Mapper.canLoopList(bzzModels)) {
+  if (Mapper.checkCanLoopList(bzzModels)) {
     for (final BzModel bz in bzzModels) {
       final List<FlyerModel> _bzFlyers = await FlyerFireOps.readBzFlyers(
         context: context,
         bzModel: bz,
       );
 
-      if (Mapper.canLoopList(_bzFlyers)) {
+      if (Mapper.checkCanLoopList(_bzFlyers)) {
         _allFlyers.addAll(_bzFlyers);
       }
     }
@@ -354,7 +354,7 @@ Future<List<FlyerModel>> paginateFlyers({
           value: true,
         ),
 
-      if (Mapper.canLoopList(specs) == true && Mapper.listHasNullValue(specs) == false)
+      if (Mapper.checkCanLoopList(specs) == true && Mapper.checkListHasNullValue(specs) == false)
         FireFinder(
           field: 'specs',
           comparison: FireComparison.arrayContainsAny,
@@ -666,7 +666,7 @@ Future<void> _deleteFlyerStorageImages({
       numberOfSlides: flyerModel.slides.length,
     );
 
-    if (Mapper.canLoopList(_slidesIDs) == true){
+    if (Mapper.checkCanLoopList(_slidesIDs) == true){
 
       for (final String id in _slidesIDs) {
 

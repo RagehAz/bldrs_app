@@ -26,7 +26,7 @@ class SearchedDistrictsButtons extends StatelessWidget {
     final List<DistrictModel> _searchedDistricts = _zoneProvider.searchedDistricts;
 
     /// WHEN SEARCH RESULTS
-    if (Mapper.canLoopList(_searchedDistricts)){
+    if (Mapper.checkCanLoopList(_searchedDistricts)){
 
       return ListView.builder(
           physics: const BouncingScrollPhysics(),

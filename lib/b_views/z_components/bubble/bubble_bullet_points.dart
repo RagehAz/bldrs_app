@@ -19,7 +19,7 @@ class BubbleBulletPoints extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.canLoopList(bulletPoints) == false){
+    if (Mapper.checkCanLoopList(bulletPoints) == false){
       return const SizedBox();
     }
     else {

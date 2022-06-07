@@ -38,7 +38,7 @@ class NavBarProfileButton extends StatelessWidget {
     }
     else {
 
-      if (Mapper.canLoopList(notes) == true){
+      if (Mapper.checkCanLoopList(notes) == true){
         _isOn = NoteModel.checkThereAreUnSeenNotes(notes);
       }
 
@@ -54,7 +54,7 @@ class NavBarProfileButton extends StatelessWidget {
     int _count;
 
     if (thereAreMissingFields == false){
-      if (Mapper.canLoopList(notes) == true){
+      if (Mapper.checkCanLoopList(notes) == true){
         _count = NoteModel.getNumberOfUnseenNotes(notes);
       }
     }

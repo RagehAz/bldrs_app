@@ -673,9 +673,8 @@ Future<void> _deleteFlyerOps({
   );
 
   /// UPDATE BZ ON LDB
-  await LDBOps.updateMap(
+  await LDBOps.insertMap(
     docName: LDBDoc.bzz,
-    objectID: _updatedBzModel.id,
     input: _updatedBzModel.toMap(toJSON: true),
   );
 

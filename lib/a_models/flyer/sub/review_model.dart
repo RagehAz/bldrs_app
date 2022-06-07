@@ -61,7 +61,7 @@ class ReviewModel {
   }) {
     final List<ReviewModel> _reviews = <ReviewModel>[];
 
-    if (Mapper.canLoopList(maps)) {
+    if (Mapper.checkCanLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
         _reviews.add(decipherReview(
           map: map,

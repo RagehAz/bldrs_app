@@ -202,7 +202,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                         DreamBox(
                           height: KeywordBarButton.height,
                           // width: Bubble.clearWidth(context),
-                          verse: Mapper.canLoopList(_draft.keywordsIDs) ? 'Edit Keywords' : 'Add Keywords',
+                          verse: Mapper.checkCanLoopList(_draft.keywordsIDs) ? 'Edit Keywords' : 'Add Keywords',
                           bubble: false,
                           color: Colorz.white20,
                           verseScaleFactor: 1.5,
@@ -257,7 +257,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                       DreamBox(
                         height: KeywordBarButton.height,
                         // width: Bubble.clearWidth(context),
-                        verse: Mapper.canLoopList(_draft.keywordsIDs) ? 'Edit Specifications' : 'Add Specifications',
+                        verse: Mapper.checkCanLoopList(_draft.keywordsIDs) ? 'Edit Specifications' : 'Add Specifications',
                         bubble: false,
                         color: Colorz.white20,
                         verseScaleFactor: 1.5,

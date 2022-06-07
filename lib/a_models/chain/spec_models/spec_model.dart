@@ -178,7 +178,7 @@ class SpecModel {
   static Map<String, dynamic> cipherSpecs(List<SpecModel> specs) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.canLoopList(specs)) {
+    if (Mapper.checkCanLoopList(specs)) {
       for (final SpecModel spec in specs) {
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -196,7 +196,7 @@ class SpecModel {
 
     final List<String> _keys = map.keys.toList();
 
-    if (Mapper.canLoopList(_keys)) {
+    if (Mapper.checkCanLoopList(_keys)) {
       for (final String key in _keys) {
         final SpecModel _spec = SpecModel(
           pickerChainID: key,
@@ -255,7 +255,7 @@ class SpecModel {
     final Map<String, dynamic> specsAMap = cipherSpecs(specsA);
     final Map<String, dynamic> specsBMap = cipherSpecs(specsB);
 
-    final bool _listsAreTheSame = Mapper.mapsAreTheSame(
+    final bool _listsAreTheSame = Mapper.checkMapsAreTheSame(
         map1: specsAMap,
         map2: specsBMap,
     );
@@ -271,7 +271,7 @@ class SpecModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(specs) && spec != null) {
+    if (Mapper.checkCanLoopList(specs) && spec != null) {
       final SpecModel _result = specs.firstWhere(
               (SpecModel sp) => SpecModel.specsAreTheSame(sp, spec) == true,
           orElse: () => null);
@@ -292,7 +292,7 @@ class SpecModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(specs) && value != null) {
+    if (Mapper.checkCanLoopList(specs) && value != null) {
       final List<SpecModel> _specs =
       specs.where((SpecModel spec) => spec.value == value).toList();
 
@@ -310,7 +310,7 @@ class SpecModel {
   }) {
     bool _contains = false;
 
-    if (Mapper.canLoopList(specs) && pickerChainID != null) {
+    if (Mapper.checkCanLoopList(specs) && pickerChainID != null) {
       final SpecModel _result = specs.firstWhere(
               (SpecModel sp) => sp.pickerChainID == pickerChainID,
           orElse: () => null);
@@ -367,7 +367,7 @@ class SpecModel {
   static void blogSpecs(List<SpecModel> specs) {
     blog('SPECS-PRINT -------------------------------------------------- START');
 
-    if (Mapper.canLoopList(specs) == true){
+    if (Mapper.checkCanLoopList(specs) == true){
       for (final SpecModel spec in specs) {
         blog('${spec.pickerChainID} : ${spec.value}');
       }
@@ -389,7 +389,7 @@ class SpecModel {
 }){
     List<SpecModel> _result = <SpecModel>[];
 
-    if (Mapper.canLoopList(specs) == true && picker != null) {
+    if (Mapper.checkCanLoopList(specs) == true && picker != null) {
       _result = specs
           .where(
             (SpecModel spec) =>
@@ -409,7 +409,7 @@ class SpecModel {
   }) {
     List<SpecModel> _result = <SpecModel>[];
 
-    if (Mapper.canLoopList(specs) == true && pickerChainID != null) {
+    if (Mapper.checkCanLoopList(specs) == true && pickerChainID != null) {
       _result = specs
           .where(
             (SpecModel spec) => spec.pickerChainID == pickerChainID,
@@ -426,7 +426,7 @@ class SpecModel {
 }){
     SpecModel _result;
 
-    if (Mapper.canLoopList(specs) == true && pickerChainID != null) {
+    if (Mapper.checkCanLoopList(specs) == true && pickerChainID != null) {
       _result = specs
           .firstWhere(
             (SpecModel spec) => spec.pickerChainID == pickerChainID,
@@ -453,7 +453,7 @@ class SpecModel {
   static List<String> getSpecsIDs(List<SpecModel> specs){
     final List<String> _output = <String>[];
 
-    if (Mapper.canLoopList(specs) == true){
+    if (Mapper.checkCanLoopList(specs) == true){
       for (final SpecModel spec in specs){
 
         if (spec.value is String){
@@ -480,7 +480,7 @@ class SpecModel {
     ///
     final List<SpecModel> _specs = parentSpecs;
 
-    if (Mapper.canLoopList(inputSpecs)) {
+    if (Mapper.checkCanLoopList(inputSpecs)) {
       for (final SpecModel inputSpec in inputSpecs) {
 
         /// A - CAN PICK MANY "of this list ID"
@@ -537,7 +537,7 @@ class SpecModel {
   static List<SpecModel> cleanSpecs(List<SpecModel> specs) {
     final List<SpecModel> _output = <SpecModel>[];
 
-    if (Mapper.canLoopList(specs)) {
+    if (Mapper.checkCanLoopList(specs)) {
       for (final SpecModel spec in specs) {
         if (spec != null &&
             spec.value != null &&
@@ -561,7 +561,7 @@ class SpecModel {
 
     List<SpecModel> _output = <SpecModel>[];
 
-    if (Mapper.canLoopList(specs) == true){
+    if (Mapper.checkCanLoopList(specs) == true){
       _output = <SpecModel>[...specs];
 
       _output.remove(spec);
@@ -583,9 +583,9 @@ class SpecModel {
     List<SpecModel> _output = <SpecModel>[...sourceSpecs];
 
     if (
-    Mapper.canLoopList(_output) == true
+    Mapper.checkCanLoopList(_output) == true
         &&
-    Mapper.canLoopList(specsToRemove) == true
+    Mapper.checkCanLoopList(specsToRemove) == true
     ){
 
       blog('removeSpecsFromSpecs : can remove them');

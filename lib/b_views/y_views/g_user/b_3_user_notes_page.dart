@@ -52,7 +52,7 @@ class UserNotesPage extends StatelessWidget {
       listen: true,
     );
 
-    if (Mapper.canLoopList(_userNotes) == false){
+    if (Mapper.checkCanLoopList(_userNotes) == false){
 
       return const SizedBox();
 
@@ -70,7 +70,7 @@ class UserNotesPage extends StatelessWidget {
         ),
         itemBuilder: (BuildContext ctx, int index) {
 
-          final NoteModel _notiModel = Mapper.canLoopList(_userNotes) == true ? _userNotes[index] : null;
+          final NoteModel _notiModel = Mapper.checkCanLoopList(_userNotes) == true ? _userNotes[index] : null;
 
           return NoteCard(
             noteModel: _notiModel,

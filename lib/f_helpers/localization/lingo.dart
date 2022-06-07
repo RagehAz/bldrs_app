@@ -41,7 +41,7 @@ class Lang {
   static List<MapModel> getLingoNamesMapModels(List<Lang> lingos) {
     final List<MapModel> _lingosMapModels = <MapModel>[];
 
-    if (Mapper.canLoopList(lingos)) {
+    if (Mapper.checkCanLoopList(lingos)) {
       for (final Lang lingo in lingos) {
         _lingosMapModels.add(MapModel(
           key: lingo.code,

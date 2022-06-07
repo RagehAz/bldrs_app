@@ -90,7 +90,7 @@ class DistrictModel{
     final List<String> _keys = map.keys.toList();
     final List<dynamic> _values = map.values.toList();
 
-    if (Mapper.canLoopList(_keys)){
+    if (Mapper.checkCanLoopList(_keys)){
 
       for (int i = 0; i<_keys.length; i++){
 
@@ -116,7 +116,7 @@ class DistrictModel{
 
     final List<MapModel> _districtsMapModels = <MapModel>[];
 
-    if (Mapper.canLoopList(districts)){
+    if (Mapper.checkCanLoopList(districts)){
 
       for (final DistrictModel district in districts){
         _districtsMapModels.add(
@@ -146,7 +146,7 @@ class DistrictModel{
     @required String districtID
   }){
     DistrictModel _district;
-    if (Mapper.canLoopList(districts)){
+    if (Mapper.checkCanLoopList(districts)){
 
       _district = districts.firstWhere(
               (DistrictModel district) => district.districtID == districtID,
@@ -252,7 +252,7 @@ class DistrictModel{
   }){
     final List<DistrictModel> _foundDistricts = <DistrictModel>[];
 
-    if (Mapper.canLoopList(sourceDistricts) && Mapper.canLoopList(names)){
+    if (Mapper.checkCanLoopList(sourceDistricts) && Mapper.checkCanLoopList(names)){
 
       for (final Phrase name in names){
 
@@ -296,7 +296,7 @@ class DistrictModel{
 // -------------------------------------
   static void blogDistricts(List<DistrictModel> districts){
 
-    if (Mapper.canLoopList(districts) == true){
+    if (Mapper.checkCanLoopList(districts) == true){
 
       blog('BLOGGING ${districts.length} DISTRICTS -------------------------------- STAR');
 

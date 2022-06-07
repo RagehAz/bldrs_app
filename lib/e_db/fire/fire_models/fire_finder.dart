@@ -107,7 +107,7 @@ class FireFinder {
 
     Query<Map<String, dynamic>> _output = query;
 
-    if (Mapper.canLoopList(finders) == true){
+    if (Mapper.checkCanLoopList(finders) == true){
 
       for (final FireFinder finder in finders){
         _output = createQueryByFinder(

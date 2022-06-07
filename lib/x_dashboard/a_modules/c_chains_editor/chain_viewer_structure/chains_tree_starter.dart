@@ -24,7 +24,7 @@ class ChainsTreesStarter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.canLoopList(chains) == true){
+    if (Mapper.checkCanLoopList(chains) == true){
       return ListView.builder(
           key: const ValueKey<String>('ChainsTreesStarter'),
           physics: const BouncingScrollPhysics(),

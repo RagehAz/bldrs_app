@@ -94,7 +94,7 @@ class SlideModel {
   static Map<String, Object> cipherSlides(List<SlideModel> slides) {
     Map<String, Object> _slidesMap = <String, Object>{};
 
-    if (Mapper.canLoopList(slides)) {
+    if (Mapper.checkCanLoopList(slides)) {
       for (final SlideModel slide in slides) {
         _slidesMap = Mapper.insertPairInMap(
           map: _slidesMap,
@@ -111,7 +111,7 @@ class SlideModel {
     final List<SlideModel> _slides = <SlideModel>[];
     final List<String> _keys = maps.keys.toList();
 
-    if (Mapper.canLoopList(_keys)) {
+    if (Mapper.checkCanLoopList(_keys)) {
       for (final String key in _keys) {
         final Map<String, dynamic> _slideMap = maps[key];
         final SlideModel _slide = decipherSlide(_slideMap);
@@ -198,7 +198,7 @@ class SlideModel {
 // -------------------------------------
   static void blogSlides(List<SlideModel> slides) {
 
-    if (Mapper.canLoopList(slides) == false) {
+    if (Mapper.checkCanLoopList(slides) == false) {
       blog('slides can not be printed : slides are : $slides');
     }
 
@@ -352,7 +352,7 @@ class SlideModel {
   static Future<List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
     final List<File> _files = <File>[];
 
-    if (Mapper.canLoopList(slides)) {
+    if (Mapper.checkCanLoopList(slides)) {
       for (final SlideModel slide in slides) {
         final File _file = await Imagers.getFileFromURL(slide.pic);
 
@@ -366,7 +366,7 @@ class SlideModel {
   static Future<List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
     final List<Asset> _assets = <Asset>[];
 
-    if (Mapper.canLoopList(slides)) {
+    if (Mapper.checkCanLoopList(slides)) {
       for (final SlideModel slide in slides) {
         final File _file = await Imagers.getFileFromURL(slide.pic);
         final ImageSize imageSize = await ImageSize.superImageSize(_file);
@@ -392,7 +392,7 @@ class SlideModel {
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
     final List<BoxFit> _boxFits = <BoxFit>[];
 
-    if (Mapper.canLoopList(slides)) {
+    if (Mapper.checkCanLoopList(slides)) {
       for (final SlideModel slide in slides) {
         final BoxFit _fit = slide.picFit;
 
@@ -449,7 +449,7 @@ class SlideModel {
   static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides) {
     final List<SlideModel> _slides = <SlideModel>[];
 
-    if (Mapper.canLoopList(mSlides)) {
+    if (Mapper.checkCanLoopList(mSlides)) {
       for (final MutableSlide mSlide in mSlides) {
         _slides.add(getSlideFromMutableSlide(mSlide));
       }
@@ -465,7 +465,7 @@ class SlideModel {
   static List<bool> createVisibilityListFromSlides(List<SlideModel> slides) {
     final List<bool> _visibilityList = <bool>[];
 
-    if (Mapper.canLoopList(slides)) {
+    if (Mapper.checkCanLoopList(slides)) {
       for (int i = 0; i < slides.length; i++) {
         _visibilityList.add(true);
       }

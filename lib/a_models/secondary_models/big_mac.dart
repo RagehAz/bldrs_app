@@ -48,7 +48,7 @@ class BigMac {
 
     final List<BigMac> _bigMacs = <BigMac>[];
 
-    if (Mapper.canLoopList(maps)) {
+    if (Mapper.checkCanLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
         _bigMacs.add(decipherBigMac(map));
       }
@@ -61,7 +61,7 @@ class BigMac {
   static Map<String, dynamic> cipherBigMacs(List<BigMac> bigMacs) {
     Map<String, dynamic> _bigMacsMap = <String, dynamic>{};
 
-    if (Mapper.canLoopList(bigMacs)) {
+    if (Mapper.checkCanLoopList(bigMacs)) {
       for (final BigMac mac in bigMacs) {
         _bigMacsMap = Mapper.insertPairInMap(
           map: _bigMacsMap,
@@ -78,7 +78,7 @@ class BigMac {
   static List<String> getCountriesIDsFromBigMacs(List<BigMac> bigMacs) {
     final List<String> _countriesIDs = <String>[];
 
-    if (Mapper.canLoopList(bigMacs)) {
+    if (Mapper.checkCanLoopList(bigMacs)) {
       for (final BigMac bigMac in bigMacs) {
         _countriesIDs.add(bigMac.countryID);
       }

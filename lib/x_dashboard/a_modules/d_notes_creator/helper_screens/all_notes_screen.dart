@@ -88,7 +88,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       context: context,
       collName: FireColl.notes,
-      startAfter: Mapper.canLoopList(_notes.value) == true ? _notes.value.last.docSnapshot : null,
+      startAfter: Mapper.checkCanLoopList(_notes.value) == true ? _notes.value.last.docSnapshot : null,
       orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
       addDocsIDs: true,
       addDocSnapshotToEachMap: true,
@@ -102,7 +102,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
       // ],
     );
 
-    if (Mapper.canLoopList(_maps) == true){
+    if (Mapper.checkCanLoopList(_maps) == true){
 
       final List<NoteModel> _newNotes = NoteModel.decipherNotesModels(
         maps: _maps,
@@ -165,7 +165,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
         valueListenable: _notes,
         builder: (_, List<NoteModel> notesModels, Widget child) {
 
-          if (Mapper.canLoopList(notesModels) == false){
+          if (Mapper.checkCanLoopList(notesModels) == false){
             return const SizedBox();
           }
 

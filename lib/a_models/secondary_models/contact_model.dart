@@ -76,7 +76,7 @@ class ContactModel {
   static Map<String, Object> cipherContacts(List<ContactModel> contacts) {
     Map<String, Object> _map = <String, Object>{};
 
-    if (Mapper.canLoopList(contacts)) {
+    if (Mapper.checkCanLoopList(contacts)) {
       for (final ContactModel contact in contacts) {
         if (contact.value != null && contact.value != '') {
           _map = Mapper.insertPairInMap(
@@ -97,7 +97,7 @@ class ContactModel {
     if (maps != null) {
       final List<String> _keys = maps.keys.toList();
 
-      if (Mapper.canLoopList(_keys)) {
+      if (Mapper.checkCanLoopList(_keys)) {
         for (final String key in _keys) {
 
           final ContactModel _contact = ContactModel(
@@ -167,7 +167,7 @@ class ContactModel {
 
     String _contactValue;
 
-    if (Mapper.canLoopList(contacts) == true){
+    if (Mapper.checkCanLoopList(contacts) == true){
 
       _contactValue = getAContactModelFromContacts(
         contacts: contacts,
@@ -298,7 +298,7 @@ class ContactModel {
   static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts) {
     final List<String> values = <String>[];
 
-    if (Mapper.canLoopList(contacts)) {
+    if (Mapper.checkCanLoopList(contacts)) {
       for (final ContactModel co in contacts) {
         values.add(co.value);
       }
@@ -310,7 +310,7 @@ class ContactModel {
   static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts) {
     final List<String> icons = <String>[];
 
-    if (Mapper.canLoopList(contacts)) {
+    if (Mapper.checkCanLoopList(contacts)) {
       for (final ContactModel co in contacts) {
         icons.add(ContactModel.getContactIcon(co.contactType));
       }
@@ -467,7 +467,7 @@ class ContactModel {
     String methodName = 'Contacts Models',
   }){
 
-    if (Mapper.canLoopList(contacts) == true){
+    if (Mapper.checkCanLoopList(contacts) == true){
       for (final ContactModel contact in contacts){
 
         contact.blogContact(

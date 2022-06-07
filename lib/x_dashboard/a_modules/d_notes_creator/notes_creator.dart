@@ -538,7 +538,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                   ...List.generate(NoteModel.noteButtonsList.length, (index){
 
                                     final String _phid = NoteModel.noteButtonsList[index];
-                                    final bool _isSelected = Mapper.stringsContainString(
+                                    final bool _isSelected = Mapper.checkStringsContainString(
                                         strings: noteModel.buttons,
                                         string: _phid
                                     );
@@ -689,7 +689,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                             ),
 
                             /// MISSING FIELDS BOX
-                            if (Mapper.canLoopList(_missingNoteFields) == true)
+                            if (Mapper.checkCanLoopList(_missingNoteFields) == true)
                             Container(
                               width: 220,
                               height: 50,

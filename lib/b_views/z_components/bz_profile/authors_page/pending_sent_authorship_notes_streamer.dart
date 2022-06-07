@@ -114,7 +114,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
       stream: _stream,
       builder: (_, List<NoteModel> notes){
 
-        if (Mapper.canLoopList(notes) == true){
+        if (Mapper.checkCanLoopList(notes) == true){
           return Bubble(
             title: 'Pending Invitation requests',
             width: BldrsAppBar.width(context),

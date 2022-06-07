@@ -219,7 +219,7 @@ Future<List<String>> createStorageSlidePicsAndGetURLs({
 
   final List<String> _picturesURLs = <String>[];
 
-  if (Mapper.canLoopList(slides) == true && flyerID != null && authorID != null){
+  if (Mapper.checkCanLoopList(slides) == true && flyerID != null && authorID != null){
 
     for (final SlideModel slide in slides) {
 
@@ -252,9 +252,9 @@ Future<List<String>> createMultipleStoragePicsAndGetURLs({
   final List<String> _picsURLs = <String>[];
 
   if (
-  Mapper.canLoopList(pics)
+  Mapper.checkCanLoopList(pics)
   &&
-  Mapper.canLoopList(names)
+  Mapper.checkCanLoopList(names)
   &&
   pics.length == names.length
   ) {

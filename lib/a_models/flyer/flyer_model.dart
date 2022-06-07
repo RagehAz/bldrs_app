@@ -124,7 +124,7 @@ class FlyerModel {
   }){
     final List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
-    if (Mapper.canLoopList(flyers)){
+    if (Mapper.checkCanLoopList(flyers)){
 
       for (final FlyerModel flyer in flyers){
 
@@ -184,7 +184,7 @@ class FlyerModel {
   }){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
-    if (Mapper.canLoopList(maps)){
+    if (Mapper.checkCanLoopList(maps)){
 
       for (final Map<String, dynamic> map in maps){
         _flyersList.add(decipherFlyer(
@@ -264,7 +264,7 @@ class FlyerModel {
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    if (flyerModel != null && Mapper.canLoopList(flyerModel.slides)){
+    if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides)){
 
       for (final SlideModel slide in flyerModel.slides){
         final TextEditingController _controller = TextEditingController(text: slide.headline);
@@ -280,7 +280,7 @@ class FlyerModel {
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    if (flyerModel != null && Mapper.canLoopList(flyerModel.slides)){
+    if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides)){
 
       for (final SlideModel slide in flyerModel.slides){
         final TextEditingController _controller = TextEditingController(text: slide.description);
@@ -419,7 +419,7 @@ class FlyerModel {
     String methodName = 'BLOGGING FLYERS',
   }){
 
-    if (Mapper.canLoopList(flyers) == true){
+    if (Mapper.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
 
@@ -481,7 +481,7 @@ class FlyerModel {
   static int getTotalSaves(FlyerModel flyer){
     int _totalSaves = 0;
 
-    if (flyer != null && Mapper.canLoopList(flyer.slides)){
+    if (flyer != null && Mapper.checkCanLoopList(flyer.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalSaves = _totalSaves + slide.savesCount;
@@ -495,7 +495,7 @@ class FlyerModel {
   static int getTotalShares(FlyerModel flyer){
     int _totalShares = 0;
 
-    if (flyer != null && Mapper.canLoopList(flyer?.slides)){
+    if (flyer != null && Mapper.checkCanLoopList(flyer?.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalShares = _totalShares + slide.sharesCount;
@@ -509,7 +509,7 @@ class FlyerModel {
   static int getTotalViews(FlyerModel flyer){
     int _totalViews = 0;
 
-    if (flyer != null &&Mapper.canLoopList(flyer?.slides)){
+    if (flyer != null &&Mapper.checkCanLoopList(flyer?.slides)){
 
       for (final SlideModel slide in flyer.slides){
         _totalViews = _totalViews + slide.viewsCount;
@@ -552,7 +552,7 @@ class FlyerModel {
   static List<String> getFlyersIDsFromFlyers(List<FlyerModel> flyers){
     final List<String> _flyerIDs = <String>[];
 
-    if (Mapper.canLoopList(flyers)){
+    if (Mapper.checkCanLoopList(flyers)){
 
       for (final FlyerModel flyer in flyers){
         _flyerIDs.add(flyer.id);
@@ -570,7 +570,7 @@ class FlyerModel {
   }){
     List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
-    if(Mapper.canLoopList(flyers)){
+    if(Mapper.checkCanLoopList(flyers)){
 
       if (flyerType == FlyerType.all){
         _filteredFlyers = flyers;
@@ -597,7 +597,7 @@ class FlyerModel {
 
     final List<FlyerModel> _authorFlyers = <FlyerModel>[];
 
-    if (Mapper.canLoopList(flyers) == true && authorID != null){
+    if (Mapper.checkCanLoopList(flyers) == true && authorID != null){
 
       for (final FlyerModel flyer in flyers){
 
@@ -619,7 +619,7 @@ class FlyerModel {
   }){
     bool _hasTheID = false;
 
-    if (flyerID != null && Mapper.canLoopList(flyers)){
+    if (flyerID != null && Mapper.checkCanLoopList(flyers)){
 
       for (final FlyerModel flyer in flyers){
 
@@ -646,7 +646,7 @@ class FlyerModel {
 }){
     final List<FlyerModel> _output = <FlyerModel>[...flyers];
 
-    if (Mapper.canLoopList(flyers) == true && flyerIDToRemove != null){
+    if (Mapper.checkCanLoopList(flyers) == true && flyerIDToRemove != null){
       _output.removeWhere((flyer) => flyer.id == flyerIDToRemove);
     }
 

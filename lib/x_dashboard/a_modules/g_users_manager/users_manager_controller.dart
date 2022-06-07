@@ -37,7 +37,7 @@ Future<void> readMoreUsers({
   );
 
   /// WHEN FOUND MORE USERS
-  if (Mapper.canLoopList(_maps) == true){
+  if (Mapper.checkCanLoopList(_maps) == true){
 
     final List<UserModel> _fetchedModel = UserModel.decipherUsers(
       maps: _maps,
@@ -148,7 +148,7 @@ Future<void> onDeleteUser({
   @required ValueNotifier<UserModel> selectedUserModel,
 }) async {
 
-  if (Mapper.canLoopList(userModel.myBzzIDs) == true){
+  if (Mapper.checkCanLoopList(userModel.myBzzIDs) == true){
     await CenterDialog.showCenterDialog(
       context: context,
       title: 'User is Author !',
