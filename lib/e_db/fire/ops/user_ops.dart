@@ -195,7 +195,7 @@ Future<UserModel> readUser({
     // blog('lng : ${Wordz.languageCode(context)}');
 
     _user = _userMap == null ? null :
-    UserModel.decipherUserMap(
+    UserModel.decipherUser(
       map: _userMap,
       fromJSON: false,
     );

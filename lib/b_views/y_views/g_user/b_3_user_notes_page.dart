@@ -47,49 +47,40 @@ class UserNotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final double _screenWidth = Scale.superScreenWidth(context);
     final List<NoteModel> _userNotes = NotesProvider.proGetUserNotes(
       context: context,
       listen: true,
     );
 
-    return ValueListenableBuilder(
-        valueListenable: ValueNotifier(_userNotes),
-        builder: (_, List<NoteModel> _notes, Widget child){
+    if (Mapper.canLoopList(_userNotes) == false){
 
-          if (Mapper.canLoopList(_notes) == false){
+      return const SizedBox();
 
-            return const SizedBox();
+    }
 
-          }
+    else {
 
-          else {
+      return ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        controller: ScrollController(),
+        itemCount: _userNotes?.length,
+        padding: const EdgeInsets.only(
+          // top: Ratioz.stratosphere,
+          bottom: Ratioz.horizon,
+        ),
+        itemBuilder: (BuildContext ctx, int index) {
 
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              controller: ScrollController(),
-              itemCount: _notes?.length,
-              padding: const EdgeInsets.only(
-                // top: Ratioz.stratosphere,
-                bottom: Ratioz.horizon,
-              ),
-              itemBuilder: (BuildContext ctx, int index) {
+          final NoteModel _notiModel = Mapper.canLoopList(_userNotes) == true ? _userNotes[index] : null;
 
-                final NoteModel _notiModel = Mapper.canLoopList(_notes) == true ? _notes[index] : null;
+          return NoteCard(
+            noteModel: _notiModel,
+            isDraftNote: false,
+          );
 
-                return NoteCard(
-                  noteModel: _notiModel,
-                  isDraftNote: false,
-                );
+        },
+      );
 
-              },
-            );
-
-          }
-
-        }
-    );
-
+    }
 
   }
 }

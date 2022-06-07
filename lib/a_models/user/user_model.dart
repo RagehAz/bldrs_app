@@ -247,7 +247,29 @@ class UserModel {
   }
 // -----------------------------------
   /// TAMAM : WORKS PERFECT
-  static UserModel decipherUserMap({
+  static List<Map<String, dynamic>> cipherUsers({
+    @required List<UserModel> users,
+    @required bool toJSON,
+  }){
+
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+
+    if (Mapper.canLoopList(users) == true){
+
+      for (final UserModel user in users){
+
+        final Map<String, dynamic> _map = user.toMap(toJSON: toJSON);
+        _maps.add(_map);
+
+      }
+
+    }
+
+    return _maps;
+  }
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
+  static UserModel decipherUser({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
   }) {
@@ -298,7 +320,7 @@ class UserModel {
   }
 // -----------------------------------
   /// TAMAM : WORKS PERFECT
-  static List<UserModel> decipherUsersMaps({
+  static List<UserModel> decipherUsers({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
   }) {
@@ -306,7 +328,7 @@ class UserModel {
 
     if (Mapper.canLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
-        _users.add(decipherUserMap(
+        _users.add(decipherUser(
             map: map,
             fromJSON: fromJSON
         )
@@ -424,7 +446,7 @@ class UserModel {
     return _thereAreMissingFields;
   }
 // -----------------------------------
-  static bool checkUsersContainThisUser({
+  static bool checkUsersContainUser({
     @required List<UserModel> usersModels,
     @required UserModel userModel,
   }){
@@ -522,7 +544,7 @@ class UserModel {
 
     if (userModel != null){
 
-      final bool _alreadySelected = checkUsersContainThisUser(
+      final bool _alreadySelected = checkUsersContainUser(
           usersModels: _output,
           userModel: userModel
       );
@@ -532,6 +554,52 @@ class UserModel {
       }
       else {
         _output.add(userModel);
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------
+  static List<UserModel> addUniqueUserToUsers({
+    @required List<UserModel> usersToGet,
+    @required UserModel userToAdd,
+  }){
+
+    final List<UserModel> _output = usersToGet ?? <UserModel>[];
+
+    if (userToAdd != null){
+
+      final bool _contains = checkUsersContainUser(
+          usersModels: _output,
+          userModel: userToAdd,
+      );
+
+      if (_contains == false){
+        _output.add(userToAdd);
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------
+  static List<UserModel> addUniqueUsersToUsers({
+    @required List<UserModel> usersToGet,
+    @required List<UserModel> usersToAdd,
+  }){
+
+    List<UserModel> _output = usersToGet;
+
+    if (Mapper.canLoopList(usersToAdd) == true){
+
+      for (final UserModel user in usersToAdd){
+
+        _output = addUniqueUserToUsers(
+            usersToGet: usersToGet,
+            userToAdd: user
+        );
+
       }
 
     }
