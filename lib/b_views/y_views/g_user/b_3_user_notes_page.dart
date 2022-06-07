@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +10,10 @@ class UserNotesPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserNotesPage({
     @required this.userModel,
-    @required this.notes,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
-  final ValueNotifier<List<NoteModel>> notes;
   /// --------------------------------------------------------------------------
   /*
   Future<void> _dismissNote({
@@ -49,9 +48,13 @@ class UserNotesPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // final double _screenWidth = Scale.superScreenWidth(context);
+    final List<NoteModel> _userNotes = NotesProvider.proGetUserNotes(
+      context: context,
+      listen: true,
+    );
 
     return ValueListenableBuilder(
-        valueListenable: notes,
+        valueListenable: ValueNotifier(_userNotes),
         builder: (_, List<NoteModel> _notes, Widget child){
 
           if (Mapper.canLoopList(_notes) == false){

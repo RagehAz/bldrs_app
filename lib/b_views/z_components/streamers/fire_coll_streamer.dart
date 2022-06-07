@@ -77,10 +77,10 @@ class FireCollStreamer extends StatefulWidget {
 }
 
 class _FireCollStreamerState extends State<FireCollStreamer> {
-
+// -----------------------------------------------------------------------------
   Stream<QuerySnapshot<Object>> _stream;
   List<Map<String, dynamic>> _oldMaps;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -103,7 +103,6 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
     );
 
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -132,4 +131,5 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
     );
 
   }
+
 }
