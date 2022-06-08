@@ -11,6 +11,7 @@ import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -74,6 +75,7 @@ class MyProfileButton extends StatelessWidget {
       final bool _thereAreMissingFields = UserModel.checkMissingFields(_userModel);
 
       return FireCollStreamer(
+          queryParameters: QueryParameters(
           collName: FireColl.notes,
           limit: 100,
           orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
@@ -100,6 +102,8 @@ class MyProfileButton extends StatelessWidget {
             );
 
           },
+
+        ),
           builder: (_, List<Map<String, dynamic>> maps){
 
             final List<NoteModel> _notes = NoteModel.decipherNotesModels(

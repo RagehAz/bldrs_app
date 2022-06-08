@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/streamers/clock_rebuilder.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -28,6 +29,7 @@ class StreamingTest extends StatefulWidget {
 }
 
 class _StreamingTestState extends State<StreamingTest> {
+  QueryParameters _queryParameters;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -43,6 +45,13 @@ class _StreamingTestState extends State<StreamingTest> {
   @override
   void initState() {
     super.initState();
+
+    _queryParameters = QueryParameters(
+      collName: 'testing',
+      limit: 100,
+      orderBy: const Fire.QueryOrderBy(fieldName: 'time', descending: true),
+      onDataChanged: onDataChanged,
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -101,6 +110,11 @@ class _StreamingTestState extends State<StreamingTest> {
     return DashBoardLayout(
       pageTitle: 'Streaming Test',
         loading: _loading,
+        onBldrsTap: (){
+
+
+
+        },
         listWidgets: <Widget>[
 
           WideButton(
@@ -123,16 +137,14 @@ class _StreamingTestState extends State<StreamingTest> {
           ),
 
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
               /// left stream
               SizedBox(
                 width: superScreenWidth(context) * 0.5,
                 child: FireCollStreamer(
-                  collName: 'testing',
-                  limit: 100,
-                  orderBy: const Fire.QueryOrderBy(fieldName: 'time', descending: true),
-                  onDataChanged: onDataChanged,
+                  queryParameters: _queryParameters,
                   builder: (_, List<Map<String, dynamic>> _maps){
 
                     return Column(
@@ -189,7 +201,6 @@ class _StreamingTestState extends State<StreamingTest> {
   }
 }
 
-
 class ColorButton extends StatelessWidget {
 
   const ColorButton({
@@ -210,12 +221,12 @@ class ColorButton extends StatelessWidget {
         final String _mmss = Timers.generateString_hh_i_mm_i_ss(_time);
 
         return DreamBox(
-          height: 60,
-          width: superScreenWidth(context) * 0.5,
+          height: 100,
+          width: 100,
           verse: map['id'],
           verseColor: Colorz.white30,
           verseShadow: false,
-          iconSizeFactor: 0.9,
+          iconSizeFactor: 0.5,
           secondLine: '( $_mmss )',
           color: Colorizers.decipherColor(map['color']),
           verseCentered: false,

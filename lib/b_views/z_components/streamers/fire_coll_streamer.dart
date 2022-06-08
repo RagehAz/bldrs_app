@@ -1,34 +1,22 @@
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 
 class FireCollStreamer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FireCollStreamer({
-    @required this.collName,
+    @required this.queryParameters,
     @required this.builder,
-    this.limit,
-    this.orderBy,
-    this.finders,
-    this.onDataChanged,
-    this.startAfter,
-    this.initialMaps,
     this.loadingWidget,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String collName;
+  final QueryParameters queryParameters;
   final Widget Function(BuildContext, List<Map<String, dynamic>>) builder;
-  final int limit;
-  final Fire.QueryOrderBy orderBy;
-  final List<FireFinder> finders;
-  final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
-  final QueryDocumentSnapshot startAfter;
-  final List<Map<String, dynamic>> initialMaps;
   final Widget loadingWidget;
   /// --------------------------------------------------------------------------
   static void onStreamDataChanged({
@@ -79,28 +67,28 @@ class FireCollStreamer extends StatefulWidget {
 class _FireCollStreamerState extends State<FireCollStreamer> {
 // -----------------------------------------------------------------------------
   Stream<QuerySnapshot<Object>> _stream;
-  List<Map<String, dynamic>> _oldMaps;
+  List<Map<String, dynamic>> _oldMaps = <Map<String, dynamic>>[];
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
     _stream = Fire.streamCollection(
-      collName: widget.collName,
-      limit: widget.limit,
-      orderBy: widget.orderBy,
-      startAfter: widget.startAfter,
-      finders: widget.finders,
+      collName: widget.queryParameters.collName,
+      limit: widget.queryParameters.limit ?? 100,
+      orderBy: widget.queryParameters.orderBy,
+      finders: widget.queryParameters.finders,
     );
 
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
       oldMaps: _oldMaps,
-      onChange: widget.onDataChanged == null ?
+      onChange: widget.queryParameters.onDataChanged == null ?
       null
           :
-          (List<Map<String, dynamic>> newMaps) => widget.onDataChanged(newMaps),
+          (List<Map<String, dynamic>> newMaps) => widget.queryParameters.onDataChanged(newMaps),
     );
+
 
   }
 // -----------------------------------------------------------------------------
@@ -109,7 +97,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
     return StreamBuilder(
       stream: _stream,
-      initialData: widget.initialMaps,
+      initialData: widget.queryParameters.initialMaps,
       builder: (BuildContext ctx, AsyncSnapshot<dynamic> snapshot) {
 
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -124,11 +112,14 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
             addDocSnapshotToEachMap: true,
           );
 
+          _oldMaps = _maps;
+
           return widget.builder(ctx, _maps);
         }
 
       },
     );
+
 
   }
 
