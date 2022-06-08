@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.d
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/pending_sent_authorship_notes_streamer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_bz_authors_controller.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -14,63 +15,11 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/*
-
-  OLD AUTHOR EDITING METHODS IN OLD BZ EDITOR FOR YOUR REFERENCE
-
-    // ---------------------------------------------------------------
-
-  /// IN ON CREATE
-
-    //   /// create new master AuthorModel
-    //   final AuthorModel _firstMasterAuthor = AuthorModel(
-    //     userID: widget.userModel.id,
-    //     name: _authorNameTextController.text,
-    //     pic: _currentAuthorPicFile, // if null createBzOps uses user.pic URL instead
-    //     title: _authorTitleTextController.text,
-    //     isMaster: true,
-    //     contacts: _currentAuthorContacts,
-    //   );
-
-    //   final List<AuthorModel> _firstTimeAuthorsList = <AuthorModel>[
-    //     _firstMasterAuthor,
-    //   ];
-
-    // ---------------------------------------------------------------
-
-  /// IN ON UPDATE
-
-    //   /// create modified authorModel
-    //   final AuthorModel _newAuthor = AuthorModel(
-    //     userID: widget.userModel.id,
-    //     name: _authorNameTextController.text,
-    //     pic: _currentAuthorPicFile ?? _currentAuthorPicURL,
-    //     title: _authorTitleTextController.text,
-    //     isMaster: _currentAuthor.isMaster,
-    //     contacts: _currentAuthorContacts,
-    //   );
-    //
-    //   final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
-    //       widget.bzModel, widget.userModel.id);
-    //
-    //   final List<AuthorModel> _modifiedAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
-    //     originalAuthors: _currentBzAuthors,
-    //     oldAuthor: _oldAuthor,
-    //     newAuthor: _newAuthor,
-    //   );
-
-    // ---------------------------------------------------------------
-
-   */
-
 class BzAuthorsPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzAuthorsPage({
-    @required this.bzModel,
     Key key,
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final BzModel bzModel;
   /// --------------------------------------------------------------------------
   @override
   State<BzAuthorsPage> createState() => _BzAuthorsPageState();
@@ -91,10 +40,10 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
     );
   }
 // -----------------------------------------------------------------------------
+
   @override
   void initState() {
     super.initState();
-
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -127,10 +76,12 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
   @override
   Widget build(BuildContext context) {
 
-    final List<AuthorModel> _authors = widget.bzModel.authors;
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
+
+    final List<AuthorModel> _authors = _bzModel.authors;
     final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
         userID: superUserID(),
-        bzModel: widget.bzModel,
+        bzModel: _bzModel,
     );
 
     return ListView(
@@ -173,7 +124,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
           final AuthorModel _author = _authors[index];
           return AuthorCard(
             author: _author,
-            bzModel: widget.bzModel,
+            bzModel: _bzModel,
           );
         }
         ),

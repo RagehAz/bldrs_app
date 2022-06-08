@@ -305,7 +305,7 @@ Future<void> _firstTimerCreateNewBzOps({
   if (_uploadedBzModel != null){
 
     /// LDB CREATE BZ OPS
-    await BzLDBOps.createBzOps(
+    await BzLDBOps.insertBz(
       bzModel: _uploadedBzModel,
     );
     /// LDB UPDATE USER MODEL
