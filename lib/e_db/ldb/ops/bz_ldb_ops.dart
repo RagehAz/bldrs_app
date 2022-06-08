@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 
 class BzLDBOps {
 
@@ -10,8 +10,8 @@ class BzLDBOps {
 
   /// CREATE
 
-// ----------------------------------------
-  static Future<void> createBzOps({
+// -------------------------------
+  static Future<void> insertBz({
   @required BzModel bzModel,
 }) async {
 
@@ -21,17 +21,31 @@ class BzLDBOps {
     );
 
   }
+// -------------------------------
+  static Future<void> insertBzz({
+  @required List<BzModel> bzz,
+}) async {
+
+    await LDBOps.insertMaps(
+      docName: LDBDoc.bzz,
+      inputs: BzModel.cipherBzz(
+        bzz: bzz,
+        toJSON: true,
+      ),
+    );
+
+}
 // -----------------------------------------------------------------------------
 
   /// READ
 
-// ----------------------------------------
+// -------------------------------
 
 // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// ----------------------------------------
+// -------------------------------
   static Future<void> updateBzOps({
     @required BzModel bzModel,
   }) async {
@@ -46,7 +60,7 @@ class BzLDBOps {
 
   /// DELETE
 
-// ----------------------------------------
+// -------------------------------
   static Future<void> deleteBzOps({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -58,11 +72,11 @@ class BzLDBOps {
     );
 
   }
-// ----------------------------------------
+// -------------------------------
   static Future<void> wipeOut(BuildContext context) async {
 
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bzz);
 
   }
-// ----------------------------------------
+// -------------------------------
 }

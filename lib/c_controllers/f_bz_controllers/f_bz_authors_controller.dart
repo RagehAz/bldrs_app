@@ -140,6 +140,7 @@ Future<void> sendAuthorshipInvitation({
       senderImageURL: _myAuthorModel.pic,
       noteSenderType: NoteSenderType.bz,
       receiverID: selectedUser.id,
+      receiverType: NoteReceiverType.user,
       title: 'Business Account Invitation',
       body: "'${_myAuthorModel.name}' sent you an invitation to become an Author for '${bzModel.name}' business page",
       metaData: NoteModel.defaultMetaData,

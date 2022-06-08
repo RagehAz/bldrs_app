@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -10,24 +11,24 @@ import 'package:flutter/material.dart';
 class BzPowersPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzPowersPage({
-    @required this.bzModel,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
-  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
+
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: <Widget>[
 
-        const Bubble(
+        Bubble(
           title: 'Get More Slides',
           columnChildren: <Widget>[
 
             SuperVerse(
-              verse: 'You have got 500 slides left',
+              verse: '${_bzModel.name} has got 500 slides left',
             ),
           ],
         ),

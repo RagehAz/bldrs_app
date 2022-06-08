@@ -247,7 +247,7 @@ Future<void> _modifyBzAuthorshipOps({
   );
 
   /// LDB OPS
-  await BzLDBOps.createBzOps(bzModel: _uploadedBzModel);
+  await BzLDBOps.insertBz(bzModel: _uploadedBzModel);
 
 }
 // ------------------------------------------

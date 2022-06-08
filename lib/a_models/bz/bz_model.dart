@@ -71,6 +71,7 @@ enum BzTab{
   flyers,
   about,
   authors,
+  notes,
   targets,
   powers,
   network,
@@ -204,9 +205,11 @@ class BzModel{
     );
 }
 // -----------------------------------------------------------------------------
+
   /// CYPHERS
 
-// ------------------------------------------
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -243,7 +246,29 @@ class BzModel{
       'flyersIDs': flyersIDs,
     };
   }
-// -----------------------------------------------------------------------------
+// -------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> cipherBzz({
+    @required List<BzModel> bzz,
+    @required bool toJSON,
+  }) {
+
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+
+    if (Mapper.checkCanLoopList(bzz) == true){
+
+      for (final BzModel bz in bzz){
+
+        _maps.add(bz.toMap(toJSON: toJSON));
+
+      }
+
+    }
+
+    return _maps;
+  }
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static BzModel decipherBz({
     @required dynamic map,
     @required bool fromJSON,
@@ -288,7 +313,8 @@ class BzModel{
 
     return _bzModel;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static List<BzModel> decipherBzz({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -1382,6 +1408,7 @@ class BzModel{
     BzTab.flyers,
     BzTab.about,
     BzTab.authors,
+    BzTab.notes,
     BzTab.targets,
     BzTab.powers,
     BzTab.network,
@@ -1392,6 +1419,7 @@ class BzModel{
     'Flyers',
     'About',
     'Authors',
+    'Notifications',
     'Targets',
     'Powers',
     'Network',

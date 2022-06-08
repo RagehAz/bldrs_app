@@ -29,6 +29,11 @@ enum NoteSenderType {
   bz,
   country,
 }
+// ------------------------
+enum NoteReceiverType {
+  user,
+  bz,
+}
 // -----------------------------------------------------------------------------
 class NoteModel {
   /// --------------------------------------------------------------------------
@@ -38,6 +43,7 @@ class NoteModel {
     @required this.senderImageURL,
     @required this.noteSenderType,
     @required this.receiverID,
+    @required this.receiverType,
     @required this.title,
     @required this.body,
     @required this.metaData,
@@ -59,6 +65,7 @@ class NoteModel {
   final String senderImageURL;
   final NoteSenderType noteSenderType;
   final String receiverID;
+  final NoteReceiverType receiverType;
   final String title; /// max 30 char
   final String body; /// max 80 char
   final Map<String, dynamic> metaData;
@@ -107,6 +114,7 @@ class NoteModel {
     String senderImageURL,
     NoteSenderType noteSenderType,
     String receiverID,
+    NoteReceiverType receiverType,
     String title,
     String body,
     dynamic metaData,
@@ -127,6 +135,7 @@ class NoteModel {
       senderImageURL: senderImageURL ?? this.senderImageURL,
       noteSenderType: noteSenderType ?? this.noteSenderType,
       receiverID: receiverID ?? this.receiverID,
+      receiverType: receiverType ?? this.receiverType,
       title: title ?? this.title,
       body: body ?? this.body,
       metaData: metaData ?? this.metaData,
@@ -156,6 +165,7 @@ class NoteModel {
       'senderImageURL': senderImageURL,
       'noteSenderType': cipherNoteSenderType(noteSenderType),
       'receiverID': receiverID,
+      'receiverType' : cipherNoteReceiverType(receiverType),
       /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
       'notification': _cipherNotificationField(),
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
@@ -197,6 +207,7 @@ class NoteModel {
         senderImageURL: map['senderImageURL'],
         noteSenderType: decipherNoteSenderType(map['noteSenderType']),
         receiverID: map['receiverID'],
+        receiverType: decipherNoteReceiverType(map['receiverType']),
         title: map['notification']['notification']['title'],
         body: map['notification']['notification']['body'],
         metaData: map['notification']['data'],
@@ -378,6 +389,31 @@ class NoteModel {
     NoteSenderType.user,
     NoteSenderType.country,
     NoteSenderType.bldrs,
+  ];
+  // -----------------------------------------------------------------------------
+
+  /// NOTE SENDER TYPE CYPHERS
+
+  // -------------------------------------
+  static String cipherNoteReceiverType(NoteReceiverType type){
+    switch (type) {
+      case NoteReceiverType.bz:           return 'bz';      break; /// data type : String bzID
+      case NoteReceiverType.user:         return 'user';    break; /// data type : String userID
+      default: return null;
+    }
+  }
+  // -------------------------------------
+  static NoteReceiverType decipherNoteReceiverType(String type){
+    switch (type) {
+      case 'user':    return NoteReceiverType.user;     break;
+      case 'bz':      return NoteReceiverType.bz;       break;
+      default:        return null;
+    }
+  }
+  // -------------------------------------
+  static const List<NoteReceiverType> noteReceiverTypesList = <NoteReceiverType>[
+    NoteReceiverType.bz,
+    NoteReceiverType.user,
   ];
   // -----------------------------------------------------------------------------
 
@@ -752,6 +788,7 @@ class NoteModel {
       senderImageURL: 'senderImageURL',
       noteSenderType: NoteSenderType.bldrs,
       receiverID: 'receiverID',
+      receiverType: NoteReceiverType.user,
       title: 'title',
       body: 'body',
       metaData: {'metaData' : 'thing'},
