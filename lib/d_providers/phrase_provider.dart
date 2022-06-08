@@ -137,7 +137,6 @@ class PhraseProvider extends ChangeNotifier {
 
         final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrases(
           phrases: _allPhrases,
-          // includeTrigrams: true,
         );
 
         await LDBOps.insertMaps(

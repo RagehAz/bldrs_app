@@ -65,7 +65,6 @@ Future<void> insertMaps({
   bool allowDuplicateIDs = false,
 }) async {
 
-
   await Sembast.insertAll(
     maps: inputs,
     docName: docName,

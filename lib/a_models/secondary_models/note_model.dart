@@ -614,7 +614,7 @@ class NoteModel {
           noteModel.title != null &&
           noteModel.body != null &&
           noteModel.metaData != null &&
-          noteModel.sentTime != null &&
+          // noteModel.sentTime != null &&
           // noteModel.attachment != null &&
           // noteModel.attachmentType != null &&
           // noteModel.seen != null &&

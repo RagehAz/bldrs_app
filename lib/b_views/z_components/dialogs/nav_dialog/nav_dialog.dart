@@ -54,7 +54,7 @@ class NavDialog extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // const BarType _barType = BarType.minWithText;
 
-    final double _navBarHeight = NavBar.navBarHeight(context: context);
+    final double _navBarHeight = NavBar.navBarHeight(context: context, barType: NavBar.barType);
     final double _navBarClearWidth = _screenWidth - (4 * Ratioz.appBarMargin);
     // final double _titleHeight = secondLine == null ? _navBarHeight : _navBarHeight * 0.35;
     // final double _bodyHeight = secondLine == null ? 0 : (_navBarHeight - _titleHeight);
@@ -70,7 +70,7 @@ class NavDialog extends StatelessWidget {
           width: _navBarClearWidth,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: NavBar.navBarCorners(context: context),
+            borderRadius: NavBar.navBarCorners(context: context, barType: NavBar.barType),
             boxShadow: Shadowz.appBarShadow,
           ),
           alignment: Alignment.center,
