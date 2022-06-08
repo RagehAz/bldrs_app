@@ -2,24 +2,45 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_1_my_bzz_selector_screen.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/material.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/route_names.dart';
+import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
-/// NAVIGATION
+/// GO TO SAVES SCREEN
+
+// -------------------------------
+Future<void> goToSavesScreen(BuildContext context) async {
+  await Nav.goToRoute(context, Routez.savedFlyers);
+}
+// -----------------------------------------------------------------------------
+
+/// GO TO QUESTIONS SCREEN
+
+// -------------------------------
+Future<void> goToQuestionsScreen(BuildContext context) async {
+  await Nav.goToNewScreen(
+    context: context,
+    screen: const QScreen(),
+  );
+}
+// -----------------------------------------------------------------------------
+
+/// GO TO BZ SCREEN
 
 // -------------------------------
 Future<void> onNavBarBzzButtonTap({
   @required BuildContext context,
   @required List<BzModel> myBzz,
-  @required UserModel myUserModel,
 }) async {
 
-  blog('fish');
+  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context);
 
   /// IF HAS ONLY ONE BZ ACCOUNT
-  if (myUserModel.myBzzIDs.length == 1) {
+  if (_myUserModel.myBzzIDs.length == 1) {
 
     await goToMyBzScreen(
       context: context,
@@ -31,10 +52,10 @@ Future<void> onNavBarBzzButtonTap({
   /// IF HAS MULTIPLE BZZ ACCOUNTS
   else {
 
-    await goToMyBzzScreen(
+    await _goToMyBzzScreen(
       context: context,
       myBzzModels: myBzz,
-      myUserModel: myUserModel,
+      myUserModel: _myUserModel,
     );
 
   }
@@ -55,7 +76,7 @@ Future<void> goToMyBzScreen({
 
 }
 // -------------------------------
-Future<void> goToMyBzzScreen({
+Future<void> _goToMyBzzScreen({
   @required BuildContext context,
   @required List<BzModel> myBzzModels,
   @required UserModel myUserModel,
@@ -70,3 +91,15 @@ Future<void> goToMyBzzScreen({
   );
 
 }
+// -----------------------------------------------------------------------------
+
+/// GO TO USER SCREEN
+
+// -------------------------------
+Future<void> goToMyProfileScreen(BuildContext context) async {
+  await Nav.goToNewScreen(
+      context: context,
+      screen: const UserProfileScreen()
+  );
+}
+// -----------------------------------------------------------------------------

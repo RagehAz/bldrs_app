@@ -3,9 +3,9 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class ButtonNotificationDot extends StatelessWidget {
+class NoteRedDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ButtonNotificationDot({
+  const NoteRedDot({
     @required this.buttonWidth,
     this.count, Key key
   }) : super(key: key);

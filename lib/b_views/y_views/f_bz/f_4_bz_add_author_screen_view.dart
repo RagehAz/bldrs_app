@@ -1,19 +1,17 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_bz_authors_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/components/users_wide_buttons_list.dart';
 import 'package:flutter/material.dart';
 
 class AddAuthorScreenView extends StatelessWidget {
@@ -110,49 +108,18 @@ class AddAuthorScreenView extends StatelessWidget {
                     /// NOT LOADING
                     else {
 
-                      return ValueListenableBuilder(
-                          valueListenable: foundUsers,
-                          builder: (_, List<UserModel> _users, Widget child){
-
-                            if (Mapper.checkCanLoopList(_users) == true){
-
-                              return SizedBox(
-                                width: Scale.superScreenWidth(context),
-                                height: Scale.superScreenHeight(context),
-                                child: ListView.builder(
-                                  itemCount: _users.length,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (_, index){
-
-                                    final UserModel _user = _users[index];
-
-                                    return UserTileButton(
-                                      boxWidth: BldrsAppBar.width(context),
-                                      userModel: _user,
-                                      sideButton: superPhrase(context, 'phid_invite'),
-                                      onUserTap: () => onShowUserDialog(
-                                        context: context,
-                                        userModel: _user,
-                                      ),
-                                      onSideButtonTap: () => sendAuthorshipInvitation(
-                                        context: context,
-                                        selectedUser: _user,
-                                        bzModel: bzModel,
-                                      ),
-                                    );
-
-                                  },
-                                ),
-                              );
-
-                            }
-                            else {
-                              return const SuperVerse(
-                                verse: 'No users found with this name',
-                              );
-                            }
-
-                          }
+                      return UserTileButtonsList(
+                        usersModels: foundUsers,
+                        onUserTap: (UserModel userModel) => onShowUserDialog(
+                          context: context,
+                          userModel: userModel,
+                        ),
+                        sideButton: superPhrase(context, 'phid_invite'),
+                        onSideButtonTap: (UserModel userModel) => sendAuthorshipInvitation(
+                          context: context,
+                          selectedUser: userModel,
+                          bzModel: bzModel,
+                        ),
                       );
 
                     }
