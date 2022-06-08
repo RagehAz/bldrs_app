@@ -12,11 +12,12 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/cloud_f
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/streaming_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/streaming_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/video_player.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
@@ -48,6 +49,14 @@ class SpecializedLabs extends StatelessWidget {
         verse: 'STREAMING TEST',
         icon: Iconz.statistics,
         screen: const StreamingTest(),
+        transitionType: PageTransitionType.leftToRightWithFade,
+      ),
+
+      /// STREAMING
+      DashButtonModel(
+        verse: 'PAGINATOR TEST',
+        icon: Iconz.statistics,
+        screen: const PaginatorTest(),
         transitionType: PageTransitionType.leftToRightWithFade,
       ),
 
