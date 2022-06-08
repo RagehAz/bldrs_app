@@ -45,9 +45,12 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
       _triggerLoading().then((_) async {
 
         final bool _assetExists = await Imagers.localAssetExists(widget.asset);
-        _exists.value = _assetExists;
 
-        await _triggerLoading();
+        if (mounted){
+          _exists.value = _assetExists;
+          await _triggerLoading();
+        }
+
       });
 
       _isInit = false;

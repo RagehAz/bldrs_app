@@ -207,10 +207,19 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel>[..._myBzz];
   }
 // -------------------------------------
+  static List<BzModel> proGetMyBzz({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
+    final List<BzModel> _myBzz = _bzzProvider.myBzz;
+    return _myBzz;
+  }
+// -------------------------------------
   Future<void> fetchSetMyBzz({
     @required BuildContext context,
     @required bool notify,
-}) async {
+  }) async {
 
     /// 1 - get userBzzIDs from userModel
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -231,7 +240,7 @@ class BzzProvider extends ChangeNotifier {
   void _setMyBzz({
     @required List<BzModel> bzz,
     @required bool notify,
-}){
+  }){
     _myBzz = bzz;
     if (notify == true){
       notifyListeners();

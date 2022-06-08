@@ -189,7 +189,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
                     /// NOT LOADING
                     else {
 
-                      return UsersWideButtonsList(
+                      return UserTileButtonsList(
                           usersModels: _foundUsers,
                           selectedUsers: _selectedUsers,
                           onUserTap: onUserTap
@@ -201,7 +201,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
                   /// NOT SEARCHING
                   else {
-                    return UsersWideButtonsList(
+                    return UserTileButtonsList(
                         usersModels: _historyUsers,
                         selectedUsers: _selectedUsers,
                         onUserTap: onUserTap

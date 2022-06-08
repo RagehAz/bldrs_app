@@ -30,6 +30,7 @@ import 'package:provider/provider.dart';
 /// NAVIGATION
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onGoToAddAuthorsScreen(BuildContext context) async {
 
   await Nav.goToNewScreen(
@@ -57,9 +58,6 @@ Future<void> onSearchUsers({
   triggerIsSearchingNotifier(
       text: text,
       isSearching: isSearching,
-      onSwitchOff: (){
-        foundUsers.value = null;
-      }
   );
 
   if (isSearching.value == true){
@@ -310,7 +308,19 @@ Future<void> _onDeleteAuthorFromTheTeam({
   @required BzModel bzModel,
 }) async {
 
-  blog('SHOULD REMOVE THIS AUTHOR ${authorModel.name} from this bz ${bzModel.name} naaaw');
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Remove ${authorModel.name} ?',
+    body: '${authorModel.name} and all his published flyers will be deleted as well',
+    boolDialog: true,
+  );
+
+  if (_result == true){
+
+    blog('SHOULD REMOVE THIS AUTHOR ${authorModel.name} and all his FLYERS from this bz ${bzModel.name} naaaw');
+
+
+  }
 
 }
 // -------------------------------
