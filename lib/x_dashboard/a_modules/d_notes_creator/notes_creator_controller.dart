@@ -16,7 +16,6 @@ import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -53,6 +52,7 @@ NoteModel createInitialNote(BuildContext context) {
     senderImageURL: NoteModel.bldrsSenderModel.value,
     noteSenderType: NoteSenderType.bldrs,
     receiverID: null,
+    receiverType: NoteReceiverType.user,
     title: null,
     body: null,
     metaData: NoteModel.defaultMetaData,
@@ -110,7 +110,7 @@ Future<void> onChangeNoteType({
         noteSenderType: NoteSenderType.bz,
         senderID: null,
         senderImageURL: null,
-
+        receiverType: null,
         id: _old.id,
         receiverID: _old.receiverID,
         title: _old.title,
@@ -148,31 +148,119 @@ Future<void> onChangeNoteType({
 /// NOTE RECEIVER
 
 // -------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> onSelectNoteReceiverTap({
+
+// /// TESTED : WORKS PERFECT
+// Future<void> onSelectNoteReceiverTap({
+//   @required BuildContext context,
+//   @required ValueNotifier<UserModel> receiver,
+//   @required ValueNotifier<NoteModel> note,
+// }) async {
+//
+//   Keyboarders.closeKeyboard(context);
+//
+//   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
+//       context: context,
+//       screen: const SearchUsersScreen(
+//         excludeMyself: false,
+//         // multipleSelection: false,
+//         // selectedUsers: null,
+//       ),
+//   );
+//
+//     if (Mapper.checkCanLoopList(_selectedUsers) == true){
+//       receiver.value = _selectedUsers.first;
+//       note.value = note.value.copyWith(
+//         receiverID: _selectedUsers.first.id,
+//       );
+//     }
+//
+// }
+// -------------------------------
+
+Future<void> onSelectReceiverType({
   @required BuildContext context,
-  @required ValueNotifier<UserModel> receiver,
   @required ValueNotifier<NoteModel> note,
+  @required NoteReceiverType receiverType,
 }) async {
 
-  Keyboarders.closeKeyboard(context);
+  String _receiverID;
+
+  /// if user
+  if (receiverType == NoteReceiverType.user){
+    _receiverID = await _onSelectUserAsNoteReceiver(
+      context: context,
+    );
+  }
+
+  /// if bz
+  else {
+    _receiverID = await _onSelectBzAsNoteReceiver(
+      context: context,
+    );
+  }
+
+  if (_receiverID != null){
+    note.value = note.value.copyWith(
+        receiverType: receiverType,
+        receiverID: _receiverID,
+    );
+  }
+
+}
+// -------------------------------
+
+Future<String> _onSelectUserAsNoteReceiver({
+  @required BuildContext context,
+}) async {
+  String _userID;
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
-      context: context,
-      screen: const SearchUsersScreen(
-        excludeMyself: false,
-        // multipleSelection: false,
-        // selectedUsers: null,
-      ),
+    context: context,
+    screen: const SearchUsersScreen(
+      excludeMyself: false,
+    ),
   );
 
-    if (Mapper.checkCanLoopList(_selectedUsers) == true){
-      receiver.value = _selectedUsers.first;
-      note.value = note.value.copyWith(
-        receiverID: _selectedUsers.first.id,
-      );
-    }
+  final bool _newSelection = Mapper.checkCanLoopList(_selectedUsers);
+  if (_newSelection == true) {
 
+    final UserModel _userModel = _newSelection == true ?
+    _selectedUsers.first
+        :
+    null;
+
+    _userID = _userModel?.id;
+
+  }
+
+  return _userID;
+}
+// -------------------------------
+
+  Future<String> _onSelectBzAsNoteReceiver({
+    @required BuildContext context,
+  }) async {
+  String _bzID;
+
+  final List<BzModel> _bzModels = await Nav.goToNewScreen(
+    context: context,
+    screen: const SearchBzzScreen(),
+  );
+
+  final bool _newSelection = Mapper.checkCanLoopList(_bzModels);
+  if (_newSelection == true){
+
+    final BzModel _bzModel = Mapper.checkCanLoopList(_bzModels) == true ?
+    _bzModels.first
+        :
+    null;
+
+    _bzID = _bzModel?.id;
+
+  }
+
+
+  return _bzID;
 }
 // -------------------------------
 /// TESTED : WORKS PERFECT
@@ -619,6 +707,7 @@ void _onClearAttachments({
     senderImageURL: _note.senderImageURL,
     noteSenderType: _note.noteSenderType,
     receiverID: _note.receiverID,
+    receiverType: _note.receiverType,
     title: _note.title,
     body: _note.body,
     metaData: _note.metaData,

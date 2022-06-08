@@ -6,20 +6,20 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:flutter/material.dart';
 
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzAboutPage({
-    @required this.bzModel,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
-  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
     return ListView(
       physics: const BouncingScrollPhysics(),
@@ -27,36 +27,36 @@ class BzAboutPage extends StatelessWidget {
 
         /// BZ BANNER
         BzBanner(
-          bzModel: bzModel,
+          bzModel: _bzModel,
         ),
 
         /// ABOUT
-        if (bzModel.about != null)
+        if (_bzModel.about != null)
           ParagraphBubble(
-            title: 'About ${bzModel.name}',
-            paragraph: bzModel.about,
+            title: 'About ${_bzModel.name}',
+            paragraph: _bzModel.about,
           ),
 
         /// SCOPE
-        if (bzModel.scope != null)
+        if (_bzModel.scope != null)
           Bubble(
             title: 'Scope of services',
             columnChildren: <Widget>[
 
               InfoPageKeywords(
                 pageWidth: Scale.superScreenWidth(context),
-                keywordsIDs: bzModel.scope,
+                keywordsIDs: _bzModel.scope,
               ),
 
             ],
           ),
 
         /// SEPARATOR
-        if (bzModel.scope != null)
+        if (_bzModel.scope != null)
           const BubblesSeparator(),
 
         /// STATS
-        if (bzModel.totalSlides != null)
+        if (_bzModel.totalSlides != null)
           const BzStatsBubble(),
 
         const Horizon(),
