@@ -2,11 +2,11 @@ import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/components/nav_bar_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
+import 'package:bldrs/c_controllers/a_starters_controllers/nav_bar_controller.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -20,9 +20,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NavBarProfileButton extends StatelessWidget {
+class MyProfileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NavBarProfileButton({
+  const MyProfileButton({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -125,10 +125,7 @@ class NavBarProfileButton extends StatelessWidget {
                 barType: NavBar.barType,
                 notesDotIsOn: _noteDotIsOn,
                 notesCount: _notesCount,
-                onTap: () => Nav.goToNewScreen(
-                    context: context,
-                    screen: const UserProfileScreen()
-                ),
+                onTap: () => goToMyProfileScreen(context),
                 clipperWidget: UserBalloon(
                   size: NavBar.circleWidth,
                   loading: false,
@@ -139,50 +136,6 @@ class NavBarProfileButton extends StatelessWidget {
 
           }
       );
-
-      // return NoteFireOps.noteStreamBuilder(
-      //   context: context,
-      //   stream: NotesProvider.proGetUserNotesStream(context: context, listen: true),
-      //   loadingWidget: const LoadingUserProfileButton(),
-      //   builder: (_, List<NoteModel> notesFromStream){
-      //
-      //     final ValueNotifier<List<NoteModel>> notes = ValueNotifier(notesFromStream);
-      //
-      //     final bool _noteDotIsOn = _checkNoteDotIsOn(
-      //       thereAreMissingFields: _thereAreMissingFields,
-      //       notes : notes.value,
-      //     );
-      //
-      //     final int _notesCount = _getNotesCount(
-      //       thereAreMissingFields: _thereAreMissingFields,
-      //       notes : notes.value,
-      //     );
-      //
-      //     // blog('the notes count is wtfffff : $_notesCount');
-      //
-      //     return NavBarButton(
-      //         size: NavBar.navBarButtonWidth,
-      //         text: superPhrase(context, 'phid_profile'),
-      //         icon: Iconz.normalUser,
-      //         iconSizeFactor: 0.7,
-      //         barType: NavBar.barType,
-      //         notesDotIsOn: _noteDotIsOn,
-      //         notesCount: _notesCount,
-      //         onTap: () => Nav.goToNewScreen(
-      //             context: context,
-      //             screen: UserProfileScreen(
-      //               notes: notes,
-      //             )
-      //         ),
-      //         clipperWidget: UserBalloon(
-      //           size: NavBar.circleWidth,
-      //           loading: false,
-      //           userModel: _userModel,
-      //         )
-      //     );
-      //     },
-      // );
-
 
     }
 

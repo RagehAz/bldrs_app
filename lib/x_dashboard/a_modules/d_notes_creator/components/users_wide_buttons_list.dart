@@ -8,13 +8,15 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class UsersWideButtonsList extends StatelessWidget {
+class UserTileButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const UsersWideButtonsList({
+  const UserTileButtonsList({
     @required this.usersModels,
-    @required this.selectedUsers,
     @required this.onUserTap,
+    this.selectedUsers,
     this.emptyListString = 'No users found with this name',
+    this.sideButton,
+    this.onSideButtonTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +24,8 @@ class UsersWideButtonsList extends StatelessWidget {
   final ValueNotifier<List<UserModel>> selectedUsers;
   final ValueChanged<UserModel> onUserTap;
   final String emptyListString;
+  final String sideButton;
+  final ValueChanged<UserModel> onSideButtonTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class UsersWideButtonsList extends StatelessWidget {
           if (Mapper.checkCanLoopList(foundUsers) == true){
 
             return ValueListenableBuilder(
-              valueListenable: selectedUsers,
+              valueListenable: selectedUsers ?? ValueNotifier<List<UserModel>>(<UserModel>[]),
               builder: (_, List<UserModel> selectedUsers, Widget child){
 
                 return SizedBox(
@@ -52,15 +56,19 @@ class UsersWideButtonsList extends StatelessWidget {
                       );
                       final bool _isMe = _user.id == AuthFireOps.superUserID();
 
+                      final Color _buttonColor = _isSelected == true ? Colorz.green255
+                          :
+                      _isMe == true ? Colorz.black255
+                          :
+                      null;
+
                       return UserTileButton(
                         boxWidth: BldrsAppBar.width(context),
                         userModel: _user,
-                        color: _isSelected == true ? Colorz.green255
-                            :
-                        _isMe == true ? Colorz.black255
-                            :
-                        null,
+                        color: _buttonColor,
                         onUserTap: () => onUserTap(_user),
+                        sideButton: sideButton,
+                        onSideButtonTap: () => onSideButtonTap(_user),
                       );
 
                     },
