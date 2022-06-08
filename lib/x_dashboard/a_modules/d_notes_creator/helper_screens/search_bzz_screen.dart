@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -45,6 +46,10 @@ Future<void> onSearchBzz({
       bzName: _fixedText,
       limit: 10,
       startAfter: startAfter,
+    );
+
+    await BzLDBOps.insertBzz(
+      bzz: foundBzz.value,
     );
 
     foundBzz.value = _bzz;

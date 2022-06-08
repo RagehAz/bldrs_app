@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/note_attachment.dart';
@@ -15,13 +14,13 @@ import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/f_bz_authors_controller.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -30,7 +29,6 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/components/note_sender_dynamic_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/all_notes_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
-import 'package:bldrs/x_dashboard/b_widgets/user_button.dart';
 import 'package:flutter/material.dart';
 
 class NotesCreatorScreen extends StatefulWidget {
@@ -167,6 +165,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       layoutWidget: Stack(
         children: <Widget>[
 
+          /// CREATOR BUBBLES
           Form(
             key: _formKey,
             child: ListView(
@@ -323,7 +322,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                   ),
                 ),
 
-                /// NOTE SENDER
+                /// SENDER
                 TileBubble(
                   verse: 'Sender',
                   secondLine: 'Select Note Sender',
@@ -403,91 +402,82 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                   ),
                 ),
 
-                /// NOTE RECEIVER
-                ValueListenableBuilder(
-                  valueListenable: _selectedReciever,
-                  builder: (_, UserModel selectedReceiver, Widget child){
+                /// RECEIVER
+                TileBubble(
+                  verse: 'Receiver',
+                  secondLine: 'Select who will receive this Note',
+                  icon: Iconz.news,
+                  iconSizeFactor: 0.5,
+                  iconBoxColor: Colorz.grey50,
+                  child: SizedBox(
+                    width: Bubble.clearWidth(context),
+                    child: ValueListenableBuilder(
+                      valueListenable: _note,
+                      builder: (_, NoteModel noteModel, Widget child){
 
-                      return TileBubble(
-                        verse: 'Reciever',
-                        secondLine: selectedReceiver == null ? 'Choose who to send this notification to' : 'Sending this note to :-',
-                        icon: Iconz.normalUser,
-                        iconSizeFactor: 0.5,
-                        iconBoxColor: Colorz.grey50,
-                        btOnTap: () => onSelectNoteReceiverTap(
-                          context: context,
-                          receiver: _selectedReciever,
-                          note: _note,
-                        ),
-                        child: SizedBox(
-                          width: Bubble.clearWidth(context),
-                          // height: 50,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
+                        return Column(
+                          children: <Widget>[
 
-                              /// USER BUTTON AND DELETER
-                              if (selectedReceiver != null)
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
+                            SizedBox(
+                              width: TileBubble.childWidth(context),
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
 
-                                    DashboardUserButton(
-                                      width: TileBubble.childWidth(context) - 40,
-                                      index: 0,
-                                      userModel: selectedReceiver,
-                                      onTap: () => onShowUserDialog(
+                                  ...List.generate(NoteModel.noteReceiverTypesList.length, (index){
+
+                                    final NoteReceiverType _receiverType = NoteModel.noteReceiverTypesList[index];
+                                    final bool _isSelected = noteModel.receiverType == _receiverType;
+
+                                    return DreamBox(
+                                      height: 40,
+                                      width: _noteButtonButtonWidth,
+                                      verse: NoteModel.cipherNoteReceiverType(_receiverType).toUpperCase(),
+                                      verseScaleFactor: 0.5,
+                                      color: _isSelected == true ? Colorz.yellow255 : null,
+                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                      onTap: () => onSelectReceiverType(
                                         context: context,
-                                        userModel: selectedReceiver,
+                                        note: _note,
+                                        receiverType: _receiverType,
                                       ),
-                                    ),
-
-                                    DreamBox(
-                                      height: DashboardUserButton.height,
-                                      width:40,
-                                      onTap: () => deleteSelectedReciever(
-                                        selectedUser: _selectedReciever,
-                                      ),
-                                      subChild: const SuperImage(
-                                        pic: Iconz.xSmall,
-                                        width: 40,
-                                        height: DashboardUserButton.height,
-                                        scale: 0.4,
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
-
-                              /// USER PREFERRED LANG
-                              if (selectedReceiver != null)
-                                FutureBuilder(
-                                  future: Localizer.translateLangCodeName(
-                                    context: context,
-                                    langCode: selectedReceiver.language,
-                                  ),
-                                    builder: (_, AsyncSnapshot<Object> snap){
-
-                                    final String _langCodeLine = snap.data;
-
-                                    return SuperVerse(
-                                      verse: '${selectedReceiver.name} prefers Lang : $_langCodeLine',
-                                      centered: false,
-                                      leadingDot: true,
-                                      italic: true,
-                                      margin: 5,
                                     );
 
-                                    },
-                                ),
+                                  }),
 
-                            ],
-                          ),
-                        ),
-                      );
+                                ],
+                              ),
+                            ),
 
-                    },
+                            if (noteModel.receiverID != null)
+                              FutureBuilder(
+                                  future: noteModel.receiverType == NoteReceiverType.user ?
+                                  UsersProvider.proFetchUserModel(
+                                    context: context,
+                                    userID: noteModel.receiverID,
+                                  )
+                                      :
+                                  BzzProvider.proFetchBzModel(
+                                      context: context,
+                                      bzID: noteModel.receiverID
+                                  ),
+                                  builder: (_, AsyncSnapshot<Object> snap){
+
+                                    return NoteSenderDynamicButton(
+                                      model : snap.data,
+                                      width: TileBubble.childWidth(context),
+                                    );
+
+                                  }
+                                  ),
+
+                          ],
+                        );
+                        },
+                    ),
+                  ),
                 ),
 
                 /// FCM SWITCH
@@ -512,7 +502,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     },
                 ),
 
-                /// NOTE TYPE
+                /// BUTTONS
                 TileBubble(
                   verse: 'Buttons',
                   secondLine: 'Add buttons to the Note',

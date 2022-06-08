@@ -1,75 +1,42 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_2_bz_flyers_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_3_bz_about_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_4_bz_authors_page.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_5_bz_notes_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_5_bz_targets_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_6_bz_powers_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_7_bz_network_page.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:flutter/material.dart';
 
 class MyBzScreenViewPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MyBzScreenViewPages({
     @required this.tabController,
-    // @required this.bzModel,
-    // @required this.bzFlyers,
-    // @required this.bzCountry,
-    // @required this.bzCity,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TabController tabController;
-  // final BzModel bzModel;
-  // final List<FlyerModel> bzFlyers;
-  // final CountryModel bzCountry;
-  // final CityModel bzCity;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final BzModel bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: true,
-    );
-
-    final List<FlyerModel> bzFlyers = BzzProvider.proGetActiveBzFlyers(
-      context: context,
-      listen: true,
-    );
-
-
     return TabBarView(
       physics: const BouncingScrollPhysics(),
       controller: tabController,
-      children: <Widget>[
+      children: const <Widget>[
 
-        BzFlyersPage(
-            key: const PageStorageKey('BzFlyersPage'),
-            bzModel: bzModel,
-            flyers: bzFlyers,
-        ),
+        BzFlyersPage(),
 
-        BzAboutPage(
-          bzModel: bzModel,
-        ),
+        BzAboutPage(),
 
-        BzAuthorsPage(
-          bzModel: bzModel,
-        ),
+        BzAuthorsPage(),
 
-        BzTargetsPage(
-          bzModel: bzModel,
-        ),
+        BzNotesPage(),
 
-        BzPowersPage(
-          bzModel: bzModel,
-        ),
+        BzTargetsPage(),
 
-        BzNetworkPage(
-          bzModel: bzModel,
-        ),
+        BzPowersPage(),
+
+        BzNetworkPage(),
 
       ],
     );
