@@ -1,18 +1,17 @@
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 
 class FireCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FireCollPaginator({
     @required this.queryParameters,
     @required this.builder,
-    @required this.scrollController,
+    this.scrollController,
     this.loadingWidget,
     Key key
   }) : super(key: key);
@@ -31,6 +30,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
   QueryDocumentSnapshot  _startAfter;
   bool _canPaginate = true;
+  ScrollController _scrollController;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -47,11 +47,15 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void initState() {
     super.initState();
 
-    widget.scrollController.addListener(() async {
+    _scrollController = widget.scrollController ?? ScrollController();
+
+    _scrollController.addListener(() async {
 
       final double _maxScroll = widget.scrollController.position.maxScrollExtent;
       final double _currentScroll = widget.scrollController.position.pixels;
       const double _paginationHeightLight = Ratioz.horizon * 3;
+
+      blog('inn : scroll is at : $_currentScroll');
 
       if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
 
@@ -86,6 +90,9 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   @override
   void dispose() {
     _loading.dispose();
+    if (widget.scrollController == null){
+      _scrollController.dispose();
+    }
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -121,15 +128,19 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
         valueListenable: _loading,
         builder: (_, bool isLoading, Widget child){
 
-          return Column(
-            children: <Widget>[
+          return widget.builder(context, _maps, isLoading);
 
-              widget.builder(context, _maps, isLoading),
-
-              widget.loadingWidget ?? Loading(loading: isLoading,),
-
-            ],
-          );
+          // return ListView(
+          //   physics: const BouncingScrollPhysics(),
+          //   controller: _scrollController,
+          //   children: <Widget>[
+          //
+          //     widget.builder(context, _maps, isLoading),
+          //
+          //     widget.loadingWidget ?? Loading(loading: isLoading,),
+          //
+          //   ],
+          // );
 
         }
     );

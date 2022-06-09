@@ -9,10 +9,12 @@ class MyBzScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MyBzScreenView({
     @required this.tabController,
+    @required this.scrollViewController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TabController tabController;
+  final ScrollController scrollViewController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,8 @@ class MyBzScreenView extends StatelessWidget {
     return NestedScrollView(
       physics: const BouncingScrollPhysics(),
       floatHeaderSlivers: true,
+      controller: scrollViewController,
+      
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled){
 
         return <Widget>[
