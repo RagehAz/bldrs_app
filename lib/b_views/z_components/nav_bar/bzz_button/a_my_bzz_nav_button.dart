@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/components/nano_bz_logo.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/bzz_button/b_smart_bz_nav_bar_logos.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/nav_bar_controller.dart';
@@ -9,9 +9,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class MyBzzButton extends StatelessWidget {
+class MyBzzNavButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const MyBzzButton({
+  const MyBzzNavButton({
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -58,7 +58,7 @@ class MyBzzButton extends StatelessWidget {
 
             /// --- BZZ LOGOS
             if (_myBzz.isNotEmpty)
-              const NanoBzLogos(),
+              const SmartBzNavBarLogos(),
 
             /// --- BUTTON TEXT
             if (_barType == BarType.maxWithText ||

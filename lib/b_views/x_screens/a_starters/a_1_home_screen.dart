@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// UNKNOWN CONDITION
               else {
-                return Container();
+                return const SizedBox();
               }
 
         },

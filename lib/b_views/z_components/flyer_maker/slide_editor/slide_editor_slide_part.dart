@@ -25,6 +25,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.matrix,
     @required this.filterModel,
     @required this.onSlideTap,
+    @required this.isTransforming,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,6 +34,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<Matrix4> matrix;
   final ValueNotifier<ImageFilterModel> filterModel;
   final Function onSlideTap;
+  final ValueNotifier<bool> isTransforming;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.85;
@@ -90,85 +92,101 @@ class SlideEditorSlidePart extends StatelessWidget {
 
                 /// SLIDE
                 SlideTransformer(
-                    matrix: matrix,
-                    filterModel: filterModel,
-                    flyerBoxWidth: _flyerBoxWidth,
-                    flyerBoxHeight: _flyerBoxHeight,
-                    slide: _slide
+                  matrix: matrix,
+                  filterModel: filterModel,
+                  flyerBoxWidth: _flyerBoxWidth,
+                  flyerBoxHeight: _flyerBoxHeight,
+                  slide: _slide,
+                  isTransforming: isTransforming,
                 ),
 
                 /// SLIDE SHADOW
-                SlideShadow(
-                  flyerBoxWidth: _flyerBoxWidth,
+                IgnorePointer(
+                  child: SlideShadow(
+                    flyerBoxWidth: _flyerBoxWidth,
+                  ),
                 ),
 
                 /// FILTER NAME
-                ImageFilterAnimatedName(
-                  flyerBoxWidth: _flyerBoxWidth,
-                  filterModel: filterModel,
-                ),
-
-                // /// HEADLINE
-                // SlideHeadline(
-                //   flyerBoxWidth: _flyerBoxWidth,
-                //   verse: _slide.headline.text,
-                // ),
-
-                Container(
-                  width: _flyerBoxWidth,
-                  height: SuperTextField.getFieldHeight(
-                      context: context,
-                      minLines: 4,
-                      textSize: SlideHeadline.headlineSize,
-                      scaleFactor: _flyerBoxWidth * SlideHeadline.headlineScaleFactor,
-                      withBottomMargin: true,
-                      withCounter: false,
-                  ),
-                  margin: EdgeInsets.only(
-                      top: _flyerBoxWidth * 0.3,
-                      left: 5,
-                      right: 5
-                  ),
-                  alignment: Alignment.topCenter,
-                  child: SuperTextField(
-                    // key: ValueKey<String>('slide$slideIndex'),
-                    hintText: 'T i t l e',
-                    width: _flyerBoxWidth,
-                    // height: flyerBoxWidth * 0.15,
-                    fieldColor: Colorz.black80,
-                    maxLines: 4,
-                    maxLength: 55,
-                    // counterIsOn: true,
-                    textSize: SlideHeadline.headlineSize,
-                    textSizeFactor: _flyerBoxWidth * SlideHeadline.headlineScaleFactor,
-                    centered: true,
-                    textController: _slide.headline,
-                    onChanged: (String val){},
-                    textWeight: VerseWeight.bold,
-                    textShadow: true,
-                    // autofocus: false,
-                    // fieldIsFormField: true,
-                    // onSubmitted: null,
-                    // keyboardTextInputAction: TextInputAction.done,
+                IgnorePointer(
+                  child: ImageFilterAnimatedName(
+                    flyerBoxWidth: _flyerBoxWidth,
+                    filterModel: filterModel,
                   ),
                 ),
 
+                /// HEADLINE TEXT FIELD
+                ValueListenableBuilder(
+                    valueListenable: isTransforming,
+                    builder: (_, bool transforming, Widget child){
+
+                      return AnimatedOpacity(
+                        duration: const Duration(milliseconds: 150),
+                        curve: Curves.easeInOut,
+                        opacity: transforming == true ? 0.4 : 1,
+                        child: IgnorePointer(
+                          ignoring: transforming,
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                width: _flyerBoxWidth,
+                                margin: EdgeInsets.only(
+                                    top: _flyerBoxWidth * 0.3,
+                                    left: 5,
+                                    right: 5
+                                ),
+                                alignment: Alignment.topCenter,
+                                child: SuperTextField(
+                                  // key: ValueKey<String>('slide$slideIndex'),
+                                  hintText: 'T i t l e',
+                                  width: _flyerBoxWidth,
+                                  // height: flyerBoxWidth * 0.15,
+                                  fieldColor: Colorz.black80,
+                                  maxLines: 4,
+                                  maxLength: 55,
+                                  // counterIsOn: true,
+                                  textSize: SlideHeadline.headlineSize,
+                                  textSizeFactor: _flyerBoxWidth * SlideHeadline.headlineScaleFactor,
+                                  centered: true,
+                                  textController: _slide.headline,
+                                  onChanged: (String val){},
+                                  textWeight: VerseWeight.bold,
+                                  textShadow: true,
+                                  // autofocus: false,
+                                  // fieldIsFormField: true,
+                                  // onSubmitted: null,
+                                  // keyboardTextInputAction: TextInputAction.done,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+
+                    }
+                ),
 
                 /// BOTTOM SHADOW
-                FooterShadow(
-                  flyerBoxWidth: _flyerBoxWidth,
-                  tinyMode: false,
+                IgnorePointer(
+                  child: FooterShadow(
+                    flyerBoxWidth: _flyerBoxWidth,
+                    tinyMode: false,
+                  ),
                 ),
 
                 /// STATIC FOOTER
-                StaticFooter(
-                  flyerBoxWidth: _flyerBoxWidth,
+                IgnorePointer(
+                  child: StaticFooter(
+                    flyerBoxWidth: _flyerBoxWidth,
+                  ),
                 ),
 
                 /// STATIC HEADER
-                StaticHeader(
-                  flyerBoxWidth: _flyerBoxWidth,
-                  opacity: 0.5,
+                IgnorePointer(
+                  child: StaticHeader(
+                    flyerBoxWidth: _flyerBoxWidth,
+                    opacity: 0.5,
+                  ),
                 ),
 
               ],

@@ -89,7 +89,6 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
           (List<Map<String, dynamic>> newMaps) => widget.queryParameters.onDataChanged(newMaps),
     );
 
-
   }
 // -----------------------------------------------------------------------------
   @override
@@ -97,7 +96,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
     return StreamBuilder(
       stream: _stream,
-      initialData: widget.queryParameters.initialMaps,
+      initialData: widget.queryParameters.initialMaps ?? <Map<String, dynamic>>[],
       builder: (BuildContext ctx, AsyncSnapshot<dynamic> snapshot) {
 
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -114,12 +113,18 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
           _oldMaps = _maps;
 
-          return widget.builder(ctx, _maps);
+          // if (_maps == null){
+            return widget.builder(ctx, _maps);
+          // }
+          //
+          // else {
+          //   return widget.loadingWidget ?? const SizedBox();
+          // }
+
         }
 
       },
     );
-
 
   }
 
