@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -13,6 +14,8 @@ class PageBubble extends StatelessWidget {
     @required this.child,
     @required this.appBarType,
     this.color = Colorz.black255,
+    this.bubbleWidth,
+    this.corners,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -20,6 +23,8 @@ class PageBubble extends StatelessWidget {
   final AppBarType appBarType;
   final Color color;
   final double screenHeightWithoutSafeArea;
+  final double bubbleWidth;
+  final dynamic corners;
   /// --------------------------------------------------------------------------
   static EdgeInsets topMargin(AppBarType appBarType){
     EdgeInsets margins;
@@ -64,14 +69,15 @@ class PageBubble extends StatelessWidget {
     }
     /// REMAINING APPBARS : BASIC - MAIN - INTRO - SCROLLABLE
     else {
-      height = screenHeight -  Ratioz.appBarSmallHeight - (2 * Ratioz.appBarMargin);
+      height = screenHeight - Stratosphere.smallAppBarStratosphere - 10;
+      // height = screenHeight -  Ratioz.appBarSmallHeight - (2 * Ratioz.appBarMargin);
     }
 
     return height;
   }
 // -----------------------------------------------------------------------------
-  static double width(BuildContext context){
-    return BldrsAppBar.width(context);
+  static double width(BuildContext context, {double override}){
+    return override ?? BldrsAppBar.width(context);
   }
 // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context){
@@ -83,21 +89,25 @@ class PageBubble extends StatelessWidget {
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
-    final BorderRadius _borders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
-
+    final BorderRadius _borders = corners == null ?
+    Borderers.superBorderAll(context, Ratioz.appBarCorner)
+    :
+    Borderers.superBorder(context: context, corners: corners)
+    ;
 
     return Container(
         key: const ValueKey<String>('PageBubble'),
         width: _screenWidth,
         height: screenHeightWithoutSafeArea,
         padding: topMargin(appBarType),
-        alignment: Alignment.topCenter,
+        alignment: Alignment.topRight,
         child: Container(
-          width: width(context),
+          width: width(context, override: bubbleWidth),
+          margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
           height: height(
+              context: context,
               screenHeight: screenHeightWithoutSafeArea,
               appBarType: appBarType,
-              context: context
           ),
           decoration: BoxDecoration(
             color: color,

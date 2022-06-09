@@ -1412,7 +1412,7 @@ class BzModel{
     return _index;
   }
 // ------------------------------------------
-  static List<BzTab> bzTabsList = <BzTab>[
+  static const List<BzTab> bzTabsList = <BzTab>[
     BzTab.flyers,
     BzTab.about,
     BzTab.authors,
@@ -1432,6 +1432,33 @@ class BzModel{
     'Powers',
     'Network',
   ];
+// ------------------------------------------
+  static String translateBzTab(BzTab bzTab){
+    switch(bzTab){
+      case BzTab.flyers   : return 'Flyers '  ; break;
+      case BzTab.about    : return 'Info  '  ; break;
+      case BzTab.authors  : return 'Team'  ; break;
+      case BzTab.notes    : return 'Notification'  ; break;
+      case BzTab.targets  : return 'Targets'  ; break;
+      case BzTab.powers   : return 'Powers'  ; break;
+      case BzTab.network  : return 'Network'  ; break;
+      default : return null;
+    }
+  }
+// ------------------------------------------
+  static String getBzTabIcon(BzTab bzTab){
+    switch(bzTab){
+      case BzTab.flyers   : return Iconz.flyerGrid  ; break;
+      case BzTab.about    : return Iconz.info       ; break;
+      case BzTab.authors  : return Iconz.bz         ; break;
+      case BzTab.notes    : return Iconz.news       ; break;
+      case BzTab.targets  : return Iconz.target     ; break;
+      case BzTab.powers   : return Iconz.power      ; break;
+      case BzTab.network  : return Iconz.follow     ; break;
+      default : return null;
+    }
+  }
+
 // -----------------------------------------------------------------------------
 
   /// BZ VALIDATION
