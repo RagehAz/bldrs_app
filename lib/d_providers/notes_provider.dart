@@ -177,6 +177,38 @@ class NotesProvider extends ChangeNotifier {
     }
   }
 // -----------------------------------------------------------------------------
+
+/// ALL BZ NOTES
+
+// -------------------------------------
+  List<NoteModel> _allBzzNotes = <NoteModel>[];
+// -------------------------------------
+  List<NoteModel> get allBzzNotes => _allBzzNotes;
+// -------------------------------------
+  static List<NoteModel> proGetAllBzzNotes({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
+    return _notesProvider.allBzzNotes;
+  }
+// -------------------------------------
+  void insertNotesToAllBzzNotes({
+    @required List<NoteModel> notes,
+    @required bool notify,
+  }){
+
+    _allBzzNotes = NoteModel.insertNotesInNotes(
+      notesToGet: _allBzzNotes,
+      notesToInsert: notes,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+
 }
 
 /*

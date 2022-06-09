@@ -49,9 +49,8 @@ class NoteRedDot extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final String _count = _concludeCount(count);
-    final double factor = isNano == true ? 0.5 : 1.0;
+    final double factor = isNano == true ? 0.7 : 1.0;
     final double _size = getSize(isNano: isNano);
-    final double _theMaxWidth = _count == null ? _size : maxWidth;
 
     return Container(
       // width: _buttonWidth * 0.3,
@@ -59,17 +58,26 @@ class NoteRedDot extends StatelessWidget {
       // margin: const EdgeInsets.all(buttonWidth * 0.1),
       constraints: BoxConstraints(
         minWidth: _size,
-        maxWidth: _theMaxWidth,
+        maxWidth: _count == null ? _size : maxWidth,
       ),
       decoration: BoxDecoration(
         borderRadius: Borderers.superBorderAll(context, _size * 0.5),
         color: Colorz.red255,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 4 * factor),
-      child: SuperVerse(
-        verse: _count,
-        size: 0,
-        scaleFactor: 1.5 * factor,
+      // padding: EdgeInsets.symmetric(horizontal: 2 * factor),
+      // alignment: Alignment.topCenter,
+      child: Column(
+        children: <Widget>[
+
+          SuperVerse(
+            verse: _count,
+            size: 0,
+            scaleFactor: 1.4 * factor,
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            // labelColor: Colorz.white50,
+          ),
+
+        ],
       ),
     );
 

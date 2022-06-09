@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
@@ -20,6 +21,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// ---------------------
 //
@@ -1531,7 +1533,10 @@ class BzModel{
   /// QUERY PARAMETERS
 
 // ------------------------------------------
-static QueryParameters unseenBzNotesQueryParameters(BzModel bzModel){
+static QueryParameters unseenBzNotesQueryParameters({
+  @required BzModel bzModel,
+  @required BuildContext context,
+}){
 
     return QueryParameters(
       collName: FireColl.notes,
@@ -1559,6 +1564,11 @@ static QueryParameters unseenBzNotesQueryParameters(BzModel bzModel){
             fromJSON: false,
         );
 
+        final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+        _notesProvider.insertNotesToAllBzzNotes(
+            notes: _notes,
+            notify: true,
+        );
         await NoteLDBOps.insertNotes(_notes);
 
       }

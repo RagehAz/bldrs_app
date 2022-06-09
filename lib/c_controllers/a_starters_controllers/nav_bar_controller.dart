@@ -54,8 +54,6 @@ Future<void> onNavBarBzzButtonTap({
 
     await _goToMyBzzScreen(
       context: context,
-      myBzzModels: myBzz,
-      myUserModel: _myUserModel,
     );
 
   }
@@ -78,16 +76,11 @@ Future<void> goToMyBzScreen({
 // -------------------------------
 Future<void> _goToMyBzzScreen({
   @required BuildContext context,
-  @required List<BzModel> myBzzModels,
-  @required UserModel myUserModel,
 }) async {
 
   await Nav.goToNewScreen(
       context: context,
-      screen: MyBzzSelectorScreen(
-        userModel: myUserModel,
-        bzzModels: myBzzModels,
-      )
+      screen: const MyBzzSelectorScreen(),
   );
 
 }

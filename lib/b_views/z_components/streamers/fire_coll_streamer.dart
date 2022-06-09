@@ -113,13 +113,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
           _oldMaps = _maps;
 
-          // if (_maps == null){
-            return widget.builder(ctx, _maps);
-          // }
-          //
-          // else {
-          //   return widget.loadingWidget ?? const SizedBox();
-          // }
+          return widget.builder(ctx, _maps);
 
         }
 
