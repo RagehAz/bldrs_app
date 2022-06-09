@@ -43,7 +43,7 @@ class NanoBzLogo extends StatelessWidget {
             redDotIsOn: _isOn,
             count: _count,
             isNano: true,
-            // shrinkChild: false,
+            shrinkChild: true,
             childWidth: _logoWidth,
             child: _logo,
           );
