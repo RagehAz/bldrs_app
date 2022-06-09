@@ -28,7 +28,10 @@ class SingleBzButton extends StatelessWidget {
     );
 
     return FireCollStreamer(
-        queryParameters: BzModel.unseenBzNotesQueryParameters(_myBzz[0]),
+        queryParameters: BzModel.unseenBzNotesQueryParameters(
+          bzModel: _myBzz[0],
+          context: context,
+        ),
         loadingWidget: _logo,
         builder: (_, List<Map<String, dynamic>> maps){
 

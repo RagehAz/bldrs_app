@@ -26,7 +26,10 @@ class MicroBzLogo extends StatelessWidget {
     );
 
     return FireCollStreamer(
-        queryParameters: BzModel.unseenBzNotesQueryParameters(bzModel),
+        queryParameters: BzModel.unseenBzNotesQueryParameters(
+          bzModel: bzModel,
+          context: context,
+        ),
         loadingWidget: _logo,
         builder: (_, List<Map<String, dynamic>> maps){
 

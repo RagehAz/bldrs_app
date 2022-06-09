@@ -631,6 +631,29 @@ class NoteModel {
 
     return _missingFields;
   }
+  // -------------------------------------
+
+  static List<NoteModel> getUnseenNotesByReceiverID({
+    @required List<NoteModel> notes,
+    @required String receiverID,
+  }){
+    final List<NoteModel> _notes = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      final List<NoteModel> _found = notes.where((note){
+
+        return note.receiverID == receiverID && note.seen == false;
+      }).toList();
+
+      if (Mapper.checkCanLoopList(_found) == true){
+        _notes.addAll(_found);
+      }
+
+    }
+
+    return _notes;
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -765,6 +788,27 @@ class NoteModel {
 
     return _areTheSame;
   }
+  // -----------------------------------
+  static bool checkNotesContainNote({
+    @required List<NoteModel> notes,
+    @required NoteModel note,
+  }){
+
+    bool _contains = false;
+
+    if (Mapper.checkCanLoopList(notes) == true && note != null){
+
+      for (final NoteModel noteModel in notes){
+        if (noteModel.id == note.id){
+          _contains = true;
+          break;
+        }
+      }
+
+    }
+
+    return _contains;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -795,6 +839,47 @@ class NoteModel {
     }
 
     // blog('removeNoteFromNotes : notes : ${_output.length}');
+
+    return _output;
+  }
+  // -------------------------------------
+  static List<NoteModel> insertNoteIntoNotes({
+    @required List<NoteModel> notesToGet,
+    @required NoteModel note,
+  }){
+
+    final List<NoteModel> _output = notesToGet ?? <NoteModel>[];
+
+    final bool _contains = checkNotesContainNote(
+      notes: _output,
+      note: note,
+    );
+
+    if (_contains == false){
+      _output.add(note);
+    }
+
+    return _output;
+  }
+  // -------------------------------------
+  static List<NoteModel> insertNotesInNotes({
+  @required List<NoteModel> notesToGet,
+    @required List<NoteModel> notesToInsert,
+}){
+    List<NoteModel> _output = notesToGet ?? <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notesToInsert) == true){
+
+      for (final NoteModel note in notesToInsert){
+
+        _output = insertNoteIntoNotes(
+            notesToGet: notesToGet,
+            note: note,
+        );
+
+      }
+
+    }
 
     return _output;
   }

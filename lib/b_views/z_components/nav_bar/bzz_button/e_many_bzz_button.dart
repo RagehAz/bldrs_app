@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/bzz_button/e_nano_bz_logo.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/note_red_dot.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -54,8 +54,8 @@ class ManyBzzButton extends StatelessWidget {
 
             if (_myBzz.length == 3)
               Container(
-                width: NavBar.circleWidth * 0.47,
-                height: NavBar.circleWidth * 0.47,
+                width: NanoBzLogo.size,
+                height: NanoBzLogo.size,
                 color: Colorz.nothing,
               ),
 
@@ -65,13 +65,20 @@ class ManyBzzButton extends StatelessWidget {
               ),
 
             if (_myBzz.length > 4)
-              DreamBox(
-                height: NavBar.circleWidth * 0.47,
-                width: NavBar.circleWidth * 0.47,
-                verse: '+${_myBzz.length - 3}',
-                verseWeight: VerseWeight.thin,
-                verseScaleFactor: 0.35,
-                bubble: false,
+              NoteRedDotWrapper(
+                redDotIsOn: true,
+                count: 0,
+                shrinkChild: true,
+                isNano: true,
+                childWidth: NanoBzLogo.size,
+                child: DreamBox(
+                  height: NanoBzLogo.size,
+                  width: NanoBzLogo.size,
+                  verse: '+${_myBzz.length - 3}',
+                  verseWeight: VerseWeight.thin,
+                  verseScaleFactor: 0.35,
+                  bubble: false,
+                ),
               ),
 
           ],
