@@ -22,7 +22,7 @@ class NoteRedDot extends StatelessWidget {
   static double getSize({
     @required bool isNano
   }){
-    final double _factor = isNano == true ? 0.5 : 1.0;
+    final double _factor = isNano == true ? 0.7 : 1.0;
     final double _height = defaultSize * _factor;
     return _height;
   }
@@ -98,7 +98,7 @@ class NoteRedDotWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.5);
+    final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.2);
     final double _scale = _viewWidth / childWidth;
 
     blog('_viewWidth $_viewWidth : childWidth $childWidth : _scale $_scale');
