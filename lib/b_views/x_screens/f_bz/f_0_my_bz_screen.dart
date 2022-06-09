@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,7 @@ class MyBzScreen extends StatefulWidget {
 class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   TabController _tabController;
+  final ScrollController _scrollViewController = ScrollController();
   UiProvider _uiProvider;
 // -----------------------------------------------------------------------------
   @override
@@ -46,6 +48,14 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
           tabController: _tabController,
         )
     );
+
+    _scrollViewController.addListener(() {
+
+      final double _currentScroll = _scrollViewController.position.pixels;
+
+      blog('out : scroll is at : $_currentScroll');
+
+    });
 
     super.initState();
   }
@@ -142,6 +152,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         _canBuildWidgets == true ?
         MyBzScreenView(
           tabController: _tabController,
+          scrollViewController: _scrollViewController,
         )
             :
         const SizedBox()
