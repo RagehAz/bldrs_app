@@ -15,19 +15,23 @@ class NanoBzLogo extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
+  static const double size = NavBar.circleWidth * 0.47;
+// -------------------------------
   @override
   Widget build(BuildContext context) {
 
-    const double _logoWidth = NavBar.circleWidth * 0.47;
     final Widget _logo = DreamBox(
-      height: _logoWidth,
-      width: _logoWidth,
-      corners: _logoWidth * 0.25,
+      height: size,
+      width: size,
+      corners: size * 0.25,
       icon: bzModel.logo,
     );
 
     return FireCollStreamer(
-        queryParameters: BzModel.unseenBzNotesQueryParameters(bzModel),
+        queryParameters: BzModel.unseenBzNotesQueryParameters(
+          bzModel: bzModel,
+          context: context,
+        ),
         loadingWidget: _logo,
         builder: (_, List<Map<String, dynamic>> maps){
 
@@ -44,7 +48,7 @@ class NanoBzLogo extends StatelessWidget {
             count: _count,
             isNano: true,
             shrinkChild: true,
-            childWidth: _logoWidth,
+            childWidth: size,
             child: _logo,
           );
 

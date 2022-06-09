@@ -27,7 +27,10 @@ class MyBzzNavButton extends StatelessWidget {
     const int _textSize = 1;
     const BarType _barType = NavBar.barType;
 
-    final double _textBoxHeight = _barType == BarType.maxWithText || _barType == BarType.minWithText ?
+    final double _textBoxHeight =
+        _barType == BarType.maxWithText
+        ||
+        _barType == BarType.minWithText ?
         SuperVerse.superVerseRealHeight(
             context: context,
             size: _textSize,
