@@ -1,4 +1,7 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +9,24 @@ import 'package:flutter/material.dart';
 class NoteRedDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteRedDot({
-    @required this.buttonWidth,
+    this.isNano = false,
     this.count, Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double buttonWidth;
+  final bool isNano;
   final int count;
   /// --------------------------------------------------------------------------
+  static const double defaultSize = 18;
+  static const double maxWidth = 60;
+// -----------------------------
+  static double getSize({
+    @required bool isNano
+  }){
+    final double _factor = isNano == true ? 0.5 : 1.0;
+    final double _height = defaultSize * _factor;
+    return _height;
+  }
+// -----------------------------
   String _concludeCount(int count) {
     String _count;
 
@@ -35,25 +49,85 @@ class NoteRedDot extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final String _count = _concludeCount(count);
+    final double factor = isNano == true ? 0.5 : 1.0;
+    final double _size = getSize(isNano: isNano);
+    final double _theMaxWidth = _count == null ? _size : maxWidth;
 
     return Container(
       // width: _buttonWidth * 0.3,
-      height: buttonWidth * 0.3,
-      margin: EdgeInsets.all(buttonWidth * 0.1),
+      height: _size,
+      // margin: const EdgeInsets.all(buttonWidth * 0.1),
       constraints: BoxConstraints(
-        minWidth: buttonWidth * 0.3,
-        maxWidth: _count == null ? buttonWidth * 0.3 : buttonWidth,
+        minWidth: _size,
+        maxWidth: _theMaxWidth,
       ),
       decoration: BoxDecoration(
-        borderRadius: Borderers.superBorderAll(context, buttonWidth * 0.3 * 0.5),
+        borderRadius: Borderers.superBorderAll(context, _size * 0.5),
         color: Colorz.red255,
       ),
-      padding: EdgeInsets.symmetric(horizontal: buttonWidth * 0.08),
+      padding: EdgeInsets.symmetric(horizontal: 4 * factor),
       child: SuperVerse(
         verse: _count,
         size: 0,
-        scaleFactor: buttonWidth * 0.025,
+        scaleFactor: 1.5 * factor,
       ),
+    );
+
+  }
+}
+
+class NoteRedDotWrapper extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const NoteRedDotWrapper({
+    @required this.child,
+    @required this.redDotIsOn,
+    @required this.childWidth,
+    this.count,
+    this.shrinkChild = false,
+    this.isNano = false,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final bool redDotIsOn;
+  final int count;
+  final Widget child;
+  final bool shrinkChild;
+  final bool isNano;
+  final double childWidth;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.5);
+    final double _scale = _viewWidth / childWidth;
+
+    blog('_viewWidth $_viewWidth : childWidth $childWidth : _scale $_scale');
+
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+
+        if (shrinkChild == true)
+          Transform.scale(
+            scale: _scale,
+            alignment: superBottomAlignment(context),
+            child: child,
+          ),
+
+        if (shrinkChild == false)
+          child,
+
+        if (redDotIsOn == true)
+          SuperPositioned(
+            enAlignment: Alignment.topRight,
+            // horizontalOffset: -(NoteRedDot.size * 0.5),
+            child: NoteRedDot(
+              count: count,
+              isNano: isNano,
+            ),
+          ),
+
+      ],
     );
 
   }

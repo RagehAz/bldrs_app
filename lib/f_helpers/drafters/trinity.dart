@@ -40,7 +40,7 @@ class Trinity {
   }
 // -----------------------------------------------------------------------------
 
-  /// BLOGGING
+  /// GENERATORS
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT : adjust Matrix Translation To Be In Ratio to flyer box sizes
@@ -104,6 +104,24 @@ class Trinity {
   }
 // -----------------------------------------------------------------------------
 
+  /// CHECKERS
+
+// -------------------------------------
+  static bool matrixesAreTheSame({
+    @required Matrix4 matrix1,
+    @required Matrix4 matrixReloaded,
+  }){
+
+    final List<double> _a = matrix1.storage;
+    final List<double> _b = matrixReloaded.storage;
+
+    return Mapper.checkListsAreTheSame(
+        list1: _a,
+        list2: _b
+    );
+
+  }
+// -----------------------------------------------------------------------------
 /*
 
                     // blog('matrix sent flyerWidth : $_flyerBoxWidth : flyerHeight : $_flyerBoxHeight -');

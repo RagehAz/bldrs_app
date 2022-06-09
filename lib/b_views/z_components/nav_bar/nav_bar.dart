@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/components/my_bzz_button.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/bzz_button/a_my_bzz_nav_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/components/my_profile_button.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/components/nav_bar_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -309,7 +309,7 @@ class NavBar extends StatelessWidget {
 
                       /// BZZ BUTTON
                       if (UserModel.checkUserIsAuthor(_myUserModel) && _userIsSignedIn == true)
-                        const MyBzzButton(),
+                        const MyBzzNavButton(),
 
                       _spacer,
 

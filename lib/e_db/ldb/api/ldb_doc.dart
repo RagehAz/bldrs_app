@@ -19,6 +19,7 @@
   const String cities = 'cities';
   const String continents = 'continents';
   const String currencies = 'currencies';
+  const String notes = 'notes';
 
   /// all docs include mixed lang phrases with extra primary key of "id_langCodo"
   const String basicPhrases = 'basicPhrases';
@@ -64,4 +65,5 @@
     countriesPhrases,
     appState,
     authModel,
+    notes,
   ];
