@@ -449,7 +449,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                               ),
                             ),
 
-                            if (noteModel.receiverID != null)
+                            if (noteModel?.receiverID != null)
                               FutureBuilder(
                                   future: noteModel.receiverType == NoteReceiverType.user ?
                                   UsersProvider.proFetchUserModel(
@@ -655,26 +655,31 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                       /// CONFIRM BUTTON
                       FutureBuilder(
-                        future: note.receiverType == NoteReceiverType.user ?
-                        UsersProvider.proFetchUserModel(
+                          future:
+                          note?.receiverType == NoteReceiverType.user ?
+                          UsersProvider.proFetchUserModel(
                             context: context,
                             userID: note.receiverID,
-                        )
-                        :
-                            BzzProvider.proFetchBzModel(
-                                context: context,
-                                bzID: note.receiverID,
-                            ),
+                          )
+                              :
+                          note?.receiverType == NoteReceiverType.bz ?
+                          BzzProvider.proFetchBzModel(
+                            context: context,
+                            bzID: note.receiverID,
+                          )
+                              :
+                          null
+                          ,
                           builder: (_, AsyncSnapshot<Object> snapshot){
 
 
                           String _receiverName;
 
-                          if (note.receiverType == NoteReceiverType.user){
+                          if (note?.receiverType == NoteReceiverType.user){
                             final UserModel _user = snapshot.data;
                             _receiverName = _user?.name;
                           }
-                          else {
+                          if (note?.receiverType == NoteReceiverType.bz){
                             final BzModel _bz = snapshot.data;
                             _receiverName = _bz?.name;
                           }

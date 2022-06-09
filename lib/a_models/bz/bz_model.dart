@@ -1534,7 +1534,7 @@ class BzModel{
 static QueryParameters unseenBzNotesQueryParameters(BzModel bzModel){
 
     return QueryParameters(
-      collName: FireColl.bzz,
+      collName: FireColl.notes,
       limit: 100,
       orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
       finders: <FireFinder>[
