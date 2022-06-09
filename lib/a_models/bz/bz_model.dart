@@ -1533,46 +1533,79 @@ class BzModel{
   /// QUERY PARAMETERS
 
 // ------------------------------------------
-static QueryParameters unseenBzNotesQueryParameters({
-  @required BzModel bzModel,
-  @required BuildContext context,
-}){
+  static QueryParameters unseenBzNotesQueryParameters({
+    @required BzModel bzModel,
+    @required BuildContext context,
+  }){
 
     return QueryParameters(
-      collName: FireColl.notes,
-      limit: 100,
-      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-      finders: <FireFinder>[
-
-        FireFinder(
-          field: 'seen',
-          comparison: FireComparison.equalTo,
-          value: false,
-        ),
-
-        FireFinder(
+        collName: FireColl.notes,
+        limit: 100,
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        finders: <FireFinder>[
+          FireFinder(
+            field: 'seen',
+            comparison: FireComparison.equalTo,
+            value: false,
+          ),
+          FireFinder(
             field: 'receiverID',
             comparison: FireComparison.equalTo,
             value: bzModel.id,
-        ),
-
-      ],
-      onDataChanged: (List<Map<String, dynamic>> maps) async {
-
-        final List<NoteModel> _notes = NoteModel.decipherNotesModels(
+          ),
+        ],
+        onDataChanged: (List<Map<String, dynamic>> maps) async {
+          final List<NoteModel> _notes = NoteModel.decipherNotesModels(
             maps: maps,
             fromJSON: false,
-        );
-
-        final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-        _notesProvider.insertNotesToAllBzzNotes(
+          );
+          final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+          _notesProvider.insertNotesToAllBzzNotes(
             notes: _notes,
             notify: true,
+          );
+          await NoteLDBOps.insertNotes(_notes);
+        }
         );
-        await NoteLDBOps.insertNotes(_notes);
 
-      }
+  }
+// ------------------------------------------
+  static QueryParameters allReceivedBzNotesQueryParameters({
+    @required BzModel bzModel,
+    @required BuildContext context,
+  }){
+
+    return QueryParameters(
+        collName: FireColl.notes,
+        limit: 5,
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        finders: <FireFinder>[
+
+          FireFinder(
+            field: 'receiverID',
+            comparison: FireComparison.equalTo,
+            value: bzModel.id,
+          ),
+
+        ],
+        onDataChanged: (List<Map<String, dynamic>> maps) async {
+
+          // final List<NoteModel> _notes = NoteModel.decipherNotesModels(
+          //   maps: maps,
+          //   fromJSON: false,
+          // );
+
+          // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+          // _notesProvider.insertNotesToAllBzzNotes(
+          //   notes: _notes,
+          //   notify: true,
+          // );
+          //
+          // await NoteLDBOps.insertNotes(_notes);
+
+        }
     );
 
-}
+  }
+// ------------------------------------------
 }
