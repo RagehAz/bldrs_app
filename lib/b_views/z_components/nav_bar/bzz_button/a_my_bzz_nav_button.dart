@@ -7,6 +7,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyBzzNavButton extends StatelessWidget {
@@ -49,6 +50,7 @@ class MyBzzNavButton extends StatelessWidget {
         width: _buttonWidth,
         color: Colorz.nothing,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
 
             /// --- TOP MARGIN
