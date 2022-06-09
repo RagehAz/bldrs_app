@@ -12,6 +12,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/cloud_f
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/obelisk_layout/obelisk_layout.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sembast_test_screen.dart';
@@ -36,6 +37,13 @@ class SpecializedLabs extends StatelessWidget {
   List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// OBELISK LAYOUT
+      DashButtonModel(
+        verse: 'OBELISK',
+        icon: Iconz.achievement,
+        screen: const ObeliskLayout(),
+      ),
 
       /// PROVIDER TEST
       DashButtonModel(

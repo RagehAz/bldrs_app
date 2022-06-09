@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 import 'package:bldrs/b_views/z_components/tab_bars/bldrs_sliver_tab_bar.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 
@@ -31,18 +30,6 @@ class MyBzScreenTabBar extends StatelessWidget {
     return _isSelected;
   }
 // -----------------------------------------------------------------------------
-  String _bzTabIcon(BzTab bzTab){
-    switch(bzTab){
-      case BzTab.flyers   : return Iconz.flyerGrid  ; break;
-      case BzTab.about    : return Iconz.info       ; break;
-      case BzTab.authors  : return Iconz.bz         ; break;
-      case BzTab.notes    : return Iconz.news       ; break;
-      case BzTab.targets  : return Iconz.target     ; break;
-      case BzTab.powers   : return Iconz.power      ; break;
-      case BzTab.network  : return Iconz.follow     ; break;
-      default : return null;
-    }
-  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -61,7 +48,7 @@ class MyBzScreenTabBar extends StatelessWidget {
             FlyerTypeButton(
               key: ValueKey<String>('bz_tab_button_$_bzTabString'),
               verse: _bzTabString,
-              icon: _bzTabIcon(_bzTab),
+              icon: BzModel.getBzTabIcon(_bzTab),
               iconSizeFactor: 0.6,
               isSelected: _isSelected(
                 context: context,
