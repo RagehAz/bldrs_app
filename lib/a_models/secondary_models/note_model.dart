@@ -191,6 +191,24 @@ class NoteModel {
     };
   }
   // -------------------------------------
+  static List<Map<String, dynamic>> cipherNotesModels({
+    @required List<NoteModel> notes,
+    @required bool toJSON,
+  }){
+
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+        _maps.add(note.toMap(toJSON: toJSON));
+      }
+
+    }
+
+    return _maps;
+}
+  // -------------------------------------
   static NoteModel decipherNoteModel({
     @required dynamic map,
     @required bool fromJSON
@@ -430,6 +448,7 @@ class NoteModel {
     blog('senderImageURL : $senderImageURL');
     blog('noteSenderType : $noteSenderType');
     blog('receiverID : $receiverID');
+    blog('receiverType : $receiverType');
     blog('title : $title');
     blog('body : $body');
     blog('metaData : $metaData');
@@ -634,6 +653,10 @@ class NoteModel {
     }
 
     return _thereAreUnseenNotes;
+  }
+
+  static bool checkIsUnSeen(NoteModel note){
+    return note?.seen == false;
   }
   // -------------------------------------
   static bool checkCanSendNote(NoteModel noteModel){

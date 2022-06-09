@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/nav_bar/components/note_red_dot.dart'
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -113,9 +114,11 @@ class NavBarButton extends StatelessWidget {
 
             /// RED DOT
             if (notesDotIsOn == true)
-              NoteRedDot(
-                buttonWidth: _buttonWidth,
-                count: notesCount,
+              Padding(
+                padding: superMargins(margins: 3),
+                child: NoteRedDot(
+                  count: notesCount,
+                ),
               ),
 
           ],
