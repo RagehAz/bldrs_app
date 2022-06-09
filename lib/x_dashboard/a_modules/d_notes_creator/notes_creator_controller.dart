@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
@@ -59,7 +60,7 @@ NoteModel createInitialNote(BuildContext context) {
     sentTime: DateTime.now(),
     attachment: null,
     attachmentType: NoteAttachmentType.non,
-    seen: null,
+    seen: false,
     seenTime: null,
     sendFCM: false,
     noteType: NoteType.announcement,
@@ -734,7 +735,7 @@ Future<void> onSendNote({
   @required GlobalKey<FormState> formKey,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required ValueNotifier<UserModel> selectedReciever,
+  @required String receiverName,
   @required ValueNotifier<NoteSenderType> selectedSenderType,
   @required ValueNotifier<dynamic> selectedSenderModel,
   @required ScrollController scrollController,
@@ -747,7 +748,7 @@ Future<void> onSendNote({
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
       title: 'Send ?',
-      body: 'Do you want to confirm sending this notification to ${selectedReciever.value.name}',
+      body: 'Do you want to confirm sending this notification to $receiverName : ( ${note.value.receiverType} )',
       boolDialog: true,
     );
 
@@ -780,18 +781,17 @@ Future<void> onSendNote({
         bodyController: bodyController,
         selectedSenderModel: selectedSenderModel,
         selectedSenderType: selectedSenderType,
-        selectedReciever: selectedReciever,
       );
 
       await Scrollers.scrollToTop(
           controller: scrollController,
       );
 
-      await TopDialog.showTopDialog(
+      unawaited(TopDialog.showTopDialog(
         context: context,
         firstLine: 'Note Sent',
         secondLine: 'Alf Mabrouk ya5oya',
-      );
+      ));
 
       /// FAILED SCENARIO
       //   if (result == true) {
@@ -866,14 +866,12 @@ void _clearNote({
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required ValueNotifier<UserModel> selectedReciever,
   @required ValueNotifier<NoteSenderType> selectedSenderType,
   @required ValueNotifier<dynamic> selectedSenderModel,
 }){
   note.value = createInitialNote(context);
   titleController.clear();
   bodyController.clear();
-  selectedReciever.value = null;
   selectedSenderType.value = NoteSenderType.bldrs;
   selectedSenderModel.value = null;
 
@@ -959,7 +957,6 @@ Future<void> onGoToNoteTemplatesScreen({
   @required TextEditingController bodyController,
   @required ValueNotifier<NoteSenderType> selectedSenderType,
   @required ScrollController scrollController,
-  @required ValueNotifier<UserModel> selectedReciever,
   @required ValueNotifier<dynamic> selectedSenderModel,
 }) async {
 
@@ -975,7 +972,6 @@ Future<void> onGoToNoteTemplatesScreen({
     titleController.text = _templateNote.title;
     bodyController.text = _templateNote.body;
     selectedSenderType.value = _templateNote.noteSenderType;
-    selectedReciever.value = null;
     selectedSenderModel.value = null;
 
     await Scrollers.scrollToTop(

@@ -30,6 +30,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   ValueNotifier<MutableSlide> _slide; /// tamam disposed
   ValueNotifier<Matrix4> _matrix; /// tamam disposed
   ValueNotifier<ImageFilterModel> _filterModel; /// tamam disposed
+  final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
 // ------------------------------------
   @override
   void initState() {
@@ -44,6 +45,14 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
         slide: _slide.value
     );
 
+    _isTransforming.addListener(() async {
+      if (_isTransforming.value == true){
+        await Future.delayed(const Duration(seconds: 1), (){
+          _isTransforming.value = false;
+        });
+      }
+    });
+
     // _filterIndex = initializeFilterIndex(
     //   slide: _slide.value,
     // );
@@ -56,6 +65,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     _slide.dispose();
     _matrix.dispose();
     _filterModel.dispose();
+    _isTransforming.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -81,6 +91,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             slide: _slide,
             matrix: _matrix,
             filterModel: _filterModel,
+            isTransforming: _isTransforming,
             onSlideTap: () => onToggleFilter(
                 currentFilter: _filterModel,
             ),

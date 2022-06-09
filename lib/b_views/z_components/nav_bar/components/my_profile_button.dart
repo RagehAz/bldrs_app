@@ -11,8 +11,8 @@ import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -104,6 +104,19 @@ class MyProfileButton extends StatelessWidget {
           },
 
         ),
+          loadingWidget: NavBarButton(
+              size: NavBar.navBarButtonWidth,
+              text: superPhrase(context, 'phid_profile'),
+              icon: Iconz.normalUser,
+              iconSizeFactor: 0.7,
+              barType: NavBar.barType,
+              onTap: () => goToMyProfileScreen(context),
+              clipperWidget: UserBalloon(
+                size: NavBar.circleWidth,
+                loading: false,
+                userModel: _userModel,
+              )
+          ),
           builder: (_, List<Map<String, dynamic>> maps){
 
             final List<NoteModel> _notes = NoteModel.decipherNotesModels(

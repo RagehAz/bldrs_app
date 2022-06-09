@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/note_red_dot.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -195,10 +196,16 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
                           weight: VerseWeight.thin,
                         ),
 
-                        NoteCard(
-                          noteModel: _noteModel,
-                          isDraftNote: false,
-                          onNoteOptionsTap: () => _onNoteTap(_noteModel),
+                        NoteRedDotWrapper(
+                          redDotIsOn: NoteModel.checkIsUnSeen(_noteModel),
+                          shrinkChild: true,
+                          childWidth: BldrsAppBar.width(context),
+                          child: NoteCard(
+                            noteModel: _noteModel,
+                            isDraftNote: false,
+                            onNoteOptionsTap: () => _onNoteTap(_noteModel),
+                            onCardTap: () => _noteModel.blogNoteModel(methodName: 'All Notes'),
+                          ),
                         ),
 
                       ],

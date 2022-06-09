@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/bzz_button/a_my_bzz_nav_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -256,7 +257,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
@@ -304,6 +304,19 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               physics: const BouncingScrollPhysics(),
               controller: _scrollController,
               children: <Widget>[
+
+                Transform.scale(
+                  scale : 4,
+                  child: Container(
+                    width: _screenWidth,
+                    height: 250,
+                    alignment: Alignment.center,
+                    child: Container(
+                        color: Colorz.white30,
+                        child: const MyBzzNavButton(),
+                    ),
+                  ),
+                ),
 
                 /// PARAGRAPH
                 WidgetFader(

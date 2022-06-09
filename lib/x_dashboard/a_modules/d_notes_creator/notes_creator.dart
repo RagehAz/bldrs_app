@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -47,7 +48,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 // -----------------------------------------------------------------------------
   final ValueNotifier<NoteModel> _note = ValueNotifier<NoteModel>(null);
-  final ValueNotifier<UserModel> _selectedReciever = ValueNotifier<UserModel>(null);
   final ValueNotifier<NoteSenderType> _selectedSenderType = ValueNotifier<NoteSenderType>(NoteSenderType.bldrs);
   final ValueNotifier<dynamic> _selectedSenderModel = ValueNotifier<dynamic>(NoteModel.bldrsSenderModel);
   final TextEditingController _titleController = TextEditingController();
@@ -94,7 +94,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   void dispose() {
     _loading.dispose();
     _note.dispose();
-    _selectedReciever.dispose();
     _selectedSenderType.dispose();
     _selectedSenderModel.dispose();
     _titleController.dispose();
@@ -152,7 +151,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           onTap: () => onGoToNoteTemplatesScreen(
             context: context,
             scrollController: _scrollController,
-            selectedReciever: _selectedReciever,
             selectedSenderType: _selectedSenderType,
             selectedSenderModel: _selectedSenderModel,
             note: _note,
@@ -428,7 +426,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                   ...List.generate(NoteModel.noteReceiverTypesList.length, (index){
 
                                     final NoteReceiverType _receiverType = NoteModel.noteReceiverTypesList[index];
-                                    final bool _isSelected = noteModel.receiverType == _receiverType;
+                                    final bool _isSelected = noteModel?.receiverType == _receiverType;
 
                                     return DreamBox(
                                       height: 40,
@@ -651,56 +649,77 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     stringsSeparator: ' - ',
                   );
 
-                  return ValueListenableBuilder(
-                      valueListenable: _selectedReciever,
-                      builder: (_, UserModel receiver, Widget child){
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
 
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-
-                            /// CONFIRM BUTTON
-                            EditorConfirmButton(
-                              firstLine: 'Send',
-                              secondLine: 'to ${receiver?.name}',
-                              positionedAlignment: null,
-                              isDeactivated: !NoteModel.checkCanSendNote(note),
-                              onTap: () => onSendNote(
+                      /// CONFIRM BUTTON
+                      FutureBuilder(
+                        future: note.receiverType == NoteReceiverType.user ?
+                        UsersProvider.proFetchUserModel(
+                            context: context,
+                            userID: note.receiverID,
+                        )
+                        :
+                            BzzProvider.proFetchBzModel(
                                 context: context,
-                                note: _note,
-                                formKey: _formKey,
-                                titleController: _titleController,
-                                bodyController: _bodyController,
-                                selectedReciever: _selectedReciever,
-                                selectedSenderType: _selectedSenderType,
-                                selectedSenderModel: _selectedSenderModel,
-                                scrollController: _scrollController,
-                              ),
+                                bzID: note.receiverID,
                             ),
+                          builder: (_, AsyncSnapshot<Object> snapshot){
 
-                            /// MISSING FIELDS BOX
-                            if (Mapper.checkCanLoopList(_missingNoteFields) == true)
-                            Container(
-                              width: 220,
-                              height: 50,
-                              alignment: Aligners.superTopAlignment(context),
-                              child: SuperVerse(
-                                verse: 'Missing Fields :-\n$_missingFieldsString',
-                                color: Colorz.red255,
-                                size: 1,
-                                italic: true,
-                                weight: VerseWeight.thin,
-                                maxLines: 3,
-                                centered: false,
-                                labelColor: Colorz.black255,
-                                onTap: () => note.blogNoteModel(),
-                              ),
+
+                          String _receiverName;
+
+                          if (note.receiverType == NoteReceiverType.user){
+                            final UserModel _user = snapshot.data;
+                            _receiverName = _user?.name;
+                          }
+                          else {
+                            final BzModel _bz = snapshot.data;
+                            _receiverName = _bz?.name;
+                          }
+
+                          return EditorConfirmButton(
+                            firstLine: 'Send',
+                            secondLine: 'to $_receiverName',
+                            positionedAlignment: null,
+                            isDeactivated: !NoteModel.checkCanSendNote(note),
+                            onTap: () => onSendNote(
+                              context: context,
+                              note: _note,
+                              formKey: _formKey,
+                              titleController: _titleController,
+                              bodyController: _bodyController,
+                              receiverName: _receiverName,
+                              selectedSenderType: _selectedSenderType,
+                              selectedSenderModel: _selectedSenderModel,
+                              scrollController: _scrollController,
                             ),
+                          );
 
-                          ],
-                        );
+                          }
+                      ),
 
-                      }
+                      /// MISSING FIELDS BOX
+                      if (Mapper.checkCanLoopList(_missingNoteFields) == true)
+                        Container(
+                          width: 220,
+                          height: 50,
+                          alignment: Aligners.superTopAlignment(context),
+                          child: SuperVerse(
+                            verse: 'Missing Fields :-\n$_missingFieldsString',
+                            color: Colorz.red255,
+                            size: 1,
+                            italic: true,
+                            weight: VerseWeight.thin,
+                            maxLines: 3,
+                            centered: false,
+                            labelColor: Colorz.black255,
+                            onTap: () => note.blogNoteModel(),
+                          ),
+                        ),
+
+                    ],
                   );
 
                 }

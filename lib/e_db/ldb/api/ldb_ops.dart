@@ -34,6 +34,7 @@ String getPrimaryKey(String docName) {
     case LDBDoc.appState: return 'id';
     case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF
     case LDBDoc.authModel: return 'uid';
+    case LDBDoc.notes: return 'id';
     case 'test': return 'id';
     default: return null;
   }
