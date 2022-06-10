@@ -22,9 +22,6 @@ class ObeliskPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final double _obeliskRadius = (ObeliskRow.circleWidth + 10) * 0.5;
-    // const List<BzTab> _bzTabs = BzModel.bzTabsList;
-
     final double _pageWidth = ObeliskPage.getWidth(context);
 
     return TabBarView(
@@ -82,22 +79,19 @@ class ObeliskPages extends StatelessWidget {
           child: const BzTargetsPage(),
         ),
 
+        /// POWERS
         ObeliskPage(
           screenHeight: screenHeight,
-          color: Colorz.red50,
+          color: Colorz.white20,
           title: BzModel.translateBzTab(BzTab.powers),
         ),
 
+        /// NETWORK
         ObeliskPage(
           screenHeight: screenHeight,
-          color: Colorz.green20,
+          color: Colorz.white20,
           title: BzModel.translateBzTab(BzTab.network),
         ),
-
-        // ObeliskPage(
-        //   screenHeight: screenHeight,
-        //   color: Colorz.bloodTest,
-        // ),
 
       ],
     );
