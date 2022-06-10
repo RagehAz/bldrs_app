@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_title.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_loading.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
@@ -6,8 +7,6 @@ import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
@@ -24,6 +23,9 @@ class BldrsAppBar extends StatelessWidget {
     this.pageTitle,
     this.appBarRowWidgets,
     this.loading,
+    this.swipeDirection,
+    this.index,
+    this.numberOfStrips,
     this.appBarScrollController,
     this.sectionButtonIsOn,
     this.searchController,
@@ -40,6 +42,9 @@ class BldrsAppBar extends StatelessWidget {
   final dynamic pageTitle;
   final List<Widget> appBarRowWidgets;
   final ValueNotifier<bool> loading;
+  final ValueNotifier<SwipeDirection> swipeDirection;
+  final ValueNotifier<int> index;
+  final int numberOfStrips;
   final ScrollController appBarScrollController;
   final bool sectionButtonIsOn;
   final TextEditingController searchController;
@@ -202,162 +207,139 @@ class BldrsAppBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final bool _scrollable = _scrollableCheck();
 // -----------------------------------------------------------------------------
-    return Column(
-      key: key,
-      children: <Widget>[
+    return Container(
+      width: _abWidth,
+      height: _abHeight,
+      alignment: Alignment.center,
+      margin: const EdgeInsets.all(Ratioz.appBarMargin),
+      decoration: const BoxDecoration(
+        color: Colorz.black230,
+        borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
+        boxShadow: Shadowz.appBarShadow,
+      ),
+      child: Stack(
+        alignment: Aligners.superCenterAlignment(context),
+        children: <Widget>[
 
-        /// MAIN APPBAR
-        Container(
-          width: _abWidth,
-          height: _abHeight,
-          alignment: Alignment.center,
-          margin: const EdgeInsets.all(Ratioz.appBarMargin),
-          decoration: const BoxDecoration(
-            color: Colorz.black230,
-            borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
-            boxShadow: Shadowz.appBarShadow,
+          /// BLUR
+          BlurLayer(
+            width: _abWidth,
+            height: _abHeight,
+            borders: const BorderRadius.all(
+                Radius.circular(Ratioz.appBarCorner)),
           ),
-          child: Stack(
-            alignment: Aligners.superCenterAlignment(context),
-            children: <Widget>[
 
-              /// BLUR
-              BlurLayer(
-                width: _abWidth,
-                height: _abHeight,
-                borders: const BorderRadius.all(
-                    Radius.circular(Ratioz.appBarCorner)),
-              ),
+          /// CONTENTS
+          SizedBox(
+            width: _abWidth,
+            height: _abHeight,
+            // color: Colorz.BabyBlueSmoke,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
 
-              /// CONTENTS
-              SizedBox(
-                width: _abWidth,
-                height: _abHeight,
-                // color: Colorz.BabyBlueSmoke,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                /// BACK / SEARCH / SECTION / ZONE
+                Row(
                   children: <Widget>[
 
-                    /// BACK / SEARCH / SECTION / ZONE
-                    Row(
-                      children: <Widget>[
-
-                        /// STARTING SPACER
-                        const SizedBox(
-                          width: Ratioz.appBarPadding,
-                        ),
-
-                        /// BackButton
-                        if (_backButtonIsOn == true)
-                          BackAndSearchButton(
-                            backAndSearchAction: BackAndSearchAction.goBack,
-                            onTap: onBack,
-                          ),
-
-                        /// Go to Search Button
-                        if (_searchButtonIsOn == true)
-                          const BackAndSearchButton(
-                            backAndSearchAction:
-                                BackAndSearchAction.goToSearchScreen,
-                          ),
-
-                        /// CUSTOM APP BAR WIDGETS
-                        if (_scrollable == true)
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(Ratioz.appBarCorner - Ratioz.appBarPadding),
-                            child: Container(
-                              width: _screenWidth -
-                                  (2 * Ratioz.appBarMargin) -
-                                  _backButtonWidth -
-                                  Ratioz.appBarPadding,
-                              height: _abHeight - (2 * Ratioz.appBarPadding),
-                              alignment: Alignment.center,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                controller: appBarScrollController,
-                                children: appBarRowWidgets,
-                              ),
-                            ),
-                          ),
-
-                        /// MIDDLE SPACER
-                        const SizedBox(
-                          width: Ratioz.appBarPadding,
-                        ),
-
-                        /// SECTION BUTTON
-                        if (_sectionButtonIsOn == true)
-                          const SectionsButton(),
-
-                        /// PAGE TITLE
-                        if (pageTitle != null)
-                          AppBarTitle(
-                            pageTitle: pageTitle,
-                            backButtonIsOn: _backButtonIsOn,
-                          ),
-
-                        /// CUSTOM APP BAR WIDGETS
-                        if (appBarRowWidgets != null && _scrollable == false)
-                          ...appBarRowWidgets,
-
-                        /// EXPANDER
-                        if (_zoneButtonIsOn == true)
-                          const Expander(),
-
-                        /// --- LOADING INDICATOR
-                        // if (loading != null)
-                        //   Loading(loading: true),
-
-                        /// ZONE BUTTON
-                        if (_zoneButtonIsOn == true)
-                          const ZoneButton(),
-
-                      ],
+                    /// STARTING SPACER
+                    const SizedBox(
+                      width: Ratioz.appBarPadding,
                     ),
 
-                    /// SEARCH BAR,
-                    if (appBarType == AppBarType.search)
-                      SearchBar(
-                        searchController: searchController,
-                        onSearchSubmit: onSearchSubmit,
-                        historyButtonIsOn: historyButtonIsOn,
-                        onSearchChanged: onSearchChanged,
-                        hintText: searchHint,
+                    /// BackButton
+                    if (_backButtonIsOn == true)
+                      BackAndSearchButton(
+                        backAndSearchAction: BackAndSearchAction.goBack,
+                        onTap: onBack,
                       ),
+
+                    /// Go to Search Button
+                    if (_searchButtonIsOn == true)
+                      const BackAndSearchButton(
+                        backAndSearchAction:
+                            BackAndSearchAction.goToSearchScreen,
+                      ),
+
+                    /// CUSTOM APP BAR WIDGETS
+                    if (_scrollable == true)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(Ratioz.appBarCorner - Ratioz.appBarPadding),
+                        child: Container(
+                          width: _screenWidth -
+                              (2 * Ratioz.appBarMargin) -
+                              _backButtonWidth -
+                              Ratioz.appBarPadding,
+                          height: _abHeight - (2 * Ratioz.appBarPadding),
+                          alignment: Alignment.center,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            controller: appBarScrollController,
+                            children: appBarRowWidgets,
+                          ),
+                        ),
+                      ),
+
+                    /// MIDDLE SPACER
+                    const SizedBox(
+                      width: Ratioz.appBarPadding,
+                    ),
+
+                    /// SECTION BUTTON
+                    if (_sectionButtonIsOn == true)
+                      const SectionsButton(),
+
+                    /// PAGE TITLE
+                    if (pageTitle != null)
+                      AppBarTitle(
+                        pageTitle: pageTitle,
+                        backButtonIsOn: _backButtonIsOn,
+                      ),
+
+                    /// CUSTOM APP BAR WIDGETS
+                    if (appBarRowWidgets != null && _scrollable == false)
+                      ...appBarRowWidgets,
+
+                    /// EXPANDER
+                    if (_zoneButtonIsOn == true)
+                      const Expander(),
+
+                    /// --- LOADING INDICATOR
+                    // if (loading != null)
+                    //   Loading(loading: true),
+
+                    /// ZONE BUTTON
+                    if (_zoneButtonIsOn == true)
+                      const ZoneButton(),
 
                   ],
                 ),
-              ),
 
-              /// LOADING
-              if (loading != null)
-              ValueListenableBuilder(
-                valueListenable: loading,
-                builder: (_, bool isLoading, Widget child){
+                /// SEARCH BAR,
+                if (appBarType == AppBarType.search)
+                  SearchBar(
+                    searchController: searchController,
+                    onSearchSubmit: onSearchSubmit,
+                    historyButtonIsOn: historyButtonIsOn,
+                    onSearchChanged: onSearchChanged,
+                    hintText: searchHint,
+                  ),
 
-                  if (isLoading == true){
-                    return StaticProgressBar(
-                      index: 0,
-                      numberOfSlides: 1,
-                      opacity: 0.4,
-                      swipeDirection: SwipeDirection.freeze,
-                      loading: isLoading,
-                      flyerBoxWidth: _abWidth,
-                      margins: EdgeInsets.only(top: Ratioz.appBarSmallHeight - StaticStrips.stripThickness(_abWidth)),
-                    );
-                  }
-
-                  else {
-                    return const SizedBox();
-                  }
-
-                },
-              ),
-
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+
+          /// LOADING
+          if (loading != null)
+            AppBarLoading(
+              index: index,
+              numberOfStrips: numberOfStrips,
+              loading: loading,
+              swipeDirection: swipeDirection,
+            ),
+
+        ],
+      ),
     );
   }
 }

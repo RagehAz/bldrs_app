@@ -15,7 +15,7 @@ class Stratosphere extends StatelessWidget {
   final bool bigAppBar;
   /// --------------------------------------------------------------------------
   static const EdgeInsets stratosphereInsets = EdgeInsets.only(top: Ratioz.stratosphere);
-  static const EdgeInsets stratosphereSandwich = EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.stratosphere);
+  static const EdgeInsets stratosphereSandwich = EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon);
   static const double _margins = Ratioz.appBarMargin * 2;
   static const double bigAppBarStratosphere = Ratioz.appBarBigHeight + _margins;
   static const double smallAppBarStratosphere = Ratioz.appBarSmallHeight + _margins;

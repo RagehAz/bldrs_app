@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,9 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.pageTitle,
     @required this.onBack,
     @required this.loading,
+    @required this.swipeDirection,
+    @required this.index,
+    @required this.numberOfStrips,
     @required this.appBarScrollController,
     @required this.searchController,
     @required this.onSearchSubmit,
@@ -54,6 +58,9 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool zoneButtonIsOn;
   final String searchHint;
   final ValueNotifier<bool> loading;
+  final ValueNotifier<SwipeDirection> swipeDirection;
+  final ValueNotifier<int> index;
+  final int numberOfStrips;
   final PyramidType pyramidType;
   final Function onPyramidTap;
   /// --------------------------------------------------------------------------
@@ -120,6 +127,9 @@ class MainLayoutStackWidgets extends StatelessWidget {
             pageTitle: pageTitle,
             onBack: onBack,
             loading: loading,
+            index: index,
+            numberOfStrips: numberOfStrips,
+            swipeDirection: swipeDirection,
             appBarScrollController: appBarScrollController,
             sectionButtonIsOn: sectionButtonIsOn,
             searchController: searchController,

@@ -40,7 +40,7 @@ class BzFlyersPage extends StatelessWidget {
         gridHeight: height ?? Scale.superScreenHeight(context),
         scrollController: null,
         // numberOfColumns: 2,
-        topPadding: topPadding ?? 5,
+        // topPadding: Stratosphere.smallAppBarStratosphere,
         authorMode: true,
         onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerOptionsTap(
           context: context,

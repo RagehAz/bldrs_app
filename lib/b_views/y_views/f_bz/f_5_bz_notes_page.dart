@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/fire_coll_paginator.dart';
 import 'package:flutter/material.dart';
 
@@ -94,7 +94,7 @@ class _BzNotesPageState extends State<BzNotesPage> {
             physics: const BouncingScrollPhysics(),
             controller: _controller,
             itemCount: _notes.length,
-            padding: const EdgeInsets.only(bottom: Ratioz.stratosphere),
+            padding: Stratosphere.stratosphereSandwich,
             itemBuilder: (_, int index){
 
               final NoteModel _note = _notes[index];
