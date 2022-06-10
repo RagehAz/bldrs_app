@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -16,6 +17,7 @@ class PageBubble extends StatelessWidget {
     this.color = Colorz.black255,
     this.bubbleWidth,
     this.corners,
+    this.progressBarIsOn = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,26 +27,36 @@ class PageBubble extends StatelessWidget {
   final double screenHeightWithoutSafeArea;
   final double bubbleWidth;
   final dynamic corners;
+  final bool progressBarIsOn;
   /// --------------------------------------------------------------------------
-  static EdgeInsets topMargin(AppBarType appBarType){
+  static EdgeInsets topMargin({
+    @required BuildContext context,
+    @required AppBarType appBarType,
+    @required bool withProgressBar,
+  }){
     EdgeInsets margins;
+
+    final double _progressBarHeight = withProgressBar == true ?
+    StaticStrips.boxHeight(Scale.superScreenWidth(context))
+        :
+    0;
 
     /// NO APP BAR
     if (appBarType == AppBarType.non){
-      margins = const EdgeInsets.only(
-          top: Ratioz.appBarMargin,
+      margins = EdgeInsets.only(
+          top: Ratioz.appBarMargin + _progressBarHeight,
       );
     }
     /// BIG APP BAR : SEARCH
     else if (appBarType == AppBarType.search){
-      margins = const EdgeInsets.only(
-          top: Ratioz.appBarBigHeight + (2 * Ratioz.appBarMargin)
+      margins = EdgeInsets.only(
+          top: Ratioz.appBarBigHeight + (2 * Ratioz.appBarMargin) + _progressBarHeight
       );
     }
     /// REMAINING APPBARS : BASIC - MAIN - INTRO - SCROLLABLE
     else {
-      margins = const EdgeInsets.only(
-          top: Ratioz.appBarSmallHeight + (2 * Ratioz.appBarMargin)
+      margins = EdgeInsets.only(
+          top: Ratioz.appBarSmallHeight + (2 * Ratioz.appBarMargin) + _progressBarHeight
       );
     }
 
@@ -99,7 +111,11 @@ class PageBubble extends StatelessWidget {
         key: const ValueKey<String>('PageBubble'),
         width: _screenWidth,
         height: screenHeightWithoutSafeArea,
-        padding: topMargin(appBarType),
+        padding: topMargin(
+          appBarType: appBarType,
+          context: context,
+          withProgressBar: progressBarIsOn,
+        ),
         alignment: Alignment.topRight,
         child: Container(
           width: width(context, override: bubbleWidth),

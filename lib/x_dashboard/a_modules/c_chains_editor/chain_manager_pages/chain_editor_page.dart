@@ -67,7 +67,11 @@ class ChainEditorPage extends StatelessWidget {
           );
 
           return ListView(
-            padding: PageBubble.topMargin(AppBarType.search),
+            padding: PageBubble.topMargin(
+              context: context,
+              appBarType: AppBarType.search,
+              withProgressBar: false,
+            ),
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
 

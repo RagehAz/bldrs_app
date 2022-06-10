@@ -23,6 +23,7 @@ class NoteCard extends StatelessWidget {
     @required this.isDraftNote,
     this.onNoteOptionsTap,
     this.onCardTap,
+    this.bubbleWidth,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,13 +31,17 @@ class NoteCard extends StatelessWidget {
   final bool isDraftNote;
   final Function onNoteOptionsTap;
   final Function onCardTap;
+  final double bubbleWidth;
   /// --------------------------------------------------------------------------
-  static double bubbleWidth(BuildContext context) {
+  static double getBubbleWidth(BuildContext context) {
     return Bubble.defaultWidth(context);
   }
 // -----------------------------------------------------------------------------
-  static double bodyWidth(BuildContext context) {
-    return Bubble.clearWidth(context) - NoteSenderBalloon.balloonWidth - (Ratioz.appBarMargin);
+  static double bodyWidth({
+    @required BuildContext context,
+    @required double widthOverride
+  }) {
+    return Bubble.clearWidth(context, bubbleWidthOverride: widthOverride) - NoteSenderBalloon.balloonWidth - (Ratioz.appBarMargin);
   }
 // -----------------------------------------------------------------------------
   static const double bannerCorners = Bubble.cornersValue - Ratioz.appBarMargin;
@@ -63,7 +68,10 @@ class NoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bodyWidth = bodyWidth(context);
+    final double _bodyWidth = bodyWidth(
+      context: context,
+      widthOverride: bubbleWidth,
+    );
     const double _moreButtonSize = 35;
     final bool _noteHasButtons = Mapper.checkCanLoopList(noteModel?.buttons);
 
@@ -75,11 +83,11 @@ class NoteCard extends StatelessWidget {
     }
 
     return Bubble(
-      width: bubbleWidth(context),
+      width: bubbleWidth ?? getBubbleWidth(context),
       centered: true,
       margins: const EdgeInsets.symmetric(
           horizontal: Ratioz.appBarMargin,
-          vertical: Ratioz.appBarPadding,
+          vertical: Ratioz.appBarMargin,
       ),
       onBubbleTap: _noteHasButtons ? null : onCardTap,
       bubbleColor: noteModel?.seen == true ? Colorz.white10 : Colorz.yellow10,

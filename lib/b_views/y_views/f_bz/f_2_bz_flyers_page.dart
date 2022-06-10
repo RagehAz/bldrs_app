@@ -9,10 +9,16 @@ import 'package:flutter/material.dart';
 class BzFlyersPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzFlyersPage({
+    this.width,
+    this.height,
+    this.topPadding,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-
+  final double width;
+  final double height;
+  final double topPadding;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -30,11 +36,11 @@ class BzFlyersPage extends StatelessWidget {
       return FlyersGrid(
         key: const ValueKey<String>('BzFlyersPage_grid'),
         flyers: _bzFlyers,
-        gridWidth: Scale.superScreenWidth(context),
-        gridHeight: Scale.superScreenHeight(context),
+        gridWidth: width ?? Scale.superScreenWidth(context),
+        gridHeight: height ?? Scale.superScreenHeight(context),
         scrollController: null,
         // numberOfColumns: 2,
-        topPadding: 5,
+        topPadding: topPadding ?? 5,
         authorMode: true,
         onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerOptionsTap(
           context: context,

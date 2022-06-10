@@ -13,8 +13,11 @@ import 'package:flutter/material.dart';
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzAboutPage({
+    this.width,
     Key key,
   }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final double width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,10 @@ class BzAboutPage extends StatelessWidget {
 
         /// BZ BANNER
         BzBanner(
+          boxWidth: width,
+          margins: 10,
           bzModel: _bzModel,
+          corners: Bubble.cornersValue,
         ),
 
         /// ABOUT

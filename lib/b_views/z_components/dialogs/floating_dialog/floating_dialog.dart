@@ -49,7 +49,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
         weight: VerseWeight.thin,
         italic: false,
         // size: 2,
-        shadow: false);
+        shadowIsOn: false);
 
     return Bubble(
       // actionBtIcon: widget.actionBtIcon,
