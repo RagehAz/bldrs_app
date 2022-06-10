@@ -35,6 +35,7 @@ class SuperVerse extends StatelessWidget {
     this.strikeThrough = false,
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
+    this.shadowColor,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -56,6 +57,7 @@ class SuperVerse extends StatelessWidget {
   final bool strikeThrough;
   final ValueNotifier<String> highlight;
   final Color highlightColor;
+  final Color shadowColor;
   /// --------------------------------------------------------------------------
   static Widget dotVerse({String verse}) {
     return SuperVerse(
@@ -115,7 +117,8 @@ class SuperVerse extends StatelessWidget {
     VerseWeight weight = VerseWeight.black,
     bool italic = true,
     int size = 2,
-    bool shadow = true,
+    bool shadowIsOn = true,
+    Color shadowColor,
     double scaleFactor = 1,
     bool strikeThrough = false,
   }) {
@@ -134,7 +137,10 @@ class SuperVerse extends StatelessWidget {
     const double _shadowYOffset = 0;
     final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
-    final Color _leftShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white200 : Colorz.black230;
+
+    final Color _defaultLeftShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white200 : Colorz.black230;
+
+    final Color _leftShadow = shadowColor ?? _defaultLeftShadow;
     final Color _rightShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white80 : Colorz.white20;
 
     return TextStyle(
@@ -154,7 +160,7 @@ class SuperVerse extends StatelessWidget {
         decorationColor: Colorz.red255,
         shadows: <Shadow>[
 
-          if (shadow)
+          if (shadowIsOn == true)
             Shadow(
               color: _leftShadow,
               offset: Offset(_shadowXOffset, _shadowYOffset),
@@ -482,6 +488,7 @@ class SuperVerse extends StatelessWidget {
               labelColor: labelColor,
               weight: weight,
               shadow: shadow,
+              shadowColor: shadowColor,
               highlight: highlight,
               highlightColor: highlightColor,
               strikeThrough: strikeThrough,
@@ -665,6 +672,7 @@ class Verse extends StatelessWidget {
     this.scaleFactor = 1,
     this.strikeThrough = false,
     this.highlightColor = Colorz.bloodTest,
+    this.shadowColor,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -681,6 +689,7 @@ class Verse extends StatelessWidget {
   final double scaleFactor;
   final bool strikeThrough;
   final Color highlightColor;
+  final Color shadowColor;
   /// --------------------------------------------------------------------------
   static List<TextSpan> _generateTextSpans({
     @required String verse,
@@ -753,7 +762,7 @@ class Verse extends StatelessWidget {
       weight: weight,
       italic: italic,
       size: size,
-      shadow: shadow,
+      shadowIsOn: shadow,
       scaleFactor: scaleFactor,
       strikeThrough: strikeThrough,
     );
@@ -786,7 +795,8 @@ class Verse extends StatelessWidget {
             weight: weight,
             italic: italic,
             size: size,
-            shadow: shadow,
+            shadowIsOn: shadow,
+            shadowColor: shadowColor,
             scaleFactor: scaleFactor,
             strikeThrough: strikeThrough,
           ),

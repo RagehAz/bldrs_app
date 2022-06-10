@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -14,12 +15,14 @@ class BzBanner extends StatelessWidget {
     this.bzModel,
     this.boxWidth = 100,
     this.margins = 30,
+    this.corners,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final double boxWidth;
   final dynamic margins;
+  final double corners;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,15 +32,16 @@ class BzBanner extends StatelessWidget {
         listen: true,
     );
 
-    final double logoSize = boxWidth * 0.5;
+    final double logoSize = (boxWidth ?? 100) * 0.5;
 
     return Container(
       decoration: BoxDecoration(
         color: Colorz.white10,
-        borderRadius: Borderers.superBorderAll(context, boxWidth * 0.1),
+        borderRadius: Borderers.superBorderAll(context, corners ?? boxWidth * 0.1),
       ),
       padding: const EdgeInsets.symmetric(vertical: 20),
       alignment: Alignment.center,
+      margin: superMargins(margins: margins),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
