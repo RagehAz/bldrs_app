@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -21,6 +22,7 @@ class BzPowersPage extends StatelessWidget {
 
     return ListView(
       physics: const BouncingScrollPhysics(),
+      padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
 
         Bubble(

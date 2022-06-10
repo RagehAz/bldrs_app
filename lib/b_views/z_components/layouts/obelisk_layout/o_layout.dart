@@ -1,12 +1,11 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
-import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_pages.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -14,24 +13,21 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/obelisk_layout/bz_obelisk.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/obelisk_layout/obelisk_pages.dart';
 import 'package:flutter/material.dart';
 
-class ObeliskLayout extends StatefulWidget {
-
-  const ObeliskLayout({
+class OLayout extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const OLayout({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
-  State<ObeliskLayout> createState() => _ObeliskLayoutState();
+  State<OLayout> createState() => _OLayoutState();
+/// --------------------------------------------------------------------------
 }
 
-class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProviderStateMixin {
+class _OLayoutState extends State<OLayout> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   TabController _tabController;
 // -----------------------------------------------------------------------------
@@ -124,7 +120,10 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitle: _pageTitle,
-      loading: ValueNotifier(true),
+      loading: ValueNotifier(false),
+      index: _tabIndex,
+      swipeDirection: _swipeDirection,
+      numberOfStrips: BzModel.bzTabsList.length,
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -148,111 +147,91 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
         children: <Widget>[
 
           /// PAGES
-          ObeliskPages(
+          OPages(
             screenHeight: _screenHeight,
             tabController: _tabController,
           ),
 
-          /// PROGRESS BAR
-          ValueListenableBuilder(
-              valueListenable: _tabIndex,
-              builder: (_, int index, Widget child){
-
-                return ValueListenableBuilder(
-                    valueListenable: _swipeDirection,
-                    builder: (_, Sliders.SwipeDirection direction, Widget childB){
-
-                      return StaticProgressBar(
-                        flyerBoxWidth: superScreenWidth(context),
-                        numberOfSlides: BzModel.bzTabsList.length,
-                        index: index,
-                        opacity: 1,
-                        swipeDirection: direction,
-                        loading: false,
-                        margins: EdgeInsets.only(
-                            top: BldrsAppBar.height(context, AppBarType.basic) + Ratioz.appBarMargin + Ratioz.appBarPadding,
-                        ),
-                      );
-
-                    }
-                );
-
-              }
+          OPyramids(
+            isExpanded: _isExpanded,
+            onExpansion: onTriggerExpansion,
+            onRowTap: onRowTap,
+            tabIndex: _tabIndex,
           ),
 
-          /// SINGLE PYRAMID
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 17 * 0.7),
-              child: ValueListenableBuilder(
-                valueListenable: _isExpanded,
-                child: const SuperImage(
-                  width: 143.1 * 0.7,
-                  height: 66.4 * 0.7,
-                  pic: Iconz.pyramid,
-                  boxFit: BoxFit.fitWidth,
-                  iconColor: Colorz.black230,
-                  // scale: 1,
-                ),
-                builder: (_, bool isExpanded, Widget child){
-
-                  return AnimatedScale(
-                    scale: isExpanded == true ? 8 : 1,
-                    duration: const Duration(milliseconds: 500),
-                    curve: isExpanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
-                    alignment: Alignment.bottomRight,
-                    child: child,
-                  );
-
-                },
-              ),
-            ),
-          ),
-
-          /// OBELISK
-          BzObelisk(
-              isExpanded: _isExpanded,
-              onTriggerExpansion: onTriggerExpansion,
-              onRowTap: onRowTap,
-              tabIndex: _tabIndex,
-          ),
-
-          /// PYRAMIDS
-          ValueListenableBuilder(
-              valueListenable: _isExpanded,
-              builder: (_, bool expanded, Widget child){
-
-                return Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 17 * 0.7),
-                    child: AnimatedScale(
-                      duration: const Duration(milliseconds: 500),
-                      curve: expanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
-                      scale: expanded == true ? 0.95 : 1,
-                      alignment: Alignment.bottomRight,
-                      child: GestureDetector(
-                        onTap: (){
-
-                          _isExpanded.value = !_isExpanded.value;
-
-                        },
-                        child: const SuperImage(
-                          width: 256 * 0.7,
-                          height: 80 * 0.7,
-                          pic: Iconz.pyramidsYellowClean,
-                          boxFit: BoxFit.fitWidth,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-
-              }
-          ),
+          // /// SINGLE PYRAMID
+          // Positioned(
+          //   bottom: 0,
+          //   right: 0,
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(right: 17 * 0.7),
+          //     child: ValueListenableBuilder(
+          //       valueListenable: _isExpanded,
+          //       child: const SuperImage(
+          //         width: 143.1 * 0.7,
+          //         height: 66.4 * 0.7,
+          //         pic: Iconz.pyramid,
+          //         boxFit: BoxFit.fitWidth,
+          //         iconColor: Colorz.black230,
+          //         // scale: 1,
+          //       ),
+          //       builder: (_, bool isExpanded, Widget child){
+          //
+          //         return AnimatedScale(
+          //           scale: isExpanded == true ? 8 : 1,
+          //           duration: const Duration(milliseconds: 500),
+          //           curve: isExpanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
+          //           alignment: Alignment.bottomRight,
+          //           child: child,
+          //         );
+          //
+          //       },
+          //     ),
+          //   ),
+          // ),
+          //
+          // /// OBELISK
+          // BzObelisk(
+          //     isExpanded: _isExpanded,
+          //     onTriggerExpansion: onTriggerExpansion,
+          //     onRowTap: onRowTap,
+          //     tabIndex: _tabIndex,
+          // ),
+          //
+          // /// PYRAMIDS
+          // ValueListenableBuilder(
+          //     valueListenable: _isExpanded,
+          //     builder: (_, bool expanded, Widget child){
+          //
+          //       return Positioned(
+          //         bottom: 0,
+          //         right: 0,
+          //         child: Padding(
+          //           padding: const EdgeInsets.only(right: 17 * 0.7),
+          //           child: AnimatedScale(
+          //             duration: const Duration(milliseconds: 500),
+          //             curve: expanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
+          //             scale: expanded == true ? 0.95 : 1,
+          //             alignment: Alignment.bottomRight,
+          //             child: GestureDetector(
+          //               onTap: (){
+          //
+          //                 _isExpanded.value = !_isExpanded.value;
+          //
+          //               },
+          //               child: const SuperImage(
+          //                 width: 256 * 0.7,
+          //                 height: 80 * 0.7,
+          //                 pic: Iconz.pyramidsYellowClean,
+          //                 boxFit: BoxFit.fitWidth,
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       );
+          //
+          //     }
+          // ),
 
 
         ],

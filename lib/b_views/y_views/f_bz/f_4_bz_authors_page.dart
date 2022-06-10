@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/pending_sent_authorship_notes_streamer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_bz_authors_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
@@ -89,6 +90,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 
     return ListView(
       physics: const BouncingScrollPhysics(),
+      padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
 
         /// PENDING SENT AUTHORSHIP REQUESTS
