@@ -38,11 +38,6 @@ class TargetsBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
-        // title: 'Targets',
-        // leadingIcon: Iconz.achievement,
-        // bubbleColor: Colorz.nothing,
-        // width: superScreenWidth(context),
-        // margins: 0,
         children: <Widget>[
 
           const SuperVerse(
