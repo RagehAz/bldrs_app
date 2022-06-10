@@ -1,13 +1,13 @@
-import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/app_bar/app_bar_title.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
 import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
@@ -37,7 +37,7 @@ class BldrsAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final AppBarType appBarType;
   final Function onBack;
-  final String pageTitle;
+  final dynamic pageTitle;
   final List<Widget> appBarRowWidgets;
   final ValueNotifier<bool> loading;
   final ScrollController appBarScrollController;
@@ -201,7 +201,6 @@ class BldrsAppBar extends StatelessWidget {
     final double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
 // -----------------------------------------------------------------------------
     final bool _scrollable = _scrollableCheck();
-    final double _titleHorizontalMargins = _backButtonIsOn == true ? 5 : 15;
 // -----------------------------------------------------------------------------
     return Column(
       key: key,
@@ -292,21 +291,9 @@ class BldrsAppBar extends StatelessWidget {
 
                         /// PAGE TITLE
                         if (pageTitle != null)
-                          Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: _titleHorizontalMargins),
-                              child: SuperVerse(
-                                verse: pageTitle.toUpperCase(),
-                                weight: VerseWeight.black,
-                                color: Colorz.white200,
-                                margin: 0,
-                                shadow: true,
-                                italic: true,
-                                maxLines: 2,
-                                centered: false,
-                              ),
-                            ),
+                          AppBarTitle(
+                            pageTitle: pageTitle,
+                            backButtonIsOn: _backButtonIsOn,
                           ),
 
                         /// CUSTOM APP BAR WIDGETS

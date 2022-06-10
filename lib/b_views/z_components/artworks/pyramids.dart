@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/bldrs_dashboard.dart';
@@ -26,11 +25,13 @@ class Pyramids extends StatefulWidget {
   const Pyramids({
     @required this.pyramidType,
     @required this.loading,
+    @required this.onPyramidTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final PyramidType pyramidType;
   final ValueNotifier<bool> loading;
+  final Function onPyramidTap;
   /// --------------------------------------------------------------------------
   @override
   _PyramidsState createState() => _PyramidsState();
@@ -77,8 +78,8 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
-    final String _pyramidIcon = _userModel?.isAdmin == true ? Iconz.pyramidsCrystal : getPyramid(widget.pyramidType);
-    final Color _pyramidColor = _userModel?.isAdmin == true ? Colorz.red255 : null;
+    final String _pyramidIcon = getPyramid(widget.pyramidType); //_userModel?.isAdmin == true ? Iconz.pyramidsCrystal : getPyramid(widget.pyramidType);
+    final Color _pyramidColor = _userModel?.isAdmin == true ? null : null;
 
     return Positioned(
       bottom: 0,
@@ -87,6 +88,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
         width: Ratioz.pyramidsWidth,
         height: Ratioz.pyramidsHeight,
         child: GestureDetector(
+          onTap: widget.onPyramidTap,
           onDoubleTap: () async {
 
             // if (_userModel?.isAdmin == true){

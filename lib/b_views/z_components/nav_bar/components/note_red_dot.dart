@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
@@ -109,7 +108,7 @@ class NoteRedDotWrapper extends StatelessWidget {
     final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.2);
     final double _scale = _viewWidth / childWidth;
 
-    blog('_viewWidth $_viewWidth : childWidth $childWidth : _scale $_scale');
+    // blog('_viewWidth $_viewWidth : childWidth $childWidth : _scale $_scale');
 
     return Stack(
       alignment: Alignment.center,

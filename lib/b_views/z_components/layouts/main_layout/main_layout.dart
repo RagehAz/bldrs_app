@@ -51,6 +51,7 @@ class MainLayout extends StatelessWidget {
     this.searchHint,
     this.loading,
     this.pyramidType,
+    this.onPyramidTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -59,7 +60,7 @@ class MainLayout extends StatelessWidget {
   final bool pyramidsAreOn;
   final bool navBarIsOn;
   final AppBarType appBarType;
-  final String pageTitle;
+  final dynamic pageTitle;
   final SkyType skyType;
   final bool canRefreshFlyers;
   // final bool loading;
@@ -77,6 +78,7 @@ class MainLayout extends StatelessWidget {
   final String searchHint;
   final ValueNotifier<bool> loading;
   final PyramidType pyramidType;
+  final Function onPyramidTap;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -159,6 +161,7 @@ class MainLayout extends StatelessWidget {
       searchHint: searchHint,
       layoutWidget: layoutWidget,
       pyramidType: pyramidType,
+      onPyramidTap: onPyramidTap,
     );
 
     return WillPopScope(

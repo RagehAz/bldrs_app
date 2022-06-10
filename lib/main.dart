@@ -156,7 +156,7 @@ class _BldrsAppState extends State<BldrsApp> {
   @override
   Widget build(BuildContext context) {
 
-    blog('building Bldrs with _locale : ${_locale.value}');
+    // blog('building Bldrs with _locale : ${_locale.value}');
 
     if (_locale == null || _fireError.value != null) {
       return ValueListenableBuilder<bool>(
