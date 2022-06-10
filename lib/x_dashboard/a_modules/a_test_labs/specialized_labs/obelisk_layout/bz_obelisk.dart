@@ -3,7 +3,6 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/obelisk_layout/obelisk_row.dart';
 import 'package:flutter/material.dart';
 
-
 class BzObelisk extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzObelisk({
@@ -46,106 +45,59 @@ class BzObelisk extends StatelessWidget {
         valueListenable: isExpanded,
         builder: (_, bool isBig, Widget child){
 
-          return Stack(
+          return AnimatedContainer(
+            duration: Duration(milliseconds: isBig ? 1500 : 500),
+            curve: Curves.easeOutQuint,
+            width: isBig ? 200 : 0,
+            height: getBoxMaxHeight(isBig: true),
             alignment: Alignment.bottomLeft,
-            children: <Widget>[
+            child: ListView(
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
 
-              // /// COLORED BACKGROUND
-              // AnimatedContainer(
-              //   duration: const Duration(seconds: 1),
-              //   curve: Curves.easeOutQuint,
-              //   width: isBig ? 200 : boxWidth,
-              //   height: getBoxMaxHeight(isBig: isBig),
-              //   decoration: BoxDecoration(
-              //     borderRadius: superBorderAll(context, (ObeliskRow.circleWidth / 2) + Ratioz.appBarPadding),
-              //     color: Colorz.bloodTest,
-              //   ),
-              // ),
+                /// TABS BUTTONS
+                AnimatedOpacity(
+                  duration: Duration(milliseconds: isBig ? 1000 : 500),
+                  curve: Curves.easeOutQuint,
+                  opacity: isBig ? 1 : 0.5,
+                  child: ValueListenableBuilder(
+                    valueListenable: tabIndex,
+                    builder: (_, int _tabIndex, Widget child){
 
-              /// COMPONENTS
-              AnimatedContainer(
-                duration: Duration(milliseconds: isBig ? 1500 : 500),
-                curve: Curves.easeOutQuint,
-                width: isBig ? 200 : 0,
-                height: getBoxMaxHeight(isBig: true),
-                // decoration: BoxDecoration(
-                //   borderRadius: superBorderAll(context, 30),
-                //   color: Colorz.bloodTest,
-                // ),
-                alignment: Alignment.bottomLeft,
-                child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  // reverse: false,
-                  // padding: const EdgeInsets.symmetric(horizontal: 5),
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
+                      return Column(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
 
-                    // const SizedBox(height: 5,),
+                          ...List.generate(_bzTabs.length, (index){
 
-                    // /// TRIGGER BUTTON
-                    // Align(
-                    //   alignment: Alignment.centerLeft,
-                    //   child: AnimatedRotation(
-                    //     duration: Duration(milliseconds: isBig ? 1500 : 500),
-                    //     curve: Curves.easeOutQuint,
-                    //     turns: isBig ? 1.75 : 1,
-                    //     child: DreamBox(
-                    //       icon: Iconz.more,
-                    //       width: ObeliskRow.circleWidth,
-                    //       height: ObeliskRow.circleWidth,
-                    //       corners: ObeliskRow.circleWidth * 0.5,
-                    //       color: Colorz.black255,
-                    //       iconSizeFactor: 0.45,
-                    //       onTap: onTriggerExpansion,
-                    //     ),
-                    //   ),
-                    // ),
+                            final bool _isSelected = _tabIndex == index;
+                            final BzTab _bzTab = _bzTabs[index];
+                            final String _bzTabString = BzModel.translateBzTab(_bzTab);
+                            final String _icon = BzModel.getBzTabIcon(_bzTab);
 
-                    /// TABS BUTTONS
-                    AnimatedOpacity(
-                      duration: Duration(milliseconds: isBig ? 1000 : 500),
-                      curve: Curves.easeOutQuint,
-                      opacity: isBig ? 1 : 0.5,
-                      child: ValueListenableBuilder(
-                        valueListenable: tabIndex,
-                        builder: (_, int _tabIndex, Widget child){
+                            return Padding(
+                              padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
+                              child: ObeliskRow(
+                                verse: _bzTabString,
+                                icon: _icon,
+                                isSelected: _isSelected,
+                                onTap: () => onRowTap(_bzTab),
+                              ),
+                            );
 
-                          return Column(
-                            // mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
+                          }),
 
-                              ...List.generate(_bzTabs.length, (index){
+                        ],
+                      );
 
-                                final bool _isSelected = _tabIndex == index;
-                                final BzTab _bzTab = _bzTabs[index];
-                                final String _bzTabString = BzModel.translateBzTab(_bzTab);
-                                final String _icon = BzModel.getBzTabIcon(_bzTab);
-
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
-                                  child: ObeliskRow(
-                                    verse: _bzTabString,
-                                    icon: _icon,
-                                    isSelected: _isSelected,
-                                    onTap: () => onRowTap(_bzTab),
-                                  ),
-                                );
-
-                              }),
-
-                            ],
-                          );
-
-                        },
-                      ),
-                    ),
-
-                  ],
+                    },
+                  ),
                 ),
-              ),
 
-            ],
+              ],
+            ),
           );
 
         },
