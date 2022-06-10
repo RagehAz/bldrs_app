@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -13,11 +14,8 @@ import 'package:flutter/material.dart';
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzAboutPage({
-    this.width,
     Key key,
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final double width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -26,11 +24,12 @@ class BzAboutPage extends StatelessWidget {
 
     return ListView(
       physics: const BouncingScrollPhysics(),
+      padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
 
         /// BZ BANNER
         BzBanner(
-          boxWidth: width,
+          boxWidth: Scale.superScreenWidth(context),
           margins: 10,
           bzModel: _bzModel,
           corners: Bubble.cornersValue,

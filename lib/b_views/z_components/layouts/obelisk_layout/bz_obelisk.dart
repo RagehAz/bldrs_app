@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_button_row.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/obelisk_layout/obelisk_row.dart';
 import 'package:flutter/material.dart';
 
 class BzObelisk extends StatelessWidget {
@@ -18,13 +18,13 @@ class BzObelisk extends StatelessWidget {
   final ValueChanged<BzTab> onRowTap;
   final ValueNotifier<int> tabIndex;
 // -----------------------------------------------------------------------------
-  static const boxWidth = ObeliskRow.circleWidth + (2*Ratioz.appBarPadding);
+  static const boxWidth = OButtonRow.circleWidth + (2*Ratioz.appBarPadding);
 // -------------------------------------
   static double getBoxMaxHeight({
     @required bool isBig,
   }){
     final int _numberOfButtons = BzModel.bzTabsList.length;
-    const double _circleWidth = ObeliskRow.circleWidth;
+    const double _circleWidth = OButtonRow.circleWidth;
     final double _height = isBig ?
     ((_numberOfButtons * _circleWidth) + ((_numberOfButtons+1) * Ratioz.appBarPadding))
         :
@@ -79,7 +79,7 @@ class BzObelisk extends StatelessWidget {
 
                             return Padding(
                               padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
-                              child: ObeliskRow(
+                              child: OButtonRow(
                                 verse: _bzTabString,
                                 icon: _icon,
                                 isSelected: _isSelected,

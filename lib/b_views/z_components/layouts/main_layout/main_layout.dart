@@ -7,6 +7,7 @@ import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.d
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -50,6 +51,9 @@ class MainLayout extends StatelessWidget {
     this.zoneButtonIsOn = true,
     this.searchHint,
     this.loading,
+    this.swipeDirection,
+    this.index,
+    this.numberOfStrips,
     this.pyramidType,
     this.onPyramidTap,
     Key key
@@ -77,6 +81,9 @@ class MainLayout extends StatelessWidget {
   final bool zoneButtonIsOn;
   final String searchHint;
   final ValueNotifier<bool> loading;
+  final ValueNotifier<SwipeDirection> swipeDirection;
+  final int numberOfStrips;
+  final ValueNotifier<int> index;
   final PyramidType pyramidType;
   final Function onPyramidTap;
   /// --------------------------------------------------------------------------
@@ -149,6 +156,9 @@ class MainLayout extends StatelessWidget {
       pageTitle: pageTitle,
       onBack: () => _onBack(context),
       loading: loading,
+      index: index,
+      swipeDirection: swipeDirection,
+      numberOfStrips: numberOfStrips,
       appBarScrollController: appBarScrollController,
       sectionButtonIsOn: sectionButtonIsOn,
       zoneButtonIsOn: zoneButtonIsOn,
