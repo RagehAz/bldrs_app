@@ -94,7 +94,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
       weight: VerseWeight.thin,
       // size: 2,
       italic: false,
-      shadow: false,
+      shadowIsOn: false,
     );
 
     return Bubble(

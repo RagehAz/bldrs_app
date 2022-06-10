@@ -160,7 +160,7 @@ class SuperTextField extends StatefulWidget {
         italic: textItalic,
         size: textSize,
         scaleFactor: textSizeFactor * 0.8,
-        shadow: false,
+        shadowIsOn: false,
     );
 
   }
@@ -178,7 +178,7 @@ class SuperTextField extends StatefulWidget {
       // italic: true,
       size: textSize,
       scaleFactor: textSizeFactor,
-      shadow: false,
+      shadowIsOn: false,
     );
   }
 // -----------------------------------------------------------------------------

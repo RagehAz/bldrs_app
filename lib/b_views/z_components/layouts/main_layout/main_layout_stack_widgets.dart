@@ -31,6 +31,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.navBarIsOn,
     @required this.searchHint,
     @required this.pyramidType,
+    @required this.onPyramidTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -39,7 +40,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final Widget layoutWidget;
   final AppBarType appBarType;
   final List<Widget> appBarRowWidgets;
-  final String pageTitle;
+  final dynamic pageTitle;
   final Function onBack;
   // final bool loading;
   final ScrollController appBarScrollController;
@@ -54,24 +55,34 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final String searchHint;
   final ValueNotifier<bool> loading;
   final PyramidType pyramidType;
+  final Function onPyramidTap;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
 
-    if (skyType == SkyType.black){
-      return PyramidType.crystalWhite;
-    }
-
-    else if (skyType == SkyType.night){
-      return PyramidType.crystalYellow;
-    }
-
-    else if (skyType == SkyType.non){
-      return PyramidType.crystalBlue;
+    if (pyramidType != null){
+      return pyramidType;
     }
 
     else {
-      return PyramidType.glass;
+
+      if (skyType == SkyType.black){
+        return PyramidType.crystalWhite;
+      }
+
+      else if (skyType == SkyType.night){
+        return PyramidType.crystalYellow;
+      }
+
+      else if (skyType == SkyType.non){
+        return PyramidType.crystalBlue;
+      }
+
+      else {
+        return PyramidType.glass;
+      }
+
     }
+
 
   }
 // -----------------------------------------------------------------------------
@@ -123,8 +134,9 @@ class MainLayoutStackWidgets extends StatelessWidget {
         if (pyramidsAreOn == true)
           Pyramids(
             key: const ValueKey<String>('pyramids'),
-            pyramidType: pyramidType ?? _concludePyramidTypePerSkyType(),
+            pyramidType: _concludePyramidTypePerSkyType(),
             loading: loading,
+            onPyramidTap: onPyramidTap,
           ),
 
         /// --- NAV BAR

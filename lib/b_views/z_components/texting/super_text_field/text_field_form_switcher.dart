@@ -124,7 +124,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         italic: textItalic,
         size: textSize,
         scaleFactor: textSizeFactor,
-        shadow: textShadow,
+        shadowIsOn: textShadow,
     );
 // -----------------------------------------------------------------------------
     final InputDecoration _inputDecoration = SuperTextField.createDecoration(

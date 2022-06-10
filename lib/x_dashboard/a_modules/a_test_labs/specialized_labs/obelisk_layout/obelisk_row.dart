@@ -9,14 +9,16 @@ class ObeliskRow extends StatelessWidget {
     @required this.verse,
     @required this.icon,
     @required this.onTap,
+    @required this.isSelected,
     Key key
   }) : super(key: key);
 
   final String verse;
   final String icon;
   final Function onTap;
+  final bool isSelected;
 
-  static double circleWidth = 50;
+  static const double circleWidth = 35;
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +32,26 @@ class ObeliskRow extends StatelessWidget {
         children: <Widget>[
 
           DreamBox(
-            width: 50,
-            height: 50,
-            corners: 25,
-            color: Colorz.black255,
+            width: circleWidth,
+            height: circleWidth,
+            corners: circleWidth * 0.5,
+            color: isSelected ? Colorz.yellow255 : Colorz.black255,
             icon: icon,
+            iconColor: isSelected ? Colorz.black255 : Colorz.white255,
             iconSizeFactor: 0.45,
             onTap: onTap,
           ),
 
           SuperVerse(
-            verse: verse.toUpperCase(),
+            verse: isSelected ? verse.toUpperCase() : verse,
             margin: const EdgeInsets.symmetric(horizontal: 5),
             italic: true,
-            weight: VerseWeight.thin,
-            labelColor: Colorz.nothing,
+            weight: isSelected ? VerseWeight.black : VerseWeight.thin,
+            labelColor: Colorz.black80,
+            color: isSelected ? Colorz.yellow255 : Colorz.white255,
+            shadow: true,
+            shadowColor: Colorz.black255,
+            onTap: onTap,
           ),
 
         ],

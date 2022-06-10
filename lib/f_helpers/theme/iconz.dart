@@ -167,6 +167,8 @@
   const String pyramidzWhite = '$_iconsPath/pyramidz_white.svg' ;
   const String pyramidSingleYellow = '$_iconsPath/pyramid_single_yellow.svg' ;
   const String pyramidSingleWhite = '$_iconsPath/pyramid_single_white.svg' ;
+  const String pyramid = '$_iconsPath/gi_pyramid.svg' ;
+  const String pyramidsYellowClean = '$_iconsPath/pyramids_yellow_clean.svg' ;
   // -----------------------------------------------------------------------------
   /// USER TYPE
   const String utNormal = '$_iconsPath/ut_normal_user.svg' ;

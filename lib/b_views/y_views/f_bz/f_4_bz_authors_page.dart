@@ -18,8 +18,11 @@ import 'package:provider/provider.dart';
 class BzAuthorsPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzAuthorsPage({
+    this.bubbleWidth,
     Key key,
   }) : super(key: key);
+
+  final double bubbleWidth;
   /// --------------------------------------------------------------------------
   @override
   State<BzAuthorsPage> createState() => _BzAuthorsPageState();
@@ -99,7 +102,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
             children: <Widget>[
 
               DreamBox(
-                width: BldrsAppBar.width(context),
+                width: (widget.bubbleWidth ?? BldrsAppBar.width(context)) - 20,
                 height: 80,
                 bubble: false,
                 color: Colorz.white10,
@@ -123,6 +126,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
         ...List.generate(_authors.length, (index){
           final AuthorModel _author = _authors[index];
           return AuthorCard(
+            bubbleWidth: widget.bubbleWidth,
             author: _author,
             bzModel: _bzModel,
           );

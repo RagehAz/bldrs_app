@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -33,16 +34,19 @@ class BzCreditsCounter extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+
           CreditsRow(
             width: width,
             icon: Iconz.save,
             value: ankhsCredit,
           ),
+
           CreditsRow(
             width: width,
             icon: Iconz.flyer,
             value: slidesCredit,
           ),
+
         ],
       ),
     );
@@ -67,25 +71,31 @@ class CreditsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        DreamBox(
-          width: width * 0.35,
-          height: Ratioz.appBarButtonSize * 0.4,
-          icon: icon,
-          iconSizeFactor: 0.8,
-          bubble: false,
-          // color: Colorz.BloodTest,
-        ),
-        SizedBox(
+
+        Container(
           width: width * 0.65,
           height: Ratioz.appBarButtonSize * 0.4,
+          alignment: superInverseCenterAlignment(context),
           child: SuperVerse(
             verse: value,
             size: 1,
             italic: true,
-            centered: false,
+            weight: VerseWeight.thin,
           ),
         ),
+
+        DreamBox(
+          width: width * 0.35,
+          height: Ratioz.appBarButtonSize * 0.4,
+          icon: icon,
+          iconSizeFactor: 0.9,
+          bubble: false,
+          // color: Colorz.BloodTest,
+        ),
+
       ],
     );
   }
