@@ -31,7 +31,7 @@ class ObeliskPage extends StatelessWidget {
   }){
     return screenHeight - StaticStrips.boxHeight(superScreenWidth(context)); //- Ratioz.pyramidsHeight
   }
-
+// -----------------------------------------------------------------------------
   static double getWidth(BuildContext context){
     return BldrsAppBar.width(context);
   }
@@ -45,6 +45,7 @@ class ObeliskPage extends StatelessWidget {
     final double _bubbleWidth = getWidth(context);
 
     return PageBubble(
+      key: const ValueKey<String>('ObeliskPage'),
       appBarType: AppBarType.basic,
       screenHeightWithoutSafeArea: getHeight(
         context: context,

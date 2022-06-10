@@ -4,7 +4,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class ObeliskRow extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const ObeliskRow({
     @required this.verse,
     @required this.icon,
@@ -12,25 +12,23 @@ class ObeliskRow extends StatelessWidget {
     @required this.isSelected,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final String verse;
   final String icon;
   final Function onTap;
   final bool isSelected;
-
+  /// --------------------------------------------------------------------------
   static const double circleWidth = 35;
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return SizedBox(
       height: circleWidth,
-      // color: Colorz.white20,
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
+          /// ICON
           DreamBox(
             width: circleWidth,
             height: circleWidth,
@@ -42,6 +40,7 @@ class ObeliskRow extends StatelessWidget {
             onTap: onTap,
           ),
 
+          /// TEXT
           SuperVerse(
             verse: isSelected ? verse.toUpperCase() : verse,
             margin: const EdgeInsets.symmetric(horizontal: 5),

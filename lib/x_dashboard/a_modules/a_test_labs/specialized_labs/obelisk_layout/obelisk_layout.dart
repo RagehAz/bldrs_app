@@ -82,6 +82,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 // -----------------------------------------------------------------------------
   /// TAB INDEX
   final ValueNotifier<int> _tabIndex = ValueNotifier(0);
+  /// PAGE TITLE
   ValueNotifier<String> _pageTitle;
   /// SWIPE DIRECTION
   final ValueNotifier<Sliders.SwipeDirection> _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next); /// tamam disposed
@@ -110,22 +111,20 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     return _tabTitle;
   }
 // -----------------------------------------------------------------------------
-  bool pyramidBig = false;
 
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = superScreenHeightWithoutSafeArea(context);
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
+    final double _screenHeight = superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      // pyramidType: PyramidType.yellow,
-      // pyramidsAreOn: false,
       zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitle: _pageTitle,
+      loading: ValueNotifier(true),
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -187,22 +186,27 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
             right: 0,
             child: Padding(
               padding: const EdgeInsets.only(right: 17 * 0.7),
-              child: AnimatedScale(
-                scale: pyramidBig == true ? 8 : 1,
-                duration: const Duration(milliseconds: 500),
-                curve: pyramidBig == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
-                alignment: Alignment.bottomRight,
-                child: const Opacity(
-                  opacity: 1,
-                  child: SuperImage(
-                    width: 143.1 * 0.7,
-                    height: 66.4 * 0.7,
-                    pic: Iconz.pyramid,
-                    boxFit: BoxFit.fitWidth,
-                    iconColor: Colorz.black230,
-                    // scale: 1,
-                  ),
+              child: ValueListenableBuilder(
+                valueListenable: _isExpanded,
+                child: const SuperImage(
+                  width: 143.1 * 0.7,
+                  height: 66.4 * 0.7,
+                  pic: Iconz.pyramid,
+                  boxFit: BoxFit.fitWidth,
+                  iconColor: Colorz.black230,
+                  // scale: 1,
                 ),
+                builder: (_, bool isExpanded, Widget child){
+
+                  return AnimatedScale(
+                    scale: isExpanded == true ? 8 : 1,
+                    duration: const Duration(milliseconds: 500),
+                    curve: isExpanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
+                    alignment: Alignment.bottomRight,
+                    child: child,
+                  );
+
+                },
               ),
             ),
           ),
@@ -233,12 +237,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
                       child: GestureDetector(
                         onTap: (){
 
-                          blog('a77aa');
-
                           _isExpanded.value = !_isExpanded.value;
-                          setState(() {
-                            pyramidBig = !pyramidBig;
-                          });
 
                         },
                         child: const SuperImage(
