@@ -24,9 +24,11 @@ class OButtonRow extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GestureDetector(
+      key: const ValueKey<String>('OButtonRow'),
       onTap: onTap,
-      child: SizedBox(
-        height: circleWidth,
+      child: Container(
+        height: circleWidth + 5,
+        alignment: Alignment.bottomLeft,
         child: Row(
           children: <Widget>[
 
