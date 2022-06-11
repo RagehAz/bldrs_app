@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
@@ -11,6 +13,7 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+
 
 class UserProfilePage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -94,67 +97,86 @@ class UserProfilePage extends StatelessWidget {
 
     final bool _thereAreMissingFields = UserModel.checkMissingFields(_userModel);
 
-    return Column(
+    return ListView(
+      physics: const BouncingScrollPhysics(),
+      padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
 
-        const SizedBox(
-          width: 20,
-          height: 20,
-        ),
+        // UserBanner(), /// should do this
 
-        /// USER PIC
-        UserBalloon(
-          size: 80,
-          userStatus: _userModel?.status,
-          userModel: _userModel,
-          loading: false,
-          showEditButton: _thereAreMissingFields,
-          onTap: _thereAreMissingFields == false ? null
-              :
-          () => onEditProfileTap(context),
-        ),
+        /// USER BANNER : TASK : SEPARATE THIS
+        Bubble(
+          centered: true,
+          columnChildren: <Widget>[
 
-        /// USER NAME
-        SuperVerse(
-          verse: _userName,
-          shadow: true,
-          size: 4,
-          margin: 5,
-          maxLines: 2,
-          labelColor: Colorz.white10,
-        ),
+            const SizedBox(
+              width: 20,
+              height: 20,
+            ),
 
-        /// USER JOB TITLE
-        if (_canShowTitleCompanyLine(userModel: _userModel) == true)
-        SuperVerse(
-          italic: true,
-          weight: VerseWeight.thin,
-          verse: generateTitleCompanyString(
-              userModel: _userModel,
-              context: context,
-          ),
-        ),
+            /// USER PIC
+            Center(
+              child: UserBalloon(
+                size: 80,
+                userStatus: _userModel?.status,
+                userModel: _userModel,
+                loading: false,
+                showEditButton: _thereAreMissingFields,
+                onTap: _thereAreMissingFields == false ? null
+                    :
+                    () => onEditProfileTap(context),
+              ),
+            ),
 
-        /// USER LOCALE
-        ZoneLine(
-          zoneModel: _userModel?.zone,
-        ),
+            /// USER NAME
+            SuperVerse(
+              verse: _userName,
+              shadow: true,
+              size: 4,
+              margin: 5,
+              maxLines: 2,
+              labelColor: Colorz.white10,
+            ),
 
-        /// JOINED AT
-        SuperVerse(
-          verse: Timers.generateString_in_bldrs_since_month_yyyy(context, _userModel?.createdAt),
-          weight: VerseWeight.thin,
-          italic: true,
-          color: Colorz.grey255,
-        ),
+            /// USER JOB TITLE
+            if (_canShowTitleCompanyLine(userModel: _userModel) == true)
+              SuperVerse(
+                italic: true,
+                weight: VerseWeight.thin,
+                verse: generateTitleCompanyString(
+                  userModel: _userModel,
+                  context: context,
+                ),
+              ),
 
-        if (UserModel.checkUserIsAuthor(_userModel) == true)
-          SuperVerse(
-            verse: 'Author in ${_getBzzString(userModel: _userModel)}',
-            weight: VerseWeight.thin,
-            italic: true,
-            color: Colorz.grey255,
-          ),
+            /// USER LOCALE
+            ZoneLine(
+              zoneModel: _userModel?.zone,
+            ),
+
+            /// JOINED AT
+            SuperVerse(
+              verse: Timers.generateString_in_bldrs_since_month_yyyy(context, _userModel?.createdAt),
+              weight: VerseWeight.thin,
+              italic: true,
+              color: Colorz.grey255,
+            ),
+
+            if (UserModel.checkUserIsAuthor(_userModel) == true)
+              SuperVerse(
+                verse: 'Author in ${_getBzzString(userModel: _userModel)}',
+                weight: VerseWeight.thin,
+                italic: true,
+                color: Colorz.grey255,
+              ),
+
+            const SizedBox(
+              width: 20,
+              height: 20,
+            ),
+
+          ],
+        ),
 
         /// CONTACTS
         if (showContacts == true)
@@ -162,11 +184,6 @@ class UserProfilePage extends StatelessWidget {
           contacts: _userModel?.contacts,
           location: _userModel?.location,
           canLaunchOnTap: true,
-        ),
-
-        /// BOTTOM PADDING
-        const SizedBox(
-          height: 30,
         ),
 
       ],

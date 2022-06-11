@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_button_row.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk_tree.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +44,13 @@ class Obelisk extends StatelessWidget {
                   verse: _navModel.title,
                   icon: _navModel.icon,
                   isSelected: _isSelected,
-                  onTap: () => onRowTap(index),
+                  onTap: (){
+
+                    blog('5555555555');
+
+                    onRowTap(index);
+
+                  },
                 );
 
               }),

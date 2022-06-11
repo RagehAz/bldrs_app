@@ -18,13 +18,15 @@ class UserScreenViewPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const List<Widget> pages = <Widget>[
 
-    UserProfilePage(),
+    UserProfilePage(showContacts: true),
 
     UserStatusPage(),
 
     UserNotesPage(),
 
     UserFollowingPage(),
+
+    UserSettingsPage(),
 
   ];
 // -----------------------------------------------------------------------------
