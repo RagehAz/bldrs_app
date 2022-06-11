@@ -16,6 +16,18 @@ class UserScreenViewPages extends StatelessWidget {
   final TabController tabController;
   final UserModel userModel;
   /// --------------------------------------------------------------------------
+  static const List<Widget> pages = <Widget>[
+
+    UserProfilePage(),
+
+    UserStatusPage(),
+
+    UserNotesPage(),
+
+    UserFollowingPage(),
+
+  ];
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -24,25 +36,7 @@ class UserScreenViewPages extends StatelessWidget {
     return TabBarView(
       physics: const BouncingScrollPhysics(),
       controller: tabController,
-      children: <Widget>[
-
-        UserProfilePage(
-          userModel: userModel,
-        ),
-
-        UserStatusPage(
-          userModel: userModel,
-        ),
-
-        UserNotesPage(
-          userModel: userModel,
-        ),
-
-        UserFollowingPage(
-          userModel: userModel,
-        ),
-
-      ],
+      children: pages,
     );
   }
 }

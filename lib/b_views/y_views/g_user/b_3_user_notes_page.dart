@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -9,11 +8,9 @@ import 'package:flutter/material.dart';
 class UserNotesPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserNotesPage({
-    @required this.userModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
   /// --------------------------------------------------------------------------
   /*
   Future<void> _dismissNote({

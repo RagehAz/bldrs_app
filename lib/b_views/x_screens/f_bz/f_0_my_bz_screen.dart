@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_pages.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -15,6 +15,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 
 class MyBzScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
       length: BzModel.bzPagesTabsTitlesInEnglishOnly.length,
     );
 
-    _pageTitle = ValueNotifier(getTabTitle(0));
+    _pageTitle = ValueNotifier(BzModel.getTabTitle(0));
 
     _tabController.animation.addListener((){
 
@@ -56,7 +57,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
         swipeDirection: _swipeDirection,
       );
 
-      _pageTitle.value = getTabTitle(_tabIndex.value);
+      _pageTitle.value = BzModel.getTabTitle(_tabIndex.value);
 
     });
 
@@ -66,12 +67,10 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
   @override
   void dispose() {
     _isExpanded.dispose();
-    _pageController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
-  final PageController _pageController = PageController();
 // -----------------------------------------------------------------------------
   void onTriggerExpansion(){
     _isExpanded.value = !_isExpanded.value;
@@ -84,11 +83,11 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
   /// SWIPE DIRECTION
   final ValueNotifier<Sliders.SwipeDirection> _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next); /// tamam disposed
 // -------------------------------------------
-  Future<void> onRowTap(BzTab bzTab) async {
+  Future<void> onRowTap(int index) async {
 
     onHorizontalSlideSwipe(
       context: context,
-      newIndex: BzModel.getBzTabIndex(bzTab),
+      newIndex: index,
       currentSlideIndex: _tabIndex,
       swipeDirection: _swipeDirection,
     );
@@ -98,14 +97,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
       curve: Curves.easeOutExpo,
     );
 
-    _pageTitle.value = getTabTitle(_tabIndex.value);
+    _pageTitle.value = BzModel.getTabTitle(index);
 
-  }
-// -----------------------------------------------------------------------------
-  String getTabTitle(int index){
-    final BzTab _bzTab = BzModel.bzTabsList[_tabIndex.value];
-    final String _tabTitle = BzModel.translateBzTab(_bzTab);
-    return _tabTitle;
   }
 // -----------------------------------------------------------------------------
 
@@ -165,11 +158,26 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
           ),
 
           /// PYRAMIDS NAVIGATOR
-          OPyramids(
+          SuperPyramids(
             isExpanded: _isExpanded,
             onExpansion: onTriggerExpansion,
             onRowTap: onRowTap,
             tabIndex: _tabIndex,
+            navModels: <NavModel>[
+
+              ...List.generate(BzModel.bzTabsList.length, (index){
+
+                final BzTab _bzTab = BzModel.bzTabsList[index];
+
+                return NavModel(
+                  title: BzModel.translateBzTab(_bzTab),
+                  icon: BzModel.getBzTabIcon(_bzTab),
+                  screen: MyBzScreenPages.pages[index],
+                );
+
+              }),
+
+            ],
           ),
 
         ],
