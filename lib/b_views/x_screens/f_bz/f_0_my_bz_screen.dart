@@ -13,6 +13,7 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -124,6 +125,17 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
       index: _tabIndex,
       swipeDirection: _swipeDirection,
       numberOfStrips: BzModel.bzTabsList.length,
+      canGoBack: false,
+      onBack: (){
+
+        if (_isExpanded.value == false){
+          Nav.goBack(context);
+        }
+        else {
+          _isExpanded.value = false;
+        }
+
+      },
       appBarRowWidgets: <Widget>[
 
         const Expander(),

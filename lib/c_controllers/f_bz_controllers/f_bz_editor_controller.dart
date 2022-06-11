@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/keywords_p
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_layout.dart';
+import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/f_my_bz_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';

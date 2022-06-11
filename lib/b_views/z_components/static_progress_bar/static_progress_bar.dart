@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/pr
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class StaticProgressBar extends StatelessWidget {
@@ -15,6 +14,7 @@ class StaticProgressBar extends StatelessWidget {
     @required this.swipeDirection,
     this.loading = true,
     this.margins,
+    this.shrinkThickness = 1,
     // @required this.duration,
     // @required this.draft,
     Key key,
@@ -29,6 +29,7 @@ class StaticProgressBar extends StatelessWidget {
   final bool loading;
   final Sliders.SwipeDirection swipeDirection;
   final EdgeInsets margins;
+  final double shrinkThickness;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -36,13 +37,12 @@ class StaticProgressBar extends StatelessWidget {
 
     return SizedBox(
       width: flyerBoxWidth,
-      child: AnimatedOpacity(
-        duration: Ratioz.durationFading200,
+      child: Opacity(
         opacity: opacity ?? 1,
         child:
 
-            // superFlyer.loading == true ?
-        loading == true || numberOfSlides == null ? ProgressBox(
+        loading == true || numberOfSlides == null ?
+        ProgressBox(
             flyerBoxWidth: flyerBoxWidth,
             margins: margins,
             stripsStack: <Widget>[
@@ -66,13 +66,17 @@ class StaticProgressBar extends StatelessWidget {
         )
                 :
         StaticStrips.canBuildStrips(numberOfSlides) == true ?
-        StaticStrips(
-              flyerBoxWidth: flyerBoxWidth,
-              numberOfStrips: numberOfSlides,
-              slideIndex: index,
-              swipeDirection: swipeDirection,
-              margins: margins,
-            )
+        Transform.scale(
+          scaleY: shrinkThickness,
+          alignment: Alignment.bottomCenter,
+          child: StaticStrips(
+                flyerBoxWidth: flyerBoxWidth,
+                numberOfStrips: numberOfSlides,
+                slideIndex: index,
+                swipeDirection: swipeDirection,
+                margins: margins,
+              ),
+        )
                 :
             Container(),
       ),
