@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/following_bzz_grid.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
@@ -14,14 +13,13 @@ import 'package:provider/provider.dart';
 class UserFollowingPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserFollowingPage({
-    @required this.userModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
-  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    // final UserModel userModel = UsersProvider.proGetMyUserModel(context, listen: true);
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
 

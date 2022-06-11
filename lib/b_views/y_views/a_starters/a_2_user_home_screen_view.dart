@@ -23,6 +23,7 @@ class UserHomeScreen extends StatefulWidget {
 }
 /// --------------------------------------------------------------------------
 class _UserHomeScreenState extends State<UserHomeScreen> {
+// -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   bool _canPaginate = true;
 // -----------------------------------------------------------------------------

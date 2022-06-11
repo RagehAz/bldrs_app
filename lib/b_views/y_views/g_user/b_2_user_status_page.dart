@@ -1,16 +1,14 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_status/status_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
 class UserStatusPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserStatusPage({
-    @required this.userModel,
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final UserModel userModel;
   /// --------------------------------------------------------------------------
   ///
 // -----------------------------------------------------------------------------
@@ -58,6 +56,8 @@ class UserStatusPage extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final UserModel userModel = UsersProvider.proGetMyUserModel(context, listen: true);
 
     return StatusBubble(
       status: _status,

@@ -18,8 +18,33 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
+enum UserStatus {
+  normal,
+  searching,
+  finishing,
+  planning,
+  building,
+  selling,
+  bzAuthor,
+  deactivated,
+  /*
+  Recon
+   */
+}
+// --------------------
+enum Gender {
+  male,
+  female,
+}
+// --------------------
+enum UserTab {
+  profile,
+  status,
+  notifications,
+  following,
+}
+// --------------------
 class UserModel {
   /// --------------------------------------------------------------------------
   const UserModel({
@@ -27,7 +52,6 @@ class UserModel {
     @required this.authBy,
     @required this.createdAt,
     @required this.status,
-    // -------------------------
     @required this.name,
     @required this.trigram,
     @required this.pic,
@@ -38,7 +62,6 @@ class UserModel {
     @required this.language,
     @required this.location,
     @required this.contacts,
-    // -------------------------
     @required this.myBzzIDs,
     @required this.emailIsVerified,
     @required this.isAdmin,
@@ -53,7 +76,6 @@ class UserModel {
   final AuthType authBy;
   final DateTime createdAt;
   final UserStatus status;
-  // -------------------------
   final String name;
   final List<String> trigram;
   final dynamic pic;
@@ -64,7 +86,6 @@ class UserModel {
   final String language;
   final GeoPoint location;
   final List<ContactModel> contacts;
-  // -------------------------
   final List<String> myBzzIDs;
   final bool emailIsVerified;
   final bool isAdmin;
@@ -777,7 +798,7 @@ class UserModel {
   }
 // -----------------------------------------------------------------------------
 
-  /// USER TYPES
+  /// USER STATUSES
 
 // -----------------------------------
   static const List<UserStatus> userStatuses = <UserStatus>[
@@ -792,73 +813,60 @@ class UserModel {
   ];
 // -----------------------------------------------------------------------------
 
-}
-// -----------------------------------------------------------------------------
-enum UserStatus {
-  normal,
-  searching,
-  finishing,
-  planning,
-  building,
-  selling,
-  bzAuthor,
-  deactivated,
-  /*
-  Recon
-   */
-}
-// -----------------------------------------------------------------------------
-enum Gender {
-  male,
-  female,
-}
-// -----------------------------------------------------------------------------
-enum UserTab {
-  profile,
-  status,
-  notifications,
-  following,
-}
-// -----------------------------------------------------------------------------
-List<UserTab> userProfileTabsList = <UserTab>[
-  UserTab.profile,
-  UserTab.status,
-  UserTab.notifications,
-  UserTab.following,
-];
-// -----------------------------------------------------------------------------
-/// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
-String cipherUserTabInEnglishOnly(UserTab userTab){
-  /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
-  switch(userTab){
-    case UserTab.profile        : return  'Profile'       ; break;
-    case UserTab.status         : return  'Status'        ; break;
-    case UserTab.notifications  : return  'Notifications' ; break;
-    case UserTab.following      : return  'Following'     ; break;
-    default: return null;
+  /// USER TABS
+
+// -----------------------------------
+  static const List<UserTab> userProfileTabsList = <UserTab>[
+    UserTab.profile,
+    UserTab.status,
+    UserTab.notifications,
+    UserTab.following,
+  ];
+// -----------------------------------
+  static String getUserTabIcon(UserTab userTab){
+    switch(userTab){
+      case UserTab.profile        : return Iconz.normalUser   ; break;
+      case UserTab.status         : return Iconz.terms        ; break;
+      case UserTab.notifications  : return Iconz.news         ; break;
+      case UserTab.following      : return Iconz.follow       ; break;
+      default : return null;
+    }
   }
-}
-// -----------------------------------------------------------------------------
-String _userTabPhraseID(UserTab userTab){
-  switch(userTab){
-    case UserTab.profile        : return  'phid_profile'       ; break;
-    case UserTab.status         : return  'phid_status'        ; break;
-    case UserTab.notifications  : return  'phid_notifications' ; break;
-    case UserTab.following      : return  'phid_followed_bz'     ; break;
-    default: return null;
+// -----------------------------------
+  /// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
+  static String cipherUserTabInEnglishOnly(UserTab userTab){
+    /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
+    switch(userTab){
+      case UserTab.profile        : return  'Profile'       ; break;
+      case UserTab.status         : return  'Status'        ; break;
+      case UserTab.notifications  : return  'Notifications' ; break;
+      case UserTab.following      : return  'Following'     ; break;
+      default: return null;
+    }
   }
-}
-// -----------------------------------------------------------------------------
-String translateUserTab({
-  @required BuildContext context,
-  @required UserTab userTab,
-}){
-  final String _tabPhraseID = _userTabPhraseID(userTab);
-  return superPhrase(context, _tabPhraseID);
-}
-// -----------------------------------------------------------------------------
-int getUserTabIndex(UserTab userTab){
-  final int _index = userProfileTabsList.indexWhere((tab) => tab == userTab);
-  return _index;
+// -----------------------------------
+  static String _userTabPhraseID(UserTab userTab){
+    switch(userTab){
+      case UserTab.profile        : return  'phid_profile'       ; break;
+      case UserTab.status         : return  'phid_status'        ; break;
+      case UserTab.notifications  : return  'phid_notifications' ; break;
+      case UserTab.following      : return  'phid_followed_bz'     ; break;
+      default: return null;
+    }
+  }
+// -----------------------------------
+  static String translateUserTab({
+    @required BuildContext context,
+    @required UserTab userTab,
+  }){
+    final String _tabPhraseID = _userTabPhraseID(userTab);
+    return superPhrase(context, _tabPhraseID);
+  }
+// -----------------------------------
+  static int getUserTabIndex(UserTab userTab){
+    final int _index = userProfileTabsList.indexWhere((tab) => tab == userTab);
+    return _index;
+  }
+// -----------------------------------
 }
 // -----------------------------------------------------------------------------
