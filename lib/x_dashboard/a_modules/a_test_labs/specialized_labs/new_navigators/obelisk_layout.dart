@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
@@ -73,20 +74,10 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
       _tabController.animation.addListener((){
 
-        final int _indexFromAnimation = (_tabController.animation.value).round();
-
-        final String _newTab = widget.navModels[_indexFromAnimation].title;
-        final String _previousTab = widget.navModels[_tabController.index].title;
-
-
-        if (_newTab != _previousTab){
-          // blog('index is $index');
-          // _uiProvider.setCurrentBzTab(_newTab);
-          _tabController.animateTo(_indexFromAnimation,
-              curve: Curves.easeIn,
-              duration: Ratioz.duration150ms
-          );
-        }
+        onChangeTabIndexWhileAnimation(
+          context: context,
+          tabController: _tabController,
+        );
 
         onHorizontalSlideSwipe(
           context: context,
@@ -97,34 +88,53 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
         _pageTitle.value = widget.navModels[_tabIndex.value].title;
 
+
       });
 
     }
 
   }
 // -----------------------------------------------------------------------------
-  void slideToTab({
-    @required int tabIndex,
-    @required bool animate,
-  }) {
+  void onChangeTabIndexWhileAnimation({
+    @required BuildContext context,
+    @required TabController tabController,
+  }){
 
-    // onHorizontalSlideSwipe(
-    //   context: context,
-    //   newIndex: tabIndex,
-    //   currentSlideIndex: _tabIndex,
-    //   swipeDirection: _swipeDirection,
-    // );
-    //
-    // if (animate == true){
-    //   _tabController.animateTo(_tabIndex.value,
-    //     duration: const Duration(milliseconds: 500),
-    //     curve: Curves.easeOutExpo,
-    //   );
-    // }
+    if (tabController.indexIsChanging == false) {
+
+      final int _indexFromAnimation = (tabController.animation.value).round();
+
+      blog('tabController.animation.value : ${tabController.animation.value}');
+
+      final String _newTab = widget.navModels[_indexFromAnimation].title;
+      final String _oldTab = widget.navModels[_tabIndex.value].title;
+
+      /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
+      if (_newTab != _oldTab){
+
+        // _uiProvider.setCurrentUserTab(_newTab);
+        tabController.animateTo(_indexFromAnimation,
+            curve: Curves.easeIn,
+            duration: Ratioz.duration150ms
+        );
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> onRowTap(int index) async {
+
+    blog('yel3an deen om index : $index : _pageTitle.value : ${_pageTitle.value}');
+
+    _pageTitle.value = widget.navModels[index].title;
+
+    blog('yel3an deen om index : $index : _pageTitle.value : ${_pageTitle.value}');
+
 
     onHorizontalSlideSwipe(
       context: context,
-      newIndex: tabIndex,
+      newIndex: index,
       currentSlideIndex: _tabIndex,
       swipeDirection: _swipeDirection,
     );
@@ -134,8 +144,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       curve: Curves.easeOutExpo,
     );
 
-
-    _pageTitle.value = widget.navModels[tabIndex].title;
+    // _tabController.animateTo(index);
 
   }
 // -----------------------------------------------------------------------------
@@ -191,10 +200,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
           SuperPyramids(
             isExpanded: _isExpanded,
             onExpansion: onTriggerExpansion,
-            onRowTap: (int index) => slideToTab(
-              tabIndex: index,
-              animate: true,
-            ),
+            onRowTap: onRowTap,
             tabIndex: _tabIndex,
             navModels: widget.navModels,
           ),

@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/following_bzz_grid.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -28,45 +30,37 @@ class UserFollowingPage extends StatelessWidget {
 
     const List<BzType> _bzTypes = BzModel.bzTypesList;
 
-    return Stack(
-      children: <Widget>[
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      padding: Stratosphere.stratosphereSandwich,
+      itemCount: _bzTypes.length,
+      itemBuilder: (_, int index){
 
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(bottom: Ratioz.horizon),
-          itemCount: _bzTypes.length,
-          itemBuilder: (_, int index){
+        final BzType _bzType = _bzTypes[index];
 
-            final BzType _bzType = _bzTypes[index];
+        final String _bzTypeString = BzModel.translateBzType(
+            context: context,
+            bzType: _bzType
+        );
 
-            final String _bzTypeString = BzModel.translateBzType(
-                context: context,
-                bzType: _bzType
-            );
+        final List<BzModel> _bzzOfThisType = BzModel.getBzzFromBzzByBzType(
+            bzz: _followedBzz,
+            bzType: _bzType
+        );
 
-            final List<BzModel> _bzzOfThisType = BzModel.getBzzFromBzzByBzType(
-                bzz: _followedBzz,
-                bzType: _bzType
-            );
+        final String _bzTypeIcon = BzModel.getBzTypeIconOff(_bzType);
 
-            final String _bzTypeIcon = BzModel.getBzTypeIconOff(_bzType);
-
-            return FollowingBzzGrid(
-              bzzModels: _bzzOfThisType,
-              title: _bzTypeString,
-              icon: _bzTypeIcon,
-              onBzTap: (BzModel bzModel){
-                bzModel.blogBz(methodName: 'Yabny tapped bzModel aho tapped aho');
-              },
-            );
-
+        return FollowingBzzGrid(
+          bzzModels: _bzzOfThisType,
+          title: _bzTypeString,
+          icon: _bzTypeIcon,
+          onBzTap: (BzModel bzModel){
+            bzModel.blogBz(methodName: 'Yabny tapped bzModel aho tapped aho');
           },
-        ),
+        );
 
-        const InviteBzzButton(),
-
-      ],
+      },
     );
 
   }
@@ -97,5 +91,33 @@ class InviteBzzButton extends StatelessWidget {
         onTap: () => onInviteBusinessesTap(context),
       ),
     );
+  }
+}
+
+class UserSettingsPage extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const UserSettingsPage({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    // final UserModel userModel = UsersProvider.proGetMyUserModel(context, listen: true);
+
+    return ListView(
+      physics: const BouncingScrollPhysics(),
+      padding: Stratosphere.stratosphereSandwich,
+      children: const <Widget>[
+
+        SuperVerse(
+          verse: 'Settings page',
+        ),
+
+       InviteBzzButton(),
+
+      ],
+    );
+
   }
 }

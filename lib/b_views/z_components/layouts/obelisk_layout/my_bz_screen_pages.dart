@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/y_views/f_bz/f_5_bz_notes_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_5_bz_targets_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_6_bz_powers_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_7_bz_network_page.dart';
+import 'package:bldrs/b_views/y_views/f_bz/f_8_bz_settings.dart';
 import 'package:flutter/material.dart';
 
 class MyBzScreenPages extends StatelessWidget {
@@ -33,6 +34,8 @@ class MyBzScreenPages extends StatelessWidget {
       BzPowersPage(),
 
       BzNetworkPage(),
+
+      BzSettingsPage(),
 
   ];
   /// --------------------------------------------------------------------------
