@@ -5,9 +5,9 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class AppBarLoading extends StatelessWidget {
+class AppBarProgressBar extends StatelessWidget {
 
-  const AppBarLoading({
+  const AppBarProgressBar({
     @required this.loading,
     @required this.swipeDirection,
     @required this.index,
@@ -40,6 +40,7 @@ class AppBarLoading extends StatelessWidget {
             loading: isLoading,
             flyerBoxWidth: _abWidth,
             margins: _margins,
+            shrinkThickness: 0.4,
           );
         }
 
@@ -60,6 +61,7 @@ class AppBarLoading extends StatelessWidget {
                         loading: isLoading,
                         flyerBoxWidth: _abWidth,
                         margins: _margins,
+                        shrinkThickness: 0.4,
                       );
 
                     }
