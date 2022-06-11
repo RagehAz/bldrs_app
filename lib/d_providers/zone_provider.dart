@@ -496,6 +496,15 @@ class ZoneProvider extends ChangeNotifier {
   CityModel _currentCityModel;
 // -------------------------------------
   ZoneModel get currentZone{return _currentZone;}
+
+  static ZoneModel proGetCurrentZone({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+    return _zoneProvider.currentZone;
+  }
+
   CountryModel get currentCountry{return _currentCountryModel;}
   CityModel get currentCity{return _currentCityModel;}
 // -------------------------------------

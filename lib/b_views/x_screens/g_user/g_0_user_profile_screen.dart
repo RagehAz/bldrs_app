@@ -14,6 +14,7 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ObeliskLayout(
+      initiallyExpanded: true,
       navModels: <NavModel>[
 
         ...List.generate(UserModel.userProfileTabsList.length, (index){

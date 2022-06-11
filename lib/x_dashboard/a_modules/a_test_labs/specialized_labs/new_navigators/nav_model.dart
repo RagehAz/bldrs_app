@@ -6,12 +6,17 @@ class NavModel {
     @required this.title,
     @required this.icon,
     @required this.screen,
+    this.iconColor,
+    this.iconSizeFactor,
+    this.onNavigate,
   });
   /// --------------------------------------------------------------------------
   final String title;
   final String icon;
   final Widget screen;
-
+  final Function onNavigate;
+  final Color iconColor;
+  final double iconSizeFactor;
 /// --------------------------------------------------------------------------
   static List<Widget> getScreens(List<NavModel> navModels){
 
