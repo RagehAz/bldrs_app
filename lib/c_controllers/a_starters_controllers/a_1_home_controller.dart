@@ -20,42 +20,39 @@ import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 Future<void> initializeHomeScreen(BuildContext context) async {
-  /// A - SHOW AD FLYER
 
-
-  /// D - ZONES
-  await _initializeUserZone(context);
-
-  /// E - PROMOTED FLYERS
-  unawaited(_initializePromotedFlyers(context));
-
-  /// F - SPONSORS : USES BZZ PROVIDER
-  unawaited(_initializeSponsors(
-    context: context,
-    notify: true,
-  ));
-
-  /// J - SAVED FLYERS
-  unawaited( _initializeSavedFlyers(context));
-
-  /// G - USER BZZ : USES BZZ PROVIDER
-  unawaited(_initializeUserBzz(
-    context: context,
-    notify: true,
-  ));
-
-  /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
-  unawaited(_initializeUserFollowedBzz(
-      context: context,
-      notify: true
-  ));
-
-  /// I - KEYWORDS
-  await _initializeSpecsAndKeywords(context);
+  await Future.wait(
+      <Future<void>>[
+        /// A - SHOW AD FLYER
+        //
+        /// D - ZONES
+        initializeUserZone(context),
+        /// E - PROMOTED FLYERS
+        _initializePromotedFlyers(context),
+        /// F - SPONSORS : USES BZZ PROVIDER
+        _initializeSponsors(
+          context: context,
+          notify: true,
+        ),
+        /// J - SAVED FLYERS
+        _initializeSavedFlyers(context),
+        /// G - USER BZZ : USES BZZ PROVIDER
+        _initializeUserBzz(
+          context: context,
+          notify: true,
+        ),
+        /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
+        _initializeUserFollowedBzz(
+            context: context,
+            notify: true
+        ),
+        /// I - KEYWORDS
+        _initializeSpecsAndKeywords(context)
+  ]);
 
 }
 // -----------------------------------------------------------------------------
-Future<void> _initializeUserZone(BuildContext context) async {
+Future<void> initializeUserZone(BuildContext context) async {
   final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
   final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 

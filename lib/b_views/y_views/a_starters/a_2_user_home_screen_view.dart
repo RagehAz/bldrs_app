@@ -6,6 +6,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,13 +68,21 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     }
 
     else {
-      return FlyersGrid(
-        gridWidth: Scale.superScreenWidth(context),
-        gridHeight: Scale.superScreenHeight(context),
-        // numberOfColumns: 2,
-        flyers: _wallFlyers,
-        scrollController: _scrollController,
-        heroTag: 'user_home_screen',
+      return RefreshIndicator(
+        onRefresh: () => onRefreshHomeWall(context),
+        color: Colorz.black230,
+        backgroundColor: Colorz.yellow255,
+        displacement: 50,//Ratioz.appBarMargin,
+        strokeWidth: 4,
+        edgeOffset: 50,
+        child: FlyersGrid(
+          gridWidth: Scale.superScreenWidth(context),
+          gridHeight: Scale.superScreenHeight(context),
+          // numberOfColumns: 2,
+          flyers: _wallFlyers,
+          scrollController: _scrollController,
+          heroTag: 'user_home_screen',
+        ),
       );
     }
 
