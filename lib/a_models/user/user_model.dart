@@ -43,6 +43,7 @@ enum UserTab {
   status,
   notifications,
   following,
+  settings,
 }
 // --------------------
 class UserModel {
@@ -821,6 +822,7 @@ class UserModel {
     UserTab.status,
     UserTab.notifications,
     UserTab.following,
+    UserTab.settings,
   ];
 // -----------------------------------
   static String getUserTabIcon(UserTab userTab){
@@ -829,6 +831,7 @@ class UserModel {
       case UserTab.status         : return Iconz.terms        ; break;
       case UserTab.notifications  : return Iconz.news         ; break;
       case UserTab.following      : return Iconz.follow       ; break;
+      case UserTab.settings       : return Iconz.gears        ; break;
       default : return null;
     }
   }
@@ -841,6 +844,7 @@ class UserModel {
       case UserTab.status         : return  'Status'        ; break;
       case UserTab.notifications  : return  'Notifications' ; break;
       case UserTab.following      : return  'Following'     ; break;
+      case UserTab.settings       : return  'Settings'      ; break;
       default: return null;
     }
   }
@@ -850,7 +854,8 @@ class UserModel {
       case UserTab.profile        : return  'phid_profile'       ; break;
       case UserTab.status         : return  'phid_status'        ; break;
       case UserTab.notifications  : return  'phid_notifications' ; break;
-      case UserTab.following      : return  'phid_followed_bz'     ; break;
+      case UserTab.following      : return  'phid_followed_bz'   ; break;
+      case UserTab.settings       : return  'phid_settings'      ; break;
       default: return null;
     }
   }

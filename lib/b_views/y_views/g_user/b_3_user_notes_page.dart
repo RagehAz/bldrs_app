@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class UserNotesPage extends StatelessWidget {
@@ -61,10 +61,7 @@ class UserNotesPage extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         controller: ScrollController(),
         itemCount: _userNotes?.length,
-        padding: const EdgeInsets.only(
-          // top: Ratioz.stratosphere,
-          bottom: Ratioz.horizon,
-        ),
+        padding: Stratosphere.stratosphereSandwich,
         itemBuilder: (BuildContext ctx, int index) {
 
           final NoteModel _notiModel = Mapper.checkCanLoopList(_userNotes) == true ? _userNotes[index] : null;

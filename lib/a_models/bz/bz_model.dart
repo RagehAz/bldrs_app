@@ -83,6 +83,7 @@ enum BzTab{
   targets,
   powers,
   network,
+  settings,
 }
 /// ---------------------
 class BzModel{
@@ -1420,6 +1421,7 @@ class BzModel{
     BzTab.targets,
     BzTab.powers,
     BzTab.network,
+    BzTab.settings,
   ];
 // ------------------------------------------
   /// CAUTION : THESE TITLES CAN NOT BE TRANSLATED DUE TO THEIR USE IN WIDGET KEYS
@@ -1431,9 +1433,13 @@ class BzModel{
     'Targets',
     'Powers',
     'Network',
+    'settings',
   ];
 // ------------------------------------------
-  static String translateBzTab(BzTab bzTab){
+  static String translateBzTab({
+    @required BzTab bzTab,
+    @required BuildContext context,
+  }){
     switch(bzTab){
       case BzTab.flyers   : return 'Flyers '  ; break;
       case BzTab.about    : return 'Info  '  ; break;
@@ -1442,6 +1448,7 @@ class BzModel{
       case BzTab.targets  : return 'Targets'  ; break;
       case BzTab.powers   : return 'Powers'  ; break;
       case BzTab.network  : return 'Network'  ; break;
+      case BzTab.settings : return 'Settings' ; break;
       default : return null;
     }
   }
@@ -1455,13 +1462,20 @@ class BzModel{
       case BzTab.targets  : return Iconz.target     ; break;
       case BzTab.powers   : return Iconz.power      ; break;
       case BzTab.network  : return Iconz.follow     ; break;
+      case BzTab.settings : return Iconz.gears      ; break;
       default : return null;
     }
   }
 // ------------------------------------------
-  static String getTabTitle(int index){
+  static String getTabTitle({
+    @required int index,
+    @required BuildContext context,
+  }){
     final BzTab _bzTab = BzModel.bzTabsList[index];
-    final String _tabTitle = BzModel.translateBzTab(_bzTab);
+    final String _tabTitle = BzModel.translateBzTab(
+      context: context,
+      bzTab: _bzTab,
+    );
     return _tabTitle;
   }
 // -----------------------------------------------------------------------------

@@ -45,7 +45,7 @@ class ObeliskTree extends StatelessWidget {
           return AnimatedContainer(
             duration: Duration(milliseconds: isBig ? 1500 : 500),
             curve: Curves.easeOutQuint,
-            width: isBig ? 200 : 0,
+            width: isBig ? 250 : 0,
             height: getBoxMaxHeight(
               isBig: true,
               numberOfButtons: numberOfButtons,
