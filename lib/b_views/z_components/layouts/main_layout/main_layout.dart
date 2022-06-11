@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/chains_drawer/structure/a_chains_draw
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -36,7 +35,6 @@ class MainLayout extends StatelessWidget {
     this.appBarType,
     this.pageTitle,
     this.skyType = SkyType.night,
-    this.canRefreshFlyers = false,
     // this.loading = false,
     this.onBack,
     this.canGoBack = true,
@@ -66,7 +64,6 @@ class MainLayout extends StatelessWidget {
   final AppBarType appBarType;
   final dynamic pageTitle;
   final SkyType skyType;
-  final bool canRefreshFlyers;
   // final bool loading;
   final Function onBack;
   final bool canGoBack;
@@ -147,33 +144,6 @@ class MainLayout extends StatelessWidget {
 
     final Color _backgroundColor = _mainLayoutBackGroundColor(skyType);
 
-    final Widget _mainLayoutStackWidgets = MainLayoutStackWidgets(
-      key: const ValueKey<String>('mainStack'),
-      alignment: Alignment.topCenter,
-      skyType: skyType,
-      appBarType: appBarType,
-      appBarRowWidgets: appBarRowWidgets,
-      pageTitle: pageTitle,
-      onBack: () => _onBack(context),
-      loading: loading,
-      index: index,
-      swipeDirection: swipeDirection,
-      numberOfStrips: numberOfStrips,
-      appBarScrollController: appBarScrollController,
-      sectionButtonIsOn: sectionButtonIsOn,
-      zoneButtonIsOn: zoneButtonIsOn,
-      searchController: searchController,
-      onSearchSubmit: onSearchSubmit,
-      historyButtonIsOn: historyButtonIsOn,
-      onSearchChanged: onSearchChanged,
-      pyramidsAreOn: pyramidsAreOn,
-      navBarIsOn: navBarIsOn,
-      searchHint: searchHint,
-      layoutWidget: layoutWidget,
-      pyramidType: pyramidType,
-      onPyramidTap: onPyramidTap,
-    );
-
     return WillPopScope(
       key: const ValueKey<String>('Main_layout'),
       onWillPop: () async {
@@ -212,21 +182,32 @@ class MainLayout extends StatelessWidget {
                   onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
 
                   /// BODY CONTENT
-                  body: canRefreshFlyers ?
-
-                  RefreshIndicator(
-                    onRefresh: () => onRefreshHomeWall(context),
-                    color: Colorz.black230,
-                    backgroundColor: Colorz.yellow255,
-                    displacement: 50,//Ratioz.appBarMargin,
-                    strokeWidth: 4,
-                    edgeOffset: 50,
-                    child: _mainLayoutStackWidgets,
-                  )
-
-                      :
-
-                  _mainLayoutStackWidgets,
+                  body: MainLayoutStackWidgets(
+                    key: const ValueKey<String>('mainStack'),
+                    alignment: Alignment.topCenter,
+                    skyType: skyType,
+                    appBarType: appBarType,
+                    appBarRowWidgets: appBarRowWidgets,
+                    pageTitle: pageTitle,
+                    onBack: () => _onBack(context),
+                    loading: loading,
+                    index: index,
+                    swipeDirection: swipeDirection,
+                    numberOfStrips: numberOfStrips,
+                    appBarScrollController: appBarScrollController,
+                    sectionButtonIsOn: sectionButtonIsOn,
+                    zoneButtonIsOn: zoneButtonIsOn,
+                    searchController: searchController,
+                    onSearchSubmit: onSearchSubmit,
+                    historyButtonIsOn: historyButtonIsOn,
+                    onSearchChanged: onSearchChanged,
+                    pyramidsAreOn: pyramidsAreOn,
+                    navBarIsOn: navBarIsOn,
+                    searchHint: searchHint,
+                    layoutWidget: layoutWidget,
+                    pyramidType: pyramidType,
+                    onPyramidTap: onPyramidTap,
+                  ),
 
                 ),
 
