@@ -1458,7 +1458,12 @@ class BzModel{
       default : return null;
     }
   }
-
+// ------------------------------------------
+  static String getTabTitle(int index){
+    final BzTab _bzTab = BzModel.bzTabsList[index];
+    final String _tabTitle = BzModel.translateBzTab(_bzTab);
+    return _tabTitle;
+  }
 // -----------------------------------------------------------------------------
 
   /// BZ VALIDATION
