@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_title.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_loading.dart';
+import 'package:bldrs/b_views/z_components/app_bar/app_bar_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
@@ -329,9 +329,9 @@ class BldrsAppBar extends StatelessWidget {
             ),
           ),
 
-          /// LOADING
+          /// PROGRESS BAR
           if (loading != null)
-            AppBarLoading(
+            AppBarProgressBar(
               index: index,
               numberOfStrips: numberOfStrips,
               loading: loading,

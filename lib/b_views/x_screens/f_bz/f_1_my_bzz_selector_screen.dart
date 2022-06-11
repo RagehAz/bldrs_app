@@ -67,6 +67,7 @@ class MyBzzSelectorScreen extends StatelessWidget {
                 icon: _bzModel.logo,
                 onTap: () => goToMyBzScreen(
                   context: context,
+                  bzID: _bzModel.id,
                 ),
 
               ),
