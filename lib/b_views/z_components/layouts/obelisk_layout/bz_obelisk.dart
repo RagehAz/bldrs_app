@@ -39,6 +39,7 @@ class BzObelisk extends StatelessWidget {
     const List<BzTab> _bzTabs = BzModel.bzTabsList;
 
     return Positioned(
+      key: const ValueKey<String>('BzObelisk'),
       left: Ratioz.appBarMargin,
       bottom: Ratioz.appBarMargin,
       child: ValueListenableBuilder(
@@ -66,7 +67,6 @@ class BzObelisk extends StatelessWidget {
                     builder: (_, int _tabIndex, Widget child){
 
                       return Column(
-                        // mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
@@ -77,14 +77,11 @@ class BzObelisk extends StatelessWidget {
                             final String _bzTabString = BzModel.translateBzTab(_bzTab);
                             final String _icon = BzModel.getBzTabIcon(_bzTab);
 
-                            return Padding(
-                              padding: const EdgeInsets.only(top: Ratioz.appBarPadding),
-                              child: OButtonRow(
-                                verse: _bzTabString,
-                                icon: _icon,
-                                isSelected: _isSelected,
-                                onTap: () => onRowTap(_bzTab),
-                              ),
+                            return OButtonRow(
+                              verse: _bzTabString,
+                              icon: _icon,
+                              isSelected: _isSelected,
+                              onTap: () => onRowTap(_bzTab),
                             );
 
                           }),

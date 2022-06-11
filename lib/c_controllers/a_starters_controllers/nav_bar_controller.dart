@@ -1,13 +1,15 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_1_my_bzz_selector_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/j_questions/questions_screen.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_layout.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// GO TO SAVES SCREEN
@@ -42,9 +44,19 @@ Future<void> onNavBarBzzButtonTap({
   /// IF HAS ONLY ONE BZ ACCOUNT
   if (_myUserModel.myBzzIDs.length == 1) {
 
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
+    final BzModel _bzModel = await _bzzProvider.fetchBzModel(
+        context: context,
+        bzID: _myUserModel.myBzzIDs[0],
+    );
+
+    _bzzProvider.setActiveBz(
+        bzModel: _bzModel,
+        notify: true);
+
     await goToMyBzScreen(
       context: context,
-      myBzModel: myBzz.first,
     );
 
   }
@@ -62,14 +74,11 @@ Future<void> onNavBarBzzButtonTap({
 // -------------------------------
 Future<void> goToMyBzScreen({
   @required BuildContext context,
-  @required BzModel myBzModel,
 }) async {
 
   await Nav.goToNewScreen(
       context: context,
-      screen: MyBzScreen(
-        bzModel: myBzModel,
-      )
+      screen: const MyBzScreen()
   );
 
 }
