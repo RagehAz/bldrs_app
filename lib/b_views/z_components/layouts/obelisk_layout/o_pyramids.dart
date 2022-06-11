@@ -13,6 +13,7 @@ class SuperPyramids extends StatelessWidget {
     @required this.onExpansion,
     @required this.isExpanded,
     @required this.navModels,
+    this.isYellow = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -21,6 +22,7 @@ class SuperPyramids extends StatelessWidget {
   final Function onExpansion;
   final ValueChanged<int> onRowTap;
   final List<NavModel> navModels;
+  final bool isYellow;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -90,10 +92,10 @@ class SuperPyramids extends StatelessWidget {
                         isExpanded.value = !isExpanded.value;
 
                       },
-                      child: const SuperImage(
+                      child: SuperImage(
                         width: 256 * 0.7,
                         height: 80 * 0.7,
-                        pic: Iconz.pyramidsWhiteClean,
+                        pic: isYellow ? Iconz.pyramidsYellowClean : Iconz.pyramidsWhiteClean,
                         boxFit: BoxFit.fitWidth,
                       ),
                     ),

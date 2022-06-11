@@ -16,11 +16,13 @@ class ObeliskLayout extends StatefulWidget {
   const ObeliskLayout({
     @required this.navModels,
     this.appBarRowWidgets,
+    this.initiallyExpanded = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Widget> appBarRowWidgets;
   final List<NavModel> navModels;
+  final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -64,6 +66,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     if (checkCanLoopList(widget.navModels) == true){
 
+      _isExpanded = ValueNotifier(widget.initiallyExpanded);
       _tabIndex = ValueNotifier(0);
       _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next);
 
@@ -152,7 +155,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   /// PYRAMID EXPANSION
 
 // -------------------------------------
-  final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
+  ValueNotifier<bool> _isExpanded;
 // -------------------------------------
   void onTriggerExpansion(){
     _isExpanded.value = !_isExpanded.value;
