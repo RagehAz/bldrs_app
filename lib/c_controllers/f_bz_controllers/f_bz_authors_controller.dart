@@ -94,10 +94,7 @@ Future<void> onShowUserDialog({
   await BottomDialog.showBottomDialog(
     context: context,
     draggable: true,
-    child: UserProfilePage(
-      userModel: userModel,
-      // showContacts: false,
-    ),
+    child: const UserProfilePage(),
   );
 
 }

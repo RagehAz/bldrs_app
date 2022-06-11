@@ -29,7 +29,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> with SingleTicker
 
     _tabController = TabController(
       vsync: this,
-      length: userProfileTabsList.length,
+      length: UserModel.userProfileTabsList.length,
       initialIndex: getInitialUserScreenTabIndex(context),
     );
 

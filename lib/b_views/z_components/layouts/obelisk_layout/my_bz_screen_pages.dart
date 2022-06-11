@@ -18,29 +18,31 @@ class MyBzScreenPages extends StatelessWidget {
   final double screenHeight;
   final TabController tabController;
   /// --------------------------------------------------------------------------
+  static const List<Widget> pages = <Widget>[
+
+      BzFlyersPage(),
+
+      BzAboutPage(),
+
+      BzAuthorsPage(),
+
+      BzNotesPage(),
+
+      BzTargetsPage(),
+
+      BzPowersPage(),
+
+      BzNetworkPage(),
+
+  ];
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return TabBarView(
       physics: const BouncingScrollPhysics(),
       controller: tabController,
-      children: const <Widget>[
-
-        BzFlyersPage(),
-
-        BzAboutPage(),
-
-        BzAuthorsPage(),
-
-        BzNotesPage(),
-
-        BzTargetsPage(),
-
-        BzPowersPage(),
-
-        BzNetworkPage(),
-
-      ],
+      children: pages,
     );
 
   }

@@ -57,7 +57,7 @@ import 'package:provider/provider.dart';
 int getInitialUserScreenTabIndex(BuildContext context){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   final UserTab _currentTab = _uiProvider.currentUserTab;
-  final int _index = getUserTabIndex(_currentTab);
+  final int _index = UserModel.getUserTabIndex(_currentTab);
   return _index;
 }
 // ---------------------------------
@@ -87,7 +87,7 @@ void onChangeUserScreenTabIndex({
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  final UserTab _newUserTab = userProfileTabsList[index];
+  final UserTab _newUserTab = UserModel.userProfileTabsList[index];
   final UserTab _previousUserTab = _uiProvider.currentUserTab;
 
   /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
