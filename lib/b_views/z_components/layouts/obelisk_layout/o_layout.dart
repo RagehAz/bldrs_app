@@ -16,18 +16,18 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class OLayout extends StatefulWidget {
+class MyBzScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const OLayout({
+  const MyBzScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<OLayout> createState() => _OLayoutState();
+  State<MyBzScreen> createState() => _MyBzScreenState();
 /// --------------------------------------------------------------------------
 }
 
-class _OLayoutState extends State<OLayout> with SingleTickerProviderStateMixin {
+class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   TabController _tabController;
 // -----------------------------------------------------------------------------
@@ -147,92 +147,18 @@ class _OLayoutState extends State<OLayout> with SingleTickerProviderStateMixin {
         children: <Widget>[
 
           /// PAGES
-          OPages(
+          MyBzScreenPages(
             screenHeight: _screenHeight,
             tabController: _tabController,
           ),
 
+          /// PYRAMIDS NAVIGATOR
           OPyramids(
             isExpanded: _isExpanded,
             onExpansion: onTriggerExpansion,
             onRowTap: onRowTap,
             tabIndex: _tabIndex,
           ),
-
-          // /// SINGLE PYRAMID
-          // Positioned(
-          //   bottom: 0,
-          //   right: 0,
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(right: 17 * 0.7),
-          //     child: ValueListenableBuilder(
-          //       valueListenable: _isExpanded,
-          //       child: const SuperImage(
-          //         width: 143.1 * 0.7,
-          //         height: 66.4 * 0.7,
-          //         pic: Iconz.pyramid,
-          //         boxFit: BoxFit.fitWidth,
-          //         iconColor: Colorz.black230,
-          //         // scale: 1,
-          //       ),
-          //       builder: (_, bool isExpanded, Widget child){
-          //
-          //         return AnimatedScale(
-          //           scale: isExpanded == true ? 8 : 1,
-          //           duration: const Duration(milliseconds: 500),
-          //           curve: isExpanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
-          //           alignment: Alignment.bottomRight,
-          //           child: child,
-          //         );
-          //
-          //       },
-          //     ),
-          //   ),
-          // ),
-          //
-          // /// OBELISK
-          // BzObelisk(
-          //     isExpanded: _isExpanded,
-          //     onTriggerExpansion: onTriggerExpansion,
-          //     onRowTap: onRowTap,
-          //     tabIndex: _tabIndex,
-          // ),
-          //
-          // /// PYRAMIDS
-          // ValueListenableBuilder(
-          //     valueListenable: _isExpanded,
-          //     builder: (_, bool expanded, Widget child){
-          //
-          //       return Positioned(
-          //         bottom: 0,
-          //         right: 0,
-          //         child: Padding(
-          //           padding: const EdgeInsets.only(right: 17 * 0.7),
-          //           child: AnimatedScale(
-          //             duration: const Duration(milliseconds: 500),
-          //             curve: expanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
-          //             scale: expanded == true ? 0.95 : 1,
-          //             alignment: Alignment.bottomRight,
-          //             child: GestureDetector(
-          //               onTap: (){
-          //
-          //                 _isExpanded.value = !_isExpanded.value;
-          //
-          //               },
-          //               child: const SuperImage(
-          //                 width: 256 * 0.7,
-          //                 height: 80 * 0.7,
-          //                 pic: Iconz.pyramidsYellowClean,
-          //                 boxFit: BoxFit.fitWidth,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       );
-          //
-          //     }
-          // ),
-
 
         ],
       ),

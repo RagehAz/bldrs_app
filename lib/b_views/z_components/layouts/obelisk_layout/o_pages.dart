@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/y_views/f_bz/f_6_bz_powers_page.dart';
 import 'package:bldrs/b_views/y_views/f_bz/f_7_bz_network_page.dart';
 import 'package:flutter/material.dart';
 
-class OPages extends StatelessWidget {
+class MyBzScreenPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const OPages({
+  const MyBzScreenPages({
     @required this.screenHeight,
     @required this.tabController,
     Key key

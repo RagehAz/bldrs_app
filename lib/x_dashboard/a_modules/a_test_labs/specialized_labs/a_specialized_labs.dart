@@ -42,7 +42,7 @@ class SpecializedLabs extends StatelessWidget {
       DashButtonModel(
         verse: 'OBELISK',
         icon: Iconz.achievement,
-        screen: const OLayout(),
+        screen: const MyBzScreen(),
       ),
 
       /// PROVIDER TEST
