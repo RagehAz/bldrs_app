@@ -23,6 +23,7 @@ class MyBzScreen extends StatelessWidget {
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
     return ObeliskLayout(
+      initiallyExpanded: true,
       appBarRowWidgets: <Widget>[
 
         const Expander(),
