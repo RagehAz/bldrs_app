@@ -32,23 +32,24 @@ Future<void> initializeLogoScreen({
 
   Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-  /// APP CONTROLS
-  unawaited(_initializeAppControls(context));
+  await Future.wait(
+    <Future<void>>[
 
-  /// LOCAL ASSETS PATHS
-  unawaited(_initializeLocalAssetsPaths(context));
+      /// APP CONTROLS
+      _initializeAppControls(context),
+      /// LOCAL ASSETS PATHS
+      _initializeLocalAssetsPaths(context),
+      /// APP LANGUAGE
+      _initializeAppLanguage(context),
+      /// USER MODEL
+      _initializeUserModel(context),
+      /// APP STATE
+      _initializeAppState(context),
+      /// INITIALIZE USER NOTES STREAM
+      // _initializeUserNotesStream(context);
 
-  /// APP LANGUAGE
-  await _initializeAppLanguage(context);
-
-  /// USER MODEL
-  await _initializeUserModel(context);
-
-  /// APP STATE
-  await _initializeAppState(context);
-
-  // /// INITIALIZE USER NOTES STREAM
-  // _initializeUserNotesStream(context);
+  ]
+  );
 
 }
 // -----------------------------------------------------------------------------

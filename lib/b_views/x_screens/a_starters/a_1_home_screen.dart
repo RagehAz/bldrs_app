@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/b_views/y_views/a_starters/a_1_anonymous_home_screen_view.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/loading_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -70,13 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final bool _userIsSignedIn = AuthModel.userIsSignedIn();
-
     return MainLayout(
       key: const ValueKey<String>('mainLayout'),
       navBarIsOn: true,
       appBarType: AppBarType.main,
-      canRefreshFlyers: true,
       onBack: (){
         Nav.closeApp(context);
       },
@@ -89,19 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return const LoadingFlyersGrid();
               }
 
-              /// FOR ANONYMOUS USER
-              else if (_userIsSignedIn == false){
-                return const AnonymousHomeScreenView();
-              }
-
-              /// FOR KNOWN SIGNED IN USER
-              else if (_userIsSignedIn == true){
-                return const UserHomeScreen();
-              }
-
               /// UNKNOWN CONDITION
               else {
-                return const SizedBox();
+                return const UserHomeScreen();
               }
 
         },
