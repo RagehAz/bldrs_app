@@ -29,6 +29,7 @@ class OButtonRow extends StatelessWidget {
       child: Container(
         height: circleWidth + 5,
         alignment: Alignment.bottomLeft,
+        color: Colorz.nothing,
         child: Row(
           children: <Widget>[
 

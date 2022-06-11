@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_bz_editor_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/specs_selector_screen/specs_pickers_screen.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_layout.dart';
+import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;

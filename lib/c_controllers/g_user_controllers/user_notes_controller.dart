@@ -173,6 +173,7 @@ Future<void> _acceptAuthorshipInvitation({
 
     await goToMyBzScreen(
       context: context,
+      bzID: bzModel.id,
     );
 
   }
