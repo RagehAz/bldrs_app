@@ -1,8 +1,8 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_button_row.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/nav_bar/components/note_red_dot.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
@@ -17,24 +17,23 @@ class ObeliskTree extends StatelessWidget {
     @required this.navModels,
     @required this.tabIndex,
     @required this.onRowTap,
-    this.child,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final ValueNotifier<bool> isExpanded;
   final int numberOfButtons;
-  final Widget child;
   final List<NavModel> navModels;
   final ValueNotifier<int> tabIndex;
   final ValueChanged<int> onRowTap;
   /// --------------------------------------------------------------------------
-  static const boxWidth = OButtonRow.circleWidth + (2*Ratioz.appBarPadding);
+  static const double circleWidth = 40;
+  static const boxWidth = circleWidth + (2*Ratioz.appBarPadding);
 // -------------------------------------
   static double getBoxMaxHeight({
     @required bool isBig,
     @required int numberOfButtons,
   }){
-    const double _circleWidth = OButtonRow.circleWidth;
+    const double _circleWidth = ObeliskTree.circleWidth;
     final double _height = isBig ?
     ((numberOfButtons * _circleWidth) + ((numberOfButtons+1) * Ratioz.appBarPadding))
         :
@@ -47,13 +46,12 @@ class ObeliskTree extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Positioned(
-      key: const ValueKey<String>('BzObelisk'),
+      key: const ValueKey<String>('ObeliskTree'),
       left: Ratioz.appBarMargin,
       bottom: Ratioz.appBarMargin,
       child: ValueListenableBuilder(
         valueListenable: isExpanded,
-        child: child,
-        builder: (_, bool isBig, Widget childx){
+        builder: (_, bool isBig, Widget xChild){
 
           return Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -61,15 +59,14 @@ class ObeliskTree extends StatelessWidget {
 
               /// ICONS
               AnimatedContainer(
-                duration: Duration(milliseconds: isBig == true ? 500 : 500),
+                duration: const Duration(milliseconds: 250),
                 curve: Curves.easeOut,
-                width: isBig == true ? OButtonRow.circleWidth : 0,
+                width: isBig == true ? ObeliskTree.circleWidth : 0,
                 height: getBoxMaxHeight(
                   isBig: true,
                   numberOfButtons: numberOfButtons,
                 ),
                 alignment: Alignment.bottomLeft,
-
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
@@ -87,32 +84,43 @@ class ObeliskTree extends StatelessWidget {
                                 final bool _isSelected = _tabIndex == index;
                                 final NavModel _navModel = navModels[index];
 
+                                /// BUTTON CIRCLE
                                 if (_navModel?.canShow == true){
                                   return GestureDetector(
                                     onTap: () => onRowTap(index),
-                                    child: DreamBox(
-                                      width: OButtonRow.circleWidth,
-                                      height: OButtonRow.circleWidth,
-                                      corners: OButtonRow.circleWidth * 0.5,
-                                      color: _isSelected ? Colorz.yellow255 : Colorz.black255,
-                                      icon: _navModel.icon,
-                                      iconColor: _navModel.iconColor == Colorz.nothing ? null : _isSelected ? Colorz.black255 : Colorz.white255,
-                                      iconSizeFactor: _navModel.iconSizeFactor ?? 0.45,
-                                      margins: const EdgeInsets.only(bottom: 5),
+                                    child: NoteRedDotWrapper(
+                                      redDotIsOn: true,
+                                      // count: 5,
+                                      childWidth: ObeliskTree.circleWidth,
+                                      shrinkChild: true,
+                                      isNano: true,
+                                      child: DreamBox(
+                                        width: ObeliskTree.circleWidth,
+                                        height: ObeliskTree.circleWidth,
+                                        corners: ObeliskTree.circleWidth * 0.5,
+                                        color: _isSelected ? Colorz.yellow255 : Colorz.black255,
+                                        icon: _navModel.icon,
+                                        iconColor: _navModel.iconColor == Colorz.nothing ? null : _isSelected ? Colorz.black255 : Colorz.white255,
+                                        iconSizeFactor: _navModel.iconSizeFactor ?? 0.45,
+                                        margins: const EdgeInsets.only(bottom: 5),
+                                      ),
                                     ),
                                   );
                                 }
 
+                                /// NOTHING
                                 else if (_navModel?.canShow == false){
-                                  blog('can not show');
                                   return const SizedBox();
                                 }
 
+                                /// SEPARATOR
                                 else {
 
-                                  return const SeparatorLine(
-                                    width: OButtonRow.circleWidth,
-                                    margins: EdgeInsets.only(bottom: 10, top: 5),
+                                  return const AbsorbPointer(
+                                    child: SeparatorLine(
+                                      width: ObeliskTree.circleWidth,
+                                      margins: EdgeInsets.only(bottom: 10, top: 5),
+                                    ),
                                   );
 
                                 }
@@ -131,76 +139,84 @@ class ObeliskTree extends StatelessWidget {
                 fadeType: isBig == null ? FadeType.stillAtMin : isBig == true ? FadeType.fadeIn : FadeType.fadeOut,
                 curve: isBig == true ? Curves.easeInCirc : Curves.easeOutQuart,
                 duration: const Duration(milliseconds: 250),
-                builder: (double value, Widget childy){
-
-                  blog('value is : $value');
+                builder: (double value, Widget child){
 
                   return Transform.scale(
                     scaleX: value,
                     alignment: Alignment.centerLeft,
-                    child: AnimatedOpacity(
-                      duration: Duration(milliseconds: isBig == true ? 500 : 500),
-                      curve: Curves.easeOutQuint,
-                      opacity: isBig == true ? 1 : 0.5,
-                      child: ValueListenableBuilder(
-                        valueListenable: tabIndex,
-                        builder: (_, int _tabIndex, Widget child){
-
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-
-                              ...List.generate(navModels.length, (index){
-
-                                final bool _isSelected = _tabIndex == index;
-                                final NavModel _navModel = navModels[index];
-
-                                if (_navModel?.canShow == true){
-                                  return GestureDetector(
-                                    onTap: () => onRowTap(index),
-                                    child: Container(
-                                      height: OButtonRow.circleWidth + 5,
-                                      alignment: Alignment.topLeft,
-                                      child: SuperVerse(
-                                        verse: _isSelected ? _navModel.title.toUpperCase() : _navModel.title,
-                                        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
-                                        italic: true,
-                                        weight: _isSelected ? VerseWeight.black : VerseWeight.thin,
-                                        labelColor: Colorz.black200,
-                                        color: _isSelected ? Colorz.yellow255 : Colorz.white255,
-                                        shadow: true,
-                                        shadowColor: Colorz.black255,
-                                      ),
-                                    ),
-                                  );
-                                }
-
-                                else if (_navModel?.canShow == false){
-                                  blog('can not show');
-                                  return const SizedBox();
-                                }
-
-                                else {
-
-                                  return const SeparatorLine(
-                                    width: OButtonRow.circleWidth,
-                                    margins: EdgeInsets.only(bottom: 10, top: 5),
-                                    lineIsON: false,
-                                  );
-
-                                }
-
-                              }),
-
-                            ],
-                          );
-
-                        },
-                      ),
-                    ),
+                    child: child,
                   );
 
                 },
+                child: AnimatedOpacity(
+                  duration: Duration(milliseconds: isBig == true ? 500 : 500),
+                  curve: Curves.easeOutQuint,
+                  opacity: isBig == true ? 1 : 0.5,
+                  child: ValueListenableBuilder(
+                    valueListenable: tabIndex,
+                    builder: (_, int _tabIndex, Widget child){
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+
+                          ...List.generate(navModels.length, (index){
+
+                            final bool _isSelected = _tabIndex == index;
+                            final NavModel _navModel = navModels[index];
+
+                            /// TEXT
+                            if (_navModel?.canShow == true){
+                              return GestureDetector(
+                                onTap: () => onRowTap(index),
+                                child: Container(
+                                  height: ObeliskTree.circleWidth + 5,
+                                  alignment: Alignment.centerLeft,
+                                  color: Colorz.nothing,
+                                  child: SuperVerse(
+                                    verse: _isSelected ? _navModel.title.toUpperCase() : _navModel.title,
+                                    margin: superInsets(
+                                      context: context,
+                                      enLeft: 5,
+                                      enRight: 5,
+                                    ),//const EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
+                                    italic: true,
+                                    weight: _isSelected ? VerseWeight.black : VerseWeight.thin,
+                                    labelColor: Colorz.black200,
+                                    color: _isSelected ? Colorz.yellow255 : Colorz.white255,
+                                    shadow: true,
+                                    shadowColor: Colorz.black255,
+                                  ),
+                                ),
+                              );
+                            }
+
+                            /// EMPTY
+                            else if (_navModel?.canShow == false){
+                              return const SizedBox();
+                            }
+
+                            /// SEPARATOR
+                            else {
+
+                              return const AbsorbPointer(
+                                child: SeparatorLine(
+                                  width: 100,
+                                  margins: EdgeInsets.only(bottom: 10, top: 5),
+                                  lineIsON: false,
+                                ),
+                              );
+
+                            }
+
+                          }),
+
+                        ],
+                      );
+
+                    },
+                  ),
+                ),
 
               ),
 
