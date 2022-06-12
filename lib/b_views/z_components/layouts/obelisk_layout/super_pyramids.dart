@@ -89,7 +89,12 @@ class SuperPyramids extends StatelessWidget {
                     child: GestureDetector(
                       onTap: (){
 
-                        isExpanded.value = !isExpanded.value;
+                        if (isExpanded.value == null || isExpanded.value == false){
+                          isExpanded.value = true;
+                        }
+                        else {
+                          isExpanded.value = false;
+                        }
 
                       },
                       child: SuperImage(

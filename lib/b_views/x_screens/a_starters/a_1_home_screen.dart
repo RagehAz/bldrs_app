@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/loading_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
   /// PYRAMID EXPANSION
 
 // -------------------------------------
-  final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
+  final ValueNotifier<bool> _isExpanded = ValueNotifier(null);
   final ValueNotifier<int> _tabIndex = ValueNotifier(null);
 // -------------------------------------
   void onTriggerExpansion(){
