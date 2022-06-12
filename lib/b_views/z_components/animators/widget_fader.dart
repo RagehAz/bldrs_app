@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
 enum FadeType{
@@ -12,13 +13,14 @@ enum FadeType{
 class WidgetFader extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const WidgetFader({
-    @required this.child,
     @required this.fadeType,
+    this.child,
     this.max = 1,
     this.min = 0,
     this.duration,
     this.curve = Curves.easeInOut,
     this.absorbPointer = false,
+    this.builder,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +31,7 @@ class WidgetFader extends StatefulWidget {
   final Duration duration;
   final Curve curve;
   final bool absorbPointer;
+  final Widget Function(double, Widget) builder;
   /// --------------------------------------------------------------------------
   @override
   _WidgetFaderState createState() => _WidgetFaderState();
@@ -108,13 +111,33 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
   Widget build(BuildContext context) {
 
     _animate();
+    blog('should be animating');
 
     return AbsorbPointer(
-      absorbing: widget.absorbPointer,
-      child: FadeTransition(
-        opacity: _animation,
-        child: widget.child,
-      ),
+        absorbing: widget.absorbPointer,
+        child:
+
+        widget.builder == null ?
+
+        FadeTransition(
+          opacity: _animation,
+          child: widget.child,
+        )
+
+            :
+
+        AnimatedBuilder(
+            animation: _animation,
+            child: widget.child,
+            builder: (_, Widget child){
+
+              final double _value = _animation.value;
+
+              return widget.builder(_value, child);
+
+            }
+        )
+
     );
   }
 
