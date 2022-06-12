@@ -190,7 +190,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 ),
 
                 /// LINE
-                const QuestionSeparatorLine(),
+                const SeparatorLine(),
 
                 /// NOTE PREVIEW
                 ValueListenableBuilder(
@@ -206,7 +206,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 ),
 
                 /// LINE
-                const QuestionSeparatorLine(),
+                const SeparatorLine(),
 
                 /// TITLE
                 TextFieldBubble(

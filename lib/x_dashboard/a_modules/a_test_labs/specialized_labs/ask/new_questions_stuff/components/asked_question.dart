@@ -35,7 +35,7 @@ class AskedQuestion extends StatelessWidget {
         ),
 
         /// QUESTION SEPARATOR LINE
-        const QuestionSeparatorLine(),
+        const SeparatorLine(),
 
         /// QUESTION BODY
         QuestionBody(
@@ -43,7 +43,7 @@ class AskedQuestion extends StatelessWidget {
         ),
 
         /// QUESTION SEPARATOR LINE
-        const QuestionSeparatorLine(lineIsON: false,),
+        const SeparatorLine(lineIsON: false,),
 
         /// QUESTION PICTURES
         if (Mapper.checkCanLoopList(questionModel?.pics))
@@ -53,14 +53,14 @@ class AskedQuestion extends StatelessWidget {
         ),
 
         /// QUESTION SEPARATOR LINE
-        const QuestionSeparatorLine(),
+        const SeparatorLine(),
 
         PrivateRepliesCounter(
           questionModel: questionModel,
         ),
 
         /// QUESTION SEPARATOR LINE
-        const QuestionSeparatorLine(),
+        const SeparatorLine(),
 
         QuestionReplyButtons(
           questionModel: questionModel,
