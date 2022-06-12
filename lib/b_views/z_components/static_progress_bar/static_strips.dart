@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
@@ -282,7 +281,7 @@ class StaticStrips extends StatelessWidget {
 
               final double _tweenVal = swipeDirection == Sliders.SwipeDirection.freeze ? _aStripLength : tweenVal;
 
-              blog('_numberOfStrips : $_numberOfStrips');
+              // blog('_numberOfStrips : $_numberOfStrips');
 
               return
                 Row(

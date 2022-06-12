@@ -102,13 +102,35 @@ class NoteRedDotWrapper extends StatelessWidget {
   final bool isNano;
   final double childWidth;
   /// --------------------------------------------------------------------------
+  static double getShrinkageScale({
+    @required double childWidth,
+    @required bool isNano,
+  }){
+    final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.2);
+    return _viewWidth / childWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double getShrinkageDX({
+    @required double childWidth,
+    @required bool isNano,
+  }){
+
+    final double ratio = getShrinkageScale(
+      childWidth: childWidth,
+      isNano: isNano,
+    );
+    final double _dx = childWidth - (ratio * childWidth);
+
+    return _dx;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.2);
-    final double _scale = _viewWidth / childWidth;
-
-    // blog('_viewWidth $_viewWidth : childWidth $childWidth : _scale $_scale');
+    final double _scale = getShrinkageScale(
+      isNano: isNano,
+      childWidth: childWidth,
+    );
 
     return Stack(
       alignment: Alignment.center,

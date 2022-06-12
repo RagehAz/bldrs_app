@@ -28,49 +28,6 @@ class Obelisk extends StatelessWidget {
       tabIndex: tabIndex,
       onRowTap: (int index) => onRowTap(index),
       navModels: navModels,
-      // child: ValueListenableBuilder(
-      //   valueListenable: tabIndex,
-      //   builder: (_, int _tabIndex, Widget child){
-      //
-      //     return Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       crossAxisAlignment: CrossAxisAlignment.start,
-      //       children: <Widget>[
-      //
-      //         ...List.generate(navModels.length, (index){
-      //
-      //           final bool _isSelected = _tabIndex == index;
-      //           final NavModel _navModel = navModels[index];
-      //
-      //           if (_navModel?.canShow == true){
-      //             return OButtonRow(
-      //               navModel: _navModel,
-      //               isSelected: _isSelected,
-      //               onTap: () => onRowTap(index),
-      //             );
-      //           }
-      //
-      //           else if (_navModel?.canShow == false){
-      //             blog('can not show');
-      //             return const SizedBox();
-      //           }
-      //
-      //           else {
-      //
-      //             return const SeparatorLine(
-      //               width: OButtonRow.circleWidth,
-      //               margins: EdgeInsets.only(bottom: 5, top: 10),
-      //             );
-      //
-      //           }
-      //
-      //         }),
-      //
-      //       ],
-      //     );
-      //
-      //   },
-      // ),
     );
 
   }
