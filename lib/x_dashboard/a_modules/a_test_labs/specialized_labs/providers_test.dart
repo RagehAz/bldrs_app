@@ -249,7 +249,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
             /// ZONE -------------------------------------------------------------
 
-            const QuestionSeparatorLine(),
+            const SeparatorLine(),
             const SuperVerse(verse: 'Zone',),
 
             /// CURRENT ZONE

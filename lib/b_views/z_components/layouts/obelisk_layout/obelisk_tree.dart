@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_button_row.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class ObeliskTree extends StatelessWidget {
         :
     boxWidth;
 
-    return _height;
+    return _height + 30;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -50,6 +51,7 @@ class ObeliskTree extends StatelessWidget {
               isBig: true,
               numberOfButtons: numberOfButtons,
             ),
+            color: Colorz.bloodTest,
             alignment: Alignment.bottomLeft,
             child: ListView(
               physics: const NeverScrollableScrollPhysics(),
