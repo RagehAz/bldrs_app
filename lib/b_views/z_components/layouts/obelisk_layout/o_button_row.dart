@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
@@ -25,10 +26,13 @@ class OButtonRow extends StatelessWidget {
     return GestureDetector(
       key: const ValueKey<String>('OButtonRow'),
       onTap: onTap,
+      onTapUp: (TapUpDetails details){
+        blog(details.globalPosition);
+      },
       child: Container(
         height: circleWidth + 5,
         alignment: Alignment.bottomLeft,
-        color: Colorz.nothing,
+        color: Colorz.white125,
         child: Row(
           children: <Widget>[
 
@@ -49,7 +53,7 @@ class OButtonRow extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 5),
               italic: true,
               weight: isSelected ? VerseWeight.black : VerseWeight.thin,
-              labelColor: Colorz.black80,
+              labelColor: Colorz.black200,
               color: isSelected ? Colorz.yellow255 : Colorz.white255,
               shadow: true,
               shadowColor: Colorz.black255,
