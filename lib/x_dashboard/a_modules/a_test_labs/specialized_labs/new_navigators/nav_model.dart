@@ -9,6 +9,7 @@ class NavModel {
     this.iconColor,
     this.iconSizeFactor,
     this.onNavigate,
+    this.canShow = true,
   });
   /// --------------------------------------------------------------------------
   final String title;
@@ -17,6 +18,7 @@ class NavModel {
   final Function onNavigate;
   final Color iconColor;
   final double iconSizeFactor;
+  final bool canShow;
 /// --------------------------------------------------------------------------
   static List<Widget> getScreens(List<NavModel> navModels){
 
@@ -38,7 +40,22 @@ class NavModel {
 
 
   }
+// -----------------------------------------------------------------------------
+  static int getNumberOfButtons(List<NavModel> navModels){
 
+    int _count = 0;
+
+    for (final NavModel model in navModels){
+
+      if (model != null){
+        _count++;
+      }
+
+    }
+
+    return _count;
+  }
+// -----------------------------------------------------------------------------
 }
 
 class ObeliskModel {

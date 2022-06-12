@@ -191,7 +191,7 @@ class BldrsDashBoard extends StatelessWidget {
             ),
           ),
 
-          const QuestionSeparatorLine(),
+          const SeparatorLine(),
 
           /// BUTTONS
           SizedBox(

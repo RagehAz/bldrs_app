@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
@@ -14,6 +16,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/o_pyramids.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -102,34 +105,44 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return <NavModel>[
 
+      /// SIGN IN
       NavModel(
-        title: '${_currentZone.cityName}, ${_currentZone.countryName}',
-        icon: _countryFlag,
-        screen: const SelectCountryScreen(),
-        iconSizeFactor: 1,
-        iconColor: Colorz.nothing,
+        title: superPhrase(context, 'phid_sign'),
+        icon: Iconz.normalUser,
+        screen: const AuthScreen(),
+        iconSizeFactor: 0.6,
+        canShow: AuthModel.userIsSignedIn() == false,
       ),
 
-      NavModel(
-        title: _userModel.name,
-        icon: _userModel.pic,
-        screen: const UserProfileScreen(),
-        iconSizeFactor: 1,
-        iconColor: Colorz.nothing,
-      ),
-
-      NavModel(
-        title: 'Saved Flyers',
-        icon: Iconz.savedFlyers,
-        screen: const SavedFlyersScreen(),
-      ),
-
+      /// QUESTIONS
       // NavModel(
       //   title: 'Questions',
       //   icon: Iconz.utPlanning,
       //   screen: const QScreen(),
       // ),
 
+      /// MY PROFILE
+      NavModel(
+        title: _userModel?.name,
+        icon: _userModel?.pic,
+        screen: const UserProfileScreen(),
+        iconSizeFactor: 1,
+        iconColor: Colorz.nothing,
+        canShow: AuthModel.userIsSignedIn() == true,
+      ),
+
+      /// SAVED FLYERS
+      NavModel(
+        title: 'Saved Flyers',
+        icon: Iconz.saveOff,
+        screen: const SavedFlyersScreen(),
+        canShow: AuthModel.userIsSignedIn() == true,
+      ),
+
+      /// SEPARATOR
+      null,
+
+      /// MY BZZ
       ...List.generate(_bzzModels.length, (index){
 
         final BzModel _bzModel = _bzzModels[index];
@@ -149,6 +162,18 @@ class _HomeScreenState extends State<HomeScreen> {
             );
 
       }),
+
+      /// SEPARATOR
+      null,
+
+      /// ZONE
+      NavModel(
+        title: '${_currentZone?.districtName}, ${_currentZone?.cityName}, ${_currentZone?.countryName}',
+        icon: _countryFlag,
+        screen: const SelectCountryScreen(),
+        iconSizeFactor: 1,
+        iconColor: Colorz.nothing,
+      ),
 
     ];
   }
@@ -175,6 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
         transitionType: PageTransitionType.fade,
       );
 
+      _tabIndex.value = null;
       onTriggerExpansion();
 
     });

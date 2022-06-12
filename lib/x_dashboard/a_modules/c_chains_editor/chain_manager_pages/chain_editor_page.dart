@@ -99,7 +99,7 @@ class ChainEditorPage extends StatelessWidget {
                 ),
               ),
 
-              const QuestionSeparatorLine(),
+              const SeparatorLine(),
 
               /// TRANSLATION
               if (_path != null)
@@ -138,7 +138,7 @@ class ChainEditorPage extends StatelessWidget {
                 height: DataStripWithHeadline.keyRowHeight,
               ),
 
-              const QuestionSeparatorLine(),
+              const SeparatorLine(),
 
               /// CHAIN TO ROOT
               if (_path != null)
@@ -154,7 +154,7 @@ class ChainEditorPage extends StatelessWidget {
                 ),
               ),
 
-              const QuestionSeparatorLine(),
+              const SeparatorLine(),
 
               /// ALL RELATED CHAINS TITLE
               if (_path != null)
