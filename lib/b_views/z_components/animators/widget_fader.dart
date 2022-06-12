@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
 enum FadeType{
@@ -111,7 +110,6 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
   Widget build(BuildContext context) {
 
     _animate();
-    blog('should be animating');
 
     return AbsorbPointer(
         absorbing: widget.absorbPointer,

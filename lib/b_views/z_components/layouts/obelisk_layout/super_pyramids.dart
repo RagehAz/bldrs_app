@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -13,6 +14,7 @@ class SuperPyramids extends StatelessWidget {
     @required this.onExpansion,
     @required this.isExpanded,
     @required this.navModels,
+    @required this.isFlashing,
     this.isYellow = false,
     Key key
   }) : super(key: key);
@@ -23,6 +25,7 @@ class SuperPyramids extends StatelessWidget {
   final ValueChanged<int> onRowTap;
   final List<NavModel> navModels;
   final bool isYellow;
+  final ValueNotifier<bool> isFlashing;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -97,11 +100,37 @@ class SuperPyramids extends StatelessWidget {
                         }
 
                       },
-                      child: SuperImage(
-                        width: 256 * 0.7,
-                        height: 80 * 0.7,
-                        pic: isYellow ? Iconz.pyramidsYellowClean : Iconz.pyramidsWhiteClean,
-                        boxFit: BoxFit.fitWidth,
+                      child: Stack(
+                        children: <Widget>[
+
+                          const SuperImage(
+                            width: 256 * 0.7,
+                            height: 80 * 0.7,
+                            iconColor: Colorz.black255,
+                            pic: Iconz.pyramidsWhiteClean,
+                            boxFit: BoxFit.fitWidth,
+                          ),
+
+                          ValueListenableBuilder(
+                              valueListenable: isFlashing,
+                              child: SuperImage(
+                                width: 256 * 0.7,
+                                height: 80 * 0.7,
+                                pic: isYellow ? Iconz.pyramidsYellowClean : Iconz.pyramidsWhiteClean,
+                                boxFit: BoxFit.fitWidth,
+                              ),
+                              builder: (_, bool isFlashing, Widget child){
+
+                                return WidgetFader(
+                                  fadeType: isFlashing ? FadeType.repeatAndReverse : FadeType.stillAtMax,
+                                  duration: const Duration(milliseconds: 500),
+                                  child: child,
+                                );
+
+                              }
+                          ),
+
+                        ],
                       ),
                     ),
                   ),

@@ -14,6 +14,7 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ObeliskLayout(
+      isFlashing: ValueNotifier<bool>(false),
       initiallyExpanded: true,
       navModels: <NavModel>[
 

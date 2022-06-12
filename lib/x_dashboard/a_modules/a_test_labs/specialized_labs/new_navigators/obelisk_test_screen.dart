@@ -14,6 +14,7 @@ class ObeliskTestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ObeliskLayout(
+      isFlashing: ValueNotifier<bool>(false),
         navModels: <NavModel>[
 
           ...List.generate(UserModel.userProfileTabsList.length, (index){

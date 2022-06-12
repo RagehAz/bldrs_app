@@ -88,6 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
   /// PYRAMID EXPANSION
 
 // -------------------------------------
+  final ValueNotifier<bool> _isFlashing = ValueNotifier(false);
   final ValueNotifier<bool> _isExpanded = ValueNotifier(null);
   final ValueNotifier<int> _tabIndex = ValueNotifier(null);
 // -------------------------------------
@@ -140,6 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       /// SEPARATOR
+      if (AuthModel.userIsSignedIn() == true && UserModel.checkUserIsAuthor(_userModel) == true)
       null,
 
       /// MY BZZ
@@ -249,6 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
             tabIndex: _tabIndex,
             navModels: _navModels,
             isYellow: true,
+            isFlashing: _isFlashing,
           ),
 
         ],
