@@ -11,7 +11,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,9 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-
     super.initState();
 
+    initializeUserNotes(context);
 
   }
 // -----------------------------------------------------------------------------
@@ -81,36 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _isExpanded.value = !_isExpanded.value;
   }
 // -----------------------------------------------------------------------------
-  Future<void> onRowTap({
-    @required int index,
-    @required List<NavModel> models,
-  }) async {
-
-    final NavModel _navModel = models[index];
-
-    _tabIndex.value = index;
-    // onTriggerExpansion();
-
-    await Future.delayed(const Duration(milliseconds: 50), () async {
-
-      if (_navModel.onNavigate != null){
-        await _navModel.onNavigate();
-      }
-
-      await Nav.goToNewScreen(
-        context: context,
-        screen: _navModel.screen,
-        transitionType: PageTransitionType.fade,
-      );
-
-      _tabIndex.value = null;
-      onTriggerExpansion();
-
-    });
-
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -134,8 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
             final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 
             _notesProvider.incrementObeliskNoteNumber(
-                value: 5,
-                navModelID: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
+                value: 1,
+                navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
                 notify: true,
             );
 
@@ -173,7 +142,13 @@ class _HomeScreenState extends State<HomeScreen> {
           SuperPyramids(
             isExpanded: _isExpanded,
             onExpansion: onTriggerExpansion,
-            onRowTap: (int index) => onRowTap(index: index, models: _navModels),
+            onRowTap: (int index) => onNavigate(
+              context: context,
+              index: index,
+              models: _navModels,
+              tabIndex: _tabIndex,
+              isExpanded: _isExpanded,
+            ),
             tabIndex: _tabIndex,
             navModels: _navModels,
             isYellow: true,

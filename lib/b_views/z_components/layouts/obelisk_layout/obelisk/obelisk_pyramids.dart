@@ -46,11 +46,26 @@ class ObeliskPyramids extends StatelessWidget {
       child: GestureDetector(
         onTap: (){
 
+
+
+          /// TO OPEN PYRAMIDS
           if (isExpanded.value == null || isExpanded.value == false){
             isExpanded.value = true;
           }
+
+          /// TO CLOSE PYRAMIDS
           else {
             isExpanded.value = false;
+
+            final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+            final bool _isFlashing = _notesProvider.isFlashing;
+            if (_isFlashing == true){
+              _notesProvider.setIsFlashing(
+                  flashing: false,
+                  notify: true,
+              );
+            }
+
           }
 
           },
@@ -86,26 +101,6 @@ class ObeliskPyramids extends StatelessWidget {
                 boxFit: BoxFit.fitWidth,
               ),
             ),
-
-            // ValueListenableBuilder(
-            //   valueListenable: isFlashing,
-            //   builder: (_, bool isFlashing, Widget child){
-            //
-            //     return WidgetFader(
-            //       fadeType: isFlashing ? FadeType.repeatAndReverse : FadeType.stillAtMax,
-            //       duration: const Duration(milliseconds: 1000),
-            //       min: 0.3,
-            //       child: child,
-            //     );
-            //
-            //     },
-            //   child: SuperImage(
-            //     width: 256 * 0.7,
-            //     height: 80 * 0.7,
-            //     pic: isYellow ? Iconz.pyramidsYellowClean : Iconz.pyramidsWhiteClean,
-            //     boxFit: BoxFit.fitWidth,
-            //   ),
-            // ),
 
           ],
         ),

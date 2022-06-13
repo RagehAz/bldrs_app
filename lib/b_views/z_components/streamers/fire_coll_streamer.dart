@@ -91,6 +91,21 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
   }
 // -----------------------------------------------------------------------------
+
+  @override
+  void dispose() {
+
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      /// do whatever the fuck you like to set state
+      /// notifyListeners
+      /// elly enta nefsak fih yaba
+
+    });
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 
