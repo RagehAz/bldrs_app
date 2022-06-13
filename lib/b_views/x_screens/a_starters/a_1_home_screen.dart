@@ -136,8 +136,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
             final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
             _notesProvider.incrementObeliskNoteNumber(
-                value: 1,
-                navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+                value: 5,
+                navModelID: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
                 notify: true,
             );
 
@@ -148,6 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
       layoutWidget: Stack(
         children: <Widget>[
 
+          /// PAGE CONTENTS
           ValueListenableBuilder(
             valueListenable: _loading,
             builder: (_, bool loading, Widget child){
