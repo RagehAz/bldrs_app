@@ -36,6 +36,7 @@ class Pyramids extends StatefulWidget {
   @override
   _PyramidsState createState() => _PyramidsState();
   /// --------------------------------------------------------------------------
+  static double verticalPositionFix = -0.2;
 }
 
 class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
@@ -82,7 +83,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
     final Color _pyramidColor = _userModel?.isAdmin == true ? null : null;
 
     return Positioned(
-      bottom: 0,
+      bottom: Pyramids.verticalPositionFix,
       right: 0,
       child: SizedBox(
         width: Ratioz.pyramidsWidth,

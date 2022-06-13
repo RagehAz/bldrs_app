@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -16,7 +17,7 @@ class ObeliskExpandingPyramid extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Positioned(
-      bottom: 0,
+      bottom: Pyramids.verticalPositionFix,
       right: 0,
       child: Padding(
         padding: const EdgeInsets.only(right: 17 * 0.7),
