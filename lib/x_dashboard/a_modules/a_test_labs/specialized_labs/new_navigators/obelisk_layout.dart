@@ -15,7 +15,6 @@ class ObeliskLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ObeliskLayout({
     @required this.navModels,
-    @required this.isFlashing,
     this.appBarRowWidgets,
     this.initiallyExpanded = false,
     Key key
@@ -24,7 +23,6 @@ class ObeliskLayout extends StatefulWidget {
   final List<Widget> appBarRowWidgets;
   final List<NavModel> navModels;
   final bool initiallyExpanded;
-  final ValueNotifier<bool> isFlashing;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -208,7 +206,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
             onRowTap: onRowTap,
             tabIndex: _tabIndex,
             navModels: widget.navModels,
-            isFlashing: widget.isFlashing,
           ),
 
         ],
