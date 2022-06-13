@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-/// --------------------------------------------------------------------------
-class NavModel {
 
+class NavModel {
+  /// --------------------------------------------------------------------------
   NavModel({
     @required this.title,
     @required this.icon,
@@ -18,6 +18,7 @@ class NavModel {
   final Function onNavigate;
   final Color iconColor;
   final double iconSizeFactor;
+  /// VISIBILITY BOOLEAN CONDITION : when to show and when not to show
   final bool canShow;
 /// --------------------------------------------------------------------------
   static List<Widget> getScreens(List<NavModel> navModels){
@@ -56,16 +57,4 @@ class NavModel {
     return _count;
   }
 // -----------------------------------------------------------------------------
-}
-
-class ObeliskModel {
-  /// --------------------------------------------------------------------------
-  ObeliskModel({
-    @required this.areTabs,
-    @required this.navModels,
-  });
-  /// --------------------------------------------------------------------------
-  final bool areTabs;
-  final List<NavModel> navModels;
-/// --------------------------------------------------------------------------
 }

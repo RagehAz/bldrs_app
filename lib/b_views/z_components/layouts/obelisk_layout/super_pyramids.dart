@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
@@ -31,7 +31,7 @@ class SuperPyramids extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Stack(
-      key: const ValueKey('o_pyramids'),
+      key: const ValueKey('SuperPyramids'),
       children: <Widget>[
 
         /// SINGLE PYRAMID
@@ -123,7 +123,7 @@ class SuperPyramids extends StatelessWidget {
 
                                 return WidgetFader(
                                   fadeType: isFlashing ? FadeType.repeatAndReverse : FadeType.stillAtMax,
-                                  duration: const Duration(milliseconds: 500),
+                                  duration: const Duration(milliseconds: 1000),
                                   child: child,
                                 );
 
