@@ -74,7 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
   /// PYRAMID EXPANSION
 
 // -------------------------------------
-  final ValueNotifier<bool> _isFlashing = ValueNotifier(false);
   final ValueNotifier<bool> _isExpanded = ValueNotifier(null);
   final ValueNotifier<int> _tabIndex = ValueNotifier(null);
 // -------------------------------------
@@ -132,12 +131,16 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Iconz.plus,
           onTap: () async {
 
-            _isFlashing.value = !_isFlashing.value;
-
             final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+
             _notesProvider.incrementObeliskNoteNumber(
                 value: 5,
                 navModelID: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
+                notify: true,
+            );
+
+            _notesProvider.setIsFlashing(
+                flashing: !_notesProvider.isFlashing,
                 notify: true,
             );
 
@@ -174,7 +177,6 @@ class _HomeScreenState extends State<HomeScreen> {
             tabIndex: _tabIndex,
             navModels: _navModels,
             isYellow: true,
-            isFlashing: _isFlashing,
           ),
 
         ],
