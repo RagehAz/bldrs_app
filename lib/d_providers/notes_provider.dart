@@ -75,29 +75,32 @@ class NotesProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// USER NOTES
+  /// PYRAMID IS FLASHING
 
 // -------------------------------------
-  /// NOTIFICATION IS ON
-  bool _notiIsOn = false;
+  bool _isFlashing = false;
+  bool get isFlashing => _isFlashing;
 // -------------------------------------
-  bool get notiIsOn {
-    return _notiIsOn;
-  }
-// -------------------------------------
-  void triggerNotiIsOn({
+  void setIsFlashing({
+    @required bool flashing,
     @required bool notify,
-    bool setNotiIsOn,
-  }) {
-    if (setNotiIsOn == null) {
-      _notiIsOn = !_notiIsOn;
-    } else {
-      _notiIsOn = setNotiIsOn;
-    }
-
-    if (notify == true) {
+  }){
+    _isFlashing = flashing;
+    if (notify == true){
       notifyListeners();
     }
+  }
+// -------------------------------------
+  static void proSetIsFlashing({
+    @required BuildContext context,
+    @required bool flashing,
+    @required bool notify,
+}){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    _notesProvider.setIsFlashing(
+      flashing: flashing,
+      notify: notify,
+    );
   }
 // -----------------------------------------------------------------------------
 

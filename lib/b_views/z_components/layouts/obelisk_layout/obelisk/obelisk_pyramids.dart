@@ -1,20 +1,21 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:provider/provider.dart';
 
 class ObeliskPyramids extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskPyramids({
     @required this.isExpanded,
-    @required this.isFlashing,
     @required this.isYellow,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> isExpanded;
-  final ValueNotifier<bool> isFlashing;
   final bool isYellow;
   /// --------------------------------------------------------------------------
   @override
@@ -26,7 +27,7 @@ class ObeliskPyramids extends StatelessWidget {
       builder: (_, bool expanded, Widget child){
 
         return Positioned(
-          bottom: 0,
+          bottom: Pyramids.verticalPositionFix,
           right: 0,
           child: Padding(
             padding: const EdgeInsets.only(right: 17 * 0.7),
@@ -66,17 +67,18 @@ class ObeliskPyramids extends StatelessWidget {
             ),
 
             /// PYRAMIDS GRAPHIC
-            ValueListenableBuilder(
-              valueListenable: isFlashing,
+            Selector<NotesProvider, bool>(
+              selector: (_,NotesProvider notesProvider) => notesProvider.isFlashing,
               builder: (_, bool isFlashing, Widget child){
 
                 return WidgetFader(
                   fadeType: isFlashing ? FadeType.repeatAndReverse : FadeType.stillAtMax,
                   duration: const Duration(milliseconds: 1000),
+                  min: 0.3,
                   child: child,
                 );
 
-                },
+              },
               child: SuperImage(
                 width: 256 * 0.7,
                 height: 80 * 0.7,
@@ -84,6 +86,26 @@ class ObeliskPyramids extends StatelessWidget {
                 boxFit: BoxFit.fitWidth,
               ),
             ),
+
+            // ValueListenableBuilder(
+            //   valueListenable: isFlashing,
+            //   builder: (_, bool isFlashing, Widget child){
+            //
+            //     return WidgetFader(
+            //       fadeType: isFlashing ? FadeType.repeatAndReverse : FadeType.stillAtMax,
+            //       duration: const Duration(milliseconds: 1000),
+            //       min: 0.3,
+            //       child: child,
+            //     );
+            //
+            //     },
+            //   child: SuperImage(
+            //     width: 256 * 0.7,
+            //     height: 80 * 0.7,
+            //     pic: isYellow ? Iconz.pyramidsYellowClean : Iconz.pyramidsWhiteClean,
+            //     boxFit: BoxFit.fitWidth,
+            //   ),
+            // ),
 
           ],
         ),
