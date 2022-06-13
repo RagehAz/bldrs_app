@@ -11,6 +11,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
+@immutable
 class CountryModel {
   /// --------------------------------------------------------------------------
   const CountryModel({
@@ -464,9 +465,10 @@ class CountryModel {
   }
 }
 // -----------------------------------------------------------------------------
+@immutable
 class AmericanState extends CountryModel {
   /// --------------------------------------------------------------------------
-  AmericanState({
+  const AmericanState({
     @required this.state,
     @required this.cities,
   });

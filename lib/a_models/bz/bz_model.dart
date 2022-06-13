@@ -86,9 +86,10 @@ enum BzTab{
   settings,
 }
 /// ---------------------
+@immutable
 class BzModel{
   /// --------------------------------------------------------------------------
-  BzModel({
+  const BzModel({
     @required this.id,
     // -------------------------
     @required this.bzTypes,
@@ -123,7 +124,7 @@ class BzModel{
   /// --------------------------------------------------------------------------
   final String id;
   // -------------------------
-  List<BzType> bzTypes;
+  final List<BzType> bzTypes;
   final BzForm bzForm;
   final DateTime createdAt;
   final BzAccountType accountType;
@@ -144,13 +145,13 @@ class BzModel{
 
   final BzState bzState;
   // -------------------------
-  int totalFollowers;
-  int totalSaves;
-  int totalShares;
-  int totalSlides;
-  int totalViews;
-  int totalCalls;
-  int totalFlyers;
+  final int totalFollowers;
+  final int totalSaves;
+  final int totalShares;
+  final int totalSlides;
+  final int totalViews;
+  final int totalCalls;
+  final int totalFlyers;
   // -------------------------
   final List<String> flyersIDs;
 // -----------------------------------------------------------------------------
@@ -384,7 +385,7 @@ class BzModel{
       totalViews: 0,
       totalCalls: 0,
       // -------------------------
-      flyersIDs: <String>[],
+      flyersIDs: const <String>[],
       totalFlyers: 0,
       createdAt: DateTime.now(),
       accountType: BzAccountType.normal,
@@ -1234,21 +1235,21 @@ class BzModel{
       logo: Iconz.dumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
       name: 'Business Name',
       trigram: TextGen.createTrigram(input: 'Business Name'),
-      bzTypes: <BzType>[BzType.designer],
+      bzTypes: const <BzType>[BzType.designer],
       zone: ZoneModel.dummyZone(),
       totalFollowers: 1000,
       totalFlyers: 10,
       bzState: BzState.online,
       position: Atlas.dummyLocation(),
-      flyersIDs: <String>[],
-      authors: <AuthorModel>[],
-      contacts: <ContactModel>[],
+      flyersIDs: const <String>[],
+      authors: const <AuthorModel>[],
+      contacts: const <ContactModel>[],
       bzForm: BzForm.company,
       accountType: BzAccountType.normal,
       createdAt: Timers.createDate(year: 1987, month: 10, day: 06),
       about: 'About biz',
       isVerified: true,
-      scope: <String>['phid_k_designType_architecture'],
+      scope: const <String>['phid_k_designType_architecture'],
       showsTeam: true,
       totalCalls: 1,
       totalSaves: 2,
@@ -1423,18 +1424,34 @@ class BzModel{
     BzTab.network,
     BzTab.settings,
   ];
+// // ------------------------------------------
+//   /// CAUTION : THESE TITLES CAN NOT BE TRANSLATED DUE TO THEIR USE IN WIDGET KEYS
+//   static const List<String> bzPagesTabsTitlesInEnglishOnly = <String>[
+//     'Flyers',
+//     'About',
+//     'Authors',
+//     'Notifications',
+//     'Targets',
+//     'Powers',
+//     'Network',
+//     'settings',
+//   ];
 // ------------------------------------------
-  /// CAUTION : THESE TITLES CAN NOT BE TRANSLATED DUE TO THEIR USE IN WIDGET KEYS
-  static const List<String> bzPagesTabsTitlesInEnglishOnly = <String>[
-    'Flyers',
-    'About',
-    'Authors',
-    'Notifications',
-    'Targets',
-    'Powers',
-    'Network',
-    'settings',
-  ];
+  static String getBzTabID({
+    @required BzTab bzTab,
+  }){
+    switch(bzTab){
+      case BzTab.flyers   : return 'Flyers '  ; break;
+      case BzTab.about    : return 'Info  '  ; break;
+      case BzTab.authors  : return 'Team'  ; break;
+      case BzTab.notes    : return 'Notification'  ; break;
+      case BzTab.targets  : return 'Targets'  ; break;
+      case BzTab.powers   : return 'Powers'  ; break;
+      case BzTab.network  : return 'Network'  ; break;
+      case BzTab.settings : return 'Settings' ; break;
+      default : return null;
+    }
+  }
 // ------------------------------------------
   static String translateBzTab({
     @required BzTab bzTab,

@@ -108,7 +108,7 @@ Future<AuthModel> signInByEmailAndPassword({
   @required String password,
 }) async {
   // -----------------------------
-  AuthModel _authModel = AuthModel();
+  AuthModel _authModel = const AuthModel();
   UserCredential _userCredential;
   String _authError;
   // -----------------------------
@@ -166,7 +166,7 @@ Future<AuthModel> registerByEmailAndPassword({
   @required String password,
 }) async {
   // -----------------------------
-  AuthModel _authModel = AuthModel();
+  AuthModel _authModel = const AuthModel();
   UserCredential _userCredential;
   String _authError;
   // -----------------------------
@@ -244,7 +244,7 @@ Future<AuthModel> signInByFacebook({
   ///   xx - return firebase user : if auth succeeds
   ///      E - get Or Create UserModel From User
   // ----------
-  AuthModel _authModel = AuthModel();
+  AuthModel _authModel = const AuthModel();
   LoginResult _facebookLoginResult;
   UserCredential _userCredential;
   String _authError;
@@ -321,7 +321,7 @@ Future<AuthModel> signInByGoogle({
   @required ZoneModel currentZone,
 }) async {
 
-  AuthModel _authModel = AuthModel();
+  AuthModel _authModel = const AuthModel();
   UserCredential _userCredential;
   String _authError;
   GoogleAuthProvider _googleAuthProvider;
@@ -398,11 +398,15 @@ Future<AuthModel> signInByGoogle({
   if (_authModel.authSucceeds == true) {
 
     /// E - get Or Create UserModel From User
-    _authModel.userModel = await UserFireOps.getOrCreateUserModelFromUser(
+    final UserModel _userModel = await UserFireOps.getOrCreateUserModelFromUser(
       context: context,
       zone: currentZone,
       user: _userCredential.user,
       authBy: AuthType.google,
+    );
+
+    _authModel = _authModel.copyWith(
+      userModel: _userModel,
     );
 
   }
@@ -417,7 +421,7 @@ Future<AuthModel> signInByApple({
   @required ZoneModel currentZone,
 }) async {
 
-  final AuthModel _authModel = AuthModel();
+  const AuthModel _authModel = AuthModel();
 
   blog('starting apple auth ops');
 

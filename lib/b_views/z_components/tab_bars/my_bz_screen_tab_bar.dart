@@ -42,12 +42,19 @@ class MyBzScreenTabBar extends StatelessWidget {
         ...List.generate(BzModel.bzTabsList.length, (index){
 
           final BzTab _bzTab = BzModel.bzTabsList[index];
-          final String _bzTabString = BzModel.bzPagesTabsTitlesInEnglishOnly[index];
+
+          final String _bzTabTranslation = BzModel.translateBzTab(
+            bzTab: _bzTab,
+            context: context,
+          );
+
+          final String _bzTabID = BzModel.getBzTabID(bzTab: _bzTab);
+
 
           return
             FlyerTypeButton(
-              key: ValueKey<String>('bz_tab_button_$_bzTabString'),
-              verse: _bzTabString,
+              key: ValueKey<String>('bz_tab_button_$_bzTabID'),
+              verse: _bzTabTranslation,
               icon: BzModel.getBzTabIcon(_bzTab),
               iconSizeFactor: 0.6,
               isSelected: _isSelected(

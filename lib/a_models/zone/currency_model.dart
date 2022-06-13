@@ -3,9 +3,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class CurrencyModel {
   /// --------------------------------------------------------------------------
-  CurrencyModel({
+  const CurrencyModel({
     @required this.id,
     @required this.countriesIDs,
     @required this.symbol,

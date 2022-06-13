@@ -153,9 +153,13 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     _selectedCity.value = null;
     _selectedDistrict.value = null;
-    _selectedZone.countryID = countryID;
-    _selectedZone.cityID = null;
-    _selectedZone.districtID = null;
+
+    _selectedZone = ZoneModel(
+      countryID: countryID,
+      // cityID: null,
+      // districtID: null,
+    );
+
     widget.onZoneChanged(_selectedZone);
     Nav.goBack(context);
 
@@ -212,8 +216,13 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     _isLoadingDistricts.value = true;
 
     _selectedDistrict.value = null;
-    _selectedZone.cityID = cityID;
-    _selectedZone.districtID = null;
+
+    _selectedZone = ZoneModel(
+      countryID: _selectedZone.countryID,
+      cityID: cityID,
+      // districtID: null,
+    );
+
     widget.onZoneChanged(_selectedZone);
     Nav.goBack(context);
 
@@ -273,7 +282,9 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     _selectedDistrict.value = _district;
 
-    _selectedZone.districtID = districtID;
+    _selectedZone = _selectedZone.copyWith(
+      districtID: districtID,
+    );
 
     widget.onZoneChanged(_selectedZone);
 

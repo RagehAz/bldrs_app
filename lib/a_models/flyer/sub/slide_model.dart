@@ -15,9 +15,10 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
+@immutable
 class SlideModel {
   /// --------------------------------------------------------------------------
-  SlideModel({
+  const SlideModel({
     @required this.description,
     @required this.picFit,
     /// TASK : update all methods below to include this boxfit parameter
@@ -39,12 +40,12 @@ class SlideModel {
   final String headline;
   final String description;
   final Matrix4 matrix;
-  int sharesCount;
-  int viewsCount;
-  int savesCount;
-  BoxFit picFit;
-  ImageSize imageSize;
-  Color midColor;
+  final int sharesCount;
+  final int viewsCount;
+  final int savesCount;
+  final BoxFit picFit;
+  final ImageSize imageSize;
+  final Color midColor;
   final String flyerID;
   final String filterID;
 // -----------------------------------------------------------------------------
@@ -488,7 +489,7 @@ class SlideModel {
       viewsCount: 5442574,
       savesCount: 5402540,
       picFit: BoxFit.cover,
-      imageSize: ImageSize(height: 900, width: 600),
+      imageSize: const ImageSize(height: 900, width: 600),
       midColor: Colorz.black255,
       matrix: Matrix4.identity(),
       filterID: 'phid_filter_normal',

@@ -23,6 +23,7 @@ class UserProfileScreen extends StatelessWidget {
           final UserTab _userTab = UserModel.userProfileTabsList[index];
 
           return NavModel(
+            id: NavModel.getUserTabNavID(_userTab),
             title: UserModel.translateUserTab(context: context, userTab: _userTab),
             icon: UserModel.getUserTabIcon(_userTab),
             screen: UserScreenViewPages.pages[index],
