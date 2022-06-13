@@ -1,32 +1,16 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/flag_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
-import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
-import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
-import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/loading_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -96,90 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _isExpanded.value = !_isExpanded.value;
   }
 // -----------------------------------------------------------------------------
-  List<NavModel> _generateMainNavModels(){
-
-    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: true);
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(context, listen: true);
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
-    final String _countryFlag = Flag.getFlagIconByCountryID(_currentZone?.countryID);
-
-
-    return <NavModel>[
-
-      /// SIGN IN
-      NavModel(
-        title: superPhrase(context, 'phid_sign'),
-        icon: Iconz.normalUser,
-        screen: const AuthScreen(),
-        iconSizeFactor: 0.6,
-        canShow: AuthModel.userIsSignedIn() == false,
-      ),
-
-      /// QUESTIONS
-      // NavModel(
-      //   title: 'Questions',
-      //   icon: Iconz.utPlanning,
-      //   screen: const QScreen(),
-      // ),
-
-      /// MY PROFILE
-      NavModel(
-        title: _userModel?.name,
-        icon: _userModel?.pic,
-        screen: const UserProfileScreen(),
-        iconSizeFactor: 1,
-        iconColor: Colorz.nothing,
-        canShow: AuthModel.userIsSignedIn() == true,
-      ),
-
-      /// SAVED FLYERS
-      NavModel(
-        title: 'Saved Flyers',
-        icon: Iconz.saveOff,
-        screen: const SavedFlyersScreen(),
-        canShow: AuthModel.userIsSignedIn() == true,
-      ),
-
-      /// SEPARATOR
-      if (AuthModel.userIsSignedIn() == true && UserModel.checkUserIsAuthor(_userModel) == true)
-      null,
-
-      /// MY BZZ
-      ...List.generate(_bzzModels.length, (index){
-
-        final BzModel _bzModel = _bzzModels[index];
-
-        return NavModel(
-            title: _bzModel.name,
-            icon: _bzModel.logo,
-            iconSizeFactor: 1,
-            iconColor: Colorz.nothing,
-            screen: const MyBzScreen(),
-            onNavigate: (){
-
-              final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-              _bzzProvider.setActiveBz(bzModel: _bzModel, notify: true);
-
-            }
-            );
-
-      }),
-
-      /// SEPARATOR
-      null,
-
-      /// ZONE
-      NavModel(
-        title: '${_currentZone?.districtName}, ${_currentZone?.cityName}, ${_currentZone?.countryName}',
-        icon: _countryFlag,
-        screen: const SelectCountryScreen(),
-        iconSizeFactor: 1,
-        iconColor: Colorz.nothing,
-      ),
-
-    ];
-  }
-// -----------------------------------------------------------------------------
   Future<void> onRowTap({
     @required int index,
     @required List<NavModel> models,
@@ -213,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<NavModel> _navModels = _generateMainNavModels();
+    final List<NavModel> _navModels = generateMainNavModels(context);
 
     return MainLayout(
       key: const ValueKey<String>('mainLayout'),
@@ -223,6 +123,19 @@ class _HomeScreenState extends State<HomeScreen> {
       onBack: (){
         Nav.closeApp(context);
       },
+
+      appBarRowWidgets: <Widget>[
+
+        AppBarButton(
+          icon: Iconz.xSmall,
+          onTap: () async {
+
+            _isFlashing.value = !_isFlashing.value;
+
+          },
+        ),
+
+      ],
       layoutWidget: Stack(
         children: <Widget>[
 
