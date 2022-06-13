@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -9,6 +10,83 @@ import 'package:provider/provider.dart';
 
 // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 class NotesProvider extends ChangeNotifier {
+// -----------------------------------------------------------------------------
+
+  /// OBELISK NOTES NUMBERS
+
+// -------------------------------------
+  /// MapModel(key: navModelID, value: numberOfNotes)
+  final List<MapModel> _obeliskNotesNumbers = <MapModel>[];
+  List<MapModel> get obeliskNotesNumber => _obeliskNotesNumbers;
+// -------------------------------------
+  static List<MapModel> proGetObeliskNotesNumbers({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
+    return _notesProvider.obeliskNotesNumber;
+  }
+// -------------------------------------
+  void addObeliskNotesNumbers({
+    @required List<MapModel> mapModels,
+    @required bool notify,
+  }){
+
+    if (Mapper.checkCanLoopList(mapModels) == true){
+      _obeliskNotesNumbers.addAll(mapModels);
+
+      if (notify == true){
+        notifyListeners();
+      }
+
+    }
+
+  }
+// -------------------------------------
+  void incrementObeliskNoteNumber({
+    @required int value,
+    @required String navModelID,
+    @required bool notify,
+  }){
+
+    final MapModel _mapModel = MapModel.getModelByKey(
+      models: _obeliskNotesNumbers,
+      key: navModelID,
+    );
+
+    MapModel _output = _mapModel ?? MapModel(
+      key: navModelID,
+      value: 0,
+    );
+
+    _output = _output.copyWith(
+      value: _output.value == null ? value : _output.value + value,
+    );
+
+      final int _index = _obeliskNotesNumbers.indexWhere((m) => m.key == _output.key);
+
+      if (_index != -1){
+        _obeliskNotesNumbers.removeAt(_index);
+        _obeliskNotesNumbers.insert(_index, _output);
+      }
+      else {
+        _obeliskNotesNumbers.add(_output);
+      }
+
+
+    // final List<MapModel> _newList = MapModel.insertMapModel(
+    //     mapModels: _obeliskNotesNumbers,
+    //     mapModel: _output,
+    // );
+    //
+    // _obeliskNotesNumbers.removeRange(0, _obeliskNotesNumbers.length);
+    // _obeliskNotesNumbers.addAll(_newList);
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// USER NOTES

@@ -3,51 +3,37 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-/// TASK : may combine this with some methods from Imagers
+@immutable
 class ImageSize {
   /// --------------------------------------------------------------------------
-  ImageSize({
+  const ImageSize({
     @required this.width,
     @required this.height,
   });
-
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
+// -----------------------------------------------------------------------------
 
-  /// --------------------------------------------------------------------------
+  /// CYPHERS
+
+// -------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'width': width,
       'height': height,
     };
   }
-
-  double getAspectRatio(){
-    return height / width;
-  }
-
-  /*
-
-              final double _ratio = _slide.imageSize.getAspectRatio();
-            final double _imageHeight = _flyerBoxWidth * _ratio;
-            final double _scale = _flyerBoxHeight / _imageHeight;
-
-
-   */
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static ImageSize decipherImageSize(Map<String, dynamic> map) {
     ImageSize _imageSize;
     if (map != null) {
-// -----------------------------------------------------------------------------
+
       final dynamic _widthInInt = map['width'];
       final dynamic _heightInInt = map['height'];
 
@@ -58,8 +44,22 @@ class ImageSize {
     }
     return _imageSize;
   }
-
 // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// -------------------------------------
+  double getAspectRatio(){
+
+    /*
+       final double _ratio = _slide.imageSize.getAspectRatio();
+       final double _imageHeight = _flyerBoxWidth * _ratio;
+       final double _scale = _flyerBoxHeight / _imageHeight;
+   */
+
+    return height / width;
+  }
+// -------------------------------------
   static ImageSize getImageSizeFromAsset(Asset asset) {
     ImageSize _imageSize;
 
@@ -71,8 +71,7 @@ class ImageSize {
 
     return _imageSize;
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static Future<ImageSize> superImageSize(dynamic image) async {
     ImageSize _imageSize;
 
@@ -129,8 +128,11 @@ class ImageSize {
 
     return _imageSize;
   }
-
 // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+// -------------------------------------
   void blogSize({String methodName}) {
     blog('START - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- START ---');
 
@@ -138,8 +140,11 @@ class ImageSize {
 
     blog('END - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- END ---');
   }
-
 // -----------------------------------------------------------------------------
+
+  /// BOX FIT
+
+// -------------------------------------
   static int cipherBoxFit(BoxFit boxFit) {
     switch (boxFit) {
       case BoxFit.fitHeight:
@@ -167,30 +172,36 @@ class ImageSize {
         return 3;
     }
   }
-
 // -----------------------------------------------------------------------------
   static BoxFit decipherBoxFit(int boxFit) {
     switch (boxFit) {
-      case 1:
-        return BoxFit.fitHeight;
-      case 2:
-        return BoxFit.fitWidth;
-      case 3:
-        return BoxFit.cover;
-      case 4:
-        return BoxFit.none;
-      case 5:
-        return BoxFit.fill;
-      case 6:
-        return BoxFit.scaleDown;
-      case 7:
-        return BoxFit.contain;
-      default:
-        return null;
+      case 1:   return BoxFit.fitHeight;
+      case 2:   return BoxFit.fitWidth;
+      case 3:   return BoxFit.cover;
+      case 4:   return BoxFit.none;
+      case 5:   return BoxFit.fill;
+      case 6:   return BoxFit.scaleDown;
+      case 7:   return BoxFit.contain;
+      default:  return null;
     }
   }
-
 // -----------------------------------------------------------------------------
+
+  /// CONCLUDERS
+
+// -------------------------------------
+  static double concludeHeightByGraphicSizes({
+    @required double width,
+    @required double graphicWidth,
+    @required double graphicHeight,
+  }) {
+    /// height / width = graphicHeight / graphicWidth
+    return (graphicHeight * width) / graphicWidth;
+  }
+// -----------------------------------------------------------------------------
+}
+
+/*
   static String sqlCipherImageSize(ImageSize size) {
     String _string;
 
@@ -200,18 +211,17 @@ class ImageSize {
 
     return _string;
   }
-
 // -----------------------------------------------------------------------------
   static ImageSize sqlDecipherImageSize(String sqlImageSize) {
     ImageSize _imageSize;
 
     if (sqlImageSize != null) {
       final String _widthString =
-          TextMod.removeTextAfterFirstSpecialCharacter(sqlImageSize, '#');
+      TextMod.removeTextAfterFirstSpecialCharacter(sqlImageSize, '#');
       final double _width = Numeric.transformStringToDouble(_widthString);
 
       final String _heightString =
-          TextMod.removeTextBeforeFirstSpecialCharacter(sqlImageSize, '#');
+      TextMod.removeTextBeforeFirstSpecialCharacter(sqlImageSize, '#');
       final double _height = Numeric.transformStringToDouble(_heightString);
 
       _imageSize = ImageSize(
@@ -222,13 +232,4 @@ class ImageSize {
 
     return _imageSize;
   }
-
-// -----------------------------------------------------------------------------
-  static double concludeHeightByGraphicSizes(
-      {@required double width,
-      @required double graphicWidth,
-      @required double graphicHeight}) {
-    /// height / width = graphicHeight / graphicWidth
-    return (graphicHeight * width) / graphicWidth;
-  }
-}
+ */

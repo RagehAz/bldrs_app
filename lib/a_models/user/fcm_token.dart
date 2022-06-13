@@ -2,6 +2,7 @@ import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 
 // -----------------------------------------------------------------------------
+@immutable
 class FCMToken {
   /// --------------------------------------------------------------------------
   const FCMToken({
@@ -9,24 +10,29 @@ class FCMToken {
     @required this.createdAt,
     @required this.platform,
   });
-
   /// --------------------------------------------------------------------------
   final String token;
   final DateTime createdAt;
   final String platform;
+// -----------------------------------------------------------------------------
 
-  /// --------------------------------------------------------------------------
-  Map<String, dynamic> toMap({@required bool toJSON}) {
+  /// CYPHERS
+
+// -------------------------------------
+  Map<String, dynamic> toMap({
+    @required bool toJSON,
+  }) {
     return <String, dynamic>{
       'token': token,
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: toJSON),
       'platform': platform,
     };
   }
-
-// -----------------------------------------------------------------------------
-  static FCMToken decipherFCMToken(
-      {@required Map<String, dynamic> map, @required bool fromJSON}) {
+// -------------------------------------
+  static FCMToken decipherFCMToken({
+    @required Map<String, dynamic> map,
+    @required bool fromJSON,
+  }) {
     FCMToken _token;
 
     if (map != null) {
@@ -39,5 +45,5 @@ class FCMToken {
     }
     return _token;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 }

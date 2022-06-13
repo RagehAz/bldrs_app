@@ -9,9 +9,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class CityModel {
   /// --------------------------------------------------------------------------
-  CityModel({
+  const CityModel({
     this.countryID,
     this.cityID,
     this.districts,

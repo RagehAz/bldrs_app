@@ -151,7 +151,7 @@ Future<void> sendAuthorshipInvitation({
       response: null,
       responseTime: null,
       // senderImageURL:
-      buttons: <String>['phid_accept', 'phid_decline'],
+      buttons: const <String>['phid_accept', 'phid_decline'],
     );
 
     await NoteFireOps.createNote(

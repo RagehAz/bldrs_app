@@ -837,7 +837,7 @@ class UserModel {
   }
 // -----------------------------------
   /// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
-  static String cipherUserTabInEnglishOnly(UserTab userTab){
+  static String getUserTabID(UserTab userTab){
     /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
     switch(userTab){
       case UserTab.profile        : return  'Profile'       ; break;

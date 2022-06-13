@@ -35,6 +35,7 @@ enum NoteReceiverType {
   bz,
 }
 // -----------------------------------------------------------------------------
+@immutable
 class NoteModel {
   /// --------------------------------------------------------------------------
   const NoteModel({
@@ -899,7 +900,7 @@ class NoteModel {
       receiverType: NoteReceiverType.user,
       title: 'title',
       body: 'body',
-      metaData: {'metaData' : 'thing'},
+      metaData: const {'metaData' : 'thing'},
       sentTime: Timers.createClock(hour: 12, minute: 10),
       attachment: 'attachment',
       attachmentType: NoteAttachmentType.bzID,
@@ -909,7 +910,7 @@ class NoteModel {
       noteType: NoteType.announcement,
       response: 'response',
       responseTime: Timers.createClock(hour: 10, minute: 50),
-      buttons: <String>['Fuck', 'You'],
+      buttons: const <String>['Fuck', 'You'],
     );
   }
   // -------------------------------------

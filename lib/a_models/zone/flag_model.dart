@@ -1,17 +1,16 @@
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/foundation.dart';
 
+@immutable
 class Flag {
   /// --------------------------------------------------------------------------
   const Flag({
     @required this.countryID,
     @required this.icon,
   });
-
   /// --------------------------------------------------------------------------
   final String countryID;
   final String icon;
-
   /// --------------------------------------------------------------------------
   static String getFlagIconByCountryID(String countryID) {
     String _flagIcon = Iconz.dvBlankSVG;

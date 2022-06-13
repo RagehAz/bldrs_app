@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/target/target_progress.dart';
 import 'package:bldrs/a_models/bz/target/target_reward.dart';
 import 'package:flutter/foundation.dart';
 
+@immutable
 class TargetModel {
   /// --------------------------------------------------------------------------
   const TargetModel({

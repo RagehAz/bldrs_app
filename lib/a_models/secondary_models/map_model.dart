@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/foundation.dart';
 
+@immutable
 class MapModel{
   /// --------------------------------------------------------------------------
   const MapModel({
@@ -13,6 +14,41 @@ class MapModel{
   final dynamic value;
 // -----------------------------------------------------------------------------
 
+  /// CREATORS
+
+// ----------------------------------------
+  MapModel copyWith({
+    String key,
+    dynamic value,
+}){
+
+    return MapModel(
+      key: key ?? this.key,
+      value: value ?? this.value,
+    );
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  @override
+  String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is MapModel && other.key == key && other.value == value;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode => key.hashCode ^ value.hashCode;
+// -----------------------------------------------------------------------------
   /// CYPHERS
 
 // ----------------------------------------
@@ -53,10 +89,9 @@ class MapModel{
     return model;
   }
 // ----------------------------------------
-  static List<MapModel> decipherMapModels(
-      Map<String, dynamic> bigMap,
-      {bool loopingAlgorithm = true}
-      ){
+  static List<MapModel> decipherMapModels(Map<String, dynamic> bigMap, {
+    bool loopingAlgorithm = true
+  }){
 
     final List<MapModel> _mapModels = <MapModel>[];
 
@@ -108,15 +143,20 @@ class MapModel{
 
 // ----------------------------------------
   void blogMapModel(){
-    blog('$key : ${value.toString()}');
+    blog('< $key : ${value.toString()} >');
   }
 // ----------------------------------------
-  static void blogMapModels(List<MapModel> mapModels){
+  static void blogMapModels({
+    @required List<MapModel> mapModels,
+    String methodName = 'MapModels',
+  }){
+    blog('$methodName ------------------------------------------- START');
     for (int i = 0; i < mapModels.length; i++){
       final int _num = i+1;
       final MapModel _mapModel = mapModels[i];
-      blog('$_num : ${_mapModel.key} : ${_mapModel.value}');
+      blog('$_num : < ${_mapModel.key} : ${_mapModel.value} >');
     }
+    blog('$methodName ------------------------------------------- END');
   }
 // -----------------------------------------------------------------------------
 
@@ -159,5 +199,103 @@ class MapModel{
 
     return _values;
   }
+// ----------------------------------------
+  static MapModel getModelByKey({
+    @required List<MapModel> models,
+    @required String key,
+  }){
+    MapModel _model;
+
+    if (Mapper.checkCanLoopList(models) == true){
+      _model = models.firstWhere((m) => m.key == key, orElse: ()=> null);
+    }
+
+    return _model;
+  }
 // -----------------------------------------------------------------------------
+
+/// MODIFIERS
+
+// ----------------------------------------
+  static List<MapModel> replaceMapModel({
+    @required List<MapModel> mapModels,
+    @required MapModel mapModel,
+  }){
+
+    final List<MapModel> _output = mapModels ?? <MapModel>[];
+
+    if (Mapper.checkCanLoopList(mapModels) && mapModel != null){
+
+      final int _index = mapModels.indexWhere((m) => m.key == mapModel.key);
+
+      if (_index != -1){
+        mapModels.removeAt(_index);
+        mapModels.insert(_index, mapModel);
+      }
+
+    }
+
+    return _output;
+  }
+// ----------------------------------------
+  static List<MapModel> insertMapModel({
+    @required List<MapModel> mapModels,
+    @required MapModel mapModel,
+  }){
+
+    List<MapModel> _output = mapModels ?? <MapModel>[];
+
+    if (mapModel != null){
+
+      final bool _existsAlready = checkMapExists(
+          mapModels: mapModels,
+          mapModel: mapModel
+      );
+
+      /// REPLACE IF EXISTS
+      if (_existsAlready == true){
+        _output = replaceMapModel(
+            mapModels: _output,
+            mapModel: mapModel
+        );
+      }
+
+      /// ADD IF DOES NOT EXIST
+      else {
+        _output.add(mapModel);
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+/// CHECKERS
+
+// ----------------------------------------
+  static bool checkMapExists({
+    @required List<MapModel> mapModels,
+    @required MapModel mapModel,
+  }){
+
+    bool _exists = false;
+
+    if (Mapper.checkCanLoopList(mapModels) && mapModel != null){
+
+      final MapModel _found = getModelByKey(
+        models: mapModels,
+        key: mapModel.key,
+      );
+
+
+      if (_found != null){
+        _exists = true;
+      }
+
+    }
+
+    return _exists;
+  }
+// ----------------------------------------
 }

@@ -22,6 +22,7 @@ class ObeliskTestScreen extends StatelessWidget {
             final UserTab _userTab = UserModel.userProfileTabsList[index];
 
             return NavModel(
+              id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
                 title: UserModel.translateUserTab(context: context, userTab: _userTab),
                 icon: UserModel.getUserTabIcon(_userTab),
                 screen: UserScreenViewPages.pages[index],

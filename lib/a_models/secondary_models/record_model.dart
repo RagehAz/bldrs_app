@@ -37,6 +37,7 @@ enum RecordDetailsType{
   searchText,
 }
 
+@immutable
 class RecordModel {
   /// --------------------------------------------------------------------------
   const RecordModel({

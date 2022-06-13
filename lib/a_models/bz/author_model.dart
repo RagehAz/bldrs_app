@@ -9,9 +9,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
+@immutable
 class AuthorModel {
   /// --------------------------------------------------------------------------
-  AuthorModel({
+  const AuthorModel({
     this.userID,
     this.name,
     this.pic,
@@ -401,12 +402,12 @@ class AuthorModel {
 
 // ----------------------------------
   static AuthorModel dummyAuthor() {
-    return AuthorModel(
+    return const AuthorModel(
       userID: 'author_dummy_id',
       pic: Iconz.dvRageh,
       isMaster: true,
       name: 'Rageh Author',
-      contacts: [],
+      contacts: <ContactModel>[],
       title: 'The CEO And Founder of this'
     );
   }

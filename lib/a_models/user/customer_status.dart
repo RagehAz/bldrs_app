@@ -16,9 +16,10 @@ enum BldrPhase {
   living,
 }
 
+@immutable
 class CustomerStatus {
   /// --------------------------------------------------------------------------
-  CustomerStatus({
+  const CustomerStatus({
     @required this.bldrPhase,
     @required this.neededBzz,
     @required this.lookingFor,
