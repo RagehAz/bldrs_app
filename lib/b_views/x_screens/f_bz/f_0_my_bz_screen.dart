@@ -50,6 +50,7 @@ class MyBzScreen extends StatelessWidget {
           final BzTab _bzTab = BzModel.bzTabsList[index];
 
           return NavModel(
+            id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
             title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
             icon: BzModel.getBzTabIcon(_bzTab),
             screen: MyBzScreenPages.pages[index],

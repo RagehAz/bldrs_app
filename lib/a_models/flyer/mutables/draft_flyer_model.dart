@@ -15,9 +15,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class DraftFlyerModel{
   /// --------------------------------------------------------------------------
-  DraftFlyerModel({
+  const DraftFlyerModel({
     @required this.id,
     @required this.title,
     @required this.flyerType,
@@ -37,28 +38,23 @@ class DraftFlyerModel{
     @required this.score,
   });
   /// --------------------------------------------------------------------------
-  String id;
-  TextEditingController title;
-  // -------------------------
-  FlyerType flyerType;
-  PublishState publishState;
-  AuditState auditState;
-  List<String> keywordsIDs;
-  bool showsAuthor;
-  ZoneModel zone;
-  // -------------------------
-  String authorID;
-  String bzID;
-  // -------------------------
-  GeoPoint position;
-  // -------------------------
-  List<MutableSlide> mutableSlides;
-  // -------------------------
-  List<SpecModel> specs;
-  TextEditingController info;
-  List<PublishTime> times;
-  bool priceTagIsOn;
-  int score;
+  final String id;
+  final TextEditingController title;
+  final FlyerType flyerType;
+  final PublishState publishState;
+  final AuditState auditState;
+  final List<String> keywordsIDs;
+  final bool showsAuthor;
+  final ZoneModel zone;
+  final String authorID;
+  final String bzID;
+  final GeoPoint position;
+  final List<MutableSlide> mutableSlides;
+  final List<SpecModel> specs;
+  final TextEditingController info;
+  final List<PublishTime> times;
+  final bool priceTagIsOn;
+  final int score;
 // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -147,7 +143,7 @@ class DraftFlyerModel{
       flyerType: _flyerType,
       publishState: PublishState.draft,
       auditState: null,
-      keywordsIDs: <String>[],
+      keywordsIDs: const <String>[],
       showsAuthor: FlyerModel.canShowFlyerAuthor(
           bzModel: bzModel,
           flyerModel: null,
@@ -156,10 +152,10 @@ class DraftFlyerModel{
       authorID: authorID,
       bzID: bzModel.id,
       position: null,
-      mutableSlides: <MutableSlide>[],
-      specs: <SpecModel>[],
+      mutableSlides: const <MutableSlide>[],
+      specs: const <SpecModel>[],
       info: TextEditingController(),
-      times: <PublishTime>[],
+      times: const <PublishTime>[],
       priceTagIsOn: false,
       score: 0,
     );

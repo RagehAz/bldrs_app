@@ -2,9 +2,10 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class HttpException implements Exception {
   /// --------------------------------------------------------------------------
-  HttpException(this.message);
+  const HttpException(this.message);
   /// --------------------------------------------------------------------------
   final String message;
   /// --------------------------------------------------------------------------

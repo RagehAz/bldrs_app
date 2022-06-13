@@ -7,30 +7,55 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class ZoneModel {
   /// --------------------------------------------------------------------------
-  ZoneModel({
+  const ZoneModel({
     this.countryID,
     this.cityID,
     this.districtID,
-
     this.countryName,
     this.cityName,
     this.districtName,
-
     this.countryModel,
     this.cityModel,
   });
   /// --------------------------------------------------------------------------
-  String countryID;
-  String cityID;
-  String districtID;
+  final String countryID;
+  final String cityID;
+  final String districtID;
+  final String countryName;
+  final String cityName;
+  final String districtName;
+  final CountryModel countryModel;
+  final CityModel cityModel;
 
-  String countryName;
-  String cityName;
-  String districtName;
-  CountryModel countryModel;
-  CityModel cityModel;
+// -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// -------------------------------------
+  ZoneModel copyWith({
+    String countryID,
+    String cityID,
+    String districtID,
+    String countryName,
+    String cityName,
+    String districtName,
+    CountryModel countryModel,
+    CityModel cityModel,
+  }){
+    return ZoneModel(
+      countryID: countryID ?? this.countryID,
+      cityID: cityID ?? this.cityID,
+      districtID: districtID ?? this.districtID,
+      countryName: countryName ?? this.countryName,
+      cityName: cityName ?? this.cityName,
+      districtName: districtName ?? this.districtName,
+      countryModel: countryModel ?? this.countryModel,
+      cityModel: cityModel ?? this.cityModel,
+    );
+  }
 // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -86,18 +111,6 @@ class ZoneModel {
     final String _districtID =
     TextMod.removeTextBeforeLastSpecialCharacter(zoneString, '/');
     return _districtID;
-  }
-// -----------------------------------------------------------------------------
-
-  /// CLONING
-
-// -------------------------------------
-  ZoneModel clone() {
-    return ZoneModel(
-      countryID: countryID,
-      cityID: cityID,
-      districtID: districtID,
-    );
   }
 // -----------------------------------------------------------------------------
 
@@ -159,7 +172,7 @@ class ZoneModel {
 
 // -------------------------------------
   static ZoneModel dummyZone() {
-    return ZoneModel(
+    return const ZoneModel(
       countryID: 'egy',
       cityID: 'egy_cairo',
       districtID: 'el_rehab',

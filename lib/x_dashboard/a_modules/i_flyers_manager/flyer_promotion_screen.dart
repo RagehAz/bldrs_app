@@ -97,7 +97,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
         to: Timers.createDateTimeAfterNumberOfDays(
           days: 11,
         ),
-        districtsIDs: <String>[],
+        districtsIDs: const <String>[],
       );
 
       await FlyerFireOps.promoteFlyerInCity(

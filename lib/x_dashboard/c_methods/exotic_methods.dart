@@ -235,9 +235,9 @@ class ExoticMethods {
     if (_continentIsAddedAlready == false) {
       _continents.add(Continent(
         name: country.continent,
-        regions: <Region>[],
-        globalCountriesIDs: <String>[],
-        activatedCountriesIDs: <String>[],
+        regions: const <Region>[],
+        globalCountriesIDs: const <String>[],
+        activatedCountriesIDs: const <String>[],
       ));
     }
 
@@ -253,7 +253,7 @@ class ExoticMethods {
       _continents[_continentIndex].regions.add(Region(
             continent: _continents[_continentIndex].name,
             name: country.region,
-            countriesIDs: <String>[],
+            countriesIDs: const <String>[],
           ));
     }
 

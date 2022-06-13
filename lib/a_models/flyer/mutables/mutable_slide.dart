@@ -13,13 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 // -----------------------------------------------------------------------------
+@immutable
 class MutableSlide {
   /// --------------------------------------------------------------------------
-  MutableSlide({
+  const MutableSlide({
     @required this.picAsset,
     @required this.picFile,
     @required this.headline,
-    @required this.imageSize,
     @required this.midColor,
     @required this.opacity,
     @required this.slideIndex,
@@ -29,26 +29,26 @@ class MutableSlide {
     @required this.viewsCount,
     @required this.savesCount,
     @required this.picFit,
+    @required this.imageSize,
     @required this.matrix,
     @required this.filter,
   });
   /// --------------------------------------------------------------------------
-  int slideIndex;
-  String picURL;
-  Asset picAsset;
-  File picFile;
-  BoxFit picFit;
-  ImageSize picSize;
-  TextEditingController headline;
-  TextEditingController description;
-  int sharesCount;
-  int viewsCount;
-  int savesCount;
-  ImageSize imageSize;
-  Color midColor;
-  double opacity;
-  Matrix4 matrix;
-  ImageFilterModel filter;
+  final int slideIndex;
+  final String picURL;
+  final Asset picAsset;
+  final File picFile;
+  final BoxFit picFit;
+  final ImageSize imageSize;
+  final TextEditingController headline;
+  final TextEditingController description;
+  final int sharesCount;
+  final int viewsCount;
+  final int savesCount;
+  final Color midColor;
+  final double opacity;
+  final Matrix4 matrix;
+  final ImageFilterModel filter;
 // -----------------------------------------------------------------------------
   MutableSlide copyWith({
       int slideIndex,
@@ -56,7 +56,6 @@ class MutableSlide {
       Asset picAsset,
       File picFile,
       BoxFit picFit,
-      ImageSize picSize,
       TextEditingController headline,
       TextEditingController description,
       int sharesCount,
@@ -410,26 +409,6 @@ class MutableSlide {
 
   /// MODIFIERS
 
-// -------------------------------------
-  MutableSlide updatePicFit(BoxFit fit){
-    return MutableSlide(
-      picAsset: picAsset,
-      picFile: picFile,
-      headline: headline,
-      imageSize: imageSize,
-      midColor: midColor,
-      opacity: opacity,
-      slideIndex: slideIndex,
-      picURL: picURL,
-      description: description,
-      sharesCount: sharesCount,
-      viewsCount: viewsCount,
-      savesCount: savesCount,
-      picFit: fit,
-      matrix: matrix,
-      filter: filter,
-    );
-  }
 // -------------------------------------
   static List<MutableSlide> replaceSlide({
     @required List<MutableSlide> slides,

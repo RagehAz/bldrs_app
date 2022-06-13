@@ -7,6 +7,7 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class Phrase {
   /// --------------------------------------------------------------------------
   const Phrase({

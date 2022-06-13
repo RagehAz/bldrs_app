@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_deactivator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 
-List<SpecPicker> propertySpecsPickers = <SpecPicker>[
+List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
 
     // ------------------------------------------------------------
     /// - MAIN SPECIFICATIONS
@@ -365,7 +365,7 @@ List<SpecPicker> propertySpecsPickers = <SpecPicker>[
 
 ];
 
-List<SpecPicker> designSpecsPickers = <SpecPicker>[
+List<SpecPicker> designSpecsPickers = const <SpecPicker>[
 
     // ------------------------------------------------------------
     /// - DESIGN SPECIFICATIONS
@@ -521,7 +521,7 @@ List<SpecPicker> designSpecsPickers = <SpecPicker>[
 
 ];
 
-List<SpecPicker> craftSpecsPickers = <SpecPicker>[
+List<SpecPicker> craftSpecsPickers = const <SpecPicker>[
 
     /// CONSTRUCTION ACTIVITY PRICE
     SpecPicker(

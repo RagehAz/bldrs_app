@@ -27,9 +27,10 @@ enum AuditState{
   suspended,
 }
 /// ---------------------
+@immutable
 class FlyerModel {
   /// --------------------------------------------------------------------------
-  FlyerModel({
+  const FlyerModel({
     @required this.id,
     @required this.title,
     @required this.trigram,
@@ -445,15 +446,15 @@ class FlyerModel {
       flyerType : FlyerType.property,
       publishState : PublishState.published,
       auditState: AuditState.verified,
-      keywordsIDs : <String>[],
+      keywordsIDs : const <String>[],
       showsAuthor : true,
       bzID: 'br1',
       position : const GeoPoint(0,0),
       slides : <SlideModel>[
         SlideModel.dummySlide(),
       ],
-      specs : <SpecModel>[],
-      info : 'Nothing just dummmy',
+      specs : const <SpecModel>[],
+      info : 'Nothing just dummy',
       times : <PublishTime>[
         PublishTime(state: PublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],

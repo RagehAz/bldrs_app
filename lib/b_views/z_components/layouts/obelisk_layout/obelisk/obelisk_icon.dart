@@ -1,10 +1,13 @@
+import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/nav_bar/components/note_red_dot.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ObeliskIcon extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -35,12 +38,43 @@ class ObeliskIcon extends StatelessWidget {
           if (navModel?.canShow == true){
             return GestureDetector(
               onTap: onTap,
-              child: NoteRedDotWrapper(
-                redDotIsOn: true,
-                // count: 5,
-                childWidth: Obelisk.circleWidth,
-                shrinkChild: true,
-                isNano: true,
+              child: Selector<NotesProvider, List<MapModel>>(
+                selector: (_, NotesProvider notesProvider) => notesProvider.obeliskNotesNumber,
+                shouldRebuild: (List<MapModel> a, List<MapModel> b){
+
+                  // List<MapModel> _fromThere = NotesProvider.proGetObeliskNotesNumbers(context: context, listen: false);
+
+                  MapModel.blogMapModels(
+                    mapModels: a,
+                    methodName: 'aaaaaaaaaaaaaaa',
+                  );
+
+
+                  MapModel.blogMapModels(
+                    mapModels: b,
+                    methodName: 'BBB',
+                  );
+
+                  return true;
+                },
+                builder: (_, List<MapModel> mapsModels, Widget child){
+
+                  final MapModel _mapModel = MapModel.getModelByKey(
+                      key: navModel.id,
+                      models: mapsModels,
+                  );
+
+                  _mapModel?.blogMapModel();
+
+                  return NoteRedDotWrapper(
+                    redDotIsOn: _mapModel?.value != null,
+                    count: _mapModel?.value,
+                    childWidth: Obelisk.circleWidth,
+                    shrinkChild: true,
+                    child: child,
+                  );
+
+                },
                 child: DreamBox(
                   width: Obelisk.circleWidth,
                   height: Obelisk.circleWidth,

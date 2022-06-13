@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 /// IS SUB USER MODEL THAT COMPARES STATE WITH GLOBAL DB STATE MODIFIED FROM DASHBOARD
 /// OR AUTOMATICALLY WHEN CHANGING DATA THAT ARE SAVED ON LDB, IN ORDER TO RE FETCH THE DATA
+@immutable
 class AppState {
 // -----------------------------------------------------------------------------
-  AppState({
+  const AppState({
     @required this.keywordsChainVersion,
     @required this.specsChainVersion,
     @required this.specPickersVersion,
@@ -70,7 +71,7 @@ class AppState {
 // -----------------------------------
   /// TESTED : WORKS PERFECT
   static AppState initialState() {
-    return AppState(
+    return const AppState(
       id: null,
       keywordsChainVersion : null,
       specsChainVersion : null,
@@ -166,7 +167,7 @@ class AppState {
 // -----------------------------------
   /// TESTED : WORKS PERFECT
   static AppState dummyAppState(){
-    return AppState(
+    return const AppState(
       id: 'dummy',
       keywordsChainVersion: 0,
       specsChainVersion: 0,

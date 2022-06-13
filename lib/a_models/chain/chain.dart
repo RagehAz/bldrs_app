@@ -8,6 +8,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:flutter/material.dart';
 
+@immutable
 class Chain {
   /// --------------------------------------------------------------------------
   const Chain({
