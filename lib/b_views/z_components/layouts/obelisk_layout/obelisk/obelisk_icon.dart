@@ -38,37 +38,26 @@ class ObeliskIcon extends StatelessWidget {
           if (navModel?.canShow == true){
             return GestureDetector(
               onTap: onTap,
-              child: Selector<NotesProvider, List<MapModel>>(
-                selector: (_, NotesProvider notesProvider) => notesProvider.obeliskNotesNumber,
-                shouldRebuild: (List<MapModel> a, List<MapModel> b){
+              child: Selector<NotesProvider, int>(
+                selector: (_, NotesProvider notesProvider){
 
-                  // List<MapModel> _fromThere = NotesProvider.proGetObeliskNotesNumbers(context: context, listen: false);
-
-                  MapModel.blogMapModels(
-                    mapModels: a,
-                    methodName: 'aaaaaaaaaaaaaaa',
-                  );
-
-
-                  MapModel.blogMapModels(
-                    mapModels: b,
-                    methodName: 'BBB',
-                  );
-
-                  return true;
-                },
-                builder: (_, List<MapModel> mapsModels, Widget child){
+                  final List<MapModel> _mapModels = notesProvider.obeliskNotesNumber;
 
                   final MapModel _mapModel = MapModel.getModelByKey(
+                      models: _mapModels,
                       key: navModel.id,
-                      models: mapsModels,
                   );
 
-                  _mapModel?.blogMapModel();
+                  return _mapModel?.value;
+                },
+                shouldRebuild: (int last, int next){
+                  return last != next;
+                },
+                builder: (_, int count, Widget child){
 
                   return NoteRedDotWrapper(
-                    redDotIsOn: _mapModel?.value != null,
-                    count: _mapModel?.value,
+                    redDotIsOn: count != null,
+                    count: count,
                     childWidth: Obelisk.circleWidth,
                     shrinkChild: true,
                     child: child,

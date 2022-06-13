@@ -16,7 +16,7 @@ class NotesProvider extends ChangeNotifier {
 
 // -------------------------------------
   /// MapModel(key: navModelID, value: numberOfNotes)
-  final List<MapModel> _obeliskNotesNumbers = <MapModel>[];
+  List<MapModel> _obeliskNotesNumbers = <MapModel>[];
   List<MapModel> get obeliskNotesNumber => _obeliskNotesNumbers;
 // -------------------------------------
   static List<MapModel> proGetObeliskNotesNumbers({
@@ -63,24 +63,10 @@ class NotesProvider extends ChangeNotifier {
       value: _output.value == null ? value : _output.value + value,
     );
 
-      final int _index = _obeliskNotesNumbers.indexWhere((m) => m.key == _output.key);
-
-      if (_index != -1){
-        _obeliskNotesNumbers.removeAt(_index);
-        _obeliskNotesNumbers.insert(_index, _output);
-      }
-      else {
-        _obeliskNotesNumbers.add(_output);
-      }
-
-
-    // final List<MapModel> _newList = MapModel.insertMapModel(
-    //     mapModels: _obeliskNotesNumbers,
-    //     mapModel: _output,
-    // );
-    //
-    // _obeliskNotesNumbers.removeRange(0, _obeliskNotesNumbers.length);
-    // _obeliskNotesNumbers.addAll(_newList);
+    _obeliskNotesNumbers = MapModel.insertMapModel(
+        mapModels: _obeliskNotesNumbers,
+        mapModel: _output,
+    );
 
     if (notify == true){
       notifyListeners();
