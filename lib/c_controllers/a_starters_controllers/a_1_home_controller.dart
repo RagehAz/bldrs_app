@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
@@ -12,12 +13,17 @@ import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -26,14 +32,17 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 
 // -----------------------------------------------------------------------------
 
 /// INITIALIZATION
 
-// -------------------------------------
+// -------------------------------
 Future<void> initializeHomeScreen(BuildContext context) async {
 
   await Future.wait(
@@ -66,7 +75,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   ]);
 
 }
-// -------------------------------------
+// -------------------------------
 Future<void> initializeUserZone(BuildContext context) async {
   final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
   final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -119,7 +128,7 @@ Future<void> initializeUserZone(BuildContext context) async {
 
   }
 }
-// -------------------------------------
+// -------------------------------
 Future<void> _initializeSponsors({
   @required BuildContext context,
   @required bool notify,
@@ -130,12 +139,12 @@ Future<void> _initializeSponsors({
     notify: notify,
   );
 }
-// -------------------------------------
+// -------------------------------
 Future<void> _initializeSpecsAndKeywords(BuildContext context) async {
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   await _chainsProvider.fetchSetAllChains(context);
 }
-// -------------------------------------
+// -------------------------------
 Future<void> _initializeUserBzz({
   @required BuildContext context,
   @required bool notify,
@@ -146,7 +155,7 @@ Future<void> _initializeUserBzz({
     notify: notify,
   );
 }
-// -------------------------------------
+// -------------------------------
 Future<void> _initializeUserFollowedBzz({
   @required BuildContext context,
   @required bool notify,
@@ -157,7 +166,7 @@ Future<void> _initializeUserFollowedBzz({
     notify: notify,
   );
 }
-// -------------------------------------
+// -------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
@@ -182,7 +191,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   // }
 
 }
-// -------------------------------------
+// -------------------------------
 Future<void> _initializeSavedFlyers(BuildContext context) async {
 
   if (AuthModel.userIsSignedIn() == true ){
@@ -204,9 +213,9 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 
-/// PYRAMIDS NAVIGATION AND STREAMS
+/// PYRAMIDS NAVIGATION
 
-// -------------------------------------
+// -------------------------------
 List<NavModel> generateMainNavModels(BuildContext context){
 
   final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: true);
@@ -298,12 +307,44 @@ List<NavModel> generateMainNavModels(BuildContext context){
 
   ];
 }
+// -------------------------------
+Future<void> onNavigate({
+  @required int index,
+  @required List<NavModel> models,
+  @required ValueNotifier<int> tabIndex,
+  @required BuildContext context,
+  @required ValueNotifier<bool> isExpanded,
+}) async {
 
+  final NavModel _navModel = models[index];
+
+  tabIndex.value = index;
+  // onTriggerExpansion();
+
+  await Future.delayed(const Duration(milliseconds: 50), () async {
+
+    if (_navModel.onNavigate != null){
+      await _navModel.onNavigate();
+    }
+
+    await Nav.goToNewScreen(
+      context: context,
+      screen: _navModel.screen,
+      transitionType: PageTransitionType.fade,
+    );
+
+    tabIndex.value = null;
+    isExpanded.value = false;
+
+  });
+
+
+}
 // -----------------------------------------------------------------------------
 
 /// FLYERS PAGINATION
 
-// -------------------------------------
+// -------------------------------
 bool fuckingPaginator({
   @required BuildContext context,
   @required ScrollController scrollController,
@@ -335,7 +376,7 @@ bool fuckingPaginator({
 
   return _canPaginate;
 }
-// -------------------------------------
+// -------------------------------
 bool initializeFlyersPagination({
   @required BuildContext context,
   @required ScrollController scrollController,
@@ -367,12 +408,12 @@ bool initializeFlyersPagination({
 
   return _canPaginate;
 }
-// -------------------------------------
+// -------------------------------
 Future<void> readMoreFlyers(BuildContext context) async {
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   await _flyersProvider.paginateWallFlyers(context);
 }
-// -------------------------------------
+// -------------------------------
 Future<void> onRefreshHomeWall(BuildContext context) async {
   // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
@@ -392,7 +433,7 @@ Future<void> onRefreshHomeWall(BuildContext context) async {
 
 /// FLYERS INTERACTIONS
 
-// -------------------------------------
+// -------------------------------
 Future<void> onFlyerTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -411,3 +452,129 @@ Future<void> onFlyerTap({
 
 }
 // -----------------------------------------------------------------------------
+
+/// USER NOTES
+
+// -------------------------------
+void initializeUserNotes(BuildContext context){
+
+  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+
+  if (_userModel != null){
+
+    final bool _thereAreMissingFields = UserModel.checkMissingFields(_userModel);
+
+    final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
+      collName: FireColl.notes,
+      limit: 100,
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+      finders: <FireFinder>[
+
+        FireFinder(
+          field: 'receiverID',
+          comparison: FireComparison.equalTo,
+          value: _userModel.id,
+        ),
+
+        FireFinder(
+          field: 'seen',
+          comparison: FireComparison.equalTo,
+          value: false,
+        ),
+
+      ],
+    );
+
+    FireCollStreamer.onStreamDataChanged(
+      stream: _stream,
+      oldMaps: NoteModel.cipherNotesModels(notes: _notesProvider.userNotes, toJSON: false),
+      onChange: (List<Map<String, dynamic>> newMaps){
+
+        blog('new maps are :-');
+        Mapper.blogMaps(newMaps);
+
+        final List<NoteModel> _notes = NoteModel.decipherNotesModels(
+          maps: newMaps,
+          fromJSON: false,
+        );
+
+        _notesProvider.setUserNotes(
+            notes: _notes,
+            notify: true
+        );
+
+        final bool _noteDotIsOn = _checkNoteDotIsOn(
+          thereAreMissingFields: _thereAreMissingFields,
+          notes: _notes,
+        );
+
+        final int _notesCount = _getNotesCount(
+          notes: _notes,
+          thereAreMissingFields: _thereAreMissingFields,
+        );
+
+        if (_notesCount != null){
+          _notesProvider.incrementObeliskNoteNumber(
+            value: _notesCount,
+            navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+            notify: false,
+          );
+          _notesProvider.incrementObeliskNoteNumber(
+            value: _notesCount,
+            navModelID: NavModel.getUserTabNavID(UserTab.notifications),
+            notify: true,
+          );
+
+        }
+
+        if (_noteDotIsOn == true){
+          _notesProvider.setIsFlashing(
+            flashing: true,
+            notify: true,
+          );
+        }
+
+      },
+    );
+
+  }
+
+}
+// -------------------------------
+bool _checkNoteDotIsOn({
+  @required bool thereAreMissingFields,
+  @required List<NoteModel> notes,
+}){
+
+  bool _isOn = false;
+
+  if (thereAreMissingFields == true){
+    _isOn = true;
+  }
+  else {
+
+    if (Mapper.checkCanLoopList(notes) == true){
+      _isOn = NoteModel.checkThereAreUnSeenNotes(notes);
+    }
+
+  }
+
+  return _isOn;
+}
+// -------------------------------
+int _getNotesCount({
+  @required bool thereAreMissingFields,
+  @required List<NoteModel> notes,
+}){
+  int _count;
+
+  if (thereAreMissingFields == false){
+    if (Mapper.checkCanLoopList(notes) == true){
+      _count = NoteModel.getNumberOfUnseenNotes(notes);
+    }
+  }
+
+  return _count;
+}
+// -------------------------------

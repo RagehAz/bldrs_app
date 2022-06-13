@@ -11,7 +11,7 @@ class FireCollPaginator extends StatefulWidget {
   const FireCollPaginator({
     @required this.queryParameters,
     @required this.builder,
-    this.scrollController,
+    @required this.scrollController,
     this.loadingWidget,
     Key key
   }) : super(key: key);
@@ -30,7 +30,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
   QueryDocumentSnapshot  _startAfter;
   bool _canPaginate = true;
-  ScrollController _scrollController;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -47,9 +46,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void initState() {
     super.initState();
 
-    _scrollController = widget.scrollController ?? ScrollController();
-
-    _scrollController.addListener(() async {
+    widget.scrollController.addListener(() async {
 
       final double _maxScroll = widget.scrollController.position.maxScrollExtent;
       final double _currentScroll = widget.scrollController.position.pixels;
@@ -90,9 +87,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   @override
   void dispose() {
     _loading.dispose();
-    if (widget.scrollController == null){
-      _scrollController.dispose();
-    }
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -129,18 +123,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
         builder: (_, bool isLoading, Widget child){
 
           return widget.builder(context, _maps, isLoading);
-
-          // return ListView(
-          //   physics: const BouncingScrollPhysics(),
-          //   controller: _scrollController,
-          //   children: <Widget>[
-          //
-          //     widget.builder(context, _maps, isLoading),
-          //
-          //     widget.loadingWidget ?? Loading(loading: isLoading,),
-          //
-          //   ],
-          // );
 
         }
     );
