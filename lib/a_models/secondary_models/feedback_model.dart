@@ -3,6 +3,7 @@ import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 
 // -----------------------------------------------------------------------------
+@immutable
 class FeedbackModel {
   /// --------------------------------------------------------------------------
   const FeedbackModel({

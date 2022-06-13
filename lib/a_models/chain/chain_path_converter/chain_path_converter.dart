@@ -6,6 +6,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 
+@immutable
 class ChainPathConverter {
 // -------------------------------------------
 

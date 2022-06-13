@@ -1,6 +1,7 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/foundation.dart';
 
+@immutable
 class AlertModel {
 /// ----------------------------------------------------------------------------
   const AlertModel({

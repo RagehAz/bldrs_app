@@ -95,7 +95,10 @@ void onDeleteSlide({
 
     _slides.removeAt(index);
 
-    draftFlyer.value.mutableSlides = _slides;
+    draftFlyer.value = draftFlyer.value.copyWith(
+      mutableSlides: _slides,
+    );
+
   }
 
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 
+@immutable
 class SpecDeactivator {
   /// --------------------------------------------------------------------------
-  SpecDeactivator({
+  const SpecDeactivator({
     @required this.specValue,
     @required this.specsListsIDsToDeactivate,
   });

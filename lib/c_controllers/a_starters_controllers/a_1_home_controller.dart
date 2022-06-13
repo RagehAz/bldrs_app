@@ -218,6 +218,7 @@ List<NavModel> generateMainNavModels(BuildContext context){
 
     /// SIGN IN
     NavModel(
+      id: NavModel.getMainNavIDString(navID: MainNavModel.signIn),
       title: superPhrase(context, 'phid_sign'),
       icon: Iconz.normalUser,
       screen: const AuthScreen(),
@@ -227,6 +228,7 @@ List<NavModel> generateMainNavModels(BuildContext context){
 
     /// QUESTIONS
     // NavModel(
+    // id: NavModelID.questions,
     //   title: 'Questions',
     //   icon: Iconz.utPlanning,
     //   screen: const QScreen(),
@@ -234,6 +236,7 @@ List<NavModel> generateMainNavModels(BuildContext context){
 
     /// MY PROFILE
     NavModel(
+      id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
       title: _userModel?.name,
       icon: _userModel?.pic,
       screen: const UserProfileScreen(),
@@ -244,6 +247,7 @@ List<NavModel> generateMainNavModels(BuildContext context){
 
     /// SAVED FLYERS
     NavModel(
+      id: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
       title: 'Saved Flyers',
       icon: Iconz.saveOff,
       screen: const SavedFlyersScreen(),
@@ -260,6 +264,10 @@ List<NavModel> generateMainNavModels(BuildContext context){
       final BzModel _bzModel = _bzzModels[index];
 
       return NavModel(
+          id: NavModel.getMainNavIDString(
+              navID: MainNavModel.bz,
+              bzID: _bzModel.id,
+          ),
           title: _bzModel.name,
           icon: _bzModel.logo,
           iconSizeFactor: 1,
@@ -280,6 +288,7 @@ List<NavModel> generateMainNavModels(BuildContext context){
 
     /// ZONE
     NavModel(
+      id: NavModel.getMainNavIDString(navID: MainNavModel.zone),
       title: '${_currentZone?.districtName}, ${_currentZone?.cityName}, ${_currentZone?.countryName}',
       icon: _countryFlag,
       screen: const SelectCountryScreen(),

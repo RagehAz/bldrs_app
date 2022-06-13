@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+@immutable
 class LinkModel{
   /// --------------------------------------------------------------------------
   const LinkModel({

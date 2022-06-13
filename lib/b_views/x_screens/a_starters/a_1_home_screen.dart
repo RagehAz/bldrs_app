@@ -5,12 +5,14 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/loading_flyers_g
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -127,10 +129,17 @@ class _HomeScreenState extends State<HomeScreen> {
       appBarRowWidgets: <Widget>[
 
         AppBarButton(
-          icon: Iconz.xSmall,
+          icon: Iconz.plus,
           onTap: () async {
 
             _isFlashing.value = !_isFlashing.value;
+
+            final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+            _notesProvider.incrementObeliskNoteNumber(
+                value: 1,
+                navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+                notify: true,
+            );
 
           },
         ),

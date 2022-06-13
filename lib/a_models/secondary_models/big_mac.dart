@@ -1,6 +1,7 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 
+@immutable
 class BigMac {
   /// --------------------------------------------------------------------------
   const BigMac({
@@ -9,14 +10,16 @@ class BigMac {
     @required this.currency,
     @required this.toDollarRate,
   });
-
   /// --------------------------------------------------------------------------
   final String countryID;
   final double localPrice;
   final String currency;
   final double toDollarRate;
+// -----------------------------------------------------------------------------
 
-  /// --------------------------------------------------------------------------
+  /// CYPHERS
+
+// -------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'countryID': countryID,
@@ -25,8 +28,7 @@ class BigMac {
       'toDollarRate': toDollarRate,
     };
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static BigMac decipherBigMac(Map<String, dynamic> map) {
     BigMac _bigMac;
 
@@ -41,8 +43,7 @@ class BigMac {
 
     return _bigMac;
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static List<BigMac> decipherBigMacs(List<Map<String, dynamic>> maps) {
     /// after this should recieve one big map of maps
 
@@ -56,8 +57,7 @@ class BigMac {
 
     return _bigMacs;
   }
-
-// -----------------------------------------------------------------------------
+// -------------------------------------
   static Map<String, dynamic> cipherBigMacs(List<BigMac> bigMacs) {
     Map<String, dynamic> _bigMacsMap = <String, dynamic>{};
 
@@ -73,8 +73,11 @@ class BigMac {
 
     return _bigMacsMap;
   }
-
 // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// -------------------------------------
   static List<String> getCountriesIDsFromBigMacs(List<BigMac> bigMacs) {
     final List<String> _countriesIDs = <String>[];
 
@@ -86,8 +89,11 @@ class BigMac {
 
     return _countriesIDs;
   }
-
 // -----------------------------------------------------------------------------
+
+  /// BLAH
+
+// -------------------------------------
   static const double proAccountPriceEGY = 3000; // 5 peacocks
 // -----------------------------------------------------------------------------
   static double proAccountPriceInLocalCurrencyByISO3(String iso3) {
@@ -102,7 +108,6 @@ class BigMac {
 
     return _proAccountPriceInLocalCurrency;
   }
-
 // -----------------------------------------------------------------------------
   /// how many big macs can 5000 EGP buy
   static double bigMacsCountToBuyProAccount() {
@@ -112,7 +117,6 @@ class BigMac {
     final double _count = _proAccountPriceEGY / _bigMacPriceEGY;
     return _count;
   }
-
 // -----------------------------------------------------------------------------
   static double getBigMacDollarPriceByISO3(String iso3) {
     double _bigMacLocalPriceInUSD = 0;
@@ -130,19 +134,19 @@ class BigMac {
 
     return _bigMacLocalPriceInUSD;
   }
-
 // -----------------------------------------------------------------------------
-  static double localPriceToDollar({double localPrice, double toDollarRate}) {
+  static double localPriceToDollar({
+    double localPrice,
+    double toDollarRate,
+  }) {
     final double _priceInDollar = localPrice / toDollarRate;
     return _priceInDollar;
   }
-
 // -----------------------------------------------------------------------------
   static BigMac getBigMacByISO3(String iso3) {
     return bigMacs().singleWhere((BigMac bigMac) => bigMac.countryID == iso3,
         orElse: () => null);
   }
-
 // -----------------------------------------------------------------------------
   static List<BigMac> getBigMacsOrdered() {
     final List<BigMac> _macs = <BigMac>[];
@@ -158,7 +162,6 @@ class BigMac {
 
     return _macs;
   }
-
 // -----------------------------------------------------------------------------
   static List<BigMac> bigMacs() {
     final List<BigMac> _bigMacs = <BigMac>[
@@ -443,17 +446,19 @@ class BigMac {
 
     return _bigMacs;
   }
-
 // -----------------------------------------------------------------------------
-  static String getCurrencyByCountryIdFromBigMacs(
-      {@required String countryID, List<BigMac> bigMacs}) {
+  static String getCurrencyByCountryIdFromBigMacs({
+    @required String countryID,
+    List<BigMac> bigMacs,
+  }) {
+
     final BigMac _bigMacOfThisCountry = bigMacs.singleWhere(
         (BigMac bigMac) => bigMac.countryID == countryID,
         orElse: () => null);
+
     final String _currency = _bigMacOfThisCountry?.currency;
     return _currency;
   }
-
 // -----------------------------------------------------------------------------
   static List<String> euroCountries() {
     return <String>[

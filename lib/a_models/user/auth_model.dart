@@ -17,9 +17,10 @@ enum AuthType {
   apple,
 }
 // -----------------------------------------------------------------------------
+@immutable
 class AuthModel {
   /// --------------------------------------------------------------------------
-  AuthModel({
+  const AuthModel({
     this.userModel,
     this.firstTimer,
     this.authSucceeds,
@@ -103,86 +104,86 @@ class AuthModel {
 
   });
   /// --------------------------------------------------------------------------
-  UserModel userModel;
-  bool firstTimer;
-  bool authSucceeds;
-  String authError;
+  final UserModel userModel;
+  final bool firstTimer;
+  final bool authSucceeds;
+  final String authError;
   /// UserCredential
-  Map<String, dynamic> profile;
-  bool isNewUser;
-  String userCredentialProviderId;
-  String username;
+  final Map<String, dynamic> profile;
+  final bool isNewUser;
+  final String userCredentialProviderId;
+  final String username;
   /// AuthCredential
-  String authCredentialProviderId;
-  int authCredentialToken;
-  String signInMethod;
+  final String authCredentialProviderId;
+  final int authCredentialToken;
+  final String signInMethod;
   /// FirebaseAuth.currentUser
-  String email;
-  String displayName;
-  bool emailVerified;
-  bool isAnonymous;
-  String phoneNumber;
-  String photoURL;
-  String refreshToken;
-  String tenantId;
-  String uid;
-  List<UserInfo> providerData;
+  final String email;
+  final String displayName;
+  final bool emailVerified;
+  final bool isAnonymous;
+  final String phoneNumber;
+  final String photoURL;
+  final String refreshToken;
+  final String tenantId;
+  final String uid;
+  final List<UserInfo> providerData;
   /// FirebaseAuth.currentUser.metadata
-  DateTime creationTime;
-  DateTime lastSignInTime;
+  final DateTime creationTime;
+  final DateTime lastSignInTime;
   /// facebookLoginResult
-  String facebookLoginResultMessage;
+  final String facebookLoginResultMessage;
   /// facebookLoginResult.status
-  int facebookLoginResultStatusIndex;
-  String facebookLoginResultStatusName;
+  final int facebookLoginResultStatusIndex;
+  final String facebookLoginResultStatusName;
   /// facebookLoginResult.accessToken
-  String facebookLoginResultToken;
-  String facebookLoginResultAppId;
-  List<String> facebookLoginResultDeclinedPermission;
-  DateTime facebookLoginResultExpires;
-  List<String> facebookLoginResultGrantedPermission;
-  String facebookLoginResultGraphDomain;
-  bool facebookLoginResultIsExpired;
-  DateTime facebookLoginResultLastRefresh;
-  String facebookLoginResultUserID;
+  final String facebookLoginResultToken;
+  final String facebookLoginResultAppId;
+  final List<String> facebookLoginResultDeclinedPermission;
+  final DateTime facebookLoginResultExpires;
+  final List<String> facebookLoginResultGrantedPermission;
+  final String facebookLoginResultGraphDomain;
+  final bool facebookLoginResultIsExpired;
+  final DateTime facebookLoginResultLastRefresh;
+  final String facebookLoginResultUserID;
   /// facebookAuthCredential
-  String facebookAuthCredentialAccessToken;
-  String facebookAuthCredentialRawNonce;
-  String facebookAuthCredentialSecret;
-  int facebookAuthCredentialToken;
-  String facebookAuthCredentialSignInMethod;
-  String facebookAuthCredentialProviderId;
-  String facebookAuthCredentialIdToken;
+  final String facebookAuthCredentialAccessToken;
+  final String facebookAuthCredentialRawNonce;
+  final String facebookAuthCredentialSecret;
+  final int facebookAuthCredentialToken;
+  final String facebookAuthCredentialSignInMethod;
+  final String facebookAuthCredentialProviderId;
+  final String facebookAuthCredentialIdToken;
   /// googleAuthProvider
-  Map<dynamic, dynamic> googleAuthProviderParameters;
-  List<String> googleAuthProviderScopes;
-  String googleAuthProviderProviderId;
+  final Map<dynamic, dynamic> googleAuthProviderParameters;
+  final List<String> googleAuthProviderScopes;
+  final String googleAuthProviderProviderId;
   /// googleSignIn
-  List<String> googleSignInScopes;
-  String googleSignInClientId;
-  String googleSignInHostedDomain;
+  final List<String> googleSignInScopes;
+  final String googleSignInClientId;
+  final String googleSignInHostedDomain;
   /// googleSignIn.signInOption
-  int googleSignInSignInOptionIndex;
-  String googleSignInSignInOptionName;
+  final int googleSignInSignInOptionIndex;
+  final String googleSignInSignInOptionName;
   /// googleSignIn.currentUser
-  String googleSignInDisplayName;
-  String googleSignInEmail;
-  String googleSignInId;
-  String googleSignInPhotoUrl;
-  String googleSignInServerAuthCode;
+  final String googleSignInDisplayName;
+  final String googleSignInEmail;
+  final String googleSignInId;
+  final String googleSignInPhotoUrl;
+  final String googleSignInServerAuthCode;
   // final String googleSignInAuthentication;
   // final Map<String, String> googleSignInAuthHeaders;
   /// googleSignInAccount
-  String googleSignInAccountServerAuthCode;
-  String googleSignInAccountPhotoUrl;
-  String googleSignInAccountId;
-  String googleSignInAccountEmail;
-  String googleSignInAccountDisplayName;
+  final String googleSignInAccountServerAuthCode;
+  final String googleSignInAccountPhotoUrl;
+  final String googleSignInAccountId;
+  final String googleSignInAccountEmail;
+  final String googleSignInAccountDisplayName;
   // final String googleSignInAccountAuthHeaders;
   // final String googleSignInAccountAuthentication;
   /// googleSignInAuthentication
-  String googleSignInAuthenticationIdToken;
-  String googleSignInAuthenticationAccessToken;
+  final String googleSignInAuthenticationIdToken;
+  final String googleSignInAuthenticationAccessToken;
 // -----------------------------------------------------------------------------
 
   /// CREATE
@@ -852,7 +853,7 @@ class AuthModel {
       firstTimer : true,
       authSucceeds : true,
       authError : 'error',
-      profile : {'profileKey' : 'profile value'},
+      profile : const {'profileKey' : 'profile value'},
       isNewUser : true,
       userCredentialProviderId : 'user Credential Provider Id',
       username : 'user name',
@@ -887,9 +888,9 @@ class AuthModel {
       facebookLoginResultStatusIndex : 1000,
       facebookLoginResultStatusName : 'facebook Login Result Status Name',
       facebookLoginResultAppId : 'facebook Login Result App Id',
-      facebookLoginResultDeclinedPermission : <String>['facebook', 'Login', 'Result', 'Declined', 'Permission',],
+      facebookLoginResultDeclinedPermission : const <String>['facebook', 'Login', 'Result', 'Declined', 'Permission',],
       facebookLoginResultExpires : Timers.createDate(year: 3, month: 3, day: 3),
-      facebookLoginResultGrantedPermission : <String>['facebook', 'Login', 'Result', 'Granted', 'Permission'],
+      facebookLoginResultGrantedPermission : const <String>['facebook', 'Login', 'Result', 'Granted', 'Permission'],
       facebookLoginResultGraphDomain : 'facebook Login Result Graph Domain',
       facebookLoginResultIsExpired : true,
       facebookLoginResultLastRefresh : Timers.createDate(year: 4, month: 4, day: 4),
@@ -901,12 +902,12 @@ class AuthModel {
       facebookAuthCredentialSignInMethod : 'facebook Auth Credential Sign In Method',
       facebookAuthCredentialProviderId : 'facebook Auth Credential Provider Id',
       facebookAuthCredentialIdToken : 'facebook Auth Credential Id Token',
-      googleAuthProviderParameters : {
+      googleAuthProviderParameters : const {
         'param' : 'google Auth Provider Parameters',
       },
-      googleAuthProviderScopes : <String>['google', 'Auth', 'Provider', 'Scopes'],
+      googleAuthProviderScopes : const <String>['google', 'Auth', 'Provider', 'Scopes'],
       googleAuthProviderProviderId : 'googleAuthProviderProviderId',
-      googleSignInScopes : <String>['google', 'Sign', 'In', 'Scopes'],
+      googleSignInScopes : const <String>['google', 'Sign', 'In', 'Scopes'],
       googleSignInClientId : 'google Sign In Client Id',
       googleSignInHostedDomain : 'google Sign In Hosted Domain',
       googleSignInSignInOptionIndex : 1,

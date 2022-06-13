@@ -7,9 +7,10 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 
+@immutable
 class SpecPicker {
   /// --------------------------------------------------------------------------
-  SpecPicker({
+  const SpecPicker({
     @required this.chainID,
     @required this.groupID,
     @required this.canPickMany,

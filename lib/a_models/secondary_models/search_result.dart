@@ -2,6 +2,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:flutter/foundation.dart';
 
+@immutable
 class SearchResult {
   /// --------------------------------------------------------------------------
   const SearchResult({

@@ -1,6 +1,7 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/foundation.dart';
 
+@immutable
 class Region {
   /// --------------------------------------------------------------------------
   const Region({
@@ -8,12 +9,10 @@ class Region {
     @required this.name,
     @required this.countriesIDs,
   });
-
   /// --------------------------------------------------------------------------
   final String continent;
   final String name;
   final List<String> countriesIDs;
-
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -22,7 +21,6 @@ class Region {
       'countriesIDs': countriesIDs,
     };
   }
-
 // -----------------------------------------------------------------------------
   static Region decipherRegion(Map<String, dynamic> map) {
     return Region(

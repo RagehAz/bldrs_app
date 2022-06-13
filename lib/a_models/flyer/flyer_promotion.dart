@@ -2,6 +2,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mappers;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 
+@immutable
 class FlyerPromotion {
 // -----------------------------------------------------------------------------
   const FlyerPromotion({
