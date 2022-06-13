@@ -1,24 +1,39 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
+import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
+import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/x_screens/f_bz/f_0_my_bz_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_user/g_0_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
+
+/// INITIALIZATION
+
+// -------------------------------------
 Future<void> initializeHomeScreen(BuildContext context) async {
 
   await Future.wait(
@@ -51,7 +66,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
   ]);
 
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 Future<void> initializeUserZone(BuildContext context) async {
   final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
   final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -104,7 +119,7 @@ Future<void> initializeUserZone(BuildContext context) async {
 
   }
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 Future<void> _initializeSponsors({
   @required BuildContext context,
   @required bool notify,
@@ -115,12 +130,12 @@ Future<void> _initializeSponsors({
     notify: notify,
   );
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 Future<void> _initializeSpecsAndKeywords(BuildContext context) async {
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   await _chainsProvider.fetchSetAllChains(context);
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 Future<void> _initializeUserBzz({
   @required BuildContext context,
   @required bool notify,
@@ -131,7 +146,7 @@ Future<void> _initializeUserBzz({
     notify: notify,
   );
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 Future<void> _initializeUserFollowedBzz({
   @required BuildContext context,
   @required bool notify,
@@ -142,7 +157,7 @@ Future<void> _initializeUserFollowedBzz({
     notify: notify,
   );
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
@@ -167,7 +182,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   // }
 
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 Future<void> _initializeSavedFlyers(BuildContext context) async {
 
   if (AuthModel.userIsSignedIn() == true ){
@@ -188,6 +203,98 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
   }
 }
 // -----------------------------------------------------------------------------
+
+/// PYRAMIDS NAVIGATION AND STREAMS
+
+// -------------------------------------
+List<NavModel> generateMainNavModels(BuildContext context){
+
+  final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: true);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context, listen: true);
+  final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
+  final String _countryFlag = Flag.getFlagIconByCountryID(_currentZone?.countryID);
+
+  return <NavModel>[
+
+    /// SIGN IN
+    NavModel(
+      title: superPhrase(context, 'phid_sign'),
+      icon: Iconz.normalUser,
+      screen: const AuthScreen(),
+      iconSizeFactor: 0.6,
+      canShow: AuthModel.userIsSignedIn() == false,
+    ),
+
+    /// QUESTIONS
+    // NavModel(
+    //   title: 'Questions',
+    //   icon: Iconz.utPlanning,
+    //   screen: const QScreen(),
+    // ),
+
+    /// MY PROFILE
+    NavModel(
+      title: _userModel?.name,
+      icon: _userModel?.pic,
+      screen: const UserProfileScreen(),
+      iconSizeFactor: 1,
+      iconColor: Colorz.nothing,
+      canShow: AuthModel.userIsSignedIn() == true,
+    ),
+
+    /// SAVED FLYERS
+    NavModel(
+      title: 'Saved Flyers',
+      icon: Iconz.saveOff,
+      screen: const SavedFlyersScreen(),
+      canShow: AuthModel.userIsSignedIn() == true,
+    ),
+
+    /// SEPARATOR
+    if (AuthModel.userIsSignedIn() == true && UserModel.checkUserIsAuthor(_userModel) == true)
+      null,
+
+    /// MY BZZ
+    ...List.generate(_bzzModels.length, (index){
+
+      final BzModel _bzModel = _bzzModels[index];
+
+      return NavModel(
+          title: _bzModel.name,
+          icon: _bzModel.logo,
+          iconSizeFactor: 1,
+          iconColor: Colorz.nothing,
+          screen: const MyBzScreen(),
+          onNavigate: (){
+
+            final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+            _bzzProvider.setActiveBz(bzModel: _bzModel, notify: true);
+
+          }
+      );
+
+    }),
+
+    /// SEPARATOR
+    null,
+
+    /// ZONE
+    NavModel(
+      title: '${_currentZone?.districtName}, ${_currentZone?.cityName}, ${_currentZone?.countryName}',
+      icon: _countryFlag,
+      screen: const SelectCountryScreen(),
+      iconSizeFactor: 1,
+      iconColor: Colorz.nothing,
+    ),
+
+  ];
+}
+
+// -----------------------------------------------------------------------------
+
+/// FLYERS PAGINATION
+
+// -------------------------------------
 bool fuckingPaginator({
   @required BuildContext context,
   @required ScrollController scrollController,
@@ -219,7 +326,7 @@ bool fuckingPaginator({
 
   return _canPaginate;
 }
-
+// -------------------------------------
 bool initializeFlyersPagination({
   @required BuildContext context,
   @required ScrollController scrollController,
@@ -251,12 +358,32 @@ bool initializeFlyersPagination({
 
   return _canPaginate;
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
 Future<void> readMoreFlyers(BuildContext context) async {
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   await _flyersProvider.paginateWallFlyers(context);
 }
+// -------------------------------------
+Future<void> onRefreshHomeWall(BuildContext context) async {
+  // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
+  // final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
+  // final KW _currentKeyword = _keywordsProvider.currentKeyword;
+
+  // await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
+  //   context: context,
+  //   section: _currentSection,
+  //   kw: _currentKeyword,
+  // );
+
+  blog('onRefreshHomeWall : SHOULD REFRESH SCREEN');
+
+}
 // -----------------------------------------------------------------------------
+
+/// FLYERS INTERACTIONS
+
+// -------------------------------------
 Future<void> onFlyerTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -272,22 +399,6 @@ Future<void> onFlyerTap({
         initialSlideIndex: 0,
       )
   );
-
-}
-// -----------------------------------------------------------------------------
-Future<void> onRefreshHomeWall(BuildContext context) async {
-  // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
-  // final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
-  // final KW _currentKeyword = _keywordsProvider.currentKeyword;
-
-  // await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
-  //   context: context,
-  //   section: _currentSection,
-  //   kw: _currentKeyword,
-  // );
-
-  blog('onRefreshHomeWall : SHOULD REFRESH SCREEN');
 
 }
 // -----------------------------------------------------------------------------
