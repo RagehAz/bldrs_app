@@ -47,6 +47,7 @@ class NotesProvider extends ChangeNotifier {
     @required int value,
     @required String navModelID,
     @required bool notify,
+    bool isIncrementing = true,
   }){
 
     final MapModel _mapModel = MapModel.getModelByKey(
@@ -59,14 +60,35 @@ class NotesProvider extends ChangeNotifier {
       value: 0,
     );
 
-    _output = _output.copyWith(
-      value: _output.value == null ? value : _output.value + value,
-    );
+    int _newValue;
 
-    _obeliskNotesNumbers = MapModel.insertMapModel(
+    if (isIncrementing == true){
+      _newValue = _output.value == null ? value : _output.value + value;
+    }
+    else {
+      _newValue = _output.value == null ? null : _output.value == 1 ? null : _output.value - value;
+    }
+
+    if (_newValue != null){
+
+      _output = _output.copyWith(
+        value: _newValue,
+      );
+
+      _obeliskNotesNumbers = MapModel.insertMapModel(
         mapModels: _obeliskNotesNumbers,
         mapModel: _output,
-    );
+      );
+
+    }
+
+    else {
+      _obeliskNotesNumbers = MapModel.removeMapModel(
+        mapModels: _obeliskNotesNumbers,
+        key: navModelID,
+      );
+    }
+
 
     if (notify == true){
       notifyListeners();
@@ -85,10 +107,15 @@ class NotesProvider extends ChangeNotifier {
     @required bool flashing,
     @required bool notify,
   }){
-    _isFlashing = flashing;
+
+    if (_isFlashing != flashing){
+      _isFlashing = flashing;
+    }
+
     if (notify == true){
       notifyListeners();
     }
+
   }
 // -------------------------------------
   static void proSetIsFlashing({

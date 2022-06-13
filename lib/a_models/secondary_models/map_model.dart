@@ -269,6 +269,26 @@ class MapModel{
 
     return _output;
   }
+
+  static List<MapModel> removeMapModel({
+    @required List<MapModel> mapModels,
+    @required String key,
+  }){
+
+    final List<MapModel> _output = mapModels ?? <MapModel>[];
+
+    if (key != null){
+
+      final int _index = _output.indexWhere((mm) => mm.key == key);
+
+      if (_index != -1){
+        _output.removeAt(_index);
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
 /// CHECKERS
