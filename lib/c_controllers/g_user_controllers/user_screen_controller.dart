@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/x_screens/g_user/g_4_terms_and_regulations_screen.
 import 'package:bldrs/b_views/x_screens/g_user_editor/g_x_user_editor_screen.dart';
 import 'package:bldrs/b_views/y_views/g_user/b_4_invite_businesses_screen.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -35,7 +34,6 @@ import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/contacts_service/contacts_service.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer show shareAppIcon;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -43,7 +41,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
@@ -106,18 +103,18 @@ void onChangeUserScreenTabIndex({
 /// PROFILE OPTIONS
 
 // ---------------------------------
-Future<void> onMoreOptionsTap (BuildContext context) async {
+Future<void> onMoreOptionsTap (BuildContext ctx) async {
   blog('more button in user screen');
 
   const double _buttonHeight = 50;
 
     await BottomDialog.showButtonsBottomDialog(
-      context: context,
+      context: ctx,
       draggable: true,
       buttonHeight: _buttonHeight,
       title: 'Profile options',
       numberOfWidgets: 10,
-      builder: (xxx, phrasePro){
+      builder: (context, phrasePro){
 
         blog('ahoooooooo lalalala');
 
@@ -125,89 +122,89 @@ Future<void> onMoreOptionsTap (BuildContext context) async {
 
           /// EDIT PROFILE
           BottomDialog.wideButton(
-            context: xxx,
+            context: context,
             height: _buttonHeight,
-            verse: superPhrase(xxx, 'phid_editProfile', providerOverride: phrasePro),
+            verse: superPhrase(context, 'phid_editProfile', providerOverride: phrasePro),
             icon: Iconz.gears,
-            onTap: () => onEditProfileTap(xxx),
+            onTap: () => onEditProfileTap(context),
           ),
 
-          /// CHANGE APP LANGUAGE
-          BottomDialog.wideButton(
-            context: xxx,
-            height: _buttonHeight,
-            verse: superPhrase(xxx, 'phid_changeLanguage', providerOverride: phrasePro),
-            icon: Iconz.language,
-            onTap: () => _onChangeAppLanguageTap(xxx),
-          ),
+          // /// CHANGE APP LANGUAGE
+          // BottomDialog.wideButton(
+          //   context: xxx,
+          //   height: _buttonHeight,
+          //   verse: superPhrase(xxx, 'phid_changeLanguage', providerOverride: phrasePro),
+          //   icon: Iconz.language,
+          //   onTap: () => onChangeAppLanguageTap(xxx),
+          // ),
 
-          const BubblesSeparator(bottomMarginIsOn: false,),
+          // const BubblesSeparator(bottomMarginIsOn: false,),
 
-          /// ABOUT BLDRS
-          BottomDialog.wideButton(
-            context: xxx,
-            height: _buttonHeight,
-            verse: '${superPhrase(xxx, 'phid_about', providerOverride: phrasePro)} ${Wordz.bldrsFullName(xxx)}',
-            icon: Iconz.pyramidSingleYellow,
-            onTap: () => _onAboutBldrsTap(xxx),
-          ),
+          // /// ABOUT BLDRS
+          // BottomDialog.wideButton(
+          //   context: xxx,
+          //   height: _buttonHeight,
+          //   verse: '${superPhrase(xxx, 'phid_about', providerOverride: phrasePro)} ${Wordz.bldrsFullName(xxx)}',
+          //   icon: Iconz.pyramidSingleYellow,
+          //   onTap: () => onAboutBldrsTap(xxx),
+          // ),
 
-          /// FEEDBACK
-          BottomDialog.wideButton(
-            context: xxx,
-            height: _buttonHeight,
-            verse: superPhrase(xxx, 'phid_feedback', providerOverride: phrasePro),
-            icon: Iconz.utSearching,
-            onTap: () => _onFeedbackTap(xxx),
-          ),
+          // /// FEEDBACK
+          // BottomDialog.wideButton(
+          //   context: xxx,
+          //   height: _buttonHeight,
+          //   verse: superPhrase(xxx, 'phid_feedback', providerOverride: phrasePro),
+          //   icon: Iconz.utSearching,
+          //   onTap: () => onFeedbackTap(xxx),
+          // ),
 
-          /// TERMS AND REGULATIONS
-          BottomDialog.wideButton(
-            context: xxx,
-            height: _buttonHeight,
-            verse: superPhrase(xxx, 'phid_termsRegulations', providerOverride: phrasePro),
-            icon: Iconz.terms,
-            onTap: () => _onTermsAndRegulationsTap(xxx),
-          ),
+          // /// TERMS AND REGULATIONS
+          // BottomDialog.wideButton(
+          //   context: context,
+          //   height: _buttonHeight,
+          //   verse: superPhrase(context, 'phid_termsRegulations', providerOverride: phrasePro),
+          //   icon: Iconz.terms,
+          //   onTap: () => onTermsAndRegulationsTap(context),
+          // ),
 
-          const BubblesSeparator(bottomMarginIsOn: false,),
+          // const BubblesSeparator(bottomMarginIsOn: false,),
 
-          /// CREATE NEW BZ ACCOUNT
-          BottomDialog.wideButton(
-            context: xxx,
-            height: _buttonHeight,
-            verse: superPhrase(xxx, 'phid_createBzAccount', providerOverride: phrasePro),
-            icon: Iconz.bz,
-            onTap: () => _onCreateNewBzTap(xxx),
-          ),
+          // /// CREATE NEW BZ ACCOUNT
+          // BottomDialog.wideButton(
+          //   context: context,
+          //   height: _buttonHeight,
+          //   verse: superPhrase(context, 'phid_createBzAccount', providerOverride: phrasePro),
+          //   icon: Iconz.bz,
+          //   onTap: () => onCreateNewBzTap(context),
+          // ),
 
-          /// INVITE FRIENDS
-          BottomDialog.wideButton(
-            context: xxx,
-            height: _buttonHeight,
-            verse: superPhrase(xxx, 'phid_inviteFriends', providerOverride: phrasePro),
-            icon: Iconizer.shareAppIcon(),
-            onTap: () => _onInviteFriendsTap(xxx),
-          ),
+          // /// INVITE FRIENDS
+          // BottomDialog.wideButton(
+          //   context: context,
+          //   height: _buttonHeight,
+          //   verse: superPhrase(context, 'phid_inviteFriends', providerOverride: phrasePro),
+          //   icon: Iconizer.shareAppIcon(),
+          //   onTap: () => onInviteFriendsTap(context),
+          // ),
 
-          const BubblesSeparator(bottomMarginIsOn: false,),
+          // const BubblesSeparator(bottomMarginIsOn: false,),
 
           /// DELETE MY ACCOUNT
           BottomDialog.wideButton(
-            context: xxx,
+            context: context,
             height: _buttonHeight,
-            verse: superPhrase(xxx, 'phid_delete_my_account', providerOverride: phrasePro),
+            verse: superPhrase(context, 'phid_delete_my_account', providerOverride: phrasePro),
             icon: Iconz.xSmall,
-            onTap: () => _onDeleteMyAccount(xxx),
+            onTap: () => _onDeleteMyAccount(context),
           ),
 
           /// SIGN OUT
           BottomDialog.wideButton(
-            context: xxx,
+            context: context,
             height: _buttonHeight,
-            verse: superPhrase(xxx, 'phid_signOut', providerOverride: phrasePro),
+            verse: superPhrase(context, 'phid_signOut', providerOverride: phrasePro),
             icon: Iconz.exit,
-            onTap: () => _onSignOut(xxx),
+            onTap: () => onSignOut(context),
           ),
 
         ];
@@ -235,35 +232,35 @@ Future<void> onEditProfileTap(BuildContext context) async {
 
 }
 // ---------------------------------
-Future<void> _onChangeAppLanguageTap(BuildContext context) async {
+Future<void> onChangeAppLanguageTap(BuildContext context) async {
   await Nav.goToNewScreen(
       context: context,
       screen: const SelectAppLanguageScreen(),
   );
 }
 // ---------------------------------
-Future<void> _onAboutBldrsTap(BuildContext context) async {
+Future<void> onAboutBldrsTap(BuildContext context) async {
   await Nav.goToNewScreen(
       context: context,
       screen: const AboutBldrsScreen(),
   );
 }
 // ---------------------------------
-Future<void> _onFeedbackTap(BuildContext context) async {
+Future<void> onFeedbackTap(BuildContext context) async {
   await Nav.goToNewScreen(
       context: context,
       screen: const FeedBack(),
   );
 }
 // ---------------------------------
-Future<void> _onTermsAndRegulationsTap(BuildContext context) async {
+Future<void> onTermsAndRegulationsTap(BuildContext context) async {
   await Nav.goToNewScreen(
       context: context,
       screen: const TermsAndRegulationsScreen(),
   );
 }
 // ---------------------------------
-Future<void> _onCreateNewBzTap(BuildContext context) async {
+Future<void> onCreateNewBzTap(BuildContext context) async {
 
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
   final UserModel _myUserModel = _usersProvider.myUserModel;
@@ -278,7 +275,7 @@ Future<void> _onCreateNewBzTap(BuildContext context) async {
 
 }
 // ---------------------------------
-Future<void> _onInviteFriendsTap(BuildContext context) async {
+Future<void> onInviteFriendsTap(BuildContext context) async {
     await Launcher.shareLink(
         context: context,
         link: LinkModel.bldrsWebSiteLink,
@@ -456,7 +453,7 @@ Future<void> _deleteNonAuthorUserOps({
     );
 
     /// SIGN OUT OPS
-    await _onSignOut(context);
+    await onSignOut(context);
   }
 
 }
@@ -480,7 +477,7 @@ Future<void> _deleteAuthorUserOps({
 /// SIGN OUT OPS
 
 // ---------------------------------
-Future<void> _onSignOut(BuildContext context) async {
+Future<void> onSignOut(BuildContext context) async {
 
   /// CLEAR FLYERS
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);

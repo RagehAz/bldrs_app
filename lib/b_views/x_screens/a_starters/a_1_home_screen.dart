@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids
 import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 
@@ -92,20 +91,6 @@ class _HomeScreenState extends State<HomeScreen> {
       onBack: (){
         Nav.closeApp(context);
       },
-
-      appBarRowWidgets: <Widget>[
-
-        AppBarButton(
-          icon: Iconz.plus,
-          onTap: () async {
-
-            blog('fuck initialize shit');
-            initializeMyBzzNotes(context);
-
-          },
-        ),
-
-      ],
       layoutWidget: Stack(
         children: <Widget>[
 
