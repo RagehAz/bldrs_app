@@ -633,7 +633,6 @@ class NoteModel {
     return _missingFields;
   }
   // -------------------------------------
-
   static List<NoteModel> getUnseenNotesByReceiverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -645,6 +644,28 @@ class NoteModel {
       final List<NoteModel> _found = notes.where((note){
 
         return note.receiverID == receiverID && note.seen == false;
+      }).toList();
+
+      if (Mapper.checkCanLoopList(_found) == true){
+        _notes.addAll(_found);
+      }
+
+    }
+
+    return _notes;
+  }
+  // -------------------------------------
+  static List<NoteModel> getNotesByReceiverID({
+    @required List<NoteModel> notes,
+    @required String receiverID,
+  }){
+    final List<NoteModel> _notes = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      final List<NoteModel> _found = notes.where((note){
+
+        return note.receiverID == receiverID;
       }).toList();
 
       if (Mapper.checkCanLoopList(_found) == true){
@@ -840,6 +861,29 @@ class NoteModel {
     }
 
     // blog('removeNoteFromNotes : notes : ${_output.length}');
+
+    return _output;
+  }
+  // -------------------------------------
+  static List<NoteModel> removeNotesFromNotes({
+    @required List<NoteModel> notesToRemove,
+    @required List<NoteModel> sourceNotes,
+  }){
+
+    List<NoteModel> _output = sourceNotes ?? <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notesToRemove) == true && Mapper.checkCanLoopList(_output) == true){
+
+      for (final NoteModel note in notesToRemove){
+
+        _output = removeNoteFromNotes(
+          notes: _output,
+          noteModel: note,
+        );
+
+      }
+
+    }
 
     return _output;
   }

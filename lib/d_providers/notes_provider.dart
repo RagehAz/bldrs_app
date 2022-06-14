@@ -66,7 +66,7 @@ class NotesProvider extends ChangeNotifier {
       _newValue = _output.value == null ? value : _output.value + value;
     }
     else {
-      _newValue = _output.value == null ? null : _output.value == 1 ? null : _output.value - value;
+      _newValue = _output.value == null || _output.value <= 1 ? null : _output.value - value;
     }
 
     if (_newValue != null){
@@ -179,15 +179,36 @@ class NotesProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  List<NoteModel> getBzUnseenReceivedNotes(String bzID){
+  void removeNotesFromAllBzzUnseenNotes({
+        @required List<NoteModel> notes,
+    @required bool notify,
+  }){
 
-    final List<NoteModel> _notes = NoteModel.getUnseenNotesByReceiverID(
-        notes: _myBzzUnseenReceivedNotes,
-        receiverID: bzID,
-    );
+    if (Mapper.checkCanLoopList(notes) == true){
 
-    return _notes;
+      _myBzzUnseenReceivedNotes = NoteModel.removeNotesFromNotes(
+        notesToRemove: notes,
+        sourceNotes: _myBzzUnseenReceivedNotes,
+      );
+
+      if (notify == true){
+        notifyListeners();
+      }
+
+    }
+
   }
+  /*
+//   List<NoteModel> getBzUnseenReceivedNotes(String bzID){
+//
+//     final List<NoteModel> _notes = NoteModel.getUnseenNotesByReceiverID(
+//         notes: _myBzzUnseenReceivedNotes,
+//         receiverID: bzID,
+//     );
+//
+//     return _notes;
+//   }
+   */
 // -------------------------------------
   static List<NoteModel> proGetAllBzzUnseenNotes({
     @required BuildContext context,
