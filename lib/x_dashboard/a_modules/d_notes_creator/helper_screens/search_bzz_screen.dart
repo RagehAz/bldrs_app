@@ -3,16 +3,13 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bz_long_button.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/components/bzz_tile_buttons_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +17,7 @@ Future<void> onSearchBzz({
   @required BuildContext context,
   @required String text,
   @required ValueNotifier<List<BzModel>> foundBzz,
+  @required ValueNotifier<List<BzModel>> historyBzz,
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<bool> loading,
   QueryDocumentSnapshot<Object> startAfter,
@@ -52,8 +50,15 @@ Future<void> onSearchBzz({
       bzz: foundBzz.value,
     );
 
+
     foundBzz.value = _bzz;
     loading.value = false;
+
+    /// TASK SHOULD INSERT BZ TO BZZ
+    // historyBzz.value = BzModel.addOrRemoveBzToBzz(
+    //     bzzModels: bzzModels,
+    //     bzModel: bzModel
+    // );
 
   }
 
@@ -80,16 +85,52 @@ class SearchBzzScreen extends StatefulWidget {
 class _SearchBzzScreenState extends State<SearchBzzScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<List<BzModel>> _foundBzz = ValueNotifier(null);
+  final ValueNotifier<List<BzModel>> _historyBzz = ValueNotifier(<BzModel>[]);
   ValueNotifier<List<BzModel>> _selectedBzz;
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'SearchBzzScreen',
+    );
+  }
 // -----------------------------------
   @override
   void initState() {
     super.initState();
     _selectedBzz = ValueNotifier<List<BzModel>>(widget.selectedBzz);
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit && mounted) {
+
+      _triggerLoading().then((_) async {
+
+        final List<BzModel> _history = await BzLDBOps.readAll();
+        _historyBzz.value = _history;
+
+        await _triggerLoading();
+      });
+
+      _isInit = false;
+    }
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _historyBzz.dispose();
+    _loading.dispose();
+    _foundBzz.dispose();
+    _isSearching.dispose();
+    _selectedBzz.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSearch(String text) async {
@@ -100,6 +141,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
       loading: _loading,
       foundBzz: _foundBzz,
       isSearching: _isSearching,
+      historyBzz: _historyBzz,
     );
 
   }
@@ -189,54 +231,10 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
                     /// NOT LOADING
                     else {
-                      return ValueListenableBuilder(
-                          valueListenable: _foundBzz,
-                          builder: (_, List<BzModel> foundBzz, Widget child){
-
-                            /// FOUND USERS
-                            if (Mapper.checkCanLoopList(foundBzz) == true){
-
-                              return ValueListenableBuilder(
-                                valueListenable: _selectedBzz,
-                                builder: (_, List<BzModel> selectedBzz, Widget child){
-
-                                  return SizedBox(
-                                    width: Scale.superScreenWidth(context),
-                                    height: Scale.superScreenHeight(context),
-                                    child: ListView.builder(
-                                      itemCount: foundBzz.length,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (_, index){
-
-                                        final BzModel _bzModel = foundBzz[index];
-                                        final bool _isSelected = BzModel.checkBzzContainThisBz(
-                                          bzz: selectedBzz,
-                                          bzModel: _bzModel,
-                                        );
-
-                                        return BzLongButton(
-                                          bzModel: _bzModel,
-                                          isSelected: _isSelected,
-                                          onTap: () => onBzTap(_bzModel),
-                                        );
-
-                                      },
-                                    ),
-                                  );
-
-                                },
-                              );
-
-                            }
-
-                            /// NO USERS FOUND
-                            else {
-                              return const SuperVerse(
-                                verse: 'No users found with this name',
-                              );
-                            }
-
-                          }
+                      return BzzTilesButtonsList(
+                        bzzModel: _foundBzz,
+                        selectedBzz: _selectedBzz,
+                        onTap: onBzTap,
                       );
                     }
 
@@ -244,7 +242,11 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
                   /// NOT SEARCHING
                   else {
-                    return const SizedBox();
+                    return BzzTilesButtonsList(
+                      bzzModel: _historyBzz,
+                      selectedBzz: _selectedBzz,
+                      onTap: onBzTap,
+                    );
                   }
 
                 },
