@@ -8,10 +8,17 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class EmojiTestScreen extends StatelessWidget {
-  const EmojiTestScreen({Key key}) : super(key: key);
 
-  Future<void> onEmojiTap(
-      {BuildContext context, EmojiModel emo, int index}) async {
+  const EmojiTestScreen({
+    Key key
+  }) : super(key: key);
+
+  Future<void> onEmojiTap({
+    @required BuildContext context,
+    @required EmojiModel emo,
+    @required int index
+  }) async {
+
     await BottomDialog.showBottomDialog(
       context: context,
       title: '${emo.emoji}  ${emo.name}',
@@ -30,18 +37,20 @@ class EmojiTestScreen extends StatelessWidget {
         ),
       ),
     );
+
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<EmojiModel> _emojis = EmojiModel.allEmojis();
 
-    // double _screenWidth = Scale.superScreenWidth(context);
+    final List<EmojiModel> _emojis = EmojiModel.allEmojis();
 
     return MainLayout(
       pageTitle: 'Emojis',
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
       layoutWidget: GridView.builder(
           itemCount: _emojis.length,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: 100),

@@ -76,6 +76,7 @@ class NavModel {
       case MainNavModel.savedFlyers:  return 'savedFlyers'; break;
       case MainNavModel.bz:           return 'bz_$bzID'; break;
       case MainNavModel.zone:         return 'zone'; break;
+      case MainNavModel.settings:     return 'settings'; break;
       default: return null;
     }
   }
@@ -109,4 +110,5 @@ enum MainNavModel {
   savedFlyers,
   bz,
   zone,
+  settings,
 }
