@@ -131,18 +131,18 @@ class NotesProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// USER NOTES
+  /// USER UNSEEN NOTES
 
 // -------------------------------------
-  List<NoteModel> _userNotes;
-  List<NoteModel> get userUnseenNotes => _userNotes;
+  List<NoteModel> _userUnseenNotes = <NoteModel>[];
+  List<NoteModel> get userUnseenNotes => _userUnseenNotes;
 // -------------------------------------
-  void setUserNotes({
+  void setUserUnseenNotes({
     @required List<NoteModel> notes,
     @required bool notify,
   }){
 
-    _userNotes = notes;
+    _userUnseenNotes = notes;
 
     if (notify == true){
       notifyListeners();
@@ -150,7 +150,7 @@ class NotesProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  static List<NoteModel> proGetUserNotes({
+  static List<NoteModel> proGetUserUnseenNotes({
     @required BuildContext context,
     @required bool listen,
   }){
@@ -158,23 +158,44 @@ class NotesProvider extends ChangeNotifier {
     return _notesProvider.userUnseenNotes;
   }
 // -----------------------------------------------------------------------------
-  /*
-  List<NoteModel> _unseenUserNotes = <NoteModel>[];
-// -------------------------------------
-  List<NoteModel> get unreadNotifications => _unseenUserNotes;
-// -------------------------------------
-  void fetchSetNotiModels({
-    @required bool notify,
-  }) {
-    /// TASK : get notifications
-    /// TASK : set notifications
 
-    _unseenUserNotes = [];
-    if (notify == true) {
+  /// ALL BZZ UNSEEN NOTES
+
+// -------------------------------------
+  /// only the received notes
+  List<NoteModel> _myBzzUnseenReceivedNotes = <NoteModel>[];
+  List<NoteModel> get myBzzUnseenReceivedNotes => _myBzzUnseenReceivedNotes;
+// -------------------------------------
+  void setAllBzzUnseenNotes({
+    @required List<NoteModel> notes,
+    @required bool notify,
+  }){
+
+    _myBzzUnseenReceivedNotes = notes;
+
+    if (notify == true){
       notifyListeners();
     }
+
   }
-   */
+// -------------------------------------
+  List<NoteModel> getBzUnseenReceivedNotes(String bzID){
+
+    final List<NoteModel> _notes = NoteModel.getUnseenNotesByReceiverID(
+        notes: _myBzzUnseenReceivedNotes,
+        receiverID: bzID,
+    );
+
+    return _notes;
+  }
+// -------------------------------------
+  static List<NoteModel> proGetAllBzzUnseenNotes({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
+    return _notesProvider.myBzzUnseenReceivedNotes;
+  }
 // -----------------------------------------------------------------------------
 
   /// BZZ SENT NOTES
@@ -274,35 +295,35 @@ class NotesProvider extends ChangeNotifier {
 
 /// ALL BZ NOTES
 
-// -------------------------------------
-  List<NoteModel> _allBzzNotes = <NoteModel>[];
-// -------------------------------------
-  List<NoteModel> get allBzzNotes => _allBzzNotes;
-// -------------------------------------
-  static List<NoteModel> proGetAllBzzNotes({
-    @required BuildContext context,
-    @required bool listen,
-  }){
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
-    return _notesProvider.allBzzNotes;
-  }
-// -------------------------------------
-  void insertNotesToAllBzzNotes({
-    @required List<NoteModel> notes,
-    @required bool notify,
-  }){
-
-    _allBzzNotes = NoteModel.insertNotesInNotes(
-      notesToGet: _allBzzNotes,
-      notesToInsert: notes,
-      duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-    );
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
+// // -------------------------------------
+//   List<NoteModel> _allBzzNotes = <NoteModel>[];
+// // -------------------------------------
+//   List<NoteModel> get allBzzNotes => _allBzzNotes;
+// // -------------------------------------
+//   static List<NoteModel> proGetAllBzzNotes({
+//     @required BuildContext context,
+//     @required bool listen,
+//   }){
+//     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
+//     return _notesProvider.allBzzNotes;
+//   }
+// // -------------------------------------
+//   void insertNotesToAllBzzNotes({
+//     @required List<NoteModel> notes,
+//     @required bool notify,
+//   }){
+//
+//     _allBzzNotes = NoteModel.insertNotesInNotes(
+//       notesToGet: _allBzzNotes,
+//       notesToInsert: notes,
+//       duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+//     );
+//
+//     if (notify == true){
+//       notifyListeners();
+//     }
+//
+//   }
 
 }
 

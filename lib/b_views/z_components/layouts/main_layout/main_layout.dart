@@ -27,7 +27,6 @@ enum AppBarType {
 class MainLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MainLayout({
-    this.navBarIsOn = false,
     this.appBarRowWidgets,
     this.layoutWidget,
     this.pyramidsAreOn = false,
@@ -59,7 +58,6 @@ class MainLayout extends StatelessWidget {
   final List<Widget> appBarRowWidgets;
   final Widget layoutWidget;
   final bool pyramidsAreOn;
-  final bool navBarIsOn;
   final AppBarType appBarType;
   final dynamic pageTitle;
   final SkyType skyType;
@@ -201,7 +199,6 @@ class MainLayout extends StatelessWidget {
                     historyButtonIsOn: historyButtonIsOn,
                     onSearchChanged: onSearchChanged,
                     pyramidsAreOn: pyramidsAreOn,
-                    navBarIsOn: navBarIsOn,
                     searchHint: searchHint,
                     layoutWidget: layoutWidget,
                     pyramidType: pyramidType,
