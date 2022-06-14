@@ -847,6 +847,7 @@ class NoteModel {
   static List<NoteModel> insertNoteIntoNotes({
     @required List<NoteModel> notesToGet,
     @required NoteModel note,
+    @required DuplicatesAlgorithm duplicatesAlgorithm,
   }){
 
     final List<NoteModel> _output = notesToGet ?? <NoteModel>[];
@@ -856,17 +857,43 @@ class NoteModel {
       note: note,
     );
 
+    /// IF NOT EXISTENT
     if (_contains == false){
       _output.add(note);
+    }
+
+    /// IF EXISTS
+    else {
+
+      /// if SHOULD REPLACE
+      if (duplicatesAlgorithm == DuplicatesAlgorithm.keepSecond){
+        final int _index = _output.indexWhere((n) => n.id == note.id);
+        _output.removeAt(_index);
+        _output.insert(_index, note);
+      }
+
+      else if (duplicatesAlgorithm == DuplicatesAlgorithm.keepBoth){
+        _output.add(note);
+      }
+
+      /// IF SHOULD IGNORE
+      // else if (duplicatesAlgorithm == DuplicatesAlgorithm.keepFirst){
+      //   /// do nothing
+      // }
+      // else {
+      //   /// do nothing
+      // }
+
     }
 
     return _output;
   }
   // -------------------------------------
   static List<NoteModel> insertNotesInNotes({
-  @required List<NoteModel> notesToGet,
+    @required List<NoteModel> notesToGet,
     @required List<NoteModel> notesToInsert,
-}){
+    @required DuplicatesAlgorithm duplicatesAlgorithm,
+  }){
     List<NoteModel> _output = notesToGet ?? <NoteModel>[];
 
     if (Mapper.checkCanLoopList(notesToInsert) == true){
@@ -874,8 +901,9 @@ class NoteModel {
       for (final NoteModel note in notesToInsert){
 
         _output = insertNoteIntoNotes(
-            notesToGet: notesToGet,
-            note: note,
+          notesToGet: notesToGet,
+          note: note,
+          duplicatesAlgorithm: duplicatesAlgorithm,
         );
 
       }
@@ -927,3 +955,9 @@ class NoteModel {
 // -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
+
+enum DuplicatesAlgorithm {
+  keepSecond,
+  keepBoth,
+  keepFirst,
+}

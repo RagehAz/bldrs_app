@@ -107,126 +107,84 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
   }
 // -----------------------------------------------------------------------------
-  /*
-  Future<void> _dismissNote({
-    @required String id,
-    @required int notiModelsLength,
-  }) async {
 
-    blog('removing noti with id : $id ---------------------------------------xxxxx ');
-
-    // await Fire.updateSubDocField(
-    //   context: context,
-    //   collName: FireColl.users,
-    //   docName: FireAuthOps.superUserID(),
-    //   subCollName: FireSubColl.users_user_notifications,
-    //   subDocName: id,
-    //   field: 'dismissed',
-    //   input: true,
-    // );
-
-    if (notiModelsLength == 1) {
-      blog('this was the last notification and is gone khalas  --------------------------------------- oooooo ');
-    }
-
-    // setState(() {
-    //   _notifications.removeWhere((notiModel) => notiModel.id == id,);
-    // });
-
-  }
-   */
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    // final List<NoteModel> _userNotes = NotesProvider.proGetUserNotes(
-    //   context: context,
-    //   listen: true,
-    // );
+    return Selector<NotesProvider, List<NoteModel>>(
+        selector: (_, NotesProvider notesProvider) => notesProvider.userUnseenNotes,
+        shouldRebuild: (before, after) => true,
+        builder: (_,List<NoteModel> _proNotes, Widget child){
 
-    return FireCollPaginator(
-      scrollController: _scrollController,
-        queryParameters: QueryParameters(
-          collName: FireColl.notes,
-          limit: 5,
-          orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-          finders: <FireFinder>[
-
-            FireFinder(
-              field: 'receiverID',
-              comparison: FireComparison.equalTo,
-              value: superUserID(),
-            ),
-
-          ],
-          onDataChanged: (List<Map<String, dynamic>> newMaps){
-            final List<NoteModel> _newNotes = NoteModel.decipherNotesModels(
-                maps: newMaps,
-                fromJSON: false,
-            );
-
-            _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
-                notesToGet: _localNotesToMarkUnseen,
-                notesToInsert: _newNotes,
-            );
-
-          },
-
-        ),
-        builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
-
-          final List<NoteModel> _userNotes = NoteModel.decipherNotesModels(
-              maps: maps,
-              fromJSON: false,
+          _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
+            notesToGet: _localNotesToMarkUnseen,
+            notesToInsert: _proNotes,
+            duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
           );
 
-          return ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            controller: _scrollController,
-            itemCount: _userNotes?.length,
-            padding: Stratosphere.stratosphereSandwich,
-            itemBuilder: (BuildContext ctx, int index) {
+          return FireCollPaginator(
+              scrollController: _scrollController,
+              queryParameters: QueryParameters(
+                collName: FireColl.notes,
+                limit: 5,
+                orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+                finders: <FireFinder>[
+                  FireFinder(
+                    field: 'receiverID',
+                    comparison: FireComparison.equalTo,
+                    value: superUserID(),
+                  ),
+                ],
+                onDataChanged: (List<Map<String, dynamic>> newMaps){
 
-              final NoteModel _notiModel = Mapper.checkCanLoopList(_userNotes) == true ? _userNotes[index] : null;
+                  final List<NoteModel> _newNotes = NoteModel.decipherNotesModels(
+                    maps: newMaps,
+                    fromJSON: false,
+                  );
 
-              return NoteCard(
-                noteModel: _notiModel,
-                isDraftNote: false,
+                  _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
+                    notesToGet: _localNotesToMarkUnseen,
+                    notesToInsert: _newNotes,
+                    duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+                  );
+
+                  },
+              ),
+              builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+
+                final List<NoteModel> _streamNotes = NoteModel.decipherNotesModels(
+                  maps: maps,
+                  fromJSON: false,
+                );
+
+                /// maps from stream + new provider notes
+                final List<NoteModel> _combined = NoteModel.insertNotesInNotes(
+                  notesToGet: <NoteModel>[],
+                  notesToInsert: <NoteModel>[..._proNotes, ..._streamNotes],
+                  duplicatesAlgorithm: DuplicatesAlgorithm.keepFirst
+                );
+
+                return ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  controller: _scrollController,
+                  itemCount: _combined?.length,
+                  padding: Stratosphere.stratosphereSandwich,
+                  itemBuilder: (BuildContext ctx, int index) {
+
+                    final NoteModel _notiModel = Mapper.checkCanLoopList(_combined) == true ? _combined[index] : null;
+
+                    return NoteCard(
+                      noteModel: _notiModel,
+                      isDraftNote: false,
+                    );
+
+                  },
+                );
+
+              }
               );
 
-            },
-          );
-
-        }
-    );
-
-
-    // if (Mapper.checkCanLoopList(_userNotes) == false){
-    //
-    //   return const SizedBox();
-    //
-    // }
-    //
-    // else {
-    //
-    //   return ListView.builder(
-    //     physics: const BouncingScrollPhysics(),
-    //     controller: ScrollController(),
-    //     itemCount: _userNotes?.length,
-    //     padding: Stratosphere.stratosphereSandwich,
-    //     itemBuilder: (BuildContext ctx, int index) {
-    //
-    //       final NoteModel _notiModel = Mapper.checkCanLoopList(_userNotes) == true ? _userNotes[index] : null;
-    //
-    //       return NoteCard(
-    //         noteModel: _notiModel,
-    //         isDraftNote: false,
-    //       );
-    //
-    //     },
-    //   );
-    //
-    // }
+        });
 
   }
 }
