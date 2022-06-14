@@ -548,6 +548,8 @@ void initializeMyBzzNotes(BuildContext context){
 
   final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
 
+  blog('initializeMyBzzNotes : _userIsAuthor : $_userIsAuthor');
+
   if (_userIsAuthor == true){
 
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
@@ -576,22 +578,25 @@ void initializeMyBzzNotes(BuildContext context){
         ],
       );
 
-      final List<NoteModel> _bzOldNotes = NoteModel.getUnseenNotesByReceiverID(
+      blog('created stream for bzid : ${bzModel.id} : stream : $_stream');
+
+      final List<NoteModel> _bzOldNotes = NoteModel.getNotesByReceiverID(
           notes: _notesProvider.myBzzUnseenReceivedNotes,
           receiverID: bzModel.id,
       );
 
       final List<Map<String, dynamic>> _oldMaps = NoteModel.cipherNotesModels(
           notes: _bzOldNotes,
-          toJSON: false);
+          toJSON: false,
+      );
 
       FireCollStreamer.onStreamDataChanged(
         stream: _stream,
         oldMaps: _oldMaps,
         onChange: (List<Map<String, dynamic>> newMaps){
 
-          // blog('new maps are :-');
-          // Mapper.blogMaps(newMaps);
+          blog('new maps are :-');
+          Mapper.blogMaps(newMaps);
 
           final List<NoteModel> _notes = NoteModel.decipherNotesModels(
             maps: newMaps,
