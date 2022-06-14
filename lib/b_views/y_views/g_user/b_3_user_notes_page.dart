@@ -32,18 +32,18 @@ class _UserNotesPageState extends State<UserNotesPage> {
 // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   NotesProvider _notesProvider;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
 
     _scrollController.dispose();
-    _markAllUnseenNotesAsSeen();
+    _markAllUserUnseenNotesAsSeen();
 
     // _notesProvider.dispose();
     super.dispose();
@@ -51,7 +51,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 // -----------------------------------------------------------------------------
   List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
 // -----------------------------------
-  void _markAllUnseenNotesAsSeen(){
+  void _markAllUserUnseenNotesAsSeen(){
 
     final List<NoteModel> _notesToMark = <NoteModel>[];
 
@@ -107,7 +107,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 

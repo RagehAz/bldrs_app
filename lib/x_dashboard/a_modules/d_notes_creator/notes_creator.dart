@@ -679,7 +679,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                             final UserModel _user = snapshot.data;
                             _receiverName = _user?.name;
                           }
-                          if (note?.receiverType == NoteReceiverType.bz){
+                          else if (note?.receiverType == NoteReceiverType.bz){
                             final BzModel _bz = snapshot.data;
                             _receiverName = _bz?.name;
                           }

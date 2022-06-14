@@ -40,7 +40,19 @@ class BzLDBOps {
   /// READ
 
 // -------------------------------
+  static Future<List<BzModel>> readAll() async {
 
+    final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
+    docName: LDBDoc.bzz,
+    );
+
+    final List<BzModel> _bzzModels = BzModel.decipherBzz(
+        maps: _maps,
+        fromJSON: true,
+    );
+
+    return _bzzModels;
+  }
 // -----------------------------------------------------------------------------
 
   /// UPDATE
