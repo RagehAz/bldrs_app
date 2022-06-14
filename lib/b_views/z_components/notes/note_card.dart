@@ -80,7 +80,7 @@ class NoteCard extends StatelessWidget {
 
     return NoteRedDotWrapper(
       childWidth: _bubbleWidth,
-      redDotIsOn: noteModel.seen != true,
+      redDotIsOn: noteModel?.seen != true,
       shrinkChild: true,
       child: Bubble(
         width: _bubbleWidth,
@@ -90,7 +90,7 @@ class NoteCard extends StatelessWidget {
             vertical: Ratioz.appBarMargin,
         ),
         onBubbleTap: _noteHasButtons ? null : onCardTap,
-        bubbleColor: noteModel?.seen == true ? Colorz.white10 : Colorz.yellow10,
+        bubbleColor: noteModel?.seen == true ? Colorz.white10 : Colorz.yellow50,
         columnChildren: <Widget>[
 
           /// SENDER BALLOON - TITLE - TIMESTAMP - BODY
