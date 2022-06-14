@@ -89,19 +89,24 @@ class _BzNotesPageState extends State<BzNotesPage> {
         _notesProvider.incrementObeliskNoteNumber(
           value: _notesToMark.length,
           navModelID: NavModel.getMainNavIDString(navID: MainNavModel.bz, bzID: _bzModel.id),
-          notify: true,
+          notify: false,
           isIncrementing: false,
         );
         _notesProvider.incrementObeliskNoteNumber(
           value: _notesToMark.length,
           navModelID: NavModel.getBzTabNavID(bzTab: BzTab.notes, bzID: _bzModel.id),
-          notify: true,
+          notify: false,
           isIncrementing: false,
         );
         _notesProvider.setIsFlashing(
           flashing: false,
+          notify: false,
+        );
+        _notesProvider.removeNotesFromAllBzzUnseenNotes(
+          notes: _notesToMark,
           notify: true,
         );
+
       });
 
     }
@@ -114,15 +119,18 @@ class _BzNotesPageState extends State<BzNotesPage> {
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
     return Selector<NotesProvider, List<NoteModel>>(
-        selector: (_, NotesProvider notesProvider){
-          return notesProvider.getBzUnseenReceivedNotes(_bzModel.id);
-        },
+        selector: (_, NotesProvider notesProvider) => notesProvider.myBzzUnseenReceivedNotes,
         shouldRebuild: (before, after) => true,
-        builder: (_,List<NoteModel> _proNotes, Widget child){
+        builder: (_,List<NoteModel> _allMyBzzNotes, Widget child){
+
+          final List<NoteModel> _bzNotes = NoteModel.getUnseenNotesByReceiverID(
+            notes: _allMyBzzNotes,
+            receiverID: _bzModel.id,
+          );
 
           _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
             notesToGet: _localNotesToMarkUnseen,
-            notesToInsert: _proNotes,
+            notesToInsert: _bzNotes,
             duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
           );
 
@@ -164,7 +172,7 @@ class _BzNotesPageState extends State<BzNotesPage> {
                 /// maps from stream + new provider notes
                 final List<NoteModel> _combined = NoteModel.insertNotesInNotes(
                     notesToGet: <NoteModel>[],
-                    notesToInsert: <NoteModel>[..._proNotes, ..._streamNotes],
+                    notesToInsert: <NoteModel>[..._bzNotes, ..._streamNotes],
                     duplicatesAlgorithm: DuplicatesAlgorithm.keepFirst
                 );
 
