@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/a_3_app_settings.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
@@ -302,6 +303,18 @@ List<NavModel> generateMainNavModels(BuildContext context){
       icon: _countryFlag,
       screen: const SelectCountryScreen(),
       iconSizeFactor: 1,
+      iconColor: Colorz.nothing,
+    ),
+
+    /// SEPARATOR
+    null,
+
+    NavModel(
+      id: NavModel.getMainNavIDString(navID: MainNavModel.settings),
+      title: 'Settings',
+      icon: Iconz.more,
+      screen: const AppSettingsScreen(),
+      iconSizeFactor: 0.6,
       iconColor: Colorz.nothing,
     ),
 

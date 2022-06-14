@@ -180,7 +180,7 @@ class NotesProvider extends ChangeNotifier {
   }
 // -------------------------------------
   void removeNotesFromAllBzzUnseenNotes({
-        @required List<NoteModel> notes,
+    @required List<NoteModel> notes,
     @required bool notify,
   }){
 

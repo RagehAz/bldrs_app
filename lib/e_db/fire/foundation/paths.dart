@@ -23,6 +23,8 @@ abstract class FireColl{
   static const String chains = 'chains';
 
   static const String notes = 'notes';
+
+  static const String authorships = 'authorships';
 }
 // -----------------------------------------------------------------------------
 abstract class FireDoc {

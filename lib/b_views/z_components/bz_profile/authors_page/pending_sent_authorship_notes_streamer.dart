@@ -1,15 +1,18 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/bz/invitation_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -109,12 +112,37 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
   @override
   Widget build(BuildContext context) {
 
-    return noteStreamBuilder(
-      context: context,
-      stream: _stream,
-      builder: (_, List<NoteModel> notes){
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
-        if (Mapper.checkCanLoopList(notes) == true){
+    return FireCollStreamer(
+      queryParameters: QueryParameters(
+        collName: FireColl.authorships,
+        limit: 50,
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        finders: <FireFinder>[
+
+          FireFinder(
+            field: 'bzID',
+            comparison: FireComparison.equalTo,
+            value: _bzModel.id,
+          ),
+
+          FireFinder(
+              field: 'response',
+              comparison: FireComparison.equalTo,
+              value: AuthorshipModel.cipherAuthorshipsResponse(AuthorshipResponse.pending),
+          ),
+
+        ],
+      ),
+      builder: (BuildContext context, List<Map<String, dynamic>> maps){
+
+        final List<AuthorshipModel> _models = AuthorshipModel.decipherAuthorships(
+            maps: maps,
+            fromJSON: false,
+        );
+
+        if (Mapper.checkCanLoopList(_models) == true){
           return Bubble(
             title: 'Pending Invitation requests',
             width: BldrsAppBar.width(context),
@@ -123,36 +151,37 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
             },
             columnChildren: <Widget>[
 
-              ...List.generate(notes.length, (index){
-                final NoteModel _noteModel = notes[index];
+              ...List.generate(_models.length, (index){
+                final AuthorshipModel _authorship = _models[index];
                 return FutureUserTileButton(
                   boxWidth: Bubble.clearWidth(context),
-                  userID: _noteModel.receiverID,
+                  userID: _authorship.receiverID,
                   color: Colorz.white10,
                   bubble: false,
                   sideButton: 'Cancel',
                   onSideButtonTap: ()async {
 
-                    final NoteModel _note = NoteModel.getFirstNoteByRecieverID(
-                      notes: notes,
-                      receiverID: _noteModel.receiverID,
-                    );
+                    // final NoteModel _note = NoteModel.getFirstNoteByRecieverID(
+                    //   notes: notes,
+                    //   receiverID: _noteModel.receiverID,
+                    // );
+                    //
+                    // if (_note != null){
+                    //
+                    //   await NoteFireOps.deleteNote(
+                    //     context: context,
+                    //     noteID: _note.id,
+                    //   );
+                    //
+                    //   await TopDialog.showTopDialog(
+                    //     context: context,
+                    //     firstLine: 'Invitation request has been cancelled',
+                    //     color: Colorz.green255,
+                    //     textColor: Colorz.white255,
+                    //   );
+                    //
+                    // }
 
-                    if (_note != null){
-
-                      await NoteFireOps.deleteNote(
-                        context: context,
-                        noteID: _note.id,
-                      );
-
-                      await TopDialog.showTopDialog(
-                        context: context,
-                        firstLine: 'Invitation request has been cancelled',
-                        color: Colorz.green255,
-                        textColor: Colorz.white255,
-                      );
-
-                    }
                   },
                 );
               }),
@@ -165,8 +194,67 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
           return const SizedBox();
         }
 
-        },
+      },
     );
+
+    // return noteStreamBuilder(
+    //   context: context,
+    //   stream: _stream,
+    //   builder: (_, List<NoteModel> notes){
+    //
+    //     if (Mapper.checkCanLoopList(notes) == true){
+    //       return Bubble(
+    //         title: 'Pending Invitation requests',
+    //         width: BldrsAppBar.width(context),
+    //         onBubbleTap: (){
+    //           NoteModel.blogNotes(notes: _streamedNotes);
+    //         },
+    //         columnChildren: <Widget>[
+    //
+    //           ...List.generate(notes.length, (index){
+    //             final NoteModel _noteModel = notes[index];
+    //             return FutureUserTileButton(
+    //               boxWidth: Bubble.clearWidth(context),
+    //               userID: _noteModel.receiverID,
+    //               color: Colorz.white10,
+    //               bubble: false,
+    //               sideButton: 'Cancel',
+    //               onSideButtonTap: ()async {
+    //
+    //                 final NoteModel _note = NoteModel.getFirstNoteByRecieverID(
+    //                   notes: notes,
+    //                   receiverID: _noteModel.receiverID,
+    //                 );
+    //
+    //                 if (_note != null){
+    //
+    //                   await NoteFireOps.deleteNote(
+    //                     context: context,
+    //                     noteID: _note.id,
+    //                   );
+    //
+    //                   await TopDialog.showTopDialog(
+    //                     context: context,
+    //                     firstLine: 'Invitation request has been cancelled',
+    //                     color: Colorz.green255,
+    //                     textColor: Colorz.white255,
+    //                   );
+    //
+    //                 }
+    //               },
+    //             );
+    //           }),
+    //
+    //         ],
+    //       );
+    //     }
+    //
+    //     else {
+    //       return const SizedBox();
+    //     }
+    //
+    //     },
+    // );
 
   }
 
