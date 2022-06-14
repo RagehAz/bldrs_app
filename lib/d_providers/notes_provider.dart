@@ -135,7 +135,7 @@ class NotesProvider extends ChangeNotifier {
 
 // -------------------------------------
   List<NoteModel> _userNotes;
-  List<NoteModel> get userNotes => _userNotes;
+  List<NoteModel> get userUnseenNotes => _userNotes;
 // -------------------------------------
   void setUserNotes({
     @required List<NoteModel> notes,
@@ -155,7 +155,7 @@ class NotesProvider extends ChangeNotifier {
     @required bool listen,
   }){
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
-    return _notesProvider.userNotes;
+    return _notesProvider.userUnseenNotes;
   }
 // -----------------------------------------------------------------------------
   /*
@@ -295,6 +295,7 @@ class NotesProvider extends ChangeNotifier {
     _allBzzNotes = NoteModel.insertNotesInNotes(
       notesToGet: _allBzzNotes,
       notesToInsert: notes,
+      duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
     );
 
     if (notify == true){

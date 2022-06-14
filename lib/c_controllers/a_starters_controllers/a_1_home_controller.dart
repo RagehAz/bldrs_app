@@ -488,7 +488,7 @@ void initializeUserNotes(BuildContext context){
 
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
-      oldMaps: NoteModel.cipherNotesModels(notes: _notesProvider.userNotes, toJSON: false),
+      oldMaps: NoteModel.cipherNotesModels(notes: _notesProvider.userUnseenNotes, toJSON: false),
       onChange: (List<Map<String, dynamic>> newMaps){
 
         blog('new maps are :-');
