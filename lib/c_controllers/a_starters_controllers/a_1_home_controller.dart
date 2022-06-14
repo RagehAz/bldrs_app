@@ -23,6 +23,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -36,7 +37,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 
 // -----------------------------------------------------------------------------
 
@@ -453,7 +453,7 @@ Future<void> onFlyerTap({
 }
 // -----------------------------------------------------------------------------
 
-/// USER NOTES
+/// USER NOTES & MY BZZ NOTES
 
 // -------------------------------
 void initializeUserNotes(BuildContext context){
@@ -499,7 +499,7 @@ void initializeUserNotes(BuildContext context){
           fromJSON: false,
         );
 
-        _notesProvider.setUserNotes(
+        _notesProvider.setUserUnseenNotes(
             notes: _notes,
             notify: true
         );
@@ -537,6 +537,113 @@ void initializeUserNotes(BuildContext context){
 
       },
     );
+
+  }
+
+}
+
+void initializeMyBzzNotes(BuildContext context){
+
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+
+  final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
+
+  if (_userIsAuthor == true){
+
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(context: context, listen: false);
+
+    for (final BzModel bzModel in _myBzz){
+
+      final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
+        collName: FireColl.notes,
+        limit: 100,
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        finders: <FireFinder>[
+
+          FireFinder(
+            field: 'receiverID',
+            comparison: FireComparison.equalTo,
+            value: bzModel.id,
+          ),
+
+          FireFinder(
+            field: 'seen',
+            comparison: FireComparison.equalTo,
+            value: false,
+          ),
+
+        ],
+      );
+
+      final List<NoteModel> _bzOldNotes = NoteModel.getUnseenNotesByReceiverID(
+          notes: _notesProvider.myBzzUnseenReceivedNotes,
+          receiverID: bzModel.id,
+      );
+
+      final List<Map<String, dynamic>> _oldMaps = NoteModel.cipherNotesModels(
+          notes: _bzOldNotes,
+          toJSON: false);
+
+      FireCollStreamer.onStreamDataChanged(
+        stream: _stream,
+        oldMaps: _oldMaps,
+        onChange: (List<Map<String, dynamic>> newMaps){
+
+          // blog('new maps are :-');
+          // Mapper.blogMaps(newMaps);
+
+          final List<NoteModel> _notes = NoteModel.decipherNotesModels(
+            maps: newMaps,
+            fromJSON: false,
+          );
+
+          final List<NoteModel> _allBzzUnseenNotesUpdated = NoteModel.insertNotesInNotes(
+              notesToGet: _notesProvider.myBzzUnseenReceivedNotes,
+              notesToInsert: _notes,
+              duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+          );
+
+          _notesProvider.setAllBzzUnseenNotes(
+              notes: _allBzzUnseenNotesUpdated,
+              notify: true
+          );
+
+          final bool _noteDotIsOn = _checkNoteDotIsOn(
+            thereAreMissingFields: false,
+            notes: _notes,
+          );
+
+          final int _notesCount = _getNotesCount(
+            notes: _notes,
+            thereAreMissingFields: false,
+          );
+
+          if (_notesCount != null){
+            _notesProvider.incrementObeliskNoteNumber(
+              value: _notesCount,
+              navModelID: NavModel.getMainNavIDString(navID: MainNavModel.bz, bzID: bzModel.id),
+              notify: false,
+            );
+            _notesProvider.incrementObeliskNoteNumber(
+              value: _notesCount,
+              navModelID: NavModel.getBzTabNavID(bzTab: BzTab.notes, bzID: bzModel.id),
+              notify: true,
+            );
+
+          }
+
+          if (_noteDotIsOn == true){
+            _notesProvider.setIsFlashing(
+              flashing: true,
+              notify: true,
+            );
+          }
+
+        },
+      );
+
+    }
 
   }
 

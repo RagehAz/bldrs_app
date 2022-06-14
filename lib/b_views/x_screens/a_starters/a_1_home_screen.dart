@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     initializeUserNotes(context);
+    initializeMyBzzNotes(context);
 
   }
 // -----------------------------------------------------------------------------

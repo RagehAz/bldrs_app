@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/nav_bar/nav_bar.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
@@ -32,7 +31,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.historyButtonIsOn,
     @required this.zoneButtonIsOn,
     @required this.pyramidsAreOn,
-    @required this.navBarIsOn,
     @required this.searchHint,
     @required this.pyramidType,
     @required this.onPyramidTap,
@@ -52,7 +50,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
   final bool pyramidsAreOn;
-  final bool navBarIsOn;
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
   final bool zoneButtonIsOn;
@@ -147,12 +144,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
             pyramidType: _concludePyramidTypePerSkyType(),
             loading: loading,
             onPyramidTap: onPyramidTap,
-          ),
-
-        /// --- NAV BAR
-        if (navBarIsOn == true)
-          const NavBar(
-            key: ValueKey<String>('navBar'),
           ),
 
         /// --- IOS BACK BUTTON
