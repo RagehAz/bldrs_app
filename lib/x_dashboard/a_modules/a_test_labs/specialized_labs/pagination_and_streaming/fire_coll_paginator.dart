@@ -27,7 +27,7 @@ class FireCollPaginator extends StatefulWidget {
 
 class _FireCollPaginatorState extends State<FireCollPaginator> {
 // -----------------------------------------------------------------------------
-  List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+  List<Map<String, dynamic>> _maps;
   QueryDocumentSnapshot  _startAfter;
   bool _canPaginate = true;
 // -----------------------------------------------------------------------------
@@ -45,6 +45,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   @override
   void initState() {
     super.initState();
+
+    _maps = <Map<String, dynamic>>[];
 
     widget.scrollController.addListener(() async {
 
