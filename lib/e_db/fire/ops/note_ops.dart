@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
@@ -233,36 +232,6 @@ Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
 
 /// STREAMING
 
-// -----------------------------------
-/// TESTED : WORKS PERFECT
-Widget noteStreamBuilder({
-  @required BuildContext context,
-  @required NotiModelsWidgetsBuilder builder,
-  @required Stream<List<NoteModel>> stream,
-  Widget loadingWidget,
-}) {
-  return StreamBuilder<List<NoteModel>>(
-    key: const ValueKey<String>('notifications_stream_builder'),
-    stream: stream,
-    initialData: const <NoteModel>[],
-    builder: (BuildContext ctx, AsyncSnapshot<List<NoteModel>> snapshot) {
-
-      blog('stream connection state is : ${snapshot.connectionState.toString()}');
-
-      if (snapshot.connectionState == ConnectionState.waiting){
-        blog('the shit is looooooooooooooooooooooooading');
-        return loadingWidget ?? const LoadingFullScreenLayer();
-      }
-
-      else {
-        final List<NoteModel> notiModels = snapshot.data;
-        blog('the shit is getting reaaaaaaaaaaaaaaaaaaaaaaal');
-        return builder(ctx, notiModels);
-      }
-
-    },
-  );
-}
 // -----------------------------------
 /// TESTED : WORKS PERFECT
 Stream<List<NoteModel>> getNoteModelsStream({

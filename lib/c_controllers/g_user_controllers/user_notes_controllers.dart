@@ -87,7 +87,7 @@ void decrementUserObelisksNotesNumber({
 // ------------------------------------------
 Future<void> onNoteButtonTap({
   @required BuildContext context,
-  @required String response,
+  @required NoteResponse response,
   @required NoteModel noteModel,
 }) async {
 

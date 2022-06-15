@@ -215,7 +215,7 @@ class ColorButton extends StatelessWidget {
 
     return ClockRebuilder(
       startTime: Timers.decipherTime(time: map['time'], fromJSON: false),
-      builder: (int seconds){
+      builder: (int seconds, Widget child){
 
         final DateTime _time = Timers.createClockFromSeconds(seconds);
         final String _mmss = Timers.generateString_hh_i_mm_i_ss(_time);
