@@ -6,7 +6,7 @@
 // import 'package:bldrs/b_views/z_components/nav_bar/components/nav_bar_button.dart';
 // import 'package:bldrs/b_views/z_components/nav_bar/nav_bar_methods.dart';
 // import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
-// import 'package:bldrs/c_controllers/a_starters_controllers/main_navigation_controller.dart';
+// import 'package:bldrs/c_controllers/a_starters_controllers/main_navigation_controllers.dart';
 // import 'package:bldrs/d_providers/notes_provider.dart';
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/d_providers/user_provider.dart';
