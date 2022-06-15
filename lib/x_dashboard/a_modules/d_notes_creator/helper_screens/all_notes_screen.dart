@@ -105,7 +105,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      final List<NoteModel> _newNotes = NoteModel.decipherNotesModels(
+      final List<NoteModel> _newNotes = NoteModel.decipherNotes(
         maps: _maps,
         fromJSON: false,
       );
