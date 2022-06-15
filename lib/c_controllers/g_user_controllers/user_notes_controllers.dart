@@ -27,39 +27,7 @@ Future<void> onShowNoteOptions({
 /// MARKING NOTES AS SEEN
 
 // ------------------------------------------
-void markUserUnseenNotes({
-  @required BuildContext context,
-  @required List<NoteModel> notes,
-  @required NotesProvider notesProvider,
-}){
-
-  /// COLLECT NOTES TO MARK FIRST
-  final List<NoteModel> _notesToMark = NoteModel.getOnlyUnseenNotes(
-    notes: notes,
-  );
-
-  // /// MARK ON FIREBASE
-  // unawaited(NoteFireOps.markNotesAsSeen(
-  //     context: context,
-  //     notes: _notesToMark
-  // ));
-
-  /// DECREMENT UNSEEN NOTES NUMBER IN OBELISK
-  _decrementUserObelisksNotesNumber(
-    notesProvider: notesProvider,
-    markedNotesLength: _notesToMark.length,
-    notify: false,
-  );
-
-  /// UN-FLASH PYRAMID
-  notesProvider.setIsFlashing(
-    setTo: false,
-    notify: true,
-  );
-
-}
-// ------------------------------------------
-void _decrementUserObelisksNotesNumber({
+void decrementUserObelisksNotesNumber({
   @required NotesProvider notesProvider,
   @required int markedNotesLength,
   @required bool notify,
