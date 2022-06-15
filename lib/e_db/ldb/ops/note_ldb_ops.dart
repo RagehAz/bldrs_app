@@ -33,7 +33,7 @@ class NoteLDBOps {
         docName: LDBDoc.notes,
     );
 
-    return NoteModel.decipherNotesModels(maps: _maps, fromJSON: true);
+    return NoteModel.decipherNotes(maps: _maps, fromJSON: true);
   }
 // -----------------------------------------------------------------------------
 

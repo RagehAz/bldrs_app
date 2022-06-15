@@ -7,8 +7,37 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
+import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
+// -----------------------------------------------------------------------------
+
+/// BZ NOTE PAGINATION QUERY PARAMETERS
+
+// ------------------------------------------
+QueryParameters userReceivedNotesPaginationQueryParameters({
+  @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
+}){
+
+  return QueryParameters(
+    collName: FireColl.notes,
+    limit: 5,
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+    finders: <FireFinder>[
+      FireFinder(
+        field: 'receiverID',
+        comparison: FireComparison.equalTo,
+        value: superUserID(),
+      ),
+    ],
+    onDataChanged: onDataChanged,
+  );
+
+}
 // -----------------------------------------------------------------------------
 
 /// NOTE OPTIONS
@@ -80,3 +109,4 @@ Future<void> onNoteButtonTap({
   }
 
 }
+// -----------------------------------------------------------------------------

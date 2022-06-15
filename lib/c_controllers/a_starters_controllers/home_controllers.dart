@@ -507,7 +507,7 @@ void initializeUserNotes(BuildContext context){
         blog('new maps are :-');
         Mapper.blogMaps(newMaps);
 
-        final List<NoteModel> _notes = NoteModel.decipherNotesModels(
+        final List<NoteModel> _notes = NoteModel.decipherNotes(
           maps: newMaps,
           fromJSON: false,
         );
@@ -611,7 +611,7 @@ void initializeMyBzzNotes(BuildContext context){
           blog('new maps are :-');
           Mapper.blogMaps(newMaps);
 
-          final List<NoteModel> _notes = NoteModel.decipherNotesModels(
+          final List<NoteModel> _notes = NoteModel.decipherNotes(
             maps: newMaps,
             fromJSON: false,
           );
