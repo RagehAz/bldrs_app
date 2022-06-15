@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/structure/b_chain_drawer_search_bar_part.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/structure/c_chains_drawer_expanders_part.dart';
-import 'package:bldrs/c_controllers/g_chains_drawer_controller.dart';
+import 'package:bldrs/c_controllers/chains_drawer_controller.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';

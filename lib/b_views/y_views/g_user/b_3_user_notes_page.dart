@@ -53,23 +53,10 @@ class _UserNotesPageState extends State<UserNotesPage> {
 // -----------------------------------
   void _markAllUserUnseenNotesAsSeen(){
 
-    final List<NoteModel> _notesToMark = <NoteModel>[];
-
     /// COLLECT NOTES TO MARK FIRST
-    if (Mapper.checkCanLoopList(_localNotesToMarkUnseen) == true){
-
-      for (final NoteModel note in _localNotesToMarkUnseen){
-
-        if (note.seen != true){
-
-          _notesToMark.add(note);
-
-
-        }
-
-      }
-
-    }
+    final List<NoteModel> _notesToMark = NoteModel.getOnlyUnseenNotes(
+      notes: _localNotesToMarkUnseen,
+    );
 
     /// MARK THE SHIT OUT OF THEM BITCH
     if (Mapper.checkCanLoopList(_notesToMark) == true){
