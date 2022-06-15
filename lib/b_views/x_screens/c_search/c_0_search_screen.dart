@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_controllers/c_0_search_controller.dart';
+import 'package:bldrs/c_controllers/search_screen_controller.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
