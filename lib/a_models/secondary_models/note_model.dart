@@ -34,6 +34,13 @@ enum NoteReceiverType {
   user,
   bz,
 }
+// ------------------------
+enum NoteResponse{
+  accepted, /// when receiver accepted
+  declined, /// when receiver declines invitation
+  pending, /// when receiver has not yet responded
+  cancelled, /// when sender cancels invitation
+}
 // -----------------------------------------------------------------------------
 @immutable
 class NoteModel {
@@ -77,7 +84,7 @@ class NoteModel {
   final DateTime seenTime;
   final bool sendFCM;
   final NoteType noteType;
-  final String response;
+  final NoteResponse response;
   final DateTime responseTime;
   final List<String> buttons;
   final QueryDocumentSnapshot<Object> docSnapshot;
@@ -126,7 +133,7 @@ class NoteModel {
     DateTime seenTime,
     bool sendFCM,
     NoteType noteType,
-    dynamic response,
+    NoteResponse response,
     DateTime responseTime,
     List<String> buttons,
   }){
@@ -176,7 +183,7 @@ class NoteModel {
       'seenTime': Timers.cipherTime(time: seenTime, toJSON: toJSON),
       'sendFCM': sendFCM,
       'noteType': cipherNoteType(noteType),
-      'response': response,
+      'response': cipherResponse(response),
       'responseTime': Timers.cipherTime(time: responseTime, toJSON: toJSON),
       'buttons': buttons,
     };
@@ -246,7 +253,7 @@ class NoteModel {
         ),
         sendFCM: map['sendFCM'],
         noteType: decipherNoteType(map['noteType']),
-        response: map['response'],
+        response: decipherResponse(map['response']),
         responseTime: Timers.decipherTime(
           time: map['responseTime'],
           fromJSON: fromJSON,
@@ -261,7 +268,7 @@ class NoteModel {
     return _noti;
   }
   // -------------------------------------
-  static List<NoteModel> decipherNotesModels({
+  static List<NoteModel> decipherNotes({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
   }) {
@@ -284,7 +291,7 @@ class NoteModel {
   // -------------------------------------
   static List<NoteModel> getNotesModelsFromSnapshot(DocumentSnapshot<Object> doc) {
     final Object _maps = doc.data();
-    final List<NoteModel> _notiModels = decipherNotesModels(
+    final List<NoteModel> _notiModels = decipherNotes(
       maps: _maps,
       fromJSON: false,
     );
@@ -434,7 +441,31 @@ class NoteModel {
     NoteReceiverType.bz,
     NoteReceiverType.user,
   ];
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// RESPONSE CYPHERS
+
+// ---------------------------------
+  static String cipherResponse(NoteResponse response){
+    switch (response){
+      case NoteResponse.accepted:   return 'accepted'; break;
+      case NoteResponse.declined:   return 'declines'; break;
+      case NoteResponse.pending:    return 'pending'; break;
+      case NoteResponse.cancelled:  return 'cancelled'; break;
+      default: return null;
+    }
+  }
+// ---------------------------------
+  static NoteResponse decipherResponse(String response){
+    switch (response){
+      case 'accepted':  return NoteResponse.accepted; break;
+      case 'declines':  return NoteResponse.declined; break;
+      case 'pending':   return NoteResponse.pending; break;
+      case 'cancelled':   return NoteResponse.cancelled; break;
+      default: return null;
+    }
+  }
+// -----------------------------------------------------------------------------
 
   /// BLOGGING
 
@@ -719,7 +750,7 @@ class NoteModel {
 
     return _thereAreUnseenNotes;
   }
-
+  // -------------------------------------
   static bool checkIsUnSeen(NoteModel note){
     return note?.seen == false;
   }
@@ -1000,7 +1031,7 @@ class NoteModel {
       seenTime: Timers.createDate(year: 1950, month: 10, day: 6),
       sendFCM: true,
       noteType: NoteType.announcement,
-      response: 'response',
+      response: NoteResponse.pending,
       responseTime: Timers.createClock(hour: 10, minute: 50),
       buttons: const <String>['Fuck', 'You'],
     );

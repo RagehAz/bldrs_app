@@ -5,11 +5,6 @@ import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_notes_controllers.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
-import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/fire_coll_paginator.dart';
@@ -80,6 +75,45 @@ class _UserNotesPageState extends State<UserNotesPage> {
     }
 
   }
+// -----------------------------------
+   void _onPaginatorDataChanged(List<Map<String, dynamic>> newMaps){
+
+     /// DECIPHER NEW MAPS TO NOTES
+     final List<NoteModel> _newNotes = NoteModel.decipherNotes(
+       maps: newMaps,
+       fromJSON: false,
+     );
+
+     /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
+     _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
+       notesToGet: _localNotesToMarkUnseen,
+       notesToInsert: _newNotes,
+       duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+     );
+
+   }
+// -----------------------------------
+    List<NoteModel> _combinePaginatorMapsWithProviderNotes({
+    @required List<Map<String, dynamic>> paginatedMaps,
+    @required List<NoteModel> providerNotes,
+  }){
+
+    /// DECIPHER STREAM MAPS
+    final List<NoteModel> _paginatedNotes = NoteModel.decipherNotes(
+      maps: paginatedMaps,
+      fromJSON: false,
+    );
+
+    /// COMBINE NOTES FROM PAGINATOR + NOTES FROM PROVIDER
+    final List<NoteModel> _combined = NoteModel.insertNotesInNotes(
+        notesToGet: <NoteModel>[],
+        notesToInsert: <NoteModel>[...providerNotes, ..._paginatedNotes],
+        duplicatesAlgorithm: DuplicatesAlgorithm.keepFirst
+    );
+
+
+    return _combined;
+  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -98,47 +132,15 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
           return FireCollPaginator(
               scrollController: _scrollController,
-              queryParameters: QueryParameters(
-                collName: FireColl.notes,
-                limit: 5,
-                orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-                finders: <FireFinder>[
-                  FireFinder(
-                    field: 'receiverID',
-                    comparison: FireComparison.equalTo,
-                    value: superUserID(),
-                  ),
-                ],
-                onDataChanged: (List<Map<String, dynamic>> newMaps){
-
-                  /// DECIPHER NEW MAPS TO NOTES
-                  final List<NoteModel> _newNotes = NoteModel.decipherNotesModels(
-                    maps: newMaps,
-                    fromJSON: false,
-                  );
-
-                  /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
-                  _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
-                    notesToGet: _localNotesToMarkUnseen,
-                    notesToInsert: _newNotes,
-                    duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-                  );
-
-                  },
+              queryParameters: userReceivedNotesPaginationQueryParameters(
+                onDataChanged: _onPaginatorDataChanged
               ),
               builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
 
-                /// DECIPHER STREAM MAPS
-                final List<NoteModel> _streamNotes = NoteModel.decipherNotesModels(
-                  maps: maps,
-                  fromJSON: false,
-                );
-
                 /// COMBINE NOTES FROM STREAM + NOTES FROM PROVIDER
-                final List<NoteModel> _combined = NoteModel.insertNotesInNotes(
-                  notesToGet: <NoteModel>[],
-                  notesToInsert: <NoteModel>[..._proNotes, ..._streamNotes],
-                  duplicatesAlgorithm: DuplicatesAlgorithm.keepFirst
+                final List<NoteModel> _combined = _combinePaginatorMapsWithProviderNotes(
+                  paginatedMaps: maps,
+                  providerNotes: _proNotes,
                 );
 
                 return ListView.builder(
@@ -148,7 +150,10 @@ class _UserNotesPageState extends State<UserNotesPage> {
                   padding: Stratosphere.stratosphereSandwich,
                   itemBuilder: (BuildContext ctx, int index) {
 
-                    final NoteModel _notiModel = Mapper.checkCanLoopList(_combined) == true ? _combined[index] : null;
+                    final NoteModel _notiModel = Mapper.checkCanLoopList(_combined) == true ?
+                    _combined[index]
+                        :
+                    null;
 
                     return NoteCard(
                       noteModel: _notiModel,

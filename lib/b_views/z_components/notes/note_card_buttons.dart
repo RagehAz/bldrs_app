@@ -26,22 +26,27 @@ class NoteCardButtons extends StatelessWidget {
     return _string;
   }
 // -----------------------------------------------------------------------------
+  /// TASK : FINALIZE THIS SHIT
   String _getResponseString(BuildContext context, NoteModel noteModel){
 
     String _output = 'responded';
 
     if (noteModel != null){
 
-      if (noteModel.response == 'phid_accept'){
+      if (noteModel.response == NoteResponse.accepted){
         _output = 'Accepted';
       }
 
-      else if (noteModel.response == 'phid_decline'){
+      else if (noteModel.response == NoteResponse.declined){
         _output = 'Declined';
       }
 
+      else if (noteModel.response == NoteResponse.cancelled){
+        _output = 'Cancelled';
+      }
+
       else {
-        _output = noteModel.response;
+        _output = noteModel.response.toString();
       }
 
     }

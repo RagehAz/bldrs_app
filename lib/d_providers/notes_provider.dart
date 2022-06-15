@@ -1,9 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -201,17 +197,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-  /*
-//   List<NoteModel> getBzUnseenReceivedNotes(String bzID){
-//
-//     final List<NoteModel> _notes = NoteModel.getUnseenNotesByReceiverID(
-//         notes: _myBzzUnseenReceivedNotes,
-//         receiverID: bzID,
-//     );
-//
-//     return _notes;
-//   }
-   */
+
 // -------------------------------------
   static List<NoteModel> proGetAllBzzUnseenNotes({
     @required BuildContext context,
@@ -221,7 +207,7 @@ class NotesProvider extends ChangeNotifier {
     return _notesProvider.myBzzUnseenReceivedNotes;
   }
 // -----------------------------------------------------------------------------
-
+/*
   /// BZZ SENT NOTES
 
 // -------------------------------------
@@ -315,6 +301,7 @@ class NotesProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+ */
 // -----------------------------------------------------------------------------
 
 /// ALL BZ NOTES
