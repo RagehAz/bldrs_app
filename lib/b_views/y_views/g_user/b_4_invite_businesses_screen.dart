@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/y_views/g_user/b_4_invite_businesses_screen_view.dart';
-import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
+import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controllers.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

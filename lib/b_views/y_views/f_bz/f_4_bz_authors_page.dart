@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.d
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/pending_sent_authorship_notes_streamer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/search_author_controller.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/search_author_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
