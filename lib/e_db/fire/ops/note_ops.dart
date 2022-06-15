@@ -340,7 +340,7 @@ Future<void> updateNote({
 }
 // -----------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> _markNoteAsSeen({
+Future<void> markNoteAsSeen({
   @required BuildContext context,
   @required NoteModel noteModel,
 }) async {
@@ -372,7 +372,7 @@ Future<void> markNotesAsSeen({
 
     /// MARK ON FIREBASE
     for (final NoteModel note in notes){
-      unawaited(_markNoteAsSeen(
+      unawaited(markNoteAsSeen(
         context: context,
         noteModel: note,
       ));
