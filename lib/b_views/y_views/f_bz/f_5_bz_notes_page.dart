@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
@@ -13,6 +15,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/fire_coll_paginator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 
 class BzNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -52,16 +55,42 @@ class _BzNotesPageState extends State<BzNotesPage> {
 // -----------------------------------
   void _markAllBzUnseenNotesAsSeen(){
 
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    /// COLLECT NOTES TO MARK FIRST
+    final List<NoteModel> _notesToMark = NoteModel.getOnlyUnseenNotes(
+      notes: _localNotesToMarkUnseen,
+    );
 
-      markBzUnseenNotes(
+    /// MARK ON FIREBASE
+    unawaited(NoteFireOps.markNotesAsSeen(
         context: context,
-        notes: _localNotesToMarkUnseen,
-        bzID: _bzModel.id,
+        notes: _notesToMark
+    ));
+
+    if (Mapper.checkCanLoopList(_notesToMark) == true){
+      WidgetsBinding.instance.addPostFrameCallback((_){
+
+      /// DECREMENT UNSEEN BZ NOTES NUMBER IN OBELISK
+      decrementBzObeliskUnseenNotesNumber(
         notesProvider: _notesProvider,
+        markedNotesLength: _notesToMark.length,
+        bzID: _bzModel.id,
+      );
+
+      /// UN-FLASH PYRAMID
+      _notesProvider.setIsFlashing(
+        setTo: false,
+        notify: true,
+      );
+
+      /// REMOVE UNSEEN NOTES FROM ALL BZZ UNSEEN NOTES
+      _notesProvider.removeNotesFromAllBzzUnseenNotes(
+        notes: _notesToMark,
+        notify: true,
       );
 
     });
+    }
+
 
   }
 // -----------------------------------------------------------------------------
@@ -150,7 +179,6 @@ class _BzNotesPageState extends State<BzNotesPage> {
 
         });
 
-
     // return FireCollPaginator(
     //     queryParameters: BzModel.allReceivedBzNotesQueryParameters(
     //       bzModel: _bzModel,
@@ -187,4 +215,5 @@ class _BzNotesPageState extends State<BzNotesPage> {
     // );
 
   }
+
 }

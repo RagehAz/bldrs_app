@@ -554,7 +554,7 @@ void initializeUserNotes(BuildContext context){
   }
 
 }
-
+// -------------------------------
 void initializeMyBzzNotes(BuildContext context){
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
