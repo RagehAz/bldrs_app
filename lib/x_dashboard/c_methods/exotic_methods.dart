@@ -125,7 +125,7 @@ class ExoticMethods {
     orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
   );
 
-  final List<NoteModel> _allModels = NoteModel.decipherNotesModels(
+  final List<NoteModel> _allModels = NoteModel.decipherNotes(
     maps: _maps,
     fromJSON: false,
   );

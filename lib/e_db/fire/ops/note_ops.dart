@@ -67,7 +67,7 @@ Future<List<NoteModel>> paginateAllSentNotes({
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _notes = NoteModel.decipherNotesModels(
+      _notes = NoteModel.decipherNotes(
         maps: _maps,
         fromJSON: false,
       );
@@ -109,7 +109,7 @@ Future<List<NoteModel>> paginateAllReceivedNotes({
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _notes = NoteModel.decipherNotesModels(
+      _notes = NoteModel.decipherNotes(
         maps: _maps,
         fromJSON: false,
       );
@@ -173,7 +173,7 @@ Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _notes = NoteModel.decipherNotesModels(
+      _notes = NoteModel.decipherNotes(
         maps: _maps,
         fromJSON: false,
       );
@@ -219,7 +219,7 @@ Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _notes = NoteModel.decipherNotesModels(
+      _notes = NoteModel.decipherNotes(
         maps: _maps,
         fromJSON: false,
       );
@@ -298,7 +298,7 @@ Stream<List<NoteModel>> getNoteModelsStream({
             addDocSnapshotToEachMap: true,
           );
 
-          final List<NoteModel> _notes = NoteModel.decipherNotesModels(
+          final List<NoteModel> _notes = NoteModel.decipherNotes(
               maps: _maps,
               fromJSON: false
           );
