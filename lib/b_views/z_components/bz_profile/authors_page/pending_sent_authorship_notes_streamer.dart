@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
@@ -11,7 +10,6 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 
 class PendingSentAuthorshipNotesStreamer extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -71,37 +69,19 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
             columnChildren: <Widget>[
 
               ...List.generate(_notes.length, (index){
+
                 final NoteModel _note = _notes[index];
+
                 return FutureUserTileButton(
                   boxWidth: Bubble.clearWidth(context),
                   userID: _note.receiverID,
                   color: Colorz.white10,
                   bubble: false,
                   sideButton: 'Cancel',
-                  onSideButtonTap: () async {
-
-                    final NoteModel _noteByReceiver = NoteModel.getFirstNoteByRecieverID(
-                      notes: _notes,
-                      receiverID: _note.receiverID,
-                    );
-
-                    if (_note != null){
-
-                      await NoteFireOps.deleteNote(
-                        context: context,
-                        noteID: _noteByReceiver.id,
-                      );
-
-                      await TopDialog.showTopDialog(
-                        context: context,
-                        firstLine: 'Invitation request has been cancelled',
-                        color: Colorz.green255,
-                        textColor: Colorz.white255,
-                      );
-
-                    }
-
-                  },
+                  onSideButtonTap: () => cancelSentAuthorshipInvitation(
+                    context: context,
+                    note: _note,
+                  ),
                 );
               }),
 
@@ -178,47 +158,3 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
   }
 
 }
-
-/// old pending notes with provider and pagination
-// Consumer<NotesProvider>(
-//   builder: (BuildContext ctx, NotesProvider notesProvider, Widget child) {
-//
-//     final List<UserModel> _notesUsers = notesProvider.pendingSentAuthorshipUsers;
-//     final List<NoteModel> _notes = notesProvider.pendingSentAuthorshipNotes;
-//
-//     if (Mapper.canLoopList(_notesUsers) == false){
-//       return const SizedBox();
-//     }
-//
-//     else {
-//
-//       return Bubble(
-//         title: 'Pending Invitation requests',
-//         width: BldrsAppBar.width(context),
-//         columnChildren: <Widget>[
-//
-//           ...List.generate(_notesUsers.length, (index){
-//
-//             final UserModel _userModel = _notesUsers[index];
-//             return UserTileButton(
-//               boxWidth: Bubble.clearWidth(context),
-//               userModel: _userModel,
-//               color: Colorz.white10,
-//               bubble: false,
-//               sideButton: 'Cancel',
-//               onSideButtonTap: () => cancelSentAuthorshipInvitation(
-//                 context: context,
-//                 receiverID: _userModel.id,
-//                 pendingNotes: _notes,
-//               ),
-//             );
-//
-//           }),
-//
-//         ],
-//       );
-//
-//     }
-//
-//   },
-// ),
