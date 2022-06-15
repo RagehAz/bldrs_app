@@ -76,7 +76,7 @@ QueryParameters bzSentPendingAuthorshipNotesStreamQueryParameters({
 /// SENDING AUTHORSHIP INVITATIONS
 
 // -------------------------------
-///
+/// TESTED : SENDS GOOD
 Future<void> sendAuthorshipInvitation({
   @required BuildContext context,
   @required UserModel selectedUser,
@@ -125,7 +125,7 @@ Future<void> sendAuthorshipInvitation({
       response: NoteResponse.pending,
       responseTime: null,
       // senderImageURL:
-      buttons: const <String>['phid_accept', 'phid_decline'],
+      buttons: NoteModel.generateAcceptDeclineButtons(),
     );
 
     await NoteFireOps.createNote(
@@ -151,39 +151,47 @@ Future<void> sendAuthorshipInvitation({
 
 }
 // -------------------------------
-/// BZ CANCEL SENT INVITATION
+/// TESTED : WORKS PERFECT
 Future<void> cancelSentAuthorshipInvitation ({
   @required BuildContext context,
-  @required List<NoteModel> pendingNotes,
-  @required String receiverID,
+  @required NoteModel note,
 }) async {
 
-  final NoteModel _note = NoteModel.getFirstNoteByRecieverID(
-    notes: pendingNotes,
-    receiverID: receiverID,
-  );
+  if (note != null){
 
-  // if (_note.sen)
-
-  if (_note != null){
-
-    await NoteFireOps.deleteNote(
-      context: context,
-      noteID: _note.id,
+    final UserModel _receiverModel = await UsersProvider.proFetchUserModel(
+        context: context,
+        userID: note.receiverID
     );
 
-    // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-    // _notesProvider.removeSentAuthorshipNote(
-    //   note: _note,
-    //   notify: true,
-    // );
-
-    await TopDialog.showTopDialog(
+    final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      firstLine: 'Invitation request has been cancelled',
-      color: Colorz.green255,
-      textColor: Colorz.white255,
+      title: 'Cancel Invitation ?',
+      body: '${_receiverModel.name} will be notified with cancelling this invitation',
+      boolDialog: true,
+      confirmButtonText: 'Yes, Cancel Invitation',
     );
+
+    if (_result == true){
+
+      final NoteModel _updated = note.copyWith(
+        response: NoteResponse.cancelled,
+        responseTime: DateTime.now(),
+      );
+
+      await NoteFireOps.updateNote(
+        context: context,
+        newNoteModel: _updated,
+      );
+
+      await TopDialog.showTopDialog(
+        context: context,
+        firstLine: 'Invitation request has been cancelled',
+        color: Colorz.green255,
+        textColor: Colorz.white255,
+      );
+
+    }
 
   }
 
@@ -196,13 +204,13 @@ Future<void> cancelSentAuthorshipInvitation ({
 /// USER RESPONSE TO AUTHORSHIP INVITATION
 Future<void> respondToAuthorshipNote({
   @required BuildContext context,
-  @required String response,
+  @required NoteResponse response,
   @required NoteModel noteModel,
   @required BzModel bzModel,
 }) async {
 
   /// ACCEPT AUTHORSHIP
-  if (response == 'phid_accept'){
+  if (response == NoteResponse.accepted){
     await _acceptAuthorshipInvitation(
       context: context,
       noteModel: noteModel,
@@ -211,7 +219,7 @@ Future<void> respondToAuthorshipNote({
   }
 
   /// DECLINE AUTHORSHIP
-  else if (response == 'phid_decline'){
+  else if (response == NoteResponse.declined){
     await _declineAuthorshipInvitation(
       context: context,
       noteModel: noteModel,

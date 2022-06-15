@@ -4,15 +4,17 @@ import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 class ClockRebuilder extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ClockRebuilder({
+    @required this.startTime,
+    this.child,
     this.builder,
     this.duration,
-    this.startTime,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final Widget child;
   final Duration duration;
   final DateTime startTime;
-  final Widget Function(int timeDifference) builder;
+  final Widget Function(int timeDifference, Widget) builder;
   /// --------------------------------------------------------------------------
   @override
   _ClockRebuilderState createState() => _ClockRebuilderState();
@@ -62,9 +64,10 @@ class _ClockRebuilderState extends State<ClockRebuilder> {
 
     return ValueListenableBuilder(
         valueListenable: timeDifference,
+        child: widget.child,
         builder: (_, int _timeDifference, Widget child){
 
-          return widget.builder(_timeDifference);
+            return widget.builder(_timeDifference, child);
 
         }
     );
