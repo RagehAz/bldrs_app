@@ -543,7 +543,7 @@ void initializeUserNotes(BuildContext context){
 
         if (_noteDotIsOn == true){
           _notesProvider.setIsFlashing(
-            flashing: true,
+            setTo: true,
             notify: true,
           );
         }
@@ -653,7 +653,7 @@ void initializeMyBzzNotes(BuildContext context){
 
           if (_noteDotIsOn == true){
             _notesProvider.setIsFlashing(
-              flashing: true,
+              setTo: true,
               notify: true,
             );
           }

@@ -11,9 +11,9 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_sl
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/header_controller.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controller.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controllers.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/header_controllers.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/slides_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';

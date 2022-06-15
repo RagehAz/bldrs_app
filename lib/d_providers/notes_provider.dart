@@ -104,28 +104,31 @@ class NotesProvider extends ChangeNotifier {
   bool get isFlashing => _isFlashing;
 // -------------------------------------
   void setIsFlashing({
-    @required bool flashing,
+    @required bool setTo,
     @required bool notify,
   }){
 
-    if (_isFlashing != flashing){
-      _isFlashing = flashing;
+    if (_isFlashing != setTo){
+
+      _isFlashing = setTo;
+
+      if (notify == true){
+        notifyListeners();
+      }
+
     }
 
-    if (notify == true){
-      notifyListeners();
-    }
 
   }
 // -------------------------------------
   static void proSetIsFlashing({
     @required BuildContext context,
-    @required bool flashing,
+    @required bool setTo,
     @required bool notify,
 }){
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     _notesProvider.setIsFlashing(
-      flashing: flashing,
+      setTo: setTo,
       notify: notify,
     );
   }
