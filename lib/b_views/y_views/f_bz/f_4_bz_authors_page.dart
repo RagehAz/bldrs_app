@@ -89,6 +89,18 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
       padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
 
+        /// AUTHORS
+        if (_authors.isNotEmpty == true)
+        ...List.generate(_authors.length, (index){
+          final AuthorModel _author = _authors[index];
+          return AuthorCard(
+            bubbleWidth: widget.bubbleWidth,
+            author: _author,
+            bzModel: _bzModel,
+          );
+        }
+        ),
+
         /// PENDING SENT AUTHORSHIP REQUESTS
         if (_authorIsMaster == true)
           const PendingSentAuthorshipNotesStreamer(),
@@ -98,6 +110,8 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+
+              const BubblesSeparator(),
 
               DreamBox(
                 width: (widget.bubbleWidth ?? BldrsAppBar.width(context)) - 20,
@@ -114,24 +128,11 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
                 onTap: () => onGoToAddAuthorsScreen(context),
               ),
 
-              const BubblesSeparator(),
-
             ],
           ),
 
-        /// AUTHORS
-        if (_authors.isNotEmpty == true)
-        ...List.generate(_authors.length, (index){
-          final AuthorModel _author = _authors[index];
-          return AuthorCard(
-            bubbleWidth: widget.bubbleWidth,
-            author: _author,
-            bzModel: _bzModel,
-          );
-        }
-        ),
 
-        ],
+      ],
     );
 
   }

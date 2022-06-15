@@ -465,6 +465,32 @@ class NoteModel {
       default: return null;
     }
   }
+// ---------------------------------
+  static NoteResponse getNoteResponseByPhid(String phid){
+    switch (phid){
+      case 'phid_accept':     return NoteResponse.accepted;   break;
+      case 'phid_decline':    return NoteResponse.declined;   break;
+      case 'phid_pending':    return NoteResponse.pending;    break;
+      case 'phid_cancel':     return NoteResponse.cancelled;  break;
+      default: return null;
+    }
+  }
+// ---------------------------------
+  static String getPhidByResponse(NoteResponse response){
+    switch (response){
+      case NoteResponse.accepted:   return 'phid_accept'; break;
+      case NoteResponse.declined:   return 'phid_decline'; break;
+      case NoteResponse.pending:    return 'phid_pending'; break;
+      case NoteResponse.cancelled:  return 'phid_cancel'; break;
+      default: return null;
+    }
+  }
+// ---------------------------------
+  static List<String> generateAcceptDeclineButtons(){
+    final String accept = getPhidByResponse(NoteResponse.accepted);
+    final String decline = getPhidByResponse(NoteResponse.declined);
+    return <String>[accept, decline];
+  }
 // -----------------------------------------------------------------------------
 
   /// BLOGGING

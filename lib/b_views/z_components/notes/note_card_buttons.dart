@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/streamers/clock_rebuilder.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_notes_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -19,10 +20,12 @@ class NoteCardButtons extends StatelessWidget {
   final NoteModel noteModel;
   /// --------------------------------------------------------------------------
   String _getResponseTimeString(BuildContext context, NoteModel noteModel){
+
     final String _string = Timers.getSuperTimeDifferenceString(
       from: noteModel.responseTime,
       to: DateTime.now(),
     );
+
     return _string;
   }
 // -----------------------------------------------------------------------------
@@ -64,7 +67,7 @@ class NoteCardButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
 
-          if (noteModel.response == null)
+          if (noteModel.response == NoteResponse.pending)
           ...List<Widget>.generate(noteModel.buttons.length,
                   (int index) {
 
@@ -85,7 +88,7 @@ class NoteCardButtons extends StatelessWidget {
                   splashColor: Colorz.yellow255,
                   onTap: () => onNoteButtonTap(
                     context: context,
-                    response: _phid,
+                    response: NoteModel.getNoteResponseByPhid(_phid),
                     noteModel: noteModel,
                   ),
                 );
@@ -93,18 +96,26 @@ class NoteCardButtons extends StatelessWidget {
               }
           ),
 
-          if (noteModel.response != null)
+          if (noteModel.response != NoteResponse.pending)
             SizedBox(
               width: boxWidth * 0.9,
-              child: SuperVerse(
-                verse: 'You ${_getResponseString(context, noteModel)}\n${_getResponseTimeString(context, noteModel)}',
-                maxLines: 3,
-                weight: VerseWeight.black,
-                italic: true,
-                color: Colorz.yellow255,
-                size: 3,
-                margin: 5,
-                shadow: true,
+              child: ClockRebuilder(
+                startTime: noteModel.responseTime,
+                duration: const Duration(minutes: 1),
+                builder: (int fuck, Widget child){
+
+                  return SuperVerse(
+                    verse: '${_getResponseString(context, noteModel)}\n${_getResponseTimeString(context, noteModel)}',
+                    maxLines: 3,
+                    weight: VerseWeight.black,
+                    italic: true,
+                    color: Colorz.yellow255,
+                    size: 3,
+                    margin: 5,
+                    shadow: true,
+                  );
+
+                },
               ),
             ),
 
