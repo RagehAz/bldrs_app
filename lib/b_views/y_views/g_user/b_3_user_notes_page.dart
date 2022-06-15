@@ -1,14 +1,18 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/c_controllers/g_user_controllers/user_notes_controllers.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/fire_coll_paginator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,15 +53,39 @@ class _UserNotesPageState extends State<UserNotesPage> {
 // -----------------------------------
   void _markAllUserUnseenNotesAsSeen(){
 
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    /// COLLECT NOTES TO MARK FIRST
+    final List<NoteModel> _notesToMark = NoteModel.getOnlyUnseenNotes(
+      notes: _localNotesToMarkUnseen,
+    );
 
-      markUserUnseenNotes(
-        context: context,
-        notes: _localNotesToMarkUnseen,
-        notesProvider: _notesProvider,
-      );
+    /// MARK ON FIREBASE
+    unawaited(NoteFireOps.markNotesAsSeen(
+          context: context,
+          notes: _notesToMark
+      ));
 
-    });
+    if (Mapper.checkCanLoopList(_notesToMark) == true){
+      WidgetsBinding.instance.addPostFrameCallback((_){
+        /// MARK ON PROVIDER
+        _notesProvider.incrementObeliskNoteNumber(
+          value: _notesToMark.length,
+          navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+          notify: true,
+          isIncrementing: false,
+        );
+        _notesProvider.incrementObeliskNoteNumber(
+          value: _notesToMark.length,
+          navModelID: NavModel.getUserTabNavID(UserTab.notifications),
+          notify: true,
+          isIncrementing: false,
+        );
+        _notesProvider.setIsFlashing(
+          setTo: false,
+          notify: true,
+        );
+      });
+
+    }
 
   }
 // -----------------------------------------------------------------------------

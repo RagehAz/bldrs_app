@@ -30,7 +30,7 @@ void markBzUnseenNotes({
   ));
 
   /// DECREMENT UNSEEN BZ NOTES NUMBER IN OBELISK
-  _decrementBzObeliskUnseenNotesNumber(
+  decrementBzObeliskUnseenNotesNumber(
     notesProvider: notesProvider,
     markedNotesLength: _notesToMark.length,
     bzID: bzID,
@@ -51,7 +51,7 @@ void markBzUnseenNotes({
 
 }
 // ------------------------------------------
-void _decrementBzObeliskUnseenNotesNumber({
+void decrementBzObeliskUnseenNotesNumber({
   @required NotesProvider notesProvider,
   @required int markedNotesLength,
   @required String bzID,
