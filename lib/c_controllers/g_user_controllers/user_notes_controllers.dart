@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -39,11 +38,11 @@ void markUserUnseenNotes({
     notes: notes,
   );
 
-  /// MARK ON FIREBASE
-  unawaited(NoteFireOps.markNotesAsSeen(
-      context: context,
-      notes: _notesToMark
-  ));
+  // /// MARK ON FIREBASE
+  // unawaited(NoteFireOps.markNotesAsSeen(
+  //     context: context,
+  //     notes: _notesToMark
+  // ));
 
   /// DECREMENT UNSEEN NOTES NUMBER IN OBELISK
   _decrementUserObelisksNotesNumber(
