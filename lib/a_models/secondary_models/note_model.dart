@@ -676,6 +676,26 @@ class NoteModel {
 
     return _notes;
   }
+  // -------------------------------------
+  static List<NoteModel> getOnlyUnseenNotes({
+    @required List<NoteModel> notes,
+  }){
+
+    final List<NoteModel> _output = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+        if (note.seen != true){
+          _output.add(note);
+        }
+      }
+
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS

@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/y_views/a_starters/a_2_user_home_screen_view.dart'
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/loading_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
-import 'package:bldrs/c_controllers/a_starters_controllers/a_1_home_controller.dart';
+import 'package:bldrs/c_controllers/a_starters_controllers/home_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';

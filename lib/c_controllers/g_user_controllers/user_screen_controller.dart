@@ -40,14 +40,13 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
-
+/*
 /// USER SCREEN TABS
 
 // ---------------------------------
@@ -98,6 +97,7 @@ void onChangeUserScreenTabIndex({
   }
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// PROFILE OPTIONS
