@@ -104,11 +104,13 @@ class _BzNotesPageState extends State<BzNotesPage> {
         shouldRebuild: (before, after) => true,
         builder: (_,List<NoteModel> _allMyBzzNotes, Widget child){
 
+          /// GET THIS BZ NOTES FROM ALL BZZ NOTES
           final List<NoteModel> _bzNotes = NoteModel.getUnseenNotesByReceiverID(
             notes: _allMyBzzNotes,
             receiverID: _bzModel.id,
           );
 
+          /// ADD THIS BZ UNSEEN PROVIDER NOTES TO LOCAL NOTES TO MARK SEEN
           _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
             notesToGet: _localNotesToMarkUnseen,
             notesToInsert: _bzNotes,
@@ -130,11 +132,13 @@ class _BzNotesPageState extends State<BzNotesPage> {
                 ],
                 onDataChanged: (List<Map<String, dynamic>> newMaps){
 
+                  /// DECIPHER NEW MAPS TO NOTES
                   final List<NoteModel> _newNotes = NoteModel.decipherNotesModels(
                     maps: newMaps,
                     fromJSON: false,
                   );
 
+                  /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
                   _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
                     notesToGet: _localNotesToMarkUnseen,
                     notesToInsert: _newNotes,
@@ -145,12 +149,13 @@ class _BzNotesPageState extends State<BzNotesPage> {
               ),
               builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
 
+                /// DECIPHER STREAM MAPS
                 final List<NoteModel> _streamNotes = NoteModel.decipherNotesModels(
                   maps: maps,
                   fromJSON: false,
                 );
 
-                /// maps from stream + new provider notes
+                /// COMBINE NOTES FROM STREAM + NOTES FROM PROVIDER
                 final List<NoteModel> _combined = NoteModel.insertNotesInNotes(
                     notesToGet: <NoteModel>[],
                     notesToInsert: <NoteModel>[..._bzNotes, ..._streamNotes],
