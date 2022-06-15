@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/y_views/i_flyer/flyer_maker/spec_picker_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/c_controllers/i_flyer_maker_controllers/specs_picker_controller.dart';
+import 'package:bldrs/c_controllers/i_flyer_maker_controllers/specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

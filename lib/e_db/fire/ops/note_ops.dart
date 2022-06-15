@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
@@ -322,8 +324,8 @@ typedef NotiModelsWidgetsBuilder = Widget Function(
 // -----------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> updateNote({
-@required BuildContext context,
-@required NoteModel newNoteModel,
+  @required BuildContext context,
+  @required NoteModel newNoteModel,
 }) async {
 
   if (newNoteModel != null){
@@ -333,6 +335,50 @@ Future<void> updateNote({
       docName: newNoteModel.id,
       input: newNoteModel.toMap(toJSON: false),
     );
+  }
+
+}
+// -----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _markNoteAsSeen({
+  @required BuildContext context,
+  @required NoteModel noteModel,
+}) async {
+
+  if (noteModel.seen != true){
+
+    final NoteModel _updatedNote = noteModel.copyWith(
+      seen: true,
+      seenTime: DateTime.now(),
+    );
+
+    await updateNote(
+      context: context,
+      newNoteModel: _updatedNote,
+    );
+
+  }
+
+
+}
+// -----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> markNotesAsSeen({
+  @required BuildContext context,
+  @required List<NoteModel> notes,
+}) async {
+
+  if (Mapper.checkCanLoopList(notes) == true){
+
+    /// MARK ON FIREBASE
+    for (final NoteModel note in notes){
+      unawaited(_markNoteAsSeen(
+        context: context,
+        noteModel: note,
+      ));
+    }
+
+
   }
 
 }

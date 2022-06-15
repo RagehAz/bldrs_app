@@ -2,7 +2,7 @@
 //
 // import 'package:bldrs/b_views/y_views/a_starters/a_0_logo_screen_view.dart';
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-// import 'package:bldrs/c_controllers/a_starters_controllers/logo_screen_controller.dart';
+// import 'package:bldrs/c_controllers/a_starters_controllers/logo_screen_controllers.dart';
 // import 'package:bldrs/f_helpers/drafters/tracers.dart';
 // import 'package:flutter/material.dart';
 // import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;

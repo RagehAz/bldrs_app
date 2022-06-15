@@ -61,7 +61,7 @@ class ObeliskPyramids extends StatelessWidget {
             final bool _isFlashing = _notesProvider.isFlashing;
             if (_isFlashing == true){
               _notesProvider.setIsFlashing(
-                  flashing: false,
+                  setTo: false,
                   notify: true,
               );
             }

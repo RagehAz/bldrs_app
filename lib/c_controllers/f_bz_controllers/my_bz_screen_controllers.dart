@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controller.dart';
+import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';

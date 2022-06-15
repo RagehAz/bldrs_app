@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/following_bzz_grid.dart';
-import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controller.dart';
+import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/colorz.dart';

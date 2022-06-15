@@ -17,7 +17,7 @@ import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_controllers/i_flyer_maker_controllers/flyer_maker_controller.dart';
+import 'package:bldrs/c_controllers/i_flyer_maker_controllers/flyer_maker_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;

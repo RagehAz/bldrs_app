@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/notes/note_card_buttons.dart';
 import 'package:bldrs/b_views/z_components/notes/note_red_dot.dart';
 import 'package:bldrs/b_views/z_components/notes/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_controllers/g_user_controllers/user_notes_controller.dart';
+import 'package:bldrs/c_controllers/g_user_controllers/user_notes_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
