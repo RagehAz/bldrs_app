@@ -2,7 +2,7 @@
 // import 'package:bldrs/b_views/z_components/nav_bar/bzz_button/b_smart_bz_nav_bar_logos.dart';
 // import 'package:bldrs/b_views/z_components/nav_bar/nav_bar_methods.dart';
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-// import 'package:bldrs/c_controllers/a_starters_controllers/nav_bar_controller.dart';
+// import 'package:bldrs/c_controllers/a_starters_controllers/main_navigation_controller.dart';
 // import 'package:bldrs/d_providers/bzz_provider.dart';
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/f_helpers/theme/colorz.dart';

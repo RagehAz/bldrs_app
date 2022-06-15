@@ -4,7 +4,7 @@
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 // import 'package:bldrs/b_views/z_components/nav_bar/components/note_red_dot.dart';
-// import 'package:bldrs/c_controllers/a_starters_controllers/nav_bar_controller.dart';
+// import 'package:bldrs/c_controllers/a_starters_controllers/main_navigation_controller.dart';
 // import 'package:bldrs/d_providers/bzz_provider.dart';
 // import 'package:bldrs/d_providers/notes_provider.dart';
 // import 'package:bldrs/f_helpers/theme/ratioz.dart';
