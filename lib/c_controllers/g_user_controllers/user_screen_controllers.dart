@@ -195,7 +195,7 @@ Future<void> onMoreOptionsTap (BuildContext ctx) async {
             height: _buttonHeight,
             verse: superPhrase(context, 'phid_delete_my_account', providerOverride: phrasePro),
             icon: Iconz.xSmall,
-            onTap: () => _onDeleteMyAccount(context),
+            onTap: () => onDeleteMyAccount(context),
           ),
 
           /// SIGN OUT
@@ -286,7 +286,7 @@ Future<void> onInviteFriendsTap(BuildContext context) async {
 /// DELETION OPS
 
 // ---------------------------------
-Future<void> _onDeleteMyAccount(BuildContext context) async {
+Future<void> onDeleteMyAccount(BuildContext context) async {
   blog('on delete user tap');
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context);

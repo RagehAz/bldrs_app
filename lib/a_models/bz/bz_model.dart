@@ -219,8 +219,7 @@ class BzModel{
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
-
-    Map<String, dynamic> _map = <String, dynamic>{
+    return <String, dynamic>{
       'id': id,
       // -------------------------
       'bzTypes': cipherBzTypes(bzTypes),
@@ -252,16 +251,6 @@ class BzModel{
       // -------------------------
       'flyersIDs': flyersIDs,
     };
-
-    if (toJSON == true){
-      _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'docSnapshot',
-          value: docSnapshot,
-      );
-    }
-
-    return _map;
   }
 // -------------------------------
   /// TESTED : WORKS PERFECT
@@ -1745,6 +1734,33 @@ class BzModel{
     }
 
     return _invalidFields;
+  }
+// -----------------------------------------------------------------------------
+
+  /// BZ MODIFIERS
+
+// ------------------------------------------
+  static BzModel removeAuthor({
+    @required BzModel bzModel,
+    @required String authorID,
+  }){
+
+    BzModel _output = bzModel;
+
+    if (bzModel != null && authorID != null){
+
+      final List<AuthorModel> _updated = AuthorModel.removeAuthorFromAuthors(
+        authors: _output.authors,
+        authorIDToRemove: authorID,
+      );
+
+      _output = _output.copyWith(
+        authors: _updated,
+      );
+
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 }
