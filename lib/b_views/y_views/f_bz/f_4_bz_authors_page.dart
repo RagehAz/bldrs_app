@@ -12,6 +12,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BzAuthorsPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -76,64 +77,71 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
+    return Selector<BzzProvider, BzModel>(
+      selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
+      builder: (BuildContext context, BzModel bzModel, Widget child){
 
-    final List<AuthorModel> _authors = _bzModel.authors;
-    final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
-        userID: superUserID(),
-        bzModel: _bzModel,
-    );
+        final List<AuthorModel> _authors = bzModel?.authors;
+        final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
+          userID: superUserID(),
+          bzModel: bzModel,
+        );
 
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      padding: Stratosphere.stratosphereSandwich,
-      children: <Widget>[
+        return ListView(
+          physics: const BouncingScrollPhysics(),
+          padding: Stratosphere.stratosphereSandwich,
+          children: <Widget>[
 
-        /// AUTHORS
-        if (_authors.isNotEmpty == true)
-        ...List.generate(_authors.length, (index){
-          final AuthorModel _author = _authors[index];
-          return AuthorCard(
-            bubbleWidth: widget.bubbleWidth,
-            author: _author,
-            bzModel: _bzModel,
-          );
-        }
-        ),
-
-        /// PENDING SENT AUTHORSHIP REQUESTS
-        if (_authorIsMaster == true)
-          const PendingSentAuthorshipNotesStreamer(),
-
-        /// ADD BUTTON
-        if (_authorIsMaster == true)
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-
-              const BubblesSeparator(),
-
-              DreamBox(
-                width: (widget.bubbleWidth ?? BldrsAppBar.width(context)) - 20,
-                height: 80,
-                bubble: false,
-                color: Colorz.white10,
-                verseCentered: false,
-                verse: 'Add Authors to the team',
-                icon: Iconz.plus,
-                iconSizeFactor: 0.5,
-                verseScaleFactor: 1.4,
-                margins: 10,
-                corners: AuthorCard.bubbleCornerValue(),
-                onTap: () => onGoToAddAuthorsScreen(context),
+            /// AUTHORS
+            if (_authors.isNotEmpty == true)
+              ...List.generate(_authors.length, (index){
+                final AuthorModel _author = _authors[index];
+                return AuthorCard(
+                  bubbleWidth: widget.bubbleWidth,
+                  author: _author,
+                  bzModel: bzModel,
+                );
+              }
               ),
 
-            ],
-          ),
+            /// PENDING SENT AUTHORSHIP REQUESTS
+            if (_authorIsMaster == true)
+              const PendingSentAuthorshipNotesStreamer(),
+
+            /// ADD BUTTON
+            if (_authorIsMaster == true)
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+
+                  const BubblesSeparator(),
+
+                  DreamBox(
+                    width: (widget.bubbleWidth ?? BldrsAppBar.width(context)) - 20,
+                    height: 80,
+                    bubble: false,
+                    color: Colorz.white10,
+                    verseCentered: false,
+                    verse: 'Add Authors to the team',
+                    icon: Iconz.plus,
+                    iconSizeFactor: 0.5,
+                    verseScaleFactor: 1.4,
+                    margins: 10,
+                    corners: AuthorCard.bubbleCornerValue(),
+                    onTap: () => onGoToAddAuthorsScreen(context),
+                  ),
+
+                ],
+              ),
 
 
-      ],
+          ],
+        );
+
+      },
     );
+
+
 
   }
 }

@@ -6,6 +6,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -19,53 +20,35 @@ class BzzProvider extends ChangeNotifier {
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<BzModel> fetchBzModel({
+  Future<BzModel> fetchBzByID({
     @required BuildContext context,
     @required String bzID
   }) async {
 
-    /// 1 - search in entire LDBs for this bzModel
-    /// 2 - if not found, search firebase
-    ///   2.1 read firebase bz ops
-    ///   2.2 if found on firebase, store in ldb sessionBzz
+    BzModel _bz = await BzLDBOps.readBz(bzID);
 
-    blog('fetchBzModel : $bzID');
-
-    BzModel _bz;
-
-    /// 1 - search in entire LDBs for this bzModel
-    for (final String doc in LDBDoc.bzModelsDocs) {
-      final Map<String, Object> _map = await LDBOps.searchFirstMap(
-        docName: doc,
-        fieldToSortBy: 'id',
-        searchField: 'id',
-        searchValue: bzID,
-      );
-
-      if (_map != null && _map != <String, dynamic>{}) {
-        _bz = BzModel.decipherBz(
-          map: _map,
-          fromJSON: true,
-        );
-        break;
-      }
+    if (_bz != null){
+      blog('fetchBzByID : ($bzID) BzModel FOUND in LDB');
     }
+    else {
 
-    /// 2 - if not found, search firebase
-    if (_bz == null) {
-      /// 2.1 read firebase bz ops
       _bz = await BzFireOps.readBz(
         context: context,
         bzID: bzID,
       );
 
-      /// 2.2 if found on firebase, store in ldb sessionBzz
       if (_bz != null) {
+        blog('fetchBzByID : ($bzID) BzModel FOUND in FIREBASE and inserted in LDB');
         await LDBOps.insertMap(
-            input: _bz.toMap(toJSON: true),
-            docName: LDBDoc.bzz,
+          input: _bz.toMap(toJSON: true),
+          docName: LDBDoc.bzz,
         );
       }
+
+    }
+
+    if (_bz == null) {
+      blog('fetchBzByID : ($bzID) BzModel NOT FOUND');
     }
 
     return _bz;
@@ -79,7 +62,7 @@ class BzzProvider extends ChangeNotifier {
 
     if (Mapper.checkCanLoopList(bzzIDs)) {
       for (final String bzID in bzzIDs) {
-        final BzModel _bz = await fetchBzModel(context: context, bzID: bzID);
+        final BzModel _bz = await fetchBzByID(context: context, bzID: bzID);
 
         if (_bz != null) {
           _bzz.add(_bz);
@@ -116,7 +99,7 @@ class BzzProvider extends ChangeNotifier {
     @required String bzID,
   }) async {
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final BzModel _bzModel = await _bzzProvider.fetchBzModel(
+    final BzModel _bzModel = await _bzzProvider.fetchBzByID(
       context: context,
       bzID: bzID,
     );
@@ -241,6 +224,8 @@ class BzzProvider extends ChangeNotifier {
     @required List<BzModel> bzz,
     @required bool notify,
   }){
+
+    blog('BZZ PROVIDER : _setMyBzz : new bz has been set');
     _myBzz = bzz;
     if (notify == true){
       notifyListeners();
@@ -446,7 +431,9 @@ class BzzProvider extends ChangeNotifier {
     @required BzModel bzModel,
     @required bool notify,
   }) {
-    blog('setting active bz to ${bzModel?.id}');
+
+    blog('BZZ PROVIDER : setActiveBz : setting active bz to ${bzModel?.id}');
+
     _myActiveBz = bzModel;
 
     if (notify == true){

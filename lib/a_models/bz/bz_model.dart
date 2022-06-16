@@ -1469,81 +1469,94 @@ class BzModel{
 
     blog('staring blogBzzDifferences checkup ');
 
-        if (bz1.id != bz2.id){
-          blog('id is not identical');
-        }
-        if (Mapper.checkListsAreTheSame(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
-          blog('bzTypes is not identical');
-        }
-        if (bz1.bzForm != bz2.bzForm){
-          blog('bzForm is not identical');
-        }
-        if (Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: bz1.createdAt, timeB: bz2.createdAt) == false){
-          blog('createdAt is not identical');
-        }
-        if (bz1.accountType != bz2.accountType){
-          blog('accountType is not identical');
-        }
-        if (bz1.name != bz2.name){
-          blog('name is not identical');
-        }
-        if (Mapper.checkListsAreTheSame(list1: bz1.trigram, list2: bz2.trigram) == false){
-          blog('trigram is not identical');
-        }
-        if (bz1.logo != bz2.logo){
-          blog('logo is not identical');
-        }
-        if (Mapper.checkListsAreTheSame(list1: bz1.scope, list2: bz2.scope) == false){
-          blog('scope is not identical');
-        }
-        if (ZoneModel.checkZonesAreTheSame(zone1: bz1.zone, zone2: bz1.zone) == false){
-          blog('zone is not identical');
-        }
-        if (bz1.about != bz2.about){
-          blog('about is not identical');
-        }
-        if (bz1.position != bz2.position){
-          blog('position is not identical');
-        }
-        if (ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == false){
-          blog('contacts is not identical');
-        }
-        if (AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == false){
-          blog('authors is not identical');
-        }
-        if (bz1.showsTeam != bz2.showsTeam){
-          blog('showsTeam is not identical');
-        }
-        if (bz1.isVerified != bz2.isVerified){
-          blog('isVerified is not identical');
-        }
-        if (bz1.bzState != bz2.bzState){
-          blog('bzState is not identical');
-        }
-        if (bz1.totalFollowers != bz2.totalFollowers){
-          blog('totalFollowers is not identical');
-        }
-        if (bz1.totalSaves != bz2.totalSaves){
-          blog('totalSaves is not identical');
-        }
-        if (bz1.totalShares != bz2.totalShares){
-          blog('totalShares is not identical');
-        }
-        if (bz1.totalSlides != bz2.totalSlides){
-          blog('totalSlides is not identical');
-        }
-        if (bz1.totalViews != bz2.totalViews){
-          blog('totalViews is not identical');
-        }
-        if (bz1.totalCalls != bz2.totalCalls){
-          blog('totalCalls is not identical');
-        }
-        if (Mapper.checkListsAreTheSame(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
-          blog('flyersIDs is not identical');
-        }
-        if (bz1.totalFlyers != bz2.totalFlyers){
-          blog('totalFlyers is not identical');
-        }
+
+    if (bz1 == null){
+      blog('blogBzzDifferences : bz1 = null');
+    }
+    if (bz2 == null){
+      blog('blogBzzDifferences : bz2 = null');
+    }
+
+    if (bz1 != null && bz2 != null){
+
+      if (bz1.id != bz2.id){
+        blog('id is not identical');
+      }
+      if (Mapper.checkListsAreTheSame(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
+        blog('bzTypes is not identical');
+      }
+      if (bz1.bzForm != bz2.bzForm){
+        blog('bzForm is not identical');
+      }
+      if (Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: bz1.createdAt, timeB: bz2.createdAt) == false){
+        blog('createdAt is not identical');
+      }
+      if (bz1.accountType != bz2.accountType){
+        blog('accountType is not identical');
+      }
+      if (bz1.name != bz2.name){
+        blog('name is not identical');
+      }
+      if (Mapper.checkListsAreTheSame(list1: bz1.trigram, list2: bz2.trigram) == false){
+        blog('trigram is not identical');
+      }
+      if (bz1.logo != bz2.logo){
+        blog('logo is not identical');
+      }
+      if (Mapper.checkListsAreTheSame(list1: bz1.scope, list2: bz2.scope) == false){
+        blog('scope is not identical');
+      }
+      if (ZoneModel.checkZonesAreTheSame(zone1: bz1.zone, zone2: bz1.zone) == false){
+        blog('zone is not identical');
+      }
+      if (bz1.about != bz2.about){
+        blog('about is not identical');
+      }
+      if (bz1.position != bz2.position){
+        blog('position is not identical');
+      }
+      if (ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == false){
+        blog('contacts is not identical');
+      }
+      if (AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == false){
+        blog('authors is not identical');
+      }
+      if (bz1.showsTeam != bz2.showsTeam){
+        blog('showsTeam is not identical');
+      }
+      if (bz1.isVerified != bz2.isVerified){
+        blog('isVerified is not identical');
+      }
+      if (bz1.bzState != bz2.bzState){
+        blog('bzState is not identical');
+      }
+      if (bz1.totalFollowers != bz2.totalFollowers){
+        blog('totalFollowers is not identical');
+      }
+      if (bz1.totalSaves != bz2.totalSaves){
+        blog('totalSaves is not identical');
+      }
+      if (bz1.totalShares != bz2.totalShares){
+        blog('totalShares is not identical');
+      }
+      if (bz1.totalSlides != bz2.totalSlides){
+        blog('totalSlides is not identical');
+      }
+      if (bz1.totalViews != bz2.totalViews){
+        blog('totalViews is not identical');
+      }
+      if (bz1.totalCalls != bz2.totalCalls){
+        blog('totalCalls is not identical');
+      }
+      if (Mapper.checkListsAreTheSame(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
+        blog('flyersIDs is not identical');
+      }
+      if (bz1.totalFlyers != bz2.totalFlyers){
+        blog('totalFlyers is not identical');
+      }
+
+    }
+
 
     blog('ending blogBzzDifferences checkup');
 

@@ -63,11 +63,12 @@ Future<void> goToQuestionsScreen(BuildContext context) async {
 Future<void> goToMyBzScreen({
   @required BuildContext context,
   @required String bzID,
+  @required bool replaceCurrentScreen,
 }) async {
 
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-  final BzModel _bzModel = await _bzzProvider.fetchBzModel(
+  final BzModel _bzModel = await _bzzProvider.fetchBzByID(
     context: context,
     bzID: bzID,
   );
@@ -77,10 +78,20 @@ Future<void> goToMyBzScreen({
     notify: true,
   );
 
-  await Nav.goToNewScreen(
-      context: context,
-      screen: const MyBzScreen()
-  );
+  if (replaceCurrentScreen == true){
+    await Nav.replaceScreen(
+        context: context,
+        screen: const MyBzScreen()
+    );
+  }
+
+  else {
+    await Nav.goToNewScreen(
+        context: context,
+        screen: const MyBzScreen()
+    );
+  }
+
 
 }
 // -------------------------------
