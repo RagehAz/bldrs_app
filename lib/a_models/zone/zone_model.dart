@@ -117,18 +117,21 @@ class ZoneModel {
   /// CHECKERS
 
 // -------------------------------------
-  static bool zonesAreTheSame(ZoneModel finalZone, ZoneModel originalZone) {
+  static bool checkZonesAreTheSame({
+    @required ZoneModel zone1,
+    @required ZoneModel zone2,
+  }) {
     bool _zonesAreTheSame = true;
 
-    if (finalZone.countryID != originalZone.countryID) {
+    if (zone1.countryID != zone2.countryID) {
       _zonesAreTheSame = false;
     }
 
-    else if (finalZone.cityID != originalZone.cityID) {
+    else if (zone1.cityID != zone2.cityID) {
       _zonesAreTheSame = false;
     }
 
-    else if (finalZone.districtID != originalZone.districtID) {
+    else if (zone1.districtID != zone2.districtID) {
       _zonesAreTheSame = false;
     }
 

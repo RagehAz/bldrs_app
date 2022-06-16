@@ -108,6 +108,55 @@ Future<void> _setBzModelAndFetchSetBzFlyers({
 }
 // -----------------------------------------------------------------------------
 
+/// MY BZ SCREEN INITIALIZERS
+
+// -------------------------------
+Future<void> onMyBzStreamChanged({
+  @required BuildContext context,
+  @required Map<String, dynamic> map,
+}) async {
+
+  final BzModel _bzFromStream = BzModel.decipherBz(
+      map: map,
+      fromJSON: false,
+  );
+
+  final BzModel _oldBzModel = BzModel.getBzFromBzzByBzID(
+      bzz: BzzProvider.proGetMyBzz(context: context, listen: false),
+      bzID: _bzFromStream.id,
+  );
+
+  final bool _areTheSame = BzModel.checkBzzAreIdentical(
+    bz1: _bzFromStream,
+    bz2: _oldBzModel,
+  );
+
+  if (_areTheSame == false){
+
+    /// OVERRIDE BZ ON LDB
+    await BzLDBOps.insertBz(
+        bzModel: _bzFromStream,
+    );
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
+    /// UPDATE MY BZZ
+    _bzzProvider.updateBzInMyBzz(
+        modifiedBz: _bzFromStream,
+        notify: false,
+    );
+
+    /// UPDATE ACTIVE BZ
+    _bzzProvider.setActiveBz(
+        bzModel: _bzFromStream,
+        notify: true,
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+
 /// MY BZ SCREEN CLOSING
 
 // -------------------------------

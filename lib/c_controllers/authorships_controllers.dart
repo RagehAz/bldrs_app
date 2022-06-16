@@ -120,7 +120,7 @@ QueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
 /// SENDING AUTHORSHIP INVITATIONS
 
 // -------------------------------
-/// TESTED : SENDS GOOD
+/// TESTED : SENDS GOOD : need translations
 Future<void> sendAuthorshipInvitation({
   @required BuildContext context,
   @required UserModel selectedUser,
@@ -326,6 +326,11 @@ Future<void> _acceptAuthorshipInvitation({
       response: NoteResponse.accepted,
     );
 
+    await _sendAuthorshipAcceptanceNote(
+      context: context,
+      bzID: noteModel.senderID,
+    );
+
     WaitDialog.closeWaitDialog(context);
 
     await CenterDialog.showCenterDialog(
@@ -416,6 +421,43 @@ Future<BzModel> _addNewAuthorToNewBzOps({
   await BzLDBOps.insertBz(bzModel: _uploadedBzModel,);
 
   return _uploadedBzModel;
+}
+// -------------------
+/// TESTED :
+Future<void> _sendAuthorshipAcceptanceNote({
+  @required BuildContext context,
+  @required String bzID,
+}) async {
+
+  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context);
+
+  final NoteModel _noteModel = NoteModel(
+    id: 'x',
+    senderID: _myUserModel.id,
+    senderImageURL: _myUserModel.pic,
+    noteSenderType: NoteSenderType.user,
+    receiverID: bzID,
+    receiverType: NoteReceiverType.bz,
+    title: '${_myUserModel.name} accepted The invitation request',
+    body: '${_myUserModel.name} has become a part of the team now.',
+    metaData: NoteModel.defaultMetaData,
+    sentTime: DateTime.now(),
+    attachment: null,
+    attachmentType: NoteAttachmentType.non,
+    seen: null,
+    seenTime: null,
+    sendFCM: true,
+    noteType: NoteType.authorship,
+    response: null,
+    responseTime: null,
+    buttons: null,
+  );
+
+  await NoteFireOps.createNote(
+      context: context,
+      noteModel: _noteModel
+  );
+
 }
 // ------------------------------------------
 

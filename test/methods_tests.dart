@@ -1,8 +1,10 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
@@ -654,6 +656,70 @@ void main() {
     );
 
     expect(_areTheSame, false);
+
+  });
+// -----------------------------------------------------------------------------
+  test('bzz types & geopoints are the same', () {
+
+    final List<BzType> _types1 = <BzType>[BzType.broker, BzType.contractor];
+    final List<BzType> _types2 = <BzType>[BzType.broker, BzType.contractor];
+
+    final bool _same = Mapper.checkListsAreTheSame(
+      list1: _types1,
+      list2: _types2,
+    );
+    expect(_same, true);
+
+    const GeoPoint _point1 = GeoPoint(10, 15.5);
+    const GeoPoint _point2 = GeoPoint(10, 15.5);
+
+    final bool _pointsAreTheSame = _point1 == _point2;
+
+    expect(_pointsAreTheSame, true);
+
+  });
+// -----------------------------------------------------------------------------
+  test('contacts are the same', () {
+
+    const List<ContactModel> _con1 = <ContactModel>[
+      ContactModel(value: 'x', contactType: ContactType.email),
+      ContactModel(value: 'e', contactType: ContactType.instagram),
+    ];
+
+    const List<ContactModel> _con2 = <ContactModel>[
+      ContactModel(value: 'x', contactType: ContactType.email),
+      ContactModel(value: 'ee', contactType: ContactType.instagram),
+    ];
+
+    final bool _same = ContactModel.checkContactsListsAreIdentical(
+        contacts1: _con1,
+        contacts2: _con2,
+    );
+
+    expect(_same, false);
+
+
+  });
+// -----------------------------------------------------------------------------
+  test('bzz are the same', () {
+
+    final BzModel _bz1 = BzModel.dummyBz('bzID');
+    final BzModel _bz2 = BzModel.dummyBz('bzID');
+
+    final bool _same = BzModel.checkBzzAreIdentical(
+      bz1: _bz1,
+      bz2: _bz2,
+    );
+
+    // BzModel.blogBzzDifferences(
+    //   bz1: _bz1,
+    //   bz2: _bz2,
+    // );
+    //
+    // print('a77a aaaa');
+
+    expect(_same, true);
+
 
   });
 // -----------------------------------------------------------------------------

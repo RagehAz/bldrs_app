@@ -3,7 +3,10 @@ import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/y_views/f_bz/my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire_doc_streamer.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -20,45 +23,62 @@ class MyBzScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
-
-    return ObeliskLayout(
-      initiallyExpanded: true,
-      appBarRowWidgets: <Widget>[
-
-        const Expander(),
-
-        BzCreditsCounter(
-          width: Ratioz.appBarButtonSize * 1.4,
-          slidesCredit: Numeric.formatNumToCounterCaliber(context, 1234),
-          ankhsCredit: Numeric.formatNumToCounterCaliber(context, 123),
-        ),
-
-        BzLogo(
-          width: 40,
-          image: _bzModel.logo,
-          margins: const EdgeInsets.symmetric(horizontal: 5),
-          corners: superBorderAll(context, Ratioz.appBarCorner - 5),
-        ),
-
-      ],
-      navModels: <NavModel>[
-
-        ...List.generate(BzModel.bzTabsList.length, (index){
-
-          final BzTab _bzTab = BzModel.bzTabsList[index];
-
-          return NavModel(
-            id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
-            title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
-            icon: BzModel.getBzTabIcon(_bzTab),
-            screen: MyBzScreenPages.pages[index],
-          );
-
-        }),
-
-      ],
-
+    /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: false,
     );
+
+    return FireDocStreamer(
+      collName: FireColl.bzz,
+      docName: _bzModel.id,
+      onDataChanged: (Map<String, dynamic> map) => onMyBzStreamChanged(
+        context: context,
+        map: map,
+      ),
+      builder: (_, Map<String, dynamic> map){
+
+        return ObeliskLayout(
+          initiallyExpanded: true,
+          appBarRowWidgets: <Widget>[
+
+            const Expander(),
+
+            BzCreditsCounter(
+              width: Ratioz.appBarButtonSize * 1.4,
+              slidesCredit: Numeric.formatNumToCounterCaliber(context, 1234),
+              ankhsCredit: Numeric.formatNumToCounterCaliber(context, 123),
+            ),
+
+            BzLogo(
+              width: 40,
+              image: _bzModel.logo,
+              margins: const EdgeInsets.symmetric(horizontal: 5),
+              corners: superBorderAll(context, Ratioz.appBarCorner - 5),
+            ),
+
+          ],
+          navModels: <NavModel>[
+
+            ...List.generate(BzModel.bzTabsList.length, (index){
+
+              final BzTab _bzTab = BzModel.bzTabsList[index];
+
+              return NavModel(
+                id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
+                title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
+                icon: BzModel.getBzTabIcon(_bzTab),
+                screen: MyBzScreenPages.pages[index],
+              );
+
+            }),
+
+          ],
+
+        );
+
+      },
+    );
+
   }
 }

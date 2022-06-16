@@ -258,8 +258,27 @@ List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
   return _maps;
 }
 // -------------------------------------
-Map<String, dynamic> getMapFromDocumentSnapshot(dynamic documentSnapshot) {
-  final Map<String, dynamic> _map = documentSnapshot.data();
+Map<String, dynamic> getMapFromDocumentSnapshot({
+  @required DocumentSnapshot<Object> docSnapshot,
+  @required bool addDocID,
+  @required bool addDocSnapshot,
+}) {
+
+  Map<String, dynamic> _map = docSnapshot.data();
+
+  if (addDocID == true) {
+    _map['id'] = docSnapshot.id;
+  }
+
+  if (addDocSnapshot == true) {
+    _map = insertPairInMap(
+      map: _map,
+      key: 'docSnapshot',
+      value: docSnapshot,
+    );
+  }
+
+
   return _map;
 }
 // -------------------------------------
@@ -727,7 +746,7 @@ bool checkListsAreTheSame({
   if (list1 == null && list2 == null){
     listsAreTheSame = true;
   }
-  else if (list1 == [] && list2 == []){
+  else if (list1.isEmpty && list2.isEmpty){
     listsAreTheSame = true;
   }
 
