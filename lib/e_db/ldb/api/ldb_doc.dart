@@ -1,5 +1,4 @@
 
-
   const String follows = 'follows';
   const String calls = 'calls';
   const String shares = 'shares';
@@ -28,18 +27,6 @@
   const String appState = 'appState';
   const String appControls = 'appControls';
   const String authModel = 'authModel';
-
-  const List<String> bzModelsDocs = <String>[
-    bzz,
-  ];
-
-  const List<String> flyerModelsDocs = <String>[
-    flyers,
-  ];
-
-  const List<String> userModelsDocs = <String>[
-    users,
-  ];
 
   const List<String> allDocs = <String>[
     follows,

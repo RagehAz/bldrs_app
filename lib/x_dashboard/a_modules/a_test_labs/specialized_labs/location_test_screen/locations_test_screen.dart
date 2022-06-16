@@ -209,7 +209,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                       final CityModel _result = await _zoneProvider.fetchCityByName(
                           context: context,
                           cityName: val,
-                          lingoCode: 'en'
+                          langCode: 'en'
                       );
 
                       if (_result != null) {

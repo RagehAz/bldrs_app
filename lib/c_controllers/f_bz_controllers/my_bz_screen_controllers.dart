@@ -148,6 +148,8 @@ Future<void> _updateMyBzModelEverywhereIfUpdated({
     bz2: oldBzModel,
   );
 
+  blog('_updateMyBzModelEverywhereIfUpdated : bzz are identical : $_areTheSame');
+
   /// UPDATE BZ MODEL EVERYWHERE
   if (_areTheSame == false){
 
@@ -244,12 +246,12 @@ Future<void> _myBzResignationProtocol({
     Nav.goBack(context);
 
     /// 12 - CLEAR MY ACTIVE BZ
-    _bzzProvider.clearMyActiveBz(
-        notify: false
-    );
-    _bzzProvider.clearActiveBzFlyers(
-        notify: true,
-    );
+    // _bzzProvider.clearMyActiveBz(
+    //     notify: false
+    // );
+    // _bzzProvider.clearActiveBzFlyers(
+    //     notify: true,
+    // );
 
   }
 
