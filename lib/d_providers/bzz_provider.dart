@@ -283,25 +283,28 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
-  void updateBzInUserBzz({
+  void updateBzInMyBzz({
     @required BzModel modifiedBz,
     @required bool notify,
   }) {
 
     if (Mapper.checkCanLoopList(_myBzz)) {
 
-      final int _indexOfOldTinyBz = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
+      final int _index = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
 
-      if (_indexOfOldTinyBz != -1){
+      if (_index != -1){
+
         final List<BzModel> _newList = <BzModel>[..._myBzz];
-        _newList.removeAt(_indexOfOldTinyBz);
-        _newList.insert(_indexOfOldTinyBz, modifiedBz);
-        _myBzz = _newList;
+        _newList.removeAt(_index);
+        _newList.insert(_index, modifiedBz);
+
+        _setMyBzz(
+          bzz: _newList,
+          notify: notify,
+        );
+
       }
 
-      if (notify == true){
-        notifyListeners();
-      }
 
     }
 

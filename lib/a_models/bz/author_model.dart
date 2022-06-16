@@ -333,13 +333,13 @@ class AuthorModel {
   }
 // -----------------------------------------------------------------------------
 
-  /// MODIFIERS
+  /// CHECKER
 
 // ----------------------------------
   static bool checkUserIsMasterAuthor({
     @required String userID,
     @required BzModel bzModel,
-}){
+  }){
 
     bool _isMaster = false;
 
@@ -353,6 +353,69 @@ class AuthorModel {
     }
 
     return _isMaster;
+  }
+
+  static bool checkAuthorsListsAreIdentical({
+    @required List<AuthorModel> authors1,
+    @required List<AuthorModel> authors2
+  }){
+    bool _output;
+
+    if (
+        Mapper.checkCanLoopList(authors1) == true
+        &&
+        Mapper.checkCanLoopList(authors2) == true
+    ){
+
+      if (authors1.length == authors2.length){
+
+        for (int i = 0; i < authors1.length; i++){
+
+          final bool _areIdentical = checkAuthorsAreIdentical(
+            author1: authors1[i],
+            author2: authors2[i],
+          );
+
+          if (_areIdentical == false){
+            _output = false;
+            break;
+          }
+
+        }
+
+        _output ??= true;
+
+      }
+
+    }
+
+    return _output;
+  }
+
+  static bool checkAuthorsAreIdentical({
+    @required AuthorModel author1,
+    @required AuthorModel author2,
+  }){
+    bool _areIdentical = false;
+
+    if (author1 != null && author2 != null){
+
+      if (
+
+      author1.userID == author2.userID &&
+      author1.name == author2.name &&
+      author1.pic == author2.pic &&
+      author1.title == author2.title &&
+      author1.isMaster == author2.isMaster &&
+      ContactModel.checkContactsListsAreIdentical(contacts1: author1.contacts, contacts2: author2.contacts)
+
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
   }
 // -----------------------------------------------------------------------------
 
@@ -402,12 +465,12 @@ class AuthorModel {
 
 // ----------------------------------
   static AuthorModel dummyAuthor() {
-    return const AuthorModel(
+    return AuthorModel(
       userID: 'author_dummy_id',
       pic: Iconz.dvRageh,
       isMaster: true,
       name: 'Rageh Author',
-      contacts: <ContactModel>[],
+      contacts: ContactModel.dummyContacts(),
       title: 'The CEO And Founder of this'
     );
   }
