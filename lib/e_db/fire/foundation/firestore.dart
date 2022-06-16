@@ -358,13 +358,21 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
 }
 // ---------------------------------------------------
 /// TESTED : WORKS PERFECT
-Future<dynamic> _getMapByDocRef(DocumentReference<Object> docRef) async {
+Future<dynamic> _getMapByDocRef({
+  @required DocumentReference<Object> docRef,
+  @required bool addDocID,
+  @required bool addDocSnapshot,
+}) async {
   dynamic _map;
 
   final DocumentSnapshot<Object> snapshot = await docRef.get();
 
   if (snapshot.exists == true) {
-    _map = Mapper.getMapFromDocumentSnapshot(snapshot);
+    _map = Mapper.getMapFromDocumentSnapshot(
+      docSnapshot: snapshot,
+      addDocSnapshot: addDocSnapshot,
+      addDocID: addDocID,
+    );
   }
 
   return _map;
@@ -375,6 +383,8 @@ Future<Map<String, dynamic>> readDoc({
   @required BuildContext context,
   @required String collName,
   @required String docName,
+  bool addDocID = false,
+  bool addDocSnapshot = false,
 }) async {
 
   blog('readDoc() : starting to read doc : firestore/$collName/$docName');
@@ -392,7 +402,11 @@ Future<Map<String, dynamic>> readDoc({
           );
       // blog('readDoc() : _docRef : $_docRef');
 
-      _map = await _getMapByDocRef(_docRef);
+      _map = await _getMapByDocRef(
+        docRef: _docRef,
+        addDocID: addDocID,
+        addDocSnapshot: addDocSnapshot,
+      );
       // blog('readDoc() : _map : $_map');
     },
   );
@@ -456,6 +470,8 @@ Future<dynamic> readSubDoc({
   @required String docName,
   @required String subCollName,
   @required String subDocName,
+  bool addDocSnapshot = false,
+  bool addDocID = false,
 }) async {
 
   dynamic _map;
@@ -472,7 +488,11 @@ Future<dynamic> readSubDoc({
           subDocName: subDocName,
         );
 
-        _map = await _getMapByDocRef(_subDocRef);
+        _map = await _getMapByDocRef(
+          docRef: _subDocRef,
+          addDocID: addDocID,
+          addDocSnapshot: addDocSnapshot,
+        );
 
       });
 

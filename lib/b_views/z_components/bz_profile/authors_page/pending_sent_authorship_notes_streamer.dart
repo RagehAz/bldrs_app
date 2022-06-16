@@ -40,6 +40,14 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
 // -----------------------------------------------------------------------------
   void _onStreamDataChanged(List<Map<String, dynamic>> maps){
 
+    // blog('PendingSentAuthorshipNotesStreamer : data changed');
+    // Mapper.blogMaps(maps);
+    //
+    // final List<NoteModel> _notes = NoteModel.decipherNotes(
+    //     maps: maps,
+    //     fromJSON: false,
+    // );
+
   }
 // -----------------------------------------------------------------------------
   @override

@@ -112,6 +112,7 @@ class BzModel{
     // -------------------------
     @required this.flyersIDs,
     @required this.totalFlyers,
+    this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -146,6 +147,7 @@ class BzModel{
   final int totalFlyers;
   // -------------------------
   final List<String> flyersIDs;
+  final DocumentSnapshot<Object> docSnapshot;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -177,6 +179,7 @@ class BzModel{
     int totalCalls,
     int totalFlyers,
     List<String> flyersIDs,
+    DocumentSnapshot<Object> docSnapshot,
   }){
     return BzModel(
       id : id ?? this.id,
@@ -204,6 +207,7 @@ class BzModel{
       totalCalls : totalCalls ?? this.totalCalls,
       flyersIDs : flyersIDs ?? this.flyersIDs,
       totalFlyers : totalFlyers ?? this.totalFlyers,
+      docSnapshot: docSnapshot ?? this.docSnapshot,
     );
 }
 // -----------------------------------------------------------------------------
@@ -215,7 +219,8 @@ class BzModel{
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
-    return <String, dynamic>{
+
+    Map<String, dynamic> _map = <String, dynamic>{
       'id': id,
       // -------------------------
       'bzTypes': cipherBzTypes(bzTypes),
@@ -247,6 +252,16 @@ class BzModel{
       // -------------------------
       'flyersIDs': flyersIDs,
     };
+
+    if (toJSON == true){
+      _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'docSnapshot',
+          value: docSnapshot,
+      );
+    }
+
+    return _map;
   }
 // -------------------------------
   /// TESTED : WORKS PERFECT
@@ -310,6 +325,7 @@ class BzModel{
         // -------------------------
         flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
         totalFlyers: map['totalFlyers'],
+        docSnapshot: map['docSnapshot'],
       );
     }
 
@@ -393,7 +409,11 @@ class BzModel{
   static BzModel convertDocSnapshotIntoBzModel(DocumentSnapshot<Object> doc) {
 
     final DocumentSnapshot<Object> _docSnap = doc.data();
-    final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(_docSnap);
+    final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(
+      docSnapshot: _docSnap,
+      addDocID: false,
+      addDocSnapshot: true,
+    );
 
     final BzModel _bzModel = BzModel.decipherBz(
       map: _map,
@@ -1234,8 +1254,10 @@ class BzModel{
       bzState: BzState.online,
       position: Atlas.dummyLocation(),
       flyersIDs: const <String>[],
-      authors: const <AuthorModel>[],
-      contacts: const <ContactModel>[],
+      authors: <AuthorModel>[
+        AuthorModel.dummyAuthor(),
+      ],
+      contacts: ContactModel.dummyContacts(),
       bzForm: BzForm.company,
       accountType: BzAccountType.normal,
       createdAt: Timers.createDate(year: 1987, month: 10, day: 06),
@@ -1266,10 +1288,10 @@ class BzModel{
   /// BZ BLOGGING
 
 // ------------------------------------------
-  void blogBz({String methodName = 'printBzModel'}) {
+  void blogBz({String methodName = 'blogBzModel'}) {
     final String _methodName = methodName ?? 'BZ';
 
-    blog('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
+    blog('$_methodName : blogING BZ MODEL ---------------- START -- ');
 
     blog('id : $id');
     blog('bzTypes : $bzTypes');
@@ -1296,7 +1318,7 @@ class BzModel{
     blog('flyersIDs : $flyersIDs');
     blog('totalFlyers : $totalFlyers');
 
-    blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
+    blog('$_methodName : blogING BZ MODEL ---------------- END -- ');
   }
 // ------------------------------------------
   static void blogBzz({
@@ -1318,10 +1340,15 @@ class BzModel{
   /// BZ GETTERS
 
 // ------------------------------------------
-  static BzModel getBzFromBzzByBzID(List<BzModel> bzz, String bzID) {
+  static BzModel getBzFromBzzByBzID({
+    @required List<BzModel> bzz,
+    @required String bzID,
+  }) {
+
     final BzModel _bz =
     bzz.singleWhere((BzModel _b) => _b.id == bzID, orElse: () => null);
     return _bz;
+
   }
 // ------------------------------------------
   static List<String> getBzzIDsFromBzz(List<BzModel> bzzModels) {
@@ -1395,6 +1422,142 @@ class BzModel{
     }
 
     return _contains;
+  }
+// ------------------------------------------
+  /// TESTED : WORKS GOOD ISA
+  static bool checkBzzAreIdentical({
+    @required BzModel bz1,
+    @required BzModel bz2,
+  }){
+    bool _areIdentical = false;
+
+    if (bz1 != null && bz2 != null){
+
+      if (
+          bz1.id == bz2.id &&
+          Mapper.checkListsAreTheSame(list1: bz1.bzTypes, list2: bz2.bzTypes) &&
+          bz1.bzForm == bz2.bzForm &&
+          Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: bz1.createdAt, timeB: bz2.createdAt) &&
+          bz1.accountType == bz2.accountType &&
+          bz1.name == bz2.name &&
+          Mapper.checkListsAreTheSame(list1: bz1.trigram, list2: bz2.trigram) &&
+          bz1.logo == bz2.logo &&
+          Mapper.checkListsAreTheSame(list1: bz1.scope, list2: bz2.scope) &&
+          ZoneModel.checkZonesAreTheSame(zone1: bz1.zone, zone2: bz1.zone) &&
+          bz1.about == bz2.about &&
+          bz1.position == bz2.position &&
+          ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) &&
+          AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) &&
+          bz1.showsTeam == bz2.showsTeam &&
+          bz1.isVerified == bz2.isVerified &&
+          bz1.bzState == bz2.bzState &&
+          bz1.totalFollowers == bz2.totalFollowers &&
+          bz1.totalSaves == bz2.totalSaves &&
+          bz1.totalShares == bz2.totalShares &&
+          bz1.totalSlides == bz2.totalSlides &&
+          bz1.totalViews == bz2.totalViews &&
+          bz1.totalCalls == bz2.totalCalls &&
+          Mapper.checkListsAreTheSame(list1: bz1.flyersIDs, list2: bz2.flyersIDs) &&
+          bz1.totalFlyers == bz2.totalFlyers
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    blogBzzDifferences(
+      bz1: bz1,
+      bz2: bz2,
+    );
+
+    return _areIdentical;
+  }
+// ------------------------------------------
+  static void blogBzzDifferences({
+    @required BzModel bz1,
+    @required BzModel bz2,
+  }){
+
+    blog('staring blogBzzDifferences checkup ');
+
+        if (bz1.id != bz2.id){
+          blog('id is not identical');
+        }
+        if (Mapper.checkListsAreTheSame(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
+          blog('bzTypes is not identical');
+        }
+        if (bz1.bzForm != bz2.bzForm){
+          blog('bzForm is not identical');
+        }
+        if (Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: bz1.createdAt, timeB: bz2.createdAt) == false){
+          blog('createdAt is not identical');
+        }
+        if (bz1.accountType != bz2.accountType){
+          blog('accountType is not identical');
+        }
+        if (bz1.name != bz2.name){
+          blog('name is not identical');
+        }
+        if (Mapper.checkListsAreTheSame(list1: bz1.trigram, list2: bz2.trigram) == false){
+          blog('trigram is not identical');
+        }
+        if (bz1.logo != bz2.logo){
+          blog('logo is not identical');
+        }
+        if (Mapper.checkListsAreTheSame(list1: bz1.scope, list2: bz2.scope) == false){
+          blog('scope is not identical');
+        }
+        if (ZoneModel.checkZonesAreTheSame(zone1: bz1.zone, zone2: bz1.zone) == false){
+          blog('zone is not identical');
+        }
+        if (bz1.about != bz2.about){
+          blog('about is not identical');
+        }
+        if (bz1.position != bz2.position){
+          blog('position is not identical');
+        }
+        if (ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == false){
+          blog('contacts is not identical');
+        }
+        if (AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == false){
+          blog('authors is not identical');
+        }
+        if (bz1.showsTeam != bz2.showsTeam){
+          blog('showsTeam is not identical');
+        }
+        if (bz1.isVerified != bz2.isVerified){
+          blog('isVerified is not identical');
+        }
+        if (bz1.bzState != bz2.bzState){
+          blog('bzState is not identical');
+        }
+        if (bz1.totalFollowers != bz2.totalFollowers){
+          blog('totalFollowers is not identical');
+        }
+        if (bz1.totalSaves != bz2.totalSaves){
+          blog('totalSaves is not identical');
+        }
+        if (bz1.totalShares != bz2.totalShares){
+          blog('totalShares is not identical');
+        }
+        if (bz1.totalSlides != bz2.totalSlides){
+          blog('totalSlides is not identical');
+        }
+        if (bz1.totalViews != bz2.totalViews){
+          blog('totalViews is not identical');
+        }
+        if (bz1.totalCalls != bz2.totalCalls){
+          blog('totalCalls is not identical');
+        }
+        if (Mapper.checkListsAreTheSame(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
+          blog('flyersIDs is not identical');
+        }
+        if (bz1.totalFlyers != bz2.totalFlyers){
+          blog('totalFlyers is not identical');
+        }
+
+    blog('ending blogBzzDifferences checkup');
+
   }
 // -----------------------------------------------------------------------------
 

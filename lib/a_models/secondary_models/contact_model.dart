@@ -33,7 +33,7 @@ class ContactModel {
 
   /// INITIALIZERS
 
-// ----------------------------------------
+// ----------------------------------
   static List<ContactModel> createContactsList({
     List<ContactModel> existingContacts,
     String phone,
@@ -66,14 +66,14 @@ class ContactModel {
 
   /// CYPHERS
 
-// ----------------------------------------
+// ----------------------------------
   Map<String, Object> toMap() {
     return <String, Object>{
       'value': value,
       'contactType': cipherContactType(contactType),
     };
   }
-// ----------------------------------------
+// ----------------------------------
   static Map<String, Object> cipherContacts(List<ContactModel> contacts) {
     Map<String, Object> _map = <String, Object>{};
 
@@ -91,7 +91,7 @@ class ContactModel {
 
     return _map;
   }
-// ----------------------------------------
+// ----------------------------------
   static List<ContactModel> decipherContacts(Map<String, dynamic> maps) {
     final List<ContactModel> _contacts = <ContactModel>[];
 
@@ -114,7 +114,7 @@ class ContactModel {
 
     return _contacts;
   }
-// ----------------------------------------
+// ----------------------------------
   static ContactType decipherContactType(String contactType) {
     switch (contactType) {
       case 'phone':     return ContactType.phone;     break;
@@ -130,7 +130,7 @@ class ContactModel {
       default:          return null;
     }
   }
-// ----------------------------------------
+// ----------------------------------
   static String cipherContactType(ContactType contactType) {
     switch (contactType) {
       case ContactType.phone:     return 'phone';     break;
@@ -150,7 +150,7 @@ class ContactModel {
 
   /// GETTERS
 
-// ----------------------------------------
+// ----------------------------------
   static ContactModel getAContactModelFromContacts({
     @required List<ContactModel> contacts,
     @required ContactType contactType,
@@ -160,7 +160,7 @@ class ContactModel {
         orElse: () => null);
     return contact;
   }
-// ----------------------------------------
+// ----------------------------------
   static String getAContactValueFromContacts({
     @required List<ContactModel> contacts,
     @required ContactType contactType,
@@ -179,7 +179,7 @@ class ContactModel {
 
     return _contactValue;
   }
-// ----------------------------------------
+// ----------------------------------
   static List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts) {
   /// contacts with strings
   /// are Phone, Email, WhatsApp, website
@@ -216,7 +216,7 @@ class ContactModel {
 
     return _contactsList;
   }
-// ----------------------------------------
+// ----------------------------------
   static List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts) {
   /// contacts without strings
   /// are Facebook LinkedIn YouTube Instagram Pinterest TikTok Twitter
@@ -281,7 +281,7 @@ class ContactModel {
 
     return _contactsList;
   }
-// ----------------------------------------
+// ----------------------------------
   static String getFirstPhoneFromContacts(List<ContactModel> contacts) {
   /// will let user to only have one phone contact
     // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
@@ -295,7 +295,7 @@ class ContactModel {
 
     return phones.isEmpty ? null : phones[0];
   }
-// ----------------------------------------
+// ----------------------------------
   static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts) {
     final List<String> values = <String>[];
 
@@ -307,7 +307,7 @@ class ContactModel {
 
     return values;
   }
-// ----------------------------------------
+// ----------------------------------
   static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts) {
     final List<String> icons = <String>[];
 
@@ -319,7 +319,7 @@ class ContactModel {
 
     return icons;
   }
-// ----------------------------------------
+// ----------------------------------
   static List<ContactModel> getContactsFromFirebaseUser(User user) {
     final List<ContactModel> _userContacts = <ContactModel>[];
     final String _userEmail = user.email;
@@ -341,7 +341,7 @@ class ContactModel {
 
   /// CONTACT TYPE GETTERS
 
-// ----------------------------------------
+// ----------------------------------
   static const List<ContactType> contactTypesList = <ContactType>[
     ContactType.phone,
     ContactType.email,
@@ -354,7 +354,7 @@ class ContactModel {
     ContactType.tiktok,
     ContactType.twitter,
   ];
-// ----------------------------------------
+// ----------------------------------
   static String getContactIcon(ContactType contactType) {
     switch (contactType) {
       case ContactType.phone: return Iconz.comPhone; break;
@@ -374,7 +374,7 @@ class ContactModel {
 
   /// MODIFIERS
 
-// ----------------------------------------
+// ----------------------------------
   static void addContactIfPossibleToANewContactsList(
     List<ContactModel> existingContacts,
     String value,
@@ -434,7 +434,7 @@ class ContactModel {
 
   /// DUMMIES
 
-// ----------------------------------------
+// ----------------------------------
   static List<ContactModel> dummyContacts(){
 
     return const <ContactModel>[
@@ -456,7 +456,7 @@ class ContactModel {
 
   /// BLOGGING
 
-// ----------------------------------------
+// ----------------------------------
   void blogContact({
     String methodName = 'ContactModel',
   }){
@@ -483,7 +483,7 @@ class ContactModel {
 
   /// CHECKERS
 
-// ----------------------------------------
+// ----------------------------------
   static bool checkContactIsEmpty(ContactModel contact){
     bool _isEmpty = true;
 
@@ -501,7 +501,7 @@ class ContactModel {
 
     return _isEmpty;
   }
-// ----------------------------------------
+// ----------------------------------
   static bool checkContactIsSocialMedia(ContactModel contact){
     bool _isSocialMedia = false;
 
@@ -526,6 +526,65 @@ class ContactModel {
     }
 
     return _isSocialMedia;
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkContactsListsAreIdentical({
+    @required List<ContactModel> contacts1,
+    @required List<ContactModel> contacts2,
+  }){
+    bool _output;
+
+    if (
+    Mapper.checkCanLoopList(contacts1) == true
+        &&
+    Mapper.checkCanLoopList(contacts2) == true
+    ){
+
+      if (contacts1.length == contacts2.length){
+
+        for (int i = 0; i < contacts1.length; i++){
+
+          final bool _areIdentical = checkContactsAreIdentical(
+            contact1: contacts1[i],
+            contact2: contacts2[i],
+          );
+
+          if (_areIdentical == false){
+            _output = false;
+            break;
+          }
+
+        }
+
+        _output ??= true;
+
+      }
+
+    }
+
+    return _output;
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkContactsAreIdentical({
+    @required ContactModel contact1,
+    @required ContactModel contact2,
+  }){
+    bool _areIdentical = false;
+
+    if (contact1 != null && contact2 != null){
+
+      if (
+      contact1.value == contact2.value &&
+      contact1.contactType == contact2.contactType
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
   }
 // -----------------------------------------------------------------------------
 }

@@ -408,7 +408,7 @@ Future<void> _updateBzOps({
     );
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    _bzzProvider.updateBzInUserBzz(
+    _bzzProvider.updateBzInMyBzz(
       modifiedBz: _bzModelWithCompleteZoneModel,
       notify: false,
     );
