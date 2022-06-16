@@ -20,8 +20,8 @@ class UserFireSearch{
   static Future<List<UserModel>> usersByUserName({
     @required BuildContext context,
     @required String name,
-    @required QueryDocumentSnapshot<Object> startAfter,
     @required bool excludeMyself,
+    QueryDocumentSnapshot<Object> startAfter,
     int limit = 10,
   }) async {
 
