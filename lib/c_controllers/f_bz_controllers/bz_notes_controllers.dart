@@ -12,12 +12,12 @@ import 'package:flutter/material.dart';
 
 // ------------------------------------------
 /// TESTED : WORKS PERFECT
-QueryParameters bzReceivedNotesPaginationQueryParameters({
+QueryModel bzReceivedNotesPaginationQueryParameters({
   @required String bzID,
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
-  return QueryParameters(
+  return QueryModel(
     collName: FireColl.notes,
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
