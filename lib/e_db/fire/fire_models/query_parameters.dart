@@ -4,9 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
-class QueryParameters {
+class QueryModel {
   /// --------------------------------------------------------------------------
-  const QueryParameters({
+  const QueryModel({
     @required this.collName,
     this.limit,
     this.orderBy,
@@ -28,7 +28,7 @@ class QueryParameters {
 /// QueryParameter CREATOR
 
 // -----------------------------------
-  QueryParameters copyWith({
+  QueryModel copyWith({
     String collName,
     int limit,
     Fire.QueryOrderBy orderBy,
@@ -37,7 +37,7 @@ class QueryParameters {
     QueryDocumentSnapshot startAfter,
     List<Map<String, dynamic>> initialMaps,
 }){
-    return QueryParameters(
+    return QueryModel(
       collName: collName ?? this.collName,
       limit: limit ?? this.limit,
       orderBy: orderBy ?? this.orderBy,

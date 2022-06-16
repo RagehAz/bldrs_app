@@ -34,15 +34,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
-/// BZ AUTHORSHIP NOTES STREAMING QUERY PARAMETERS
+/// BZ AUTHORSHIP NOTES STREAMING QUERY MODEL
 
 // ------------------------------------------
-QueryParameters bzSentPendingAuthorshipNotesStreamQueryParameters({
+/// TESTED : WORKS PERFECT
+QueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
   @required String bzID,
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
-  return QueryParameters(
+  return QueryModel(
     collName: FireColl.notes,
     limit: 50,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
@@ -65,6 +66,49 @@ QueryParameters bzSentPendingAuthorshipNotesStreamQueryParameters({
         field: 'response',
         comparison: FireComparison.equalTo,
         value: NoteModel.cipherResponse(NoteResponse.pending),
+      ),
+
+    ],
+  );
+
+}
+// ------------------------------------------
+/// TESTED : NOT YET
+QueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
+  @required String bzID,
+  @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
+}){
+
+  return QueryModel(
+    collName: FireColl.notes,
+    limit: 10,
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+    onDataChanged: onDataChanged,
+    finders: <FireFinder>[
+
+      FireFinder(
+        field: 'senderID',
+        comparison: FireComparison.equalTo,
+        value: bzID,
+      ),
+
+      FireFinder(
+        field: 'noteType',
+        comparison: FireComparison.equalTo,
+        value: NoteModel.cipherNoteType(NoteType.authorship),
+      ),
+
+      FireFinder(
+        field: 'response',
+        comparison: FireComparison.equalTo,
+        value: NoteModel.cipherResponse(NoteResponse.declined),
+      ),
+
+      /// TASK : ??? will this work ?
+      FireFinder(
+        field: 'response',
+        comparison: FireComparison.equalTo,
+        value: NoteModel.cipherResponse(NoteResponse.cancelled),
       ),
 
     ],
@@ -201,13 +245,15 @@ Future<void> cancelSentAuthorshipInvitation ({
 /// AUTHORSHIP NOTE RESPONSES
 
 // ------------------------------------------
-/// USER RESPONSE TO AUTHORSHIP INVITATION
+/// TESTED : WORKS PERFECT
 Future<void> respondToAuthorshipNote({
   @required BuildContext context,
   @required NoteResponse response,
   @required NoteModel noteModel,
   @required BzModel bzModel,
 }) async {
+
+  // NOTE : USER RESPONSE TO AUTHORSHIP INVITATION
 
   /// ACCEPT AUTHORSHIP
   if (response == NoteResponse.accepted){
@@ -226,12 +272,17 @@ Future<void> respondToAuthorshipNote({
     );
   }
 
+  else {
+    blog('respondToAuthorshipNote : response : $response');
+  }
+
 }
 // ------------------------------------------
 
 /// ACCEPT AUTHORSHIP INVITATION
 
 // -------------------
+/// TESTED :
 Future<void> _acceptAuthorshipInvitation({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -253,18 +304,22 @@ Future<void> _acceptAuthorshipInvitation({
       loadingPhrase: "Adding you to '${bzModel.name}' business account",
     ));
 
-    final UserModel _newUserModel = await _modifyUserAuthorshipOps(
+    /// MODIFY MY USER MODEL
+    // has to come before modifying the bzModel on firebase to let security rules allow
+    // this user to modify bz on firebase.
+    final UserModel _newUserModel = await _addBzIDToMyUserModelOps(
       context: context,
       bzModel: bzModel,
     );
 
-    await _modifyBzAuthorshipOps(
+    /// MODIFY THIS BZ MODEL
+    await _addNewAuthorToNewBzOps(
       context: context,
       newUserModel: _newUserModel,
       oldBzModel: bzModel,
     );
 
-
+    /// MODIFY NOTE RESPONSE
     await _modifyNoteResponse(
       context: context,
       noteModel: noteModel,
@@ -289,7 +344,8 @@ Future<void> _acceptAuthorshipInvitation({
 
 }
 // -------------------
-Future<UserModel> _modifyUserAuthorshipOps({
+/// TESTED :
+Future<UserModel> _addBzIDToMyUserModelOps({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {
@@ -325,7 +381,8 @@ Future<UserModel> _modifyUserAuthorshipOps({
   return _newUserModel;
 }
 // -------------------
-Future<void> _modifyBzAuthorshipOps({
+/// TESTED :
+Future<BzModel> _addNewAuthorToNewBzOps({
   @required BuildContext context,
   @required UserModel newUserModel,
   @required BzModel oldBzModel,
@@ -356,15 +413,16 @@ Future<void> _modifyBzAuthorshipOps({
   );
 
   /// LDB OPS
-  await BzLDBOps.insertBz(bzModel: _uploadedBzModel);
+  await BzLDBOps.insertBz(bzModel: _uploadedBzModel,);
 
+  return _uploadedBzModel;
 }
 // ------------------------------------------
 
 /// DECLINE AUTHORSHIP INVITATION
 
 // -------------------
-/// USER DECLINE AUTHORSHIP INVITATION
+/// TESTED :
 Future<void> _declineAuthorshipInvitation({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -391,6 +449,7 @@ Future<void> _declineAuthorshipInvitation({
 
 }
 // -------------------
+/// TESTED : WORKS PERFECT
 Future<void> _modifyNoteResponse({
   @required BuildContext context,
   @required NoteModel noteModel,

@@ -15,15 +15,15 @@ class FireCollStreamer extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final QueryParameters queryParameters;
+  final QueryModel queryParameters;
   final Widget Function(BuildContext, List<Map<String, dynamic>>) builder;
   final Widget loadingWidget;
   /// --------------------------------------------------------------------------
-  static void onStreamDataChanged({
+  static Future<void> onStreamDataChanged({
     @required Stream<QuerySnapshot<Object>> stream,
     @required List<Map<String, dynamic>> oldMaps,
-    @required Function(List<Map<String, dynamic>> newMaps) onChange,
-  }){
+    @required ValueChanged<List<Map<String, dynamic>>> onChange,
+  }) async {
 
     stream.listen((QuerySnapshot<Object> snapshot) async {
 
@@ -39,7 +39,7 @@ class FireCollStreamer extends StatefulWidget {
       );
 
       if (_mapsAreTheSame == false){
-        await onChange(_newMaps);
+        onChange(_newMaps);
       }
 
     },
