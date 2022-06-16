@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/bz_notes_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -32,6 +33,9 @@ class _BzNotesPageState extends State<BzNotesPage> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
+    blog('initState --------------- BZ - NOTES - PAGE ---- BIAAATCH');
+
     _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
     super.initState();
@@ -40,9 +44,11 @@ class _BzNotesPageState extends State<BzNotesPage> {
   @override
   void dispose() {
 
+
     _scrollController.dispose();
     _markAllBzUnseenNotesAsSeen();
 
+    blog('DISPOSING --------------- BZ - NOTES - PAGE ---- BIAAATCH');
     // _notesProvider.dispose();
     super.dispose();
   }
@@ -79,7 +85,7 @@ class _BzNotesPageState extends State<BzNotesPage> {
       );
 
       /// REMOVE UNSEEN NOTES FROM ALL BZZ UNSEEN NOTES
-      _notesProvider.removeNotesFromAllBzzUnseenNotes(
+      _notesProvider.removeNotesFromAllBzzUnseenReceivedNotes(
         notes: _notesToMark,
         notify: true,
       );

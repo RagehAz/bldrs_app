@@ -91,8 +91,7 @@ class FlyerModel {
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
-
-    Map<String, dynamic> _map = <String, dynamic>{
+    return <String, dynamic>{
       'id' : id,
       'title' : slides[0].headline,//title,
       'trigram' : TextGen.createTrigram(input: slides[0].headline), //trigram,
@@ -117,16 +116,6 @@ class FlyerModel {
       'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
       'score' : score,
     };
-
-    if (toJSON == true){
-      _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'docSnapshot',
-          value: docSnapshot,
-      );
-    }
-
-    return _map;
   }
 // ------------------------------------------
   /// TESTED : WORKS PERFECT

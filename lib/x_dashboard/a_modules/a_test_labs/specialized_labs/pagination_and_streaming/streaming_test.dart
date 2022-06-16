@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/streamers/clock_rebuilder.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire_doc_streamer.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
@@ -81,23 +82,25 @@ class _StreamingTestState extends State<StreamingTest> {
 
   Future<void> onDataChanged(List<Map<String, dynamic>> newMaps) async {
 
-    final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'New data has arrived !',
-      body: 'Would you like to update local Data ?',
-      boolDialog: true,
-    );
+    _localMaps.value = newMaps;
 
-    if (_result == true){
-      _localMaps.value = newMaps;
-      unawaited(
-        TopDialog.showTopDialog(
-          context: context,
-          firstLine: 'Local Data is synced',
-          seconds: 1,
-        )
-      );
-    }
+    // final bool _result = await CenterDialog.showCenterDialog(
+    //   context: context,
+    //   title: 'New data has arrived !',
+    //   body: 'Would you like to update local Data ?',
+    //   boolDialog: true,
+    // );
+    //
+    // if (_result == true){
+    //   _localMaps.value = newMaps;
+    //   unawaited(
+    //     TopDialog.showTopDialog(
+    //       context: context,
+    //       firstLine: 'Local Data is synced',
+    //       seconds: 1,
+    //     )
+    //   );
+    // }
 
   }
 
@@ -117,24 +120,42 @@ class _StreamingTestState extends State<StreamingTest> {
         },
         listWidgets: <Widget>[
 
-          WideButton(
-            verse: 'Add Data',
-            onTap: () async {
+          FireDocStreamer(
+              collName: 'testing',
+              docName: 'NGavNzHByT4vDm925mYd',
+              onDataChanged: (Map<String, dynamic> oldMap, Map<String, dynamic> newMaw){
 
-              await Fire.createDoc(
-                  context: context,
-                  collName: 'testing',
-                  input: {
-                    'time' : Timers.cipherTime(time: DateTime.now(), toJSON: false),
-                    'id' : Numeric.createUniqueID(),
-                    'color' : Colorizers.cipherColor(Colorizers.createRandomColor()),
+                blog('streamed map old :-');
+                blogMap(oldMap);
+                blog('streamed map new :-');
+                blogMap(newMaw);
+
+              },
+              builder: (_, Map<String, dynamic> map){
+
+                return WideButton(
+                  verse: 'Add Data',
+                  color: Colorizers.decipherColor(map['color']),
+                  onTap: () async {
+
+                    await Fire.createDoc(
+                      context: context,
+                      collName: 'testing',
+                      input: {
+                        'time' : Timers.cipherTime(time: DateTime.now(), toJSON: false),
+                        'id' : Numeric.createUniqueID(),
+                        'color' : Colorizers.cipherColor(Colorizers.createRandomColor()),
+                      },
+                    );
+
+                    await TopDialog.showSuccessDialog(context : context);
+
                   },
-              );
+                );
 
-              await TopDialog.showSuccessDialog(context : context);
-
-            },
+              }
           ),
+
 
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,

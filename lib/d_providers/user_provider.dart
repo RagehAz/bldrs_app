@@ -180,9 +180,14 @@ class UsersProvider extends ChangeNotifier {
     @required bool notify,
   }) {
 
+    /// THIS UPDATES MY AUTH MODEL AND MY USER MODEL
+
     final List<String> _newList = <String>[bzIDToAdd, ..._myUserModel.myBzzIDs];
     _myUserModel = _myUserModel.copyWith(
       myBzzIDs: _newList,
+    );
+    _myAuthModel = _myAuthModel.copyWith(
+      userModel: _myUserModel,
     );
 
     if (notify == true){
@@ -196,6 +201,8 @@ class UsersProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
+    /// THIS UPDATES MY AUTH MODEL AND MY USER MODEL
+
     if (Mapper.checkCanLoopList(_myUserModel.myBzzIDs)) {
 
       final List<String> _newList = Mapper.removeStringsFromStrings(
@@ -208,6 +215,9 @@ class UsersProvider extends ChangeNotifier {
       );
 
       _myUserModel = _updatedUser;
+      _myAuthModel = _myAuthModel.copyWith(
+        userModel: _myUserModel,
+      );
 
       if (notify == true){
         notifyListeners();

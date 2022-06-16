@@ -499,9 +499,16 @@ void initializeUserNotes(BuildContext context){
       ],
     );
 
+    final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
+        notes: _notesProvider.userUnseenNotes,
+        toJSON: false,
+    );
+
+    final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
+
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
-      oldMaps: NoteModel.cipherNotesModels(notes: _notesProvider.userUnseenNotes, toJSON: false),
+      oldMaps: _oldMaps,
       onChange: (List<Map<String, dynamic>> newMaps){
 
         blog('new maps are :-');
@@ -598,10 +605,12 @@ void initializeMyBzzNotes(BuildContext context){
           receiverID: bzModel.id,
       );
 
-      final List<Map<String, dynamic>> _oldMaps = NoteModel.cipherNotesModels(
+      final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
           notes: _bzOldNotes,
           toJSON: false,
       );
+
+      final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
 
       FireCollStreamer.onStreamDataChanged(
         stream: _stream,

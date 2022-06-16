@@ -1,14 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/following_bzz_grid.dart';
-import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,62 +54,6 @@ class UserFollowingPage extends StatelessWidget {
         );
 
       },
-    );
-
-  }
-}
-
-class InviteBzzButton extends StatelessWidget {
-
-  const InviteBzzButton({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Aligners.superBottomAlignment(context),
-      child: DreamBox(
-        height: 50,
-        margins: const EdgeInsets.all(Ratioz.appBarMargin),
-        // width: Scale.appBarWidth(context),
-        color: Colorz.yellow255,
-        verse: 'Invite Businesses you know',
-        secondLine: 'To join Bldrs.net',
-        secondLineColor: Colorz.black255,
-        secondLineScaleFactor: 1.2,
-        verseColor: Colorz.black255,
-        verseCentered: false,
-        icon: Iconz.bz,
-        iconColor: Colorz.black255,
-        iconSizeFactor: 0.7,
-        onTap: () => onInviteBusinessesTap(context),
-      ),
-    );
-  }
-}
-
-class UserSettingsPage extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const UserSettingsPage({
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    // final UserModel userModel = UsersProvider.proGetMyUserModel(context, listen: true);
-
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      padding: Stratosphere.stratosphereSandwich,
-      children: const <Widget>[
-
-        SuperVerse(
-          verse: 'Settings page',
-        ),
-
-       InviteBzzButton(),
-
-      ],
     );
 
   }

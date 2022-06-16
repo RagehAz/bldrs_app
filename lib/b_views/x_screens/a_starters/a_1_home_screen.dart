@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
+    /// TASK MAIN NAV MODELS SHOULD BE PLACED IN PROVIDER TO LISTEN TO REBUILDS WHEN DELETING A BZ
     final List<NavModel> _navModels = generateMainNavModels(context);
 
     return MainLayout(
@@ -113,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           /// PYRAMIDS NAVIGATOR
+          /// TASK : SHOULD LISTEN TO NAV MODELS IN A PROVIDER,, AND SHOULD PUT THE SELECTOR DEEPTER INSIDE SUPER PYRAMIDS
           SuperPyramids(
             isExpanded: _isExpanded,
             onExpansion: onTriggerExpansion,
