@@ -500,7 +500,7 @@ String fixSearchText(String input){
   if (input != null && input != ''){
 
     _output = input.trim().toLowerCase();
-        // removeSpacesFromAString(input.trim());
+    _output = removeSpacesFromAString(_output);
     // _output = fixArabicText(_output);
 
   }

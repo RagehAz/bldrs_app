@@ -335,19 +335,36 @@ void triggerIsSearchingNotifier({
   Function onResume,
 }){
 
+  /// WHEN GOING MORE THAN MIN LENGTH
   if (text.length >= minCharLimit){
 
-    isSearching.value = true;
+    /// ONLY SWITCH ON SEARCHING IF ITS NOT ALREADY ON
+    if (isSearching.value != true){
+      isSearching.value = true;
+    }
 
+    /// SHOULD FIRE WITH EACH TEXT CHANGE WHILE SEARCHING
     if (onResume != null){
       onResume();
     }
+
   }
+
+  /// WHEN GOING LESS THAN MIN LENGTH
   else {
-    isSearching.value = false;
-    if (onSwitchOff != null){
-      onSwitchOff();
+
+    /// ONLY SWITCH OFF SEARCHING IF ITS NOT ALREADY OFF
+    if (isSearching.value != false){
+
+      isSearching.value = false;
+
+      /// SHOULD FIRE ONCE ON SWITCHING ON EVENT
+      if (onSwitchOff != null){
+        onSwitchOff();
+      }
+
     }
+
   }
 
 }

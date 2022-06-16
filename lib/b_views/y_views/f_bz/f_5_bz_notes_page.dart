@@ -150,8 +150,9 @@ class _BzNotesPageState extends State<BzNotesPage> {
         duplicatesAlgorithm: DuplicatesAlgorithm.keepFirst
     );
 
+    final List<NoteModel> _ordered = NoteModel.orderNotesBySentTime(_combined);
 
-    return _combined;
+    return _ordered;
   }
 // -----------------------------------------------------------------------------
   @override

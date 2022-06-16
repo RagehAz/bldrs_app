@@ -7,12 +7,12 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/main_navigation_controllers.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -20,19 +20,19 @@ import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
 // -----------------------------------------------------------------------------
 
@@ -186,12 +186,13 @@ Future<void> sendAuthorshipInvitation({
     //   notify: true,
     // );
 
-    NavDialog.showNavDialog(
+    unawaited(
+    TopDialog.showTopDialog(
       context: context,
       firstLine: 'Invitation Sent',
       secondLine: 'Account authorship invitation has been sent to ${selectedUser.name} successfully',
       color: Colorz.green255,
-    );
+    ));
 
   }
 
@@ -256,6 +257,11 @@ Future<void> respondToAuthorshipNote({
 }) async {
 
   // NOTE : USER RESPONSE TO AUTHORSHIP INVITATION
+
+  await NoteFireOps.markNoteAsSeen(
+      context: context,
+      noteModel: noteModel
+  );
 
   /// ACCEPT AUTHORSHIP
   if (response == NoteResponse.accepted){
@@ -576,9 +582,9 @@ Future<void> onAuthorOptionsTap({
         context: context,
         authorModel: authorModel,
       ),
-      onTap: () => _onDeleteAuthorFromTheTeam(
+      onTap: () => _onDeleteAuthorFromActiveBzTeam(
         context: context,
-        bzModel: bzModel,
+        // bzModel: bzModel,
         authorModel: authorModel,
       ),
     ),
@@ -602,11 +608,13 @@ Future<void> onAuthorOptionsTap({
 /// DELETE AUTHOR
 
 // -------------------------------
-Future<void> _onDeleteAuthorFromTheTeam({
+Future<void> _onDeleteAuthorFromActiveBzTeam({
   @required BuildContext context,
   @required AuthorModel authorModel,
-  @required BzModel bzModel,
 }) async {
+
+  /// CLOSE BOTTOM DIALOG
+  Nav.goBack(context);
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
@@ -616,15 +624,6 @@ Future<void> _onDeleteAuthorFromTheTeam({
   );
 
   if (_result == true){
-
-    /// CLOSE BOTTOM DIALOG
-    Nav.goBack(context);
-
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingPhrase: 'Deleting ${authorModel.name} from the team',
-      canManuallyGoBack: true,
-    ));
 
     const bool _authorHasFlyers = false;
 
@@ -636,37 +635,60 @@ Future<void> _onDeleteAuthorFromTheTeam({
         body: 'so can not delete now need to fix this issue',
       );
 
+
     }
 
     else {
 
-      blog('SHOULD REMOVE THIS AUTHOR ${authorModel.name} and all his FLYERS from this bz ${bzModel.name} naaaw');
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Deleting ${authorModel.name} from the team',
+        canManuallyGoBack: true,
+      ));
+
+      final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
+      final List<String> _oldAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(authors: _bzModel.authors);
+
+      blog('_onDeleteAuthorFromTheTeam : remove (${authorModel.userID}) from (${AuthorModel.getAuthorsIDsFromAuthors(authors: _bzModel.authors)}) now');
 
       /// REMOVE AUTHOR MODEL FROM BZ MODEL
       final BzModel _updatedBzModel = BzModel.removeAuthor(
-        bzModel: bzModel,
+        bzModel: _bzModel,
         authorID: authorModel.userID,
       );
 
+      final List<String> _newAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(authors: _updatedBzModel.authors);
+
+      blog('_onDeleteAuthorFromTheTeam : will start myActiveBzLocalUpdateProtocol : '
+          'had $_oldAuthorsIDs'
+          'but now has $_newAuthorsIDs');
+
+      await myActiveBzLocalUpdateProtocol(
+        context: context,
+        newBzModel: _updatedBzModel,
+        oldBzModel: _bzModel,
+      );
+      blog('_onDeleteAuthorFromTheTeam : finished myActiveBzLocalUpdateProtocol and updating on firebase');
       /// UPDATE BZ ON FIREBASE
       await BzFireOps.updateBz(
           context: context,
           newBzModel: _updatedBzModel,
-          oldBzModel: bzModel,
+          oldBzModel: _bzModel,
           authorPicFile: null
       );
+      blog('_onDeleteAuthorFromTheTeam : firebase updated');
+
+      /// CLOSE WAIT DIALOG
+      WaitDialog.closeWaitDialog(context);
 
       unawaited(TopDialog.showTopDialog(
         context: context,
-        firstLine: '${authorModel.name} has been removed from the team of ${bzModel.name}',
+        firstLine: '${authorModel.name} has been removed from the team of ${_bzModel.name}',
         color: Colorz.green255,
         textColor: Colorz.white255,
       ));
 
     }
-
-    // /// CLOSE WAIT DIALOG
-    // WaitDialog.closeWaitDialog(context);
 
   }
 
