@@ -311,7 +311,11 @@ class Phrase {
     @required String langCode,
   }) {
 
-    final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(doc);
+    final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(
+      docSnapshot: doc,
+      addDocSnapshot: false,
+      addDocID: false,
+    );
 
     final List<Phrase> _models = Phrase.decipherOneLangPhrasesMap(
       map: _map,
