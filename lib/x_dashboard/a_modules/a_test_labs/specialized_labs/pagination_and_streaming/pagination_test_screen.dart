@@ -21,7 +21,7 @@ class PaginatorTest extends StatefulWidget {
 
 class _PaginatorTestState extends State<PaginatorTest> {
 // -----------------------------------------------------------------------------
-  QueryParameters _queryParameters;
+  QueryModel _queryParameters;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -38,7 +38,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
   void initState() {
     super.initState();
 
-    _queryParameters = QueryParameters(
+    _queryParameters = QueryModel(
       collName: 'testing',
       limit: 5,
       orderBy: const Fire.QueryOrderBy(fieldName: 'time', descending: true),
