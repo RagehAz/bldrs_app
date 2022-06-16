@@ -29,12 +29,15 @@ class MyBzScreen extends StatelessWidget {
         listen: false,
     );
 
+    blog('my bz screen reloaded');
+
     return FireDocStreamer(
       collName: FireColl.bzz,
       docName: _bzModel.id,
-      onDataChanged: (Map<String, dynamic> map) => onMyBzStreamChanged(
+      onDataChanged: (Map<String, dynamic> oldMap, Map<String, dynamic> newMap) => onMyBzStreamChanged(
         context: context,
-        map: map,
+        oldMap: oldMap,
+        newMap: newMap,
       ),
       builder: (_, Map<String, dynamic> map){
 

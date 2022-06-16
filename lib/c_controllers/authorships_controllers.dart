@@ -32,6 +32,8 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+
 // -----------------------------------------------------------------------------
 
 /// BZ AUTHORSHIP NOTES STREAMING QUERY MODEL
@@ -340,6 +342,8 @@ Future<void> _acceptAuthorshipInvitation({
       confirmButtonText: 'Great',
     );
 
+    Nav.goBack(context);
+
     await goToMyBzScreen(
       context: context,
       bzID: bzModel.id,
@@ -614,8 +618,44 @@ Future<void> _onDeleteAuthorFromTheTeam({
 
   if (_result == true){
 
-    blog('SHOULD REMOVE THIS AUTHOR ${authorModel.name} and all his FLYERS from this bz ${bzModel.name} naaaw');
+    const bool _authorHasFlyers = false;
 
+    if (_authorHasFlyers == true){
+
+      await CenterDialog.showCenterDialog(
+        context: context,
+        title: '${authorModel.name} has published flyers ',
+        body: 'so can not delete now need to fix this issue',
+      );
+
+    }
+
+    else {
+
+      blog('SHOULD REMOVE THIS AUTHOR ${authorModel.name} and all his FLYERS from this bz ${bzModel.name} naaaw');
+
+      /// REMOVE AUTHOR MODEL FROM BZ MODEL
+      final BzModel _updatedBzModel = BzModel.removeAuthor(
+        bzModel: bzModel,
+        authorID: authorModel.userID,
+      );
+
+      /// UPDATE BZ ON FIREBASE
+      await BzFireOps.updateBz(
+          context: context,
+          newBzModel: _updatedBzModel,
+          oldBzModel: bzModel,
+          authorPicFile: null
+      );
+
+      await TopDialog.showTopDialog(
+        context: context,
+        firstLine: '${authorModel.name} has been removed from the team of ${bzModel.name}',
+        color: Colorz.green255,
+        textColor: Colorz.white255,
+      );
+
+    }
 
   }
 

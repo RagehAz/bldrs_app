@@ -331,6 +331,26 @@ class AuthorModel {
 
     return _output;
   }
+// ----------------------------------
+  static List<AuthorModel> removeAuthorFromAuthors({
+    @required List<AuthorModel> authors,
+    @required String authorIDToRemove,
+  }){
+
+    final List<AuthorModel> _output = authors ?? <AuthorModel>[];
+
+    if (Mapper.checkCanLoopList(authors) == true && authorIDToRemove != null){
+
+      final int _index = _output.indexWhere((a) => a.userID == authorIDToRemove);
+
+      if (_index != -1){
+        _output.removeAt(_index);
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// CHECKER
@@ -359,15 +379,21 @@ class AuthorModel {
     @required List<AuthorModel> authors1,
     @required List<AuthorModel> authors2
   }){
-    bool _output;
+    bool _output = false;
 
-    if (
-        Mapper.checkCanLoopList(authors1) == true
-        &&
-        Mapper.checkCanLoopList(authors2) == true
-    ){
+    if (authors1 == null && authors2 == null){
+      _output = true;
+    }
+    else if (authors1.isEmpty && authors2.isEmpty){
+      _output = true;
+    }
+    else if (authors1 != null && authors2 != null){
 
-      if (authors1.length == authors2.length){
+      if (authors1.length != authors2.length){
+        _output = false;
+      }
+
+      else {
 
         for (int i = 0; i < authors1.length; i++){
 
@@ -381,11 +407,14 @@ class AuthorModel {
             break;
           }
 
+          else {
+            _output = true;
+          }
+
         }
 
-        _output ??= true;
-
       }
+
 
     }
 
@@ -416,6 +445,28 @@ class AuthorModel {
     }
 
     return _areIdentical;
+  }
+
+  static bool checkAuthorsContainUserID({
+    @required List<AuthorModel> authors,
+    @required String userID,
+  }){
+    bool _contains = false;
+
+    if (Mapper.checkCanLoopList(authors) == true && userID != null){
+
+      final int _index = authors.indexWhere((a) => a.userID == userID);
+
+      if (_index == -1){
+        _contains = false;
+      }
+      else {
+        _contains = true;
+      }
+
+    }
+
+    return _contains;
   }
 // -----------------------------------------------------------------------------
 

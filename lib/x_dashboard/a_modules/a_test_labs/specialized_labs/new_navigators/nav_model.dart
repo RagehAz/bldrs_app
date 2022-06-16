@@ -95,12 +95,33 @@ class NavModel {
   }
 // -----------------------------------------------------------------------------
 
-/// LISTS
+/// GENERATOR
 
 // -------------------------------------
-//   static const List<String> allNavModelsIDs = <String>[
-//     'sign'
-//   ];
+  static List<String> generateBzNavModelsIDs({
+  @required String bzID,
+  }){
+
+    final String _mainNavModel = getMainNavIDString(
+      navID: MainNavModel.bz,
+      bzID: bzID,
+    );
+
+    final List<String> _bzTabsNavModelsIDs = <String>[];
+
+    for (final BzTab bzTab in BzModel.bzTabsList){
+      final String _bzTabNavID = getBzTabNavID(
+          bzTab: bzTab,
+          bzID: bzID
+      );
+      _bzTabsNavModelsIDs.add(_bzTabNavID);
+    }
+
+
+    return <String>[_mainNavModel, ..._bzTabsNavModelsIDs];
+  }
+// -----------------------------------------------------------------------------
+
 }
 
 enum MainNavModel {

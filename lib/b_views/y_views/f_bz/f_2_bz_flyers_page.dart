@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/bz_flyers_page_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class BzFlyersPage extends StatelessWidget {
         // numberOfColumns: 2,
         // topPadding: Stratosphere.smallAppBarStratosphere,
         authorMode: true,
-        onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerOptionsTap(
+        onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
           context: context,
           flyer: flyerModel,
           bzModel: bzModel,

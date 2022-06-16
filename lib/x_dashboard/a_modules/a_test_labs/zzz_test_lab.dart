@@ -322,7 +322,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 /// DO SOMETHING
                 WideButton(
                     color: Colorz.red255,
-                    verse: 'DO SOMETHING',
+                    verse: 'DO pussy',
                     icon: Iconz.dvGouran,
                     onTap: () async {
 
