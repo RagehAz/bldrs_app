@@ -34,7 +34,7 @@ class MyBzScreen extends StatelessWidget {
     return FireDocStreamer(
       collName: FireColl.bzz,
       docName: _bzModel.id,
-      onDataChanged: (Map<String, dynamic> oldMap, Map<String, dynamic> newMap) => onMyBzStreamChanged(
+      onDataChanged: (Map<String, dynamic> oldMap, Map<String, dynamic> newMap) => onMyActiveBzStreamChanged(
         context: context,
         oldMap: oldMap,
         newMap: newMap,

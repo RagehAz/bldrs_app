@@ -887,7 +887,8 @@ class NoteModel {
 
     return _areTheSame;
   }
-  // -----------------------------------
+  // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkNotesContainNote({
     @required List<NoteModel> notes,
     @required NoteModel note,
@@ -942,6 +943,7 @@ class NoteModel {
     return _output;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNotesFromNotes({
     @required List<NoteModel> notesToRemove,
     @required List<NoteModel> sourceNotes,
@@ -965,6 +967,7 @@ class NoteModel {
     return _output;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNoteIntoNotes({
     @required List<NoteModel> notesToGet,
     @required NoteModel note,
@@ -1010,6 +1013,7 @@ class NoteModel {
     return _output;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNotesInNotes({
     @required List<NoteModel> notesToGet,
     @required List<NoteModel> notesToInsert,
@@ -1032,6 +1036,14 @@ class NoteModel {
     }
 
     return _output;
+  }
+  // -------------------------------------
+
+  static List<NoteModel> orderNotesBySentTime(List<NoteModel> notes){
+    if (Mapper.checkCanLoopList(notes) == true){
+      notes.sort((NoteModel a, NoteModel b) => a.sentTime.compareTo(b.sentTime));
+    }
+    return notes;
   }
   // -----------------------------------------------------------------------------
 

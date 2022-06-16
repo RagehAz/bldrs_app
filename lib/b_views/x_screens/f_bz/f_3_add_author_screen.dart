@@ -68,6 +68,7 @@ class _AddAuthorScreenState extends State<AddAuthorScreen> {
       appBarType: AppBarType.search,
       onSearchSubmit: _onSearch,
       onSearchChanged: _onSearch,
+      loading: _loading,
       layoutWidget: AddAuthorScreenView(
         bzModel: _bzModel,
         foundUsers: _foundUsers,

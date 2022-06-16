@@ -79,6 +79,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 
     return Selector<BzzProvider, BzModel>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
+      shouldRebuild: (oldModel, newModel) => true, /// FUCKING WORKS PERFECT
       builder: (BuildContext context, BzModel bzModel, Widget child){
 
         final List<AuthorModel> _authors = bzModel?.authors;

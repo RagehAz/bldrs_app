@@ -286,31 +286,41 @@ Future<BzModel> updateBz({
   @required File authorPicFile,
 }) async {
 
-  BzModel _output;
+  BzModel _output = oldBzModel;
 
   blog('updateBz : START');
 
   if (newBzModel != null && oldBzModel != null){
 
-    final BzModel _updatedBzModel = await _updateBzLogoIfChangedAndReturnNewBzModel(
-      context: context,
-      newBzModel: newBzModel,
-      oldBzModel: oldBzModel,
+    final bool _areTheSame = BzModel.checkBzzAreIdentical(
+      bz1: newBzModel,
+      bz2: oldBzModel,
     );
 
-    final BzModel _finalBzModel = await _updateAuthorPicIfChangedAndReturnNewBzModel(
-      context: context,
-      oldBzModel: _updatedBzModel,
-      authorID: AuthFireOps.superUserID(),
-      newAuthorPic: authorPicFile,
-    );
+    if (_areTheSame == false){
 
-    await _updateBzDoc(
-      context: context,
-      finalBzModel: _finalBzModel,
-    );
+      final BzModel _updatedBzModel = await _updateBzLogoIfChangedAndReturnNewBzModel(
+        context: context,
+        newBzModel: newBzModel,
+        oldBzModel: oldBzModel,
+      );
 
-    _output = _finalBzModel;
+      final BzModel _finalBzModel = await _updateAuthorPicIfChangedAndReturnNewBzModel(
+        context: context,
+        oldBzModel: _updatedBzModel,
+        authorID: AuthFireOps.superUserID(),
+        newAuthorPic: authorPicFile,
+      );
+
+      await _updateBzDoc(
+        context: context,
+        finalBzModel: _finalBzModel,
+      );
+
+      _output = _finalBzModel;
+
+    }
+
   }
 
   blog('updateBz : END');
