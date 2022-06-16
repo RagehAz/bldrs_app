@@ -7,10 +7,11 @@ import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
-import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
-import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneSearch;
+import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneFireOps;
+import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ops/zone_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -31,49 +32,31 @@ class ZoneProvider extends ChangeNotifier {
     @required BuildContext context,
     @required String countryID,
   }) async {
-    /// 1 - search in entire LDBs for this CountryModel
-    /// 2 - if not found, search firebase
-    ///   2.1 read firebase country ops
-    ///   2.2 if found on firebase, store in ldb sessionCountries
-    CountryModel _countryModel;
 
-    /// 1 - search in sessionCountries in LDB for this CountryModel
-    final Map<String, Object> _map = await LDBOps.searchFirstMap(
-      docName: LDBDoc.countries,
-      fieldToSortBy: 'id',
-      searchField: 'id',
-      searchValue: countryID,
-    );
+    CountryModel _countryModel = await ZoneLDBOps.readCountry(countryID);
 
-    if (_map != null && _map != <String, Object>{}){
-      blog('fetchCountryByID : country found in local db : ${LDBDoc.countries}');
-      _countryModel = CountryModel.decipherCountryMap(
-          map: _map,
-          fromJSON: true
-      );
+    if (_countryModel != null){
+      blog('fetchCountryByID : ($countryID) CountryModel FOUND in LDB');
     }
 
-    /// 2 - if not found, search firebase
-    if (_countryModel == null){
-      blog('fetchCountryByID : country NOT found in local db');
+    else {
 
-      /// 2.1 read firebase country ops
-      _countryModel = await ZoneOps.readCountryOps(
+      _countryModel = await ZoneFireOps.readCountryOps(
         context: context,
         countryID: countryID,
       );
 
-      /// 2.2 if found on firebase, store in ldb sessionCountries
       if (_countryModel != null){
-        blog('fetchCountryByID : country found in firestore db');
+        blog('fetchCountryByID : ($countryID) CountryModel FOUND in FIRESTORE and inserted in LDB');
 
-        await LDBOps.insertMap(
-          input: _countryModel.toMap(toJSON: true),
-          docName: LDBDoc.countries,
-        );
+        await ZoneLDBOps.insertCountry(_countryModel);
 
       }
 
+    }
+
+    if (_countryModel == null){
+      blog('fetchCountryByID : ($countryID) CountryModel NOT FOUND');
     }
 
     return _countryModel;
@@ -108,53 +91,31 @@ class ZoneProvider extends ChangeNotifier {
     @required BuildContext context,
     @required String cityID,
   }) async {
-    /// 1 - search in entire LDBs for this CityModel
-    /// 2 - if not found, search firebase
-    ///   2.1 read firebase country ops
-    ///   2.2 if found on firebase, store in ldb sessionCities
-    CityModel _cityModel;
 
-    if (cityID != null && cityID != ''){
+    CityModel _cityModel = await ZoneLDBOps.readCity(cityID);
 
-      /// 1 - search in sessionCountries in LDB for this CountryModel
-      final Map<String, Object> _map = await LDBOps.searchFirstMap(
-        docName: LDBDoc.cities,
-        fieldToSortBy: 'cityID',
-        searchField: 'cityID',
-        searchValue: cityID,
+    if (_cityModel != null){
+      blog('fetchCityByID : ($cityID) CityModel FOUND in LDB');
+    }
+
+    else {
+
+      _cityModel = await ZoneFireOps.readCityOps(
+        context: context,
+        cityID: cityID,
       );
 
-      if (_map != null && _map != <String, dynamic>{}){
-        blog('fetchCityByID : City found in local db : ${LDBDoc.cities}');
-        _cityModel = CityModel.decipherCityMap(
-            map: _map,
-            fromJSON: true,
-        );
-      }
+      if (_cityModel != null){
+        blog('fetchCityByID : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
 
-      /// 2 - if not found, search firebase
-      if (_cityModel == null){
-        blog('fetchCityByID : City NOT found in local db');
-
-        /// 2.1 read firebase country ops
-        _cityModel = await ZoneOps.readCityOps(
-          context: context,
-          cityID: cityID,
-        );
-
-        /// 2.2 if found on firebase, store in ldb sessionCountries
-        if (_cityModel != null){
-          blog('fetchCityByID : city found in firestore db');
-
-          await LDBOps.insertMap(
-            input: _cityModel.toMap(toJSON: true),
-            docName: LDBDoc.cities,
-          );
-
-        }
+        await ZoneLDBOps.insertCity(_cityModel);
 
       }
 
+    }
+
+    if (_cityModel == null){
+      blog('fetchCityByID : ($cityID) CityModel NOT FOUND');
     }
 
     return _cityModel;
@@ -163,7 +124,7 @@ class ZoneProvider extends ChangeNotifier {
   Future<CityModel> fetchCityByName({
     @required BuildContext context,
     @required String cityName,
-    @required String lingoCode,
+    @required String langCode,
     String countryID,
   }) async {
 
@@ -173,45 +134,46 @@ class ZoneProvider extends ChangeNotifier {
 
       /// A - trial 1 : search by generated cityID
       if (countryID != null){
-        final String _cityIDA = CityModel.createCityID(countryID: countryID, cityEnName: cityName);
-        _city = await fetchCityByID(context: context, cityID: _cityIDA);
+
+        final String _cityID = CityModel.createCityID(
+            countryID: countryID,
+            cityEnName: cityName,
+        );
+
+        _city = await fetchCityByID(
+            context: context,
+            cityID: _cityID,
+        );
+
       }
 
       /// B - when trial 1 fails
       if (_city == null){
 
-        List<CityModel> _foundCities;
-
-        /// B-1 - trial 2 search ldb
-        final List<Map<String, dynamic>> _ldbCitiesMaps = await LDBOps.searchLDBDocTrigram(
-          searchValue: cityName,
-          docName: LDBDoc.cities,
-          lingoCode: lingoCode,
+        List<CityModel> _foundCities = await ZoneLDBOps.searchCitiesByName(
+            cityName: cityName,
+            langCode: langCode,
         );
-        /// B-2 - if found results in ldb
-        if (Mapper.checkCanLoopList(_ldbCitiesMaps)){
-          _foundCities = CityModel.decipherCitiesMaps(maps: _ldbCitiesMaps, fromJSON: true);
-        }
 
         /// C - trial 3 search firebase if no result found in LDB
         if (Mapper.checkCanLoopList(_foundCities) == false){
 
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null){
-            _foundCities = await ZoneSearch.citiesByCityName(
+            _foundCities = await ZoneFireSearch.citiesByCityName(
               context: context,
               cityName: cityName,
-              lingoCode: lingoCode,
+              lingoCode: langCode,
             );
           }
 
           /// C-1 - trial 3 if countryID is available
           else {
-            _foundCities = await ZoneSearch.citiesByCityNameAndCountryID(
+            _foundCities = await ZoneFireSearch.citiesByCityNameAndCountryID(
               context: context,
               cityName: cityName,
               countryID: countryID,
-              lingoCode: lingoCode,
+              lingoCode: langCode,
             );
           }
 
@@ -293,38 +255,29 @@ class ZoneProvider extends ChangeNotifier {
     @required BuildContext context,
   }) async {
 
-    List<Continent> _continents;
+    List<Continent> _continents = await ZoneLDBOps.readContinents();
 
-    /// 1 - search in sessionCountries in LDB for this CountryModel
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.continents,
-    );
-
-    if (Mapper.checkCanLoopList(_maps)){
-      blog('fetchCountryByID : country found in local db : ${LDBDoc.continents}');
-      _continents = Continent.decipherContinents(_maps[0]);
+    if (Mapper.checkCanLoopList(_continents) == true){
+      blog('fetchContinents : All Continents FOUND in LDB');
     }
 
-    /// 2 - if not found, search firebase
-    if (_continents == null){
-      blog('fetchCountryByID : country NOT found in local db');
+    else {
 
-      /// 2.1 read firebase country ops
-      _continents = await ZoneOps.readContinentsOps(
+      _continents = await ZoneFireOps.readContinentsOps(
         context: context,
       );
 
-      /// 2.2 if found on firebase, store in ldb sessionCountries
       if (_continents != null){
-        blog('fetchCountryByID : country found in firestore db');
+        blog('fetchContinents : All Continents FOUND in FIREBASE and inserted in LDB');
 
-        await LDBOps.insertMap(
-          input: Continent.cipherContinents(_continents),
-          docName: LDBDoc.continents,
-        );
+        await ZoneLDBOps.insertContinents(_continents);
 
       }
 
+    }
+
+    if (_continents == null){
+      blog('fetchContinents : All Continents NOT FOUND');
     }
 
     return _continents;
@@ -335,36 +288,25 @@ class ZoneProvider extends ChangeNotifier {
     @required BuildContext context,
   }) async {
 
-    List<CurrencyModel> _currencies;
+    List<CurrencyModel> _currencies = await ZoneLDBOps.readCurrencies();
 
-    /// 1 - search in LDB
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.currencies,
-    );
-
-    if (Mapper.checkCanLoopList(_maps)){
-      blog('fetchCurrencies : currencies found in local db : ${LDBDoc.currencies}');
-      _currencies = CurrencyModel.decipherCurrencies(_maps[0]);
+    if (Mapper.checkCanLoopList(_currencies) == true){
+      blog('fetchCurrencies : All CurrencyModels FOUND in LDB');
     }
 
-    /// 2 - if not found, search firebase
-    if (_currencies == null){
-      blog('fetchCurrencies : currencies NOT found in local db');
+    else {
 
-      /// 2.1 read firebase country ops
-      _currencies = await ZoneOps.readCurrencies(context,);
+      _currencies = await ZoneFireOps.readCurrencies(context);
 
-      /// 2.2 if found on firebase, store in ldb LDBDoc.currencies
-      if (_currencies != null){
-        blog('fetchCurrencies : adding currencies from firestore to LDB');
-
-        await LDBOps.insertMap(
-          input: CurrencyModel.cipherCurrencies(_currencies),
-          docName: LDBDoc.currencies,
-        );
-
+      if (Mapper.checkCanLoopList(_currencies) == true){
+        blog('fetchCurrencies : All CurrencyModels FOUND in FIREBASE and inserted in LDB');
+        await ZoneLDBOps.insertCurrencies(_currencies);
       }
 
+    }
+
+    if (Mapper.checkCanLoopList(_currencies) == false){
+      blog('fetchCurrencies : currencies NOT FOUND');
     }
 
     return _currencies;
@@ -600,7 +542,7 @@ class ZoneProvider extends ChangeNotifier {
 
     if (geoPoint != null){
 
-      final List<Placemark> _marks = await ZoneOps.getAddressFromPosition(geoPoint: geoPoint);
+      final List<Placemark> _marks = await ZoneFireOps.getAddressFromPosition(geoPoint: geoPoint);
 
       blog('_getCountryData : got place marks : ${_marks.length}');
 
@@ -619,7 +561,7 @@ class ZoneProvider extends ChangeNotifier {
             context: context,
             countryID: _countryID,
             cityName: _subAdministrativeArea,
-            lingoCode: 'en',
+            langCode: 'en',
         );
 
         /// try by admin area
@@ -629,7 +571,7 @@ class ZoneProvider extends ChangeNotifier {
               context: context,
               countryID: _countryID,
               cityName: _administrativeArea,
-              lingoCode: 'en',
+              langCode: 'en',
           );
         }
 
@@ -640,7 +582,7 @@ class ZoneProvider extends ChangeNotifier {
               context: context,
               countryID: _countryID,
               cityName: _locality,
-              lingoCode: 'en',
+              langCode: 'en',
           );
         }
 

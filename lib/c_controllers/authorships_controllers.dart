@@ -342,11 +342,10 @@ Future<void> _acceptAuthorshipInvitation({
       confirmButtonText: 'Great',
     );
 
-    Nav.goBack(context);
-
     await goToMyBzScreen(
       context: context,
       bzID: bzModel.id,
+      replaceCurrentScreen: true,
     );
 
   }
@@ -618,6 +617,15 @@ Future<void> _onDeleteAuthorFromTheTeam({
 
   if (_result == true){
 
+    /// CLOSE BOTTOM DIALOG
+    Nav.goBack(context);
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Deleting ${authorModel.name} from the team',
+      canManuallyGoBack: true,
+    ));
+
     const bool _authorHasFlyers = false;
 
     if (_authorHasFlyers == true){
@@ -648,14 +656,17 @@ Future<void> _onDeleteAuthorFromTheTeam({
           authorPicFile: null
       );
 
-      await TopDialog.showTopDialog(
+      unawaited(TopDialog.showTopDialog(
         context: context,
         firstLine: '${authorModel.name} has been removed from the team of ${bzModel.name}',
         color: Colorz.green255,
         textColor: Colorz.white255,
-      );
+      ));
 
     }
+
+    // /// CLOSE WAIT DIALOG
+    // WaitDialog.closeWaitDialog(context);
 
   }
 

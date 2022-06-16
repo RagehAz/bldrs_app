@@ -68,7 +68,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
     if (_isInit) {
       _triggerLoading().then((_) async {
 
-        final BzModel _bz = await _bzzProvider.fetchBzModel(
+        final BzModel _bz = await _bzzProvider.fetchBzByID(
             context: context,
             bzID: widget.bzID,
         );

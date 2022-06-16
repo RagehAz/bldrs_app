@@ -13,6 +13,7 @@ import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -30,56 +31,31 @@ class FlyersProvider extends ChangeNotifier {
     @required  String flyerID,
   }) async {
 
-    /// 1 - search in entire LDBs for this flyerModel
-    /// 2 - if not found, search firebase
-    ///   2.1 read firebase flyer ops
-    ///   2.2 if found on firebase, store in ldb sessionFlyers
+    FlyerModel _flyer = await FlyersLDBOps.readFlyer(flyerID);
 
-
-    FlyerModel _flyer;
-
-    /// 1 - search in entire LDBs for this flyerModel
-    for (final String doc in LDBDoc.flyerModelsDocs){
-
-      final Map<String, Object> _map = await LDBOps.searchFirstMap(
-        docName: doc,
-        fieldToSortBy: 'id',
-        searchField: 'id',
-        searchValue: flyerID,
-      );
-
-      if (_map != null && _map != <String, dynamic>{}){
-        blog('fetchFlyerByID : flyer found in local db : $doc');
-        _flyer = FlyerModel.decipherFlyer(
-            map: _map,
-            fromJSON: true,
-        );
-        break;
-      }
-
+    if (_flyer != null){
+      blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in LDB');
     }
 
-    /// 2 - if not found, search firebase
-    if (_flyer == null){
-      blog('fetchFlyerByID : flyer NOT found in local db');
+    else {
 
-      /// 2.1 read firebase flyer ops
       _flyer = await FlyerFireOps.readFlyerOps(
         context: context,
         flyerID: flyerID,
       );
 
-      /// 2.2 if found on firebase, store in ldb sessionFlyers
       if (_flyer != null){
-        blog('fetchFlyerByID : flyer found in firestore db');
-
+        blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in FIRESTORE and inserted in LDB');
         await LDBOps.insertMap(
           input: _flyer.toMap(toJSON: true),
           docName: LDBDoc.flyers,
         );
-
       }
 
+    }
+
+    if (_flyer == null){
+      blog('fetchFlyerByID : ($flyerID) FlyerModel NOT FOUND');
     }
 
     return _flyer;
