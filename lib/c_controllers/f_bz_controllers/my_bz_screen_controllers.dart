@@ -107,7 +107,8 @@ Future<void> _setBzModelAndFetchSetBzFlyers({
 /// MY BZ SCREEN INITIALIZERS
 
 // -------------------------------
-Future<void> onMyBzStreamChanged({
+/// WORKS GOOD 3ALA FEKRA
+Future<void> onMyActiveBzStreamChanged({
   @required BuildContext context,
   @required Map<String, dynamic> newMap,
   @required Map<String, dynamic> oldMap,
@@ -118,15 +119,15 @@ Future<void> onMyBzStreamChanged({
     fromJSON: false,
   );
 
-  final BzModel _oldBzModel = BzModel.getBzFromBzzByBzID(
-    bzz: BzzProvider.proGetMyBzz(context: context, listen: false),
-    bzID: _newBzFromStream.id,
+  final BzModel _oldBzModel = BzModel.decipherBz(
+      map: oldMap,
+      fromJSON: false,
   );
 
-  await _updateMyBzModelEverywhereIfUpdated(
+  await myActiveBzLocalUpdateProtocol(
     context: context,
-    oldBzModel: _oldBzModel,
     newBzModel: _newBzFromStream,
+    oldBzModel: _oldBzModel,
   );
 
   await _myBzResignationProtocol(
@@ -137,28 +138,32 @@ Future<void> onMyBzStreamChanged({
 }
 // -------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> _updateMyBzModelEverywhereIfUpdated({
+Future<void> myActiveBzLocalUpdateProtocol({
   @required BuildContext context,
-  @required BzModel oldBzModel,
   @required BzModel newBzModel,
+  @required BzModel oldBzModel,
 }) async {
+
+  /// LOCAL UPDATE PROTOCOL
+  /// is to update my-active-bz-model in PRO and LDB in case of model changes
+
 
   final bool _areTheSame = BzModel.checkBzzAreIdentical(
     bz1: newBzModel,
     bz2: oldBzModel,
   );
 
-  blog('_updateMyBzModelEverywhereIfUpdated : bzz are identical : $_areTheSame');
+  blog('myActiveBzLocalUpdateProtocol : bzz are identical : $_areTheSame');
 
   /// UPDATE BZ MODEL EVERYWHERE
   if (_areTheSame == false){
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
     /// OVERRIDE BZ ON LDB
     await BzLDBOps.insertBz(
       bzModel: newBzModel,
     );
-
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
     /// UPDATE MY BZZ
     _bzzProvider.updateBzInMyBzz(
@@ -172,8 +177,8 @@ Future<void> _updateMyBzModelEverywhereIfUpdated({
       notify: true,
     );
 
+    blog('myActiveBzLocalUpdateProtocol : my active bz updated in PRO & LDB');
   }
-
 
 }
 // -------------------------------

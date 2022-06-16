@@ -11,6 +11,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
 class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -109,6 +110,7 @@ class TopDialog extends StatelessWidget {
             ),
 
             /// SECOND LINE
+            if (secondLine != null)
             SuperVerse(
               verse: secondLine,
               size: 1,
@@ -123,7 +125,7 @@ class TopDialog extends StatelessWidget {
       ),
 
       /// BODY ----------------------------------------------
-      messageText: Container(),
+      messageText: const SizedBox(),
       messageColor: null,
       messageSize: null,
 
@@ -145,6 +147,9 @@ class TopDialog extends StatelessWidget {
       /// INTERACTIONS ----------------------------------------------
       onTap: (Flushbar<dynamic> flushbar) {
         blog('on tap : flushbar : $flushbar');
+
+        Nav.goBack(context);
+
       },
 
       onStatusChanged: (FlushbarStatus status) {

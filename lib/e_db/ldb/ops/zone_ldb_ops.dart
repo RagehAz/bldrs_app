@@ -165,7 +165,11 @@ class ZoneLDBOps{
       docName: LDBDoc.currencies,
     );
 
-    final List<CurrencyModel> _currencies = CurrencyModel.decipherCurrencies(_maps[0]);
+    List<CurrencyModel> _currencies = <CurrencyModel>[];
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+      _currencies = CurrencyModel.decipherCurrencies(_maps[0]);
+    }
 
     return _currencies;
   }

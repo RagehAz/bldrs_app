@@ -336,20 +336,25 @@ class AuthorModel {
     @required List<AuthorModel> authors,
     @required String authorIDToRemove,
   }){
-
-    final List<AuthorModel> _output = authors ?? <AuthorModel>[];
+// ----------------------------------
+    List<AuthorModel> _output;
 
     if (Mapper.checkCanLoopList(authors) == true && authorIDToRemove != null){
 
-      final int _index = _output.indexWhere((a) => a.userID == authorIDToRemove);
+      _output = <AuthorModel>[...authors];
+
+      final int _index = authors.indexWhere((a) => a.userID == authorIDToRemove);
 
       if (_index != -1){
         _output.removeAt(_index);
       }
+      else {
+        _output = null;
+      }
 
     }
 
-    return _output;
+    return _output ?? authors;
   }
 // -----------------------------------------------------------------------------
 

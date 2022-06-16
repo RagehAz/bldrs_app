@@ -1758,22 +1758,28 @@ class BzModel{
     @required String authorID,
   }){
 
-    BzModel _output = bzModel;
+    BzModel _output;
+
+    blog('removeAuthor : remove ($authorID) from (${AuthorModel.getAuthorsIDsFromAuthors(authors: bzModel.authors)})');
 
     if (bzModel != null && authorID != null){
 
+      final List<AuthorModel> _authors = bzModel.authors;
+
       final List<AuthorModel> _updated = AuthorModel.removeAuthorFromAuthors(
-        authors: _output.authors,
+        authors: _authors,
         authorIDToRemove: authorID,
       );
 
-      _output = _output.copyWith(
+      _output = bzModel.copyWith(
         authors: _updated,
       );
 
     }
 
-    return _output;
+    blog('removeAuthor : _output is (${AuthorModel.getAuthorsIDsFromAuthors(authors: _output.authors)})');
+
+    return _output ?? bzModel;
   }
 // -----------------------------------------------------------------------------
 }
