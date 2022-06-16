@@ -4,15 +4,13 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
-import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
@@ -25,27 +23,17 @@ class UsersProvider extends ChangeNotifier {
     @required BuildContext context,
     @required String userID
   }) async {
-    UserModel _userModel;
 
-    /// 1 - search in entire LDBs for this userModel
-    for (final String doc in LDBDoc.userModelsDocs) {
-      final Map<String, Object> _map = await LDBOps.searchFirstMap(
-        docName: doc,
-        fieldToSortBy: 'id',
-        searchField: 'id',
-        searchValue: userID,
-      );
+    /// 1 - GET USER FROM LDB
+    UserModel _userModel= await UserLDBOps.readUserOps(
+      userID: userID,
+    );
 
-      if (_map != null && _map != <String, dynamic>{}) {
-        blog('fetchUserModelByID : UserModel found in local db : $doc');
-        _userModel = UserModel.decipherUser(map: _map, fromJSON: true);
-        break;
-      }
+    if (_userModel != null){
+      blog('fetchUserByID : ($userID) UserModel FOUND in LDB');
     }
 
-    /// 2 - if not found, search firebase
-    if (_userModel == null) {
-      blog('fetchUserModelByID : UserModel NOT found in local db');
+    else {
 
       /// 2.1 read firebase UserOps
       _userModel = await UserFireOps.readUser(
@@ -55,13 +43,14 @@ class UsersProvider extends ChangeNotifier {
 
       /// 2.2 if found on firebase, store in ldb sessionUsers
       if (_userModel != null) {
-        blog('fetchUserModelByID : UserModel found in firestore db');
-
-        await LDBOps.insertMap(
-          input: _userModel.toMap(toJSON: true),
-          docName: LDBDoc.users,
-        );
+        blog('fetchUserByID : ($userID) UserModel FOUND in FIRESTORE and inserted in LDB');
+        await UserLDBOps.insertUserModel(_userModel);
       }
+
+    }
+
+    if (_userModel == null){
+      blog('fetchUserByID : ($userID) UserModel NOT FOUND');
     }
 
     return _userModel;

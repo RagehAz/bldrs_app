@@ -172,7 +172,7 @@ Future<ZoneModel> _getZoneByIP_ipApi({
                       context: context,
                       countryID: _countryID,
                       cityName: _cityName,
-                      lingoCode: 'en',
+                      langCode: 'en',
                   );
 
                   _cityID = CityModel.createCityID(
@@ -254,7 +254,7 @@ Future<ZoneModel> _getZoneByIP_ipRegistry({
                     context: context,
                     countryID: _countryID,
                     cityName: _cityName,
-                    lingoCode: 'en',
+                    langCode: 'en',
                 );
 
                 if (_city != null) {

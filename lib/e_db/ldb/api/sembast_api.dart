@@ -89,7 +89,7 @@ class Sembast  {
 
     if (map != null){
       await _doc.add(_db, map);
-      blog('SEMBAST : _addMap : added to ( $docName) : map : $map');
+      blog('SEMBAST : _addMap : added to ( $docName) : map has (${map.keys.length}) keys ');
     }
 
   }
@@ -139,7 +139,7 @@ class Sembast  {
       finder: _finder,
     );
 
-    blog('SEMBAST : _updateExistingMap : updated in ( $docName ) : result : $_result : map : $map');
+    blog('SEMBAST : _updateExistingMap : updated in ( $docName ) : result : $_result : map has ${map?.keys?.length} keys');
 
   }
 // -----------------------------

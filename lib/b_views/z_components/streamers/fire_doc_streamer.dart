@@ -40,15 +40,15 @@ class FireDocStreamer extends StatefulWidget {
         addDocSnapshot: true,
       );
 
-      blog('xxx - onStreamDataChanged - _newMap : $_newMap');
-      blog('xxx - onStreamDataChanged - oldMap : ${oldMap.value}');
+      blog('FireDocStreamer - onStreamDataChanged - _newMap : has ${_newMap?.keys?.length} keys');
+      blog('FireDocStreamer - onStreamDataChanged - oldMap : has ${oldMap.value?.keys?.length} keys');
 
       final bool _mapsAreTheSame = Mapper.checkMapsAreTheSame(
         map1: oldMap.value,
         map2: _newMap,
       );
 
-      blog('xxx - onStreamDataChanged - _mapsAreTheSame : $_mapsAreTheSame');
+      blog('FireDocStreamer - onStreamDataChanged - _mapsAreTheSame : $_mapsAreTheSame');
 
 
       if (_mapsAreTheSame == false){
