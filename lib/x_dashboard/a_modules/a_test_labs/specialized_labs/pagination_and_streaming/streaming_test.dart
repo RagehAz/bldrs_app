@@ -29,7 +29,7 @@ class StreamingTest extends StatefulWidget {
 }
 
 class _StreamingTestState extends State<StreamingTest> {
-  QueryParameters _queryParameters;
+  QueryModel _queryParameters;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -46,7 +46,7 @@ class _StreamingTestState extends State<StreamingTest> {
   void initState() {
     super.initState();
 
-    _queryParameters = QueryParameters(
+    _queryParameters = QueryModel(
       collName: 'testing',
       limit: 100,
       orderBy: const Fire.QueryOrderBy(fieldName: 'time', descending: true),

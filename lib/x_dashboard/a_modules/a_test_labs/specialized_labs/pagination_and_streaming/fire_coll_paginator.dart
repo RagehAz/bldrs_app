@@ -16,7 +16,7 @@ class FireCollPaginator extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final QueryParameters queryParameters;
+  final QueryModel queryParameters;
   final Widget Function(BuildContext, List<Map<String, dynamic>>, bool) builder;
   final Widget loadingWidget;
   final ScrollController scrollController;
