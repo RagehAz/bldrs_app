@@ -21,7 +21,7 @@ class FireCollStreamer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   static Future<void> onStreamDataChanged({
     @required Stream<QuerySnapshot<Object>> stream,
-    @required List<Map<String, dynamic>> oldMaps,
+    @required ValueNotifier<List<Map<String, dynamic>>> oldMaps,
     @required ValueChanged<List<Map<String, dynamic>>> onChange,
   }) async {
 
@@ -35,10 +35,11 @@ class FireCollStreamer extends StatefulWidget {
 
       final bool _mapsAreTheSame = Mapper.checkMapsListsAreTheSame(
         maps1: _newMaps,
-        maps2: oldMaps,
+        maps2: oldMaps.value,
       );
 
       if (_mapsAreTheSame == false){
+        oldMaps.value = _newMaps;
         onChange(_newMaps);
       }
 
@@ -67,7 +68,7 @@ class FireCollStreamer extends StatefulWidget {
 class _FireCollStreamerState extends State<FireCollStreamer> {
 // -----------------------------------------------------------------------------
   Stream<QuerySnapshot<Object>> _stream;
-  List<Map<String, dynamic>> _oldMaps = <Map<String, dynamic>>[];
+  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(<Map<String, dynamic>>[]);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -125,8 +126,6 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
             addDocsIDs: true,
             addDocSnapshotToEachMap: true,
           );
-
-          _oldMaps = _maps;
 
           return widget.builder(ctx, _maps);
 

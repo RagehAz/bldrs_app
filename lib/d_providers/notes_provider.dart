@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -85,6 +86,25 @@ class NotesProvider extends ChangeNotifier {
       );
     }
 
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void removeAllObeliskNoteNumbersRelatedToBzID({
+    @required String bzID,
+    @required bool notify,
+  }){
+
+    final List<String> _bzNavModelsIDs = NavModel.generateBzNavModelsIDs(
+      bzID: bzID,
+    );
+
+    for (final String navModelID in _bzNavModelsIDs){
+      _obeliskNotesNumbers.removeWhere((mm) => mm.key == navModelID);
+    }
 
     if (notify == true){
       notifyListeners();
@@ -178,7 +198,7 @@ class NotesProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  void removeNotesFromAllBzzUnseenNotes({
+  void removeNotesFromAllBzzUnseenReceivedNotes({
     @required List<NoteModel> notes,
     @required bool notify,
   }){
@@ -197,7 +217,19 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+// -------------------------------------
+  void removeAllNotesOfThisBzFromAllBzzUnseenReceivedNotes({
+    @required String bzID,
+    @required bool notify,
+  }){
 
+    _myBzzUnseenReceivedNotes.removeWhere((note) => note.receiverID == bzID);
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
 // -------------------------------------
   static List<NoteModel> proGetAllBzzUnseenNotes({
     @required BuildContext context,
