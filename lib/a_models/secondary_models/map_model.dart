@@ -202,7 +202,13 @@ class MapModel{
 
     if (Mapper.checkCanLoopList(mapModels) == true){
       for (final MapModel mm in mapModels){
-        _values.add(mm.key);
+
+        if (mm != null){
+          if (mm?.key != null){
+            _values.add(mm.key);
+          }
+        }
+
       }
     }
 

@@ -616,103 +616,19 @@ void initializeMyBzzNotes(BuildContext context){
 
   if (_userIsAuthor == true){
 
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(context: context, listen: false);
 
     for (final BzModel bzModel in _myBzz){
 
-      final Stream<QuerySnapshot<Object>> _stream  = _bzUnseenReceivedNotesStream(
-        bzID: bzModel.id,
-      );
-
-      final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProBzzUnseenReceivedNotes(
+      _onBzNotesStreamDataChanged(
         context: context,
         bzID: bzModel.id,
-      );
-
-      FireCollStreamer.onStreamDataChanged(
-        stream: _stream,
-        oldMaps: _oldMaps,
-        onChange: (List<Map<String, dynamic>> allMapsUpdated){
-
-          final List<NoteModel> _notes = NoteModel.decipherNotes(
-            maps: allMapsUpdated,
-            fromJSON: false,
-          );
-
-          final List<NoteModel> _allBzzUnseenNotesUpdated = NoteModel.insertNotesInNotes(
-              notesToGet: _notesProvider.myBzzUnseenReceivedNotes,
-              notesToInsert: _notes,
-              duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-          );
-
-          _notesProvider.setAllBzzUnseenNotesAndRebuildObelisk(
-              context: context,
-              notes: _allBzzUnseenNotesUpdated,
-              notify: true
-          );
-
-          // final int _notesCount = _getNotesCount(
-          //   notes: _notes,
-          //   thereAreMissingFields: false,
-          // );
-
-          // if (_notesCount != null){
-          //   _notesProvider.setObeliskNoteNumber(
-          //     caller: 'initializeMyBzzNotes',
-          //     value: _notesCount,
-          //     navModelID: NavModel.getMainNavIDString(navID: MainNavModel.bz, bzID: bzModel.id),
-          //     notify: false,
-          //   );
-          //   _notesProvider.setObeliskNoteNumber(
-          //     caller: 'initializeMyBzzNotes',
-          //     value: _notesCount,
-          //     navModelID: NavModel.getBzTabNavID(bzTab: BzTab.notes, bzID: bzModel.id),
-          //     notify: true,
-          //   );
-          //
-          // }
-
-          final bool _noteDotIsOn = _checkNoteDotIsOn(
-            thereAreMissingFields: false,
-            notes: _notes,
-          );
-          if (_noteDotIsOn == true){
-            _notesProvider.setIsFlashing(
-              setTo: true,
-              notify: true,
-            );
-          }
-
-        },
       );
 
     }
 
   }
 
-}
-// -------------------------------
-ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzzUnseenReceivedNotes ({
-  @required BuildContext context,
-  @required String bzID,
-}){
-
-  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-
-  final List<NoteModel> _bzOldNotes = NoteModel.getNotesByReceiverID(
-    notes: _notesProvider.myBzzUnseenReceivedNotes,
-    receiverID: bzID,
-  );
-
-  final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
-    notes: _bzOldNotes,
-    toJSON: false,
-  );
-
-  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
-
-  return _oldMaps;
 }
 // -------------------------------
 Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
@@ -742,6 +658,110 @@ Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
 
   return _stream;
 }
+// -------------------------------
+ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes ({
+  @required BuildContext context,
+  @required String bzID,
+}){
+
+  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+
+  final List<NoteModel> _bzOldNotes = _notesProvider.myBzzUnseenReceivedNotes[bzID];
+
+  final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
+    notes: _bzOldNotes,
+    toJSON: false,
+  );
+
+  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
+
+  return _oldMaps;
+}
+
+void _onBzNotesStreamDataChanged({
+  @required BuildContext context,
+  @required String bzID,
+}){
+
+  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+
+
+  final Stream<QuerySnapshot<Object>> _stream  = _bzUnseenReceivedNotesStream(
+    bzID: bzID,
+  );
+
+  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProBzUnseenReceivedNotes(
+    context: context,
+    bzID: bzID,
+  );
+
+  FireCollStreamer.onStreamDataChanged(
+    stream: _stream,
+    oldMaps: _oldMaps,
+    onChange: (List<Map<String, dynamic>> allBzNotes){
+
+      final List<NoteModel> _allBzNotes = NoteModel.decipherNotes(
+        maps: allBzNotes,
+        fromJSON: false,
+      );
+
+      _notesProvider.setBzUnseenNotesAndRebuildObelisk(
+          context: context,
+          bzID: bzID,
+          notes: _allBzNotes,
+          notify: true
+      );
+
+      // final List<NoteModel> _allBzzUnseenNotesUpdated = NoteModel.insertNotesInNotes(
+      //     notesToGet: _notesProvider.myBzzUnseenReceivedNotes,
+      //     notesToInsert: _notes,
+      //     duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+      // );
+      //
+      // _notesProvider.setAllBzzUnseenNotesAndRebuildObelisk(
+      //     context: context,
+      //     notes: _allBzzUnseenNotesUpdated,
+      //     notify: true
+      // );
+
+      // final int _notesCount = _getNotesCount(
+      //   notes: _notes,
+      //   thereAreMissingFields: false,
+      // );
+
+      // if (_notesCount != null){
+      //   _notesProvider.setObeliskNoteNumber(
+      //     caller: 'initializeMyBzzNotes',
+      //     value: _notesCount,
+      //     navModelID: NavModel.getMainNavIDString(navID: MainNavModel.bz, bzID: bzModel.id),
+      //     notify: false,
+      //   );
+      //   _notesProvider.setObeliskNoteNumber(
+      //     caller: 'initializeMyBzzNotes',
+      //     value: _notesCount,
+      //     navModelID: NavModel.getBzTabNavID(bzTab: BzTab.notes, bzID: bzModel.id),
+      //     notify: true,
+      //   );
+      //
+      // }
+
+      final bool _noteDotIsOn = _checkNoteDotIsOn(
+        thereAreMissingFields: false,
+        notes: _allBzNotes,
+      );
+
+      if (_noteDotIsOn == true){
+        _notesProvider.setIsFlashing(
+          setTo: true,
+          notify: true,
+        );
+      }
+
+    },
+  );
+
+
+}
 // -----------------------------------------------------------------------------
 
 /// NOTES CHECKERS
@@ -767,6 +787,7 @@ bool _checkNoteDotIsOn({
 
   return _isOn;
 }
+
 // -------------------------------
 // int _getNotesCount({
 //   @required bool thereAreMissingFields,
