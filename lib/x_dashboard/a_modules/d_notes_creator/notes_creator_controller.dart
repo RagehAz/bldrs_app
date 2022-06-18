@@ -885,7 +885,7 @@ void _clearNote({
 Future<void> onDeleteNote({
   @required BuildContext context,
   @required NoteModel noteModel,
-  @required ValueNotifier<List<NoteModel>> notes,
+  // @required ValueNotifier<List<NoteModel>> notes,
   @required ValueNotifier<bool> loading,
 }) async {
 
@@ -925,11 +925,11 @@ Future<void> onDeleteNote({
     );
 
     /// DELETE LOCALLY
-    final List<NoteModel> _newList = NoteModel.removeNoteFromNotes(
-      notes: notes.value,
-      noteModel: noteModel,
-    );
-    notes.value = _newList;
+    // final List<NoteModel> _newList = NoteModel.removeNoteFromNotes(
+    //   notes: notes.value,
+    //   noteModel: noteModel,
+    // );
+    // notes.value = _newList;
 
     loading.value = false;
 

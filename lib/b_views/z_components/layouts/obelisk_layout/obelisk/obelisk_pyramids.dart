@@ -46,8 +46,6 @@ class ObeliskPyramids extends StatelessWidget {
       child: GestureDetector(
         onTap: (){
 
-
-
           /// TO OPEN PYRAMIDS
           if (isExpanded.value == null || isExpanded.value == false){
             isExpanded.value = true;
@@ -56,19 +54,17 @@ class ObeliskPyramids extends StatelessWidget {
           /// TO CLOSE PYRAMIDS
           else {
             isExpanded.value = false;
-
-            final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-            final bool _isFlashing = _notesProvider.isFlashing;
-            if (_isFlashing == true){
-              _notesProvider.setIsFlashing(
-                  setTo: false,
-                  notify: true,
-              );
-            }
-
           }
 
-          },
+          /// STOP FLASHING
+          NotesProvider.proSetIsFlashing(
+              context: context,
+              setTo: false,
+              notify: true
+          );
+
+
+        },
         child: Stack(
           children: <Widget>[
 

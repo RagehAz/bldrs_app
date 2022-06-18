@@ -31,6 +31,18 @@ class _BzNotesPageState extends State<BzNotesPage> {
   NotesProvider _notesProvider;
   BzModel _bzModel;
 // -----------------------------------------------------------------------------
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// NOT disposed
+  // Stream<List<NoteModel>> _receivedNotesStream;
+// -----------------------------------
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'HomeScreen',
+    );
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
 
@@ -41,11 +53,33 @@ class _BzNotesPageState extends State<BzNotesPage> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+
+      _triggerLoading().then((_) async {
+        // -------------------------------
+        NotesProvider.proSetIsFlashing(
+            context: context,
+            setTo: false,
+            notify: true
+        );
+        // -------------------------------
+        await _triggerLoading();
+
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
 
-
     _scrollController.dispose();
+    _loading.dispose();
     _markAllBzUnseenNotesAsSeen();
 
     blog('DISPOSING --------------- BZ - NOTES - PAGE ---- BIAAATCH');
@@ -87,6 +121,7 @@ class _BzNotesPageState extends State<BzNotesPage> {
       /// REMOVE UNSEEN NOTES FROM ALL BZZ UNSEEN NOTES
       _notesProvider.removeNotesFromAllBzzUnseenReceivedNotes(
         notes: _notesToMark,
+        bzID: _bzModel.id,
         notify: true,
       );
 
@@ -96,23 +131,17 @@ class _BzNotesPageState extends State<BzNotesPage> {
 
   }
 // -----------------------------------------------------------------------------
-  List<NoteModel> _onProviderDataChanged({
-    @required List<NoteModel> allMyBzzNotes,
+  void _onProviderDataChanged({
+    @required List<NoteModel> bzNotes,
   }){
-
-    final List<NoteModel> _bzNotes = NoteModel.getUnseenNotesByReceiverID(
-      notes: allMyBzzNotes,
-      receiverID: _bzModel.id,
-    );
 
     /// ADD THIS BZ UNSEEN PROVIDER NOTES TO LOCAL NOTES TO MARK SEEN
     _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
       notesToGet: _localNotesToMarkUnseen,
-      notesToInsert: _bzNotes,
+      notesToInsert: bzNotes,
       duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
     );
 
-    return _bzNotes;
   }
 // -----------------------------------
   void _onPaginatorDataChanged(List<Map<String, dynamic>> newMaps){
@@ -161,14 +190,20 @@ class _BzNotesPageState extends State<BzNotesPage> {
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
     return Selector<NotesProvider, List<NoteModel>>(
-        selector: (_, NotesProvider notesProvider) => notesProvider.myBzzUnseenReceivedNotes,
-        shouldRebuild: (before, after) => true,
-        builder: (_,List<NoteModel> _allMyBzzNotes, Widget child){
+        selector: (_, NotesProvider notesProvider){
 
-          /// GET THIS BZ NOTES FROM ALL BZZ NOTES
-          final List<NoteModel> _providerNotes = _onProviderDataChanged(
-            allMyBzzNotes: _allMyBzzNotes,
+          final Map<String, List<NoteModel>> _map = notesProvider.myBzzUnseenReceivedNotes;
+
+          final List<NoteModel> _bzNotes = _map[_bzModel.id];
+
+          _onProviderDataChanged(
+            bzNotes: _bzNotes,
           );
+
+          return _bzNotes;
+        },
+        shouldRebuild: (before, after) => true,
+        builder: (_,List<NoteModel> _providerNotes, Widget child){
 
           return FireCollPaginator(
               scrollController: _scrollController,
