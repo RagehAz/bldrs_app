@@ -1,5 +1,9 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +11,8 @@ import 'package:provider/provider.dart';
 
 // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 class NotesProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------
+// --------------------
 
   /// OBELISK NOTES NUMBERS
 
@@ -24,68 +29,80 @@ class NotesProvider extends ChangeNotifier {
     return _notesProvider.obeliskNotesNumber;
   }
 // -------------------------------------
-  void addObeliskNotesNumbers({
-    @required List<MapModel> mapModels,
+  void generateSetInitialObeliskNumbers({
+    @required BuildContext context,
     @required bool notify,
   }){
 
-    if (Mapper.checkCanLoopList(mapModels) == true){
-      _obeliskNotesNumbers.addAll(mapModels);
+    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: false);
+
+    final List<String> _allNavModelsIDs = NavModel.generateAllNavModelsIDs(
+        myBzzIDs: BzModel.getBzzIDsFromBzz(_bzzModels),
+    );
+
+    final List<MapModel> _initialList = <MapModel>[];
+    for (final String navID in _allNavModelsIDs){
+      final MapModel _mapModel = MapModel(
+        key: navID,
+        value: null,
+      );
+      _initialList.add(_mapModel);
+    }
+
+      _obeliskNotesNumbers = _initialList;
 
       if (notify == true){
         notifyListeners();
       }
 
-    }
-
   }
 // -------------------------------------
-  void incrementObeliskNoteNumber({
+  int getObeliskNumber({
+    @required String navModelID,
+  }){
+
+    final MapModel _mapModel = _obeliskNotesNumbers.firstWhere(
+            (m) => m.key == navModelID,
+        orElse: ()=> null
+    );
+
+    return _mapModel?.value;
+  }
+// -------------------------------------
+  void setObeliskNumberAndRebuild({
+    @required BuildContext context,
+    @required String caller,
     @required int value,
     @required String navModelID,
     @required bool notify,
-    bool isIncrementing = true,
+    @required bool rebuildAllMainNumbers,
   }){
 
-    final MapModel _mapModel = MapModel.getModelByKey(
-      models: _obeliskNotesNumbers,
+    final MapModel _mapModel = MapModel(
       key: navModelID,
+      value: value,
     );
 
-    MapModel _output = _mapModel ?? MapModel(
-      key: navModelID,
-      value: 0,
+    _obeliskNotesNumbers = MapModel.insertMapModel(
+      mapModels: _obeliskNotesNumbers,
+      mapModel: _mapModel,
     );
 
-    int _newValue;
+    blog('setObeliskNoteNumber (caller : $caller) : (navModelID : $navModelID) : value : $value');
 
-    if (isIncrementing == true){
-      _newValue = _output.value == null ? value : _output.value + value;
-    }
-    else {
-      _newValue = _output.value == null || _output.value <= 1 ? null : _output.value - value;
-    }
+    if (rebuildAllMainNumbers == true){
 
-    if (_newValue != null){
-
-      _output = _output.copyWith(
-        value: _newValue,
+      _calculateAndSetMainUserProfileNumber(
+        context: context,
+        notify: false,
       );
 
-      _obeliskNotesNumbers = MapModel.insertMapModel(
-        mapModels: _obeliskNotesNumbers,
-        mapModel: _output,
+      _calculateAndSetAllMainBzzProfilesNumbers(
+        context: context,
+        notify: false,
       );
 
     }
-
-    else {
-      _obeliskNotesNumbers = MapModel.removeMapModel(
-        mapModels: _obeliskNotesNumbers,
-        key: navModelID,
-      );
-    }
-
 
     if (notify == true){
       notifyListeners();
@@ -98,7 +115,7 @@ class NotesProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    final List<String> _bzNavModelsIDs = NavModel.generateBzNavModelsIDs(
+    final List<String> _bzNavModelsIDs = NavModel.generateSuperBzNavIDs(
       bzID: bzID,
     );
 
@@ -108,6 +125,124 @@ class NotesProvider extends ChangeNotifier {
 
     if (notify == true){
       notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void _calculateAndSetMainUserProfileNumber({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final List<String> _userProfileNavIDs = NavModel.generateUserTabsNavModelsIDs();
+
+    /// internal tabs numbers
+    final List<MapModel> _profileNumbers = MapModel.getModelsByKeys(
+      keys: _userProfileNavIDs,
+      allModels: _obeliskNotesNumbers,
+    );
+
+    final List<dynamic> _values = MapModel.getValuesFromMapModels(_profileNumbers);
+
+    int _totalCount = 0;
+    if (Mapper.checkCanLoopList(_values) == true){
+
+      for (final dynamic value in _values){
+
+        final int _addOn = value?.toInt() ?? 0;
+        _totalCount = _totalCount + _addOn;
+
+      }
+
+    }
+
+    setObeliskNumberAndRebuild(
+      context: context,
+      caller: 'calculateAndSetUserProfileNumbers',
+      value: _totalCount,
+      navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+      notify: notify,
+      rebuildAllMainNumbers: false,
+    );
+
+  }
+// -------------------------------------
+  void _calculateAndSetAllMainBzzProfilesNumbers({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(
+        context: context,
+        listen: false,
+    );
+
+    final List<String> _bzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
+
+    if (Mapper.checkCanLoopList(_bzzIDs) == true){
+
+      for (int i = 0; i < _bzzIDs.length; i++){
+
+        bool _notify = false;
+        /// only listen to notify if at last one
+        if (i == _bzzIDs.length - 1){
+          _notify = notify;
+        }
+
+        _calculateAndSetMainBzProfileNumber(
+          context: context,
+          bzID: _bzzIDs[i],
+          notify: _notify,
+        );
+
+      }
+
+    }
+
+  }
+// -------------------------------------
+  void _calculateAndSetMainBzProfileNumber({
+    @required BuildContext context,
+    @required String bzID,
+    @required bool notify,
+  }){
+
+    if (bzID != null){
+
+      final List<String> _bzProfileNavIDs = NavModel.generateBzTabsNavModelsIDs(
+        bzID: bzID,
+      );
+
+      final List<MapModel> _bzNumbers = MapModel.getModelsByKeys(
+        keys: _bzProfileNavIDs,
+        allModels: _obeliskNotesNumbers,
+      );
+
+      final List<dynamic> _values = MapModel.getValuesFromMapModels(_bzNumbers);
+
+      int _totalCount = 0;
+      if (Mapper.checkCanLoopList(_values) == true){
+
+        for (final dynamic value in _values){
+
+          _totalCount = _totalCount + (value.toInt());
+
+        }
+
+      }
+
+      setObeliskNumberAndRebuild(
+        context: context,
+        caller: 'calculateAndSetBzProfileNumbers',
+        value: _totalCount,
+        notify: notify,
+        rebuildAllMainNumbers: false,
+        navModelID: NavModel.getMainNavIDString(
+          navID: MainNavModel.bz,
+          bzID: bzID,
+        ),
+      );
+
     }
 
   }
@@ -128,12 +263,13 @@ class NotesProvider extends ChangeNotifier {
 
       _isFlashing = setTo;
 
+      blog('setIsFlashing : to : $setTo ');
+
       if (notify == true){
         notifyListeners();
       }
 
     }
-
 
   }
 // -------------------------------------
@@ -156,16 +292,22 @@ class NotesProvider extends ChangeNotifier {
   List<NoteModel> _userUnseenNotes = <NoteModel>[];
   List<NoteModel> get userUnseenNotes => _userUnseenNotes;
 // -------------------------------------
-  void setUserUnseenNotes({
+  void setUserUnseenNotesAndRebuild({
+    @required BuildContext context,
     @required List<NoteModel> notes,
     @required bool notify,
   }){
 
     _userUnseenNotes = notes;
 
-    if (notify == true){
-      notifyListeners();
-    }
+    setObeliskNumberAndRebuild(
+      context: context,
+      caller: 'setUserUnseenNotes',
+      value: _userUnseenNotes.length,
+      navModelID: NavModel.getUserTabNavID(UserTab.notifications),
+      rebuildAllMainNumbers: true,
+      notify: notify,
+    );
 
   }
 // -------------------------------------
@@ -185,16 +327,63 @@ class NotesProvider extends ChangeNotifier {
   List<NoteModel> _myBzzUnseenReceivedNotes = <NoteModel>[];
   List<NoteModel> get myBzzUnseenReceivedNotes => _myBzzUnseenReceivedNotes;
 // -------------------------------------
-  void setAllBzzUnseenNotes({
+  void setAllBzzUnseenNotesAndRebuildObelisk({
+    @required BuildContext context,
     @required List<NoteModel> notes,
     @required bool notify,
   }){
 
     _myBzzUnseenReceivedNotes = notes;
 
+    _setMyBzzObeliskNumbersAndRebuildAfterSettingBzzUnseenNotes(
+      context: context,
+      notify: false,
+    );
+
     if (notify == true){
       notifyListeners();
     }
+
+  }
+// -------------------------------------
+  void _setMyBzzObeliskNumbersAndRebuildAfterSettingBzzUnseenNotes({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final List<String> _myBzzIDs = BzzProvider.proGetMyBzzIDs(
+        context: context,
+        listen: false
+    );
+
+    for (int i = 0; i < _myBzzIDs.length; i++){
+
+      final String _bzID = _myBzzIDs[i];
+
+      final List<NoteModel> _bzNotes = NoteModel.getNotesByReceiverID(
+          notes: _myBzzUnseenReceivedNotes,
+          receiverID: _bzID
+      );
+
+      final bool _isLast = Mapper.checkIsLastListObject(
+        index: i,
+        list: _myBzzIDs,
+      );
+
+      setObeliskNumberAndRebuild(
+        context: context,
+        caller: 'setAllBzzUnseenNotes',
+        value: _bzNotes.length,
+        notify: _isLast == true && notify == true,
+        rebuildAllMainNumbers: _isLast,
+        navModelID: NavModel.getBzTabNavID(
+          bzTab: BzTab.notes,
+          bzID: _bzID,
+        ),
+      );
+
+    }
+
 
   }
 // -------------------------------------

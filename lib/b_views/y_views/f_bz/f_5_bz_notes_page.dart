@@ -71,12 +71,12 @@ class _BzNotesPageState extends State<BzNotesPage> {
     if (Mapper.checkCanLoopList(_notesToMark) == true){
       WidgetsBinding.instance.addPostFrameCallback((_){
 
-      /// DECREMENT UNSEEN BZ NOTES NUMBER IN OBELISK
-      decrementBzObeliskUnseenNotesNumber(
-        notesProvider: _notesProvider,
-        markedNotesLength: _notesToMark.length,
-        bzID: _bzModel.id,
-      );
+      // /// DECREMENT UNSEEN BZ NOTES NUMBER IN OBELISK
+      // decrementBzObeliskUnseenNotesNumber(
+      //   notesProvider: _notesProvider,
+      //   markedNotesLength: _notesToMark.length,
+      //   bzID: _bzModel.id,
+      // );
 
       /// UN-FLASH PYRAMID
       _notesProvider.setIsFlashing(

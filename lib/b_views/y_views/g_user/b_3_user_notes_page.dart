@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_notes_controllers.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
@@ -36,6 +37,8 @@ class _UserNotesPageState extends State<UserNotesPage> {
   @override
   void dispose() {
 
+    blog('DISPOSING USER NOTES PAGE AHO');
+
     _scrollController.dispose();
     _markAllUserUnseenNotesAsSeen();
 
@@ -52,6 +55,8 @@ class _UserNotesPageState extends State<UserNotesPage> {
       notes: _localNotesToMarkUnseen,
     );
 
+    blog('_markAllUserUnseenNotesAsSeen : ${_notesToMark.length} notes should be marked');
+
     /// MARK ON FIREBASE
     unawaited(NoteFireOps.markNotesAsSeen(
           context: context,
@@ -60,12 +65,12 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     if (Mapper.checkCanLoopList(_notesToMark) == true){
       WidgetsBinding.instance.addPostFrameCallback((_){
-        /// MARK ON PROVIDER
-        decrementUserObelisksNotesNumber(
-          notesProvider: _notesProvider,
-          markedNotesLength: _notesToMark.length,
-          notify: false,
-        );
+        // /// MARK ON PROVIDER
+        // decrementUserObelisksNotesNumber(
+        //   notesProvider: _notesProvider,
+        //   markedNotesLength: _notesToMark.length,
+        //   notify: false,
+        // );
         _notesProvider.setIsFlashing(
           setTo: false,
           notify: true,

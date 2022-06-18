@@ -296,7 +296,6 @@ Future<void> _acceptAuthorshipInvitation({
   @required NoteModel noteModel,
   @required BzModel bzModel,
 }) async {
-  blog('_acceptAuthorshipInvitation : accepted ');
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
@@ -306,6 +305,8 @@ Future<void> _acceptAuthorshipInvitation({
   );
 
   if (_result == true){
+
+    blog('_acceptAuthorshipInvitation : accepted ');
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
@@ -635,19 +636,26 @@ Future<void> _onDeleteAuthorFromActiveBzTeam({
         body: 'so can not delete now need to fix this issue',
       );
 
-
     }
 
     else {
 
-      unawaited(WaitDialog.showWaitDialog(
-        context: context,
-        loadingPhrase: 'Deleting ${authorModel.name} from the team',
-        canManuallyGoBack: true,
-      ));
+      // unawaited(WaitDialog.showWaitDialog(
+      //   context: context,
+      //   loadingPhrase: 'Deleting ${authorModel.name} from the team',
+      //   canManuallyGoBack: true,
+      // ));
 
-      final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
-      final List<String> _oldAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(authors: _bzModel.authors);
+      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
+      final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+          context: context,
+          listen: false,
+      );
+
+      final List<String> _oldAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
+          authors: _bzModel.authors,
+      );
 
       blog('_onDeleteAuthorFromTheTeam : remove (${authorModel.userID}) from (${AuthorModel.getAuthorsIDsFromAuthors(authors: _bzModel.authors)}) now');
 
@@ -667,6 +675,7 @@ Future<void> _onDeleteAuthorFromActiveBzTeam({
         context: context,
         newBzModel: _updatedBzModel,
         oldBzModel: _bzModel,
+        bzzProvider: _bzzProvider,
       );
       blog('_onDeleteAuthorFromTheTeam : finished myActiveBzLocalUpdateProtocol and updating on firebase');
       /// UPDATE BZ ON FIREBASE
@@ -678,8 +687,15 @@ Future<void> _onDeleteAuthorFromActiveBzTeam({
       );
       blog('_onDeleteAuthorFromTheTeam : firebase updated');
 
-      /// CLOSE WAIT DIALOG
-      WaitDialog.closeWaitDialog(context);
+      /// SEND AUTHOR DELETION NOTES
+      await _sendAuthorDeletionNotes(
+        context: context,
+        bzModel: _bzModel,
+        deletedAuthor: authorModel,
+      );
+
+      // /// CLOSE WAIT DIALOG
+      // WaitDialog.closeWaitDialog(context);
 
       unawaited(TopDialog.showTopDialog(
         context: context,
@@ -704,6 +720,70 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
     title: 'You can not remove ${authorModel.name}',
     body: 'Only Account Admins can remove other team members,\n'
         'however you can remove only yourself from this business account',
+  );
+
+}
+// -------------------------------
+Future<void> _sendAuthorDeletionNotes({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required AuthorModel deletedAuthor,
+}) async {
+
+  /// NOTE TO BZ
+  final NoteModel _noteToBz = NoteModel(
+    id: 'x',
+    senderID: deletedAuthor.userID,
+    senderImageURL: deletedAuthor.pic,
+    noteSenderType: NoteSenderType.user,
+    receiverID: bzModel.id,
+    receiverType: NoteReceiverType.bz,
+    title: '${deletedAuthor.name} has left the team',
+    body: '${deletedAuthor.name} is no longer part of ${bzModel.name} team',
+    metaData: NoteModel.defaultMetaData,
+    sentTime: DateTime.now(),
+    attachment: null,
+    attachmentType: NoteAttachmentType.non,
+    seen: null,
+    seenTime: null,
+    sendFCM: true,
+    noteType: NoteType.announcement,
+    response: null,
+    responseTime: null,
+    buttons: null,
+  );
+
+  await NoteFireOps.createNote(
+      context: context,
+      noteModel: _noteToBz,
+  );
+
+  /// NOTE TO DELETED AUTHOR
+  final NoteModel _noteToUser = NoteModel(
+    id: 'x',
+    senderID: bzModel.id,
+    senderImageURL: bzModel.logo,
+    noteSenderType: NoteSenderType.bz,
+    receiverID: deletedAuthor.userID,
+    receiverType: NoteReceiverType.user,
+    title: 'You have exited from ${bzModel.name} account',
+    body: 'You are no longer part of ${bzModel.name} team',
+    metaData: NoteModel.defaultMetaData,
+    sentTime: DateTime.now(),
+    attachment: null,
+    attachmentType: NoteAttachmentType.non,
+    seen: null,
+    seenTime: null,
+    sendFCM: true,
+    noteType: NoteType.announcement,
+    response: null,
+    responseTime: null,
+    buttons: null,
+  );
+
+  await NoteFireOps.createNote(
+    context: context,
+    noteModel: _noteToUser,
   );
 
 }
