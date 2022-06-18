@@ -13,12 +13,12 @@ import 'package:flutter/material.dart';
 class AuthorModel {
   /// --------------------------------------------------------------------------
   const AuthorModel({
-    this.userID,
-    this.name,
-    this.pic,
-    this.title,
-    this.isMaster,
-    this.contacts,
+    @required this.userID,
+    @required this.name,
+    @required this.pic,
+    @required this.title,
+    @required this.isMaster,
+    @required this.contacts,
   });
   /// --------------------------------------------------------------------------
   final String userID;
@@ -244,13 +244,11 @@ class AuthorModel {
   static BzModel replaceAuthorModelInBzModel({
     @required BzModel bzModel,
     @required AuthorModel newAuthor,
-    @required AuthorModel oldAuthor,
   }) {
 
     final List<AuthorModel> _modifiedAuthorsList = replaceAuthorModelInAuthorsList(
-      originalAuthors: bzModel.authors,
-      oldAuthor: oldAuthor,
-      newAuthor: newAuthor,
+      authors: bzModel.authors,
+      authorToReplace: newAuthor,
     );
 
     final BzModel _updatedBzModel = bzModel.copyWith(
@@ -261,27 +259,24 @@ class AuthorModel {
   }
 // ----------------------------------
   static List<AuthorModel> replaceAuthorModelInAuthorsList({
-    @required List<AuthorModel> originalAuthors,
-    @required AuthorModel newAuthor,
-    /// this to be able to replace old author with new one
-    @required AuthorModel oldAuthor,
+    @required List<AuthorModel> authors,
+    @required AuthorModel authorToReplace,
   }) {
-    List<AuthorModel> _modifiedAuthorsList;
 
-    final List<AuthorModel> _originalAuthors = originalAuthors;
+    final List<AuthorModel> _output = <AuthorModel>[...authors];
 
-    final int _indexOfOldAuthor = getAuthorIndexByAuthorID(
-        authors: _originalAuthors,
-        authorID: oldAuthor.userID,
+    final int _index = getAuthorIndexByAuthorID(
+        authors: _output,
+        authorID: authorToReplace.userID,
     );
 
-    if (_indexOfOldAuthor != -1) {
-      _originalAuthors.removeAt(_indexOfOldAuthor);
-      _originalAuthors.insert(_indexOfOldAuthor, newAuthor);
-      _modifiedAuthorsList = _originalAuthors;
+    if (_index != -1){
+
+      _output.removeAt(_index);
+      _output.insert(_index, authorToReplace);
     }
 
-    return _modifiedAuthorsList;
+    return _output;
   }
 // ----------------------------------
   static List<String> replaceAuthorIDInAuthorsIDsList({

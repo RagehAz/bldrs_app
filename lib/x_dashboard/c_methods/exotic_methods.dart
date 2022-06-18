@@ -386,9 +386,8 @@ class ExoticMethods {
       );
 
       final List<AuthorModel> _updatedAuthors = AuthorModel.replaceAuthorModelInAuthorsList(
-        originalAuthors: _authors,
-        oldAuthor: _oldAuthor,
-        newAuthor: _newAuthor,
+        authors: _authors,
+        authorToReplace: _newAuthor,
       );
 
       await Fire.updateDocField(

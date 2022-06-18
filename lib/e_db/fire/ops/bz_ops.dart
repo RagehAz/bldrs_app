@@ -412,9 +412,8 @@ Future<BzModel> _updateAuthorPicIfChangedAndReturnNewBzModel({
       );
 
       final List<AuthorModel> _finalAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
-        originalAuthors: oldBzModel.authors,
-        oldAuthor: _oldAuthor,
-        newAuthor: _updatedAuthor,
+        authors: oldBzModel.authors,
+        authorToReplace: _updatedAuthor,
       );
 
       _finalBz = oldBzModel.copyWith(
