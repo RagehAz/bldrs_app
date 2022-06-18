@@ -56,7 +56,7 @@ class ObeliskIcon extends StatelessWidget {
                 builder: (_, int count, Widget child){
 
                   return NoteRedDotWrapper(
-                    redDotIsOn: count != null,
+                    redDotIsOn: count != null && count > 0,
                     count: count,
                     childWidth: Obelisk.circleWidth,
                     shrinkChild: true,

@@ -8,12 +8,13 @@ import 'package:bldrs/b_views/z_components/notes/note_red_dot.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_controllers/a_starters_controllers/home_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/fire_coll_paginator.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -30,9 +31,9 @@ class AllNotesScreen extends StatefulWidget {
 
 class _AllNotesScreenState extends State<AllNotesScreen> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<List<NoteModel>> _notes = ValueNotifier(<NoteModel>[]);
+//   final ValueNotifier<List<NoteModel>> _notes = ValueNotifier(<NoteModel>[]);
   final ScrollController _scrollController = ScrollController();
-  bool _canPaginate = true;
+  // bool _canPaginate = true;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -49,12 +50,12 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
   void initState() {
     super.initState();
 
-    _canPaginate = fuckingPaginator(
-      context: context,
-      scrollController: _scrollController,
-      canPaginate: _canPaginate,
-      function: _paginateAllNotes,
-    );
+    // _canPaginate = fuckingPaginator(
+    //   context: context,
+    //   scrollController: _scrollController,
+    //   canPaginate: _canPaginate,
+    //   function: _paginateAllNotes,
+    // );
 
 
   }
@@ -66,7 +67,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
       _triggerLoading().then((_) async {
 
-        await _paginateAllNotes();
+        // await _paginateAllNotes();
 
       });
 
@@ -78,48 +79,50 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
   @override
   void dispose() {
     _loading.dispose();
-    _notes.dispose();
+    // _notes.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
-  Future<void> _paginateAllNotes() async {
-
-    _loading.value = true;
-
-    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-      context: context,
-      collName: FireColl.notes,
-      startAfter: Mapper.checkCanLoopList(_notes.value) == true ? _notes.value.last.docSnapshot : null,
-      orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
-      addDocsIDs: true,
-      addDocSnapshotToEachMap: true,
-      limit: 8,
-      // finders: <FireFinder>[
-      //   FireFinder(
-      //     field: 'recieverID',
-      //     comparison: FireComparison.equalTo,
-      //     value: recieverID,
-      //   ),
-      // ],
-    );
-
-    if (Mapper.checkCanLoopList(_maps) == true){
-
-      final List<NoteModel> _newNotes = NoteModel.decipherNotes(
-        maps: _maps,
-        fromJSON: false,
-      );
-
-      final List<NoteModel> _combinesNotes = <NoteModel>[..._notes.value, ..._newNotes];
-      _notes.value = _combinesNotes;
-
-    }
-
-    _loading.value = false;
-
-  }
+//   Future<void> _paginateAllNotes() async {
+//
+//     _loading.value = true;
+//
+//     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+//       context: context,
+//       collName: FireColl.notes,
+//       startAfter: Mapper.checkCanLoopList(_notes.value) == true ? _notes.value.last.docSnapshot : null,
+//       orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
+//       addDocsIDs: true,
+//       addDocSnapshotToEachMap: true,
+//       limit: 8,
+//       // finders: <FireFinder>[
+//       //   FireFinder(
+//       //     field: 'recieverID',
+//       //     comparison: FireComparison.equalTo,
+//       //     value: recieverID,
+//       //   ),
+//       // ],
+//     );
+//
+//     if (Mapper.checkCanLoopList(_maps) == true){
+//
+//       final List<NoteModel> _newNotes = NoteModel.decipherNotes(
+//         maps: _maps,
+//         fromJSON: false,
+//       );
+//
+//       final List<NoteModel> _combinesNotes = <NoteModel>[..._notes.value, ..._newNotes];
+//       _notes.value = _combinesNotes;
+//
+//     }
+//
+//     _loading.value = false;
+//
+//   }
 // -----------------------------------------------------------------------------
-  Future<void> _onNoteTap(NoteModel note) async {
+  Future<void> _onNoteTap({
+    @required NoteModel note,
+  }) async {
 
     final List<Widget> _buttons = <Widget>[
 
@@ -129,7 +132,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
         onTap: () => onDeleteNote(
           context: context,
           noteModel: note,
-          notes: _notes,
+          // notes: allNotes,
           loading: _loading,
         ),
       ),
@@ -154,6 +157,8 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
   @override
   Widget build(BuildContext context) {
 
+    blog('AllNotesScreen : REBUILDING SCREEN');
+
     return MainLayout(
       pageTitle: 'Note Creator',
       sectionButtonIsOn: false,
@@ -162,9 +167,26 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       loading: _loading,
-      layoutWidget: ValueListenableBuilder(
-        valueListenable: _notes,
-        builder: (_, List<NoteModel> notesModels, Widget child) {
+      layoutWidget: FireCollPaginator(
+        scrollController: _scrollController,
+        queryParameters: QueryModel(
+          collName: FireColl.notes,
+          orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
+          limit: 5,
+          onDataChanged: (List<Map<String, dynamic>> maps){
+
+            setState(() {
+              blog('AllNotesScreen : setting state');
+            });
+
+          },
+        ),
+        builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+
+          final List<NoteModel> notesModels = NoteModel.decipherNotes(
+              maps: maps,
+              fromJSON: false,
+          );
 
           if (Mapper.checkCanLoopList(notesModels) == false){
             return const SizedBox();
@@ -173,8 +195,8 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
           else {
 
             return ListView.builder(
-              controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
+                controller: _scrollController,
+                physics: const BouncingScrollPhysics(),
                 padding: Stratosphere.stratosphereInsets,
                 itemCount: notesModels.length,
                 itemBuilder: (_, index){
@@ -203,7 +225,9 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
                           child: NoteCard(
                             noteModel: _noteModel,
                             isDraftNote: false,
-                            onNoteOptionsTap: () => _onNoteTap(_noteModel),
+                            onNoteOptionsTap: () => _onNoteTap(
+                              note: _noteModel,
+                            ),
                             onCardTap: () => _noteModel.blogNoteModel(methodName: 'All Notes'),
                           ),
                         ),
@@ -217,7 +241,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
           }
 
-        }
+        },
       ),
     );
 

@@ -28,10 +28,44 @@ class _UserNotesPageState extends State<UserNotesPage> {
   final ScrollController _scrollController = ScrollController();
   NotesProvider _notesProvider;
 // -----------------------------------------------------------------------------
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// NOT disposed
+  // Stream<List<NoteModel>> _receivedNotesStream;
+// -----------------------------------
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'HomeScreen',
+    );
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     super.initState();
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+
+      _triggerLoading().then((_) async {
+        // -------------------------------
+        NotesProvider.proSetIsFlashing(
+            context: context,
+            setTo: false,
+            notify: true
+        );
+        // -------------------------------
+        await _triggerLoading();
+
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -40,6 +74,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
     blog('DISPOSING USER NOTES PAGE AHO');
 
     _scrollController.dispose();
+    _loading.dispose();
     _markAllUserUnseenNotesAsSeen();
 
     // _notesProvider.dispose();
@@ -65,12 +100,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     if (Mapper.checkCanLoopList(_notesToMark) == true){
       WidgetsBinding.instance.addPostFrameCallback((_){
-        // /// MARK ON PROVIDER
-        // decrementUserObelisksNotesNumber(
-        //   notesProvider: _notesProvider,
-        //   markedNotesLength: _notesToMark.length,
-        //   notify: false,
-        // );
+
         _notesProvider.setIsFlashing(
           setTo: false,
           notify: true,
