@@ -205,6 +205,8 @@ Future<DocumentReference<Object>> createDoc({
         }
 
         await _docRef.set(input);
+
+        blog('Fire : createDoc : $collName/${_docRef.id} : ${input.keys.length} keys');
       });
 
   return _docRef;

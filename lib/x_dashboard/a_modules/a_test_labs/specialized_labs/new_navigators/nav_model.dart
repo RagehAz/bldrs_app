@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 
 class NavModel {
   /// --------------------------------------------------------------------------
@@ -98,9 +99,11 @@ class NavModel {
 /// GENERATOR
 
 // -------------------------------------
-  static List<String> generateBzNavModelsIDs({
-  @required String bzID,
+  static List<String> generateSuperBzNavIDs({
+    @required String bzID,
   }){
+
+    /// NOTE : INCLUDES MAIN NAV MODEL AS WELL AS INTERNAL NAV MODELS
 
     final String _mainNavModel = getMainNavIDString(
       navID: MainNavModel.bz,
@@ -120,8 +123,183 @@ class NavModel {
 
     return <String>[_mainNavModel, ..._bzTabsNavModelsIDs];
   }
+// -------------------------------------
+  static List<String> generateMainNavModelsIDs({
+    @required List<String> myBzzIDs,
+  }){
+
+    final List<String> _mainNavModelsIDs = <String>[];
+
+    for (final MainNavModel mainNavModel in mainNavModels){
+
+      if (mainNavModel == MainNavModel.bz){
+        if (Mapper.checkCanLoopList(myBzzIDs) == true){
+          for (final String bzID in myBzzIDs){
+            final String _navID = getMainNavIDString(
+              navID: MainNavModel.bz,
+              bzID: bzID,
+            );
+            _mainNavModelsIDs.add(_navID);
+          }
+        }
+      }
+
+      else {
+        final String _navID = getMainNavIDString(navID: mainNavModel);
+        _mainNavModelsIDs.add(_navID);
+      }
+
+    }
+
+    return _mainNavModelsIDs;
+  }
+// -------------------------------------
+  static List<String> generateUserTabsNavModelsIDs(){
+
+    final List<String> _userTabsNavModelsIDs = <String>[];
+
+    for (final UserTab userTab in UserModel.userProfileTabsList){
+      final String _navID = getUserTabNavID(userTab);
+      _userTabsNavModelsIDs.add(_navID);
+    }
+
+    return _userTabsNavModelsIDs;
+  }
+// -------------------------------------
+  static List<String> generateBzTabsNavModelsIDs({
+    @required String bzID,
+  }){
+
+    final List<String> _bzTabsNavModelsIDs = <String>[];
+
+    if (bzID != null){
+
+      for (final BzTab bzTab in BzModel.bzTabsList){
+        final String _bzNavID = getBzTabNavID(
+            bzTab: bzTab,
+            bzID: bzID
+        );
+        _bzTabsNavModelsIDs.add(_bzNavID);
+      }
+
+    }
+
+    return _bzTabsNavModelsIDs;
+  }
+// -------------------------------------
+  static List<String> generateAllBzzTabsNavModelsIDs({
+    @required List<String> myBzzIDs,
+  }){
+
+    final List<String> _allBzzTabsNavModelsIDs = <String>[];
+
+    if (Mapper.checkCanLoopList(myBzzIDs) == true){
+      for (final String bzID in myBzzIDs){
+
+        final List<String> _bzTabsNavModelsIDs = generateBzTabsNavModelsIDs(
+          bzID: bzID,
+        );
+
+        _allBzzTabsNavModelsIDs.addAll(_bzTabsNavModelsIDs);
+
+      }
+    }
+
+    return _allBzzTabsNavModelsIDs;
+  }
+// -------------------------------------
+  static List<String> generateAllNavModelsIDs({
+    @required List<String> myBzzIDs,
+  }){
+
+    final List<String> _allNavModelsIDs = <String>[];
+
+    /// MAIN
+    final List<String> _mainNavModelsIDs = generateMainNavModelsIDs(
+        myBzzIDs: myBzzIDs,
+    );
+    _allNavModelsIDs.addAll(_mainNavModelsIDs);
+
+    /// USER PROFILE
+    final List<String> _userTabsNavModelsIDs = generateUserTabsNavModelsIDs();
+      _allNavModelsIDs.addAll(_userTabsNavModelsIDs);
+
+    /// BZZ PROFILES
+    final List<String> _allBzzTabsNavModelsIDs = generateAllBzzTabsNavModelsIDs(
+      myBzzIDs: myBzzIDs,
+    );
+    _allNavModelsIDs.addAll(_allBzzTabsNavModelsIDs);
+
+    return _allNavModelsIDs;
+  }
+// -----------------------------------------------------------------------------
+  static const List<MainNavModel> mainNavModels = <MainNavModel>[
+    MainNavModel.signIn,
+    MainNavModel.questions,
+    MainNavModel.profile,
+    MainNavModel.savedFlyers,
+    MainNavModel.bz,
+    MainNavModel.zone,
+    MainNavModel.settings,
+  ];
 // -----------------------------------------------------------------------------
 
+/// OBELISK NUMBERS
+
+// -------------------------------------
+  static int updateObeliskNumber({
+    @required int oldNumber,
+    @required int change,
+    @required bool isIncrementing,
+  }){
+
+    int _output;
+
+    /// WHILE INCREASING
+    if (isIncrementing == true){
+
+      /// initial null need initialization
+      if (oldNumber == null){
+        _output = change;
+      }
+
+      /// existing number need increase
+      else {
+        _output = oldNumber + change;
+      }
+
+    }
+
+    /// WHILE DECREASING
+    else {
+
+      /// initial null keep null
+      if (oldNumber == null){
+        _output = null;
+      }
+
+      /// if one remaining or only zero, need to nullify it not decrease to zero
+      else if (oldNumber <= 1){
+        _output = null;
+      }
+
+      /// if not null nor zero nor one : decrease until 1 then null it
+      else {
+        _output = oldNumber - change;
+
+        /// null it if result is zero or smaller
+        if (_output <= 0){
+          _output = null;
+        }
+
+      }
+
+
+    }
+
+    return  _output;
+  }
+// -----------------------------------------------------------------------------
 }
 
 enum MainNavModel {

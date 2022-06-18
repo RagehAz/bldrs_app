@@ -909,6 +909,8 @@ class NoteModel {
 
     return _contains;
   }
+
+
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -1041,7 +1043,7 @@ class NoteModel {
 
   static List<NoteModel> orderNotesBySentTime(List<NoteModel> notes){
     if (Mapper.checkCanLoopList(notes) == true){
-      notes.sort((NoteModel a, NoteModel b) => a.sentTime.compareTo(b.sentTime));
+      notes.sort((NoteModel a, NoteModel b) => b.sentTime.compareTo(a.sentTime));
     }
     return notes;
   }

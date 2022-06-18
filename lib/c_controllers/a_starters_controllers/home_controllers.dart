@@ -466,7 +466,19 @@ Future<void> onFlyerTap({
 }
 // -----------------------------------------------------------------------------
 
-/// USER NOTES & MY BZZ NOTES
+/// OBELISK
+
+// -------------------------------
+void initializeObeliskNumbers(BuildContext context){
+  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+  _notesProvider.generateSetInitialObeliskNumbers(
+      context: context,
+      notify: false,
+  );
+}
+// -----------------------------------------------------------------------------
+
+/// USER NOTES STREAM
 
 // -------------------------------
 void initializeUserNotes(BuildContext context){
@@ -478,48 +490,29 @@ void initializeUserNotes(BuildContext context){
 
     final bool _thereAreMissingFields = UserModel.checkMissingFields(_userModel);
 
-    final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
-      collName: FireColl.notes,
-      limit: 100,
-      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-      finders: <FireFinder>[
-
-        FireFinder(
-          field: 'receiverID',
-          comparison: FireComparison.equalTo,
-          value: _userModel.id,
-        ),
-
-        FireFinder(
-          field: 'seen',
-          comparison: FireComparison.equalTo,
-          value: false,
-        ),
-
-      ],
+    final Stream<QuerySnapshot<Object>> _stream  = _userUnseenReceivedNotesStream(
+      context: context
     );
 
-    final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
-        notes: _notesProvider.userUnseenNotes,
-        toJSON: false,
+    final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProUserUnseenReceivedNotes(
+      context: context,
     );
-
-    final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
 
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
       oldMaps: _oldMaps,
-      onChange: (List<Map<String, dynamic>> newMaps){
+      onChange: (List<Map<String, dynamic>> allUpdatedMaps){
 
         blog('new maps are :-');
-        Mapper.blogMaps(newMaps);
+        Mapper.blogMaps(allUpdatedMaps);
 
         final List<NoteModel> _notes = NoteModel.decipherNotes(
-          maps: newMaps,
+          maps: allUpdatedMaps,
           fromJSON: false,
         );
 
-        _notesProvider.setUserUnseenNotes(
+        _notesProvider.setUserUnseenNotesAndRebuild(
+            context: context,
             notes: _notes,
             notify: true
         );
@@ -529,24 +522,26 @@ void initializeUserNotes(BuildContext context){
           notes: _notes,
         );
 
-        final int _notesCount = _getNotesCount(
-          notes: _notes,
-          thereAreMissingFields: _thereAreMissingFields,
-        );
+        // final int _notesCount = _getNotesCount(
+        //   notes: _notes,
+        //   thereAreMissingFields: _thereAreMissingFields,
+        // );
 
-        if (_notesCount != null){
-          _notesProvider.incrementObeliskNoteNumber(
-            value: _notesCount,
-            navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-            notify: false,
-          );
-          _notesProvider.incrementObeliskNoteNumber(
-            value: _notesCount,
-            navModelID: NavModel.getUserTabNavID(UserTab.notifications),
-            notify: true,
-          );
-
-        }
+        // if (_notesCount != null){
+        //   _notesProvider.setObeliskNoteNumber(
+        //     caller: 'initializeUserNotes',
+        //     value: _notesCount,
+        //     navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+        //     notify: false,
+        //   );
+        //   _notesProvider.setObeliskNoteNumber(
+        //     caller: 'initializeUserNotes',
+        //     value: _notesCount,
+        //     navModelID: NavModel.getUserTabNavID(UserTab.notifications),
+        //     notify: true,
+        //   );
+        //
+        // }
 
         if (_noteDotIsOn == true){
           _notesProvider.setIsFlashing(
@@ -561,6 +556,55 @@ void initializeUserNotes(BuildContext context){
   }
 
 }
+// -------------------------------
+ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes({
+  @required BuildContext context,
+}){
+
+  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+
+  final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
+    notes: _notesProvider.userUnseenNotes,
+    toJSON: false,
+  );
+
+  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
+
+  return _oldMaps;
+}
+// -------------------------------
+Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
+  @required BuildContext context,
+}){
+
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+
+  return Fire.streamCollection(
+    collName: FireColl.notes,
+    limit: 100,
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+    finders: <FireFinder>[
+
+      FireFinder(
+        field: 'receiverID',
+        comparison: FireComparison.equalTo,
+        value: _userModel.id,
+      ),
+
+      FireFinder(
+        field: 'seen',
+        comparison: FireComparison.equalTo,
+        value: false,
+      ),
+
+    ],
+  );
+
+}
+// -----------------------------------------------------------------------------
+
+/// BZZ NOTES STREAMS
+
 // -------------------------------
 void initializeMyBzzNotes(BuildContext context){
 
@@ -577,51 +621,22 @@ void initializeMyBzzNotes(BuildContext context){
 
     for (final BzModel bzModel in _myBzz){
 
-      final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
-        collName: FireColl.notes,
-        limit: 100,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-        finders: <FireFinder>[
-
-          FireFinder(
-            field: 'receiverID',
-            comparison: FireComparison.equalTo,
-            value: bzModel.id,
-          ),
-
-          FireFinder(
-            field: 'seen',
-            comparison: FireComparison.equalTo,
-            value: false,
-          ),
-
-        ],
+      final Stream<QuerySnapshot<Object>> _stream  = _bzUnseenReceivedNotesStream(
+        bzID: bzModel.id,
       );
 
-      blog('created stream for bzid : ${bzModel.id} : stream : $_stream');
-
-      final List<NoteModel> _bzOldNotes = NoteModel.getNotesByReceiverID(
-          notes: _notesProvider.myBzzUnseenReceivedNotes,
-          receiverID: bzModel.id,
+      final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProBzzUnseenReceivedNotes(
+        context: context,
+        bzID: bzModel.id,
       );
-
-      final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
-          notes: _bzOldNotes,
-          toJSON: false,
-      );
-
-      final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
 
       FireCollStreamer.onStreamDataChanged(
         stream: _stream,
         oldMaps: _oldMaps,
-        onChange: (List<Map<String, dynamic>> newMaps){
-
-          blog('new maps are :-');
-          Mapper.blogMaps(newMaps);
+        onChange: (List<Map<String, dynamic>> allMapsUpdated){
 
           final List<NoteModel> _notes = NoteModel.decipherNotes(
-            maps: newMaps,
+            maps: allMapsUpdated,
             fromJSON: false,
           );
 
@@ -631,35 +646,37 @@ void initializeMyBzzNotes(BuildContext context){
               duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
           );
 
-          _notesProvider.setAllBzzUnseenNotes(
+          _notesProvider.setAllBzzUnseenNotesAndRebuildObelisk(
+              context: context,
               notes: _allBzzUnseenNotesUpdated,
               notify: true
           );
+
+          // final int _notesCount = _getNotesCount(
+          //   notes: _notes,
+          //   thereAreMissingFields: false,
+          // );
+
+          // if (_notesCount != null){
+          //   _notesProvider.setObeliskNoteNumber(
+          //     caller: 'initializeMyBzzNotes',
+          //     value: _notesCount,
+          //     navModelID: NavModel.getMainNavIDString(navID: MainNavModel.bz, bzID: bzModel.id),
+          //     notify: false,
+          //   );
+          //   _notesProvider.setObeliskNoteNumber(
+          //     caller: 'initializeMyBzzNotes',
+          //     value: _notesCount,
+          //     navModelID: NavModel.getBzTabNavID(bzTab: BzTab.notes, bzID: bzModel.id),
+          //     notify: true,
+          //   );
+          //
+          // }
 
           final bool _noteDotIsOn = _checkNoteDotIsOn(
             thereAreMissingFields: false,
             notes: _notes,
           );
-
-          final int _notesCount = _getNotesCount(
-            notes: _notes,
-            thereAreMissingFields: false,
-          );
-
-          if (_notesCount != null){
-            _notesProvider.incrementObeliskNoteNumber(
-              value: _notesCount,
-              navModelID: NavModel.getMainNavIDString(navID: MainNavModel.bz, bzID: bzModel.id),
-              notify: false,
-            );
-            _notesProvider.incrementObeliskNoteNumber(
-              value: _notesCount,
-              navModelID: NavModel.getBzTabNavID(bzTab: BzTab.notes, bzID: bzModel.id),
-              notify: true,
-            );
-
-          }
-
           if (_noteDotIsOn == true){
             _notesProvider.setIsFlashing(
               setTo: true,
@@ -675,6 +692,60 @@ void initializeMyBzzNotes(BuildContext context){
   }
 
 }
+// -------------------------------
+ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzzUnseenReceivedNotes ({
+  @required BuildContext context,
+  @required String bzID,
+}){
+
+  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+
+  final List<NoteModel> _bzOldNotes = NoteModel.getNotesByReceiverID(
+    notes: _notesProvider.myBzzUnseenReceivedNotes,
+    receiverID: bzID,
+  );
+
+  final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
+    notes: _bzOldNotes,
+    toJSON: false,
+  );
+
+  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
+
+  return _oldMaps;
+}
+// -------------------------------
+Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
+  @required String bzID,
+}){
+
+  final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
+    collName: FireColl.notes,
+    limit: 100,
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+    finders: <FireFinder>[
+
+      FireFinder(
+        field: 'receiverID',
+        comparison: FireComparison.equalTo,
+        value: bzID,
+      ),
+
+      FireFinder(
+        field: 'seen',
+        comparison: FireComparison.equalTo,
+        value: false,
+      ),
+
+    ],
+  );
+
+  return _stream;
+}
+// -----------------------------------------------------------------------------
+
+/// NOTES CHECKERS
+
 // -------------------------------
 bool _checkNoteDotIsOn({
   @required bool thereAreMissingFields,
@@ -697,18 +768,18 @@ bool _checkNoteDotIsOn({
   return _isOn;
 }
 // -------------------------------
-int _getNotesCount({
-  @required bool thereAreMissingFields,
-  @required List<NoteModel> notes,
-}){
-  int _count;
-
-  if (thereAreMissingFields == false){
-    if (Mapper.checkCanLoopList(notes) == true){
-      _count = NoteModel.getNumberOfUnseenNotes(notes);
-    }
-  }
-
-  return _count;
-}
+// int _getNotesCount({
+//   @required bool thereAreMissingFields,
+//   @required List<NoteModel> notes,
+// }){
+//   int _count;
+//
+//   if (thereAreMissingFields == false){
+//     if (Mapper.checkCanLoopList(notes) == true){
+//       _count = NoteModel.getNumberOfUnseenNotes(notes);
+//     }
+//   }
+//
+//   return _count;
+// }
 // -------------------------------

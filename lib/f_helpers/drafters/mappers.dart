@@ -811,6 +811,27 @@ bool checkStringsContainString({
 
   return _containsIt;
 }
+// -------------------------------------
+
+bool checkIsLastListObject({
+  @required List<dynamic> list,
+  @required int index,
+}){
+
+  bool _isAtLast = false;
+
+  if (checkCanLoopList(list) == true){
+
+    if (index != null){
+
+      _isAtLast = index == (list.length - 1);
+
+    }
+
+  }
+
+  return _isAtLast;
+}
 // -----------------------------------------------------------------------------
 
 /// BLOGGING MAPS
