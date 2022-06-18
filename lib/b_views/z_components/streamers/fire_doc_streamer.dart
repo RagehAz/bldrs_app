@@ -27,6 +27,7 @@ class FireDocStreamer extends StatefulWidget {
   static Future<void> onStreamDataChanged({
     @required Stream<DocumentSnapshot<Object>> stream,
     @required ValueNotifier<Map<String, dynamic>> oldMap,
+    @required bool mounted,
     @required Function(Map<String, dynamic>, Map<String, dynamic>) onChange,
   }) async {
 
@@ -52,8 +53,10 @@ class FireDocStreamer extends StatefulWidget {
 
 
       if (_mapsAreTheSame == false){
-        onChange(oldMap.value, _newMap);
-        oldMap.value = _newMap;
+        if (mounted){
+          onChange(oldMap.value, _newMap);
+          oldMap.value = _newMap;
+        }
       }
 
     },
@@ -94,6 +97,7 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
     FireDocStreamer.onStreamDataChanged(
       stream: _stream,
       oldMap: _oldMap,
+      mounted: mounted,
       onChange: widget.onDataChanged == null ?
       null
           :

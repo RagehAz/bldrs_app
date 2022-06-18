@@ -112,6 +112,7 @@ Future<void> onMyActiveBzStreamChanged({
   @required BuildContext context,
   @required Map<String, dynamic> newMap,
   @required Map<String, dynamic> oldMap,
+  @required BzzProvider bzzProvider,
 }) async {
 
   final BzModel _newBzFromStream = BzModel.decipherBz(
@@ -119,21 +120,35 @@ Future<void> onMyActiveBzStreamChanged({
     fromJSON: false,
   );
 
-  final BzModel _oldBzModel = BzModel.decipherBz(
+  final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
+    authors: _newBzFromStream.authors,
+    userID: AuthFireOps.superUserID(),
+  );
+
+  if (_authorsContainMyUserID == false){
+
+    await _myBzResignationProtocol(
+      context: context,
+      newBzFromStream: _newBzFromStream,
+    );
+
+  }
+
+  else {
+
+    final BzModel _oldBzModel = BzModel.decipherBz(
       map: oldMap,
       fromJSON: false,
-  );
+    );
 
-  await myActiveBzLocalUpdateProtocol(
-    context: context,
-    newBzModel: _newBzFromStream,
-    oldBzModel: _oldBzModel,
-  );
+    await myActiveBzLocalUpdateProtocol(
+      context: context,
+      newBzModel: _newBzFromStream,
+      oldBzModel: _oldBzModel,
+      bzzProvider: bzzProvider,
+    );
 
-  await _myBzResignationProtocol(
-    context: context,
-    newBzFromStream: _newBzFromStream,
-  );
+  }
 
 }
 // -------------------------------
@@ -142,6 +157,7 @@ Future<void> myActiveBzLocalUpdateProtocol({
   @required BuildContext context,
   @required BzModel newBzModel,
   @required BzModel oldBzModel,
+  @required BzzProvider bzzProvider,
 }) async {
 
   /// LOCAL UPDATE PROTOCOL
@@ -158,21 +174,19 @@ Future<void> myActiveBzLocalUpdateProtocol({
   /// UPDATE BZ MODEL EVERYWHERE
   if (_areTheSame == false){
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-
     /// OVERRIDE BZ ON LDB
     await BzLDBOps.insertBz(
       bzModel: newBzModel,
     );
 
     /// UPDATE MY BZZ
-    _bzzProvider.updateBzInMyBzz(
+    bzzProvider.updateBzInMyBzz(
       modifiedBz: newBzModel,
       notify: false,
     );
 
     /// UPDATE ACTIVE BZ
-    _bzzProvider.setActiveBz(
+    bzzProvider.setActiveBz(
       bzModel: newBzModel,
       notify: true,
     );
@@ -587,7 +601,6 @@ Future<void> _deleteAllBzFlyersOps({
       flyer: flyer,
       showWaitDialog: false,
     );
-
 
   }
 

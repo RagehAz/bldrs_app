@@ -2,17 +2,14 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -56,30 +53,54 @@ Future<void> onShowNoteOptions({
 /// MARKING NOTES AS SEEN
 
 // ------------------------------------------
-void decrementUserObelisksNotesNumber({
-  @required NotesProvider notesProvider,
-  @required int markedNotesLength,
-  @required bool notify,
-}){
-
-  if (markedNotesLength > 0){
-
-    notesProvider.incrementObeliskNoteNumber(
-      value: markedNotesLength,
-      navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-      isIncrementing: false,
-      notify: false,
-    );
-    notesProvider.incrementObeliskNoteNumber(
-      value: markedNotesLength,
-      navModelID: NavModel.getUserTabNavID(UserTab.notifications),
-      isIncrementing: false,
-      notify: notify,
-    );
-
-  }
-
-}
+// void decrementUserObelisksNotesNumber({
+//   @required NotesProvider notesProvider,
+//   @required int markedNotesLength,
+//   @required bool notify,
+// }){
+//
+//   blog('decrementUserObelisksNotesNumber : receiving $markedNotesLength notes');
+//
+//   if (markedNotesLength > 0){
+//
+//     final int _mainValue = notesProvider.getObeliskNumber(
+//       navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+//     );
+//
+//     final int _mainUpdated = NavModel.updateObeliskNumber(
+//       oldNumber: _mainValue,
+//       change: markedNotesLength,
+//       isIncrementing: false,
+//     );
+//
+//
+//     notesProvider.setObeliskNoteNumber(
+//       caller: 'decrementUserObelisksNotesNumber',
+//       value: _mainUpdated,
+//       navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+//       notify: false,
+//     );
+//
+//     final int _userNotesTabValue = notesProvider.getObeliskNumber(
+//       navModelID: NavModel.getUserTabNavID(UserTab.notifications),
+//     );
+//
+//     final int _userNotesTabValueUpdated = NavModel.updateObeliskNumber(
+//       oldNumber: _userNotesTabValue,
+//       change: markedNotesLength,
+//       isIncrementing: false,
+//     );
+//
+//     notesProvider.setObeliskNoteNumber(
+//       caller: 'decrementUserObelisksNotesNumber',
+//       value: _userNotesTabValueUpdated,
+//       navModelID: NavModel.getUserTabNavID(UserTab.notifications),
+//       notify: notify,
+//     );
+//
+//   }
+//
+// }
 // -----------------------------------------------------------------------------
 
 /// NOTE RESPONSES
