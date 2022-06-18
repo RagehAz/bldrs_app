@@ -358,38 +358,6 @@ Future<void> onNavigate({
 /// FLYERS PAGINATION
 
 // -------------------------------
-bool fuckingPaginator({
-  @required BuildContext context,
-  @required ScrollController scrollController,
-  @required bool canPaginate,
-  @required Function function,
-}){
-  bool _canPaginate = canPaginate;
-
-  scrollController.addListener(() async {
-
-    final double _maxScroll = scrollController.position.maxScrollExtent;
-    final double _currentScroll = scrollController.position.pixels;
-    // final double _screenHeight = Scale.superScreenHeight(context);
-    const double _paginationHeightLight = Ratioz.horizon * 3;
-
-    if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
-
-      // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
-
-      _canPaginate = false;
-
-      await function();
-
-      _canPaginate = true;
-
-    }
-
-  });
-
-  return _canPaginate;
-}
-// -------------------------------
 bool initializeFlyersPagination({
   @required BuildContext context,
   @required ScrollController scrollController,
@@ -521,27 +489,6 @@ void initializeUserNotes(BuildContext context){
           thereAreMissingFields: _thereAreMissingFields,
           notes: _notes,
         );
-
-        // final int _notesCount = _getNotesCount(
-        //   notes: _notes,
-        //   thereAreMissingFields: _thereAreMissingFields,
-        // );
-
-        // if (_notesCount != null){
-        //   _notesProvider.setObeliskNoteNumber(
-        //     caller: 'initializeUserNotes',
-        //     value: _notesCount,
-        //     navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-        //     notify: false,
-        //   );
-        //   _notesProvider.setObeliskNoteNumber(
-        //     caller: 'initializeUserNotes',
-        //     value: _notesCount,
-        //     navModelID: NavModel.getUserTabNavID(UserTab.notifications),
-        //     notify: true,
-        //   );
-        //
-        // }
 
         if (_noteDotIsOn == true){
           _notesProvider.setIsFlashing(

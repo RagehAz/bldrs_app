@@ -215,7 +215,7 @@ class _BzNotesPageState extends State<BzNotesPage> {
 
                 /// COMBINE NOTES FROM PAGINATOR + NOTES FROM PROVIDER
                 final List<NoteModel> _combined = _combinePaginatorMapsWithProviderNotes(
-                  providerNotes: _providerNotes,
+                  providerNotes: _providerNotes ?? [],
                   paginatedMaps: maps,
                 );
 

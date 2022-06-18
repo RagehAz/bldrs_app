@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/f_bz_editor/f_x_author_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -454,7 +455,7 @@ Future<void> _sendAuthorshipAcceptanceNote({
     sentTime: DateTime.now(),
     attachment: null,
     attachmentType: NoteAttachmentType.non,
-    seen: null,
+    seen: false,
     seenTime: null,
     sendFCM: true,
     noteType: NoteType.authorship,
@@ -744,7 +745,7 @@ Future<void> _sendAuthorDeletionNotes({
     sentTime: DateTime.now(),
     attachment: null,
     attachmentType: NoteAttachmentType.non,
-    seen: null,
+    seen: false,
     seenTime: null,
     sendFCM: true,
     noteType: NoteType.announcement,
@@ -772,7 +773,7 @@ Future<void> _sendAuthorDeletionNotes({
     sentTime: DateTime.now(),
     attachment: null,
     attachmentType: NoteAttachmentType.non,
-    seen: null,
+    seen: false,
     seenTime: null,
     sendFCM: true,
     noteType: NoteType.announcement,
@@ -799,6 +800,11 @@ Future<void> _onEditAuthor({
 }) async {
 
   blog('should edit author naaaw');
+
+  await Nav.goToNewScreen(
+      context: context,
+      screen: const AuthorEditorScreen(),
+  );
 
 }
 // -------------------------------

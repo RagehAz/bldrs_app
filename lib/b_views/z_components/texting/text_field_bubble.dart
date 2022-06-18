@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -63,7 +64,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
   final String Function() validator;
-  final String comments;
+  final List<String> comments;
   final bool fieldIsRequired;
   // final bool loading;
   final String actionBtIcon;
@@ -210,14 +211,10 @@ class TextFieldBubble extends StatelessWidget {
             ],
           ),
 
-          /// BUBBLE COMMENTS
-          if (comments != null)
-            SuperVerse(
-              verse: comments,
-              italic: true,
-              color: Colorz.white80,
-              weight: VerseWeight.thin,
-              leadingDot: true,
+          if (Mapper.checkCanLoopList(comments) == true)
+            BubbleBulletPoints(
+              bubbleWidth: bubbleWidth,
+              bulletPoints: comments,
             ),
 
           if (Mapper.checkCanLoopList(columnChildren) == true)
