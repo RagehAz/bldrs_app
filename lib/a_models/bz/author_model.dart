@@ -332,11 +332,12 @@ class AuthorModel {
     return _output;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> removeAuthorFromAuthors({
     @required List<AuthorModel> authors,
     @required String authorIDToRemove,
   }){
-// ----------------------------------
+
     List<AuthorModel> _output;
 
     if (Mapper.checkCanLoopList(authors) == true && authorIDToRemove != null){
@@ -379,7 +380,7 @@ class AuthorModel {
 
     return _isMaster;
   }
-
+// ----------------------------------
   static bool checkAuthorsListsAreIdentical({
     @required List<AuthorModel> authors1,
     @required List<AuthorModel> authors2
@@ -425,7 +426,7 @@ class AuthorModel {
 
     return _output;
   }
-
+// ----------------------------------
   static bool checkAuthorsAreIdentical({
     @required AuthorModel author1,
     @required AuthorModel author2,
@@ -451,7 +452,7 @@ class AuthorModel {
 
     return _areIdentical;
   }
-
+// ----------------------------------
   static bool checkAuthorsContainUserID({
     @required List<AuthorModel> authors,
     @required String userID,

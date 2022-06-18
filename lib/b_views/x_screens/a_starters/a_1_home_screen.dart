@@ -51,7 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
       _triggerLoading().then((_) async {
 
         await initializeHomeScreen(context);
-        initializeMyBzzNotes(context);
+
+        if (mounted){
+          initializeObeliskNumbers(context);
+          initializeUserNotes(context);
+          initializeMyBzzNotes(context);
+        }
 
         await _triggerLoading();
       });

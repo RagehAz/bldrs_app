@@ -13,6 +13,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/obelisk_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyBzScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -22,6 +23,8 @@ class MyBzScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
 
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
@@ -38,6 +41,7 @@ class MyBzScreen extends StatelessWidget {
         context: context,
         oldMap: oldMap,
         newMap: newMap,
+        bzzProvider: _bzzProvider,
       ),
       builder: (_, Map<String, dynamic> map){
 

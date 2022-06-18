@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 @immutable
 class MapModel{
   /// --------------------------------------------------------------------------
+  //  NOTE : A LIST OF MAP MODELS SHOULD NEVER ALLOW DUPLICATE KEYS
+  /// --------------------------------------------------------------------------
   const MapModel({
     @required this.key,
     @required this.value,
@@ -49,6 +51,7 @@ class MapModel{
   @override
   int get hashCode => key.hashCode ^ value.hashCode;
 // -----------------------------------------------------------------------------
+
   /// CYPHERS
 
 // ----------------------------------------
@@ -172,6 +175,7 @@ class MapModel{
   /// GETTERS
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<dynamic> getValuesFromMapModels(List<MapModel> mapModels){
     final List<dynamic> _values = <dynamic>[];
 
@@ -179,7 +183,11 @@ class MapModel{
 
       for (final MapModel mm in mapModels){
 
-        _values.add(mm.value);
+        if (mm != null){
+          if (mm?.value != null){
+            _values.add(mm.value);
+          }
+        }
 
       }
 
@@ -188,6 +196,7 @@ class MapModel{
     return _values;
   }
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getKeysFromMapModels(List<MapModel> mapModels){
     final List<String> _values = <String>[];
 
@@ -211,6 +220,33 @@ class MapModel{
     }
 
     return _model;
+  }
+// ----------------------------------------
+  static List<MapModel> getModelsByKeys({
+    @required List<MapModel> allModels,
+    @required List<String> keys,
+  }){
+    final List<MapModel> _output = <MapModel>[];
+
+    if (Mapper.checkCanLoopList(allModels) == true
+        &&
+        Mapper.checkCanLoopList(keys) == true
+    ){
+
+      for (final String key in keys){
+
+        final MapModel _model = getModelByKey(
+            models: allModels,
+            key: key
+        );
+
+        _output.add(_model);
+
+      }
+
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 
