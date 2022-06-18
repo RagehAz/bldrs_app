@@ -53,10 +53,14 @@ class FireDocStreamer extends StatefulWidget {
 
 
       if (_mapsAreTheSame == false){
-        if (mounted){
-          onChange(oldMap.value, _newMap);
-          oldMap.value = _newMap;
+
+        if (mounted == true){
+          if (oldMap != null && _newMap != null){
+            onChange(oldMap.value, _newMap);
+            oldMap.value = _newMap;
+          }
         }
+
       }
 
     },
