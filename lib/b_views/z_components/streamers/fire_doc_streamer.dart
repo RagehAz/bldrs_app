@@ -111,13 +111,13 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
 
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _oldMap.dispose();
     super.dispose();
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
