@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/c_search/c_0_search_screen.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
@@ -11,32 +12,27 @@ Route<dynamic> allRoutes(RouteSettings settings) {
 
   switch (settings.name) {
 
-// -----------------------------------------------------------------------------
-    /// s00
+  // --------------------------
+  /// LOGO SCREEN
     case Routez.logoScreen:
       return Nav.fadeToScreen(const NewLogoScreen(), settings);
       break;
-// -----------------------------------------------------------------------------
-    /// s01
-    /// (s02 signin page, s03 register page) are pages insides StartingScreen();
-    case Routez.starting:
+  // --------------------------
+    /// AUTH SCREEN
+    case Routez.auth:
       return Nav.fadeToScreen(const AuthScreen(), settings);
       break;
-// -----------------------------------------------------------------------------
-//     /// s10
-//       case Routez.Home:
-//         return Nav.fadeToScreen(HomeScreen(), settings); break;
-// -----------------------------------------------------------------------------
+  // --------------------------
+  /// HOME SCREEN
+      case Routez.home:
+        return Nav.fadeToScreen(const HomeScreen(), settings);
+        break;
+  // --------------------------
     /// s12
     case Routez.savedFlyers:
       return Nav.slideToScreen(const SavedFlyersScreen(), settings);
       break;
-// -----------------------------------------------------------------------------
-//     /// s13
-//     case Routez.news:
-//       return Nav.slideToScreen(const NotificationsScreen(), settings);
-//       break;
-// -----------------------------------------------------------------------------
+  // --------------------------
 //     /// s14
 //       case Routez.More:
 //         return MaterialPageRoute(builder: (_) => MoreScreen());

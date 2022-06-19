@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
@@ -12,11 +11,11 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class NewLogoScreen extends StatefulWidget {
@@ -120,10 +119,15 @@ class _NewLogoScreenState extends State<NewLogoScreen> with TickerProviderStateM
 
           ]);
 
-            await Nav.replaceScreen(
+            // await Nav.replaceScreen(
+            //   context: context,
+            //   screen: const HomeScreen(),
+            //   transitionType: PageTransitionType.fade,
+            // );
+
+            await Nav.pushNamedAndRemoveAllBelow(
               context: context,
-              screen: const HomeScreen(),
-              transitionType: PageTransitionType.fade,
+              goToRoute: Routez.home,
             );
 
         });
