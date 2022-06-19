@@ -26,9 +26,11 @@ class ObeliskIconsBuilder extends StatelessWidget{
       valueListenable: isExpanded,
         builder: (_, bool isBig, Widget xChild){
 
+        // return Container();
+
           return AnimatedContainer(
             duration: const Duration(milliseconds: 250),
-            curve: Curves.easeOut,
+            curve: isBig == true ? Curves.ease : Curves.easeInExpo,
             width: isBig == true ? Obelisk.circleWidth : 0,
             height: Obelisk.getBoxMaxHeight(
               isBig: true,

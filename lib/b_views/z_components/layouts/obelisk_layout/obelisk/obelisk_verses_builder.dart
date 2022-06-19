@@ -26,10 +26,12 @@ class ObeliskVersesBuilder extends StatelessWidget {
       valueListenable: isExpanded,
       builder: (_, bool isBig, Widget xChild){
 
+        // return Container();
+
           return WidgetFader(
             fadeType: isBig == null ? FadeType.stillAtMin : isBig == true ? FadeType.fadeIn : FadeType.fadeOut,
-            curve: isBig == true ? Curves.easeInCirc : Curves.easeOutQuart,
-            duration: const Duration(milliseconds: 250),
+            curve: isBig == true ? Curves.easeOutBack : Curves.easeOutQuart,
+            duration: const Duration(milliseconds: 200),
             builder: (double value, Widget child){
 
               return Transform.scale(
@@ -40,8 +42,8 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
             },
             child: AnimatedOpacity(
-              duration: Duration(milliseconds: isBig == true ? 500 : 500),
-              curve: Curves.easeOutQuint,
+              duration: Duration(milliseconds: isBig == true ? 150 : 500),
+              curve: isBig == true ? Curves.easeOutBack : Curves.easeOutQuart,
               opacity: isBig == true ? 1 : 0.5,
               child: xChild,
             ),
@@ -51,6 +53,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
         },
 
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
