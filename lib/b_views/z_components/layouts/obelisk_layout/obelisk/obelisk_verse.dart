@@ -36,7 +36,7 @@ class ObeliskVerse extends StatelessWidget {
           return GestureDetector(
             onTap: onTap,
             child: Container(
-              height: Obelisk.circleWidth + 5,
+              height: Obelisk.circleWidth,
               alignment: Alignment.centerLeft,
               color: Colorz.nothing,
               child: SuperVerse(
@@ -67,7 +67,7 @@ class ObeliskVerse extends StatelessWidget {
           return const AbsorbPointer(
             child: SeparatorLine(
               width: 100,
-              margins: EdgeInsets.only(bottom: 10, top: 5),
+              margins: EdgeInsets.only(bottom: 5, top: 5),
               lineIsON: false,
             ),
           );

@@ -33,10 +33,12 @@ class ObeliskExpandingPyramid extends StatelessWidget {
           ),
           builder: (_, bool expanded, Widget child){
 
+            // return Container();
+
             return AnimatedScale(
               scale: expanded == true ? 8 : 1,
-              duration: const Duration(milliseconds: 500),
-              curve: expanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
+              duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
+              curve: expanded == true ?  Curves.easeOutQuart : Curves.easeInOutQuart,
               alignment: Alignment.bottomRight,
               child: child,
             );
