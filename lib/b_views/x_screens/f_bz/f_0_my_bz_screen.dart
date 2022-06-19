@@ -25,22 +25,23 @@ class MyBzScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
-    final String bzID = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: false,
-    )?.id;
+    final BzzProvider _bzzPro = Provider.of<BzzProvider>(context, listen: false);
+    final String bzID = _bzzPro.myActiveBz?.id;
 
     blog('my bz screen reloaded');
 
     return FireDocStreamer(
       collName: FireColl.bzz,
       docName: bzID,
-      onDataChanged: (Map<String, dynamic> oldMap, Map<String, dynamic> newMap) async {
+      onDataChanged: (BuildContext ctx, Map<String, dynamic> oldMap, Map<String, dynamic> newMap) async {
+
+        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(ctx, listen: false);
 
         await onMyActiveBzStreamChanged(
-          context: context,
+          context: ctx,
           oldMap: oldMap,
           newMap: newMap,
+          bzzProvider: _bzzProvider,
         );
 
       },

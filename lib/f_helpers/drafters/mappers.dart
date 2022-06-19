@@ -250,26 +250,30 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
 /// DOCUMENT SNAPSHOT
 
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 Map<String, dynamic> getMapFromDocumentSnapshot({
   @required DocumentSnapshot<Object> docSnapshot,
   @required bool addDocID,
   @required bool addDocSnapshot,
 }) {
 
-  Map<String, dynamic> _map = docSnapshot.data();
+  Map<String, dynamic> _map = docSnapshot?.data();
 
-  if (addDocID == true) {
-    _map['id'] = docSnapshot.id;
+  if (docSnapshot != null && docSnapshot.exists == true){
+
+    if (addDocID == true) {
+      _map['id'] = docSnapshot.id;
+    }
+
+    if (addDocSnapshot == true) {
+      _map = insertPairInMap(
+        map: _map,
+        key: 'docSnapshot',
+        value: docSnapshot,
+      );
+    }
+
   }
-
-  if (addDocSnapshot == true) {
-    _map = insertPairInMap(
-      map: _map,
-      key: 'docSnapshot',
-      value: docSnapshot,
-    );
-  }
-
 
   return _map;
 }
