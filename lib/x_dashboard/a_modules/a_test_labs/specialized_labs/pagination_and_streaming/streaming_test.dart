@@ -123,7 +123,7 @@ class _StreamingTestState extends State<StreamingTest> {
           FireDocStreamer(
               collName: 'testing',
               docName: 'NGavNzHByT4vDm925mYd',
-              onDataChanged: (Map<String, dynamic> oldMap, Map<String, dynamic> newMaw){
+              onDataChanged: (BuildContext ctx, Map<String, dynamic> oldMap, Map<String, dynamic> newMaw){
 
                 blog('streamed map old :-');
                 blogMap(oldMap);

@@ -112,6 +112,7 @@ Future<void> onMyActiveBzStreamChanged({
   @required BuildContext context,
   @required Map<String, dynamic> newMap,
   @required Map<String, dynamic> oldMap,
+  @required BzzProvider bzzProvider,
 }) async {
 
   final BzModel _newBzFromStream = BzModel.decipherBz(
@@ -119,34 +120,46 @@ Future<void> onMyActiveBzStreamChanged({
     fromJSON: false,
   );
 
-  final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
-    authors: _newBzFromStream.authors,
-    userID: AuthFireOps.superUserID(),
+  final bool _areIdentical = BzModel.checkBzzAreIdentical(
+    bz1: bzzProvider.myActiveBz,
+    bz2: BzModel.decipherBz(map: newMap, fromJSON: false),
   );
 
-  if (_authorsContainMyUserID == false){
+  blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
 
-    await _myBzResignationProtocol(
-      context: context,
-      newBzFromStream: _newBzFromStream,
+  if (_areIdentical == false){
+
+    final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
+      authors: _newBzFromStream.authors,
+      userID: AuthFireOps.superUserID(),
     );
+
+    if (_authorsContainMyUserID == false){
+
+      await _myBzResignationProtocol(
+        context: context,
+        newBzFromStream: _newBzFromStream,
+      );
+
+    }
+
+    else {
+
+      final BzModel _oldBzModel = BzModel.decipherBz(
+        map: oldMap,
+        fromJSON: false,
+      );
+
+      await myActiveBzLocalUpdateProtocol(
+        context: context,
+        newBzModel: _newBzFromStream,
+        oldBzModel: _oldBzModel,
+      );
+
+    }
 
   }
 
-  else {
-
-    final BzModel _oldBzModel = BzModel.decipherBz(
-      map: oldMap,
-      fromJSON: false,
-    );
-
-    await myActiveBzLocalUpdateProtocol(
-      context: context,
-      newBzModel: _newBzFromStream,
-      oldBzModel: _oldBzModel,
-    );
-
-  }
 
 }
 // -------------------------------
@@ -176,21 +189,25 @@ Future<void> myActiveBzLocalUpdateProtocol({
       bzModel: newBzModel,
     );
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    if (context != null){
 
-    /// UPDATE MY BZZ
-    _bzzProvider.updateBzInMyBzz(
-      modifiedBz: newBzModel,
-      notify: false,
-    );
+      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-    /// UPDATE ACTIVE BZ
-    _bzzProvider.setActiveBz(
-      bzModel: newBzModel,
-      notify: true,
-    );
+      /// UPDATE MY BZZ
+      _bzzProvider.updateBzInMyBzz(
+        modifiedBz: newBzModel,
+        notify: false,
+      );
 
-    blog('myActiveBzLocalUpdateProtocol : my active bz updated in PRO & LDB');
+      /// UPDATE ACTIVE BZ
+      _bzzProvider.setActiveBz(
+        bzModel: newBzModel,
+        notify: true,
+      );
+
+      blog('myActiveBzLocalUpdateProtocol : my active bz updated in PRO & LDB');
+
+    }
   }
 
 }
