@@ -111,11 +111,11 @@ class NoteSenderBalloon extends StatelessWidget {
               ),
               builder: (_, AsyncSnapshot<Object> snap){
 
-                final BzModel _bzModel = snap.data;
+                // final BzModel _bzModel = snap.data;
 
                 return BzLogo(
                   width: balloonWidth,
-                  image: _bzModel?.logo,
+                  image: noteModel.senderImageURL, //_bzModel?.logo,
                   zeroCornerIsOn: false,
                 );
 
