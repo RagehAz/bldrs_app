@@ -181,12 +181,9 @@ void goBackToLogoScreen(BuildContext context) {
   Navigator.popUntil(context, ModalRoute.withName(Routez.logoScreen));
 }
 // -------------------------------------
-void goBackUntil(BuildContext context, String routez) {
-  // var _navResult = Navigator.popUntil(context,
-  //     ModalRoute.withName(Routez.UserChecker)
-  // );
+void goBackUntil(BuildContext context, String routeName) {
 
-  Navigator.popUntil(context, ModalRoute.withName(routez));
+  Navigator.popUntil(context, ModalRoute.withName(routeName));
 }
 // -------------------------------------
 void goBackToHomeScreen(BuildContext context) {

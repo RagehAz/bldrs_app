@@ -63,45 +63,51 @@ class MyBzScreen extends StatelessWidget {
 
             blog('MyBzScreen : streamBz == proMyActiveBz ? : $_areIdentical');
 
-            return ObeliskLayout(
-              initiallyExpanded: true,
-              initialIndex: BzModel.getBzTabIndex(initialTab),
-              appBarRowWidgets: <Widget>[
+            if (_bzModel == null){
+              return const SizedBox();
+            }
 
-                const Expander(),
+            else {
+              return ObeliskLayout(
+                initiallyExpanded: true,
+                initialIndex: BzModel.getBzTabIndex(initialTab),
+                appBarRowWidgets: <Widget>[
 
-                BzCreditsCounter(
-                  width: Ratioz.appBarButtonSize * 1.4,
-                  slidesCredit: Numeric.formatNumToCounterCaliber(context, 1234),
-                  ankhsCredit: Numeric.formatNumToCounterCaliber(context, 123),
-                ),
+                  const Expander(),
 
-                BzLogo(
-                  width: 40,
-                  image: _bzModel.logo,
-                  margins: const EdgeInsets.symmetric(horizontal: 5),
-                  corners: superBorderAll(context, Ratioz.appBarCorner - 5),
-                ),
+                  BzCreditsCounter(
+                    width: Ratioz.appBarButtonSize * 1.4,
+                    slidesCredit: Numeric.formatNumToCounterCaliber(context, 1234),
+                    ankhsCredit: Numeric.formatNumToCounterCaliber(context, 123),
+                  ),
 
-              ],
-              navModels: <NavModel>[
+                  BzLogo(
+                    width: 40,
+                    image: _bzModel.logo,
+                    margins: const EdgeInsets.symmetric(horizontal: 5),
+                    corners: superBorderAll(context, Ratioz.appBarCorner - 5),
+                  ),
 
-                ...List.generate(BzModel.bzTabsList.length, (index){
+                ],
+                navModels: <NavModel>[
 
-                  final BzTab _bzTab = BzModel.bzTabsList[index];
+                  ...List.generate(BzModel.bzTabsList.length, (index){
 
-                  return NavModel(
-                    id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
-                    title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
-                    icon: BzModel.getBzTabIcon(_bzTab),
-                    screen: MyBzScreenPages.pages[index],
-                  );
+                    final BzTab _bzTab = BzModel.bzTabsList[index];
 
-                }),
+                    return NavModel(
+                      id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
+                      title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
+                      icon: BzModel.getBzTabIcon(_bzTab),
+                      screen: MyBzScreenPages.pages[index],
+                    );
 
-              ],
+                  }),
 
-            );
+                ],
+
+              );
+            }
 
           },
         );

@@ -259,8 +259,18 @@ Future<bool> _validateInputs({
 
   Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
-  bool _inputsAreValid = formKey.currentState.validate();
+  final bool _inputsAreValid = formKey.currentState.validate();
   final List<AlertModel> _missingFieldsFound = BzModel.requiredFields(bzModel);
+
+  if (_inputsAreValid == false){
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Please check your inputs',
+      body: 'Some fields might require more info to be able to continue',
+    );
+
+  }
 
   if (_missingFieldsFound.isNotEmpty == true){
 
@@ -278,7 +288,7 @@ Future<bool> _validateInputs({
       body: 'Required fields :\n''$_missingFieldsString',
     );
 
-    _inputsAreValid = false;
+    // _inputsAreValid = false;
   }
 
   return _inputsAreValid;
@@ -346,8 +356,9 @@ Future<void> _firstTimerCreateNewBzOps({
     Nav.goBackToHomeScreen(context);
     unawaited(
         Nav.goToNewScreen(
-            context: context,
-            screen: const MyBzScreen(),
+          context: context,
+          transitionType: PageTransitionType.fade,
+          screen: const MyBzScreen(),
         )
     );
 
@@ -397,51 +408,45 @@ Future<void> _updateBzOps({
   /// ON SUCCESS
   if (_uploadedBzModel != null){
 
-    /// LDB UPDATE BZ OPS
-    await BzLDBOps.updateBzOps(
-      bzModel: _uploadedBzModel,
-    );
-
-    /// SET UPDATED BZ MODEL LOCALLY ( USER BZZ )
-    final BzModel _bzModelWithCompleteZoneModel = await completeBzZoneModel(
+    await myActiveBzLocalUpdateProtocol(
         context: context,
-        bzModel: _uploadedBzModel,
-    );
-
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    _bzzProvider.updateBzInMyBzz(
-      modifiedBz: _bzModelWithCompleteZoneModel,
-      notify: false,
-    );
-    /// SET UPDATED BZ MODEL LOCALLY ( MY ACTIVE BZ )
-    _bzzProvider.setActiveBz(
-      bzModel: _bzModelWithCompleteZoneModel,
-      notify: true,
+        newBzModel: newBzModel,
+        oldBzModel: oldBzModel
     );
 
     /// CLOSE WAIT DIALOG
     WaitDialog.closeWaitDialog(context);
 
-    /// GO BACK
-    Nav.goBack(context);
-
-    // /// SHOW SUCCESS DIALOG
-    // unawaited(TopDialog.showTopDialog(
-    //   context: context,
-    //   firstLine: 'Great !',
-    //   secondLine: 'Successfully updated your Business Account',
-    //   color: Colorz.green255,
-    //   textColor: Colorz.white255,
-    // ));
-
-    await Nav.replaceScreen(
-        context: context,
-        transitionType: PageTransitionType.fade,
-        screen: const MyBzScreen(
-          initialTab: BzTab.about,
-        ),
+    /// NAVIGATE
+    Nav.goBackToHomeScreen(context);
+    unawaited(
+        Nav.goToNewScreen(
+          context: context,
+          transitionType: PageTransitionType.fade,
+          screen: const MyBzScreen(
+            initialTab: BzTab.about,
+          ),
+        )
     );
 
+    /// SHOW SUCCESS DIALOG
+    unawaited(TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Great !',
+      secondLine: 'Successfully updated your Business Account',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    ));
+
+    // /// GO BACK
+    // Nav.goBack(context);
+    // await Nav.replaceScreen(
+    //     context: context,
+    //     transitionType: PageTransitionType.fade,
+    //     screen: const MyBzScreen(
+    //       initialTab: BzTab.about,
+    //     ),
+    // );
 
   }
 
