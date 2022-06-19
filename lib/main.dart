@@ -246,7 +246,7 @@ class _BldrsAppState extends State<BldrsApp> {
 
                 Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
                 // Routez.Starting: (ctx) => StartingScreen(),
-                // Routez.InPyramids: (ctx) => InPyramidsScreen(),
+
 
               },
             );

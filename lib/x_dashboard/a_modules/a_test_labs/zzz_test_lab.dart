@@ -27,6 +27,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connecte
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -349,6 +350,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             verse: ' B ( ) ',
             onTap: () async {
 
+              Nav.goBackToHomeScreen(context);
 
             }
         ),

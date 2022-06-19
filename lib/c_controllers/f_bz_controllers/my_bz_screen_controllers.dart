@@ -184,9 +184,15 @@ Future<void> myActiveBzLocalUpdateProtocol({
   /// UPDATE BZ MODEL EVERYWHERE
   if (_areTheSame == false){
 
-    /// OVERRIDE BZ ON LDB
-    await BzLDBOps.insertBz(
+    /// SET UPDATED BZ MODEL LOCALLY ( USER BZZ )
+    final BzModel _finalBz = await completeBzZoneModel(
+      context: context,
       bzModel: newBzModel,
+    );
+
+    /// OVERRIDE BZ ON LDB
+    await BzLDBOps.updateBzOps(
+      bzModel: _finalBz,
     );
 
     if (context != null){
@@ -195,13 +201,13 @@ Future<void> myActiveBzLocalUpdateProtocol({
 
       /// UPDATE MY BZZ
       _bzzProvider.updateBzInMyBzz(
-        modifiedBz: newBzModel,
+        modifiedBz: _finalBz,
         notify: false,
       );
 
       /// UPDATE ACTIVE BZ
       _bzzProvider.setActiveBz(
-        bzModel: newBzModel,
+        bzModel: _finalBz,
         notify: true,
       );
 
@@ -667,9 +673,12 @@ Future<void> _deleteBzOps({
     bzIDToRemove: bzModel.id,
     notify: false,
   );
+  // / NO NEED TO CLEAR LAST INSTANCE IN ACTIVE BZ AS WE WILL NAVIGATE BACK
+  // / TO HOME SCREEN, THEN RESET MY ACTIVE BZ ON NEXT BZ SCREEN OPENING
   _bzzProvider.clearMyActiveBz(
     notify: true,
   );
+
   _usersProvider.removeBzIDFromMyBzzIDs(
     bzIDToRemove: bzModel.id,
     notify: true,
