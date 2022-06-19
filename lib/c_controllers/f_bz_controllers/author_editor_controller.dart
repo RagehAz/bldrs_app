@@ -4,15 +4,19 @@ import 'dart:io';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+
 // -----------------------------------------------------------------------------
 
 /// AUTHOR PROFILE EDITOR
@@ -164,18 +168,22 @@ Future<void> onChangeAuthorRoleOps({
         bzModel: _bzModel,
       );
 
-      await BzFireOps.updateBz(
-        context: context,
-        newBzModel: _updatedBzModel,
-        oldBzModel: _bzModel,
-        authorPicFile: null,
-      );
+      await Future.wait(<Future>[
 
-      // await myActiveBzLocalUpdateProtocol(
-      //   context: context,
-      //   newBzModel: _uploadedModel,
-      //   oldBzModel: _bzModel,
-      // );
+        BzFireOps.updateBz(
+          context: context,
+          newBzModel: _updatedBzModel,
+          oldBzModel: _bzModel,
+          authorPicFile: null,
+        ),
+
+        _sendAuthorRoleChangeNote(
+          context: context,
+          bzModel:_updatedBzModel,
+          author: _author,
+        ),
+
+      ]);
 
       WaitDialog.closeWaitDialog(context);
 
@@ -189,3 +197,48 @@ Future<void> onChangeAuthorRoleOps({
 
 }
 // -----------------------------------------------------------------------------
+Future<void> _sendAuthorRoleChangeNote({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required AuthorModel author,
+}) async {
+
+  final String _myID = superUserID();
+
+  final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
+      bz: bzModel,
+      authorID: _myID,
+  );
+
+  final String _authorRoleString = AuthorCard.getAuthorRoleLine(
+      isMaster: author.isMaster,
+  );
+
+  final NoteModel _noteModel = NoteModel(
+    id: 'x',
+    senderID: _myID, // as I'm who changed the author role
+    senderImageURL: _myAuthorModel.pic,
+    noteSenderType: NoteSenderType.user,
+    receiverID: bzModel.id,
+    receiverType: NoteReceiverType.bz,
+    title: 'Team member Role changed',
+    body: 'The team role of "${author.name}" has been set to "$_authorRoleString"',
+    metaData: NoteModel.defaultMetaData,
+    sentTime: DateTime.now(),
+    attachment: null,
+    attachmentType: null,
+    seen: false,
+    seenTime: null,
+    sendFCM: true,
+    noteType: NoteType.announcement,
+    response: null,
+    responseTime: null,
+    buttons: null,
+  );
+
+  await NoteFireOps.createNote(
+      context: context,
+      noteModel: _noteModel,
+  );
+
+}
