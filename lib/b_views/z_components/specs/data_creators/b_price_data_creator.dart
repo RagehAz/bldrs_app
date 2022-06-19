@@ -77,7 +77,7 @@ class PriceDataCreator extends StatefulWidget {
               onTap: () => onSelectCurrency(_usdCurrency),
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             DreamBox(
               height: 60,

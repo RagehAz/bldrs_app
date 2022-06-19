@@ -35,49 +35,49 @@ class BzPowersPage extends StatelessWidget {
           ],
         ),
 
-        const BubblesSeparator(),
+        const DotSeparator(),
 
         const Bubble(
           title: 'Get More Ankhs',
           columnChildren: <Widget>[],
         ),
 
-        const BubblesSeparator(),
+        const DotSeparator(),
 
         const Bubble(
           title: 'Get Premium Account',
           columnChildren: <Widget>[],
         ),
 
-        const BubblesSeparator(),
+        const DotSeparator(),
 
         const Bubble(
           title: 'Get Super Account',
           columnChildren: <Widget>[],
         ),
 
-        const BubblesSeparator(),
+        const DotSeparator(),
 
         const Bubble(
           title: 'Boost a flyer',
           columnChildren: <Widget>[],
         ),
 
-        const BubblesSeparator(),
+        const DotSeparator(),
 
         const Bubble(
           title: 'Create an Advertisement',
           columnChildren: <Widget>[],
         ),
 
-        const BubblesSeparator(),
+        const DotSeparator(),
 
         const Bubble(
           title: 'Sponsor Bldrs.net in your city',
           columnChildren: <Widget>[],
         ),
 
-        const BubblesSeparator(),
+        const DotSeparator(),
 
         Bubble(
           title: 'Get Bldrs.net marketing materials',

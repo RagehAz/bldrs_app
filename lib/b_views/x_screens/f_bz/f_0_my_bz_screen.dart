@@ -18,8 +18,11 @@ import 'package:provider/provider.dart';
 class MyBzScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MyBzScreen({
+    this.initialTab = BzTab.flyers,
     Key key
   }) : super(key: key);
+
+  final BzTab initialTab;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -62,6 +65,7 @@ class MyBzScreen extends StatelessWidget {
 
             return ObeliskLayout(
               initiallyExpanded: true,
+              initialIndex: BzModel.getBzTabIndex(initialTab),
               appBarRowWidgets: <Widget>[
 
                 const Expander(),

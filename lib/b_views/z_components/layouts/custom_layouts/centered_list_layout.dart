@@ -21,9 +21,6 @@ class CenteredListLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = Scale.superScreenHeight(context);
-    final double _screenWidth = Scale.superScreenWidth(context);
-
     return MainLayout(
       zoneButtonIsOn: false,
       sectionButtonIsOn: false,
@@ -32,23 +29,45 @@ class CenteredListLayout extends StatelessWidget {
       pyramidType: pyramidType,
       skyType: skyType,
       pyramidsAreOn: true,
-      layoutWidget: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Container(
-          width: _screenWidth,
-          constraints: BoxConstraints(
-            minHeight: _screenHeight,
-          ),
-          alignment: Alignment.center,
-          padding: Stratosphere.stratosphereSandwich,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+      layoutWidget: FloatingCenteredList(
+        columnChildren: columnChildren,
+      ),
+    );
 
-              ...columnChildren,
+  }
+}
 
-            ],
-          ),
+class FloatingCenteredList extends StatelessWidget {
+
+  const FloatingCenteredList({
+    @required this.columnChildren,
+    Key key
+  }) : super(key: key);
+
+  final List<Widget> columnChildren;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Container(
+        width: _screenWidth,
+        constraints: BoxConstraints(
+          minHeight: _screenHeight,
+        ),
+        alignment: Alignment.center,
+        padding: Stratosphere.stratosphereSandwich,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+
+            ...columnChildren,
+
+          ],
         ),
       ),
     );

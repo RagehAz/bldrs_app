@@ -115,7 +115,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
 
-                  const BubblesSeparator(),
+                  const DotSeparator(),
 
                   DreamBox(
                     width: (widget.bubbleWidth ?? BldrsAppBar.width(context)) - 20,

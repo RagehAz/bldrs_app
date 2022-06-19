@@ -74,7 +74,7 @@ class FlyerMakerScreenView extends StatelessWidget {
               ],
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// FLYER HEADLINE
             TextFieldBubble(
@@ -110,7 +110,7 @@ class FlyerMakerScreenView extends StatelessWidget {
               // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// FLYER TYPE SELECTOR
             ValueListenableBuilder(
@@ -277,7 +277,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                 },
             ),
             
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// ZONE SELECTOR
             ValueListenableBuilder(
@@ -302,7 +302,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                 }
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// SHOW FLYER AUTHOR
             Bubble(

@@ -189,21 +189,6 @@ String replaceVarTag({
 
   return _output;
 }
-// ----------------------------
-String replaceHashTag({
-  @required String verse,
-  @required String hash,
-  @required String replacement,
-}){
-
-  final String _output = modifyAllCharactersWith(
-      characterToReplace: hash,
-      replacement: replacement,
-      input: verse
-  );
-
-  return _output;
-}
 // -----------------------------------------------------------------------------
 
 /// CUTTERS
