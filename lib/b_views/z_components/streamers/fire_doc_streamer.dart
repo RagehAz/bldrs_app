@@ -20,13 +20,13 @@ class FireDocStreamer extends StatefulWidget {
   final String collName;
   final String docName;
   final Widget Function(BuildContext, Map<String, dynamic>) builder;
-  final Function(Map<String, dynamic>, Map<String, dynamic>) onDataChanged;
+  final Function(BuildContext, Map<String, dynamic>, Map<String, dynamic>) onDataChanged;
   final Map<String, dynamic> initialMap;
   final Widget loadingWidget;
   /// --------------------------------------------------------------------------
   static Future<void> onStreamDataChanged({
     @required Stream<DocumentSnapshot<Object>> stream,
-    @required ValueNotifier<Map<String, dynamic>> oldMap,
+    @required Map<String, dynamic> oldMap,
     @required bool mounted,
     @required Function(Map<String, dynamic>, Map<String, dynamic>) onChange,
   }) async {
@@ -41,27 +41,20 @@ class FireDocStreamer extends StatefulWidget {
         addDocSnapshot: true,
       );
 
-      blog('FireDocStreamer - onStreamDataChanged - _newMap : has ${_newMap?.keys?.length} keys');
-      blog('FireDocStreamer - onStreamDataChanged - oldMap : has ${oldMap.value?.keys?.length} keys');
-
       final bool _mapsAreTheSame = Mapper.checkMapsAreTheSame(
-        map1: oldMap.value,
+        map1: oldMap,
         map2: _newMap,
       );
 
-      blog('FireDocStreamer - onStreamDataChanged - _mapsAreTheSame : $_mapsAreTheSame');
+      blog('FireDocStreamer - onStreamDataChanged - _oldMap == _newMap : $_mapsAreTheSame');
 
 
       if (_mapsAreTheSame == false){
-
         if (mounted == true){
-          if (oldMap != null && _newMap != null){
-            onChange(oldMap.value, _newMap);
-            oldMap.value = _newMap;
-          }
+          onChange(oldMap, _newMap);
         }
-
       }
+
 
     },
 
@@ -88,10 +81,12 @@ class FireDocStreamer extends StatefulWidget {
 class _FireDocStreamerState extends State<FireDocStreamer> {
 // -----------------------------------------------------------------------------
   Stream<DocumentSnapshot<Object>> _stream;
-  final ValueNotifier<Map<String, dynamic>> _oldMap = ValueNotifier<Map<String, dynamic>>(null);
+  ValueNotifier<Map<String, dynamic>> _oldMap;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+
+    _oldMap = ValueNotifier<Map<String, dynamic>>(null);
 
     _stream = Fire.streamDoc(
       collName: widget.collName,
@@ -100,12 +95,19 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
 
     FireDocStreamer.onStreamDataChanged(
       stream: _stream,
-      oldMap: _oldMap,
+      oldMap: _oldMap.value,
       mounted: mounted,
-      onChange: widget.onDataChanged == null ?
-      null
+      onChange:
+      widget.onDataChanged == null ? null
           :
-          (Map<String, dynamic> oldMap, Map<String, dynamic> newMap) => widget.onDataChanged(oldMap, newMap),
+          (Map<String, dynamic> oldMap, Map<String, dynamic> newMap){
+
+        if (mounted == true){
+          widget.onDataChanged(context, oldMap, newMap);
+          _oldMap.value = oldMap;
+        }
+
+        },
     );
 
 
@@ -114,6 +116,7 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
+      blog('FireDocStreamer : DISPOSING THE FUCKING PAGE');
     _oldMap.dispose();
     super.dispose();
   }
