@@ -51,7 +51,7 @@ Future<BzModel> createBz({
         );
 
         /// update authorModel with _authorPicURL
-        final AuthorModel _masterAuthor = await _uploadAuthorPicAndReturnMasterAuthor(
+        final AuthorModel _masterAuthor = await _uploadAuthorPicAndCreateNewMasterAuthor(
           context: context,
           draftBz: draftBz,
           userModel: userModel,
@@ -141,7 +141,7 @@ Future<String> _uploadBzLogoAndGetURL({
   return _bzLogoURL;
 }
 // --------------------------
-Future<AuthorModel> _uploadAuthorPicAndReturnMasterAuthor({
+Future<AuthorModel> _uploadAuthorPicAndCreateNewMasterAuthor({
   @required BuildContext context,
   @required BzModel draftBz,
   @required UserModel userModel,
@@ -184,6 +184,7 @@ Future<AuthorModel> _uploadAuthorPicAndReturnMasterAuthor({
     pic: _authorPicURL,
     isMaster: true,
     contacts: userModel.contacts,
+    flyersIDs: const <String>[],
   );
 
   blog('_uploadAuthorPicAndReturnMasterAuthor : END');
@@ -411,7 +412,7 @@ Future<BzModel> _updateAuthorPicIfChangedAndReturnNewBzModel({
         pic: _authorPicURL,
       );
 
-      final List<AuthorModel> _finalAuthorsList = AuthorModel.replaceAuthorModelInAuthorsList(
+      final List<AuthorModel> _finalAuthorsList = AuthorModel.replaceAuthorModelInAuthorsListByID(
         authors: oldBzModel.authors,
         authorToReplace: _updatedAuthor,
       );
@@ -518,7 +519,7 @@ Future<void> _deleteBzFlyers({
           context: context,
           bzModel: bzModel,
           flyerModel: _flyerModel,
-          deleteFlyerIDFromBzzFlyersIDs: false,
+          updateBzEverywhere: false,
         );
       }
       

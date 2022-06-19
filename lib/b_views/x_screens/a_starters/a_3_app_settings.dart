@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -22,6 +21,8 @@ class AppSettingsScreen extends StatelessWidget {
 
     return CenteredListLayout(
         columnChildren: <Widget>[
+
+          const DotSeparator(color: Colorz.yellow80,),
 
           /// CHANGE LANGUAGE
           SettingsWideButton(
@@ -80,47 +81,9 @@ class AppSettingsScreen extends StatelessWidget {
             onTap: () => onSignOut(context),
           ),
 
+          const DotSeparator(color: Colorz.yellow80,),
+
         ],
-    );
-
-  }
-}
-
-class SettingsWideButton extends StatelessWidget {
-
-  const SettingsWideButton({
-    @required this.verse,
-    @required this.icon,
-    @required this.onTap,
-    Key key
-  }) : super(key: key);
-
-  final String verse;
-  final String icon;
-  final Function onTap;
-
-  @override
-  Widget build(BuildContext context) {
-
-    final double _screenWidth = Scale.superScreenWidth(context);
-
-    return DreamBox(
-      height: 50,
-      verse: verse.toUpperCase(),
-      icon: icon,
-      width: _screenWidth * 0.7,
-      margins: 5,
-      iconSizeFactor: 0.5,
-      verseCentered: false,
-      verseMaxLines: 2,
-      verseItalic: true,
-      color: Colorz.white20,
-      verseScaleFactor: 1.2,
-      // size: 4,
-      // margin: 5,
-      // labelColor: Colorz.white20,
-      // italic: true,
-      onTap: onTap,
     );
 
   }
