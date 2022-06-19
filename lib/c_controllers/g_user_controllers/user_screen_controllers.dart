@@ -439,7 +439,7 @@ Future<void> _deleteNonAuthorUserOps({
     await AuthLDBOps.deleteAuthModel(userModel.id);
 
     /// LDB : DELETE SAVED FLYERS
-    await FlyersLDBOps.deleteFlyers(userModel.savedFlyersIDs);
+    await FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs);
 
     /// CLOSE WAITING
     WaitDialog.closeWaitDialog(context);
@@ -525,7 +525,7 @@ Future<void> onSignOut(BuildContext context) async {
   await AuthLDBOps.deleteAuthModel(AuthFireOps.superUserID());
   await UserLDBOps.deleteUserOps(AuthFireOps.superUserID());
   await BzLDBOps.wipeOut(context);
-  await FlyersLDBOps.wipeOut(context);
+  await FlyerLDBOps.wipeOut(context);
 
   await AuthFireOps.signOut(
       context: context,

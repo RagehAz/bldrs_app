@@ -1,12 +1,11 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/buttons/invite_bzz_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class UserSettingsPage extends StatelessWidget {
@@ -18,73 +17,42 @@ class UserSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final UserModel userModel = UsersProvider.proGetMyUserModel(context, listen: true);
-    const double _buttonHeight = 50;
+    return FloatingCenteredList(
+      columnChildren: <Widget>[
 
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      padding: Stratosphere.stratosphereSandwich,
-      children: <Widget>[
+        const DotSeparator(color: Colorz.yellow80,),
 
         const InviteBzzButton(),
 
+        const DotSeparator(),
+
         /// EDIT PROFILE
-        BottomDialog.wideButton(
-          context: context,
-          height: _buttonHeight,
+        SettingsWideButton(
           verse: superPhrase(context, 'phid_editProfile'),
           icon: Iconz.gears,
           onTap: () => onEditProfileTap(context),
         ),
 
         /// DELETE MY ACCOUNT
-        BottomDialog.wideButton(
-          context: context,
-          height: _buttonHeight,
+        SettingsWideButton(
           verse: superPhrase(context, 'phid_delete_my_account'),
           icon: Iconz.xSmall,
           onTap: () => onDeleteMyAccount(context),
         ),
 
+        const DotSeparator(),
+
         /// SIGN OUT
-        BottomDialog.wideButton(
-          context: context,
-          height: _buttonHeight,
+        SettingsWideButton(
           verse: superPhrase(context, 'phid_signOut'),
           icon: Iconz.exit,
           onTap: () => onSignOut(context),
         ),
 
+        const DotSeparator(color: Colorz.yellow80,),
+
       ],
     );
 
-  }
-}
-
-class InviteBzzButton extends StatelessWidget {
-
-  const InviteBzzButton({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Aligners.superBottomAlignment(context),
-      child: DreamBox(
-        height: 50,
-        margins: const EdgeInsets.all(Ratioz.appBarMargin),
-        // width: Scale.appBarWidth(context),
-        color: Colorz.yellow255,
-        verse: 'Invite Businesses you know',
-        secondLine: 'To join Bldrs.net',
-        secondLineColor: Colorz.black255,
-        secondLineScaleFactor: 1.2,
-        verseColor: Colorz.black255,
-        verseCentered: false,
-        icon: Iconz.bz,
-        iconColor: Colorz.black255,
-        iconSizeFactor: 0.7,
-        onTap: () => onInviteBusinessesTap(context),
-      ),
-    );
   }
 }

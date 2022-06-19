@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
@@ -7,6 +8,7 @@ import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -15,24 +17,35 @@ import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
+
 // -----------------------------------------------------------------------------
 
 /// CREATE
 
 // -----------------------------------
 /// TESTED :
-Future<FlyerModel> createFlyerOps({
+Future<Map<String, dynamic>> createFlyerOps({
   @required BuildContext context,
   @required FlyerModel draftFlyer,
   @required BzModel bzModel,
 }) async {
 
+  /// NOTE
+  /// RETURNS
+  /// {
+  /// 'flyer' : _uploadedFlyerModel,
+  /// 'bz' : _uploadedBzModel,
+  /// }
+
   blog('createFlyerOps : START');
 
   FlyerModel _finalFlyer;
+  BzModel _finalBz;
 
   if (draftFlyer != null){
 
@@ -49,10 +62,10 @@ Future<FlyerModel> createFlyerOps({
         draftFlyer: draftFlyer,
       );
 
-      await _addFlyerIDToBzFlyersIDs(
+      _finalBz = await _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs(
         context: context,
         bzModel: bzModel,
-        newFlyerIDToAdd: _flyerID,
+        newFlyerToAdd: _finalFlyer,
       );
 
     }
@@ -61,7 +74,10 @@ Future<FlyerModel> createFlyerOps({
 
   blog('createFlyerOps : END');
 
-  return _finalFlyer;
+  return {
+    'flyer' : _finalFlyer,
+    'bz' : _finalBz,
+  };
 }
 // -----------------------------------
 /// TESTED : : returns Flyer ID
@@ -147,27 +163,40 @@ Future<FlyerModel> _createFlyerStorageImagesAndUpdateFlyer({
   return _finalFlyer;
 }
 // -----------------------------------
-Future<void> _addFlyerIDToBzFlyersIDs({
+Future<BzModel> _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs({
   @required BuildContext context,
   @required BzModel bzModel,
-  @required String newFlyerIDToAdd,
+  @required FlyerModel newFlyerToAdd,
 }) async {
 
   blog('_addFlyerIDToBzFlyersIDs : START');
 
-  final List<String> _bzFlyersIDs = bzModel.flyersIDs;
-  _bzFlyersIDs.add(newFlyerIDToAdd);
+  final List<String> _updatedBzFlyersIDs = addStringToListIfDoesNotContainIt(
+      strings: bzModel.flyersIDs,
+      stringToAdd: newFlyerToAdd.id,
+  );
 
-  await Fire.updateDocField(
-    context: context,
-    collName: FireColl.bzz,
-    docName: bzModel.id,
-    field: 'flyersIDs',
-    input: _bzFlyersIDs,
+  final List<AuthorModel> _updatedAuthors = AuthorModel.addFlyerIDToAuthor(
+      flyerID: newFlyerToAdd.id,
+      authorID: newFlyerToAdd.authorID,
+      authors: bzModel.authors,
+  );
+
+  final BzModel _updatedBzModel = bzModel.copyWith(
+    flyersIDs: _updatedBzFlyersIDs,
+    authors: _updatedAuthors,
+  );
+
+  final BzModel _uploadedBzModel = await BzFireOps.updateBz(
+      context: context,
+      newBzModel: _updatedBzModel,
+      oldBzModel: bzModel,
+      authorPicFile: null
   );
 
   blog('_addFlyerIDToBzFlyersIDs : END');
 
+  return _uploadedBzModel;
 }
 // -----------------------------------------------------------------------------
 
@@ -554,7 +583,7 @@ Future<void> deleteFlyerOps({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
   /// to avoid frequent updates to bz fire doc in delete bz ops
-  @required bool deleteFlyerIDFromBzzFlyersIDs,
+  @required bool updateBzEverywhere,
 }) async {
 
   blog('deleteFlyerOps : START : ${flyerModel?.id}');
@@ -562,12 +591,18 @@ Future<void> deleteFlyerOps({
   if (flyerModel != null && flyerModel.id != null && bzModel != null) {
 
     /// DELETE FLYER ID FROM BZ FLYERS IDS
-    if (deleteFlyerIDFromBzzFlyersIDs == true) {
+    if (updateBzEverywhere == true) {
 
-      await _deleteFlyerIDFromBzFlyersIDs(
+      final BzModel _uploadedBzModel = await _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
         context: context,
-        flyerID: flyerModel.id,
+        flyer: flyerModel,
         bzModel: bzModel,
+      );
+
+      await myActiveBzLocalUpdateProtocol(
+          context: context,
+          newBzModel: _uploadedBzModel,
+          oldBzModel: bzModel,
       );
 
     }
@@ -600,33 +635,46 @@ Future<void> deleteFlyerOps({
 
 }
 // -----------------------------------
-Future<void> _deleteFlyerIDFromBzFlyersIDs({
+Future<BzModel> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
   @required BuildContext context,
-  @required String flyerID,
+  @required FlyerModel flyer,
   @required BzModel bzModel,
 }) async {
 
   blog('_deleteFlyerIDFromBzFlyersIDs : START');
 
-  if (bzModel != null && flyerID != null){
+  BzModel _uploadedBzModel = bzModel;
+
+  if (bzModel != null && flyer != null){
 
     final List<String> _bzFlyersIDs = Mapper.removeStringsFromStrings(
       removeFrom: bzModel.flyersIDs,
-      removeThis: <String>[flyerID],
+      removeThis: <String>[flyer.id],
     );
 
-    await Fire.updateDocField(
-      context: context,
-      collName: FireColl.bzz,
-      docName: bzModel.id,
-      field: 'flyersIDs',
-      input: _bzFlyersIDs,
+    final List<AuthorModel> _updatedAuthors = AuthorModel.removeFlyerIDToAuthor(
+        flyerID: flyer.id,
+        authorID: flyer.authorID,
+        authors: bzModel.authors,
+    );
+
+    final BzModel _updatedBzModel = bzModel.copyWith(
+      flyersIDs: _bzFlyersIDs,
+      authors: _updatedAuthors,
+    );
+
+    _uploadedBzModel = await BzFireOps.updateBz(
+        context: context,
+        newBzModel: _updatedBzModel,
+        oldBzModel: bzModel,
+        authorPicFile: null
     );
 
   }
 
   blog('_deleteFlyerIDFromBzFlyersIDs : START');
 
+  return _uploadedBzModel;
 }
 // -----------------------------------
 Future<void> _deleteFlyerRecords({

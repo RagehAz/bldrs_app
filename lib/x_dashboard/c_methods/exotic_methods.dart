@@ -385,7 +385,7 @@ class ExoticMethods {
         pic: _newUserModel.pic,
       );
 
-      final List<AuthorModel> _updatedAuthors = AuthorModel.replaceAuthorModelInAuthorsList(
+      final List<AuthorModel> _updatedAuthors = AuthorModel.replaceAuthorModelInAuthorsListByID(
         authors: _authors,
         authorToReplace: _newAuthor,
       );

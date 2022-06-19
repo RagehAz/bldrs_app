@@ -45,6 +45,7 @@ void onDeleteAuthorImage({
     contacts: author.value.contacts,
     userID: author.value.userID,
     name: author.value.name,
+    flyersIDs: author.value.flyersIDs,
   );
 
 }
@@ -82,6 +83,7 @@ Future<void> onConfirmAuthorUpdates({
         userID: author.value.userID,
         isMaster: author.value.isMaster,
         pic: author.value.pic,
+        flyersIDs: author.value.flyersIDs,
         name: nameController.text,
         title: titleController.text,
         contacts: ContactModel.createContactsListByGeneratedControllers(

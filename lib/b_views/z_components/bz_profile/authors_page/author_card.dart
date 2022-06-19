@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -9,13 +8,10 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.da
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 
 class AuthorCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -30,22 +26,6 @@ class AuthorCard extends StatelessWidget {
   final BzModel bzModel;
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
-  static List<FlyerModel> _getNumberOfAuthorFlyers({
-    @required AuthorModel author,
-    @required BuildContext context,
-  }){
-
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final List<FlyerModel> _bzFlyers = _bzzProvider.myActiveBzFlyers;
-
-    final List<FlyerModel> _authorFlyers = FlyerModel.getFlyersFromFlyersByAuthorID(
-      flyers: _bzFlyers,
-      authorID: author?.userID,
-    );
-
-    return _authorFlyers;
-  }
-// -----------------------------------------------------------------------------
   static const double authorPicSize = 80;
   static const double spaceBetweenImageAndText = 5;
   static const double moreButtonSize = 40;
@@ -93,13 +73,6 @@ class AuthorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final List<FlyerModel> _authorFlyers = _getNumberOfAuthorFlyers(
-        author: author,
-        context: context,
-    );
-
-    final int _authorNumberOfFlyers = _authorFlyers.length;
 
     final double _textAreaBoxWidth = authorTextDetailsClearWidth(
       context: context,
@@ -197,7 +170,7 @@ class AuthorCard extends StatelessWidget {
 
                   /// NUMBER OF FLYERS
                   AuthorCardDetail(
-                    verse: '$_authorNumberOfFlyers published flyers',
+                    verse: '${author.flyersIDs.length} published flyers',
                     icon: Iconz.flyer,
                     boxWidth: _textAreaWidth,
                   ),
