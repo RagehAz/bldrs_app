@@ -4,16 +4,16 @@ import 'dart:io';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
-import 'package:provider/provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:flutter/material.dart';
 
 // ----------------------------------
 Future<void> takeAuthorImage({
@@ -52,8 +52,10 @@ Future<void> onConfirmAuthorUpdates({
   @required List<TextEditingController> generatedControllers,
 }) async {
 
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  final BzModel _bzModel = _bzzProvider.myActiveBz;
+  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    context: context,
+    listen: false,
+  );
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
@@ -84,11 +86,9 @@ Future<void> onConfirmAuthorUpdates({
 
     author.value = _author;
 
-    final BzModel _updatedBzModel = _bzModel.copyWith(
-      authors: AuthorModel.replaceAuthorModelInAuthorsList(
-          authorToReplace: _author,
-          authors: _bzModel.authors,
-      ),
+    final BzModel _updatedBzModel = BzModel.replaceAuthor(
+        updatedAuthor: _author,
+        bzModel: _bzModel,
     );
 
     final BzModel _uploadedModel = await BzFireOps.updateBz(
@@ -102,7 +102,6 @@ Future<void> onConfirmAuthorUpdates({
       context: context,
       newBzModel: _uploadedModel,
       oldBzModel: _bzModel,
-      bzzProvider: _bzzProvider,
     );
 
 
@@ -114,3 +113,71 @@ Future<void> onConfirmAuthorUpdates({
 
 }
 // ----------------------------------
+Future<void> onChangeAuthorRoleOps({
+  @required BuildContext context,
+  @required ValueNotifier<bool> isMaster,
+  @required AuthorModel author,
+}) async {
+
+  if (isMaster.value != author.isMaster){
+
+    final String _role = AuthorCard.getAuthorRoleLine(
+      isMaster: isMaster.value,
+    );
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Change Author Role',
+      body: 'This will set ${author.name} as $_role',
+      boolDialog: true,
+    );
+
+    if (_result == false){
+      isMaster.value = !isMaster.value;
+    }
+
+    else {
+
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Uploading new Author details',
+      ));
+
+      final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: false,
+      );
+
+      final AuthorModel _author = author.copyWith(
+        isMaster: isMaster.value,
+      );
+
+      final BzModel _updatedBzModel = BzModel.replaceAuthor(
+        updatedAuthor: _author,
+        bzModel: _bzModel,
+      );
+
+      final BzModel _uploadedModel = await BzFireOps.updateBz(
+        context: context,
+        newBzModel: _updatedBzModel,
+        oldBzModel: _bzModel,
+        authorPicFile: null,
+      );
+
+      await myActiveBzLocalUpdateProtocol(
+        context: context,
+        newBzModel: _uploadedModel,
+        oldBzModel: _bzModel,
+      );
+
+      WaitDialog.closeWaitDialog(context);
+
+      Nav.goBack(context);
+
+    }
+
+
+  }
+
+
+}
