@@ -988,53 +988,72 @@ class ZoneProvider extends ChangeNotifier {
   }) async {
     /// incomplete zone model is what only has (countryID - cityID - districtID)
     /// complete zone model is that has all IDs  Models and Names initialized
+    ZoneModel _output = incompleteZoneModel;
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    if (incompleteZoneModel != null){
 
-    /// BZ COUNTRY
-    final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
-      context: context,
-      countryID: incompleteZoneModel.countryID,
-    );
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    /// BZ CITY
-    final CityModel _bzCity = await _zoneProvider.fetchCityByID(
-      context: context,
-      cityID: incompleteZoneModel.cityID,
-    );
+      /// BZ COUNTRY
+      if (incompleteZoneModel.countryModel == null){
+        final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+          context: context,
+          countryID: incompleteZoneModel.countryID,
+        );
+        _output = _output.copyWith(
+          countryModel: _bzCountry,
+        );
+      }
 
-    /// COUNTRY NAME
-    final String _countryName = CountryModel.getTranslatedCountryName(
-      context: context,
-      countryID: incompleteZoneModel.countryID,
-    );
+      /// BZ CITY
+      if (incompleteZoneModel.cityModel == null){
+        final CityModel _bzCity = await _zoneProvider.fetchCityByID(
+          context: context,
+          cityID: incompleteZoneModel.cityID,
+        );
+        _output = _output.copyWith(
+          cityModel: _bzCity,
+        );
 
-    /// CITY NAME
-    final String _cityName = CityModel.getTranslatedCityNameFromCity(
-      context: context,
-      city: _bzCity,
-    );
+      }
 
-    /// DISTRICT NAME
-    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-      context: context,
-      city: _bzCity,
-      districtID: incompleteZoneModel.districtID,
-    );
+      /// COUNTRY NAME
+      if (incompleteZoneModel.countryName == null){
+        final String _countryName = CountryModel.getTranslatedCountryName(
+          context: context,
+          countryID: incompleteZoneModel.countryID,
+        );
+        _output = _output.copyWith(
+          countryName: _countryName,
+        );
+      }
 
-    /// COMPLETED ZONE MODEL
-    final ZoneModel _completeZoneModel = ZoneModel(
-      countryID: incompleteZoneModel.countryID,
-      cityID: incompleteZoneModel.cityID,
-      districtID: incompleteZoneModel.districtID,
-      countryModel: _bzCountry,
-      cityModel: _bzCity,
-      countryName: _countryName,
-      cityName: _cityName,
-      districtName: _districtName,
-    );
+      /// CITY NAME
+      if (incompleteZoneModel.cityName == null){
+        final String _cityName = CityModel.getTranslatedCityNameFromCity(
+          context: context,
+          city: _output.cityModel,
+        );
+        _output = _output.copyWith(
+          cityName: _cityName,
+        );
+      }
 
-    return _completeZoneModel;
+      /// DISTRICT NAME
+      if (incompleteZoneModel.districtName == null){
+        final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
+          context: context,
+          city: _output.cityModel,
+          districtID: incompleteZoneModel.districtID,
+        );
+        _output = _output.copyWith(
+          districtName: _districtName,
+        );
+      }
+
+    }
+
+    return _output;
   }
 // -------------------------------------
   static ZoneModel proGetCurrentZoneIDs(BuildContext context){

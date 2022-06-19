@@ -13,12 +13,11 @@ import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
-import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -440,40 +439,28 @@ Future<void> _publishFlyerOps({
         loadingPhrase: 'Uploading flyer',
       ));
 
-
   final FlyerModel _flyerToPublish = draft.value.toFlyerModel().copyWith(
     publishState: PublishState.published,
   );
 
   /// upload to firebase
-  final FlyerModel _uploadedFlyer = await FlyerFireOps.createFlyerOps(
+  final Map<String, dynamic> _uploadedFlyerAndBz = await FlyerFireOps.createFlyerOps(
       context: context,
       draftFlyer: _flyerToPublish,
       bzModel: bzModel
   );
+  final FlyerModel _uploadedFlyer = _uploadedFlyerAndBz['flyer'];
+  final BzModel _uploadedBz = _uploadedFlyerAndBz['bz'];
+
   blog('onPublish flyer : new flyer uploaded and bzModel updated on firebase');
 
-  /// update ldb
-  final List<String> _newBzFlyersIDsList = TextMod.addStringToListIfDoesNotContainIt(
-      strings: bzModel.flyersIDs,
-      stringToAdd: _uploadedFlyer.id,
+  await myActiveBzLocalUpdateProtocol(
+      context: context,
+      newBzModel: _uploadedBz,
+      oldBzModel: bzModel,
   );
 
-  final BzModel _newBzModel = bzModel.copyWith(
-    flyersIDs: _newBzFlyersIDsList,
-  );
-
-  await LDBOps.insertMap(
-    docName: LDBDoc.bzz,
-    input: _newBzModel.toMap(toJSON: true),
-  );
-  blog('onPublish flyer : bz model updated on LDB');
-
-  await LDBOps.insertMap(
-    docName: LDBDoc.flyers,
-    input: _uploadedFlyer.toMap(toJSON: true),
-  );
-  blog('onPublish flyer : new flyer stored on LDB');
+  await FlyerLDBOps.insertFlyer(_uploadedFlyer);
 
   /// update providers
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -484,11 +471,6 @@ Future<void> _publishFlyerOps({
   );
   blog('onPublish flyer : myActiveBzFlyers on provider updated');
 
-  _bzzProvider.setActiveBz(
-    bzModel: _newBzModel,
-    notify: true,
-  );
-  blog('onPublish flyer : _newBzModel on provider updated');
 
   WaitDialog.closeWaitDialog(context);
 

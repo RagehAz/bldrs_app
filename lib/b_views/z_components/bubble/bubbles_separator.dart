@@ -6,10 +6,12 @@ class DotSeparator extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DotSeparator({
     this.bottomMarginIsOn = true,
+    this.color = Colorz.grey80,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool bottomMarginIsOn;
+  final Color color;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -24,9 +26,9 @@ class DotSeparator extends StatelessWidget {
       child: Container(
         width: 5,
         height: 5,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colorz.grey80,
+          color: color,
         ),
       ),
     );
