@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -8,9 +7,7 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -204,23 +201,15 @@ class AuthorLabel extends StatelessWidget {
 class AuthorPic extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorPic({
-    this.isAddAuthorButton = false,
     this.width,
     this.authorPic,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
-  final bool isAddAuthorButton;
   final double width;
   final dynamic authorPic;
   /// --------------------------------------------------------------------------
-  void _tapAddAuthor(BuildContext context) {
-    blog('should go to add new author screen');
-
-    // Nav.goToNewScreen(context, AddAuthorScreen(tinyBz: tinyBz));
-  }
-// -----------------------------------------------------------------------------
   static double getCornerValue(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
   }
@@ -256,39 +245,7 @@ class AuthorPic extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: _authorPicBorders,
-          child: isAddAuthorButton == true ?
-
-          GestureDetector(
-            onTap: () => _tapAddAuthor(context),
-            child: SizedBox(
-              width: width,
-              height: _authorImageHeight,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-
-                  DreamBox(
-                    width: width * 0.35,
-                    height: _authorImageHeight * 0.35,
-                    icon: Iconz.plus,
-                    bubble: false,
-                    onTap: () => _tapAddAuthor(context),
-                  ),
-
-                  const SuperVerse(
-                    verse: 'Add new Author',
-                    size: 0,
-                    maxLines: 2,
-                  ),
-
-                ],
-              ),
-            ),
-          )
-
-              :
-
-          SuperImage(
+          child: SuperImage(
               width: width,
               height: width,
               pic: authorPic
