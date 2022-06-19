@@ -1,3 +1,5 @@
+// ignore_for_file: always_put_control_body_on_new_line
+
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -81,6 +83,124 @@ String modifyAllCharactersWith({
   @required String input,
 }) {
   final String _output = input.replaceAll(characterToReplace, replacement);
+
+  return _output;
+}
+// -----------------------------------------------------------------------------
+
+/// TEXT TAGS MODIFIER
+
+// ----------------------------
+/// TEXT VARIABLE TAGS
+const String userNameVarTag1 = '<USERNAME1>';
+const String userNameVarTag2 = '<USERNAME2>';
+const String bzNameVarTag1 = '<BZNAME1>';
+const String bzNameVarTag2 = '<BZNAME2>';
+const String authorNameVarTag1 = '<AUTHORNAME1>';
+const String authorNameVarTag2 = '<AUTHORNAME2>';
+// ----------------------------
+final List<String> varTags = <String>[
+  userNameVarTag1,
+  userNameVarTag2,
+  bzNameVarTag1,
+  bzNameVarTag2,
+  authorNameVarTag1,
+  authorNameVarTag2,
+];
+// ----------------------------
+String replaceVarTag({
+  @required String input,
+  String userName1,
+  String userName2,
+  String bzName1,
+  String bzName2,
+  String authorName1,
+  String authorName2,
+}){
+  String _output = input;
+
+  Map<String, dynamic> _varTagsMap = {};
+
+  /// USER NAME 1
+  if (userName1 != null){
+    _varTagsMap = Mapper.insertPairInMap(
+        map: _varTagsMap,
+        key: userNameVarTag1,
+        value: userName1
+    );
+  }
+  /// USER NAME 2
+  if (userName2 != null){
+    _varTagsMap = Mapper.insertPairInMap(
+        map: _varTagsMap,
+        key: userNameVarTag2,
+        value: userName2
+    );
+  }
+  /// BZ NAME 1
+  if (bzName1 != null){
+    _varTagsMap = Mapper.insertPairInMap(
+        map: _varTagsMap,
+        key: bzNameVarTag1,
+        value: bzName1,
+    );
+  }
+  /// BZ NAME 2
+  if (bzName2 != null){
+    _varTagsMap = Mapper.insertPairInMap(
+      map: _varTagsMap,
+      key: bzNameVarTag2,
+      value: bzName2,
+    );
+  }
+  /// AUTHOR NAME 1
+  if (authorName1 != null){
+    _varTagsMap = Mapper.insertPairInMap(
+      map: _varTagsMap,
+      key: authorNameVarTag1,
+      value: authorName1,
+    );
+  }
+  /// AUTHOR NAME 2
+  if (authorName2 != null){
+    _varTagsMap = Mapper.insertPairInMap(
+      map: _varTagsMap,
+      key: authorNameVarTag2,
+      value: authorName2,
+    );
+  }
+
+  final List<String> _keys = _varTagsMap.keys.toList();
+
+  if (Mapper.checkCanLoopList(_keys) == true){
+
+    for (final String key in _keys){
+
+      _output = modifyAllCharactersWith(
+          input: _output,
+          characterToReplace: key,
+          replacement: _varTagsMap[key],
+      );
+
+    }
+
+
+  }
+
+  return _output;
+}
+// ----------------------------
+String replaceHashTag({
+  @required String verse,
+  @required String hash,
+  @required String replacement,
+}){
+
+  final String _output = modifyAllCharactersWith(
+      characterToReplace: hash,
+      replacement: replacement,
+      input: verse
+  );
 
   return _output;
 }

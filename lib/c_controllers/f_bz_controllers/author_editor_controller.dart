@@ -9,13 +9,12 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 
 // -----------------------------------------------------------------------------
 
@@ -203,22 +202,15 @@ Future<void> _sendAuthorRoleChangeNote({
   @required AuthorModel author,
 }) async {
 
-  final String _myID = superUserID();
-
-  final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
-      bz: bzModel,
-      authorID: _myID,
-  );
-
   final String _authorRoleString = AuthorCard.getAuthorRoleLine(
       isMaster: author.isMaster,
   );
 
   final NoteModel _noteModel = NoteModel(
     id: 'x',
-    senderID: _myID, // as I'm who changed the author role
-    senderImageURL: _myAuthorModel.pic,
-    noteSenderType: NoteSenderType.user,
+    senderID: bzModel.id,
+    senderImageURL: author.pic,
+    noteSenderType: NoteSenderType.bz,
     receiverID: bzModel.id,
     receiverType: NoteReceiverType.bz,
     title: 'Team member Role changed',

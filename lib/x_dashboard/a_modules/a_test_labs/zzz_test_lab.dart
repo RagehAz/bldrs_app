@@ -2,11 +2,8 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/animators/list_pusher.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -20,15 +17,14 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
-import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -86,6 +82,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     // Future.delayed(Duration.zero).then((_){
     //   Provider.of<FlyersProvider>(context,listen: true).fetchAndSetBzz();
     // });
+
+    _hashVerse = ValueNotifier(_original);
+
 
     super.initState();
   }
@@ -215,8 +214,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   final ValueNotifier<dynamic> _thePic = ValueNotifier(null);
 // -----------------------------------------------------------------------------
-  final ValueNotifier<int> _rebuildListPusher = ValueNotifier(0);
-// -----------------------------------------------------------------------------
   /*
   Future<void> _scrollOnKeyboard() async {
 
@@ -253,6 +250,29 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     blog('wall phid : $_wallPhid');
   }
 // -----------------------------------------------------------------------------
+
+  final String _original = 'Fuck you ${TextMod.userNameVarTag1} you fuck '
+      'ya ${TextMod.userNameVarTag1}, ya bitch fuck you company ${TextMod.bzNameVarTag1} and your co founder ${TextMod.authorNameVarTag1} '
+      'after that, lets have a beer at ${TextMod.bzNameVarTag2} at night because i need to eat two chickens';
+
+  ValueNotifier<String> _hashVerse;
+  final ValueNotifier<bool> _showHash = ValueNotifier(false);
+  void replaceHash(){
+
+    final String _output = TextMod.replaceVarTag(
+      input: _original,
+      userName1: 'Ahmed tharwat',
+      bzName1: 'الشركة',
+      bzName2: 'جونيز بومبون',
+      authorName1: 'A7mad Fat7y 3ab el 3al فلوكس',
+    );
+
+    _hashVerse.value = _showHash.value == true ? _output : _original;
+    _showHash.value = !_showHash.value;
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -283,18 +303,63 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       // navBarIsOn: false,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      appBarRowWidgets: const <Widget>[
-        IsSignedInButton(),
-        IsConnectedButton(),
+      appBarRowWidgets: <Widget>[
+
+        const IsSignedInButton(),
+
+        const SizedBox(
+          width: 10,
+          height: 10,
+        ),
+
+        const IsConnectedButton(),
+
+        /// IMAGE
+        ValueListenableBuilder(
+            valueListenable: _thePic,
+            builder: (_, dynamic pic, Widget child){
+              return SuperImage(
+                width: 40,
+                height: 40,
+                // scale: 1,
+                boxFit: BoxFit.fitWidth,
+                pic: pic ?? Iconz.dumUniverse,
+                iconColor: Colorz.blue255,
+                // loading: false,
+                // backgroundColor: Colorz.black255,
+                corners: 10,
+                // greyscale: false,
+              );
+            }
+        ),
+
+        const Expander(),
+
+        /// DO SOMETHING
+        AppBarButton(
+            verse: ' A ( ) ',
+            onTap: () async {
+
+              replaceHash();
+
+            }
+        ),
+
+        AppBarButton(
+            verse: ' B ( ) ',
+            onTap: () async {
+
+
+            }
+        ),
+
       ],
-      layoutWidget: Column(
-        // physics: const BouncingScrollPhysics(),
-        // controller: _scrollController,
+      layoutWidget: ListView(
+        physics: const BouncingScrollPhysics(),
+        controller: _scrollController,
         children: <Widget>[
 
           const Stratosphere(),
-
-          const SpecializedLabs(),
 
           SizedBox(
             width: _screenWidth,
@@ -317,31 +382,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                   ),
                 ),
 
-                const BubblesSeparator(),
-
-                /// DO SOMETHING
-                WideButton(
-                    color: Colorz.red255,
-                    verse: 'DO pussy',
-                    icon: Iconz.dvGouran,
-                    onTap: () async {
-
-
-                    }
-                    ),
-
-                WideButton(
-                    color: Colorz.red255,
-                    verse: 'Do Something',
-                    icon: Iconz.star,
-                    onTap: () async {
-
-                    }),
-
                 /// TEXT FIELD
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+
+                    /// FIELD
                     Container(
                       color: Colorz.bloodTest,
                       alignment: Alignment.topCenter,
@@ -388,73 +434,45 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                         ],
                       ),
                     ),
+
+                    /// SIZE
                     Container(
                       width: 50,
                       height: _concludedHeight,
                       color: Colorz.yellow255,
                     ),
+
                   ],
                 ),
 
+                /// HASH VERSE
                 ValueListenableBuilder(
-                    valueListenable: _thePic,
-                    builder: (_, dynamic pic, Widget child){
-                      return SuperImage(
-                        width: 100,
-                        height: 100,
-                        // scale: 1,
-                        boxFit: BoxFit.fitWidth,
-                        pic: pic ?? Iconz.dumUniverse,
-                        iconColor: Colorz.blue255,
-                        // loading: false,
-                        // backgroundColor: Colorz.black255,
-                        corners: 10,
-                        // greyscale: false,
-                      );
-                    }
-                    ),
+                  valueListenable: _showHash,
+                  builder: (_, bool showHash, Widget child){
 
-                /// DO SOMETHING
-                WideButton(
-                    color: Colorz.black255,
-                    verse: 'DO THE CURRENCIES',
-                    icon: Iconz.contAfrica,
-                    onTap: () async {
-                      // final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
-                      //
-                      // final List<String> _currenciesIDs = CurrencyModel.getCurrenciesIDs(_currencies);
-                      //
-                      // blog(_currenciesIDs);
-                      // blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
-                      // final Chain _specsChain = _chainsProvider.specsChain;
-                      //
-                      // _specsChain.blogChain();
-                      //
-                      // blog('xxx-x-x-x-x------------------------x-x-x---------------------------------------------------------------');
-                      //
-                      // final List<Chain> _newSons = Chain.replaceChainInChains(
-                      //     chains: _specsChain.sons,
-                      //     oldChainID: 'phid_s_currency',
-                      //     chainToReplace: Chain(
-                      //       id: 'phid_s_currency',
-                      //       sons: _currenciesIDs,
-                      //     ),
-                      // );
-                      //
-                      // final Chain _finalChain = Chain(
-                      //   id: _specsChain.id,
-                      //   sons: _newSons,
-                      // );
-                      //
-                      // _finalChain.blogChain();
-                      //
-                      // await createNamedDoc(
-                      //     context: context,
-                      //     collName: FireColl.chains,
-                      //     docName: FireDoc.chains_specs,
-                      //     input: _finalChain.toMap(),
-                      // );
-                    }),
+                    return ValueListenableBuilder(
+                      valueListenable: _hashVerse,
+                      builder: (_, String verse, Widget child){
+
+                        return Container(
+                          width: 200,
+                          margin: Scale.superMargins(margins: 10),
+                          child: SuperVerse(
+                            verse: verse,
+                            maxLines: 6,
+                            weight: VerseWeight.thin,
+                            size: 3,
+                            italic: true,
+                          ),
+                        );
+
+                        },
+                    );
+
+                    },
+                ),
+
+
 
                 /// PROMOTED FLYERS
                 // Selector<FlyersProvider, List<FlyerModel>>(
@@ -474,34 +492,36 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 //   },
                 // ),
 
-                /// LIST PUSHER
-                if (Keyboarders.keyboardIsOn(context) == true)
-                ValueListenableBuilder(
-                    valueListenable: _rebuildListPusher,
-                    builder: (_, int rebuilds, Widget child){
-
-                      return ListPusher(
-                        maxHeight: 160,
-                        expand: Keyboarders.keyboardIsOn(context) == true,
-                        duration: const Duration(seconds: 1),
-                      );
-
-                    }
-                ),
-
-                DreamBox(
-                  width: _screenWidth,
-                  height: 100,
-                  color: Colorz.green255,
-                  verse: 'Rebuild the Fucker Bitch',
-                  onTap: (){
-                    _rebuildListPusher.value = _rebuildListPusher.value++;
-                  },
-                ),
+                // /// LIST PUSHER
+                // if (Keyboarders.keyboardIsOn(context) == true)
+                // ValueListenableBuilder(
+                //     valueListenable: _rebuildListPusher,
+                //     builder: (_, int rebuilds, Widget child){
+                //
+                //       return ListPusher(
+                //         maxHeight: 160,
+                //         expand: Keyboarders.keyboardIsOn(context) == true,
+                //         duration: const Duration(seconds: 1),
+                //       );
+                //
+                //     }
+                // ),
+                //
+                // DreamBox(
+                //   width: _screenWidth,
+                //   height: 100,
+                //   color: Colorz.green255,
+                //   verse: 'Rebuild the Fucker Bitch',
+                //   onTap: (){
+                //     _rebuildListPusher.value = _rebuildListPusher.value++;
+                //   },
+                // ),
 
               ],
             ),
           ),
+
+          const SpecializedLabs(),
 
         ],
       ),
