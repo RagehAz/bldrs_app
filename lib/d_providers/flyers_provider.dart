@@ -31,7 +31,7 @@ class FlyersProvider extends ChangeNotifier {
     @required  String flyerID,
   }) async {
 
-    FlyerModel _flyer = await FlyersLDBOps.readFlyer(flyerID);
+    FlyerModel _flyer = await FlyerLDBOps.readFlyer(flyerID);
 
     if (_flyer != null){
       blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in LDB');

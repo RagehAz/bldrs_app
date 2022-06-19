@@ -472,7 +472,7 @@ class BzModel{
     if (updatedAuthor != null && bzModel != null){
 
       _output = bzModel.copyWith(
-        authors: AuthorModel.replaceAuthorModelInAuthorsList(
+        authors: AuthorModel.replaceAuthorModelInAuthorsListByID(
           authorToReplace: updatedAuthor,
           authors: bzModel.authors,
         ),

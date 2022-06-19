@@ -3,9 +3,9 @@ import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
 import 'package:flutter/material.dart';
 
-class FlyersLDBOps {
+class FlyerLDBOps {
 
-  FlyersLDBOps();
+  FlyerLDBOps();
 
 // -----------------------------------------------------------------------------
 

@@ -181,7 +181,7 @@ Future<void> deleteFlyerOps({
     context: context,
     flyerModel: flyer,
     bzModel: bzModel,
-    deleteFlyerIDFromBzzFlyersIDs: true,
+    updateBzEverywhere: true,
   );
 
   /// REMOVE ID FROM BZ FLYERS IDS ON FIREBASE

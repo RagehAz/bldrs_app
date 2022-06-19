@@ -19,6 +19,7 @@ class AuthorModel {
     @required this.title,
     @required this.isMaster,
     @required this.contacts,
+    @required this.flyersIDs,
   });
   /// --------------------------------------------------------------------------
   final String userID;
@@ -27,6 +28,7 @@ class AuthorModel {
   final String title;
   final bool isMaster;
   final List<ContactModel> contacts;
+  final List<String> flyersIDs;
 // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -39,6 +41,7 @@ class AuthorModel {
     String title,
     bool isMaster,
     List<ContactModel> contacts,
+    List<String> flyersIDs,
 }){
     return AuthorModel(
       userID: userID ?? this.userID,
@@ -47,6 +50,7 @@ class AuthorModel {
       title: title ?? this.title,
       isMaster: isMaster ?? this.isMaster,
       contacts: contacts ?? this.contacts,
+      flyersIDs: flyersIDs ?? this.flyersIDs,
     );
   }
 // ----------------------------------
@@ -61,6 +65,7 @@ class AuthorModel {
       title: userModel.title,
       isMaster: isMaster,
       contacts: userModel.contacts,
+      flyersIDs: const <String>[],
     );
     return _author;
   }
@@ -89,6 +94,7 @@ class AuthorModel {
       'title': title,
       'isMaster': isMaster,
       'contacts': ContactModel.cipherContacts(contacts),
+      'flyersIDs': flyersIDs,
     };
   }
 // ----------------------------------
@@ -100,6 +106,7 @@ class AuthorModel {
       title: map['title'],
       isMaster: map['isMaster'],
       contacts: ContactModel.decipherContacts(map['contacts']),
+      flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
     );
   }
 // ----------------------------------
@@ -193,6 +200,26 @@ class AuthorModel {
     return _authorsIDs;
   }
 // ----------------------------------
+  static AuthorModel getAuthorFromAuthorsByID({
+    @required List<AuthorModel> authors,
+    @required String authorID,
+  }){
+
+    AuthorModel _author;
+
+    if (Mapper.checkCanLoopList(authors) == true){
+
+      final AuthorModel _found = authors.firstWhere(
+              (au) => au.userID == authorID, orElse: ()=> null
+      );
+
+      _author = _found;
+
+    }
+
+    return _author;
+  }
+// ----------------------------------
   static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs({
     @required List<AuthorModel> allAuthors,
     @required List<String> authorsIDs,
@@ -246,7 +273,7 @@ class AuthorModel {
     @required AuthorModel newAuthor,
   }) {
 
-    final List<AuthorModel> _modifiedAuthorsList = replaceAuthorModelInAuthorsList(
+    final List<AuthorModel> _modifiedAuthorsList = replaceAuthorModelInAuthorsListByID(
       authors: bzModel.authors,
       authorToReplace: newAuthor,
     );
@@ -258,7 +285,7 @@ class AuthorModel {
     return _updatedBzModel;
   }
 // ----------------------------------
-  static List<AuthorModel> replaceAuthorModelInAuthorsList({
+  static List<AuthorModel> replaceAuthorModelInAuthorsListByID({
     @required List<AuthorModel> authors,
     @required AuthorModel authorToReplace,
   }) {
@@ -351,6 +378,86 @@ class AuthorModel {
     }
 
     return _output ?? authors;
+  }
+// ----------------------------------
+  static List<AuthorModel> addFlyerIDToAuthor({
+    @required String flyerID,
+    @required String authorID,
+    @required List<AuthorModel> authors,
+}){
+
+    List<AuthorModel> _output = authors;
+
+    if (
+    Mapper.checkCanLoopList(authors) == true
+    &&
+    flyerID != null
+    &&
+    authorID != null
+    ){
+
+      final AuthorModel _author = getAuthorFromAuthorsByID(
+          authors: authors,
+          authorID: authorID
+      );
+
+      final List<String> _updatedFlyersIDs = Mapper.putStringInStringsIfAbsent(
+          strings: _author.flyersIDs,
+          string: flyerID
+      );
+
+      final AuthorModel _updatedAuthor = _author.copyWith(
+        flyersIDs: _updatedFlyersIDs,
+      );
+
+      _output = replaceAuthorModelInAuthorsListByID(
+          authors: authors,
+          authorToReplace: _updatedAuthor,
+      );
+
+    }
+
+    return _output;
+}
+// ----------------------------------
+  static List<AuthorModel> removeFlyerIDToAuthor({
+    @required String flyerID,
+    @required String authorID,
+    @required List<AuthorModel> authors,
+  }){
+
+    List<AuthorModel> _output = authors;
+
+    if (
+    Mapper.checkCanLoopList(authors) == true
+        &&
+        flyerID != null
+        &&
+        authorID != null
+    ){
+
+      final AuthorModel _author = getAuthorFromAuthorsByID(
+          authors: authors,
+          authorID: authorID
+      );
+
+      final List<String> _updatedFlyersIDs = Mapper.removeStringsFromStrings(
+          removeFrom: _author.flyersIDs,
+          removeThis: <String>[flyerID],
+      );
+
+      final AuthorModel _updatedAuthor = _author.copyWith(
+        flyersIDs: _updatedFlyersIDs,
+      );
+
+      _output = replaceAuthorModelInAuthorsListByID(
+        authors: authors,
+        authorToReplace: _updatedAuthor,
+      );
+
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 
@@ -523,7 +630,8 @@ class AuthorModel {
       isMaster: true,
       name: 'Rageh Author',
       contacts: ContactModel.dummyContacts(),
-      title: 'The CEO And Founder of this'
+      title: 'The CEO And Founder of this',
+      flyersIDs: const <String>[],
     );
   }
 // ----------------------------------
