@@ -26,6 +26,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
@@ -153,7 +154,7 @@ Future<void> onAddScopesTap({
 /// VALIDATION - UPLOADING - CONFIRMATION
 
 // ----------------------------------
-Future<void> onConfirmTap({
+Future<void> onBzEditsConfirmTap({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
   @required ValueNotifier<List<AlertModel>> missingFields,
@@ -424,14 +425,23 @@ Future<void> _updateBzOps({
     /// GO BACK
     Nav.goBack(context);
 
-    /// SHOW SUCCESS DIALOG
-    await TopDialog.showTopDialog(
-      context: context,
-      firstLine: 'Great !',
-      secondLine: 'Successfully updated your Business Account',
-      color: Colorz.green255,
-      textColor: Colorz.white255,
+    // /// SHOW SUCCESS DIALOG
+    // unawaited(TopDialog.showTopDialog(
+    //   context: context,
+    //   firstLine: 'Great !',
+    //   secondLine: 'Successfully updated your Business Account',
+    //   color: Colorz.green255,
+    //   textColor: Colorz.white255,
+    // ));
+
+    await Nav.replaceScreen(
+        context: context,
+        transitionType: PageTransitionType.fade,
+        screen: const MyBzScreen(
+          initialTab: BzTab.about,
+        ),
     );
+
 
   }
 

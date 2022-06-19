@@ -2,9 +2,9 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class BubblesSeparator extends StatelessWidget {
+class DotSeparator extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BubblesSeparator({
+  const DotSeparator({
     this.bottomMarginIsOn = true,
     Key key
   }) : super(key: key);

@@ -176,7 +176,7 @@ class UserEditorScreenView extends StatelessWidget {
                     }
                 ),
 
-                const BubblesSeparator(),
+                const DotSeparator(),
 
                 /// EMAIL
                 ContactFieldBubble(
@@ -199,7 +199,7 @@ class UserEditorScreenView extends StatelessWidget {
                   keyboardTextInputType: TextInputType.phone,
                 ),
 
-                const BubblesSeparator(),
+                const DotSeparator(),
 
                 /// --- EDIT FACEBOOK
                 ContactFieldBubble(

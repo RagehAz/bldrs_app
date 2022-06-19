@@ -214,7 +214,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               ),
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// ACTIVE BZ
             ProviderTestButton(
@@ -287,7 +287,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               onTap: () => zoneProvider.currentCurrency?.blogCurrency(),
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// SELECTED COUNTRY CITIES
             ProviderTestButton(
@@ -303,7 +303,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               onTap: () => DistrictModel.blogDistricts(zoneProvider.selectedCityDistricts),
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// USER COUNTRY
             ProviderTestButton(
@@ -319,7 +319,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               onTap: () => zoneProvider.userCityModel?.blogCity(),
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// ALL CURRENCIES
             ProviderTestButton(
@@ -328,7 +328,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               onTap: () => CurrencyModel.blogCurrencies(zoneProvider.allCurrencies),
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// SEARCHED COUNTRIES
             ProviderTestButton(
@@ -351,7 +351,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               onTap: () => DistrictModel.blogDistricts(zoneProvider.searchedDistricts),
             ),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// FLYERS -------------------------------------------------------------
 
@@ -429,7 +429,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   unawaited(_triggerLoading());
                 }),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
 
             WideButton(
@@ -456,7 +456,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   unawaited(_triggerLoading());
                 }),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             WideButton(
                 color: Colorz.black255,
@@ -470,7 +470,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   unawaited(_triggerLoading());
                 }),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             /// AVOID SET STATE : WAY # 2
             Consumer<UiProvider>(
@@ -529,7 +529,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   );
                 }),
 
-            const BubblesSeparator(),
+            const DotSeparator(),
 
             const Stratosphere(),
 

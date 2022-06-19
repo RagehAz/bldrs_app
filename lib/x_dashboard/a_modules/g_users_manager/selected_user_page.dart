@@ -162,7 +162,7 @@ class SelectedUserPage extends StatelessWidget {
         dataValue: userModel.pic,
       ),
 
-      const BubblesSeparator(),
+      const DotSeparator(),
 
       /// APP VERSION
       DataStrip(
@@ -200,7 +200,7 @@ class SelectedUserPage extends StatelessWidget {
         dataValue: userModel.appState.specPickersVersion,
       ),
 
-      const BubblesSeparator(),
+      const DotSeparator(),
 
       /// FCM Token
       DataStrip(
@@ -216,7 +216,7 @@ class SelectedUserPage extends StatelessWidget {
         dataValue: userModel.fcmToken?.platform,
       ),
 
-      const BubblesSeparator(),
+      const DotSeparator(),
 
       /// IS ADMIN
       DataStrip(
