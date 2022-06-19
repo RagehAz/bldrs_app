@@ -1,7 +1,11 @@
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/a_3_app_settings.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
-
 
 class BzSettingsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -12,15 +16,32 @@ class BzSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final UserModel userModel = UsersProvider.proGetMyUserModel(context, listen: true);
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: true
+    );
 
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      padding: Stratosphere.stratosphereSandwich,
-      children: const <Widget>[
+    return FloatingCenteredList(
+      columnChildren: <Widget>[
 
-        SuperVerse(
-          verse: 'Bz Settings page',
+        SettingsWideButton(
+          verse: 'Edit ${_bzModel.name} Business Account',
+          icon: Iconz.gears,
+          onTap: () => onEditBzButtonTap(
+            context: context,
+            bzModel: _bzModel,
+          ),
+        ),
+
+        const DotSeparator(),
+
+        SettingsWideButton(
+          verse: 'Delete ${_bzModel.name} Business account',
+          icon: Iconz.xSmall,
+          onTap: () => onDeleteBzButtonTap(
+            context: context,
+            bzModel: _bzModel,
+          ),
         ),
 
       ],

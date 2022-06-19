@@ -57,8 +57,7 @@ class TopDialog extends StatelessWidget {
       flushbarPosition: FlushbarPosition.TOP,
       flushbarStyle: FlushbarStyle.FLOATING,
       isDismissible: true,
-      blockBackgroundInteraction:
-          false, // prevents gestures on background widgets
+      blockBackgroundInteraction: false, // prevents gestures on background widgets
 
       /// SIZING ----------------------------------------------
       maxWidth: _screenWidth,

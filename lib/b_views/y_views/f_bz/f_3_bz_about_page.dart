@@ -58,7 +58,7 @@ class BzAboutPage extends StatelessWidget {
 
         /// SEPARATOR
         if (_bzModel.scope != null)
-          const BubblesSeparator(),
+          const DotSeparator(),
 
         /// STATS
         if (_bzModel.totalSlides != null)
