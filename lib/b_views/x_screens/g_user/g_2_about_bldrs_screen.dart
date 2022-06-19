@@ -50,7 +50,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'building you projects, you have all Businesses here for you',
             ),
 
-            BubblesSeparator(),
+            DotSeparator(),
 
             SuperVerse(
               verse: 'Bldrs.net Business types',
@@ -148,7 +148,7 @@ class AboutBldrsScreen extends StatelessWidget {
                   'to contact',
             ),
 
-            BubblesSeparator(),
+            DotSeparator(),
 
             Horizon(),
           ],

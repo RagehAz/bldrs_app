@@ -221,7 +221,7 @@ class BzEditorScreenView extends StatelessWidget {
                       }
                   ),
 
-                  const BubblesSeparator(),
+                  const DotSeparator(),
 
                   /// --- ADD LOGO
                   AddGalleryPicBubble(
@@ -350,7 +350,7 @@ class BzEditorScreenView extends StatelessWidget {
                     validator: (){return null;},
                   ),
 
-                  const BubblesSeparator(),
+                  const DotSeparator(),
 
                   /// --- BZ ZONE
                   ValueListenableBuilder(
@@ -374,7 +374,7 @@ class BzEditorScreenView extends StatelessWidget {
 
                   /// --- BZ CONTACTS
 
-                  const BubblesSeparator(),
+                  const DotSeparator(),
 
                   const Horizon(),
 
@@ -396,7 +396,7 @@ class BzEditorScreenView extends StatelessWidget {
           firstLine: 'Confirm',
           secondLine: firstTimer ? 'Create new business profile' : 'Update business profile',
           positionedAlignment: Alignment.bottomLeft,
-          onTap: () => onConfirmTap(
+          onTap: () => onBzEditsConfirmTap(
             context: context,
             formKey: formKey,
             missingFields: missingFields,

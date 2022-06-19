@@ -388,7 +388,7 @@ Future<void> onBzAccountOptionsTap({
             height: 50,
             verse: 'Edit ${bzModel.name} Business Account',
             verseCentered: true,
-            onTap: () => _onEditBzButtonTap(
+            onTap: () => onEditBzButtonTap(
               context: context,
               bzModel: bzModel,
             ),
@@ -399,7 +399,7 @@ Future<void> onBzAccountOptionsTap({
             height: 50,
             verse: 'Delete ${bzModel.name} Business Account',
             verseCentered: true,
-            onTap: () => _onDeleteBzButtonTap(
+            onTap: () => onDeleteBzButtonTap(
               context: context,
               bzModel: bzModel,
             ),
@@ -417,7 +417,7 @@ Future<void> onBzAccountOptionsTap({
 /// BZ EDITING
 
 // -------------------------------
-Future<void> _onEditBzButtonTap({
+Future<void> onEditBzButtonTap({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {
@@ -438,7 +438,7 @@ Future<void> _onEditBzButtonTap({
 /// BZ DELETION
 
 // -------------------------------
-Future<void> _onDeleteBzButtonTap({
+Future<void> onDeleteBzButtonTap({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {

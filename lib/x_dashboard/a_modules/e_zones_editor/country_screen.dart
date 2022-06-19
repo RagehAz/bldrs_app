@@ -220,7 +220,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
                 color: Colorz.black255,
               ),
 
-              const BubblesSeparator(),
+              const DotSeparator(),
 
               /// ENGLISH NAME
               TextFieldBubble(
@@ -254,7 +254,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
                 },
               ),
 
-              const BubblesSeparator(),
+              const DotSeparator(),
 
               /// --- IS ACTIVATED
               TileBubble(
@@ -288,7 +288,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
                   },
               ),
 
-              const BubblesSeparator(),
+              const DotSeparator(),
 
               // KeywordsBubble(
               //   title: '${_citiesNames.length} Provinces',

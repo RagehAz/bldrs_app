@@ -24,57 +24,57 @@ class AppSettingsScreen extends StatelessWidget {
         columnChildren: <Widget>[
 
           /// CHANGE LANGUAGE
-          WideButtonX(
+          SettingsWideButton(
             verse: superPhrase(context, 'phid_changeLanguage'),
             onTap: () => onChangeAppLanguageTap(context),
             icon: Iconz.language,
           ),
 
-          const BubblesSeparator(),
+          const DotSeparator(),
 
           /// ABOUT
-          WideButtonX(
+          SettingsWideButton(
             verse: '${superPhrase(context, 'phid_about')} ${Wordz.bldrsFullName(context)}',
             onTap: () => onAboutBldrsTap(context),
             icon: Iconz.language,
           ),
 
           /// FEEDBACK
-          WideButtonX(
+          SettingsWideButton(
             verse: superPhrase(context, 'phid_feedback'),
             icon: Iconz.utSearching,
             onTap: () => onFeedbackTap(context),
           ),
 
           /// TERMS AND REGULATIONS
-          WideButtonX(
+          SettingsWideButton(
             verse: superPhrase(context, 'phid_termsRegulations'),
             icon: Iconz.terms,
             onTap: () => onTermsAndRegulationsTap(context),
           ),
 
           /// INVITE FRIENDS
-          WideButtonX(
+          SettingsWideButton(
             verse: superPhrase(context, 'phid_inviteFriends'),
             icon: Iconizer.shareAppIcon(),
             onTap: () => onInviteFriendsTap(context),
           ),
 
-          const BubblesSeparator(),
+          const DotSeparator(),
 
           /// ADD NEW BZ
-          WideButtonX(
+          SettingsWideButton(
             verse: superPhrase(context, 'phid_createBzAccount'),
             icon: Iconz.bz,
             onTap: () => onCreateNewBzTap(context),
           ),
 
           if (AuthModel.userIsSignedIn() == true)
-            const BubblesSeparator(),
+            const DotSeparator(),
 
           /// SIGN OUT
           if (AuthModel.userIsSignedIn() == true)
-          WideButtonX(
+          SettingsWideButton(
             verse: superPhrase(context, 'phid_signOut'),
             icon: Iconz.exit,
             onTap: () => onSignOut(context),
@@ -86,9 +86,9 @@ class AppSettingsScreen extends StatelessWidget {
   }
 }
 
-class WideButtonX extends StatelessWidget {
+class SettingsWideButton extends StatelessWidget {
 
-  const WideButtonX({
+  const SettingsWideButton({
     @required this.verse,
     @required this.icon,
     @required this.onTap,
