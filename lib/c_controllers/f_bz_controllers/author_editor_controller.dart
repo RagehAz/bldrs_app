@@ -7,15 +7,17 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
+// -----------------------------------------------------------------------------
 
-// ----------------------------------
+/// AUTHOR PROFILE EDITOR
+
+// -------------------------------
 Future<void> takeAuthorImage({
   @required ValueNotifier<AuthorModel> author,
 }) async {
@@ -91,18 +93,19 @@ Future<void> onConfirmAuthorUpdates({
         bzModel: _bzModel,
     );
 
-    final BzModel _uploadedModel = await BzFireOps.updateBz(
+    await BzFireOps.updateBz(
         context: context,
         newBzModel: _updatedBzModel,
         oldBzModel: _bzModel,
         authorPicFile: objectIsFile(_author.pic) == true ? _author.pic : null,
     );
 
-    await myActiveBzLocalUpdateProtocol(
-      context: context,
-      newBzModel: _uploadedModel,
-      oldBzModel: _bzModel,
-    );
+    /// no need to do that as stream listener does it
+    // await myActiveBzLocalUpdateProtocol(
+    //   context: context,
+    //   newBzModel: _uploadedModel,
+    //   oldBzModel: _bzModel,
+    // );
 
 
     WaitDialog.closeWaitDialog(context);
@@ -112,7 +115,11 @@ Future<void> onConfirmAuthorUpdates({
 
 
 }
-// ----------------------------------
+// -----------------------------------------------------------------------------
+
+/// AUTHOR ROLE EDITOR
+
+// -------------------------------
 Future<void> onChangeAuthorRoleOps({
   @required BuildContext context,
   @required ValueNotifier<bool> isMaster,
@@ -157,18 +164,18 @@ Future<void> onChangeAuthorRoleOps({
         bzModel: _bzModel,
       );
 
-      final BzModel _uploadedModel = await BzFireOps.updateBz(
+      await BzFireOps.updateBz(
         context: context,
         newBzModel: _updatedBzModel,
         oldBzModel: _bzModel,
         authorPicFile: null,
       );
 
-      await myActiveBzLocalUpdateProtocol(
-        context: context,
-        newBzModel: _uploadedModel,
-        oldBzModel: _bzModel,
-      );
+      // await myActiveBzLocalUpdateProtocol(
+      //   context: context,
+      //   newBzModel: _uploadedModel,
+      //   oldBzModel: _bzModel,
+      // );
 
       WaitDialog.closeWaitDialog(context);
 
@@ -181,3 +188,4 @@ Future<void> onChangeAuthorRoleOps({
 
 
 }
+// -----------------------------------------------------------------------------
