@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/y_views/f_bz/my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
-import 'package:bldrs/b_views/y_views/f_bz/my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire_doc_streamer.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
@@ -24,64 +24,81 @@ class MyBzScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final String bzID = BzzProvider.proGetActiveBzModel(
         context: context,
         listen: false,
-    );
+    )?.id;
 
     blog('my bz screen reloaded');
 
     return FireDocStreamer(
       collName: FireColl.bzz,
-      docName: _bzModel.id,
-      onDataChanged: (Map<String, dynamic> oldMap, Map<String, dynamic> newMap) => onMyActiveBzStreamChanged(
-        context: context,
-        oldMap: oldMap,
-        newMap: newMap,
-        bzzProvider: _bzzProvider,
-      ),
+      docName: bzID,
+      onDataChanged: (Map<String, dynamic> oldMap, Map<String, dynamic> newMap) async {
+
+        await onMyActiveBzStreamChanged(
+          context: context,
+          oldMap: oldMap,
+          newMap: newMap,
+        );
+
+      },
       builder: (_, Map<String, dynamic> map){
 
-        return ObeliskLayout(
-          initiallyExpanded: true,
-          appBarRowWidgets: <Widget>[
 
-            const Expander(),
+        return Selector<BzzProvider, BzModel>(
+          selector: (_, bzzProvider) => bzzProvider.myActiveBz,
+          child: Container(),
+          builder: (_, BzModel _bzModel, Widget child){
 
-            BzCreditsCounter(
-              width: Ratioz.appBarButtonSize * 1.4,
-              slidesCredit: Numeric.formatNumToCounterCaliber(context, 1234),
-              ankhsCredit: Numeric.formatNumToCounterCaliber(context, 123),
-            ),
+            final bool _areIdentical = BzModel.checkBzzAreIdentical(
+                bz1: _bzModel,
+                bz2: BzModel.decipherBz(map: map, fromJSON: false),
+            );
 
-            BzLogo(
-              width: 40,
-              image: _bzModel.logo,
-              margins: const EdgeInsets.symmetric(horizontal: 5),
-              corners: superBorderAll(context, Ratioz.appBarCorner - 5),
-            ),
+            blog('MyBzScreen : streamBz == proMyActiveBz ? : $_areIdentical');
 
-          ],
-          navModels: <NavModel>[
+            return ObeliskLayout(
+              initiallyExpanded: true,
+              appBarRowWidgets: <Widget>[
 
-            ...List.generate(BzModel.bzTabsList.length, (index){
+                const Expander(),
 
-              final BzTab _bzTab = BzModel.bzTabsList[index];
+                BzCreditsCounter(
+                  width: Ratioz.appBarButtonSize * 1.4,
+                  slidesCredit: Numeric.formatNumToCounterCaliber(context, 1234),
+                  ankhsCredit: Numeric.formatNumToCounterCaliber(context, 123),
+                ),
 
-              return NavModel(
-                id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
-                title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
-                icon: BzModel.getBzTabIcon(_bzTab),
-                screen: MyBzScreenPages.pages[index],
-              );
+                BzLogo(
+                  width: 40,
+                  image: _bzModel.logo,
+                  margins: const EdgeInsets.symmetric(horizontal: 5),
+                  corners: superBorderAll(context, Ratioz.appBarCorner - 5),
+                ),
 
-            }),
+              ],
+              navModels: <NavModel>[
 
-          ],
+                ...List.generate(BzModel.bzTabsList.length, (index){
 
+                  final BzTab _bzTab = BzModel.bzTabsList[index];
+
+                  return NavModel(
+                    id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
+                    title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
+                    icon: BzModel.getBzTabIcon(_bzTab),
+                    screen: MyBzScreenPages.pages[index],
+                  );
+
+                }),
+
+              ],
+
+            );
+
+          },
         );
 
       },

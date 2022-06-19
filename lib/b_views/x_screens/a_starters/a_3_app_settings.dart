@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
@@ -13,15 +12,15 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class AppSettingsScreen extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const AppSettingsScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return BasicListLayout(
+    return CenteredListLayout(
         columnChildren: <Widget>[
 
           /// CHANGE LANGUAGE
@@ -122,80 +121,6 @@ class WideButtonX extends StatelessWidget {
       // labelColor: Colorz.white20,
       // italic: true,
       onTap: onTap,
-    );
-
-  }
-}
-
-class BasicListLayout extends StatelessWidget {
-
-  const BasicListLayout({
-    @required this.columnChildren,
-    Key key
-  }) : super(key: key);
-
-  final List<Widget> columnChildren;
-
-  @override
-  Widget build(BuildContext context) {
-
-    final double _screenHeight = Scale.superScreenHeight(context);
-    final double _screenWidth = Scale.superScreenWidth(context);
-
-    return SafeArea(
-      child: ConnectivitySensor(
-        child: Stack(
-          children: <Widget>[
-
-            Scaffold(
-              key: const ValueKey<String>('mainScaffold'),
-
-              /// INSETS
-              resizeToAvoidBottomInset: false, /// this false prevents keyboard from pushing pyramids up
-              // resizeToAvoidBottomPadding: false,
-
-              /// BACK GROUND COLOR
-              backgroundColor: Colorz.black255,
-
-              /// BODY CONTENT
-              body: SizedBox(
-                width: _screenWidth,
-                height: _screenHeight,
-                child: Stack(
-                  children: <Widget>[
-
-                    Container(
-                      width: _screenWidth,
-                      height: _screenHeight,
-                      // color: Colorz.bloodTest,
-                      alignment: Alignment.center,
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: <Widget>[
-
-                            ...columnChildren,
-
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    Pyramids(
-                        pyramidType: PyramidType.crystalYellow,
-                        loading: ValueNotifier(false),
-                        onPyramidTap: null
-                    ),
-
-                  ],
-                ),
-              ),
-
-            ),
-
-          ],
-        ),
-      ),
     );
 
   }

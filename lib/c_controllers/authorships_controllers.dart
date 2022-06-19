@@ -648,8 +648,6 @@ Future<void> _onDeleteAuthorFromActiveBzTeam({
       //   canManuallyGoBack: true,
       // ));
 
-      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-
       final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
           context: context,
           listen: false,
@@ -677,7 +675,6 @@ Future<void> _onDeleteAuthorFromActiveBzTeam({
         context: context,
         newBzModel: _updatedBzModel,
         oldBzModel: _bzModel,
-        bzzProvider: _bzzProvider,
       );
       blog('_onDeleteAuthorFromTheTeam : finished myActiveBzLocalUpdateProtocol and updating on firebase');
       /// UPDATE BZ ON FIREBASE

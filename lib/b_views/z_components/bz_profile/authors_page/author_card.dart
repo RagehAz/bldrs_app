@@ -76,12 +76,31 @@ class AuthorCard extends StatelessWidget {
     return imageCornerValue + Bubble.paddingValue();
   }
 // -----------------------------------------------------------------------------
+  static String getAuthorTitleLine({
+    @required String title,
+    @required String companyName
+  }){
+    return '$title @ $companyName';
+  }
+// -----------------------------------------------------------------------------
+  static String getAuthorRoleLine({
+    @required bool isMaster,
+  }){
+    final String _role = isMaster == true ? 'Account Admin' : 'Team member';
+    return _role;
+  }
+// -----------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
 
-    final List<FlyerModel> _authorFlyers = _getNumberOfAuthorFlyers(author: author, context: context);
+    final List<FlyerModel> _authorFlyers = _getNumberOfAuthorFlyers(
+        author: author,
+        context: context,
+    );
+
     final int _authorNumberOfFlyers = _authorFlyers.length;
+
     final double _textAreaBoxWidth = authorTextDetailsClearWidth(
       context: context,
       bubbleWidth: bubbleWidth,
@@ -93,7 +112,10 @@ class AuthorCard extends StatelessWidget {
       bzModel: bzModel,
     );
 
-    final String _role = _authorIsMaster == true ? 'Account Admin' : 'Team member';
+    final String _role = getAuthorRoleLine(
+        isMaster: author.isMaster,
+    );
+
     final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
 
     return Bubble(
@@ -141,7 +163,10 @@ class AuthorCard extends StatelessWidget {
 
                         /// TITLE
                         SuperVerse(
-                          verse: '${author.title} @ ${bzModel.name}',
+                          verse: getAuthorTitleLine(
+                            title: author.title,
+                            companyName: bzModel.name,
+                          ),
                           italic: true,
                           weight: VerseWeight.thin,
                           maxLines: 2,

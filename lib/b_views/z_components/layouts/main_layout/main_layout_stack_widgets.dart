@@ -142,7 +142,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
           Pyramids(
             key: const ValueKey<String>('pyramids'),
             pyramidType: _concludePyramidTypePerSkyType(),
-            loading: loading,
+            loading: loading ?? ValueNotifier(false),
             onPyramidTap: onPyramidTap,
           ),
 

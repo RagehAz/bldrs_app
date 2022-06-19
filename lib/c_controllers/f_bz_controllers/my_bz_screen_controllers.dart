@@ -112,7 +112,6 @@ Future<void> onMyActiveBzStreamChanged({
   @required BuildContext context,
   @required Map<String, dynamic> newMap,
   @required Map<String, dynamic> oldMap,
-  @required BzzProvider bzzProvider,
 }) async {
 
   final BzModel _newBzFromStream = BzModel.decipherBz(
@@ -145,7 +144,6 @@ Future<void> onMyActiveBzStreamChanged({
       context: context,
       newBzModel: _newBzFromStream,
       oldBzModel: _oldBzModel,
-      bzzProvider: bzzProvider,
     );
 
   }
@@ -157,7 +155,6 @@ Future<void> myActiveBzLocalUpdateProtocol({
   @required BuildContext context,
   @required BzModel newBzModel,
   @required BzModel oldBzModel,
-  @required BzzProvider bzzProvider,
 }) async {
 
   /// LOCAL UPDATE PROTOCOL
@@ -179,14 +176,16 @@ Future<void> myActiveBzLocalUpdateProtocol({
       bzModel: newBzModel,
     );
 
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
     /// UPDATE MY BZZ
-    bzzProvider.updateBzInMyBzz(
+    _bzzProvider.updateBzInMyBzz(
       modifiedBz: newBzModel,
       notify: false,
     );
 
     /// UPDATE ACTIVE BZ
-    bzzProvider.setActiveBz(
+    _bzzProvider.setActiveBz(
       bzModel: newBzModel,
       notify: true,
     );
