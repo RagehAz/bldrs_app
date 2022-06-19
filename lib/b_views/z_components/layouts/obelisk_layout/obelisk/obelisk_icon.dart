@@ -38,41 +38,47 @@ class ObeliskIcon extends StatelessWidget {
           if (navModel?.canShow == true){
             return GestureDetector(
               onTap: onTap,
-              child: Selector<NotesProvider, int>(
-                selector: (_, NotesProvider notesProvider){
+              child: Container(
+                height: Obelisk.circleWidth,
+                width: Obelisk.circleWidth + 5,
+                color: Colorz.nothing,
+                alignment: Alignment.centerLeft,
+                child: Selector<NotesProvider, int>(
+                  selector: (_, NotesProvider notesProvider){
 
-                  final List<MapModel> _mapModels = notesProvider.obeliskNotesNumber;
+                    final List<MapModel> _mapModels = notesProvider.obeliskNotesNumber;
 
-                  final MapModel _mapModel = MapModel.getModelByKey(
-                      models: _mapModels,
-                      key: navModel.id,
-                  );
+                    final MapModel _mapModel = MapModel.getModelByKey(
+                        models: _mapModels,
+                        key: navModel.id,
+                    );
 
-                  return _mapModel?.value;
-                },
-                shouldRebuild: (int last, int next){
-                  return last != next;
-                },
-                builder: (_, int count, Widget child){
+                    return _mapModel?.value;
+                  },
+                  shouldRebuild: (int last, int next){
+                    return last != next;
+                  },
+                  builder: (_, int count, Widget child){
 
-                  return NoteRedDotWrapper(
-                    redDotIsOn: count != null && count > 0,
-                    count: count,
-                    childWidth: Obelisk.circleWidth,
-                    shrinkChild: true,
-                    child: child,
-                  );
+                    return NoteRedDotWrapper(
+                      redDotIsOn: count != null && count > 0,
+                      count: count,
+                      childWidth: Obelisk.circleWidth,
+                      shrinkChild: true,
+                      child: child,
+                    );
 
-                },
-                child: DreamBox(
-                  width: Obelisk.circleWidth,
-                  height: Obelisk.circleWidth,
-                  corners: Obelisk.circleWidth * 0.5,
-                  color: _isSelected ? Colorz.yellow255 : Colorz.black255,
-                  icon: navModel.icon,
-                  iconColor: navModel.iconColor == Colorz.nothing ? null : _isSelected ? Colorz.black255 : Colorz.white255,
-                  iconSizeFactor: navModel.iconSizeFactor ?? 0.45,
-                  margins: const EdgeInsets.only(bottom: 5),
+                  },
+                  child: DreamBox(
+                    width: Obelisk.circleWidth,
+                    height: Obelisk.circleWidth,
+                    corners: Obelisk.circleWidth * 0.5,
+                    color: _isSelected ? Colorz.yellow255 : Colorz.black255,
+                    icon: navModel.icon,
+                    iconColor: navModel.iconColor == Colorz.nothing ? null : _isSelected ? Colorz.black255 : Colorz.white255,
+                    iconSizeFactor: navModel.iconSizeFactor ?? 0.45,
+                    // margins: const EdgeInsets.only(bottom: 5),
+                  ),
                 ),
               ),
             );
@@ -89,7 +95,7 @@ class ObeliskIcon extends StatelessWidget {
             return const AbsorbPointer(
               child: SeparatorLine(
                 width: Obelisk.circleWidth,
-                margins: EdgeInsets.only(bottom: 10, top: 5),
+                margins: EdgeInsets.only(bottom: 5, top: 5),
               ),
             );
 
