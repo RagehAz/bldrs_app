@@ -462,7 +462,27 @@ class BzModel{
     return _output;
   }
 // -----------------------------------
+  static BzModel replaceAuthor({
+    @required AuthorModel updatedAuthor,
+    @required BzModel bzModel,
+  }){
 
+    BzModel _output = bzModel;
+
+    if (updatedAuthor != null && bzModel != null){
+
+      _output = bzModel.copyWith(
+        authors: AuthorModel.replaceAuthorModelInAuthorsList(
+          authorToReplace: updatedAuthor,
+          authors: bzModel.authors,
+        ),
+      );
+
+    }
+
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// BZ TYPE CYPHERS

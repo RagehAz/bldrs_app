@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/list_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';

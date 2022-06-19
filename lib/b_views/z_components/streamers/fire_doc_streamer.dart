@@ -122,6 +122,7 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
   Widget build(BuildContext context) {
 
     return StreamBuilder(
+      key: const ValueKey<String>('FireDocStreamer'),
       stream: _stream,
       initialData: widget.initialMap,
       builder: (BuildContext ctx, AsyncSnapshot<dynamic> snapshot) {
