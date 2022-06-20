@@ -1,13 +1,16 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
-import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
@@ -90,23 +93,31 @@ class _FeedBackState extends State<FeedBack> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: true,
+    );
+
     return MainLayout(
       pyramidsAreOn: true,
+      pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       historyButtonIsOn: false,
       pageTitle: 'About Bldrs.net',
-      skyType: SkyType.black,
+      skyType: SkyType.non,
       // loading: _loading,
       layoutWidget: ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
-
-          const Stratosphere(),
 
           const SuperVerse(
             verse: 'Your opinion Matters !',
             margin: 10,
+            color: Colorz.yellow255,
           ),
 
           Center(
@@ -114,19 +125,22 @@ class _FeedBackState extends State<FeedBack> {
               width: Scale.superScreenWidth(context) * 0.7,
               margin: const EdgeInsets.only(bottom: 10),
               child: const SuperVerse(
-                verse:
-                    'Tell us what you think about Bldrs.net, or what upgrades you might think of',
+                verse: 'Tell us what you think about Bldrs.net, or what upgrades you might think of',
                 margin: 5,
                 maxLines: 3,
                 size: 1,
                 scaleFactor: 1.25,
                 weight: VerseWeight.thin,
                 italic: true,
+                labelColor: Colorz.white20,
+                color: Colorz.yellow255,
               ),
             ),
           ),
 
           TextFieldBubble(
+            leadingIcon: _userModel.pic,
+            bubbleColor: Colorz.white20,
             title: 'Feedback',
             textController: _feedbackController,
             // loading: _loading,
@@ -147,8 +161,6 @@ class _FeedBackState extends State<FeedBack> {
             verseScaleFactor: 0.6,
             onTap: _uploadFeedBack,
           ),
-
-          const Horizon(),
 
         ],
       ),

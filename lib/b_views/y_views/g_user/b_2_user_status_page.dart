@@ -58,7 +58,10 @@ class UserStatusPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel userModel = UsersProvider.proGetMyUserModel(context, listen: true);
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: true,
+    );
 
     return ListView(
       physics: const BouncingScrollPhysics(),
@@ -68,7 +71,7 @@ class UserStatusPage extends StatelessWidget {
         StatusBubble(
           status: _status,
           switchUserStatus: (UserStatus type) => _switchUserStatus(type),
-          userStatus: userModel?.status,
+          userStatus: _userModel?.status,
           currentUserStatus: null,
           // openEnumLister: widget.openEnumLister,
         ),
