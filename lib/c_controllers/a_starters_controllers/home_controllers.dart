@@ -197,7 +197,10 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
 
   if (AuthModel.userIsSignedIn() == true ){
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context);
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
 
     final List<String> _savedFlyersIDs = _myUserModel?.savedFlyersIDs;
 
@@ -220,7 +223,7 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
 List<NavModel> generateMainNavModels(BuildContext context){
 
   final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: true);
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context, listen: true);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
   final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
   final String _countryFlag = Flag.getFlagIconByCountryID(_currentZone?.countryID);
 
@@ -452,7 +455,7 @@ void initializeObeliskNumbers(BuildContext context){
 void initializeUserNotes(BuildContext context){
 
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
   if (_userModel != null){
 
@@ -524,7 +527,7 @@ Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
   @required BuildContext context,
 }){
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
   return Fire.streamCollection(
     collName: FireColl.notes,
@@ -555,7 +558,7 @@ Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
 // -------------------------------
 void initializeMyBzzNotes(BuildContext context){
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
   final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
 

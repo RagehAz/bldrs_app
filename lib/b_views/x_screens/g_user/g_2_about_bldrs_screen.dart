@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
@@ -8,6 +9,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
@@ -19,12 +21,13 @@ class AboutBldrsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainLayout(
       pyramidsAreOn: true,
+      pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,
       historyButtonIsOn: false,
       zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       pageTitle: 'About Bldrs.net',
-      skyType: SkyType.black,
+      skyType: SkyType.non,
       layoutWidget: Scroller(
         child: ListView(
           physics: const BouncingScrollPhysics(),
@@ -33,11 +36,14 @@ class AboutBldrsScreen extends StatelessWidget {
             Stratosphere(),
 
             LogoSlogan(
-              sizeFactor: 0.6,
+              sizeFactor: 0.7,
+              showSlogan: true,
             ),
+
 
             ParagraphBubble(
                 maxLines: 1000,
+                bubbleColor: Colorz.white20,
                 title: 'Bldrs.net',
                 paragraph: 'Is the Network of builders\n'
                     'categorizing major Bldrs sectors as\n'
@@ -45,6 +51,7 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
             ParagraphBubble(
+              bubbleColor: Colorz.white20,
               paragraph: 'So whenever you need to connect with a professional '
                   'or a company in a specific field or trade to aid you in '
                   'building you projects, you have all Businesses here for you',
@@ -62,6 +69,7 @@ class AboutBldrsScreen extends StatelessWidget {
               verse: 'Developers',
               icon: Iconz.bxPropertiesOn,
               iconSizeFactor: 1,
+              bubbleColor: Colorz.white20,
               secondLine:
                   'Real-Estate developers, they control the construction '
                   'development over plots & lands, then lease property contracts '
@@ -75,6 +83,7 @@ class AboutBldrsScreen extends StatelessWidget {
               verse: 'Brokers',
               icon: Iconz.bxPropertiesOn,
               iconSizeFactor: 1,
+              bubbleColor: Colorz.white20,
               secondLine:
                   'Real-Estate Brokerage individuals or companies, they '
                   'consult, provide and assist you in your property purchasing '
@@ -88,6 +97,7 @@ class AboutBldrsScreen extends StatelessWidget {
               verse: 'Designers',
               icon: Iconz.bxDesignsOn,
               iconSizeFactor: 1,
+              bubbleColor: Colorz.white20,
               secondLine: 'Architects, Decorators, Landscapers, Engineers, '
                   'Planners and Designers of any urban construct you see in buildings'
                   ' inside-out and their surroundings\n'
@@ -100,6 +110,7 @@ class AboutBldrsScreen extends StatelessWidget {
               verse: 'Contractors',
               icon: Iconz.bxProjectsOn,
               iconSizeFactor: 1,
+              bubbleColor: Colorz.white20,
               secondLine: 'The Builders of properties, they contract owners in '
                   'specific trades to build, they manage construction progress and'
                   ' quality then deliver contract deliverables\n'
@@ -112,6 +123,7 @@ class AboutBldrsScreen extends StatelessWidget {
               verse: 'Crafts-men',
               icon: Iconz.bxCraftsOn,
               iconSizeFactor: 1,
+              bubbleColor: Colorz.white20,
               secondLine: 'Masons, Carpenters, Smiths, Glaziers, Technicians, '
                   'Artists, Artisans, Painters, Plasterers ... etc\n'
                   '\n'
@@ -122,6 +134,7 @@ class AboutBldrsScreen extends StatelessWidget {
               verse: 'Manufacturers',
               icon: Iconz.bxProductsOn,
               iconSizeFactor: 1,
+              bubbleColor: Colorz.white20,
               secondLine:
                   'Factories and Workshops that fabricates & manufactures '
                   'all construction products and equipment\n'
@@ -135,6 +148,7 @@ class AboutBldrsScreen extends StatelessWidget {
               verse: 'Suppliers',
               icon: Iconz.bxProductsOn,
               iconSizeFactor: 1,
+              bubbleColor: Colorz.white20,
               secondLine:
                   'Those companies that import, supply, transport, sell '
                   'or rent construction products and equipment\n'
@@ -148,9 +162,10 @@ class AboutBldrsScreen extends StatelessWidget {
                   'to contact',
             ),
 
-            DotSeparator(),
+            DotSeparator(color: Colorz.yellow80),
 
             Horizon(),
+
           ],
         ),
       ),

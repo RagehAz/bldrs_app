@@ -26,6 +26,7 @@ class TileBubble extends StatelessWidget {
     this.moreBtOnTap,
     this.child,
     this.bulletPoints,
+    this.bubbleColor = Colorz.white10,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -43,6 +44,8 @@ class TileBubble extends StatelessWidget {
   final Function moreBtOnTap;
   final Widget child;
   final List<String> bulletPoints;
+  final Color bubbleColor;
+  /// --------------------------------------------------------------------------
   static const double iconBoxWidth = 30;
   /// --------------------------------------------------------------------------
   static double childWidth(BuildContext context) {
@@ -65,6 +68,7 @@ class TileBubble extends StatelessWidget {
 
     return Bubble(
       onBubbleTap: btOnTap,
+      bubbleColor: bubbleColor,
       columnChildren: <Widget>[
 
         /// HEADER ( LEADING ICON - TITLE - SWITCHER - MORE BUTTON )
