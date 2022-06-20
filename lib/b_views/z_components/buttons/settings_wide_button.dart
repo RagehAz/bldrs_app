@@ -6,8 +6,8 @@ class SettingsWideButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SettingsWideButton({
     @required this.verse,
-    @required this.icon,
     @required this.onTap,
+    this.icon,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,7 +29,7 @@ class SettingsWideButton extends StatelessWidget {
       width: width,
       margins: 5,
       iconSizeFactor: iconSizeFactor,
-      verseCentered: false,
+      verseCentered: icon == null,
       verseMaxLines: 2,
       verseItalic: true,
       color: Colorz.white20,
