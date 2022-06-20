@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/x_screens/d_zoning/d_1_select_country_screen.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -46,13 +45,16 @@ class ZoneButton extends StatelessWidget {
     return zoneOverride ?? _currentZone;
   }
 // -----------------------------------------------------------------------------
+  /*
   CountryModel _buttonCountry(BuildContext context){
 
     CountryModel _output;
 
     if (zoneOverride == null){
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-      _output = _zoneProvider.currentCountry;
+      _output = ZoneProvider.proGetCurrentZone(
+          context: context,
+          listen: true,
+      )?.countryModel;
     }
 
     else {
@@ -67,8 +69,10 @@ class ZoneButton extends StatelessWidget {
     CityModel _output;
 
     if (zoneOverride == null){
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-      _output = _zoneProvider.currentCity;
+      _output = ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: true,
+      )?.cityModel;
     }
 
     else {
@@ -77,52 +81,37 @@ class ZoneButton extends StatelessWidget {
 
     return _output;
   }
+   */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+// ------------------------------
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-
     final ZoneModel _currentZone = _buttonZone(context);
-    final CountryModel _currentCountry = _buttonCountry(context);
-    final CityModel _currentCity = _buttonCity(context);
-
-    final String _countryName = CountryModel.getTranslatedCountryName(
-        context: context,
-        countryID: _currentCountry?.id,
-    );
-
-    final String _countryFlag = Flag.getFlagIconByCountryID(_currentCountry?.id);
-
-    final String _cityName = CityModel.getTranslatedCityNameFromCity(
-      context: context,
-      city: _currentCity,
-    );
-
-    final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-            context: context,
-            city: _currentCity,
-            districtID: _currentZone?.districtID
-    );
-
-    final String _countryAndCityNames = appIsLeftToRight(context)
-        ? '$_cityName - $_countryName'
-        : '$_countryName - $_cityName';
-
-    final String _firstRow = _currentZone == null
-        ? ' '
-        : _currentZone?.districtID == null
-            ? _countryName
-            : _countryAndCityNames;
-
-    final String _secondRow = _currentZone == null
-        ? ' '
-        : _currentZone?.districtID == null
-            ? _cityName
-            : _districtName;
-
+// ------------------------------
+    final String _countryName = _currentZone.countryName;
+    final String _countryFlag = Flag.getFlagIconByCountryID(_currentZone?.countryID);
+    final String _cityName = _currentZone.cityName;
+    final String _districtName = _currentZone.districtName;
+// ------------------------------
+    final String _countryAndCityNames = appIsLeftToRight(context) ? '$_cityName - $_countryName'
+        :
+    '$_countryName - $_cityName';
+// ------------------------------
+    final String _firstRow = _currentZone == null ? ' '
+        :
+    _currentZone?.districtID == null ? _countryName
+        :
+    _countryAndCityNames;
+// ------------------------------
+    final String _secondRow = _currentZone == null ? ' '
+        :
+    _currentZone?.districtID == null ? _cityName
+        :
+    _districtName;
+// ------------------------------
     const double _flagHorizontalMargins = 2;
-
+// ------------------------------
     return GestureDetector(
       onTap: () => _zoneButtonOnTap(context),
       child: Container(

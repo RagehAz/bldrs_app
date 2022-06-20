@@ -118,7 +118,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
       if (widget.userModel.zone == null){
-        final ZoneModel _superZone = await ZoneOps.superGetZone(context);
+        final ZoneModel _superZone = await ZoneOps.superGetZoneByIP(context);
         _zone.value = _superZone;
       }
 // -----------------------------------------------------------------
