@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/bz_flyers_page_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:flutter/material.dart';
 
@@ -28,27 +27,19 @@ class BzFlyersPage extends StatelessWidget {
       listen: true,
     );
 
-    if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == true){
-      return FlyersGrid(
-        key: const ValueKey<String>('BzFlyersPage_grid'),
-        paginationFlyersIDs: bzModel.flyersIDs,
-        gridWidth: width ?? Scale.superScreenWidth(context),
-        gridHeight: height ?? Scale.superScreenHeight(context),
-        scrollController: null,
-        // numberOfColumns: 2,
-        // topPadding: Stratosphere.smallAppBarStratosphere,
-        authorMode: true,
-        onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
-          context: context,
-          flyer: flyerModel,
-          bzModel: bzModel,
-        ),
-      );
-    }
-
-    else {
-      return const SizedBox();
-    }
+    return FlyersGrid(
+      key: const ValueKey<String>('BzFlyersPage_grid'),
+      paginationFlyersIDs: bzModel.flyersIDs,
+      gridWidth: width ?? Scale.superScreenWidth(context),
+      gridHeight: height ?? Scale.superScreenHeight(context),
+      scrollController: null,
+      authorMode: true,
+      onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
+        context: context,
+        flyer: flyerModel,
+        bzModel: bzModel,
+      ),
+    );
 
   }
 }
