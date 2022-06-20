@@ -235,8 +235,9 @@ Future<void> onEditProfileTap(BuildContext context) async {
 // ---------------------------------
 Future<void> onChangeAppLanguageTap(BuildContext context) async {
   await Nav.goToNewScreen(
-      context: context,
-      screen: const SelectAppLanguageScreen(),
+    context: context,
+    transitionType: PageTransitionType.fade,
+    screen: const SelectAppLanguageScreen(),
   );
 }
 // ---------------------------------
