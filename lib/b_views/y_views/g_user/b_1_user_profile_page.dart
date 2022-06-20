@@ -49,7 +49,10 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _userModel = userModel ?? UsersProvider.proGetMyUserModel(context, listen: true);
+    final UserModel _userModel = userModel ?? UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: true,
+    );
 
     return ListView(
       physics: const BouncingScrollPhysics(),

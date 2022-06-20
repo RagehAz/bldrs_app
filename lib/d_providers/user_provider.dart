@@ -412,10 +412,11 @@ class UsersProvider extends ChangeNotifier {
   /// PRO FETCHERS
 
 // -------------------------------------
-  static UserModel proGetMyUserModel(BuildContext context, {bool listen = false}){
-
+  static UserModel proGetMyUserModel({
+    @required BuildContext context,
+    @required bool listen
+  }){
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
-
     return _usersProvider.myUserModel;
 
   }

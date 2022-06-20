@@ -367,7 +367,10 @@ Future<UserModel> _addBzIDToMyUserModelOps({
   @required BzModel bzModel,
 }) async {
 
-  final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(context);
+  final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+  );
 
   /// FIRE OPS
   final UserModel _newUserModel = await UserFireOps.addBzIDToUserBzzIDs(
@@ -441,7 +444,10 @@ Future<void> _sendAuthorshipAcceptanceNote({
   @required String bzID,
 }) async {
 
-  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context);
+  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: false,
+  );
 
   final NoteModel _noteModel = NoteModel(
     id: 'x',

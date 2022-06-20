@@ -43,6 +43,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
@@ -241,45 +242,53 @@ Future<void> onChangeAppLanguageTap(BuildContext context) async {
 // ---------------------------------
 Future<void> onAboutBldrsTap(BuildContext context) async {
   await Nav.goToNewScreen(
-      context: context,
-      screen: const AboutBldrsScreen(),
+    context: context,
+    transitionType: PageTransitionType.fade,
+    screen: const AboutBldrsScreen(),
   );
 }
 // ---------------------------------
 Future<void> onFeedbackTap(BuildContext context) async {
   await Nav.goToNewScreen(
-      context: context,
-      screen: const FeedBack(),
+    context: context,
+    transitionType: PageTransitionType.fade,
+    screen: const FeedBack(),
   );
 }
 // ---------------------------------
 Future<void> onTermsAndRegulationsTap(BuildContext context) async {
   await Nav.goToNewScreen(
-      context: context,
-      screen: const TermsAndRegulationsScreen(),
+    context: context,
+    transitionType: PageTransitionType.fade,
+    screen: const TermsAndRegulationsScreen(),
   );
 }
 // ---------------------------------
 Future<void> onCreateNewBzTap(BuildContext context) async {
 
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  final UserModel _myUserModel = _usersProvider.myUserModel;
-
   await Nav.goToNewScreen(
       context: context,
-      screen: BzEditorScreen(
-          firstTimer: true,
-          userModel: _myUserModel
-      )
+      screen: const BzEditorScreen(firstTimer: true,)
   );
 
 }
 // ---------------------------------
 Future<void> onInviteFriendsTap(BuildContext context) async {
+
+  // final bool _result = await CenterDialog.showCenterDialog(
+  //   context: context,
+  //   title: 'Share App Link ?',
+  //   body: LinkModel.bldrsWebSiteLink.url,
+  //   boolDialog: true,
+  // );
+  //
+  // if (_result == true){
     await Launcher.shareLink(
-        context: context,
-        link: LinkModel.bldrsWebSiteLink,
+      context: context,
+      link: LinkModel.bldrsWebSiteLink,
     );
+  // }
+
 }
 // -----------------------------------------------------------------------------
 
@@ -289,7 +298,10 @@ Future<void> onInviteFriendsTap(BuildContext context) async {
 Future<void> onDeleteMyAccount(BuildContext context) async {
   blog('on delete user tap');
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: false,
+  );
 
   if (_userModel != null){
 
