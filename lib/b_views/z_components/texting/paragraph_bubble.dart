@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_lines_analyzer.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class ParagraphBubble extends StatefulWidget {
     this.margins,
     this.editMode = false,
     this.onParagraphTap,
+    this.bubbleColor = Colorz.white10,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -34,6 +36,7 @@ class ParagraphBubble extends StatefulWidget {
   final dynamic corners;
   final bool editMode;
   final Function onParagraphTap;
+  final Color bubbleColor;
   /// --------------------------------------------------------------------------
   @override
   _ParagraphBubbleState createState() => _ParagraphBubbleState();
@@ -104,6 +107,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         corners: widget.corners,
         title: widget.title,
         centered: widget.centered,
+        bubbleColor: widget.bubbleColor,
         actionBtIcon: widget.actionBtIcon,
         onBubbleTap: widget.editMode == true || _canExpand == true ?
         _onParagraphTap

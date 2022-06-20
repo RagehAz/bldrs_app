@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/y_views/f_bz_editor/bz_editor_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,14 +17,12 @@ import 'package:flutter/material.dart';
 class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzEditorScreen({
-    @required this.userModel,
     this.firstTimer = false,
     this.bzModel,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool firstTimer;
-  final UserModel userModel;
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
   @override
@@ -34,6 +33,7 @@ class BzEditorScreen extends StatefulWidget {
 class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  UserModel _userModel;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -51,6 +51,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   @override
   void initState() {
     super.initState();
+
+    _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
     _initializeBzModelVariables();
     _initializeHelperVariables();
 
@@ -95,9 +101,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   /// FLYERS IDS / TOTAL FLYERS : NOT REQUIRED HERE
   // -------------------------
   void _initializeBzModelVariables(){
+
+
     // -------------------------
     _initialBzModel = widget.firstTimer == true ?
-    BzModel.convertFireUserDataIntoInitialBzModel(widget.userModel)
+    BzModel.convertFireUserDataIntoInitialBzModel(_userModel)
         :
     widget.bzModel;
     // -------------------------
@@ -195,7 +203,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzPosition: _bzPosition,
         bzZone: _selectedBzZone,
         initialBzModel: _initialBzModel,
-        userModel: widget.userModel,
+        userModel: _userModel,
       ),
     );
   }
