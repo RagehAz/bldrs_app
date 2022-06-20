@@ -1,17 +1,22 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class FlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersGrid({
-    @required this.flyers,
     @required this.gridWidth,
     @required this.gridHeight,
     @required this.scrollController,
+    this.flyers,
+    this.paginationFlyersIDs,
     this.topPadding = Ratioz.stratosphere,
     this.numberOfColumns = 2,
     this.heroTag,
@@ -23,6 +28,7 @@ class FlyersGrid extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<FlyerModel> flyers;
+  final List<String> paginationFlyersIDs;
   final double gridWidth;
   final double gridHeight;
   final ScrollController scrollController;
@@ -91,16 +97,16 @@ class FlyersGrid extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static int getNumberOfFlyers({
-    @required List<FlyerModel> flyers,
+    @required int flyersCount,
     @required bool addFlyerButtonIsOn,
 }){
     int _numberOfRealFlyers = 0;
 
     if (addFlyerButtonIsOn == true){
-      _numberOfRealFlyers = flyers.length + 1;
+      _numberOfRealFlyers = flyersCount + 1;
     }
     else {
-      _numberOfRealFlyers = flyers.length;
+      _numberOfRealFlyers = flyersCount;
     }
 
     return _numberOfRealFlyers;
@@ -127,6 +133,19 @@ class FlyersGrid extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+// ----------------------------------------------------------
+
+    assert((){
+      final bool _canBuild =
+          Mapper.checkCanLoopList(flyers) == true
+          ||
+          Mapper.checkCanLoopList(paginationFlyersIDs) == true;
+      if (_canBuild == false){
+        throw FlutterError('FlyersGrid Widget should have either flyers or paginationFlyersIDs initialized');
+      }
+      return true;
+    }(), 'fuck you');
+
 // ----------------------------------------------------------
     final double _gridZoneWidth = getGridWidth(
       context: context,
@@ -159,8 +178,9 @@ class FlyersGrid extends StatelessWidget {
     );
  */
 // ----------------------------------------------------------
+    final int _flyersCount = paginationFlyersIDs?.length ?? flyers?.length ?? 0;
     final int _numberOfItems = getNumberOfFlyers(
-      flyers: flyers,
+      flyersCount: _flyersCount,
       addFlyerButtonIsOn: authorMode,
     );
 // ----------------------------------------------------------
@@ -191,21 +211,68 @@ class FlyersGrid extends StatelessWidget {
             /// OTHERWISE
             else {
 
-              final FlyerModel _flyer = authorMode == true ? flyers[index-1] : flyers[index];
+              final int _flyerIndex = authorMode == true ? index-1 : index;
 
-              final bool _isSelected = FlyerModel.flyersContainThisID(
-                flyers: selectedFlyers,
-                flyerID: _flyer.id,
-              );
+              /// FLYERS PAGINATION IDS IS DEFINED
+              if (Mapper.checkCanLoopList(paginationFlyersIDs) == true){
 
-              return FlyerSelectionStack(
-                flyerModel: _flyer,
-                flyerBoxWidth: _gridFlyerWidth,
-                heroTag: heroTag,
-                onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
-                onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
-                isSelected: _isSelected,
-              );
+                final String _flyerID = paginationFlyersIDs[_flyerIndex];
+
+                return FutureBuilder(
+                  future: FlyersProvider.proFetchFlyer(
+                      context: context,
+                      flyerID: _flyerID,
+                  ),
+                    builder: (_, AsyncSnapshot<Object> snap){
+
+                      final FlyerModel _flyerModel = snap?.data;
+                      final bool _isSelected = FlyerModel.flyersContainThisID(
+                        flyers: selectedFlyers,
+                        flyerID: _flyerModel?.id,
+                      );
+
+                      if (connectionIsLoading(snap) == true){
+                        return FlyerLoading(
+                          flyerBoxWidth: _gridFlyerWidth,
+                        );
+                      }
+
+                      else {
+                        return FlyerSelectionStack(
+                          flyerModel: _flyerModel,
+                          flyerBoxWidth: _gridFlyerWidth,
+                          heroTag: heroTag,
+                          onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyerModel),
+                          onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyerModel),
+                          isSelected: _isSelected,
+                        );
+                      }
+
+                    }
+                );
+
+              }
+
+              /// SHOULD HAVE FLYERS MODELS GIVEN
+              else {
+
+                final FlyerModel _flyer =  flyers[_flyerIndex];
+
+                final bool _isSelected = FlyerModel.flyersContainThisID(
+                  flyers: selectedFlyers,
+                  flyerID: _flyer.id,
+                );
+
+                return FlyerSelectionStack(
+                  flyerModel: _flyer,
+                  flyerBoxWidth: _gridFlyerWidth,
+                  heroTag: heroTag,
+                  onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
+                  onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
+                  isSelected: _isSelected,
+                );
+
+              }
 
             }
 
