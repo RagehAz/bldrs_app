@@ -29,7 +29,7 @@ class NormalPriceTag extends StatelessWidget {
   Widget build(BuildContext context) {
 // ------------------------------------------------------------------
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-    final CountryModel _currentCountry = _zoneProvider.currentCountry;
+    final CountryModel _currentCountry = _zoneProvider.currentZone?.countryModel;
     const double _currentPrice = 10000000;
     final String _currency = _currentCountry?.currency;
 // ------------------------------------------------------------------

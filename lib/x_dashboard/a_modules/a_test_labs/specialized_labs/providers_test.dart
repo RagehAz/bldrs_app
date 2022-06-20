@@ -268,16 +268,16 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
             /// CURRENT COUNTRY
             ProviderTestButton(
-              title: 'zoneProvider.currentCountry',
-              value: zoneProvider.currentCountry,
-              onTap: () => zoneProvider.currentCountry?.blogCountry(),
+              title: 'zoneProvider.currentZone.countryModel',
+              value: zoneProvider.currentZone?.countryModel,
+              onTap: () => zoneProvider.currentZone?.countryModel?.blogCountry(),
             ),
 
             /// CURRENT CITY
             ProviderTestButton(
-              title: 'zoneProvider.currentCity',
-              value: zoneProvider.currentCity,
-              onTap: () => zoneProvider.currentCity?.blogCity(),
+              title: 'zoneProvider.currentZone?.cityModel',
+              value: zoneProvider.currentZone?.cityModel,
+              onTap: () => zoneProvider.currentZone?.cityModel?.blogCity(),
             ),
 
             /// CURRENT CURRENCY
@@ -307,16 +307,16 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
             /// USER COUNTRY
             ProviderTestButton(
-              title: 'zoneProvider.userCountryModel',
-              value: zoneProvider.userCountryModel,
-              onTap: () => zoneProvider.userCountryModel?.blogCountry(),
+              title: 'usersProvider.myUserModel.zone.countryModel',
+              value: usersProvider?.myUserModel?.zone?.countryModel,
+              onTap: () => usersProvider?.myUserModel?.zone?.countryModel?.blogCountry(),
             ),
 
             /// USER COUNTRY
             ProviderTestButton(
-              title: 'zoneProvider.userCityModel',
-              value: zoneProvider.userCityModel,
-              onTap: () => zoneProvider.userCityModel?.blogCity(),
+              title: 'usersProvider?.myUserModel?.zone?.cityModel',
+              value: usersProvider?.myUserModel?.zone?.cityModel,
+              onTap: () => usersProvider?.myUserModel?.zone?.cityModel?.blogCity(),
             ),
 
             const DotSeparator(),

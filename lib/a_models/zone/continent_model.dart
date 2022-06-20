@@ -139,12 +139,20 @@ class Continent {
 
     Continent _cont;
 
-    for (final Continent continent in continents) {
-      for (final Region region in continent.regions) {
-        for (final String id in region.countriesIDs) {
-          if (id == countryID) {
-            _cont = continent;
-            break;
+    if (countryID != null){
+
+      for (final Continent continent in continents) {
+        for (final Region region in continent.regions) {
+          for (final String id in region.countriesIDs) {
+
+            if (id == countryID) {
+              _cont = continent;
+              break;
+            }
+
+            if (_cont != null) {
+              break;
+            }
           }
 
           if (_cont != null) {
@@ -157,9 +165,6 @@ class Continent {
         }
       }
 
-      if (_cont != null) {
-        break;
-      }
     }
 
     return _cont;

@@ -356,7 +356,7 @@ Future<void> controlCityOnTap({
       if (settingCurrentZone == true){
 
         final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-        await _zoneProvider.fetchSetCurrentZoneAndCountryAndCity(
+        await _zoneProvider.fetchSetCurrentCompleteZone(
           context: context,
           zone: _zone,
           notify: true,
@@ -522,7 +522,7 @@ Future<void> controlDistrictOnTap({
   /// WHEN SEQUENCE IS TO SET CURRENT ZONE
   if (settingCurrentZone == true){
 
-    await _zoneProvider.fetchSetCurrentZoneAndCountryAndCity(
+    await _zoneProvider.fetchSetCurrentCompleteZone(
       context: context,
       zone: _zone,
       notify: true,

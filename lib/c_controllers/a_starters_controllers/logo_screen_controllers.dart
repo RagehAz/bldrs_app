@@ -139,14 +139,10 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
-  _usersProvider.setMyUserModel(
+  _usersProvider.setMyUserModelAndAuthModel(
     userModel: _userModel,
-    notify: false,
-  );
-
-  _usersProvider.setMyAuthModel(
     authModel: authModel,
-    notify: true,
+    notify: false,
   );
 
   /// INSERT AUTH AND USER MODEL IN LDB
