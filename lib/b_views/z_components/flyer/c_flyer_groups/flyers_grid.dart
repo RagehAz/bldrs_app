@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -96,20 +96,17 @@ class FlyersGrid extends StatelessWidget {
     return gridFlyerWidth / gridZoneWidth;
   }
 // -----------------------------------------------------------------------------
-  static int getNumberOfFlyers({
+  static int getNumberOfGridSlots({
     @required int flyersCount,
     @required bool addFlyerButtonIsOn,
 }){
-    int _numberOfRealFlyers = 0;
+    int _slotsCount = flyersCount;
 
     if (addFlyerButtonIsOn == true){
-      _numberOfRealFlyers = flyersCount + 1;
-    }
-    else {
-      _numberOfRealFlyers = flyersCount;
+      _slotsCount = _slotsCount + 1;
     }
 
-    return _numberOfRealFlyers;
+    return _slotsCount;
   }
 // -----------------------------------------------------------------------------
   static double calculateFlyerBoxWidth({
@@ -137,13 +134,13 @@ class FlyersGrid extends StatelessWidget {
 
     assert((){
       final bool _canBuild =
-          Mapper.checkCanLoopList(flyers) == true
+          flyers != null
           ||
-          Mapper.checkCanLoopList(paginationFlyersIDs) == true;
+          paginationFlyersIDs != null;
       if (_canBuild == false){
         throw FlutterError('FlyersGrid Widget should have either flyers or paginationFlyersIDs initialized');
       }
-      return true;
+      return _canBuild;
     }(), 'fuck you');
 
 // ----------------------------------------------------------
@@ -179,11 +176,14 @@ class FlyersGrid extends StatelessWidget {
  */
 // ----------------------------------------------------------
     final int _flyersCount = paginationFlyersIDs?.length ?? flyers?.length ?? 0;
-    final int _numberOfItems = getNumberOfFlyers(
+    final int _numberOfItems = getNumberOfGridSlots(
       flyersCount: _flyersCount,
       addFlyerButtonIsOn: authorMode,
     );
 // ----------------------------------------------------------
+
+    blog('BUILDING THE FUCKING FLYERS GRID : _flyersCount : $_flyersCount : paginationFlyersIDs : ${paginationFlyersIDs?.length} : flyers?.length ${flyers?.length}');
+
     return SizedBox(
       key: const ValueKey<String>('Stack_of_flyers_grid'),
       width: _gridZoneWidth,
@@ -201,6 +201,7 @@ class FlyersGrid extends StatelessWidget {
           itemCount: _numberOfItems,
           itemBuilder: (BuildContext ctx, int index){
 
+
             /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
             if (authorMode == true && index == 0){
               return AddFlyerButton(
@@ -214,7 +215,7 @@ class FlyersGrid extends StatelessWidget {
               final int _flyerIndex = authorMode == true ? index-1 : index;
 
               /// FLYERS PAGINATION IDS IS DEFINED
-              if (Mapper.checkCanLoopList(paginationFlyersIDs) == true){
+              if (paginationFlyersIDs != null){
 
                 final String _flyerID = paginationFlyersIDs[_flyerIndex];
 
