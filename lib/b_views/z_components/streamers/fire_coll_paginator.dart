@@ -23,6 +23,7 @@ class FireCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _FireCollPaginatorState createState() => _FireCollPaginatorState();
+/// --------------------------------------------------------------------------
 }
 
 class _FireCollPaginatorState extends State<FireCollPaginator> {
