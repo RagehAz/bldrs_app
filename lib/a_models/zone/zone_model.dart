@@ -155,6 +155,13 @@ class ZoneModel {
         zone.districtID != null;
     return _hasAllIDs;
   }
+// -------------------------------------
+  static bool checkZoneHasCountryAndCityIDs(ZoneModel zone){
+    final bool _has = zone != null &&
+        zone.countryID != null &&
+        zone.cityID != null;
+    return _has;
+  }
 // -----------------------------------------------------------------------------
 
   /// BLOGGING
@@ -168,6 +175,12 @@ class ZoneModel {
     blog('districtID : $districtID');
 
     blog('$methodName ------------------------------- END');
+  }
+// -------------------------------------
+  void blogZoneIDs({String methodName = 'ZONE-IDs BLOG : '}){
+
+    blog('$methodName [ $districtID - $cityID - $countryID ]');
+
   }
 // -----------------------------------------------------------------------------
 

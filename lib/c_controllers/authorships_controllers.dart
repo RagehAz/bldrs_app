@@ -379,19 +379,16 @@ Future<UserModel> _addBzIDToMyUserModelOps({
     oldUserModel: _oldUserModel,
   );
 
-  /// PRO OPS
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  _usersProvider.setMyUserModel(
-      userModel: _newUserModel,
-      notify: false
-  );
   AuthModel _authModel = _usersProvider.myAuthModel;
   _authModel = _authModel.copyWith(
     userModel: _newUserModel,
   );
-  _usersProvider.setMyAuthModel(
-      authModel: _authModel,
-      notify: true
+
+  /// PRO OPS
+  _usersProvider.setMyUserModelAndAuthModel(
+      userModel: _newUserModel,
+      notify: false
   );
 
   /// LDB OPS
