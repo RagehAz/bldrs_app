@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/y_views/c_search/c_0_search_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/search_screen_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -109,14 +107,14 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 // -----------------------------------------------------------------------------
   String _getSearchHintText(BuildContext context){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-    final CountryModel _country = _zoneProvider.currentCountry;
-    final CityModel _city = _zoneProvider.currentCity;
+    final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: false,
+    );
 
-    final String _countryName = superPhrase(context, _country.id);
-
-    final String _cityName = superPhrase(context, _city.cityID);
+    final String _countryName = _zone.countryName;
+    final String _cityName = _zone.cityName;
 
     final String _hintText = 'Search flyers in $_cityName, $_countryName';
     return _hintText;

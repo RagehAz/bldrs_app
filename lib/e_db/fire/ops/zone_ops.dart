@@ -308,7 +308,7 @@ Future<ZoneModel> _getZoneByGeoLocator({
   return _zoneModel;
 }
 // ---------------------------------------------------
-Future<ZoneModel> superGetZone(BuildContext context) async {
+Future<ZoneModel> superGetZoneByIP(BuildContext context) async {
   /// trial 1
   ZoneModel _zone = await _getZoneByIP_ipApi(context: context);
 

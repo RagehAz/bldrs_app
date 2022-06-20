@@ -289,7 +289,7 @@ class FlyersProvider extends ChangeNotifier {
 }) async {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final CityModel _currentCity = _zoneProvider.currentCity;
+    final CityModel _currentCity = _zoneProvider.currentZone?.cityModel;
 
     if (_currentCity != null){
 

@@ -46,12 +46,14 @@ import 'package:provider/provider.dart';
 // -------------------------------
 Future<void> initializeHomeScreen(BuildContext context) async {
 
+  await _initializeUserZone(context);
+
   await Future.wait(
       <Future<void>>[
         /// A - SHOW AD FLYER
         //
         /// D - ZONES
-        initializeUserZone(context),
+        _initializeCurrentZone(context),
         /// E - PROMOTED FLYERS
         _initializePromotedFlyers(context),
         /// F - SPONSORS : USES BZZ PROVIDER
@@ -77,25 +79,92 @@ Future<void> initializeHomeScreen(BuildContext context) async {
 
 }
 // -------------------------------
-Future<void> initializeUserZone(BuildContext context) async {
-  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
-  final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+Future<void> _initializeUserZone(BuildContext context) async {
 
+  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
   final UserModel _myUserModel = _userProvider.myUserModel;
 
-  /// WHEN USER IS AUTHENTICATED
-  if (_myUserModel != null && ZoneModel.zoneHasAllIDs(_myUserModel.zone)) {
+  if (_myUserModel != null){
 
-    await zoneProvider.fetchSetCurrentZoneAndCountryAndCity(
+    final ZoneModel _userZoneCompleted = await ZoneProvider.proFetchCompleteZoneModel(
+      context: context,
+      incompleteZoneModel: _myUserModel?.zone,
+    );
+
+    _userProvider.setMyUserModelAndAuthModel(
+      userModel: _myUserModel?.copyWith(zone: _userZoneCompleted),
+      notify: true,
+    );
+
+  }
+
+}
+// -------------------------------
+Future<void> _initializeCurrentZone(BuildContext context) async {
+
+  final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: false,
+  );
+
+  /// USER ZONE IS DEFINED
+  if (_myUserModel?.zone != null){
+
+    await zoneProvider.fetchSetCurrentCompleteZone(
+        context: context,
+        zone: _myUserModel.zone,
+        notify: true,
+    );
+
+  }
+
+  /// USER ZONE IS NOT DEFINED
+  else {
+
+    final ZoneModel _zoneByIP = await superGetZoneByIP(context);
+
+    await zoneProvider.fetchSetCurrentCompleteZone(
+      context: context,
+      zone: _zoneByIP,
+      notify: true,
+    );
+
+  }
+
+}
+// -------------------------------
+/*
+Future<void> _initializeUserZoneAndCurrentZone(BuildContext context) async {
+
+  final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+  /// USER ZONE
+
+  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+  );
+
+  if (_myUserModel != null){
+
+    await _fetchSetMyUserCompleteZoneModel(
+      context: context,
+    );
+
+  }
+
+  /// WHEN USER IS AUTHENTICATED
+  if (_myUserModel != null && ZoneModel.checkZoneHasCountryAndCityIDs(_myUserModel.zone)) {
+
+    await zoneProvider.fetchSetCurrentCompleteZone(
       context: context,
       zone: _myUserModel.zone,
       notify: false,
     );
 
-    await zoneProvider.fetchSetUserCountryAndCity(
+    await _fetchSetMyUserCompleteZoneModel(
       context: context,
-      zone: _myUserModel.zone,
-      notify: false,
     );
 
     await zoneProvider.fetchSetContinentByCountryID(
@@ -108,27 +177,31 @@ Future<void> initializeUserZone(BuildContext context) async {
 
   /// WHEN USER IS ANONYMOUS
   else {
-    final ZoneModel _zoneByIP = await superGetZone(context);
 
-    await zoneProvider.fetchSetCurrentZoneAndCountryAndCity(
+    final ZoneModel _zoneByIP = await superGetZoneByIP(context);
+
+    await zoneProvider.fetchSetCurrentCompleteZone(
       context: context,
       zone: _zoneByIP,
       notify: false,
     );
 
-    await zoneProvider.fetchSetUserCountryAndCity(
-      context: context,
-      zone: _zoneByIP,
-      notify: false,
-    );
+    blog('initializeUserZone : GOT CURRENT ZONE IDS BY IP ADDRESSES AHO');
+    _zoneByIP.blogZoneIDs();
+
     await zoneProvider.fetchSetContinentByCountryID(
       context: context,
       countryID: _zoneByIP.countryID,
       notify: true,
     );
 
+    await _fetchSetMyUserCompleteZoneModel(
+      context: context,
+    );
+
   }
 }
+ */
 // -------------------------------
 Future<void> _initializeSponsors({
   @required BuildContext context,

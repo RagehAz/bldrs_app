@@ -312,6 +312,86 @@ class ZoneProvider extends ChangeNotifier {
     return _currencies;
 
   }
+// -------------------------------------
+  Future<ZoneModel> fetchCompleteZoneModel({
+    @required BuildContext context,
+    @required ZoneModel incompleteZoneModel,
+  }) async {
+
+    /// incomplete zone model is what only has (countryID - cityID - districtID)
+    /// complete zone model is that has all IDs  Models and Names initialized
+
+    ZoneModel _output = incompleteZoneModel;
+
+    if (incompleteZoneModel != null){
+
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+      /// BZ COUNTRY
+      if (incompleteZoneModel.countryModel == null){
+        final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
+          context: context,
+          countryID: incompleteZoneModel.countryID,
+        );
+        _output = _output.copyWith(
+          countryModel: _bzCountry,
+        );
+      }
+
+      /// BZ CITY
+      if (incompleteZoneModel.cityModel == null){
+        final CityModel _bzCity = await _zoneProvider.fetchCityByID(
+          context: context,
+          cityID: incompleteZoneModel.cityID,
+        );
+        _output = _output.copyWith(
+          cityModel: _bzCity,
+        );
+
+      }
+
+      /// COUNTRY NAME
+      if (incompleteZoneModel.countryName == null){
+
+        // superPhrase(context, _zone.countryID);
+        final String _countryName = CountryModel.getTranslatedCountryName(
+          context: context,
+          countryID: incompleteZoneModel.countryID,
+        );
+        _output = _output.copyWith(
+          countryName: _countryName,
+        );
+      }
+
+      /// CITY NAME
+      if (incompleteZoneModel.cityName == null){
+
+        // superPhrase(context, _zone.cityID);
+        final String _cityName = CityModel.getTranslatedCityNameFromCity(
+          context: context,
+          city: _output.cityModel,
+        );
+        _output = _output.copyWith(
+          cityName: _cityName,
+        );
+      }
+
+      /// DISTRICT NAME
+      if (incompleteZoneModel.districtName == null){
+        final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
+          context: context,
+          city: _output.cityModel,
+          districtID: incompleteZoneModel.districtID,
+        );
+        _output = _output.copyWith(
+          districtName: _districtName,
+        );
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// CONTINENTS
@@ -330,7 +410,10 @@ class ZoneProvider extends ChangeNotifier {
   }) async {
 
     final List<Continent> _allContinents = await fetchContinents(context: context);
-    final Continent _continent = Continent.getContinentFromContinentsByCountryID(continents: _allContinents, countryID: countryID);
+    final Continent _continent = Continent.getContinentFromContinentsByCountryID(
+        continents: _allContinents,
+        countryID: countryID,
+    );
 
     _setCurrentContinent(
       continent: _continent,
@@ -369,7 +452,7 @@ class ZoneProvider extends ChangeNotifier {
     return _countries;
   }
 // -----------------------------------------------------------------------------
-
+/*
   /// USER COUNTRY MODEL
 
 // -------------------------------------
@@ -428,86 +511,67 @@ class ZoneProvider extends ChangeNotifier {
       notify: notify,
     );
   }
+ */
 // -----------------------------------------------------------------------------
 
   /// CURRENT ZONE & COUNTRY MODEL
 
 // -------------------------------------
   ZoneModel _currentZone;
-  CountryModel _currentCountryModel;
-  CityModel _currentCityModel;
+  ZoneModel get currentZone => _currentZone;
 // -------------------------------------
-  ZoneModel get currentZone{return _currentZone;}
-
   static ZoneModel proGetCurrentZone({
     @required BuildContext context,
     @required bool listen,
   }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.currentZone;
   }
-
-  CountryModel get currentCountry{return _currentCountryModel;}
-  CityModel get currentCity{return _currentCityModel;}
 // -------------------------------------
-  Future<void> fetchSetCurrentZoneAndCountryAndCity({
+  Future<void> fetchSetCurrentCompleteZone({
     @required BuildContext context,
     @required ZoneModel zone,
     @required bool notify,
   }) async {
 
-    final CountryModel _country = await fetchCountryByID(
+    final ZoneModel _completeZone = await fetchCompleteZoneModel(
         context: context,
-        countryID: zone.countryID,
+        incompleteZoneModel: zone,
     );
-
-    final CityModel _city = await fetchCityByID(
-        context: context,
-        cityID: zone.cityID,
-    );
-
-    _currentZone = zone;
-    _currentCountryModel = _country;
-    _currentCityModel = _city;
 
     await _fetchSetAllCurrenciesAndCurrentCurrency(
       context: context,
       notify: false,
     );
 
-    _setCurrentZoneAndCountryModelAndCityModel(
-      zone: zone,
-      country: _country,
-      city: _city,
+    await fetchSetContinentByCountryID(
+      context: context,
+      countryID: zone.countryID,
+      notify: false,
+    );
+
+    _setCurrentZone(
+      zone: _completeZone,
       notify: notify,
     );
 
   }
 // -------------------------------------
-  void _setCurrentZoneAndCountryModelAndCityModel({
+  void _setCurrentZone({
     @required ZoneModel zone,
-    @required CountryModel country,
-    @required CityModel city,
     @required bool notify,
   }){
-
     _currentZone = zone;
-    _currentCountryModel = country;
-    _currentCityModel = city;
-
     if (notify == true){
       notifyListeners();
     }
-
   }
 // -------------------------------------
-  void clearCurrentZoneAndCurrentCountryAndCurrentCity({
+  void clearCurrentZone({
   @required bool notify,
 }){
-    _setCurrentZoneAndCountryModelAndCityModel(
+    _setCurrentZone(
       zone: null,
-      country: null,
-      city: null,
       notify: notify,
     );
   }
@@ -621,7 +685,7 @@ class ZoneProvider extends ChangeNotifier {
 
     final CurrencyModel _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
       currencies: _currencies,
-      countryID: _currentCountryModel?.id,
+      countryID: _currentZone?.countryID,
     );
 
     _allCurrencies = _currencies;
@@ -632,6 +696,7 @@ class ZoneProvider extends ChangeNotifier {
       currentCurrency: _currencyByCountryID,
       notify: notify,
     );
+
   }
 // -------------------------------------
   void _setAllCurrenciesAndCurrentCurrency({
@@ -986,72 +1051,13 @@ class ZoneProvider extends ChangeNotifier {
     @required BuildContext context,
     @required ZoneModel incompleteZoneModel,
   }) async {
-    /// incomplete zone model is what only has (countryID - cityID - districtID)
-    /// complete zone model is that has all IDs  Models and Names initialized
-    ZoneModel _output = incompleteZoneModel;
 
-    if (incompleteZoneModel != null){
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-      /// BZ COUNTRY
-      if (incompleteZoneModel.countryModel == null){
-        final CountryModel _bzCountry = await _zoneProvider.fetchCountryByID(
-          context: context,
-          countryID: incompleteZoneModel.countryID,
-        );
-        _output = _output.copyWith(
-          countryModel: _bzCountry,
-        );
-      }
-
-      /// BZ CITY
-      if (incompleteZoneModel.cityModel == null){
-        final CityModel _bzCity = await _zoneProvider.fetchCityByID(
-          context: context,
-          cityID: incompleteZoneModel.cityID,
-        );
-        _output = _output.copyWith(
-          cityModel: _bzCity,
-        );
-
-      }
-
-      /// COUNTRY NAME
-      if (incompleteZoneModel.countryName == null){
-        final String _countryName = CountryModel.getTranslatedCountryName(
-          context: context,
-          countryID: incompleteZoneModel.countryID,
-        );
-        _output = _output.copyWith(
-          countryName: _countryName,
-        );
-      }
-
-      /// CITY NAME
-      if (incompleteZoneModel.cityName == null){
-        final String _cityName = CityModel.getTranslatedCityNameFromCity(
-          context: context,
-          city: _output.cityModel,
-        );
-        _output = _output.copyWith(
-          cityName: _cityName,
-        );
-      }
-
-      /// DISTRICT NAME
-      if (incompleteZoneModel.districtName == null){
-        final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-          context: context,
-          city: _output.cityModel,
-          districtID: incompleteZoneModel.districtID,
-        );
-        _output = _output.copyWith(
-          districtName: _districtName,
-        );
-      }
-
-    }
+    final ZoneModel _output = await _zoneProvider.fetchCompleteZoneModel(
+        context: context,
+        incompleteZoneModel: incompleteZoneModel,
+    );
 
     return _output;
   }

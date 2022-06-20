@@ -116,7 +116,7 @@ class UsersProvider extends ChangeNotifier {
         zone: _completeZoneModel,
       );
 
-      setMyUserModel(
+      setMyUserModelAndAuthModel(
         userModel: _userModel,
         notify: true,
       );
@@ -125,42 +125,36 @@ class UsersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  void setMyUserModel({
+  void setMyUserModelAndAuthModel({
     @required UserModel userModel,
     @required bool notify,
+    AuthModel authModel,
   }){
 
     _myUserModel = userModel;
+
+    _myAuthModel = authModel ?? _myAuthModel.copyWith(
+      userModel: userModel,
+    );
+
 
     if (notify == true){
       notifyListeners();
     }
 
   }
-// -------------------------------------
-  void setMyAuthModel({
-    @required AuthModel authModel,
-    @required bool notify,
-}){
 
-    _myAuthModel = authModel;
+// -------------------------------------
+  void clearMyUserModelAndAuthModel({
+    @required bool notify,
+  }){
+
+    _myUserModel = null;
+    _myAuthModel = null;
 
     if (notify == true){
       notifyListeners();
     }
-}
-// -------------------------------------
-  void clearMyUserModelAndAuthModel(){
-
-    setMyUserModel(
-      userModel: null,
-      notify: false,
-    );
-
-    setMyAuthModel(
-        authModel: null,
-        notify: true
-    );
 
   }
 // -------------------------------------
