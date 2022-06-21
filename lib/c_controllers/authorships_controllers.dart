@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/main_navigation_controllers.dart';
+import 'package:bldrs/c_controllers/f_bz_controllers/bz_flyers_page_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -29,6 +31,7 @@ import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -673,27 +676,89 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 
 }
 // -------------------------------
+/// TASK : NEED OPTIMIZATION TO DELETE FLYERS AND REBUILD MINIMUM NUMBER OF TIME INSTEAD OR ITERATIONS PER FLYER
 Future<void> _removeAuthorWhoHasFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
 }) async {
 
-  await CenterDialog.showCenterDialog(
+  final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    title: '${authorModel.name} has published flyers ',
-    body: '${authorModel.flyersIDs.length} flyers will be deleted',
-    child: SizedBox(
+    title: 'Delete All Flyers',
+    body: '${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
+    height: 400,
+    boolDialog: true,
+    confirmButtonText: 'Delete All Flyers And Remove ${authorModel.name}',
+    child: Container(
       width: CenterDialog.getWidth(context),
       height: 200,
+      color: Colorz.white10,
+      alignment: Alignment.center,
       child: FlyersGrid(
         scrollController: ScrollController(),
         paginationFlyersIDs: authorModel.flyersIDs,
-        gridWidth: CenterDialog.getWidth(context),
+        scrollDirection: Axis.horizontal,
+        gridWidth: CenterDialog.getWidth(context) - 10,
         gridHeight: 200,
         numberOfColumnsOrRows: 1,
       ),
     ),
   );
+
+  if (_result == true){
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Removing ${authorModel.name}',
+    ));
+
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: false,
+    );
+
+    /// DELETE ALL AUTHOR FLYERS
+    for (final String flyerID in authorModel.flyersIDs){
+      final FlyerModel _flyer = await FlyerLDBOps.readFlyer(flyerID);
+      await deleteFlyerOps(
+        bzModel: _bzModel,
+        context: context,
+        flyer: _flyer,
+        showWaitDialog: false,
+      );
+    }
+
+    /// REMOVE AUTHOR MODEL FROM BZ MODEL
+    final BzModel _updatedBzModel = BzModel.removeAuthor(
+      bzModel: _bzModel,
+      authorID: authorModel.userID,
+    );
+
+    /// UPDATE BZ ON FIREBASE
+    await BzFireOps.updateBz(
+        context: context,
+        newBzModel: _updatedBzModel,
+        oldBzModel: _bzModel,
+        authorPicFile: null
+    );
+
+    /// SEND AUTHOR DELETION NOTES
+    await _sendAuthorDeletionNotes(
+      context: context,
+      bzModel: _bzModel,
+      deletedAuthor: authorModel,
+    );
+
+    WaitDialog.closeWaitDialog(context);
+
+    /// SHOW CONFIRMATION DIALOG
+    await _showAuthorRemovalConfirmationDialog(
+      context: context,
+      bzModel: _bzModel,
+      deletedAuthor: authorModel,
+    );
+
+  }
 
 }
 // -------------------------------
