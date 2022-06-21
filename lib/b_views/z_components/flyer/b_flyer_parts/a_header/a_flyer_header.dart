@@ -302,6 +302,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
             ),
 
             /// --- CORNER X BUTTON
+            if (widget.tinyMode == false)
             child,
 
 

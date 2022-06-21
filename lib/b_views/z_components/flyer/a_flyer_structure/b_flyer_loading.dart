@@ -19,18 +19,25 @@ class FlyerLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return FlyerBox(
-      flyerBoxWidth: flyerBoxWidth,
-      boxColor: boxColor,
-      stackWidgets: <Widget>[
+    /// NOTE : DO NOT REMOVE THE STACK : IT CENTERS THE FLYER BOX IN FLYERS GRID
+    return Stack(
+      children: <Widget>[
 
-        RotatedBox(
-          quarterTurns: appIsLeftToRight(context) ? 2 : 0,
-          child: LinearProgressIndicator(
-            color: loadingColor,
-            backgroundColor: Colorz.nothing,
-            minHeight: FlyerBox.height(context, flyerBoxWidth),
-          ),
+        FlyerBox(
+          flyerBoxWidth: flyerBoxWidth,
+          boxColor: boxColor,
+          stackWidgets: <Widget>[
+
+            RotatedBox(
+              quarterTurns: appIsLeftToRight(context) ? 2 : 0,
+              child: LinearProgressIndicator(
+                color: loadingColor,
+                backgroundColor: Colorz.nothing,
+                minHeight: FlyerBox.height(context, flyerBoxWidth),
+              ),
+            ),
+
+          ],
         ),
 
       ],
