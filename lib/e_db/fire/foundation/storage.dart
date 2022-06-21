@@ -72,6 +72,7 @@ Future<Reference> getRefFromURL({
 /// CREATE
 
 // ------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<dynamic> uploadFile({
   @required BuildContext context,
   @required File file,
@@ -159,8 +160,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
      */
 }
 // ------------------------------------------------
-/// creates new pic in document name according to pic type,
-/// and overrides existing pic if already exists
+/// TESTED : WORKS PERFECT
 Future<String> createStoragePicAndGetURL({
   @required BuildContext context,
   @required File inputFile,
@@ -168,6 +168,10 @@ Future<String> createStoragePicAndGetURL({
   @required String picName,
   @required String ownerID,
 }) async {
+
+  /// NOTE
+  /// creates new pic in document name according to pic type,
+  /// and overrides existing pic if already exists
 
   String _imageURL;
 
@@ -210,6 +214,7 @@ Future<String> createStoragePicAndGetURL({
   return _imageURL;
 }
 // ------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<String>> createStorageSlidePicsAndGetURLs({
   @required BuildContext context,
   @required List<SlideModel> slides,
@@ -242,6 +247,7 @@ Future<List<String>> createStorageSlidePicsAndGetURLs({
   return _picturesURLs;
 }
 // ------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<String>> createMultipleStoragePicsAndGetURLs({
   @required BuildContext context,
   @required List<dynamic> pics,

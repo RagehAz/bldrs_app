@@ -77,12 +77,19 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
   @override
   Widget build(BuildContext context) {
 
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: true,
+    );
+
+    _bzModel.blogBz(methodName: 'BzAuthorsPage');
+
     return Selector<BzzProvider, BzModel>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
       shouldRebuild: (oldModel, newModel) => true, /// FUCKING WORKS PERFECT
       builder: (BuildContext context, BzModel bzModel, Widget child){
 
-        final List<AuthorModel> _authors = bzModel?.authors;
+        final List<AuthorModel> _authors = _bzModel?.authors;
         final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
           userID: superUserID(),
           bzModel: bzModel,

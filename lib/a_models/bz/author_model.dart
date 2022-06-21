@@ -86,6 +86,7 @@ class AuthorModel {
   /// CYPHERS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'userID': userID,
@@ -98,6 +99,7 @@ class AuthorModel {
     };
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static AuthorModel decipherAuthor(Map<String, dynamic> map) {
     return AuthorModel(
       userID: map['userID'],
@@ -110,6 +112,7 @@ class AuthorModel {
     );
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, Object> cipherAuthors(List<AuthorModel> authors) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
@@ -126,6 +129,7 @@ class AuthorModel {
     return _map;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> decipherAuthors(Map<String, dynamic> maps) {
     final List<AuthorModel> _authors = <AuthorModel>[];
 
@@ -145,6 +149,7 @@ class AuthorModel {
   /// GETTERS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static int getAuthorGalleryCountFromBzModel({
     @required BzModel bzModel,
     @required AuthorModel author,
@@ -167,6 +172,7 @@ class AuthorModel {
     return _authorGalleryCount;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorFromBzByAuthorID({
     @required BzModel bz,
     @required String authorID,
@@ -177,6 +183,7 @@ class AuthorModel {
     return author;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static int getAuthorIndexByAuthorID({
     @required List<AuthorModel> authors,
     @required String authorID,
@@ -188,6 +195,7 @@ class AuthorModel {
     return _currentAuthorIndex;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getAuthorsIDsFromAuthors({
     @required List<AuthorModel> authors,
   }) {
@@ -200,6 +208,7 @@ class AuthorModel {
     return _authorsIDs;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorFromAuthorsByID({
     @required List<AuthorModel> authors,
     @required String authorID,
@@ -250,7 +259,9 @@ class AuthorModel {
     return _masterAuthor;
   }
 // ----------------------------------
-  static List<String> getAuthorsNames({List<AuthorModel> authors}){
+  static List<String> getAuthorsNames({
+    @required List<AuthorModel> authors
+  }){
     final List<String> _names = <String>[];
 
     if (Mapper.checkCanLoopList(authors) == true){
@@ -268,6 +279,7 @@ class AuthorModel {
   /// MODIFIERS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static BzModel replaceAuthorModelInBzModel({
     @required BzModel bzModel,
     @required AuthorModel newAuthor,
@@ -285,12 +297,17 @@ class AuthorModel {
     return _updatedBzModel;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> replaceAuthorModelInAuthorsListByID({
     @required List<AuthorModel> authors,
     @required AuthorModel authorToReplace,
   }) {
 
-    final List<AuthorModel> _output = <AuthorModel>[...authors];
+    List<AuthorModel> _output = <AuthorModel>[];
+
+    if (Mapper.checkCanLoopList(authors) == true){
+      _output = <AuthorModel>[...authors];
+    }
 
     final int _index = getAuthorIndexByAuthorID(
         authors: _output,
@@ -306,6 +323,7 @@ class AuthorModel {
     return _output;
   }
 // ----------------------------------
+
   static List<String> replaceAuthorIDInAuthorsIDsList({
     @required List<AuthorModel> originalAuthors,
     @required AuthorModel oldAuthor,
@@ -317,7 +335,7 @@ class AuthorModel {
       authors: originalAuthors,
     );
 
-    blog('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
+    // blog('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
 
     final int _indexOfOldAuthor = getAuthorIndexByAuthorID(
         authors: originalAuthors,
@@ -380,6 +398,7 @@ class AuthorModel {
     return _output ?? authors;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> addFlyerIDToAuthor({
     @required String flyerID,
     @required String authorID,
@@ -396,30 +415,41 @@ class AuthorModel {
     authorID != null
     ){
 
+      // blog('addFlyerIDToAuthor : flyerID $flyerID : authorID $authorID : authors count : ${authors.length}');
+
       final AuthorModel _author = getAuthorFromAuthorsByID(
           authors: authors,
           authorID: authorID
       );
+
+      // blog('addFlyerIDToAuthor : author $authorID flyers was ${_author.flyersIDs} ');
 
       final List<String> _updatedFlyersIDs = Mapper.putStringInStringsIfAbsent(
           strings: _author.flyersIDs,
           string: flyerID
       );
 
+      // blog('addFlyerIDToAuthor : author $authorID flyers should be $_updatedFlyersIDs ');
+
       final AuthorModel _updatedAuthor = _author.copyWith(
         flyersIDs: _updatedFlyersIDs,
       );
+
+      // blog('addFlyerIDToAuthor : author $authorID flyers is now ${_updatedAuthor.flyersIDs} ');
+
 
       _output = replaceAuthorModelInAuthorsListByID(
           authors: authors,
           authorToReplace: _updatedAuthor,
       );
 
+
     }
 
     return _output;
 }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> removeFlyerIDToAuthor({
     @required String flyerID,
     @required String authorID,
@@ -436,15 +466,21 @@ class AuthorModel {
         authorID != null
     ){
 
+      blog('removeFlyerIDToAuthor : flyerID : $flyerID : authorID : $authorID');
+
       final AuthorModel _author = getAuthorFromAuthorsByID(
           authors: authors,
           authorID: authorID
       );
 
+      blog('removeFlyerIDToAuthor : author flyers was : ${_author.flyersIDs}');
+
       final List<String> _updatedFlyersIDs = Mapper.removeStringsFromStrings(
           removeFrom: _author.flyersIDs,
           removeThis: <String>[flyerID],
       );
+
+      blog('removeFlyerIDToAuthor : author flyers is : $_updatedFlyersIDs');
 
       final AuthorModel _updatedAuthor = _author.copyWith(
         flyersIDs: _updatedFlyersIDs,
@@ -455,6 +491,14 @@ class AuthorModel {
         authorToReplace: _updatedAuthor,
       );
 
+      final bool _authorsAreIdentical = AuthorModel.checkAuthorsListsAreIdentical(
+          authors1: authors,
+          authors2: _output,
+      );
+
+      blog('removeFlyerIDToAuthor : author are identical : $_authorsAreIdentical');
+
+
     }
 
     return _output;
@@ -464,6 +508,7 @@ class AuthorModel {
   /// CHECKER
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkUserIsMasterAuthor({
     @required String userID,
     @required BzModel bzModel,
@@ -483,6 +528,7 @@ class AuthorModel {
     return _isMaster;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkAuthorsListsAreIdentical({
     @required List<AuthorModel> authors1,
     @required List<AuthorModel> authors2
@@ -529,6 +575,7 @@ class AuthorModel {
     return _output;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkAuthorsAreIdentical({
     @required AuthorModel author1,
     @required AuthorModel author2,
@@ -544,6 +591,7 @@ class AuthorModel {
       author1.pic == author2.pic &&
       author1.title == author2.title &&
       author1.isMaster == author2.isMaster &&
+      Mapper.checkListsAreTheSame(list1: author1.flyersIDs, list2: author2.flyersIDs) &&
       ContactModel.checkContactsListsAreIdentical(contacts1: author1.contacts, contacts2: author2.contacts)
 
       ){
@@ -555,6 +603,7 @@ class AuthorModel {
     return _areIdentical;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkAuthorsContainUserID({
     @required List<AuthorModel> authors,
     @required String userID,
@@ -581,6 +630,7 @@ class AuthorModel {
   /// GENERATORS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String generateAuthorPicID({
     @required String authorID,
     @required String bzID
@@ -661,6 +711,7 @@ class AuthorModel {
     blog('title : $title');
     blog('isMaster : $isMaster');
     blog('contacts : $contacts');
+    blog('flyersID : $flyersIDs');
 
     blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
   }
