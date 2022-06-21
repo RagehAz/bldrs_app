@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 

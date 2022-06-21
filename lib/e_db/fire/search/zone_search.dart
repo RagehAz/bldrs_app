@@ -7,7 +7,7 @@ import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/search/fire_search.dart' as Search;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

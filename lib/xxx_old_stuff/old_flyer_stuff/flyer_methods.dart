@@ -4,7 +4,7 @@
 // import 'package:bldrs/xxx_lab/xxx_old_stuff/old_flyer_stuff/old_flyer_zone_box.dart';
 // import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 // import 'package:bldrs/f_helpers/drafters/tracers.dart';
-// import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
+// import 'package:bldrs/f_helpers/theme/standards.dart';
 // import 'package:flutter/material.dart';
 //
 // enum FlyerMode {
