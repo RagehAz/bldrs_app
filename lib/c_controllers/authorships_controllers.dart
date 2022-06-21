@@ -709,7 +709,7 @@ Future<void> _removeAuthorWhoHasFlyers({
       context: context,
       bzModel: _bzModel,
       showWaitDialog: false,
-      updateBz: false,
+      updateBzEveryWhere: false,
       flyers: _flyers,
     );
 

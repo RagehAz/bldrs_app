@@ -12,8 +12,8 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/bz_flyers_page_controllers.dart';
-import 'package:bldrs/c_controllers/i_flyer_controllers/flyer_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -460,6 +460,7 @@ Future<void> onDeleteBzButtonTap({
     await _deleteAllBzFlyersOps(
       context: context,
       bzModel: bzModel,
+      updateBz: false,
     );
 
     await _deleteBzOps(
@@ -602,6 +603,7 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
 Future<void> _deleteAllBzFlyersOps({
   @required BuildContext context,
   @required BzModel bzModel,
+  @required bool updateBz,
 }) async {
 
   unawaited(WaitDialog.showWaitDialog(
@@ -611,22 +613,19 @@ Future<void> _deleteAllBzFlyersOps({
   ));
 
   /// DELETE BZ FLYERS
-  final List<FlyerModel> _flyers = await fetchFlyers(
+  final List<FlyerModel> _flyers = await FlyersProvider.proFetchFlyers(
       context: context,
       flyersIDs: bzModel.flyersIDs
   );
 
-  for (int i = 0; i < _flyers.length; i++){
-
-    await deleteSingleFlyerProtocol(
-      bzModel: bzModel,
+  await deleteMultipleBzFlyersProtocol(
       context: context,
-      flyer: _flyers[i],
+      bzModel: bzModel,
+      flyers: _flyers,
       showWaitDialog: false,
-      notify: i + 1 == _flyers.length,
-    );
+      updateBzEveryWhere: updateBz
+  );
 
-  }
 
   WaitDialog.closeWaitDialog(context);
 
