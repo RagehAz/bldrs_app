@@ -26,7 +26,7 @@ import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;

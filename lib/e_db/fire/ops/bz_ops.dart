@@ -10,7 +10,7 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;

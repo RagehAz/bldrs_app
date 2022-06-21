@@ -8,7 +8,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
