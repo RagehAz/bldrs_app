@@ -111,10 +111,10 @@ class FlyersProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// REMOVE FLYER FROM FLYERS PROVIDER
+  /// MODIFY / DELETE FLYER FROM FLYERS PROVIDER
 
 // -------------------------------------
-  void removeFlyerFromFlyersProvider({
+  void removeFlyerFromProFlyers({
     @required String flyerID,
     @required bool notify,
   }) {
@@ -134,6 +134,41 @@ class FlyersProvider extends ChangeNotifier {
     _selectedFlyers = FlyerModel.removeFlyerFromFlyersByID(
       flyers: _selectedFlyers,
       flyerIDToRemove: flyerID,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void updateFlyerInAllProFlyers({
+    @required FlyerModel flyerModel,
+    @required bool notify,
+  }){
+
+    _savedFlyers = FlyerModel.replaceFlyerInFlyers(
+      flyers: _savedFlyers,
+      flyerToReplace: flyerModel,
+      insertIfAbsent: false,
+    );
+
+    _promotedFlyers = FlyerModel.replaceFlyerInFlyers(
+      flyers: _promotedFlyers,
+      flyerToReplace: flyerModel,
+      insertIfAbsent: false,
+    );
+
+    _wallFlyers = FlyerModel.replaceFlyerInFlyers(
+      flyers: _wallFlyers,
+      flyerToReplace: flyerModel,
+      insertIfAbsent: false,
+    );
+
+    _selectedFlyers = FlyerModel.replaceFlyerInFlyers(
+      flyers: _selectedFlyers,
+      flyerToReplace: flyerModel,
+      insertIfAbsent: false,
     );
 
     if (notify == true){

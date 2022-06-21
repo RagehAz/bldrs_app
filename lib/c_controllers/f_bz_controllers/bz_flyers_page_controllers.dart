@@ -192,7 +192,7 @@ Future<void> deleteFlyerOps({
 
   /// REMOVE FLYER FROM FLYERS PROVIDER
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  _flyersProvider.removeFlyerFromFlyersProvider(
+  _flyersProvider.removeFlyerFromProFlyers(
     flyerID: flyer.id,
     notify: true,
   );

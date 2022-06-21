@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/home_controllers.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -9,8 +10,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-/// NOTE : this widget is an exact replica of AnonymousHomeScreen widget
 class UserHomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const UserHomeScreen({
@@ -64,7 +63,17 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
 
     if (Mapper.checkCanLoopList(_wallFlyers) == false){
-      return const FlyersGrid(isLoadingGrid: true,);
+
+      return const Center(
+        child: SuperVerse(
+          verse: 'No Flyers To Show',
+          italic: true,
+          weight: VerseWeight.black,
+          size: 5,
+          shadow: true,
+        ),
+      );
+
     }
 
     else {

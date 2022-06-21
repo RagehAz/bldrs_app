@@ -12,7 +12,8 @@ enum NoteType {
   authorship,
   /// WHEN BLDRS.NET SENDS A USER SOME NEWS
   announcement,
-
+  /// WHEN FLYER UPDATES ON DB AND NEED TO ACTIVATE [ LOCAL FLYER UPDATE PROTOCOL ]
+  flyerUpdate,
 }
 // ------------------------
 enum NoteAttachmentType {
@@ -306,6 +307,7 @@ class NoteModel {
     switch(noteType){
       case NoteType.authorship:   return 'authorship';    break;
       case NoteType.announcement: return 'announcement';  break;
+      case NoteType.flyerUpdate: return 'flyerUpdate';  break;
       default : return null;
     }
   }
@@ -314,6 +316,7 @@ class NoteModel {
     switch(noteType){
       case 'authorship': return NoteType.authorship;      break;
       case 'announcement': return NoteType.announcement;  break;
+      case 'flyerUpdate': return NoteType.flyerUpdate;  break;
       default: return null;
     }
   }
@@ -321,6 +324,7 @@ class NoteModel {
   static const List<NoteType> noteTypesList = <NoteType>[
     NoteType.announcement,
     NoteType.authorship,
+    NoteType.flyerUpdate,
   ];
   // -----------------------------------------------------------------------------
 
@@ -748,6 +752,26 @@ class NoteModel {
         }
       }
 
+
+    }
+
+    return _output;
+  }
+  // -------------------------------------
+  static List<NoteModel> getFlyerUpdatesNotes({
+  @required List<NoteModel> notes,
+}){
+    final List<NoteModel> _output = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+
+        if (note.noteType == NoteType.flyerUpdate){
+          _output.add(note);
+        }
+
+      }
 
     }
 
