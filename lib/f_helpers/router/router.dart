@@ -1,11 +1,11 @@
-import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
-import 'package:bldrs/b_views/x_screens/b_auth/b_0_auth_screen.dart';
-import 'package:bldrs/b_views/x_screens/c_search/c_0_search_screen.dart';
-import 'package:bldrs/b_views/x_screens/e_saves/e_0_saved_flyers_screen.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/c_home_screen.dart';
+import 'package:bldrs/b_views/x_screens/b_auth/a_auth_screen.dart';
+import 'package:bldrs/b_views/x_screens/c_main_search/a_main_search_screen.dart';
+import 'package:bldrs/b_views/x_screens/e_saves/a_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/router/route_names.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/a_new_logo_screen.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/b_animated_logo_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> allRoutes(RouteSettings settings) {
@@ -15,7 +15,7 @@ Route<dynamic> allRoutes(RouteSettings settings) {
   // --------------------------
   /// LOGO SCREEN
     case Routez.logoScreen:
-      return Nav.fadeToScreen(const NewLogoScreen(), settings);
+      return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
       break;
   // --------------------------
     /// AUTH SCREEN
@@ -47,7 +47,7 @@ Route<dynamic> allRoutes(RouteSettings settings) {
 // -----------------------------------------------------------------------------
     /// s20
     case Routez.search:
-      return Nav.fadeToScreen(const SearchScreen(), settings);
+      return Nav.fadeToScreen(const MainSearchScreen(), settings);
       break;
 // -----------------------------------------------------------------------------
 //     /// s40
@@ -73,5 +73,5 @@ Route<dynamic> allRoutes(RouteSettings settings) {
 // -----------------------------------------------------------------------------
 
   }
-  return Nav.fadeToScreen(const NewLogoScreen(), settings);
+  return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
 }

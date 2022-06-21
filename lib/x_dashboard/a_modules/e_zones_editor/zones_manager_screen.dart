@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/y_views/d_zoning/d_1a_all_countries_buttons.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/aaa_select_country_screen_all_countries_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -142,7 +142,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
 
                     else {
 
-                      return AllCountriesButtons(
+                      return SelectCountryScreenAllCountriesView(
                         padding: const EdgeInsets.only(
                             top: Ratioz.appBarMargin,
                             bottom: Ratioz.horizon

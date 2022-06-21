@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/h_1_bz_card_screen.dart';
+import 'package:bldrs/b_views/x_screens/x_flyer/d_bz_card_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/bzz_grid/bz_static_grid.dart';
