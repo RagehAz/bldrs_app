@@ -439,7 +439,7 @@ class FlyerModel {
   /// TESTED : WORKS PERFECT
   static FlyerModel dummyFlyer(){
     return FlyerModel(
-      id : '2fDlDyF01sw8GEYPJ9GN',
+      id : 'x',
       title: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
       authorID: AuthFireOps.superUserID(),
