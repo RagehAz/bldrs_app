@@ -757,7 +757,6 @@ void _onBzNotesStreamDataChanged({
     },
   );
 
-
 }
 // -------------------------------
 Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
@@ -801,7 +800,7 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
   }
 
 }
-
+// -------------------------------
 Future<void> localFlyerUpdateProtocol({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -821,7 +820,7 @@ Future<void> localFlyerUpdateProtocol({
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _activeBz = _bzzProvider.myActiveBz;
-    if (_activeBz.id == flyerModel.bzID){
+    if (_activeBz?.id == flyerModel.bzID){
       _bzzProvider.updateFlyerInActiveBzFlyers(
         flyer: flyerModel,
         notify: notify,

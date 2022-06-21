@@ -102,6 +102,8 @@ const String bzNameVarTag1 = '<BZNAME1>';
 const String bzNameVarTag2 = '<BZNAME2>';
 const String authorNameVarTag1 = '<AUTHORNAME1>';
 const String authorNameVarTag2 = '<AUTHORNAME2>';
+const String numberVarTag1 = '<NUMBER1>';
+const String numberVarTag2 = '<NUMBER2>';
 // ----------------------------
 final List<String> varTags = <String>[
   userNameVarTag1,
@@ -110,6 +112,8 @@ final List<String> varTags = <String>[
   bzNameVarTag2,
   authorNameVarTag1,
   authorNameVarTag2,
+  numberVarTag1,
+  numberVarTag2,
 ];
 // ----------------------------
 String replaceVarTag({
@@ -120,6 +124,8 @@ String replaceVarTag({
   String bzName2,
   String authorName1,
   String authorName2,
+  String number1,
+  String number2,
 }){
   String _output = input;
 
@@ -172,6 +178,23 @@ String replaceVarTag({
       key: authorNameVarTag2,
       value: authorName2,
     );
+  }
+  /// NUMBER 1
+  if (number1 != null){
+    _varTagsMap = Mapper.insertPairInMap(
+      map: _varTagsMap,
+      key: numberVarTag1,
+      value: number1,
+    );
+  }
+  /// NUMBER 2
+  if (number2 != null){
+    _varTagsMap = Mapper.insertPairInMap(
+      map: _varTagsMap,
+      key: numberVarTag2,
+      value: number2,
+    );
+
   }
 
   final List<String> _keys = _varTagsMap.keys.toList();
