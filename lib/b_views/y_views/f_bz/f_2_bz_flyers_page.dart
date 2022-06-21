@@ -32,7 +32,6 @@ class BzFlyersPage extends StatelessWidget {
       paginationFlyersIDs: bzModel.flyersIDs,
       gridWidth: width ?? Scale.superScreenWidth(context),
       gridHeight: height ?? Scale.superScreenHeight(context),
-      scrollController: null,
       authorMode: true,
       onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
         context: context,

@@ -11,10 +11,10 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/main_navigation_controllers.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -631,80 +631,27 @@ Future<void> _onDeleteAuthorFromActiveBzTeam({
 
   if (_result == true){
 
-    const bool _authorHasFlyers = false;
+    final bool _authorHasFlyers = AuthorModel.checkAuthorHasFlyers(
+      author: authorModel,
+    );
 
+    /// REMOVE AUTHOR HAS FLYERS
     if (_authorHasFlyers == true){
 
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: '${authorModel.name} has published flyers ',
-        body: 'so can not delete now need to fix this issue',
+      await _removeAuthorWhoHasFlyers(
+          context: context,
+          authorModel: authorModel,
       );
 
     }
 
+    /// REMOVE AUTHOR HAS NO FLYERS
     else {
 
-      // unawaited(WaitDialog.showWaitDialog(
-      //   context: context,
-      //   loadingPhrase: 'Deleting ${authorModel.name} from the team',
-      //   canManuallyGoBack: true,
-      // ));
-
-      final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-          context: context,
-          listen: false,
-      );
-
-      final List<String> _oldAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
-          authors: _bzModel.authors,
-      );
-
-      blog('_onDeleteAuthorFromTheTeam : remove (${authorModel.userID}) from (${AuthorModel.getAuthorsIDsFromAuthors(authors: _bzModel.authors)}) now');
-
-      /// REMOVE AUTHOR MODEL FROM BZ MODEL
-      final BzModel _updatedBzModel = BzModel.removeAuthor(
-        bzModel: _bzModel,
-        authorID: authorModel.userID,
-      );
-
-      final List<String> _newAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(authors: _updatedBzModel.authors);
-
-      blog('_onDeleteAuthorFromTheTeam : will start myActiveBzLocalUpdateProtocol : '
-          'had $_oldAuthorsIDs'
-          'but now has $_newAuthorsIDs');
-
-      await myActiveBzLocalUpdateProtocol(
+      await _removeAuthorWhoHasNoFlyers(
         context: context,
-        newBzModel: _updatedBzModel,
-        oldBzModel: _bzModel,
+        authorModel: authorModel,
       );
-      blog('_onDeleteAuthorFromTheTeam : finished myActiveBzLocalUpdateProtocol and updating on firebase');
-      /// UPDATE BZ ON FIREBASE
-      await BzFireOps.updateBz(
-          context: context,
-          newBzModel: _updatedBzModel,
-          oldBzModel: _bzModel,
-          authorPicFile: null
-      );
-      blog('_onDeleteAuthorFromTheTeam : firebase updated');
-
-      /// SEND AUTHOR DELETION NOTES
-      await _sendAuthorDeletionNotes(
-        context: context,
-        bzModel: _bzModel,
-        deletedAuthor: authorModel,
-      );
-
-      // /// CLOSE WAIT DIALOG
-      // WaitDialog.closeWaitDialog(context);
-
-      unawaited(TopDialog.showTopDialog(
-        context: context,
-        firstLine: '${authorModel.name} has been removed from the team of ${_bzModel.name}',
-        color: Colorz.green255,
-        textColor: Colorz.white255,
-      ));
 
     }
 
@@ -723,6 +670,71 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
     body: 'Only Account Admins can remove other team members,\n'
         'however you can remove only yourself from this business account',
   );
+
+}
+// -------------------------------
+Future<void> _removeAuthorWhoHasFlyers({
+  @required BuildContext context,
+  @required AuthorModel authorModel,
+}) async {
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: '${authorModel.name} has published flyers ',
+    body: '${authorModel.flyersIDs.length} flyers will be deleted',
+    child: SizedBox(
+      width: CenterDialog.getWidth(context),
+      height: 200,
+      child: FlyersGrid(
+        scrollController: ScrollController(),
+        paginationFlyersIDs: authorModel.flyersIDs,
+        gridWidth: CenterDialog.getWidth(context),
+        gridHeight: 200,
+        numberOfColumnsOrRows: 1,
+      ),
+    ),
+  );
+
+}
+// -------------------------------
+Future<void> _removeAuthorWhoHasNoFlyers({
+  @required BuildContext context,
+  @required AuthorModel authorModel,
+}) async {
+
+  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    context: context,
+    listen: false,
+  );
+
+  /// REMOVE AUTHOR MODEL FROM BZ MODEL
+  final BzModel _updatedBzModel = BzModel.removeAuthor(
+    bzModel: _bzModel,
+    authorID: authorModel.userID,
+  );
+
+  /// UPDATE BZ ON FIREBASE
+  await BzFireOps.updateBz(
+      context: context,
+      newBzModel: _updatedBzModel,
+      oldBzModel: _bzModel,
+      authorPicFile: null
+  );
+
+  /// SEND AUTHOR DELETION NOTES
+  await _sendAuthorDeletionNotes(
+    context: context,
+    bzModel: _bzModel,
+    deletedAuthor: authorModel,
+  );
+
+  /// SHOW CONFIRMATION DIALOG
+  await _showAuthorRemovalConfirmationDialog(
+    context: context,
+    bzModel: _bzModel,
+    deletedAuthor: authorModel,
+  );
+
 
 }
 // -------------------------------
@@ -787,6 +799,21 @@ Future<void> _sendAuthorDeletionNotes({
     context: context,
     noteModel: _noteToUser,
   );
+
+}
+// -------------------------------
+Future<void> _showAuthorRemovalConfirmationDialog({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required AuthorModel deletedAuthor,
+}) async {
+
+  unawaited(TopDialog.showTopDialog(
+    context: context,
+    firstLine: '${deletedAuthor.name} has been removed from the team of ${bzModel.name}',
+    color: Colorz.green255,
+    textColor: Colorz.white255,
+  ));
 
 }
 // -----------------------------------------------------------------------------

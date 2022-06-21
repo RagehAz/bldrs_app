@@ -1773,6 +1773,7 @@ class BzModel{
   /// BZ MODIFIERS
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static BzModel removeAuthor({
     @required BzModel bzModel,
     @required String authorID,
