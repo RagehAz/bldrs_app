@@ -437,6 +437,32 @@ class BzModel{
     return _ids;
   }
 // ------------------------------------------
+  static BzModel removeFlyersIDs({
+    @required List<String> flyersIDs,
+    @required BzModel bzModel,
+  }){
+
+    BzModel _output;
+
+
+    if (bzModel != null && Mapper.checkCanLoopList(flyersIDs) == true){
+
+      final List<String> _updatedFlyersIDs = Mapper.removeStringsFromStrings(
+        removeFrom: bzModel.flyersIDs,
+        removeThis: flyersIDs,
+      );
+
+      _output = bzModel.copyWith(
+        flyersIDs: _updatedFlyersIDs,
+      );
+
+    }
+
+    return _output;
+
+
+  }
+// ------------------------------------------
   static List<BzModel> addOrRemoveBzToBzz({
     @required List<BzModel> bzzModels,
     @required BzModel bzModel,
@@ -482,6 +508,36 @@ class BzModel{
 
 
     return _output;
+  }
+  // ------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static BzModel removeAuthor({
+    @required BzModel bzModel,
+    @required String authorID,
+  }){
+
+    BzModel _output;
+
+    // blog('removeAuthor : remove ($authorID) from (${AuthorModel.getAuthorsIDsFromAuthors(authors: bzModel.authors)})');
+
+    if (bzModel != null && authorID != null){
+
+      final List<AuthorModel> _authors = bzModel.authors;
+
+      final List<AuthorModel> _updated = AuthorModel.removeAuthorFromAuthors(
+        authors: _authors,
+        authorIDToRemove: authorID,
+      );
+
+      _output = bzModel.copyWith(
+        authors: _updated,
+      );
+
+    }
+
+    // blog('removeAuthor : _output is (${AuthorModel.getAuthorsIDsFromAuthors(authors: _output.authors)})');
+
+    return _output ?? bzModel;
   }
 // -----------------------------------------------------------------------------
 
@@ -1767,40 +1823,6 @@ class BzModel{
     }
 
     return _invalidFields;
-  }
-// -----------------------------------------------------------------------------
-
-  /// BZ MODIFIERS
-
-// ------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static BzModel removeAuthor({
-    @required BzModel bzModel,
-    @required String authorID,
-  }){
-
-    BzModel _output;
-
-    blog('removeAuthor : remove ($authorID) from (${AuthorModel.getAuthorsIDsFromAuthors(authors: bzModel.authors)})');
-
-    if (bzModel != null && authorID != null){
-
-      final List<AuthorModel> _authors = bzModel.authors;
-
-      final List<AuthorModel> _updated = AuthorModel.removeAuthorFromAuthors(
-        authors: _authors,
-        authorIDToRemove: authorID,
-      );
-
-      _output = bzModel.copyWith(
-        authors: _updated,
-      );
-
-    }
-
-    blog('removeAuthor : _output is (${AuthorModel.getAuthorsIDsFromAuthors(authors: _output.authors)})');
-
-    return _output ?? bzModel;
   }
 // -----------------------------------------------------------------------------
 }
