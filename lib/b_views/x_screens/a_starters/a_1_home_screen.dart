@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
 
         await _triggerLoading();
+
       });
 
     _isInit = false;
@@ -69,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     // if (_loading != null){_loading.dispose();}
+    _loading.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -114,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               /// UNKNOWN CONDITION
               else {
+
                 return const UserHomeScreen();
               }
 

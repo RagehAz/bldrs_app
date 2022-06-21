@@ -111,7 +111,7 @@ class FlyersGrid extends StatelessWidget {
     return Scale.superInsets(
       context: context,
       enLeft: gridSpacingValue,
-      top: gridSpacingValue,
+      top: isVertical == true ? topPaddingValue : gridSpacingValue,
       enRight: isVertical == true ? gridSpacingValue : Ratioz.horizon,
       bottom: isVertical == true ? Ratioz.horizon : 0,
     );
@@ -322,12 +322,14 @@ class FlyersGrid extends StatelessWidget {
                         );
 
                         if (connectionIsLoading(snap) == true){
+
                           return FlyerLoading(
                             flyerBoxWidth: _flyerBoxWidth,
                           );
                         }
 
                         else {
+
                           return FlyerSelectionStack(
                             flyerModel: _flyerModel,
                             flyerBoxWidth: _flyerBoxWidth,

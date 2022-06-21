@@ -635,6 +635,43 @@ class FlyerModel {
 
     return _hasTheID;
   }
+// ------------------------------------------
+  static List<FlyerModel> replaceFlyerInFlyers({
+    @required List<FlyerModel> flyers,
+    @required FlyerModel flyerToReplace,
+    @required bool insertIfAbsent,
+  }){
+    List<FlyerModel> _output = <FlyerModel>[];
+
+    if (Mapper.checkCanLoopList(flyers) == true){
+      _output = <FlyerModel>[...flyers];
+    }
+
+    if (flyerToReplace != null){
+
+      final int _index = _output.indexWhere((flyer) => flyer.id == flyerToReplace.id);
+
+      /// FLYERS INCLUDE IT
+      if (_index != -1){
+
+        _output.removeAt(_index);
+        _output.insert(_index, flyerToReplace);
+
+      }
+
+      /// FLYERS DO NOT INCLUDE IT
+      else {
+
+        if (insertIfAbsent == true){
+          _output.add(flyerToReplace);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// FLYER EDITORS

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
@@ -14,6 +15,8 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/auditor_button.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+
 // -----------------------------------------------------------------------------
 
 /// READING
@@ -159,6 +162,12 @@ Future<void> onVerifyFlyer({
       flyerIDToRemove: flyerModel.id,
     );
 
+    await _sendFlyerVerificationUpdateNote(
+      context: context,
+      bzID: flyerModel.bzID,
+      flyerID: flyerModel.id,
+    );
+
     CenterDialog.closeCenterDialog(context);
 
     NavDialog.showNavDialog(
@@ -203,4 +212,39 @@ Future<void> onAuditFlyer({
 }) async {
   blog('should audit flyer');
 }
-// -----------------------------------------------------------------------------
+// -------------------------------------
+Future<void> _sendFlyerVerificationUpdateNote({
+  @required BuildContext context,
+  @required String flyerID,
+  @required String bzID,
+}) async {
+
+  final NoteModel _note = NoteModel(
+    id: 'x',
+    senderID: NoteModel.bldrsSenderID,
+    senderImageURL: NoteModel.bldrsLogoURL,
+    noteSenderType: NoteSenderType.bldrs,
+    receiverID: bzID,
+    receiverType: NoteReceiverType.bz,
+    title: 'Flyer has been verified',
+    body: 'This Flyer is now public to be seen and searched by all users',
+    metaData: NoteModel.defaultMetaData,
+    sentTime: DateTime.now(),
+    attachment: <String>[flyerID],
+    attachmentType: NoteAttachmentType.flyersIDs,
+    seen: false,
+    seenTime: null,
+    sendFCM: true,
+    noteType: NoteType.flyerUpdate,
+    response: null,
+    responseTime: null,
+    buttons: null,
+  );
+
+  await NoteFireOps.createNote(
+      context: context,
+      noteModel: _note
+  );
+
+}
+// -------------------------------------

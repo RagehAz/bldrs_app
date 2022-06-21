@@ -471,6 +471,28 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  void updateFlyerInActiveBzFlyers({
+    @required FlyerModel flyer,
+    @required bool insertIfAbsent,
+    @required bool notify,
+  }){
+
+    if (flyer != null){
+
+      _myActiveBzFlyers = FlyerModel.replaceFlyerInFlyers(
+        flyers: _myActiveBzFlyers,
+        flyerToReplace: flyer,
+        insertIfAbsent: insertIfAbsent,
+      );
+
+      if (notify == true){
+        notifyListeners();
+      }
+
+    }
+
+  }
+// -------------------------------------
   void clearActiveBzFlyers({
   @required bool notify,
 }){
