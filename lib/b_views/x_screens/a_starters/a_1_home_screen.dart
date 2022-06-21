@@ -58,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
           initializeMyBzzNotes(context);
         }
 
-        await _triggerLoading();
+        if (mounted){
+          await _triggerLoading();
+        }
 
       });
 

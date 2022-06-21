@@ -142,6 +142,33 @@ class FlyersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  void removeFlyersFromProFlyers({
+    @required List<String> flyersIDs,
+    @required bool notify,
+  }){
+
+    if (Mapper.checkCanLoopList(flyersIDs) == true){
+
+      for (int i = 0; i < flyersIDs.length; i++){
+
+        final String _flyerIDToRemove = flyersIDs[i];
+
+        bool _notify = false;
+        if (i + 1 == flyersIDs.length){
+          _notify = notify;
+        }
+
+        removeFlyerFromProFlyers(
+            flyerID: _flyerIDToRemove,
+            notify: _notify,
+        );
+
+      }
+
+    }
+
+  }
+// -------------------------------------
   void updateFlyerInAllProFlyers({
     @required FlyerModel flyerModel,
     @required bool notify,

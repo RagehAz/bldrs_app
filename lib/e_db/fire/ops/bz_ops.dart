@@ -522,7 +522,7 @@ Future<void> _deleteBzFlyers({
           context: context,
           bzModel: bzModel,
           flyerModel: _flyerModel,
-          updateBzEverywhere: false,
+          bzFireUpdateOps: false,
         );
       }
       

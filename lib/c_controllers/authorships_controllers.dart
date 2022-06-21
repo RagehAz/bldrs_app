@@ -18,6 +18,7 @@ import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/main_navigation_controllers.dart';
 import 'package:bldrs/c_controllers/f_bz_controllers/bz_flyers_page_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
@@ -31,7 +32,6 @@ import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -676,7 +676,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 
 }
 // -------------------------------
-/// TASK : NEED OPTIMIZATION TO DELETE FLYERS AND REBUILD MINIMUM NUMBER OF TIME INSTEAD OR ITERATIONS PER FLYER
+///
 Future<void> _removeAuthorWhoHasFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -695,40 +695,34 @@ Future<void> _removeAuthorWhoHasFlyers({
     ));
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: false,
+      context: context,
+      listen: false,
     );
 
-    /// DELETE ALL AUTHOR FLYERS
-    for (int i = 0; i < authorModel.flyersIDs.length; i++){
-      final String flyerID = authorModel.flyersIDs[i];
-      final FlyerModel _flyer = await FlyerLDBOps.readFlyer(flyerID);
-      await deleteFlyerOps(
-        bzModel: _bzModel,
+    /// DELETE ALL AUTHOR FLYERS EVERY WHERE THEN UPDATE BZ EVERYWHERE
+    final List<FlyerModel> _flyers = await FlyersProvider.proFetchFlyers(
         context: context,
-        flyer: _flyer,
-        showWaitDialog: false,
-        notify: i + 1 == authorModel.name.length,
-      );
-    }
+        flyersIDs: authorModel.flyersIDs,
+    );
+
+    final BzModel _updatedBzModel = await deleteMultipleBzFlyersProtocol(
+      context: context,
+      bzModel: _bzModel,
+      showWaitDialog: false,
+      updateBz: false,
+      flyers: _flyers,
+    );
 
     /// REMOVE AUTHOR MODEL FROM BZ MODEL
-    final BzModel _bzWithoutAuthors = BzModel.removeAuthor(
-      bzModel: _bzModel,
+    final BzModel _bzWithoutAuthor = BzModel.removeAuthor(
+      bzModel: _updatedBzModel,
       authorID: authorModel.userID,
     );
-    final BzModel _finalBz = BzModel.removeFlyersIDs(
-        flyersIDs: authorModel.flyersIDs,
-        bzModel: _bzWithoutAuthors
-    );
-
-    blog('_removeAuthorWhoHasFlyers : _finalBz : ${_finalBz.authors.length} authors');
-    blog('_removeAuthorWhoHasFlyers : _finalBz : ${_finalBz.flyersIDs}');
 
     /// UPDATE BZ ON FIREBASE
     await BzFireOps.updateBz(
         context: context,
-        newBzModel: _finalBz,
+        newBzModel: _bzWithoutAuthor,
         oldBzModel: _bzModel,
         authorPicFile: null
     );
