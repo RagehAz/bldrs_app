@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/y_views/g_user/b_1_user_profile_page.dart';
+import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/aaa1_user_profile_page.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

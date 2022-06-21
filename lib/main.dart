@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/a_1_home_screen.dart';
-import 'package:bldrs/b_views/x_screens/i_flyer/h_0_flyer_screen.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/c_home_screen.dart';
+import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
 import 'package:bldrs/f_helpers/notifications/fcm.dart';
 import 'package:bldrs/f_helpers/notifications/local_note.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -21,7 +21,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
-import 'package:bldrs/b_views/x_screens/a_starters/a_new_logo_screen.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/b_animated_logo_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +165,7 @@ class _BldrsAppState extends State<BldrsApp> {
             return ValueListenableBuilder<String>(
                 valueListenable: _fireError,
                 builder: (_, String error, Widget child) {
-                  return const NewLogoScreen();
+                  return const AnimatedLogoScreen();
                 });
           });
     }
@@ -241,7 +241,7 @@ class _BldrsAppState extends State<BldrsApp> {
               routes: <String, Widget Function(BuildContext)>{
 
                 /// STARTERS
-                Routez.logoScreen: (BuildContext ctx) => const NewLogoScreen(key: ValueKey<String>('LogoScreen'),),
+                Routez.logoScreen: (BuildContext ctx) => const AnimatedLogoScreen(key: ValueKey<String>('LogoScreen'),),
                 Routez.home: (BuildContext ctx) => const HomeScreen(),
 
                 Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
