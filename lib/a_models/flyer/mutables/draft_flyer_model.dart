@@ -339,7 +339,7 @@ class DraftFlyerModel{
 
   /// CHECKERS
 
-// ----
+// -------------------------------------
   static bool checkCanPublishDraft({
     @required DraftFlyerModel draft,
     @required TextEditingController headlineController,
@@ -351,7 +351,7 @@ class DraftFlyerModel{
       if (
       draft.mutableSlides.isNotEmpty == true
       &&
-      headlineController.text.length > Standards.flyerHeadlineMinLength
+      headlineController.text.length >= Standards.flyerHeadlineMinLength
       ){
 
         _canPublish = true;

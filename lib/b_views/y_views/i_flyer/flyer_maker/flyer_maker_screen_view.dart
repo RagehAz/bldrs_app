@@ -317,7 +317,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                   columnChildren: const <Widget>[],
                 ),
 
-
               ],
 
             ),
