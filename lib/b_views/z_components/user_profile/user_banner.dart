@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_use
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
-import 'package:bldrs/c_controllers/g_user_controllers/user_screen_controllers.dart';
+import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a_user_screen_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;

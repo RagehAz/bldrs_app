@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart'
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_controllers/a_starters_controllers/logo_screen_controllers.dart';
+import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';

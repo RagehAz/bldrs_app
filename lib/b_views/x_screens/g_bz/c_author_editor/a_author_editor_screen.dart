@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
@@ -10,7 +8,7 @@ import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubbl
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/c_author_editor_controller.dart';
+import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
