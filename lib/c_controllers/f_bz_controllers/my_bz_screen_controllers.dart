@@ -612,13 +612,14 @@ Future<void> _deleteAllBzFlyersOps({
       flyersIDs: bzModel.flyersIDs
   );
 
-  for (final FlyerModel flyer in _flyers){
+  for (int i = 0; i < _flyers.length; i++){
 
     await deleteFlyerOps(
       bzModel: bzModel,
       context: context,
-      flyer: flyer,
+      flyer: _flyers[i],
       showWaitDialog: false,
+      notify: i + 1 == _flyers.length,
     );
 
   }

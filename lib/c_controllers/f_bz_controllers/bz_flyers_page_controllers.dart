@@ -111,10 +111,11 @@ Future<void> _onDeleteFlyerButtonTap({
   if (_result == true){
 
     await deleteFlyerOps(
-        context: context,
-        bzModel: bzModel,
-        flyer: flyer,
-        showWaitDialog: true
+      context: context,
+      bzModel: bzModel,
+      flyer: flyer,
+      showWaitDialog: true,
+      notify: true,
     );
 
     Nav.goBack(context);
@@ -165,6 +166,7 @@ Future<void> deleteFlyerOps({
   @required BzModel bzModel,
   @required FlyerModel flyer,
   @required bool showWaitDialog,
+  @required bool notify,
 }) async {
 
   if (showWaitDialog == true){
@@ -194,7 +196,7 @@ Future<void> deleteFlyerOps({
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   _flyersProvider.removeFlyerFromProFlyers(
     flyerID: flyer.id,
-    notify: true,
+    notify: notify,
   );
 
   if (showWaitDialog == true){

@@ -134,7 +134,7 @@ List<String> removeStringsFromStrings({
         );
 
         if (_canRemove == true){
-          // do not add it
+          blog('removeStringsFromStrings : removing : $string');
         }
         else {
           _output.add(string);
