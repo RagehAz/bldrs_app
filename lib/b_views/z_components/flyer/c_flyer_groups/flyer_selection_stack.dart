@@ -1,12 +1,13 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -38,14 +39,16 @@ class FlyerSelectionStack extends StatelessWidget {
     final double _checkIconSize = FlyerBox.bottomCornerValue(flyerBoxWidth) * 2;
     final bool _isSelectionMode = onSelectFlyer != null;
 
-    final double _footerHeight = FooterBox.collapsedHeight(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-      tinyMode: true,
-    );
+    // final double _footerHeight = FooterBox.collapsedHeight(
+    //   context: context,
+    //   flyerBoxWidth: flyerBoxWidth,
+    //   tinyMode: true,
+    // );
+
 // ----------------------------------------------------------
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // ----------------------------------------------------------
+
     return Stack(
       // alignment: Alignment.center,
       children: <Widget>[
@@ -59,6 +62,42 @@ class FlyerSelectionStack extends StatelessWidget {
             heroTag: heroTag,
           ),
         ),
+
+        /// NOT VERIFIED
+        if (flyerModel.auditState != AuditState.verified && _tinyMode == true)
+          WidgetFader(
+            fadeType: FadeType.fadeIn,
+            child: IgnorePointer(
+              child: FlyerBox(
+                flyerBoxWidth: flyerBoxWidth,
+                boxColor: Colorz.black80,
+                stackWidgets: <Widget>[
+
+                  Transform.scale(
+                    scale: 2,
+                    child: Transform.rotate(
+                      angle: degreeToRadian(-45),
+                      child: Center(
+                        child: WidgetFader(
+                          fadeType: FadeType.repeatAndReverse,
+                          duration: const Duration(seconds: 2),
+                          child: SuperVerse(
+                            verse: 'Waiting\nVerification',
+                            weight: VerseWeight.black,
+                            italic: true,
+                            scaleFactor: flyerBoxWidth * 0.008,
+                            maxLines: 2,
+                            color: Colorz.white125,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+          ),
 
         /// BLACK COLOR OVERRIDE
         if (isSelected == true)
@@ -120,7 +159,7 @@ class FlyerSelectionStack extends StatelessWidget {
         if (onFlyerOptionsTap != null)
           SuperPositioned(
             enAlignment: Alignment.bottomRight,
-            verticalOffset: _footerHeight,
+            verticalOffset: FooterButton.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: false),
             horizontalOffset: FooterButton.buttonMargin(
                 context: context,
                 flyerBoxWidth: flyerBoxWidth,

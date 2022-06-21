@@ -26,7 +26,9 @@ import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -700,7 +702,7 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes (
 
   return _oldMaps;
 }
-
+// -------------------------------
 void _onBzNotesStreamDataChanged({
   @required BuildContext context,
   @required String bzID,
@@ -721,7 +723,7 @@ void _onBzNotesStreamDataChanged({
   FireCollStreamer.onStreamDataChanged(
     stream: _stream,
     oldMaps: _oldMaps,
-    onChange: (List<Map<String, dynamic>> allBzNotes){
+    onChange: (List<Map<String, dynamic>> allBzNotes) async {
 
       final List<NoteModel> _allBzNotes = NoteModel.decipherNotes(
         maps: allBzNotes,
@@ -735,39 +737,6 @@ void _onBzNotesStreamDataChanged({
           notify: true
       );
 
-      // final List<NoteModel> _allBzzUnseenNotesUpdated = NoteModel.insertNotesInNotes(
-      //     notesToGet: _notesProvider.myBzzUnseenReceivedNotes,
-      //     notesToInsert: _notes,
-      //     duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-      // );
-      //
-      // _notesProvider.setAllBzzUnseenNotesAndRebuildObelisk(
-      //     context: context,
-      //     notes: _allBzzUnseenNotesUpdated,
-      //     notify: true
-      // );
-
-      // final int _notesCount = _getNotesCount(
-      //   notes: _notes,
-      //   thereAreMissingFields: false,
-      // );
-
-      // if (_notesCount != null){
-      //   _notesProvider.setObeliskNoteNumber(
-      //     caller: 'initializeMyBzzNotes',
-      //     value: _notesCount,
-      //     navModelID: NavModel.getMainNavIDString(navID: MainNavModel.bz, bzID: bzModel.id),
-      //     notify: false,
-      //   );
-      //   _notesProvider.setObeliskNoteNumber(
-      //     caller: 'initializeMyBzzNotes',
-      //     value: _notesCount,
-      //     navModelID: NavModel.getBzTabNavID(bzTab: BzTab.notes, bzID: bzModel.id),
-      //     notify: true,
-      //   );
-      //
-      // }
-
       final bool _noteDotIsOn = _checkNoteDotIsOn(
         thereAreMissingFields: false,
         notes: _allBzNotes,
@@ -780,9 +749,87 @@ void _onBzNotesStreamDataChanged({
         );
       }
 
+      await _bzCheckLocalFlyerUpdatesNotesAndProceed(
+        context: context,
+        newBzNotes: _allBzNotes,
+      );
+
     },
   );
 
+
+}
+// -------------------------------
+Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
+  @required BuildContext context,
+  @required List<NoteModel> newBzNotes,
+}) async {
+
+  final List<NoteModel> _flyerUpdatesNotes = NoteModel.getFlyerUpdatesNotes(
+    notes: newBzNotes,
+  );
+
+  if (Mapper.checkCanLoopList(_flyerUpdatesNotes) == true){
+
+    for (int i =0; i < _flyerUpdatesNotes.length; i++){
+
+      final NoteModel note = _flyerUpdatesNotes[i];
+
+      final String _flyerID = Mapper.getStringsFromDynamics(
+        dynamics: note.attachment,
+      )?.first;
+
+      if (_flyerID != null){
+
+        final FlyerModel flyerModel = await FlyerFireOps.readFlyerOps(
+            context: context,
+            flyerID: _flyerID
+        );
+
+        await localFlyerUpdateProtocol(
+          context: context,
+          flyerModel: flyerModel,
+          insertInActiveBzFlyersIfAbsent: true,
+          notify: (i + 1) == _flyerUpdatesNotes.length,
+        );
+
+      }
+
+
+    }
+
+  }
+
+}
+
+Future<void> localFlyerUpdateProtocol({
+  @required BuildContext context,
+  @required FlyerModel flyerModel,
+  @required bool insertInActiveBzFlyersIfAbsent,
+  @required bool notify,
+}) async {
+
+  if (flyerModel != null){
+
+    await FlyerLDBOps.insertFlyer(flyerModel);
+
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    _flyersProvider.updateFlyerInAllProFlyers(
+        flyerModel: flyerModel,
+        notify: notify
+    );
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzModel _activeBz = _bzzProvider.myActiveBz;
+    if (_activeBz.id == flyerModel.bzID){
+      _bzzProvider.updateFlyerInActiveBzFlyers(
+        flyer: flyerModel,
+        notify: notify,
+        insertIfAbsent: insertInActiveBzFlyersIfAbsent,
+      );
+    }
+
+  }
 
 }
 // -----------------------------------------------------------------------------
