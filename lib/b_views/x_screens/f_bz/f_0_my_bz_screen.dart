@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/y_views/f_bz/my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_nav
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/obelisk_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 
 class MyBzScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -64,7 +66,12 @@ class MyBzScreen extends StatelessWidget {
             blog('MyBzScreen : streamBz == proMyActiveBz ? : $_areIdentical');
             _bzModel.blogBz(methodName: 'My Bz Screen : pro bz');
 
-            if (_bzModel == null){
+            final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
+              authors: _bzModel.authors,
+              userID: AuthFireOps.superUserID(),
+            );
+
+            if (_bzModel == null || _authorsContainMyUserID == false){
               return const SizedBox();
             }
 
