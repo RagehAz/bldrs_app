@@ -682,6 +682,82 @@ Future<void> _removeAuthorWhoHasFlyers({
   @required AuthorModel authorModel,
 }) async {
 
+  final bool _result = await _showDeleteAllAuthorFlyers(
+    context: context,
+    authorModel: authorModel,
+  );
+
+  if (_result == true){
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Removing ${authorModel.name}',
+    ));
+
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: false,
+    );
+
+    /// DELETE ALL AUTHOR FLYERS
+    for (int i = 0; i < authorModel.flyersIDs.length; i++){
+      final String flyerID = authorModel.flyersIDs[i];
+      final FlyerModel _flyer = await FlyerLDBOps.readFlyer(flyerID);
+      await deleteFlyerOps(
+        bzModel: _bzModel,
+        context: context,
+        flyer: _flyer,
+        showWaitDialog: false,
+        notify: i + 1 == authorModel.name.length,
+      );
+    }
+
+    /// REMOVE AUTHOR MODEL FROM BZ MODEL
+    final BzModel _bzWithoutAuthors = BzModel.removeAuthor(
+      bzModel: _bzModel,
+      authorID: authorModel.userID,
+    );
+    final BzModel _finalBz = BzModel.removeFlyersIDs(
+        flyersIDs: authorModel.flyersIDs,
+        bzModel: _bzWithoutAuthors
+    );
+
+    blog('_removeAuthorWhoHasFlyers : _finalBz : ${_finalBz.authors.length} authors');
+    blog('_removeAuthorWhoHasFlyers : _finalBz : ${_finalBz.flyersIDs}');
+
+    /// UPDATE BZ ON FIREBASE
+    await BzFireOps.updateBz(
+        context: context,
+        newBzModel: _finalBz,
+        oldBzModel: _bzModel,
+        authorPicFile: null
+    );
+
+    /// SEND AUTHOR DELETION NOTES
+    await _sendAuthorDeletionNotes(
+      context: context,
+      bzModel: _bzModel,
+      deletedAuthor: authorModel,
+    );
+
+    WaitDialog.closeWaitDialog(context);
+
+    /// SHOW CONFIRMATION DIALOG
+    await _showAuthorRemovalConfirmationDialog(
+      context: context,
+      bzModel: _bzModel,
+      deletedAuthor: authorModel,
+    );
+
+  }
+
+}
+// -------------------------------
+Future<bool> _showDeleteAllAuthorFlyers({
+  @required BuildContext context,
+  @required AuthorModel authorModel,
+}) async {
+
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     title: 'Delete All Flyers',
@@ -705,61 +781,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     ),
   );
 
-  if (_result == true){
-
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingPhrase: 'Removing ${authorModel.name}',
-    ));
-
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: false,
-    );
-
-    /// DELETE ALL AUTHOR FLYERS
-    for (final String flyerID in authorModel.flyersIDs){
-      final FlyerModel _flyer = await FlyerLDBOps.readFlyer(flyerID);
-      await deleteFlyerOps(
-        bzModel: _bzModel,
-        context: context,
-        flyer: _flyer,
-        showWaitDialog: false,
-      );
-    }
-
-    /// REMOVE AUTHOR MODEL FROM BZ MODEL
-    final BzModel _updatedBzModel = BzModel.removeAuthor(
-      bzModel: _bzModel,
-      authorID: authorModel.userID,
-    );
-
-    /// UPDATE BZ ON FIREBASE
-    await BzFireOps.updateBz(
-        context: context,
-        newBzModel: _updatedBzModel,
-        oldBzModel: _bzModel,
-        authorPicFile: null
-    );
-
-    /// SEND AUTHOR DELETION NOTES
-    await _sendAuthorDeletionNotes(
-      context: context,
-      bzModel: _bzModel,
-      deletedAuthor: authorModel,
-    );
-
-    WaitDialog.closeWaitDialog(context);
-
-    /// SHOW CONFIRMATION DIALOG
-    await _showAuthorRemovalConfirmationDialog(
-      context: context,
-      bzModel: _bzModel,
-      deletedAuthor: authorModel,
-    );
-
-  }
-
+  return _result;
 }
 // -------------------------------
 Future<void> _removeAuthorWhoHasNoFlyers({
