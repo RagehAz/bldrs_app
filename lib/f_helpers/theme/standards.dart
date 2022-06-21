@@ -1,70 +1,56 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:flutter/foundation.dart';
 
+/// TASK : should be save on firestore to be able to edit them from dashboard
+class Standards {
+
+  Standards();
+
 // -----------------------------------------------------------------------------
-const int maxFlyerSlidesFreeAccount = 50;
 
-/// TASK : should be save on firestore
-const int maxFlyerSlidesPremiumAccount = 7;
-const int maxFlyerSlidesFreeSuper = 25;
+/// FLYER STANDARDS
 
-const int maxDraftsAtOnce = 5;
-
-const int flyerTitleMaxLength = 50;
-
-const int maxAuthorsPerBz = 20;
-
-// const int maxSlidesPerFlyer = 10;
-
-const int maxUserFollows = 500;
-const int maxUserSavedFlyers = 1000;
-const int maxUserBzz = 10;
-
-const int maxTrigramLength = 7;
-
-const int maxLocationFetchSeconds = 10;
-
-const String ipRegistryAPIKey = '89i23ivki8p5tsqj';
-// -----------------------------------------------------------------------------
-int getMaxSlidesCount({
-  @required BzAccountType bzAccountType,
-}) {
-  switch (bzAccountType) {
-    case BzAccountType.normal:  return maxFlyerSlidesFreeAccount;     break;
-    case BzAccountType.premium: return maxFlyerSlidesPremiumAccount;  break;
-    case BzAccountType.sphinx:  return maxFlyerSlidesFreeSuper;       break;
-    default:  return maxFlyerSlidesFreeAccount;
+// ----------------------------------
+  /// MAX SLIDES PER BZ ACCOUNT TYPE
+  static const int maxFlyerSlidesFreeAccount = 50;
+  static const int maxFlyerSlidesPremiumAccount = 7;
+  static const int maxFlyerSlidesFreeSuper = 25;
+// ----------------------------------
+  static int getMaxSlidesCount({
+    @required BzAccountType bzAccountType,
+  }) {
+    switch (bzAccountType) {
+      case BzAccountType.normal:  return Standards.maxFlyerSlidesFreeAccount;     break;
+      case BzAccountType.premium: return Standards.maxFlyerSlidesPremiumAccount;  break;
+      case BzAccountType.sphinx:  return Standards.maxFlyerSlidesFreeSuper;       break;
+      default:  return Standards.maxFlyerSlidesFreeAccount;
+    }
   }
-}
+// ----------------------------------
+  /// FLYER HEADLINE LENGTH
+  static const int flyerHeadlineMaxLength = 50;
+  static const int flyerHeadlineMinLength = 5;
 // -----------------------------------------------------------------------------
-bool canAddMoreSlides({
-  @required BzAccountType bzAccountType,
-  @required int numberOfSlide,
-}) {
-  bool _canAdd = false;
 
-    final int _maxSlides = getMaxSlidesCount(
-      bzAccountType: bzAccountType,
-    );
+/// BZ STANDARDS
 
-    if (numberOfSlide < _maxSlides) {
-      _canAdd = true;
-    }
-
-  return _canAdd;
-}
-
+// ----------------------------------
+  static const int maxUserBzz = 10;
+  static const int maxAuthorsPerBz = 20;
 // -----------------------------------------------------------------------------
-bool canDeleteSlide({
-  @required int numberOfSlides,
-}) {
-  bool _canDelete = false;
 
-    if (numberOfSlides != 0) {
-      // if(superFlyer.firstTimer == true){
-      _canDelete = true;
-      // }
-    }
+/// USER RECORDS STANDARDS
 
-  return _canDelete;
+// ----------------------------------
+  static const int maxUserFollows = 500;
+  static const int maxUserSavedFlyers = 1000;
+// -----------------------------------------------------------------------------
+
+/// OTHER STANDARDS
+
+// ----------------------------------
+  static const int maxTrigramLength = 7;
+  static const int maxLocationFetchSeconds = 10;
+  static const String ipRegistryAPIKey = '89i23ivki8p5tsqj';
+
 }

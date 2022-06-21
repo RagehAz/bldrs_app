@@ -15,7 +15,7 @@ import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 // -----------------------------------------------------------------------------
@@ -333,8 +333,8 @@ String flyerHeadlineValidator({
 }){
 
   /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
-  if(val.length >= Standards.flyerTitleMaxLength){
-    return 'Only ${Standards.flyerTitleMaxLength} characters allowed for the flyer title';
+  if(val.length >= Standards.flyerHeadlineMaxLength){
+    return 'Only ${Standards.flyerHeadlineMaxLength} characters allowed for the flyer title';
   }
 
   /// WHEN HEADLINE LENGTH IS OK

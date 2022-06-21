@@ -19,6 +19,7 @@ import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -253,7 +254,7 @@ String flyerHeadlineValidator({
 }){
 
   final bool _isEmpty = headlineController.text.trim() == '';
-  final bool _isShort = headlineController.text.length < 10;
+  final bool _isShort = headlineController.text.length < Standards.flyerHeadlineMinLength;
 
   if (_isEmpty){
     return "Can not publish a flyer without a title as it's used in the search engine";

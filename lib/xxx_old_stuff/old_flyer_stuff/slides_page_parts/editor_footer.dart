@@ -2,7 +2,7 @@
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer.dart';
 // import 'package:bldrs/b_views/widgets/specific/flyer/parts/pages_parts/slides_page_parts/footer_parts/footer_button.dart';
 // import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-// import 'package:bldrs/f_helpers/theme/standards.dart' as Standards;
+// import 'package:bldrs/f_helpers/theme/standards.dart';
 // import 'package:flutter/material.dart';
 //
 // class EditorFooter extends StatelessWidget {

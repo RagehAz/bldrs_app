@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -335,4 +336,29 @@ class DraftFlyerModel{
     blog('BLOGGIND DRAFT FLYER MODEL ---------------------------------------- END');
   }
 // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// ----
+  static bool checkCanPublishDraft({
+    @required DraftFlyerModel draft,
+    @required TextEditingController headlineController,
+  }){
+    bool _canPublish = false;
+
+    if (draft != null){
+
+      if (
+      draft.mutableSlides.isNotEmpty == true
+      &&
+      headlineController.text.length > Standards.flyerHeadlineMinLength
+      ){
+
+        _canPublish = true;
+      }
+
+    }
+
+    return _canPublish;
+  }
 }
