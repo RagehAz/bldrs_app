@@ -493,6 +493,51 @@ class BzzProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  void removeFlyerFromActiveBzFlyers({
+    @required String flyerID,
+    @required bool notify,
+  }){
+
+    if (flyerID != null){
+
+      _myActiveBzFlyers = FlyerModel.removeFlyerFromFlyersByID(
+        flyers: _myActiveBzFlyers,
+        flyerIDToRemove: flyerID,
+      );
+
+      if (notify == true){
+        notifyListeners();
+      }
+
+    }
+
+  }
+// -------------------------------------
+  void removeFlyersFromActiveBzFlyers({
+    @required List<String> flyersIDs,
+    @required bool notify,
+  }){
+
+    if (Mapper.checkCanLoopList(flyersIDs) == true){
+
+      for (int i = 0; i < flyersIDs.length; i++){
+
+        bool _notify = false;
+        if (i + 1 == flyersIDs.length){
+          _notify = notify;
+        }
+
+        removeFlyerFromActiveBzFlyers(
+          flyerID: flyersIDs[i],
+          notify: _notify,
+        );
+
+      }
+
+    }
+
+  }
+// -------------------------------------
   void clearActiveBzFlyers({
   @required bool notify,
 }){

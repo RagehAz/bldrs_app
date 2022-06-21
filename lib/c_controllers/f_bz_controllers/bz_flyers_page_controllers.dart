@@ -9,11 +9,13 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
-import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -110,7 +112,7 @@ Future<void> _onDeleteFlyerButtonTap({
 
   if (_result == true){
 
-    await deleteFlyerOps(
+    await deleteSingleFlyerProtocol(
       context: context,
       bzModel: bzModel,
       flyer: flyer,
@@ -161,7 +163,7 @@ Future<bool> _showConfirmDeleteFlyerDialog({
   return _result;
 }
 // -------------------------------
-Future<void> deleteFlyerOps({
+Future<void> deleteSingleFlyerProtocol({
   @required BuildContext context,
   @required BzModel bzModel,
   @required FlyerModel flyer,
@@ -182,15 +184,11 @@ Future<void> deleteFlyerOps({
     context: context,
     flyerModel: flyer,
     bzModel: bzModel,
-    updateBzEverywhere: true,
+    bzFireUpdateOps: true,
   );
 
   /// DELETE FLYER ON LDB
-  await LDBOps.deleteMap(
-      objectID: flyer.id,
-      docName: LDBDoc.flyers
-  );
-
+  await FlyerLDBOps.deleteFlyers(<String>[flyer.id]);
 
   /// REMOVE FLYER FROM FLYERS PROVIDER
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
@@ -203,5 +201,80 @@ Future<void> deleteFlyerOps({
     WaitDialog.closeWaitDialog(context);
   }
 
+}
+// -------------------------------
+Future<BzModel> deleteMultipleBzFlyersProtocol({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required List<FlyerModel> flyers,
+  @required bool showWaitDialog,
+  @required bool updateBz,
+}) async {
+
+  BzModel _bzModel = bzModel;
+
+  if (checkCanLoopList(flyers) == true && bzModel != null){
+
+    if (showWaitDialog == true){
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Deleting flyers',
+        canManuallyGoBack: false,
+      ));
+    }
+
+    /// FIRE DELETION
+    _bzModel = await FlyerFireOps.deleteMultipleBzFlyers(
+        context: context,
+        flyersToDelete: flyers,
+        bzModel: bzModel,
+        updateBzFireOps: updateBz,
+    );
+
+    /// FLYER LDB DELETION
+    final List<String> _flyersIDs = FlyerModel.getFlyersIDsFromFlyers(flyers);
+    await FlyerLDBOps.deleteFlyers(_flyersIDs);
+
+    /// BZ LDB UPDATE
+    if (updateBz == true){
+      await BzLDBOps.updateBzOps(
+          bzModel: _bzModel
+      );
+    }
+
+    /// FLYER PRO DELETION
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    _flyersProvider.removeFlyersFromProFlyers(
+      flyersIDs: _flyersIDs,
+      notify: true,
+    );
+
+    /// BZ PRO UPDATE
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final bool _shouldUpdateMyActiveBz =
+        updateBz == true
+            &&
+        _bzzProvider.myActiveBz.id == _bzModel.id;
+
+    _bzzProvider.removeFlyersFromActiveBzFlyers(
+      flyersIDs: _flyersIDs,
+      notify: !_shouldUpdateMyActiveBz,
+    );
+
+    /// BZ PRO UPDATE
+    if (_shouldUpdateMyActiveBz == true){
+        _bzzProvider.setActiveBz(
+          bzModel: _bzModel,
+          notify: true,
+        );
+    }
+
+    if (showWaitDialog == true){
+      WaitDialog.closeWaitDialog(context);
+    }
+
+  }
+
+  return _bzModel;
 }
 // -----------------------------------------------------------------------------

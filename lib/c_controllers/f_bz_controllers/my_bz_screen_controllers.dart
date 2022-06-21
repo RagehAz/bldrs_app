@@ -251,6 +251,10 @@ Future<void> _myBzResignationProtocol({
         bzID: newBzFromStream.id,
         notify: false,
     );
+    await BzLDBOps.deleteBzOps(
+        context: context,
+        bzModel: newBzFromStream,
+    );
 
     /// 5 - REMOVE BZ ID FROM MY BZZ IDS / UPDATE MY USER MODEL AND AUTH MODEL IN PROVIDER
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -614,7 +618,7 @@ Future<void> _deleteAllBzFlyersOps({
 
   for (int i = 0; i < _flyers.length; i++){
 
-    await deleteFlyerOps(
+    await deleteSingleFlyerProtocol(
       bzModel: bzModel,
       context: context,
       flyer: _flyers[i],
