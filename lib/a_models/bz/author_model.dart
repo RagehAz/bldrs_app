@@ -34,6 +34,7 @@ class AuthorModel {
   /// CREATORS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   AuthorModel copyWith({
     String userID,
     String name,
@@ -625,6 +626,21 @@ class AuthorModel {
 
     return _contains;
   }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkAuthorHasFlyers({
+    @required AuthorModel author,
+  }){
+    bool _hasFlyers = false;
+
+    if (author != null){
+
+      _hasFlyers = author.flyersIDs?.isNotEmpty;
+
+    }
+
+    return _hasFlyers;
+  }
 // -----------------------------------------------------------------------------
 
   /// GENERATORS
@@ -673,6 +689,7 @@ class AuthorModel {
   /// DUMMIES
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static AuthorModel dummyAuthor() {
     return AuthorModel(
       userID: 'author_dummy_id',
@@ -685,6 +702,7 @@ class AuthorModel {
     );
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> dummyAuthors() {
     return <AuthorModel>[
       dummyAuthor(),
@@ -698,6 +716,7 @@ class AuthorModel {
   /// BLOGGING
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   void blogAuthor({
     String methodName = 'Blogging Author',
   }) {
@@ -716,6 +735,7 @@ class AuthorModel {
     blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogAuthors({
     @required List<AuthorModel> authors,
     String methodName,

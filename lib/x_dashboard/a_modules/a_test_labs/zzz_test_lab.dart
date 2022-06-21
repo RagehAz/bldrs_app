@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -460,32 +461,57 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 ),
 
                 /// HASH VERSE
-                ValueListenableBuilder(
-                  valueListenable: _showHash,
-                  builder: (_, bool showHash, Widget child){
+                // ValueListenableBuilder(
+                //   valueListenable: _showHash,
+                //   builder: (_, bool showHash, Widget child){
+                //
+                //     return ValueListenableBuilder(
+                //       valueListenable: _hashVerse,
+                //       builder: (_, String verse, Widget child){
+                //
+                //         return Container(
+                //           width: 200,
+                //           margin: Scale.superMargins(margins: 10),
+                //           child: SuperVerse(
+                //             verse: verse,
+                //             maxLines: 6,
+                //             weight: VerseWeight.thin,
+                //             size: 3,
+                //             italic: true,
+                //           ),
+                //         );
+                //
+                //         },
+                //     );
+                //
+                //     },
+                // ),
 
-                    return ValueListenableBuilder(
-                      valueListenable: _hashVerse,
-                      builder: (_, String verse, Widget child){
-
-                        return Container(
-                          width: 200,
-                          margin: Scale.superMargins(margins: 10),
-                          child: SuperVerse(
-                            verse: verse,
-                            maxLines: 6,
-                            weight: VerseWeight.thin,
-                            size: 3,
-                            italic: true,
-                          ),
-                        );
-
-                        },
-                    );
-
-                    },
+                /// HORIZONTAL FLYERS GRID
+                Center(
+                  child: Container(
+                    width: 300,
+                    height: 150,
+                    color: Colorz.bloodTest,
+                    margin: Scale.superMargins(margins: 20),
+                    child: FlyersGrid(
+                      gridWidth: 300,
+                      gridHeight: 150,
+                      scrollController: ScrollController(),
+                      scrollDirection: Axis.horizontal,
+                      topPadding: 0,
+                      numberOfColumnsOrRows: 1,
+                      // isLoadingGrid: false,
+                      paginationFlyersIDs: const <String>[
+                        'IcWyY7CZzQ1FUieRaoG4',
+                        'IcWyY7CZzQ1FUieRaoG4',
+                        'IcWyY7CZzQ1FUieRaoG4',
+                        'IcWyY7CZzQ1FUieRaoG4',
+                        'IcWyY7CZzQ1FUieRaoG4',
+                      ],
+                    ),
+                  ),
                 ),
-
 
 
                 /// PROMOTED FLYERS
