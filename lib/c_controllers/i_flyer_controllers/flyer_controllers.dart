@@ -218,18 +218,7 @@ List<String> splitHeroTagIntoFlyersIDs({
 
   return _output;
 }
-// -----------------------------------------------------------------------------
-Future<List<FlyerModel>> fetchFlyers({
-  @required BuildContext context,
-  @required List<String> flyersIDs,
-}) async {
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  final List<FlyerModel> _flyers = await _flyersProvider.fetchFlyersByIDs(
-      context: context,
-      flyersIDs: flyersIDs,
-  );
-  return _flyers;
-}
+
 // --------------------------------------------
 /// GETS ONLY THE NEXT UNLOADED NUMBER OF FLYERS IDS
 List<String> getNextFlyersIDs({
@@ -416,7 +405,7 @@ Future<List<FlyerModel>> fetchMoreFlyers({
     // numberOfFlyers: 4
   );
 
-  final List<FlyerModel> _moreFlyers = await fetchFlyers(
+  final List<FlyerModel> _moreFlyers = await FlyersProvider.proFetchFlyers(
     context:  context,
     flyersIDs: _nextFlyersIDs,
   );

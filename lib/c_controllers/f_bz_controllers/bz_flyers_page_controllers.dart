@@ -208,7 +208,7 @@ Future<BzModel> deleteMultipleBzFlyersProtocol({
   @required BzModel bzModel,
   @required List<FlyerModel> flyers,
   @required bool showWaitDialog,
-  @required bool updateBz,
+  @required bool updateBzEveryWhere,
 }) async {
 
   BzModel _bzModel = bzModel;
@@ -228,7 +228,7 @@ Future<BzModel> deleteMultipleBzFlyersProtocol({
         context: context,
         flyersToDelete: flyers,
         bzModel: bzModel,
-        updateBzFireOps: updateBz,
+        updateBzFireOps: updateBzEveryWhere,
     );
 
     /// FLYER LDB DELETION
@@ -236,7 +236,7 @@ Future<BzModel> deleteMultipleBzFlyersProtocol({
     await FlyerLDBOps.deleteFlyers(_flyersIDs);
 
     /// BZ LDB UPDATE
-    if (updateBz == true){
+    if (updateBzEveryWhere == true){
       await BzLDBOps.updateBzOps(
           bzModel: _bzModel
       );
@@ -252,7 +252,7 @@ Future<BzModel> deleteMultipleBzFlyersProtocol({
     /// BZ PRO UPDATE
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final bool _shouldUpdateMyActiveBz =
-        updateBz == true
+        updateBzEveryWhere == true
             &&
         _bzzProvider.myActiveBz.id == _bzModel.id;
 
