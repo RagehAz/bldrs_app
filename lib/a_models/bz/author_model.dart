@@ -275,6 +275,30 @@ class AuthorModel {
 
     return _names;
   }
+// ----------------------------------
+  static AuthorModel getFlyerAuthor({
+    @required List<AuthorModel> authors,
+    @required String flyerID,
+  }){
+
+    AuthorModel _author;
+
+    if (Mapper.checkCanLoopList(authors) == true){
+
+      _author = authors.firstWhere((AuthorModel authorModel){
+
+        final bool _found = Mapper.checkStringsContainString(
+            strings: authorModel.flyersIDs,
+            string: flyerID,
+        );
+
+        return _found;
+      });
+
+    }
+
+    return _author;
+  }
 // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -451,7 +475,7 @@ class AuthorModel {
 }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static List<AuthorModel> removeFlyerIDToAuthor({
+  static List<AuthorModel> removeFlyerIDFromAuthor({
     @required String flyerID,
     @required String authorID,
     @required List<AuthorModel> authors,
@@ -499,6 +523,35 @@ class AuthorModel {
 
       blog('removeFlyerIDToAuthor : author are identical : $_authorsAreIdentical');
 
+
+    }
+
+    return _output;
+  }
+// ----------------------------------
+  static List<AuthorModel> removeFlyerIDFromAuthors({
+    @required String flyerID,
+    @required List<AuthorModel> authors,
+  }){
+
+    List<AuthorModel> _output = authors;
+
+    if (flyerID != null && Mapper.checkCanLoopList(authors) == true){
+
+      final AuthorModel _ownerOfFlyer = getFlyerAuthor(
+        authors: authors,
+        flyerID: flyerID,
+      );
+
+      if (_ownerOfFlyer != null){
+
+        _output = AuthorModel.removeFlyerIDFromAuthor(
+            flyerID: flyerID,
+            authorID: _ownerOfFlyer.userID,
+            authors: authors
+        );
+
+      }
 
     }
 

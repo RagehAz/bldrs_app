@@ -583,7 +583,7 @@ Future<BzModel> deleteFlyerOps({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
   /// to avoid frequent updates to bz fire doc in delete bz ops
-  @required bool updateBzEverywhere,
+  @required bool bzFireUpdateOps,
 }) async {
 
   /// NOTE : returns updated Bz Model
@@ -594,7 +594,7 @@ Future<BzModel> deleteFlyerOps({
   if (flyerModel != null && flyerModel.id != null && bzModel != null) {
 
     /// DELETE FLYER ID FROM BZ FLYERS IDS
-    if (updateBzEverywhere == true) {
+    if (bzFireUpdateOps == true) {
 
       _uploadedBz = await _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
         context: context,
@@ -654,7 +654,7 @@ Future<BzModel> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
 
     // blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : is bzFlyers : $_bzFlyersIDs');
 
-    final List<AuthorModel> _updatedAuthors = AuthorModel.removeFlyerIDToAuthor(
+    final List<AuthorModel> _updatedAuthors = AuthorModel.removeFlyerIDFromAuthor(
         flyerID: flyer.id,
         authorID: flyer.authorID,
         authors: bzModel.authors,
@@ -753,6 +753,81 @@ Future<void> _deleteFlyerDoc({
 
   blog('_deleteFlyerDoc : END');
 
+}
+// -----------------------------------
+Future<BzModel> deleteMultipleBzFlyers({
+  @required BuildContext context,
+  @required List<FlyerModel> flyersToDelete,
+  @required BzModel bzModel,
+  @required bool updateBzFireOps,
+}) async {
+
+  /// NOTE : just in case, this filters flyers IDs and only delete those already in the bzModel.flyersIDs
+  BzModel _bzModel = bzModel;
+
+  if (Mapper.checkCanLoopList(flyersToDelete) == true && bzModel != null){
+
+    List<AuthorModel> _bzAuthors = <AuthorModel>[..._bzModel.authors];
+    List<String> _bzFlyersIDs = <String>[..._bzModel.flyersIDs];
+
+    for (final FlyerModel flyerModel in flyersToDelete){
+
+      final bool _canDelete = Mapper.checkStringsContainString(
+          strings: bzModel.flyersIDs,
+          string: flyerModel.id,
+      );
+
+      if (_canDelete == true){
+
+        /// DELETE FLYER RECORDS
+        await _deleteFlyerRecords(
+          context: context,
+          flyerModel: flyerModel,
+        );
+
+        /// DELETE FLYER STORAGE IMAGES
+        await _deleteFlyerStorageImages(
+          context: context,
+          flyerModel: flyerModel,
+        );
+
+        /// I - delete firestore/flyers/flyerID
+        await _deleteFlyerDoc(
+          context: context,
+          flyerID: flyerModel.id,
+        );
+
+        _bzFlyersIDs = Mapper.removeStringsFromStrings(
+          removeFrom: _bzFlyersIDs,
+          removeThis: <String>[flyerModel.id],
+        );
+
+        _bzAuthors = AuthorModel.removeFlyerIDFromAuthors(
+          authors: _bzAuthors,
+          flyerID: flyerModel.id,
+        );
+
+      }
+
+    }
+
+    _bzModel = bzModel.copyWith(
+      authors: _bzAuthors,
+      flyersIDs: _bzFlyersIDs,
+    );
+
+    if (updateBzFireOps == true){
+      _bzModel = await BzFireOps.updateBz(
+        context: context,
+        newBzModel: _bzModel,
+        oldBzModel: bzModel,
+        authorPicFile: null,
+      );
+    }
+
+}
+
+  return _bzModel;
 }
 // -----------------------------------------------------------------------------
 
