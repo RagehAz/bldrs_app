@@ -13,7 +13,6 @@ import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
@@ -352,7 +351,6 @@ Future<void> onZoneChanged({
 Future<void> onPublishFlyerButtonTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
-  @required BzModel bzModel,
   @required GlobalKey<FormState> formKey,
 }) async {
 
@@ -366,7 +364,6 @@ Future<void> onPublishFlyerButtonTap({
 
     await _publishFlyerOps(
       context: context,
-      bzModel: bzModel,
       draft: draft,
     );
 
@@ -430,7 +427,6 @@ Future<bool> _prePublishFlyerCheck({
 Future<void> _publishFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
-  @required BzModel bzModel,
 }) async {
 
   unawaited(WaitDialog.showWaitDialog(
@@ -443,22 +439,32 @@ Future<void> _publishFlyerOps({
     publishState: PublishState.published,
   );
 
+  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+      context: context,
+      listen: false,
+  );
+
+  blog('bz flyers IDs before upload : ${_bzModel.flyersIDs}');
+
   /// upload to firebase
   final Map<String, dynamic> _uploadedFlyerAndBz = await FlyerFireOps.createFlyerOps(
       context: context,
       draftFlyer: _flyerToPublish,
-      bzModel: bzModel
+      bzModel: _bzModel
   );
   final FlyerModel _uploadedFlyer = _uploadedFlyerAndBz['flyer'];
   final BzModel _uploadedBz = _uploadedFlyerAndBz['bz'];
 
-  blog('onPublish flyer : new flyer uploaded and bzModel updated on firebase');
+  blog('onPublish flyer : new flyer uploaded and _bzModel updated on firebase');
 
-  await myActiveBzLocalUpdateProtocol(
-      context: context,
-      newBzModel: _uploadedBz,
-      oldBzModel: bzModel,
-  );
+  _bzModel.blogBz(methodName: 'original bz');
+  _uploadedBz.blogBz(methodName: 'uploaded');
+
+  // await myActiveBzLocalUpdateProtocol(
+  //     context: context,
+  //     newBzModel: _uploadedBz,
+  //     oldBzModel: _bzModel,
+  // );
 
   await FlyerLDBOps.insertFlyer(_uploadedFlyer);
 
