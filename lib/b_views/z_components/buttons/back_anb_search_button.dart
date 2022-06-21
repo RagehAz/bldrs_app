@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/x_screens/c_search/c_0_search_screen.dart';
+import 'package:bldrs/b_views/x_screens/c_main_search/a_main_search_screen.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -85,7 +85,7 @@ class BackAndSearchButton extends StatelessWidget {
             else if (backAndSearchAction == BackAndSearchAction.goToSearchScreen) {
               await Nav.goToNewScreen(
                   context: context,
-                  screen: const SearchScreen(),
+                  screen: const MainSearchScreen(),
               );
             }
 
