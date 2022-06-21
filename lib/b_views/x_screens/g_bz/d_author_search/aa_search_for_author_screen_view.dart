@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/c_author_search_controllers.dart';
+import 'package:bldrs/c_controllers/g_bz_controllers/d_author_search/a_author_search_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';

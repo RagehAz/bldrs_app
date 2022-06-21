@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/c_controllers/search_screen_controllers.dart';
+import 'package:bldrs/c_controllers/c_main_search_controllers/main_search_controllers.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';

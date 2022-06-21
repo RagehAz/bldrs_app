@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/d_user/b_user_editor/aa_user_editor_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/c_controllers/g_user_controllers/user_editor_controllers.dart';
+import 'package:bldrs/c_controllers/d_user_controllers/b_user_editor/a_user_editor_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
