@@ -147,6 +147,7 @@ List<String> removeStringsFromStrings({
   return _output;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 List<String> putStringInStringsIfAbsent({
   @required List<String> strings,
   @required String string,
@@ -158,16 +159,17 @@ List<String> putStringInStringsIfAbsent({
 
     _output = <String>[...strings];
 
-    final bool _contains = checkStringsContainString(
-        strings: strings,
-        string: string,
-    );
-
-    if (_contains == false){
-      _output.add(string);
-    }
-
   }
+
+  final bool _contains = checkStringsContainString(
+    strings: _output,
+    string: string,
+  );
+
+  if (_contains == false){
+    _output.add(string);
+  }
+
 
   return _output;
 }

@@ -8,11 +8,11 @@ import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
-import 'package:bldrs/c_controllers/f_bz_controllers/my_bz_screen_controllers.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -21,7 +21,6 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 
 // -----------------------------------------------------------------------------
 
@@ -169,7 +168,7 @@ Future<BzModel> _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs({
   @required FlyerModel newFlyerToAdd,
 }) async {
 
-  blog('_addFlyerIDToBzFlyersIDs : START');
+  blog('_addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
 
   final List<String> _updatedBzFlyersIDs = addStringToListIfDoesNotContainIt(
       strings: bzModel.flyersIDs,
@@ -181,6 +180,7 @@ Future<BzModel> _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs({
       authorID: newFlyerToAdd.authorID,
       authors: bzModel.authors,
   );
+
 
   final BzModel _updatedBzModel = bzModel.copyWith(
     flyersIDs: _updatedBzFlyersIDs,
@@ -194,7 +194,7 @@ Future<BzModel> _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs({
       authorPicFile: null
   );
 
-  blog('_addFlyerIDToBzFlyersIDs : END');
+  blog('_addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : END');
 
   return _uploadedBzModel;
 }
@@ -578,13 +578,16 @@ Future<void> _updateFlyerDoc({
 /// DELETE
 
 // -----------------------------------
-Future<void> deleteFlyerOps({
+Future<BzModel> deleteFlyerOps({
   @required BuildContext context,
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
   /// to avoid frequent updates to bz fire doc in delete bz ops
   @required bool updateBzEverywhere,
 }) async {
+
+  /// NOTE : returns updated Bz Model
+  BzModel _uploadedBz = bzModel;
 
   blog('deleteFlyerOps : START : ${flyerModel?.id}');
 
@@ -593,16 +596,10 @@ Future<void> deleteFlyerOps({
     /// DELETE FLYER ID FROM BZ FLYERS IDS
     if (updateBzEverywhere == true) {
 
-      final BzModel _uploadedBzModel = await _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
+      _uploadedBz = await _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
         context: context,
         flyer: flyerModel,
         bzModel: bzModel,
-      );
-
-      await myActiveBzLocalUpdateProtocol(
-          context: context,
-          newBzModel: _uploadedBzModel,
-          oldBzModel: bzModel,
       );
 
     }
@@ -633,6 +630,7 @@ Future<void> deleteFlyerOps({
 
   blog('deleteFlyerOps : END : ${flyerModel?.id}');
 
+  return _uploadedBz;
 }
 // -----------------------------------
 Future<BzModel> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
@@ -647,10 +645,14 @@ Future<BzModel> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
 
   if (bzModel != null && flyer != null){
 
+    // blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : was bzFlyers : ${bzModel.flyersIDs}');
+
     final List<String> _bzFlyersIDs = Mapper.removeStringsFromStrings(
       removeFrom: bzModel.flyersIDs,
       removeThis: <String>[flyer.id],
     );
+
+    // blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : is bzFlyers : $_bzFlyersIDs');
 
     final List<AuthorModel> _updatedAuthors = AuthorModel.removeFlyerIDToAuthor(
         flyerID: flyer.id,
@@ -667,12 +669,12 @@ Future<BzModel> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
         context: context,
         newBzModel: _updatedBzModel,
         oldBzModel: bzModel,
-        authorPicFile: null
+        authorPicFile: null,
     );
 
   }
 
-  blog('_deleteFlyerIDFromBzFlyersIDs : START');
+  blog('_deleteFlyerIDFromBzFlyersIDs : END');
 
   return _uploadedBzModel;
 }

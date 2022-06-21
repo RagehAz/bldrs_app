@@ -1300,7 +1300,7 @@ class BzModel{
   void blogBz({String methodName = 'blogBzModel'}) {
     final String _methodName = methodName ?? 'BZ';
 
-    blog('$_methodName : blogING BZ MODEL ---------------- START -- ');
+    blog('$_methodName : blogING BZ MODEL -------------------------------- START -- ');
 
     blog('id : $id');
     blog('bzTypes : $bzTypes');
@@ -1314,7 +1314,6 @@ class BzModel{
     blog('about : $about');
     blog('position : $position');
     blog('contacts : $contacts');
-    blog('authors : $authors');
     blog('showsTeam : $showsTeam');
     blog('isVerified : $isVerified');
     blog('bzState : $bzState');
@@ -1326,8 +1325,9 @@ class BzModel{
     blog('totalCalls : $totalCalls');
     blog('flyersIDs : $flyersIDs');
     blog('totalFlyers : $totalFlyers');
+    AuthorModel.blogAuthors(authors: authors, methodName: 'BZ MODEL ($id)');
 
-    blog('$_methodName : blogING BZ MODEL ---------------- END -- ');
+    blog('$_methodName : blogING BZ MODEL -------------------------------- END -- ');
   }
 // ------------------------------------------
   static void blogBzz({

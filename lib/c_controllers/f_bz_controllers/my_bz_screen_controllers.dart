@@ -107,7 +107,7 @@ Future<void> _setBzModelAndFetchSetBzFlyers({
 /// MY BZ SCREEN INITIALIZERS
 
 // -------------------------------
-/// WORKS GOOD 3ALA FEKRA
+/// TESTED : WORKS PERFECT
 Future<void> onMyActiveBzStreamChanged({
   @required BuildContext context,
   @required Map<String, dynamic> newMap,
@@ -122,7 +122,7 @@ Future<void> onMyActiveBzStreamChanged({
 
   final bool _areIdentical = BzModel.checkBzzAreIdentical(
     bz1: bzzProvider.myActiveBz,
-    bz2: BzModel.decipherBz(map: newMap, fromJSON: false),
+    bz2: _newBzFromStream,
   );
 
   blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
@@ -195,7 +195,7 @@ Future<void> myActiveBzLocalUpdateProtocol({
       bzModel: _finalBz,
     );
 
-    if (context != null){
+    // if (context != null){
 
       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
@@ -213,7 +213,7 @@ Future<void> myActiveBzLocalUpdateProtocol({
 
       blog('myActiveBzLocalUpdateProtocol : my active bz updated in PRO & LDB');
 
-    }
+    // }
   }
 
 }
