@@ -322,7 +322,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                 onTap: () => onPublishFlyerButtonTap(
                     context: context,
                     draft: draft,
-                    bzModel: bzModel,
                     formKey: formKey,
                 ),
               ),

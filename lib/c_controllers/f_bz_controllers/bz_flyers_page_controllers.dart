@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart' as FlyerFireOps;
@@ -184,44 +183,12 @@ Future<void> deleteFlyerOps({
     updateBzEverywhere: true,
   );
 
-  /// REMOVE ID FROM BZ FLYERS IDS ON FIREBASE
-  final List<String> _updatedFlyersIDs = BzModel.removeFlyerIDFromBzFlyersIDs(
-    bzModel: bzModel,
-    flyerIDToRemove: flyer.id,
-  );
-
-  final BzModel _updatedBzModel = bzModel.copyWith(
-    flyersIDs: _updatedFlyersIDs,
-  );
-
   /// DELETE FLYER ON LDB
   await LDBOps.deleteMap(
       objectID: flyer.id,
       docName: LDBDoc.flyers
   );
 
-  /// UPDATE BZ ON LDB
-  await LDBOps.insertMap(
-    docName: LDBDoc.bzz,
-    input: _updatedBzModel.toMap(toJSON: true),
-  );
-
-  /// UPDATE BZ ON PROVIDER
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  _bzzProvider.setActiveBz(
-    bzModel: _updatedBzModel,
-    notify: false,
-  );
-
-  /// UPDATE ACTIVE BZ FLYERS
-  final List<FlyerModel> _updatedFlyers = FlyerModel.removeFlyerFromFlyersByID(
-    flyers: _bzzProvider.myActiveBzFlyers,
-    flyerIDToRemove: flyer.id,
-  );
-  _bzzProvider.setActiveBzFlyers(
-    flyers: _updatedFlyers,
-    notify: true,
-  );
 
   /// REMOVE FLYER FROM FLYERS PROVIDER
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);

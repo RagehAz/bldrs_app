@@ -62,6 +62,7 @@ class MyBzScreen extends StatelessWidget {
             );
 
             blog('MyBzScreen : streamBz == proMyActiveBz ? : $_areIdentical');
+            _bzModel.blogBz(methodName: 'My Bz Screen : pro bz');
 
             if (_bzModel == null){
               return const SizedBox();

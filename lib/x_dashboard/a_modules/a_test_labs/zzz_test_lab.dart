@@ -17,6 +17,9 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -27,7 +30,6 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connecte
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -350,7 +352,17 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             verse: ' B ( ) ',
             onTap: () async {
 
-              Nav.goBackToHomeScreen(context);
+              final Map<String, dynamic> _map = await readDoc(
+                  context: context,
+                  collName: FireColl.bzz,
+                  docName: 'SJ4mVbUuT4HYL5grcZme',
+              );
+
+              blogMap(_map);
+
+              final BzModel _bz = BzModel.decipherBz(map: _map, fromJSON: false);
+
+              _bz.blogBz();
 
             }
         ),

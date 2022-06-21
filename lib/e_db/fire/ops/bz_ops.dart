@@ -280,6 +280,7 @@ Future<dynamic> readAndFilterTeamlessBzzByUserModel({
 /// UPDATE
 
 // --------------------------
+/// TESTED : WORKS PERFECT
 Future<BzModel> updateBz({
   @required BuildContext context,
   @required BzModel newBzModel,
@@ -375,6 +376,7 @@ Future<BzModel> _updateBzLogoIfChangedAndReturnNewBzModel({
   return _updatedBzModel;
 }
 // --------------------------
+
 Future<BzModel> _updateAuthorPicIfChangedAndReturnNewBzModel({
   @required BuildContext context,
   @required BzModel oldBzModel,
@@ -430,6 +432,7 @@ Future<BzModel> _updateAuthorPicIfChangedAndReturnNewBzModel({
   return _finalBz;
 }
 // --------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _updateBzDoc({
   @required BuildContext context,
   @required BzModel finalBzModel,

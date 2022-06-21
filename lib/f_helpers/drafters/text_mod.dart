@@ -15,18 +15,22 @@ List<String> addStringToListIfDoesNotContainIt({
   @required String stringToAdd,
 }) {
 
-  final List<String> _result = strings ?? <String>[];
+  List<String> _output = <String>[];
+
+  if (Mapper.checkCanLoopList(strings) == true){
+    _output = <String>[...strings];
+  }
 
   final bool _containsIt = Mapper.checkStringsContainString(
-    strings: strings,
+    strings: _output,
     string: stringToAdd,
   );
 
   if (_containsIt == false) {
-    _result.add(stringToAdd);
+    _output.add(stringToAdd);
   }
 
-  return _result;
+  return _output;
 }
 // ----------------------------
 /// TESTED : WORKS PERFECT
@@ -35,22 +39,22 @@ List<String> addOrRemoveStringToStrings({
   @required String string,
 }){
 
-  final List<String> _output = strings ?? <String>[];
+  List<String> _output = <String>[];
 
-  if ( string != null){
+  if (Mapper.checkCanLoopList(strings) == true){
+    _output = <String>[...strings];
+  }
 
-    final bool _containsIt = Mapper.checkStringsContainString(
-        strings: _output,
-        string: string
-    );
+  final bool _containsIt = Mapper.checkStringsContainString(
+      strings: _output,
+      string: string
+  );
 
-    if (_containsIt == true){
-      _output.remove(string);
-    }
-    else {
-      _output.add(string);
-    }
-
+  if (_containsIt == true){
+    _output.remove(string);
+  }
+  else {
+    _output.add(string);
   }
 
   return _output;
@@ -267,7 +271,7 @@ String removeNumberOfCharactersFromEndOfAString(String string, int numberOfChara
   //   throw('can not remove ($numberOfCharacters) from the given string because');
   // } else {}
 
-  blog('string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
+  // blog('string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
 
   if (string != null && string.trim().isNotEmpty) {
     if (string.trim().length == numberOfCharacters) {
