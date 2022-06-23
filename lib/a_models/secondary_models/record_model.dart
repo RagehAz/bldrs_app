@@ -1,10 +1,10 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 
 enum RecordType {
   follow,
@@ -71,10 +71,10 @@ class RecordModel {
   /// MODEL CYPHERS
 
 // ---------------------------------
-  Map<String, dynamic> toMap({
+  Map<String, Object> toMap({
     @required bool toJSON,
   }) {
-    return <String, dynamic>{
+    return <String, Object>{
       'activityType' : cipherActivityType(recordType),
       'userID' : userID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
@@ -82,7 +82,7 @@ class RecordModel {
       'modelID' : modelID,
       'recordDetailsType' : _cipherRecordDetailsType(recordDetailsType),
       'recordDetails' : recordDetails,
-      'serverTimeStamp' : serverTimeStamp,
+      // 'serverTimeStamp' : serverTimeStamp,
       // 'recordID' : recordID,
       // 'docSnapshot' : docSnapshot,
     };
@@ -108,7 +108,7 @@ class RecordModel {
         modelID: map['modelID'],
         recordDetailsType: _decipherRecordDetailsType(map['recordDetailsType']),
         recordDetails: map['recordDetails'],
-        docSnapshot: map['docSnapshot'],
+        // docSnapshot: map['docSnapshot'],
         serverTimeStamp: map['serverTimeStamp'],
       );
 
@@ -326,7 +326,7 @@ class RecordModel {
   }
 // -----------------------------------------------------------------------------
 
-/// CREATORS
+/// BZ RECORD CREATORS
 
 // ---------------------------------
   static RecordModel createFollowRecord({
@@ -382,6 +382,10 @@ class RecordModel {
     );
 
   }
+// -----------------------------------------------------------------------------
+
+  /// FLYER RECORD CREATORS
+
 // ---------------------------------
   static RecordModel createShareRecord({
     @required String userID,
@@ -540,6 +544,10 @@ class RecordModel {
     );
 
   }
+// -----------------------------------------------------------------------------
+
+  /// QUESTION RECORD CREATORS
+
 // ---------------------------------
   static RecordModel createCreateQuestionRecord({
     @required String userID,
@@ -651,6 +659,10 @@ class RecordModel {
     );
 
   }
+// -----------------------------------------------------------------------------
+
+  /// SEARCH RECORD CREATORS
+
 // ---------------------------------
   static RecordModel createSearchRecord({
     @required String userID,
@@ -669,37 +681,6 @@ class RecordModel {
     );
 
   }
+
 // ---------------------------------
-
-// -----------------------------------------------------------------------------
-
-
-//   static dynamic _cipherRecordDetails({
-//     @required dynamic recordDetails,
-//     @required RecordDetailsType recordDetailsType,
-//   }){
-//
-//     dynamic _output;
-//
-//     if (recordDetailsType == RecordDetailsType.searchText){
-//
-//       _output = recordDetails;
-//
-//     }
-//
-//     else {
-//
-//       _output = recordDetails;
-//
-//     }
-//
-//   }
-// // -----------------------------------------------------------------------------
-//   static dynamic _decipherRecordDetails({
-//     @required dynamic recordDetails,
-//     @required RecordDetailsType recordDetailsType,
-//   }){
-//
-//   }
-// -----------------------------------------------------------------------------
 }
