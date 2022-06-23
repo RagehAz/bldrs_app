@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
+import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
@@ -143,7 +143,6 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-
 // -------------------------------------
   void clearMyUserModelAndAuthModel({
     @required bool notify,
@@ -188,16 +187,11 @@ class UsersProvider extends ChangeNotifier {
 
     if (Mapper.checkCanLoopList(_myUserModel.myBzzIDs)) {
 
-      final List<String> _newList = Mapper.removeStringsFromStrings(
-          removeFrom: _myUserModel.myBzzIDs,
-          removeThis: <String>[bzIDToRemove],
+      _myUserModel = UserModel.removeBzIDFromMyBzzIDs(
+          bzIDToRemove: bzIDToRemove,
+          userModel: _myUserModel,
       );
 
-      final UserModel _updatedUser = _myUserModel.copyWith(
-        myBzzIDs: _newList,
-      );
-
-      _myUserModel = _updatedUser;
       _myAuthModel = _myAuthModel.copyWith(
         userModel: _myUserModel,
       );
@@ -206,8 +200,22 @@ class UsersProvider extends ChangeNotifier {
         notifyListeners();
       }
 
-
     }
+
+  }
+  // -------------------------------------
+  static void proUpdateUserModel({
+    @required BuildContext context,
+    @required UserModel userModel,
+    @required bool notify,
+  }){
+
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    _usersProvider.setMyUserModelAndAuthModel(
+      userModel: userModel,
+      notify: notify,
+    );
+
   }
 // -----------------------------------------------------------------------------
 
@@ -368,39 +376,6 @@ class UsersProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
-
-  /// USER STREAM
-
-// -------------------------------------
-  /*
-
-  Stream<UserModel> get myUserModelStream {
-    final CollectionReference<Object> _userCollection = UserFireOps.collRef();
-    final Stream<UserModel> _stream = _userCollection
-        .doc(_myUserModel?.id)
-        .snapshots()
-        .map(_userModelFromSnapshot);
-    return _stream;
-  }
-// -------------------------------------
-  static UserModel _userModelFromSnapshot(DocumentSnapshot<Object> doc) {
-    UserModel _userModel;
-
-    if (doc != null) {
-      try {
-        final Map<String, dynamic> _map = doc.data() as Map<String, dynamic>;
-
-        _userModel = UserModel.decipherUserMap(map: _map, fromJSON: false);
-      } on Exception catch (error) {
-        blog('_userModelFromSnapshot error is : $error');
-        rethrow;
-      }
-    }
-
-    return _userModel;
-  }
-   */
 // -----------------------------------------------------------------------------
 
   /// PRO FETCHERS
