@@ -1,8 +1,10 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 
 enum RecordType {
   follow,
@@ -12,13 +14,13 @@ enum RecordType {
   view,
   save,
   unSave,
-  review,
+  createReview,
   editReview,
   deleteReview,
-  question,
+  createQuestion,
   editQuestion,
   deleteQuestion,
-  answer,
+  createAnswer,
   editAnswer,
   deleteAnswer,
   search,
@@ -29,12 +31,13 @@ enum ModelType{
   bz,
   question,
   answer,
-  search,
+  review,
 }
 
 enum RecordDetailsType{
-  slideIndex,
-  searchText,
+  slideIndexDuration,
+  text,
+  questionID,
 }
 
 @immutable
@@ -50,6 +53,7 @@ class RecordModel {
     @required this.recordDetails,
     this.recordID,
     this.docSnapshot,
+    this.serverTimeStamp,
   });
   /// --------------------------------------------------------------------------
   final RecordType recordType;
@@ -61,6 +65,7 @@ class RecordModel {
   final RecordDetailsType recordDetailsType;
   final dynamic recordDetails;
   final DocumentSnapshot<Object> docSnapshot;
+  final FieldValue serverTimeStamp;
 // -----------------------------------------------------------------------------
 
   /// MODEL CYPHERS
@@ -77,6 +82,7 @@ class RecordModel {
       'modelID' : modelID,
       'recordDetailsType' : _cipherRecordDetailsType(recordDetailsType),
       'recordDetails' : recordDetails,
+      'serverTimeStamp' : serverTimeStamp,
       // 'recordID' : recordID,
       // 'docSnapshot' : docSnapshot,
     };
@@ -103,6 +109,7 @@ class RecordModel {
         recordDetailsType: _decipherRecordDetailsType(map['recordDetailsType']),
         recordDetails: map['recordDetails'],
         docSnapshot: map['docSnapshot'],
+        serverTimeStamp: map['serverTimeStamp'],
       );
 
     }
@@ -167,13 +174,13 @@ class RecordModel {
       case RecordType.view:           return 'view';            break;
       case RecordType.save:           return 'save';            break;
       case RecordType.unSave:         return 'unSave';          break;
-      case RecordType.review:         return 'review';          break;
+      case RecordType.createReview:   return 'createReview';    break;
       case RecordType.editReview:     return 'editReview';      break;
       case RecordType.deleteReview:   return 'deleteReview';    break;
-      case RecordType.question:       return 'question';        break;
+      case RecordType.createQuestion: return 'createQuestion';  break;
       case RecordType.editQuestion:   return 'editQuestion';    break;
       case RecordType.deleteQuestion: return 'deleteQuestion';  break;
-      case RecordType.answer:         return 'answer';          break;
+      case RecordType.createAnswer:   return 'createAnswer';    break;
       case RecordType.editAnswer:     return 'editAnswer';      break;
       case RecordType.deleteAnswer:   return 'deleteAnswer';    break;
       case RecordType.search:         return 'search';          break;
@@ -190,13 +197,13 @@ class RecordModel {
       case 'view':            return RecordType.view;           break;
       case 'save':            return RecordType.save;           break;
       case 'unSave':          return RecordType.unSave;         break;
-      case 'review':          return RecordType.review;         break;
+      case 'createReview':    return RecordType.createReview;   break;
       case 'editReview':      return RecordType.editReview;     break;
       case 'deleteReview':    return RecordType.deleteReview;   break;
-      case 'question':        return RecordType.question;       break;
+      case 'question':        return RecordType.createQuestion; break;
       case 'editQuestion':    return RecordType.editQuestion;   break;
       case 'deleteQuestion':  return RecordType.deleteQuestion; break;
-      case 'answer':          return RecordType.answer;         break;
+      case 'createAnswer':    return RecordType.createAnswer;   break;
       case 'editAnswer':      return RecordType.editAnswer;     break;
       case 'deleteAnswer':    return RecordType.deleteAnswer;   break;
       case 'search':          return RecordType.search;         break;
@@ -214,7 +221,7 @@ class RecordModel {
       case ModelType.bz:        return 'bz';        break;
       case ModelType.question:  return 'question';  break;
       case ModelType.answer:    return 'answer';    break;
-      case ModelType.search:    return 'search';    break;
+      case ModelType.review:    return 'review';    break;
       default: return null;
     }
   }
@@ -225,7 +232,7 @@ class RecordModel {
       case 'bz':        return ModelType.bz;        break;
       case 'question':  return ModelType.question;  break;
       case 'answer':    return ModelType.answer;    break;
-      case 'search':    return ModelType.search;    break;
+      case 'review':    return ModelType.review;    break;
       default: return null;
     }
   }
@@ -236,16 +243,18 @@ class RecordModel {
 // ---------------------------------
   static String _cipherRecordDetailsType(RecordDetailsType recordDetailsType){
     switch (recordDetailsType){
-      case RecordDetailsType.slideIndex:        return 'slideIndex';     break;
-      case RecordDetailsType.searchText:        return 'searchText';        break;
+      case RecordDetailsType.slideIndexDuration:  return 'slideIndex';  break;
+      case RecordDetailsType.text:                return 'text';        break;
+      case RecordDetailsType.questionID:          return 'questionID';  break;
       default: return null;
     }
   }
 // ---------------------------------
   static RecordDetailsType _decipherRecordDetailsType(String recordDetailsType){
     switch (recordDetailsType){
-      case 'slideIndex':      return RecordDetailsType.slideIndex;      break;
-      case 'searchText':      return RecordDetailsType.searchText;      break;
+      case 'slideIndex':  return RecordDetailsType.slideIndexDuration;  break;
+      case 'text':        return RecordDetailsType.text;                break;
+      case 'questionID':  return RecordDetailsType.questionID;          break;
       default: return null;
     }
   }
@@ -315,13 +324,356 @@ class RecordModel {
 
     return _contains;
   }
+// -----------------------------------------------------------------------------
+
+/// CREATORS
+
+// ---------------------------------
+  static RecordModel createFollowRecord({
+    @required String userID,
+    @required String bzID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.follow,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.bz,
+      modelID: bzID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createUnfollowRecord({
+    @required String userID,
+    @required String bzID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.unfollow,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.bz,
+      modelID: bzID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createCallRecord({
+    @required String userID,
+    @required String bzID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.call,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.bz,
+      modelID: bzID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createShareRecord({
+    @required String userID,
+    @required String flyerID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.share,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.flyer,
+      modelID: flyerID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createViewRecord({
+    @required String userID,
+    @required String flyerID,
+    @required int durationSeconds,
+    @required int slideIndex,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.view,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.flyer,
+      modelID: flyerID,
+      recordDetailsType: RecordDetailsType.slideIndexDuration,
+      recordDetails: createIndexAndDurationString(
+        index: slideIndex,
+        durationSeconds: durationSeconds,
+      ),
+    );
+
+  }
+// ---------------------------------
+  static String createIndexAndDurationString({
+    @required int index,
+    @required int durationSeconds,
+  }){
+
+    final String _index = Numeric.formatNumberWithinDigits(
+        num: index,
+        digits: 3,
+    );
+
+    return '${_index}_$durationSeconds';
+
+  }
+// ---------------------------------
+  static int getIndexFromIndexDurationString(String string){
+    final String _index = removeTextAfterLastSpecialCharacter(string, '_');
+    return Numeric.transformStringToInt(_index);
+  }
+// ---------------------------------
+  static int getDurationFromIndexDurationString(String string){
+    final String _duration = removeTextBeforeLastSpecialCharacter(string, '_');
+    return Numeric.transformStringToInt(_duration);
+  }
+// ---------------------------------
+  static RecordModel createSaveRecord({
+    @required String userID,
+    @required String flyerID,
+    @required int slideIndex,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.save,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.flyer,
+      modelID: flyerID,
+      recordDetailsType: RecordDetailsType.slideIndexDuration,
+      recordDetails: slideIndex,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createUnSaveRecord({
+    @required String userID,
+    @required String flyerID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.unSave,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.flyer,
+      modelID: flyerID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createCreateReviewRecord({
+    @required String userID,
+    @required String reviewID,
+    @required String review,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.createReview,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.review,
+      modelID: reviewID,
+      recordDetailsType: RecordDetailsType.text,
+      recordDetails: review,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createEditReviewRecord({
+    @required String userID,
+    @required String reviewID,
+    @required String reviewEdit,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.editReview,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.review,
+      modelID: reviewID,
+      recordDetailsType: RecordDetailsType.text,
+      recordDetails: reviewEdit,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createDeleteReviewRecord({
+    @required String userID,
+    @required String reviewID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.deleteReview,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.review,
+      modelID: reviewID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createCreateQuestionRecord({
+    @required String userID,
+    @required String questionID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.createQuestion,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.question,
+      modelID: questionID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createEditQuestionRecord({
+    @required String userID,
+    @required String questionID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.editQuestion,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.question,
+      modelID: questionID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createDeleteQuestionRecord({
+    @required String userID,
+    @required String questionID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.deleteQuestion,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.question,
+      modelID: questionID,
+      recordDetailsType: null,
+      recordDetails: null,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createCreateAnswerRecord({
+    @required String userID,
+    @required String questionID,
+    @required String answerID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.createAnswer,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.answer,
+      modelID: answerID,
+      recordDetailsType: RecordDetailsType.questionID,
+      recordDetails: questionID,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createEditAnswerRecord({
+    @required String userID,
+    @required String questionID,
+    @required String answerID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.editAnswer,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.answer,
+      modelID: answerID,
+      recordDetailsType: RecordDetailsType.questionID,
+      recordDetails: questionID,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createDeleteAnswerRecord({
+    @required String userID,
+    @required String questionID,
+    @required String answerID,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.deleteAnswer,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: ModelType.answer,
+      modelID: answerID,
+      recordDetailsType: RecordDetailsType.questionID,
+      recordDetails: questionID,
+    );
+
+  }
+// ---------------------------------
+  static RecordModel createSearchRecord({
+    @required String userID,
+    @required String searchText,
+  }){
+
+    return RecordModel(
+      serverTimeStamp: FieldValue.serverTimestamp(),
+      recordType: RecordType.search,
+      userID: userID,
+      timeStamp: DateTime.now(),
+      modelType: null,
+      modelID: null,
+      recordDetailsType: RecordDetailsType.text,
+      recordDetails: searchText,
+    );
+
+  }
+// ---------------------------------
 
 // -----------------------------------------------------------------------------
 
 
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
 //   static dynamic _cipherRecordDetails({
 //     @required dynamic recordDetails,
 //     @required RecordDetailsType recordDetailsType,

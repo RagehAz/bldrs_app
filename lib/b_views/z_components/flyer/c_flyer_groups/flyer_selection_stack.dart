@@ -49,147 +49,154 @@ class FlyerSelectionStack extends StatelessWidget {
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 // ----------------------------------------------------------
 
-    return Stack(
-      // alignment: Alignment.center,
-      children: <Widget>[
+    if (flyerModel == null){
+      return const SizedBox();
+    }
 
-        AbsorbPointer(
-          absorbing: _isSelectionMode,
-          child: FlyerStarter(
-            key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
-            flyerModel: flyerModel,
-            minWidthFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
-            heroTag: heroTag,
+    else {
+      return Stack(
+        // alignment: Alignment.center,
+        children: <Widget>[
+
+          AbsorbPointer(
+            absorbing: _isSelectionMode,
+            child: FlyerStarter(
+              key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
+              flyerModel: flyerModel,
+              minWidthFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
+              heroTag: heroTag,
+            ),
           ),
-        ),
 
-        /// NOT VERIFIED
-        if (flyerModel.auditState != AuditState.verified && _tinyMode == true)
-          WidgetFader(
-            fadeType: FadeType.fadeIn,
-            child: IgnorePointer(
-              child: FlyerBox(
-                flyerBoxWidth: flyerBoxWidth,
-                boxColor: Colorz.black80,
-                stackWidgets: <Widget>[
+          /// NOT VERIFIED
+          if (flyerModel.auditState != AuditState.verified && _tinyMode == true)
+            WidgetFader(
+              fadeType: FadeType.fadeIn,
+              child: IgnorePointer(
+                child: FlyerBox(
+                  flyerBoxWidth: flyerBoxWidth,
+                  boxColor: Colorz.black80,
+                  stackWidgets: <Widget>[
 
-                  Transform.scale(
-                    scale: 2,
-                    child: Transform.rotate(
-                      angle: degreeToRadian(-45),
-                      child: Center(
-                        child: WidgetFader(
-                          fadeType: FadeType.repeatAndReverse,
-                          duration: const Duration(seconds: 2),
-                          child: SuperVerse(
-                            verse: 'Waiting\nVerification',
-                            weight: VerseWeight.black,
-                            italic: true,
-                            scaleFactor: flyerBoxWidth * 0.008,
-                            maxLines: 2,
-                            color: Colorz.white125,
+                    Transform.scale(
+                      scale: 2,
+                      child: Transform.rotate(
+                        angle: degreeToRadian(-45),
+                        child: Center(
+                          child: WidgetFader(
+                            fadeType: FadeType.repeatAndReverse,
+                            duration: const Duration(seconds: 2),
+                            child: SuperVerse(
+                              verse: 'Waiting\nVerification',
+                              weight: VerseWeight.black,
+                              italic: true,
+                              scaleFactor: flyerBoxWidth * 0.008,
+                              maxLines: 2,
+                              color: Colorz.white125,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
 
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
 
-        /// BLACK COLOR OVERRIDE
-        if (isSelected == true)
-          DreamBox(
-            width: flyerBoxWidth,
-            height: _flyerBoxHeight,
-            color: Colorz.black150,
-            corners: _corners,
-          ),
-
-        /// SELECTED TEXT
-        if (isSelected == true)
-          Container(
-            width: flyerBoxWidth,
-            height: _flyerBoxHeight,
-            alignment: Alignment.center,
-            child: SuperVerse(
-              verse: 'SELECTED',
-              weight: VerseWeight.black,
-              italic: true,
-              scaleFactor: flyerBoxWidth / 100,
-              shadow: true,
+          /// BLACK COLOR OVERRIDE
+          if (isSelected == true)
+            DreamBox(
+              width: flyerBoxWidth,
+              height: _flyerBoxHeight,
+              color: Colorz.black150,
+              corners: _corners,
             ),
-          ),
 
-        /// CHECK ICON
-        if (isSelected == true)
-          Container(
-            width: flyerBoxWidth,
-            height: _flyerBoxHeight,
-            alignment: Aligners.superInverseBottomAlignment(context),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colorz.white20,),
-              borderRadius: _corners,
+          /// SELECTED TEXT
+          if (isSelected == true)
+            Container(
+              width: flyerBoxWidth,
+              height: _flyerBoxHeight,
+              alignment: Alignment.center,
+              child: SuperVerse(
+                verse: 'SELECTED',
+                weight: VerseWeight.black,
+                italic: true,
+                scaleFactor: flyerBoxWidth / 100,
+                shadow: true,
+              ),
             ),
-            child: DreamBox(
-              height: _checkIconSize,
-              width: _checkIconSize,
-              corners: _checkIconSize / 2,
-              color: Colorz.green255,
-              icon: Iconz.check,
-              iconSizeFactor: 0.4,
-              iconColor: Colorz.white255,
+
+          /// CHECK ICON
+          if (isSelected == true)
+            Container(
+              width: flyerBoxWidth,
+              height: _flyerBoxHeight,
+              alignment: Aligners.superInverseBottomAlignment(context),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colorz.white20,),
+                borderRadius: _corners,
+              ),
+              child: DreamBox(
+                height: _checkIconSize,
+                width: _checkIconSize,
+                corners: _checkIconSize / 2,
+                color: Colorz.green255,
+                icon: Iconz.check,
+                iconSizeFactor: 0.4,
+                iconColor: Colorz.white255,
+              ),
             ),
-          ),
 
-        /// TAP LAYER
-        if (_isSelectionMode == true)
-          DreamBox(
-            height: _flyerBoxHeight,
-            width: flyerBoxWidth,
-            corners: _corners,
-            bubble: false,
-            splashColor: Colorz.yellow125,
-            onTap: onSelectFlyer,
-          ),
+          /// TAP LAYER
+          if (_isSelectionMode == true)
+            DreamBox(
+              height: _flyerBoxHeight,
+              width: flyerBoxWidth,
+              corners: _corners,
+              bubble: false,
+              splashColor: Colorz.yellow125,
+              onTap: onSelectFlyer,
+            ),
 
-        /// FLYER OPTIONS BUTTON
-        if (onFlyerOptionsTap != null)
-          SuperPositioned(
-            enAlignment: Alignment.bottomRight,
-            verticalOffset: FooterButton.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: false),
-            horizontalOffset: FooterButton.buttonMargin(
-                context: context,
+          /// FLYER OPTIONS BUTTON
+          if (onFlyerOptionsTap != null)
+            SuperPositioned(
+              enAlignment: Alignment.bottomRight,
+              verticalOffset: FooterButton.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: false),
+              horizontalOffset: FooterButton.buttonMargin(
+                  context: context,
+                  flyerBoxWidth: flyerBoxWidth,
+                  tinyMode: _tinyMode
+              ),
+              child: FooterButton(
+                icon: Iconz.more,
+                verse: 'More',
                 flyerBoxWidth: flyerBoxWidth,
-                tinyMode: _tinyMode
+                onTap: onFlyerOptionsTap,
+                isOn: false,
+                canTap: true,
+              ),
+              // child: DreamBox(
+              //   width: FooterButton.,
+              //   height: _footerHeight,
+              //   // verse: superPhrase(context, 'phid_edit'),
+              //   // verseScaleFactor: 0.7,
+              //   // verseWeight: VerseWeight.thin,
+              //   icon: Iconz.more,
+              //   iconSizeFactor: 0.7,
+              //   color: Colorz.black255,
+              //   corners: superBorderAll(context, FooterBox.boxCornersValue(_gridFlyerWidth)),
+              //   bubble: false,
+              //   onTap: () => onFlyerOptionsTap(_flyer),
+              // ),
             ),
-            child: FooterButton(
-              icon: Iconz.more,
-              verse: 'More',
-              flyerBoxWidth: flyerBoxWidth,
-              onTap: onFlyerOptionsTap,
-              isOn: false,
-              canTap: true,
-            ),
-            // child: DreamBox(
-            //   width: FooterButton.,
-            //   height: _footerHeight,
-            //   // verse: superPhrase(context, 'phid_edit'),
-            //   // verseScaleFactor: 0.7,
-            //   // verseWeight: VerseWeight.thin,
-            //   icon: Iconz.more,
-            //   iconSizeFactor: 0.7,
-            //   color: Colorz.black255,
-            //   corners: superBorderAll(context, FooterBox.boxCornersValue(_gridFlyerWidth)),
-            //   bubble: false,
-            //   onTap: () => onFlyerOptionsTap(_flyer),
-            // ),
-          ),
 
-      ],
-    );
+        ],
+      );
+    }
+
 
   }
 
