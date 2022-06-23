@@ -349,7 +349,7 @@ Future<void> _createFireSearchRecord({
       recordType: RecordType.search,
       modelType: null, /// only used to trace model id
       modelID: null, /// like flyerID, bzID, questionID, answerID
-      recordDetailsType: RecordDetailsType.searchText,
+      recordDetailsType: RecordDetailsType.text,
       recordDetails: searchText,
     );
 
