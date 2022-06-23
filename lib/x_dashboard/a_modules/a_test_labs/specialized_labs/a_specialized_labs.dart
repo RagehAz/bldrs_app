@@ -14,6 +14,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_t
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/pagination_and_streaming/streaming_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/records_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
@@ -38,9 +39,9 @@ class SpecializedLabs extends StatelessWidget {
 
       /// OBELISK LAYOUT
       DashButtonModel(
-        verse: 'OBELISK',
-        icon: Iconz.achievement,
-        screen: const ObeliskTestScreen(),
+        verse: 'RECORDS',
+        icon: Iconz.clock,
+        screen: const RecordsTestScreen(),
       ),
 
       /// PROVIDER TEST
