@@ -2,10 +2,13 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
+import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
@@ -13,6 +16,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 // -----------------------------------------------------------------------------
 /// PROTOCOLS ARE SET OF OPS CALLED BY CONTROLLERS TO LAUNCH FIRE OPS AND LDB OPS.
 // -----------------------------------------------------------------------------
@@ -101,7 +105,7 @@ class BzProtocol {
   static Future<void> deleteBzProtocol() async {
 
   }
-
+// ----------------------------------
   static Future<BzModel> deleteMultipleBzFlyersProtocol({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -176,6 +180,38 @@ class BzProtocol {
 
     return _bzModel;
   }
+// ----------------------------------
+  static Future<void> myBzGotDeletedAndIShouldDeleteAllMyBzRelatedData({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
 
+    /// so I had this bzID in my bzIDs and I still have its old model
+    /// scattered around in pro, ldb & fire
+
+    /// DELETE LDB BZ MODEL
+
+    /// DELETE LDB BZ FLYERS
+
+    /// DELETE PRO BZ MODEL
+
+    /// DELETE PRO BZ FLYERS
+
+    /// DELETE MY AUTHOR PIC ON FIRE STORAGE
+
+    /// DELETE BZID FROM MY BZZ IDS THEN UPDATE MY USER MODEL EVERY WHERE PROTOCOL
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+    final UserModel _updatedUserModel = UserModel.removeBzIDFromMyBzzIDs(
+      userModel: _myUserModel,
+      bzIDToRemove: bzID,
+    );
+    await UserProtocol.updateMyUserEverywhereProtocol(
+      context: context,
+      userModel: _updatedUserModel,
+    );
+  }
 // -----------------------------------------------------------------------------
 }

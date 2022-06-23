@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/user_ops.dart' as UserFireOps;
+import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -628,6 +628,32 @@ class UserModel {
 
     return _output;
   }
+// -----------------------------------
+  static UserModel removeBzIDFromMyBzzIDs({
+    @required String bzIDToRemove,
+    @required UserModel userModel,
+  }){
+
+    UserModel _userModel = userModel;
+
+    /// THIS UPDATES MY AUTH MODEL AND MY USER MODEL
+
+    if (Mapper.checkCanLoopList(userModel?.myBzzIDs) == true) {
+
+      final List<String> _newList = Mapper.removeStringsFromStrings(
+        removeFrom: userModel.myBzzIDs,
+        removeThis: <String>[bzIDToRemove],
+      );
+
+      _userModel = userModel.copyWith(
+        myBzzIDs: _newList,
+      );
+
+    }
+
+    return _userModel;
+  }
+
 // -----------------------------------
   /*
   static List<String> removeIDFromIDs(List<String> ids, String id) {
