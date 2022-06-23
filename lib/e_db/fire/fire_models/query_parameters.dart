@@ -8,10 +8,10 @@ class QueryModel {
   /// --------------------------------------------------------------------------
   const QueryModel({
     @required this.collName,
+    @required this.onDataChanged,
     this.limit,
     this.orderBy,
     this.finders,
-    this.onDataChanged,
     this.startAfter,
     this.initialMaps,
   });
