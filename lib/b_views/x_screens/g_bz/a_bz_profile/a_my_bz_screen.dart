@@ -64,7 +64,7 @@ class MyBzScreen extends StatelessWidget {
             );
 
             blog('MyBzScreen : streamBz == proMyActiveBz ? : $_areIdentical');
-            _bzModel.blogBz(methodName: 'My Bz Screen : pro bz');
+            _bzModel?.blogBz(methodName: 'My Bz Screen : pro bz');
 
             final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
               authors: _bzModel.authors,

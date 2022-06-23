@@ -40,7 +40,9 @@ class FireCollStreamer extends StatefulWidget {
 
       if (_mapsAreTheSame == false){
         oldMaps.value = _newMaps;
-        onChange(_newMaps);
+        if (_newMaps != null){
+          onChange(_newMaps);
+        }
       }
 
     },

@@ -98,12 +98,12 @@ service cloud.firestore {
       return bzID in userBzzIDs;
     }
     // ---------------------------
-    // function getBzModel(bzID){
-    //   return get(/databases/$(database)/documents/bzz/$(bzID)).data;
-    // }
+    function getBzModel(bzID){
+      return get(/databases/$(database)/documents/bzz/$(bzID)).data;
+    }
     // ---------------------------
     // function isAuthor(){
-    //   return isOnlineUser() && getUserModel().myBzzIDs.length > 0;
+    //   return isAuthenticated() && getUserModel().myBzzIDs.length > 0;
     // }
     // ---------------------------
     match /bzz/{bzID} {
@@ -121,27 +121,45 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/notes/$(noteID)).data;
     }
     // ---------------------------
-    function isNoteSender(noteID){
-      let noteModel = getNoteModel(noteID);
-      let senderID = noteModel.senderID;
-      return getUserID() == senderID;
-    }
+    // function isNoteSender(noteID){
+    //   let noteModel = getNoteModel(noteID);
+    //   let senderID = noteModel.senderID;
+    //   return getUserID() == senderID;
+    // }
     // ---------------------------
-    function isNoteSenderOrReceiver(noteID){
+    // function isNoteSenderOrReceiver(noteID){
+    //   let noteModel = getNoteModel(noteID);
+    //   let userID = getUserID();
+    //   let senderID = noteModel.senderID;
+    //   let receiverID = noteModel.receiverID;
+    //   let isSender = userID == senderID;
+    //   let isReceiver = userID == receiverID;
+    //   return isSender || isReceiver;
+    // }
+
+    // ---------------------------
+    function canEditNote(noteID){
       let noteModel = getNoteModel(noteID);
+
       let userID = getUserID();
-      let senderID = noteModel.senderID;
-      let receiverID = noteModel.receiverID;
-      let isSender = userID == senderID;
-      let isReceiver = userID == receiverID;
-      return isSender || isReceiver;
+      let noteSenderIsBz = noteModel.noteSenderType == "bz";
+      let isSender = userID == noteModel.senderID;
+      let isReceiver = userID == noteModel.receiverID;
+      let isSenderOrReceiver = isSender || isReceiver;
+
+      let bzModel = noteSenderIsBz == false ? {} : getBzModel(noteModel.senderID);
+      let isAuthor = noteSenderIsBz == false ? false : isBzAuthor(bzModel.id);
+      let isAuthorOrReceiver = isAuthor || isReceiver;
+
+      let canEdit = noteSenderIsBz == false ? isSenderOrReceiver : isAuthorOrReceiver;
+      return canEdit;
     }
     // ---------------------------
     match /notes/{noteID} {
       allow create: if isOnlineUser();
-      allow read: if isNoteSenderOrReceiver(noteID);
-      allow update: if isNoteSenderOrReceiver(noteID);
-      allow delete: if isNoteSender(noteID);
+      allow read: if isOnlineUser();
+      allow update: if canEditNote(noteID);
+      allow delete: if canEditNote(noteID);
     }
     // ------------------------------------------------------------
 
@@ -227,6 +245,11 @@ service cloud.firestore {
     // ---------------------------
     // APP STATE
     match /admin/appState {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // APP CONTROLS
+    match /admin/appControls {
       allow read: if true;
       allow write: if isAdmin();
     }
