@@ -65,7 +65,7 @@ Future<void> onDeleteBzButtonTap({
       updateBz: false,
     );
 
-    await _deleteBzOps(
+    await _deleteBzProtocol(
       context: context,
       bzModel: bzModel,
     );
@@ -248,7 +248,7 @@ Future<void> _deleteAllBzFlyersOps({
 
 }
 // ------------------
-Future<void> _deleteBzOps({
+Future<void> _deleteBzProtocol({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {

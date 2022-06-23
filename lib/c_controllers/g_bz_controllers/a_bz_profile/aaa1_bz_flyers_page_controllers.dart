@@ -6,20 +6,16 @@ import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -109,7 +105,7 @@ Future<void> _onDeleteFlyerButtonTap({
 
   if (_result == true){
 
-    await deleteSingleFlyerProtocol(
+    await FlyerProtocol.deleteSingleFlyerProtocol(
       context: context,
       bzModel: bzModel,
       flyer: flyer,
@@ -160,44 +156,5 @@ Future<bool> _showConfirmDeleteFlyerDialog({
   return _result;
 }
 // -------------------------------
-Future<void> deleteSingleFlyerProtocol({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required FlyerModel flyer,
-  @required bool showWaitDialog,
-  @required bool notify,
-}) async {
-
-  if (showWaitDialog == true){
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingPhrase: 'Deleting flyer',
-      canManuallyGoBack: false,
-    ));
-  }
-
-  /// DELETE FLYER OPS ON FIREBASE
-  await FlyerFireOps.deleteFlyerOps(
-    context: context,
-    flyerModel: flyer,
-    bzModel: bzModel,
-    bzFireUpdateOps: true,
-  );
-
-  /// DELETE FLYER ON LDB
-  await FlyerLDBOps.deleteFlyers(<String>[flyer.id]);
-
-  /// REMOVE FLYER FROM FLYERS PROVIDER
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  _flyersProvider.removeFlyerFromProFlyers(
-    flyerID: flyer.id,
-    notify: notify,
-  );
-
-  if (showWaitDialog == true){
-    WaitDialog.closeWaitDialog(context);
-  }
-
-}
 // -------------------------------
 // -----------------------------------------------------------------------------

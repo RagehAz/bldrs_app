@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/flyer_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/real/counter_ops.dart';
 import 'package:bldrs/e_db/real/real_time_colls.dart';
 import 'package:bldrs/e_db/real/real_time_db_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -116,17 +120,43 @@ class RecordsTestScreen extends StatelessWidget {
           },
         ),
 
-        /// DELETE FLYER COUNTER
+        /// INCREMENT FLYER COUNTER
         SettingsWideButton(
-          verse: 'delete FLYER SCOUNTER ( 1656001361010677 )',
+          verse: 'READ FLYER SCOUNTER',
           icon: Iconz.addFlyer,
           onTap: () async {
 
-            await RealTimeOps.deleteDoc(
+            final Map<String, dynamic> _map = await RealTimeOps.readDoc(
               context: context,
               collName: RealTimeColl.flyersCounters,
               docName: '1656001361010677',
             );
+
+            blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+
+          },
+        ),
+
+        /// DELETE FLYER COUNTER
+        SettingsWideButton(
+          verse: 'INCREMENT FLYER COUNTER',
+          icon: Iconz.addFlyer,
+          onTap: () async {
+
+            unawaited(TopDialog.showTopDialog(
+                context: context,
+                firstLine: 'sending request to nour')
+            );
+
+
+            await CounterOps.incrementFlyerCounter(
+              context: context,
+              flyerID: 'flyerID',
+              fieldName: 'saves',
+              collName: 'flyersCounters',
+            );
+
+            await TopDialog.showTopDialog(context: context, firstLine: 'request sent');
 
             // blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
 
