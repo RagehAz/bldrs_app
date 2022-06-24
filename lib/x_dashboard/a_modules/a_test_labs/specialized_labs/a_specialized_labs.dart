@@ -9,11 +9,12 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/counter_ops_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
@@ -36,11 +37,18 @@ class SpecializedLabs extends StatelessWidget {
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
 
-      /// OBELISK LAYOUT
+      /// REAL TEST
       DashButtonModel(
-        verse: 'RECORDS',
+        verse: 'REAL TEST',
         icon: Iconz.clock,
-        screen: const RecordsTestScreen(),
+        screen: const RealTestScreen(),
+      ),
+
+      /// REAL HTTP TEST
+      DashButtonModel(
+        verse: 'REAL HTTP TEST',
+        icon: Iconz.clock,
+        screen: const RealHttpTestScreen(),
       ),
 
       /// PROVIDER TEST
@@ -58,7 +66,7 @@ class SpecializedLabs extends StatelessWidget {
         transitionType: PageTransitionType.leftToRightWithFade,
       ),
 
-      /// STREAMING
+      /// PAGINATOR
       DashButtonModel(
         verse: 'PAGINATOR TEST',
         icon: Iconz.statistics,
@@ -66,21 +74,19 @@ class SpecializedLabs extends StatelessWidget {
         transitionType: PageTransitionType.leftToRightWithFade,
       ),
 
-      /// PROVIDER TEST
+      /// SOUNDS TEST
       DashButtonModel(
         verse: 'Sounds Test',
         icon: Iconz.play,
         screen: const SoundsTestScreen(),
       ),
 
-
-      /// SPINNER
+      /// LOCK - SPINNER
       DashButtonModel(
         verse: 'Lock Test',
         icon: Iconz.password,
         screen: const LockTestScreen(),
       ),
-
 
       /// SEMBAST TESTER
       DashButtonModel(
