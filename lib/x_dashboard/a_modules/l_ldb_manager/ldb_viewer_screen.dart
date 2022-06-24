@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

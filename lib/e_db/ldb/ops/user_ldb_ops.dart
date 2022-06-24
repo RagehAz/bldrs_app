@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 

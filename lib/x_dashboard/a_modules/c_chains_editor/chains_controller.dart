@@ -5,8 +5,8 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
-import 'package:bldrs/e_db/ldb/api/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/api/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;

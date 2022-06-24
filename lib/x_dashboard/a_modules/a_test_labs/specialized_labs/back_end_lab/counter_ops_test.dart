@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/flyer_counter_model.dart';
+import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -10,9 +10,9 @@ import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/real/counter_ops.dart';
-import 'package:bldrs/e_db/real/real_time_colls.dart';
-import 'package:bldrs/e_db/real/real_time_db_ops.dart';
+import 'package:bldrs/e_db/real/real.dart';
+import 'package:bldrs/e_db/real/real_colls.dart';
+import 'package:bldrs/e_db/real/real_http.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -48,9 +48,9 @@ class RecordsTestScreen extends StatelessWidget {
               slideIndex: 0,
             );
 
-            await RealTimeOps.createDoc(
+            await RealHttp.createDoc(
               context: context,
-              collName: RealTimeColl.records,
+              collName: RealColl.records,
               input: _recordModel.toMap(toJSON: true),
             );
 
@@ -61,17 +61,17 @@ class RecordsTestScreen extends StatelessWidget {
 
         /// CREATE NEW FLYER COUNTER
         SettingsWideButton(
-          verse: 'CREATE NEW FLYER COUNTER ( 1656001361010677 )',
+          verse: 'CREATE NEW FLYER COUNTER ( flyerID )',
           icon: Iconz.addFlyer,
           onTap: () async {
 
-            const String _randomID = '1656001361010677';//createUniqueID().toString();
+            const String _randomID = 'flyerID';//createUniqueID().toString();
 
             final FlyerCounterModel _flyerStats = FlyerCounterModel.createInitialModel(_randomID);
 
-            await RealTimeOps.createNamedDoc(
+            await RealHttp.createNamedDoc(
               context: context,
-              collName: RealTimeColl.flyersCounters,
+              collName: RealColl.bzzCounters,
               docName: _flyerStats.flyerID,
               input: _flyerStats.copyWith(saves: 15402).toMap(),
             );
@@ -83,7 +83,7 @@ class RecordsTestScreen extends StatelessWidget {
 
         /// UPDATE EXISTING FLYER COUNTER ( 1656001361010677 )
         SettingsWideButton(
-          verse: 'UPDATE FLYER COUNTER 1656001361010677',
+          verse: 'UPDATE FLYER COUNTER flyerID',
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -91,10 +91,10 @@ class RecordsTestScreen extends StatelessWidget {
 
             final FlyerCounterModel _flyerStats = FlyerCounterModel.createInitialModel(_randomID);
 
-            await RealTimeOps.updateDoc(
+            await RealHttp.updateDoc(
               context: context,
-              collName: RealTimeColl.flyersCounters,
-              docName: '1656001361010677',
+              collName: RealColl.flyersCounters,
+              docName: 'flyerID',
               input: _flyerStats.copyWith(saves: 65464564054054).toMap(),
             );
 
@@ -109,11 +109,29 @@ class RecordsTestScreen extends StatelessWidget {
           icon: Iconz.addFlyer,
           onTap: () async {
 
-            final Map<String, dynamic> _map = await RealTimeOps.readDoc(
+            final Map<String, dynamic> _map = await RealHttp.readDoc(
                 context: context,
-                collName: RealTimeColl.flyersCounters,
-                docName: '1656001361010677',
+                collName: RealColl.flyersCounters,
+                docName: 'flyerID',
             );
+
+            blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+
+          },
+        ),
+
+        /// READ FLYER COUNTER
+        SettingsWideButton(
+          verse: 'READ FLYER COUNTER',
+          icon: Iconz.addFlyer,
+          onTap: () async {
+
+            final Map<String, dynamic> _map = await RealHttp.readDoc(
+              context: context,
+              collName: RealColl.flyersCounters,
+              docName: 'flyerID',
+            );
+
 
             blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
 
@@ -121,23 +139,6 @@ class RecordsTestScreen extends StatelessWidget {
         ),
 
         /// INCREMENT FLYER COUNTER
-        SettingsWideButton(
-          verse: 'READ FLYER SCOUNTER',
-          icon: Iconz.addFlyer,
-          onTap: () async {
-
-            final Map<String, dynamic> _map = await RealTimeOps.readDoc(
-              context: context,
-              collName: RealTimeColl.flyersCounters,
-              docName: '1656001361010677',
-            );
-
-            blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
-
-          },
-        ),
-
-        /// DELETE FLYER COUNTER
         SettingsWideButton(
           verse: 'INCREMENT FLYER COUNTER',
           icon: Iconz.addFlyer,
@@ -149,14 +150,38 @@ class RecordsTestScreen extends StatelessWidget {
             );
 
 
-            await CounterOps.incrementFlyerCounter(
-              context: context,
-              flyerID: 'flyerID',
-              fieldName: 'saves',
-              collName: 'flyersCounters',
-            );
+            // await CounterOps.incrementFlyerCounter(
+            //   context: context,
+            //   flyerID: 'flyerID',
+            //   fieldName: 'shares',
+            //   collName: 'bzzCounters',
+            //   increment: true,
+            // );
 
-            await TopDialog.showTopDialog(context: context, firstLine: 'request sent');
+
+            const int _numberOfTimes = 1000;
+
+            final List<Future<dynamic>> futures = <Future<dynamic>>[];
+
+            for (int i = 0; i < _numberOfTimes; i++){
+              futures.add(Real.incrementDocField(
+                context: context,
+                docID: 'flyerID',
+                fieldName: 'shares',
+                collName: 'bzzCounters',
+                increment: true,
+              ));
+            }
+
+            await Future.wait(futures);
+
+            // blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+
+
+            await TopDialog.showTopDialog(
+                context: context,
+                firstLine: '$_numberOfTimes requestS sent',
+            );
 
             // blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
 
