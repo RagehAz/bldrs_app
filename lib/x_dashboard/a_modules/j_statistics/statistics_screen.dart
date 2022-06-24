@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
@@ -17,7 +18,10 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class GeneralStatistics extends StatelessWidget {
-  const GeneralStatistics({Key key}) : super(key: key);
+
+  const GeneralStatistics({
+    Key key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,9 @@ class GeneralStatistics extends StatelessWidget {
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
+      pyramidType: PyramidType.crystalYellow,
+      zoneButtonIsOn: false,
+      sectionButtonIsOn: false,
       pageTitle: Wordz.allahoAkbar(context),
       appBarRowWidgets: const <Widget>[
         Expander(),
