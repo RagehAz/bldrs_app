@@ -1,7 +1,7 @@
 
-class RealTimeColl {
+class RealColl {
 
-  RealTimeColl();
+  RealColl();
 
 // -----------------------------------------------------------------------------
   static const String flyersCounters = 'flyersCounters';
