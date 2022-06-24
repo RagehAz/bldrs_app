@@ -488,30 +488,30 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 // ),
 
                 /// HORIZONTAL FLYERS GRID
-                Center(
-                  child: Container(
-                    width: 300,
-                    height: 150,
-                    color: Colorz.bloodTest,
-                    margin: Scale.superMargins(margins: 20),
-                    child: FlyersGrid(
-                      gridWidth: 300,
-                      gridHeight: 150,
-                      scrollController: ScrollController(),
-                      scrollDirection: Axis.horizontal,
-                      topPadding: 0,
-                      numberOfColumnsOrRows: 1,
-                      // isLoadingGrid: false,
-                      paginationFlyersIDs: const <String>[
-                        'IcWyY7CZzQ1FUieRaoG4',
-                        'IcWyY7CZzQ1FUieRaoG4',
-                        'IcWyY7CZzQ1FUieRaoG4',
-                        'IcWyY7CZzQ1FUieRaoG4',
-                        'IcWyY7CZzQ1FUieRaoG4',
-                      ],
-                    ),
-                  ),
-                ),
+                // Center(
+                //   child: Container(
+                //     width: 300,
+                //     height: 150,
+                //     color: Colorz.bloodTest,
+                //     margin: Scale.superMargins(margins: 20),
+                //     child: FlyersGrid(
+                //       gridWidth: 300,
+                //       gridHeight: 150,
+                //       scrollController: ScrollController(),
+                //       scrollDirection: Axis.horizontal,
+                //       topPadding: 0,
+                //       numberOfColumnsOrRows: 1,
+                //       // isLoadingGrid: false,
+                //       paginationFlyersIDs: const <String>[
+                //         'IcWyY7CZzQ1FUieRaoG4',
+                //         'IcWyY7CZzQ1FUieRaoG4',
+                //         'IcWyY7CZzQ1FUieRaoG4',
+                //         'IcWyY7CZzQ1FUieRaoG4',
+                //         'IcWyY7CZzQ1FUieRaoG4',
+                //       ],
+                //     ),
+                //   ),
+                // ),
 
 
                 /// PROMOTED FLYERS

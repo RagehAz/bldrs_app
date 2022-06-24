@@ -30,6 +30,7 @@ Future<void> tryAndCatch({
   }
 
   on Exception catch (error) {
+
     blog('$methodName : tryAndCatch ERROR : $error');
 
     if (onError != null) {
