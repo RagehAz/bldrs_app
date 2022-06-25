@@ -21,7 +21,7 @@ class PaginatorTest extends StatefulWidget {
 
 class _PaginatorTestState extends State<PaginatorTest> {
 // -----------------------------------------------------------------------------
-  QueryModel _queryParameters;
+  FireQueryModel _queryParameters;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -38,7 +38,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
   void initState() {
     super.initState();
 
-    _queryParameters = QueryModel(
+    _queryParameters = FireQueryModel(
       collName: 'testing',
       limit: 5,
       orderBy: const Fire.QueryOrderBy(fieldName: 'time', descending: true),
@@ -125,7 +125,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
               scrollController: _scrollController,
               builder: (_, List<Map<String, dynamic>> _maps, bool isLoading){
 
-                return Row(
+                return Column(
                   children: <Widget>[
 
                     ...List.generate(_maps.length, (index){

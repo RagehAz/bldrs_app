@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 
 // ------------------------------------------
 /// TESTED : WORKS PERFECT
-QueryModel bzReceivedNotesPaginationQueryParameters({
+FireQueryModel bzReceivedNotesPaginationQueryParameters({
   @required String bzID,
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
-  return QueryModel(
+  return FireQueryModel(
     collName: FireColl.notes,
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
