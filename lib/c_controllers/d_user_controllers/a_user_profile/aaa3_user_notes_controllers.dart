@@ -16,11 +16,11 @@ import 'package:flutter/material.dart';
 /// BZ NOTE PAGINATION QUERY PARAMETERS
 
 // ------------------------------------------
-QueryModel userReceivedNotesPaginationQueryParameters({
+FireQueryModel userReceivedNotesPaginationQueryParameters({
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
-  return QueryModel(
+  return FireQueryModel(
     collName: FireColl.notes,
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),

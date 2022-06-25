@@ -480,17 +480,24 @@ DateTime createClock({
 /// TESTED : WORKS PERFECT
 DateTime createClockFromSeconds(int seconds){
 
-  final int _hours = (seconds / 3600).floor();
-  final int _remainingSeconds = seconds - (_hours * 3600);
-  final int _minutes = (_remainingSeconds / 60).floor();
-  final int _seconds = seconds - (60 * _minutes);
+  DateTime _output;
 
-  return createClock(
-    hour: _hours,
-    minute: _minutes,
-    second: _seconds,
-  );
+  if (seconds != null){
 
+    final int _hours = (seconds / 3600).floor();
+    final int _remainingSeconds = seconds - (_hours * 3600);
+    final int _minutes = (_remainingSeconds / 60).floor();
+    final int _seconds = seconds - (60 * _minutes);
+
+    _output = createClock(
+      hour: _hours,
+      minute: _minutes,
+      second: _seconds,
+    );
+
+  }
+
+  return _output;
 }
 // -----------------------------------
 /// TESTED : WORKS PERFECT
@@ -542,10 +549,13 @@ int getTimeDifferenceInSeconds({
   @required DateTime to,
 }){
 
-  // print('from is : $from');
-  // print('to is : $to');
+  int _output;
 
-  return to.difference(from).inSeconds;
+  if (to != null && from != null){
+    _output = to?.difference(from)?.inSeconds;
+  }
+
+  return _output;
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
@@ -553,7 +563,13 @@ int getTimeDifferenceInMinutes({
   @required DateTime from,
   @required DateTime to,
 }){
-  return to.difference(from).inMinutes;
+  int _output;
+
+  if (to != null && from != null){
+    _output = to?.difference(from)?.inMinutes;
+  }
+
+  return _output;
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
@@ -561,7 +577,13 @@ int getTimeDifferenceInHours({
   @required DateTime from,
   @required DateTime to,
 }){
-  return to.difference(from).inHours;
+  int _output;
+
+  if (to != null && from != null){
+    _output = to?.difference(from)?.inHours;
+  }
+
+  return _output;
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
@@ -569,7 +591,13 @@ int getTimeDifferenceInDays({
   @required DateTime from,
   @required DateTime to,
 }){
-  return to.difference(from).inDays;
+  int _output;
+
+  if (to != null && from != null){
+    _output = to?.difference(from)?.inDays;
+  }
+
+  return _output;
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT

@@ -1,35 +1,30 @@
-import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/real/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class FireCollPaginator extends StatefulWidget {
+class RealCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FireCollPaginator({
-    @required this.queryParameters,
+  const RealCollPaginator({
     @required this.builder,
-    @required this.scrollController,
-    this.loadingWidget,
+    this.scrollController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FireQueryModel queryParameters;
-  final Widget Function(BuildContext, List<Map<String, dynamic>>, bool) builder;
-  final Widget loadingWidget;
+  final Widget Function(BuildContext, List<Map<String, dynamic>> maps, bool isLoading) builder;
   final ScrollController scrollController;
   /// --------------------------------------------------------------------------
   @override
-  _FireCollPaginatorState createState() => _FireCollPaginatorState();
+  _RealCollPaginatorState createState() => _RealCollPaginatorState();
 /// --------------------------------------------------------------------------
 }
 
-class _FireCollPaginatorState extends State<FireCollPaginator> {
+class _RealCollPaginatorState extends State<RealCollPaginator> {
 // -----------------------------------------------------------------------------
   List<Map<String, dynamic>> _maps;
-  QueryDocumentSnapshot  _startAfter;
+  ScrollController _controller;
+  Map<String, dynamic> _startAfter;
   bool _canPaginate = true;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
@@ -47,7 +42,10 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void initState() {
     super.initState();
 
+    blog('init : real coll paginator');
+
     _maps = <Map<String, dynamic>>[];
+    _controller = widget.scrollController ?? ScrollController();
 
     widget.scrollController.addListener(() async {
 
@@ -75,11 +73,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
-
       _triggerLoading().then((_) async {
-
         await _readMore();
-
       });
 
       _isInit = false;
@@ -90,32 +85,38 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   @override
   void dispose() {
     _loading.dispose();
-    super.dispose(); /// tamam
+
+    if (widget.scrollController == null) {
+      _controller.dispose();
+    }
+
+    super.dispose();
+
+    /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _readMore() async {
-
     _loading.value = true;
 
-    final List<Map<String, dynamic>> _nextMaps = await Fire.readCollectionDocs(
+    blog('should read more : startAfter is $_startAfter');
+
+    final List<Map<String, dynamic>> _nextMaps = await Real.readColl(
       context: context,
-      collName: widget.queryParameters.collName,
-      orderBy: widget.queryParameters.orderBy,
+      collName: 'colors',
       startAfter: _startAfter,
-      limit: widget.queryParameters.limit,
-      addDocsIDs: true,
-      addDocSnapshotToEachMap: true,
-      finders: widget.queryParameters.finders,
+      limit: 7,
+      realOrderBy: RealOrderBy.key,
+      limitToFirst: false,
+      // realOrderBy:
     );
 
     if (Mapper.checkCanLoopList(_nextMaps) == true){
       _maps = [..._maps, ..._nextMaps];
-      _startAfter = _maps.last['docSnapshot'];
-      widget.queryParameters.onDataChanged(_maps);
+      _startAfter = _maps.last;
+      // widget.queryParameters.onDataChanged(_maps);
     }
 
     _loading.value = false;
-
   }
 // -----------------------------------------------------------------------------
   @override
@@ -123,10 +124,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     return ValueListenableBuilder(
         valueListenable: _loading,
-        builder: (_, bool isLoading, Widget child){
-
+        builder: (_, bool isLoading, Widget child) {
           return widget.builder(context, _maps, isLoading);
-
         }
     );
 

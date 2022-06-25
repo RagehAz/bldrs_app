@@ -35,12 +35,12 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
 // ------------------------------------------
 /// TESTED : WORKS PERFECT
-QueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
+FireQueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
   @required String bzID,
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
-  return QueryModel(
+  return FireQueryModel(
     collName: FireColl.notes,
     limit: 50,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
@@ -71,12 +71,12 @@ QueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
 }
 // ------------------------------------------
 /// TESTED : NOT YET
-QueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
+FireQueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
   @required String bzID,
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
-  return QueryModel(
+  return FireQueryModel(
     collName: FireColl.notes,
     limit: 10,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
