@@ -1,34 +1,30 @@
-import 'dart:async';
-
-import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
-import 'package:bldrs/a_models/secondary_models/map_model.dart';
-import 'package:bldrs/a_models/secondary_models/record_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/e_db/real/real.dart';
-import 'package:bldrs/e_db/real/real_colls.dart';
-import 'package:bldrs/e_db/real/real_http.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_coll_streamer.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_coll_paginator.dart';
 import 'package:flutter/material.dart';
 
-class RealTestScreen extends StatelessWidget {
+class RealTestScreen extends StatefulWidget {
 
   const RealTestScreen({
     Key key
   }) : super(key: key);
+
+  @override
+  State<RealTestScreen> createState() => _RealTestScreenState();
+}
+
+class _RealTestScreenState extends State<RealTestScreen> {
+
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +32,17 @@ class RealTestScreen extends StatelessWidget {
     const String _collName = 'colors';
     const String _dummyDocName = 'colorID';
 
-    return CenteredListLayout(
-      columnChildren: <Widget>[
+    return MainLayout(
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
+      pyramidType: PyramidType.crystalYellow,
+      skyType: SkyType.non,
+      pyramidsAreOn: true,
+      appBarType: AppBarType.scrollable,
+      appBarRowWidgets: <Widget>[
 
         /// CREATE
-        SettingsWideButton(
+        AppBarButton(
           verse: 'CREATE',
           onTap: () async {
 
@@ -49,6 +51,7 @@ class RealTestScreen extends StatelessWidget {
             final Map<String, dynamic> _map = {
               'index' : createRandomIndex(listLength: 10),
               'color' : cipherColor(_color),
+              'time' : cipherTime(time: DateTime.now(), toJSON: true),
             };
 
             final Map<String, dynamic> _maw = await Real.createDoc(
@@ -64,36 +67,37 @@ class RealTestScreen extends StatelessWidget {
         ),
 
         /// CREATE NAMED
-        SettingsWideButton(
+        AppBarButton(
           verse: 'CREATE NAMED',
           onTap: () async {
 
             final Color _color = createRandomColor();
 
             final Map<String, dynamic> _map = {
-              // 'id' : createUniqueID().toString(),
+              'id' : createUniqueID().toString(),
               'color' : cipherColor(_color),
+              'time' : cipherTime(time: DateTime.now(), toJSON: true),
             };
 
             await Real.createNamedDoc(
-                context: context,
-                collName: _collName,
-                docName: _dummyDocName,
-                map: _map,
+              context: context,
+              collName: _collName,
+              docName: _dummyDocName,
+              map: _map,
             );
 
           },
         ),
 
         /// READ
-        SettingsWideButton(
+        AppBarButton(
           verse: 'READ',
           onTap: () async {
 
             final Map<String, dynamic> _map = await Real.readDoc(
-                context: context,
-                collName: _collName,
-                docName: _dummyDocName,
+              context: context,
+              collName: _collName,
+              docName: _dummyDocName,
             );
 
             blogMap(_map, methodName: 'REAL READ DOC TEST');
@@ -102,7 +106,7 @@ class RealTestScreen extends StatelessWidget {
         ),
 
         /// READ ONCE
-        SettingsWideButton(
+        AppBarButton(
           verse: 'READ ONCE',
           onTap: () async {
 
@@ -118,16 +122,16 @@ class RealTestScreen extends StatelessWidget {
         ),
 
         /// UPDATE
-        SettingsWideButton(
+        AppBarButton(
           verse: 'UPDATE',
           onTap: () async {
 
             final Color _color = createRandomColor();
 
             final Map<String, dynamic> _map = {
-              // 'id' : createUniqueID().toString(),
               'color' : cipherColor(_color),
               'name' : 'Ahmed',
+              'time' : cipherTime(time: DateTime.now(), toJSON: true),
             };
 
             await Real.updateDoc(
@@ -141,7 +145,7 @@ class RealTestScreen extends StatelessWidget {
         ),
 
         /// UPDATE FIELD
-        SettingsWideButton(
+        AppBarButton(
           verse: 'UPDATE FIELD',
           onTap: () async {
 
@@ -157,7 +161,7 @@ class RealTestScreen extends StatelessWidget {
         ),
 
         /// DELETE FIELD
-        SettingsWideButton(
+        AppBarButton(
           verse: 'DELETE FIELD',
           onTap: () async {
 
@@ -172,27 +176,63 @@ class RealTestScreen extends StatelessWidget {
         ),
 
         /// DELETE DOC
-        SettingsWideButton(
+        AppBarButton(
           verse: 'DELETE DOC',
           onTap: () async {
 
             await Real.deleteDoc(
-                context: context,
-                collName: _collName,
-                docName: _dummyDocName,
+              context: context,
+              collName: _collName,
+              docName: _dummyDocName,
             );
 
           },
         ),
 
-        Container(
-          width: superScreenWidth(context),
-          height: superScreenHeight(context) * .5,
-          color: Colorz.bloodTest,
-          child: const RealCollStreamer(),
-        ),
-
       ],
+      layoutWidget: SizedBox(
+        width: superScreenWidth(context),
+        height: superScreenHeight(context),
+        child: RealCollPaginator(
+            scrollController: _scrollController,
+            builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+
+              return ListView(
+                physics: const BouncingScrollPhysics(),
+                padding: Stratosphere.stratosphereSandwich,
+                controller: _scrollController,
+                children: <Widget>[
+
+                  if (maps != null)
+                    ...List.generate(maps.length, (index){
+
+                      return GestureDetector(
+                        onTap: () async {
+
+                          await Real.deleteDoc(
+                            context: context,
+                            collName: _collName,
+                            docName: maps[index]['id'],
+                          );
+
+                        },
+                        child: ColorButton(
+                          map: maps[index],
+                          mapIsFromJSON: true,
+                        ),
+                      );
+
+                    }),
+
+
+                  // Loading(loading: isLoading,),
+
+                ],
+              );
+
+            }
+        ),
+      ),
     );
 
   }

@@ -2,13 +2,19 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/e_db/real/real_http.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+
+enum RealOrderBy{
+  child,
+  key,
+  value,
+}
 
 class Real {
 
@@ -115,7 +121,7 @@ class Real {
 
             _docID = event.previousChildKey;
 
-            _output = _redSnapshot(
+            _output = _readSnapshot(
               snapshot: event.snapshot,
               onNull: () => blog('Real.createNamedDoc : failed to create doc '),
             );
@@ -188,6 +194,121 @@ class Real {
   /// READ
 
 // ----------------------------------------
+  static Query _createQuery({
+    @required DatabaseReference ref,
+    @required RealOrderBy realOrderBy,
+    int limit,
+    bool limitToFirst = false,
+    Map<String, dynamic> startAfter,
+  }){
+
+    Query _query = ref;
+
+    if (realOrderBy != null){
+
+      if (realOrderBy == RealOrderBy.key){
+        _query = _query.orderByKey();
+      }
+      else if (realOrderBy == RealOrderBy.child){
+        _query = _query.orderByChild(ref.path);
+      }
+      else if (realOrderBy == RealOrderBy.value){
+        _query = _query.orderByValue();
+      }
+
+    }
+
+    if (limit != null){
+
+      if (limitToFirst == true){
+        _query = _query.limitToLast(limit);
+      }
+      else {
+        _query = _query.limitToFirst(limit);
+      }
+
+    }
+
+    if (startAfter != null){
+      _query = _query.startAfter(startAfter['id'],
+          // key: startAfter['id']
+      );
+    }
+
+    return _query;
+  }
+// ----------------------------------------
+  static Future<List<Map<String, dynamic>>> readColl({
+    @required BuildContext context,
+    @required String collName,
+    RealOrderBy realOrderBy,
+    Map<String, dynamic> startAfter,
+    int limit,
+    bool limitToFirst,
+    bool addDocIDToEachMap = true,
+  }) async {
+
+    final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+          final DatabaseReference _ref = _getRefByPath(
+              collName: collName
+          );
+
+          final Query _query = _createQuery(
+            ref: _ref,
+            realOrderBy: realOrderBy,
+            limit: limit,
+            limitToFirst: limitToFirst,
+            startAfter: startAfter,
+          );
+
+          final DataSnapshot _snap = await _query.get();
+
+          final Map<String, dynamic> _dynamics = _readSnapshot(
+            snapshot: _snap,
+          );
+
+          blog(_dynamics);
+
+          if (_dynamics != null){
+
+            final List<String> _keys = _dynamics.keys.toList();
+
+            if (Mapper.checkCanLoopList(_keys) == true){
+
+              for (final String key in _keys){
+
+                blog('key : ${_dynamics[key]}');
+
+                Map<String, dynamic> _map = Map<String, dynamic>.from(_dynamics[key]);
+
+                if (addDocIDToEachMap == true){
+                  _map = Mapper.insertPairInMap(
+                      map: _map,
+                      key: 'id',
+                      value: key,
+                  );
+                }
+
+                _output.add(_map);
+
+              }
+
+            }
+
+          }
+
+
+        },
+    );
+
+    return _output;
+  }
+// ----------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readDoc({
     @required BuildContext context,
@@ -210,7 +331,7 @@ class Real {
 
         final DataSnapshot snapshot = await ref.child(_path).get();
 
-        _output = _redSnapshot(
+        _output = _readSnapshot(
           snapshot: snapshot,
           onNull: () => blog('Real.readDoc : No data available.'),
 
@@ -227,7 +348,7 @@ class Real {
   }
 // ----------------------------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> _redSnapshot({
+  static Map<String, dynamic> _readSnapshot({
     @required DataSnapshot snapshot,
     Function onExists,
     Function onNull,
@@ -270,7 +391,7 @@ class Real {
         functions: () async {
 
           final event = await ref.once(DatabaseEventType.value);
-          _map = _redSnapshot(snapshot: event.snapshot);
+          _map = _readSnapshot(snapshot: event.snapshot);
         },
     );
 
@@ -579,4 +700,24 @@ class Real {
   }
 // -----------------------------------------------------------------------------
 
+}
+
+bool canPaginateThisScroll({
+  @required ScrollController controller,
+  @required bool canPaginate,
+}){
+
+  bool _can = false;
+
+  final double _maxScroll = controller.position.maxScrollExtent;
+  final double _currentScroll = controller.position.pixels;
+  const double _paginationHeightLight = Ratioz.horizon * 3;
+
+
+  if (_maxScroll - _currentScroll <= _paginationHeightLight && canPaginate == true) {
+    blog('inn : scroll is at : $_currentScroll');
+    _can = true;
+  }
+
+  return _can;
 }
