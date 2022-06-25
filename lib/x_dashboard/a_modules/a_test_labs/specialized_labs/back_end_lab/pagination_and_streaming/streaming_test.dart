@@ -30,7 +30,7 @@ class StreamingTest extends StatefulWidget {
 }
 
 class _StreamingTestState extends State<StreamingTest> {
-  QueryModel _queryParameters;
+  FireQueryModel _queryParameters;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -47,7 +47,7 @@ class _StreamingTestState extends State<StreamingTest> {
   void initState() {
     super.initState();
 
-    _queryParameters = QueryModel(
+    _queryParameters = FireQueryModel(
       collName: 'testing',
       limit: 100,
       orderBy: const Fire.QueryOrderBy(fieldName: 'time', descending: true),
@@ -226,16 +226,18 @@ class ColorButton extends StatelessWidget {
 
   const ColorButton({
     @required this.map,
+    this.mapIsFromJSON = false,
     Key key
   }) : super(key: key);
 
   final Map<String, dynamic> map;
+  final bool mapIsFromJSON;
 
   @override
   Widget build(BuildContext context) {
 
     return ClockRebuilder(
-      startTime: Timers.decipherTime(time: map['time'], fromJSON: false),
+      startTime: Timers.decipherTime(time: map['time'], fromJSON: mapIsFromJSON),
       builder: (int seconds, Widget child){
 
         final DateTime _time = Timers.createClockFromSeconds(seconds);

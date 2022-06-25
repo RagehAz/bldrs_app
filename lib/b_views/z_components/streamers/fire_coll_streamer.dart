@@ -15,7 +15,7 @@ class FireCollStreamer extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final QueryModel queryParameters;
+  final FireQueryModel queryParameters;
   final Widget Function(BuildContext, List<Map<String, dynamic>>) builder;
   final Widget loadingWidget;
   /// --------------------------------------------------------------------------

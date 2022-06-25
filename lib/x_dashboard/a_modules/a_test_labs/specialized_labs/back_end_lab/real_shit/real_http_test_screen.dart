@@ -191,7 +191,7 @@ class RealHttpTestScreen extends StatelessWidget {
           height: superScreenHeight(context),
           color: Colorz.bloodTest,
           child: FireCollStreamer(
-            queryParameters: QueryModel(
+            queryParameters: FireQueryModel(
               collName: FireColl.records,
               limit: 100,
               onDataChanged: (List<Map<String, dynamic>> newMaps){
