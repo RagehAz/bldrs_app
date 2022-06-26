@@ -16,8 +16,8 @@ PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settings) {
   return PageTransition<dynamic>(
     child: screen,
     type: PageTransitionType.bottomToTop,
-    duration: Ratioz.durationFading200,
-    reverseDuration: Ratioz.durationFading200,
+    // duration: Ratioz.durationFading200,
+    // reverseDuration: Ratioz.durationFading200,
     curve: Curves.fastOutSlowIn,
     settings: settings,
   );
@@ -47,8 +47,8 @@ Future<dynamic> goToNewScreen({
     PageTransition<dynamic>(
       type: transitionType,
       child: screen,
-      duration: Ratioz.durationFading200,
-      reverseDuration: Ratioz.durationFading200,
+      // duration: Ratioz.durationFading200,
+      // reverseDuration: Ratioz.durationFading200,
       curve: Curves.fastOutSlowIn,
       alignment: Alignment.bottomCenter,
     ),
