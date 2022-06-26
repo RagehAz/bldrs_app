@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -11,13 +10,13 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -113,7 +112,7 @@ FireQueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
 
 // -------------------------------
 /// TESTED : SENDS GOOD : need translations
-Future<void> sendAuthorshipInvitation({
+Future<void> onSendAuthorshipInvitation({
   @required BuildContext context,
   @required UserModel selectedUser,
   @required BzModel bzModel,
@@ -132,41 +131,10 @@ Future<void> sendAuthorshipInvitation({
 
   if (_result == true){
 
-    final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
-      bz: bzModel,
-      authorID: AuthFireOps.superUserID(),
-    );
-
-    // final String _noteLang = selectedUser.language;
-
-    /// TASK : SHOULD SEND NOTE WITH SELECTED USER'S LANG
-
-    final NoteModel _note = NoteModel(
-      id: null, // will be defined in note create fire ops
-      senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
-      senderImageURL: _myAuthorModel.pic,
-      noteSenderType: NoteSenderType.bz,
-      receiverID: selectedUser.id,
-      receiverType: NoteReceiverType.user,
-      title: 'Business Account Invitation',
-      body: "'${_myAuthorModel.name}' sent you an invitation to become an Author for '${bzModel.name}' business page",
-      metaData: NoteModel.defaultMetaData,
-      sentTime: DateTime.now(),
-      attachment: bzModel.id,
-      attachmentType: NoteAttachmentType.bzID,
-      seen: false,
-      seenTime: null,
-      sendFCM: true,
-      noteType: NoteType.authorship,
-      response: NoteResponse.pending,
-      responseTime: null,
-      // senderImageURL:
-      buttons: NoteModel.generateAcceptDeclineButtons(),
-    );
-
-    await NoteFireOps.createNote(
-      context: context,
-      noteModel: _note,
+    await NoteProtocols.sendAuthorshipInvitationNote(
+        context: context,
+        bzModel: bzModel,
+        sendTo: selectedUser,
     );
 
     // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
@@ -189,7 +157,7 @@ Future<void> sendAuthorshipInvitation({
 }
 // -------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> cancelSentAuthorshipInvitation ({
+Future<void> onCancelSentAuthorshipInvitation ({
   @required BuildContext context,
   @required NoteModel note,
 }) async {
@@ -211,14 +179,9 @@ Future<void> cancelSentAuthorshipInvitation ({
 
     if (_result == true){
 
-      final NoteModel _updated = note.copyWith(
-        response: NoteResponse.cancelled,
-        responseTime: DateTime.now(),
-      );
-
-      await NoteFireOps.updateNote(
-        context: context,
-        newNoteModel: _updated,
+      await NoteProtocols.cancelSentAuthorshipInvitation(
+          context: context,
+          note: note,
       );
 
       await TopDialog.showTopDialog(
@@ -309,13 +272,13 @@ Future<void> _acceptAuthorshipInvitation({
     );
 
     /// MODIFY NOTE RESPONSE
-    await _modifyNoteResponse(
+    await NoteProtocols.modifyNoteResponse(
       context: context,
       noteModel: noteModel,
       response: NoteResponse.accepted,
     );
 
-    await _sendAuthorshipAcceptanceNote(
+    await NoteProtocols.sendAuthorshipAcceptanceNote(
       context: context,
       bzID: noteModel.senderID,
     );
@@ -336,46 +299,6 @@ Future<void> _acceptAuthorshipInvitation({
     );
 
   }
-
-}
-// -------------------
-/// TESTED :
-Future<void> _sendAuthorshipAcceptanceNote({
-  @required BuildContext context,
-  @required String bzID,
-}) async {
-
-  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-    context: context,
-    listen: false,
-  );
-
-  final NoteModel _noteModel = NoteModel(
-    id: 'x',
-    senderID: _myUserModel.id,
-    senderImageURL: _myUserModel.pic,
-    noteSenderType: NoteSenderType.user,
-    receiverID: bzID,
-    receiverType: NoteReceiverType.bz,
-    title: '${_myUserModel.name} accepted The invitation request',
-    body: '${_myUserModel.name} has become a part of the team now.',
-    metaData: NoteModel.defaultMetaData,
-    sentTime: DateTime.now(),
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    seen: false,
-    seenTime: null,
-    sendFCM: true,
-    noteType: NoteType.authorship,
-    response: null,
-    responseTime: null,
-    buttons: null,
-  );
-
-  await NoteFireOps.createNote(
-      context: context,
-      noteModel: _noteModel
-  );
 
 }
 // ------------------------------------------
@@ -400,7 +323,7 @@ Future<void> _declineAuthorshipInvitation({
 
   if (_result == true){
 
-    await _modifyNoteResponse(
+    await NoteProtocols.modifyNoteResponse(
       context: context,
       noteModel: noteModel,
       response: NoteResponse.declined,
@@ -410,6 +333,7 @@ Future<void> _declineAuthorshipInvitation({
 
 }
 // -------------------
+/*
 /// TESTED : WORKS PERFECT
 Future<void> _modifyNoteResponse({
   @required BuildContext context,
@@ -428,6 +352,7 @@ Future<void> _modifyNoteResponse({
   );
 
 }
+ */
 // ------------------------------------------
 
 /// NAVIGATION

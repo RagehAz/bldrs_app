@@ -3,22 +3,22 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/d_author_search/a_search_for_author_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/c_author_editor/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/c_author_editor/b_author_role_editor_screen.dart';
+import 'package:bldrs/b_views/x_screens/g_bz/d_author_search/a_search_for_author_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
-import 'package:bldrs/c_protocols/bz_protocols.dart';
+import 'package:bldrs/c_protocols/author_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -216,7 +216,7 @@ Future<void> _removeAuthorWhoHasFlyers({
       flyersIDs: authorModel.flyersIDs,
     );
 
-    final BzModel _updatedBzModel = await BzProtocol.deleteMultipleBzFlyersProtocol(
+    final BzModel _updatedBzModel = await FlyerProtocol.deleteMultipleBzFlyersProtocol(
       context: context,
       bzModel: _bzModel,
       showWaitDialog: false,
@@ -239,7 +239,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     );
 
     /// SEND AUTHOR DELETION NOTES
-    await _sendAuthorDeletionNotes(
+    await NoteProtocols.sendAuthorDeletionNotes(
       context: context,
       bzModel: _bzModel,
       deletedAuthor: authorModel,
@@ -300,21 +300,14 @@ Future<void> _removeAuthorWhoHasNoFlyers({
   );
 
   /// REMOVE AUTHOR MODEL FROM BZ MODEL
-  final BzModel _updatedBzModel = BzModel.removeAuthor(
+  await AuthorProtocol.removeFlyerlessAuthorProtocol(
+    context: context,
     bzModel: _bzModel,
-    authorID: authorModel.userID,
-  );
-
-  /// UPDATE BZ ON FIREBASE
-  await BzFireOps.updateBz(
-      context: context,
-      newBzModel: _updatedBzModel,
-      oldBzModel: _bzModel,
-      authorPicFile: null
+    author: authorModel,
   );
 
   /// SEND AUTHOR DELETION NOTES
-  await _sendAuthorDeletionNotes(
+  await NoteProtocols.sendAuthorDeletionNotes(
     context: context,
     bzModel: _bzModel,
     deletedAuthor: authorModel,
@@ -327,70 +320,6 @@ Future<void> _removeAuthorWhoHasNoFlyers({
     deletedAuthor: authorModel,
   );
 
-
-}
-// -------------------------------
-Future<void> _sendAuthorDeletionNotes({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required AuthorModel deletedAuthor,
-}) async {
-
-  /// NOTE TO BZ
-  final NoteModel _noteToBz = NoteModel(
-    id: 'x',
-    senderID: deletedAuthor.userID,
-    senderImageURL: deletedAuthor.pic,
-    noteSenderType: NoteSenderType.user,
-    receiverID: bzModel.id,
-    receiverType: NoteReceiverType.bz,
-    title: '${deletedAuthor.name} has left the team',
-    body: '${deletedAuthor.name} is no longer part of ${bzModel.name} team',
-    metaData: NoteModel.defaultMetaData,
-    sentTime: DateTime.now(),
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    seen: false,
-    seenTime: null,
-    sendFCM: true,
-    noteType: NoteType.announcement,
-    response: null,
-    responseTime: null,
-    buttons: null,
-  );
-
-  await NoteFireOps.createNote(
-    context: context,
-    noteModel: _noteToBz,
-  );
-
-  /// NOTE TO DELETED AUTHOR
-  final NoteModel _noteToUser = NoteModel(
-    id: 'x',
-    senderID: bzModel.id,
-    senderImageURL: bzModel.logo,
-    noteSenderType: NoteSenderType.bz,
-    receiverID: deletedAuthor.userID,
-    receiverType: NoteReceiverType.user,
-    title: 'You have exited from ${bzModel.name} account',
-    body: 'You are no longer part of ${bzModel.name} team',
-    metaData: NoteModel.defaultMetaData,
-    sentTime: DateTime.now(),
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    seen: false,
-    seenTime: null,
-    sendFCM: true,
-    noteType: NoteType.announcement,
-    response: null,
-    responseTime: null,
-    buttons: null,
-  );
-
-  await NoteFireOps.createNote(
-    context: context,
-    noteModel: _noteToUser,
-  );
 
 }
 // -------------------------------

@@ -379,5 +379,21 @@ class NotesProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  static void proAuthorResignationNotesRemovalOps({
+    @required BuildContext context,
+    @required String bzIDResigned,
+  }){
+
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    _notesProvider.removeAllNotesOfThisBzFromAllBzzUnseenReceivedNotes(
+      bzID: bzIDResigned,
+      notify: false,
+    );
+    _notesProvider.removeAllObeliskNoteNumbersRelatedToBzID(
+        bzID: bzIDResigned,
+        notify: true
+    );
+
+  }
 
 }

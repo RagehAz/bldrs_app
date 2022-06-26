@@ -6,7 +6,9 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -110,9 +112,79 @@ class FlyerProtocol {
 
   }
 // ----------------------------------
-  static Future<void> deleteMultipleFlyersByActiveBzProtocol({
+  static Future<BzModel> deleteMultipleBzFlyersProtocol({
     @required BuildContext context,
+    @required BzModel bzModel,
     @required List<FlyerModel> flyers,
-  }) async {}
+    @required bool showWaitDialog,
+    @required bool updateBzEveryWhere,
+  }) async {
+
+    BzModel _bzModel = bzModel;
+
+    if (Mapper.checkCanLoopList(flyers) == true && bzModel != null){
+
+      if (showWaitDialog == true){
+        unawaited(WaitDialog.showWaitDialog(
+          context: context,
+          loadingPhrase: 'Deleting flyers',
+          canManuallyGoBack: false,
+        ));
+      }
+
+      /// FIRE DELETION
+      _bzModel = await FlyerFireOps.deleteMultipleBzFlyers(
+        context: context,
+        flyersToDelete: flyers,
+        bzModel: bzModel,
+        updateBzFireOps: updateBzEveryWhere,
+      );
+
+      /// FLYER LDB DELETION
+      final List<String> _flyersIDs = FlyerModel.getFlyersIDsFromFlyers(flyers);
+      await FlyerLDBOps.deleteFlyers(_flyersIDs);
+
+      /// BZ LDB UPDATE
+      if (updateBzEveryWhere == true){
+        await BzLDBOps.updateBzOps(
+            bzModel: _bzModel
+        );
+      }
+
+      /// FLYER PRO DELETION
+      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+      _flyersProvider.removeFlyersFromProFlyers(
+        flyersIDs: _flyersIDs,
+        notify: true,
+      );
+
+      /// BZ PRO UPDATE
+      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+      final bool _shouldUpdateMyActiveBz =
+          updateBzEveryWhere == true
+              &&
+              _bzzProvider.myActiveBz.id == _bzModel.id;
+
+      _bzzProvider.removeFlyersFromActiveBzFlyers(
+        flyersIDs: _flyersIDs,
+        notify: !_shouldUpdateMyActiveBz,
+      );
+
+      /// BZ PRO UPDATE
+      if (_shouldUpdateMyActiveBz == true){
+        _bzzProvider.setActiveBz(
+          bzModel: _bzModel,
+          notify: true,
+        );
+      }
+
+      if (showWaitDialog == true){
+        WaitDialog.closeWaitDialog(context);
+      }
+
+    }
+
+    return _bzModel;
+  }
 // -----------------------------------------------------------------------------
 }

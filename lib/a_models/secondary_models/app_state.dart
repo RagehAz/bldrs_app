@@ -197,4 +197,34 @@ class AppState {
     blog('AppState ------------------------ END');
   }
 // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -----------------------------------
+  static bool checkAppStatesAreIdentical({
+    @required AppState appState1,
+    @required AppState appState2,
+}){
+    bool _identical = false;
+
+    if (appState1 != null && appState2 != null){
+
+      if (
+          appState1.keywordsChainVersion == appState2.keywordsChainVersion &&
+          appState1.specsChainVersion == appState2.specsChainVersion &&
+          appState1.specPickersVersion == appState2.specPickersVersion &&
+          appState1.phrasesVersion == appState2.phrasesVersion &&
+          appState1.appVersion == appState2.appVersion &&
+          appState1.ldbVersion == appState2.ldbVersion &&
+          appState1.appControlsVersion == appState2.appControlsVersion &&
+          appState1.id == appState2.id
+      ){
+        _identical = true;
+      }
+
+    }
+
+    return _identical;
+  }
+// -----------------------------------------------------------------------------
 }
