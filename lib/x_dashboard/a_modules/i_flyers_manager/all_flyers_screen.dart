@@ -9,10 +9,14 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class AllFlyersScreen extends StatefulWidget {
-  const AllFlyersScreen({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const AllFlyersScreen({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   @override
   _AllFlyersScreenState createState() => _AllFlyersScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _AllFlyersScreenState extends State<AllFlyersScreen> {
@@ -52,8 +56,10 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         );
 
         blog('we got ${_maps.length} maps');
-        final List<FlyerModel> _flyersFromMaps =
-            FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
+        final List<FlyerModel> _flyersFromMaps = FlyerModel.decipherFlyers(
+            maps: _maps,
+            fromJSON: false,
+        );
         blog('we got ${_flyersFromMaps.length} flyers');
 
         setState(() {
@@ -122,8 +128,11 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return MainLayout(
       appBarType: AppBarType.basic,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
       pyramidsAreOn: true,
       pageTitle: 'All Flyers',
       appBarRowWidgets: const <Widget>[],
@@ -139,15 +148,6 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         scrollController: ScrollController(),
       ),
 
-      // FlyerStack(
-      //   flyerSizeFactor: 0.8,
-      //   title: 'All Flyers on Database',
-      //   onScrollEnd: (){blog('on Scroll end here');},
-      //   flyerOnTap: (flyerID) => blog('flyerID is : $flyerID'),
-      //   flyersType: null,
-      //   tinyFlyers: _tinyFlyers,
-      //   titleIcon: null,
-      // ),
     );
   }
 }

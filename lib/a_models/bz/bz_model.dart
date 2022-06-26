@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -418,25 +419,31 @@ class BzModel{
   /// MODIFIERS
 
 // ------------------------------------------
-  static List<String> removeFlyerIDFromBzFlyersIDs({
+  static BzModel removeFlyerIDFromBzAndAuthor({
     @required BzModel bzModel,
-    @required String flyerIDToRemove,
+    @required FlyerModel flyer,
 }){
-    final List<String> _ids = <String>[...bzModel.flyersIDs];
 
-    if (Mapper.checkCanLoopList(_ids) == true && flyerIDToRemove != null){
+    final List<String> _bzFlyersIDs = Mapper.removeStringsFromStrings(
+      removeFrom: bzModel.flyersIDs,
+      removeThis: <String>[flyer.id],
+    );
 
-      final int _index = _ids.indexWhere((id) => id == flyerIDToRemove);
+    final List<AuthorModel> _updatedAuthors = AuthorModel.removeFlyerIDFromAuthor(
+      flyerID: flyer.id,
+      authorID: flyer.authorID,
+      authors: bzModel.authors,
+    );
 
-      if (_index != -1){
-        _ids.removeAt(_index);
-      }
+    final BzModel _updatedBzModel = bzModel.copyWith(
+      flyersIDs: _bzFlyersIDs,
+      authors: _updatedAuthors,
+    );
 
-    }
-
-    return _ids;
+    return _updatedBzModel;
   }
 // ------------------------------------------
+  /*
   static BzModel removeFlyersIDs({
     @required List<String> flyersIDs,
     @required BzModel bzModel,
@@ -462,6 +469,7 @@ class BzModel{
 
 
   }
+   */
 // ------------------------------------------
   static List<BzModel> addOrRemoveBzToBzz({
     @required List<BzModel> bzzModels,

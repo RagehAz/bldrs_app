@@ -308,18 +308,10 @@ Future<void> _acceptAuthorshipInvitation({
       loadingPhrase: "Adding you to '${bzModel.name}' business account",
     ));
 
-    /// MODIFY MY USER MODEL
-    // has to come before modifying the bzModel on firebase to let security rules allow
-    // this user to modify bz on firebase.
-    final UserModel _newUserModel = await _addBzIDToMyUserModelOps(
-      context: context,
-      bzModel: bzModel,
-    );
 
     /// MODIFY THIS BZ MODEL
-    await _addNewAuthorToNewBzOps(
+    await _addMeAsNewAuthorToBz(
       context: context,
-      newUserModel: _newUserModel,
       oldBzModel: bzModel,
     );
 
@@ -392,11 +384,18 @@ Future<UserModel> _addBzIDToMyUserModelOps({
 }
 // -------------------
 /// TESTED :
-Future<BzModel> _addNewAuthorToNewBzOps({
+Future<BzModel> _addMeAsNewAuthorToBz({
   @required BuildContext context,
-  @required UserModel newUserModel,
   @required BzModel oldBzModel,
 }) async {
+
+  /// MODIFY MY USER MODEL
+  // has to come before modifying the bzModel on firebase to let security rules allow
+  // this user to modify bz on firebase.
+  final UserModel newUserModel = await _addBzIDToMyUserModelOps(
+    context: context,
+    bzModel: oldBzModel,
+  );
 
   final List<AuthorModel> _newAuthors = AuthorModel.addNewUserToAuthors(
     authors: oldBzModel.authors,
