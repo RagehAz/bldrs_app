@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' as Launcher;
 
 // -----------------------------------------------------------------------------
 
@@ -13,8 +13,11 @@ Future<void> launchURL(String link) async {
   /// should make a condition
   /// if it starts with http:// or not
   /// then do whats necessary, as the link should include http://
-  if (await canLaunch(link)) {
-    await launch(link);
+
+  final Uri _uri = Uri.parse(link);
+
+  if (await Launcher.canLaunchUrl(_uri)) {
+    await Launcher.launchUrl(_uri);
   } else {
     blog('Can Not launch link');
   }
@@ -26,10 +29,16 @@ Future<void> launchURL(String link) async {
 // ----------------------------------------
 Future<void> launchCall(String phoneNumber) async {
 
-  final String _link = 'tel: $phoneNumber';
+  // final String _link = 'tel: $phoneNumber';
+  // final Uri _uri = Uri.parse(_link;
 
-  if (await canLaunch(_link)) {
-    await launch(_link);
+  final Uri _uri = Uri(
+    path: phoneNumber,
+    scheme: 'tel',
+  );
+
+  if (await Launcher.canLaunchUrl(_uri)) {
+    await Launcher.launchUrl(_uri);
   }
 
   else {
