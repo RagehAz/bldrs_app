@@ -1,10 +1,12 @@
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/e_db/fire/ops/user_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 
-/// PROTOCOLS ARE SET OF OPS CALLED BY CONTROLLERS TO LAUNCH FIRE OPS AND LDB OPS.
+/// PROTOCOLS ARE SET OF OPS CALLED BY CONTROLLERS TO LAUNCH ( FIRE - LDB - PRO ) OPS.
 
 class UserProtocol {
 
@@ -23,31 +25,41 @@ class UserProtocol {
   /// UPDATE
 
 // ----------------------------------
-  static Future<void> updateMyUserEverywhereProtocol({
+  /// TESTED : WORKS PERFECT
+  static Future<UserModel> updateMyUserEverywhereProtocol({
     @required BuildContext context,
-    @required UserModel userModel,
+    @required UserModel newUserModel,
   }) async {
 
-    /// UPDATE IN FIRE STORE
-    await UserFireOps.updateUser(
+
+    /// UPDATE USER IN FIRE STORE
+    final UserModel _uploadedModel = await UserFireOps.updateUser(
         context: context,
-        newUserModel: userModel,
+        newUserModel: newUserModel,
         oldUserModel: UsersProvider.proGetMyUserModel(
             context: context,
             listen: false,
         ),
     );
 
-    /// UPDATE IN LDB
-    await UserLDBOps.updateUserModel(userModel);
-
-    /// UPDATE IN PRO
-    UsersProvider.proUpdateUserModel(
+    /// UPDATE USER AND AUTH IN PRO
+    UsersProvider.proUpdateUserAndAuthModels(
       context: context,
-      userModel: userModel,
+      userModel: _uploadedModel,
       notify: true,
     );
 
+    /// UPDATE USER MODEL IN LDB
+    await UserLDBOps.updateUserModel(_uploadedModel);
+
+    /// UPDATE AUTH MODEL IN LDB
+    final AuthModel _authModel = UsersProvider.proGetAuthModel(
+      context: context,
+      listen: false,
+    );
+    await AuthLDBOps.updateAuthModel(_authModel);
+
+    return _uploadedModel;
   }
 // -----------------------------------------------------------------------------
 

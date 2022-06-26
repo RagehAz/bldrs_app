@@ -11,7 +11,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// PROTOCOLS ARE SET OF OPS CALLED BY CONTROLLERS TO LAUNCH FIRE OPS AND LDB OPS.
+/// PROTOCOLS ARE SET OF OPS CALLED BY CONTROLLERS TO LAUNCH ( FIRE - LDB - PRO ) OPS.
 
 class FlyerProtocol {
 
@@ -60,9 +60,7 @@ class FlyerProtocol {
 /// UPDATE
 
 // ----------------------------------
-  static Future<void> updateFlyerProtocol() async {
-
-  }
+  static Future<void> updateFlyerProtocol() async {}
 // -----------------------------------------------------------------------------
 
 /// DELETE
@@ -115,8 +113,6 @@ class FlyerProtocol {
   static Future<void> deleteMultipleFlyersByActiveBzProtocol({
     @required BuildContext context,
     @required List<FlyerModel> flyers,
-  }) async {
-
-  }
+  }) async {}
 // -----------------------------------------------------------------------------
 }

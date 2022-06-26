@@ -2,20 +2,14 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/user_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -179,46 +173,9 @@ Future<void> _myBzResignationProtocol({
       body: 'Your account does not have access to this business account',
     );
 
-    /// 4 - REMOVE BZ FROM MY BZ IN BZZ PROVIDER
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    _bzzProvider.removeBzFromMyBzz(
-        bzID: newBzFromStream.id,
-        notify: false,
-    );
-    await BzLDBOps.deleteBzOps(
+    await AuthorProtocol.removeMeFromBzProtocol(
         context: context,
-        bzModel: newBzFromStream,
-    );
-
-    /// 5 - REMOVE BZ ID FROM MY BZZ IDS / UPDATE MY USER MODEL AND AUTH MODEL IN PROVIDER
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final UserModel _oldUserModel = _usersProvider.myUserModel;
-    _usersProvider.removeBzIDFromMyBzzIDs(
-        bzIDToRemove: newBzFromStream.id,
-        notify: true,
-    );
-    final UserModel _myUpdatedUserModel = _usersProvider.myUserModel;
-
-    /// 7 - UPDATE MY USER IN LDB
-    await UserLDBOps.updateUserModel(_myUpdatedUserModel);
-    await AuthLDBOps.updateAuthModel(_usersProvider.myAuthModel);
-
-    /// 8 - UPDATE MY USER MODEL IN FIREBASE
-    await UserFireOps.updateUser(
-        context: context,
-        oldUserModel: _oldUserModel,
-        newUserModel: _myUpdatedUserModel,
-    );
-
-    /// 10 - REMOVE ALL NOTES FROM ALL-MY-BZZ-NOTES AND OBELISK NOTES NUMBERS
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-    _notesProvider.removeAllNotesOfThisBzFromAllBzzUnseenReceivedNotes(
-      bzID: newBzFromStream.id,
-      notify: false,
-    );
-    _notesProvider.removeAllObeliskNoteNumbersRelatedToBzID(
-        bzID: newBzFromStream.id,
-        notify: true
+        streamedBzModel: newBzFromStream
     );
 
     /// 11 - GO BACK HOME

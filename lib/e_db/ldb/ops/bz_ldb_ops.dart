@@ -11,6 +11,7 @@ class BzLDBOps {
   /// CREATE
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertBz({
   @required BzModel bzModel,
 }) async {
@@ -96,7 +97,6 @@ class BzLDBOps {
 
 // -------------------------------
   static Future<void> deleteBzOps({
-    @required BuildContext context,
     @required BzModel bzModel,
   }) async {
 

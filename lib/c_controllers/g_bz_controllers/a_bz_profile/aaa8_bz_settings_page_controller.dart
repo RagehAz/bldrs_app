@@ -267,7 +267,6 @@ Future<void> _deleteBzProtocol({
 
   /// DELETE BZ ON LDB
   await BzLDBOps.deleteBzOps(
-    context: context,
     bzModel: bzModel,
   );
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
