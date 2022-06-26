@@ -16,6 +16,8 @@ XX - bypassUpdate() : update specific field in specific doc or sub doc
         if _existingMap[key] field exists => update _existingKey[key] = input[key]
     }
 
+xx - cloud function to delete storage file
+
 YY -- collect User Records and send each 10 seconds list of records to increment their fields
       in db
       - with each record => increment global / country / city statistics field :-
