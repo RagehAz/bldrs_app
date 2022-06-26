@@ -52,7 +52,6 @@ class BzProtocol {
     /// LOCAL UPDATE PROTOCOL
     /// is to update my-active-bz-model in PRO and LDB in case of model changes
 
-
     final bool _areTheSame = BzModel.checkBzzAreIdentical(
       bz1: newBzModel,
       bz2: oldBzModel,

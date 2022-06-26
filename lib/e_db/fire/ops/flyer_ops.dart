@@ -648,24 +648,9 @@ class FlyerFireOps {
 
     if (bzModel != null && flyer != null){
 
-      // blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : was bzFlyers : ${bzModel.flyersIDs}');
-
-      final List<String> _bzFlyersIDs = Mapper.removeStringsFromStrings(
-        removeFrom: bzModel.flyersIDs,
-        removeThis: <String>[flyer.id],
-      );
-
-      // blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : is bzFlyers : $_bzFlyersIDs');
-
-      final List<AuthorModel> _updatedAuthors = AuthorModel.removeFlyerIDFromAuthor(
-        flyerID: flyer.id,
-        authorID: flyer.authorID,
-        authors: bzModel.authors,
-      );
-
-      final BzModel _updatedBzModel = bzModel.copyWith(
-        flyersIDs: _bzFlyersIDs,
-        authors: _updatedAuthors,
+      final BzModel _updatedBzModel = BzModel.removeFlyerIDFromBzAndAuthor(
+          bzModel: bzModel,
+          flyer: flyer,
       );
 
       _uploadedBzModel = await BzFireOps.updateBz(

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -25,7 +24,6 @@ import 'package:flutter/material.dart';
 Future<void> onFlyerBzOptionsTap({
   @required BuildContext context,
   @required FlyerModel flyer,
-  @required BzModel bzModel,
 }) async {
 
   blog('SHOULD DELETE THIS FLYER');
@@ -63,7 +61,6 @@ Future<void> onFlyerBzOptionsTap({
             onTap: () => _onDeleteFlyerButtonTap(
               context: context,
               flyer: flyer,
-              bzModel: bzModel,
             ),
           ),
 
@@ -90,7 +87,6 @@ Future<void> _onEditFlyerButtonTap(FlyerModel flyer) async {
 Future<void> _onDeleteFlyerButtonTap({
   @required BuildContext context,
   @required FlyerModel flyer,
-  @required BzModel bzModel,
 }) async {
 
   blog('_onDeleteFlyer : starting deleting flyer ${flyer.id}');
@@ -101,16 +97,14 @@ Future<void> _onDeleteFlyerButtonTap({
   );
 
   /// TASK : NEED TO CHECK USER PERMISSIONS TO BE ABLE TO CONTINUE DELETION PROCESSES
-  /// => IS OWNER OF STORAGE PICS ?
+  /// TASK : => IS OWNER OF STORAGE PICS ?
 
   if (_result == true){
 
-    await FlyerProtocol.deleteSingleFlyerProtocol(
+    await FlyerProtocol.deleteSingleFlyerByActiveBzProtocol(
       context: context,
-      bzModel: bzModel,
       flyer: flyer,
       showWaitDialog: true,
-      notify: true,
     );
 
     Nav.goBack(context);
