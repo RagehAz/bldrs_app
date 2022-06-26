@@ -1,4 +1,5 @@
 
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
@@ -6,7 +7,9 @@ import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +72,33 @@ class AuthorProtocol {
 /// UPDATE
 
 // ----------------------------------
+  static Future<BzModel> updateAuthorProtocol({
+    @required BuildContext context,
+    @required BzModel oldBzModel,
+    @required AuthorModel newAuthorModel,
+  }) async {
 
+    final BzModel _updatedBzModel = BzModel.replaceAuthor(
+      updatedAuthor: newAuthorModel,
+      bzModel: oldBzModel,
+    );
+
+    final BzModel _uploadedBzModel =  await BzFireOps.updateBz(
+      context: context,
+      newBzModel: _updatedBzModel,
+      oldBzModel: oldBzModel,
+      authorPicFile: ObjectChecker.objectIsFile(newAuthorModel.pic) == true ? newAuthorModel.pic : null,
+    );
+
+    /// no need to do that as stream listener does it
+    // await myActiveBzLocalUpdateProtocol(
+    //   context: context,
+    //   newBzModel: _uploadedModel,
+    //   oldBzModel: _bzModel,
+    // );
+
+    return _uploadedBzModel;
+  }
 // -----------------------------------------------------------------------------
 
 /// DELETE
@@ -114,15 +143,34 @@ class AuthorProtocol {
     );
 
     /// 10 - REMOVE ALL NOTES FROM ALL-MY-BZZ-NOTES AND OBELISK NOTES NUMBERS
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-    _notesProvider.removeAllNotesOfThisBzFromAllBzzUnseenReceivedNotes(
-      bzID: streamedBzModel.id,
-      notify: false,
+    NotesProvider.proAuthorResignationNotesRemovalOps(
+      context: context,
+      bzIDResigned: streamedBzModel.id,
     );
-    _notesProvider.removeAllObeliskNoteNumbersRelatedToBzID(
-        bzID: streamedBzModel.id,
-        notify: true
+
+  }
+// ----------------------------------
+  static Future<void> removeFlyerlessAuthorProtocol({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required AuthorModel author,
+  }) async {
+
+    /// REMOVE AUTHOR MODEL FROM BZ MODEL
+    final BzModel _updatedBzModel = BzModel.removeAuthor(
+      bzModel: bzModel,
+      authorID: author.userID,
     );
+
+    /// UPDATE BZ ON FIREBASE
+    await BzFireOps.updateBz(
+        context: context,
+        newBzModel: _updatedBzModel,
+        oldBzModel: bzModel,
+        authorPicFile: null
+    );
+
+    /// NOTE : no need to update bz locally here as bz stream listener does the job
 
   }
 // -----------------------------------------------------------------------------

@@ -12,7 +12,7 @@ import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;

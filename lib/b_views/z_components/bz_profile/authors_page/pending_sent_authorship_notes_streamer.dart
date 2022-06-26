@@ -86,7 +86,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
                   color: Colorz.white10,
                   bubble: false,
                   sideButton: 'Cancel',
-                  onSideButtonTap: () => cancelSentAuthorshipInvitation(
+                  onSideButtonTap: () => onCancelSentAuthorshipInvitation(
                     context: context,
                     note: _note,
                   ),

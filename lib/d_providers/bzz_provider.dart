@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
@@ -110,6 +110,37 @@ class BzzProvider extends ChangeNotifier {
       bzID: bzID,
     );
     return _bzModel;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OPS
+
+// -------------------------------------
+  void removeProBzEveryWhere({
+    @required BzModel bzModel,
+  }){
+
+    removeBzFromMyBzz(
+      bzID: bzModel.id,
+      notify: false,
+    );
+    removeBzFromSponsors(
+      bzIDToRemove: bzModel.id,
+      notify: false,
+    );
+    removeBzFromFollowedBzz(
+      bzIDToRemove: bzModel.id,
+      notify: false,
+    );
+
+    // / NO NEED TO CLEAR LAST INSTANCE IN ACTIVE BZ AS WE WILL NAVIGATE BACK
+    // / TO HOME SCREEN, THEN RESET MY ACTIVE BZ ON NEXT BZ SCREEN OPENING
+    if (bzModel.id == _myActiveBz.id){
+      clearMyActiveBz(
+        notify: true,
+      );
+    }
+
   }
 // -----------------------------------------------------------------------------
 

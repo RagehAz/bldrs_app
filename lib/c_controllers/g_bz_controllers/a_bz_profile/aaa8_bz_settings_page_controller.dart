@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/b_bz_editor/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -11,18 +10,13 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
-import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -65,7 +59,7 @@ Future<void> onDeleteBzButtonTap({
       updateBz: false,
     );
 
-    await _deleteBzProtocol(
+    await BzProtocol.deleteBzProtocol(
       context: context,
       bzModel: bzModel,
     );
@@ -236,7 +230,7 @@ Future<void> _deleteAllBzFlyersOps({
       flyersIDs: bzModel.flyersIDs
   );
 
-  await BzProtocol.deleteMultipleBzFlyersProtocol(
+  await FlyerProtocol.deleteMultipleBzFlyersProtocol(
       context: context,
       bzModel: bzModel,
       flyers: _flyers,
@@ -248,59 +242,3 @@ Future<void> _deleteAllBzFlyersOps({
 
 }
 // ------------------
-Future<void> _deleteBzProtocol({
-  @required BuildContext context,
-  @required BzModel bzModel,
-}) async {
-
-  unawaited(WaitDialog.showWaitDialog(
-    context: context,
-    loadingPhrase: 'Deleting ${bzModel.name}',
-    canManuallyGoBack: false,
-  ));
-
-  /// DELETE BZ ON FIREBASE
-  await BzFireOps.deleteBzOps(
-    context: context,
-    bzModel: bzModel,
-  );
-
-  /// DELETE BZ ON LDB
-  await BzLDBOps.deleteBzOps(
-    bzModel: bzModel,
-  );
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  final UserModel _userModel = _usersProvider.myUserModel;
-  await UserLDBOps.removeBzIDFromMyBzIDs(
-    bzIDToRemove: bzModel.id,
-    userModel: _userModel,
-  );
-
-  /// DELETE BZ ON PROVIDER
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  _bzzProvider.removeBzFromMyBzz(
-    bzID: bzModel.id,
-    notify: false,
-  );
-  _bzzProvider.removeBzFromSponsors(
-    bzIDToRemove: bzModel.id,
-    notify: false,
-  );
-  _bzzProvider.removeBzFromFollowedBzz(
-    bzIDToRemove: bzModel.id,
-    notify: false,
-  );
-  // / NO NEED TO CLEAR LAST INSTANCE IN ACTIVE BZ AS WE WILL NAVIGATE BACK
-  // / TO HOME SCREEN, THEN RESET MY ACTIVE BZ ON NEXT BZ SCREEN OPENING
-  _bzzProvider.clearMyActiveBz(
-    notify: true,
-  );
-
-  _usersProvider.removeBzIDFromMyBzzIDs(
-    bzIDToRemove: bzModel.id,
-    notify: true,
-  );
-
-  WaitDialog.closeWaitDialog(context);
-
-}

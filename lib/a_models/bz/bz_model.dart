@@ -1534,7 +1534,7 @@ class BzModel{
           Mapper.checkListsAreTheSame(list1: bz1.trigram, list2: bz2.trigram) &&
           bz1.logo == bz2.logo &&
           Mapper.checkListsAreTheSame(list1: bz1.scope, list2: bz2.scope) &&
-          ZoneModel.checkZonesAreTheSame(zone1: bz1.zone, zone2: bz1.zone) &&
+          ZoneModel.checkZonesIDsAreTheSame(zone1: bz1.zone, zone2: bz1.zone) &&
           bz1.about == bz2.about &&
           bz1.position == bz2.position &&
           ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) &&
@@ -1608,7 +1608,7 @@ class BzModel{
       if (Mapper.checkListsAreTheSame(list1: bz1.scope, list2: bz2.scope) == false){
         blog('scope is not identical');
       }
-      if (ZoneModel.checkZonesAreTheSame(zone1: bz1.zone, zone2: bz1.zone) == false){
+      if (ZoneModel.checkZonesIDsAreTheSame(zone1: bz1.zone, zone2: bz1.zone) == false){
         blog('zone is not identical');
       }
       if (bz1.about != bz2.about){
