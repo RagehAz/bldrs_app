@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire_coll_streamer.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';

@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire_coll_paginator.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
 import 'package:flutter/material.dart';
 

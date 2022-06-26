@@ -1,6 +1,7 @@
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sembast/utils/value_utils.dart';
 // -----------------------------------------------------------------------------
@@ -249,7 +250,7 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
 }
 // -----------------------------------------------------------------------------
 
-/// DOCUMENT SNAPSHOT
+/// MAPS - SNAPSHOTS
 
 // -------------------------------------
 /// TESTED : WORKS PERFECT
@@ -279,6 +280,67 @@ Map<String, dynamic> getMapFromDocumentSnapshot({
 
   return _map;
 }
+// -------------------------------------
+/// TESTED : WORKS PERFECT
+Map<String, dynamic> getMapFromDataSnapshot({
+  @required DataSnapshot snapshot,
+  bool addDocID = true,
+  Function onExists,
+  Function onNull,
+}){
+
+  Map<String, dynamic> _output;
+
+  if (snapshot.exists) {
+    _output = Map<String, dynamic>.from(snapshot.value);
+
+    if (addDocID == true){
+      _output = insertPairInMap(
+          map: _output,
+          key: 'id',
+          value: snapshot.key,
+      );
+    }
+
+    if (onExists != null){
+      onExists();
+    }
+  }
+
+  else {
+    if (onNull != null){
+      onNull();
+    }
+  }
+
+  return _output;
+}
+// -------------------------------------
+List<Map<String, dynamic>> getMapsFromDataSnapshots({
+  @required List<DataSnapshot> snapshots,
+  bool addDocsIDs = true,
+}){
+
+  final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+
+  if (checkCanLoopList(snapshots) == true){
+
+    for (final DataSnapshot snap in snapshots){
+
+      final Map<String, dynamic> _map = getMapFromDataSnapshot(
+        snapshot: snap,
+        addDocID: addDocsIDs,
+      );
+
+      _output.add(_map);
+
+    }
+
+  }
+
+  return _output;
+}
+
 // -----------------------------------------------------------------------------
 
 /// MAP GETTERS FROM (URL - DYNAMIC - STRING STRING IMMUTABLE MAP STRING OBJECT)
