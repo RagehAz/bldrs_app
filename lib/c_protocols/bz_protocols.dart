@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -124,11 +123,11 @@ class BzProtocol {
     @required BzModel bzModel,
   }) async {
 
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingPhrase: 'Deleting ${bzModel.name}',
-      canManuallyGoBack: false,
-    ));
+    // unawaited(WaitDialog.showWaitDialog(
+    //   context: context,
+    //   loadingPhrase: 'Deleting ${bzModel.name}',
+    //   canManuallyGoBack: false,
+    // ));
 
     /// DELETE BZ ON FIREBASE
     await BzFireOps.deleteBzOps(
@@ -163,7 +162,7 @@ class BzProtocol {
         newUserModel: _updated,
     );
 
-    WaitDialog.closeWaitDialog(context);
+    // WaitDialog.closeWaitDialog(context);
 
   }
 // ----------------------------------
