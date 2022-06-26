@@ -3,7 +3,6 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 class FireQueryModel {
   /// --------------------------------------------------------------------------
   const FireQueryModel({

@@ -121,7 +121,7 @@ class Real {
 
             _docID = event.previousChildKey;
 
-            _output = _readSnapshot(
+            _output = Mapper.getMapFromDataSnapshot(
               snapshot: event.snapshot,
               onNull: () => blog('Real.createNamedDoc : failed to create doc '),
             );
@@ -268,8 +268,9 @@ class Real {
 
           final DataSnapshot _snap = await _query.get();
 
-          final Map<String, dynamic> _dynamics = _readSnapshot(
+          final Map<String, dynamic> _dynamics = Mapper.getMapFromDataSnapshot(
             snapshot: _snap,
+            addDocID: false,
           );
 
           blog(_dynamics);
@@ -331,7 +332,7 @@ class Real {
 
         final DataSnapshot snapshot = await ref.child(_path).get();
 
-        _output = _readSnapshot(
+        _output = Mapper.getMapFromDataSnapshot(
           snapshot: snapshot,
           onNull: () => blog('Real.readDoc : No data available.'),
 
@@ -342,31 +343,6 @@ class Real {
 
     if (_output != null){
       blog('Real.readDoc : found map in (REAL/$collName/$docName) of ${_output.keys.length} keys');
-    }
-
-    return _output;
-  }
-// ----------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> _readSnapshot({
-    @required DataSnapshot snapshot,
-    Function onExists,
-    Function onNull,
-  }){
-
-    Map<String, dynamic> _output;
-
-    if (snapshot.exists) {
-      _output = Map<String, dynamic>.from(snapshot.value);
-      if (onExists != null){
-        onExists();
-      }
-    }
-
-    else {
-      if (onNull != null){
-        onNull();
-      }
     }
 
     return _output;
@@ -391,7 +367,11 @@ class Real {
         functions: () async {
 
           final event = await ref.once(DatabaseEventType.value);
-          _map = _readSnapshot(snapshot: event.snapshot);
+
+          _map = Mapper.getMapFromDataSnapshot(
+              snapshot: event.snapshot,
+          );
+
         },
     );
 

@@ -8,7 +8,7 @@ import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/aaa3_user_
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/b_views/z_components/streamers/fire_coll_paginator.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

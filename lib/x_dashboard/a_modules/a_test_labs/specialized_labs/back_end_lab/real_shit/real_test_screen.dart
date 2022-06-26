@@ -2,14 +2,17 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/streamers/real/real_coll_paginator.dart';
+import 'package:bldrs/b_views/z_components/streamers/real/real_coll_streamer.dart';
+import 'package:bldrs/b_views/z_components/streamers/real/real_doc_streamer.dart';
 import 'package:bldrs/e_db/real/real.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_coll_paginator.dart';
 import 'package:flutter/material.dart';
 
 class RealTestScreen extends StatefulWidget {
@@ -40,6 +43,19 @@ class _RealTestScreenState extends State<RealTestScreen> {
       pyramidsAreOn: true,
       appBarType: AppBarType.scrollable,
       appBarRowWidgets: <Widget>[
+
+        RealDocStreamer(
+          collName: 'colors',
+          docName: 'colorID',
+          builder: (_, Map<String, dynamic> map){
+
+            return AppBarButton(
+              verse: 'STREAM',
+              buttonColor: map == null ? Colorz.white255 : decipherColor(map['color']),
+            );
+
+          },
+        ),
 
         /// CREATE
         AppBarButton(
@@ -190,48 +206,97 @@ class _RealTestScreenState extends State<RealTestScreen> {
         ),
 
       ],
-      layoutWidget: SizedBox(
-        width: superScreenWidth(context),
-        height: superScreenHeight(context),
-        child: RealCollPaginator(
-            scrollController: _scrollController,
-            builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+      layoutWidget: Row(
+        children: <Widget>[
 
-              return ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: Stratosphere.stratosphereSandwich,
-                controller: _scrollController,
-                children: <Widget>[
+          SizedBox(
+            width: superScreenWidth(context) * 0.5,
+            height: superScreenHeight(context),
+            child: RealCollPaginator(
+                scrollController: _scrollController,
+                builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
 
-                  if (maps != null)
-                    ...List.generate(maps.length, (index){
+                  return ListView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: Stratosphere.stratosphereSandwich,
+                    controller: _scrollController,
+                    children: <Widget>[
 
-                      return GestureDetector(
-                        onTap: () async {
+                      if (maps != null)
+                        ...List.generate(maps.length, (index){
 
-                          await Real.deleteDoc(
-                            context: context,
-                            collName: _collName,
-                            docName: maps[index]['id'],
+                          return GestureDetector(
+                            onTap: () async {
+
+                              await Real.deleteDoc(
+                                context: context,
+                                collName: _collName,
+                                docName: maps[index]['id'],
+                              );
+
+                            },
+                            child: ColorButton(
+                              map: maps[index],
+                              mapIsFromJSON: true,
+                            ),
                           );
 
-                        },
-                        child: ColorButton(
-                          map: maps[index],
-                          mapIsFromJSON: true,
-                        ),
-                      );
+                        }),
 
-                    }),
+                      // Loading(loading: isLoading,),
+
+                    ],
+                  );
+
+                }
+            ),
+          ),
+
+          SizedBox(
+            width: superScreenWidth(context) * 0.5,
+            height: superScreenHeight(context),
+            child: RealCollStreamer(
+                collName: 'colors',
+                builder: (_, List<Map<String, dynamic>> maps){
+
+                  return ListView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: Stratosphere.stratosphereSandwich,
+                    controller: ScrollController(),
+                    children: <Widget>[
+
+                      if (maps != null)
+                        ...List.generate(maps.length, (index){
+
+                          return GestureDetector(
+                            onTap: () async {
+
+                              await Real.deleteDoc(
+                                context: context,
+                                collName: _collName,
+                                docName: maps[index]['id'],
+                              );
+
+                            },
+                            child: ColorButton(
+                              map: maps[index],
+                              mapIsFromJSON: true,
+                            ),
+                          );
+
+                        }),
 
 
-                  // Loading(loading: isLoading,),
+                      // Loading(loading: isLoading,),
 
-                ],
-              );
+                    ],
+                  );
 
-            }
-        ),
+                }
+            ),
+          ),
+
+        ],
       ),
     );
 
