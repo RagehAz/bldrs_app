@@ -8,11 +8,17 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
-class BzSettingsPage extends StatelessWidget {
+class BzSettingsPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzSettingsPage({
     Key key
   }) : super(key: key);
+
+  @override
+  State<BzSettingsPage> createState() => _BzSettingsPageState();
+}
+
+class _BzSettingsPageState extends State<BzSettingsPage> {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
