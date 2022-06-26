@@ -116,7 +116,7 @@ class AddAuthorScreenView extends StatelessWidget {
                           userModel: userModel,
                         ),
                         sideButton: superPhrase(context, 'phid_invite'),
-                        onSideButtonTap: (UserModel userModel) => sendAuthorshipInvitation(
+                        onSideButtonTap: (UserModel userModel) => onSendAuthorshipInvitation(
                           context: context,
                           selectedUser: userModel,
                           bzModel: bzModel,

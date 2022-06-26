@@ -119,6 +119,31 @@ void blogGeoPoint({
   blog('$methodName : lat : ${point.latitude} : lng : ${point.longitude}');
 }
 // -----------------------------------------------------------------------------
+
+/// CHECKERS
+
+// ----------------------------------------
+bool checkPointsAreIdentical({
+  @required GeoPoint point1,
+  @required GeoPoint point2,
+}){
+  bool _identical = false;
+
+  if (point1 != null && point2 != null){
+
+    if (
+    point1.latitude == point2.latitude &&
+    point1.longitude == point2.longitude
+    ){
+      _identical = true;
+    }
+
+  }
+
+  return _identical;
+
+}
+// -----------------------------------------------------------------------------
 /*
 // ----------------------------------------------------------------------
 const String GOOGLE_API_KEY = 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI';

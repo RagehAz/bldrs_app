@@ -19,6 +19,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 
 // -----------------------------------------------------------------------------
 enum UserStatus {
@@ -491,6 +492,55 @@ class UserModel {
 
     return _contains;
   }
+// -----------------------------------
+  static bool checkUsersAreIdentical({
+    @required UserModel user1,
+    @required UserModel user2,
+  }){
+    bool _identical = false;
+
+    if (user1 != null && user2 != null){
+
+      if (
+      user1.id == user2.id &&
+      user1.authBy == user2.authBy &&
+      Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: user1.createdAt, timeB: user2.createdAt) &&
+      user1.status == user2.status &&
+      user1.name == user2.name &&
+      Mapper.checkListsAreTheSame(list1: user1.trigram, list2: user2.trigram) &&
+      Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) &&
+      user1.title == user2.title &&
+      user1.company == user2.company &&
+      user1.gender == user2.gender &&
+      ZoneModel.checkZonesIDsAreTheSame(zone1: user1.zone, zone2: user2.zone) &&
+      user1.language == user2.language &&
+      Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) &&
+      ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) &&
+      Mapper.checkListsAreTheSame(list1: user1.myBzzIDs, list2: user2.myBzzIDs) &&
+      user1.emailIsVerified == user2.emailIsVerified &&
+      user1.isAdmin == user2.isAdmin &&
+      Mapper.checkListsAreTheSame(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
+      Mapper.checkListsAreTheSame(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
+      AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState)
+      // FCMToken fcmToken;
+      // DocumentSnapshot docSnapshot;
+
+      ){
+        _identical = true;
+      }
+
+    }
+
+    if (_identical == false){
+      blogUsersDifferences(
+        user1: user1,
+        user2: user2,
+      );
+
+    }
+
+    return _identical;
+  }
 // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -738,6 +788,105 @@ class UserModel {
     }
     else {
       blog('No User Model to blog');
+    }
+
+  }
+// -----------------------------------
+  static void blogUsersDifferences({
+    @required UserModel user1,
+    @required UserModel user2,
+  }){
+
+    if (user1 == null){
+      blog('blogUsersDifferences : user1 is null');
+    }
+
+    if (user2 == null){
+      blog('blogUsersDifferences : user2 is null');
+    }
+
+    if (user1 != null && user2 != null){
+
+          if (user1.id != user2.id){
+            blog('blogUserDifferences : [id] are not identical');
+          }
+
+          if (user1.authBy != user2.authBy){
+            blog('blogUserDifferences : [authBy] are not identical');
+          }
+
+          if (Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: user1.createdAt, timeB: user2.createdAt) == false){
+            blog('blogUserDifferences : [createdAt] are not identical');
+          }
+
+          if (user1.status != user2.status){
+            blog('blogUserDifferences : [status] are not identical');
+          }
+
+          if (user1.name != user2.name){
+            blog('blogUserDifferences : [name] are not identical');
+          }
+
+          if (Mapper.checkListsAreTheSame(list1: user1.trigram, list2: user2.trigram) == false){
+            blog('blogUserDifferences : [trigram] are not identical');
+          }
+
+          if (Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) == false){
+            blog('blogUserDifferences : [pic] are not identical');
+          }
+
+          if (user1.title != user2.title){
+            blog('blogUserDifferences : [title] are not identical');
+          }
+
+          if (user1.company != user2.company){
+            blog('blogUserDifferences : [company] are not identical');
+          }
+
+          if (user1.gender != user2.gender){
+            blog('blogUserDifferences : [gender] are not identical');
+          }
+
+          if (ZoneModel.checkZonesIDsAreTheSame(zone1: user1.zone, zone2: user2.zone) == false){
+            blog('blogUserDifferences : [zone] are not identical');
+          }
+
+          if (user1.language != user2.language){
+            blog('blogUserDifferences : [language] are not identical');
+          }
+
+          if (Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) == false){
+            blog('blogUserDifferences : [location] are not identical');
+          }
+
+          if (ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == false){
+            blog('blogUserDifferences : [contacts] are not identical');
+          }
+
+          if (Mapper.checkListsAreTheSame(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == false){
+            blog('blogUserDifferences : [myBzzIDs] are not identical');
+          }
+
+          if (user1.emailIsVerified != user2.emailIsVerified){
+            blog('blogUserDifferences : [emailIsVerified] are not identical');
+          }
+
+          if (user1.isAdmin != user2.isAdmin){
+            blog('blogUserDifferences : [isAdmin] are not identical');
+          }
+
+          if (Mapper.checkListsAreTheSame(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == false){
+            blog('blogUserDifferences : [savedFlyersIDs] are not identical');
+          }
+
+          if (Mapper.checkListsAreTheSame(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == false){
+            blog('blogUserDifferences : [followedBzzIDs] are not identical');
+          }
+
+          if (AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == false){
+            blog('blogUserDifferences : [appState] are not identical');
+          }
+
     }
 
   }

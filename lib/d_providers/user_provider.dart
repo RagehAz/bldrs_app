@@ -396,7 +396,6 @@ class UsersProvider extends ChangeNotifier {
   }){
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
     return _usersProvider.myUserModel;
-
   }
 // -------------------------------------
   static Future<List<UserModel>> proFetchUsersModels({

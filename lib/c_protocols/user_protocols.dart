@@ -31,35 +31,47 @@ class UserProtocol {
     @required UserModel newUserModel,
   }) async {
 
+    UserModel _uploadedModel;
 
-    /// UPDATE USER IN FIRE STORE
-    final UserModel _uploadedModel = await UserFireOps.updateUser(
+    final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
+    final bool _modelsAreIdentical = UserModel.checkUsersAreIdentical(
+        user1: newUserModel,
+        user2: _oldUserModel
+    );
+
+    if (_modelsAreIdentical == false){
+
+      /// UPDATE USER IN FIRE STORE
+      _uploadedModel = await UserFireOps.updateUser(
         context: context,
         newUserModel: newUserModel,
-        oldUserModel: UsersProvider.proGetMyUserModel(
-            context: context,
-            listen: false,
-        ),
-    );
+        oldUserModel: _oldUserModel,
+      );
 
-    /// UPDATE USER AND AUTH IN PRO
-    UsersProvider.proUpdateUserAndAuthModels(
-      context: context,
-      userModel: _uploadedModel,
-      notify: true,
-    );
+      /// UPDATE USER AND AUTH IN PRO
+      UsersProvider.proUpdateUserAndAuthModels(
+        context: context,
+        userModel: _uploadedModel,
+        notify: true,
+      );
 
-    /// UPDATE USER MODEL IN LDB
-    await UserLDBOps.updateUserModel(_uploadedModel);
+      /// UPDATE USER MODEL IN LDB
+      await UserLDBOps.updateUserModel(_uploadedModel);
 
-    /// UPDATE AUTH MODEL IN LDB
-    final AuthModel _authModel = UsersProvider.proGetAuthModel(
-      context: context,
-      listen: false,
-    );
-    await AuthLDBOps.updateAuthModel(_authModel);
+      /// UPDATE AUTH MODEL IN LDB
+      final AuthModel _authModel = UsersProvider.proGetAuthModel(
+        context: context,
+        listen: false,
+      );
+      await AuthLDBOps.updateAuthModel(_authModel);
 
-    return _uploadedModel;
+    }
+
+    return _uploadedModel ?? newUserModel;
   }
 // -----------------------------------------------------------------------------
 
