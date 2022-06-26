@@ -1,22 +1,17 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 
 // -----------------------------------------------------------------------------
 /// PROTOCOLS ARE SET OF OPS CALLED BY CONTROLLERS TO LAUNCH FIRE OPS AND LDB OPS.
@@ -124,92 +119,52 @@ class BzProtocol {
   /// DELETE
 
 // ----------------------------------
-  static Future<void> deleteBzEverywhereProtocol({
-    @required BuildContext context,
-    @required BzModel bzToUpdate,
-  }) async {
-
-    /// FIRE
-
-    /// PRO
-
-    /// LDB
-
-  }
-// ----------------------------------
-  static Future<BzModel> deleteMultipleBzFlyersProtocol({
+  static Future<void> deleteBzProtocol({
     @required BuildContext context,
     @required BzModel bzModel,
-    @required List<FlyerModel> flyers,
-    @required bool showWaitDialog,
-    @required bool updateBzEveryWhere,
   }) async {
 
-    BzModel _bzModel = bzModel;
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Deleting ${bzModel.name}',
+      canManuallyGoBack: false,
+    ));
 
-    if (checkCanLoopList(flyers) == true && bzModel != null){
+    /// DELETE BZ ON FIREBASE
+    await BzFireOps.deleteBzOps(
+      context: context,
+      bzModel: bzModel,
+    );
 
-      if (showWaitDialog == true){
-        unawaited(WaitDialog.showWaitDialog(
-          context: context,
-          loadingPhrase: 'Deleting flyers',
-          canManuallyGoBack: false,
-        ));
-      }
+    /// DELETE BZ ON LDB
+    await BzLDBOps.deleteBzOps(
+      bzModel: bzModel,
+    );
 
-      /// FIRE DELETION
-      _bzModel = await FlyerFireOps.deleteMultipleBzFlyers(
+    /// DELETE BZ ON PROVIDER
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.removeProBzEveryWhere(
+      bzModel: bzModel,
+    );
+
+    /// REMOVE BZ ID FROM MY BZZ IDS
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
         context: context,
-        flyersToDelete: flyers,
-        bzModel: bzModel,
-        updateBzFireOps: updateBzEveryWhere,
-      );
+        listen: false,
+    );
+    final UserModel _updated = UserModel.removeBzIDFromMyBzzIDs(
+        userModel: _userModel,
+        bzIDToRemove: bzModel.id,
+    );
 
-      /// FLYER LDB DELETION
-      final List<String> _flyersIDs = FlyerModel.getFlyersIDsFromFlyers(flyers);
-      await FlyerLDBOps.deleteFlyers(_flyersIDs);
+    /// UPDATE USER MODEL EVERYWHERE
+    await UserProtocol.updateMyUserEverywhereProtocol(
+        context: context,
+        newUserModel: _updated,
+    );
 
-      /// BZ LDB UPDATE
-      if (updateBzEveryWhere == true){
-        await BzLDBOps.updateBzOps(
-            bzModel: _bzModel
-        );
-      }
+    WaitDialog.closeWaitDialog(context);
 
-      /// FLYER PRO DELETION
-      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-      _flyersProvider.removeFlyersFromProFlyers(
-        flyersIDs: _flyersIDs,
-        notify: true,
-      );
-
-      /// BZ PRO UPDATE
-      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-      final bool _shouldUpdateMyActiveBz =
-          updateBzEveryWhere == true
-              &&
-              _bzzProvider.myActiveBz.id == _bzModel.id;
-
-      _bzzProvider.removeFlyersFromActiveBzFlyers(
-        flyersIDs: _flyersIDs,
-        notify: !_shouldUpdateMyActiveBz,
-      );
-
-      /// BZ PRO UPDATE
-      if (_shouldUpdateMyActiveBz == true){
-        _bzzProvider.setActiveBz(
-          bzModel: _bzModel,
-          notify: true,
-        );
-      }
-
-      if (showWaitDialog == true){
-        WaitDialog.closeWaitDialog(context);
-      }
-
-    }
-
-    return _bzModel;
   }
 // ----------------------------------
   static Future<void> myBzGotDeletedAndIShouldDeleteAllMyBzRelatedData({

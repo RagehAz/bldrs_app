@@ -4,15 +4,13 @@ import 'dart:io';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/c_protocols/author_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 
@@ -38,6 +36,7 @@ Future<void> takeAuthorImage({
 void onDeleteAuthorImage({
   @required ValueNotifier<AuthorModel> author,
 }){
+
   author.value = AuthorModel(
     pic: null,
     title: author.value.title,
@@ -93,24 +92,11 @@ Future<void> onConfirmAuthorUpdates({
 
     author.value = _author;
 
-    final BzModel _updatedBzModel = BzModel.replaceAuthor(
-        updatedAuthor: _author,
-        bzModel: _bzModel,
+    await AuthorProtocol.updateAuthorProtocol(
+      context: context,
+      oldBzModel: _bzModel,
+      newAuthorModel: _author,
     );
-
-    await BzFireOps.updateBz(
-        context: context,
-        newBzModel: _updatedBzModel,
-        oldBzModel: _bzModel,
-        authorPicFile: objectIsFile(_author.pic) == true ? _author.pic : null,
-    );
-
-    /// no need to do that as stream listener does it
-    // await myActiveBzLocalUpdateProtocol(
-    //   context: context,
-    //   newBzModel: _uploadedModel,
-    //   oldBzModel: _bzModel,
-    // );
 
 
     WaitDialog.closeWaitDialog(context);
@@ -164,25 +150,19 @@ Future<void> onChangeAuthorRoleOps({
         isMaster: isMaster.value,
       );
 
-      final BzModel _updatedBzModel = BzModel.replaceAuthor(
-        updatedAuthor: _author,
-        bzModel: _bzModel,
-      );
-
       await Future.wait(<Future>[
 
-        BzFireOps.updateBz(
+        AuthorProtocol.updateAuthorProtocol(
           context: context,
-          newBzModel: _updatedBzModel,
           oldBzModel: _bzModel,
-          authorPicFile: null,
+          newAuthorModel: _author,
         ),
 
-        _sendAuthorRoleChangeNote(
+        NoteProtocols.sendAuthorRoleChangeNote(
           context: context,
-          bzModel:_updatedBzModel,
+          bzID: _bzModel.id,
           author: _author,
-        ),
+        )
 
       ]);
 
@@ -198,41 +178,3 @@ Future<void> onChangeAuthorRoleOps({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> _sendAuthorRoleChangeNote({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required AuthorModel author,
-}) async {
-
-  final String _authorRoleString = AuthorCard.getAuthorRoleLine(
-      isMaster: author.isMaster,
-  );
-
-  final NoteModel _noteModel = NoteModel(
-    id: 'x',
-    senderID: bzModel.id,
-    senderImageURL: author.pic,
-    noteSenderType: NoteSenderType.bz,
-    receiverID: bzModel.id,
-    receiverType: NoteReceiverType.bz,
-    title: 'Team member Role changed',
-    body: 'The team role of "${author.name}" has been set to "$_authorRoleString"',
-    metaData: NoteModel.defaultMetaData,
-    sentTime: DateTime.now(),
-    attachment: null,
-    attachmentType: null,
-    seen: false,
-    seenTime: null,
-    sendFCM: true,
-    noteType: NoteType.announcement,
-    response: null,
-    responseTime: null,
-    buttons: null,
-  );
-
-  await NoteFireOps.createNote(
-      context: context,
-      noteModel: _noteModel,
-  );
-
-}

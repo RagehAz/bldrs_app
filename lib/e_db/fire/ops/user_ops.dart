@@ -264,13 +264,21 @@ class UserFireOps {
       pic: _userPicURL ?? oldUserModel.pic,
     );
 
-
-    await Fire.updateDoc(
-      context: context,
-      collName: FireColl.users,
-      docName: newUserModel.id,
-      input: _finalUserModel.toMap(toJSON: false),
+    final bool _userModelsAreIdentical = UserModel.checkUsersAreIdentical(
+      user1: oldUserModel,
+      user2: _finalUserModel,
     );
+
+    if (_userModelsAreIdentical == false){
+
+      await Fire.updateDoc(
+        context: context,
+        collName: FireColl.users,
+        docName: newUserModel.id,
+        input: _finalUserModel.toMap(toJSON: false),
+      );
+
+    }
 
     return _finalUserModel;
   }

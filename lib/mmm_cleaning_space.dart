@@ -1,4 +1,17 @@
 
+
+// Future<void> bypassUpdate() async {
+//
+//   await _nourBypassEndPoint(
+//     collName: collname,
+//     docName: docName,
+//     mapToInsert: { // Map<String, dynamic>
+//       'x' : '',
+//     },
+//   );
+//
+// }
+
 /*
 
 DB CLOUD FUNCTIONS

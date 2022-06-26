@@ -16,7 +16,7 @@ import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;

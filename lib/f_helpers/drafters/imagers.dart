@@ -1115,6 +1115,46 @@ Future<bool> localAssetExists(dynamic asset) async {
 
   return _isFound;
 }
+// ---------------------------------------
+/// not tested
+bool checkPicsAreIdentical({
+  @required dynamic pic1,
+  @required dynamic pic2,
+}){
+  bool _identical = false;
+
+  if (pic1 != null && pic2 != null){
+
+    if (pic1.runtimeType == pic2.runtimeType){
+
+      final bool _isURL = ObjectChecker.objectIsURL(pic1);
+      final bool _isFile = ObjectChecker.objectIsFile(pic1);
+      final bool _isAsset = ObjectChecker.objectIsAsset(pic1);
+
+      if (_isURL == true){
+        final String _a = pic1;
+        final String _b = pic2;
+        _identical = _a == _b;
+      }
+
+      else if (_isFile == true){
+        final File _a = pic1;
+        final File _b = pic2;
+        _identical = _a.path == _b.path; // TASK : NEED CONFIRMATION
+      }
+
+      else if (_isAsset == true){
+        final Asset _a = pic1;
+        final Asset _b = pic2;
+        _identical = _a.identifier == _b.identifier; // TASK : NEED CONFIRMATION
+      }
+
+    }
+
+  }
+
+  return _identical;
+}
 // -----------------------------------------------------------------
 
 /// IMAGE QUALITY
