@@ -16,6 +16,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 
 // -----------------------------------------------------------------------------
 /// PROTOCOLS ARE SET OF OPS CALLED BY CONTROLLERS TO LAUNCH FIRE OPS AND LDB OPS.
@@ -29,18 +30,41 @@ class BzProtocol {
   /// CREATE
 
 // ----------------------------------
-  static Future<void> createBzProtocol() async {
-
-  }
+  static Future<void> createBzProtocol() async {}
 // -----------------------------------------------------------------------------
 
   /// UPDATE
 
 // ----------------------------------
-  static Future<void> updateBzProtocol() async {
+  /// TESTED : WORKS PERFECT
+  static Future<BzModel> updateMyBzEverywhereProtocol({
+    @required BuildContext context,
+    @required BzModel newBzModel,
+    @required BzModel oldBzModel,
+  }) async {
 
+    /// FIRE
+    final BzModel _uploadedBzModel = await BzFireOps.updateBz(
+      context: context,
+      newBzModel: newBzModel,
+      oldBzModel: oldBzModel,
+      authorPicFile: null,
+    );
+
+    /// PRO
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.updateBzInMyBzz(
+        modifiedBz: _uploadedBzModel,
+        notify: true,
+    );
+
+    /// LDB
+    await BzLDBOps.insertBz(
+      bzModel: _uploadedBzModel,
+    );
+
+    return _uploadedBzModel;
   }
-
   // -------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> myActiveBzLocalUpdateProtocol({
@@ -95,13 +119,21 @@ class BzProtocol {
     }
 
   }
-
 // -----------------------------------------------------------------------------
 
   /// DELETE
 
 // ----------------------------------
-  static Future<void> deleteBzProtocol() async {
+  static Future<void> deleteBzEverywhereProtocol({
+    @required BuildContext context,
+    @required BzModel bzToUpdate,
+  }) async {
+
+    /// FIRE
+
+    /// PRO
+
+    /// LDB
 
   }
 // ----------------------------------
@@ -209,8 +241,9 @@ class BzProtocol {
     );
     await UserProtocol.updateMyUserEverywhereProtocol(
       context: context,
-      userModel: _updatedUserModel,
+      newUserModel: _updatedUserModel,
     );
+
   }
 // -----------------------------------------------------------------------------
 }

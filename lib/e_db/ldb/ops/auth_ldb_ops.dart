@@ -65,6 +65,7 @@ class AuthLDBOps {
 /// UPDATE
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateAuthModel(AuthModel newAuthModel) async {
 
    if (newAuthModel != null){

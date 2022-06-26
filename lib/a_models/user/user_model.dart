@@ -18,6 +18,8 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+
 // -----------------------------------------------------------------------------
 enum UserStatus {
   normal,
@@ -627,6 +629,24 @@ class UserModel {
     }
 
     return _output;
+  }
+// -----------------------------------
+  /// TESTED : WORKS PERFECT
+  static UserModel addBzIDToUserModel({
+    @required UserModel userModel,
+    @required String bzIDToAdd,
+  }){
+
+    final List<String> _newBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+      strings: userModel.myBzzIDs,
+      stringToAdd: bzIDToAdd,
+    );
+
+    final UserModel _updatedUserModel = userModel.copyWith(
+      myBzzIDs: _newBzzIDs,
+    );
+
+    return _updatedUserModel;
   }
 // -----------------------------------
   static UserModel removeBzIDFromMyBzzIDs({
