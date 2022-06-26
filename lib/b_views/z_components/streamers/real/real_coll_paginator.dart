@@ -111,7 +111,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     );
 
     if (Mapper.checkCanLoopList(_nextMaps) == true){
-      _maps = [..._maps, ..._nextMaps];
+      _maps = <Map<String, dynamic>>[..._maps, ..._nextMaps];
       _startAfter = _maps.last;
       // widget.queryParameters.onDataChanged(_maps);
     }
