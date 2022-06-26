@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -11,6 +10,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
+import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
@@ -18,16 +18,11 @@ import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart' as BzFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
-import 'package:bldrs/e_db/fire/ops/user_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
 // -----------------------------------------------------------------------------
 
@@ -308,9 +303,7 @@ Future<void> _acceptAuthorshipInvitation({
       loadingPhrase: "Adding you to '${bzModel.name}' business account",
     ));
 
-
-    /// MODIFY THIS BZ MODEL
-    await _addMeAsNewAuthorToBz(
+    await AuthorProtocol.addMeAsNewAuthorToABzProtocol(
       context: context,
       oldBzModel: bzModel,
     );
@@ -344,87 +337,6 @@ Future<void> _acceptAuthorshipInvitation({
 
   }
 
-}
-// -------------------
-/// TESTED :
-Future<UserModel> _addBzIDToMyUserModelOps({
-  @required BuildContext context,
-  @required BzModel bzModel,
-}) async {
-
-  final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-  );
-
-  /// FIRE OPS
-  final UserModel _newUserModel = await UserFireOps.addBzIDToUserBzzIDs(
-    context: context,
-    bzID: bzModel.id,
-    oldUserModel: _oldUserModel,
-  );
-
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  AuthModel _authModel = _usersProvider.myAuthModel;
-  _authModel = _authModel.copyWith(
-    userModel: _newUserModel,
-  );
-
-  /// PRO OPS
-  _usersProvider.setMyUserModelAndAuthModel(
-      userModel: _newUserModel,
-      notify: false
-  );
-
-  /// LDB OPS
-  await AuthLDBOps.updateAuthModel(_authModel);
-  await UserLDBOps.updateUserModel(_newUserModel);
-
-  return _newUserModel;
-}
-// -------------------
-/// TESTED :
-Future<BzModel> _addMeAsNewAuthorToBz({
-  @required BuildContext context,
-  @required BzModel oldBzModel,
-}) async {
-
-  /// MODIFY MY USER MODEL
-  // has to come before modifying the bzModel on firebase to let security rules allow
-  // this user to modify bz on firebase.
-  final UserModel newUserModel = await _addBzIDToMyUserModelOps(
-    context: context,
-    bzModel: oldBzModel,
-  );
-
-  final List<AuthorModel> _newAuthors = AuthorModel.addNewUserToAuthors(
-    authors: oldBzModel.authors,
-    newUserModel: newUserModel,
-  );
-
-  final BzModel _newBzModel = oldBzModel.copyWith(
-    authors: _newAuthors,
-  );
-
-  /// FIRE OPS
-  final BzModel _uploadedBzModel = await BzFireOps.updateBz(
-    context: context,
-    newBzModel: _newBzModel,
-    oldBzModel: oldBzModel,
-    authorPicFile: null,
-  );
-
-  /// PRO OPS
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  _bzzProvider.addBzToMyBzz(
-    bzModel: _uploadedBzModel,
-    notify: true,
-  );
-
-  /// LDB OPS
-  await BzLDBOps.insertBz(bzModel: _uploadedBzModel,);
-
-  return _uploadedBzModel;
 }
 // -------------------
 /// TESTED :
