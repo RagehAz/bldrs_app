@@ -14,7 +14,7 @@ packages:
       name: another_flushbar
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.10.29"
+    version: "1.10.26"
   archive:
     dependency: transitive
     description:
@@ -1022,6 +1022,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.7"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.11.1"
   permission_handler:
     dependency: "direct main"
     description:
