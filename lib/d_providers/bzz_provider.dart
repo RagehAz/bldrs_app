@@ -274,6 +274,7 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void addBzToMyBzz({
     @required BzModel bzModel,
     @required bool notify,
@@ -284,6 +285,7 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void updateBzInMyBzz({
     @required BzModel modifiedBz,
     @required bool notify,

@@ -95,6 +95,14 @@ class UsersProvider extends ChangeNotifier {
   UserModel get myUserModel => _myUserModel;
   AuthModel get myAuthModel => _myAuthModel;
 // -------------------------------------
+  static AuthModel proGetAuthModel({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
+    return _usersProvider.myAuthModel;
+  }
+// -------------------------------------
   Future<void> fetchSetMyUserModelAndFixZone(BuildContext context) async {
     UserModel _userModel;
 
@@ -204,7 +212,8 @@ class UsersProvider extends ChangeNotifier {
 
   }
   // -------------------------------------
-  static void proUpdateUserModel({
+  /// TESTED : WORKS PERFECT
+  static void proUpdateUserAndAuthModels({
     @required BuildContext context,
     @required UserModel userModel,
     @required bool notify,

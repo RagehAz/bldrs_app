@@ -517,7 +517,7 @@ class BzModel{
 
     return _output;
   }
-  // ------------------------------------------
+// -----------------------------------
   /// TESTED : WORKS PERFECT
   static BzModel removeAuthor({
     @required BzModel bzModel,
@@ -546,6 +546,24 @@ class BzModel{
     // blog('removeAuthor : _output is (${AuthorModel.getAuthorsIDsFromAuthors(authors: _output.authors)})');
 
     return _output ?? bzModel;
+  }
+// -----------------------------------
+  /// TESTED : WORKS PERFECT
+  static BzModel addNewUserAsAuthor({
+    @required BzModel oldBzModel,
+    @required UserModel userModel,
+  }){
+
+    final List<AuthorModel> _newAuthors = AuthorModel.addNewUserToAuthors(
+      authors: oldBzModel.authors,
+      newUserModel: userModel,
+    );
+
+    final BzModel _newBzModel = oldBzModel.copyWith(
+      authors: _newAuthors,
+    );
+
+    return _newBzModel;
   }
 // -----------------------------------------------------------------------------
 

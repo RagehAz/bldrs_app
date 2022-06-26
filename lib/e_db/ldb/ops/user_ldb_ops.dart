@@ -91,6 +91,7 @@ class UserLDBOps {
   /// UPDATE
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateUserModel(UserModel userModel) async {
 
     if (userModel != null){
