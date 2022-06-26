@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/aa_my_bz_screen_pages.
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire_doc_streamer.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
