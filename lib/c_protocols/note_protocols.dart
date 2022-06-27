@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
@@ -204,6 +205,49 @@ class NoteProtocols {
       context: context,
       noteModel: _noteToUser,
     );
+
+  }
+// ----------------------------------
+  static Future<void> sendBzDeletionNoteToAllAuthors({
+    @required BuildContext context,
+    @required BzModel bzModel,
+  }) async {
+
+    if (bzModel != null && checkCanLoopList(bzModel.authors) == true){
+
+      for (final AuthorModel author in bzModel.authors){
+
+        final NoteModel _note = NoteModel(
+          id: 'x',
+          senderID: NoteModel.bldrsSenderID,
+          senderImageURL: NoteModel.bldrsLogoURL,
+          noteSenderType: NoteSenderType.bldrs,
+          receiverID: author.userID,
+          receiverType: NoteReceiverType.user,
+          title: '${author.name} has deleted "${bzModel.name}" business account',
+          body: 'All related data to "${bzModel.name}" business account have been permanently deleted',
+          metaData: NoteModel.defaultMetaData,
+          sentTime: DateTime.now(),
+          attachment: bzModel.id,
+          attachmentType: NoteAttachmentType.bzID,
+          seen: false,
+          seenTime: null,
+          sendFCM: true,
+          noteType: NoteType.bzDeletion,
+          response: null,
+          responseTime: null,
+          buttons: null,
+        );
+
+        await NoteFireOps.createNote(
+          context: context,
+          noteModel: _note,
+        );
+
+      }
+
+    }
+
 
   }
 // -----------------------------------------------------------------------------

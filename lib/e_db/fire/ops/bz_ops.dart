@@ -5,13 +5,11 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
-import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -462,7 +460,7 @@ class BzFireOps {
   }
 // -----------------------------------------------------------------------------
 
-  /// DELETE
+  /// DELETE BZ
 
 // --------------------------
   static Future<void> deleteBzOps({
@@ -482,26 +480,30 @@ class BzFireOps {
       bzModel: bzModel,
     );
 
+    /// TASK : PIC SHOULD HAVE MULTIPLE OWNERS FROM MASTER OWNERS
+    /// TASK : SHOULD NOT PROCEED IF THE LOGO IS THE USER PIC OF ANY MASTER AUTHOR
     await _deleteBzStorageLogo(
       context: context,
       bzModel: bzModel,
     );
 
-    await _deleteBzAuthorsPictures(
-      context: context,
-      bzModel: bzModel,
-    );
+    // /// TASK : SHOULD BE DELETED IN "AUTHOR BZ EXIT AFTER BZ DELETION PROTOCOL"
+    // await _deleteBzAuthorsPictures(
+    //   context: context,
+    //   bzModel: bzModel,
+    // );
 
     await _deleteBzDoc(
       context: context,
       bzModel: bzModel,
     );
 
-    /// SHOULD BE LAST DUE TO FIREBASE PERMISSIONS
-    await _deleteBzIDFromAuthorBzIDs(
-      context: context,
-      bzModel: bzModel,
-    );
+    /// TASK : SHOULD SEND BZ ACCOUNT DELETION NOTE TO EVERYONE ELSE
+    /// TASK : EACH AUTHOR SHOULD AUTO ACTIVATE "AUTHOR BZ EXIT AFTER BZ DELETION PROTOCOL" WHEN RECEIVING THE NOTE
+    // await _deleteBzIDFromAuthorBzIDs(
+    //   context: context,
+    //   bzModel: bzModel,
+    // );
 
     blog('deleteBzOps : END');
   }
@@ -541,46 +543,6 @@ class BzFireOps {
     }
 
     blog('_deleteBzFlyers : END');
-
-  }
-// --------------------------
-  static Future<void> _deleteBzIDFromAuthorBzIDs({
-    @required BuildContext context,
-    @required BzModel bzModel,
-  }) async {
-
-    blog('_deleteBzIDFromBzAuthorsBzIDs : START');
-
-    if (bzModel != null){
-
-      final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
-        authors: bzModel.authors,
-      );
-
-      if (Mapper.checkCanLoopList(_authorsIDs) == true){
-
-        for (final String authorID in _authorsIDs) {
-
-          /// TASK :  SHOULD NOT FETCH STUFF IN BZ OPS API
-          final UserModel _authorUserModel = await UsersProvider.proFetchUserModel(
-              context: context,
-              userID: authorID
-          );
-
-          await UserFireOps.removeBzIDFromUserBzzIDs(
-            context: context,
-            bzID: bzModel.id,
-            oldUserModel: _authorUserModel,
-          );
-
-        }
-
-      }
-
-
-    }
-
-    blog('_deleteBzIDFromBzAuthorsBzIDs : END');
 
   }
 // --------------------------
@@ -627,6 +589,68 @@ class BzFireOps {
 
   }
 // --------------------------
+  static Future<void> _deleteBzDoc({
+    @required BuildContext context,
+    @required BzModel bzModel,
+  }) async {
+
+    blog('_deleteBzDoc : START');
+
+    if (bzModel != null){
+
+      await Fire.deleteDoc(
+        context: context,
+        collName: FireColl.bzz,
+        docName: bzModel.id,
+      );
+
+    }
+
+    blog('_deleteBzDoc : END');
+
+  }
+// --------------------------
+  /*
+  static Future<void> _deleteBzIDFromAuthorBzIDs({
+    @required BuildContext context,
+    @required BzModel bzModel,
+  }) async {
+
+    blog('_deleteBzIDFromBzAuthorsBzIDs : START');
+
+    if (bzModel != null){
+
+      final List<String> _authorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
+        authors: bzModel.authors,
+      );
+
+      if (Mapper.checkCanLoopList(_authorsIDs) == true){
+
+        for (final String authorID in _authorsIDs) {
+
+          /// TASK :  SHOULD NOT FETCH STUFF IN BZ OPS API
+          final UserModel _authorUserModel = await UsersProvider.proFetchUserModel(
+              context: context,
+              userID: authorID
+          );
+
+          await UserFireOps.removeBzIDFromUserBzzIDs(
+            context: context,
+            bzID: bzModel.id,
+            oldUserModel: _authorUserModel,
+          );
+
+        }
+
+      }
+
+
+    }
+
+    blog('_deleteBzIDFromBzAuthorsBzIDs : END');
+
+  }
+
   static Future<void> _deleteBzAuthorsPictures({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -660,27 +684,27 @@ class BzFireOps {
     blog('_deleteBzAuthorsPictures : END');
 
   }
-// --------------------------
-  static Future<void> _deleteBzDoc({
-    @required BuildContext context,
-    @required BzModel bzModel,
-  }) async {
-
-    blog('_deleteBzDoc : START');
-
-    if (bzModel != null){
-
-      await Fire.deleteDoc(
-        context: context,
-        collName: FireColl.bzz,
-        docName: bzModel.id,
-      );
-
-    }
-
-    blog('_deleteBzDoc : END');
-
-  }
+   */
 // -----------------------------------------------------------------------------
 
+  /// DELETE AUTHOR
+
+// --------------------------
+  static Future<void> deleteAuthorPic({
+    @required BuildContext context,
+    @required String authorID,
+    @required String bzID,
+  }) async {
+
+    await Storage.deleteStoragePic(
+      context: context,
+      docName: StorageDoc.authors,
+      picName: AuthorModel.generateAuthorPicID(
+          authorID: authorID,
+          bzID: bzID
+      ),
+    );
+
+  }
+// --------------------------
 }

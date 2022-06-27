@@ -62,7 +62,36 @@ class FlyerProtocol {
 /// UPDATE
 
 // ----------------------------------
-  static Future<void> updateFlyerProtocol() async {}
+  static Future<void> localFlyerUpdateProtocol({
+    @required BuildContext context,
+    @required FlyerModel flyerModel,
+    @required bool insertInActiveBzFlyersIfAbsent,
+    @required bool notify,
+  }) async {
+
+    if (flyerModel != null){
+
+      await FlyerLDBOps.insertFlyer(flyerModel);
+
+      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+      _flyersProvider.updateFlyerInAllProFlyers(
+          flyerModel: flyerModel,
+          notify: notify
+      );
+
+      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+      final BzModel _activeBz = _bzzProvider.myActiveBz;
+      if (_activeBz?.id == flyerModel.bzID){
+        _bzzProvider.updateFlyerInActiveBzFlyers(
+          flyer: flyerModel,
+          notify: notify,
+          insertIfAbsent: insertInActiveBzFlyersIfAbsent,
+        );
+      }
+
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
 /// DELETE
