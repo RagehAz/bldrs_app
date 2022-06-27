@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
+import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -135,15 +136,19 @@ class BzProtocol {
       bzModel: bzModel,
     );
 
-    /// DELETE BZ ON LDB
-    await BzLDBOps.deleteBzOps(
+    await NoteProtocols.sendBzDeletionNoteToAllAuthors(
+      context: context,
       bzModel: bzModel,
     );
 
-    /// DELETE BZ ON PROVIDER
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    _bzzProvider.removeProBzEveryWhere(
-      bzModel: bzModel,
+    /// NO NEED TO DELETE BZ IN LDB AND PRO OR REMOVE BZ FROM USER ID OR UPDATE USER NOW
+    /// AS [authorBzExitAfterBzDeletionProtocol] METHOD LISTENS TO NOTE AND IS
+    /// ACTIVATED AUTOMATICALLY
+    /*
+    /// DELETE BZ ON LDB
+    await localBzDeletionProtocol(
+      context: context,
+      bzID: bzModel.id,
     );
 
     /// REMOVE BZ ID FROM MY BZZ IDS
@@ -161,8 +166,30 @@ class BzProtocol {
         context: context,
         newUserModel: _updated,
     );
+     */
 
     // WaitDialog.closeWaitDialog(context);
+
+  }
+// ----------------------------------
+  static Future<void> localBzDeletionProtocol({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+
+    // NOTE DELETES ALL BZ MODEL INSTANCES IN LDB AND BZ PRO
+
+    /// DELETE BZ ON LDB
+    await BzLDBOps.deleteBzOps(
+      bzID: bzID,
+    );
+
+    /// DELETE BZ ON PROVIDER
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.removeProBzEveryWhere(
+      bzID: bzID,
+    );
+
 
   }
 // ----------------------------------

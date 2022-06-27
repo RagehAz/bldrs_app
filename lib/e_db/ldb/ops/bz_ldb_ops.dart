@@ -97,12 +97,12 @@ class BzLDBOps {
 
 // -------------------------------
   static Future<void> deleteBzOps({
-    @required BzModel bzModel,
+    @required String bzID,
   }) async {
 
     await LDBOps.deleteMap(
       docName: LDBDoc.bzz,
-      objectID: bzModel.id,
+      objectID: bzID,
     );
 
   }
