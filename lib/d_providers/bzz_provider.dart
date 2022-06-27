@@ -137,7 +137,7 @@ class BzzProvider extends ChangeNotifier {
     // / TO HOME SCREEN, THEN RESET MY ACTIVE BZ ON NEXT BZ SCREEN OPENING
     if (bzModel.id == _myActiveBz.id){
       clearMyActiveBz(
-        notify: true,
+        notify: false,
       );
     }
 

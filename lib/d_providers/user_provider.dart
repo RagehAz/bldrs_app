@@ -219,11 +219,15 @@ class UsersProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    _usersProvider.setMyUserModelAndAuthModel(
-      userModel: userModel,
-      notify: notify,
-    );
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+
+      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+      _usersProvider.setMyUserModelAndAuthModel(
+        userModel: userModel,
+        notify: notify,
+      );
+
+    // });
 
   }
 // -----------------------------------------------------------------------------

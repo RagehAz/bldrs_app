@@ -17,11 +17,11 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class RealHttpTestScreen extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const RealHttpTestScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -131,7 +131,6 @@ class RealHttpTestScreen extends StatelessWidget {
 
           },
         ),
-
 
         Container(
           width: superScreenWidth(context),
