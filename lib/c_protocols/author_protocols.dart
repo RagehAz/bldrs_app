@@ -1,4 +1,3 @@
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -173,6 +172,47 @@ class AuthorProtocol {
     /// NOTE : no need to update bz locally here as bz stream listener does the job
 
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+  static Future<void> authorBzExitAfterBzDeletionProtocol({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
 
+    // I RECEIVED A NOTE SAYING MY BZ HAS BEEN DELETED
+    // SO BZ HAS ALREADY BEEN DELETED BUT I WAS AN AUTHOR AND STILL HAVE TRACES OF THAT BUSINESS
+    // IN MY MODEL IN FIRE - LDB - PRO
+
+    /// GET OLD USER MODEL
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
+    /// MODIFY USER MODEL
+    final UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
+        bzIDToRemove: bzID,
+        userModel: _userModel,
+    );
+
+    /// UPDATE USER MODEL EVERYWHERE
+    await UserProtocol.updateMyUserEverywhereProtocol(
+        context: context,
+        newUserModel: _newUserModel,
+    );
+
+    /// DELETE MY AUTHOR PICTURE FROM STORAGE
+    await BzFireOps.deleteAuthorPic(
+      context: context,
+      bzID: bzID,
+      authorID: _userModel.id,
+    );
+
+    /// DELETE BZ LOCALLY
+    await BzProtocol.localBzDeletionProtocol(
+        context: context,
+        bzID: bzID,
+    );
+
+  }
+// ----------------------------------
 }
