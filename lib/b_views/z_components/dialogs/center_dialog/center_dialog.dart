@@ -197,9 +197,9 @@ class CenterDialog extends StatelessWidget {
         insetPadding: EdgeInsets.zero,
 
         content: Builder(
-          builder: (BuildContext context) {
+          builder: (BuildContext xxx) {
             return GestureDetector(
-              onTap: () => Nav.goBack(context),
+              onTap: () => Nav.goBack(xxx),
               child: Container(
                 width: _screenWidth,
                 height: _screenHeight,
@@ -289,15 +289,15 @@ class CenterDialog extends StatelessWidget {
                                   verse: 'No',
                                   color: Colorz.white80,
                                   onTap: () =>
-                                      Nav.goBack(context, passedData: false),
+                                      Nav.goBack(xxx, passedData: false),
                                 ),
 
                               DialogButton(
                                 verse: _confirmButtonText,
                                 verseColor: Colorz.black230,
                                 color: Colorz.yellow255,
-                                onTap: boolDialog == true ? () => Nav.goBack(context, passedData: true)
-                                    : onOk ?? () => Nav.goBack(context),
+                                onTap: boolDialog == true ? () => Nav.goBack(xxx, passedData: true)
+                                    : onOk ?? () => Nav.goBack(xxx),
                               ),
 
                             ],
