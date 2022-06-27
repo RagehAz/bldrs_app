@@ -117,25 +117,25 @@ class BzzProvider extends ChangeNotifier {
 
 // -------------------------------------
   void removeProBzEveryWhere({
-    @required BzModel bzModel,
+    @required String bzID,
   }){
 
     removeBzFromMyBzz(
-      bzID: bzModel.id,
+      bzID: bzID,
       notify: false,
     );
     removeBzFromSponsors(
-      bzIDToRemove: bzModel.id,
+      bzIDToRemove: bzID,
       notify: false,
     );
     removeBzFromFollowedBzz(
-      bzIDToRemove: bzModel.id,
+      bzIDToRemove: bzID,
       notify: false,
     );
 
     // / NO NEED TO CLEAR LAST INSTANCE IN ACTIVE BZ AS WE WILL NAVIGATE BACK
     // / TO HOME SCREEN, THEN RESET MY ACTIVE BZ ON NEXT BZ SCREEN OPENING
-    if (bzModel.id == _myActiveBz.id){
+    if (bzID == _myActiveBz.id){
       clearMyActiveBz(
         notify: false,
       );

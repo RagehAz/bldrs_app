@@ -7,14 +7,16 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/i_app_settings/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/a_auth_screen.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
+import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/a_user_profile_screen.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
-import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/a_user_profile_screen.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
+import 'package:bldrs/b_views/x_screens/i_app_settings/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
+import 'package:bldrs/c_protocols/author_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -28,7 +30,6 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -534,8 +535,6 @@ void initializeUserNotes(BuildContext context){
 
   if (_userModel != null){
 
-    final bool _thereAreMissingFields = UserModel.checkMissingFields(_userModel);
-
     final Stream<QuerySnapshot<Object>> _stream  = _userUnseenReceivedNotesStream(
       context: context
     );
@@ -547,7 +546,7 @@ void initializeUserNotes(BuildContext context){
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
       oldMaps: _oldMaps,
-      onChange: (List<Map<String, dynamic>> allUpdatedMaps){
+      onChange: (List<Map<String, dynamic>> allUpdatedMaps) async {
 
         blog('new maps are :-');
         Mapper.blogMaps(allUpdatedMaps);
@@ -564,7 +563,7 @@ void initializeUserNotes(BuildContext context){
         );
 
         final bool _noteDotIsOn = _checkNoteDotIsOn(
-          thereAreMissingFields: _thereAreMissingFields,
+          context: context,
           notes: _notes,
         );
 
@@ -574,6 +573,11 @@ void initializeUserNotes(BuildContext context){
             notify: true,
           );
         }
+
+        await _checkForBzDeletionNoteAndProceed(
+          context: context,
+          notes: _notes,
+        );
 
       },
     );
@@ -624,6 +628,40 @@ Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
 
     ],
   );
+
+}
+// -------------------------------
+Future<void> _checkForBzDeletionNoteAndProceed({
+  @required BuildContext context,
+  @required List<NoteModel> notes,
+}) async {
+
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+  );
+
+  if (UserModel.checkUserIsAuthor(_userModel) == true){
+
+    final List<NoteModel> _bzDeletionNotes = NoteModel.getNotesFromNotesByNoteType(
+      notes: notes,
+      noteType: NoteType.bzDeletion,
+    );
+
+    if (Mapper.checkCanLoopList(_bzDeletionNotes) == true){
+
+      for (final NoteModel note in _bzDeletionNotes){
+
+        await AuthorProtocol.authorBzExitAfterBzDeletionProtocol(
+            context: context,
+            bzID: note.attachment, // in the case of bzDeletion NoteType : attachment is bzID
+        );
+
+      }
+
+    }
+
+  }
 
 }
 // -----------------------------------------------------------------------------
@@ -738,7 +776,7 @@ void _onBzNotesStreamDataChanged({
       );
 
       final bool _noteDotIsOn = _checkNoteDotIsOn(
-        thereAreMissingFields: false,
+        context: context,
         notes: _allBzNotes,
       );
 
@@ -764,8 +802,9 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
   @required List<NoteModel> newBzNotes,
 }) async {
 
-  final List<NoteModel> _flyerUpdatesNotes = NoteModel.getFlyerUpdatesNotes(
+  final List<NoteModel> _flyerUpdatesNotes = NoteModel.getNotesFromNotesByNoteType(
     notes: newBzNotes,
+    noteType: NoteType.flyerUpdate,
   );
 
   if (Mapper.checkCanLoopList(_flyerUpdatesNotes) == true){
@@ -785,7 +824,7 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
             flyerID: _flyerID
         );
 
-        await localFlyerUpdateProtocol(
+        await FlyerProtocol.localFlyerUpdateProtocol(
           context: context,
           flyerModel: flyerModel,
           insertInActiveBzFlyersIfAbsent: true,
@@ -800,50 +839,24 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
   }
 
 }
-// -------------------------------
-Future<void> localFlyerUpdateProtocol({
-  @required BuildContext context,
-  @required FlyerModel flyerModel,
-  @required bool insertInActiveBzFlyersIfAbsent,
-  @required bool notify,
-}) async {
-
-  if (flyerModel != null){
-
-    await FlyerLDBOps.insertFlyer(flyerModel);
-
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    _flyersProvider.updateFlyerInAllProFlyers(
-        flyerModel: flyerModel,
-        notify: notify
-    );
-
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final BzModel _activeBz = _bzzProvider.myActiveBz;
-    if (_activeBz?.id == flyerModel.bzID){
-      _bzzProvider.updateFlyerInActiveBzFlyers(
-        flyer: flyerModel,
-        notify: notify,
-        insertIfAbsent: insertInActiveBzFlyersIfAbsent,
-      );
-    }
-
-  }
-
-}
 // -----------------------------------------------------------------------------
 
 /// NOTES CHECKERS
 
 // -------------------------------
 bool _checkNoteDotIsOn({
-  @required bool thereAreMissingFields,
+  @required BuildContext context,
   @required List<NoteModel> notes,
 }){
 
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+
+  final bool _thereAreMissingFields = UserModel.checkMissingFields(_userModel);
+
+
   bool _isOn = false;
 
-  if (thereAreMissingFields == true){
+  if (_thereAreMissingFields == true){
     _isOn = true;
   }
   else {
@@ -858,6 +871,7 @@ bool _checkNoteDotIsOn({
 }
 
 // -------------------------------
+/*
 // int _getNotesCount({
 //   @required bool thereAreMissingFields,
 //   @required List<NoteModel> notes,
@@ -872,4 +886,5 @@ bool _checkNoteDotIsOn({
 //
 //   return _count;
 // }
+ */
 // -------------------------------

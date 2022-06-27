@@ -14,6 +14,8 @@ enum NoteType {
   announcement,
   /// WHEN FLYER UPDATES ON DB AND NEED TO ACTIVATE [ LOCAL FLYER UPDATE PROTOCOL ]
   flyerUpdate,
+  /// WHEN A MASTER AUTHOR DELETES BZ, A NOTE IS SENT TO ALL AUTHORS
+  bzDeletion,
 }
 // ------------------------
 enum NoteAttachmentType {
@@ -308,6 +310,7 @@ class NoteModel {
       case NoteType.authorship:   return 'authorship';    break;
       case NoteType.announcement: return 'announcement';  break;
       case NoteType.flyerUpdate: return 'flyerUpdate';  break;
+      case NoteType.bzDeletion: return 'bzDeletion';  break;
       default : return null;
     }
   }
@@ -317,6 +320,7 @@ class NoteModel {
       case 'authorship': return NoteType.authorship;      break;
       case 'announcement': return NoteType.announcement;  break;
       case 'flyerUpdate': return NoteType.flyerUpdate;  break;
+      case 'bzDeletion': return NoteType.bzDeletion;  break;
       default: return null;
     }
   }
@@ -325,6 +329,7 @@ class NoteModel {
     NoteType.announcement,
     NoteType.authorship,
     NoteType.flyerUpdate,
+    NoteType.bzDeletion,
   ];
   // -----------------------------------------------------------------------------
 
@@ -758,16 +763,17 @@ class NoteModel {
     return _output;
   }
   // -------------------------------------
-  static List<NoteModel> getFlyerUpdatesNotes({
-  @required List<NoteModel> notes,
-}){
+  static List<NoteModel> getNotesFromNotesByNoteType({
+    @required List<NoteModel> notes,
+    @required NoteType noteType,
+  }){
     final List<NoteModel> _output = <NoteModel>[];
 
     if (Mapper.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
 
-        if (note.noteType == NoteType.flyerUpdate){
+        if (note.noteType == noteType){
           _output.add(note);
         }
 
@@ -776,6 +782,7 @@ class NoteModel {
     }
 
     return _output;
+
   }
   // -----------------------------------------------------------------------------
 

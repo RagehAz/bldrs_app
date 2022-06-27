@@ -1,4 +1,4 @@
-
+/// TASK : ASSERT THAT DEVICE CLOCK IS SYNCED WITH ACTUAL INTERNET CLOCK
 
 // Future<void> bypassUpdate() async {
 //
