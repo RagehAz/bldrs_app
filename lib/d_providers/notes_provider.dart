@@ -81,7 +81,7 @@ class NotesProvider extends ChangeNotifier {
       mapModel: _mapModel,
     );
 
-    blog('setObeliskNoteNumber (caller : $caller) : (navModelID : $navModelID) : value : $value');
+    // blog('setObeliskNoteNumber (caller : $caller) : (navModelID : $navModelID) : value : $value');
 
     if (rebuildAllMainNumbers == true){
 
