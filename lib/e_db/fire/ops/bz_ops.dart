@@ -2,15 +2,12 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -470,10 +467,11 @@ class BzFireOps {
 
     blog('deleteBzOps : START');
 
-    await _deleteBzFlyers(
-      context: context,
-      bzModel: bzModel,
-    );
+    /// NOTE : FLYERS ALREADY DELETED
+    // await _deleteBzFlyers(
+    //   context: context,
+    //   bzModel: bzModel,
+    // );
 
     await _deleteBzRecords(
       context: context,
@@ -508,6 +506,7 @@ class BzFireOps {
     blog('deleteBzOps : END');
   }
 // --------------------------
+  /*
   static Future<void> _deleteBzFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -519,20 +518,33 @@ class BzFireOps {
 
       if (Mapper.checkCanLoopList(bzModel.flyersIDs) == true){
 
-        for (final String id in bzModel.flyersIDs) {
-
-          final FlyerModel _flyerModel = await FlyerFireOps.readFlyerOps(
+        final List<FlyerModel> _flyers = await FlyersProvider.proFetchFlyers(
             context: context,
-            flyerID: id,
-          );
+            flyersIDs: bzModel.flyersIDs,
+        );
 
-          await FlyerFireOps.deleteFlyerOps(
+        await FlyerProtocol.deleteMultipleBzFlyersProtocol(
             context: context,
             bzModel: bzModel,
-            flyerModel: _flyerModel,
-            bzFireUpdateOps: false,
-          );
-        }
+            flyers: _flyers,
+            showWaitDialog: false,
+            updateBzEveryWhere: false
+        );
+
+        // for (final String id in bzModel.flyersIDs) {
+        //
+        //   final FlyerModel _flyerModel = await FlyerFireOps.readFlyerOps(
+        //     context: context,
+        //     flyerID: id,
+        //   );
+        //
+        //   await FlyerFireOps.deleteFlyerOps(
+        //     context: context,
+        //     bzModel: bzModel,
+        //     flyerModel: _flyerModel,
+        //     bzFireUpdateOps: false,
+        //   );
+        // }
 
       }
 
@@ -545,6 +557,7 @@ class BzFireOps {
     blog('_deleteBzFlyers : END');
 
   }
+   */
 // --------------------------
   static Future<void> _deleteBzRecords({
     @required BuildContext context,

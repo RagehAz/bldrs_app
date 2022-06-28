@@ -389,7 +389,6 @@ Future<Map<String, dynamic>> readDoc({
   bool addDocSnapshot = false,
 }) async {
 
-  blog('readDoc() : starting to read doc : firestore/$collName/$docName');
 
   Map<String, dynamic> _map; //QueryDocumentSnapshot
 
@@ -412,6 +411,9 @@ Future<Map<String, dynamic>> readDoc({
       // blog('readDoc() : _map : $_map');
     },
   );
+
+  final String _found = _map == null ? 'NOT FOUND' : 'FOUND';
+  blog('readDoc() : reading doc : firestore/$collName/$docName : $_found');
 
   return _result.runtimeType == String ? null : _map;
 }

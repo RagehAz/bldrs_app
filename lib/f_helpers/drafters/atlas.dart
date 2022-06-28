@@ -140,6 +140,10 @@ bool checkPointsAreIdentical({
 
   }
 
+  else if (point1 == null && point2 == null){
+    _identical = true;
+  }
+
   return _identical;
 
 }

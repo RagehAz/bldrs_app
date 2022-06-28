@@ -14,6 +14,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/keyboard_field_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
@@ -41,11 +42,17 @@ class SpecializedLabs extends StatelessWidget {
 
       /// THE GO BACK WIDGET
       DashButtonModel(
+        verse: 'KEYBOARD FIELD TEST',
+        icon: Iconz.language,
+        screen: const KeyboardFieldWidgetTest(),
+      ),
+
+      /// THE GO BACK WIDGET
+      DashButtonModel(
         verse: 'THE GO BACK WIDGET TEST',
         icon: Iconz.back,
         screen: const GoBackWidgetTest(),
       ),
-
 
       /// REAL TEST
       DashButtonModel(

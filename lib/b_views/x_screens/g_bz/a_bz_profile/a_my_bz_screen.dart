@@ -65,7 +65,7 @@ class MyBzScreen extends StatelessWidget {
             );
 
             blog('MyBzScreen : streamBz == proMyActiveBz ? : $_areIdentical');
-            _bzModel?.blogBz(methodName: 'My Bz Screen : pro bz');
+            // _bzModel?.blogBz(methodName: 'My Bz Screen : pro bz');
 
             final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
               authors: _bzModel?.authors,
@@ -74,11 +74,14 @@ class MyBzScreen extends StatelessWidget {
 
             if (_bzModel == null || _authorsContainMyUserID == false){
 
+              blog('my bz screen should go back now yabn el a7ba');
+
               return const GoBackWidget();
 
             }
 
             else {
+
               return ObeliskLayout(
                 initiallyExpanded: true,
                 initialIndex: BzModel.getBzTabIndex(initialTab),
@@ -118,6 +121,7 @@ class MyBzScreen extends StatelessWidget {
                 ],
 
               );
+
             }
 
           },
