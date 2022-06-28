@@ -9,13 +9,14 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
@@ -35,7 +36,16 @@ class SpecializedLabs extends StatelessWidget {
 // -----------------------------------------------------------------------------
   List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
+
     final List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// THE GO BACK WIDGET
+      DashButtonModel(
+        verse: 'THE GO BACK WIDGET TEST',
+        icon: Iconz.back,
+        screen: const GoBackWidgetTest(),
+      ),
+
 
       /// REAL TEST
       DashButtonModel(

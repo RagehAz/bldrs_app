@@ -190,9 +190,10 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
     body: 'Once flyers are deleted, they can not be retrieved',
     boolDialog: true,
     confirmButtonText: 'Delete All Flyers And Remove ${bzModel.name}',
+    height: 500,
     child: Container(
       width: CenterDialog.getWidth(context),
-      height: 400,
+      height: 300,
       color: Colorz.white10,
       alignment: Alignment.center,
       child: FlyersGrid(
@@ -200,7 +201,9 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
         paginationFlyersIDs: bzModel.flyersIDs,
         scrollDirection: Axis.horizontal,
         gridWidth: CenterDialog.getWidth(context) - 10,
-        gridHeight: 200,
+        gridHeight: 300,
+        topPadding: 0,
+
         numberOfColumnsOrRows: 1,
       ),
     ),
