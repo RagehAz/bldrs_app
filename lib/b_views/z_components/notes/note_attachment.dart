@@ -25,21 +25,29 @@ class NoteAttachment extends StatelessWidget {
     if (noteModel?.attachmentType == NoteAttachmentType.bzID){
 
       return FutureBuilder<BzModel>(
+        key: ValueKey<String>('noteCard_${noteModel.id}'),
         future: BzzProvider.proFetchBzModel(
             context: context,
-            bzID: noteModel.attachment,
+          bzID: noteModel.attachment,
         ),
           builder: (_, AsyncSnapshot<Object> snap){
 
           final BzModel _bzModel = snap.data;
 
-          return BzBanner(
-            boxWidth: boxWidth,
-            bzModel: _bzModel,
-          );
+          if (_bzModel == null){
+            return const SizedBox();
+          }
+
+          else {
+            return BzBanner(
+              boxWidth: boxWidth,
+              bzModel: _bzModel,
+            );
 
           }
-      );
+
+        }
+        );
     }
 
     else if (noteModel?.attachmentType == NoteAttachmentType.flyersIDs){

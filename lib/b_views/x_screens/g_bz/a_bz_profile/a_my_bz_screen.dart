@@ -5,20 +5,18 @@ import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/obelisk_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 
 class MyBzScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -75,17 +73,9 @@ class MyBzScreen extends StatelessWidget {
             );
 
             if (_bzModel == null || _authorsContainMyUserID == false){
-              return Container(
-                width: superScreenWidth(context),
-                height: superScreenHeight(context),
-                color: Colorz.bloodTest,
-                child: const Center(
-                  child: SuperVerse(
-                    verse: 'You Are not supposed to be here',
-                    maxLines: 2,
-                  ),
-                ),
-              );
+
+              return const GoBackWidget();
+
             }
 
             else {
