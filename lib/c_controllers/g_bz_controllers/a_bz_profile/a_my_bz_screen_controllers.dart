@@ -98,51 +98,60 @@ Future<void> onMyActiveBzStreamChanged({
   @required BzzProvider bzzProvider,
 }) async {
 
-  final BzModel _newBzFromStream = BzModel.decipherBz(
-    map: newMap,
-    fromJSON: false,
-  );
+  if (newMap == null){
 
-  final bool _areIdentical = BzModel.checkBzzAreIdentical(
-    bz1: bzzProvider.myActiveBz,
-    bz2: _newBzFromStream,
-  );
+    blog('onMyActiveBzStreamChanged : THE NEW BITCH MAP IS NULL NOW AND WE CAN DO SOME STUFF HEREEEEEEEEEEEEEEEEEE');
 
-  blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
+  }
 
-  if (_areIdentical == false){
+  else {
 
-    final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
-      authors: _newBzFromStream.authors,
-      userID: AuthFireOps.superUserID(),
+    final BzModel _newBzFromStream = BzModel.decipherBz(
+      map: newMap,
+      fromJSON: false,
     );
 
-    if (_authorsContainMyUserID == false){
+    final bool _areIdentical = BzModel.checkBzzAreIdentical(
+      bz1: bzzProvider.myActiveBz,
+      bz2: _newBzFromStream,
+    );
 
-      await _myBzResignationProtocol(
-        context: context,
-        newBzFromStream: _newBzFromStream,
+    blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
+
+    if (_areIdentical == false){
+
+      final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
+        authors: _newBzFromStream.authors,
+        userID: AuthFireOps.superUserID(),
       );
 
-    }
+      if (_authorsContainMyUserID == false){
 
-    else {
+        await _myBzResignationProtocol(
+          context: context,
+          newBzFromStream: _newBzFromStream,
+        );
 
-      final BzModel _oldBzModel = BzModel.decipherBz(
-        map: oldMap,
-        fromJSON: false,
-      );
+      }
 
-      await BzProtocol.myActiveBzLocalUpdateProtocol(
-        context: context,
-        newBzModel: _newBzFromStream,
-        oldBzModel: _oldBzModel,
-      );
+      else {
+
+        final BzModel _oldBzModel = BzModel.decipherBz(
+          map: oldMap,
+          fromJSON: false,
+        );
+
+        await BzProtocol.myActiveBzLocalUpdateProtocol(
+          context: context,
+          newBzModel: _newBzFromStream,
+          oldBzModel: _oldBzModel,
+        );
+
+      }
 
     }
 
   }
-
 
 }
 // -------------------------------

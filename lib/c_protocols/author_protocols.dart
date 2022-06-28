@@ -9,6 +9,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
@@ -178,6 +179,8 @@ class AuthorProtocol {
     @required String bzID,
   }) async {
 
+    blog('authorBzExitAfterBzDeletionProtocol : start');
+
     // I RECEIVED A NOTE SAYING MY BZ HAS BEEN DELETED
     // SO BZ HAS ALREADY BEEN DELETED BUT I WAS AN AUTHOR AND STILL HAVE TRACES OF THAT BUSINESS
     // IN MY MODEL IN FIRE - LDB - PRO
@@ -212,6 +215,8 @@ class AuthorProtocol {
         context: context,
         bzID: bzID,
     );
+
+    blog('authorBzExitAfterBzDeletionProtocol : end');
 
   }
 // ----------------------------------

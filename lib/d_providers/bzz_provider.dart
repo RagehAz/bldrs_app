@@ -118,6 +118,7 @@ class BzzProvider extends ChangeNotifier {
 // -------------------------------------
   void removeProBzEveryWhere({
     @required String bzID,
+    @required bool notify,
   }){
 
     removeBzFromMyBzz(
@@ -137,7 +138,7 @@ class BzzProvider extends ChangeNotifier {
     // / TO HOME SCREEN, THEN RESET MY ACTIVE BZ ON NEXT BZ SCREEN OPENING
     if (bzID == _myActiveBz?.id){
       clearMyActiveBz(
-        notify: false,
+        notify: notify,
       );
     }
 

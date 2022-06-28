@@ -188,6 +188,7 @@ class BzProtocol {
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _bzzProvider.removeProBzEveryWhere(
       bzID: bzID,
+      notify: true,
     );
 
 
