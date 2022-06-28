@@ -636,6 +636,8 @@ Future<void> _checkForBzDeletionNoteAndProceed({
   @required List<NoteModel> notes,
 }) async {
 
+  blog('_checkForBzDeletionNoteAndProceed : start');
+
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
@@ -643,12 +645,16 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
   if (UserModel.checkUserIsAuthor(_userModel) == true){
 
+    blog('_checkForBzDeletionNoteAndProceed : user is author');
+
     final List<NoteModel> _bzDeletionNotes = NoteModel.getNotesFromNotesByNoteType(
       notes: notes,
       noteType: NoteType.bzDeletion,
     );
 
     if (Mapper.checkCanLoopList(_bzDeletionNotes) == true){
+
+      blog('_checkForBzDeletionNoteAndProceed : ${_bzDeletionNotes.length} bz deletion notes');
 
       for (final NoteModel note in _bzDeletionNotes){
 
