@@ -135,7 +135,7 @@ class BzzProvider extends ChangeNotifier {
 
     // / NO NEED TO CLEAR LAST INSTANCE IN ACTIVE BZ AS WE WILL NAVIGATE BACK
     // / TO HOME SCREEN, THEN RESET MY ACTIVE BZ ON NEXT BZ SCREEN OPENING
-    if (bzID == _myActiveBz.id){
+    if (bzID == _myActiveBz?.id){
       clearMyActiveBz(
         notify: false,
       );
@@ -296,7 +296,10 @@ class BzzProvider extends ChangeNotifier {
     if (Mapper.checkCanLoopList(_myBzz)) {
 
       final int _index = _myBzz.indexWhere((BzModel bzModel) => bzModel.id == bzID);
-      _myBzz.removeAt(_index);
+
+      if (_index != -1){
+        _myBzz.removeAt(_index);
+      }
 
       if (notify == true){
         notifyListeners();

@@ -559,7 +559,7 @@ void initializeUserNotes(BuildContext context){
         _notesProvider.setUserUnseenNotesAndRebuild(
             context: context,
             notes: _notes,
-            notify: true
+            notify: true,
         );
 
         final bool _noteDotIsOn = _checkNoteDotIsOn(
