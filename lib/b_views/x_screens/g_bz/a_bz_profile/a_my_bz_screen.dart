@@ -84,7 +84,13 @@ class MyBzScreen extends StatelessWidget {
 
               return ObeliskLayout(
                 initiallyExpanded: true,
+                onBack: (){
+
+                  _bzzPro.clearMyActiveBz(notify: false);
+
+                },
                 initialIndex: BzModel.getBzTabIndex(initialTab),
+
                 appBarRowWidgets: <Widget>[
 
                   const Expander(),
