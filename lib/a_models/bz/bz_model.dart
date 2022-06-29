@@ -346,9 +346,9 @@ class BzModel{
   static BzModel convertFireUserDataIntoInitialBzModel(UserModel userModel) {
     return BzModel(
       id: null,
-      name: userModel.company,
-      trigram: TextGen.createTrigram(input: userModel.company),
-      zone: userModel.zone,
+      name: userModel?.company,
+      trigram: TextGen.createTrigram(input: userModel?.company),
+      zone: userModel?.zone,
       contacts: <ContactModel>[
         ContactModel(
             contactType: ContactType.email,
