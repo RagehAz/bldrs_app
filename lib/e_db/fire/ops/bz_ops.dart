@@ -52,7 +52,7 @@ class BzFireOps {
           );
 
           /// update authorModel with _authorPicURL
-          final AuthorModel _masterAuthor = await _uploadAuthorPicAndCreateNewCreatorAuthor(
+          final AuthorModel _createAuthor = await _uploadAuthorPicAndCreateNewCreatorAuthor(
             context: context,
             draftBz: draftBz,
             userModel: userModel,
@@ -69,7 +69,7 @@ class BzFireOps {
             id: _bzID,
             createdAt: DateTime.now(),
             logo: _bzLogoURL,
-            authors: <AuthorModel>[_masterAuthor],
+            authors: <AuthorModel>[_createAuthor],
           );
 
           await _updateBzDoc(
@@ -157,8 +157,8 @@ class BzFireOps {
     if (
     draftBz.authors[0].pic == null
         ||
-        ObjectChecker.objectIsURL(draftBz.authors[0].pic) == true
-    ) {
+    ObjectChecker.objectIsURL(draftBz.authors[0].pic) == true
+    ){
       _authorPicURL = userModel.pic;
     }
 
@@ -178,7 +178,7 @@ class BzFireOps {
     }
 
 
-    final AuthorModel _masterAuthor = AuthorModel(
+    final AuthorModel _creatorAuthor = AuthorModel(
       userID: userModel.id,
       name: userModel.name,
       title: userModel.title,
@@ -190,7 +190,7 @@ class BzFireOps {
 
     blog('_uploadAuthorPicAndReturnMasterAuthor : END');
 
-    return _masterAuthor;
+    return _creatorAuthor;
   }
 // --------------------------
   static Future<void> _addBzIDToUserBzzIDs({

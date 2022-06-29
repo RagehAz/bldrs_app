@@ -18,6 +18,7 @@ class ObeliskLayout extends StatefulWidget {
     this.appBarRowWidgets,
     this.initiallyExpanded = false,
     this.initialIndex = 0,
+    this.onBack,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +26,7 @@ class ObeliskLayout extends StatefulWidget {
   final List<NavModel> navModels;
   final bool initiallyExpanded;
   final int initialIndex;
+  final Function onBack;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -187,6 +189,9 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       onBack: (){
 
         if (_isExpanded.value == false){
+          if (widget.onBack != null){
+            widget.onBack();
+          }
           Nav.goBack(context);
         }
         else {

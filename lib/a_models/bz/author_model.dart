@@ -2,9 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -113,7 +111,7 @@ class AuthorModel {
       name: map['name'],
       pic: map['pic'],
       title: map['title'],
-      role: decipherAuthorRole(map['isMaster']),
+      role: decipherAuthorRole(map['role']),
       contacts: ContactModel.decipherContacts(map['contacts']),
       flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
     );
@@ -275,11 +273,12 @@ class AuthorModel {
     return _bzAuthors;
   }
 // ----------------------------------
-  static List<AuthorModel> getCreatorAuthorsFromBz(BzModel bzModel) {
+  static AuthorModel getCreatorAuthorFromBz(BzModel bzModel) {
 
-    final List<AuthorModel> _masterAuthor = bzModel.authors.where(
+    final AuthorModel _masterAuthor = bzModel.authors.firstWhere(
             (AuthorModel author) => author.role == AuthorRole.creator,
-        ).toList();
+        orElse: () => null
+    );
 
     return _masterAuthor;
   }
@@ -732,6 +731,7 @@ class AuthorModel {
     return _authorPicID;
   }
 // ----------------------------------
+  /*
   static String generateMasterAuthorsNamesString({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -761,6 +761,7 @@ class AuthorModel {
 
     return _string;
   }
+   */
 // -----------------------------------------------------------------------------
 
   /// DUMMIES
