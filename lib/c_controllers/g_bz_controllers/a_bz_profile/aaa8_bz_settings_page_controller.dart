@@ -95,7 +95,7 @@ Future<bool> _preDeleteBzAccountChecks({
   /// WHEN USER IS NOT MASTER AUTHOR
   if (_authorIsMaster == false){
 
-    await _showOnlyMasterCanDeleteBzDialog(
+    await _showOnlyCreatorCanDeleteBzDialog(
       context: context,
       bzModel: bzModel,
     );
@@ -161,20 +161,17 @@ Future<bool> _showConfirmDeleteBzDialog({
   return _result;
 }
 // ------------------
-Future<void> _showOnlyMasterCanDeleteBzDialog({
+Future<void> _showOnlyCreatorCanDeleteBzDialog({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {
 
-  final String _masterAuthorsString = AuthorModel.generateMasterAuthorsNamesString(
-    context: context,
-    bzModel: bzModel,
-  );
+  final String _creatorAuthorsString = AuthorModel.getCreatorAuthorFromBz(bzModel)?.name;
 
   await CenterDialog.showCenterDialog(
     context: context,
     title: 'Can Not Delete This Account',
-    body: 'Only $_masterAuthorsString can delete this Account',
+    body: 'Only $_creatorAuthorsString can delete this Account',
   );
 
 }
