@@ -233,13 +233,17 @@ class AuthorProtocol {
 
     final BzModel _bzModel = await BzLDBOps.readBz(bzID);
 
-    await bzBannerDialog(
-      context: context,
-      title: '${_bzModel.name} is no longer Available',
-      body: 'This Business account has been permanently deleted and can no longer be used',
-      bzModel: _bzModel,
-      boolDialog: false,
-    );
+    if (_bzModel != null){
+
+      await bzBannerDialog(
+        context: context,
+        title: '${_bzModel.name} is no longer Available',
+        body: 'This Business account has been permanently deleted and can no longer be used',
+        bzModel: _bzModel,
+        boolDialog: false,
+      );
+
+    }
 
   }
 // ----------------------------------

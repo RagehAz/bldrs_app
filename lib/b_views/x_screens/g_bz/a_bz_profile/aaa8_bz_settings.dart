@@ -55,6 +55,7 @@ class _BzSettingsPageState extends State<BzSettingsPage> {
         if (_userIsCreator == true)
         SettingsWideButton(
           verse: 'Delete ${_bzModel.name} Business account',
+          color: Colorz.bloodTest,
           icon: Iconz.xSmall,
           onTap: () => onDeleteBzButtonTap(
             context: context,
