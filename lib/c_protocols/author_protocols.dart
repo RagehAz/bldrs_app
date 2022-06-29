@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -181,6 +182,11 @@ class AuthorProtocol {
 
     blog('authorBzExitAfterBzDeletionProtocol : start');
 
+    await _authorBzDeletionDialog(
+      context: context,
+      bzID: bzID,
+    );
+
     // I RECEIVED A NOTE SAYING MY BZ HAS BEEN DELETED
     // SO BZ HAS ALREADY BEEN DELETED BUT I WAS AN AUTHOR AND STILL HAVE TRACES OF THAT BUSINESS
     // IN MY MODEL IN FIRE - LDB - PRO
@@ -217,6 +223,21 @@ class AuthorProtocol {
     );
 
     blog('authorBzExitAfterBzDeletionProtocol : end');
+
+  }
+// ----------------------------------
+  static Future<void> _authorBzDeletionDialog({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+
+    final BzModel _bzModel = await BzLDBOps.readBz(bzID);
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: '${_bzModel.name} is no longer Available',
+      body: 'This Business account has been permanently deleted and can no longer be used',
+    );
 
   }
 // ----------------------------------

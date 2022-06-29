@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -187,6 +188,7 @@ void goBackUntil(BuildContext context, String routeName) {
 }
 // -------------------------------------
 void goBackToHomeScreen(BuildContext context) {
+  blog('goBackToHomeScreen : popUntil Routez.home');
   Navigator.popUntil(context, ModalRoute.withName(Routez.home));
 }
 // -----------------------------------------------------------------------------

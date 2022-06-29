@@ -1,6 +1,8 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -68,20 +70,66 @@ class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
   }
 }
 
-class GoBackWidget extends StatelessWidget {
+class GoBackWidget extends StatefulWidget {
 
   const GoBackWidget({
     Key key
   }) : super(key: key);
 
   @override
+  State<GoBackWidget> createState() => _GoBackWidgetState();
+
+}
+
+class _GoBackWidgetState extends State<GoBackWidget> {
+// -----------------------------------------------------------------------------
+  /// --- LOCAL LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// NOT disposed
+  // Stream<List<NoteModel>> _receivedNotesStream;
+// -----------------------------------
+  Future<void> _triggerLoading() async {
+    _loading.value = !_loading.value;
+    blogLoading(
+      loading: _loading.value,
+      callerName: 'HomeScreen',
+    );
+  }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+
+      _triggerLoading().then((_) async {
+        // -------------------------------
+        Nav.goBackToHomeScreen(context);
+        // -------------------------------
+        await _triggerLoading();
+
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  @override
   Widget build(BuildContext context) {
 
     blog('GoBackWidget : should go back now ahoooooooooooooooooooooooo');
 
-    Nav.goBack(context);
-
-    return const SizedBox();
+    return Container(
+      width: superScreenWidth(context),
+      height: superScreenHeight(context),
+      color: Colorz.bloodTest,
+      child: const Center(
+        child: SuperVerse(
+          verse: 'Wtf are you doing here ?',
+          size: 5,
+          weight: VerseWeight.black,
+        ),
+      ),
+    );
 
   }
 }
