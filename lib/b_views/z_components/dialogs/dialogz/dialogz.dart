@@ -7,12 +7,16 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/bzz_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/flyers_bubble.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -264,6 +268,82 @@ Future<bool> bzBannerDialog({
     child: BzBanner(
       boxWidth: CenterDialog.clearWidth(context) * 0.8,
       bzModel: bzModel,
+    ),
+  );
+
+  return _result;
+
+}
+// -----------------------------------------------------------------------------
+Future<bool> flyersDialog({
+  @required BuildContext context,
+  @required List<String> flyersIDs,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  bool boolDialog = true,
+}) async {
+
+  final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    boolDialog: boolDialog,
+    confirmButtonText: confirmButtonText,
+    height: Scale.superScreenHeight(context) * 0.85,
+    child: Container(
+      width: CenterDialog.getWidth(context),
+      height: _gridHeight,
+      color: Colorz.white10,
+      alignment: Alignment.center,
+      child: FlyersGrid(
+        scrollController: ScrollController(),
+        paginationFlyersIDs: flyersIDs,
+        scrollDirection: Axis.horizontal,
+        gridWidth: CenterDialog.getWidth(context) - 10,
+        gridHeight: _gridHeight,
+        topPadding: 0,
+        numberOfColumnsOrRows: 1,
+      ),
+    ),
+
+  );
+
+  return _result;
+
+
+}
+// -----------------------------------------------------------------------------
+Future<bool> flyerDialog({
+  @required BuildContext context,
+  @required FlyerModel flyer,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  bool boolDialog = true,
+}) async {
+
+  final double _screenHeight = Scale.superScreenHeight(context);
+  final double _dialogHeight = _screenHeight * 0.7;
+  final double _flyerBoxHeight = _dialogHeight * 0.5;
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    boolDialog: boolDialog,
+    confirmButtonText: confirmButtonText,
+    height: _dialogHeight,
+    child: SizedBox(
+      height: _flyerBoxHeight,
+      child: AbsorbPointer(
+        child: FlyerStarter(
+          flyerModel: flyer,
+          minWidthFactor: FlyerBox.sizeFactorByHeight(context, _flyerBoxHeight),
+        ),
+      ),
     ),
   );
 
