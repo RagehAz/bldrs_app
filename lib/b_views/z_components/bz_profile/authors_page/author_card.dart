@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.da
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -89,7 +89,7 @@ class AuthorCard extends StatelessWidget {
     return Bubble(
       width: bubbleWidth,
       corners: bubbleCornerValue(),
-      margins: superInsets(context: context, bottom: 10, enLeft: 10, enRight: 10),
+      margins: Scale.superInsets(context: context, bottom: 10, enLeft: 10, enRight: 10),
       columnChildren: <Widget>[
 
         Row(
