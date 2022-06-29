@@ -17,6 +17,8 @@ class SeparatorLine extends StatelessWidget {
   final double width;
   final dynamic margins;
   /// --------------------------------------------------------------------------
+  static double thickness = 0.25;
+
   @override
   Widget build(BuildContext context) {
 
@@ -26,7 +28,7 @@ class SeparatorLine extends StatelessWidget {
 
     return Container(
       width: _width,
-      height: 0.25,
+      height: thickness,
       // alignment: Aligners.superCenterAlignment(context),
       margin: superMargins(margins: _margins) ,
       color: lineIsON ? Colorz.yellow255 : null,

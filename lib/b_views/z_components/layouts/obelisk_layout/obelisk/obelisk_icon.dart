@@ -40,7 +40,7 @@ class ObeliskIcon extends StatelessWidget {
               onTap: onTap,
               child: Container(
                 height: Obelisk.circleWidth,
-                width: Obelisk.circleWidth + 5,
+                width: Obelisk.circleWidth,
                 color: Colorz.nothing,
                 alignment: Alignment.centerLeft,
                 child: Selector<NotesProvider, int>(
@@ -92,10 +92,22 @@ class ObeliskIcon extends StatelessWidget {
           /// SEPARATOR
           else {
 
-            return const AbsorbPointer(
-              child: SeparatorLine(
+            final double rightShrinkage = NoteRedDotWrapper.getShrinkageDX(
+                childWidth: Obelisk.circleWidth,
+                isNano: false
+            );
+
+            return AbsorbPointer(
+              child: Container(
                 width: Obelisk.circleWidth,
-                margins: EdgeInsets.only(bottom: 5, top: 5),
+                height: SeparatorLine.thickness + 10,
+                // color: Colorz.bloodTest,
+                padding: EdgeInsets.only(right: rightShrinkage),
+                alignment: Alignment.center,
+                child: const SeparatorLine(
+                  width: Obelisk.circleWidth * 0.4,
+                  margins: EdgeInsets.only(bottom: 5, top: 5),
+                ),
               ),
             );
 
