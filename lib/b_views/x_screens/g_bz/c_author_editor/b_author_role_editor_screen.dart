@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/author_label.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -30,7 +31,7 @@ class AuthorRoleEditorScreen extends StatefulWidget {
 
 class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
-  ValueNotifier<bool> _isFuckingMaster;
+  ValueNotifier<AuthorRole> _authorRole;
 // -----------------------------------------------------------------------------
   /// --- LOCAL LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -46,7 +47,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   void initState() {
     super.initState();
 
-    _isFuckingMaster = ValueNotifier(widget.authorModel.isMaster);
+    _authorRole = ValueNotifier(widget.authorModel.role);
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -68,23 +69,72 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   void dispose() {
 
     _loading.dispose();
-    _isFuckingMaster.dispose();
+    _authorRole.dispose();
 
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _setIsMaster(bool x) async {
-    _isFuckingMaster.value = x;
+  Future<void> _setAuthorRole(AuthorRole role) async {
 
-    await onChangeAuthorRoleOps(
-      context: context,
-      isMaster: _isFuckingMaster,
-      author: widget.authorModel,
+    final bool _canChangeRole = await _checkCanChangeRole(role);
 
-    );
+    if (_canChangeRole == true){
+
+      _authorRole.value = role;
+
+      await onChangeAuthorRoleOps(
+        context: context,
+        authorRole: _authorRole,
+        author: widget.authorModel,
+
+      );
+
+    }
 
   }
 // -----------------------------------------------------------------------------
+  Future<bool> _checkCanChangeRole(AuthorRole role) async {
+    bool _canChange = false;
+
+    /// IF AUTHOR IS ALREADY THE CREATOR
+    if (widget.authorModel.role == AuthorRole.creator){
+
+      /// WHEN CHOOSING SOMETHING OTHER THAN CREATOR
+      if (role != AuthorRole.creator){
+
+        await CenterDialog.showCenterDialog(
+          context: context,
+          title: 'Can Not Demote Account creator',
+          body: ' the Author Role of ${widget.authorModel.name} can not be changed.',
+        );
+
+      }
+
+    }
+
+    /// IF AUTHOR IS NOT THE CREATOR
+    else {
+
+      /// WHEN CHOOSING CREATOR
+      if (role == AuthorRole.creator){
+
+        await CenterDialog.showCenterDialog(
+          context: context,
+          title: 'Only one account creator is allowed',
+        );
+
+      }
+
+      /// WHEN CHOOSING OTHER THAN CREATOR
+      else {
+        _canChange = true;
+      }
+
+    }
+
+    return _canChange;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -138,12 +188,13 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
                 ),
               ),
 
-              /// IS MASTER
+              /// AUTHOR ROLE
               SuperVerse(
                 italic: true,
                 weight: VerseWeight.thin,
-                verse: AuthorCard.getAuthorRoleLine(
-                    isMaster: widget.authorModel.isMaster,
+                verse: AuthorModel.translateRole(
+                  context: context,
+                  role: widget.authorModel.role,
                 ),
               ),
 
@@ -156,25 +207,32 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             ],
           ),
 
-        ValueListenableBuilder(
-            valueListenable: _isFuckingMaster,
-            builder: (_, bool isMaster, Widget child){
+        ValueListenableBuilder<AuthorRole>(
+            valueListenable: _authorRole,
+            builder: (_, AuthorRole role, Widget child){
 
               return Column(
                 children: <Widget>[
 
                   FuckingButtonAuthorShit(
-                    verse: 'Team member',
-                    isOn: !isMaster,
+                    verse: 'Account Creator',
+                    isOn: role == AuthorRole.creator,
                     icon: Iconz.normalUser,
-                    onTap: () => _setIsMaster(false),
+                    onTap: () => _setAuthorRole(AuthorRole.creator),
                   ),
 
                   FuckingButtonAuthorShit(
-                    verse: 'Account Admin',
-                    isOn: isMaster,
+                    verse: 'Team member',
+                    isOn: role == AuthorRole.teamMember,
+                    icon: Iconz.normalUser,
+                    onTap: () => _setAuthorRole(AuthorRole.teamMember),
+                  ),
+
+                  FuckingButtonAuthorShit(
+                    verse: 'Account Moderator',
+                    isOn: role == AuthorRole.moderator,
                     icon: Iconz.bz,
-                    onTap: () => _setIsMaster(true),
+                    onTap: () => _setAuthorRole(AuthorRole.moderator),
                   ),
 
                 ],
@@ -196,9 +254,9 @@ class FuckingButtonAuthorShit extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FuckingButtonAuthorShit({
     @required this.verse,
-    @required this.onTap,
     @required this.isOn,
     @required this.icon,
+    this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------

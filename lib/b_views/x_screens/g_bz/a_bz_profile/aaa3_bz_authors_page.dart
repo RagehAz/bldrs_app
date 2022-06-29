@@ -90,7 +90,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
       builder: (BuildContext context, BzModel bzModel, Widget child){
 
         final List<AuthorModel> _authors = _bzModel?.authors;
-        final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
+        final bool _authorIsMaster = AuthorModel.checkUserIsCreatorAuthor(
           userID: superUserID(),
           bzModel: bzModel,
         );

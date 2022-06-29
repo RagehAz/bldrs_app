@@ -121,14 +121,14 @@ class _GoBackWidgetState extends State<GoBackWidget> {
     return Container(
       width: superScreenWidth(context),
       height: superScreenHeight(context),
-      color: Colorz.bloodTest,
-      child: const Center(
-        child: SuperVerse(
-          verse: 'Wtf are you doing here ?',
-          size: 5,
-          weight: VerseWeight.black,
-        ),
-      ),
+      color: Colorz.black230,
+      // child: const Center(
+      //   child: SuperVerse(
+      //     verse: 'Wtf are you doing here ?',
+      //     size: 5,
+      //     weight: VerseWeight.black,
+      //   ),
+      // ),
     );
 
   }
