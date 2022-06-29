@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -16,6 +17,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -342,7 +344,54 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             verse: ' A ( ) ',
             onTap: () async {
 
-              replaceHash();
+              // String _url;
+              //
+              // String _imageURL;
+              //
+              // final File _file = await takeGalleryPicture(picType: PicType.bzLogo);
+              //
+              // await tryAndCatch(
+              //     context: context,
+              //     methodName: 'createStoragePicAndGetURL',
+              //     functions: () async {
+              //
+              //       final Reference _ref = getRef(
+              //         context: context,
+              //         docName: 'test',
+              //         picName: 'shoe',
+              //       );
+              //
+              //       blog('X1 - getting storage ref : $_ref');
+              //
+              //       final ImageSize imageSize = await ImageSize.superImageSize(_file);
+              //
+              //       blog('X2 - image size is ${imageSize.height} * ${imageSize.width}');
+              //
+              //       final SettableMetadata metaData = SettableMetadata(customMetadata: <String, String>{
+              //         'width': '${imageSize.width}',
+              //         'height': '${imageSize.height}',
+              //         'owners': <String>[superUserID(), ''],
+              //       });
+              //
+              //       blog('X3 - meta data assigned');
+              //
+              //       await _ref.putFile(
+              //         inputFile,
+              //         metaData,
+              //       );
+              //
+              //       blog('X4 - File has been uploaded $inputFile');
+              //
+              //       _imageURL = await _ref.getDownloadURL();
+              //
+              //       blog('X5 - _imageURL is downloaded  $_imageURL');
+              //     });
+              // return _imageURL;
+
+
+              final AuthModel _authModel = UsersProvider.proGetAuthModel(context: context, listen: false);
+
+              _authModel.blogAuthModel(methodName: 'ABO AUTH');
 
             }
         ),

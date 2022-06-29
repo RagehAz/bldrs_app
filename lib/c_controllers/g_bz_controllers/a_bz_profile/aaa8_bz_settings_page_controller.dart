@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -176,30 +175,12 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
   @required BzModel bzModel,
 }) async {
 
-  final bool _result = await CenterDialog.showCenterDialog(
+  final bool _result = await flyersDialog(
     context: context,
     title: '${bzModel.flyersIDs.length} flyers will be permanently deleted',
     body: 'Once flyers are deleted, they can not be retrieved',
-    boolDialog: true,
     confirmButtonText: 'Delete All Flyers And Remove ${bzModel.name}',
-    height: 500,
-    child: Container(
-      width: CenterDialog.getWidth(context),
-      height: 300,
-      color: Colorz.white10,
-      alignment: Alignment.center,
-      child: FlyersGrid(
-        scrollController: ScrollController(),
-        paginationFlyersIDs: bzModel.flyersIDs,
-        scrollDirection: Axis.horizontal,
-        gridWidth: CenterDialog.getWidth(context) - 10,
-        gridHeight: 300,
-        topPadding: 0,
-
-        numberOfColumnsOrRows: 1,
-      ),
-    ),
-
+    flyersIDs: bzModel.flyersIDs,
   );
 
   return _result;

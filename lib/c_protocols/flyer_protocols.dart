@@ -161,6 +161,8 @@ class FlyerProtocol {
         ));
       }
 
+      blog('starting deleteMultipleBzFlyersProtocol');
+
       /// FIRE DELETION
       _bzModel = await FlyerFireOps.deleteMultipleBzFlyers(
         context: context,
@@ -169,9 +171,14 @@ class FlyerProtocol {
         updateBzFireOps: updateBzEveryWhere,
       );
 
+      blog('starting deleteMultipleBzFlyersProtocol 2');
+
+
       /// FLYER LDB DELETION
       final List<String> _flyersIDs = FlyerModel.getFlyersIDsFromFlyers(flyers);
       await FlyerLDBOps.deleteFlyers(_flyersIDs);
+
+      blog('starting deleteMultipleBzFlyersProtocol 3');
 
       /// BZ LDB UPDATE
       if (updateBzEveryWhere == true){
@@ -180,12 +187,16 @@ class FlyerProtocol {
         );
       }
 
+      blog('starting deleteMultipleBzFlyersProtocol 4');
+
       /// FLYER PRO DELETION
       final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
       _flyersProvider.removeFlyersFromProFlyers(
         flyersIDs: _flyersIDs,
         notify: true,
       );
+
+      blog('starting deleteMultipleBzFlyersProtocol 5');
 
       /// BZ PRO UPDATE
       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -207,11 +218,15 @@ class FlyerProtocol {
         );
       }
 
+      blog('starting deleteMultipleBzFlyersProtocol 6');
+
       if (showWaitDialog == true){
         WaitDialog.closeWaitDialog(context);
       }
 
     }
+
+    blog('DONE END FINISH deleteMultipleBzFlyersProtocol');
 
     return _bzModel;
   }
