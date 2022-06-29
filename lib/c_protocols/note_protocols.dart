@@ -215,6 +215,8 @@ class NoteProtocols {
 
     if (bzModel != null && checkCanLoopList(bzModel.authors) == true){
 
+      final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(bzModel);
+
       for (final AuthorModel author in bzModel.authors){
 
         final NoteModel _note = NoteModel(
@@ -224,7 +226,7 @@ class NoteProtocols {
           noteSenderType: NoteSenderType.bldrs,
           receiverID: author.userID,
           receiverType: NoteReceiverType.user,
-          title: '${author.name} has deleted "${bzModel.name}" business account',
+          title: '${_creator.name} has deleted "${bzModel.name}" business account',
           body: 'All related data to "${bzModel.name}" business account have been permanently deleted',
           metaData: NoteModel.defaultMetaData,
           sentTime: DateTime.now(),
