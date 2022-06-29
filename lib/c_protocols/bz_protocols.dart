@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
@@ -7,6 +8,7 @@ import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -227,6 +229,44 @@ class BzProtocol {
       context: context,
       newUserModel: _updatedUserModel,
     );
+
+  }
+// ----------------------------------
+  static Future<void> deleteMyAuthorPicProtocol({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+
+    /// GET MY USER MODEL -------------------
+    final UserModel _myUserModel = await UsersProvider.proFetchUserModel(
+      context: context,
+      userID: superUserID(),
+    );
+
+    /// GET THE BZ MODEL -------------------
+    final BzModel _bzModel = await BzLDBOps.readBz(bzID);
+
+    /// GET MY AUTHOR MODEL -------------------
+    final AuthorModel _myAuthor = AuthorModel.getAuthorFromAuthorsByID(
+        authors: _bzModel.authors,
+        authorID: _myUserModel.id,
+    );
+
+    /// CHECK IF USER MODEL PIC IS AUTHOR MODEL PIC -------------------
+    final bool _authorPicIsHisUserPic = await AuthorModel.checkUserImageIsAuthorImage(
+      context: context,
+      authorModel: _myAuthor,
+      userModel: _myUserModel,
+    );
+
+    /// PROCEED IF NOT IDENTICAL -------------------
+    if (_authorPicIsHisUserPic == false){
+      await BzFireOps.deleteAuthorPic(
+        context: context,
+        bzID: bzID,
+        authorID: _myUserModel.id,
+      );
+    }
 
   }
 // -----------------------------------------------------------------------------

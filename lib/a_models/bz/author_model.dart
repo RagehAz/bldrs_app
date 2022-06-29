@@ -748,6 +748,24 @@ class AuthorModel {
 
     return _imCreator;
   }
+// ----------------------------------
+  static Future<bool> checkUserImageIsAuthorImage({
+    @required  BuildContext context,
+    @required AuthorModel authorModel,
+    @required UserModel userModel,
+  }) async {
+    bool _areTheSame = false;
+
+    if (authorModel != null && userModel != null){
+
+      if (authorModel.userID == userModel.id){
+        _areTheSame = authorModel.pic == userModel.pic;
+      }
+
+    }
+
+    return _areTheSame;
+  }
 // -----------------------------------------------------------------------------
 
   /// GENERATORS

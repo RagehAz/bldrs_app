@@ -14,7 +14,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 class BzFireOps {
 
   BzFireOps();
@@ -708,6 +707,7 @@ class BzFireOps {
     @required String authorID,
     @required String bzID,
   }) async {
+
 
     await Storage.deleteStoragePic(
       context: context,

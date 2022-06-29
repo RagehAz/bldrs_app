@@ -210,10 +210,9 @@ class AuthorProtocol {
     );
 
     /// DELETE MY AUTHOR PICTURE FROM STORAGE
-    await BzFireOps.deleteAuthorPic(
+    await BzProtocol.deleteMyAuthorPicProtocol(
       context: context,
       bzID: bzID,
-      authorID: _userModel.id,
     );
 
     /// DELETE BZ LOCALLY
