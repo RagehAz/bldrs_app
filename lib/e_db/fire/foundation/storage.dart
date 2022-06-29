@@ -10,10 +10,10 @@ import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 
 /// FIREBASE STORAGE METHODS
 
@@ -559,54 +559,13 @@ Future<void> deleteStoragePic({
 /// CHECKER
 
 // ------------------------------------------------
+/// CAN NOT STOP STORAGE ( Object does not exist at location ) EXCEPTION
 /*
-Future<bool> storageImageExist({
-  @required BuildContext context,
-  @required String docName,
-  @required String picName,
-}) async {
-
-  bool _exists = false;
-
-  final bool _result = await tryCatchAndReturnBool(
-    context: context,
-    methodName: 'storageImageExist',
-    functions: () async {
-
-      final Reference _picRef = getRef(
-        context: context,
-        docName: docName,
-        picName: picName,
-      );
-
-      final String _url = await _picRef
-          .getDownloadURL()
-          .then((String url){
-
-            blog('fuck yeah : $url');
-
-            return url;
-            },
-        onError: (Object thing){
-            blog('fuck no : $thing');
-            },
-      );
-
-
-      _exists = stringIsNotEmpty(_url);
-
-    },
-
-  );
-
-  if (_result == false){
-    return false;
+  bool checkStorageImageExists(){
+    /// AFTER SOME SEARCHING,, NO WAY TO STOP STORAGE SDK THROWN EXCEPTION
+    /// WHEN THE IMAGE TRIED TO BE CALLED DOES NOT EXISTS.
+    /// END OF STORY
   }
-  else {
-    return _exists;
-  }
-
-}
  */
 // -----------------------------------------------------------------------------
 
