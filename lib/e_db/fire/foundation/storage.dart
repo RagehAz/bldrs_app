@@ -219,12 +219,12 @@ Future<List<String>> createStorageSlidePicsAndGetURLs({
   @required BuildContext context,
   @required List<SlideModel> slides,
   @required String flyerID,
-  @required String authorID,
+  @required String creatorAuthorID,
 }) async {
 
   final List<String> _picturesURLs = <String>[];
 
-  if (Mapper.checkCanLoopList(slides) == true && flyerID != null && authorID != null){
+  if (Mapper.checkCanLoopList(slides) == true && flyerID != null && creatorAuthorID != null){
 
     for (final SlideModel slide in slides) {
 
@@ -232,7 +232,7 @@ Future<List<String>> createStorageSlidePicsAndGetURLs({
         context: context,
         inputFile: slide.pic,
         docName: StorageDoc.slides,
-        ownerID: authorID,
+        ownerID: creatorAuthorID,
         picName: SlideModel.generateSlideID(
             flyerID: flyerID,
             slideIndex: slide.slideIndex,

@@ -1,15 +1,16 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/bz/author_model.dart';
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -91,13 +92,10 @@ Future<void> _onDeleteFlyerButtonTap({
 
   blog('_onDeleteFlyer : starting deleting flyer ${flyer.id}');
 
-  final bool _result = await _showConfirmDeleteFlyerDialog(
+  final bool _result = await _preFlyerDeleteCheckups(
     context: context,
     flyer: flyer,
   );
-
-  /// TASK : NEED TO CHECK USER PERMISSIONS TO BE ABLE TO CONTINUE DELETION PROCESSES
-  /// TASK : => IS OWNER OF STORAGE PICS ?
 
   if (_result == true){
 
@@ -120,33 +118,46 @@ Future<void> _onDeleteFlyerButtonTap({
 
 }
 // -------------------------------
-Future<bool> _showConfirmDeleteFlyerDialog({
+Future<bool> _preFlyerDeleteCheckups({
   @required BuildContext context,
   @required FlyerModel flyer,
 }) async {
 
-  final double _screenHeight = Scale.superScreenHeight(context);
-  final double _dialogHeight = _screenHeight * 0.7;
-  final double _flyerBoxHeight = _dialogHeight * 0.5;
+  bool _canContinue = false;
 
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: 'Delete Flyer',
-    body: 'This will delete this flyer and all its content and can not be retrieved any more',
-    boolDialog: true,
-    confirmButtonText: 'Yes Delete Flyer',
-    height: _dialogHeight,
-    child: SizedBox(
-      height: _flyerBoxHeight,
-      child: AbsorbPointer(
-        child: FlyerStarter(
-          flyerModel: flyer,
-          minWidthFactor: FlyerBox.sizeFactorByHeight(context, _flyerBoxHeight),
-        ),
-      ),
-    ),
+  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+      context: context,
+      listen: false,
   );
 
-  return _result;
+  final bool _imCreator = AuthorModel.checkImCreatorInThisBz(
+    bzModel: _bzModel,
+  );
+
+  /// CAN NOT DELETE IF NOT CREATOR
+  if (_imCreator == false){
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Can not Delete Flyer',
+      body: 'Only Business Account creator can Delete flyers',
+    );
+
+  }
+
+  /// CONFIRM DELETION IS CREATOR
+  else {
+
+    _canContinue = await flyerDialog(
+      context: context,
+      title: 'Delete Flyer',
+      body: 'This will delete this flyer and all its content and can not be retrieved any more',
+      confirmButtonText: 'Yes Delete Flyer',
+      flyer: flyer,
+    );
+
+  }
+
+  return _canContinue;
 }
 // -----------------------------------------------------------------------------

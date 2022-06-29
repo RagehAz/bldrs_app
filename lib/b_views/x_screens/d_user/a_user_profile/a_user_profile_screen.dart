@@ -18,7 +18,7 @@ class UserProfileScreen extends StatelessWidget {
       context: context,
       listen: true,
     );
-    _user.blogUserModel(methodName: 'UserProfileScreen');
+    _user?.blogUserModel(methodName: 'UserProfileScreen');
 
     return ObeliskLayout(
       initiallyExpanded: true,

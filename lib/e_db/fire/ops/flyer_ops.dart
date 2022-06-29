@@ -62,6 +62,7 @@ class FlyerFireOps {
           context: context,
           flyerID: _flyerID,
           draftFlyer: draftFlyer,
+          creatorAuthorID: AuthorModel.getCreatorAuthorFromBz(bzModel).userID,
         );
 
         _finalBz = await _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs(
@@ -113,6 +114,7 @@ class FlyerFireOps {
     @required BuildContext context,
     @required FlyerModel draftFlyer,
     @required String flyerID,
+    @required String creatorAuthorID,
   }) async {
 
     blog('_createFlyerStorageImagesAndUpdateFlyer : START');
@@ -125,7 +127,7 @@ class FlyerFireOps {
         context: context,
         slides: draftFlyer.slides,
         flyerID: flyerID,
-        authorID: draftFlyer.authorID,
+        creatorAuthorID: creatorAuthorID,
       );
 
       if (Mapper.checkCanLoopList(_picturesURLs) == true){
@@ -750,6 +752,8 @@ class FlyerFireOps {
     @required bool updateBzFireOps,
   }) async {
 
+    blog('deleteMultipleBzFlyers : start');
+
     /// NOTE : just in case, this filters flyers IDs and only delete those already in the bzModel.flyersIDs
     BzModel _bzModel = bzModel;
 
@@ -760,10 +764,14 @@ class FlyerFireOps {
 
       for (final FlyerModel flyerModel in flyersToDelete){
 
+        blog('deleteMultipleBzFlyers : deleting flyer : ${flyerModel.id}');
+
         final bool _canDelete = Mapper.checkStringsContainString(
           strings: bzModel.flyersIDs,
           string: flyerModel.id,
         );
+
+        blog('deleteMultipleBzFlyers : deleting flyer : ${flyerModel.id} : can delete : $_canDelete');
 
         if (_canDelete == true){
 
@@ -814,6 +822,8 @@ class FlyerFireOps {
       }
 
     }
+
+    blog('deleteMultipleBzFlyers : end : updateBzFireOps : $updateBzFireOps');
 
     return _bzModel;
   }
