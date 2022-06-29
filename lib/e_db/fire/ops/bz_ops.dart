@@ -708,7 +708,6 @@ class BzFireOps {
     @required String bzID,
   }) async {
 
-
     await Storage.deleteStoragePic(
       context: context,
       docName: StorageDoc.authors,
