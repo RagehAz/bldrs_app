@@ -13,6 +13,15 @@ enum AuthorRole {
   teamMember,
 }
 // -----------------------------------------------------------------------------
+enum AuthorAbility {
+  canChangeOthersRoles,
+  canChangeSelfRole,
+  canEditOtherAuthor,
+  // canEditSelf, // keda keda
+  canRemoveOtherAuthor,
+  // canRemoveSelf, // keda keda
+}
+// -----------------------------------------------------------------------------
 @immutable
 class AuthorModel {
   /// --------------------------------------------------------------------------
@@ -848,6 +857,109 @@ class AuthorModel {
       case AuthorRole.teamMember: return 'teamMember'; break;
       default: return null;
     }
+  }
+// -----------------------------------------------------------------------------
+
+/// AUTHOR ROLES
+
+// ----------------------------------
+  static bool checkAuthorAbility({
+    @required AuthorModel theDoer,
+    @required AuthorModel theDoneWith,
+    @required AuthorAbility ability,
+  }){
+
+    final bool _higherRank = checkAuthorHasHigherRank(
+      theDoer: theDoer,
+      theDoneWith: theDoneWith,
+    );
+
+    final bool _sameRank = checkAuthorHasSameRank(
+        theDoer: theDoer,
+        theDoneWith: theDoneWith
+    );
+
+    switch (theDoer.role){
+      /// CREATOR -------------
+      case AuthorRole.creator:
+        switch (ability) {
+          case AuthorAbility.canChangeOthersRoles :     return true; break;
+          case AuthorAbility.canChangeSelfRole :        return false; break;
+          case AuthorAbility.canEditOtherAuthor :       return true; break;
+          case AuthorAbility.canRemoveOtherAuthor :     return true; break;
+          default: return false;
+        } break;
+    /// MODERATOR -------------
+      case AuthorRole.moderator:
+        switch (ability) {
+          case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
+          case AuthorAbility.canChangeSelfRole :        return true; break;
+          case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
+          case AuthorAbility.canRemoveOtherAuthor :     return _higherRank; break;
+          default: return false;
+        } break;
+    /// TEAM MEMBER -------------
+      case AuthorRole.teamMember:
+        switch (ability) {
+          case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
+          case AuthorAbility.canChangeSelfRole :        return true; break;
+          case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
+          case AuthorAbility.canRemoveOtherAuthor :     return _higherRank; break;
+          default: return false;
+        } break;
+    /// DEFAULT -------------
+      default: return false;
+    }
+
+  }
+// ----------------------------------
+  static bool checkAuthorHasHigherRank({
+    @required AuthorModel theDoer, // the current user doing stuff
+    @required AuthorModel theDoneWith, // the author whos done with
+  }){
+
+    bool _hasHigherRank = false;
+
+    if (theDoer != null && theDoneWith != null){
+
+      final int _doerRank = getRoleRank(theDoer.role);
+      final int _theDoneWithRank = getRoleRank(theDoneWith.role);
+
+      _hasHigherRank = _doerRank > _theDoneWithRank;
+
+    }
+
+    return _hasHigherRank;
+  }
+// ----------------------------------
+  static bool checkAuthorHasSameRank({
+    @required AuthorModel theDoer, // the current user doing stuff
+    @required AuthorModel theDoneWith, // the author whos done with
+  }){
+
+    bool _hasHigherRank = false;
+
+    if (theDoer != null && theDoneWith != null){
+
+      final int _doerRank = getRoleRank(theDoer.role);
+      final int _theDoneWithRank = getRoleRank(theDoneWith.role);
+
+      _hasHigherRank = _doerRank == _theDoneWithRank;
+
+    }
+
+    return _hasHigherRank;
+  }
+// ----------------------------------
+  static int getRoleRank(AuthorRole role){
+
+    switch (role){
+      case AuthorRole.creator: return 3; break;
+      case AuthorRole.moderator: return 2; break;
+      case AuthorRole.teamMember: return 1; break;
+      default: return 0;
+    }
+
   }
 // -----------------------------------------------------------------------------
 }

@@ -7,6 +7,7 @@ class SettingsWideButton extends StatelessWidget {
   const SettingsWideButton({
     @required this.verse,
     @required this.onTap,
+    this.isOn = true,
     this.icon,
     Key key
   }) : super(key: key);
@@ -14,6 +15,7 @@ class SettingsWideButton extends StatelessWidget {
   final String verse;
   final String icon;
   final Function onTap;
+  final bool isOn;
   /// --------------------------------------------------------------------------
   static const double width = 300;
   static const double height = 50;
@@ -23,6 +25,7 @@ class SettingsWideButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DreamBox(
+      isDeactivated: !isOn,
       height: height,
       verse: verse.toUpperCase(),
       icon: icon,

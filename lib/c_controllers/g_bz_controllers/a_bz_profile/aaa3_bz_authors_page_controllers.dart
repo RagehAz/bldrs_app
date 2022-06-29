@@ -50,14 +50,29 @@ Future<void> onAuthorOptionsTap({
 }) async {
 
   final bool _itIsMine = superUserID() == authorModel.userID;
-  final bool _iAmMaster = AuthorModel.checkUserIsCreatorAuthor(
-      userID: superUserID(),
-      bzModel: bzModel,
+
+  final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromAuthorsByID(
+      authors: bzModel.authors,
+      authorID: superUserID(),
   );
 
-  final bool _canChangeRoles = _iAmMaster;
-  final bool _canEditAuthor = _itIsMine;
-  final bool _canRemoveAuthor = _iAmMaster || _itIsMine;
+  final bool _canChangeRoles = AuthorModel.checkAuthorAbility(
+      theDoer: _myAuthorModel,
+      theDoneWith: authorModel,
+      ability: _itIsMine ? AuthorAbility.canChangeSelfRole : AuthorAbility.canChangeOthersRoles,
+  );
+
+  final bool _canEditAuthor = AuthorModel.checkAuthorAbility(
+    theDoer: _myAuthorModel,
+    theDoneWith: authorModel,
+    ability: AuthorAbility.canEditOtherAuthor,
+  );
+
+  final bool _canRemoveAuthor = AuthorModel.checkAuthorAbility(
+    theDoer: _myAuthorModel,
+    theDoneWith: authorModel,
+    ability: AuthorAbility.canRemoveOtherAuthor,
+  );
 
   final List<Widget> _buttons = <Widget>[
 

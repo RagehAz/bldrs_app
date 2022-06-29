@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.da
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -24,13 +23,18 @@ class BzBanner extends StatelessWidget {
   final dynamic margins;
   final double corners;
   /// --------------------------------------------------------------------------
+  /*
+  static double getHeight(){
+
+  }
+
+  static double getWidth(){
+
+  }
+   */
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final BzModel _bzModel = bzModel ?? BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: true,
-    );
 
     final double logoSize = (boxWidth ?? 100) * 0.5;
 
@@ -49,26 +53,26 @@ class BzBanner extends StatelessWidget {
           /// LOGO
           BzLogo(
             width: logoSize,
-            image: _bzModel?.logo,
+            image: bzModel?.logo,
           ),
 
           /// NAME
           SuperVerse(
-            verse: _bzModel?.name,
+            verse: bzModel?.name,
             size: 4,
             maxLines: 3,
           ),
 
           /// COMPANY TYPE AND FORM
           BzTypesLine(
-            bzModel: _bzModel,
+            bzModel: bzModel,
             width: logoSize * 2,
           ),
 
           /// ZONE
-          if (_bzModel?.zone != null)
+          if (bzModel?.zone != null)
           ZoneLine(
-            zoneModel: _bzModel?.zone,
+            zoneModel: bzModel?.zone,
           ),
 
 
