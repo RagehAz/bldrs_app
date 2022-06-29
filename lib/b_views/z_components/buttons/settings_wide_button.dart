@@ -9,6 +9,7 @@ class SettingsWideButton extends StatelessWidget {
     @required this.onTap,
     this.isOn = true,
     this.icon,
+    this.color = Colorz.white20,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -16,6 +17,7 @@ class SettingsWideButton extends StatelessWidget {
   final String icon;
   final Function onTap;
   final bool isOn;
+  final Color color;
   /// --------------------------------------------------------------------------
   static const double width = 300;
   static const double height = 50;
@@ -25,6 +27,7 @@ class SettingsWideButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DreamBox(
+
       isDeactivated: !isOn,
       height: height,
       verse: verse.toUpperCase(),
@@ -35,7 +38,7 @@ class SettingsWideButton extends StatelessWidget {
       verseCentered: icon == null,
       verseMaxLines: 2,
       verseItalic: true,
-      color: Colorz.white20,
+      color: color,
       verseScaleFactor: 1.2,
       onTap: onTap,
     );

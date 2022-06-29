@@ -59,6 +59,11 @@ Future<void> onFlyerBzOptionsTap({
             context: context,
             verse: 'Delete flyer',
             verseCentered: true,
+            isDeactivated: true,
+            onDeactivatedTap: () => _onDeleteFlyerButtonTap(
+              context: context,
+              flyer: flyer,
+            ),
             onTap: () => _onDeleteFlyerButtonTap(
               context: context,
               flyer: flyer,
