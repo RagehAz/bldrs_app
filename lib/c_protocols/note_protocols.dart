@@ -2,12 +2,11 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:flutter/material.dart';
 
 class NoteProtocols {
 
@@ -109,8 +108,9 @@ class NoteProtocols {
     @required AuthorModel author,
   }) async {
 
-    final String _authorRoleString = AuthorCard.getAuthorRoleLine(
-      isMaster: author.isMaster,
+    final String _authorRoleString = AuthorModel.translateRole(
+      context: context,
+      role:  author.role,
     );
 
     final NoteModel _noteModel = NoteModel(

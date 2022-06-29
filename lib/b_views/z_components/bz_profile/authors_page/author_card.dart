@@ -62,13 +62,7 @@ class AuthorCard extends StatelessWidget {
   }){
     return '$title @ $companyName';
   }
-// -----------------------------------------------------------------------------
-  static String getAuthorRoleLine({
-    @required bool isMaster,
-  }){
-    final String _role = isMaster == true ? 'Account Admin' : 'Team member';
-    return _role;
-  }
+
 // -----------------------------------------------------------------------------
 
   @override
@@ -80,13 +74,14 @@ class AuthorCard extends StatelessWidget {
     );
     final double _textAreaWidth = _textAreaBoxWidth - 20;
 
-    final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
+    final bool _authorIsMaster = AuthorModel.checkUserIsCreatorAuthor(
       userID: author.userID,
       bzModel: bzModel,
     );
 
-    final String _role = getAuthorRoleLine(
-        isMaster: author.isMaster,
+    final String _role = AuthorModel.translateRole(
+      context: context,
+      role: author.role,
     );
 
     final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;

@@ -87,7 +87,7 @@ Future<bool> _preDeleteBzAccountChecks({
 
   bool _canContinue = false;
 
-  final bool _authorIsMaster = AuthorModel.checkUserIsMasterAuthor(
+  final bool _authorIsMaster = AuthorModel.checkUserIsCreatorAuthor(
     userID: AuthFireOps.superUserID(),
     bzModel: bzModel,
   );

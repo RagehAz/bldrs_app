@@ -50,7 +50,10 @@ Future<void> onAuthorOptionsTap({
 }) async {
 
   final bool _itIsMine = superUserID() == authorModel.userID;
-  final bool _iAmMaster = AuthorModel.checkUserIsMasterAuthor(userID: superUserID(), bzModel: bzModel);
+  final bool _iAmMaster = AuthorModel.checkUserIsCreatorAuthor(
+      userID: superUserID(),
+      bzModel: bzModel,
+  );
 
   final bool _canChangeRoles = _iAmMaster;
   final bool _canEditAuthor = _itIsMine;
