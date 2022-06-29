@@ -184,6 +184,8 @@ class BzProtocol {
       bzID: bzID,
     );
 
+    blog('localBzDeletionProtocol : ops should reach here ba2aaaaa');
+
     /// DELETE BZ ON PROVIDER
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _bzzProvider.removeProBzEveryWhere(

@@ -17,12 +17,10 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
@@ -299,6 +297,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     );
     final double _fieldWidth = BldrsAppBar.width(context) - 50;
 
+
     return MainLayout(
       key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
@@ -349,20 +348,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ),
 
         AppBarButton(
-            verse: ' B ( ) ',
+            verse: ' C ( ) ',
             onTap: () async {
 
-              final Map<String, dynamic> _map = await readDoc(
-                  context: context,
-                  collName: FireColl.bzz,
-                  docName: 'SJ4mVbUuT4HYL5grcZme',
-              );
+              blog('a77a');
 
-              blogMap(_map);
-
-              final BzModel _bz = BzModel.decipherBz(map: _map, fromJSON: false);
-
-              _bz.blogBz();
+              Nav.goBackToHomeScreen(context);
 
             }
         ),
