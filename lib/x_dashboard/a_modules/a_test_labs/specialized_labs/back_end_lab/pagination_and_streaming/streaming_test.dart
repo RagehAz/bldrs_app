@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
@@ -126,9 +126,9 @@ class _StreamingTestState extends State<StreamingTest> {
               onDataChanged: (BuildContext ctx, Map<String, dynamic> oldMap, Map<String, dynamic> newMaw){
 
                 blog('streamed map old :-');
-                blogMap(oldMap);
+                Mapper.blogMap(oldMap);
                 blog('streamed map new :-');
-                blogMap(newMaw);
+                Mapper.blogMap(newMaw);
 
               },
               builder: (_, Map<String, dynamic> map){

@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
@@ -149,7 +149,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
         Bubble(
             centered: true,
-            margins: superMargins(
+            margins: Scale.superMargins(
               margins: 20
             ),
             columnChildren: <Widget>[
@@ -281,7 +281,7 @@ class FuckingButtonAuthorShit extends StatelessWidget {
       verseShadow: false,
       verseWeight: isOn == true ? VerseWeight.black : VerseWeight.thin,
       verseItalic: true,
-      margins: superInsets(
+      margins: Scale.superInsets(
           context: context,
           bottom: 10,
       ),

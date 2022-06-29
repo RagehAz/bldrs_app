@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
@@ -86,7 +86,7 @@ class CustomerStatus {
         bldrPhase: decipherBldrPhase(map['bldrPhase']),
         neededBzz: BzModel.decipherBzTypes(map['neededBzz']) ,
         lookingFor: FlyerTyper.decipherFlyersTypes(map['lookingFor']),
-        specs: getStringsFromDynamics(dynamics: map['specs']),
+        specs: Mapper.getStringsFromDynamics(dynamics: map['specs']),
         zoneModel: ZoneModel.decipherZoneMap(map['zoneModel']),
         location: Atlas.decipherGeoPoint(
             point: map['location'],
@@ -150,7 +150,7 @@ class CustomerStatus {
     String methodName,
   }){
 
-    if (checkCanLoopList(statuses) == true){
+    if (Mapper.checkCanLoopList(statuses) == true){
 
       for (final CustomerStatus status in statuses){
         status.blogCustomerStatus(

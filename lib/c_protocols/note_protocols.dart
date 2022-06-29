@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 
 class NoteProtocols {
@@ -213,7 +213,7 @@ class NoteProtocols {
     @required BzModel bzModel,
   }) async {
 
-    if (bzModel != null && checkCanLoopList(bzModel.authors) == true){
+    if (bzModel != null && Mapper.checkCanLoopList(bzModel.authors) == true){
 
       final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(bzModel);
 

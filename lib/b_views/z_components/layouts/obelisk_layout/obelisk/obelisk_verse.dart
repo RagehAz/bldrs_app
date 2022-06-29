@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_separator_line.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
@@ -41,7 +41,7 @@ class ObeliskVerse extends StatelessWidget {
               color: Colorz.nothing,
               child: SuperVerse(
                 verse: _isSelected ? navModel.title.toUpperCase() : navModel.title,
-                margin: superInsets(
+                margin: Scale.superInsets(
                   context: context,
                   enLeft: 5,
                   enRight: 5,

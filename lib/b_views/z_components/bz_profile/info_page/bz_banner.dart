@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +45,7 @@ class BzBanner extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(vertical: 20),
       alignment: Alignment.center,
-      margin: superMargins(margins: margins),
+      margin: Scale.superMargins(margins: margins),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

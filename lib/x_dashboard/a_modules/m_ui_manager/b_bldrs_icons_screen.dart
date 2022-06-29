@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -59,7 +59,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
         }
       }
 
-      if (checkCanLoopList(_foundIcons) == true){
+      if (Mapper.checkCanLoopList(_foundIcons) == true){
         _found.value = _foundIcons;
         _textHighlight.value = text;
       }
