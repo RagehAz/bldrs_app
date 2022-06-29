@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -234,14 +233,12 @@ class AuthorProtocol {
 
     final BzModel _bzModel = await BzLDBOps.readBz(bzID);
 
-    await CenterDialog.showCenterDialog(
+    await bzBannerDialog(
       context: context,
       title: '${_bzModel.name} is no longer Available',
       body: 'This Business account has been permanently deleted and can no longer be used',
-      child: BzBanner(
-        bzModel: _bzModel,
-        boxWidth: CenterDialog.clearWidth(context),
-      ),
+      bzModel: _bzModel,
+      boolDialog: false,
     );
 
   }

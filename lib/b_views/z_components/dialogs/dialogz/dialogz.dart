@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/bzz_bubble.dart';
@@ -242,5 +243,31 @@ Future<CityModel> confirmCityDialog({
   );
 
   return _city;
+}
+// -----------------------------------------------------------------------------
+Future<bool> bzBannerDialog({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  bool boolDialog = true,
+}) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    confirmButtonText: confirmButtonText,
+    boolDialog: boolDialog,
+    height: Scale.superScreenHeight(context) * 0.85,
+    child: BzBanner(
+      boxWidth: CenterDialog.clearWidth(context) * 0.8,
+      bzModel: bzModel,
+    ),
+  );
+
+  return _result;
+
 }
 // -----------------------------------------------------------------------------

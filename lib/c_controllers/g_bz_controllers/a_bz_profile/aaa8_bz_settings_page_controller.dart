@@ -4,8 +4,8 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/b_bz_editor/a_bz_editor_screen.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
@@ -13,7 +13,6 @@ import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -146,16 +145,12 @@ Future<bool> _showConfirmDeleteBzDialog({
   @required BzModel bzModel,
 }) async {
 
-  final bool _result = await CenterDialog.showCenterDialog(
+  final bool _result = await bzBannerDialog(
     context: context,
+    bzModel: bzModel,
     title: 'Delete ${bzModel.name} Business Account ?',
     body: 'All Account flyers, records and data will be deleted and can not be retrieved',
     confirmButtonText: 'Yes, Delete',
-    boolDialog: true,
-    height: Scale.superScreenHeight(context) * 0.7,
-    child: BzBanner(
-      bzModel: bzModel,
-    ),
   );
 
   return _result;
