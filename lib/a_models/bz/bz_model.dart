@@ -368,7 +368,7 @@ class BzModel{
       authors: <AuthorModel>[
         AuthorModel.createAuthorFromUserModel(
           userModel: userModel,
-          isMaster: true,
+          isCreator: true,
         )
       ],
       showsTeam: true,

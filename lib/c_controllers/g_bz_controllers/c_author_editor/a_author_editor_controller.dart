@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
@@ -40,7 +39,7 @@ void onDeleteAuthorImage({
   author.value = AuthorModel(
     pic: null,
     title: author.value.title,
-    isMaster: author.value.isMaster,
+    role: author.value.role,
     contacts: author.value.contacts,
     userID: author.value.userID,
     name: author.value.name,
@@ -80,7 +79,7 @@ Future<void> onConfirmAuthorUpdates({
 
     final AuthorModel _author = AuthorModel(
         userID: author.value.userID,
-        isMaster: author.value.isMaster,
+        role: author.value.role,
         pic: author.value.pic,
         flyersIDs: author.value.flyersIDs,
         name: nameController.text,
@@ -113,14 +112,15 @@ Future<void> onConfirmAuthorUpdates({
 // -------------------------------
 Future<void> onChangeAuthorRoleOps({
   @required BuildContext context,
-  @required ValueNotifier<bool> isMaster,
+  @required ValueNotifier<AuthorRole> authorRole,
   @required AuthorModel author,
 }) async {
 
-  if (isMaster.value != author.isMaster){
+  if (authorRole.value != author.role){
 
-    final String _role = AuthorCard.getAuthorRoleLine(
-      isMaster: isMaster.value,
+    final String _role = AuthorModel.translateRole(
+      context: context,
+      role: authorRole.value,
     );
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -131,7 +131,7 @@ Future<void> onChangeAuthorRoleOps({
     );
 
     if (_result == false){
-      isMaster.value = !isMaster.value;
+      authorRole.value = author.role;
     }
 
     else {
@@ -147,7 +147,7 @@ Future<void> onChangeAuthorRoleOps({
       );
 
       final AuthorModel _author = author.copyWith(
-        isMaster: isMaster.value,
+        role: authorRole.value,
       );
 
       await Future.wait(<Future>[

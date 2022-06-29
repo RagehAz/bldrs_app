@@ -52,7 +52,7 @@ class BzFireOps {
           );
 
           /// update authorModel with _authorPicURL
-          final AuthorModel _masterAuthor = await _uploadAuthorPicAndCreateNewMasterAuthor(
+          final AuthorModel _masterAuthor = await _uploadAuthorPicAndCreateNewCreatorAuthor(
             context: context,
             draftBz: draftBz,
             userModel: userModel,
@@ -142,7 +142,7 @@ class BzFireOps {
     return _bzLogoURL;
   }
 // --------------------------
-  static Future<AuthorModel> _uploadAuthorPicAndCreateNewMasterAuthor({
+  static Future<AuthorModel> _uploadAuthorPicAndCreateNewCreatorAuthor({
     @required BuildContext context,
     @required BzModel draftBz,
     @required UserModel userModel,
@@ -183,7 +183,7 @@ class BzFireOps {
       name: userModel.name,
       title: userModel.title,
       pic: _authorPicURL,
-      isMaster: true,
+      role: AuthorRole.creator,
       contacts: userModel.contacts,
       flyersIDs: const <String>[],
     );
