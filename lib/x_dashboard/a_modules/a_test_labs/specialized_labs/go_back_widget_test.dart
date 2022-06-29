@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
@@ -119,8 +119,8 @@ class _GoBackWidgetState extends State<GoBackWidget> {
     blog('GoBackWidget : should go back now ahoooooooooooooooooooooooo');
 
     return Container(
-      width: superScreenWidth(context),
-      height: superScreenHeight(context),
+      width: Scale.superScreenWidth(context),
+      height: Scale.superScreenHeight(context),
       color: Colorz.black230,
       // child: const Center(
       //   child: SuperVerse(

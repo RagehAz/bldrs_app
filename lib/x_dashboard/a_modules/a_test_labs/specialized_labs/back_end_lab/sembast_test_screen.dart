@@ -5,9 +5,9 @@ import 'package:bldrs/e_db/ldb/foundation/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_viewer_screen.dart';
@@ -154,7 +154,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
     await _readAllMaps();
 
-    goBack(context);
+    Nav.goBack(context);
   }
 // ----------------------------------------
   Future<void> _deleteAll() async {
@@ -234,7 +234,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
         /// LDB Buttons
         Container(
-          width: superScreenWidth(context),
+          width: Scale.superScreenWidth(context),
           height: 50,
           color: Colorz.bloodTest,
           child: ListView(

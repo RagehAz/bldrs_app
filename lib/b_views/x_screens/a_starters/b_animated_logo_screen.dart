@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -224,8 +224,8 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     const double _logoWidth = 200;
     const double _logoHeight = 50;
     const double _logoBox = _logoWidth * 3;
-    final double _screenWidth = superScreenWidth(context);
-    final double _screenHeight = superScreenHeight(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
     final double _leftOffset = _screenWidth - Ratioz.pyramidsWidth - (_logoBox * 0.5) + 30;
 
     return MainLayout(
@@ -322,7 +322,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                                 verse: "THE BUILDER'S NETWORK",
                                 shadow: true,
                                 scaleFactor: 1.8,
-                                margin: superInsets(context: context, bottom: 10),
+                                margin: Scale.superInsets(context: context, bottom: 10),
                                 // italic: true,
                               ),
                             ),
@@ -347,7 +347,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             width: _screenWidth,
             height: _screenHeight,
             alignment: Alignment.topLeft,
-            margin: superInsets(context: context, top: 80),
+            margin: Scale.superInsets(context: context, top: 80),
             child: Column(
               children: <Widget>[
 
@@ -432,7 +432,7 @@ class AnimatedLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = superScreenWidth(context);
+    final double _screenWidth = Scale.superScreenWidth(context);
 
     return AnimatedBuilder(
       animation: curvedAnimation,
