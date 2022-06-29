@@ -9,6 +9,12 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
+enum AuthorRole {
+  creator,
+  moderator,
+  teamMember,
+}
+// -----------------------------------------------------------------------------
 @immutable
 class AuthorModel {
   /// --------------------------------------------------------------------------
@@ -17,7 +23,7 @@ class AuthorModel {
     @required this.name,
     @required this.pic,
     @required this.title,
-    @required this.isMaster,
+    @required this.role,
     @required this.contacts,
     @required this.flyersIDs,
   });
@@ -26,7 +32,7 @@ class AuthorModel {
   final String name;
   final dynamic pic;
   final String title;
-  final bool isMaster;
+  final AuthorRole role;
   final List<ContactModel> contacts;
   final List<String> flyersIDs;
 // -----------------------------------------------------------------------------
@@ -40,7 +46,7 @@ class AuthorModel {
     String name,
     dynamic pic,
     String title,
-    bool isMaster,
+    AuthorRole role,
     List<ContactModel> contacts,
     List<String> flyersIDs,
 }){
@@ -49,7 +55,7 @@ class AuthorModel {
       name: name ?? this.name,
       pic: pic ?? this.pic,
       title: title ?? this.title,
-      isMaster: isMaster ?? this.isMaster,
+      role: role ?? this.role,
       contacts: contacts ?? this.contacts,
       flyersIDs: flyersIDs ?? this.flyersIDs,
     );
@@ -57,14 +63,14 @@ class AuthorModel {
 // ----------------------------------
   static AuthorModel createAuthorFromUserModel({
     @required UserModel userModel,
-    @required bool isMaster,
+    @required bool isCreator,
   }) {
     final AuthorModel _author = AuthorModel(
       userID: userModel.id,
       name: userModel.name,
       pic: userModel.pic,
       title: userModel.title,
-      isMaster: isMaster,
+      role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
       contacts: userModel.contacts,
       flyersIDs: const <String>[],
     );
@@ -94,7 +100,7 @@ class AuthorModel {
       'name': name,
       'pic': pic,
       'title': title,
-      'isMaster': isMaster,
+      'role': cipherAuthorRole(role),
       'contacts': ContactModel.cipherContacts(contacts),
       'flyersIDs': flyersIDs,
     };
@@ -107,7 +113,7 @@ class AuthorModel {
       name: map['name'],
       pic: map['pic'],
       title: map['title'],
-      isMaster: map['isMaster'],
+      role: decipherAuthorRole(map['isMaster']),
       contacts: ContactModel.decipherContacts(map['contacts']),
       flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
     );
@@ -144,6 +150,24 @@ class AuthorModel {
     }
 
     return _authors;
+  }
+// ----------------------------------
+  static String cipherAuthorRole(AuthorRole role){
+    switch (role){
+      case AuthorRole.creator: return 'creator'; break;
+      case AuthorRole.moderator: return 'moderator'; break;
+      case AuthorRole.teamMember: return 'teamMember'; break;
+      default: return null;
+    }
+  }
+// ----------------------------------
+  static AuthorRole decipherAuthorRole(String role){
+    switch (role){
+      case 'creator'     : return AuthorRole.creator   ; break;
+      case 'moderator'   : return AuthorRole.moderator ; break;
+      case 'teamMember'  : return AuthorRole.teamMember; break;
+      default: return null;
+    }
   }
 // -----------------------------------------------------------------------------
 
@@ -251,10 +275,10 @@ class AuthorModel {
     return _bzAuthors;
   }
 // ----------------------------------
-  static List<AuthorModel> getMasterAuthorsFromBz(BzModel bzModel) {
+  static List<AuthorModel> getCreatorAuthorsFromBz(BzModel bzModel) {
 
     final List<AuthorModel> _masterAuthor = bzModel.authors.where(
-            (AuthorModel author) => author.isMaster == true,
+            (AuthorModel author) => author.role == AuthorRole.creator,
         ).toList();
 
     return _masterAuthor;
@@ -387,7 +411,7 @@ class AuthorModel {
 
       final AuthorModel _newAuthor = AuthorModel.createAuthorFromUserModel(
         userModel: newUserModel,
-        isMaster: false,
+        isCreator: false,
       );
 
       _output.add(_newAuthor);
@@ -563,12 +587,12 @@ class AuthorModel {
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkUserIsMasterAuthor({
+  static bool checkUserIsCreatorAuthor({
     @required String userID,
     @required BzModel bzModel,
   }){
 
-    bool _isMaster = false;
+    bool _isCreator = false;
 
     final AuthorModel _author = getAuthorFromBzByAuthorID(
         authorID: userID,
@@ -576,10 +600,10 @@ class AuthorModel {
     );
 
     if (_author != null){
-      _isMaster = _author.isMaster ?? false;
+      _isCreator = _author.role == AuthorRole.creator;
     }
 
-    return _isMaster;
+    return _isCreator;
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
@@ -644,7 +668,7 @@ class AuthorModel {
       author1.name == author2.name &&
       author1.pic == author2.pic &&
       author1.title == author2.title &&
-      author1.isMaster == author2.isMaster &&
+      author1.role == author2.role &&
       Mapper.checkListsAreTheSame(list1: author1.flyersIDs, list2: author2.flyersIDs) &&
       ContactModel.checkContactsListsAreIdentical(contacts1: author1.contacts, contacts2: author2.contacts)
 
@@ -715,7 +739,7 @@ class AuthorModel {
 
     String _string = superPhrase(context, 'phid_account_admin');
 
-    final List<AuthorModel> _masterAuthors = getMasterAuthorsFromBz(bzModel);
+    final List<AuthorModel> _masterAuthors = getCreatorAuthorsFromBz(bzModel);
 
     if (Mapper.checkCanLoopList(_masterAuthors) == true){
 
@@ -747,7 +771,7 @@ class AuthorModel {
     return AuthorModel(
       userID: 'author_dummy_id',
       pic: Iconz.dvRageh,
-      isMaster: true,
+      role: AuthorRole.creator,
       name: 'Rageh Author',
       contacts: ContactModel.dummyContacts(),
       title: 'The CEO And Founder of this',
@@ -781,7 +805,7 @@ class AuthorModel {
     blog('name : $name');
     blog('pic : $pic');
     blog('title : $title');
-    blog('isMaster : $isMaster');
+    blog('role : $role');
     blog('contacts : $contacts');
     blog('flyersID : $flyersIDs');
 
@@ -807,6 +831,22 @@ class AuthorModel {
       blog('no Authors to blog here : $methodName');
     }
 
+  }
+// -----------------------------------------------------------------------------
+
+  /// TRANSLATION
+
+// ----------------------------------
+  static String translateRole({
+    @required BuildContext context,
+    @required AuthorRole role,
+  }){
+    switch (role){
+      case AuthorRole.creator: return 'creator'; break;
+      case AuthorRole.moderator: return 'moderator'; break;
+      case AuthorRole.teamMember: return 'teamMember'; break;
+      default: return null;
+    }
   }
 // -----------------------------------------------------------------------------
 }
