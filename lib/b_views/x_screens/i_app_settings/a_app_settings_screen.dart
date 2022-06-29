@@ -20,6 +20,8 @@ class AppSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final bool _userIsOnline = AuthModel.userIsSignedIn();
+
     return CenteredListLayout(
         columnChildren: <Widget>[
 
@@ -45,6 +47,7 @@ class AppSettingsScreen extends StatelessWidget {
           SettingsWideButton(
             verse: superPhrase(context, 'phid_feedback'),
             icon: Iconz.utSearching,
+            isOn : _userIsOnline,
             onTap: () => onFeedbackTap(context),
           ),
 
@@ -68,17 +71,17 @@ class AppSettingsScreen extends StatelessWidget {
           SettingsWideButton(
             verse: superPhrase(context, 'phid_createBzAccount'),
             icon: Iconz.bz,
+            isOn : _userIsOnline,
             onTap: () => onCreateNewBzTap(context),
           ),
 
-          if (AuthModel.userIsSignedIn() == true)
             const DotSeparator(),
 
           /// SIGN OUT
-          if (AuthModel.userIsSignedIn() == true)
           SettingsWideButton(
             verse: superPhrase(context, 'phid_signOut'),
             icon: Iconz.exit,
+            isOn: _userIsOnline,
             onTap: () => onSignOut(context),
           ),
 

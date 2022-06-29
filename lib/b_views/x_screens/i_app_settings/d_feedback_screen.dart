@@ -18,6 +18,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FeedBack extends StatefulWidget {
@@ -69,7 +70,7 @@ class _FeedBackState extends State<FeedBack> {
     unawaited(_triggerLoading());
 
     /// upload text to firebase
-    await Fire.createDoc(
+    final DocumentReference<Object> _ref = await Fire.createDoc(
       context: context,
       collName: FireColl.feedbacks,
       addDocID: true,
@@ -82,11 +83,22 @@ class _FeedBackState extends State<FeedBack> {
 
     unawaited(_triggerLoading());
 
-    await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Thanks',
-      body: 'FeedBack sent',
-    );
+    // blog('ref is : ${_ref.}');
+
+    if (_ref == null){
+      await CenterDialog.showCenterDialog(
+        context: context,
+        title: 'Not Sent',
+        body: 'Sorry !, something went wrong',
+      );
+    }
+    else {
+      await CenterDialog.showCenterDialog(
+        context: context,
+        title: 'Thanks',
+        body: 'FeedBack sent',
+      );
+    }
 
     Nav.goBack(context);
   }
@@ -139,7 +151,7 @@ class _FeedBackState extends State<FeedBack> {
           ),
 
           TextFieldBubble(
-            leadingIcon: _userModel.pic,
+            leadingIcon: _userModel?.pic,
             bubbleColor: Colorz.white20,
             title: 'Feedback',
             textController: _feedbackController,
