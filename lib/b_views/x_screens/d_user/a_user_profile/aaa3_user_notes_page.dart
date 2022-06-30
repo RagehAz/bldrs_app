@@ -24,6 +24,9 @@ class UserNotesPage extends StatefulWidget {
 }
 
 class _UserNotesPageState extends State<UserNotesPage> {
+  // with AutomaticKeepAliveClientMixin<UserNotesPage>
+  // @override
+  // bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   NotesProvider _notesProvider;
@@ -133,6 +136,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
     @required List<NoteModel> providerNotes,
   }){
 
+
     /// DECIPHER STREAM MAPS
     final List<NoteModel> _paginatedNotes = NoteModel.decipherNotes(
       maps: paginatedMaps,
@@ -146,17 +150,25 @@ class _UserNotesPageState extends State<UserNotesPage> {
         duplicatesAlgorithm: DuplicatesAlgorithm.keepFirst
     );
 
+    blog('_combinePaginatorMapsWithProviderNotes : combining shit : (${providerNotes.length} pro notes) + (${paginatedMaps.length}) pagi notes = ${_combined.length} combined notes');
 
-    return _combined;
+
+    final List<NoteModel> _ordered = NoteModel.orderNotesBySentTime(_combined);
+
+    return _ordered;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // super.build(context);
 
     return Selector<NotesProvider, List<NoteModel>>(
-        selector: (_, NotesProvider notesProvider) => notesProvider.userUnseenNotes,
+        key: const ValueKey<String>('UserNotesPage'),
+        selector: (_, NotesProvider notesProvider) => notesProvider.userNotes,
         shouldRebuild: (before, after) => true,
         builder: (_,List<NoteModel> _proNotes, Widget child){
+
+          blog('user pro notes rebuilds ${_proNotes.length} notes');
 
           /// ADD USER UNSEEN NOTES TO LOCAL NOTES TO MARK SEEN
           _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
@@ -171,6 +183,8 @@ class _UserNotesPageState extends State<UserNotesPage> {
                 onDataChanged: _onPaginatorDataChanged
               ),
               builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+
+                blog('FireCollPaginator : rebuilding with ${maps.length} map');
 
                 /// COMBINE NOTES FROM STREAM + NOTES FROM PROVIDER
                 final List<NoteModel> _combined = _combinePaginatorMapsWithProviderNotes(
@@ -191,6 +205,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
                     null;
 
                     return NoteCard(
+                      key: PageStorageKey<String>('user_note_card_${_notiModel.id}'),
                       noteModel: _notiModel,
                       isDraftNote: false,
                     );

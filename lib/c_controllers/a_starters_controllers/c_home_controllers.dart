@@ -556,7 +556,7 @@ void initializeUserNotes(BuildContext context){
           fromJSON: false,
         );
 
-        _notesProvider.setUserUnseenNotesAndRebuild(
+        _notesProvider.setUserNotesAndRebuild(
             context: context,
             notes: _notes,
             notify: true,
@@ -593,7 +593,7 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 
   final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
-    notes: _notesProvider.userUnseenNotes,
+    notes: _notesProvider.userNotes,
     toJSON: false,
   );
 
@@ -735,7 +735,7 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes (
 
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 
-  final List<NoteModel> _bzOldNotes = _notesProvider.myBzzUnseenReceivedNotes[bzID];
+  final List<NoteModel> _bzOldNotes = _notesProvider.myBzzNotes[bzID];
 
   final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
     notes: _bzOldNotes,
@@ -774,7 +774,7 @@ void _onBzNotesStreamDataChanged({
         fromJSON: false,
       );
 
-      _notesProvider.setBzUnseenNotesAndRebuildObelisk(
+      _notesProvider.setBzNotesAndRebuildObelisk(
           context: context,
           bzID: bzID,
           notes: _allBzNotes,

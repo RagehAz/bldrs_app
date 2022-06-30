@@ -25,7 +25,10 @@ class BzNotesPage extends StatefulWidget {
 /// --------------------------------------------------------------------------
 }
 
-class _BzNotesPageState extends State<BzNotesPage> {
+class _BzNotesPageState extends State<BzNotesPage>{
+  // with AutomaticKeepAliveClientMixin<BzNotesPage>
+  // @override
+  // bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   NotesProvider _notesProvider;
@@ -119,7 +122,7 @@ class _BzNotesPageState extends State<BzNotesPage> {
       );
 
       /// REMOVE UNSEEN NOTES FROM ALL BZZ UNSEEN NOTES
-      _notesProvider.removeNotesFromAllBzzUnseenReceivedNotes(
+      _notesProvider.removeNotesFromBzzNotes(
         notes: _notesToMark,
         bzID: _bzModel.id,
         notify: true,
@@ -186,13 +189,15 @@ class _BzNotesPageState extends State<BzNotesPage> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // super.build(context);
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
     return Selector<NotesProvider, List<NoteModel>>(
+        key: const ValueKey<String>('BzNotesPage'),
         selector: (_, NotesProvider notesProvider){
 
-          final Map<String, List<NoteModel>> _map = notesProvider.myBzzUnseenReceivedNotes;
+          final Map<String, List<NoteModel>> _map = notesProvider.myBzzNotes;
 
           final List<NoteModel> _bzNotes = _map[_bzModel.id];
 
@@ -232,6 +237,7 @@ class _BzNotesPageState extends State<BzNotesPage> {
                     null;
 
                     return NoteCard(
+                      key: PageStorageKey<String>('bz_note_card_${_notiModel.id}'),
                       noteModel: _notiModel,
                       isDraftNote: false,
                     );

@@ -154,7 +154,9 @@ class NoteCard extends StatelessWidget {
                 width: _moreButtonSize,
                 icon: Iconz.more,
                 iconSizeFactor: 0.7,
-                onTap: _onNoteOptionsTap,
+                onTap: () => _onNoteOptionsTap(
+                  context: context,
+                ),
               ),
 
             ],

@@ -279,24 +279,24 @@ class NotesProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// USER UNSEEN NOTES
+  /// USER RECEIVED UNSEEN NOTES
 
 // -------------------------------------
-  List<NoteModel> _userUnseenNotes = <NoteModel>[];
-  List<NoteModel> get userUnseenNotes => _userUnseenNotes;
+  List<NoteModel> _userNotes = <NoteModel>[];
+  List<NoteModel> get userNotes => _userNotes;
 // -------------------------------------
-  void setUserUnseenNotesAndRebuild({
+  void setUserNotesAndRebuild({
     @required BuildContext context,
     @required List<NoteModel> notes,
     @required bool notify,
   }){
 
-    _userUnseenNotes = notes;
+    _userNotes = notes;
 
     setObeliskNumberAndRebuild(
       context: context,
       caller: 'setUserUnseenNotes',
-      value: _userUnseenNotes.length,
+      value: _userNotes.length,
       navModelID: NavModel.getUserTabNavID(UserTab.notifications),
       rebuildAllMainNumbers: true,
       notify: notify,
@@ -309,25 +309,57 @@ class NotesProvider extends ChangeNotifier {
     @required bool listen,
   }){
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
-    return _notesProvider.userUnseenNotes;
+    return _notesProvider.userNotes;
+  }
+// -------------------------------------
+  void updateNoteInUserNotes({
+    @required NoteModel note,
+    @required bool notify,
+}){
+
+    _userNotes = NoteModel.replaceNoteInNotes(
+        notes: _userNotes,
+        noteToReplace: note
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void deleteNoteInUserNotes({
+    @required String noteID,
+    @required bool notify,
+  }){
+
+    _userNotes = NoteModel.removeNoteFromNotes(
+        notes: _userNotes,
+        noteID: noteID,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -----------------------------------------------------------------------------
 
-  /// ALL BZZ UNSEEN NOTES
+  /// ALL BZZ RECEIVED UNSEEN NOTES
 
 // -------------------------------------
   /// only the received notes
-  final Map<String, List<NoteModel>> _myBzzUnseenReceivedNotes = {};
-  Map<String, List<NoteModel>> get myBzzUnseenReceivedNotes => _myBzzUnseenReceivedNotes;
+  Map<String, List<NoteModel>> _myBzzNotes = {}; // {bzID : <NoteModel>[Note, Note, Note..]}
+  Map<String, List<NoteModel>> get myBzzNotes => _myBzzNotes;
 // -------------------------------------
-  void setBzUnseenNotesAndRebuildObelisk({
+  void setBzNotesAndRebuildObelisk({
     @required BuildContext context,
     @required String bzID,
     @required List<NoteModel> notes,
     @required bool notify,
   }){
 
-    _myBzzUnseenReceivedNotes[bzID] = notes;
+    _myBzzNotes[bzID] = notes;
 
     setObeliskNumberAndRebuild(
       context: context,
@@ -343,7 +375,7 @@ class NotesProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  void removeNotesFromAllBzzUnseenReceivedNotes({
+  void removeNotesFromBzzNotes({
     @required List<NoteModel> notes,
     @required String bzID,
     @required bool notify,
@@ -353,10 +385,10 @@ class NotesProvider extends ChangeNotifier {
 
       final List<NoteModel> _updatedNotes = NoteModel.removeNotesFromNotes(
         notesToRemove: notes,
-        sourceNotes: _myBzzUnseenReceivedNotes[bzID],
+        sourceNotes: _myBzzNotes[bzID],
       );
 
-      _myBzzUnseenReceivedNotes[bzID] = _updatedNotes;
+      _myBzzNotes[bzID] = _updatedNotes;
 
       if (notify == true){
         notifyListeners();
@@ -366,12 +398,44 @@ class NotesProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  void removeAllNotesOfThisBzFromAllBzzUnseenReceivedNotes({
+  void removeAllNotesOfThisBzFromAllBzzNotes({
     @required String bzID,
     @required bool notify,
   }){
 
-    _myBzzUnseenReceivedNotes.remove(bzID);
+    _myBzzNotes.remove(bzID);
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void updateNoteInMyBzzNotes({
+    @required NoteModel note,
+    @required bool notify,
+  }){
+
+    _myBzzNotes = NoteModel.updateNoteInBzzNotesMap(
+        note: note,
+        bzzNotesMap: _myBzzNotes,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+
+  void deleteNoteInBzzNotes({
+    @required String noteID,
+    @required bool notify,
+  }){
+
+    _myBzzNotes = NoteModel.removeNoteFromBzzNotesMap(
+      bzzNotesMap: _myBzzNotes,
+      noteID: noteID,
+    );
 
     if (notify == true){
       notifyListeners();
@@ -379,13 +443,57 @@ class NotesProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+
+  /// PRO NOTES OPS
+
+// -------------------------------------
+  static void proUpdateNoteEverywhereIfExists({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+    @required bool notify,
+  }){
+
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+
+    _notesProvider.updateNoteInUserNotes(
+      note: noteModel,
+      notify: false,
+    );
+
+    _notesProvider.updateNoteInMyBzzNotes(
+        note: noteModel,
+        notify: notify
+    );
+
+  }
+// -------------------------------------
+  static void proDeleteNoteEverywhereIfExists({
+    @required BuildContext context,
+    @required String noteID,
+    @required bool notify,
+  }){
+
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+
+    _notesProvider.deleteNoteInUserNotes(
+      noteID: noteID,
+      notify: false,
+    );
+
+    _notesProvider.deleteNoteInBzzNotes(
+        noteID: noteID,
+        notify: notify
+    );
+
+  }
+// -------------------------------------
   static void proAuthorResignationNotesRemovalOps({
     @required BuildContext context,
     @required String bzIDResigned,
   }){
 
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-    _notesProvider.removeAllNotesOfThisBzFromAllBzzUnseenReceivedNotes(
+    _notesProvider.removeAllNotesOfThisBzFromAllBzzNotes(
       bzID: bzIDResigned,
       notify: false,
     );
@@ -395,5 +503,5 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-
+// -------------------------------------
 }

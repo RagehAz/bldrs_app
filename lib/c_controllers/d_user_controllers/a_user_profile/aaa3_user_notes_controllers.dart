@@ -2,15 +2,19 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
+import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+
 // -----------------------------------------------------------------------------
 
 /// BZ NOTE PAGINATION QUERY PARAMETERS
@@ -45,7 +49,36 @@ Future<void> onShowNoteOptions({
   @required NoteModel noteModel,
 }) async {
 
-  blog('note options');
+  await BottomDialog.showButtonsBottomDialog(
+    context: context,
+    draggable: true,
+    numberOfWidgets: 1,
+    title: 'Options',
+    buttonHeight: 50,
+    builder: (_, PhraseProvider pro){
+
+      return <Widget>[
+
+        BottomDialog.wideButton(
+          context: context,
+          verse: 'Delete',
+          height: 50,
+          onTap: () async {
+
+            await NoteProtocols.deleteNoteEverywhereProtocol(
+              context: context,
+              noteModel: noteModel,
+            );
+
+            Nav.goBack(context);
+
+          }
+        ),
+
+      ];
+
+    }
+  );
 
 }
 // -----------------------------------------------------------------------------
