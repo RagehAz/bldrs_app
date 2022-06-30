@@ -12,6 +12,10 @@
 //
 // }
 
+/// NEED  TO DELETE MULTIPLE FIRE DOCS BY CLOUD FUNCTIONS (fireBypassDelete) as transaction
+/// NEED TO DELETE MULTIPLE REAL DOCS BY CLOUD FUNCTION (realBypassDelete) as transaction
+/// NEED TO DELETE MULTIPLE FIRE STORAGE FILE BY CLOUD FUNCTION (storageBypassDelete) as transaction
+
 /*
 
 DB CLOUD FUNCTIONS
