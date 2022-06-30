@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
@@ -275,6 +276,12 @@ class NoteProtocols {
       responseTime: DateTime.now(),
     );
 
+    NotesProvider.proUpdateNoteEverywhereIfExists(
+      context: context,
+      noteModel: _newNoteModel,
+      notify: true,
+    );
+
     await NoteFireOps.updateNote(
       context: context,
       newNoteModel: _newNoteModel,
@@ -304,5 +311,26 @@ class NoteProtocols {
 
   }
 // ----------------------------------
+  static Future<void> deleteNoteEverywhereProtocol({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+  }) async {
+
+    /// FIRE DELETE
+    await NoteFireOps.deleteNote(
+        context: context,
+        noteID: noteModel.id,
+    );
+
+    /// PRO DELETE
+    NotesProvider.proDeleteNoteEverywhereIfExists(
+      context: context,
+      noteID: noteModel.id,
+      notify: true,
+    );
+
+  }
+// ----------------------------------
+
 
 }

@@ -922,15 +922,15 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static bool checkNotesContainNote({
     @required List<NoteModel> notes,
-    @required NoteModel note,
+    @required String noteID,
   }){
 
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(notes) == true && note != null){
+    if (Mapper.checkCanLoopList(notes) == true && noteID != null){
 
       for (final NoteModel noteModel in notes){
-        if (noteModel.id == note.id){
+        if (noteModel.id == noteID){
           _contains = true;
           break;
         }
@@ -948,7 +948,7 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNoteFromNotes({
     @required List<NoteModel> notes,
-    @required NoteModel noteModel,
+    @required String noteID,
   }){
 
     final List<NoteModel> _output = notes == null ?
@@ -960,7 +960,7 @@ class NoteModel {
 
     if (Mapper.checkCanLoopList(notes) == true){
 
-      final int _index = notes.indexWhere((note) => note.id == noteModel.id);
+      final int _index = notes.indexWhere((note) => note.id == noteID);
 
       if (_index != -1){
         // blog('removeNoteFromNotes : removing note _index : $_index');
@@ -988,7 +988,7 @@ class NoteModel {
 
         _output = removeNoteFromNotes(
           notes: _output,
-          noteModel: note,
+          noteID: note.id,
         );
 
       }
@@ -1009,7 +1009,7 @@ class NoteModel {
 
     final bool _contains = checkNotesContainNote(
       notes: _output,
-      note: note,
+      noteID: note.id,
     );
 
     /// IF NOT EXISTENT
@@ -1069,12 +1069,112 @@ class NoteModel {
     return _output;
   }
   // -------------------------------------
-
   static List<NoteModel> orderNotesBySentTime(List<NoteModel> notes){
     if (Mapper.checkCanLoopList(notes) == true){
       notes.sort((NoteModel a, NoteModel b) => b.sentTime.compareTo(a.sentTime));
     }
     return notes;
+  }
+  // -------------------------------------
+  static Map<String, List<NoteModel>> updateNoteInBzzNotesMap({
+    @required NoteModel note,
+    @required Map<String, List<NoteModel>> bzzNotesMap,
+  }){
+
+    Map<String, List<NoteModel>> _output;
+
+    final List<String> _bzzIDs = bzzNotesMap.keys.toList();
+
+    if (Mapper.checkCanLoopList(_bzzIDs) == true){
+
+      for (final String bzID in _bzzIDs){
+
+        final List<NoteModel> _bzNotes = bzzNotesMap[bzID];
+
+        final bool _noteFound = checkNotesContainNote(
+            notes: _bzNotes,
+            noteID: note.id,
+        );
+
+        if (_noteFound == true){
+
+          final List<NoteModel> _updatedList = replaceNoteInNotes(
+            notes: _bzNotes,
+            noteToReplace: note,
+          );
+
+          _output = bzzNotesMap;
+          _output[bzID] = _updatedList;
+          break;
+
+        }
+
+      }
+
+    }
+
+    return _output ?? bzzNotesMap;
+  }
+  // -------------------------------------
+  static List<NoteModel> replaceNoteInNotes({
+    @required List<NoteModel> notes,
+    @required NoteModel noteToReplace,
+  }){
+    final List<NoteModel> _output = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      _output.addAll(notes);
+
+      final int _index = _output.indexWhere((n) => n.id == noteToReplace.id);
+
+      if (_index != -1){
+        _output.removeAt(_index);
+        _output.insert(_index, noteToReplace);
+      }
+
+    }
+
+    return _output;
+  }
+  // -------------------------------------
+  static Map<String, List<NoteModel>> removeNoteFromBzzNotesMap({
+    @required String noteID,
+    @required Map<String, List<NoteModel>> bzzNotesMap
+  }){
+    Map<String, List<NoteModel>> _output;
+
+    final List<String> _bzzIDs = bzzNotesMap.keys.toList();
+
+    if (Mapper.checkCanLoopList(_bzzIDs) == true){
+
+      for (final String bzID in _bzzIDs){
+
+        final List<NoteModel> _bzNotes = bzzNotesMap[bzID];
+
+        final bool _noteFound = checkNotesContainNote(
+            notes: _bzNotes,
+            noteID: noteID,
+        );
+
+        if (_noteFound == true){
+
+          final List<NoteModel> _updatedList = removeNoteFromNotes(
+              notes: _bzNotes,
+              noteID: noteID,
+          );
+
+          _output = bzzNotesMap;
+          _output[bzID] = _updatedList;
+          break;
+
+        }
+
+      }
+
+    }
+
+    return _output ?? bzzNotesMap;
   }
   // -----------------------------------------------------------------------------
 
