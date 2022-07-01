@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -97,6 +98,26 @@ class UiProvider extends ChangeNotifier {
             }
 
    */
+// -----------------------------------------------------------------------------
+
+  /// --- KEYBOARD MODEL
+
+// -------------------------------------
+  KeyboardModel _keyboardModel;
+  KeyboardModel get keyboardModel => _keyboardModel;
+// -------------------------------------
+  void setKeyboard({
+    @required KeyboardModel model,
+    @required bool notify,
+  }){
+
+    _keyboardModel = model;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// --- TEXT FIELD OBSCURED
