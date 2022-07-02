@@ -312,6 +312,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   TextEditingController _controller;
   ScrollController _scrollController;
   FocusNode _focusNode;
+  ValueNotifier<String> _textValue;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -352,6 +353,14 @@ class _SuperTextFieldState extends State<SuperTextField> {
     if (widget.initialValue != null){
       _controller.text = widget.initialValue;
     }
+
+    _textValue = ValueNotifier(_controller.text);
+    _controller.addListener(() {
+
+      _textValue.value = _controller.text;
+
+    });
+
     return _controller;
   }
 // -----------------------------------------------------------------------------
@@ -637,17 +646,24 @@ class _SuperTextFieldState extends State<SuperTextField> {
             borderRadius: superBorderAll(context, widget.corners)
           ),
           margin: widget.margins,
-          child: SuperVerse(
-            verse: _controller.text ?? widget.hintText ?? '...',
-            size: widget.textSize,
-            centered: widget.centered,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            maxLines: widget.maxLines,
-            color: widget.textColor,
-            weight: widget.textWeight,
-            italic: widget.textItalic,
-            shadow: widget.textShadow,
-            scaleFactor: widget.textSizeFactor,
+          child: ValueListenableBuilder(
+            valueListenable: _textValue,
+            builder: (_, String value, Widget child){
+
+              return SuperVerse(
+                verse: value ?? widget.hintText ?? '...',
+                size: widget.textSize,
+                centered: widget.centered,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                maxLines: widget.maxLines,
+                color: widget.textColor,
+                weight: widget.textWeight,
+                italic: widget.textItalic,
+                shadow: widget.textShadow,
+                scaleFactor: widget.textSizeFactor,
+              );
+
+            },
           ),
         ),
       );
