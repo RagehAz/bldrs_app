@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/c_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
-import 'package:bldrs/f_helpers/notifications/fcm.dart';
-import 'package:bldrs/f_helpers/notifications/local_note.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -15,13 +13,15 @@ import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/notifications/fcm.dart';
+import 'package:bldrs/f_helpers/notifications/local_note.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
-import 'package:bldrs/b_views/x_screens/a_starters/b_animated_logo_screen.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +65,8 @@ class BldrsApp extends StatefulWidget {
 
 class _BldrsAppState extends State<BldrsApp> {
 // -----------------------------------------------------------------------------
+  final ValueNotifier<String> _fireError = ValueNotifier<String>(null); /// tamam disposed
+// -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
@@ -81,6 +83,7 @@ class _BldrsAppState extends State<BldrsApp> {
   @override
   void initState() {
     super.initState();
+
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -90,10 +93,13 @@ class _BldrsAppState extends State<BldrsApp> {
       _triggerLoading().then((_) async {
 
         /// LOCALE
-        await _initializeLocale();
+        await Localizer.initializeLocale(_locale);
 
         /// FIREBASE
-        await _initializeFlutterFire();
+        await initializeFirestore(
+          context: context,
+          fireError: _fireError,
+        );
 
         /// NOTIFICATIONS
         await LocalNote.initialize(context);
@@ -119,38 +125,10 @@ class _BldrsAppState extends State<BldrsApp> {
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
-  Locale _localeResolutionCallback(Locale deviceLocale, Iterable<Locale> supportedLocales) {
-    return Localizer.localeResolutionCallback(
-        deviceLocale: deviceLocale, supportedLocales: supportedLocales);
-  }
-// -----------------------------------
   final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null); /// tamam disposed
-// -----------------------------------
-  Future<void> _initializeLocale() async {
-    final Locale _gotLocale = await Localizer.getLocaleFromSharedPref();
-    _setLocale(_gotLocale);
-  }
 // -----------------------------------
   void _setLocale(Locale locale) {
     _locale.value = locale;
-  }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<String> _fireError = ValueNotifier(null); /// tamam disposed
-// -----------------------------------
-  Future<void> _initializeFlutterFire() async {
-    await tryAndCatch(
-        context: context,
-        functions: () async {
-          final FirebaseApp _firebaseApp = await Firebase.initializeApp();
-
-          blog('_firebaseApp.name : ${_firebaseApp.name}');
-          blog('_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
-          blog('_firebaseApp.options :-');
-          Mapper.blogMap(_firebaseApp.options.asMap);
-        },
-        onError: (String error) {
-          _fireError.value = error;
-        });
   }
 // -----------------------------------------------------------------------------
   @override
@@ -223,17 +201,16 @@ class _BldrsAppState extends State<BldrsApp> {
 
               /// THEME
               title: 'Bldrs.net',
-              // theme:
-              // ThemeData(
-              //   primarySwatch: MaterialColor(),
-              //   accentColor: Colorz.BlackBlack,
-              // ),
+              theme:
+              ThemeData(
+                canvasColor: Colorz.nothing,
+              ),
 
               /// LOCALE
               locale: _locale.value,
               supportedLocales: Localizer.getSupportedLocales(),
               localizationsDelegates: Localizer.getLocalizationDelegates(),
-              localeResolutionCallback: _localeResolutionCallback,
+              localeResolutionCallback: Localizer.localeResolutionCallback,
 
               /// ROUTES
               onGenerateRoute: Routerer.allRoutes,

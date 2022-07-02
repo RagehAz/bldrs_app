@@ -254,6 +254,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
               child: Form(
                 key: _formKey,
                 child: SuperTextField(
+                  title: 'Price',
                   isFormField: true,
                   // key: ValueKey('price_text_field'),
                   autofocus: true,
@@ -273,7 +274,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
                   onChanged: (String val) => _onTextChanged(val),
                   onSubmitted: (String val) async {
                     _onTextChanged(val);
-                    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                    Keyboarders.closeKeyboard(context);
                     // await null;
 
                     await Future<void>.delayed(Ratioz.durationSliding400,

@@ -21,7 +21,6 @@ class EmailAuthScreenView extends StatelessWidget {
     @required this.validateEmail,
     @required this.passwordValidator,
     @required this.passwordConfirmationValidator,
-    @required this.onObscureTap,
     @required this.switchSignIn,
     @required this.onSignin,
     @required this.onSignup,
@@ -36,7 +35,6 @@ class EmailAuthScreenView extends StatelessWidget {
   final String Function() validateEmail;
   final String Function() passwordValidator;
   final String Function() passwordConfirmationValidator;
-  final Function onObscureTap;
   final Function switchSignIn;
   final Function onSignin;
   final Function onSignup;
@@ -110,7 +108,6 @@ class EmailAuthScreenView extends StatelessWidget {
                 passwordController: passwordController,
                 showPasswordOnly: _isSigningIn,
                 passwordValidator: passwordValidator,
-                onObscureTap: onObscureTap,
                 passwordConfirmationController: passwordConfirmationController,
                 passwordConfirmationValidator: passwordConfirmationValidator,
                 onSubmitted: (String text) => _onSubmitted(
