@@ -105,6 +105,8 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   KeyboardModel _keyboardModel;
   KeyboardModel get keyboardModel => _keyboardModel;
+  bool _keyboardIsOn = false;
+  bool get keyboardIsOn => _keyboardIsOn;
 // -------------------------------------
   void setKeyboard({
     @required KeyboardModel model,
@@ -112,6 +114,19 @@ class UiProvider extends ChangeNotifier {
   }){
 
     _keyboardModel = model;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void setKeyboardIsOn({
+    @required bool setTo,
+    @required bool notify,
+  }){
+
+    _keyboardIsOn = setTo;
 
     if (notify == true){
       notifyListeners();

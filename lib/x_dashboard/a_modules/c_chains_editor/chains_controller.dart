@@ -139,7 +139,7 @@ Future<void> onUpdateNode({
   @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
-  Keyboarders.minimizeKeyboardOnTapOutSide(context);
+  Keyboarders.closeKeyboard(context);
 
   if (stringIsEmpty(newPhid) == true){
     blog('new phid value is empty man');

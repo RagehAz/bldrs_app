@@ -154,6 +154,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
               child: Form(
                 key: _formKey,
                 child: SuperTextField(
+                  title: 'Number',
                   isFormField: true,
                   // key: ValueKey('price_text_field'),
                   autofocus: true,
@@ -173,7 +174,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
                   onChanged: (String val) => _onTextChanged(val),
                   onSubmitted: (String val) async {
                     _onTextChanged(val);
-                    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                    Keyboarders.closeKeyboard(context);
                     // await null;
 
                     await Future<void>.delayed(Ratioz.durationSliding400,

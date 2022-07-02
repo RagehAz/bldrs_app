@@ -308,7 +308,7 @@ bool _prepareForEmailAuthOps({
   _uiProvider.triggerTextFieldsObscured(setObscuredTo: true);
 
   /// B - MINIMIZE KEYBOARD
-  Keyboarders.minimizeKeyboardOnTapOutSide(context);
+  Keyboarders.closeKeyboard(context);
 
   /// C - CHECK VALIDITY
   final bool _allFieldsAreValid = formKey.currentState.validate();

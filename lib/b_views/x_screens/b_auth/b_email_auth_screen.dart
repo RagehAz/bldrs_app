@@ -4,9 +4,7 @@ import 'package:bldrs/b_views/x_screens/b_auth/bb_email_auth_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/c_controllers/b_auth_controllers/auth_controllers.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class EmailAuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -72,11 +70,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     );
   }
 // -----------------------------------------------------------------------------
-  void _onObscureTap(){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    _uiProvider.triggerTextFieldsObscured();
-  }
-// -----------------------------------------------------------------------------
   Future<void> _onSignin() async {
     await authByEmailSignIn(
       context: context,
@@ -114,7 +107,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         validateEmail: _validateEmail,
         passwordValidator: _validatePassword,
         passwordConfirmationValidator: _validatePasswordConfirmation,
-        onObscureTap: _onObscureTap,
         switchSignIn: _switchSignIn,
         onSignin: _onSignin,
         onSignup: _onSignup,
