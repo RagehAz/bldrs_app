@@ -153,7 +153,7 @@ bool _inputsAreValid({
 }) {
   bool _inputsAreValid;
 
-  if (formKey.currentState.validate()) {
+  if (formKey.currentState?.validate() == true) {
     _inputsAreValid = true;
   }
 
