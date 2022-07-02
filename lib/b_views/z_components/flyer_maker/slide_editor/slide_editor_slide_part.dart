@@ -137,6 +137,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 ),
                                 alignment: Alignment.topCenter,
                                 child: SuperTextField(
+                                  title: 'Flyer Slide Headline',
                                   // key: ValueKey<String>('slide$slideIndex'),
                                   hintText: 'T i t l e',
                                   width: _flyerBoxWidth,

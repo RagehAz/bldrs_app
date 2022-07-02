@@ -4,16 +4,18 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TextFieldBubble({
-    @required this.title,
+    this.title,
     this.bubbleWidth,
     this.hintText = '...',
     this.counterIsOn = false,
@@ -22,8 +24,7 @@ class TextFieldBubble extends StatelessWidget {
     this.textController,
     this.keyboardTextInputType = TextInputType.text,
     this.textOnChanged,
-    this.obscured = false,
-    this.showUnObscure = false,
+    this.canObscure = false,
     this.isFormField,
     this.onSavedForForm,
     this.keyboardTextInputAction,
@@ -34,7 +35,6 @@ class TextFieldBubble extends StatelessWidget {
     // this.loading = false,
     this.actionBtIcon,
     this.actionBtFunction,
-    this.onObscureTap,
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
@@ -44,6 +44,12 @@ class TextFieldBubble extends StatelessWidget {
     this.isError = false,
     this.columnChildren,
     this.onSubmitted,
+    this.textSize = 2,
+    this.minLines = 1,
+    this.autoFocus = false,
+    this.focusNode,
+    this.isTheSuperKeyboardField = false,
+    this.onFieldTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -57,8 +63,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextInputType keyboardTextInputType;
   final ValueChanged<String> textOnChanged;
   final ValueChanged<String> onSubmitted;
-  final bool obscured;
-  final bool showUnObscure;
+  final bool canObscure;
   final bool isFormField;
   final ValueChanged<String> onSavedForForm;
   final TextInputAction keyboardTextInputAction;
@@ -69,7 +74,6 @@ class TextFieldBubble extends StatelessWidget {
   // final bool loading;
   final String actionBtIcon;
   final Function actionBtFunction;
-  final Function onObscureTap;
   final String leadingIcon;
   final Function pasteFunction;
   final TextDirection textDirection;
@@ -78,6 +82,12 @@ class TextFieldBubble extends StatelessWidget {
   final bool isLoading;
   final bool isError;
   final List<Widget> columnChildren;
+  final int textSize;
+  final int minLines;
+  final bool autoFocus;
+  final FocusNode focusNode;
+  final bool isTheSuperKeyboardField;
+  final Function onFieldTap;
   /// --------------------------------------------------------------------------
   static double _leadingIconSizeFactor(String leadingIcon){
     final double _sizeFactor =
@@ -91,12 +101,12 @@ class TextFieldBubble extends StatelessWidget {
     return _sizeFactor;
   }
 // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    // int titleVerseSize = 2;
-    // double actionBtSize = superVerseRealHeight(context, titleVerseSize, 1, null);
-    // double actionBtCorner = actionBtSize * 0.4;
+  static double getFieldWidth({
+    @required String leadingIcon,
+    @required bool showUnObscure,
+    @required BuildContext context,
+    @required double bubbleWidth,
+  }){
 
     final double fieldHeight = SuperTextField.getFieldHeight(
       context: context,
@@ -107,15 +117,39 @@ class TextFieldBubble extends StatelessWidget {
       withCounter: false,
     );
 
+
     final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
     final double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
     final double obscureBtSize = showUnObscure == false ? 0 : fieldHeight;
     final double obscureBtSpacing = showUnObscure == false ? 0 : 5;
     final double bubbleClearWidth = Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth);
-    final double fieldWidth = bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
+    final double fieldWidth = bubbleClearWidth - leadingIconSize
+        - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
+
+    return fieldWidth;
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final double fieldHeight = SuperTextField.getFieldHeight(
+      context: context,
+      minLines: 1,
+      textSize: 2,
+      scaleFactor: 1,
+      withBottomMargin: false,
+      withCounter: false,
+    );
+    final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
+    final double obscureBtSize = canObscure == false ? 0 : fieldHeight;
+    final double fieldWidth = getFieldWidth(
+      context: context,
+      bubbleWidth: bubbleWidth,
+      leadingIcon: leadingIcon,
+      showUnObscure: canObscure,
+    );
 
     return Bubble(
-
         width: Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth),
         bubbleColor: bubbleColor,
         title: title,
@@ -150,6 +184,7 @@ class TextFieldBubble extends StatelessWidget {
 
                   /// TEXT FIELD
                   SuperTextField(
+                    title: title,
                     width: fieldWidth,
                     isFormField: isFormField,
                     textDirection: textDirection,
@@ -161,36 +196,53 @@ class TextFieldBubble extends StatelessWidget {
                     textController: textController,
                     onChanged: textOnChanged,
                     onSubmitted: onSubmitted,
-                    obscured: obscured,
                     onSavedForForm: onSavedForForm,
                     keyboardTextInputAction: keyboardTextInputAction,
                     initialValue: initialTextValue,
                     validator: validator,
+                    focusNode: focusNode,
+                    autofocus: autoFocus,
+                    isTheSuperKeyboardField : isTheSuperKeyboardField,
+                    textSize: textSize,
+                    minLines: minLines,
+                    onTap: onFieldTap,
+                    canObscure: canObscure,
                   ),
 
                   /// SPACER
-                  if (onObscureTap != null)
+                  if (canObscure == true)
                     const SizedBox(width: 5,),
 
                   /// OBSCURE BUTTON
-                  if (onObscureTap != null)
-                    DreamBox(
-                      height: obscureBtSize,
-                      width: obscureBtSize,
-                      color: obscured ? Colorz.nothing : Colorz.yellow200,
-                      icon: Iconz.viewsIcon,
-                      iconColor: obscured ? Colorz.white20 : Colorz.black230,
-                      iconSizeFactor: 0.7,
-                      bubble: false,
-                      onTap: onObscureTap,
-                      // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
-                      corners: SuperVerse.superVerseLabelCornerValue(context, 3),
+                  if (canObscure == true)
+                    Consumer<UiProvider>(
+                      builder: (_, UiProvider uiPro, Widget child){
+
+                        final bool obscured = uiPro.textFieldsObscured;
+
+                        return DreamBox(
+                          height: obscureBtSize,
+                          width: obscureBtSize,
+                          color: obscured ? Colorz.nothing : Colorz.yellow200,
+                          icon: Iconz.viewsIcon,
+                          iconColor: obscured ? Colorz.white20 : Colorz.black230,
+                          iconSizeFactor: 0.7,
+                          bubble: false,
+                          corners: SuperVerse.superVerseLabelCornerValue(context, 3),
+                          onTap: (){
+                            uiPro.triggerTextFieldsObscured();
+                          },
+                          // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
+                        );
+
+                      },
                     ),
 
                 ],
               ),
 
               /// LOADING INDICATOR
+              if (isLoading == true)
               Loading(
                 size: 35,
                 loading: isLoading,
@@ -224,37 +276,3 @@ class TextFieldBubble extends StatelessWidget {
     );
   }
 }
-
-// class ShowPassword extends StatelessWidget {
-//   final bool obscured;
-//   final Function onTapDown;
-//   final Function onTapUp;
-//   final Function onTapCancel;
-//   final int verseSize;
-//
-//   ShowPassword({
-//     this.obscured = false,
-//     this.onTapDown,
-//     this.onTapUp,
-//     this.onTapCancel,
-//     this.verseSize = 3,
-// });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return DreamBox(
-//       height: 35,
-//       width: 35,
-//       color: obscured? Colorz.Nothing : Colorz.YellowLingerie,
-//       icon: Iconz.Views,
-//       iconColor: obscured? Colorz.WhiteGlass : Colorz.Black225,
-//       iconSizeFactor: 0.7,
-//       bubble: false,
-//       onTapDown: onTapDown == null ? (){} : onTapDown,
-//       onTapUp: onTapUp == null ? (){} : onTapUp,
-//       onTapCancel: onTapCancel == null ? (){} : onTapCancel,
-//       boxFunction: onTapCancel == null ? (){} : onTapCancel,
-//       corners: superVerseLabelCornerValue(context, verseSize),
-//     );
-//   }
-// }

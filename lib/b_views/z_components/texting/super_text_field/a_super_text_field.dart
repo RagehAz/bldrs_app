@@ -1,15 +1,22 @@
+import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SuperTextField extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SuperTextField({
     @required this.width,
+    @required this.title,
 
     /// main
     this.isFormField,
@@ -28,7 +35,6 @@ class SuperTextField extends StatefulWidget {
 
     /// text
     this.textDirection,
-    this.obscured = false,
     this.centered = false,
     this.maxLines = 7,
     this.minLines = 1,
@@ -55,10 +61,13 @@ class SuperTextField extends StatefulWidget {
     this.onEditingComplete,
     this.validator,
 
+    this.isTheSuperKeyboardField = false,
+    this.canObscure,
     Key key,
   }) : super(key: key);
   // --------------------------------------------------------------------------
   /// main
+  final String title;
   final bool isFormField;
   final TextEditingController textController;
   final String initialValue;
@@ -80,7 +89,6 @@ class SuperTextField extends StatefulWidget {
 
   /// text
   final TextDirection textDirection;
-  final bool obscured;
   final bool centered;
   final int maxLines;
   final int minLines;
@@ -103,6 +111,9 @@ class SuperTextField extends StatefulWidget {
   final Function onEditingComplete;
   /// should return error string or null if there is no error
   final String Function() validator;
+
+  final bool isTheSuperKeyboardField;
+  final bool canObscure;
   /// --------------------------------------------------------------------------
   @override
   _SuperTextFieldState createState() => _SuperTextFieldState();
@@ -297,10 +308,10 @@ class SuperTextField extends StatefulWidget {
 }
 
 class _SuperTextFieldState extends State<SuperTextField> {
+// -----------------------------------------------------------------------------
   TextEditingController _controller;
   ScrollController _scrollController;
   FocusNode _focusNode;
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -319,8 +330,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
     );
 
     _textDirection = ValueNotifier(_initialTextDirection);
-
-
 
   }
 // -----------------------------------------------------------------------------
@@ -486,71 +495,163 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
   }
 // -----------------------------------------------------------------------------
+  void _onTap(BuildContext context){
+
+    // FocusManager.instance.rootScope.requestFocus();
+
+    if (widget.isTheSuperKeyboardField == false){
+
+      final bool _keyboardIs = keyboardIsOn(context);
+      blog('keyboard : $_keyboardIs : _controller : ${_controller.hashCode}');
+
+      final KeyboardModel model = KeyboardModel(
+        title: widget.title,
+        hintText: widget.hintText,
+        controller: _controller,
+        minLines: widget.minLines ?? 1,
+        maxLines: widget.maxLines ?? 1,
+        maxLength: widget.maxLength ?? 100,
+        textInputAction: widget.keyboardTextInputAction,
+        textInputType: widget.keyboardTextInputType,
+        focusNode: _focusNode,
+        canObscure: widget.canObscure,
+        counterIsOn: widget.counterIsOn,
+      );
+
+      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+      _uiProvider.setKeyboard(
+        model: model,
+        notify: false,
+      );
+      _uiProvider.setKeyboardIsOn(
+          setTo: true,
+          notify: true,
+      );
+
+      if (widget.onTap != null){
+        widget.onTap();
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  bool _checkCanObscure(bool proObscured){
+    bool _can = false;
+    if (widget.canObscure == true){
+      _can = proObscured;
+    }
+    return _can;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return SuperTextFieldBox(
-      width: widget.width,
-      margins: widget.margins,
-      corners: widget.corners,
-      child: ValueListenableBuilder(
-          key: const ValueKey<String>('The_super_text_field'),
-          valueListenable: _textDirection,
-          builder: (_, TextDirection textDirection, Widget child){
+    if (widget.isTheSuperKeyboardField == true){
+      return SuperTextFieldBox(
+        width: widget.width,
+        margins: widget.margins,
+        corners: widget.corners,
+        child: ValueListenableBuilder(
+            key: const ValueKey<String>('The_super_text_field'),
+            valueListenable: _textDirection,
+            builder: (_, TextDirection textDirection, Widget child){
 
-            final TextDirection _concludedTextDirection = concludeTextDirection(
-              context: context,
-              definedDirection: widget.textDirection,
-              detectedDirection: textDirection,
-            );
+              final TextDirection _concludedTextDirection = concludeTextDirection(
+                context: context,
+                definedDirection: widget.textDirection,
+                detectedDirection: textDirection,
+              );
 
-            return TextFormFieldSwitcher(
-              /// main
-              isFormField: widget.isFormField,
-              controller: _controller,
-              hintText: widget.hintText,
-              autoFocus: widget.autofocus,
-              focusNode: _focusNode,
-              counterIsOn: widget.counterIsOn,
-              autoValidate: widget.autoValidate,
+              return Selector<UiProvider, bool>(
+                selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
+                builder: (_, bool obscured, Widget child){
 
-              /// box
-              corners: widget.corners,
+                  return TextFormFieldSwitcher(
+                    /// main
+                    isFormField: widget.isFormField,
+                    controller: _controller,
+                    hintText: widget.hintText,
+                    autoFocus: widget.autofocus,
+                    focusNode: _focusNode,
+                    counterIsOn: widget.counterIsOn,
+                    autoValidate: widget.autoValidate,
 
-              /// keyboard
-              textInputAction: widget.keyboardTextInputAction,
-              textInputType: widget.keyboardTextInputType,
+                    /// box
+                    corners: widget.corners,
 
-              /// text
-              textDirection: _concludedTextDirection,
-              obscured: widget.obscured,
-              minLines: widget.minLines,
-              maxLines: widget.maxLines,
-              maxLength: widget.maxLength,
-              scrollController: _scrollController,
+                    /// keyboard
+                    textInputAction: widget.keyboardTextInputAction,
+                    textInputType: widget.keyboardTextInputType,
 
-              /// styling
-              centered: widget.centered,
-              textShadow: widget.textShadow,
-              textWeight: widget.textWeight,
-              textSize: widget.textSize,
-              textSizeFactor: widget.textSizeFactor,
-              textItalic: widget.textItalic,
-              textColor: widget.textColor,
-              fieldColor: widget.fieldColor,
+                    /// text
+                    textDirection: _concludedTextDirection,
+                    obscured: _checkCanObscure(obscured),
+                    minLines: widget.minLines,
+                    maxLines: widget.maxLines,
+                    maxLength: widget.maxLength,
+                    scrollController: _scrollController,
 
-              /// functions
-              onTap: widget.onTap,
-              onChanged: _onTextChanged,
-              onSubmitted: widget.onSubmitted,
-              onSavedForForm: widget.onSavedForForm,
-              onEditingComplete: widget.onEditingComplete,
-              validator: _validator,
-            );
+                    /// styling
+                    centered: widget.centered,
+                    textShadow: widget.textShadow,
+                    textWeight: widget.textWeight,
+                    textSize: widget.textSize,
+                    textSizeFactor: widget.textSizeFactor,
+                    textItalic: widget.textItalic,
+                    textColor: widget.textColor,
+                    fieldColor: widget.fieldColor,
 
-          }
-      ),
-    );
+                    /// functions
+                    onTap: () => _onTap(context),
+                    onChanged: _onTextChanged,
+                    onSubmitted: widget.onSubmitted,
+                    onSavedForForm: widget.onSavedForForm,
+                    onEditingComplete: widget.onEditingComplete,
+                    validator: _validator,
+                  );
+
+                },
+              );
+
+            }
+        ),
+      );
+    }
+
+    else {
+      return GestureDetector(
+        onTap: () => _onTap(context),
+        child: Container(
+          width: widget.width,
+          height: SuperTextField.getFieldHeight(
+            context: context,
+            minLines: widget.minLines ?? 1,
+            scaleFactor: widget.textSizeFactor,
+            textSize: widget.textSize,
+            withBottomMargin: false,
+            withCounter: widget.counterIsOn,
+          ),
+          decoration: BoxDecoration(
+            color: widget.fieldColor,
+            borderRadius: superBorderAll(context, widget.corners)
+          ),
+          margin: widget.margins,
+          child: SuperVerse(
+            verse: _controller.text ?? widget.hintText ?? '...',
+            size: widget.textSize,
+            centered: widget.centered,
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            maxLines: widget.maxLines,
+            color: widget.textColor,
+            weight: widget.textWeight,
+            italic: widget.textItalic,
+            shadow: widget.textShadow,
+            scaleFactor: widget.textSizeFactor,
+          ),
+        ),
+      );
+    }
 
   }
 }

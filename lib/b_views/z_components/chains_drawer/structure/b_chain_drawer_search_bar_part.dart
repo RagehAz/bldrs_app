@@ -45,7 +45,7 @@ class ChainsDrawerSearchBarPart extends StatelessWidget {
                   onTap: () async {
 
                     if (_isSearching == true){
-                      Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                      Keyboarders.closeKeyboard(context);
                       isSearching.value = false;
                       searchController.text = '';
                     }

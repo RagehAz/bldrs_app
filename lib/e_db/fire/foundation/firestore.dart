@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
@@ -11,7 +12,35 @@ export 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
 
 /// PATHS GETTERS
 
-// ---------------------------------------------------
+// ----------------------------
+  Future<void> initializeFirestore({
+    @required BuildContext context,
+    @required ValueNotifier<String> fireError,
+  }) async {
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+          final FirebaseApp _firebaseApp = await Firebase.initializeApp();
+
+          blog('_firebaseApp.name : ${_firebaseApp.name}');
+          blog('_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
+          blog('_firebaseApp.options :-');
+
+          Mapper.blogMap(_firebaseApp.options.asMap);
+
+          },
+        onError: (String error) {
+          fireError.value = error;
+        });
+
+  }
+// -----------------------------------------------------------------------------
+
+/// PATHS GETTERS
+
+// ----------------------------
 /// TESTED : NOT USED
 /*
 String pathOfDoc({
@@ -20,7 +49,7 @@ String pathOfDoc({
 }) {
   return '$collName/$docName';
 }
-// ---------------------------------------------------
+// ----------------------------
 String pathOfSubColl({
   @required String collName,
   @required String docName,
@@ -28,7 +57,7 @@ String pathOfSubColl({
 }) {
   return '$collName/$docName/$subCollName';
 }
-// ---------------------------------------------------
+// ----------------------------
 String pathOfSubDoc({
   @required String collName,
   @required String docName,
@@ -43,14 +72,14 @@ String pathOfSubDoc({
 
 /// REFERENCES
 
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 CollectionReference<Object> getCollectionRef(String collName) {
   final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
   final CollectionReference<Object> _collection = _fireInstance.collection(collName);
   return _collection;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 DocumentReference<Object> getDocRef({
   @required String collName,
@@ -67,7 +96,7 @@ DocumentReference<Object> getDocRef({
 
   return _doc;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 CollectionReference<Object> getSubCollectionRef({
   @required String collName,
@@ -88,7 +117,7 @@ CollectionReference<Object> getSubCollectionRef({
 
   return _subCollection;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 DocumentReference<Object> getSubDocRef({
   @required String collName,
@@ -117,7 +146,7 @@ DocumentReference<Object> getSubDocRef({
 
 /// QUERIES
 
-// ---------------------------------------------------
+// ----------------------------
 Query<Map<String, dynamic>> _superQuery({
   @required CollectionReference<Object> collRef,
   QueryOrderBy orderBy,
@@ -150,7 +179,7 @@ Query<Map<String, dynamic>> _superQuery({
 
   return query;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<QuerySnapshot<Object>> _superCollectionQuery({
   @required CollectionReference<Object> collRef,
@@ -176,7 +205,7 @@ Future<QuerySnapshot<Object>> _superCollectionQuery({
 
 /// CREATE
 
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT : creates firestore doc with auto generated ID then returns doc reference
 Future<DocumentReference<Object>> createDoc({
   @required BuildContext context,
@@ -218,7 +247,7 @@ Future<DocumentReference<Object>> createDoc({
 
   return _docRef;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<DocumentReference<Object>> createNamedDoc({
   @required BuildContext context,
@@ -251,7 +280,7 @@ Future<DocumentReference<Object>> createNamedDoc({
 
   return _ref;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT : creates firestore sub doc with auto ID
 Future<DocumentReference<Object>> createSubDoc({
   @required BuildContext context,
@@ -276,7 +305,7 @@ Future<DocumentReference<Object>> createSubDoc({
 
   return _subDocRef;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<DocumentReference<Object>> createNamedSubDoc({
   @required BuildContext context,
@@ -322,7 +351,7 @@ Future<DocumentReference<Object>> createNamedSubDoc({
 
 /// READ
 
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<List<Map<String, dynamic>>> readCollectionDocs({
   @required BuildContext context,
@@ -365,7 +394,7 @@ Future<List<Map<String, dynamic>>> readCollectionDocs({
 
   return _maps;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<dynamic> _getMapByDocRef({
   @required DocumentReference<Object> docRef,
@@ -386,7 +415,7 @@ Future<dynamic> _getMapByDocRef({
 
   return _map;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<Map<String, dynamic>> readDoc({
   @required BuildContext context,
@@ -424,7 +453,7 @@ Future<Map<String, dynamic>> readDoc({
 
   return _result.runtimeType == String ? null : _map;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<List<Map<String, dynamic>>> readSubCollectionDocs({
   @required BuildContext context,
@@ -473,7 +502,7 @@ Future<List<Map<String, dynamic>>> readSubCollectionDocs({
 
   return _maps;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<dynamic> readSubDoc({
   @required BuildContext context,
@@ -513,7 +542,7 @@ Future<dynamic> readSubDoc({
 
 /// STREAMING
 
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Stream<QuerySnapshot<Object>> streamCollection({
   @required String collName,
@@ -537,7 +566,7 @@ Stream<QuerySnapshot<Object>> streamCollection({
 
   return _snapshots;
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Stream<QuerySnapshot<Object>> streamSubCollection({
   @required String collName,
@@ -567,7 +596,7 @@ Stream<QuerySnapshot<Object>> streamSubCollection({
 
   return _snapshots;
 }
-// ---------------------------------------------------
+// ----------------------------
 Stream<DocumentSnapshot<Object>> streamDoc({
   @required String collName,
   @required String docName,
@@ -582,7 +611,7 @@ Stream<DocumentSnapshot<Object>> streamDoc({
 
   return _snapshots;
 }
-// ---------------------------------------------------
+// ----------------------------
 Stream<DocumentSnapshot<Object>> streamSubDoc({
   @required String collName,
   @required String docName,
@@ -601,11 +630,11 @@ Stream<DocumentSnapshot<Object>> streamSubDoc({
 
   return _snapshots;
 }
-// ---------------------------------------------------
+// ----------------------------
 
 /// UPDATE
 
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<void> updateDoc({
   @required BuildContext context,
@@ -634,7 +663,7 @@ Future<void> updateDoc({
   ///     }
   /// );
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<void> updateDocField({
   @required BuildContext context,
@@ -659,7 +688,7 @@ Future<void> updateDocField({
 
       });
 }
-// ---------------------------------------------------
+// ----------------------------
 Future<void> updateSubDoc({
   @required BuildContext context,
   @required String collName,
@@ -677,7 +706,7 @@ Future<void> updateSubDoc({
     input: input,
   );
 }
-// ---------------------------------------------------
+// ----------------------------
 /// this updates a field if exists, if absent it creates a new field and inserts the value
 Future<void> updateSubDocField({
   @required BuildContext context,
@@ -709,7 +738,7 @@ Future<void> updateSubDocField({
 
 /// DELETE
 
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<void> deleteDoc({
   @required BuildContext context,
@@ -732,7 +761,7 @@ Future<void> deleteDoc({
         blog('deleteDoc : deleted : $collName : $docName');
       });
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<void> deleteSubDoc({
   @required BuildContext context,
@@ -760,7 +789,7 @@ Future<void> deleteSubDoc({
       }
       );
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 Future<void> deleteAllCollectionDocs({
   @required BuildContext context,
@@ -819,7 +848,7 @@ Future<void> deleteAllCollectionDocs({
   }
 
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 Future<void> _deleteCollectionDocsByIDs({
   @required BuildContext context,
@@ -842,7 +871,7 @@ Future<void> _deleteCollectionDocsByIDs({
   }
 
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 Future<void> deleteSubCollection({
   @required BuildContext context,
@@ -910,7 +939,7 @@ Future<void> deleteSubCollection({
 
 
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 Future<void> _deleteSubCollectionDocsBySubDocsIDs({
   @required BuildContext context,
@@ -937,7 +966,7 @@ Future<void> _deleteSubCollectionDocsBySubDocsIDs({
   }
 
 }
-// ---------------------------------------------------
+// ----------------------------
 /// TESTED : WORKS PERFECT
 Future<void> deleteDocField({
   @required BuildContext context,
@@ -970,7 +999,7 @@ Future<void> deleteDocField({
   //     }
   // );
 }
-// ---------------------------------------------------
+// ----------------------------
 Future<void> deleteSubDocField({
   @required BuildContext context,
   @required String collName,
@@ -1001,4 +1030,4 @@ Future<void> deleteSubDocField({
         await _docRef.update(updates);
       });
 }
-// ---------------------------------------------------
+// ----------------------------

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 
 class DreamBoxTapLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -33,7 +32,7 @@ class DreamBoxTapLayer extends StatelessWidget {
   Future<void> _onTap(BuildContext context) async {
 
     unawaited(Sounder.playButtonClick());
-    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+    // Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
     if (deactivated == true){
       if (onDeactivatedTap != null){

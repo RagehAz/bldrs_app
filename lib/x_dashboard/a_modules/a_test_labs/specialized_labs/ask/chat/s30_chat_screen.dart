@@ -155,6 +155,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     children: <Widget>[
 
                       SuperTextField(
+                        title: 'Text',
                         // height: 40,
                         width: Scale.superScreenWidth(context) - 80,
                         // counterIsOn: false,

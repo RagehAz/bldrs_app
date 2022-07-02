@@ -3,8 +3,8 @@ import 'package:bldrs/b_views/z_components/chains_drawer/structure/a_chains_draw
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/texting/keyboard_field/a_keyboard_floating_field.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
 
 // -----------------------------------------------------------------------------
@@ -52,6 +53,7 @@ class MainLayout extends StatelessWidget {
     this.numberOfStrips,
     this.pyramidType,
     this.onPyramidTap,
+    this.hasKeyboard = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -80,6 +82,7 @@ class MainLayout extends StatelessWidget {
   final ValueNotifier<int> index;
   final PyramidType pyramidType;
   final Function onPyramidTap;
+  final bool hasKeyboard;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -120,6 +123,7 @@ class MainLayout extends StatelessWidget {
     final bool _drawerIsOn = _uiProvider.keywordsDrawerIsOn;
 
     if (_drawerIsOn == true){
+      Keyboarders.closeKeyboard(context);
       Nav.goBack(context);
       _uiProvider.setKeywordsDrawerIsOn(setTo: false);
     }
@@ -129,6 +133,7 @@ class MainLayout extends StatelessWidget {
     }
 
     else {
+      Keyboarders.closeKeyboard(context);
       Nav.goBack(context);
     }
 
@@ -148,7 +153,11 @@ class MainLayout extends StatelessWidget {
         return canGoBack;
       },
       child: GestureDetector(
-        onTap: () => Keyboarders.minimizeKeyboardOnTapOutSide(context),
+        onTap: (){
+
+          Keyboarders.closeKeyboard(context);
+
+        },
         child: SafeArea(
           child: ConnectivitySensor(
             child: Stack(
@@ -166,7 +175,7 @@ class MainLayout extends StatelessWidget {
                   key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
 
                   /// INSETS
-                  resizeToAvoidBottomInset: false, /// this false prevents keyboard from pushing pyramids up
+                  resizeToAvoidBottomInset: true, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
                   // resizeToAvoidBottomPadding: false,
 
                   /// BACK GROUND COLOR
@@ -177,6 +186,9 @@ class MainLayout extends StatelessWidget {
                   drawerEdgeDragWidth: ChainsDrawerStarter.drawerEdgeDragWidth,
                   drawerScrimColor: ChainsDrawerStarter.drawerScrimColor,
                   onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
+
+                  /// KEYBOARD
+                  bottomSheet: hasKeyboard == true ? const KeyboardFloatingField() : null,
 
                   /// BODY CONTENT
                   body: MainLayoutStackWidgets(
