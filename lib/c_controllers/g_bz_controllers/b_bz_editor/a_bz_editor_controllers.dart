@@ -133,7 +133,7 @@ Future<void> onAddScopesTap({
   @required ValueNotifier<List<String>> selectedScopes,
 }) async {
 
-  Keyboarders.minimizeKeyboardOnTapOutSide(context);
+  Keyboarders.closeKeyboard(context);
 
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
@@ -258,7 +258,7 @@ Future<bool> _validateInputs({
   @required ValueNotifier<List<AlertModel>> missingFields,
 }) async {
 
-  Keyboarders.minimizeKeyboardOnTapOutSide(context);
+  Keyboarders.closeKeyboard(context);
 
   final bool _inputsAreValid = formKey.currentState.validate();
   final List<AlertModel> _missingFieldsFound = BzModel.requiredFields(bzModel);

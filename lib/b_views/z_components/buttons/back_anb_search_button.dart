@@ -78,7 +78,7 @@ class BackAndSearchButton extends StatelessWidget {
                 notify: true,
               );
               // _uiProvider.triggerIsSearching(setIsSearchingTo: false);
-              Keyboarders.minimizeKeyboardOnTapOutSide(context);
+              Keyboarders.closeKeyboard(context);
 
             }
 

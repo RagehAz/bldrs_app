@@ -86,6 +86,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     const int titleVerseSize = 2;
     final double actionBtSize = SuperVerse.superVerseRealHeight(
         context: context,
@@ -160,6 +161,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
               /// TEXT FIELD
               SuperTextField(
+                title: 'Contact',
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,

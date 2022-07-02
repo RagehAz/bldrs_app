@@ -101,6 +101,7 @@ class _SearchBarState extends State<SearchBar> {
 
           /// SEARCH TEXT FIELD
           SuperTextField(
+            title: 'Search',
             // fieldIsFormField: true,
             // onSavedForForm: (String val) {
             //   blog('on saved');

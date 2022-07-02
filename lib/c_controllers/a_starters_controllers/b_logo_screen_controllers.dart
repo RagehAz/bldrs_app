@@ -16,7 +16,6 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -29,8 +28,6 @@ Future<void> initializeLogoScreen({
   @required BuildContext context,
   @required bool mounted,
 }) async {
-
-  Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
   await Future.wait(
     <Future<void>>[

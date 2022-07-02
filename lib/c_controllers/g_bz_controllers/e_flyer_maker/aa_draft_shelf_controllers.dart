@@ -210,7 +210,7 @@ Future<void> onSlideTap({
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
 }) async {
 
-  Keyboarders.minimizeKeyboardOnTapOutSide(context);
+  Keyboarders.closeKeyboard(context);
 
   final MutableSlide _result = await Nav.goToNewScreen(
       context: context,

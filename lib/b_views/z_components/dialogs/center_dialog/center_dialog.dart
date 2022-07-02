@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/b_auth_controllers/auth_controllers.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
@@ -10,7 +9,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CenterDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -117,10 +115,6 @@ class CenterDialog extends StatelessWidget {
             context: context,
             password: _password.text,
           ),
-          onObscureTap: (){
-            final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-            _uiProvider.triggerTextFieldsObscured();
-          },
           passwordConfirmationController: null,
           passwordConfirmationValidator: null,
           onSubmitted: (String text) => CenterDialog.closeCenterDialog(context),

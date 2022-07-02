@@ -71,6 +71,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   void initState() {
     super.initState();
 
+
     _linesMap = <Map<String, dynamic>>[
       _beat(start: 1900, duration: 200,   verse: 'Search'),  // 1
       _beat(start: 2800, duration: 200,   verse: 'Connect'), // 5
@@ -236,6 +237,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       onBack: (){
         Nav.closeApp(context);
       },
+      hasKeyboard: false,
       layoutWidget: Stack(
         alignment: Alignment.center,
         children: <Widget>[

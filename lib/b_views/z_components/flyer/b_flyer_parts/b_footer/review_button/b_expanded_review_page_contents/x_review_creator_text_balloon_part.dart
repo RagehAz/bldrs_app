@@ -102,6 +102,7 @@ class ReviewCreatorTextBalloonPart extends StatelessWidget {
 
             if (isEditingReview == true)
               SuperTextField(
+                title: 'Edit Review',
                 width: reviewBalloonWidth,
                 textController: reviewTextController,
                 maxLines: 4,

@@ -5,10 +5,12 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/c_home_controllers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -35,9 +37,28 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 // -----------------------------------------------------------------------------
+  StreamSubscription<bool> _keyboardSubscription;
+  KeyboardVisibilityController keyboardVisibilityController;
+  void _initializeKeyboard(){
+
+    keyboardVisibilityController = KeyboardVisibilityController();
+
+    /// Query
+    blog('Keyboard visibility direct query: ${keyboardVisibilityController.isVisible}');
+
+    /// Subscribe
+    _keyboardSubscription = initializeKeyboardListener(
+      context: context,
+      controller: keyboardVisibilityController,
+    );
+
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
+    _initializeKeyboard();
 
     initializeUserNotes(context);
 
@@ -73,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     // if (_loading != null){_loading.dispose();}
     _loading.dispose();
+    _keyboardSubscription.cancel();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------

@@ -68,6 +68,11 @@ class Localizer {
   /// INITIALIZATION
 
 // -------------------------------------
+  static Future<void> initializeLocale(ValueNotifier<Locale> locale) async {
+    final Locale _gotLocale = await Localizer.getLocaleFromSharedPref();
+    locale.value = _gotLocale;
+  }
+// -------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> load() async {
     _localizedValues = await getJSONLangMap(langCode: locale.languageCode);
@@ -104,10 +109,7 @@ class Localizer {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Locale localeResolutionCallback({
-    @required Locale deviceLocale,
-    @required Iterable<Locale> supportedLocales,
-  }) {
+  static Locale localeResolutionCallback(Locale deviceLocale, Iterable<Locale> supportedLocales) {
 
     for (final Locale locale in supportedLocales) {
       if (locale.languageCode == deviceLocale.languageCode &&

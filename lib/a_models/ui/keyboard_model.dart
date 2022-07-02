@@ -11,7 +11,9 @@ class KeyboardModel {
     @required this.maxLength,
     @required this.textInputAction,
     @required this.textInputType,
-
+    @required this.focusNode,
+    @required this.canObscure,
+    @required this.counterIsOn,
 });
 
   final String title;
@@ -22,5 +24,8 @@ class KeyboardModel {
   final int maxLength;
   final TextInputAction textInputAction;
   final TextInputType textInputType;
+  final FocusNode focusNode;
+  final bool canObscure;
+  final bool counterIsOn;
 
 }

@@ -304,6 +304,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
+            title: 'Ask',
             width: 100,
             maxLines: 2,
             textController: _titleController,
@@ -322,6 +323,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin),
           child: SuperTextField(
+            title: 'Ask',
             width: 100,
             textController: _bodyController,
             hintText: askHint,
@@ -359,7 +361,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
                             image: color,
                             zeroCornerIsOn: false,
                             onTap: () {
-                              Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                              Keyboarders.closeKeyboard(context);
                               _addPic();
                             },
                           ),
@@ -408,7 +410,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
               verse: 'Add Image',
               iconSizeFactor: 0.6,
               onTap: () {
-                Keyboarders.minimizeKeyboardOnTapOutSide(context);
+                Keyboarders.closeKeyboard(context);
                 _addPic();
               },
             ),

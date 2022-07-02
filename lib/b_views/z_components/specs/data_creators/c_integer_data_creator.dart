@@ -176,7 +176,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
 // -----------------------------------------------------------------------------
   Future<void> _onUnitSelectorTap() async {
 
-    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+    Keyboarders.closeKeyboard(context);
 
     if (Chain.sonsAreStrings(_unitChain.sons) == true){
 
@@ -227,7 +227,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
 // -----------------------------------------------------------------------------
   Future<void> _onKeyboardSubmitted(String val) async {
     _onTextChanged(val);
-    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+    Keyboarders.closeKeyboard(context);
     // await null;
 
     await Future<void>.delayed(Ratioz.durationSliding400,
@@ -272,6 +272,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
             Form(
               key: _formKey,
               child: SuperTextField(
+                title: 'Number',
                 isFormField: true,
                 autofocus: true,
                 width: _textFieldWidth,

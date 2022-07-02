@@ -124,7 +124,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     @required BuildContext context
   }) async {
 
-    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+    Keyboarders.closeKeyboard(context);
 
     await Nav.goToNewScreen(
         context: context,
@@ -182,7 +182,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     @required BuildContext context
   }) async {
 
-    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+    Keyboarders.closeKeyboard(context);
 
     await Nav.goToNewScreen(
         context: context,
@@ -243,7 +243,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     @required BuildContext context,
   }) async {
 
-    Keyboarders.minimizeKeyboardOnTapOutSide(context);
+    Keyboarders.closeKeyboard(context);
 
     await Nav.goToNewScreen(
         context: context,
