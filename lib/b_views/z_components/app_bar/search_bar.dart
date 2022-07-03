@@ -112,7 +112,7 @@ class _SearchBarState extends State<SearchBar> {
             width: _textFieldWidth - 5,
             textController: _searchTextController,
             textItalic: true,
-            keyboardTextInputAction: TextInputAction.search,
+            textInputAction: TextInputAction.search,
             corners: Ratioz.appBarButtonCorner,
             onTap: () {},
             onChanged: (String val) {

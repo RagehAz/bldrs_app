@@ -268,7 +268,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
                   textSize: 4,
                   textWeight: VerseWeight.black,
                   corners: Ratioz.appBarCorner,
-                  keyboardTextInputType: TextInputType.number,
+                  textInputType: TextInputType.number,
                   // labelColor: Colorz.blackSemi255,
                   validator: () => _validator(),
                   onChanged: (String val) => _onTextChanged(val),

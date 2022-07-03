@@ -18,8 +18,8 @@ class HttpException implements Exception {
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> tryAndCatch({
-  @required BuildContext context,
   @required Function functions,
+  BuildContext context,
   String methodName,
   ValueChanged<String> onError,
   bool showErrorDialog = false,
@@ -38,11 +38,13 @@ Future<void> tryAndCatch({
     }
 
     if (showErrorDialog == true) {
-      await CenterDialog.showCenterDialog(
-        context: context,
-        body: error,
-        title: 'Something Went Wrong !',
-      );
+      if (context != null){
+        await CenterDialog.showCenterDialog(
+          context: context,
+          body: error,
+          title: 'Something Went Wrong !',
+        );
+      }
     }
 
     // throw(error);

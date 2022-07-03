@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -97,6 +98,51 @@ bool keyboardIsOn(BuildContext context) {
   return _keyboardIsOn;
 }
 // -----------------------------------------------------------------------------
+
+/// TEXT INPUT TYPE
+
+// -------------------------------------
+const List<TextInputType> textInputTypes = <TextInputType>[
+  TextInputType.text,
+  TextInputType.multiline,
+  TextInputType.number,
+  TextInputType.phone,
+  TextInputType.datetime,
+  TextInputType.emailAddress,
+  TextInputType.url,
+  TextInputType.visiblePassword,
+  TextInputType.name,
+  TextInputType.streetAddress,
+  // TextInputType.none,
+];
+// -------------------------------------
+String cipherTextInputType(TextInputType type){
+
+  final String _type = removeTextBeforeLastSpecialCharacter(type.toJson()['name'], '.');
+
+  return _type;
+}
+// -------------------------------------
+TextInputType decipherTextInputType(String type){
+
+  switch(type){
+    case 'text'            : return TextInputType.text; break;
+    case 'multiline'       : return TextInputType.multiline; break;
+    case 'number'          : return TextInputType.number; break;
+    case 'phone'           : return TextInputType.phone; break;
+    case 'datetime'        : return TextInputType.datetime; break;
+    case 'emailAddress'    : return TextInputType.emailAddress; break;
+    case 'url'             : return TextInputType.url; break;
+    case 'visiblePassword' : return TextInputType.visiblePassword; break;
+    case 'name'            : return TextInputType.name; break;
+    case 'streetAddress'   : return TextInputType.streetAddress; break;
+    case 'none'            : return TextInputType.none; break;
+    default: return null;
+  }
+
+
+}
+// -------------------------------------
 /*
 // HOW TO DETECT CURRENT KEYBOARD LANGUAGE OF THE DEVICE (NOT SOLVED)
 // BEST COMMENT HERE https://github.com/flutter/flutter/issues/25841
