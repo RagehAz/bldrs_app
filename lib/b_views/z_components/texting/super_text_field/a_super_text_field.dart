@@ -6,6 +6,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -527,7 +528,11 @@ class _SuperTextFieldState extends State<SuperTextField> {
         counterIsOn: widget.counterIsOn,
       );
 
+      FocusManager.instance.primaryFocus?.unfocus();
+      FocusManager.instance.primaryFocus?.requestFocus();
+
       final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
       _uiProvider.setKeyboard(
         model: model,
         notify: false,
@@ -572,9 +577,12 @@ class _SuperTextFieldState extends State<SuperTextField> {
                 detectedDirection: textDirection,
               );
 
-              return Selector<UiProvider, bool>(
-                selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
-                builder: (_, bool obscured, Widget child){
+              return Consumer<UiProvider>(
+                // selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
+                builder: (_, UiProvider uiPro, Widget child){
+
+                  final TextEditingController _controller = uiPro.keyboardModel.controller;
+                  final bool _isObscured = uiPro.textFieldsObscured;
 
                   return TextFormFieldSwitcher(
                     /// main
@@ -595,7 +603,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
                     /// text
                     textDirection: _concludedTextDirection,
-                    obscured: _checkCanObscure(obscured),
+                    obscured: _checkCanObscure(_isObscured),
                     minLines: widget.minLines,
                     maxLines: widget.maxLines,
                     maxLength: widget.maxLength,
@@ -629,6 +637,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
 
     else {
+
       return GestureDetector(
         onTap: () => _onTap(context),
         child: Container(
@@ -650,7 +659,37 @@ class _SuperTextFieldState extends State<SuperTextField> {
             valueListenable: _textValue,
             builder: (_, String value, Widget child){
 
-              return SuperVerse(
+              if (widget.canObscure == true){
+                return Selector<UiProvider, bool>(
+                    selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
+                    builder: (_, bool obscured, Widget child){
+
+                      final String _value = value ?? widget.hintText ?? '';
+                      final String _text = obscured == true ?
+                      obscureText(
+                        text: _value,
+                      )
+                          :
+                      _value;
+
+                      return SuperVerse(
+                        verse: _text,
+                        size: widget.textSize,
+                        centered: widget.centered,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        maxLines: widget.maxLines,
+                        color: widget.textColor,
+                        weight: widget.textWeight,
+                        italic: widget.textItalic,
+                        shadow: widget.textShadow,
+                        scaleFactor: widget.textSizeFactor,
+                      );
+
+                    });
+              }
+
+              else {
+                return SuperVerse(
                 verse: value ?? widget.hintText ?? '...',
                 size: widget.textSize,
                 centered: widget.centered,
@@ -662,6 +701,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                 shadow: widget.textShadow,
                 scaleFactor: widget.textSizeFactor,
               );
+              }
 
             },
           ),

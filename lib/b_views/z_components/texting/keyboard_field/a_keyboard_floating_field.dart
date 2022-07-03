@@ -125,7 +125,7 @@ class KeyboardFloatingField extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
 
-                        /// TITLE
+                        /// TITLE AND BACK
                         Container(
                           width: BldrsAppBar.width(context),
                           height: titleHeight,
@@ -171,6 +171,8 @@ class KeyboardFloatingField extends StatelessWidget {
                             return old?.title != newModel?.title;
                           },
                           builder: (_, KeyboardModel model, Widget child){
+
+                            blog('rebuilding field : ${model.title} : ${model.controller.hashCode} : ${model.controller.text}');
 
                             return SizedBox(
                               width: BldrsAppBar.width(context),
