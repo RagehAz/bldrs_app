@@ -90,6 +90,25 @@ String modifyAllCharactersWith({
 
   return _output;
 }
+// ----------------------------
+String obscureText({
+  @required String text,
+  String obscurityCharacter = '*',
+}){
+
+  String _output = '';
+
+  final int _length = text.length;
+
+  if (_length != 0){
+    for (int i = 0; i < _length; i++){
+      _output = '$_output$obscurityCharacter';
+    }
+
+  }
+
+  return _output;
+}
 // -----------------------------------------------------------------------------
 
 /// TEXT TAGS MODIFIER

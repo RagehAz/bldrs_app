@@ -19,13 +19,13 @@ class FloatingField extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return TextFieldBubble(
+      textController: model?.controller,
       bubbleWidth: BldrsAppBar.width(context) - 20,
       bubbleColor: Colorz.nothing,
       textSize: textSize,
       minLines: model?.minLines,
       maxLines: model?.maxLines,
       maxLength: model?.maxLength,
-      textController: model?.controller,
       keyboardTextInputAction: model?.textInputAction,
       keyboardTextInputType: model?.textInputType,
       hintText: model?.hintText,
