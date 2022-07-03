@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -424,7 +425,7 @@ class Sembast  {
     // blog('_finder is : $_finder');
 
     final RecordSnapshot<int, Map<String, Object>> _recordSnapshot =
-        await _doc.findFirst(
+        await _doc?.findFirst(
       _db,
       finder: _finder,
     );
@@ -555,15 +556,24 @@ class Sembast  {
     @required Map<String, dynamic> map,
 }) async {
 
-      final String _primaryKey = getPrimaryKey(docName);
-      final String _objectID = map[_primaryKey];
+    Map<String, dynamic> _map;
 
-      final Map<String, dynamic> _map = await findFirst(
-        fieldToSortBy: _primaryKey,
-        searchField: _primaryKey,
-        searchValue: _objectID,
-        docName: docName,
+      await tryAndCatch(
+        functions: () async {
+
+          final String _primaryKey = getPrimaryKey(docName);
+          final String _objectID = map[_primaryKey];
+
+          _map = await findFirst(
+            fieldToSortBy: _primaryKey,
+            searchField: _primaryKey,
+            searchValue: _objectID,
+            docName: docName,
+          );
+
+        }
       );
+
 
       return _map != null;
   }

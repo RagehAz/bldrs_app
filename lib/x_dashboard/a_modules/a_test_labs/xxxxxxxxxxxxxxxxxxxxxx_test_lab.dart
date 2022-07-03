@@ -423,7 +423,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                               // margins: const EdgeInsets.symmetric(vertical: 50),
                               // textSize: _textSize,
                               // textSizeFactor: _sizeFactor,
-                              keyboardTextInputAction: TextInputAction.newline,
+                              textInputAction: TextInputAction.newline,
                               validator: (){
                                 if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
                                   return 'you can not say a77a';

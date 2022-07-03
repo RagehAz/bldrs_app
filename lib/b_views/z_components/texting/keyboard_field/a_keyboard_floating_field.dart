@@ -62,6 +62,9 @@ class KeyboardFloatingField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    blog('in floating : _keyboardHeight : $_keyboardHeight');
+
     return Selector<UiProvider, bool>(
       selector: (_, UiProvider uiPro) => uiPro.keyboardIsOn,
       shouldRebuild: (bool old, bool newIsOn){
@@ -93,8 +96,8 @@ class KeyboardFloatingField extends StatelessWidget {
 
               return Container(
                 width: Scale.superScreenWidth(context),
-                height: _totalBubbleHeight + 20,
-                alignment: Alignment.center,
+                height: _totalBubbleHeight + 10 + _keyboardHeight,
+                alignment: Alignment.topCenter,
                 child: WidgetFader(
                   fadeType: FadeType.fadeIn,
                   duration: const Duration(milliseconds: 250),

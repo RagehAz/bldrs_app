@@ -312,7 +312,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             centered: true,
             // height: 60,
             textSize: 3,
-            keyboardTextInputAction: TextInputAction.next,
+            textInputAction: TextInputAction.next,
             maxLength: 100,
             // counterIsOn: false,
             // validator: (){}, // TASK : question body must include question mark '?'
@@ -327,7 +327,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
             width: 100,
             textController: _bodyController,
             hintText: askHint,
-            keyboardTextInputType: TextInputType.multiline,
+            textInputType: TextInputType.multiline,
             maxLength: 1000,
             // counterIsOn: false,
             // validator: (){}, // TASK : question body must include question mark '?'

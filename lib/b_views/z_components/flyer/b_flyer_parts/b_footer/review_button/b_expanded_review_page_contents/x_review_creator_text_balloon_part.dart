@@ -106,7 +106,7 @@ class ReviewCreatorTextBalloonPart extends StatelessWidget {
                 width: reviewBalloonWidth,
                 textController: reviewTextController,
                 maxLines: 4,
-                keyboardTextInputType: TextInputType.multiline,
+                textInputType: TextInputType.multiline,
                 maxLength: 1000,
                 minLines: 4,
                 textSize: 3,
