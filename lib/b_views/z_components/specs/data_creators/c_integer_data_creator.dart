@@ -283,7 +283,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
                 textSize: _textSize,
                 textWeight: VerseWeight.black,
                 corners: Ratioz.appBarCorner,
-                keyboardTextInputType: TextInputType.number,
+                textInputType: TextInputType.number,
                 // labelColor: Colorz.blackSemi255,
                 validator: () => _validator(),
                 onChanged: (String val) => _onTextChanged(val),
