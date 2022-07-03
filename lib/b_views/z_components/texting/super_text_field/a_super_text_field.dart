@@ -43,8 +43,8 @@ class SuperTextField extends StatefulWidget {
     this.scrollController,
 
     /// keyboard
-    this.keyboardTextInputType = TextInputType.text,
-    this.keyboardTextInputAction = TextInputAction.done,
+    this.textInputType = TextInputType.text,
+    this.textInputAction = TextInputAction.done,
 
     /// styling
     this.textWeight = VerseWeight.regular,
@@ -85,8 +85,8 @@ class SuperTextField extends StatefulWidget {
   final Color fieldColor;
 
   /// keyboard
-  final TextInputType keyboardTextInputType;
-  final TextInputAction keyboardTextInputAction;
+  final TextInputType textInputType;
+  final TextInputAction textInputAction;
 
   /// text
   final TextDirection textDirection;
@@ -521,8 +521,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
         minLines: widget.minLines ?? 1,
         maxLines: widget.maxLines ?? 1,
         maxLength: widget.maxLength ?? 100,
-        textInputAction: widget.keyboardTextInputAction,
-        textInputType: widget.keyboardTextInputType,
+        textInputAction: widget.textInputAction,
+        textInputType: widget.textInputType,
         focusNode: _focusNode,
         canObscure: widget.canObscure,
         counterIsOn: widget.counterIsOn,
@@ -598,8 +598,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
                     corners: widget.corners,
 
                     /// keyboard
-                    textInputAction: widget.keyboardTextInputAction,
-                    textInputType: widget.keyboardTextInputType,
+                    textInputAction: widget.textInputAction,
+                    textInputType: widget.textInputType,
 
                     /// text
                     textDirection: _concludedTextDirection,
@@ -637,7 +637,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
 
     else {
-
       return GestureDetector(
         onTap: () => _onTap(context),
         child: Container(

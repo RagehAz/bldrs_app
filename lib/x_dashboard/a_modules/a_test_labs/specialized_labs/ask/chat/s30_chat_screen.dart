@@ -159,7 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         // height: 40,
                         width: Scale.superScreenWidth(context) - 80,
                         // counterIsOn: false,
-                        keyboardTextInputAction: TextInputAction.send,
+                        textInputAction: TextInputAction.send,
                         // onChanged: (value) {
                         //   setState(() {
                         //     _enteredMessage = value;
