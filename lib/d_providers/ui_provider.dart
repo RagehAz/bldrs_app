@@ -108,6 +108,12 @@ class UiProvider extends ChangeNotifier {
   bool _keyboardIsOn = false;
   bool get keyboardIsOn => _keyboardIsOn;
 // -------------------------------------
+  static bool proGetKeyboardIsOn (BuildContext context) {
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
+    return _keyboardIsOn;
+  }
+// -------------------------------------
   void setKeyboard({
     @required KeyboardModel model,
     @required bool notify,
