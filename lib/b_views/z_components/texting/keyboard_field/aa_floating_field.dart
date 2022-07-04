@@ -24,7 +24,7 @@ class FloatingField extends StatelessWidget {
       bubbleColor: Colorz.nothing,
       textSize: textSize,
       minLines: model?.minLines,
-      maxLines: model?.maxLines,
+      maxLines: 6, //model?.maxLines,
       maxLength: model?.maxLength,
       keyboardTextInputAction: model?.textInputAction,
       keyboardTextInputType: model?.textInputType,
@@ -33,6 +33,12 @@ class FloatingField extends StatelessWidget {
       focusNode: model?.focusNode,
       isTheSuperKeyboardField: true,
       canObscure: model?.canObscure,
+      onSubmitted: model?.onSubmitted,
+      onSavedForForm: model?.onSavedForForm,
+      textOnChanged: model?.onChanged,
+      isFormField: model?.isFormField,
+      counterIsOn: model?.counterIsOn,
+
     );
 
   }

@@ -14,6 +14,11 @@ class KeyboardModel {
     @required this.focusNode,
     @required this.canObscure,
     @required this.counterIsOn,
+    @required this.isFormField,
+    @required this.onChanged,
+    @required this.onSubmitted,
+    @required this.onSavedForForm,
+    @required this.onEditingComplete,
 });
 
   final String title;
@@ -27,5 +32,11 @@ class KeyboardModel {
   final FocusNode focusNode;
   final bool canObscure;
   final bool counterIsOn;
+  final bool isFormField;
+
+  final ValueChanged<String> onChanged;
+  final ValueChanged<String> onSubmitted;
+  final ValueChanged<String> onSavedForForm;
+  final Function onEditingComplete;
 
 }

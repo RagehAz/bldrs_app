@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -591,6 +592,52 @@ class BzzProvider extends ChangeNotifier {
       bzModel: null,
       notify: notify,
     );
+  }
+// -----------------------------------------------------------------------------
+
+  /// PENDING AUTHORSHIP INVITATIONS
+
+// -------------------------------------
+  List<String> _pendingAuthorshipInvitationsUsersIDs = <String>[];
+  List<String> get pendingAuthorsIDs => _pendingAuthorshipInvitationsUsersIDs;
+// -------------------------------------
+  void setPendingAuthorshipInvitations({
+    @required List<NoteModel> notes,
+    @required bool notify,
+  }){
+
+    blog('setPendingAuthorshipInvitations : starting : ${_pendingAuthorshipInvitationsUsersIDs.length} ids');
+
+    if (notes != null){
+
+      final List<String> _receiversIDs = NoteModel.getReceiversIDs(
+          notes: notes,
+      );
+
+      blog('_receiversIDs : $_receiversIDs');
+      blog('_pendingAuthorshipInvitationsUsersIDs : $_pendingAuthorshipInvitationsUsersIDs');
+
+      final bool _idsAreIdentical = Mapper.checkListsAreTheSame(
+          list1: _pendingAuthorshipInvitationsUsersIDs,
+          list2: _receiversIDs
+      );
+
+      blog('_idsAreIdentical : $_idsAreIdentical');
+
+      if (_idsAreIdentical == false){
+
+        _pendingAuthorshipInvitationsUsersIDs = _receiversIDs;
+
+        if (notify == true){
+          notifyListeners();
+        }
+
+      }
+
+    }
+
+    blog('setPendingAuthorshipInvitations : end : ${_pendingAuthorshipInvitationsUsersIDs.length} ids');
+
   }
 // -----------------------------------------------------------------------------
 

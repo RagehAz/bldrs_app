@@ -101,6 +101,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 keyboardTextInputAction: TextInputAction.next,
                 title: superPhrase(context, 'phid_emailAddress'),
                 validator: validateEmail,
+                hintText: 'rageh@bldrs.net',
               ),
 
               /// PASSWORD - CONFIRMATION
