@@ -6,14 +6,12 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/b_bz_editor/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -62,15 +60,18 @@ Future<void> onDeleteBzButtonTap({
       bzModel: bzModel,
     );
 
-    /// re-route back
-    Nav.goBackToHomeScreen(context);
+    /// NO NEED FOR ROUTING BACK AND SHOWING DIALOGS HERE
+    /// AS BZ DELETION PROTOCOL DOES THE JOB
 
-    await TopDialog.showTopDialog(
-      context: context,
-      firstLine: 'Business Account has been deleted successfully',
-      color: Colorz.green255,
-      textColor: Colorz.white255,
-    );
+    // /// re-route back
+    // Nav.goBackToHomeScreen(context);
+    //
+    // await TopDialog.showTopDialog(
+    //   context: context,
+    //   firstLine: 'Business Account has been deleted successfully',
+    //   color: Colorz.green255,
+    //   textColor: Colorz.white255,
+    // );
 
   }
 

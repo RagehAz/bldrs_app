@@ -45,6 +45,7 @@ class PasswordBubbles extends StatelessWidget {
           comments: <String>[superPhrase(context, 'phid_min6Char')],
           canObscure: true,
           onSubmitted: onSubmitted,
+          hintText: '',
         ),
 
         /// CONFIRM PASSWORD
@@ -62,6 +63,7 @@ class PasswordBubbles extends StatelessWidget {
             comments: <String>[superPhrase(context, 'phid_min6Char')],
             canObscure: true,
             onSubmitted: onSubmitted,
+            hintText: '',
           ),
 
       ],

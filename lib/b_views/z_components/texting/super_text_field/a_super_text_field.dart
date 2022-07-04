@@ -526,6 +526,11 @@ class _SuperTextFieldState extends State<SuperTextField> {
         focusNode: _focusNode,
         canObscure: widget.canObscure,
         counterIsOn: widget.counterIsOn,
+        isFormField: widget.isFormField,
+        onChanged: widget.onChanged,
+        onEditingComplete: widget.onEditingComplete,
+        onSavedForForm: widget.onSavedForForm,
+        onSubmitted: widget.onSubmitted,
       );
 
       FocusManager.instance.primaryFocus?.unfocus();
@@ -641,14 +646,14 @@ class _SuperTextFieldState extends State<SuperTextField> {
         onTap: () => _onTap(context),
         child: Container(
           width: widget.width,
-          height: SuperTextField.getFieldHeight(
-            context: context,
-            minLines: widget.minLines ?? 1,
-            scaleFactor: widget.textSizeFactor,
-            textSize: widget.textSize,
-            withBottomMargin: false,
-            withCounter: widget.counterIsOn,
-          ),
+          // height: SuperTextField.getFieldHeight(
+          //   context: context,
+          //   minLines: widget.minLines ?? 1,
+          //   scaleFactor: widget.textSizeFactor,
+          //   textSize: widget.textSize,
+          //   withBottomMargin: false,
+          //   withCounter: widget.counterIsOn,
+          // ),
           decoration: BoxDecoration(
             color: widget.fieldColor,
             borderRadius: superBorderAll(context, widget.corners)
@@ -658,12 +663,14 @@ class _SuperTextFieldState extends State<SuperTextField> {
             valueListenable: _textValue,
             builder: (_, String value, Widget child){
 
+              final bool _textIsEmpty = value.isEmpty;
+              final String _value = _textIsEmpty == true ? widget.hintText ?? '' : value;
+
               if (widget.canObscure == true){
                 return Selector<UiProvider, bool>(
                     selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
                     builder: (_, bool obscured, Widget child){
 
-                      final String _value = value ?? widget.hintText ?? '';
                       final String _text = obscured == true ?
                       obscureText(
                         text: _value,
@@ -671,11 +678,13 @@ class _SuperTextFieldState extends State<SuperTextField> {
                           :
                       _value;
 
+                      blog('text is : $_text');
+
                       return SuperVerse(
                         verse: _text,
                         size: widget.textSize,
                         centered: widget.centered,
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.all(7),
                         maxLines: widget.maxLines,
                         color: widget.textColor,
                         weight: widget.textWeight,
@@ -689,13 +698,13 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
               else {
                 return SuperVerse(
-                verse: value ?? widget.hintText ?? '...',
+                verse: _value,
                 size: widget.textSize,
                 centered: widget.centered,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.all(7),
                 maxLines: widget.maxLines,
-                color: widget.textColor,
-                weight: widget.textWeight,
+                color: _textIsEmpty == true ? Colorz.grey80 : widget.textColor,
+                weight: _textIsEmpty == true ? VerseWeight.thin : widget.textWeight,
                 italic: widget.textItalic,
                 shadow: widget.textShadow,
                 scaleFactor: widget.textSizeFactor,
