@@ -10,6 +10,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PendingSentAuthorshipNotesStreamer extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -34,6 +35,16 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
   }
 // -----------------------------------------------------------------------------
   @override
+  void deactivate() {
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.setPendingAuthorshipInvitations(
+      notes: [],
+      notify: false,
+    );
+    super.deactivate();
+  }
+// -----------------------------------------------------------------------------
+  @override
   void dispose() {
     super.dispose(); /// tamam
   }
@@ -43,10 +54,22 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     // blog('PendingSentAuthorshipNotesStreamer : data changed');
     // Mapper.blogMaps(maps);
     //
-    // final List<NoteModel> _notes = NoteModel.decipherNotes(
-    //     maps: maps,
-    //     fromJSON: false,
-    // );
+    final List<NoteModel> _notes = NoteModel.decipherNotes(
+        maps: maps,
+        fromJSON: false,
+    );
+
+    if (Mapper.checkCanLoopList(_notes) == true){
+
+      if (mounted == true){
+        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+        _bzzProvider.setPendingAuthorshipInvitations(
+          notes: _notes,
+          notify: true,
+        );
+      }
+
+    }
 
   }
 // -----------------------------------------------------------------------------

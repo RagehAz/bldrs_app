@@ -132,9 +132,9 @@ Future<void> onSendAuthorshipInvitation({
   if (_result == true){
 
     await NoteProtocols.sendAuthorshipInvitationNote(
-        context: context,
-        bzModel: bzModel,
-        sendTo: selectedUser,
+      context: context,
+      bzModel: bzModel,
+      sendTo: selectedUser,
     );
 
     // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
@@ -145,12 +145,13 @@ Future<void> onSendAuthorshipInvitation({
     // );
 
     unawaited(
-    TopDialog.showTopDialog(
-      context: context,
-      firstLine: 'Invitation Sent',
-      secondLine: 'Account authorship invitation has been sent to ${selectedUser.name} successfully',
-      color: Colorz.green255,
-    ));
+        TopDialog.showTopDialog(
+          context: context,
+          firstLine: 'Invitation Sent',
+          secondLine: 'Account authorship invitation has been sent to ${selectedUser.name} successfully',
+          color: Colorz.green255,
+          textColor: Colorz.white255,
+        ));
 
   }
 

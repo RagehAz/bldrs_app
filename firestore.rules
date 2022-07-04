@@ -67,18 +67,17 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/flyers/$(flyerID)).data;
     }
     // ---------------------------
-    function isFlyerAuthor(flyerID){
+    function isFlyerBzTeamMember(flyerID){
       let flyerModel = getFlyerModel(flyerID);
-      let authorID = flyerModel.authorID;
-      return getUserID() == authorID;
+      let isTeamMember = isBzAuthor(flyerModel.bzID);
+      return isTeamMember;
     }
     // ---------------------------
     match /flyers/{flyerID} {
       allow create: if isOnlineUser();
       allow read: if true;
-      allow update: if isFlyerAuthor(flyerID);
-      allow delete
-      : if isFlyerAuthor(flyerID);
+      allow update: if isFlyerBzTeamMember(flyerID);
+      allow delete: if isFlyerBzTeamMember(flyerID);
     }
     // ---------------------------
     match /flyersPromotions/{flyerID} {
@@ -98,9 +97,9 @@ service cloud.firestore {
       return bzID in userBzzIDs;
     }
     // ---------------------------
-    function getBzModel(bzID){
-      return get(/databases/$(database)/documents/bzz/$(bzID)).data;
-    }
+    // function getBzModel(bzID){
+    //   return get(/databases/$(database)/documents/bzz/$(bzID)).data;
+    // }
     // ---------------------------
     // function isAuthor(){
     //   return isAuthenticated() && getUserModel().myBzzIDs.length > 0;
@@ -118,7 +117,7 @@ service cloud.firestore {
 
     // ---------------------------
     function getNoteModel(noteID){
-      return get(/databases/$(database)/documents/notes/$(noteID)).data;
+    	return get(/databases/$(database)/documents/notes/$(noteID)).data;
     }
     // ---------------------------
     // function isNoteSender(noteID){
@@ -138,22 +137,20 @@ service cloud.firestore {
     // }
 
     // ---------------------------
-    function canEditNote(noteID){
-      let noteModel = getNoteModel(noteID);
+      function canEditNote(noteID){
+        let noteModel = getNoteModel(noteID);
 
-      let userID = getUserID();
-      let noteSenderIsBz = noteModel.noteSenderType == "bz";
-      let isSender = userID == noteModel.senderID;
-      let isReceiver = userID == noteModel.receiverID;
-      let isSenderOrReceiver = isSender || isReceiver;
+        let userID = getUserID();
+        let isSender = userID == noteModel.senderID;
+        let isReceiver = userID == noteModel.receiverID;
 
-      let bzModel = noteSenderIsBz == false ? {} : getBzModel(noteModel.senderID);
-      let isAuthor = noteSenderIsBz == false ? false : isBzAuthor(bzModel.id);
-      let isAuthorOrReceiver = isAuthor || isReceiver;
+  	    let senderIsBz = noteModel.noteSenderType == "bz";
+        let isAuthorSender = senderIsBz == true ? isBzAuthor(noteModel.senderID) : false;
+        let receiverIsBz = noteModel.receiverType == "bz";
+        let isAuthorReceiver = receiverIsBz == true ? isBzAuthor(noteModel.receiverID) : false;
 
-      let canEdit = noteSenderIsBz == false ? isSenderOrReceiver : isAuthorOrReceiver;
-      return canEdit;
-    }
+      	return isSender || isAuthorSender || isReceiver || isAuthorReceiver;
+      }
     // ---------------------------
     match /notes/{noteID} {
       allow create: if isOnlineUser();
@@ -249,7 +246,7 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
     // APP CONTROLS
-    match /admin/appControls {
+     match /admin/appControls {
       allow read: if true;
       allow write: if isAdmin();
     }
@@ -262,6 +259,12 @@ service cloud.firestore {
     match /admin/statistics {
       allow read: if true;
       allow write: if isAdmin();
+    }
+
+   // NOUR
+    match /nour/{docID} {
+      allow read: if true;
+      allow write: if true;
     }
     // ------------------------------------------------------------
 
