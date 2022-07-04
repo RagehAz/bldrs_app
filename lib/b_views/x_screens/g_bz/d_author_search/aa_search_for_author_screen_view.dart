@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/d_author_search/a_author_search_controllers.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/components/users_tile_buttons_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddAuthorScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -32,6 +34,9 @@ class AddAuthorScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
+    final List<String> _pendingInvitations = _bzzProvider.pendingAuthorsIDs;
 
     return ListView(
       children: <Widget>[
@@ -116,6 +121,7 @@ class AddAuthorScreenView extends StatelessWidget {
                           userModel: userModel,
                         ),
                         sideButton: superPhrase(context, 'phid_invite'),
+                        usersWithSideButtonsDeactivated: _pendingInvitations,
                         onSideButtonTap: (UserModel userModel) => onSendAuthorshipInvitation(
                           context: context,
                           selectedUser: userModel,

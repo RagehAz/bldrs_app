@@ -13,6 +13,7 @@ class UserTileButtonsList extends StatelessWidget {
   const UserTileButtonsList({
     @required this.usersModels,
     @required this.onUserTap,
+    this.usersWithSideButtonsDeactivated,
     this.selectedUsers,
     this.emptyListString = 'No users found with this name',
     this.sideButton,
@@ -22,6 +23,7 @@ class UserTileButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<UserModel>> usersModels;
   final ValueNotifier<List<UserModel>> selectedUsers;
+  final List<String> usersWithSideButtonsDeactivated;
   final ValueChanged<UserModel> onUserTap;
   final String emptyListString;
   final String sideButton;
@@ -68,6 +70,10 @@ class UserTileButtonsList extends StatelessWidget {
                         color: _buttonColor,
                         onUserTap: () => onUserTap(_user),
                         sideButton: sideButton,
+                        sideButtonDeactivated: Mapper.checkStringsContainString(
+                            strings: usersWithSideButtonsDeactivated,
+                            string: _user.id,
+                        ),
                         onSideButtonTap: () => onSideButtonTap(_user),
                       );
 

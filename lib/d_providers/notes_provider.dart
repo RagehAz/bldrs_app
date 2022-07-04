@@ -20,7 +20,6 @@ class NotesProvider extends ChangeNotifier {
   /// MapModel(key: navModelID, value: numberOfNotes)
   List<MapModel> _obeliskNotesNumbers = <MapModel>[];
   List<MapModel> get obeliskNotesNumber => _obeliskNotesNumbers;
-
 // -------------------------------------
   void generateSetInitialObeliskNumbers({
     @required BuildContext context,

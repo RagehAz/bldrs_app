@@ -246,26 +246,30 @@ class BzProtocol {
     /// GET THE BZ MODEL -------------------
     final BzModel _bzModel = await BzLDBOps.readBz(bzID);
 
-    /// GET MY AUTHOR MODEL -------------------
-    final AuthorModel _myAuthor = AuthorModel.getAuthorFromAuthorsByID(
+    if (_bzModel != null){
+
+      /// GET MY AUTHOR MODEL -------------------
+      final AuthorModel _myAuthor = AuthorModel.getAuthorFromAuthorsByID(
         authors: _bzModel.authors,
         authorID: _myUserModel.id,
-    );
-
-    /// CHECK IF USER MODEL PIC IS AUTHOR MODEL PIC -------------------
-    final bool _authorPicIsHisUserPic = await AuthorModel.checkUserImageIsAuthorImage(
-      context: context,
-      authorModel: _myAuthor,
-      userModel: _myUserModel,
-    );
-
-    /// PROCEED IF NOT IDENTICAL -------------------
-    if (_authorPicIsHisUserPic == false){
-      await BzFireOps.deleteAuthorPic(
-        context: context,
-        bzID: bzID,
-        authorID: _myUserModel.id,
       );
+
+      /// CHECK IF USER MODEL PIC IS AUTHOR MODEL PIC -------------------
+      final bool _authorPicIsHisUserPic = await AuthorModel.checkUserImageIsAuthorImage(
+        context: context,
+        authorModel: _myAuthor,
+        userModel: _myUserModel,
+      );
+
+      /// PROCEED IF NOT IDENTICAL -------------------
+      if (_authorPicIsHisUserPic == false){
+        await BzFireOps.deleteAuthorPic(
+          context: context,
+          bzID: bzID,
+          authorID: _myUserModel.id,
+        );
+      }
+
     }
 
   }

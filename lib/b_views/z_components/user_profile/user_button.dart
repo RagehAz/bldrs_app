@@ -15,6 +15,7 @@ class UserTileButton extends StatelessWidget {
     this.onUserTap,
     this.bubble = true,
     this.color,
+    this.sideButtonDeactivated,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +26,7 @@ class UserTileButton extends StatelessWidget {
   final Function onSideButtonTap;
   final bool bubble;
   final Color color;
+  final bool sideButtonDeactivated;
   /// --------------------------------------------------------------------------
   static const double boxHeight = 80;
   static const double inviteButtonWidth = 80;
@@ -104,6 +106,7 @@ class UserTileButton extends StatelessWidget {
             verseScaleFactor: 0.7,
             verseMaxLines: 2,
             onTap: onSideButtonTap,
+            isDeactivated: sideButtonDeactivated,
           ),
 
         ],

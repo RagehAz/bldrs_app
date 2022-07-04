@@ -134,6 +134,11 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                     focusNode: FocusNode(),
                     canObscure: false,
                     counterIsOn: false,
+                    onSubmitted: null,
+                    onSavedForForm: null,
+                    onEditingComplete: null,
+                    onChanged: null,
+                    isFormField: false,
                   );
 
                   _uiProvider.setKeyboard(

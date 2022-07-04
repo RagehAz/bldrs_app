@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return MainLayout(
       key: const ValueKey<String>('mainLayout'),
       // navBarIsOn: false,
-      appBarType: AppBarType.basic,
+      appBarType: AppBarType.main,
       zoneButtonIsOn: false,
       onBack: (){
         Nav.closeApp(context);
