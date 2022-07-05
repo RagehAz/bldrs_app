@@ -184,7 +184,7 @@ Future<void> _myBzResignationProtocol({
 
     await AuthorProtocol.removeMeFromBzProtocol(
         context: context,
-        streamedBzModel: newBzFromStream
+        streamedBzModelWithoutMyID: newBzFromStream
     );
 
     /// 11 - GO BACK HOME
