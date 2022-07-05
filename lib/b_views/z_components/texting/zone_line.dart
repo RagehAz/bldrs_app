@@ -27,8 +27,9 @@ class ZoneLine extends StatelessWidget {
       showDistrict: showDistrict,
     );
 
-    return SizedBox(
+    return Container(
       height: 35,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -49,6 +50,7 @@ class ZoneLine extends StatelessWidget {
             italic: true,
             color: Colorz.grey255,
             margin: 5,
+            maxLines: 2,
           ),
 
         ],

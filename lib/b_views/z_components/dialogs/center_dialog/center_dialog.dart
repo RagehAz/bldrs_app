@@ -1,7 +1,5 @@
-import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_controllers/b_auth_controllers/auth_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
@@ -93,35 +91,6 @@ class CenterDialog extends StatelessWidget {
     );
 
     return _result;
-  }
-// -----------------------------------------
-  static Future<String> showPasswordDialog(BuildContext context) async {
-
-    final TextEditingController _password = TextEditingController();
-
-    await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Enter Your password',
-      onOk: () async {
-
-        closeCenterDialog(context);
-
-      },
-      child: PasswordBubbles(
-          boxWidth: CenterDialog.clearWidth(context),
-          passwordController: _password,
-          showPasswordOnly: true,
-          passwordValidator: () => passwordValidation(
-            context: context,
-            password: _password.text,
-          ),
-          passwordConfirmationController: null,
-          passwordConfirmationValidator: null,
-          onSubmitted: (String text) => CenterDialog.closeCenterDialog(context),
-      ),
-    );
-
-    return _password.text;
   }
 // -----------------------------------------
   static void closeCenterDialog(BuildContext context){

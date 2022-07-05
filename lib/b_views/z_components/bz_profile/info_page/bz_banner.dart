@@ -61,6 +61,7 @@ class BzBanner extends StatelessWidget {
             verse: bzModel?.name,
             size: 4,
             maxLines: 3,
+            margin: const EdgeInsets.symmetric(horizontal: 20),
           ),
 
           /// COMPANY TYPE AND FORM
