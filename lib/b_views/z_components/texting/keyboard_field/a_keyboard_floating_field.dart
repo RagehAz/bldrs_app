@@ -89,114 +89,121 @@ class KeyboardFloatingField extends StatelessWidget {
             },
             builder: (_, KeyboardModel model, Widget child){
 
-              return WidgetFader(
-                fadeType: FadeType.fadeIn,
-                duration: const Duration(milliseconds: 150),
-                curve: Curves.bounceOut,
-                builder: (double value, Widget child){
+              if (model == null){
+                return const SizedBox();
+              }
 
-                  return Transform.scale(
-                    scaleY: value,
-                    alignment: Alignment.bottomCenter,
-                    child: Opacity(
-                      opacity: value,
-                      child: child,
-                    ),
-                  );
+              else {
+                return WidgetFader(
+                  fadeType: FadeType.fadeIn,
+                  duration: const Duration(milliseconds: 150),
+                  curve: Curves.bounceOut,
+                  builder: (double value, Widget child){
 
-                },
-                child: Container(
-                  width: Scale.superScreenWidth(context),
-                  height: Scale.superScreenHeight(context),
-                  alignment: Alignment.topCenter,
-                  child: Column(
-                    children: [
+                    return Transform.scale(
+                      scaleY: value,
+                      alignment: Alignment.bottomCenter,
+                      child: Opacity(
+                        opacity: value,
+                        child: child,
+                      ),
+                    );
 
-                      const Expander(),
+                  },
+                  child: Container(
+                    width: Scale.superScreenWidth(context),
+                    height: Scale.superScreenHeight(context),
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      children: [
 
-                      DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Colorz.skyLightBlue,
-                          borderRadius: Bubble.borders(context),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
+                        const Expander(),
 
-                            /// TITLE AND BACK
-                            Container(
-                              width: BldrsAppBar.width(context),
-                              height: titleHeight,
-                              // margin: const EdgeInsets.only(top: 10),
-                              alignment: superCenterAlignment(context),
-                              padding: const EdgeInsets.all(5),
-                              // color: Colorz.blackSemi255,
-                              child: Row(
-                                children: <Widget>[
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Colorz.skyLightBlue,
+                            borderRadius: Bubble.borders(context),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
 
-                                  BackAndSearchButton(
-                                    backAndSearchAction: BackAndSearchAction.goBack,
-                                    onTap: (){
-                                      closeKeyboard(context);
-                                    },
-                                  ),
+                              /// TITLE AND BACK
+                              Container(
+                                width: BldrsAppBar.width(context),
+                                height: titleHeight,
+                                // margin: const EdgeInsets.only(top: 10),
+                                alignment: superCenterAlignment(context),
+                                padding: const EdgeInsets.all(5),
+                                // color: Colorz.blackSemi255,
+                                child: Row(
+                                  children: <Widget>[
 
-                                  Selector<UiProvider, KeyboardModel>(
-                                    selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
-                                    shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-                                      return old?.title != newModel?.title;
-                                    },
-                                    builder: (_, KeyboardModel model, Widget child){
+                                    BackAndSearchButton(
+                                      backAndSearchAction: BackAndSearchAction.goBack,
+                                      onTap: (){
+                                        closeKeyboard(context);
+                                      },
+                                    ),
 
-                                      return SuperVerse(
-                                        verse: model?.title?.toUpperCase(),
-                                        margin: 10,
-                                        italic: true,
-                                        weight: VerseWeight.black,
-                                      );
+                                    Selector<UiProvider, KeyboardModel>(
+                                      selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
+                                      shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
+                                        return old?.title != newModel?.title;
+                                      },
+                                      builder: (_, KeyboardModel model, Widget child){
 
-                                    },
-                                  ),
+                                        return SuperVerse(
+                                          verse: model?.title?.toUpperCase(),
+                                          margin: 10,
+                                          italic: true,
+                                          weight: VerseWeight.black,
+                                        );
 
-                                ],
+                                      },
+                                    ),
+
+                                  ],
+                                ),
                               ),
-                            ),
 
-                            /// FIELD
-                            Selector<UiProvider, KeyboardModel>(
-                              selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
-                              shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-                                return old?.title != newModel?.title;
-                              },
-                              builder: (_, KeyboardModel model, Widget child){
+                              /// FIELD
+                              Selector<UiProvider, KeyboardModel>(
+                                selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
+                                shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
+                                  return old?.title != newModel?.title;
+                                },
+                                builder: (_, KeyboardModel model, Widget child){
 
-                                // blog('rebuilding field : ${model.title} : ${model.controller.hashCode} : ${model.controller.text}');
+                                  // blog('rebuilding field : ${model.title} : ${model.controller.hashCode} : ${model.controller.text}');
 
-                                return FloatingField(
-                                  model: model,
-                                );
+                                  return FloatingField(
+                                    model: model,
+                                  );
 
-                              },
-                            ),
+                                },
+                              ),
 
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
 
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 150),
-                        curve: Curves.easeIn,
-                        width: superScreenWidth(context),
-                        constraints: BoxConstraints(
-                          maxHeight: _keyboardHeight + 10,
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 150),
+                          curve: Curves.easeIn,
+                          width: superScreenWidth(context),
+                          constraints: BoxConstraints(
+                            maxHeight: _keyboardHeight + 10,
+                          ),
+                          color: Colorz.bloodTest,
                         ),
-                        color: Colorz.bloodTest,
-                      ),
 
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
+              }
+
 
             },);
 

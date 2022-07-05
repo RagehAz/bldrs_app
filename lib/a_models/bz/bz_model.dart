@@ -1492,6 +1492,52 @@ class BzModel{
 
     return _bzTeamIDs;
   }
+// ------------------------------------------
+  static List<BzModel> getBzzByCreatorID({
+    @required List<BzModel> bzzModels,
+    @required String creatorID,
+  }){
+    final List<BzModel> _bzzModels = <BzModel>[];
+
+    if (creatorID != null && Mapper.checkCanLoopList(bzzModels) == true){
+
+      for (final BzModel bzModel in bzzModels){
+
+        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(bzModel);
+
+        if (_creator.userID == creatorID){
+          _bzzModels.add(bzModel);
+        }
+
+      }
+
+    }
+
+    return _bzzModels;
+  }
+// ------------------------------------------
+  static List<BzModel> getBzzIDidNotCreate({
+    @required List<BzModel> bzzModels,
+    @required String userID,
+}){
+    final List<BzModel> _bzzModels = <BzModel>[];
+
+    if (userID != null && Mapper.checkCanLoopList(bzzModels) == true){
+
+      for (final BzModel bzModel in bzzModels){
+
+        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(bzModel);
+
+        if (_creator.userID != userID){
+          _bzzModels.add(bzModel);
+        }
+
+      }
+
+    }
+
+    return _bzzModels;
+  }
 // -----------------------------------------------------------------------------
 
   /// BZ CHECKERS
