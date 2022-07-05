@@ -12,6 +12,7 @@ class PasswordBubbles extends StatelessWidget {
     @required this.passwordConfirmationController,
     @required this.passwordConfirmationValidator,
     this.boxWidth,
+    this.isTheSuperKeyboardField = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class PasswordBubbles extends StatelessWidget {
   final ValueChanged<String> onSubmitted;
   final TextEditingController passwordConfirmationController;
   final String Function() passwordConfirmationValidator;
+  final bool isTheSuperKeyboardField;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class PasswordBubbles extends StatelessWidget {
           canObscure: true,
           onSubmitted: onSubmitted,
           hintText: '',
+          isTheSuperKeyboardField: isTheSuperKeyboardField,
         ),
 
         /// CONFIRM PASSWORD

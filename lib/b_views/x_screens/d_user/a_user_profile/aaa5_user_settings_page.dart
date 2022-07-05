@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/invite_bzz_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
-import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a_user_screen_controllers.dart';
+import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a5_user_settings_controllers.dart';
 import 'package:bldrs/c_controllers/i_app_settings_controllers/app_settings_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -38,6 +38,7 @@ class UserSettingsPage extends StatelessWidget {
         SettingsWideButton(
           verse: superPhrase(context, 'phid_delete_my_account'),
           icon: Iconz.xSmall,
+          color: Colorz.bloodTest,
           onTap: () => onDeleteMyAccount(context),
         ),
 

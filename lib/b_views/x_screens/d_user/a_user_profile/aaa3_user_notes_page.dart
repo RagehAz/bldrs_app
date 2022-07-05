@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/aaa3_user_notes_controllers.dart';
+import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a3_user_notes_controllers.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;

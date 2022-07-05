@@ -1,27 +1,33 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
+import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/bzz_bubble.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/flyers_bubble.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
+import 'package:bldrs/c_controllers/b_auth_controllers/auth_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
+
+/// ERRORS DIALOGS
+
+// ---------------------------------
 Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -105,6 +111,279 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
   );
 }
 // -----------------------------------------------------------------------------
+
+/// ZONE DIALOGS
+
+// ---------------------------------
+Future<CityModel> confirmCityDialog({
+  @required BuildContext context,
+  @required List<CityModel> cities,
+}) async {
+  CityModel _city;
+
+  await BottomDialog.showButtonsBottomDialog(
+    context: context,
+    draggable: true,
+    buttonHeight: 50,
+    numberOfWidgets: cities.length + 1,
+    builder: (BuildContext context, PhraseProvider _phraseProvider){
+
+      return <Widget>[
+
+        const SuperVerse(
+          verse: 'Please confirm your city',
+        ),
+
+        ...List<Widget>.generate(cities.length, (int index) {
+
+          final CityModel _foundCity = cities[index];
+          final String _foundCityName = superPhrase(context, _foundCity.cityID);
+
+          return BottomDialog.wideButton(
+              context: context,
+              verse: _foundCityName,
+              icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
+              onTap: () {
+                blog('city selected aho $_foundCityName');
+
+                _city = _foundCity;
+                Nav.goBack(context);
+                // await null;
+              });
+        }),
+
+      ];
+
+    }
+  );
+
+  return _city;
+}
+// -----------------------------------------------------------------------------
+
+/// TEXT FIELD DIALOGS
+
+// ---------------------------------
+Future<String> showPasswordDialog(BuildContext context) async {
+
+  final TextEditingController _password = TextEditingController();
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Enter Your password',
+    height: Scale.superScreenHeight(context) * 0.6,
+    onOk: () async {
+
+      CenterDialog.closeCenterDialog(context);
+      closeKeyboard(context);
+
+    },
+    child: PasswordBubbles(
+      boxWidth: CenterDialog.clearWidth(context),
+      passwordController: _password,
+      showPasswordOnly: true,
+      passwordValidator: () => passwordValidation(
+        context: context,
+        password: _password.text,
+      ),
+      passwordConfirmationController: null,
+      passwordConfirmationValidator: null,
+      onSubmitted: (String text) => CenterDialog.closeCenterDialog(context),
+      isTheSuperKeyboardField: true,
+    ),
+  );
+
+  return _password.text;
+}
+
+// -----------------------------------------------------------------------------
+
+/// USERS DIALOGS
+
+// ---------------------------------
+Future<bool> userDialog({
+  @required BuildContext context,
+  @required UserModel userModel,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  bool boolDialog = true,
+}) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    boolDialog: boolDialog,
+    confirmButtonText: confirmButtonText,
+    height: Scale.superScreenHeight(context) * 0.85,
+    child: UserBanner(
+      userModel: userModel,
+    ),
+  );
+
+  return _result;
+}
+// -----------------------------------------------------------------------------
+
+/// BZZ DIALOGS
+
+// ---------------------------------
+Future<bool> bzBannerDialog({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  bool boolDialog = true,
+}) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    confirmButtonText: confirmButtonText,
+    boolDialog: boolDialog,
+    height: Scale.superScreenHeight(context) * 0.85,
+    child: BzBanner(
+      boxWidth: CenterDialog.clearWidth(context) * 0.8,
+      bzModel: bzModel,
+    ),
+  );
+
+  return _result;
+
+}
+// ---------------------------------
+Future<bool> bzzBannersDialog({
+  @required BuildContext context,
+  @required List<BzModel> bzzModels,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  bool boolDialog = true,
+}) async {
+
+  final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    confirmButtonText: confirmButtonText,
+    boolDialog: boolDialog,
+    height: Scale.superScreenHeight(context) * 0.85,
+    child: Container(
+      width: CenterDialog.getWidth(context),
+      height: _gridHeight,
+      color: Colorz.white10,
+      alignment: Alignment.center,
+      child: ListView.builder(
+        itemCount: bzzModels?.length ?? 0,
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, int index){
+
+            return BzBanner(
+              bzModel: bzzModels[index],
+              boxWidth: CenterDialog.clearWidth(context) * 0.5,
+            );
+
+          },
+      ),
+    ),
+  );
+
+  return _result;
+
+
+}
+// -----------------------------------------------------------------------------
+
+/// FLYERS DIALOGS
+
+// ---------------------------------
+Future<bool> flyersDialog({
+  @required BuildContext context,
+  @required List<String> flyersIDs,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  bool boolDialog = true,
+}) async {
+
+  final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    boolDialog: boolDialog,
+    confirmButtonText: confirmButtonText,
+    height: Scale.superScreenHeight(context) * 0.85,
+    child: Container(
+      width: CenterDialog.getWidth(context),
+      height: _gridHeight,
+      color: Colorz.white10,
+      alignment: Alignment.center,
+      child: FlyersGrid(
+        scrollController: ScrollController(),
+        paginationFlyersIDs: flyersIDs,
+        scrollDirection: Axis.horizontal,
+        gridWidth: CenterDialog.getWidth(context) - 10,
+        gridHeight: _gridHeight,
+        topPadding: 0,
+        numberOfColumnsOrRows: 1,
+      ),
+    ),
+
+  );
+
+  return _result;
+
+
+}
+// ---------------------------------
+Future<bool> flyerDialog({
+  @required BuildContext context,
+  @required FlyerModel flyer,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  bool boolDialog = true,
+}) async {
+
+  final double _screenHeight = Scale.superScreenHeight(context);
+  final double _dialogHeight = _screenHeight * 0.7;
+  final double _flyerBoxHeight = _dialogHeight * 0.5;
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    boolDialog: boolDialog,
+    confirmButtonText: confirmButtonText,
+    height: _dialogHeight,
+    child: SizedBox(
+      height: _flyerBoxHeight,
+      child: AbsorbPointer(
+        child: FlyerStarter(
+          flyerModel: flyer,
+          minWidthFactor: FlyerBox.sizeFactorByHeight(context, _flyerBoxHeight),
+        ),
+      ),
+    ),
+  );
+
+  return _result;
+
+}
+// -----------------------------------------------------------------------------
+
+/// OLD DIALOGS
+
+// ---------------------------------
+/*
 Future<bool> bzzDeactivationDialog({
   BuildContext context,
   List<BzModel> bzzToDeactivate,
@@ -153,21 +432,21 @@ Future<bool> bzzDeactivationDialog({
 
   return _bzzReviewResult;
 }
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<bool> flyersDeactivationDialog({
   @required BuildContext context,
   @required List<FlyerModel> flyers,
   List<BzModel> bzzToDeactivate,
 }) async {
   final int _totalNumOfFlyers =
-      FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);
+  FlyerModel.getNumberOfFlyersFromBzzModels(bzzToDeactivate);
   final int _numberOfBzz = bzzToDeactivate.length;
 
   final bool _flyersReviewResult = await CenterDialog.showCenterDialog(
     context: context,
     title: '',
     body:
-        'You Have $_totalNumOfFlyers flyers that will be deactivated and can not be retrieved',
+    'You Have $_totalNumOfFlyers flyers that will be deactivated and can not be retrieved',
     boolDialog: true,
     height: Scale.superScreenHeight(context) * 0.9,
     child: Column(
@@ -203,151 +482,5 @@ Future<bool> flyersDeactivationDialog({
 
   return _flyersReviewResult;
 }
-// -----------------------------------------------------------------------------
-Future<CityModel> confirmCityDialog({
-  @required BuildContext context,
-  @required List<CityModel> cities,
-}) async {
-  CityModel _city;
-
-  await BottomDialog.showButtonsBottomDialog(
-    context: context,
-    draggable: true,
-    buttonHeight: 50,
-    numberOfWidgets: cities.length + 1,
-    builder: (BuildContext context, PhraseProvider _phraseProvider){
-
-      return <Widget>[
-
-        const SuperVerse(
-          verse: 'Please confirm your city',
-        ),
-
-        ...List<Widget>.generate(cities.length, (int index) {
-
-          final CityModel _foundCity = cities[index];
-          final String _foundCityName = superPhrase(context, _foundCity.cityID);
-
-          return BottomDialog.wideButton(
-              context: context,
-              verse: _foundCityName,
-              icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
-              onTap: () {
-                blog('city selected aho $_foundCityName');
-
-                _city = _foundCity;
-                Nav.goBack(context);
-                // await null;
-              });
-        }),
-
-      ];
-
-    }
-  );
-
-  return _city;
-}
-// -----------------------------------------------------------------------------
-Future<bool> bzBannerDialog({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  bool boolDialog = true,
-}) async {
-
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    confirmButtonText: confirmButtonText,
-    boolDialog: boolDialog,
-    height: Scale.superScreenHeight(context) * 0.85,
-    child: BzBanner(
-      boxWidth: CenterDialog.clearWidth(context) * 0.8,
-      bzModel: bzModel,
-    ),
-  );
-
-  return _result;
-
-}
-// -----------------------------------------------------------------------------
-Future<bool> flyersDialog({
-  @required BuildContext context,
-  @required List<String> flyersIDs,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  bool boolDialog = true,
-}) async {
-
-  final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
-
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    boolDialog: boolDialog,
-    confirmButtonText: confirmButtonText,
-    height: Scale.superScreenHeight(context) * 0.85,
-    child: Container(
-      width: CenterDialog.getWidth(context),
-      height: _gridHeight,
-      color: Colorz.white10,
-      alignment: Alignment.center,
-      child: FlyersGrid(
-        scrollController: ScrollController(),
-        paginationFlyersIDs: flyersIDs,
-        scrollDirection: Axis.horizontal,
-        gridWidth: CenterDialog.getWidth(context) - 10,
-        gridHeight: _gridHeight,
-        topPadding: 0,
-        numberOfColumnsOrRows: 1,
-      ),
-    ),
-
-  );
-
-  return _result;
-
-
-}
-// -----------------------------------------------------------------------------
-Future<bool> flyerDialog({
-  @required BuildContext context,
-  @required FlyerModel flyer,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  bool boolDialog = true,
-}) async {
-
-  final double _screenHeight = Scale.superScreenHeight(context);
-  final double _dialogHeight = _screenHeight * 0.7;
-  final double _flyerBoxHeight = _dialogHeight * 0.5;
-
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    boolDialog: boolDialog,
-    confirmButtonText: confirmButtonText,
-    height: _dialogHeight,
-    child: SizedBox(
-      height: _flyerBoxHeight,
-      child: AbsorbPointer(
-        child: FlyerStarter(
-          flyerModel: flyer,
-          minWidthFactor: FlyerBox.sizeFactorByHeight(context, _flyerBoxHeight),
-        ),
-      ),
-    ),
-  );
-
-  return _result;
-
-}
+ */
 // -----------------------------------------------------------------------------

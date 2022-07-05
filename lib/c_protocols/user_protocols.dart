@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:flutter/material.dart';
 
@@ -78,7 +79,36 @@ class UserProtocol {
   /// DELETE
 
 // ----------------------------------
-  static Future<void> deleteUserProtocol() async {
+  static Future<void> deleteAuthorUserProtocol({
+    @required BuildContext context,
+    @required UserModel userModel,
+  }) async {
+
+  }
+// ----------------------------------
+  static Future<void> deleteNonAuthorUserProtocol({
+    @required BuildContext context,
+    @required UserModel userModel,
+  }) async {
+
+    /// TASK SHOULD DELETE QUESTIONS, RECORDS, SEARCHES
+
+    /// FIRE : DELETE USER OPS
+    final bool _success = await UserFireOps.deleteNonAuthorUserOps(
+        context: context,
+        userModel: userModel
+    );
+
+    if (_success == true){
+
+      /// LDB : DELETE USER MODEL
+      await UserLDBOps.deleteUserOps(userModel.id);
+      await AuthLDBOps.deleteAuthModel(userModel.id);
+
+      /// LDB : DELETE SAVED FLYERS
+      await FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs);
+
+    }
 
   }
 // -----------------------------------------------------------------------------
