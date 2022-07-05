@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/b_bz_editor/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_app_settings/b_change_app_language_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_app_settings/c_about_bldrs_screen.dart';
@@ -20,11 +21,14 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
+
 // -----------------------------------------------------------------------------
 
 /// LANGUAGE
 
 // ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onChangeAppLanguageTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
@@ -37,6 +41,7 @@ Future<void> onChangeAppLanguageTap(BuildContext context) async {
 /// STUFF
 
 // ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onAboutBldrsTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
@@ -45,6 +50,7 @@ Future<void> onAboutBldrsTap(BuildContext context) async {
   );
 }
 // ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onFeedbackTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
@@ -53,12 +59,33 @@ Future<void> onFeedbackTap(BuildContext context) async {
   );
 }
 // ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onTermsAndRegulationsTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
     transitionType: PageTransitionType.fade,
     screen: const TermsAndRegulationsScreen(),
   );
+}
+// ---------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onInviteFriendsTap(BuildContext context) async {
+
+  // final bool _result = await CenterDialog.showCenterDialog(
+  //   context: context,
+  //   title: 'Share App Link ?',
+  //   body: LinkModel.bldrsWebSiteLink.url,
+  //   boolDialog: true,
+  // );
+  //
+  // if (_result == true){
+
+    await Launcher.shareLink(
+      context: context,
+      link: LinkModel.bldrsWebSiteLink,
+    );
+  // }
+
 }
 // -----------------------------------------------------------------------------
 

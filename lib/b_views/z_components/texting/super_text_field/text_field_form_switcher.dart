@@ -256,7 +256,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         textAlignVertical: _textAlignVertical,
 
         /// counter
-        buildCounter: counterIsOn ? counterBuilder : null,
+        buildCounter: counterIsOn == true ? counterBuilder : null,
 
         /// functions
         onTap: onTap,

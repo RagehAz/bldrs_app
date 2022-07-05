@@ -284,7 +284,7 @@ class SuperTextField extends StatefulWidget {
           corners: corners,
       ),
 
-      counter: counterIsOn ? null : const Offstage(),
+      counter: counterIsOn == true ? null : const Offstage(),
       // counterText: 'a77aaaa ',
 
       // counterText: '${widget.textController?.text?.length} / ${widget.maxLength}',
@@ -586,13 +586,13 @@ class _SuperTextFieldState extends State<SuperTextField> {
                 // selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
                 builder: (_, UiProvider uiPro, Widget child){
 
-                  final TextEditingController _controller = uiPro.keyboardModel.controller;
+                  final TextEditingController _textController = uiPro.keyboardModel?.controller ?? _controller;
                   final bool _isObscured = uiPro.textFieldsObscured;
 
                   return TextFormFieldSwitcher(
                     /// main
                     isFormField: widget.isFormField,
-                    controller: _controller,
+                    controller: _textController,
                     hintText: widget.hintText,
                     autoFocus: widget.autofocus,
                     focusNode: _focusNode,
