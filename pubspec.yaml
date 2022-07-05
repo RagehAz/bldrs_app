@@ -17,6 +17,7 @@ dependencies:
 
   alphabet_list_scroll_view: ^2.0.0
   #  alphabet_list_scroll_view_fix: ^2.0.2
+  animated_text_kit: ^4.2.1
   another_flushbar: ^1.10.26
   awesome_notifications: ^0.6.13
   clipboard: ^0.1.3

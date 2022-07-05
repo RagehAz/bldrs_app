@@ -5,6 +5,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/animations_lab.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/super_rage7.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_asks.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/pagination_test_screen.dart';
@@ -131,6 +132,13 @@ class SpecializedLabs extends StatelessWidget {
         verse: 'Animations lab',
         icon: Iconz.dvDonaldDuck,
         screen: const AnimationsLab(),
+      ),
+
+      /// SUPER RAGE7
+      DashButtonModel(
+        verse: 'Super Rage7',
+        icon: Iconz.dvRageh2,
+        screen: const SuperRage7Screen(),
       ),
 
       /// SPECS SELECTOR
