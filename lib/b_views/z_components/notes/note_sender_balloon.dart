@@ -29,7 +29,6 @@ class NoteSenderBalloon extends StatelessWidget {
 
       return const Balloona(
         balloonWidth: balloonWidth,
-        pic: null,
         loading: false,
       );
 

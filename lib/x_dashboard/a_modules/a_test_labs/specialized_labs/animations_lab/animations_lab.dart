@@ -15,10 +15,14 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class AnimationsLab extends StatefulWidget {
-  const AnimationsLab({Key key}) : super(key: key);
+
+  const AnimationsLab({
+    Key key
+  }) : super(key: key);
 
   @override
   _AnimationsLabState createState() => _AnimationsLabState();
+
 }
 
 class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateMixin {
@@ -50,7 +54,6 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
         setState(() {});
       });
   }
-
 // -----------------------------------------------------------------------------
   void resizeBox() {
     blog('tapped aho');
@@ -59,7 +62,6 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
       height = height == 100 ? Scale.superScreenHeight(context) : 100;
     });
   }
-
 // -----------------------------------------------------------------------------
   bool condition() {
     bool _condition;
@@ -72,7 +74,6 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
 
     return _condition;
   }
-
 // -----------------------------------------------------------------------------
   /*
   // void animateBT(){
@@ -107,8 +108,9 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
-    final double screenWidth = Scale.superScreenWidth(context);
-    final double btCorner = btWidth * 0.2;
+    final double _screenWidth = Scale.superScreenWidth(context);
+    // final double _screenHeight = Scale.superScreenHeight(context);
+    final double _btCorner = btWidth * 0.2;
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -116,12 +118,14 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       appBarRowWidgets: <Widget>[
+
         DreamBox(
           height: 40,
           icon: Iconz.play,
           margins: const EdgeInsets.all(5),
           onTap: resizeBox,
         ),
+
         DreamBox(
           height: 40,
           icon: Iconz.pause,
@@ -130,6 +134,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
             _animationController.stop(canceled: false);
           },
         ),
+
         DreamBox(
           height: 40,
           icon: Iconz.stop,
@@ -138,6 +143,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
             _animationController.reset();
           },
         ),
+
         DreamBox(
           height: 40,
           icon: Iconz.clock,
@@ -195,11 +201,12 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
       ],
       layoutWidget: ListView(
         padding: const EdgeInsets.only(top: Ratioz.stratosphere),
+        physics: const BouncingScrollPhysics(),
         children: <Widget>[
 
           Container(
-            width: screenWidth,
-            height: screenWidth,
+            width: _screenWidth,
+            height: _screenWidth,
             color: Colorz.black255,
             alignment: Alignment.center,
             child: AnimateWidgetToMatrix(
@@ -262,8 +269,8 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
           const Stratosphere(),
 
           Container(
-            width: screenWidth,
-            height: screenWidth,
+            width: _screenWidth,
+            height: _screenWidth,
             color: Colorz.black230,
             alignment: Alignment.center,
             child: DreamBox(
@@ -306,8 +313,8 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
           ),
 
           Container(
-            width: screenWidth,
-            height: screenWidth,
+            width: _screenWidth,
+            height: _screenWidth,
             color: Colorz.blue80,
             alignment: Alignment.center,
             child: GestureDetector(
@@ -419,16 +426,15 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                         fit: BoxFit.fitHeight),
                     borderRadius: Borderers.superBorderOnly(
                         context: context,
-                        enTopLeft: btCorner,
-                        enBottomLeft: btCorner,
-                        enBottomRight: btCorner,
-                        enTopRight: btCorner),
+                        enTopLeft: _btCorner,
+                        enBottomLeft: _btCorner,
+                        enBottomRight: _btCorner,
+                        enTopRight: _btCorner),
                   ),
                 ),
               ),
             ),
           ),
-
 
           const Horizon(),
         ],

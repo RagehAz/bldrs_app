@@ -9,8 +9,8 @@ class Balloona extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Balloona({
     @required this.balloonWidth,
-    @required this.pic,
-    @required this.loading,
+    this.pic,
+    this.loading,
     this.onTap,
     this.shadowIsOn = false,
     this.child,
