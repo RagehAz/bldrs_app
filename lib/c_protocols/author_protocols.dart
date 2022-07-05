@@ -107,7 +107,7 @@ class AuthorProtocol {
 // ----------------------------------
   static Future<void> removeMeFromBzProtocol({
     @required BuildContext context,
-    @required BzModel streamedBzModel,
+    @required BzModel streamedBzModelWithoutMyID,
   }) async {
 
     // description
@@ -119,12 +119,12 @@ class AuthorProtocol {
     /// REMOVE ME FROM PRO MY BZZ
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _bzzProvider.removeBzFromMyBzz(
-      bzID: streamedBzModel.id,
+      bzID: streamedBzModelWithoutMyID.id,
       notify: true,
     );
     /// UPDATE BZ IN LDB
     await BzLDBOps.updateBzOps(
-      bzModel: streamedBzModel,
+      bzModel: streamedBzModelWithoutMyID,
     );
 
     /// MODIFY MY USER MODEL
@@ -133,7 +133,7 @@ class AuthorProtocol {
         listen: false,
     );
     final UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
-        bzIDToRemove: streamedBzModel.id,
+        bzIDToRemove: streamedBzModelWithoutMyID.id,
         userModel: _myOldUserModel
     );
 
@@ -146,7 +146,7 @@ class AuthorProtocol {
     /// 10 - REMOVE ALL NOTES FROM ALL-MY-BZZ-NOTES AND OBELISK NOTES NUMBERS
     NotesProvider.proAuthorResignationNotesRemovalOps(
       context: context,
-      bzIDResigned: streamedBzModel.id,
+      bzIDResigned: streamedBzModelWithoutMyID.id,
     );
 
   }
