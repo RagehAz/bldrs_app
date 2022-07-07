@@ -34,6 +34,7 @@ class BldrsAppBar extends StatelessWidget {
     this.historyButtonIsOn,
     this.zoneButtonIsOn,
     this.searchHint,
+    this.canGoBack,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -53,6 +54,7 @@ class BldrsAppBar extends StatelessWidget {
   final bool historyButtonIsOn;
   final bool zoneButtonIsOn;
   final String searchHint;
+  final bool canGoBack;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context, {double boxWidth}) {
     final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
@@ -78,23 +80,28 @@ class BldrsAppBar extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   bool _backButtonIsOnCheck() {
-    bool _isOn;
+    bool _isOn = false;
 
-    if (appBarType == AppBarType.basic) {
-      _isOn = true;
-    } else if (appBarType == AppBarType.scrollable) {
-      _isOn = true;
-    } else if (appBarType == AppBarType.main) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.intro) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.search) {
-      _isOn = true;
-    } else if (appBarType == AppBarType.non) {
-      _isOn = false;
-    } else {
-      _isOn = false;
+    if (canGoBack == true){
+
+      if (appBarType == AppBarType.basic) {
+        _isOn = true;
+      } else if (appBarType == AppBarType.scrollable) {
+        _isOn = true;
+      } else if (appBarType == AppBarType.main) {
+        _isOn = false;
+      } else if (appBarType == AppBarType.intro) {
+        _isOn = false;
+      } else if (appBarType == AppBarType.search) {
+        _isOn = true;
+      } else if (appBarType == AppBarType.non) {
+        _isOn = false;
+      } else {
+        _isOn = false;
+      }
+
     }
+
 
     return _isOn;
   }
@@ -248,7 +255,7 @@ class BldrsAppBar extends StatelessWidget {
                     ),
 
                     /// BackButton
-                    if (_backButtonIsOn == true)
+                    if (_backButtonIsOn == true && canGoBack == true)
                       BackAndSearchButton(
                         backAndSearchAction: BackAndSearchAction.goBack,
                         onTap: onBack,

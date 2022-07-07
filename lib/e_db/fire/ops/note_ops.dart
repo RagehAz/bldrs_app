@@ -38,7 +38,8 @@ Future<List<NoteModel>> readReceivedNotes({
   @required BuildContext context,
   @required String recieverID,
   @required NoteReceiverType receiverType,
-  @required int limit,
+  int limit = 10,
+  QueryDocumentSnapshot<Object> startAfter,
   QueryOrderBy orderBy,
 }) async {
 
@@ -48,6 +49,8 @@ Future<List<NoteModel>> readReceivedNotes({
     limit: limit,
     addDocsIDs: true,
     orderBy: orderBy,
+    startAfter: startAfter,
+    addDocSnapshotToEachMap: true,
     finders: <FireFinder>[
 
       FireFinder(
@@ -458,10 +461,12 @@ Future<void> deleteAllReceivedNotes({
   for (int i = 0; i <= 500; i++){
     final List<NoteModel> _notes = await readReceivedNotes(
       context: context,
-      limit: 10,
+      // limit: 10,
       receiverType: receiverType,
       recieverID: receiverID,
+      startAfter: _notesToDelete?.last?.docSnapshot,
     );
+
     if (Mapper.checkCanLoopList(_notes) == true){
       _notesToDelete.addAll(_notes);
     }
