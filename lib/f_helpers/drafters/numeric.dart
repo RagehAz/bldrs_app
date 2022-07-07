@@ -159,7 +159,7 @@ int transformStringToInt(String string) {
   int _value;
 
   if (string != null) {
-    _value = int.parse(string);
+    _value = int.tryParse(string);
   }
 
   return _value;
