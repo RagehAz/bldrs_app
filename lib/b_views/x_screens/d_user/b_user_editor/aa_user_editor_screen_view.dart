@@ -7,8 +7,10 @@ import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubbl
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/gender_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/b_user_editor/a_user_editor_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -37,6 +39,7 @@ class UserEditorScreenView extends StatelessWidget {
     @required this.oldUserModel,
     @required this.createNewUserModel,
     @required this.onFinish,
+    @required this.canGoBack,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -58,6 +61,7 @@ class UserEditorScreenView extends StatelessWidget {
   final UserModel oldUserModel;
   final UserModel Function() createNewUserModel;
   final Function onFinish;
+  final bool canGoBack;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -248,19 +252,42 @@ class UserEditorScreenView extends StatelessWidget {
               ],
             ),
 
-            /// --- CONFIRM BUTTON
-            EditorConfirmButton(
-              firstLine: superPhrase(context, 'phid_updateProfile').toUpperCase(),
-              positionedAlignment: Alignment.bottomLeft,
-              onTap: () => confirmEdits(
-                  context: context,
-                  formKey: formKey,
-                  newUserModel: createNewUserModel(),
-                  oldUserModel: oldUserModel,
-                  onFinish: onFinish,
-                  loading: loading
+            SuperPositioned(
+              enAlignment: Alignment.bottomLeft,
+              child: Row(
+                children: <Widget>[
+
+                  /// --- CONFIRM BUTTON
+                  EditorConfirmButton(
+                    firstLine: superPhrase(context, 'phid_updateProfile').toUpperCase(),
+                    positionedAlignment: null,
+                    onTap: () => confirmEdits(
+                        context: context,
+                        formKey: formKey,
+                        newUserModel: createNewUserModel(),
+                        oldUserModel: oldUserModel,
+                        onFinish: onFinish,
+                        loading: loading
+                    ),
+                  ),
+
+                  /// --- SKIP
+                  if (canGoBack == false)
+                  EditorConfirmButton(
+                    firstLine: 'Skip',
+                    positionedAlignment: null,
+                    onTap: (){
+
+                      blog('skip');
+
+                    },
+                  ),
+
+
+                ],
               ),
             ),
+
 
           ],
         ),

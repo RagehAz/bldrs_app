@@ -132,10 +132,14 @@ class UiProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    _keyboardIsOn = setTo;
+    if (setTo != _keyboardIsOn){
 
-    if (notify == true){
-      notifyListeners();
+      _keyboardIsOn = setTo;
+
+      if (notify == true){
+        notifyListeners();
+      }
+
     }
 
   }

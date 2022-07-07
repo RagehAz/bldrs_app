@@ -71,6 +71,10 @@ void closeKeyboard(BuildContext context) {
   final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
   if (_keyboardIsOn == true){
     FocusManager.instance.primaryFocus?.unfocus();
+    _uiProvider.setKeyboardIsOn(
+        setTo: false,
+        notify: true,
+    );
   }
 
 }
