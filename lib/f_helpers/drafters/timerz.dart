@@ -2,6 +2,7 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -938,6 +939,44 @@ bool timeIsEmpty({
   }
 
   return _isEmpty;
+}
+// -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
+DateTime offsetTime({
+  @required DateTime time,
+  @required String offset, // should look like this +00:00
+}){
+
+  DateTime _output;
+
+  if (time != null && offset != null && offset.length == 6){
+
+    final List<String> _splitOffset = offset.split('');
+    // blog('_splitOffset : $_splitOffset');
+
+    final bool _isPlus = _splitOffset[0] == '+';
+    // blog('_isPlus : $_isPlus');
+
+    final _hoursString = '${_splitOffset[1]}${_splitOffset[2]}';
+    // blog('_hoursString : $_hoursString');
+    final int _hours = transformStringToInt(_hoursString);
+    // blog('_hours : $_hours');
+
+    final _minutesString = '${_splitOffset[4]}${_splitOffset[5]}';
+    // blog('_minutesString : $_minutesString');
+    final int _minutes = transformStringToInt(_minutesString);
+    // blog('_minutes : $_minutes');
+
+    _output = _isPlus == true ?
+    time.add(Duration(hours: _hours, minutes: _minutes))
+        :
+    time.subtract(Duration(hours: _hours, minutes: _minutes))
+    ;
+
+  }
+
+
+  return _output;
 }
 // -----------------------------------------------------------------------------
 enum TimeAccuracy{

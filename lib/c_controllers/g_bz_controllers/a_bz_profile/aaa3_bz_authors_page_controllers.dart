@@ -14,7 +14,6 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart
 import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -120,11 +119,20 @@ Future<void> onAuthorOptionsTap({
         context: context,
         authorModel: authorModel,
       ),
-      onTap: () => _onDeleteAuthorFromActiveBzTeam(
-        context: context,
-        // bzModel: bzModel,
-        authorModel: authorModel,
-      ),
+      onTap: (){
+
+        /// CLOSE BOTTOM DIALOG
+        Nav.goBack(context);
+
+        onDeleteAuthorFromBz(
+          context: context,
+          bzModel: bzModel,
+          authorModel: authorModel,
+          showConfirmationDialog: true,
+          showWaitingDialog: true,
+        );
+
+      },
     ),
 
   ];
@@ -143,23 +151,30 @@ Future<void> onAuthorOptionsTap({
 }
 // -----------------------------------------------------------------------------
 
-/// DELETE AUTHOR
+/// PRE DELETE AUTHOR
 
 // -------------------------------
-Future<void> _onDeleteAuthorFromActiveBzTeam({
+Future<void> onDeleteAuthorFromBz({
   @required BuildContext context,
   @required AuthorModel authorModel,
+  @required BzModel bzModel,
+  @required bool showConfirmationDialog,
+  @required bool showWaitingDialog,
 }) async {
 
-  /// CLOSE BOTTOM DIALOG
-  Nav.goBack(context);
+  bool _result;
 
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: 'Remove ${authorModel.name} ?',
-    body: '${authorModel.name} and all his published flyers will be deleted as well',
-    boolDialog: true,
-  );
+  if (showConfirmationDialog == true){
+    _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Remove ${authorModel.name} ?',
+      body: '${authorModel.name} and all his published flyers will be deleted as well',
+      boolDialog: true,
+    );
+  }
+  else {
+    _result = true;
+  }
 
   if (_result == true){
 
@@ -173,6 +188,9 @@ Future<void> _onDeleteAuthorFromActiveBzTeam({
       await _removeAuthorWhoHasFlyers(
         context: context,
         authorModel: authorModel,
+        bzModel: bzModel,
+        showWaitDialog: showWaitingDialog,
+        showConfirmationDialog: showConfirmationDialog,
       );
 
     }
@@ -183,6 +201,9 @@ Future<void> _onDeleteAuthorFromActiveBzTeam({
       await _removeAuthorWhoHasNoFlyers(
         context: context,
         authorModel: authorModel,
+        bzModel: bzModel,
+        showWaitDialog: showWaitingDialog,
+        showConfirmationDialog: showConfirmationDialog,
       );
 
     }
@@ -204,29 +225,39 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
   );
 
 }
+// -----------------------------------------------------------------------------
+
+/// DELETE AUTHOR WHO HAS FLYERS
+
 // -------------------------------
-///
 Future<void> _removeAuthorWhoHasFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
+  @required BzModel bzModel,
+  @required bool showWaitDialog,
+  @required bool showConfirmationDialog,
 }) async {
 
-  final bool _result = await _showDeleteAllAuthorFlyers(
-    context: context,
-    authorModel: authorModel,
-  );
+  bool _result;
+
+  if (showConfirmationDialog == true){
+    _result = await _showDeleteAllAuthorFlyers(
+      context: context,
+      authorModel: authorModel,
+    );
+  }
+  else {
+    _result = true;
+  }
 
   if (_result == true){
 
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingPhrase: 'Removing ${authorModel.name}',
-    ));
-
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
-      listen: false,
-    );
+    if (showWaitDialog == true){
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Removing ${authorModel.name}',
+      ));
+    }
 
     /// DELETE ALL AUTHOR FLYERS EVERY WHERE THEN UPDATE BZ EVERYWHERE
     final List<FlyerModel> _flyers = await FlyersProvider.proFetchFlyers(
@@ -236,7 +267,7 @@ Future<void> _removeAuthorWhoHasFlyers({
 
     final BzModel _updatedBzModel = await FlyerProtocol.deleteMultipleBzFlyersProtocol(
       context: context,
-      bzModel: _bzModel,
+      bzModel: bzModel,
       showWaitDialog: false,
       updateBzEveryWhere: false,
       flyers: _flyers,
@@ -252,25 +283,29 @@ Future<void> _removeAuthorWhoHasFlyers({
     await BzFireOps.updateBz(
         context: context,
         newBzModel: _bzWithoutAuthor,
-        oldBzModel: _bzModel,
+        oldBzModel: bzModel,
         authorPicFile: null
     );
 
     /// SEND AUTHOR DELETION NOTES
     await NoteProtocols.sendAuthorDeletionNotes(
       context: context,
-      bzModel: _bzModel,
+      bzModel: bzModel,
       deletedAuthor: authorModel,
     );
 
-    WaitDialog.closeWaitDialog(context);
+    if (showWaitDialog == true){
+      WaitDialog.closeWaitDialog(context);
+    }
 
     /// SHOW CONFIRMATION DIALOG
-    await _showAuthorRemovalConfirmationDialog(
-      context: context,
-      bzModel: _bzModel,
-      deletedAuthor: authorModel,
-    );
+    if (showConfirmationDialog == true){
+      await _showAuthorRemovalConfirmationDialog(
+        context: context,
+        bzModel: bzModel,
+        deletedAuthor: authorModel,
+      );
+    }
 
   }
 
@@ -306,38 +341,41 @@ Future<bool> _showDeleteAllAuthorFlyers({
 
   return _result;
 }
+// -----------------------------------------------------------------------------
+
+/// DELETE AUTHOR WHO HAS NO FLYERS
+
 // -------------------------------
 Future<void> _removeAuthorWhoHasNoFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
+  @required BzModel bzModel,
+  @required bool showConfirmationDialog,
+  @required bool showWaitDialog,
 }) async {
-
-  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-    context: context,
-    listen: false,
-  );
 
   /// REMOVE AUTHOR MODEL FROM BZ MODEL
   await AuthorProtocol.removeFlyerlessAuthorProtocol(
     context: context,
-    bzModel: _bzModel,
+    bzModel: bzModel,
     author: authorModel,
   );
 
   /// SEND AUTHOR DELETION NOTES
   await NoteProtocols.sendAuthorDeletionNotes(
     context: context,
-    bzModel: _bzModel,
+    bzModel: bzModel,
     deletedAuthor: authorModel,
   );
 
   /// SHOW CONFIRMATION DIALOG
-  await _showAuthorRemovalConfirmationDialog(
-    context: context,
-    bzModel: _bzModel,
-    deletedAuthor: authorModel,
-  );
-
+  if (showConfirmationDialog == true){
+    await _showAuthorRemovalConfirmationDialog(
+      context: context,
+      bzModel: bzModel,
+      deletedAuthor: authorModel,
+    );
+  }
 
 }
 // -------------------------------

@@ -1,6 +1,8 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -124,7 +126,10 @@ class UserProtocol {
       userModel: userModel,
     );
 
-
+    await deleteNonAuthorUserProtocol(
+      context: context,
+      userModel: userModel,
+    );
 
   }
 // ----------------------------------
@@ -159,7 +164,6 @@ class UserProtocol {
 
       }
 
-
     }
 
   }
@@ -183,13 +187,18 @@ class UserProtocol {
 
       for (final BzModel bzModel in _myBzzIDidNotCreate){
 
-        /// should delete all my flyers in the bz
-        /// should delete me from the bz
+        final AuthorModel _authorModel = AuthorModel.getAuthorFromBzByAuthorID(
+            bz: bzModel,
+            authorID: userModel.id,
+        );
 
-        // await AuthorProtocol.removeMeFromBzProtocol(
-        //     context: context,
-        //     streamedBzModel: bzModel,
-        // );
+        await onDeleteAuthorFromBz(
+          context: context,
+          bzModel: bzModel,
+          authorModel: _authorModel,
+          showWaitingDialog: false,
+          showConfirmationDialog: false,
+        );
 
       }
 

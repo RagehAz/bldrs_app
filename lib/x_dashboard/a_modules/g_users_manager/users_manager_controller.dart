@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
@@ -30,7 +30,7 @@ Future<void> readMoreUsers({
   final List<dynamic> _maps = await Fire.readCollectionDocs(
     context: context,
     collName: FireColl.users,
-    orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
+    orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
     limit: 10,
     startAfter: lastSnapshot?.value,
     addDocSnapshotToEachMap: true,

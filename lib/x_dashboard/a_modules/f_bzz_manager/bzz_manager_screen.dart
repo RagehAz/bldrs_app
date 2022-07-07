@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -79,7 +79,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
       context: context,
       collName: FireColl.bzz,
-      orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
+      orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
       limit: 100,
       startAfter: _lastSnapshot,
       addDocSnapshotToEachMap: true,

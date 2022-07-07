@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -34,7 +34,7 @@ Future<void> readMoreUnVerifiedFlyers({
   final List<dynamic> _maps = await Fire.readCollectionDocs(
     context: context,
     collName: FireColl.flyers,
-    orderBy: const Fire.QueryOrderBy(fieldName: 'id', descending: true),
+    orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
     limit: 6,
     startAfter: Mapper.checkCanLoopList(flyers.value) == true ? flyers.value.last.docSnapshot : null,
     addDocSnapshotToEachMap: true,
