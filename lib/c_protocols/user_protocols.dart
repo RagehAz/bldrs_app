@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
@@ -112,7 +115,54 @@ class UserProtocol {
   /// DELETE
 
 // ----------------------------------
-  static Future<void> deleteNonAuthorUserProtocol({
+  static Future<void> deleteUserProtocol({
+  @required BuildContext context,
+    @required bool showWaitDialog,
+}) async {
+
+    /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
+    if (showWaitDialog == true){
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Deleting your Account',
+      ));
+    }
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
+
+    /// WHEN USER IS AUTHOR
+    if (_userIsAuthor == true){
+
+      await _deleteAuthorUserProtocol(
+        context: context,
+        userModel: _userModel,
+      );
+
+    }
+
+    /// WHEN USER IS NOT AUTHOR
+    else {
+
+      await _deleteNonAuthorUserProtocol(
+        context: context,
+        userModel: _userModel,
+      );
+
+    }
+
+    /// CLOSE WAITING
+    if (showWaitDialog == true){
+      WaitDialog.closeWaitDialog(context);
+    }
+
+  }
+// ----------------------------------
+  static Future<void> _deleteNonAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
@@ -132,7 +182,7 @@ class UserProtocol {
           userID: userModel.id,
       );
 
-      await deleteMyUserLocallyProtocol(
+      await _deleteMyUserLocallyProtocol(
           context: context,
           userModel: userModel
       );
@@ -141,7 +191,7 @@ class UserProtocol {
 
   }
 // ----------------------------------
-  static Future<void> deleteAuthorUserProtocol({
+  static Future<void> _deleteAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
@@ -156,7 +206,7 @@ class UserProtocol {
       userModel: userModel,
     );
 
-    await deleteNonAuthorUserProtocol(
+    await _deleteNonAuthorUserProtocol(
       context: context,
       userModel: userModel,
     );
@@ -237,7 +287,7 @@ class UserProtocol {
 
   }
 // ----------------------------------
-  static Future<void> deleteMyUserLocallyProtocol({
+  static Future<void> _deleteMyUserLocallyProtocol({
     @required BuildContext context,
     @required UserModel userModel,
 }) async {

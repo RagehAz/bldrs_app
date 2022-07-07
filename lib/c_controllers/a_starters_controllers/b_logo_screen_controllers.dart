@@ -162,6 +162,7 @@ Future<void> _controlMissingFieldsCase({
       context: context,
       screen: EditProfileScreen(
         userModel: authModel.userModel,
+        canGoBack: false,
         onFinish: () async {
 
           await _goToLogoScreen(context);
