@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';

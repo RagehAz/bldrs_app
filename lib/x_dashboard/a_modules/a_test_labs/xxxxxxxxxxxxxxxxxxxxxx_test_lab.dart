@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
@@ -17,9 +20,11 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -27,6 +32,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_speci
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class TestLab extends StatefulWidget {
@@ -341,6 +347,60 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         AppBarButton(
             verse: ' A ( 5 ) ',
             onTap: () async {
+
+              blog('start');
+
+              // final dynamic _time = FirebaseFirestore.instance.app.
+
+              const String url = 'http://worldtimeapi.org/api/ip';
+
+              final Uri _uri = Uri.parse(url);
+
+              final http.Response _response = await http.get(
+                _uri,
+
+              );
+
+
+              final String _json = _response.body;
+
+              final Map<String, dynamic> _map = json.decode(_json);
+
+              blogMap(_map);
+
+              final String _utcDateTimeString = _map['utc_datetime'];
+
+              final DateTime _utcTime = Timers.decipherTime(
+                  time: _utcDateTimeString,
+                  fromJSON: true,
+              );
+              final DateTime _dateTime = Timers.offsetTime(
+                time: _utcTime,
+                offset: _map['utc_offset'],
+              );
+
+              blog(_utcDateTimeString);
+              Timers.blogDateTime(_dateTime);
+
+              final DateTime _now = DateTime.now();
+
+              final bool _areTheSame = Timers.timesAreTheSame(
+                  accuracy: Timers.TimeAccuracy.minute,
+                  timeA: _now,
+                  timeB: _dateTime,
+              );
+
+              blog('${_dateTime.hour} == ${_now.hour} ?');
+
+              await CenterDialog.showCenterDialog(
+                context: context,
+                title: _areTheSame == true ? 'TIME IS GOOD' : 'TIME IS BAD',
+                color: _areTheSame == true ? Colorz.green255 : Colorz.bloodTest,
+                body:
+                'Diff is : ${Timers.getTimeDifferenceInSeconds(from: _dateTime, to: _now)}\n'
+                'API : [ ${Timers.generateString_dd_month_yyyy(context: context, time: _dateTime)} ] : [ ${Timers.generateString_hh_i_mm_i_ss(_dateTime)} ]\n'
+                'NOW : [ ${Timers.generateString_dd_month_yyyy(context: context, time: _now)} ] : [ ${Timers.generateString_hh_i_mm_i_ss(_now)} ]',
+              );
 
             }
         ),

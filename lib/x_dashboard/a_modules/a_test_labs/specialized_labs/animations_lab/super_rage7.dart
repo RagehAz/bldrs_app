@@ -14,11 +14,11 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:flutter/material.dart';
 
 class SuperRage7Screen extends StatelessWidget {
-
+// -----------------------------------------------------------------------------
   const SuperRage7Screen({
     Key key
   }) : super(key: key);
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -89,34 +89,12 @@ class SuperRage7Screen extends StatelessWidget {
                     child: TalkingBalloon(
                       lines: <String>[
 
-                        'صباح الخير يا جماعة',
-                        'كل سنة و انتم طيبين',
-                        'كل سنة و انتم طيبين',
-                        'كل سنة و انتم طيبين',
-                        'كل سنة و انتم طيبين',
-                        'كل سنة و انتم طيبين',
-                        'كل سنة و انتم طيبين',
-                        'كل سنة و انتم طيبين',
-                        'كل سنة و انتم طيبين',
+                        'Buenas noches',
+                        'Esto no es solo yo',
+                        'Esta es una extensión de mí mismo.',
+                        'Hablaré todos los idiomas',
+                        'Y llegaré a todos',
 
-
-                        // 'مساء الخير يا أحمد بيه',
-                        // 'حابب أرحب بيك معانا',
-                        // 'قولي عايز ايه',
-                        // 'ده مش استاجرام و لا أولكس',
-                        // 'و لا الكلام الفارغ ده',
-                        // 'هنا مكان شغل',
-                        // 'أشوف منك تعليق ميعجبنيش',
-                        // 'صورة ماتكيفنيش',
-                        // 'هازعل منك',
-                        //
-                        // 'بس انت شكلك مستخدم ذوق',
-                        // 'و بتفهم في الأصول',
-                        // 'خش خدلك لفة و لو عزت حاجة تعالى قولي',
-                        // 'نورت التطبيق يا حبيب قلبي',
-                        // 'اتفضضض اتفضل',
-                        // 'دوس عالزرار أهو',
-                        // 'أهو',
                       ],
                     ),
 
@@ -127,7 +105,6 @@ class SuperRage7Screen extends StatelessWidget {
             ),
           ),
 
-
         ],
       ),
     );
@@ -136,22 +113,22 @@ class SuperRage7Screen extends StatelessWidget {
 }
 
 class TalkingBalloon extends StatelessWidget {
-
+// -----------------------------------------------------------------------------
   const TalkingBalloon({
     @required this.lines,
     Key key
   }) : super(key: key);
-
+// -----------------------------------------------------------------------------
   final List<String> lines;
 // -----------------------------------------------------------------------------
-
   static TextStyle getStyle({
     @required BuildContext context,
   }){
     return SuperVerse.createStyle(
       context: context,
       color: Colorz.black255,
-      size: 2,
+      size: 3,
+      scaleFactor: 0.9,
       weight: VerseWeight.bold,
     );
   }

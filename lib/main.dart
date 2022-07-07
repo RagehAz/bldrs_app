@@ -96,7 +96,7 @@ class _BldrsAppState extends State<BldrsApp> {
         await Localizer.initializeLocale(_locale);
 
         /// FIREBASE
-        await initializeFirestore(
+        await Fire.initializeFirestore(
           context: context,
           fireError: _fireError,
         );

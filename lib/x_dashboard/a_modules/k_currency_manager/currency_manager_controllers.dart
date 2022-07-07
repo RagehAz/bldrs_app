@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:flutter/material.dart';
 
