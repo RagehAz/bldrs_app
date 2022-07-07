@@ -2,11 +2,15 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
+import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
@@ -124,13 +128,30 @@ class BzProtocol {
   static Future<void> deleteBzProtocol({
     @required BuildContext context,
     @required BzModel bzModel,
+    @required bool showWaitDialog,
   }) async {
 
-    // unawaited(WaitDialog.showWaitDialog(
-    //   context: context,
-    //   loadingPhrase: 'Deleting ${bzModel.name}',
-    //   canManuallyGoBack: false,
-    // ));
+    if (showWaitDialog == true){
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Deleting ${bzModel.name}',
+        canManuallyGoBack: false,
+      ));
+    }
+
+    /// DELETE BZ FLYERS
+    await _deleteAllBzFlyersOps(
+      context: context,
+      bzModel: bzModel,
+      showWaitDialog: true,
+      updateBz: false,
+    );
+
+    /// DELETE BZ NOTES
+    await NoteProtocols.deleteAllBzReceivedNotes(
+        context: context,
+        bzID: bzModel.id,
+    );
 
     /// DELETE BZ ON FIREBASE
     await BzFireOps.deleteBzOps(
@@ -138,6 +159,7 @@ class BzProtocol {
       bzModel: bzModel,
     );
 
+    /// SEND DELETION NOTES TO AUTHORS
     await NoteProtocols.sendBzDeletionNoteToAllAuthors(
       context: context,
       bzModel: bzModel,
@@ -170,7 +192,9 @@ class BzProtocol {
     );
      */
 
-    // WaitDialog.closeWaitDialog(context);
+    if (showWaitDialog == true){
+      WaitDialog.closeWaitDialog(context);
+    }
 
   }
 // ----------------------------------
@@ -274,4 +298,42 @@ class BzProtocol {
 
   }
 // -----------------------------------------------------------------------------
+  /// bz deletion ops
+// ------------------
+  static Future<void> _deleteAllBzFlyersOps({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required bool updateBz,
+    @required bool showWaitDialog,
+  }) async {
+
+    if (showWaitDialog == true){
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingPhrase: 'Deleting ${bzModel.flyersIDs.length} Flyers',
+        canManuallyGoBack: false,
+      ));
+    }
+
+    /// DELETE BZ FLYERS
+    final List<FlyerModel> _flyers = await FlyersProvider.proFetchFlyers(
+        context: context,
+        flyersIDs: bzModel.flyersIDs
+    );
+
+    await FlyerProtocol.deleteMultipleBzFlyersProtocol(
+        context: context,
+        bzModel: bzModel,
+        flyers: _flyers,
+        showWaitDialog: false,
+        updateBzEveryWhere: updateBz
+    );
+
+    if (showWaitDialog == true){
+      WaitDialog.closeWaitDialog(context);
+    }
+
+  }
+// ------------------
+
 }

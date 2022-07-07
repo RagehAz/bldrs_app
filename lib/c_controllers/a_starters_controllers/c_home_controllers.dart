@@ -377,11 +377,14 @@ List<NavModel> generateMainNavModels(BuildContext context){
     /// ZONE
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.zone),
-      title: '${_currentZone?.districtName}, ${_currentZone?.cityName}, ${_currentZone?.countryName}',
       icon: _countryFlag,
       screen: const SelectCountryScreen(),
       iconSizeFactor: 1,
       iconColor: Colorz.nothing,
+      title: ZoneModel.generateObeliskString(
+          context: context,
+          zone: _currentZone
+      ),
     ),
 
     /// SEPARATOR

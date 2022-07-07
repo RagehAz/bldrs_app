@@ -62,7 +62,7 @@ Future<void> onEditProfileTap(BuildContext context) async {
 
 // ---------------------------------
 Future<void> onDeleteMyAccount(BuildContext context) async {
-  blog('on delete user tap');
+  blog('on delete user tap aho');
 
   bool _continue = await _authorshipDeletionCheckups(context);
 
@@ -136,6 +136,8 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
 
+    blog('_userIsAuthor : $_userIsAuthor');
+
     /// USER IS AN AUTHOR
     if (_userIsAuthor == true){
 
@@ -190,6 +192,8 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
     }
 
   }
+
+  blog('_canDeleteAndExitMyBzz : $_canDeleteAndExitMyBzz');
 
   return _canDeleteAndExitMyBzz;
 }
