@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -64,7 +63,7 @@ class KeyboardFloatingField extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-    // blog('in floating : _keyboardHeight : $_keyboardHeight');
+    blog('in floating : _keyboardHeight : $_keyboardHeight');
 
     return Selector<UiProvider, bool>(
       selector: (_, UiProvider uiPro) => uiPro.keyboardIsOn,
@@ -94,111 +93,121 @@ class KeyboardFloatingField extends StatelessWidget {
               }
 
               else {
-                return WidgetFader(
-                  fadeType: FadeType.fadeIn,
-                  duration: const Duration(milliseconds: 150),
-                  curve: Curves.bounceOut,
-                  builder: (double value, Widget child){
+                return Container(
+                  color: Colorz.bloodTest,
+                  child: WidgetFader(
+                    fadeType: FadeType.fadeIn,
+                    duration: const Duration(milliseconds: 150),
+                    curve: Curves.bounceOut,
+                    builder: (double value, Widget child){
 
-                    return Transform.scale(
-                      scaleY: value,
-                      alignment: Alignment.bottomCenter,
-                      child: Opacity(
-                        opacity: value,
-                        child: child,
-                      ),
-                    );
+                      return Transform.scale(
+                        scaleY: value,
+                        alignment: Alignment.bottomCenter,
+                        child: Opacity(
+                          opacity: value,
+                          child: child,
+                        ),
+                      );
 
-                  },
-                  child: Container(
-                    width: Scale.superScreenWidth(context),
-                    height: Scale.superScreenHeight(context),
-                    alignment: Alignment.topCenter,
-                    child: Column(
-                      children: [
+                    },
+                    child: GestureDetector(
+                      // onTap: (){
+                      //
+                      //   closeKeyboard(context);
+                      //
+                      // },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
 
-                        const Expander(),
+                          // /// TOP FAKE EXPANDER TO PUSH DOWNWARDS
+                          // const Expander(),
 
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: Colorz.skyLightBlue,
-                            borderRadius: Bubble.borders(context),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
+                          /// FIELD BUBBLE
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: Colorz.skyLightBlue,
+                              borderRadius: Bubble.borders(context),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
 
-                              /// TITLE AND BACK
-                              Container(
-                                width: BldrsAppBar.width(context),
-                                height: titleHeight,
-                                // margin: const EdgeInsets.only(top: 10),
-                                alignment: superCenterAlignment(context),
-                                padding: const EdgeInsets.all(5),
-                                // color: Colorz.blackSemi255,
-                                child: Row(
-                                  children: <Widget>[
+                                /// TITLE AND BACK
+                                Container(
+                                  width: BldrsAppBar.width(context),
+                                  height: titleHeight,
+                                  // margin: const EdgeInsets.only(top: 10),
+                                  alignment: superCenterAlignment(context),
+                                  padding: const EdgeInsets.all(5),
+                                  // color: Colorz.blackSemi255,
+                                  child: Row(
+                                    children: <Widget>[
 
-                                    BackAndSearchButton(
-                                      backAndSearchAction: BackAndSearchAction.goBack,
-                                      onTap: (){
-                                        closeKeyboard(context);
-                                      },
-                                    ),
+                                      BackAndSearchButton(
+                                        backAndSearchAction: BackAndSearchAction.goBack,
+                                        onTap: (){
+                                          closeKeyboard(context);
+                                        },
+                                      ),
 
-                                    Selector<UiProvider, KeyboardModel>(
-                                      selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
-                                      shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-                                        return old?.title != newModel?.title;
-                                      },
-                                      builder: (_, KeyboardModel model, Widget child){
+                                      Selector<UiProvider, KeyboardModel>(
+                                        selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
+                                        shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
+                                          return old?.title != newModel?.title;
+                                        },
+                                        builder: (_, KeyboardModel model, Widget child){
 
-                                        return SuperVerse(
-                                          verse: model?.title?.toUpperCase(),
-                                          margin: 10,
-                                          italic: true,
-                                          weight: VerseWeight.black,
-                                        );
+                                          return SuperVerse(
+                                            verse: model?.title?.toUpperCase(),
+                                            margin: 10,
+                                            italic: true,
+                                            weight: VerseWeight.black,
+                                          );
 
-                                      },
-                                    ),
+                                        },
+                                      ),
 
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
 
-                              /// FIELD
-                              Selector<UiProvider, KeyboardModel>(
-                                selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
-                                shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-                                  return old?.title != newModel?.title;
-                                },
-                                builder: (_, KeyboardModel model, Widget child){
+                                /// FIELD
+                                Selector<UiProvider, KeyboardModel>(
+                                  selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
+                                  shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
+                                    return old?.title != newModel?.title;
+                                  },
+                                  builder: (_, KeyboardModel model, Widget child){
 
-                                  // blog('rebuilding field : ${model.title} : ${model.controller.hashCode} : ${model.controller.text}');
+                                    // blog('rebuilding field : ${model.title} : ${model.controller.hashCode} : ${model.controller.text}');
 
-                                  return FloatingField(
-                                    model: model,
-                                  );
+                                    return FloatingField(
+                                      model: model,
+                                    );
 
-                                },
-                              ),
+                                  },
+                                ),
 
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
 
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 150),
-                          curve: Curves.easeIn,
-                          width: superScreenWidth(context),
-                          constraints: BoxConstraints(
-                            maxHeight: _keyboardHeight + 10,
+                          /// BOTTOM PADDING
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 150),
+                            curve: Curves.easeIn,
+                            width: superScreenWidth(context),
+                            constraints: BoxConstraints(
+                              maxHeight: _keyboardHeight + 10,
+                            ),
+                            color: Colorz.bloodTest,
                           ),
-                          color: Colorz.bloodTest,
-                        ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );

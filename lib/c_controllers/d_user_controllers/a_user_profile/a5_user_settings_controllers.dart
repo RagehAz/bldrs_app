@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/x_screens/d_user/c_invite_people/c_invite_business
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_app_settings_controllers/app_settings_controllers.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
@@ -49,6 +48,7 @@ Future<void> onEditProfileTap(BuildContext context) async {
       context: context,
       screen: EditProfileScreen(
         userModel: _myUserModel,
+        canGoBack: true,
         onFinish: () async {
           Nav.goBack(context);
         },
@@ -72,41 +72,10 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
 
   if (_continue == true){
 
-    /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
-    unawaited(WaitDialog.showWaitDialog(
+    await UserProtocol.deleteUserProtocol(
       context: context,
-      loadingPhrase: 'Deleting your Account',
-    ));
-
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
+      showWaitDialog: true,
     );
-
-    final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
-
-    /// WHEN USER IS AUTHOR
-    if (_userIsAuthor == true){
-
-      await UserProtocol.deleteAuthorUserProtocol(
-        context: context,
-        userModel: _userModel,
-      );
-
-    }
-
-    /// WHEN USER IS NOT AUTHOR
-    else {
-
-      await UserProtocol.deleteNonAuthorUserProtocol(
-        context: context,
-        userModel: _userModel,
-      );
-
-    }
-
-    /// CLOSE WAITING
-    WaitDialog.closeWaitDialog(context);
 
     await CenterDialog.showCenterDialog(
       context: context,

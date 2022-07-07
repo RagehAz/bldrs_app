@@ -20,11 +20,13 @@ class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({
     @required this.userModel,
     @required this.onFinish,
+    @required this.canGoBack,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
   final Function onFinish;
+  final bool canGoBack;
   /// --------------------------------------------------------------------------
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -67,38 +69,38 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 // -----------------------------------------------------------------------------
   void _initializeLocalVariables(){
-    _picture.value            = widget.userModel.pic;
-    _gender.value             = widget.userModel.gender;
-    _zone.value               = widget.userModel.zone;
+    _picture.value            = widget.userModel?.pic;
+    _gender.value             = widget.userModel?.gender;
+    _zone.value               = widget.userModel?.zone;
 
     // _currentLanguageCode      = Wordz.languageCode(context);
 
-    _nameController.text      = widget.userModel.name;
-    _companyController.text   = widget.userModel.company;
-    _titleController.text     = widget.userModel.title;
+    _nameController.text      = widget.userModel?.name;
+    _companyController.text   = widget.userModel?.company;
+    _titleController.text     = widget.userModel?.title;
 
     _phoneController.text     = ContactModel.getAContactValueFromContacts(
-        contacts: widget.userModel.contacts,
+        contacts: widget.userModel?.contacts,
         contactType: ContactType.phone
     );
     _emailController.text     = ContactModel.getAContactValueFromContacts(
-      contacts: widget.userModel.contacts,
+      contacts: widget.userModel?.contacts,
       contactType: ContactType.email,
     );
     _facebookController.text  = ContactModel.getAContactValueFromContacts(
-      contacts: widget.userModel.contacts,
+      contacts: widget.userModel?.contacts,
       contactType: ContactType.facebook,
     );
     _linkedInController.text  = ContactModel.getAContactValueFromContacts(
-      contacts: widget.userModel.contacts,
+      contacts: widget.userModel?.contacts,
       contactType: ContactType.linkedIn,
     );
     _instagramController.text = ContactModel.getAContactValueFromContacts(
-      contacts: widget.userModel.contacts,
+      contacts: widget.userModel?.contacts,
       contactType: ContactType.instagram,
     );
     _twitterController.text   = ContactModel.getAContactValueFromContacts(
-      contacts: widget.userModel.contacts,
+      contacts: widget.userModel?.contacts,
       contactType: ContactType.twitter,
     );
   }
@@ -116,7 +118,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
-      if (widget.userModel.zone == null){
+      if (widget.userModel?.zone == null){
         final ZoneModel _superZone = await ZoneOps.superGetZoneByIP(context);
         _zone.value = _superZone;
       }
@@ -203,45 +205,42 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: MainLayout(
-        skyType: SkyType.black,
-        zoneButtonIsOn: false,
-        sectionButtonIsOn: false,
-        historyButtonIsOn: false,
-        appBarType: AppBarType.basic,
-        pageTitle: superPhrase(context, 'phid_updateProfile'),
-        // onBack: () => confirmEdits(
-        //     context: context,
-        //     formKey: _formKey,
-        //     newUserModel: _createUserModelFromLocalVariables(),
-        //     oldUserModel: widget.userModel,
-        //     onFinish: widget.onFinish,
-        //     loading: _loading
-        // ),
-        layoutWidget: UserEditorScreenView(
-          loading: _loading,
-          formKey: _formKey,
-          picture: _picture,
-          canPickImage: _canPickImage,
-          nameController: _nameController,
-          genderNotifier: _gender,
-          titleController: _titleController,
-          companyController: _companyController,
-          zone: _zone,
-          emailController: _emailController,
-          phoneController: _phoneController,
-          facebookController: _facebookController,
-          instagramController: _instagramController,
-          linkedInController: _linkedInController,
-          twitterController: _twitterController,
-          oldUserModel: widget.userModel,
-          createNewUserModel: _createUserModelFromLocalVariables,
-          onFinish: widget.onFinish,
-        ),
+    return MainLayout(
+      canGoBack: widget.canGoBack,
+      skyType: SkyType.black,
+      zoneButtonIsOn: false,
+      sectionButtonIsOn: false,
+      historyButtonIsOn: false,
+      appBarType: AppBarType.basic,
+      pageTitle: superPhrase(context, 'phid_updateProfile'),
+      // onBack: () => confirmEdits(
+      //     context: context,
+      //     formKey: _formKey,
+      //     newUserModel: _createUserModelFromLocalVariables(),
+      //     oldUserModel: widget.userModel,
+      //     onFinish: widget.onFinish,
+      //     loading: _loading
+      // ),
+      layoutWidget: UserEditorScreenView(
+        loading: _loading,
+        formKey: _formKey,
+        picture: _picture,
+        canPickImage: _canPickImage,
+        nameController: _nameController,
+        genderNotifier: _gender,
+        titleController: _titleController,
+        companyController: _companyController,
+        zone: _zone,
+        emailController: _emailController,
+        phoneController: _phoneController,
+        facebookController: _facebookController,
+        instagramController: _instagramController,
+        linkedInController: _linkedInController,
+        twitterController: _twitterController,
+        oldUserModel: widget.userModel,
+        createNewUserModel: _createUserModelFromLocalVariables,
+        onFinish: widget.onFinish,
+        canGoBack: widget.canGoBack,
       ),
     );
 

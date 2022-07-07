@@ -34,6 +34,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.searchHint,
     @required this.pyramidType,
     @required this.onPyramidTap,
+    @required this.canGoBack,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -60,6 +61,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final int numberOfStrips;
   final PyramidType pyramidType;
   final Function onPyramidTap;
+  final bool canGoBack;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
 
@@ -135,6 +137,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             historyButtonIsOn: historyButtonIsOn,
             zoneButtonIsOn: zoneButtonIsOn,
             searchHint: searchHint,
+            canGoBack: canGoBack,
           ),
 
         /// --- PYRAMIDS
