@@ -330,7 +330,37 @@ class NoteProtocols {
     );
 
   }
+// -----------------------------------------------------------------------------
+
+/// SUPER DELETE ALL NOTES
+
 // ----------------------------------
+  /// VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
+  static Future<void> deleteAllBzReceivedNotes({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
 
+    await NoteFireOps.deleteAllReceivedNotes(
+        context: context,
+        receiverID: bzID,
+        receiverType: NoteReceiverType.bz,
+    );
 
+  }
+// ----------------------------------
+  /// VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
+  static Future<void> deleteAllUserReceivedNotes({
+    @required BuildContext context,
+    @required String userID,
+  }) async {
+
+    await NoteFireOps.deleteAllReceivedNotes(
+      context: context,
+      receiverID: userID,
+      receiverType: NoteReceiverType.user,
+    );
+
+  }
+// ----------------------------------
 }

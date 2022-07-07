@@ -199,6 +199,7 @@ class ZoneModel {
   /// STRING GENERATORS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String generateZoneString ({
     @required BuildContext context,
     @required ZoneModel zoneModel,
@@ -244,6 +245,39 @@ class ZoneModel {
     }
 
     return _verse;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String generateObeliskString({
+    @required BuildContext context,
+    @required ZoneModel zone,
+  }){
+
+    String _line = 'Select Country';
+
+    if (zone != null){
+
+      if (zone.countryName != null && zone.countryName != '...'){
+
+        _line = zone?.countryName;
+
+        if (zone.cityName != null && zone.cityName != '...'){
+
+          _line = '${zone?.cityName}, ${zone?.countryName}';
+
+          if (zone.districtName != null && zone.districtName != '...'){
+
+            _line = '${zone?.districtName}, ${zone?.cityName}, ${zone?.countryName}';
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _line;
   }
 // -----------------------------------------------------------------------------
 }

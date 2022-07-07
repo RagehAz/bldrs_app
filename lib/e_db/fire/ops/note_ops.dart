@@ -34,6 +34,45 @@ Future<void> createNote({
 /// ALL NOTES PAGINATION
 
 // -----------------------------------
+Future<List<NoteModel>> readReceivedNotes({
+  @required BuildContext context,
+  @required String recieverID,
+  @required NoteReceiverType receiverType,
+  @required int limit,
+  QueryOrderBy orderBy,
+}) async {
+
+  final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+    context: context,
+    collName: FireColl.notes,
+    limit: limit,
+    addDocsIDs: true,
+    orderBy: orderBy,
+    finders: <FireFinder>[
+
+      FireFinder(
+          field: 'receiverID',
+          comparison: FireComparison.equalTo,
+          value: recieverID,
+      ),
+
+      FireFinder(
+          field: 'receiverType',
+          comparison: FireComparison.equalTo,
+          value: NoteModel.cipherNoteReceiverType(receiverType),
+      ),
+
+    ],
+  );
+
+  final List<NoteModel> _notes = NoteModel.decipherNotes(
+      maps: _maps,
+      fromJSON: false,
+  );
+
+  return _notes;
+}
+
 Future<List<NoteModel>> paginateAllSentNotes({
   @required BuildContext context,
   @required String senderID,
@@ -387,3 +426,58 @@ Future<void> deleteNote({
 
 }
 // -----------------------------------
+Future<void> deleteNotes({
+  @required BuildContext context,
+  @required List<NoteModel> notes,
+}) async {
+
+  if (Mapper.checkCanLoopList(notes) == true){
+
+    for (final NoteModel note in notes){
+
+      await deleteNote(
+          context: context,
+          noteID: note.id,
+      );
+
+    }
+
+  }
+
+}
+// -----------------------------------
+Future<void> deleteAllReceivedNotes({
+  @required BuildContext context,
+  @required String receiverID,
+  @required NoteReceiverType receiverType,
+}) async {
+
+  final List<NoteModel> _notesToDelete = <NoteModel>[];
+
+  /// READ ALL NOTES
+  for (int i = 0; i <= 500; i++){
+    final List<NoteModel> _notes = await readReceivedNotes(
+      context: context,
+      limit: 10,
+      receiverType: receiverType,
+      recieverID: receiverID,
+    );
+    if (Mapper.checkCanLoopList(_notes) == true){
+      _notesToDelete.addAll(_notes);
+    }
+    else {
+      break;
+    }
+  }
+
+  /// DELETE ALL NOTES
+  if (Mapper.checkCanLoopList(_notesToDelete) == true){
+
+    await deleteNotes(
+      context: context,
+      notes: _notesToDelete,
+    );
+
+  }
+
+}

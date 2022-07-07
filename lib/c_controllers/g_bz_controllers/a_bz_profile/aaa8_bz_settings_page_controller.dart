@@ -2,14 +2,10 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/b_bz_editor/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
@@ -49,15 +45,10 @@ Future<void> onDeleteBzButtonTap({
 
   if (_canContinue == true){
 
-    await _deleteAllBzFlyersOps(
-      context: context,
-      bzModel: bzModel,
-      updateBz: false,
-    );
-
     await BzProtocol.deleteBzProtocol(
       context: context,
       bzModel: bzModel,
+      showWaitDialog: true,
     );
 
     /// NO NEED FOR ROUTING BACK AND SHOWING DIALOGS HERE
@@ -187,35 +178,3 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
   return _result;
 }
 // -------------------------------
-/// bz deletion ops
-// ------------------
-Future<void> _deleteAllBzFlyersOps({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required bool updateBz,
-}) async {
-
-  unawaited(WaitDialog.showWaitDialog(
-    context: context,
-    loadingPhrase: 'Deleting ${bzModel.flyersIDs.length} Flyers',
-    canManuallyGoBack: false,
-  ));
-
-  /// DELETE BZ FLYERS
-  final List<FlyerModel> _flyers = await FlyersProvider.proFetchFlyers(
-      context: context,
-      flyersIDs: bzModel.flyersIDs
-  );
-
-  await FlyerProtocol.deleteMultipleBzFlyersProtocol(
-      context: context,
-      bzModel: bzModel,
-      flyers: _flyers,
-      showWaitDialog: false,
-      updateBzEveryWhere: updateBz
-  );
-
-  WaitDialog.closeWaitDialog(context);
-
-}
-// ------------------
