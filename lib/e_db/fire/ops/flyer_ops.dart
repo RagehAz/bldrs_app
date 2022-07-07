@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
@@ -313,7 +313,7 @@ class FlyerFireOps {
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       context: context,
       collName: FireColl.flyers,
-      orderBy: const Fire.QueryOrderBy(fieldName: 'score', descending: true),
+      orderBy: const QueryOrderBy(fieldName: 'score', descending: true),
       startAfter: startAfter,
       limit: limit,
       addDocSnapshotToEachMap: true,

@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -93,7 +93,7 @@ Future<List<NoteModel>> paginateAllReceivedNotes({
       context: context,
       collName: FireColl.notes,
       startAfter: startAfter,
-      orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
       addDocsIDs: true,
       addDocSnapshotToEachMap: true,
       limit: limit,
@@ -163,7 +163,7 @@ Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
       limit: limit,
       addDocSnapshotToEachMap: true,
       addDocsIDs: true,
-      orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
       startAfter: startAfter,
       finders: generatePendingSentAuthorshipNotesFireFinder(
         senderID: senderID,
@@ -201,7 +201,7 @@ Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
       limit: limit,
       addDocSnapshotToEachMap: true,
       addDocsIDs: true,
-      orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
       finders: <FireFinder>[
         FireFinder(
           field: 'receiverID',
@@ -238,7 +238,7 @@ Stream<List<NoteModel>> getNoteModelsStream({
   @required BuildContext context,
   QueryDocumentSnapshot<Object> startAfter,
   int limit,
-  Fire.QueryOrderBy orderBy,
+  QueryOrderBy orderBy,
   List<FireFinder> finders,
 }) {
 

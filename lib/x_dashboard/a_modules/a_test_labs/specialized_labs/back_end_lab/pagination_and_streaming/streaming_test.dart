@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/streamers/clock_rebuilder.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_parameters.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -50,7 +50,7 @@ class _StreamingTestState extends State<StreamingTest> {
     _queryParameters = FireQueryModel(
       collName: 'testing',
       limit: 100,
-      orderBy: const Fire.QueryOrderBy(fieldName: 'time', descending: true),
+      orderBy: const QueryOrderBy(fieldName: 'time', descending: true),
       onDataChanged: onDataChanged,
     );
 

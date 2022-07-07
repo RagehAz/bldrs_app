@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart' as Fire;
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
@@ -106,7 +106,9 @@ class GeneralProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final AppControlsModel _controls = await fetchAppControls(context: context);
+    final AppControlsModel _controls = await fetchAppControls(
+        context: context,
+    );
 
     _appControls = _controls;
 
