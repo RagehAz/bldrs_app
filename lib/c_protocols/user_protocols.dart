@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
@@ -59,15 +60,42 @@ class UserProtocol {
         oldUserModel: _oldUserModel,
       );
 
+      await updateUserModelLocally(
+        context: context,
+        newUserModel: _uploadedModel,
+      );
+
+    }
+
+    return _uploadedModel ?? newUserModel;
+  }
+// ----------------------------------
+  static Future<void> updateUserModelLocally({
+    @required UserModel newUserModel,
+    @required BuildContext context,
+  }) async {
+
+    final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    final bool _modelsAreIdentical = UserModel.checkUsersAreIdentical(
+        user1: newUserModel,
+        user2: _oldUserModel
+    );
+
+    if (_modelsAreIdentical == false){
+
       /// UPDATE USER AND AUTH IN PRO
       UsersProvider.proUpdateUserAndAuthModels(
         context: context,
-        userModel: _uploadedModel,
+        userModel: newUserModel,
         notify: true,
       );
 
       /// UPDATE USER MODEL IN LDB
-      await UserLDBOps.updateUserModel(_uploadedModel);
+      await UserLDBOps.updateUserModel(newUserModel);
 
       /// UPDATE AUTH MODEL IN LDB
       final AuthModel _authModel = UsersProvider.proGetAuthModel(
@@ -78,7 +106,6 @@ class UserProtocol {
 
     }
 
-    return _uploadedModel ?? newUserModel;
   }
 // -----------------------------------------------------------------------------
 
@@ -100,12 +127,15 @@ class UserProtocol {
 
     if (_success == true){
 
-      /// LDB : DELETE USER MODEL
-      await UserLDBOps.deleteUserOps(userModel.id);
-      await AuthLDBOps.deleteAuthModel(userModel.id);
+      await NoteProtocols.deleteAllUserReceivedNotes(
+          context: context,
+          userID: userModel.id,
+      );
 
-      /// LDB : DELETE SAVED FLYERS
-      await FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs);
+      await deleteMyUserLocallyProtocol(
+          context: context,
+          userModel: userModel
+      );
 
     }
 
@@ -155,6 +185,7 @@ class UserProtocol {
         await BzProtocol.deleteBzProtocol(
           context: context,
           bzModel: bzModel,
+          showWaitDialog: true,
         );
 
         await BzProtocol.localBzDeletionProtocol(
@@ -203,6 +234,20 @@ class UserProtocol {
       }
 
     }
+
+  }
+// ----------------------------------
+  static Future<void> deleteMyUserLocallyProtocol({
+    @required BuildContext context,
+    @required UserModel userModel,
+}) async {
+
+    /// LDB : DELETE USER MODEL
+    await UserLDBOps.deleteUserOps(userModel.id);
+    await AuthLDBOps.deleteAuthModel(userModel.id);
+
+    /// LDB : DELETE SAVED FLYERS
+    await FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs);
 
   }
 // -----------------------------------------------------------------------------
