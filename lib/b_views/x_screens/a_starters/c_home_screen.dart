@@ -1,10 +1,16 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/cc_home_screen_view.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/c_home_controllers.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -112,8 +118,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: true);
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
+
     /// TASK MAIN NAV MODELS SHOULD BE PLACED IN PROVIDER TO LISTEN TO REBUILDS WHEN DELETING A BZ
-    final List<NavModel> _navModels = generateMainNavModels(context);
+    /// TASK : IT SHOULD WORK NOW AS WE PUT THE PRO GETTERS OUTSIDE THE BELOW METHOD
+    final List<NavModel> _navModels = generateMainNavModels(
+      context: context,
+      userModel: _userModel,
+      bzzModels: _bzzModels,
+      currentZone: _currentZone,
+    );
 
     return MainLayout(
       key: const ValueKey<String>('mainLayout'),

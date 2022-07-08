@@ -1,6 +1,8 @@
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -150,129 +152,157 @@ class CenterDialog extends StatelessWidget {
 
     final String _confirmButtonText = _getConfirmButtonText();
 
+    final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
+    final double _keyboardHeight = _keyboardIsOn == true ? MediaQuery.of(context).viewInsets.bottom : 0;
+
+    blog('in dialog : _keyboardIsOn : $_keyboardIsOn');
+
     return SafeArea(
-      child: AlertDialog(
-        backgroundColor: Colorz.nothing,
-        // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
-        contentPadding: EdgeInsets.zero,
-        elevation: 10,
+      child: Scaffold(
+        backgroundColor: Colorz.black80,
+        resizeToAvoidBottomInset: true,
+        body: AlertDialog(
+          backgroundColor: Colorz.nothing,
+          // shape: RoundedRectangleBorder(borderRadius: Borderers.superBorderAll(context, 20)),
+          contentPadding: EdgeInsets.zero,
+          elevation: 10,
 
-        insetPadding: EdgeInsets.zero,
+          insetPadding: EdgeInsets.zero,
 
-        content: Builder(
-          builder: (BuildContext xxx) {
-            return GestureDetector(
-              onTap: () => Nav.goBack(xxx),
-              child: Container(
-                width: _screenWidth,
-                height: _screenHeight,
-                // padding: EdgeInsets.symmetric(horizontal: _dialogHorizontalMargin, vertical: _dialogVerticalMargin),
-                color: Colorz.black80,
-                alignment: Alignment.center,
-                child: Container(
-                  width: _dialogWidth,
-                  height: _dialogHeight,
-                  decoration: BoxDecoration(
-                      color: color,
-                      boxShadow: Shadowz.appBarShadow,
-                      borderRadius: _dialogBorders),
-                  child: Column(
-                    // mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+          content: Builder(
+            builder: (BuildContext xxx) {
 
-                      Container(
-                        width: _dialogWidth,
-                        height: _contentZoneHeight,
-                        alignment: Alignment.center,
-                        // color: Colorz.White30,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-
-                            /// TITLE
-                            Container(
-                              width: _dialogWidth,
-                              // height: _titleZoneHeight,
-                              alignment: Alignment.center,
-                              // color: Colorz.BloodTest,
-                              child: title == null ? Container()
-                                  :
-                              SuperVerse(
-                                verse: title,
-                                color: Colorz.yellow255,
-                                shadow: true,
-                                size: 3,
-                                italic: true,
-                                maxLines: 2,
-                                // labelColor: Colorz.Yellow,
-                                margin: Ratioz.appBarMargin,
-                              ),
-                            ),
-
-                            /// BODY
-                            SizedBox(
-                              width: _dialogWidth,
-                              // height: _bodyZoneHeight,
-                              child: SuperVerse(
-                                verse: body.runtimeType == String ? body
-                                    :
-                                body.toString(),
-                                maxLines: 6,
-                                margin: Ratioz.appBarMargin,
-                              ),
-                            ),
-
-                            /// child
-                            if (child != null)
-                              SizedBox(
-                                  width: _dialogWidth,
-                                  // height: _childZoneHeight,
-                                  child: child
-                              ),
-
-                          ],
-                        ),
-                      ),
-
-                      /// BUTTONS
-                      if (boolDialog != null)
-                        SizedBox(
+              return GestureDetector(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: GestureDetector(
+                    onTap: (){
+                      blog('tapping outside the dialog');
+                      Nav.goBack(context);
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                      width: _screenWidth,
+                      height: _keyboardIsOn == true ? (_screenHeight - _keyboardHeight * 0.5) : _screenHeight,
+                      alignment: Alignment.center,
+                      color: Colorz.nothing, // to let parent gesture detector detect this container
+                      child: GestureDetector(
+                        onTap: (){
+                          blog('tapping on dialog bubble');
+                          Keyboarders.closeKeyboard(context);
+                        },
+                        child: Container(
                           width: _dialogWidth,
-                          height: _buttonZoneHeight,
-                          // color: Colorz.BloodTest,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          height: _dialogHeight,
+                          decoration: BoxDecoration(
+                              color: color,
+                              boxShadow: Shadowz.appBarShadow,
+                              borderRadius: _dialogBorders,
+                          ),
+                          child: Column(
+                            // mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
 
-                              if (boolDialog == true)
-                                DialogButton(
-                                  verse: 'No',
-                                  color: Colorz.white80,
-                                  onTap: () =>
-                                      Nav.goBack(xxx, passedData: false),
-                                ),
+                              /// TITLE - BODY - CHILD
+                              Container(
+                                width: _dialogWidth,
+                                height: _contentZoneHeight,
+                                alignment: Alignment.center,
+                                // color: Colorz.White30,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
 
-                              DialogButton(
-                                verse: _confirmButtonText,
-                                verseColor: Colorz.black230,
-                                color: Colorz.yellow255,
-                                onTap: boolDialog == true ? () => Nav.goBack(xxx, passedData: true)
-                                    : onOk ?? () => Nav.goBack(xxx),
+                                    /// TITLE
+                                    Container(
+                                      width: _dialogWidth,
+                                      // height: _titleZoneHeight,
+                                      alignment: Alignment.center,
+                                      // color: Colorz.BloodTest,
+                                      child: title == null ? Container()
+                                          :
+                                      SuperVerse(
+                                        verse: title,
+                                        color: Colorz.yellow255,
+                                        shadow: true,
+                                        size: 3,
+                                        italic: true,
+                                        maxLines: 2,
+                                        // labelColor: Colorz.Yellow,
+                                        margin: Ratioz.appBarMargin,
+                                      ),
+                                    ),
+
+                                    /// BODY
+                                    SizedBox(
+                                      width: _dialogWidth,
+                                      // height: _bodyZoneHeight,
+                                      child: SuperVerse(
+                                        verse: body.runtimeType == String ? body
+                                            :
+                                        body.toString(),
+                                        maxLines: 6,
+                                        margin: Ratioz.appBarMargin,
+                                      ),
+                                    ),
+
+                                    /// child
+                                    if (child != null)
+                                      SizedBox(
+                                          width: _dialogWidth,
+                                          // height: _childZoneHeight,
+                                          child: child
+                                      ),
+
+                                  ],
+                                ),
                               ),
+
+                              /// BUTTONS
+                              if (boolDialog != null)
+                                SizedBox(
+                                  width: _dialogWidth,
+                                  height: _buttonZoneHeight,
+                                  // color: Colorz.BloodTest,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+
+                                      if (boolDialog == true)
+                                        DialogButton(
+                                          verse: 'No',
+                                          color: Colorz.white80,
+                                          onTap: () =>
+                                              Nav.goBack(xxx, passedData: false),
+                                        ),
+
+                                      DialogButton(
+                                        verse: _confirmButtonText,
+                                        verseColor: Colorz.black230,
+                                        color: Colorz.yellow255,
+                                        onTap: boolDialog == true ? () => Nav.goBack(xxx, passedData: true)
+                                            : onOk ?? () => Nav.goBack(xxx),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
 
                             ],
                           ),
                         ),
-
-                    ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+
+            },
+          ),
         ),
       ),
     );

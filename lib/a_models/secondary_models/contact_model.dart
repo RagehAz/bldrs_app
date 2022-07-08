@@ -640,7 +640,7 @@ class ContactModel {
     @required List<ContactModel> contacts1,
     @required List<ContactModel> contacts2,
   }){
-    bool _output;
+    bool _output = false;
 
     if (
     Mapper.checkCanLoopList(contacts1) == true
