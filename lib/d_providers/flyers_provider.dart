@@ -541,6 +541,17 @@ class FlyersProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  void clearSelectedFlyers({
+    @required bool notify,
+  }){
+    _selectedFlyers = <FlyerModel>[];
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -----------------------------------------------------------------------------
 
   /// PRO GETTERS
 
@@ -572,5 +583,32 @@ static Future<FlyerModel> proFetchFlyer({
 
   return _flyer;
 }
+// -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
 // -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+
+    /// _savedFlyers
+    _flyersProvider.clearSavedFlyers(notify: false);
+
+    /// _promotedFlyers
+    _flyersProvider.clearPromotedFlyers(notify: false);
+
+    /// _wallFlyers
+    _flyersProvider.clearWallFlyers(notify: false);
+
+    /// _selectedFlyers
+    _flyersProvider.clearSelectedFlyers(
+      notify: true,
+    );
+
+  }
+// -----------------------------------------------------------------------------
 }

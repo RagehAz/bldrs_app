@@ -116,7 +116,10 @@ class MainLayout extends StatelessWidget {
 // -----------------------------------------------------------------------------
   void _onDrawerChanged(context, bool drawerIsOn){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    _uiProvider.setKeywordsDrawerIsOn(setTo: drawerIsOn);
+    _uiProvider.setKeywordsDrawerIsOn(
+      setTo: drawerIsOn,
+      notify: true,
+    );
   }
 // -----------------------------------------------------------------------------
   void _onBack(BuildContext context){
@@ -134,7 +137,11 @@ class MainLayout extends StatelessWidget {
     else if (_drawerIsOn == true){
       Keyboarders.closeKeyboard(context);
       Nav.goBack(context);
-      _uiProvider.setKeywordsDrawerIsOn(setTo: false);
+
+      _uiProvider.setKeywordsDrawerIsOn(
+        setTo: false,
+        notify: true,
+      );
     }
 
     else if (onBack != null){

@@ -177,6 +177,16 @@ class ChainsProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  void clearKeywordsChainAndTheirPhrases({
+  @required bool notify,
+}){
+    setKeywordsChainAndTheirPhrases(
+      keywordsChain: null,
+      keywordsChainPhrases: <Phrase>[],
+      notify: notify,
+    );
+  }
+// -------------------------------------
   /// TESTED : WORKS PERFECT
   Future<List<Phrase>> generateKeywordsPhrasesFromKeywordsChain({
     @required Chain keywordsChain,
@@ -256,6 +266,15 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+// -------------------------------------
+  void clearSpecsChain({@required bool notify}){
+
+    setSpecsChain(
+        specsChain: null,
+        notify: notify
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// KEYWORDS ICONS
@@ -332,8 +351,8 @@ class ChainsProvider extends ChangeNotifier {
   }
   // -------------------------------------
   void clearHomeWallFlyerType({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     _setHomeWallFlyerType(
       flyerType: null,
       notify: notify,
@@ -377,6 +396,31 @@ class ChainsProvider extends ChangeNotifier {
   static String proGetHomeWallPhid(BuildContext context){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     return _chainsProvider.wallPhid;
+  }
+// -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
+// -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+
+    /// _keywordsChain - _keywordsChainPhrases
+    _chainsProvider.clearKeywordsChainAndTheirPhrases(notify: false);
+
+    /// _specsChain
+    _chainsProvider.clearSpecsChain(notify: false);
+
+    /// _homeWallFlyerType
+    _chainsProvider.clearHomeWallFlyerType(notify: false);
+
+    /// _wallPhid
+    _chainsProvider.clearWallPhid(notify: true);
+
   }
 // -----------------------------------------------------------------------------
 }

@@ -51,7 +51,7 @@ class IsSignedInButton extends StatelessWidget {
 
           await AuthFireOps.signOut(
               context: context,
-              routeToUserChecker: true
+              routeToLogoScreen: true
           );
 
         }

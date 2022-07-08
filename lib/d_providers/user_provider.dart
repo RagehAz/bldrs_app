@@ -141,10 +141,23 @@ class UsersProvider extends ChangeNotifier {
 
     _myUserModel = userModel;
 
-    _myAuthModel = authModel ?? _myAuthModel.copyWith(
+    _myAuthModel = authModel ?? _myAuthModel?.copyWith(
       userModel: userModel,
     );
 
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void _setAuthModel({
+    @required AuthModel setTo,
+    @required bool notify,
+  }){
+
+    _myAuthModel = setTo;
 
     if (notify == true){
       notifyListeners();
@@ -236,7 +249,7 @@ class UsersProvider extends ChangeNotifier {
 
 // -------------------------------------
   List<Contact> _myDeviceContacts = <Contact>[];
-  final List<String> _selectedDeviceContacts = <String>[];
+  List<String> _selectedDeviceContacts = <String>[];
   List<Contact> _searchedDeviceContacts = <Contact>[];
   bool _isSearchingDeviceContacts = false;
 // -------------------------------------
@@ -245,9 +258,16 @@ class UsersProvider extends ChangeNotifier {
   List<Contact> get searchedDeviceContacts => _searchedDeviceContacts;
   bool get isSearchingDeviceContacts => _isSearchingDeviceContacts;
 // -------------------------------------
-  void setMyDeviceContacts(List<Contact> contacts){
+  void setMyDeviceContacts({
+    @required List<Contact> contacts,
+    @required bool notify,
+  }){
     _myDeviceContacts = contacts;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -------------------------------------
   bool canSearchContacts(){
@@ -277,6 +297,19 @@ class UsersProvider extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+// -------------------------------------
+  void _setSelectedDeviceContacts({
+    @required List<String> contacts,
+    @required bool notify,
+  }){
+
+    _selectedDeviceContacts = contacts;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -------------------------------------
   bool deviceContactIsSelected(String contactString){
@@ -324,15 +357,30 @@ class UsersProvider extends ChangeNotifier {
 
     /// B - WHEN FOUND CONTACTS
     if (Mapper.checkCanLoopList(_foundContacts) == true){
-      _searchedDeviceContacts = _foundContacts;
       _triggerIsSearchingDeviceContacts(searchString: searchString, notify: false);
-      notifyListeners();
+      _serSearchedDeviceContacts(
+        setTo: _foundContacts,
+        notify: true,
+      );
     }
     else {
       _triggerIsSearchingDeviceContacts(
           searchString: searchString,
           notify: true,
       );
+    }
+
+  }
+// -------------------------------------
+  void _serSearchedDeviceContacts({
+    @required List<Contact> setTo,
+    @required bool notify,
+  }){
+
+    _searchedDeviceContacts = setTo;
+
+    if (notify == true){
+      notifyListeners();
     }
 
   }
@@ -434,6 +482,54 @@ class UsersProvider extends ChangeNotifier {
     );
 
     return _userModel;
+  }
+// -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
+// -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+
+    /// _myUserModel
+    _usersProvider.setMyUserModelAndAuthModel(
+        userModel: null,
+        notify: false,
+    );
+    /// _myAuthModel
+    _usersProvider._setAuthModel(
+      setTo: null,
+      notify: false,
+    );
+
+    /// _myDeviceContacts
+    _usersProvider.setMyDeviceContacts(
+      contacts: <Contact>[],
+      notify: false,
+    );
+
+    /// _selectedDeviceContacts
+    _usersProvider._setSelectedDeviceContacts(
+      contacts: <String>[],
+      notify: false
+    );
+
+    /// _searchedDeviceContacts
+    _usersProvider._serSearchedDeviceContacts(
+        setTo: <Contact>[],
+        notify: false,
+    );
+
+    /// _isSearchingDeviceContacts
+    _usersProvider._setIsSearchingDeviceContacts(
+        setTo: false,
+        notify: notify,
+    );
+
   }
 // -----------------------------------------------------------------------------
 }
