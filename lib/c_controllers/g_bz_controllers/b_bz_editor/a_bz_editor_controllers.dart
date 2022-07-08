@@ -411,7 +411,7 @@ Future<void> _updateBzOps({
 
     await BzProtocol.myActiveBzLocalUpdateProtocol(
         context: context,
-        newBzModel: newBzModel,
+        newBzModel: _uploadedBzModel,
         oldBzModel: oldBzModel
     );
 

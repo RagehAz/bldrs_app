@@ -119,6 +119,7 @@ class BzFireOps {
 
     String _bzLogoURL;
 
+    /// IF ITS A FILE : UPLOAD
     if (logo != null && ObjectChecker.objectIsFile(logo) == true) {
 
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
@@ -131,8 +132,22 @@ class BzFireOps {
 
     }
 
+    /// IF ITS A URL : CREATE FILE TO COPY IMAGE THEN UPLOAD
     else if (ObjectChecker.objectIsURL(logo) == true){
-      _bzLogoURL = logo;
+
+      final File _fileFromURL = await Storage.getImageFileByURL(
+          context: context,
+          url: logo,
+      );
+
+      _bzLogoURL = await Storage.createStoragePicAndGetURL(
+        context: context,
+        inputFile: _fileFromURL,
+        picName: bzID,
+        docName: StorageDoc.logos,
+        ownerID: ownerID,
+      );
+
       blog('_bzLogoURL : used old logo : $_bzLogoURL');
     }
 

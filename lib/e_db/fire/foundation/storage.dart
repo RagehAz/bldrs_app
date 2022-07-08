@@ -513,6 +513,8 @@ Future<void> deleteStoragePic({
   @required String picName,
 }) async {
 
+  blog('deleteStoragePic : start');
+
   final dynamic _result = await tryCatchAndReturnBool(
       context: context,
       methodName: 'deleteStoragePic',
@@ -553,6 +555,9 @@ Future<void> deleteStoragePic({
   // else {
   //
   // }
+
+  blog('deleteStoragePic : end');
+
 }
 // -----------------------------------------------------------------------------
 

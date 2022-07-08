@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
@@ -355,11 +356,15 @@ class NoteProtocols {
     @required String userID,
   }) async {
 
+    blog('deleteAllUserReceivedNotes : start');
+
     await NoteFireOps.deleteAllReceivedNotes(
       context: context,
       receiverID: userID,
       receiverType: NoteReceiverType.user,
     );
+
+    blog('deleteAllUserReceivedNotes : end');
 
   }
 // ----------------------------------
