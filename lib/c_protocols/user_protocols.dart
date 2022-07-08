@@ -5,9 +5,9 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
@@ -167,6 +167,8 @@ class UserProtocol {
     @required UserModel userModel,
   }) async {
 
+    blog('_deleteNonAuthorUserProtocol : start');
+
     /// TASK SHOULD DELETE QUESTIONS, RECORDS, SEARCHES
 
     /// FIRE : DELETE USER OPS
@@ -177,17 +179,14 @@ class UserProtocol {
 
     if (_success == true){
 
-      await NoteProtocols.deleteAllUserReceivedNotes(
-          context: context,
-          userID: userModel.id,
-      );
-
       await _deleteMyUserLocallyProtocol(
           context: context,
           userModel: userModel
       );
 
     }
+
+    blog('_deleteNonAuthorUserProtocol : end');
 
   }
 // ----------------------------------
@@ -292,12 +291,16 @@ class UserProtocol {
     @required UserModel userModel,
 }) async {
 
+    blog('_deleteMyUserLocallyProtocol : start');
+
     /// LDB : DELETE USER MODEL
     await UserLDBOps.deleteUserOps(userModel.id);
     await AuthLDBOps.deleteAuthModel(userModel.id);
 
     /// LDB : DELETE SAVED FLYERS
     await FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs);
+
+    blog('_deleteMyUserLocallyProtocol : end');
 
   }
 // -----------------------------------------------------------------------------
