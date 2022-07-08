@@ -29,6 +29,7 @@ class UserProfileScreen extends StatelessWidget {
 
     return ObeliskLayout(
       initiallyExpanded: true,
+      canGoBack: true,
       appBarRowWidgets: <Widget>[
 
         const Expander(),

@@ -63,6 +63,7 @@ class KeyboardFloatingField extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    // final bool _keywordIsVisible = KeyboardVisibilityProvider?.isKeyboardVisible(context);
     blog('in floating : _keyboardHeight : $_keyboardHeight');
 
     return Selector<UiProvider, bool>(

@@ -9,11 +9,13 @@ import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/a_user_profile_screen.dart';
+import 'package:bldrs/b_views/x_screens/d_user/b_user_editor/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_app_settings/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
@@ -27,8 +29,10 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -40,6 +44,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 
 // -----------------------------------------------------------------------------
 
@@ -47,6 +52,10 @@ import 'package:provider/provider.dart';
 
 // -------------------------------
 Future<void> initializeHomeScreen(BuildContext context) async {
+
+  await checkIfUserIsMissingFields(
+    context: context,
+  );
 
   await _initializeUserZone(context);
 
@@ -292,15 +301,91 @@ Future<void> _initializeSavedFlyers(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 
+/// USER MISSING FIELDS
+
+// -------------------------------
+Future<void> checkIfUserIsMissingFields({
+  @required BuildContext context,
+}) async {
+
+  if (superUserID() != null){
+
+    final AuthModel _authModel = await AuthLDBOps.readAuthModel();
+
+    final bool _thereAreMissingFields = UserModel.checkMissingFields(_authModel?.userModel);
+
+    /// MISSING FIELDS FOUND
+    if (_thereAreMissingFields == true){
+
+      await _controlMissingFieldsCase(
+        context: context,
+        authModel: _authModel,
+      );
+
+    }
+
+  }
+
+}
+// ---------------------------------
+Future<void> _controlMissingFieldsCase({
+  @required BuildContext context,
+  @required AuthModel authModel,
+}) async {
+
+  await showMissingFieldsDialog(
+    context: context,
+    userModel: authModel?.userModel,
+  );
+
+  await Nav.goToNewScreen(
+      context: context,
+      screen: EditProfileScreen(
+        userModel: authModel.userModel,
+        canGoBack: true,
+        onFinish: () async {
+
+          // await _goToLogoScreen(context);
+
+        },
+      )
+
+  );
+
+}
+// ---------------------------------
+Future<void> showMissingFieldsDialog({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  final List<String> _missingFields = UserModel.missingFields(userModel);
+  final String _missingFieldsString = TextGen.generateStringFromStrings(
+    strings: _missingFields,
+  );
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Complete Your profile',
+    body:
+    'Required fields :\n'
+        '$_missingFieldsString',
+  );
+
+}
+// -----------------------------------------------------------------------------
+
 /// PYRAMIDS NAVIGATION
 
 // -------------------------------
-List<NavModel> generateMainNavModels(BuildContext context){
+List<NavModel> generateMainNavModels({
+  @required BuildContext context,
+  @required List<BzModel> bzzModels,
+  @required ZoneModel currentZone,
+  @required UserModel userModel,
+}){
 
-  final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: true);
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
-  final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
-  final String _countryFlag = Flag.getFlagIconByCountryID(_currentZone?.countryID);
+  final String _countryFlag = Flag.getFlagIconByCountryID(currentZone?.countryID);
 
   return <NavModel>[
 
@@ -325,12 +410,13 @@ List<NavModel> generateMainNavModels(BuildContext context){
     /// MY PROFILE
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-      title: _userModel?.name,
-      icon: _userModel?.pic,
+      title: userModel?.name ?? 'Complete my profile',
+      icon: userModel?.pic ?? Iconz.normalUser,
       screen: const UserProfileScreen(),
-      iconSizeFactor: 1,
+      iconSizeFactor: userModel?.pic == null ? 0.55 : 1,
       iconColor: Colorz.nothing,
       canShow: AuthModel.userIsSignedIn() == true,
+      forceRedDot: userModel == null || UserModel.checkMissingFields(userModel),
     ),
 
     /// SAVED FLYERS
@@ -343,13 +429,13 @@ List<NavModel> generateMainNavModels(BuildContext context){
     ),
 
     /// SEPARATOR
-    if (AuthModel.userIsSignedIn() == true && UserModel.checkUserIsAuthor(_userModel) == true)
+    if (AuthModel.userIsSignedIn() == true && UserModel.checkUserIsAuthor(userModel) == true)
       null,
 
     /// MY BZZ
-    ...List.generate(_bzzModels.length, (index){
+    ...List.generate(bzzModels.length, (index){
 
-      final BzModel _bzModel = _bzzModels[index];
+      final BzModel _bzModel = bzzModels[index];
 
       return NavModel(
           id: NavModel.getMainNavIDString(
@@ -383,7 +469,7 @@ List<NavModel> generateMainNavModels(BuildContext context){
       iconColor: Colorz.nothing,
       title: ZoneModel.generateObeliskString(
           context: context,
-          zone: _currentZone
+          zone: currentZone
       ),
     ),
 
