@@ -89,8 +89,12 @@ class UserBanner extends StatelessWidget {
     final bool _thereAreMissingFields = UserModel.checkMissingFields(userModel);
     final String _userName = userModel?.name ?? superPhrase(context, 'phid_unknown_bldr');
 
+    final Function _onTap = _thereAreMissingFields == false ?
+    null : () => onEditProfileTap(context);
+
     return Bubble(
       centered: true,
+      onBubbleTap: _onTap,
       columnChildren: <Widget>[
 
         /// PADDING
@@ -107,9 +111,7 @@ class UserBanner extends StatelessWidget {
             userModel: userModel,
             loading: false,
             showEditButton: _thereAreMissingFields,
-            onTap: _thereAreMissingFields == false ? null
-                :
-                () => onEditProfileTap(context),
+            onTap: _onTap,
           ),
         ),
 
@@ -121,6 +123,7 @@ class UserBanner extends StatelessWidget {
           margin: 5,
           maxLines: 2,
           labelColor: Colorz.white10,
+          // onTap: _onTap,
         ),
 
         /// USER JOB TITLE

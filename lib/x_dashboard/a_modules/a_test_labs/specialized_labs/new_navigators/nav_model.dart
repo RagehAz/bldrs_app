@@ -14,6 +14,7 @@ class NavModel {
     this.iconSizeFactor,
     this.onNavigate,
     this.canShow = true,
+    this.forceRedDot = false,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -25,6 +26,7 @@ class NavModel {
   final double iconSizeFactor;
   /// VISIBILITY BOOLEAN CONDITION : when to show and when not to show
   final bool canShow;
+  final bool forceRedDot;
 // -----------------------------------------------------------------------------
 
   /// GETTERS

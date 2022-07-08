@@ -84,6 +84,7 @@ class MyBzScreen extends StatelessWidget {
 
               return ObeliskLayout(
                 initiallyExpanded: true,
+                canGoBack: true,
                 onBack: (){
 
                   _bzzPro.clearMyActiveBz(notify: false);

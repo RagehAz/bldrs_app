@@ -464,7 +464,7 @@ Future<void> deleteAllReceivedNotes({
       // limit: 10,
       receiverType: receiverType,
       recieverID: receiverID,
-      startAfter: _notesToDelete?.last?.docSnapshot,
+      startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
     );
 
     if (Mapper.checkCanLoopList(_notes) == true){

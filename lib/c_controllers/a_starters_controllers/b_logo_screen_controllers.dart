@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/d_user/b_user_editor/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -17,9 +16,6 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,31 +57,11 @@ Future<void> _initializeUserModel(BuildContext context) async {
 
   final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 
-  // if (_authModel?.userModel != null){
-
-    final bool _thereAreMissingFields = UserModel.checkMissingFields(_authModel?.userModel);
-
-    /// MISSING FIELDS FOUND
-    if (_thereAreMissingFields == true){
-
-      await _controlMissingFieldsCase(
-        context: context,
-        authModel: _authModel,
-      );
-
-    }
-
-    /// NO MISSING FIELDS FOUND
-    else {
-
-      await setUserAndAuthModelsAndCompleteUserZoneLocally(
-        context: context,
-        authModel: _authModel,
-      );
-
-    }
-
-  // }
+  await setUserAndAuthModelsAndCompleteUserZoneLocally(
+    context: context,
+    authModel: _authModel,
+    notify: false,
+  );
 
   }
 
@@ -125,6 +101,7 @@ Future<UserModel> completeUserZoneModel({
 Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   @required BuildContext context,
   @required AuthModel authModel,
+  @required bool notify,
 }) async {
 
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
@@ -139,7 +116,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   _usersProvider.setMyUserModelAndAuthModel(
     userModel: _userModel,
     authModel: authModel,
-    notify: false,
+    notify: notify,
   );
 
   /// INSERT AUTH AND USER MODEL IN LDB
@@ -147,53 +124,6 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   await UserLDBOps.updateUserModel(authModel.userModel);
 
 }
-// ---------------------------------
-Future<void> _controlMissingFieldsCase({
-  @required BuildContext context,
-  @required AuthModel authModel,
-}) async {
-
-  await showMissingFieldsDialog(
-    context: context,
-    userModel: authModel?.userModel,
-  );
-
-  await Nav.goToNewScreen(
-      context: context,
-      screen: EditProfileScreen(
-        userModel: authModel.userModel,
-        canGoBack: false,
-        onFinish: () async {
-
-          await _goToLogoScreen(context);
-
-        },
-      )
-
-  );
-
-}
-// ---------------------------------
-Future<void> showMissingFieldsDialog({
-  @required BuildContext context,
-  @required UserModel userModel,
-}) async {
-
-  final List<String> _missingFields = UserModel.missingFields(userModel);
-  final String _missingFieldsString = TextGen.generateStringFromStrings(
-    strings: _missingFields,
-  );
-
-  await CenterDialog.showCenterDialog(
-    context: context,
-    title: 'Complete Your profile',
-    body:
-    'Required fields :\n'
-        '$_missingFieldsString',
-  );
-
-}
-
 // -----------------------------------------------------------------------------
 
 /// APP STATE INITIALIZATION
@@ -365,10 +295,12 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 /// NAVIGATION
 
 // ---------------------------------
+/*
 Future<void> _goToLogoScreen(BuildContext context) async {
   await Nav.pushNamedAndRemoveAllBelow(
       context: context,
       goToRoute: Routez.logoScreen,
   );
 }
+ */
 // -----------------------------------------------------------------------------
