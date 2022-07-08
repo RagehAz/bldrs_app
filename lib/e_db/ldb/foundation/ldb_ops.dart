@@ -251,7 +251,7 @@ Future<void> deleteAllMapsAtOnce({
   await Sembast.deleteAllAtOnce(docName: docName);
 
 }
-
+// ----------------------------------------
 Future<void> wipeOutEntireLDB() async {
 
   const List<String> _docs = LDBDoc.allDocs;

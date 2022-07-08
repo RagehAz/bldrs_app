@@ -148,13 +148,17 @@ class AuthorModel {
   static List<AuthorModel> decipherAuthors(Map<String, dynamic> maps) {
     final List<AuthorModel> _authors = <AuthorModel>[];
 
-    final List<String> _keys = maps.keys.toList();
+    if (maps != null){
 
-    if (Mapper.checkCanLoopList(_keys)) {
-      for (final String key in _keys) {
-        final AuthorModel _author = decipherAuthor(maps[key]);
-        _authors.add(_author);
+      final List<String> _keys = maps.keys.toList();
+
+      if (Mapper.checkCanLoopList(_keys)) {
+        for (final String key in _keys) {
+          final AuthorModel _author = decipherAuthor(maps[key]);
+          _authors.add(_author);
+        }
       }
+
     }
 
     return _authors;

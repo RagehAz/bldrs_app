@@ -26,17 +26,19 @@ class SeparatorLine extends StatelessWidget {
 
     final dynamic _margins = margins ?? const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin);
 
-    return Container(
-      width: _width,
-      height: thickness,
-      // alignment: Aligners.superCenterAlignment(context),
-      margin: Scale.superMargins(margins: _margins) ,
-      color: lineIsON ? Colorz.yellow255 : null,
-      // child: Container(
-      //   width: _width * 0.8,
-      //   height: 0.25,
-      //   color: Colorz.yellow255,
-      // ),
+    return Center(
+      child: Container(
+        width: _width,
+        height: thickness,
+        // alignment: Aligners.superCenterAlignment(context),
+        margin: Scale.superMargins(margins: _margins) ,
+        color: lineIsON ? Colorz.yellow255 : null,
+        // child: Container(
+        //   width: _width * 0.8,
+        //   height: 0.25,
+        //   color: Colorz.yellow255,
+        // ),
+      ),
     );
   }
 }

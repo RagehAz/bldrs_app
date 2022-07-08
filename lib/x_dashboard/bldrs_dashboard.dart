@@ -1,6 +1,14 @@
+import 'dart:async';
+
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -23,6 +31,8 @@ import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 
 class BldrsDashBoard extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -30,6 +40,166 @@ class BldrsDashBoard extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  List<DashButtonModel> _getButtons(){
+
+
+    final List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// TEST LAB
+      DashButtonModel(
+        verse: 'Test Lab',
+        icon: Iconz.lab,
+        screen: const TestLab(),
+      ),
+
+      null,
+
+      /// TEST LAB
+      DashButtonModel(
+        verse: 'App Controls',
+        icon: Iconz.dashBoard,
+        screen: const AppControlsManager(),
+      ),
+
+
+      /// PHRASES EDITOR
+      DashButtonModel(
+        verse: 'Phrases\nEditor',
+        icon: Iconz.language,
+        screen: const TranslationsManager(),
+      ),
+
+      /// CHAINS EDITOR
+      DashButtonModel(
+        verse: 'Chains\nEditor',
+        icon: Iconz.keyword,
+        screen: const ChainsManagerScreen(),
+      ),
+
+      /// NOTIFICATIONS CREATOR
+      DashButtonModel(
+        verse: 'Notes\nCreator',
+        icon: Iconz.news,
+        screen: const NotesCreatorScreen(),
+      ),
+
+      /// ZONES EDITOR
+      DashButtonModel(
+        verse: 'Zones Editor',
+        icon: Iconz.earth,
+        screen: const ZonesEditorScreen(),
+      ),
+
+      /// BZZ MANAGER
+      DashButtonModel(
+        verse: 'Businesses Manager',
+        icon: Iconz.bz,
+        screen: const BzzManagerScreen(),
+      ),
+
+      /// USERS MANAGER
+      DashButtonModel(
+        verse: 'Users Manager',
+        icon: Iconz.users,
+        screen: const UsersManagerScreen(),
+      ),
+
+      /// FLYERS AUDITOR
+      DashButtonModel(
+        verse: 'Flyers Auditor',
+        icon: Iconz.verifyFlyer,
+        screen: const FlyersAuditor(),
+      ),
+
+      null,
+
+      /// ALL FLYERS
+      DashButtonModel(
+        verse: 'All Flyers',
+        icon: Iconz.flyerScale,
+        screen: const AllFlyersScreen(),
+      ),
+
+      null,
+
+      /// STATISTICS
+      DashButtonModel(
+        verse: 'Statistics',
+        icon: Iconz.statistics,
+        screen: const GeneralStatistics(),
+      ),
+
+      null,
+
+      /// BIGMC
+      DashButtonModel(
+        verse: 'BigMc',
+        icon: Iconz.bigMac,
+        screen: const PricingScreen(),
+      ),
+
+      DashButtonModel(
+        verse: 'Currencies',
+        icon: Iconz.dollar,
+        screen: const CurrencyManagerScreen(),
+      ),
+
+      /// LDB VIEWER
+      DashButtonModel(
+        verse: 'Local db viewers',
+        icon: Iconz.terms,
+        screen: const LDBViewersScreen(),
+      ),
+
+      null,
+
+      /// UI MANAGER
+      DashButtonModel(
+        verse: 'UI Manager',
+        icon: Iconz.dvDonaldDuck,
+        screen: const UIManager(),
+      ),
+
+    ];
+
+    return _buttons;
+  }
+  // -------------------------------------------------------
+  Future<void> _onRebootSystem(BuildContext context) async {
+
+      final bool _result = await CenterDialog.showCenterDialog(
+        context: context,
+        title: 'Reboot System ?',
+        body: 'This will clear all local data, all cache in pro and in LDB, continue ?',
+        boolDialog: true,
+        confirmButtonText: 'Fuck it !',
+      );
+
+      if (_result == true){
+
+        unawaited(WaitDialog.showWaitDialog(
+          context: context,
+          loadingPhrase: 'Rebooting system',
+        ));
+
+        /// WIPE OUT LDB
+        await LDBOps.wipeOutEntireLDB();
+
+        /// WIPE OUT PRO
+        GeneralProvider.wipeOutAllProviders(context);
+
+        /// SIGN OUT
+        await AuthFireOps.signOut(
+            context: context,
+            routeToLogoScreen: true
+        );
+
+        WaitDialog.closeWaitDialog(context);
+
+      }
+
+  }
+  // -------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -51,130 +221,30 @@ class BldrsDashBoard extends StatelessWidget {
       crossAxisCount: numberOfColumns,
     );
 // -------------------------------------------------------
-    final List<DashButtonModel> _buttons = <DashButtonModel>[
 
-      /// TEST LAB
-      DashButtonModel(
-          verse: 'Test Lab',
-          icon: Iconz.lab,
-          screen: const TestLab(),
-      ),
-
-      null,
-
-      /// TEST LAB
-      DashButtonModel(
-          verse: 'App Controls',
-          icon: Iconz.dashBoard,
-          screen: const AppControlsManager(),
-      ),
-
-
-      /// PHRASES EDITOR
-      DashButtonModel(
-          verse: 'Phrases\nEditor',
-          icon: Iconz.language,
-          screen: const TranslationsManager(),
-      ),
-
-      /// CHAINS EDITOR
-      DashButtonModel(
-          verse: 'Chains\nEditor',
-          icon: Iconz.keyword,
-          screen: const ChainsManagerScreen(),
-      ),
-
-      /// NOTIFICATIONS CREATOR
-      DashButtonModel(
-          verse: 'Notes\nCreator',
-          icon: Iconz.news,
-          screen: const NotesCreatorScreen(),
-      ),
-
-      /// ZONES EDITOR
-      DashButtonModel(
-          verse: 'Zones Editor',
-          icon: Iconz.earth,
-          screen: const ZonesEditorScreen(),
-      ),
-
-      /// BZZ MANAGER
-      DashButtonModel(
-          verse: 'Businesses Manager',
-          icon: Iconz.bz,
-          screen: const BzzManagerScreen(),
-      ),
-
-      /// USERS MANAGER
-      DashButtonModel(
-          verse: 'Users Manager',
-          icon: Iconz.users,
-          screen: const UsersManagerScreen(),
-      ),
-
-      /// FLYERS AUDITOR
-      DashButtonModel(
-          verse: 'Flyers Auditor',
-          icon: Iconz.verifyFlyer,
-          screen: const FlyersAuditor(),
-      ),
-
-      null,
-
-      /// ALL FLYERS
-      DashButtonModel(
-          verse: 'All Flyers',
-          icon: Iconz.flyerScale,
-          screen: const AllFlyersScreen(),
-      ),
-
-      null,
-
-      /// STATISTICS
-      DashButtonModel(
-          verse: 'Statistics',
-          icon: Iconz.statistics,
-          screen: const GeneralStatistics(),
-      ),
-
-      null,
-
-      /// BIGMC
-      DashButtonModel(
-          verse: 'BigMc',
-          icon: Iconz.bigMac,
-          screen: const PricingScreen(),
-      ),
-
-      DashButtonModel(
-        verse: 'Currencies',
-        icon: Iconz.dollar,
-        screen: const CurrencyManagerScreen(),
-      ),
-
-      /// LDB VIEWER
-      DashButtonModel(
-          verse: 'Local db viewers',
-          icon: Iconz.terms,
-          screen: const LDBViewersScreen(),
-      ),
-
-      null,
-
-      /// UI MANAGER
-      DashButtonModel(
-          verse: 'UI Manager',
-          icon: Iconz.dvDonaldDuck,
-          screen: const UIManager(),
-      ),
-
-    ];
+    final List<DashButtonModel> _buttons = _getButtons();
 // -------------------------------------------------------
     return MainLayout(
       skyType: SkyType.black,
-      appBarType: AppBarType.non,
+      appBarType: AppBarType.basic,
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
       pyramidsAreOn: true,
-      layoutWidget: Column(
+      pyramidType: PyramidType.white,
+      appBarRowWidgets: <Widget>[
+
+        const Expander(),
+
+        AppBarButton(
+          verse: 'Reboot System',
+          icon: Iconz.reload,
+          onTap: () => _onRebootSystem(context),
+        ),
+
+      ],
+      layoutWidget: ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
 
           /// BESM ALLAH
@@ -191,34 +261,31 @@ class BldrsDashBoard extends StatelessWidget {
             ),
           ),
 
-          const SeparatorLine(),
+          const SeparatorLine(width: 200),
 
           /// BUTTONS
-          SizedBox(
-            width: _screenWidth,
-            height: _screenHeight - 50 - 20.25,
-            child: GridView.builder(
-              physics: const BouncingScrollPhysics(),
-                itemCount: _buttons.length,
-                gridDelegate: _gridDelegate,
-                padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 100),
-                itemBuilder: (BuildContext context, int index){
+          GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+              itemCount: _buttons.length,
+              gridDelegate: _gridDelegate,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 100),
+              itemBuilder: (BuildContext context, int index){
 
-                  final DashButtonModel _button = _buttons[index];
+                final DashButtonModel _button = _buttons[index];
 
-                  if (_button == null){
-                    return const SizedBox();
-                  }
-
-                  else {
-                    return DashButton(
-                      size: _boxSize,
-                      dashButtonModel: _button,
-                    );
-                  }
-
+                if (_button == null){
+                  return const SizedBox();
                 }
-            ),
+
+                else {
+                  return DashButton(
+                    size: _boxSize,
+                    dashButtonModel: _button,
+                  );
+                }
+
+              }
           ),
 
         ],

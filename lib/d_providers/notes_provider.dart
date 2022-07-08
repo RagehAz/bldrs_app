@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 class NotesProvider extends ChangeNotifier {
 // ---------------------------------------------------------
-// --------------------
 
   /// OBELISK NOTES NUMBERS
 
@@ -238,6 +237,16 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+// -------------------------------------
+  void wipeObeliskNumbers({@required bool notify}){
+
+    _obeliskNotesNumbers = <MapModel>[];
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// PYRAMID IS FLASHING
@@ -342,6 +351,17 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+// -------------------------------------
+  void wipeUserNotes({
+    @required bool notify
+  }){
+    _userNotes = <NoteModel>[];
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// ALL BZZ RECEIVED UNSEEN NOTES
@@ -425,7 +445,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-
+// -------------------------------------
   void deleteNoteInBzzNotes({
     @required String noteID,
     @required bool notify,
@@ -435,6 +455,18 @@ class NotesProvider extends ChangeNotifier {
       bzzNotesMap: _myBzzNotes,
       noteID: noteID,
     );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void wipeAllBzzNotes({
+    @required bool notify,
+  }){
+
+    _myBzzNotes = {};
 
     if (notify == true){
       notifyListeners();
@@ -502,5 +534,30 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
+// -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
 // -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+
+    ///_obeliskNotesNumbers
+    _notesProvider.wipeObeliskNumbers(notify: false);
+
+    ///_isFlashing
+    _notesProvider.setIsFlashing(setTo: false, notify: false);
+
+    ///_userNotes
+    _notesProvider.wipeUserNotes(notify: false);
+
+    ///_myBzzNotes
+    _notesProvider.wipeAllBzzNotes(notify: true);
+
+  }
+// -----------------------------------------------------------------------------
 }

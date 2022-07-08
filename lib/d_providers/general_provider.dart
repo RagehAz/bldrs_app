@@ -1,12 +1,22 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/search_provider.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_fire_ops.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.dart';
 import 'package:flutter/material.dart';
@@ -110,11 +120,24 @@ class GeneralProvider extends ChangeNotifier {
         context: context,
     );
 
-    _appControls = _controls;
+    setAppControls(
+      setTo: _controls,
+      notify: notify,
+    );
+
+  }
+  // -------------------------------------
+  void setAppControls({
+    @required AppControlsModel setTo,
+    @required bool notify,
+  }){
+
+    _appControls = setTo;
 
     if (notify == true){
       notifyListeners();
     }
+
 
   }
   // -------------------------------------
@@ -179,7 +202,65 @@ class GeneralProvider extends ChangeNotifier {
   bool sectionIsOnline(BzSection section){
     return _onlineSections.contains(section) == true;
   }
+// -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
 // -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+
+    ///_appControls
+    _generalProvider.setAppControls(
+      setTo: null,
+      notify: false,
+    );
+
+    /// _isConnected
+    _generalProvider.setConnectivity(
+        isConnected: false,
+        notify: notify,
+    );
+
+  }
+// -----------------------------------------------------------------------------
+
+/// CONTROLLING ALL PROVIDERS
+
+// -------------------------------------
+  static void wipeOutAllProviders(BuildContext context){
+
+    /// PhraseProvider
+    PhraseProvider.wipeOut(context: context, notify: true);
+    /// UiProvider
+    UiProvider.wipeOut(context: context, notify: true);
+    /// UsersProvider
+    UsersProvider.wipeOut(context: context, notify: true);
+    /// GeneralProvider
+    GeneralProvider.wipeOut(context: context, notify: true);
+    /// NotesProvider
+    NotesProvider.wipeOut(context: context, notify: true);
+    /// UsersProvider
+    UsersProvider.wipeOut(context: context, notify: true);
+    /// ZoneProvider
+    ZoneProvider.wipeOut(context: context, notify: true);
+    /// BzzProvider
+    BzzProvider.wipeOut(context: context, notify: true);
+    /// FlyersProvider
+    FlyersProvider.wipeOut(context: context, notify: true);
+    /// ChainsProvider
+    ChainsProvider.wipeOut(context: context, notify: true);
+    /// SearchProvider
+    SearchProvider.wipeOut(context: context, notify: true);
+    /// QuestionsProvider
+    QuestionsProvider.wipeOut(context: context, notify: true);
+
+  }
+// -----------------------------------------------------------------------------
 }
 
 List<String> getActiveCountriesIDs(BuildContext context){

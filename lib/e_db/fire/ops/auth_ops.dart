@@ -483,7 +483,7 @@ Future<bool> googleSignOutOps(BuildContext context) async {
 // ---------------------------------------
 Future<void> signOut({
   @required BuildContext context,
-  @required bool routeToUserChecker,
+  @required bool routeToLogoScreen,
 }) async {
 
   blog('Signing out');
@@ -491,7 +491,7 @@ Future<void> signOut({
   await emailSignOutOps(context);
   // Nav.goToRoute(context, Routez.Starting);
 
-  if (routeToUserChecker == true) {
+  if (routeToLogoScreen == true) {
     await Nav.pushNamedAndRemoveAllBelow(
         context: context,
         goToRoute: Routez.logoScreen,

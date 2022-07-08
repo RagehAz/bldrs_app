@@ -660,6 +660,41 @@ class BzzProvider extends ChangeNotifier {
     return _bzzProvider.myActiveBzFlyers;
 
 }
-// --------------------------------
+// -----------------------------------------------------------------------------
 
+  /// WIPE OUT
+
+// -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
+    ///_sponsors
+    _bzzProvider.clearSponsors(
+      notify: false,
+    );
+
+    ///_myBzz
+    _bzzProvider.clearMyBzz(notify: false);
+
+    /// _followedBzz
+    _bzzProvider.clearFollowedBzz(notify: false);
+
+    /// _myActiveBz
+    _bzzProvider.clearMyActiveBz(notify: false);
+
+    /// _myActiveBzFlyers
+    _bzzProvider.clearActiveBzFlyers(notify: false);
+
+    /// _pendingAuthorshipInvitationsUsersIDs
+    _bzzProvider.setPendingAuthorshipInvitations(
+      notes: <NoteModel>[],
+      notify: true,
+    );
+
+  }
+// -----------------------------------------------------------------------------
 }

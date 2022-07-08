@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -126,9 +127,10 @@ Future<void> authByEmailRegister({
 
   if (_allFieldsAreValid == true) {
 
-    // /// B - LOADING
-    // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    // _uiProvider.triggerLoading(setLoadingTo: true);
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Creating new Account',
+    ));
 
     /// C - START REGISTER OPS
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -143,6 +145,8 @@ Future<void> authByEmailRegister({
         context: context,
         authModel: _authModel
     );
+
+    WaitDialog.closeWaitDialog(context);
 
   }
 
@@ -305,7 +309,10 @@ bool _prepareForEmailAuthOps({
 
   /// A - OBSCURE TEXT FIELDS
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-  _uiProvider.triggerTextFieldsObscured(setObscuredTo: true);
+  _uiProvider.triggerTextFieldsObscured(
+    setObscuredTo: true,
+    notify: true,
+  );
 
   /// B - MINIMIZE KEYBOARD
   Keyboarders.closeKeyboard(context);
