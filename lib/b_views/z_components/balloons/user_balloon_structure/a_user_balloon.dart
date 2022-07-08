@@ -82,6 +82,7 @@ class UserBalloon extends StatelessWidget {
               verse: superPhrase(context, 'phid_edit'),
               verseScaleFactor: 0.7,
               color: Colorz.red255,
+              onTap: onTap,
             ),
           ),
 

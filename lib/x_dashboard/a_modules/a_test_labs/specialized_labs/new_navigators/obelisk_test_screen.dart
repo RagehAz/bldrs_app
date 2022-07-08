@@ -14,20 +14,18 @@ class ObeliskTestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ObeliskLayout(
-        navModels: <NavModel>[
+      canGoBack: true,
+      navModels: <NavModel>[
 
-          ...List.generate(UserModel.userProfileTabsList.length, (index){
-
-            final UserTab _userTab = UserModel.userProfileTabsList[index];
-
-            return NavModel(
-              id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-                title: UserModel.translateUserTab(context: context, userTab: _userTab),
-                icon: UserModel.getUserTabIcon(_userTab),
-                screen: UserScreenViewPages.pages[index],
-            );
-
-    }),
+        ...List.generate(UserModel.userProfileTabsList.length, (index){
+          final UserTab _userTab = UserModel.userProfileTabsList[index];
+          return NavModel(
+            id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
+            title: UserModel.translateUserTab(context: context, userTab: _userTab),
+            icon: UserModel.getUserTabIcon(_userTab),
+            screen: UserScreenViewPages.pages[index],
+          );
+        }),
 
         ],
     );
