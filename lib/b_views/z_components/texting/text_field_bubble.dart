@@ -230,7 +230,7 @@ class TextFieldBubble extends StatelessWidget {
                           bubble: false,
                           corners: SuperVerse.superVerseLabelCornerValue(context, 3),
                           onTap: (){
-                            uiPro.triggerTextFieldsObscured();
+                            uiPro.triggerTextFieldsObscured(notify: true);
                           },
                           // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
                         );

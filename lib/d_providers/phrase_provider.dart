@@ -281,7 +281,19 @@ class PhraseProvider extends ChangeNotifier {
 
     blog('getSetBasicPhrases : got ${_phrases.length} _cleaned phrases trigrams');
 
-    _basicPhrases = _cleaned;
+    _setBasicPhrases(
+      setTo: _cleaned,
+      notify: notify,
+    );
+
+  }
+// -------------------------------------
+  void _setBasicPhrases({
+    @required List<Phrase> setTo,
+    @required bool notify,
+  }){
+
+    _basicPhrases = setTo;
 
     if (notify == true){
       notifyListeners();
@@ -351,7 +363,32 @@ class PhraseProvider extends ChangeNotifier {
 
     return _phrases;
   }
+// -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
 // -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
+    /// _currentLangCode
+    _phraseProvider._setCurrentLanguage(
+        code: 'en',
+        notify: false,
+    );
+
+    /// _basicPhrases
+    _phraseProvider._setBasicPhrases(
+        setTo: <Phrase>[],
+        notify: notify
+    );
+
+  }
+// -----------------------------------------------------------------------------
 }
 
 PhraseProvider getPhraseProvider(BuildContext context, {bool listen = false}){

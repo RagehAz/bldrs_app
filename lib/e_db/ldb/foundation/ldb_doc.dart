@@ -48,9 +48,10 @@
     cities,
     continents,
     currencies,
+    notes,
     basicPhrases,
     countriesPhrases,
     appState,
+    appControls,
     authModel,
-    notes,
   ];
