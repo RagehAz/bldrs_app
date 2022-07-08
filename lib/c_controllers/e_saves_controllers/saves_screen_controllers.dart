@@ -44,12 +44,19 @@ void onChangeSavedFlyersTabIndex({
 
   /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
   if (_newFlyerType != _previousTab){
+
     // blog('index is $index');
-    _uiProvider.setCurrentFlyerTypeTab(_newFlyerType);
+
+    _uiProvider.setCurrentFlyerTypeTab(
+      flyerType: _newFlyerType,
+      notify: true,
+    );
+
     tabController.animateTo(index,
         curve: Curves.easeIn,
         duration: Ratioz.duration150ms
     );
+
   }
 
 }

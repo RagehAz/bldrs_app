@@ -158,7 +158,7 @@ Future<void> onSignOut(BuildContext context) async {
 
   await AuthFireOps.signOut(
       context: context,
-      routeToUserChecker: true
+      routeToLogoScreen: true
   );
 
 }

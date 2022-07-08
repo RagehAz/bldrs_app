@@ -6,6 +6,7 @@ import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 class SearchProvider extends ChangeNotifier {
@@ -102,6 +103,18 @@ class SearchProvider extends ChangeNotifier {
     if (notify == true){
       notifyListeners();
     }
+
+  }
+// -------------------------------------
+  void closeAllSearches({
+    @required bool notify,
+  }){
+
+    _isSearchingFlyersAndBzz = false;
+    closeAllZoneSearches(
+      notify: notify,
+    );
+
 
   }
 // -----------------------------------------------------------------------------
@@ -264,4 +277,25 @@ class SearchProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+  /// WIPE OUT
+
+// -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
+
+    /// _isSearchingCountry - _isSearchingCity - _isSearchingDistrict - _isSearchingFlyersAndBzz
+    _searchProvider.closeAllSearches(notify: false);
+
+    /// _searchResult
+    _searchProvider.clearSearchResult(notify: false);
+
+    /// _searchRecords
+    _searchProvider.clearSearchRecords(notify: notify);
+
+  }
+// -----------------------------------------------------------------------------
 }

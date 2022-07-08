@@ -28,12 +28,29 @@ class UiProvider extends ChangeNotifier {
   List<String> get localAssetsPaths => _localAssetsPaths;
 // -------------------------------------
   Future<void> getSetLocalAssetsPaths({
-  @required bool notify,
-}) async {
+    @required bool notify,
+  }) async {
     final List<String> _paths = await Iconizer.getLocalAssetsPaths();
+
+    _setLocalAssetPaths(
+      paths: _paths,
+      notify: notify,
+    );
+
+  }
+// -------------------------------------
+  void _setLocalAssetPaths({
+    @required List<String> paths,
+    @required bool notify,
+  }){
+
+    _localAssetsPaths = paths;
+
     if (notify == true){
-      _localAssetsPaths = _paths;
+      notifyListeners();
     }
+
+
   }
 // -------------------------------------
   static List<String> proGetLocalAssetsPaths(BuildContext context){
@@ -168,20 +185,25 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   bool get textFieldsObscured => _textFieldsObscured;
 // -------------------------------------
-  void triggerTextFieldsObscured({bool setObscuredTo}){
+  void triggerTextFieldsObscured({
+    @required bool notify,
+    bool setObscuredTo
+  }){
 
     if (setObscuredTo == null){
       _textFieldsObscured = !_textFieldsObscured;
-      notifyListeners();
     }
 
     else {
 
       if(_textFieldsObscured != setObscuredTo){
         _textFieldsObscured = setObscuredTo;
-        notifyListeners();
       }
 
+    }
+
+    if (notify == true){
+      notifyListeners();
     }
 
   }
@@ -194,9 +216,17 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   bool get keywordsDrawerIsOn => _keywordsDrawerIsOn;
 // -------------------------------------
-  void setKeywordsDrawerIsOn({@required bool setTo}){
+  void setKeywordsDrawerIsOn({
+    @required bool setTo,
+    @required bool notify,
+  }){
+
     _keywordsDrawerIsOn = setTo;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -------------------------------------
   void closeDrawerIfOpen(BuildContext context){
@@ -213,9 +243,17 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   FlyerType get currentSavedFlyerTypeTab => _currentSavedFlyerTypeTab;
 // -------------------------------------
-  void setCurrentFlyerTypeTab(FlyerType flyerType){
+  void setCurrentFlyerTypeTab({
+    @required FlyerType flyerType,
+    @required bool notify,
+  }){
+
     _currentSavedFlyerTypeTab = flyerType;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -----------------------------------------------------------------------------
 
@@ -226,9 +264,16 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   BzTab get currentBzTab => _currentBzTab;
 // -------------------------------------
-  void setCurrentBzTab(BzTab bzTab){
+  void setCurrentBzTab({
+    @required BzTab bzTab,
+    @required bool notify,
+  }){
     _currentBzTab = bzTab;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -----------------------------------------------------------------------------
 
@@ -239,9 +284,16 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   UserTab get currentUserTab => _currentUserTab;
 // -------------------------------------
-  void setCurrentUserTab(UserTab userTab){
+  void setCurrentUserTab({
+    @required UserTab userTab,
+    @required bool notify,
+  }){
     _currentUserTab = userTab;
-    notifyListeners();
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -----------------------------------------------------------------------------
 
@@ -252,8 +304,9 @@ class UiProvider extends ChangeNotifier {
 // -------------------------------------
   double get flyerWidthFactor => _flyerWidthFactor;
 // -------------------------------------
-  void setFlyerWidthFactor({
+  void calculateSetFlyerWidthFactor({
     @required double tween,
+    @required bool notify,
     double minFactor = 0.3,
     double maxFactor = 1,
   }){
@@ -267,8 +320,24 @@ class UiProvider extends ChangeNotifier {
 
     blog('setFlyerWidthFactor : $_widthFactor');
 
-    _flyerWidthFactor = _widthFactor;
-    notifyListeners();
+    _setFlyerWidthSizeFactor(
+      widthFactor: _widthFactor,
+      notify: notify,
+    );
+
+  }
+// -------------------------------------
+  void _setFlyerWidthSizeFactor({
+    @required double widthFactor,
+    @required bool notify,
+  }){
+
+    _flyerWidthFactor = widthFactor;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -------------------------------------
   double _flyerWidthSizeFactor({
@@ -282,6 +351,39 @@ class UiProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
+  /// WIPE OUT
+
+// -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+
+    /// _localAssetsPaths
+    _uiProvider._setLocalAssetPaths(paths: <String>[], notify: false);
+    /// _loading
+    _uiProvider.triggerLoading(callerName: 'Wipeout', notify: false, setLoadingTo: false);
+    /// _keyboardModel
+    _uiProvider.setKeyboard(model: null, notify: false);
+    /// _keyboardIsOn
+    _uiProvider.setKeyboardIsOn(setTo: false, notify: false);
+    /// _textFieldsObscured
+    _uiProvider.triggerTextFieldsObscured(setObscuredTo: false, notify: false);
+    /// _keywordsDrawerIsOn
+    _uiProvider.setKeywordsDrawerIsOn(setTo: false, notify: false);
+    /// _currentSavedFlyerTypeTab
+    _uiProvider.setCurrentFlyerTypeTab(flyerType: FlyerType.all, notify: false);
+    /// _currentBzTab
+    _uiProvider.setCurrentBzTab(bzTab: BzTab.flyers, notify: false);
+    /// _currentUserTab
+    _uiProvider.setCurrentUserTab(userTab: UserTab.profile, notify: false);
+    /// _flyerWidthFactor
+    _uiProvider._setFlyerWidthSizeFactor(widthFactor: 1,notify: true);
+
+  }
+// -----------------------------------------------------------------------------
 }
 
 void triggerUILoading({

@@ -1078,7 +1078,65 @@ class ZoneProvider extends ChangeNotifier {
     );
     return _country;
   }
+// -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
 // -------------------------------------
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+
+    /// _currentContinent
+    _zoneProvider.clearCurrentContinent(notify: false);
+
+    /// _currentZone
+    _zoneProvider.clearCurrentZone(
+      notify: false,
+    );
+
+    /// _allCurrencies - currentCurrency
+    _zoneProvider._setAllCurrenciesAndCurrentCurrency(
+      allCurrencies: <CurrencyModel>[],
+      currentCurrency: null,
+      notify: false,
+    );
+
+    /// _selectedCountryCities
+    _zoneProvider._setSelectedCountryCities(
+        cities: <CityModel>[],
+        notify: false,
+    );
+
+    ///_selectedCityDistricts
+    _zoneProvider.setSelectedCityDistricts(
+        districts: <DistrictModel>[],
+        notify: false
+    );
+
+    /// _searchedCountries
+    _zoneProvider._setSearchedCountries(
+        countriesPhrases: <Phrase>[],
+        notify: false
+    );
+
+    ///_searchedCities
+    _zoneProvider._setSearchedCities(
+        cities: <CityModel>[],
+        notify: false,
+    );
+
+    /// _searchedDistricts
+    _zoneProvider._setSearchedDistricts(
+        districts: <DistrictModel>[],
+        notify: notify
+    );
+
+  }
+// -----------------------------------------------------------------------------
 }
 /// TASK : ACTIVATED & GLOBAL COUNTRIES
 

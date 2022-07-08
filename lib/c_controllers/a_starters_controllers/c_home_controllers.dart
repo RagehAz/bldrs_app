@@ -344,9 +344,7 @@ Future<void> _controlMissingFieldsCase({
         userModel: authModel.userModel,
         canGoBack: true,
         onFinish: () async {
-
-          // await _goToLogoScreen(context);
-
+          Nav.goBack(context);
         },
       )
 

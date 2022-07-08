@@ -32,7 +32,10 @@ Future<void> onImportDeviceContactsTap(BuildContext context) async {
   );
 
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  _usersProvider.setMyDeviceContacts(_deviceContacts);
+  _usersProvider.setMyDeviceContacts(
+    contacts: _deviceContacts,
+    notify: true,
+  );
 
 }
 // ---------------------------------
