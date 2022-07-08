@@ -204,7 +204,7 @@ class BldrsDashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     // -------------------------------------------------------
     const double _gridSpacing = 10;

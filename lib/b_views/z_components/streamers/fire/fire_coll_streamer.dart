@@ -50,11 +50,11 @@ class FireCollStreamer extends StatefulWidget {
       cancelOnError: false,
 
       onDone: (){
-        blog('done');
+        blog('FireCollStreamer : onStreamDataChanged done');
       },
 
       onError: (Object error){
-        blog('error : $error');
+        blog('FireCollStreamer : onStreamDataChanged error : $error');
       },
 
     );

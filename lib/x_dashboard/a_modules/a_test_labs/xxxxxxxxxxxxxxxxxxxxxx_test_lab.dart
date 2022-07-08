@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -20,12 +21,13 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
@@ -345,7 +347,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
         /// DO SOMETHING
         AppBarButton(
-            verse: ' A ( 5 ) ',
+            verse: ' date time ',
             onTap: () async {
 
               blog('start');
@@ -409,9 +411,37 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             verse: ' C ( ) ',
             onTap: () async {
 
-              blog('a77a');
+              final List<NoteModel> _notesToDelete = <NoteModel>[];
 
-              Nav.goBackToHomeScreen(context);
+              /// READ ALL NOTES
+              for (int i = 0; i <= 500; i++){
+                final List<NoteModel> _notes = await readReceivedNotes(
+                  context: context,
+                  // limit: 10,
+                  receiverType: NoteReceiverType.user,
+                  recieverID: superUserID(),
+                  startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
+                );
+
+                if (checkCanLoopList(_notes) == true){
+                  _notesToDelete.addAll(_notes);
+                }
+                else {
+                  break;
+                }
+              }
+
+              NoteModel.blogNotes(
+                  notes: _notesToDelete,
+                  methodName: 'TEST',
+              );
+
+              await deleteNotes(
+                context: context,
+                notes: _notesToDelete,
+              );
+
+              blog('DONE');
 
             }
         ),

@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         if (mounted){
           initializeObeliskNumbers(context);
-          initializeUserNotes(context);
+          // initializeUserNotes(context);
           initializeMyBzzNotes(context);
         }
 
@@ -101,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // if (_loading != null){_loading.dispose();}
     _loading.dispose();
     _keyboardSubscription.cancel();
+
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------

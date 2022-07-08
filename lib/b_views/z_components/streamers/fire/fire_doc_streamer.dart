@@ -61,11 +61,11 @@ class FireDocStreamer extends StatefulWidget {
       cancelOnError: false,
 
       onDone: (){
-        blog('done');
+        blog('FireDocStreamer : onStreamDataChanged : done');
       },
 
       onError: (Object error){
-        blog('error : $error');
+        blog('FireDocStreamer : onStreamDataChanged : error : $error');
       },
 
     );

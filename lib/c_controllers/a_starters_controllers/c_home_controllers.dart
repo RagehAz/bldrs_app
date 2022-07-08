@@ -614,14 +614,17 @@ void initializeObeliskNumbers(BuildContext context){
 /// USER NOTES STREAM
 
 // -------------------------------
-void initializeUserNotes(BuildContext context){
+Stream<QuerySnapshot<Object>> initializeUserNotes(BuildContext context){
 
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
+  Stream<QuerySnapshot<Object>> _stream;
+
   if (_userModel != null){
 
-    final Stream<QuerySnapshot<Object>> _stream  = _userUnseenReceivedNotesStream(
+    /// TASK : STREAM NEEDS TO BE CLOSED WHEN DELETING USER
+    _stream  = _userUnseenReceivedNotesStream(
       context: context
     );
 
@@ -670,6 +673,7 @@ void initializeUserNotes(BuildContext context){
 
   }
 
+  return _stream;
 }
 // -------------------------------
 ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes({
