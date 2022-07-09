@@ -23,6 +23,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/video_player.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/zoning_workspace.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,13 @@ class SpecializedLabs extends StatelessWidget {
 
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// THE GO BACK WIDGET
+      DashButtonModel(
+        verse: 'ZONING WORK SPACE',
+        icon: Iconz.earth,
+        screen: const ZoningWorkSpace(),
+      ),
 
       /// THE GO BACK WIDGET
       DashButtonModel(

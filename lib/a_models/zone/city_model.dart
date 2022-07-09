@@ -422,4 +422,26 @@ class CityModel {
     return cities;
   }
 // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// -------------------------------------
+  static List<CityModel> addCityToCities({
+    @required List<CityModel> cities,
+    @required CityModel city,
+  }){
+
+    List<CityModel> _output = <CityModel>[];
+
+    if (Mapper.checkCanLoopList(cities) == true){
+      _output = cities;
+    }
+
+    if (city != null){
+      _output.add(city);
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 }
