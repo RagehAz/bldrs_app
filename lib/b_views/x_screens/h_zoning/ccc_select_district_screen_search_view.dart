@@ -27,7 +27,6 @@ class SearchedDistrictsButtons extends StatelessWidget {
 
     /// WHEN SEARCH RESULTS
     if (Mapper.checkCanLoopList(_searchedDistricts)){
-
       return ListView.builder(
           physics: const BouncingScrollPhysics(),
           itemCount: _searchedDistricts.length,
@@ -44,7 +43,6 @@ class SearchedDistrictsButtons extends StatelessWidget {
 
           }
       );
-
     }
 
     /// WHEN RESULT IS EMPTY
