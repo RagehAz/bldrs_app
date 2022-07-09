@@ -228,6 +228,7 @@ class ZoneProvider extends ChangeNotifier {
   Future<List<CityModel>> fetchCitiesByIDs({
     @required BuildContext context,
     @required List<String> citiesIDs,
+    ValueChanged<CityModel> onCityLoaded,
   }) async {
 
     final List<CityModel> _cities = <CityModel>[];
@@ -241,6 +242,10 @@ class ZoneProvider extends ChangeNotifier {
         if (_city != null){
 
           _cities.add(_city);
+
+          if (onCityLoaded != null){
+            onCityLoaded(_city);
+          }
 
         }
 

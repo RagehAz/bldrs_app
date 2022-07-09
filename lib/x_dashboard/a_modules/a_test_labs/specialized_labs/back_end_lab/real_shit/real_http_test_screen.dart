@@ -132,6 +132,25 @@ class RealHttpTestScreen extends StatelessWidget {
           },
         ),
 
+
+        /// https://ee27-102-186-98-33.ngrok.io
+        SettingsWideButton(
+          verse: 'TEST',
+          icon: Iconz.addFlyer,
+          onTap: () async {
+
+            final Map<String, dynamic> _map = await RealHttp.readDoc(
+              context: context,
+              collName: RealColl.flyersCounters,
+              docName: 'flyerID',
+            );
+
+
+            Mapper.blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+
+          },
+        ),
+
         Container(
           width: superScreenWidth(context),
           height: superScreenHeight(context),
