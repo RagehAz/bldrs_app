@@ -153,6 +153,7 @@ Future<List<Map<String, Object>>> searchAllMaps({
   return _fixedMaps;
 }
 // ----------------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<Map<String, Object>>> searchPhrasesDoc({
   @required dynamic searchValue,
   @required String docName,
