@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/h_new_zoning/a_new_select_country_screen.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/a_new_select_country_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/new_zone_selection_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -39,7 +39,7 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
 
               final ZoneModel _zone = await Nav.goToNewScreen(
                   context: context,
-                  screen: const NewSelectCountryScreen(),
+                  screen: const SelectCountryScreen(),
               );
 
               _zone?.blogZone(methodName: 'ZONE BY ONE BUTTON');
@@ -51,7 +51,7 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
             },
           ),
 
-          NewZoneSelectionBubble(
+          ZoneSelectionBubble(
             currentZone: _bubbleZone,
             title: 'Zoning test',
             notes: const <String>[
