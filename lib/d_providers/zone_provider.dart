@@ -523,6 +523,7 @@ class ZoneProvider extends ChangeNotifier {
   /// ZONES NAMES
 
 // -------------------------------------
+  /*
 //   String translateCurrentCountryNameByCurrentLingo(BuildContext context) {
 //     final String _name = superPhrase(context, _currentCountryModel.id);
 //     return _name;
@@ -539,6 +540,7 @@ class ZoneProvider extends ChangeNotifier {
 //
 //     return _nameInCurrentLanguage ?? cityID;
 //   }
+   */
 // -----------------------------------------------------------------------------
   Future<ZoneModel> fetchZoneModelByGeoPoint({
     @required BuildContext context,
