@@ -26,6 +26,7 @@ bool textIsEnglish(String val) {
   return textIsEnglish;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 bool textStartsInArabic(String val) {
   /// \p{N} will match any unicode numeric digit.
   // String _reg = r"^[\u0621-\u064A\s\p{N}]+$" ;
@@ -93,6 +94,7 @@ bool textIsRTL(String text){
   return international.Bidi.detectRtlDirectionality(text);
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 String concludeEnglishOrArabicLang(String text) {
 
   final String _lingoCode =

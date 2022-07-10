@@ -165,7 +165,7 @@ class MainLayout extends StatelessWidget {
       key: const ValueKey<String>('Main_layout'),
       onWillPop: () async {
         _onBack(context);
-        return canGoBack;
+        return false;
       },
       child: GestureDetector(
         onTap: (){

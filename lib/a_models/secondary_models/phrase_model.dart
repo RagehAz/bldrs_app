@@ -242,7 +242,7 @@ class Phrase {
     return _phrases;
   }
 // -------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static List<Phrase> decipherMixedLangPhrases({
   @required List<Map<String, dynamic>> maps,
 }){
@@ -329,6 +329,7 @@ class Phrase {
   /// BLOGGERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void blogPhrase(){
 
     blog('PHRASE ------------------------------------- START');
@@ -369,11 +370,14 @@ class Phrase {
   /// GETTERS & SEARCHERS
 
 // -------------------------------------
-  /// Searches list of phrases of different lang codes by current the lang code
+  /// TESTED : WORKS PERFECT
   static Phrase getPhraseByCurrentLangFromMixedLangPhrases({
     @required BuildContext context,
     @required List<Phrase> phrases,
   }) {
+
+    /// NOTE : Searches list of phrases of different lang codes by current the lang code
+
     final String _currentLanguageCode = Wordz.languageCode(context);
     Phrase _phrase;
 
@@ -392,6 +396,7 @@ class Phrase {
     return _phrase;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Phrase getPhraseByLangFromPhrases({
     @required List<Phrase> phrases,
     @required String langCode,
@@ -574,6 +579,7 @@ class Phrase {
     return _result;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesTrigrams({
     @required List<Phrase> sourcePhrases,
     @required String inputText,
@@ -698,6 +704,7 @@ class Phrase {
     return _phraseInclude;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool phrasesIncludeThisID({
     @required List<Phrase> phrases,
     @required String id,
@@ -1083,6 +1090,7 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> cleanDuplicateIDs({
     @required List<Phrase> phrases,
   }){
