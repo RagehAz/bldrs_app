@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneFireOps;
 import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
@@ -804,38 +805,6 @@ class ZoneProvider extends ChangeNotifier {
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
-
-  /// COUNTRIES PHRASES
-
-// -------------------------------------
-  /*
-  /// mixed langs phrases
-   List<Phrase> _countriesPhrases = <Phrase>[];
-// -------------------------------------
-   List<Phrase> get countriesPhrases => _countriesPhrases;
-// -------------------------------------
-   */
-  // Future<void> getSetActiveCountriesPhrases({
-  //   @required BuildContext context,
-  //   // @required bool notify,
-  // }) async {
-  //
-  //   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-  //   final List<Phrase> _phrases = await _phraseProvider.generateActiveCountriesMixedLangPhrases(
-  //       context: context
-  //   );
-  //
-  //   blog('fetched ${_phrases.length} countries phrases');
-  //
-  //   //
-  //   // _countriesPhrases = _phrases;
-  //
-  //   // if (notify == true){
-  //   //   notifyListeners();
-  //   // }
-  //
-  // }
 // -------------------------------------
   Future<List<Phrase>> searchCountriesPhrasesByName({
     @required BuildContext context,
