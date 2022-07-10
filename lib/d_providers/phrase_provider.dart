@@ -80,11 +80,9 @@ class PhraseProvider extends ChangeNotifier {
       setLangCode: setLangCode,
     );
 
-    // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    // await _zoneProvider.getSetActiveCountriesPhrases(
-    //   context: context,
-    //   // notify: false,
-    // );
+    await getSetActiveCountriesPhrases(
+      context: context,
+    );
 
     await fetchSetBasicPhrases(
         context: context,
@@ -193,6 +191,34 @@ class PhraseProvider extends ChangeNotifier {
 
     return _countriesMixedLangPhrases;
   }
+
+  Future<void> getSetActiveCountriesPhrases({
+    @required BuildContext context,
+    // @required bool notify,
+  }) async {
+
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    final List<Phrase> _phrases = await _phraseProvider.generateActiveCountriesMixedLangPhrases(
+        context: context
+    );
+
+    blog('fetched ${_phrases.length} countries phrases');
+
+    await LDBOps.insertMaps(
+      inputs: Phrase.cipherMixedLangPhrases(phrases: _phrases),
+      docName: LDBDoc.countriesPhrases,
+      allowDuplicateIDs: true,
+    );
+
+    //
+    // _countriesPhrases = _phrases;
+
+    // if (notify == true){
+    //   notifyListeners();
+    // }
+
+  }
+
 // -----------------------------------------------------------------------------
 
   /// RELOADING PHRASES

@@ -3,15 +3,18 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/h_new_zoning/c_new_select_district_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/bbb_select_city_screen_all_cities_view.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_city_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -61,7 +64,7 @@ class _NewSelectCityScreen extends State<NewSelectCityScreen> {
     super.initState();
 
     final ZoneModel _initialZone = ZoneModel(
-      countryID: widget.country.id,
+      countryID: widget.country?.id,
       countryModel: widget.country,
     );
     _currentZone = ValueNotifier<ZoneModel>(_initialZone);
@@ -89,20 +92,38 @@ class _NewSelectCityScreen extends State<NewSelectCityScreen> {
         );
 
         final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+        List<CityModel> _growingList = <CityModel>[];
         final List<CityModel> _fetchedCities = await _zoneProvider.fetchCitiesByIDs(
           context: context,
-          citiesIDs: _currentZone.value.countryModel.citiesIDs,
-          onCityLoaded: (CityModel city){
+          citiesIDs: _currentZone.value.countryModel?.citiesIDs,
+          onCityLoaded: (CityModel city) async {
 
-            _countryCities.value = CityModel.addCityToCities(
+            // blog('onCityLoaded : cityID : ${city.cityID}');
+
+            _growingList = CityModel.addCityToCities(
               cities: _countryCities.value,
               city: city,
             );
 
+            final List<CityModel> _ordered = CityModel.sortCitiesAlphabetically(
+              context: context,
+              cities: _growingList,
+            );
+
+            _countryCities.value = <CityModel>[..._ordered];
+
+            blog('${_countryCities.value.length} : onCityLoaded : cityID : ${city.cityID}');
+
           },
         );
 
-        _countryCities.value = _fetchedCities;
+        if (mounted == true){
+          final List<CityModel> _ordered = CityModel.sortCitiesAlphabetically(
+            context: context,
+            cities: _fetchedCities,
+          );
+          _countryCities.value = <CityModel>[..._ordered];
+        }
 
         // ----------------------------------------
         await _triggerLoading(setTo: false);
@@ -181,7 +202,7 @@ class _NewSelectCityScreen extends State<NewSelectCityScreen> {
 
     final String _countryName = CountryModel.getTranslatedCountryName(
       context: context,
-      countryID: widget.country.id,
+      countryID: widget.country?.id,
     );
 
     return MainLayout(
@@ -197,15 +218,45 @@ class _NewSelectCityScreen extends State<NewSelectCityScreen> {
       onBack: _onBack,
       searchHint: '${superPhrase(context, 'phid_search_cities_of')} $_countryName',
       loading: _loading,
-      // appBarRowWidgets: <Widget>[
-        // const Expander(),
-        //
+      appBarRowWidgets: <Widget>[
+
+        const Expander(),
+
         // ZoneButton(
         //   zoneOverride: _appBarZone,
         //   countryOverride: widget.country,
-        //
         // ),
-      // ],
+
+        /// LOADING COUNTER
+        ValueListenableBuilder(
+            valueListenable: _loading,
+            builder: (_, bool isLoading, Widget child){
+
+              if (isLoading == true){
+                return ValueListenableBuilder(
+                  valueListenable: _countryCities,
+                  builder: (_, List<CityModel> cities, Widget child){
+
+                    return SuperVerse(
+                      verse: '${cities.length} / ${widget.country.citiesIDs.length}',
+                      weight: VerseWeight.thin,
+                      size: 1,
+                      margin: superInsets(context: context, bottom: 20, enRight: 10),
+                      labelColor: Colorz.white20,
+                      color: Colorz.yellow255,
+                    );
+
+                  },
+                );
+              }
+
+              else {
+                return const SizedBox();
+              }
+            }
+        ),
+
+      ],
       layoutWidget: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
@@ -291,6 +342,8 @@ class _NewSelectCityScreen extends State<NewSelectCityScreen> {
               return ValueListenableBuilder(
                   valueListenable: _countryCities,
                   builder: (_, List<CityModel> cities, Widget child){
+
+                    blog('building cities with ${cities.length} cities');
 
                     return SelectCityScreenAllCitiesView(
                       onCityChanged: _onCityTap,

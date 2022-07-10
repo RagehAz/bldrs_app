@@ -421,6 +421,36 @@ class CityModel {
 
     return cities;
   }
+// -------------------------------------
+  static List<CityModel> sortCitiesAlphabetically({
+    @required List<CityModel> cities,
+    @required BuildContext context,
+  }){
+    List<CityModel> _output = <CityModel>[];
+
+    if (Mapper.checkCanLoopList(cities) == true){
+
+      _output = cities;
+
+      _output.sort((CityModel a, CityModel b){
+
+        final String _nameA = CityModel.getTranslatedCityNameFromCity(
+          context: context,
+          city: a,
+        );
+
+        final String _nameB = CityModel.getTranslatedCityNameFromCity(
+          context: context,
+          city: b,
+        );
+
+        return _nameA.compareTo(_nameB);
+      });
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// MODIFIERS

@@ -197,6 +197,8 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
     @required String lingoCode
   }) async {
 
+    await _triggerLoading(setTo: true);
+
     List<Phrase> _phrases = <Phrase>[];
 
     final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
@@ -208,7 +210,13 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
       _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
     }
 
-    return _phrases;
+    await _triggerLoading(setTo: false);
+
+    final List<Phrase> _cleaned = Phrase.cleanDuplicateIDs(
+      phrases: _phrases,
+    );
+
+    return _cleaned;
   }
 // -------------------------------------
   void _onBack(){
