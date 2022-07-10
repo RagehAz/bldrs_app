@@ -18,13 +18,13 @@ class SelectCityScreenAllCitiesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    cities.sort((CityModel a, CityModel b){
-
-      final String _nameA = superPhrase(context, a.cityID);
-      final String _nameB = superPhrase(context, b.cityID);
-
-      return _nameA.compareTo(_nameB);
-    });
+    // cities.sort((CityModel a, CityModel b){
+    //
+    //   final String _nameA = superPhrase(context, a.cityID);
+    //   final String _nameB = superPhrase(context, b.cityID);
+    //
+    //   return _nameA.compareTo(_nameB);
+    // });
 
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
