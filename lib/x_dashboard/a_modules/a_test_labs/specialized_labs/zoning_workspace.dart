@@ -8,11 +8,19 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
-class ZoningWorkSpace extends StatelessWidget {
+class ZoningWorkSpace extends StatefulWidget {
 
   const ZoningWorkSpace({
     Key key
   }) : super(key: key);
+
+  @override
+  State<ZoningWorkSpace> createState() => _ZoningWorkSpaceState();
+}
+
+class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
+
+  ZoneModel _bubbleZone;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +52,7 @@ class ZoningWorkSpace extends StatelessWidget {
           ),
 
           NewZoneSelectionBubble(
-            currentZone: null,
+            currentZone: _bubbleZone,
             title: 'Zoning test',
             notes: const <String>[
               'Fuck you',
@@ -53,6 +61,19 @@ class ZoningWorkSpace extends StatelessWidget {
             onZoneChanged: (ZoneModel zone){
 
               zone.blogZone(methodName: 'ZONE Received from bubble');
+
+              if (zone != null){
+                _bubbleZone = zone;
+              }
+
+            },
+          ),
+
+          AppBarButton(
+            verse: 'blog current zone',
+            onTap: (){
+
+              _bubbleZone.blogZone();
 
             },
           ),

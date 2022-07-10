@@ -583,7 +583,7 @@ class Phrase {
 
     for (final Phrase source in sourcePhrases){
 
-      final List<String> _trigram = source.trigram;
+      final List<String> _trigram = source?.trigram;
 
       final bool _trigramContains = Mapper.checkStringsContainString(
           strings: _trigram,

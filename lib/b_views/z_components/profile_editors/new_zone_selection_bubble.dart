@@ -141,7 +141,7 @@ class _NewZoneSelectionBubbleState extends State<NewZoneSelectionBubble> {
 
       widget.onZoneChanged(_selectedZone.value);
 
-      await _onCityButtonTap(context: context);
+      // await _onCityButtonTap(context: context);
 
     }
 
@@ -209,9 +209,9 @@ class _NewZoneSelectionBubbleState extends State<NewZoneSelectionBubble> {
 
         widget.onZoneChanged(_selectedZone.value);
 
-        if (Mapper.checkCanLoopList(_selectedZone.value?.cityModel?.districts) == true){
-          await _onDistrictButtonTap(context: context);
-        }
+        // if (Mapper.checkCanLoopList(_selectedZone.value?.cityModel?.districts) == true){
+        //   await _onDistrictButtonTap(context: context);
+        // }
 
       }
 
@@ -272,6 +272,8 @@ class _NewZoneSelectionBubbleState extends State<NewZoneSelectionBubble> {
 
       /// WHEN SELECTED A DISTRICT
       else {
+
+        blog('got back with district : ${_zone.districtID}');
 
         _selectedZone.value = await ZoneProvider.proFetchCompleteZoneModel(
           context: context,

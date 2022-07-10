@@ -223,7 +223,7 @@ class CityModel {
     @required BuildContext context,
     @required CityModel city,
   }) {
-    String _cityName = '...';
+    String _cityName;
 
     if (city != null) {
 
@@ -422,6 +422,7 @@ class CityModel {
     return cities;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<CityModel> sortCitiesAlphabetically({
     @required List<CityModel> cities,
     @required BuildContext context,

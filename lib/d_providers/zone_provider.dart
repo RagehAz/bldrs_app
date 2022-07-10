@@ -7,7 +7,6 @@ import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneFireOps;
 import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
@@ -357,7 +356,7 @@ class ZoneProvider extends ChangeNotifier {
       }
 
       /// COUNTRY NAME
-      if (incompleteZoneModel.countryName == null){
+      if (incompleteZoneModel.countryName == null || incompleteZoneModel.countryName == '...'){
 
         // superPhrase(context, _zone.countryID);
         final String _countryName = CountryModel.getTranslatedCountryName(
@@ -370,7 +369,7 @@ class ZoneProvider extends ChangeNotifier {
       }
 
       /// CITY NAME
-      if (incompleteZoneModel.cityName == null){
+      if (incompleteZoneModel.cityName == null || incompleteZoneModel.cityName == '...'){
 
         // superPhrase(context, _zone.cityID);
         final String _cityName = CityModel.getTranslatedCityNameFromCity(
@@ -383,7 +382,7 @@ class ZoneProvider extends ChangeNotifier {
       }
 
       /// DISTRICT NAME
-      if (incompleteZoneModel.districtName == null){
+      if (incompleteZoneModel.districtName == null || incompleteZoneModel.districtName == '...'){
         final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
           context: context,
           city: _output.cityModel,
