@@ -190,6 +190,7 @@ class DistrictModel{
     return _districtName;
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getTranslatedDistrictNameFromDistrict({
     @required BuildContext context,
     @required DistrictModel district,
@@ -206,6 +207,7 @@ class DistrictModel{
 
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<DistrictModel> searchDistrictsByCurrentLingoName({
     @required BuildContext context,
     @required List<DistrictModel> sourceDistricts,
@@ -247,6 +249,7 @@ class DistrictModel{
     return _foundDistricts;
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<DistrictModel> _getDistrictsFromNames({
     @required List<Phrase> names,
     @required List<DistrictModel> sourceDistricts,
@@ -281,6 +284,7 @@ class DistrictModel{
 /// BLOGGERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void blogDistrict(){
 
     blog('districtID : $districtID : '
@@ -295,6 +299,7 @@ class DistrictModel{
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogDistricts(List<DistrictModel> districts){
 
     if (Mapper.checkCanLoopList(districts) == true){
@@ -317,7 +322,10 @@ class DistrictModel{
   }
 // -----------------------------------------------------------------------------
 
+  /// SORTING
 
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<DistrictModel> sortDistrictsAlphabetically({
     @required BuildContext context,
     @required List<DistrictModel> districts,
