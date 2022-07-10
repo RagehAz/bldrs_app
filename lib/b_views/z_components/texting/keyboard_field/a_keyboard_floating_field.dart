@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_field/aa_floating_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -64,7 +63,7 @@ class KeyboardFloatingField extends StatelessWidget {
 
     final double _keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
     // final bool _keywordIsVisible = KeyboardVisibilityProvider?.isKeyboardVisible(context);
-    blog('in floating : _keyboardHeight : $_keyboardHeight');
+    // blog('in floating : _keyboardHeight : $_keyboardHeight');
 
     return Selector<UiProvider, bool>(
       selector: (_, UiProvider uiPro) => uiPro.keyboardIsOn,

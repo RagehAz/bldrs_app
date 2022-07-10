@@ -12,6 +12,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
@@ -71,6 +72,10 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
 // ------------------------------------------------
   Future<void> _onCountryTap(String countryID) async {
 
+    if (mounted == true){
+      closeKeyboard(context);
+    }
+
     final ZoneModel _zone = await ZoneProvider.proFetchCompleteZoneModel(
       context: context,
       incompleteZoneModel: ZoneModel(
@@ -104,36 +109,6 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
         else {
           Nav.goBack(context, passedData: _zoneWithCity);
         }
-
-        // /// D - IF CITY IS SELECTED
-        // if (_cityID != null){
-        //
-        //   /// D.1 DEFINE ZONE WITH COUNTRY AND CITY
-        //   final ZoneModel _zone = await _zoneProvider.fetchCompleteZoneModel(
-        //       context: context,
-        //       incompleteZoneModel: ZoneModel(
-        //         countryID: countryID,
-        //         cityID: _cityID,
-        //       ),
-        //   );
-        //
-        //   // _zoneProvider.clearAllSearchesAndSelections(
-        //   //   notify: true,
-        //   // );
-        //   // _searchProvider.closeAllZoneSearches(
-        //   //   notify: true,
-        //   // );
-        //
-        //   /// D.2 GO BACK
-        //   Nav.goBack(context, passedData: _zone);
-        //
-        //
-        // }
-        //
-        // /// D - IF CITY IS NOT SELECTED
-        // else {
-        //   // ??
-        // }
 
       }
 
@@ -197,8 +172,6 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
     @required String lingoCode
   }) async {
 
-    await _triggerLoading(setTo: true);
-
     List<Phrase> _phrases = <Phrase>[];
 
     final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
@@ -209,8 +182,6 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
     if (Mapper.checkCanLoopList(_maps) == true){
       _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
     }
-
-    await _triggerLoading(setTo: false);
 
     final List<Phrase> _cleaned = Phrase.cleanDuplicateIDs(
       phrases: _phrases,
