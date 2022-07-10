@@ -6,40 +6,41 @@ import 'package:flutter/material.dart';
 class SelectCityScreenAllCitiesView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SelectCityScreenAllCitiesView({
-    @required this.cities,
+    @required this.countryCities,
     @required this.onCityChanged,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<CityModel> cities;
+  final ValueNotifier<List<CityModel>> countryCities;
   final ValueChanged<String> onCityChanged;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    // cities.sort((CityModel a, CityModel b){
-    //
-    //   final String _nameA = superPhrase(context, a.cityID);
-    //   final String _nameB = superPhrase(context, b.cityID);
-    //
-    //   return _nameA.compareTo(_nameB);
-    // });
+    return ValueListenableBuilder(
+      valueListenable: countryCities,
+      builder: (_, List<CityModel> cities, Widget child){
 
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemCount: cities.length,
-      shrinkWrap: true,
-      padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon),
-      itemBuilder: (BuildContext context, int index) {
+        return ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: cities.length,
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon),
+          itemBuilder: (BuildContext context, int index) {
 
-        final CityModel _city = cities[index];
+            final CityModel _city = cities[index];
 
-        return WideCityButton(
-            city: _city,
-            onTap: onCityChanged,
+            return WideCityButton(
+              city: _city,
+              onTap: onCityChanged,
+            );
+
+          },
         );
 
       },
     );
+
+
   }
 }
