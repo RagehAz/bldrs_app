@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -457,67 +456,6 @@ class ZoneProvider extends ChangeNotifier {
     return _countries;
   }
 // -----------------------------------------------------------------------------
-/*
-  /// USER COUNTRY MODEL
-
-// -------------------------------------
-  CountryModel _userCountyModel;
-  CityModel _userCityModel;
-// -------------------------------------
-  CountryModel get userCountryModel{
-    return _userCountyModel;
-  }
-  CityModel get userCityModel{
-    return _userCityModel;
-  }
-// -------------------------------------
-  Future<void> fetchSetUserCountryAndCity({
-    @required BuildContext context,
-    @required ZoneModel zone,
-    @required bool notify,
-  }) async {
-
-    final CountryModel _country = await fetchCountryByID(
-        context: context,
-        countryID: zone.countryID
-    );
-
-    final CityModel _city = await fetchCityByID(
-        context: context,
-        cityID: zone.cityID,
-    );
-
-    _setUserCountryAndCityModels(
-      country: _country,
-      city: _city,
-      notify: notify,
-    );
-
-  }
-// -------------------------------------
-  void _setUserCountryAndCityModels({
-    @required CountryModel country,
-    @required CityModel city,
-    @required bool notify,
-  }){
-    _userCountyModel = country;
-    _userCityModel = city;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -------------------------------------
-  void clearUserCountryModel({
-  @required bool notify,
-}){
-    _setUserCountryAndCityModels(
-      country: null,
-      city: null,
-      notify: notify,
-    );
-  }
- */
-// -----------------------------------------------------------------------------
 
   /// CURRENT ZONE & COUNTRY MODEL
 
@@ -555,14 +493,14 @@ class ZoneProvider extends ChangeNotifier {
       notify: false,
     );
 
-    _setCurrentZone(
+    setCurrentZone(
       zone: _completeZone,
       notify: notify,
     );
 
   }
 // -------------------------------------
-  void _setCurrentZone({
+  void setCurrentZone({
     @required ZoneModel zone,
     @required bool notify,
   }){
@@ -575,7 +513,7 @@ class ZoneProvider extends ChangeNotifier {
   void clearCurrentZone({
   @required bool notify,
 }){
-    _setCurrentZone(
+    setCurrentZone(
       zone: null,
       notify: notify,
     );
@@ -732,291 +670,6 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// SELECTED COUNTRY CITIES
-
-// -------------------------------------
-  List<CityModel> _selectedCountryCities = <CityModel>[];
-// -------------------------------------
-  List<CityModel> get selectedCountryCities => <CityModel>[..._selectedCountryCities];
-// -------------------------------------
-  Future<void> fetchSetSelectedCountryCities({
-    @required BuildContext context,
-    @required CountryModel countryModel,
-    @required bool notify,
-  }) async {
-
-    final List<CityModel> _fetchedCities = await fetchCitiesByIDs(
-      context: context,
-      citiesIDs: countryModel?.citiesIDs,
-    );
-
-    _setSelectedCountryCities(
-      cities: _fetchedCities,
-      notify: false,
-    );
-
-    clearSearchedCities(
-      notify: notify,
-    );
-
-  }
-// -------------------------------------
-  void _setSelectedCountryCities({
-    @required List<CityModel> cities,
-    @required bool notify,
-  }){
-    _selectedCountryCities = cities;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -------------------------------------
-  void clearSelectedCountryCities({
-  @required bool notify,
-}){
-    _setSelectedCountryCities(
-      cities: <CityModel>[],
-      notify: notify,
-    );
-  }
-// -----------------------------------------------------------------------------
-
-  /// SELECTED CITY DISTRICTS
-
-// -------------------------------------
-  List<DistrictModel> _selectedCityDistricts = <DistrictModel>[];
-// -------------------------------------
-  List<DistrictModel> get selectedCityDistricts => <DistrictModel>[..._selectedCityDistricts];
-// -------------------------------------
-  void setSelectedCityDistricts({
-    @required List<DistrictModel> districts,
-    @required bool notify,
-  }){
-    _selectedCityDistricts = districts;
-    clearSearchedDistricts(
-      notify: notify,
-    );
-  }
-// -------------------------------------
-  void clearSelectedCityDistricts({@required bool notify}){
-    setSelectedCityDistricts(
-      districts: <DistrictModel>[],
-      notify: notify,
-    );
-  }
-// -------------------------------------
-  Future<List<Phrase>> searchCountriesPhrasesByName({
-    @required BuildContext context,
-    @required String countryName,
-    @required String lingoCode
-  }) async {
-
-    List<Phrase> _phrases = <Phrase>[];
-
-    final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
-      docName: LDBDoc.countriesPhrases,
-      lingCode: lingoCode,
-      searchValue: countryName,
-    );
-    if (Mapper.checkCanLoopList(_maps) == true){
-      _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
-    }
-
-    return _phrases;
-  }
-// -------------------------------------
-
-  /// SEARCHED COUNTRIES
-
-// -------------------------------------
-  List<Phrase> _searchedCountries = <Phrase>[];
-// -------------------------------------
-  List<Phrase> get searchedCountries => <Phrase>[..._searchedCountries];
-// -------------------------------------
-  Future<void> searchSetCountriesByName({
-    @required BuildContext context,
-    @required String input,
-    @required bool notify,
-  }) async {
-
-    /// SEARCH COUNTRIES MODELS FROM FIREBASE
-    // final List<CountryModel> _foundCountries = await ZoneSearch.countriesModelsByCountryName(
-    //     context: context,
-    //     countryName: input,
-    //     lingoCode: TextChecker.concludeEnglishOrArabicLingo(input),
-    // );
-
-    /// SEARCH COUNTRIES FROM LOCAL PHRASES
-    final List<Phrase> _foundCountries = await searchCountriesPhrasesByName(
-      context: context,
-      lingoCode: TextChecker.concludeEnglishOrArabicLang(input),
-      countryName: input,
-    );
-
-    /// INSERT FOUND COUNTRIES TO LDB
-    // if (_foundCountries.isNotEmpty){
-    //   for (final CountryModel country in _foundCountries){
-    //     await LDBOps.insertMap(
-    //       input: country.toMap(toJSON: true),
-    //       docName: LDBDoc.countries,
-    //       primaryKey: 'id',
-    //     );
-    //   }
-    // }
-
-    /// SET FOUND COUNTRIES
-    _setSearchedCountries(
-      countriesPhrases: _foundCountries,
-      notify: notify,
-    );
-  }
-// -------------------------------------
-  void _setSearchedCountries({
-    @required List<Phrase> countriesPhrases,
-    @required bool notify,
-}){
-    _searchedCountries = countriesPhrases;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -------------------------------------
-  void clearSearchedCountries({
-  @required bool notify,
-}){
-    _setSearchedCountries(
-      countriesPhrases: <Phrase>[],
-      notify: notify,
-    );
-  }
-// -----------------------------------------------------------------------------
-
-  /// SEARCHED CITIES
-
-// -------------------------------------
-  List<CityModel> _searchedCities = <CityModel>[];
-// -------------------------------------
-  List<CityModel> get searchedCities => <CityModel>[..._searchedCities];
-// -------------------------------------
-  Future<void> searchSetCitiesByName({
-    @required BuildContext context,
-    @required String input,
-    @required bool notify,
-  }) async {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final List<CityModel> _selectedCountryCities = _zoneProvider.selectedCountryCities;
-
-    /// SEARCH SELECTED COUNTRY CITIES
-    final List<CityModel> _foundCities = CityModel.searchCitiesByName(
-      context: context,
-      sourceCities: _selectedCountryCities,
-      inputText: input,
-    );
-
-    blog('getSetSearchedCities : '
-        '_selectedCountryCities.length : '
-        '${_selectedCountryCities.length} : '
-        'input : $input : '
-        '_foundCities : '
-        '${_foundCities?.length}'
-    );
-
-
-    /// SET FOUND CITIES
-    _setSearchedCities(
-      cities: _foundCities,
-      notify: notify,
-    );
-
-  }
-  // -------------------------------------
-  void _setSearchedCities({
-    @required List<CityModel> cities,
-    @required bool notify,
-  }){
-    _searchedCities = cities;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-  // -------------------------------------
-  void clearSearchedCities({
-  @required bool notify,
-}){
-    _setSearchedCities(
-      cities: <CityModel>[],
-      notify: notify,
-    );
-  }
-// -----------------------------------------------------------------------------
-
-  /// SEARCHED DISTRICTS
-
-// -------------------------------------
-  List<DistrictModel> _searchedDistricts = <DistrictModel>[];
-// -------------------------------------
-  List<DistrictModel> get searchedDistricts => <DistrictModel>[..._searchedDistricts];
-// -------------------------------------
-  void searchSetDistrictsByName({
-    @required BuildContext context,
-    @required String textInput,
-    @required bool notify,
-  }){
-
-    /// SEARCH SELECTED CITY DISTRICTS
-    final List<DistrictModel> _foundDistricts = DistrictModel.searchDistrictsByCurrentLingoName(
-      context: context,
-      sourceDistricts: _selectedCityDistricts,
-      inputText: textInput,
-    );
-
-    // blog('getSetSearchedCities : _selectedCountryCities.length : ${_selectedCountryCities.length} : input : $input : _foundCities : ${_foundCities.length}' );
-    // blog('${_foundCities[0]}');
-
-    /// SET FOUND CITIES
-    _setSearchedDistricts(
-      districts: _foundDistricts,
-      notify: notify,
-    );
-
-  }
-// -------------------------------------
-  void _setSearchedDistricts({
-    @required List<DistrictModel> districts,
-    @required bool notify,
-}){
-    _searchedDistricts = districts;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -------------------------------------
-  void clearSearchedDistricts({
-  @required bool notify,
-}){
-    _setSearchedDistricts(
-      districts: <DistrictModel>[],
-      notify: notify,
-    );
-  }
-// -----------------------------------------------------------------------------
-  void clearAllSearchesAndSelections({
-  @required bool notify,
-}){
-
-    _searchedCountries = <Phrase>[];
-    _searchedCities = <CityModel>[];
-
-    _selectedCountryCities = <CityModel>[];
-    _selectedCityDistricts = <DistrictModel>[];
-
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -----------------------------------------------------------------------------
-
   /// PRO GETTERS
 
 // -------------------------------------
@@ -1078,49 +731,8 @@ class ZoneProvider extends ChangeNotifier {
       notify: false,
     );
 
-    /// _selectedCountryCities
-    _zoneProvider._setSelectedCountryCities(
-        cities: <CityModel>[],
-        notify: false,
-    );
-
-    ///_selectedCityDistricts
-    _zoneProvider.setSelectedCityDistricts(
-        districts: <DistrictModel>[],
-        notify: false
-    );
-
-    /// _searchedCountries
-    _zoneProvider._setSearchedCountries(
-        countriesPhrases: <Phrase>[],
-        notify: false
-    );
-
-    ///_searchedCities
-    _zoneProvider._setSearchedCities(
-        cities: <CityModel>[],
-        notify: false,
-    );
-
-    /// _searchedDistricts
-    _zoneProvider._setSearchedDistricts(
-        districts: <DistrictModel>[],
-        notify: notify
-    );
 
   }
 // -----------------------------------------------------------------------------
 }
 /// TASK : ACTIVATED & GLOBAL COUNTRIES
-
-// List<ZoneModel> searchCountriesByNames({
-//   @required String text,
-// }){
-//
-//   // final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
-//   //
-//   // final List<Phrase> _enCountryPhrase = CountryModel.createCountriesPhrases(
-//   //   langCode: 'en',
-//   // );
-//
-// }

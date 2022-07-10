@@ -1,13 +1,11 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/h_new_zoning/b_new_select_city_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/aaa_select_country_screen_all_countries_view.dart';
-import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/aaa_select_country_screen_search_view.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/b_new_select_city_screen.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
@@ -18,27 +16,28 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class NewSelectCountryScreen extends StatefulWidget {
+class SelectCountryScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const NewSelectCountryScreen({
+  const SelectCountryScreen({
     this.selectCountryIDOnly = false,
     this.selectCountryAndCityOnly = false,
+    this.settingCurrentZone = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool selectCountryIDOnly;
   final bool selectCountryAndCityOnly;
+  final bool settingCurrentZone;
   /// --------------------------------------------------------------------------
   @override
-  _NewSelectCountryScreenState createState() => _NewSelectCountryScreenState();
+  _SelectCountryScreenState createState() => _SelectCountryScreenState();
 /// --------------------------------------------------------------------------
 }
 
-class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
+class _SelectCountryScreenState extends State<SelectCountryScreen> {
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
   final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null); /// tamam disposed
@@ -96,19 +95,38 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
         /// C - GO SELECT CITY
         final ZoneModel _zoneWithCity = await Nav.goToNewScreen(
             context: context,
-            screen: NewSelectCityScreen(
+            screen: SelectCityScreen(
               country: _zone.countryModel,
               selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
             )
         );
 
-        if (_zoneWithCity == null){
-          Nav.goBack(context, passedData: _zone);
+        /// IF SETTING CURRENT ZONE
+        if (widget.settingCurrentZone == true){
+
+          final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+          zoneProvider.setCurrentZone(
+            zone: _zoneWithCity ?? _zone,
+            notify: true,
+          );
+
+          Nav.goBack(context);
+
         }
 
+        /// IF RETURNING THE ZONE
         else {
-          Nav.goBack(context, passedData: _zoneWithCity);
+
+          if (_zoneWithCity == null){
+            Nav.goBack(context, passedData: _zone);
+          }
+
+          else {
+            Nav.goBack(context, passedData: _zoneWithCity);
+          }
+
         }
+
 
       }
 
@@ -117,7 +135,7 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
 
         final ZoneModel _zoneWithCityAndDistrict = await Nav.goToNewScreen(
             context: context,
-            screen: NewSelectCityScreen(
+            screen: SelectCityScreen(
               country: _zone.countryModel,
               // selectCountryAndCityOnly: false,
             )
@@ -220,81 +238,18 @@ class _NewSelectCountryScreenState extends State<NewSelectCountryScreen> {
             /// WHILE SEARCHING
             if (isSearching == true){
 
-              return ValueListenableBuilder(
-                  valueListenable: _loading,
-                  builder:(_, bool loading, Widget child){
-
-                    /// WHILE LOADING
-                    if (loading == true){
-                      return const LoadingFullScreenLayer();
-                    }
-
-                    /// SEARCH RESULT
-                    else {
-                      return ValueListenableBuilder(
-                        valueListenable: _foundCountries,
-                        builder: (_, List<Phrase> foundCountries, Widget child){
-
-                          const EdgeInsets _topMargin = EdgeInsets.only(
-                            top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,
-                            bottom: Ratioz.horizon,
-                          );
-
-                          /// WHEN SEARCH RESULTS
-                          if (Mapper.checkCanLoopList(foundCountries) == true){
-
-                            return ListView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: foundCountries.length,
-                                padding: _topMargin,
-                                shrinkWrap: true,
-                                itemBuilder: (_, int index) {
-
-                                  final Phrase _countryPhrase = foundCountries[index];
-
-                                  return WideCountryButton(
-                                    countryID: _countryPhrase.id,
-                                    onTap: () => _onCountryTap(_countryPhrase.id),
-                                  );
-
-                                }
-                            );
-
-                          }
-
-                          /// WHEN RESULT IS EMPTY
-                          else {
-
-                            return Container(
-                              margin: _topMargin,
-                              child: const SuperVerse(
-                                verse: 'No Result found',
-                                labelColor: Colorz.white10,
-                                size: 3,
-                                weight: VerseWeight.thin,
-                                italic: true,
-                                color: Colorz.white200,
-                              ),
-                            );
-
-                          }
-
-
-                        },
-                      );
-                    }
-
-                  }
+              return SelectCountryScreenSearchView(
+                loading: _loading,
+                foundCountries: _foundCountries,
+                onCountryTap: (String countryID) => _onCountryTap(countryID),
               );
-
 
             }
 
             /// NOT SEARCHING
             else {
 
-              return
-                SelectCountryScreenAllCountriesView(
+              return SelectCountryScreenAllCountriesView(
                   onCountryTap: (String countryID) => _onCountryTap(countryID),
                 );
 

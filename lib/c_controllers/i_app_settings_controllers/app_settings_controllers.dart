@@ -145,11 +145,6 @@ Future<void> onSignOut(BuildContext context) async {
   _zoneProvider.clearCurrentContinent(notify: false);
   _zoneProvider.clearCurrentZone(notify: false);
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
-  _zoneProvider.clearSearchedCountries(notify: false);
-  _zoneProvider.clearSelectedCountryCities(notify: false);
-  _zoneProvider.clearSearchedCities(notify: false);
-  _zoneProvider.clearSelectedCityDistricts(notify: false);
-  _zoneProvider.clearSearchedDistricts(notify: true);
 
   await AuthLDBOps.deleteAuthModel(AuthFireOps.superUserID());
   await UserLDBOps.deleteUserOps(AuthFireOps.superUserID());

@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
-import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -289,22 +286,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
             const DotSeparator(),
 
-            /// SELECTED COUNTRY CITIES
-            ProviderTestButton(
-              title: 'zoneProvider.selectedCountryCities',
-              value: zoneProvider.selectedCountryCities,
-              onTap: () => CityModel.blogCities(zoneProvider.selectedCountryCities),
-            ),
-
-            /// SELECTED COUNTRY CITIES
-            ProviderTestButton(
-              title: 'zoneProvider.selectedCityDistricts',
-              value: zoneProvider.selectedCityDistricts,
-              onTap: () => DistrictModel.blogDistricts(zoneProvider.selectedCityDistricts),
-            ),
-
-            const DotSeparator(),
-
             /// USER COUNTRY
             ProviderTestButton(
               title: 'usersProvider.myUserModel.zone.countryModel',
@@ -326,29 +307,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               title: 'zoneProvider.allCurrencies',
               value: zoneProvider.allCurrencies,
               onTap: () => CurrencyModel.blogCurrencies(zoneProvider.allCurrencies),
-            ),
-
-            const DotSeparator(),
-
-            /// SEARCHED COUNTRIES
-            ProviderTestButton(
-              title: 'zoneProvider.searchedCountries ${zoneProvider.searchedCountries.length} phrases',
-              value: zoneProvider.searchedCountries,
-              onTap: () => Phrase.blogPhrases(zoneProvider.searchedCountries),
-            ),
-
-            /// SEARCHED CITIES
-            ProviderTestButton(
-              title: 'zoneProvider.searchedCities ${zoneProvider.searchedCities.length} cities',
-              value: zoneProvider.searchedCities,
-              onTap: () => CityModel.blogCities(zoneProvider.searchedCities),
-            ),
-
-            /// SEARCHED DISTRICTS
-            ProviderTestButton(
-              title: 'zoneProvider.searchedDistricts ${zoneProvider.searchedDistricts.length} districts',
-              value: zoneProvider.searchedDistricts,
-              onTap: () => DistrictModel.blogDistricts(zoneProvider.searchedDistricts),
             ),
 
             const DotSeparator(),

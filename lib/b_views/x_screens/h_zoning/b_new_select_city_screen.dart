@@ -1,13 +1,12 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/h_new_zoning/c_new_select_district_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/bbb_select_city_screen_all_cities_view.dart';
-import 'package:bldrs/b_views/z_components/buttons/wide_city_button.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/bbb_select_city_screen_search_view.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/c_new_select_district_screen.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -16,16 +15,15 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 
-class NewSelectCityScreen extends StatefulWidget {
+class SelectCityScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const NewSelectCityScreen({
+  const SelectCityScreen({
     this.country,
     this.selectCountryAndCityOnly = false,
     Key key,
@@ -35,12 +33,12 @@ class NewSelectCityScreen extends StatefulWidget {
   final bool selectCountryAndCityOnly;
   /// --------------------------------------------------------------------------
   @override
-  State<NewSelectCityScreen> createState() => _NewSelectCityScreen();
+  State<SelectCityScreen> createState() => _NewSelectCityScreen();
 
 /// --------------------------------------------------------------------------
 }
 
-class _NewSelectCityScreen extends State<NewSelectCityScreen> {
+class _NewSelectCityScreen extends State<SelectCityScreen> {
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
   final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);  /// tamam disposed
@@ -160,7 +158,7 @@ class _NewSelectCityScreen extends State<NewSelectCityScreen> {
 
       final ZoneModel _zoneWithDistrict = await Nav.goToNewScreen(
           context: context,
-          screen: NewSelectDistrictScreen(
+          screen: SelectDistrictScreen(
             country: _zoneWithCity.countryModel,
             city: _zoneWithCity.cityModel,
           )
@@ -259,7 +257,7 @@ class _NewSelectCityScreen extends State<NewSelectCityScreen> {
       zoneButtonIsOn: false,
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
-      pageTitle: '${superPhrase(context, 'phid_selectCity')} ${superPhrase(context, 'phid_inn')} $_countryName',
+      pageTitle: superPhrase(context, 'phid_selectCity'),
       pyramidsAreOn: true,
       onBack: _onBack,
       searchHint: '${superPhrase(context, 'phid_search_cities_of')} $_countryName',
@@ -312,90 +310,20 @@ class _NewSelectCityScreen extends State<NewSelectCityScreen> {
             /// WHILE SEARCHING
             if (isSearching == true){
 
-              return ValueListenableBuilder(
-                  valueListenable: _loading,
-                  builder:(_, bool loading, Widget child){
-
-                    /// WHILE LOADING
-                    if (loading == true){
-                      return const LoadingFullScreenLayer();
-                    }
-
-                    /// SEARCH RESULT
-                    else {
-
-                      return ValueListenableBuilder(
-                          valueListenable: _foundCities,
-                          builder: (_, List<CityModel> foundCities, Widget child){
-
-                            const EdgeInsets _topMargin = EdgeInsets.only(
-                              top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,
-                              bottom: Ratioz.horizon,
-                            );
-
-                            /// WHEN SEARCH RESULTS
-                            if (Mapper.checkCanLoopList(foundCities) == true){
-
-
-                              return ListView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  itemCount: foundCities.length,
-                                  padding: _topMargin,
-                                  shrinkWrap: true,
-                                  itemBuilder: (_, int index) {
-
-                                    final CityModel input = foundCities[index];
-
-                                    return WideCityButton(
-                                      city: input,
-                                      onTap: _onCityTap,
-                                    );
-
-                                  }
-                              );
-
-                            }
-
-                            /// WHEN RESULT IS EMPTY
-                            else {
-
-                              return Container(
-                                margin: _topMargin,
-                                child: const SuperVerse(
-                                  verse: 'No Result found',
-                                  labelColor: Colorz.white10,
-                                  size: 3,
-                                  weight: VerseWeight.thin,
-                                  italic: true,
-                                  color: Colorz.white200,
-                                ),
-                              );
-
-                            }
-
-                          },
-                      );
-                    }
-
-                  }
+              return SelectCityScreenSearchView(
+                loading: _loading,
+                foundCities: _foundCities,
+                onCityTap: _onCityTap,
               );
-
 
             }
 
             /// NOT SEARCHING
             else {
 
-              return ValueListenableBuilder(
-                  valueListenable: _countryCities,
-                  builder: (_, List<CityModel> cities, Widget child){
-
-                    return SelectCityScreenAllCitiesView(
-                      onCityChanged: _onCityTap,
-                      cities: cities,
-                    );
-
-                  },
+              return SelectCityScreenAllCitiesView(
+                onCityChanged: _onCityTap,
+                countryCities: _countryCities,
               );
 
             }
