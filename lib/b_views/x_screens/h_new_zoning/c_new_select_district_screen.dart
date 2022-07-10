@@ -13,11 +13,14 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/h_zoning_controllers/zoning_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 
 class NewSelectDistrictScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -58,6 +61,7 @@ class _NewSelectDistrictScreenState extends State<NewSelectDistrictScreen> {
   @override
   void initState() {
     super.initState();
+
     final ZoneModel _initialZone = ZoneModel(
       countryID: widget.country.id,
       countryModel: widget.country,
@@ -80,8 +84,12 @@ class _NewSelectDistrictScreenState extends State<NewSelectDistrictScreen> {
           incompleteZoneModel: _currentZone.value,
         );
 
-        _cityDistricts.value = _currentZone.value.cityModel.districts;
-
+         final List<DistrictModel> _districts = _currentZone.value.cityModel.districts;
+         final List<DistrictModel> _ordered = DistrictModel.sortDistrictsAlphabetically(
+           context: context,
+           districts: _districts,
+         );
+        _cityDistricts.value = _ordered;
         // ----------------------------------------
         await _triggerLoading(setTo: false);
       });
@@ -92,6 +100,10 @@ class _NewSelectDistrictScreenState extends State<NewSelectDistrictScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onDistrictTap(String districtID) async {
+
+    if (mounted == true){
+      closeKeyboard(context);
+    }
 
     final ZoneModel _zoneWithDistrict = await ZoneProvider.proFetchCompleteZoneModel(
       context: context,
@@ -106,6 +118,33 @@ class _NewSelectDistrictScreenState extends State<NewSelectDistrictScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onSearchDistrict(String inputText) async {
 
+    triggerIsSearchingNotifier(
+        text: inputText,
+        isSearching: _isSearching
+    );
+
+    /// WHILE SEARCHING
+    if (_isSearching.value == true){
+
+      /// START LOADING
+      await _triggerLoading(setTo: true);
+
+      /// CLEAR PREVIOUS SEARCH RESULTS
+      _foundDistricts.value = <DistrictModel>[];
+
+      /// SEARCH COUNTRIES FROM LOCAL PHRASES
+      _foundDistricts.value = DistrictModel.searchDistrictsByCurrentLingoName(
+        context: context,
+        sourceDistricts: _cityDistricts.value,
+        inputText: TextMod.fixCountryName(inputText),
+      );
+
+      /// CLOSE LOADING
+      await _triggerLoading(setTo: false);
+
+    }
+
+
     await controlDistrictSearch(
       context: context,
       searchText: inputText,
@@ -119,51 +158,6 @@ class _NewSelectDistrictScreenState extends State<NewSelectDistrictScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-//     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: true);
-//     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: true);
-// // -----------------------------------------------------------------------------
-//     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-//     final String _cityName = Name.getNameByCurrentLingoFromNames(context: context, names: widget.city.names)?.value;
-//     final List<MapModel> _districtsMapModel = DistrictModel.getDistrictsNamesMapModels(
-//       context: context,
-//       districts: widget.city.districts,
-//     );
-// -----------------------------------------------------------------------------
-//     return ListLayout(
-//       pyramids: Iconz.pyramidzYellow,
-//       pageTitle: _cityName,
-//       mapModels: _districtsMapModel,
-//       pageIconVerse: _cityName,
-//       sky: SkyType.black,
-//       onItemTap: (String districtID) async {
-//         blog('districtID is $districtID');
-//
-//         final ZoneModel _zone = ZoneModel(
-//           countryID: widget.city.countryID,
-//           cityID: widget.city.cityID,
-//           districtID: districtID,
-//         );
-//
-//         _zone.blogZone(methodName: 'SELECTED ZONE');
-//
-//         await _zoneProvider.getsetCurrentZoneAndCountryAndCity(
-//             context: context, zone: _zone);
-//
-//         await _flyersProvider.getsetWallFlyersBySectionAndKeyword(
-//           context: context,
-//           section: _generalProvider.currentSection,
-//           kw: _generalProvider.currentKeyword,
-//         );
-//
-//         Nav.goBackToHomeScreen(context);
-//       },
-//     );
-
-    // final ZoneModel _appBarZone = ZoneModel(
-    //   countryID: widget.country.id,
-    //   cityID: widget.city.cityID,
-    // );
 
     final String _cityName = CityModel.getTranslatedCityNameFromCity(
       context: context,
@@ -183,15 +177,6 @@ class _NewSelectDistrictScreenState extends State<NewSelectDistrictScreen> {
       onBack: _onBack,
       searchHint: '${superPhrase(context, 'phid_search_districts_of')} $_cityName',
       loading: _loading,
-      // appBarRowWidgets: <Widget>[
-        // const Expander(),
-        //
-        // ZoneButton(
-        //   zoneOverride: _appBarZone,
-        //   countryOverride: widget.country,
-        //   cityOverride: widget.city,
-        // ),
-      // ],
       layoutWidget: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
@@ -287,26 +272,6 @@ class _NewSelectDistrictScreenState extends State<NewSelectDistrictScreen> {
                 );
 
             }
-
-            // if (isSearchingDistrict == true){
-            //
-            //   return
-            //
-            //     SearchedDistrictsButtons(
-            //       onDistrictTap: onDistrictTap,
-            //     );
-            //
-            // }
-            //
-            // else {
-            //
-            //   return
-            //     SelectDistrictScreenAllDistrictsView(
-            //       onDistrictChanged: onDistrictTap,
-            //       districts: districts,
-            //     );
-            //
-            // }
 
           },
         ),

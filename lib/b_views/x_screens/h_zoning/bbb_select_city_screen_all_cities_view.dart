@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_city_button.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
