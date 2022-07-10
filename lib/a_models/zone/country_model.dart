@@ -283,6 +283,7 @@ class CountryModel {
   /// GETTERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getTranslatedCountryName({
     @required BuildContext context,
     @required String countryID

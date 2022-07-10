@@ -219,6 +219,7 @@ class CityModel {
     return _city;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getTranslatedCityNameFromCity({
     @required BuildContext context,
     @required CityModel city,

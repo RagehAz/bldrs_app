@@ -317,6 +317,7 @@ class ZoneProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<ZoneModel> fetchCompleteZoneModel({
     @required BuildContext context,
     @required ZoneModel incompleteZoneModel,
@@ -675,6 +676,7 @@ class ZoneProvider extends ChangeNotifier {
   /// PRO GETTERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<ZoneModel> proFetchCompleteZoneModel({
     @required BuildContext context,
     @required ZoneModel incompleteZoneModel,
