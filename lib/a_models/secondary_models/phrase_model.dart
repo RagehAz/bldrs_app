@@ -1083,6 +1083,31 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
+  static List<Phrase> cleanDuplicateIDs({
+    @required List<Phrase> phrases,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        final bool _contains = phrasesIncludeThisID(
+            phrases: _output,
+            id: phrase.id
+        );
+
+        if (_contains == false){
+          _output.add(phrase);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
   static List<Phrase> deletePhraseFromPhrases({
     @required List<Phrase> phrases,
     @required String phraseID,

@@ -31,9 +31,7 @@ class ZoningWorkSpace extends StatelessWidget {
 
               final ZoneModel _zone = await Nav.goToNewScreen(
                   context: context,
-                  screen: const NewSelectCountryScreen(
-
-                  ),
+                  screen: const NewSelectCountryScreen(),
               );
 
               _zone?.blogZone(methodName: 'ZONE BY ONE BUTTON');
