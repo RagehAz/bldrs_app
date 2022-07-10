@@ -237,13 +237,6 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
   @override
   Widget build(BuildContext context) {
 
-    // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-    // final List<CityModel> _selectedCountryCities = _zoneProvider.selectedCountryCities;
-
-    // final ZoneModel _appBarZone = ZoneModel(
-    //   countryID: widget.country.id,
-    // );
-
     final String _countryName = CountryModel.getTranslatedCountryName(
       context: context,
       countryID: widget.country?.id,
@@ -265,11 +258,6 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
       appBarRowWidgets: <Widget>[
 
         const Expander(),
-
-        // ZoneButton(
-        //   zoneOverride: _appBarZone,
-        //   countryOverride: widget.country,
-        // ),
 
         /// LOADING COUNTER
         if (Mapper.checkCanLoopList(widget.country?.citiesIDs) == true)
