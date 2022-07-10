@@ -170,9 +170,9 @@ class ZoneModel {
   void blogZone({String methodName = 'ZONE - PRINT'}) {
     blog('$methodName ------------------------------- START');
 
-    blog('countryID : $countryID');
-    blog('cityID : $cityID');
-    blog('districtID : $districtID');
+    blog('IDs [ $districtID - $cityID - $countryID ]');
+    blog('names [ $districtName - $cityName - $countryName ]');
+    blog('models [ cityModelExists : ${cityModel != null} - countryModelExists : ${countryModel != null} ]');
 
     blog('$methodName ------------------------------- END');
   }

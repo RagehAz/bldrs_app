@@ -167,7 +167,7 @@ class DistrictModel{
     @required CityModel city,
     @required String districtID
   }){
-    String _districtName = '...';
+    String _districtName;
 
     if (city != null && districtID != null){
 
@@ -317,4 +317,35 @@ class DistrictModel{
   }
 // -----------------------------------------------------------------------------
 
+
+  static List<DistrictModel> sortDistrictsAlphabetically({
+    @required BuildContext context,
+    @required List<DistrictModel> districts,
+  }){
+    List<DistrictModel> _output = <DistrictModel>[];
+
+    if (Mapper.checkCanLoopList(districts) == true){
+
+      _output = districts;
+
+      _output.sort((DistrictModel a, DistrictModel b){
+
+        final String _nameA = DistrictModel.getTranslatedDistrictNameFromDistrict(
+          context: context,
+          district: a,
+        );
+
+        final String _nameB = DistrictModel.getTranslatedDistrictNameFromDistrict(
+          context: context,
+          district: b,
+        );
+
+        return _nameA.compareTo(_nameB);
+      });
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 }
