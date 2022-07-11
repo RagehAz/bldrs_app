@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/c_specs_pickers_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/e_keywords_picker_screen.dart';
@@ -13,12 +15,42 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 
+ValueNotifier<DraftFlyerModel> initializeDraft({
+  @required BuildContext context,
+}){
+
+  final BzModel _activeBZ = BzzProvider.proGetActiveBzModel(
+      context: context,
+      listen: false,
+  );
+
+  final DraftFlyerModel _draft = DraftFlyerModel.createNewDraft(
+    bzModel: _activeBZ,
+    authorID: AuthFireOps.superUserID(),
+  );
+
+  return ValueNotifier(_draft);
+}
+// -----------------------------------------------------------------------------
+Future<void> initializeExistingFlyerDraft({
+  @required FlyerModel flyerToEdit,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}) async {
+
+  /// ON CREATING A NEW DRAFT
+  if (flyerToEdit != null){
+    draft.value = await DraftFlyerModel.createDraftFromFlyer(flyerToEdit);
+  }
+
+}
 // -----------------------------------------------------------------------------
 /// OLD MULTIPLE SHELVES METHODS
 /*
@@ -377,6 +409,81 @@ Future<void> onPublishFlyerButtonTap({
 
 }
 // ----------------------------------
+Future<void> onPublishFlyerUpdatesButtonTap({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required GlobalKey<FormState> formKey,
+  @required FlyerModel originalFlyer,
+}) async {
+
+  bool _canContinue = await _prePublishFlyerCheck(
+    context: context,
+    draft: draft,
+    formKey: formKey,
+  );
+
+  _canContinue = await _preFlyerUpdateCheck(
+    context: context,
+    draft: draft,
+    originalFlyer: originalFlyer,
+  );
+
+  if (_canContinue == true){
+
+    blog('cool you can go fuck yourself now');
+
+    await _updateFlyerOps(
+      context: context,
+      draft: draft,
+      oldFlyer: originalFlyer,
+    );
+
+    Nav.goBack(context);
+
+    await TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Flyer Has been Updated',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+
+  }
+
+}
+// ----------------------------------
+Future<bool> _preFlyerUpdateCheck({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required FlyerModel originalFlyer,
+}) async {
+
+  final FlyerModel flyerFromDraft = draft.value.toFlyerModel();
+
+  final bool _areIdentical = FlyerModel.checkFlyersAreIdentical(
+    flyer1: originalFlyer,
+    flyer2: flyerFromDraft,
+  );
+
+  bool _canContinue;
+
+  if (_areIdentical == true){
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Flyer was not changed',
+    );
+
+    _canContinue = false;
+
+  }
+  else {
+    _canContinue = true;
+  }
+
+  return _canContinue;
+}
+// ----------------------------------
 Future<bool> _prePublishFlyerCheck({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
@@ -403,7 +510,7 @@ Future<bool> _prePublishFlyerCheck({
 
     if (_isValid == false){
 
-      if (draft.value.title.text.length < 10){
+      if (draft.value.headlineController.text.length < 10){
         NavDialog.showNavDialog(
           context: context,
           firstLine: 'Flyer headline can not be less than 10 characters long',
@@ -442,6 +549,44 @@ Future<void> _publishFlyerOps({
   );
 
   WaitDialog.closeWaitDialog(context);
+
+}
+
+Future<void> _updateFlyerOps({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required FlyerModel oldFlyer,
+}) async {
+
+  unawaited(WaitDialog.showWaitDialog(
+    context: context,
+    canManuallyGoBack: false,
+    loadingPhrase: 'Uploading flyer',
+  ));
+
+  final PublishTime _updateTime = PublishTime(
+    state: PublishState.published,
+    time: DateTime.now(),
+  );
+
+  final List<PublishTime> _updatedTimes = PublishTime.addPublishTimeToTimes(
+    times: draft.value.times,
+    newTime: _updateTime,
+  );
+
+  final FlyerModel _flyerToUpdate = draft.value.toFlyerModel().copyWith(
+    publishState: PublishState.published,
+    times: _updatedTimes,
+  );
+
+  await FlyerProtocol.updateFlyerByActiveBzProtocol(
+    context: context,
+    flyerToPublish: _flyerToUpdate,
+    oldFlyer: oldFlyer,
+  );
+
+  WaitDialog.closeWaitDialog(context);
+
 
 }
 // -----------------------------------------------------------------------------

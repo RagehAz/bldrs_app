@@ -209,7 +209,7 @@ Future<void> _initializeAppState(BuildContext context) async {
       }
 
       /// --- UPDATE USER MODEL'S APP STATE IF CHANGED
-      final bool _appStateNeedUpdate = !AppState.appStatesAreTheSame(
+      final bool _appStateNeedUpdate = !AppState.appStatesAreIdentical(
           stateA: _userState,
           stateB: _userAppState,
       );

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
@@ -56,12 +57,12 @@ Future<DraftFlyerModel> initializeDraftFlyerModel({
 
   return _draft;
 }
-
+// -----------------------------------------------------------------------------
 TextEditingController initializeHeadlineController({
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
 }){
 
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController(text: draftFlyer.value?.headlineController?.text);
 
   _controller.addListener(() {
 
@@ -112,6 +113,7 @@ Future<void> onAddNewSlides({
   @required ScrollController scrollController,
   @required TextEditingController headlineController,
   @required double flyerWidth,
+  @required bool isEditingFlyer,
 }) async {
 
   isLoading.value = true;
@@ -129,64 +131,28 @@ Future<void> onAddNewSlides({
   /// A - if can pick more images
   else {
 
-    if(mounted){
-
-      /// GET ONLY ASSETS AND IGNORE FILES
-      final List<Asset> _existingAssets = MutableSlide.getAssetsFromMutableSlides(
-        mutableSlides: draftFlyer.value.mutableSlides,
-      );
-
-      final List<Asset> _pickedAssets = await Imagers.takeGalleryMultiPictures(
+    if (isEditingFlyer == true){
+      await _addImagesForExistingFlyer(
         context: context,
-        images: _existingAssets,
         mounted: mounted,
-        accountType: bzModel.accountType,
+        bzModel: bzModel,
+        headlineController: headlineController,
+        scrollController: scrollController,
+        draftFlyer: draftFlyer,
+        flyerWidth: flyerWidth,
       );
+    }
 
-      /// B - if didn't pick more images
-      if(_pickedAssets.isEmpty){
-        // will do nothing
-      }
-
-      /// B - if made new picks
-      else {
-
-        blog('the thing is : $_pickedAssets');
-
-        final List<MutableSlide> _newMutableSlides = await MutableSlide.createMutableSlidesByAssets(
-          assets: _pickedAssets,
-          existingSlides: draftFlyer.value.mutableSlides,
-          headlineController: headlineController,
-        );
-
-        final List<MutableSlide> _combinedSlides = <MutableSlide>[... _newMutableSlides];
-
-        final DraftFlyerModel _newDraft = draftFlyer.value.copyWith(
-          mutableSlides: _combinedSlides,
-        );
-
-        draftFlyer.value = _newDraft;
-
-        await Future.delayed(Ratioz.duration150ms,() async {
-          await Scrollers.scrollTo(
-            controller: scrollController,
-            offset: scrollController?.position?.maxScrollExtent ?? 0 - flyerWidth,
-          );
-        });
-
-
-        // for (int i = 0; i < _pickedAssets.length; i++){
-        //   /// for first headline
-        //   if(i == 0){
-        //     /// keep controller as is
-        //   }
-        //   /// for the nest pages
-        //   else {
-        //   }
-        // }
-
-      }
-
+    else {
+      await _addImagesForNewFlyer(
+        context: context,
+        mounted: mounted,
+        bzModel: bzModel,
+        headlineController: headlineController,
+        scrollController: scrollController,
+        draftFlyer: draftFlyer,
+        flyerWidth: flyerWidth,
+      );
     }
 
   }
@@ -194,6 +160,97 @@ Future<void> onAddNewSlides({
   isLoading.value = false;
 
 }
+// -----------------------------------------------------------------------------
+Future<void> _addImagesForNewFlyer({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required bool mounted,
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required ScrollController scrollController,
+  @required TextEditingController headlineController,
+  @required double flyerWidth,
+}) async {
+
+  if(mounted){
+
+    /// GET ONLY ASSETS AND IGNORE FILES
+    final List<Asset> _existingAssets = MutableSlide.getAssetsFromMutableSlides(
+      mutableSlides: draftFlyer.value.mutableSlides,
+    );
+
+    final List<Asset> _pickedAssets = await Imagers.takeGalleryMultiPictures(
+      context: context,
+      images: _existingAssets,
+      mounted: mounted,
+      accountType: bzModel.accountType,
+    );
+
+    /// B - if didn't pick more images
+    if(_pickedAssets.isEmpty){
+      // will do nothing
+    }
+
+    /// B - if made new picks
+    else {
+
+      blog('the thing is : $_pickedAssets');
+
+      final List<MutableSlide> _newMutableSlides = await MutableSlide.createMutableSlidesByAssets(
+        assets: _pickedAssets,
+        existingSlides: draftFlyer.value.mutableSlides,
+        headlineController: headlineController,
+      );
+
+      final List<MutableSlide> _combinedSlides = <MutableSlide>[... _newMutableSlides];
+
+      final DraftFlyerModel _newDraft = draftFlyer.value.copyWith(
+        mutableSlides: _combinedSlides,
+      );
+
+      draftFlyer.value = _newDraft;
+
+      await Future.delayed(Ratioz.duration150ms,() async {
+        await Scrollers.scrollTo(
+          controller: scrollController,
+          offset: scrollController?.position?.maxScrollExtent ?? 0 - flyerWidth,
+        );
+      });
+
+
+      // for (int i = 0; i < _pickedAssets.length; i++){
+      //   /// for first headline
+      //   if(i == 0){
+      //     /// keep controller as is
+      //   }
+      //   /// for the nest pages
+      //   else {
+      //   }
+      // }
+
+    }
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+Future<void> _addImagesForExistingFlyer({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required bool mounted,
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required ScrollController scrollController,
+  @required TextEditingController headlineController,
+  @required double flyerWidth,
+}) async {
+
+  if(mounted) {
+
+    blog('fuck you : no slides editing after publish,,'
+        ' only delete flyer and refund credit within 24 hours');
+
+  }
+
+  }
 // -----------------------------------------------------------------------------
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
   await CenterDialog.showCenterDialog(

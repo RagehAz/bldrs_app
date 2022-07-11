@@ -213,6 +213,82 @@ class SlideModel {
       blog('XXX - ENDED PRINTING ALL ${slides.length} SLIDES');
     }
   }
+// -------------------------------------
+  static void blogSlidesDifferences({
+    @required SlideModel slide1,
+    @required SlideModel slide2,
+  }){
+
+    blog('blogSlidesDifferences : START');
+
+    if (slide1 == null){
+      blog('slide1 == null');
+    }
+
+    if (slide2 == null){
+      blog('slide2 == null');
+    }
+
+    if (slide1.slideIndex != slide2.slideIndex){
+      blog('slide1.slideIndex != slide2.slideIndex');
+    }
+    if (Imagers.checkPicsAreIdentical(pic1: slide1.pic, pic2: slide2.pic) == false){
+      blog('slide1.pic != slide2.pic');
+    }
+    if (slide1.headline != slide2.headline){
+      blog('slide1.headline != slide2.headline');
+    }
+    if (slide1.description != slide2.description){
+      blog('slide1.description != slide2.description');
+    }
+    if (Trinity.matrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == false){
+      blog('slide1.matrix != slide2.matrix');
+    }
+    if (slide1.sharesCount != slide2.sharesCount){
+      blog('slide1.sharesCount != slide2.sharesCount');
+    }
+    if (slide1.viewsCount != slide2.viewsCount){
+      blog('slide1.viewsCount != slide2.viewsCount');
+    }
+    if (slide1.savesCount != slide2.savesCount){
+      blog('slide1.savesCount != slide2.savesCount');
+    }
+    if (slide1.picFit == slide2.picFit){
+      blog('slide1.picFit == slide2.picFit');
+    }
+    if (ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) == false){
+      blog('slide1.imageSize != slide2.imageSize');
+    }
+    if (Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
+      blog('slide1.midColor !=  slideB.midColor');
+    }
+    if (slide1.flyerID != slide2.flyerID){
+      blog('slide1.flyerID != slide2.flyerID');
+    }
+    if (slide1.filterID != slide2.filterID){
+          blog('slide1.filterID != slide2.filterID');
+        }
+
+
+    blog('blogSlidesDifferences : END');
+  }
+// -------------------------------------
+  static void blogSlidesListsDifferences({
+    @required List<SlideModel> slides1,
+    @required List<SlideModel> slides2,
+  }){
+
+    if (slides1 == null){
+      blog('slides1 == null');
+    }
+    if (slides2 == null){
+      blog('slides2 == null');
+    }
+    if (slides1?.length != slides2?.length){
+      blog('slides1.length [ ${slides1?.length} ] != [ ${slides2?.length} ] slides2.length');
+    }
+
+  }
 // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -268,6 +344,98 @@ class SlideModel {
     }
 
     return _allSlidesPicsAreTheSame;
+  }
+// -------------------------------------
+  static bool checkSlidesAreIdentical({
+    @required SlideModel slide1,
+    @required SlideModel slide2,
+  }){
+    bool _identical = false;
+
+    if (slide1 == null && slide2 == null){
+      _identical = true;
+    }
+
+    else if (slide1 != null && slide2 != null){
+
+      if (
+          slide1.slideIndex == slide2.slideIndex &&
+          Imagers.checkPicsAreIdentical(pic1: slide1.pic, pic2: slide2.pic) &&
+          slide1.headline == slide2.headline &&
+          slide1.description == slide2.description &&
+          Trinity.matrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
+          slide1.sharesCount == slide2.sharesCount &&
+          slide1.viewsCount == slide2.viewsCount &&
+          slide1.savesCount == slide2.savesCount &&
+          slide1.picFit == slide2.picFit &&
+          ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) &&
+          Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&
+          slide1.flyerID == slide2.flyerID &&
+          slide1.filterID == slide2.filterID
+      ){
+        _identical = true;
+      }
+
+    }
+
+    if (_identical == false){
+      blogSlidesDifferences(
+        slide1: slide1,
+        slide2: slide2,
+      );
+    }
+
+    return _identical;
+  }
+// -------------------------------------
+  static bool checkSlidesListsAreIdentical({
+    @required List<SlideModel> slides1,
+    @required List<SlideModel> slides2,
+  }){
+    bool _identical = false;
+
+    if (slides1 == null && slides2 == null){
+      _identical = true;
+    }
+    else if (slides1?.isEmpty == true && slides2?.isEmpty == true){
+      _identical = true;
+    }
+    else if (
+        Mapper.checkCanLoopList(slides1) == true &&
+        Mapper.checkCanLoopList(slides2) == true
+    ){
+
+      if (slides1.length == slides2.length){
+
+        for (int i = 0; i < slides1.length; i++){
+
+          final bool _slidesAreIdentical = checkSlidesAreIdentical(
+            slide1: slides1[i],
+            slide2: slides2[i],
+          );
+
+          if (_slidesAreIdentical == true && i + 1 == slides1.length){
+            _identical = true;
+          }
+          else if (_slidesAreIdentical == false){
+            _identical = false;
+            break;
+          }
+
+        }
+
+      }
+
+    }
+
+    if (_identical == false){
+      blogSlidesListsDifferences(
+        slides1: slides1,
+        slides2: slides2,
+      );
+    }
+
+    return _identical;
   }
 // -----------------------------------------------------------------------------
 

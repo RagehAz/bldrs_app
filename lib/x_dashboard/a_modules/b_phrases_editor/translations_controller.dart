@@ -384,14 +384,14 @@ Future<void> onDeletePhrase({
       phraseID: phraseID,
     );
 
-    final bool _enPhrasesListsAreTheSame = Phrase.phrasesListsAreTheSame(
-      firstPhrases: _enPhrases,
-      secondPhrases: enPhrases,
+    final bool _enPhrasesListsAreTheSame = Phrase.phrasesListsAreIdentical(
+      phrases1: _enPhrases,
+      phrases2: enPhrases,
     );
 
-    final bool _arPhrasesAreTheSame = Phrase.phrasesListsAreTheSame(
-      firstPhrases: _enPhrases,
-      secondPhrases: arPhrases,
+    final bool _arPhrasesAreTheSame = Phrase.phrasesListsAreIdentical(
+      phrases1: _enPhrases,
+      phrases2: arPhrases,
     );
 
     if (_enPhrasesListsAreTheSame != true && _arPhrasesAreTheSame != true){

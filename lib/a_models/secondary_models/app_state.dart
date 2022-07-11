@@ -128,11 +128,11 @@ class AppState {
 
 // -----------------------------------
   /// TESTED : WORKS PERFECT
-  static bool appStatesAreTheSame({
+  static bool appStatesAreIdentical({
     @required AppState stateA,
     @required AppState stateB,
 }){
-    bool _areTheSame = false;
+    bool _areIdentical = false;
 
     if (stateA != null && stateB != null){
 
@@ -153,12 +153,12 @@ class AppState {
       &&
         stateA.appControlsVersion == stateB.appControlsVersion
       ){
-        _areTheSame = true;
+        _areIdentical = true;
       }
 
     }
 
-    return _areTheSame;
+    return _areIdentical;
   }
 // -----------------------------------------------------------------------------
 

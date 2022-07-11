@@ -132,6 +132,7 @@ class MutableSlide {
   /// MUTABLE SLIDES CREATORS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<MutableSlide> createMutableSlideFromSlide({
     @required SlideModel slide,
   }) async {
@@ -159,6 +160,7 @@ class MutableSlide {
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<MutableSlide>> createMutableSlidesFromSlides({
     @required List<SlideModel> slides,
   }) async {
@@ -410,6 +412,7 @@ class MutableSlide {
   /// MODIFIERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<MutableSlide> replaceSlide({
     @required List<MutableSlide> slides,
     @required MutableSlide slide,

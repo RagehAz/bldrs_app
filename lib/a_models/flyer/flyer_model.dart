@@ -32,7 +32,7 @@ class FlyerModel {
   /// --------------------------------------------------------------------------
   const FlyerModel({
     @required this.id,
-    @required this.title,
+    @required this.headline,
     @required this.trigram,
     // -------------------------
     @required this.flyerType,
@@ -59,7 +59,7 @@ class FlyerModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final String title;
+  final String headline;
   final List<String> trigram;
   // -------------------------
   final FlyerType flyerType;
@@ -93,8 +93,8 @@ class FlyerModel {
   }){
     return <String, dynamic>{
       'id' : id,
-      'title' : slides[0].headline,//title,
-      'trigram' : TextGen.createTrigram(input: slides[0].headline), //trigram,
+      'headline' : slides[0].headline,
+      'trigram' : TextGen.createTrigram(input: slides[0].headline),
       // -------------------------
       'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
       'publishState' : cipherPublishState(publishState),
@@ -149,7 +149,7 @@ class FlyerModel {
     if (map != null){
       _flyerModel = FlyerModel(
         id: map['id'],
-        title: map['title'],
+        headline: map['headline'],
         trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
         // -------------------------
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
@@ -202,7 +202,7 @@ class FlyerModel {
   /// TESTED : WORKS PERFECT
   FlyerModel copyWith({
     String id,
-    String title,
+    String headline,
     List<String> trigram,
     FlyerType flyerType,
     PublishState publishState,
@@ -225,7 +225,7 @@ class FlyerModel {
 
     return FlyerModel(
       id: id ?? this.id,
-      title: title ?? this.title,
+      headline: headline ?? this.headline,
       trigram: trigram ?? this.trigram,
       flyerType: flyerType ?? this.flyerType,
       publishState: publishState ?? this.publishState,
@@ -393,7 +393,7 @@ class FlyerModel {
     blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------START');
 
     blog('id : $id');
-    blog('title : $title');
+    blog('headline : $headline');
     blog('trigram : $trigram');
     blog('flyerType : $flyerType');
     blog('publishState : $publishState');
@@ -431,6 +431,73 @@ class FlyerModel {
     }
 
   }
+// ------------------------------------------
+
+  static void blogFlyersDifferences({
+    @required FlyerModel flyer1,
+    @required FlyerModel flyer2,
+}){
+
+    if (flyer1 == null){
+      blog('flyer1 == null');
+    }
+    if (flyer2 == null){
+      blog('flyer2 == null');
+    }
+    if (flyer1.id != flyer2.id){
+      blog('flyer1.id != flyer2.id');
+    }
+    if (flyer1.headline != flyer2.headline){
+      blog('flyer1.headline != flyer2.headline');
+    }
+    if (Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == false){
+      blog('flyer1.trigram != flyer2.trigram');
+    }
+    if (flyer1.flyerType != flyer2.flyerType){
+      blog('flyer1.flyerType != flyer2.flyerType');
+    }
+    if (flyer1.publishState != flyer2.publishState){
+      blog('flyer1.publishState != flyer2.publishState');
+    }
+    if (flyer1.auditState != flyer2.auditState){
+      blog('flyer1.auditState != flyer2.auditState');
+    }
+    if (Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == false){
+      blog('flyer1.keywordsIDs != flyer2.keywordsIDs');
+    }
+    if (flyer1.showsAuthor != flyer2.showsAuthor){
+      blog('flyer1.showsAuthor != flyer2.showsAuthor');
+    }
+    if (ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == false){
+      blog('flyer1.zone != flyer2.zone');
+    }
+    if (flyer1.authorID != flyer2.authorID){
+      blog('flyer1.authorID != flyer2.authorID');
+    }
+    if (flyer1.bzID != flyer2.bzID){
+      blog('flyer1.bzID != flyer2.bzID');
+    }
+    if (Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == false){
+      blog('flyer1.position != flyer2.position');
+    }
+    if (SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == false){
+      blog('flyer1.slides != flyer2.slides');
+    }
+    if (SpecModel.specsListsAreIdentical(flyer1.specs, flyer2.specs) == false){
+      blog('flyer1.specs != flyer2.specs');
+    }
+    if (flyer1.info != flyer2.info){
+      blog('flyer1.info != flyer2.info');
+    }
+    if (PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == false){
+      blog('flyer1.times != flyer2.times');
+    }
+    if (flyer1.priceTagIsOn != flyer2.priceTagIsOn){
+      blog('flyer1.priceTagIsOn != flyer2.priceTagIsOn');
+    }
+
+
+  }
 // -----------------------------------------------------------------------------
 
   /// FLYER DUMMIES
@@ -440,7 +507,7 @@ class FlyerModel {
   static FlyerModel dummyFlyer(){
     return FlyerModel(
       id : 'x',
-      title: 'Dummy Flyer',
+      headline: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
       authorID: AuthFireOps.superUserID(),
       flyerType : FlyerType.property,
@@ -699,7 +766,7 @@ class FlyerModel {
 //     return
 //       FlyerModel(
 //         id: flyer.id,
-//         title: flyer.title,
+//         headline: flyer.headline,
 //         trigram: flyer.trigram,
 //         flyerType: flyer.flyerType,
 //         flyerState: flyer.flyerState,
@@ -738,17 +805,63 @@ class FlyerModel {
     }
     return _canShow;
   }
+// ------------------------------------------
+  static bool checkFlyersAreIdentical({
+    @required FlyerModel flyer1,
+    @required FlyerModel flyer2,
+  }){
+
+    bool _areIdentical = false;
+
+    if (flyer1 == null && flyer2 == null){
+      _areIdentical = true;
+    }
+    else if (flyer1 != null && flyer2 != null){
+
+      if (
+          flyer1.id == flyer2.id &&
+          flyer1.headline == flyer2.headline &&
+          Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
+          flyer1.flyerType == flyer2.flyerType &&
+          flyer1.publishState == flyer2.publishState &&
+          flyer1.auditState == flyer2.auditState &&
+          Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == true &&
+          flyer1.showsAuthor == flyer2.showsAuthor &&
+          ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == true &&
+          flyer1.authorID == flyer2.authorID &&
+          flyer1.bzID == flyer2.bzID &&
+          Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == true &&
+          SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
+          SpecModel.specsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
+          flyer1.info == flyer2.info &&
+          PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
+          flyer1.priceTagIsOn == flyer2.priceTagIsOn
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    if (_areIdentical == false){
+      blogFlyersDifferences(
+        flyer1: flyer1,
+        flyer2: flyer2,
+      );
+    }
+
+    return _areIdentical;
+  }
 // -----------------------------------------------------------------------------
 
   /// GETTERS
 
 // ------------------------------------------
-  String getShortTitle({int numberOfCharacters = 10}){
-    final String _shortTitle = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: title,
+  String getShortHeadline({int numberOfCharacters = 10}){
+    final String _shortHeadline = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: headline,
         numberOfCharacters: numberOfCharacters
     );
-    return _shortTitle;
+    return _shortHeadline;
   }
 // -----------------------------------------------------------------------------
 }

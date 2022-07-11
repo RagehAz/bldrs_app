@@ -7,6 +7,7 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 // -----------------------------------------------------------------------------
 
 /// FORMATTING
@@ -746,88 +747,88 @@ List<DateTime> getHoursAndMinutesFromDateTimes({
 
 // -----------------------------------
 /// TESTED : WORKS PERFECT
-bool timesAreTheSame({
+bool timesAreIdentical({
   @required TimeAccuracy accuracy,
-  @required DateTime timeA,
-  @required DateTime timeB,
+  @required DateTime time1,
+  @required DateTime time2,
 }){
-  bool _areTheSame = false;
+  bool _areIdentical = false;
 
   /// XXX - check if both are not nulls
-  if (timeA != null && timeB != null){
+  if (time1 != null && time2 != null){
 
     /// A - YEAR
-    if (timeA.year == timeB.year){
+    if (time1.year == time2.year){
 
       /// A1 - WHEN LEVEL == YEAR
       if (accuracy == TimeAccuracy.year){
-        _areTheSame = true;
+        _areIdentical = true;
       }
 
       /// A2 - ZOOM IN
       else {
 
         /// B - MONTH
-        if (timeA.month == timeB.month){
+        if (time1.month == time2.month){
 
           /// B1 - LEVEL == MONTH
           if (accuracy == TimeAccuracy.month){
-            _areTheSame = true;
+            _areIdentical = true;
           }
 
           /// B2 - ZOOM IN
           else {
 
             /// C - DAY
-            if (timeA.day == timeB.day){
+            if (time1.day == time2.day){
 
               /// C1 - LEVEL == DAY
               if (accuracy == TimeAccuracy.day){
-                _areTheSame = true;
+                _areIdentical = true;
               }
 
               /// C2 - ZOOM IN
               else {
 
                 /// D - HOUR
-                if (timeA.hour == timeB.hour){
+                if (time1.hour == time2.hour){
 
                   /// D1 - LEVEL == HOUR
                   if (accuracy == TimeAccuracy.hour){
-                    _areTheSame = true;
+                    _areIdentical = true;
                   }
 
                   /// D2 - ZOOM IN
                   else {
 
                     /// E - MINUTE
-                    if (timeA.minute == timeB.minute){
+                    if (time1.minute == time2.minute){
 
                       /// E1 - LEVEL == MINUTE
                       if (accuracy == TimeAccuracy.minute){
-                        _areTheSame = true;
+                        _areIdentical = true;
                       }
 
                       /// E2 - ZOOM IN
                       else {
 
                         /// F - SECOND
-                        if (timeA.second == timeB.second){
+                        if (time1.second == time2.second){
 
                           /// F1 - LEVEL == SECOND
                           if (accuracy == TimeAccuracy.second){
-                            _areTheSame = true;
+                            _areIdentical = true;
                           }
 
                           /// F2 - ZOOM IN
                           if (accuracy == TimeAccuracy.millisecond){
 
                             /// G - MILLISECOND
-                            if (timeA.millisecond == timeB.millisecond){
+                            if (time1.millisecond == time2.millisecond){
 
                               /// G1 - LEVEL == MILLISECOND
                               // if (_level == 'millisecond'){
-                              _areTheSame = true;
+                              _areIdentical = true;
                               // }
 
                               // /// G2 - ZOOM IN
@@ -843,11 +844,11 @@ bool timesAreTheSame({
                           else {
 
                             /// H - MICROSECOND
-                            if (timeA.microsecond == timeB.microsecond){
+                            if (time1.microsecond == time2.microsecond){
 
                               /// H1 - LEVEL == MICROSECOND
                               if (accuracy == TimeAccuracy.microSecond){
-                                _areTheSame = true;
+                                _areIdentical = true;
                               }
 
                             }
@@ -879,9 +880,9 @@ bool timesAreTheSame({
 
   }
 
-  // print('timesAreTheSame : $_areTheSame : accuracy : ${accuracy} : timeA ${timeA} : timeB ${timeB}');
+  // print('timesAreTheSame : $_areIdentical : accuracy : ${accuracy} : timeA ${timeA} : timeB ${timeB}');
 
-  return _areTheSame;
+  return _areIdentical;
 }
 // -------------------------------------
 bool timesContainTime({
@@ -895,13 +896,13 @@ bool timesContainTime({
 
     for (int i =0; i < times.length; i++){
 
-      final bool _timesAreTheSame = timesAreTheSame(
+      final bool _timesAreIdentical = timesAreIdentical(
           accuracy: accuracy,
-          timeA: times[i],
-          timeB: time,
+          time1: times[i],
+          time2: time,
       );
 
-      if (_timesAreTheSame == true){
+      if (_timesAreIdentical == true){
         _contains = true;
         break;
       }
@@ -990,3 +991,23 @@ enum TimeAccuracy{
   microSecond,
 }
 // -----------------------------------------------------------------------------
+
+String calculateRemainingHoursAndMinutes({
+  @required int secondsUntilNow,
+}){
+
+  String _string = '';
+
+  if (secondsUntilNow != null){
+
+    final int _totalMinutes = (secondsUntilNow / 60).floor();
+    final int _hours = (_totalMinutes / 60).floor();
+    final int _minutesRemaining = _totalMinutes - (_hours*60);
+
+    final String _hourString = Numeric.formatNumberWithinDigits(num: _hours, digits: 2);
+    final String _minutesString = Numeric.formatNumberWithinDigits(num: _minutesRemaining, digits: 2);
+    _string = '$_hourString:$_minutesString';
+  }
+
+  return _string;
+}

@@ -21,7 +21,7 @@ class DraftFlyerModel{
   /// --------------------------------------------------------------------------
   const DraftFlyerModel({
     @required this.id,
-    @required this.title,
+    @required this.headlineController,
     @required this.flyerType,
     @required this.publishState,
     @required this.auditState,
@@ -40,7 +40,7 @@ class DraftFlyerModel{
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final TextEditingController title;
+  final TextEditingController headlineController;
   final FlyerType flyerType;
   final PublishState publishState;
   final AuditState auditState;
@@ -63,7 +63,7 @@ class DraftFlyerModel{
 // -------------------------------------
   DraftFlyerModel copyWith({
     String id,
-    TextEditingController title,
+    TextEditingController headlineController,
     FlyerType flyerType,
     PublishState publishState,
     AuditState auditState,
@@ -81,7 +81,7 @@ class DraftFlyerModel{
     int score,
   }) => DraftFlyerModel(
     id: id ?? this.id,
-    title: title ?? this.title,
+    headlineController: headlineController ?? this.headlineController,
     flyerType: flyerType ?? this.flyerType,
     publishState: publishState ?? this.publishState,
     auditState: auditState ?? this.auditState,
@@ -102,8 +102,8 @@ class DraftFlyerModel{
   FlyerModel toFlyerModel(){
     return FlyerModel(
       id: id,
-      title: title.text,
-      trigram: TextGen.createTrigram(input: title.text),
+      headline: headlineController.text,
+      trigram: TextGen.createTrigram(input: headlineController.text),
       flyerType: flyerType,
       publishState: publishState,
       auditState: auditState,
@@ -140,7 +140,7 @@ class DraftFlyerModel{
 
     final DraftFlyerModel _draft = DraftFlyerModel(
       id: Numeric.createUniqueID().toString(),
-      title: TextEditingController(),
+      headlineController: TextEditingController(),
       flyerType: _flyerType,
       publishState: PublishState.draft,
       auditState: null,
@@ -172,7 +172,7 @@ class DraftFlyerModel{
 
       _draft = DraftFlyerModel(
         id: flyerModel.id,
-        title: TextEditingController(text: flyerModel.title),
+        headlineController: TextEditingController(text: flyerModel.headline),
         flyerType: flyerModel.flyerType,
         publishState: flyerModel.publishState,
         auditState: flyerModel.auditState,
@@ -205,10 +205,10 @@ class DraftFlyerModel{
   @required DraftFlyerModel draft,
 }){
 
-    disposeControllerIfPossible(draft.title);
+    disposeControllerIfPossible(draft.headlineController);
     disposeControllerIfPossible(draft.info);
     MutableSlide.disposeMutableSlidesTextControllers(
-        mutableSlides: draft.mutableSlides
+        mutableSlides: draft.mutableSlides,
     );
 
   }
@@ -264,6 +264,7 @@ class DraftFlyerModel{
 
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static DraftFlyerModel updateHeadline({
     @required TextEditingController controller,
     @required DraftFlyerModel draft,
@@ -286,7 +287,7 @@ class DraftFlyerModel{
 
         _draft = draft.copyWith(
           mutableSlides: _newSlides,
-          title: controller,
+          headlineController: controller,
         );
       }
 
@@ -315,7 +316,7 @@ class DraftFlyerModel{
     blog('BLOGGIND DRAFT FLYER MODEL ---------------------------------------- START');
 
     blog('id : $id');
-    blog('title : $title');
+    blog('headline : $headlineController');
     blog('flyerType : $flyerType');
     blog('publishState : $publishState');
     blog('auditState : auditState');
@@ -340,6 +341,7 @@ class DraftFlyerModel{
   /// CHECKERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkCanPublishDraft({
     @required DraftFlyerModel draft,
     @required TextEditingController headlineController,

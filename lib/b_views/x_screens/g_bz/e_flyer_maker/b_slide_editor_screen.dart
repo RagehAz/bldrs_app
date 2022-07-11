@@ -30,7 +30,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   ValueNotifier<MutableSlide> _slide; /// tamam disposed
   ValueNotifier<Matrix4> _matrix; /// tamam disposed
   ValueNotifier<ImageFilterModel> _filterModel; /// tamam disposed
-  final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
+  final ValueNotifier<bool> _isTransforming = ValueNotifier(false); /// tamam disposed
 // ------------------------------------
   @override
   void initState() {
@@ -114,7 +114,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               context: context,
             ),
           ),
-
 
         ],
 

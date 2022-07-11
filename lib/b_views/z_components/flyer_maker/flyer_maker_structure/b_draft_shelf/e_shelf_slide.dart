@@ -8,16 +8,15 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_he
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-
 
 class ShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -25,12 +24,16 @@ class ShelfSlide extends StatefulWidget {
     @required this.mutableSlide,
     @required this.number,
     @required this.onTap,
+    @required this.isEditingFlyer,
+    this.publishTime,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final MutableSlide mutableSlide;
   final int number;
   final Function onTap;
+  final bool isEditingFlyer;
+  final DateTime publishTime;
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
@@ -82,8 +85,10 @@ class _ShelfSlideState extends State<ShelfSlide> {
             width: ShelfSlide.flyerBoxWidth,
             height: ShelfSlide.slideNumberBoxHeight,
             alignment: Aligners.superCenterAlignment(context),
-            child: widget.number == null ? const SizedBox() :
-            SuperVerse(
+            child: widget.number == null ?
+            const SizedBox()
+                :
+                SuperVerse(
               verse: '${widget.number}',
               size: 1,
               // color: Colorz.white255,
@@ -218,6 +223,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
                             maxLines: 2,
                           ),
                         ),
+
 
                       ],
                     ),

@@ -504,23 +504,23 @@ class UserModel {
       if (
       user1.id == user2.id &&
       user1.authBy == user2.authBy &&
-      Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: user1.createdAt, timeB: user2.createdAt) &&
+      Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
       user1.status == user2.status &&
       user1.name == user2.name &&
-      Mapper.checkListsAreTheSame(list1: user1.trigram, list2: user2.trigram) &&
+      Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) &&
       Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) &&
       user1.title == user2.title &&
       user1.company == user2.company &&
       user1.gender == user2.gender &&
-      ZoneModel.checkZonesIDsAreTheSame(zone1: user1.zone, zone2: user2.zone) &&
+      ZoneModel.checkZonesIDsAreIdentical(zone1: user1.zone, zone2: user2.zone) &&
       user1.language == user2.language &&
       Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) &&
       ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) &&
-      Mapper.checkListsAreTheSame(list1: user1.myBzzIDs, list2: user2.myBzzIDs) &&
+      Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) &&
       user1.emailIsVerified == user2.emailIsVerified &&
       user1.isAdmin == user2.isAdmin &&
-      Mapper.checkListsAreTheSame(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
-      Mapper.checkListsAreTheSame(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
+      Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
+      Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
       AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState)
       // FCMToken fcmToken;
       // DocumentSnapshot docSnapshot;
@@ -815,7 +815,7 @@ class UserModel {
             blog('blogUserDifferences : [authBy] are not identical');
           }
 
-          if (Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: user1.createdAt, timeB: user2.createdAt) == false){
+          if (Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == false){
             blog('blogUserDifferences : [createdAt] are not identical');
           }
 
@@ -827,7 +827,7 @@ class UserModel {
             blog('blogUserDifferences : [name] are not identical');
           }
 
-          if (Mapper.checkListsAreTheSame(list1: user1.trigram, list2: user2.trigram) == false){
+          if (Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == false){
             blog('blogUserDifferences : [trigram] are not identical');
           }
 
@@ -847,7 +847,7 @@ class UserModel {
             blog('blogUserDifferences : [gender] are not identical');
           }
 
-          if (ZoneModel.checkZonesIDsAreTheSame(zone1: user1.zone, zone2: user2.zone) == false){
+          if (ZoneModel.checkZonesIDsAreIdentical(zone1: user1.zone, zone2: user2.zone) == false){
             blog('blogUserDifferences : [zone] are not identical');
           }
 
@@ -863,7 +863,7 @@ class UserModel {
             blog('blogUserDifferences : [contacts] are not identical');
           }
 
-          if (Mapper.checkListsAreTheSame(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == false){
+          if (Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == false){
             blog('blogUserDifferences : [myBzzIDs] are not identical');
           }
 
@@ -875,11 +875,11 @@ class UserModel {
             blog('blogUserDifferences : [isAdmin] are not identical');
           }
 
-          if (Mapper.checkListsAreTheSame(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == false){
+          if (Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == false){
             blog('blogUserDifferences : [savedFlyersIDs] are not identical');
           }
 
-          if (Mapper.checkListsAreTheSame(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == false){
+          if (Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == false){
             blog('blogUserDifferences : [followedBzzIDs] are not identical');
           }
 

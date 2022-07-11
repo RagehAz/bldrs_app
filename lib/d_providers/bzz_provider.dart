@@ -617,7 +617,7 @@ class BzzProvider extends ChangeNotifier {
       blog('_receiversIDs : $_receiversIDs');
       blog('_pendingAuthorshipInvitationsUsersIDs : $_pendingAuthorshipInvitationsUsersIDs');
 
-      final bool _idsAreIdentical = Mapper.checkListsAreTheSame(
+      final bool _idsAreIdentical = Mapper.checkListsAreIdentical(
           list1: _pendingAuthorshipInvitationsUsersIDs,
           list2: _receiversIDs
       );

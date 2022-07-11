@@ -23,7 +23,7 @@ class AddFlyerButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------
-  Future<void> _goToFlyerEditor({
+  Future<void> _goToFlyerMaker({
     @required BuildContext context,
     @required BzModel bzModel,
   }) async {
@@ -34,9 +34,7 @@ class AddFlyerButton extends StatelessWidget {
 
       final dynamic _result = await Nav.goToNewScreen(
           context: context,
-          screen: FlyerMakerScreen(
-            bzModel: bzModel,
-          ),
+          screen: const FlyerMakerScreen(),
       );
 
       if (_result.runtimeType == FlyerModel) {
@@ -56,7 +54,7 @@ class AddFlyerButton extends StatelessWidget {
     final BzModel _bzModel = _bzzProvider.myActiveBz;
 
     return GestureDetector(
-      onTap: () => _goToFlyerEditor(
+      onTap: () => _goToFlyerMaker(
         context: context,
         bzModel: _bzModel,
       ),

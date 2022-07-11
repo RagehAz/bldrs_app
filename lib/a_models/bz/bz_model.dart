@@ -723,6 +723,7 @@ class BzModel{
   /// BZ TYPE TRANSLATIONS
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String translateBzType({
     @required BuildContext context,
     @required BzType bzType,
@@ -776,6 +777,7 @@ class BzModel{
 
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> translateBzTypes({
     @required BuildContext context,
     @required List<BzType> bzTypes,
@@ -1572,15 +1574,15 @@ class BzModel{
 
       if (
           bz1.id == bz2.id &&
-          Mapper.checkListsAreTheSame(list1: bz1.bzTypes, list2: bz2.bzTypes) &&
+          Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) &&
           bz1.bzForm == bz2.bzForm &&
-          Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: bz1.createdAt, timeB: bz2.createdAt) &&
+          Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) &&
           bz1.accountType == bz2.accountType &&
           bz1.name == bz2.name &&
-          Mapper.checkListsAreTheSame(list1: bz1.trigram, list2: bz2.trigram) &&
+          Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) &&
           bz1.logo == bz2.logo &&
-          Mapper.checkListsAreTheSame(list1: bz1.scope, list2: bz2.scope) &&
-          ZoneModel.checkZonesIDsAreTheSame(zone1: bz1.zone, zone2: bz1.zone) &&
+          Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) &&
+          ZoneModel.checkZonesIDsAreIdentical(zone1: bz1.zone, zone2: bz1.zone) &&
           bz1.about == bz2.about &&
           bz1.position == bz2.position &&
           ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) &&
@@ -1594,7 +1596,7 @@ class BzModel{
           bz1.totalSlides == bz2.totalSlides &&
           bz1.totalViews == bz2.totalViews &&
           bz1.totalCalls == bz2.totalCalls &&
-          Mapper.checkListsAreTheSame(list1: bz1.flyersIDs, list2: bz2.flyersIDs) &&
+          Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) &&
           bz1.totalFlyers == bz2.totalFlyers
       ){
         _areIdentical = true;
@@ -1630,13 +1632,13 @@ class BzModel{
       if (bz1.id != bz2.id){
         blog('id is not identical');
       }
-      if (Mapper.checkListsAreTheSame(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
+      if (Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
         blog('bzTypes is not identical');
       }
       if (bz1.bzForm != bz2.bzForm){
         blog('bzForm is not identical');
       }
-      if (Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: bz1.createdAt, timeB: bz2.createdAt) == false){
+      if (Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == false){
         blog('createdAt is not identical');
       }
       if (bz1.accountType != bz2.accountType){
@@ -1645,16 +1647,16 @@ class BzModel{
       if (bz1.name != bz2.name){
         blog('name is not identical');
       }
-      if (Mapper.checkListsAreTheSame(list1: bz1.trigram, list2: bz2.trigram) == false){
+      if (Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == false){
         blog('trigram is not identical');
       }
       if (bz1.logo != bz2.logo){
         blog('logo is not identical');
       }
-      if (Mapper.checkListsAreTheSame(list1: bz1.scope, list2: bz2.scope) == false){
+      if (Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == false){
         blog('scope is not identical');
       }
-      if (ZoneModel.checkZonesIDsAreTheSame(zone1: bz1.zone, zone2: bz1.zone) == false){
+      if (ZoneModel.checkZonesIDsAreIdentical(zone1: bz1.zone, zone2: bz1.zone) == false){
         blog('zone is not identical');
       }
       if (bz1.about != bz2.about){
@@ -1696,7 +1698,7 @@ class BzModel{
       if (bz1.totalCalls != bz2.totalCalls){
         blog('totalCalls is not identical');
       }
-      if (Mapper.checkListsAreTheSame(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
+      if (Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
         blog('flyersIDs is not identical');
       }
       if (bz1.totalFlyers != bz2.totalFlyers){

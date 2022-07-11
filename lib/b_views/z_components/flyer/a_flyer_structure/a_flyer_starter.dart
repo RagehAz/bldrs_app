@@ -118,16 +118,20 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
         /// SETTERS
 
-        _bzModelNotifier.value = _bzModel;
+        if (mounted == true){
+          _bzModelNotifier.value = _bzModel;
 
-        _flyerZoneNotifier.value = getZoneModel(
-          context: context,
-          countryID: _flyerCountry.id,
-          cityModel: _flyerCity,
-          districtID: widget.flyerModel.zone.districtID,
-        );
+          _flyerZoneNotifier.value = getZoneModel(
+            context: context,
+            countryID: _flyerCountry.id,
+            cityModel: _flyerCity,
+            districtID: widget.flyerModel.zone.districtID,
+          );
 
-        _currentSlideIndex = ValueNotifier(_startingIndex);
+          _currentSlideIndex = ValueNotifier(_startingIndex);
+
+        }
+
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
 
