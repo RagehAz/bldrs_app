@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/f_helpers/drafters/timerz.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class PublishTime {
@@ -108,6 +110,139 @@ class PublishTime {
 
   }
    */
+// -------------------------------------
+
+  static bool checkTimesAreIdentical({
+    @required PublishTime time1,
+    @required PublishTime time2,
+  }){
+    bool _identical = false;
+
+    if (time1 == null && time2 == null){
+      _identical = true;
+    }
+
+    else if (time1 != null && time2 != null){
+
+      if (
+      Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: time1.time, time2: time2.time) &&
+      time1.state == time2.state
+      ){
+        _identical = true;
+      }
+
+    }
+
+    if (_identical == false){
+      blogTimesDifferences(
+        time1: time1,
+        time2: time2,
+      );
+    }
+
+    return _identical;
+  }
+// -------------------------------------
+
+  static bool checkTimesListsAreIdentical({
+    @required List<PublishTime> times1,
+    @required List<PublishTime> times2,
+  }){
+    bool _identical = false;
+
+    if (times1 == null && times2 == null){
+      _identical = true;
+    }
+
+    else if (times1?.isEmpty == true && times2?.isEmpty == true){
+      _identical = true;
+    }
+
+    else if (
+      Mapper.checkCanLoopList(times1) == true &&
+      Mapper.checkCanLoopList(times2) == true
+    ){
+
+      if (times1.length == times2.length){
+
+        for (int i = 0; i < times1.length; i++){
+
+          final bool _timesAreIdentical = checkTimesAreIdentical(
+            time1: times1[i],
+            time2: times2[i],
+          );
+
+          if (_timesAreIdentical == true && i + 1 == times1.length){
+            _identical = true;
+          }
+          else if (_timesAreIdentical == false){
+            _identical = false;
+            break;
+          }
+
+        }
+
+      }
+
+    }
+
+    if (_identical == false){
+      blogTimesListsDifferences(
+        times1: times1,
+        times2: times2,
+      );
+    }
+
+    return _identical;
+  }
+// -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+// -------------------------------------
+
+  static void blogTimesListsDifferences({
+    @required List<PublishTime> times1,
+    @required List<PublishTime> times2,
+  }){
+
+    if (times1 == null){
+      blog('times1 == null');
+    }
+    if (times2 == null){
+      blog('times2 == null');
+    }
+    if (times1?.length != times2?.length){
+      blog('times1.length [ ${times1?.length} ] != [ ${times2?.length} ] times2.length');
+    }
+
+  }
+// -------------------------------------
+
+  static void blogTimesDifferences({
+    @required PublishTime time1,
+    @required PublishTime time2,
+  }){
+
+    blog('blogTimesDifferences : START');
+
+    if (time1 == null){
+      blog('time1 == null');
+    }
+
+    if (time2 == null){
+      blog('time2 == null');
+    }
+
+    if (time1.state != time2.state){
+      blog('time1.state != time2.state');
+    }
+    if (Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: time1.time, time2: time2.time) == false){
+      blog('time1.time != time2.time');
+    }
+
+    blog('blogTimesDifferences : END');
+  }
 // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -152,7 +287,22 @@ class PublishTime {
     return _publishTime;
   }
 // -------------------------------------
+  static List<PublishTime> addPublishTimeToTimes({
+    @required List<PublishTime> times,
+    @required PublishTime newTime,
+  }){
 
+    final List<PublishTime> _output = <PublishTime>[];
+
+    if (Mapper.checkCanLoopList(times) == true){
+      _output.addAll(times);
+    }
+
+      _output.add(newTime);
+
+    return _output;
+  }
+// -------------------------------------
 }
 
 /*

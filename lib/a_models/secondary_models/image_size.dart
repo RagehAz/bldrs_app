@@ -199,6 +199,30 @@ class ImageSize {
     return (graphicHeight * width) / graphicWidth;
   }
 // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -------------------------------------
+  static bool checkSizesAreIdentical({
+    @required ImageSize sizeA,
+    @required ImageSize sizeB,
+  }){
+
+    bool _identical = false;
+
+    if (sizeA == null && sizeB == null){
+      _identical = true;
+    }
+    else if (
+        sizeA.width == sizeB.width &&
+        sizeA.height == sizeB.height
+    ){
+      _identical = true;
+    }
+
+    return _identical;
+  }
+// -------------------------------------
 }
 
 /*

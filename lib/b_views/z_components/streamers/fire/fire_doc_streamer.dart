@@ -41,7 +41,7 @@ class FireDocStreamer extends StatefulWidget {
         addDocSnapshot: true,
       );
 
-      final bool _mapsAreTheSame = Mapper.checkMapsAreTheSame(
+      final bool _mapsAreTheSame = Mapper.checkMapsAreIdentical(
         map1: oldMap,
         map2: _newMap,
       );

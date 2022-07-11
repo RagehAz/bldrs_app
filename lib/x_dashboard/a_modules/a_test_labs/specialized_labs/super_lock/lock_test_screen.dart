@@ -48,7 +48,7 @@ class _LockTestScreenState extends State<LockTestScreen> {
       'assets/icons/cont_africa.svg',
     ];
 
-    final bool _areTheSame = Mapper.checkListsAreTheSame(
+    final bool _areTheSame = Mapper.checkListsAreIdentical(
         list1: _selections,
         list2: _correctCode,
     );

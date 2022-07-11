@@ -750,22 +750,22 @@ class Phrase {
   }
 // -------------------------------------
   /// TASK : TEST THIS
-  static bool phrasesAreTheSame({
-    @required Phrase firstPhrase,
-    @required Phrase secondPhrase,
+  static bool phrasesAreIdentical({
+    @required Phrase phrase1,
+    @required Phrase phrase2,
   }){
 
-    bool _namesAreTheSame = false;
+    bool _areIdentical = false;
 
-    if (firstPhrase != null && secondPhrase != null){
+    if (phrase1 != null && phrase2 != null){
 
-      if (firstPhrase.langCode == secondPhrase.langCode){
+      if (phrase1.langCode == phrase2.langCode){
 
-        if (firstPhrase.value == secondPhrase.value){
+        if (phrase1.value == phrase2.value){
 
-          if (Mapper.checkListsAreTheSame(list1: firstPhrase.trigram, list2: secondPhrase.trigram)){
+          if (Mapper.checkListsAreIdentical(list1: phrase1.trigram, list2: phrase2.trigram)){
 
-            _namesAreTheSame = true;
+            _areIdentical = true;
 
           }
 
@@ -775,59 +775,59 @@ class Phrase {
 
     }
 
-    return _namesAreTheSame;
+    return _areIdentical;
   }
 // -------------------------------------
   /// TASK : TEST THIS
-  static bool phrasesListsAreTheSame({
-    @required List<Phrase> firstPhrases,
-    @required List<Phrase> secondPhrases,
+  static bool phrasesListsAreIdentical({
+    @required List<Phrase> phrases1,
+    @required List<Phrase> phrases2,
   }){
 
-    bool _listsAreTheSame = false;
+    bool _listsAreIdentical = false;
 
-    if (Mapper.checkCanLoopList(firstPhrases) && Mapper.checkCanLoopList(secondPhrases)){
+    if (Mapper.checkCanLoopList(phrases1) && Mapper.checkCanLoopList(phrases2)){
 
-      if (firstPhrases.length == secondPhrases.length){
+      if (phrases1.length == phrases2.length){
 
-        final List<String> codes = _getLingCodesFromPhrases(firstPhrases);
+        final List<String> codes = _getLingCodesFromPhrases(phrases1);
 
-        bool _allLangCodesAreTheSame = true;
+        bool _allLangCodesAreIdentical = true;
 
         for (final String langCode in codes){
 
-          final String firstPhraseValue = getPhraseByLangFromPhrases(
-              phrases: firstPhrases,
+          final String _value1 = getPhraseByLangFromPhrases(
+              phrases: phrases1,
               langCode: langCode,
           )?.value;
 
-          final String secondPhraseValue = getPhraseByLangFromPhrases(
-              phrases: secondPhrases,
+          final String _value2 = getPhraseByLangFromPhrases(
+              phrases: phrases2,
               langCode: langCode,
           )?.value;
 
-          if (firstPhraseValue == secondPhraseValue){
+          if (_value1 == _value2){
 
-            _allLangCodesAreTheSame = true;
+            _allLangCodesAreIdentical = true;
 
           }
 
           else {
-            _allLangCodesAreTheSame = false;
+            _allLangCodesAreIdentical = false;
             break;
           }
 
         }
 
-        if (_allLangCodesAreTheSame == true){
-          _listsAreTheSame = true;
+        if (_allLangCodesAreIdentical == true){
+          _listsAreIdentical = true;
         }
 
       }
 
     }
 
-    return _listsAreTheSame;
+    return _listsAreIdentical;
   }
 // -------------------------------------
   static bool isKeywordPhid(String phid){

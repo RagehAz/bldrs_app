@@ -682,7 +682,7 @@ class AuthorModel {
       author1.pic == author2.pic &&
       author1.title == author2.title &&
       author1.role == author2.role &&
-      Mapper.checkListsAreTheSame(list1: author1.flyersIDs, list2: author2.flyersIDs) &&
+      Mapper.checkListsAreIdentical(list1: author1.flyersIDs, list2: author2.flyersIDs) &&
       ContactModel.checkContactsListsAreIdentical(contacts1: author1.contacts, contacts2: author2.contacts)
 
       ){
@@ -758,17 +758,17 @@ class AuthorModel {
     @required AuthorModel authorModel,
     @required UserModel userModel,
   }) async {
-    bool _areTheSame = false;
+    bool _areIdentical = false;
 
     if (authorModel != null && userModel != null){
 
       if (authorModel.userID == userModel.id){
-        _areTheSame = authorModel.pic == userModel.pic;
+        _areIdentical = authorModel.pic == userModel.pic;
       }
 
     }
 
-    return _areTheSame;
+    return _areIdentical;
   }
 // -----------------------------------------------------------------------------
 

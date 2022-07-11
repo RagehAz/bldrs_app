@@ -107,7 +107,7 @@ class Trinity {
   /// CHECKERS
 
 // -------------------------------------
-  static bool matrixesAreTheSame({
+  static bool matrixesAreIdentical({
     @required Matrix4 matrix1,
     @required Matrix4 matrixReloaded,
   }){
@@ -115,7 +115,7 @@ class Trinity {
     final List<double> _a = matrix1.storage;
     final List<double> _b = matrixReloaded.storage;
 
-    return Mapper.checkListsAreTheSame(
+    return Mapper.checkListsAreIdentical(
         list1: _a,
         list2: _b
     );

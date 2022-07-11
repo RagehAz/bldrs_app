@@ -35,7 +35,7 @@ class SlideTransformer extends StatelessWidget {
 
         // blog('matrix is : $m');
 
-        final bool _areTheSame = Trinity.matrixesAreTheSame(
+        final bool _areTheSame = Trinity.matrixesAreIdentical(
           matrix1: matrix.value,
           matrixReloaded: m,
         );

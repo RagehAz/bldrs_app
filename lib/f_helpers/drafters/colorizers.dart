@@ -97,17 +97,17 @@ bool checkColorIsBlack(Color color) {
   return _isBlack;
 }
 // -------------------------------------
-bool checkColorsAreTheSame(Color colorA, Color colorB) {
-  bool _areTheSame = false;
+bool checkColorsAreIdentical(Color color1, Color color2) {
+  bool _areIdentical = false;
 
-  if (colorA.alpha == colorB.alpha &&
-      colorA.red == colorB.red &&
-      colorA.green == colorB.green &&
-      colorA.blue == colorB.blue) {
-    _areTheSame = true;
+  if (color1.alpha == color2.alpha &&
+      color1.red == color2.red &&
+      color1.green == color2.green &&
+      color1.blue == color2.blue) {
+    _areIdentical = true;
   }
 
-  return _areTheSame;
+  return _areIdentical;
 }
 // -----------------------------------------------------------------------------
 
@@ -150,8 +150,12 @@ ui.ImageFilter superBlur({
   @required bool trigger,
 }) {
   final double blueValue = trigger == true ? 8 : 0;
-  final ui.ImageFilter blur =
-  ui.ImageFilter.blur(sigmaX: blueValue, sigmaY: blueValue);
+
+  final ui.ImageFilter blur = ui.ImageFilter.blur(
+      sigmaX: blueValue,
+      sigmaY: blueValue,
+  );
+
   return blur;
 }
 // -----------------------------------------------------------------------------

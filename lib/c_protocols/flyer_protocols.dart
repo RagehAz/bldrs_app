@@ -62,6 +62,40 @@ class FlyerProtocol {
 /// UPDATE
 
 // ----------------------------------
+  static Future<void> updateFlyerByActiveBzProtocol({
+    @required BuildContext context,
+    @required FlyerModel flyerToPublish,
+    @required FlyerModel oldFlyer,
+  }) async {
+
+    blog('updateFlyerByActiveBzProtocol : START');
+
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+      context: context,
+      listen: false,
+    );
+    blog('updateFlyerByActiveBzProtocol : bz flyers IDs before upload : ${_bzModel.flyersIDs}');
+
+    /// FIRE BASE --------------------------------------
+    final FlyerModel _uploadedFlyer = await FlyerFireOps.updateFlyerOps(
+        context: context,
+        newFlyer: flyerToPublish,
+        oldFlyer: oldFlyer,
+        bzModel: _bzModel
+    );
+
+    /// LDB - PRO
+    await localFlyerUpdateProtocol(
+      context: context,
+      flyerModel: _uploadedFlyer,
+      notify: true,
+      insertInActiveBzFlyersIfAbsent: true,
+    );
+
+    blog('updateFlyerByActiveBzProtocol : END');
+
+  }
+// ----------------------------------
   static Future<void> localFlyerUpdateProtocol({
     @required BuildContext context,
     @required FlyerModel flyerModel,
