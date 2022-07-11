@@ -732,6 +732,7 @@ class AuthorModel {
     return _hasFlyers;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkImCreatorInThisBz({
     @required BzModel bzModel,
   }){
@@ -769,6 +770,40 @@ class AuthorModel {
     }
 
     return _areIdentical;
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkAuthorCanDeleteFlyer({
+    @required String myID,
+    @required FlyerModel flyer,
+    @required BzModel bzModel,
+  }){
+    bool _canDelete = false;
+
+    if (flyer != null && bzModel != null && myID != null){
+
+      final bool _thisIsMyFlyer = flyer.authorID == myID;
+
+      if (_thisIsMyFlyer == true){
+        _canDelete = true;
+      }
+
+      else {
+
+        final bool _iHaveHigherRankThanFlyerAuthor = checkAuthorHasHigherRank(
+            theDoer: getAuthorFromBzByAuthorID(bz: bzModel, authorID: myID),
+            theDoneWith: getAuthorFromBzByAuthorID(bz: bzModel, authorID: flyer.authorID),
+        );
+
+        if (_iHaveHigherRankThanFlyerAuthor == true){
+          _canDelete = true;
+        }
+
+      }
+
+    }
+
+    return _canDelete;
   }
 // -----------------------------------------------------------------------------
 
@@ -891,6 +926,7 @@ class AuthorModel {
   /// TRANSLATION
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String translateRole({
     @required BuildContext context,
     @required AuthorRole role,
@@ -907,6 +943,7 @@ class AuthorModel {
 /// AUTHOR ROLES
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkAuthorAbility({
     @required AuthorModel theDoer,
     @required AuthorModel theDoneWith,
@@ -957,6 +994,7 @@ class AuthorModel {
 
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkAuthorHasHigherRank({
     @required AuthorModel theDoer, // the current user doing stuff
     @required AuthorModel theDoneWith, // the author whos done with
@@ -976,6 +1014,7 @@ class AuthorModel {
     return _hasHigherRank;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkAuthorHasSameRank({
     @required AuthorModel theDoer, // the current user doing stuff
     @required AuthorModel theDoneWith, // the author whos done with
@@ -995,6 +1034,7 @@ class AuthorModel {
     return _hasHigherRank;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static int getRoleRank(AuthorRole role){
 
     switch (role){

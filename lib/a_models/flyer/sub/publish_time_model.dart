@@ -264,6 +264,7 @@ class PublishTime {
   /// GETTERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static PublishTime getPublishTimeFromTimes({
     PublishState state,
     List<PublishTime> times,

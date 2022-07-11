@@ -149,7 +149,8 @@ class SpecModel {
 
   /// CYPHERS
 
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     /// shall be saved like this inside flyerModel
     /// specs : {
@@ -174,7 +175,8 @@ class SpecModel {
       pickerChainID: value,
     };
   }
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherSpecs(List<SpecModel> specs) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
@@ -217,7 +219,8 @@ class SpecModel {
 
     return _map;
   }
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecModel> decipherSpecs(Map<String, dynamic> map) {
     final List<SpecModel> _specs = <SpecModel>[];
 
@@ -280,7 +283,8 @@ class SpecModel {
 
   /// CHECKERS
 
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkSpecsAreIdentical(SpecModel spec1, SpecModel spec2) {
     bool _areIdentical = false;
 
@@ -294,7 +298,7 @@ class SpecModel {
 
     return _areIdentical;
   }
-// ------------------------------------------
+// --------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
 
@@ -310,7 +314,7 @@ class SpecModel {
 
     return _listsAreIdentical;
   }
-// ------------------------------------------
+// --------------------------------
   static bool checkSpecsContainThisSpec({
     @required List<SpecModel> specs,
     @required SpecModel spec,
@@ -331,7 +335,7 @@ class SpecModel {
 
     return _contains;
   }
-// ------------------------------------------
+// --------------------------------
   static bool checkSpecsContainThisSpecValue({
     @required List<SpecModel> specs,
     @required dynamic value,
@@ -349,7 +353,7 @@ class SpecModel {
 
     return _contains;
   }
-// ------------------------------------------
+// --------------------------------
   static bool checkSpecsContainOfSamePickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -370,7 +374,7 @@ class SpecModel {
 
     return _contains;
   }
-// ------------------------------------------
+// --------------------------------
   static bool specsContainsNewSale(List<SpecModel> specs) {
     const SpecModel _newSaleSpec = SpecModel(
       pickerChainID: 'propertyContractType',
@@ -388,7 +392,8 @@ class SpecModel {
 
   /// DUMMIES
 
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecModel> dummySpecs() {
     return <SpecModel>[
       const SpecModel(pickerChainID: 'phid_s_propertyLicense', value: 'phid_k_ppt_lic_residential'),
@@ -405,11 +410,13 @@ class SpecModel {
 
   /// BLOGGING
 
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   void blogSpec() {
     blog('BLOGGING SPEC : specsListID : ( $pickerChainID ) : value : ( ${value.toString()} )');
   }
-// -----------------------------------------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogSpecs(List<SpecModel> specs) {
     blog('SPECS-PRINT -------------------------------------------------- START');
 
@@ -428,7 +435,7 @@ class SpecModel {
 
   /// GETTERS
 
-// ------------------------------------------
+// --------------------------------
   static List<SpecModel> getSpecsRelatedToPicker({
     @required List<SpecModel> specs,
     @required SpecPicker picker,
@@ -448,7 +455,7 @@ class SpecModel {
 
     return _result;
   }
-// ------------------------------------------
+// --------------------------------
   static List<SpecModel> getSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -465,7 +472,7 @@ class SpecModel {
 
     return _result;
   }
-// ------------------------------------------
+// --------------------------------
   static SpecModel getFirstSpecFromSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -482,7 +489,8 @@ class SpecModel {
 
     return _result;
   }
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static String translateSpec({
     @required BuildContext context,
     @required SpecModel spec,
@@ -495,7 +503,8 @@ class SpecModel {
 
     return _name;
   }
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getSpecsIDs(List<SpecModel> specs){
     final List<String> _output = <String>[];
 
@@ -515,7 +524,8 @@ class SpecModel {
 
   /// MODIFIERS
 
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecModel> putSpecsInSpecs({
     @required List<SpecModel> parentSpecs,
     @required List<SpecModel> inputSpecs,
@@ -578,7 +588,8 @@ class SpecModel {
 
     return SpecModel.cleanSpecs(_specs);
   }
-// ------------------------------------------
+// --------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecModel> cleanSpecs(List<SpecModel> specs) {
     final List<SpecModel> _output = <SpecModel>[];
 

@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
@@ -39,6 +40,12 @@ Future<void> onFlyerBzOptionsTap({
     to: DateTime.now(),
   );
 
+  final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(
+    flyer: flyer,
+    myID: superUserID(),
+    bzModel: BzzProvider.proGetActiveBzModel(context: context, listen: false),
+  );
+
   await BottomDialog.showButtonsBottomDialog(
       context: context,
       draggable: true,
@@ -63,10 +70,9 @@ Future<void> onFlyerBzOptionsTap({
             context: context,
             verse: 'Delete flyer',
             verseCentered: true,
-            isDeactivated: true,
-            onDeactivatedTap: () => _onDeleteFlyerButtonTap(
+            isDeactivated: !_canDeleteFlyer,
+            onDeactivatedTap: () => _onCanNotDeleteFlyerDialog(
               context: context,
-              flyer: flyer,
             ),
             onTap: () => _onDeleteFlyerButtonTap(
               context: context,
@@ -98,12 +104,26 @@ Future<void> _onEditFlyerButtonTap({
       ),
   );
 
+  /// CLOSE BOTTOM DIALOG
+  Nav.goBack(context);
+
 }
 // -----------------------------------------------------------------------------
 
 /// FLYER DELETION
 
 // -------------------------------
+Future<void> _onCanNotDeleteFlyerDialog({
+  @required BuildContext context,
+}) async {
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Can not Delete Flyer',
+  );
+
+}
+
 Future<void> _onDeleteFlyerButtonTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -149,12 +169,14 @@ Future<bool> _preFlyerDeleteCheckups({
       listen: false,
   );
 
-  final bool _imCreator = AuthorModel.checkImCreatorInThisBz(
-    bzModel: _bzModel,
+  final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(
+      myID: superUserID(),
+      flyer: flyer,
+      bzModel: _bzModel
   );
 
   /// CAN NOT DELETE IF NOT CREATOR
-  if (_imCreator == false){
+  if (_canDeleteFlyer == false){
 
     await CenterDialog.showCenterDialog(
       context: context,
