@@ -55,17 +55,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _instagramController = TextEditingController(); /// tamam disposed
   final TextEditingController _twitterController = TextEditingController(); /// tamam disposed
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(true); /// tamam disposed
-// -----------------------------------
-  Future<void> _triggerLoading({
-    @required setTo,
-  }) async {
-    _loading.value = setTo;
-    blogLoading(
-      loading: _loading.value,
-      callerName: 'EditProfileScreen',
-    );
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+    }
   }
 // -----------------------------------------------------------------------------
   void _initializeLocalVariables(){

@@ -127,16 +127,24 @@ class FlyerMakerScreenView extends StatelessWidget {
                         ),
 
                         /// FLYER DESCRIPTION
-                        TextFieldBubble(
-                          key: const ValueKey<String>('bz_scope_bubble'),
-                          textController: TextEditingController(),
-                          title: 'Flyer Description',
-                          counterIsOn: true,
-                          maxLength: 1000,
-                          maxLines: 7,
-                          keyboardTextInputType: TextInputType.multiline,
-                          // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+                        ValueListenableBuilder(
+                            valueListenable: draft,
+                            builder: (_, DraftFlyerModel _draft, Widget child){
+
+                              return TextFieldBubble(
+                                key: const ValueKey<String>('bz_scope_bubble'),
+                                textController: _draft.descriptionController,
+                                title: 'Flyer Description',
+                                counterIsOn: true,
+                                maxLength: 1000,
+                                maxLines: 7,
+                                keyboardTextInputType: TextInputType.multiline,
+                                // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+                              );
+
+                            }
                         ),
+
 
                         const DotSeparator(),
 

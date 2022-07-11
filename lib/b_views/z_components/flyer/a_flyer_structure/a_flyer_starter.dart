@@ -38,11 +38,13 @@ class FlyerStarter extends StatefulWidget {
 
 class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(true); /// tamam disposed
+  /// --- LOADING BLOCK
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------------------------------
   Future<void> _triggerLoading({@required setTo}) async {
-    _loading.value = setTo;
+    if (mounted == true){
+      _loading.value = setTo;
+    }
     blogLoading(
       loading: _loading.value,
       callerName: 'FlyerStarter',

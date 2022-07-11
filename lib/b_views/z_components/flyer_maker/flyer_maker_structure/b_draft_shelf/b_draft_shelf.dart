@@ -40,16 +40,20 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
+  /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------------------------------
+// -----------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
-    _loading.value = setTo ?? !_loading.value;
-    blogLoading(
-        loading: _loading.value,
-        callerName: 'SlidesShelf',
-    );
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+    }
   }
    */
 // -----------------------------------------------------------------------------

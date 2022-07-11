@@ -253,8 +253,8 @@ class SlideModel {
     if (slide1.savesCount != slide2.savesCount){
       blog('slide1.savesCount != slide2.savesCount');
     }
-    if (slide1.picFit == slide2.picFit){
-      blog('slide1.picFit == slide2.picFit');
+    if (slide1.picFit != slide2.picFit){
+      blog('slide1.picFit != slide2.picFit');
     }
     if (ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) == false){
       blog('slide1.imageSize != slide2.imageSize');
@@ -313,6 +313,7 @@ class SlideModel {
     return _slidesPicsAreTheSame;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool allSlidesPicsAreTheSame({
     @required FlyerModel newFlyer,
     @required FlyerModel oldFlyer,
@@ -593,6 +594,7 @@ class SlideModel {
     return _foundSlides;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static SlideModel getSlideFromMutableSlide(MutableSlide mSlide) {
     SlideModel _slideModel;
 
@@ -615,6 +617,7 @@ class SlideModel {
     return _slideModel;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides) {
     final List<SlideModel> _slides = <SlideModel>[];
 

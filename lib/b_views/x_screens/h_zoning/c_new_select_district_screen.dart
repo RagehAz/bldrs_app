@@ -39,17 +39,19 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
   final ValueNotifier<List<DistrictModel>> _foundDistricts = ValueNotifier<List<DistrictModel>>(null); /// tamam disposed
   ValueNotifier<ZoneModel> _currentZone;
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(true); /// tamam disposed
-// -----------------------------------
-  Future<void> _triggerLoading({
-    @required setTo,
-  }) async {
-    _loading.value = setTo;
-    blogLoading(
-      loading: _loading.value,
-      callerName: 'EditProfileScreen',
-    );
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+    }
   }
 // -----------------------------------------------------------------------------
   @override
