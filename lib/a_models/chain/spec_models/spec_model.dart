@@ -180,11 +180,38 @@ class SpecModel {
 
     if (Mapper.checkCanLoopList(specs)) {
       for (final SpecModel spec in specs) {
-        _map = Mapper.insertPairInMap(
-          map: _map,
-          key: spec.pickerChainID,
-          value: spec.value,
-        );
+
+        final String _key = spec.pickerChainID;
+
+        /// KEY IS NOT DEFINED
+        if (_map[_key] == null){
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: spec.pickerChainID,
+            value: spec.value,
+          );
+        }
+
+        /// KEY ALREADY DEFINED
+        else {
+
+          final dynamic _existingValue = _map[_key];
+
+          if (_existingValue is String){
+
+            final List<String> _list = <String>[_existingValue, spec.value];
+            _map[_key] = _list;
+
+          }
+
+          else if (_existingValue is List<String>){
+            final List<String> _list = <String>[..._existingValue, spec.value];
+            _map[_key] = _list;
+          }
+
+
+        }
+
       }
     }
 
@@ -198,12 +225,29 @@ class SpecModel {
 
     if (Mapper.checkCanLoopList(_keys)) {
       for (final String key in _keys) {
-        final SpecModel _spec = SpecModel(
-          pickerChainID: key,
-          value: map[key],
-        );
 
-        _specs.add(_spec);
+        final dynamic _value = map[key];
+
+        if (_value is List<dynamic>){
+
+          for (final dynamic val in _value){
+            final SpecModel _spec = SpecModel(
+              pickerChainID: key,
+              value: val,
+            );
+            _specs.add(_spec);
+          }
+
+        }
+
+        else {
+          final SpecModel _spec = SpecModel(
+            pickerChainID: key,
+            value: _value,
+          );
+          _specs.add(_spec);
+        }
+
       }
     }
 
@@ -237,7 +281,7 @@ class SpecModel {
   /// CHECKERS
 
 // ------------------------------------------
-  static bool specsAreIdentical(SpecModel spec1, SpecModel spec2) {
+  static bool checkSpecsAreIdentical(SpecModel spec1, SpecModel spec2) {
     bool _areIdentical = false;
 
     if (spec1 != null && spec2 != null) {
@@ -252,7 +296,7 @@ class SpecModel {
   }
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool specsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
+  static bool checkSpecsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
 
     final Map<String, dynamic> specsAMap = cipherSpecs(specs1);
     final Map<String, dynamic> specsBMap = cipherSpecs(specs2);
@@ -267,7 +311,7 @@ class SpecModel {
     return _listsAreIdentical;
   }
 // ------------------------------------------
-  static bool specsContainThisSpec({
+  static bool checkSpecsContainThisSpec({
     @required List<SpecModel> specs,
     @required SpecModel spec,
   }) {
@@ -275,7 +319,7 @@ class SpecModel {
 
     if (Mapper.checkCanLoopList(specs) && spec != null) {
       final SpecModel _result = specs.firstWhere(
-              (SpecModel sp) => SpecModel.specsAreIdentical(sp, spec) == true,
+              (SpecModel sp) => SpecModel.checkSpecsAreIdentical(sp, spec) == true,
           orElse: () => null);
 
       if (_result == null) {
@@ -288,7 +332,7 @@ class SpecModel {
     return _contains;
   }
 // ------------------------------------------
-  static bool specsContainThisSpecValue({
+  static bool checkSpecsContainThisSpecValue({
     @required List<SpecModel> specs,
     @required dynamic value,
   }) {
@@ -306,7 +350,7 @@ class SpecModel {
     return _contains;
   }
 // ------------------------------------------
-  static bool specsContainOfSamePickerChainID({
+  static bool checkSpecsContainOfSamePickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
   }) {
@@ -333,7 +377,7 @@ class SpecModel {
       value: null,//RawSpecs.newSaleID
     );
 
-    final bool _containsNewSale = SpecModel.specsContainThisSpec(
+    final bool _containsNewSale = SpecModel.checkSpecsContainThisSpec(
       specs: specs,
       spec: _newSaleSpec,
     );
@@ -487,8 +531,7 @@ class SpecModel {
 
         /// A - CAN PICK MANY "of this list ID"
         if (canPickMany == true) {
-          final bool _alreadyThere =
-              specsContainThisSpec(specs: _specs, spec: inputSpec);
+          final bool _alreadyThere = checkSpecsContainThisSpec(specs: _specs, spec: inputSpec);
 
           /// A1 - SPEC ALREADY SELECTED => do nothing
           if (_alreadyThere == true) {
@@ -502,7 +545,7 @@ class SpecModel {
 
         /// B - CAN NOT PICK MANY " of this list ID"
         else {
-          final bool _specsContainOfSamePickerChainID = specsContainOfSamePickerChainID(
+          final bool _specsContainOfSamePickerChainID = checkSpecsContainOfSamePickerChainID(
               specs: _specs,
               pickerChainID: inputSpec.pickerChainID,
           );

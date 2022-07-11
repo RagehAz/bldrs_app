@@ -106,6 +106,14 @@ class ImageFilterModel {
     return bldrsImageFilters[0];
   }
 // -------------------------------------
+  static ImageFilterModel getFilterByID(String id){
+    ImageFilterModel _filter = noFilter();
+    if (id != null){
+      _filter = bldrsImageFilters.firstWhere((element) => element.id == id, orElse: () => noFilter());
+    }
+    return _filter;
+  }
+// -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<ImageFilterModel> bldrsImageFilters = <ImageFilterModel>[
     /// NORMAL

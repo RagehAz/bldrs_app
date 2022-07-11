@@ -313,7 +313,7 @@ Future<void> onAddKeywordsTap({
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
-  final dynamic _result = await Nav.goToNewScreen(
+  final List<String> _result = await Nav.goToNewScreen(
       context: context,
       screen: KeywordsPickerScreen(
         flyerTypes: <FlyerType>[draft.value.flyerType],
@@ -321,12 +321,12 @@ Future<void> onAddKeywordsTap({
       )
   );
 
-  final List<String> receivedKeywordsIds = _result;
+  blog('onAddKeywordsTap : _result : $_result');
 
-  if (Mapper.checkCanLoopList(receivedKeywordsIds) == true){
+  if (_result != null){
 
     draft.value = draft.value.copyWith(
-      keywordsIDs: receivedKeywordsIds,
+      keywordsIDs: _result,
     );
 
   }
@@ -550,7 +550,7 @@ Future<void> _publishFlyerOps({
   WaitDialog.closeWaitDialog(context);
 
 }
-
+// ----------------------------------
 Future<void> _updateFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,

@@ -62,7 +62,7 @@ class SpecPicker {
 
         if (Mapper.checkCanLoopList(_deactivators)) {
           for (final SpecDeactivator deactivator in _deactivators) {
-            final bool _isSelected = SpecModel.specsContainThisSpecValue(
+            final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
                 specs: selectedSpecs,
                 value: deactivator.specValue
             );
