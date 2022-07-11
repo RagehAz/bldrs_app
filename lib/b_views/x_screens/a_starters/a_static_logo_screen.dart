@@ -28,17 +28,18 @@ class _OldLogoScreenState extends State<OldLogoScreen> with TickerProviderStateM
   AnimationController _scaleController; /// tamam disposed
   static const int _fadeCycleDuration = 750;
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
+  /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------------------------------
-  /// HAS TO BE A FUTURE TO BE USED IN didChangeDependencies
-  Future<void> _triggerLoading() async {
-    if (mounted){
-      _loading.value = !_loading.value;
-      blogLoading(
-        loading: _loading.value,
-        callerName: 'LogoScreen',
-      );
+// -----------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
     }
   }
 // -----------------------------------------------------------------------------

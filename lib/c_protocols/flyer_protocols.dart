@@ -62,6 +62,7 @@ class FlyerProtocol {
 /// UPDATE
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerByActiveBzProtocol({
     @required BuildContext context,
     @required FlyerModel flyerToPublish,
@@ -96,6 +97,7 @@ class FlyerProtocol {
 
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> localFlyerUpdateProtocol({
     @required BuildContext context,
     @required FlyerModel flyerModel,

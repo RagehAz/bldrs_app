@@ -42,17 +42,19 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
   final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null); /// tamam disposed
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
+  /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------------------------------
-  Future<void> _triggerLoading({
-    @required setTo,
-  }) async {
-    _loading.value = setTo;
-    blogLoading(
-      loading: _loading.value,
-      callerName: 'EditProfileScreen',
-    );
+// -----------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+    }
   }
 // -----------------------------------------------------------------------------
   @override

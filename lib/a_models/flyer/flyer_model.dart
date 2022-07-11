@@ -34,6 +34,7 @@ class FlyerModel {
     @required this.id,
     @required this.headline,
     @required this.trigram,
+    @required this.description,
     // -------------------------
     @required this.flyerType,
     @required this.publishState,
@@ -61,6 +62,7 @@ class FlyerModel {
   final String id;
   final String headline;
   final List<String> trigram;
+  final String description;
   // -------------------------
   final FlyerType flyerType;
   final PublishState publishState;
@@ -95,6 +97,7 @@ class FlyerModel {
       'id' : id,
       'headline' : slides[0].headline,
       'trigram' : TextGen.createTrigram(input: slides[0].headline),
+      'description' : description,
       // -------------------------
       'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
       'publishState' : cipherPublishState(publishState),
@@ -151,6 +154,7 @@ class FlyerModel {
         id: map['id'],
         headline: map['headline'],
         trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
+        description: map['description'],
         // -------------------------
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: decipherFlyerState(map['publishState']),
@@ -204,6 +208,7 @@ class FlyerModel {
     String id,
     String headline,
     List<String> trigram,
+    String description,
     FlyerType flyerType,
     PublishState publishState,
     AuditState auditState,
@@ -227,6 +232,7 @@ class FlyerModel {
       id: id ?? this.id,
       headline: headline ?? this.headline,
       trigram: trigram ?? this.trigram,
+      description: description ?? this.description,
       flyerType: flyerType ?? this.flyerType,
       publishState: publishState ?? this.publishState,
       auditState: auditState ?? this.auditState,
@@ -395,6 +401,7 @@ class FlyerModel {
     blog('id : $id');
     blog('headline : $headline');
     blog('trigram : $trigram');
+    blog('description : $description');
     blog('flyerType : $flyerType');
     blog('publishState : $publishState');
     blog('auditState : $auditState');
@@ -406,7 +413,7 @@ class FlyerModel {
     blog('position : $position');
     blog('specs : $specs');
     blog('info : $info');
-    blog('times : $times');
+    PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
     SlideModel.blogSlides(slides);
@@ -432,11 +439,10 @@ class FlyerModel {
 
   }
 // ------------------------------------------
-
   static void blogFlyersDifferences({
     @required FlyerModel flyer1,
     @required FlyerModel flyer2,
-}){
+  }){
 
     if (flyer1 == null){
       blog('flyer1 == null');
@@ -452,6 +458,9 @@ class FlyerModel {
     }
     if (Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == false){
       blog('flyer1.trigram != flyer2.trigram');
+    }
+    if (flyer1.description != flyer2.description){
+      blog('flyer1.description != flyer2.description');
     }
     if (flyer1.flyerType != flyer2.flyerType){
       blog('flyer1.flyerType != flyer2.flyerType');
@@ -509,6 +518,7 @@ class FlyerModel {
       id : 'x',
       headline: 'Dummy Flyer',
       trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
+      description: 'This is a dummy flyer',
       authorID: AuthFireOps.superUserID(),
       flyerType : FlyerType.property,
       publishState : PublishState.published,
@@ -822,6 +832,7 @@ class FlyerModel {
           flyer1.id == flyer2.id &&
           flyer1.headline == flyer2.headline &&
           Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
+          flyer1.description == flyer2.description &&
           flyer1.flyerType == flyer2.flyerType &&
           flyer1.publishState == flyer2.publishState &&
           flyer1.auditState == flyer2.auditState &&

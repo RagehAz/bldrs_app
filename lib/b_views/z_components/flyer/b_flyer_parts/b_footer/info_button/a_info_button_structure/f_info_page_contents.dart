@@ -30,27 +30,6 @@ class InfoPageContents extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    const String _flyerInfo = 'Flyer info here because this is going to be super '
-        'super duper awesome baby,, like the user author of'
-        ' this flyer can type whatever he wants here '
-        'to describe this flyer w keda u kno\n'
-        'And the user can expand and type and keep typing as long as he would\n'
-        'like to do\n'
-        'Te3mel eh tayyeb rabbena mesh rayed,, w mesh kol 7aga t3ozha w teegy\n'
-        '3ala hawak hata5odha\n'
-        'take care that you can sometimes wish and pray for conflicting things\n'
-        'one pray to take you forward\n'
-        'the other one would take you backwards\n'
-        'and So the trust is were Allah woill choose the best for you\n'
-        'because he loves you\n'
-        'he gave you too many signals for his love to you\n'
-        'and you should kno that by heart\n'
-        'never regret\n'
-        'never surrender\n'
-        'never lose faith\n'
-        'all is good\n'
-        '2ool el 7amdolellah';
-    
     return Container(
       key: const ValueKey<String>('InfoPageContents'),
       width: _pageWidth,
@@ -125,7 +104,7 @@ class InfoPageContents extends StatelessWidget {
           /// INFO BODY
           InfoPageParagraph(
             pageWidth: _pageWidth,
-            flyerInfo: _flyerInfo,
+            flyerInfo: flyerModel.description,
           ),
 
           /// -------------------------------------------------------- SEPARATOR
