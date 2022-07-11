@@ -82,17 +82,21 @@ class GoBackWidget extends StatefulWidget {
 }
 
 class _GoBackWidgetState extends State<GoBackWidget> {
+  /// Stream<List<NoteModel>> _receivedNotesStream;
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// NOT disposed
-  // Stream<List<NoteModel>> _receivedNotesStream;
-// -----------------------------------
-  Future<void> _triggerLoading() async {
-    _loading.value = !_loading.value;
-    blogLoading(
-      loading: _loading.value,
-      callerName: 'HomeScreen',
-    );
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+    }
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

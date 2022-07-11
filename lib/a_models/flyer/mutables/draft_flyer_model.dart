@@ -22,6 +22,7 @@ class DraftFlyerModel{
   const DraftFlyerModel({
     @required this.id,
     @required this.headlineController,
+    @required this.descriptionController,
     @required this.flyerType,
     @required this.publishState,
     @required this.auditState,
@@ -41,6 +42,7 @@ class DraftFlyerModel{
   /// --------------------------------------------------------------------------
   final String id;
   final TextEditingController headlineController;
+  final TextEditingController descriptionController;
   final FlyerType flyerType;
   final PublishState publishState;
   final AuditState auditState;
@@ -64,6 +66,7 @@ class DraftFlyerModel{
   DraftFlyerModel copyWith({
     String id,
     TextEditingController headlineController,
+    TextEditingController descriptionController,
     FlyerType flyerType,
     PublishState publishState,
     AuditState auditState,
@@ -82,6 +85,7 @@ class DraftFlyerModel{
   }) => DraftFlyerModel(
     id: id ?? this.id,
     headlineController: headlineController ?? this.headlineController,
+    descriptionController: descriptionController ?? this.descriptionController,
     flyerType: flyerType ?? this.flyerType,
     publishState: publishState ?? this.publishState,
     auditState: auditState ?? this.auditState,
@@ -99,11 +103,13 @@ class DraftFlyerModel{
     score: score ?? this.score,
   );
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   FlyerModel toFlyerModel(){
     return FlyerModel(
       id: id,
       headline: headlineController.text,
       trigram: TextGen.createTrigram(input: headlineController.text),
+      description: descriptionController.text,
       flyerType: flyerType,
       publishState: publishState,
       auditState: auditState,
@@ -123,6 +129,7 @@ class DraftFlyerModel{
     );
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static DraftFlyerModel createNewDraft({
     @required BzModel bzModel,
     @required String authorID,
@@ -141,6 +148,7 @@ class DraftFlyerModel{
     final DraftFlyerModel _draft = DraftFlyerModel(
       id: Numeric.createUniqueID().toString(),
       headlineController: TextEditingController(),
+      descriptionController: TextEditingController(),
       flyerType: _flyerType,
       publishState: PublishState.draft,
       auditState: null,
@@ -164,6 +172,7 @@ class DraftFlyerModel{
     return _draft;
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<DraftFlyerModel> createDraftFromFlyer(FlyerModel flyerModel) async {
 
     DraftFlyerModel _draft;
@@ -173,6 +182,7 @@ class DraftFlyerModel{
       _draft = DraftFlyerModel(
         id: flyerModel.id,
         headlineController: TextEditingController(text: flyerModel.headline),
+        descriptionController: TextEditingController(text: flyerModel.description),
         flyerType: flyerModel.flyerType,
         publishState: flyerModel.publishState,
         auditState: flyerModel.auditState,
@@ -206,6 +216,7 @@ class DraftFlyerModel{
 }){
 
     disposeControllerIfPossible(draft.headlineController);
+    disposeControllerIfPossible(draft.descriptionController);
     disposeControllerIfPossible(draft.info);
     MutableSlide.disposeMutableSlidesTextControllers(
         mutableSlides: draft.mutableSlides,
@@ -313,23 +324,24 @@ class DraftFlyerModel{
 // -------------------------------------
   void blogDraft(){
 
-    blog('BLOGGIND DRAFT FLYER MODEL ---------------------------------------- START');
+    blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- START');
 
     blog('id : $id');
-    blog('headline : $headlineController');
+    blog('headline : ${headlineController.text}');
+    blog('description : ${descriptionController.text}');
     blog('flyerType : $flyerType');
     blog('publishState : $publishState');
     blog('auditState : auditState');
     blog('keywordsIDs : $keywordsIDs');
     blog('showsAuthor : $showsAuthor');
-    blog('zone : $zone');
+    zone.blogZone();
     blog('authorID : $authorID');
     blog('bzID : $bzID');
     blog('position : $position');
     blog('mutableSlides : ${mutableSlides.length} slides');
     blog('specs : $specs');
     blog('info : $info');
-    blog('times : $times');
+    PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
 
     MutableSlide.blogSlides(mutableSlides);

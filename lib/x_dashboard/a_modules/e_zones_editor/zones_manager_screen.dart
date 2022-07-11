@@ -33,15 +33,19 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
   PageController _pageController; /// tamam disposed
   QueryDocumentSnapshot<Object> _lastSnap;
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
+  /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------------------------------
-  Future<void> _triggerLoading() async {
-    _loading.value = !_loading.value;
-    blogLoading(
-      loading: _loading.value,
-      callerName: 'ZonesEditorScreen',
-    );
+// -----------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+    }
   }
 // -----------------------------------------------------------------------------
   @override

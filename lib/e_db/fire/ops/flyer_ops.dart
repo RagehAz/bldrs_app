@@ -545,6 +545,7 @@ class FlyerFireOps {
 
   }
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _updateFlyerDoc({
     @required BuildContext context,
     @required FlyerModel finalFlyer,

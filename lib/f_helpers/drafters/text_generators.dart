@@ -43,6 +43,7 @@ String askHinter (BuildContext context, BzType bzType){
   return _askHint;
 }
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 List<String> createTrigram({
   @required String input,
 }){
