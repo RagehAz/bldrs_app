@@ -117,6 +117,7 @@ class ZoneModel {
   /// CHECKERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkZonesIDsAreIdentical({
     @required ZoneModel zone1,
     @required ZoneModel zone2,

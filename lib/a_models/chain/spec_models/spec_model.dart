@@ -251,6 +251,7 @@ class SpecModel {
     return _areIdentical;
   }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool specsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
 
     final Map<String, dynamic> specsAMap = cipherSpecs(specs1);

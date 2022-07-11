@@ -125,7 +125,7 @@ class PublishTime {
     else if (time1 != null && time2 != null){
 
       if (
-      Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: time1.time, time2: time2.time) &&
+      Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.second, time1: time1.time, time2: time2.time) &&
       time1.state == time2.state
       ){
         _identical = true;
@@ -143,7 +143,6 @@ class PublishTime {
     return _identical;
   }
 // -------------------------------------
-
   static bool checkTimesListsAreIdentical({
     @required List<PublishTime> times1,
     @required List<PublishTime> times2,
@@ -200,7 +199,24 @@ class PublishTime {
   /// BLOGGING
 
 // -------------------------------------
+  void blogPublishTime(){
 
+    blog('PublishTime : $state : $time');
+
+  }
+// -------------------------------------
+  static void blogTimes(List<PublishTime> times){
+
+    if (Mapper.checkCanLoopList(times) == true){
+
+      for (final PublishTime time in times){
+        time.blogPublishTime();
+      }
+
+    }
+
+  }
+// -------------------------------------
   static void blogTimesListsDifferences({
     @required List<PublishTime> times1,
     @required List<PublishTime> times2,
@@ -287,6 +303,7 @@ class PublishTime {
     return _publishTime;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<PublishTime> addPublishTimeToTimes({
     @required List<PublishTime> times,
     @required PublishTime newTime,

@@ -33,16 +33,23 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
   ValueNotifier<AuthorRole> _authorRole;
 // -----------------------------------------------------------------------------
-  /// --- LOCAL LOADING BLOCK
+  /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-  // Future<void> _triggerLoading() async {
-  //   _loading.value = !_loading.value;
-  //   blogLoading(
-  //     loading: _loading.value,
-  //     callerName: 'SearchBzzScreen',
-  //   );
-  // }
-// -----------------------------------
+// -----------
+  /*
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+    }
+  }
+   */
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();

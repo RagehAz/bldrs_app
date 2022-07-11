@@ -72,6 +72,7 @@ class ImageSize {
     return _imageSize;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<ImageSize> superImageSize(dynamic image) async {
     ImageSize _imageSize;
 

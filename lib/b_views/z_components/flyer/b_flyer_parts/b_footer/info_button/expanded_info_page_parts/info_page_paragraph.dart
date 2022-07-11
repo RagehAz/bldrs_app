@@ -18,7 +18,6 @@ class InfoPageParagraph extends StatelessWidget {
       key: const ValueKey<String>('InfoPageParagraph'),
       child: Container(
         width: pageWidth,
-        alignment: Alignment.topCenter,
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: SuperVerse(
           verse: flyerInfo,

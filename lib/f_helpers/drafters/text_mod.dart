@@ -330,6 +330,7 @@ String removeNumberOfCharactersFromEndOfAString(String string, int numberOfChara
   return _stringTrimmed;
 }
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String removeSpacesFromAString(String string) {
   String _output5;
 

@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/c_specs_pickers_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/e_keywords_picker_screen.dart';
@@ -16,12 +15,12 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 
 ValueNotifier<DraftFlyerModel> initializeDraft({
   @required BuildContext context,
@@ -558,35 +557,32 @@ Future<void> _updateFlyerOps({
   @required FlyerModel oldFlyer,
 }) async {
 
-  unawaited(WaitDialog.showWaitDialog(
+  final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    canManuallyGoBack: false,
-    loadingPhrase: 'Uploading flyer',
-  ));
-
-  final PublishTime _updateTime = PublishTime(
-    state: PublishState.published,
-    time: DateTime.now(),
+    title: 'Update Flyer ?',
+    boolDialog: true,
+    confirmButtonText: 'Update',
   );
 
-  final List<PublishTime> _updatedTimes = PublishTime.addPublishTimeToTimes(
-    times: draft.value.times,
-    newTime: _updateTime,
-  );
+  if (_result == true){
 
-  final FlyerModel _flyerToUpdate = draft.value.toFlyerModel().copyWith(
-    publishState: PublishState.published,
-    times: _updatedTimes,
-  );
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      canManuallyGoBack: false,
+      loadingPhrase: 'Uploading flyer',
+    ));
 
-  await FlyerProtocol.updateFlyerByActiveBzProtocol(
-    context: context,
-    flyerToPublish: _flyerToUpdate,
-    oldFlyer: oldFlyer,
-  );
+    final FlyerModel _flyerToUpdate = draft.value.toFlyerModel();
 
-  WaitDialog.closeWaitDialog(context);
+    await FlyerProtocol.updateFlyerByActiveBzProtocol(
+      context: context,
+      flyerToPublish: _flyerToUpdate,
+      oldFlyer: oldFlyer,
+    );
 
+    WaitDialog.closeWaitDialog(context);
+
+  }
 
 }
 // -----------------------------------------------------------------------------
