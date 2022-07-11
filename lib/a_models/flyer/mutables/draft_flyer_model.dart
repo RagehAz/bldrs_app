@@ -205,6 +205,7 @@ class DraftFlyerModel{
 /// DISPOSING
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static void disposeDraftControllers({
   @required DraftFlyerModel draft,
 }){
@@ -315,6 +316,7 @@ class DraftFlyerModel{
   /// BLOGGING
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void blogDraft(){
 
     blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- START');
@@ -367,4 +369,5 @@ class DraftFlyerModel{
 
     return _canPublish;
   }
+// -----------------------------------------------------------------------------
 }

@@ -75,14 +75,18 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
         blog('FlyerMakerScreen : didChangeDependencies');
 
+        if (mounted == true){
           await initializeExistingFlyerDraft(
             flyerToEdit: widget.flyerToEdit,
             draft: _draftFlyer,
           );
+        }
 
+        if (mounted == true){
           _headlineController = initializeHeadlineController(
             draftFlyer: _draftFlyer,
           );
+        }
 
         // -------------------------------
         await _triggerLoading(setTo: false);
