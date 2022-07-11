@@ -50,7 +50,6 @@ class FlyerModel {
     @required this.slides,
     // -------------------------
     @required this.specs,
-    @required this.info,
     @required this.times,
     @required this.priceTagIsOn,
     // -------------------------
@@ -79,7 +78,6 @@ class FlyerModel {
   final List<SlideModel> slides; // TASK : only 10 max slides per flyer
   // -------------------------
   final List<SpecModel> specs;
-  final String info;
   final List<PublishTime> times;
   final bool priceTagIsOn;
   final DocumentSnapshot<Object> docSnapshot;
@@ -114,7 +112,6 @@ class FlyerModel {
       'slides' : SlideModel.cipherSlides(slides),
       // -------------------------
       'specs' : SpecModel.cipherSpecs(specs),
-      'info' : info,
       'priceTagIsOn' : priceTagIsOn,
       'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
       'score' : score,
@@ -171,7 +168,6 @@ class FlyerModel {
         slides: SlideModel.decipherSlides(map['slides']),
         // -------------------------
         specs: SpecModel.decipherSpecs(map['specs']),
-        info: map['info'],
         priceTagIsOn: map['priceTagIsOn'],
         times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
@@ -221,7 +217,6 @@ class FlyerModel {
     List<SlideModel> slides,
     bool isBanned,
     List<SpecModel> specs,
-    String info,
     List<PublishTime> times,
     bool priceTagIsOn,
     DocumentSnapshot docSnapshot,
@@ -244,7 +239,6 @@ class FlyerModel {
       position: position ?? this.position,
       slides: slides ?? this.slides,
       specs: specs ?? this.specs,
-      info: info ?? this.info,
       times: times ?? this.times,
       priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
       docSnapshot: docSnapshot ?? this.docSnapshot,
@@ -412,7 +406,6 @@ class FlyerModel {
     blog('bzID : $bzID');
     blog('position : $position');
     blog('specs : $specs');
-    blog('info : $info');
     PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
@@ -492,11 +485,8 @@ class FlyerModel {
     if (SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == false){
       blog('flyer1.slides != flyer2.slides');
     }
-    if (SpecModel.specsListsAreIdentical(flyer1.specs, flyer2.specs) == false){
+    if (SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == false){
       blog('flyer1.specs != flyer2.specs');
-    }
-    if (flyer1.info != flyer2.info){
-      blog('flyer1.info != flyer2.info');
     }
     if (PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == false){
       blog('flyer1.times != flyer2.times');
@@ -531,7 +521,6 @@ class FlyerModel {
         SlideModel.dummySlide(),
       ],
       specs : const <SpecModel>[],
-      info : 'Nothing just dummy',
       times : <PublishTime>[
         PublishTime(state: PublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
@@ -843,8 +832,7 @@ class FlyerModel {
           flyer1.bzID == flyer2.bzID &&
           Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == true &&
           SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
-          SpecModel.specsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
-          flyer1.info == flyer2.info &&
+          SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
           flyer1.priceTagIsOn == flyer2.priceTagIsOn
       ){

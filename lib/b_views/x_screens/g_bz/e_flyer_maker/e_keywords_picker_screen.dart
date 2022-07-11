@@ -30,6 +30,7 @@ class KeywordsPickerScreen extends StatefulWidget {
 }
 
 class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
+// -----------------------------------------------------------------------------
   ValueNotifier<List<String>> _selectedKeywordsIDs; /// tamam disposed
   final TextEditingController _searchController = TextEditingController(); /// tamam disposed
 // -----------------------------------------------------------------------------
@@ -252,6 +253,8 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
   @override
   Widget build(BuildContext context) {
 
+    blog('KeywordsPickerScreen : _selectedKeywordsIDs ${_selectedKeywordsIDs.value}');
+
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final double _selectedKeywordsBubbleHeight = SelectedKeywordsBar.getBubbleHeight(
@@ -277,6 +280,8 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
       layoutWidget: ValueListenableBuilder(
         valueListenable: _selectedKeywordsIDs,
         builder: (_, List<String> selectedIDs, Widget child){
+
+          blog('KeywordsPickerScreen : _selectedKeywordsIDs $selectedIDs');
 
           return Column(
             children: <Widget>[

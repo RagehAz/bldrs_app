@@ -135,7 +135,7 @@ Future<void> onAddScopesTap({
 
   Keyboarders.closeKeyboard(context);
 
-  final dynamic _result = await Nav.goToNewScreen(
+  final List<String> _result = await Nav.goToNewScreen(
       context: context,
       screen: KeywordsPickerScreen(
         flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
@@ -143,10 +143,8 @@ Future<void> onAddScopesTap({
       )
   );
 
-  final List<String> receivedKeywordsIds = _result;
-
-  if (Mapper.checkCanLoopList(receivedKeywordsIds) == true){
-    selectedScopes.value = receivedKeywordsIds;
+  if (_result != null){
+    selectedScopes.value = _result;
   }
 
 }
