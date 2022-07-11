@@ -34,7 +34,6 @@ class DraftFlyerModel{
     @required this.position,
     @required this.mutableSlides,
     @required this.specs,
-    @required this.info,
     @required this.times,
     @required this.priceTagIsOn,
     @required this.score,
@@ -54,7 +53,6 @@ class DraftFlyerModel{
   final GeoPoint position;
   final List<MutableSlide> mutableSlides;
   final List<SpecModel> specs;
-  final TextEditingController info;
   final List<PublishTime> times;
   final bool priceTagIsOn;
   final int score;
@@ -97,7 +95,6 @@ class DraftFlyerModel{
     position: position ?? this.position,
     mutableSlides: mutableSlides ?? this.mutableSlides,
     specs: specs ?? this.specs,
-    info: info ?? this.info,
     times: times ?? this.times,
     priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
     score: score ?? this.score,
@@ -121,7 +118,6 @@ class DraftFlyerModel{
       position: position,
       slides: SlideModel.getSlidesFromMutableSlides(mutableSlides),
       specs: specs,
-      info: info.text,
       times: times,
       priceTagIsOn: priceTagIsOn,
       score: score,
@@ -163,7 +159,6 @@ class DraftFlyerModel{
       position: null,
       mutableSlides: const <MutableSlide>[],
       specs: const <SpecModel>[],
-      info: TextEditingController(),
       times: const <PublishTime>[],
       priceTagIsOn: false,
       score: 0,
@@ -196,7 +191,6 @@ class DraftFlyerModel{
             slides: flyerModel.slides
         ),
         specs: flyerModel.specs,
-        info: TextEditingController(text: flyerModel.info),
         times: flyerModel.times,
         priceTagIsOn: flyerModel.priceTagIsOn,
         score: flyerModel.score,
@@ -217,7 +211,6 @@ class DraftFlyerModel{
 
     disposeControllerIfPossible(draft.headlineController);
     disposeControllerIfPossible(draft.descriptionController);
-    disposeControllerIfPossible(draft.info);
     MutableSlide.disposeMutableSlidesTextControllers(
         mutableSlides: draft.mutableSlides,
     );
@@ -339,14 +332,13 @@ class DraftFlyerModel{
     blog('bzID : $bzID');
     blog('position : $position');
     blog('mutableSlides : ${mutableSlides.length} slides');
-    blog('specs : $specs');
-    blog('info : $info');
+    SpecModel.blogSpecs(specs);
     PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
 
     MutableSlide.blogSlides(mutableSlides);
 
-    blog('BLOGGIND DRAFT FLYER MODEL ---------------------------------------- END');
+    blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
   }
 // -----------------------------------------------------------------------------
 
