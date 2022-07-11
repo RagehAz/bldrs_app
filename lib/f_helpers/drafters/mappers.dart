@@ -479,7 +479,7 @@ int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String, dy
   final int _indexOfTheMap =
       listOfMaps.indexWhere(
               (Map<String, dynamic> m) =>
-                  checkMapsAreTheSame(
+                  checkMapsAreIdentical(
                      map1: m,
                      map2: map
                  )
@@ -655,18 +655,18 @@ bool checkListHasNullValue(List<dynamic> list){
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool checkMapsAreTheSame({
+bool checkMapsAreIdentical({
   Map<String, dynamic> map1,
   Map<String, dynamic> map2,
 }) {
-  bool _mapsAreTheSame = false;
+  bool _mapsAreIdentical = false;
 
   if (map1 == null && map2 == null) {
-    _mapsAreTheSame = true;
+    _mapsAreIdentical = true;
   }
 
   else if (map1 == null || map2 == null){
-    _mapsAreTheSame = false;
+    _mapsAreIdentical = false;
   }
 
   else if (map1 != null && map2 != null){
@@ -675,7 +675,7 @@ bool checkMapsAreTheSame({
     final List<String> _map2Keys = map2.keys.toList();
 
     if (_map1Keys.length != _map2Keys.length) {
-      _mapsAreTheSame = false;
+      _mapsAreIdentical = false;
     }
 
     else {
@@ -684,35 +684,36 @@ bool checkMapsAreTheSame({
       final List<dynamic> _map2Values = map2.values.toList();
 
       if (
-      checkListsAreTheSame(list1: _map1Keys, list2: _map2Keys) == true
+      checkListsAreIdentical(list1: _map1Keys, list2: _map2Keys) == true
           &&
-      checkListsAreTheSame(list1: _map1Values, list2: _map2Values) == true
+      checkListsAreIdentical(list1: _map1Values, list2: _map2Values) == true
       ){
-        _mapsAreTheSame = true;
+        _mapsAreIdentical = true;
       }
 
       else {
-        _mapsAreTheSame = false;
+        _mapsAreIdentical = false;
       }
     }
 
   }
 
-  return _mapsAreTheSame;
+  return _mapsAreIdentical;
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool checkMapsListsAreTheSame({
+bool checkMapsListsAreIdentical({
   @required List<Map<String, dynamic>> maps1,
   @required List<Map<String, dynamic>> maps2,
 }){
-  bool listsAreTheSame = false;
+  bool _listsAreIdentical = false;
 
   if (maps1 == null && maps2 == null){
-    listsAreTheSame = true;
+    _listsAreIdentical = true;
   }
+
   else if (maps1 == [] && maps2 == []){
-    listsAreTheSame = true;
+    _listsAreIdentical = true;
   }
 
   else if (checkCanLoopList(maps1) == true && checkCanLoopList(maps2) == true){
@@ -721,25 +722,25 @@ bool checkMapsListsAreTheSame({
       // blog('lists do not have the same length : list1 is ${maps1.length} : list2 is ${maps2.length}');
       // blog(' ---> lis1 is ( ${maps1.toString()} )');
       // blog(' ---> lis2 is ( ${maps2.toString()} )');
-      listsAreTheSame = false;
+      _listsAreIdentical = false;
     }
 
     else {
       for (int i = 0; i < maps1.length; i++) {
 
-        final bool _mapsAreTheSame = checkMapsAreTheSame(
+        final bool _mapsAreIdentical = checkMapsAreIdentical(
           map1: maps1[i],
           map2: maps2[i],
         );
 
-        if (_mapsAreTheSame == false) {
+        if (_mapsAreIdentical == false) {
           // blog('items at index ( $i ) do not match : ( ${maps1[i]} ) <=> ( ${maps2[i]} )');
-          listsAreTheSame = false;
+          _listsAreIdentical = false;
           break;
         }
 
         else {
-          listsAreTheSame = true;
+          _listsAreIdentical = true;
         }
 
       }
@@ -747,7 +748,7 @@ bool checkMapsListsAreTheSame({
 
   }
 
-  return listsAreTheSame;
+  return _listsAreIdentical;
 
 }
 // -------------------------------------
@@ -759,12 +760,16 @@ bool checkMapsContainValue({
   bool _listOfMapContainsTheValue;
 
   for (final Map<String, dynamic> map in listOfMaps) {
+
     if (map[field] == value) {
       _listOfMapContainsTheValue = true;
       break;
-    } else {
+    }
+
+    else {
       _listOfMapContainsTheValue = false;
     }
+
   }
 
   return _listOfMapContainsTheValue;
@@ -802,12 +807,12 @@ bool checkMapsContainMap({
 
     for (final Map<String, dynamic> _map in maps) {
 
-      final bool _mapsAreTheSame = checkMapsAreTheSame(
+      final bool _mapsAreIdentical = checkMapsAreIdentical(
         map1: _map,
         map2: map,
       );
 
-      if (_mapsAreTheSame == true) {
+      if (_mapsAreIdentical == true) {
         _listOfMapContainsTheMap = true;
         break;
       }
@@ -823,17 +828,17 @@ bool checkMapsContainMap({
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-bool checkListsAreTheSame({
+bool checkListsAreIdentical({
   @required List<dynamic> list1,
   @required List<dynamic> list2
 }) {
-  bool listsAreTheSame = false;
+  bool _listsAreIdentical = false;
 
   if (list1 == null && list2 == null){
-    listsAreTheSame = true;
+    _listsAreIdentical = true;
   }
   else if (list1.isEmpty && list2.isEmpty){
-    listsAreTheSame = true;
+    _listsAreIdentical = true;
   }
 
   else if (checkCanLoopList(list1) == true && checkCanLoopList(list2) == true){
@@ -842,7 +847,7 @@ bool checkListsAreTheSame({
       // blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
       // blog(' ---> lis1 is ( ${list1.toString()} )');
       // blog(' ---> lis2 is ( ${list2.toString()} )');
-      listsAreTheSame = false;
+      _listsAreIdentical = false;
     }
 
     else {
@@ -850,12 +855,12 @@ bool checkListsAreTheSame({
 
         if (list1[i] != list2[i]) {
           // blog('items at index ( $i ) do not match : ( ${list1[i]} ) <=> ( ${list2[i]} )');
-          listsAreTheSame = false;
+          _listsAreIdentical = false;
           break;
         }
 
         else {
-          listsAreTheSame = true;
+          _listsAreIdentical = true;
         }
 
       }
@@ -863,7 +868,7 @@ bool checkListsAreTheSame({
 
   }
 
-  return listsAreTheSame;
+  return _listsAreIdentical;
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT

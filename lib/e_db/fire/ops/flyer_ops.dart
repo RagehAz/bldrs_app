@@ -148,7 +148,7 @@ class FlyerFireOps {
         _finalFlyer = draftFlyer.copyWith(
           id: flyerID,
           slides: _updatedSlides,
-          trigram: TextGen.createTrigram(input: draftFlyer.title),
+          trigram: TextGen.createTrigram(input: draftFlyer.headline),
           times: _updatedPublishTime,
         );
 

@@ -20,6 +20,7 @@ class SlidesShelf extends StatefulWidget {
     @required this.bzModel,
     @required this.draft,
     @required this.headlineController,
+    @required this.isEditingFlyer,
     Key key,
 }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class SlidesShelf extends StatefulWidget {
   final BzModel bzModel;
   final ValueNotifier<DraftFlyerModel> draft; /// p
   final TextEditingController headlineController;
+  final bool isEditingFlyer;
   /// --------------------------------------------------------------------------
   @override
   _SlidesShelfState createState() => _SlidesShelfState();
@@ -118,7 +120,8 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
               loading: _loading,
               slideZoneHeight: _slideZoneHeight,
               scrollController: _scrollController,
-              mutableSlides: draft?.mutableSlides,
+              draft: draft,
+              isEditingFlyer: widget.isEditingFlyer,
               onSlideTap: (MutableSlide slide) => onSlideTap(
                 context: context,
                 slide: slide,
@@ -133,6 +136,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 scrollController: _scrollController,
                 headlineController: widget.headlineController,
                 flyerWidth: ShelfSlide.flyerBoxWidth,
+                isEditingFlyer: widget.isEditingFlyer,
               ),
             );
 

@@ -117,29 +117,29 @@ class ZoneModel {
   /// CHECKERS
 
 // -------------------------------------
-  static bool checkZonesIDsAreTheSame({
+  static bool checkZonesIDsAreIdentical({
     @required ZoneModel zone1,
     @required ZoneModel zone2,
   }) {
-    bool _zonesAreTheSame = true;
+    bool _zonesAreIdentical = true;
 
     if (zone1.countryID != zone2.countryID) {
-      _zonesAreTheSame = false;
+      _zonesAreIdentical = false;
     }
 
     else if (zone1.cityID != zone2.cityID) {
-      _zonesAreTheSame = false;
+      _zonesAreIdentical = false;
     }
 
     else if (zone1.districtID != zone2.districtID) {
-      _zonesAreTheSame = false;
+      _zonesAreIdentical = false;
     }
 
     else {
-      _zonesAreTheSame = true;
+      _zonesAreIdentical = true;
     }
 
-    return _zonesAreTheSame;
+    return _zonesAreIdentical;
   }
 // -------------------------------------
   bool isNotEmpty() {

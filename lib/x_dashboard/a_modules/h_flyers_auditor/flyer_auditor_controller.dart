@@ -90,7 +90,7 @@ Future<void> onFlyerOptionsTap({
     titleIsOn: true,
   );
   final double _buttonHeight = _clearHeight - Ratioz.appBarMargin;
-  final String _shortTitle = flyerModel.getShortTitle();
+  final String _shortTitle = flyerModel.getShortHeadline();
 
   await BottomDialog.showBottomDialog(
       context: context,
@@ -177,7 +177,7 @@ Future<void> onVerifyFlyer({
     NavDialog.showNavDialog(
       context: context,
       firstLine: 'Done',
-      secondLine: 'flyer ${flyerModel.getShortTitle()}... got verified',
+      secondLine: 'flyer ${flyerModel.getShortHeadline()}... got verified',
       color: Colorz.green255,
       seconds: 1,
     );

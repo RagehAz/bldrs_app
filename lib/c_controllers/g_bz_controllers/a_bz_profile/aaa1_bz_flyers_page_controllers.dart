@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
+import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/a_flyer_maker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
@@ -52,7 +53,10 @@ Future<void> onFlyerBzOptionsTap({
             context: context,
             verse: 'Edit flyer',
             verseCentered: true,
-            onTap: () => _onEditFlyerButtonTap(flyer),
+            onTap: () => _onEditFlyerButtonTap(
+              context: context,
+              flyer: flyer,
+            ),
           ),
 
           BottomDialog.wideButton(
@@ -82,8 +86,18 @@ Future<void> onFlyerBzOptionsTap({
 /// FLYER EDITING
 
 // -------------------------------
-Future<void> _onEditFlyerButtonTap(FlyerModel flyer) async {
-  blog('should edit flyer');
+Future<void> _onEditFlyerButtonTap({
+  @required BuildContext context,
+  @required FlyerModel flyer,
+}) async {
+
+  await Nav.goToNewScreen(
+      context: context,
+      screen: FlyerMakerScreen(
+        flyerToEdit: flyer,
+      ),
+  );
+
 }
 // -----------------------------------------------------------------------------
 

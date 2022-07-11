@@ -386,10 +386,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
               final DateTime _now = DateTime.now();
 
-              final bool _areTheSame = Timers.timesAreTheSame(
+              final bool _areTheSame = Timers.timesAreIdentical(
                   accuracy: Timers.TimeAccuracy.minute,
-                  timeA: _now,
-                  timeB: _dateTime,
+                  time1: _now,
+                  time2: _dateTime,
               );
 
               blog('${_dateTime.hour} == ${_now.hour} ?');

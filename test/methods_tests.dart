@@ -107,7 +107,7 @@ void main() {
       'name': 'meshmesh',
     };
 
-    final bool _result = Mapper.checkMapsAreTheSame(
+    final bool _result = Mapper.checkMapsAreIdentical(
         map1: _aMapInTheList,
         map2: _aMapInTheListCopy
     );
@@ -126,7 +126,7 @@ void main() {
       'name': 'meshmeshaaaaaaaaayaaaaaaa',
     };
 
-    final bool _result = Mapper.checkMapsAreTheSame(
+    final bool _result = Mapper.checkMapsAreIdentical(
       map1: _aMapInTheList,
       map2: _aMapNotInTheListByOneField,
     );
@@ -163,7 +163,7 @@ void main() {
       'bikes/city/harley/bobo/',
     ];
 
-    final bool _result = Mapper.checkListsAreTheSame(list1: _list1, list2: _list2);
+    final bool _result = Mapper.checkListsAreIdentical(list1: _list1, list2: _list2);
 
     expect(_result, true);
   });
@@ -172,7 +172,7 @@ void main() {
     final List<String> _list1 = <String>['1', '2', '3'];
     final List<String> _list2 = <String>['1', '2', '4'];
 
-    final bool _result = Mapper.checkListsAreTheSame(list1: _list1, list2: _list2);
+    final bool _result = Mapper.checkListsAreIdentical(list1: _list1, list2: _list2);
 
     expect(_result, false);
   });
@@ -477,7 +477,7 @@ void main() {
       SpecModel(pickerChainID: 'z', value: 'z'),
     ];
 
-    final bool _areTheSame = SpecModel.specsListsAreTheSame(specsA, specsB);
+    final bool _areTheSame = SpecModel.specsListsAreIdentical(specsA, specsB);
 
     expect(_areTheSame, true);
   });
@@ -577,7 +577,7 @@ void main() {
 
     final List<Chain> _regeneratedChains = ChainPathConverter.createChainsFromPaths(paths: _generatedPaths);
 
-    final bool _result = Chain.chainsListsAreTheSameOLDMETHOD(chainsA: _chains, chainsB: _regeneratedChains);
+    final bool _result = Chain.chainsListsAreIdenticalOLDMETHOD(chains1: _chains, chains2: _regeneratedChains);
 
     expect(_result, true);
   });
@@ -627,7 +627,7 @@ void main() {
     final NoteModel note1 = NoteModel.dummyNote().copyWith(seenTime: Timers.createDateTime(hour: 1,millisecond: 5, microsecond: 2));
     final NoteModel note2 = NoteModel.dummyNote().copyWith(seenTime: Timers.createDateTime(hour: 1,millisecond: 5, microsecond: 2));
 
-    final bool _areTheSame = NoteModel.checkNotesAreTheSame(
+    final bool _areTheSame = NoteModel.checkNotesAreIdentical(
         note1: note1,
         note2: note2,
     );
@@ -650,7 +650,7 @@ void main() {
     NoteModel.dummyNote().copyWith(title: 'thing'),
     ];
 
-    final bool _areTheSame = NoteModel.checkNotesListsAreTheSame(
+    final bool _areTheSame = NoteModel.checkNotesListsAreIdentical(
       notes1: note1,
       notes2: note2,
     );
@@ -664,7 +664,7 @@ void main() {
     final List<BzType> _types1 = <BzType>[BzType.broker, BzType.contractor];
     final List<BzType> _types2 = <BzType>[BzType.broker, BzType.contractor];
 
-    final bool _same = Mapper.checkListsAreTheSame(
+    final bool _same = Mapper.checkListsAreIdentical(
       list1: _types1,
       list2: _types2,
     );

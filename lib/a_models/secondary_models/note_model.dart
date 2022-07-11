@@ -846,11 +846,11 @@ class NoteModel {
   }
   // -----------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkNotesAreTheSame({
+  static bool checkNotesAreIdentical({
     @required NoteModel note1,
     @required NoteModel note2,
   }){
-    bool _areTheSame = false;
+    bool _areIdentical = false;
 
     if (note1 != null && note2 != null){
 
@@ -862,37 +862,37 @@ class NoteModel {
           note1.receiverID == note2.receiverID &&
           note1.title == note2.title &&
           note1.body == note2.body &&
-          Mapper.checkMapsAreTheSame(map1: note1.metaData, map2: note2.metaData) == true &&
-          Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: note1.sentTime, timeB: note2.sentTime) &&
+          Mapper.checkMapsAreIdentical(map1: note1.metaData, map2: note2.metaData) == true &&
+          Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) &&
           note1.attachment == note2.attachment &&
           note1.attachmentType == note2.attachmentType &&
           note1.seen == note2.seen &&
-          Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: note1.seenTime, timeB: note2.seenTime) &&
+          Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: note1.seenTime, time2: note2.seenTime) &&
           note1.sendFCM == note2.sendFCM &&
           note1.noteType == note2.noteType &&
           note1.response == note2.response &&
-          Timers.timesAreTheSame(accuracy: Timers.TimeAccuracy.microSecond, timeA: note1.responseTime, timeB: note2.responseTime) &&
-          Mapper.checkListsAreTheSame(list1: note1.buttons, list2: note2.buttons)
+          Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: note1.responseTime, time2: note2.responseTime) &&
+          Mapper.checkListsAreIdentical(list1: note1.buttons, list2: note2.buttons)
       ){
-        _areTheSame = true;
+        _areIdentical = true;
       }
 
     }
 
-    return _areTheSame;
+    return _areIdentical;
   }
   // -----------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkNotesListsAreTheSame({
+  static bool checkNotesListsAreIdentical({
     @required List<NoteModel> notes1,
     @required List<NoteModel> notes2,
   }){
-    bool _areTheSame = true;
+    bool _areIdentical = true;
 
     if (Mapper.checkCanLoopList(notes1) == true && Mapper.checkCanLoopList(notes2) == true){
 
       if (notes1.length != notes2.length){
-        _areTheSame = false;
+        _areIdentical = false;
       }
 
       else {
@@ -901,13 +901,13 @@ class NoteModel {
           final note1 = notes1[i];
           final note2 = notes2[i];
 
-          final bool _theSame = checkNotesAreTheSame(
+          final bool _identical = checkNotesAreIdentical(
               note1: note1,
               note2: note2
           );
 
-          if (_theSame == false){
-            _areTheSame = false;
+          if (_identical == false){
+            _areIdentical = false;
             break;
           }
 
@@ -916,7 +916,7 @@ class NoteModel {
 
     }
 
-    return _areTheSame;
+    return _areIdentical;
   }
   // -------------------------------------
   /// TESTED : WORKS PERFECT
