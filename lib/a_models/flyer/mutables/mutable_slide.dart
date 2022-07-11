@@ -50,6 +50,7 @@ class MutableSlide {
   final Matrix4 matrix;
   final ImageFilterModel filter;
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   MutableSlide copyWith({
       int slideIndex,
       String picURL,
@@ -90,6 +91,7 @@ class MutableSlide {
   /// VIEW MUTABLE SLIDES CREATORS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static MutableSlide createViewMutableSlideFromSlide(SlideModel slide) {
     return MutableSlide(
       slideIndex: slide.slideIndex,
@@ -110,6 +112,7 @@ class MutableSlide {
     );
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<MutableSlide> getViewMutableSlidesFromSlides({
     @required List<SlideModel> slides,
   }) {
@@ -375,6 +378,7 @@ class MutableSlide {
 /// BLOGGING
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void blogSlide(){
 
     blog('BLOGGING SLIDE ------------> START');
@@ -396,7 +400,8 @@ class MutableSlide {
     blog('BLOGGING SLIDE ------------> END');
 
   }
-
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogSlides(List<MutableSlide> slides){
 
     blog('BLOGGING SLIDES -------- START');

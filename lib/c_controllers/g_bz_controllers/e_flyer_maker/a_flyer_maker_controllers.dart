@@ -21,7 +21,12 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
+// -----------------------------------------------------------------------------
 
+/// INITIALIZATION
+
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 ValueNotifier<DraftFlyerModel> initializeDraft({
   @required BuildContext context,
 }){
@@ -38,7 +43,8 @@ ValueNotifier<DraftFlyerModel> initializeDraft({
 
   return ValueNotifier(_draft);
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> initializeExistingFlyerDraft({
   @required FlyerModel flyerToEdit,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -244,6 +250,7 @@ Future<void> _scrollToBottom({
 /// CANCEL FLYER EDITING
 
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onCancelFlyerCreation(BuildContext context) async {
 
   final bool result = await CenterDialog.showCenterDialog(
@@ -264,6 +271,7 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 /// FLYER EDITING
 
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 void onUpdateFlyerHeadline({
   @required ValueNotifier<DraftFlyerModel> draft,
   @required TextEditingController headlineController,
@@ -275,7 +283,7 @@ void onUpdateFlyerHeadline({
   );
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
 String flyerHeadlineValidator({
   @required TextEditingController headlineController,
 }){
@@ -293,7 +301,8 @@ String flyerHeadlineValidator({
     return null;
   }
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 void onSelectFlyerType({
   @required int index,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -307,7 +316,8 @@ void onSelectFlyerType({
     flyerType: _selectedFlyerType,
   );
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onAddKeywordsTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -332,7 +342,8 @@ Future<void> onAddKeywordsTap({
   }
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onAddSpecsTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -359,7 +370,8 @@ Future<void> onAddSpecsTap({
   }
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onZoneChanged({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -376,6 +388,7 @@ Future<void> onZoneChanged({
 /// PUBLISHING FLYER
 
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onPublishFlyerButtonTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -408,6 +421,7 @@ Future<void> onPublishFlyerButtonTap({
 
 }
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onPublishFlyerUpdatesButtonTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -451,6 +465,7 @@ Future<void> onPublishFlyerUpdatesButtonTap({
 
 }
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<bool> _preFlyerUpdateCheck({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -483,6 +498,7 @@ Future<bool> _preFlyerUpdateCheck({
   return _canContinue;
 }
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<bool> _prePublishFlyerCheck({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
@@ -527,6 +543,7 @@ Future<bool> _prePublishFlyerCheck({
   return _canContinue;
 }
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _publishFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -551,6 +568,7 @@ Future<void> _publishFlyerOps({
 
 }
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _updateFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
