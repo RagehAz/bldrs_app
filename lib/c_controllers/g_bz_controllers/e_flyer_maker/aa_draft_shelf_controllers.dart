@@ -34,6 +34,10 @@ import 'package:multi_image_picker2/multi_image_picker2.dart';
 // ),
  */
 // -----------------------------------------------------------------------------
+
+/// INITIALIZATION
+
+// ----------------------------------
 Future<DraftFlyerModel> initializeDraftFlyerModel({
   @required FlyerModel existingFlyer,
   @required BzModel bzModel,
@@ -57,7 +61,8 @@ Future<DraftFlyerModel> initializeDraftFlyerModel({
 
   return _draft;
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 TextEditingController initializeHeadlineController({
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
 }){
@@ -85,6 +90,11 @@ TextEditingController initializeHeadlineController({
   return _controller;
 }
 // -----------------------------------------------------------------------------
+
+/// EDITING
+
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 void onDeleteSlide({
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
   @required int index,
@@ -103,7 +113,8 @@ void onDeleteSlide({
   }
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onAddNewSlides({
   @required BuildContext context,
   @required ValueNotifier<bool> isLoading,
@@ -160,7 +171,8 @@ Future<void> onAddNewSlides({
   isLoading.value = false;
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _addImagesForNewFlyer({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -232,7 +244,8 @@ Future<void> _addImagesForNewFlyer({
   }
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _addImagesForExistingFlyer({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -251,7 +264,8 @@ Future<void> _addImagesForExistingFlyer({
   }
 
   }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
   await CenterDialog.showCenterDialog(
     context: context,
@@ -259,8 +273,8 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
     body: 'Can not add more than $maxLength images in one slide',
   );
 }
-// -----------------------------------------------------------------------------
-
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSlideTap({
   @required BuildContext context,
   @required MutableSlide slide,
@@ -307,7 +321,8 @@ Future<void> onSlideTap({
      */
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onMoreTap({
   @required BuildContext context,
   @required Function onDeleteDraft,
@@ -366,7 +381,8 @@ Future<void> onMoreTap({
   );
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 void onFlyerHeadlineChanged({
   @required String val,
   @required GlobalKey<FormState> formKey,
@@ -383,7 +399,8 @@ void onFlyerHeadlineChanged({
   }
 
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 String flyerHeadlineValidator({
   @required BuildContext context,
   @required String val,

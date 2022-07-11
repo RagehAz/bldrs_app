@@ -106,6 +106,7 @@ class ImageFilterModel {
     return bldrsImageFilters[0];
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static ImageFilterModel getFilterByID(String id){
     ImageFilterModel _filter = noFilter();
     if (id != null){
