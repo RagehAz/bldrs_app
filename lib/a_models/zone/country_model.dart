@@ -258,16 +258,16 @@ class CountryModel {
       &&
       countryA.language == countryB.language
       &&
-      Phrase.phrasesListsAreTheSame(
-          firstPhrases: countryA.phrases,
-          secondPhrases: countryB.phrases,
+      Phrase.phrasesListsAreIdentical(
+          phrases1: countryA.phrases,
+          phrases2: countryB.phrases,
       ) == true
       &&
       countryA.isActivated == countryB.isActivated
       &&
       countryA.isGlobal == countryB.isGlobal
       &&
-      Mapper.checkListsAreTheSame(
+      Mapper.checkListsAreIdentical(
           list1: countryA.citiesIDs,
           list2: countryB.citiesIDs
       ) == true

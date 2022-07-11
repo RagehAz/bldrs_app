@@ -33,7 +33,7 @@ class FireCollStreamer extends StatefulWidget {
         addDocSnapshotToEachMap: true,
       );
 
-      final bool _mapsAreTheSame = Mapper.checkMapsListsAreTheSame(
+      final bool _mapsAreTheSame = Mapper.checkMapsListsAreIdentical(
         maps1: _newMaps,
         maps2: oldMaps.value,
       );

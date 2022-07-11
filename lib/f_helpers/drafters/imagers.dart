@@ -1065,28 +1065,34 @@ bool slideBlurIsOn({
   return _blurIsOn;
 }
 // ---------------------------------------
-bool picturesURLsAreTheSame({
-  @required List<String> urlsA,
-  @required List<String> urlsB,
+bool picturesURLsAreIdentical({
+  @required List<String> urls1,
+  @required List<String> urls2,
 }) {
-  bool _areTheSame = true;
+  bool _areIdentical = true;
 
-  if (urlsA == null && urlsB != null) {
-    _areTheSame = false;
-  } else if (urlsA != null && urlsB == null) {
-    _areTheSame = false;
-  } else if (urlsA.length != urlsB.length) {
-    _areTheSame = false;
-  } else {
-    for (int i = 0; i < urlsA.length; i++) {
-      if (urlsA[i] != urlsB[i]) {
-        _areTheSame = false;
+  if (urls1 == null && urls2 != null) {
+    _areIdentical = false;
+  }
+
+  else if (urls1 != null && urls2 == null) {
+    _areIdentical = false;
+  }
+
+  else if (urls1.length != urls2.length) {
+    _areIdentical = false;
+  }
+
+  else {
+    for (int i = 0; i < urls1.length; i++) {
+      if (urls1[i] != urls2[i]) {
+        _areIdentical = false;
         break;
       }
     }
   }
 
-  return _areTheSame;
+  return _areIdentical;
 }
 // ---------------------------------------
 /// TESTED : WORKS PERFECT

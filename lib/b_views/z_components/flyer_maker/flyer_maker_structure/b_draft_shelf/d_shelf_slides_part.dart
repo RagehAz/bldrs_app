@@ -1,4 +1,7 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
@@ -12,19 +15,21 @@ class ShelfSlidesPart extends StatelessWidget {
   const ShelfSlidesPart({
     @required this.slideZoneHeight,
     @required this.scrollController,
-    @required this.mutableSlides,
+    @required this.draft,
     @required this.onSlideTap,
     @required this.onAddNewSlides,
     @required this.loading,
+    @required this.isEditingFlyer,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double slideZoneHeight;
   final ScrollController scrollController;
-  final List<MutableSlide> mutableSlides;
+  final DraftFlyerModel draft;
   final ValueChanged<MutableSlide> onSlideTap;
   final Function onAddNewSlides;
   final ValueNotifier<bool> loading; /// p
+  final bool isEditingFlyer;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -59,25 +64,31 @@ class ShelfSlidesPart extends StatelessWidget {
               children: <Widget>[
 
                 /// SLIDES
-                if (Mapper.checkCanLoopList(mutableSlides) == true)
-                ...List.generate(mutableSlides.length, (index){
+                if (Mapper.checkCanLoopList(draft.mutableSlides) == true)
+                ...List.generate(draft.mutableSlides.length, (index){
 
-                  final MutableSlide _mutableSlide = mutableSlides[index];
+                  final MutableSlide _mutableSlide = draft.mutableSlides[index];
 
                   return ShelfSlide(
                     mutableSlide: _mutableSlide,
                     number: index + 1,
+                    isEditingFlyer: isEditingFlyer,
                     onTap: () => onSlideTap(_mutableSlide),
                   );
 
                 }),
 
                 /// ADD SLIDE BUTTON
-                if (isLoading == false)
+                if (isLoading == false && isEditingFlyer == false)
                   ShelfSlide(
                     mutableSlide: null,
                     number: null,
                     onTap: onAddNewSlides,
+                    isEditingFlyer: isEditingFlyer,
+                    publishTime: PublishTime.getPublishTimeFromTimes(
+                      state: PublishState.published,
+                      times: draft.times,
+                    )?.time,
                   ),
 
                 /// LOADING WIDGET

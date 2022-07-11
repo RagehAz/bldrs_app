@@ -205,9 +205,9 @@ Future<void> onSync({
   @required List<Chain> updatedChains,
 }) async {
 
-  final bool _chainsListsAreTheSame = Chain.chainsListPathsAreTheSame(
-    chainsA: originalChains,
-    chainsB: updatedChains,
+  final bool _chainsListsAreTheSame = Chain.chainsListPathsAreIdentical(
+    chains1: originalChains,
+    chains2: updatedChains,
   );
 
   /// WHEN THERE ARE NO CHANGES
@@ -237,9 +237,9 @@ Future<void> onSync({
 
         final Chain _updatedChain = updatedChains[i];
         final Chain _originalChain = originalChains[i];
-        final bool _chainsAreTheSame = Chain.chainsPathsAreTheSame(
-            chainA: _updatedChain,
-            chainB: _originalChain
+        final bool _chainsAreTheSame = Chain.chainsPathsAreIdentical(
+            chain1: _updatedChain,
+            chain2: _originalChain
         );
 
         if (_chainsAreTheSame == false){

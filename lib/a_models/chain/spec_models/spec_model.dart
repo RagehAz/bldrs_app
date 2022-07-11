@@ -237,32 +237,33 @@ class SpecModel {
   /// CHECKERS
 
 // ------------------------------------------
-  static bool specsAreTheSame(SpecModel specA, SpecModel specB) {
-    bool _areTheSame = false;
+  static bool specsAreIdentical(SpecModel spec1, SpecModel spec2) {
+    bool _areIdentical = false;
 
-    if (specA != null && specB != null) {
-      if (specA.pickerChainID == specB.pickerChainID) {
-        if (specA.value == specB.value) {
-          _areTheSame = true;
+    if (spec1 != null && spec2 != null) {
+      if (spec1.pickerChainID == spec2.pickerChainID) {
+        if (spec1.value == spec2.value) {
+          _areIdentical = true;
         }
       }
     }
 
-    return _areTheSame;
+    return _areIdentical;
   }
 // ------------------------------------------
-  static bool specsListsAreTheSame(List<SpecModel> specsA, List<SpecModel> specsB) {
-    final Map<String, dynamic> specsAMap = cipherSpecs(specsA);
-    final Map<String, dynamic> specsBMap = cipherSpecs(specsB);
+  static bool specsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
 
-    final bool _listsAreTheSame = Mapper.checkMapsAreTheSame(
+    final Map<String, dynamic> specsAMap = cipherSpecs(specs1);
+    final Map<String, dynamic> specsBMap = cipherSpecs(specs2);
+
+    final bool _listsAreIdentical = Mapper.checkMapsAreIdentical(
         map1: specsAMap,
         map2: specsBMap,
     );
 
-    blog('specsListsAreTheSame : _listsAreTheSame : $_listsAreTheSame');
+    blog('specsListsAreIdentical : _listsAreIdentical : $_listsAreIdentical');
 
-    return _listsAreTheSame;
+    return _listsAreIdentical;
   }
 // ------------------------------------------
   static bool specsContainThisSpec({
@@ -273,7 +274,7 @@ class SpecModel {
 
     if (Mapper.checkCanLoopList(specs) && spec != null) {
       final SpecModel _result = specs.firstWhere(
-              (SpecModel sp) => SpecModel.specsAreTheSame(sp, spec) == true,
+              (SpecModel sp) => SpecModel.specsAreIdentical(sp, spec) == true,
           orElse: () => null);
 
       if (_result == null) {

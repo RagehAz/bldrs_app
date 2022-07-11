@@ -170,9 +170,9 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
         valueListenable: _chainsNotifier,
         builder: (_, List<Chain> chains, Widget child){
 
-          final bool _inSync = Chain.chainsListPathsAreTheSame(
-            chainsA: chains,
-            chainsB: _originalChains,
+          final bool _inSync = Chain.chainsListPathsAreIdentical(
+            chains1: chains,
+            chains2: _originalChains,
           );
 
           return MainLayout(

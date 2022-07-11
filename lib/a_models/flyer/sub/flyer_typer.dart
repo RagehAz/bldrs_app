@@ -169,6 +169,7 @@ class FlyerTyper{
   /// CONCLUDES
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerType concludeFlyerType(BzType bzType) {
     switch (bzType) {
       case BzType.developer: return FlyerType.property; break;
@@ -182,6 +183,7 @@ class FlyerTyper{
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerType> concludePossibleFlyerTypesByBzType({
     @required BzType bzType
   }) {
@@ -197,6 +199,7 @@ class FlyerTyper{
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerType> concludePossibleFlyerTypesByBzTypes({
     @required List<BzType> bzTypes
   }){
@@ -223,6 +226,7 @@ class FlyerTyper{
     return _flyerTypes;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerType> concludeInactiveFlyerTypesByBzModel({
     @required BzModel bzModel,
   }){
@@ -265,6 +269,7 @@ class FlyerTyper{
   /// TRANSLATION
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String translateFlyerType({
     @required BuildContext context,
     @required FlyerType flyerType,
@@ -299,6 +304,7 @@ class FlyerTyper{
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> translateFlyerTypes({
     @required BuildContext context,
     @required List<FlyerType> flyerTypes,

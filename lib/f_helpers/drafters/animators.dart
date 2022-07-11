@@ -9,20 +9,27 @@ import 'package:flutter/material.dart';
 //
 //   }
 // -----------------------------------------------------------------------------
-Sliders.SwipeDirection getSwipeDirection({int oldIndex, int newIndex}) {
+Sliders.SwipeDirection getSwipeDirection({
+  @required int oldIndex,
+  @required int newIndex
+}) {
   Sliders.SwipeDirection _swipeDirection;
+
   if (newIndex > oldIndex) {
     _swipeDirection = Sliders.SwipeDirection.next;
-  } else if (newIndex < oldIndex) {
+  }
+
+  else if (newIndex < oldIndex) {
     _swipeDirection = Sliders.SwipeDirection.back;
-  } else {
+  }
+
+  else {
     _swipeDirection = Sliders.SwipeDirection.freeze;
   }
 
   // print('getSwipeDirection concluded going from [ old index ($oldIndex) ] to [ new index ($newIndex) ] is [$_swipeDirection]');
   return _swipeDirection;
 }
-
 // -----------------------------------------------------------------------------
 //   List<bool> createSlidesVisibilityList(int numberOfSlides){
 //     List<bool> _visibilityList = <bool>[];

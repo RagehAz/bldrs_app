@@ -276,38 +276,38 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool chainsAreTheSame({
-    @required Chain chainA,
-    @required Chain chainB,
+  static bool chainsAreIdentical({
+    @required Chain chain1,
+    @required Chain chain2,
 }){
-    bool _areTheSame = false;
+    bool _areIdentical = false;
 
-    if (chainA !=null && chainB != null){
+    if (chain1 !=null && chain2 != null){
 
-      if (chainA.id == chainB.id){
+      if (chain1.id == chain2.id){
 
-        if (chainsSonsAreTheSame(chainA, chainB) == true){
-          _areTheSame = true;
+        if (chainsSonsAreIdentical(chain1, chain2) == true){
+          _areIdentical = true;
         }
 
       }
 
     }
 
-    return _areTheSame;
+    return _areIdentical;
   }
 // --------------------------------------------
-  static bool chainsSonsAreTheSame(Chain chainA, Chain chainB){
+  static bool chainsSonsAreIdentical(Chain chain1, Chain chain2){
 
-    bool _sonsAreTheSame = false;
+    bool _sonsAreIdentical = false;
 
-    final bool sonsAisChains = sonsAreChains(chainA.sons);
-    final bool sonsAisDataCreator = sonsAreDataCreator(chainA.sons);
-    final bool sonsAIsStrings = sonsAreStrings(chainA.sons);
+    final bool sonsAisChains = sonsAreChains(chain1.sons);
+    final bool sonsAisDataCreator = sonsAreDataCreator(chain1.sons);
+    final bool sonsAIsStrings = sonsAreStrings(chain1.sons);
 
-    final bool sonsBisChains = sonsAreChains(chainB.sons);
-    final bool sonsBisDataCreator = sonsAreDataCreator(chainB.sons);
-    final bool sonsBIsStrings = sonsAreStrings(chainB.sons);
+    final bool sonsBisChains = sonsAreChains(chain2.sons);
+    final bool sonsBisDataCreator = sonsAreDataCreator(chain2.sons);
+    final bool sonsBIsStrings = sonsAreStrings(chain2.sons);
 
     if (
     sonsAisChains == sonsBisChains
@@ -319,61 +319,61 @@ class Chain {
 
       /// IF SONS ARE CHAINS
       if (sonsAisChains == true){
-        _sonsAreTheSame = chainsListsAreTheSameOLDMETHOD(
-          chainsA: chainA.sons,
-          chainsB: chainB.sons,
+        _sonsAreIdentical = chainsListsAreIdenticalOLDMETHOD(
+          chains1: chain1.sons,
+          chains2: chain2.sons,
         );
       }
 
       /// IF SONS ARE STRINGS
       if (sonsAIsStrings == true){
-        _sonsAreTheSame = Mapper.checkListsAreTheSame(
-            list1: chainA.sons,
-            list2: chainB.sons
+        _sonsAreIdentical = Mapper.checkListsAreIdentical(
+            list1: chain1.sons,
+            list2: chain2.sons
         );
       }
 
       /// IF SONS ARE DATA CREATORS
       if (sonsAisDataCreator == true){
-        _sonsAreTheSame = chainA.sons == chainB.sons;
+        _sonsAreIdentical = chain1.sons == chain2.sons;
       }
 
     }
 
-    return _sonsAreTheSame;
+    return _sonsAreIdentical;
   }
 // --------------------------------------------
-  static bool chainsListsAreTheSameOLDMETHOD({
-    @required List<Chain> chainsA,
-    @required List<Chain> chainsB
+  static bool chainsListsAreIdenticalOLDMETHOD({
+    @required List<Chain> chains1,
+    @required List<Chain> chains2
   }){
 
-    bool _listsAreTheSame = false;
+    bool _listsAreIdentical = false;
 
     if (
-    Mapper.checkCanLoopList(chainsA) == true
+    Mapper.checkCanLoopList(chains1) == true
     &&
-    Mapper.checkCanLoopList(chainsB) == true
+    Mapper.checkCanLoopList(chains2) == true
     ){
 
-      if (chainsA.length == chainsB.length){
+      if (chains1.length == chains2.length){
 
-        for (int i = 0; i < chainsA.length; i++){
+        for (int i = 0; i < chains1.length; i++){
 
-          final bool _twoChainsAreTheSame = chainsAreTheSame(
-              chainA: chainsA[i],
-              chainB: chainsB[i],
+          final bool _twoChainsAreIdentical = chainsAreIdentical(
+              chain1: chains1[i],
+              chain2: chains2[i],
           );
 
-          final String _areTheSame = _twoChainsAreTheSame ? 'ARE THE SAME' : 'ARE NOT THE SAME ----------------------------------- X OPS X';
-          blog('( ${chainsA[i].id} ) <=> ( ${chainsB[i].id} ) : $_areTheSame');
+          final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ----------------------------------- X OPS X';
+          blog('( ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
 
-          if (_twoChainsAreTheSame == false){
-            _listsAreTheSame = false;
+          if (_twoChainsAreIdentical == false){
+            _listsAreIdentical = false;
             break;
           }
           else {
-            _listsAreTheSame = true;
+            _listsAreIdentical = true;
           }
 
         }
@@ -382,24 +382,24 @@ class Chain {
 
     }
 
-    return _listsAreTheSame;
+    return _listsAreIdentical;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool chainsListPathsAreTheSame({
-    @required List<Chain> chainsA,
-    @required List<Chain> chainsB,
+  static bool chainsListPathsAreIdentical({
+    @required List<Chain> chains1,
+    @required List<Chain> chains2,
 }){
 
       final List<String> _pathsA = ChainPathConverter.generateChainsPaths(
           parentID: '',
-          chains: chainsA
+          chains: chains1
       );
 
 
       final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
           parentID: '',
-          chains: chainsB
+          chains: chains2
       );
 
       // blog('chains : ${_pathsA.length} <=> originals : ${_pathsB.length}');
@@ -410,7 +410,7 @@ class Chain {
 
       // chainsB[1].blogChain();
 
-      return Mapper.checkListsAreTheSame(
+      return Mapper.checkListsAreIdentical(
           list1: _pathsA,
           list2: _pathsB
       );
@@ -448,13 +448,13 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool chainsPathsAreTheSame({
-    @required Chain chainA,
-    @required Chain chainB,
+  static bool chainsPathsAreIdentical({
+    @required Chain chain1,
+    @required Chain chain2,
 }){
-      return chainsListPathsAreTheSame(
-          chainsA: [chainA],
-          chainsB: [chainB],
+      return chainsListPathsAreIdentical(
+          chains1: [chain1],
+          chains2: [chain2],
       );
 }
 // --------------------------------------------

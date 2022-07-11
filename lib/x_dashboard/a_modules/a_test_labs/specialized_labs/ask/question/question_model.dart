@@ -140,9 +140,9 @@ class QuestionModel {
         &&
         updateQuestion != null
         &&
-        Imagers.picturesURLsAreTheSame(
-            urlsA: originalQuestion.pics,
-            urlsB: updateQuestion.pics
+        Imagers.picturesURLsAreIdentical(
+            urls1: originalQuestion.pics,
+            urls2: updateQuestion.pics
         ) == true
         &&
         originalQuestion.id == updateQuestion.id
@@ -153,7 +153,7 @@ class QuestionModel {
         &&
         originalQuestion.ownerID == updateQuestion.ownerID
         &&
-        Mapper.checkListsAreTheSame(
+        Mapper.checkListsAreIdentical(
           list1: originalQuestion.keywordsIDs,
           list2: updateQuestion.keywordsIDs
         ) == true
