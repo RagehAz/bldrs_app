@@ -14,6 +14,7 @@ class InfoPageParagraph extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Center(
       key: const ValueKey<String>('InfoPageParagraph'),
       child: Container(
@@ -28,5 +29,6 @@ class InfoPageParagraph extends StatelessWidget {
         ),
       ),
     );
+
   }
 }

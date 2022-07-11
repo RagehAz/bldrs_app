@@ -105,8 +105,8 @@ class MutableSlide {
       picFit: slide.picFit,
       midColor: slide.midColor,
       opacity: 1,
-      matrix: Matrix4.identity(),
-      filter: ImageFilterModel.noFilter(),
+      matrix: slide.matrix,
+      filter: ImageFilterModel.getFilterByID(slide.filterID),
     );
   }
 // -------------------------------------
@@ -154,8 +154,8 @@ class MutableSlide {
       picFit: slide.picFit,
       midColor: slide.midColor,
       opacity: 1,
-      filter: ImageFilterModel.noFilter(),
-      matrix: Matrix4.identity(),
+      filter: ImageFilterModel.getFilterByID(slide.filterID),
+      matrix: slide.matrix,
     );
 
   }
@@ -380,13 +380,13 @@ class MutableSlide {
     blog('BLOGGING SLIDE ------------> START');
     blog('picAsset : $picAsset');
     blog('picFile : $picFile');
-    blog('headline : $headline');
-    blog('imageSize : $imageSize');
+    blog('headline : ${headline.text}');
+    imageSize.blogSize();
     blog('midColor : $midColor');
     blog('opacity : $opacity');
     blog('slideIndex : $slideIndex');
     blog('picURL : $picURL');
-    blog('description : $description');
+    blog('description : ${description.text}');
     blog('sharesCount : $sharesCount');
     blog('viewsCount : $viewsCount');
     blog('savesCount : $savesCount');

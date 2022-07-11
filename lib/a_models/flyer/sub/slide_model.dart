@@ -188,7 +188,7 @@ class SlideModel {
     blog('viewsCount : $viewsCount');
     blog('savesCount : $savesCount');
     blog('picFit : $picFit');
-    blog('imageSize : $imageSize');
+    imageSize.blogSize();
     blog('midColor : $midColor');
     blog('filterID : $filterID');
 

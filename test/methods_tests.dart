@@ -477,7 +477,7 @@ void main() {
       SpecModel(pickerChainID: 'z', value: 'z'),
     ];
 
-    final bool _areTheSame = SpecModel.specsListsAreIdentical(specsA, specsB);
+    final bool _areTheSame = SpecModel.checkSpecsListsAreIdentical(specsA, specsB);
 
     expect(_areTheSame, true);
   });
@@ -492,7 +492,7 @@ void main() {
     const SpecModel _aSpec = SpecModel(pickerChainID: 'z', value: 'v');
 
     final bool _contains =
-        SpecModel.specsContainThisSpec(specs: specsA, spec: _aSpec);
+        SpecModel.checkSpecsContainThisSpec(specs: specsA, spec: _aSpec);
 
     expect(_contains, false);
   });

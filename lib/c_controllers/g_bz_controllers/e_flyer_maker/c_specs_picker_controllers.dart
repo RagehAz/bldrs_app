@@ -167,7 +167,7 @@ Future<void> onSelectSpec({
     value: phid,
   );
 
-  final bool _alreadySelected = SpecModel.specsContainThisSpec(
+  final bool _alreadySelected = SpecModel.checkSpecsContainThisSpec(
       specs: selectedSpecs.value,
       spec: _spec
   );
