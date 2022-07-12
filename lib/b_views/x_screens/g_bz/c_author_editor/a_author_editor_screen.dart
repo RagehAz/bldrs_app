@@ -1,24 +1,25 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:flutter/material.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AuthorEditorScreen({
+    @required this.author,
     Key key
   }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final AuthorModel author;
   /// --------------------------------------------------------------------------
   @override
   _AuthorEditorScreenState createState() => _AuthorEditorScreenState();
@@ -54,12 +55,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   void initState() {
     super.initState();
 
-    final BzModel _activeBz = BzzProvider.proGetActiveBzModel(context: context, listen: false);
-    final AuthorModel _theAuthor = AuthorModel.getAuthorFromBzByAuthorID(
-        bz: _activeBz,
-        authorID: superUserID()
-    );
+    blog('starting AuthorEditorScreen : with ${widget.author.userID}');
 
+    final AuthorModel _theAuthor = widget.author;
     _theAuthor.blogAuthor(
       methodName: 'initState',
     );

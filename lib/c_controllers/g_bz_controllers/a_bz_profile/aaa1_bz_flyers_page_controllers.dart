@@ -97,15 +97,15 @@ Future<void> _onEditFlyerButtonTap({
   @required FlyerModel flyer,
 }) async {
 
+  /// CLOSE BOTTOM DIALOG
+  Nav.goBack(context);
+
   await Nav.goToNewScreen(
       context: context,
       screen: FlyerMakerScreen(
         flyerToEdit: flyer,
       ),
   );
-
-  /// CLOSE BOTTOM DIALOG
-  Nav.goBack(context);
 
 }
 // -----------------------------------------------------------------------------

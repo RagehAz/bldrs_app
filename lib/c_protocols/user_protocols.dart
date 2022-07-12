@@ -195,6 +195,11 @@ class UserProtocol {
     @required UserModel userModel,
   }) async {
 
+    await _deleteAllMyAuthorImages(
+      context: context,
+      userModel: userModel,
+    );
+
     await _deleteBzzICreatedProtocol(
       context: context,
       userModel: userModel,
@@ -209,6 +214,26 @@ class UserProtocol {
       context: context,
       userModel: userModel,
     );
+
+  }
+// ----------------------------------
+  static Future<void> _deleteAllMyAuthorImages({
+    @required BuildContext context,
+    @required UserModel userModel,
+  }) async {
+
+    final List<String> _bzzIDs = userModel.myBzzIDs;
+
+    if (Mapper.checkCanLoopList(_bzzIDs) == true){
+
+      for (final String bzID in _bzzIDs){
+        await BzProtocol.deleteMyAuthorPicProtocol(
+          context: context,
+          bzID: bzID,
+        );
+      }
+
+    }
 
   }
 // ----------------------------------
