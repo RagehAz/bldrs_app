@@ -37,7 +37,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'FlyersAuditor',);
     }
   }
 // -----------------------------------------------------------------------------

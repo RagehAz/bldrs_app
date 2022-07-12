@@ -43,7 +43,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'UserNotesPage',);
     }
   }
 // -----------------------------------------------------------------------------
