@@ -406,7 +406,9 @@ Future<void> _onEditAuthor({
 
   await Nav.goToNewScreen(
     context: context,
-    screen: const AuthorEditorScreen(),
+    screen: AuthorEditorScreen(
+      author: authorModel,
+    ),
   );
 
 }

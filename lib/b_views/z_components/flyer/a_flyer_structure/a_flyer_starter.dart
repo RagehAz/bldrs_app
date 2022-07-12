@@ -83,24 +83,33 @@ class _FlyerStarterState extends State<FlyerStarter> {
       _flyerModel.blogFlyer(methodName: 'Flyer Starter : didChangeDependencies');
 
       _triggerLoading(setTo: true).then((_) async {
+        BzModel _bzModel;
 // -----------------------------------------------------------------
         /// BZ MODEL
-        BzModel _bzModel = await getFlyerBzModel(
-          context: context,
-          flyerModel: _flyerModel,
-        );
+        if (mounted == true){
+          _bzModel = await getFlyerBzModel(
+            context: context,
+            flyerModel: _flyerModel,
+          );
+        }
 // ------------------------------------------
         /// BZ ZONE FIX
-        _bzModel = await completeBzZoneModel(
+        if (mounted == true){
+          _bzModel = await completeBzZoneModel(
             context: context,
             bzModel: _bzModel,
-        );
+          );
+        }
 // -----------------------------------------------------------------
+        CountryModel _flyerCountry;
         /// FLYER ZONE
-        final CountryModel _flyerCountry = await getFlyerBzCountry(
-          context: context,
-          countryID: widget.flyerModel.zone.countryID,
-        );
+        if (mounted == true){
+          _flyerCountry = await getFlyerBzCountry(
+            context: context,
+            countryID: widget.flyerModel.zone.countryID,
+          );
+        }
+
         final CityModel _flyerCity = await getFlyerBzCity(
           context: context,
           cityID: widget.flyerModel.zone.cityID,
