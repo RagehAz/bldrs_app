@@ -2,18 +2,18 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class BlackBox extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const BlackBox({
     @required this.width,
     @required this.child,
     this.onTap,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final double width;
   final Widget child;
   final Function onTap;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

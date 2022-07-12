@@ -61,7 +61,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'FlyerMakerScreen',);
     }
   }
 // -----------------------------------------------------------------------------

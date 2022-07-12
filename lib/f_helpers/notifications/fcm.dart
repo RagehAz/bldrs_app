@@ -135,7 +135,7 @@ class FCM {
       onError: (String error) => blog(error),
       methodName: 'receiveAndActUponNoti',
       functions: () {
-        _noti = NoteModel.decipherNoteModel(
+        _noti = NoteModel.decipherNote(
           map: msgMap,
           fromJSON: false,
         );

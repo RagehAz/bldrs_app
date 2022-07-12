@@ -109,7 +109,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'SuperFilteredImage',);
     }
   }
 // -----------------------------------------------------------------------------

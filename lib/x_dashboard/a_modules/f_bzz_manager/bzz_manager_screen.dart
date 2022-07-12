@@ -43,7 +43,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'BzzManagerScreen',);
     }
   }
 // -----------------------------------------------------------------------------

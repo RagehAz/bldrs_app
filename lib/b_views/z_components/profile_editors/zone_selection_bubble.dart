@@ -57,7 +57,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'ZoneSelectionBubble',);
     }
   }
 // -----------------------------------------------------------------------------

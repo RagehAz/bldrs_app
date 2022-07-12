@@ -220,7 +220,7 @@ class NoteModel {
     return _maps;
 }
   // -------------------------------------
-  static NoteModel decipherNoteModel({
+  static NoteModel decipherNote({
     @required dynamic map,
     @required bool fromJSON
   }) {
@@ -280,7 +280,7 @@ class NoteModel {
     if (Mapper.checkCanLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
 
-        final NoteModel _notiModel = decipherNoteModel(
+        final NoteModel _notiModel = decipherNote(
           map: map,
           fromJSON: fromJSON,
         );
