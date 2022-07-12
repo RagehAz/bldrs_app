@@ -47,8 +47,8 @@ class FeedbackModel {
   }
 
 // -----------------------------------------------------------------------------
-  static List<FeedbackModel> decipherFeedbacks(
-      List<Map<String, dynamic>> maps) {
+  static List<FeedbackModel> decipherFeedbacks(List<Map<String, dynamic>> maps) {
+
     final List<FeedbackModel> _feedbacks = <FeedbackModel>[];
 
     if (Mapper.checkCanLoopList(maps)) {

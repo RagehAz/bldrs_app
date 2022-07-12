@@ -58,7 +58,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'ProvidersTestScreen',);
     }
   }
 // -----------------------------------------------------------------------------

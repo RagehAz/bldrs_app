@@ -37,7 +37,7 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'TemplateNotesScreen',);
     }
   }
 // -----------------------------------------------------------------------------

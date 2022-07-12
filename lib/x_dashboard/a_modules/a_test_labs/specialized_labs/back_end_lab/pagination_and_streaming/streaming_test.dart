@@ -43,7 +43,7 @@ class _StreamingTestState extends State<StreamingTest> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'StreamingTest',);
     }
   }
 // -----------------------------------------------------------------------------

@@ -44,7 +44,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'xxxxx',);
+      blogLoading(loading: _loading.value, callerName: 'ZonesEditorScreen',);
     }
   }
 // -----------------------------------------------------------------------------
