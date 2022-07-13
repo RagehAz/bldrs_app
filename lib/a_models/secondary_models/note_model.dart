@@ -237,9 +237,9 @@ class NoteModel {
         noteSenderType: decipherNoteSenderType(map['noteSenderType']),
         receiverID: map['receiverID'],
         receiverType: decipherNoteReceiverType(map['receiverType']),
-        title: map['notification']['notification']['title'],
-        body: map['notification']['notification']['body'],
-        metaData: map['notification']['data'],
+        title: _decipherNotificationField(map: map, titleNotBody: true),
+        body: _decipherNotificationField(map: map, titleNotBody: false),
+        metaData: _decipherNotificationData(map),
         sentTime: Timers.decipherTime(
           time: map['sentTime'],
           fromJSON: fromJSON,
@@ -269,6 +269,47 @@ class NoteModel {
     // _noti.blogNotiModel(methodName: 'decipherNotiModel');
 
     return _noti;
+  }
+  // -------------------------------------
+  static String _decipherNotificationField({
+    @required dynamic map,
+    @required bool titleNotBody,
+  }){
+    String _field;
+    final String _key = titleNotBody == true ? 'title' : 'body';
+
+    if (map != null){
+
+      // title: map['notification']['notification']['title'],
+
+      final dynamic _notification1 = map['notification'];
+
+      dynamic _notification2;
+      if (_notification1 != null){
+        _notification2 = _notification1['notification'];
+      }
+
+      if (_notification2 != null){
+        _field = _notification2[_key];
+      }
+
+    }
+
+    return _field;
+  }
+  // -------------------------------------
+  static Map<String, dynamic> _decipherNotificationData(dynamic map){
+    Map<String, dynamic> _output;
+
+    if (map != null){
+      final dynamic _notification = map['notification'];
+
+      if (_notification != null){
+        _output = map['data'];
+      }
+
+    }
+    return _output;
   }
   // -------------------------------------
   static List<NoteModel> decipherNotes({
@@ -324,7 +365,7 @@ class NoteModel {
       default: return null;
     }
   }
-
+  // -------------------------------------
   static const List<NoteType> noteTypesList = <NoteType>[
     NoteType.announcement,
     NoteType.authorship,

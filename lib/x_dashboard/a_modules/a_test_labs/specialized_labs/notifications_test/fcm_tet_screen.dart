@@ -12,12 +12,11 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/stop_watch.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 class FCMTestScreen extends StatefulWidget {
 
@@ -127,41 +126,15 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     _setNoti(_note);
   }
 // -----------------------------------------------------------------------------
-  /// STOP WATCH
-  final StopWatchTimer _stopWatchTimer = StopWatchTimer();
-  final bool _isHours = true;
-  final ScrollController _scrollController = ScrollController();
-// -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _stopWatchTimer.dispose();
     super.dispose(); /// tamam
-  }
-// -----------------------------------------------------------------------------
-  void _startCounter() {
-    _stopWatchTimer.onExecute.add(StopWatchExecute.start);
-  }
-// -----------------------------------------------------------------------------
-  void _stopCounter() {
-    _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
-  }
-// -----------------------------------------------------------------------------
-  void _lapCounter() {
-    _stopWatchTimer.onExecute.add(StopWatchExecute.lap);
-  }
-// -----------------------------------------------------------------------------
-  void _resetCounter() {
-    _stopWatchTimer.onExecute.add(StopWatchExecute.reset);
-    setState(() {
-      _received = 'Nothing yet';
-    });
   }
 // -----------------------------------------------------------------------------
   String _received = 'Nothing yet';
 
   @override
   Widget build(BuildContext context) {
-    final double _screenWidth = Scale.superScreenWidth(context);
 
     return CenteredListLayout(
       title: 'Notifications',
@@ -169,6 +142,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         const Stratosphere(),
 
+        /// RECEIVE NOTIFICATION
         DreamBox(
           height: 50,
           verse: 'receive noti ops',
@@ -183,11 +157,13 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           },
         ),
 
+        /// SPACING
         const SizedBox(
           width: 100,
           height: 10,
         ),
 
+        /// NOTIFICATION IS ON
         DreamBox(
           height: 40,
           width: 200,
@@ -206,11 +182,13 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           },
         ),
 
+        /// SPACING
         const SizedBox(
           width: 100,
           height: 10,
         ),
 
+        /// NOTIFICATION DATA
         // if (_noteIsOn == true)
         SuperVerse(
           verse: '_note.notification.title : ${_note?.title}\n'
@@ -221,8 +199,9 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           maxLines: 100,
         ),
 
+        /// CLOUD FUNCTION
         DreamBox(
-          height: 60,
+          height: 50,
           width: 250,
           verse: 'call cloud function \n'
               '$_received',
@@ -232,14 +211,11 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           verseColor: Colorz.black255,
           verseShadow: false,
           onTap: () async {
-            _startCounter();
 
             final dynamic map = await CloudFunctionz.callFunction(
                 context: context,
                 cloudFunctionName: 'sayHello',
             );
-
-            _lapCounter();
 
             blog('The Map is Amazingly : $map');
 
@@ -247,127 +223,11 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
               _received = 'received : ${map.toString()}';
             });
 
-            _lapCounter();
-
-            _stopCounter();
           },
         ),
 
-        Row(
-          children: <Widget>[
-            Container(
-              width: _screenWidth * 0.5,
-              height: 300,
-              color: Colorz.bloodTest,
-              child: Column(
-                children: <Widget>[
-                  StreamBuilder<int>(
-                    stream: _stopWatchTimer.rawTime,
-                    initialData: _stopWatchTimer.rawTime.value,
-                    builder: (BuildContext context, AsyncSnapshot<int> snap) {
-                      final int value = snap.data;
+        const StopWatchBar(),
 
-                      final String displayTime =
-                          StopWatchTimer.getDisplayTime(value, hours: _isHours);
-
-                      return DreamBox(
-                        height: 150,
-                        width: 200,
-                        verse: displayTime,
-                        verseScaleFactor: 0.7,
-                      );
-                    },
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      /// START
-                      DreamBox(
-                        height: 60,
-                        width: 100,
-                        verse: 'Start',
-                        verseScaleFactor: 0.7,
-                        color: Colorz.blue80,
-                        verseColor: Colorz.black255,
-                        verseShadow: false,
-                        onTap: _startCounter,
-                      ),
-
-                      /// STOP
-                      DreamBox(
-                        height: 60,
-                        width: 100,
-                        verse: 'Stop',
-                        verseScaleFactor: 0.7,
-                        color: Colorz.blue80,
-                        verseColor: Colorz.black255,
-                        verseShadow: false,
-                        onTap: _stopCounter,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      /// STOP
-                      DreamBox(
-                        height: 60,
-                        width: 100,
-                        verse: 'Lap',
-                        verseScaleFactor: 0.7,
-                        color: Colorz.blue80,
-                        verseColor: Colorz.black255,
-                        verseShadow: false,
-                        onTap: _lapCounter,
-                      ),
-
-                      /// RESET
-                      DreamBox(
-                        height: 60,
-                        width: 100,
-                        verse: 'Reset',
-                        verseScaleFactor: 0.7,
-                        color: Colorz.blue80,
-                        verseColor: Colorz.black255,
-                        verseShadow: false,
-                        onTap: _resetCounter,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: _screenWidth * 0.5,
-              height: 300,
-              color: Colorz.blue80,
-              child: StreamBuilder<List<StopWatchRecord>>(
-                stream: _stopWatchTimer.records,
-                initialData: _stopWatchTimer.records.value,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<StopWatchRecord>> snap) {
-                  final List<StopWatchRecord> records = snap.data;
-
-                  if (records.isEmpty) {
-                    return Container();
-                  } else {
-                    return ListView.builder(
-                        itemCount: records.length,
-                        controller: _scrollController,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          final StopWatchRecord record = records[index];
-
-                          return SuperVerse(
-                            verse: '${index + 1} : ${record.displayTime}',
-                            size: 1,
-                          );
-                        });
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
       ],
     );
   }
