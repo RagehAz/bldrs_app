@@ -73,7 +73,7 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
             verse: 'blog current zone',
             onTap: (){
 
-              _bubbleZone.blogZone();
+              _bubbleZone?.blogZone();
 
             },
           ),
