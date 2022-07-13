@@ -23,7 +23,7 @@ class NoteProtocols {
   static Future<void> sendAuthorshipInvitationNote({
     @required BuildContext context,
     @required BzModel bzModel,
-    @required UserModel sendTo,
+    @required UserModel userModelToSendTo,
   }) async {
 
     final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
@@ -38,7 +38,7 @@ class NoteProtocols {
       senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
       senderImageURL: _myAuthorModel.pic,
       noteSenderType: NoteSenderType.bz,
-      receiverID: sendTo.id,
+      receiverID: userModelToSendTo.id,
       receiverType: NoteReceiverType.user,
       title: 'Business Account Invitation',
       body: "'${_myAuthorModel.name}' sent you an invitation to become an Author for '${bzModel.name}' business page",
@@ -54,6 +54,7 @@ class NoteProtocols {
       responseTime: null,
       // senderImageURL:
       buttons: NoteModel.generateAcceptDeclineButtons(),
+      token: userModelToSendTo?.fcmToken?.token,
     );
 
     await NoteFireOps.createNote(
@@ -94,6 +95,7 @@ class NoteProtocols {
       response: null,
       responseTime: null,
       buttons: null,
+      token: null, // ????????????????????????????????????????????????????
     );
 
     await NoteFireOps.createNote(
@@ -135,6 +137,7 @@ class NoteProtocols {
       response: null,
       responseTime: null,
       buttons: null,
+      token: null, // ????????????????????????????????????????????????????
     );
 
     await NoteFireOps.createNote(
@@ -173,11 +176,17 @@ class NoteProtocols {
       response: null,
       responseTime: null,
       buttons: null,
+      token: null, // ????????????????????????????????????????????????????????
     );
 
     await NoteFireOps.createNote(
       context: context,
       noteModel: _noteToBz,
+    );
+
+    final UserModel _userModel = await UsersProvider.proFetchUserModel(
+        context: context,
+        userID: deletedAuthor.userID,
     );
 
     /// NOTE TO DELETED AUTHOR
@@ -201,6 +210,7 @@ class NoteProtocols {
       response: null,
       responseTime: null,
       buttons: null,
+      token: _userModel?.fcmToken?.token,
     );
 
     await NoteFireOps.createNote(
@@ -220,6 +230,11 @@ class NoteProtocols {
       final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(bzModel);
 
       for (final AuthorModel author in bzModel.authors){
+
+        final UserModel _userModel = await UsersProvider.proFetchUserModel(
+            context: context,
+            userID: author.userID,
+        );
 
         final NoteModel _note = NoteModel(
           id: 'x',
@@ -241,6 +256,7 @@ class NoteProtocols {
           response: null,
           responseTime: null,
           buttons: null,
+          token: _userModel?.fcmToken?.token,
         );
 
         await NoteFireOps.createNote(

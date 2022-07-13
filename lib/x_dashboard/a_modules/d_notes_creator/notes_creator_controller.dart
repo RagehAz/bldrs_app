@@ -67,6 +67,7 @@ NoteModel createInitialNote(BuildContext context) {
     response: null,
     responseTime: null,
     buttons: null,
+    token: null,
   );
 
   return _noteModel;
@@ -126,6 +127,7 @@ Future<void> onChangeNoteType({
         response: _old.response,
         responseTime: _old.responseTime,
         buttons: _old.buttons,
+        token: _old.token,
       );
 
 
@@ -720,6 +722,7 @@ void _onClearAttachments({
     response: _note.response,
     responseTime: _note.responseTime,
     buttons: _note.buttons,
+    token: _note.token,
   );
 
 }
