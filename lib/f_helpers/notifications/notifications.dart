@@ -130,13 +130,14 @@ class Notifications {
 
     await tryAndCatch(
       context: context,
-      onError: (String error) => blog(error),
-      methodName: 'receiveAndActUponNoti',
+      methodName: 'onReceiveNotification',
       functions: () {
+
         _noti = NoteModel.decipherNote(
           map: msgMap,
           fromJSON: false,
         );
+
         },
     );
 
