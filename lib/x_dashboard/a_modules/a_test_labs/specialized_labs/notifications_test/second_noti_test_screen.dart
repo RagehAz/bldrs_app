@@ -1,23 +1,23 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SecondNotiTestScreen extends StatelessWidget {
-  const SecondNotiTestScreen({Key key}) : super(key: key);
 
-//   final String thing;
-//
-//   const SecondNotiTestScreen({
-//     @required this.thing,
-// });
+  const SecondNotiTestScreen({
+    Key key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // log(thing);
 
     return MainLayout(
       pyramidsAreOn: true,
+      pageTitle: 'Second Notification Screen',
+      sectionButtonIsOn: false,
+      zoneButtonIsOn: false,
       layoutWidget: Column(
         children: <Widget>[
 
@@ -27,11 +27,14 @@ class SecondNotiTestScreen extends StatelessWidget {
             width: 300,
             height: 400,
             color: Colorz.bloodTest,
-            child: Container(),
+            child: const SuperVerse(
+              verse: 'Second Notification Screen',
+            ),
           ),
 
         ],
       ),
     );
+
   }
 }

@@ -29,8 +29,11 @@ class Notifications {
   /// INITIALIZATION
 
   // -----------------------------------
-  /// THIS GOES BEFORE RUNNING THE BLDRS APP
+  /// TESTED : WORKS PERFECT
   static Future<void> preInitializeNotifications() async {
+
+    /// THIS GOES BEFORE RUNNING THE BLDRS APP
+
     FirebaseMessaging.onBackgroundMessage(notificationPushHandler);
 
     final AwesomeNotifications _awesomeNotification = AwesomeNotifications();
@@ -121,6 +124,10 @@ class Notifications {
 
     NoteModel _noti;
 
+    blog('msg map is');
+
+    blog(msgMap);
+
     await tryAndCatch(
       context: context,
       onError: (String error) => blog(error),
@@ -193,7 +200,7 @@ class Notifications {
   static Future<void> createWelcomeNotification() async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
-        id: Numeric.createUniqueID(),
+        id: Numeric.createUniqueID(limitDigits: 8),
         channelKey: Notifications.getNotificationChannelName(FCMChannel.basic),
         title: '${Emojis.shape_red_triangle_pointed_up} Welcome to Bldrs.net',
         body: 'Browse Thousands of flyers and pick your choices',
@@ -280,8 +287,7 @@ class Notifications {
     return NotificationChannel(
       channelKey: getNotificationChannelName(FCMChannel.basic),
       channelName: getNotificationChannelName(FCMChannel.basic),
-      channelDescription:
-      'this is for testing', // this will be visible to user in android notification settings
+      channelDescription: 'this is for testing', // this will be visible to user in android notification settings
       defaultColor: Colorz.yellow255,
       channelShowBadge: true,
       icon: flatBldrsNotiIcon,
@@ -299,8 +305,7 @@ class Notifications {
     return NotificationChannel(
       channelKey: getNotificationChannelName(FCMChannel.scheduled),
       channelName: getNotificationChannelName(FCMChannel.scheduled),
-      channelDescription:
-      'This is the first scheduled notification', // this will be visible to user in android notification settings
+      channelDescription: 'This is the first scheduled notification', // this will be visible to user in android notification settings
       defaultColor: Colorz.yellow255,
       channelShowBadge: true,
       enableLights: true,
@@ -325,7 +330,7 @@ class Notifications {
 
     await notify();
 
-    AwesomeNotifications().actionStream.listen((ReceivedAction receivedNoti) {
+    AwesomeNotifications().actionStream.listen((ReceivedAction receivedAction) {
       Nav.pushAndRemoveUntil(
         context: context,
         screen: screenToGoToOnNotiTap,
