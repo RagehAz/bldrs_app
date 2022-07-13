@@ -1,19 +1,18 @@
 import 'dart:async';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
-import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/notifications/notifications_models/fcm_channel.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/second_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notifications_test/second_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class AwesomeNotiTestScreen extends StatefulWidget {
@@ -50,10 +49,10 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   AwesomeNotifications _awesomeNotification;
   GlobalKey _scaffoldKey;
+  StreamSubscription _streamSubscription;
   @override
   void initState() {
     super.initState();
@@ -65,7 +64,6 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     _awesomeNotification = AwesomeNotifications();
   }
-
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -73,26 +71,14 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     super.didChangeDependencies();
     if (_isInit) {
       _triggerLoading().then((_) async {
-        final bool _isAllowed =
-            await _awesomeNotification.isNotificationAllowed();
+
+        final bool _isAllowed = await isNotificationAllowed();
 
         if (_isAllowed == false) {
-          final bool _result = await CenterDialog.showCenterDialog(
-            context: context,
-            title: 'Allow notifications',
-            body: 'To be able to know what is going on',
-            boolDialog: true,
-          );
-
-          if (_result == true) {
-            await _awesomeNotification.requestPermissionToSendNotifications();
-          }
-
-          Nav.goBack(context);
-          // await null;
+          await _requestNotificationPermission();
         }
 
-        await _notiStream(context);
+        await _listenToNotificationsStream(context);
 
         unawaited(_triggerLoading());
       });
@@ -100,14 +86,15 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       _isInit = false;
     }
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _awesomeNotification.actionSink.close();
     _awesomeNotification.createdSink.close();
+    _awesomeNotification.dispose();
+    _streamSubscription?.cancel();
     super.dispose(); /// tamam
   }
-
 // -----------------------------------------------------------------------------
 //   Future<void> _firebasePushHandler(RemoteMessage message){
 //     blog('_firebasePushHandler : message : $message');
@@ -115,25 +102,51 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 //     _awesomeNotification.createNotificationFromJsonData(message.data);
 //   }
 // -----------------------------------------------------------------------------
-  Future<void> _notiStream(BuildContext context) async {
-    blog('starting notiStream');
-    blog(
-        '_awesomeNotification.isNotificationAllowed() : ${await _awesomeNotification.isNotificationAllowed()}');
+  Future<void> _requestNotificationPermission() async {
 
-    if (_awesomeNotification.isNotificationAllowed() != null) {
-      _awesomeNotification.createdStream
-          .listen((ReceivedNotification notification) async {
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Allow notifications',
+      body: 'To be able to know what is going on',
+      boolDialog: true,
+    );
+
+    if (_result == true) {
+      await _awesomeNotification.requestPermissionToSendNotifications();
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<bool> isNotificationAllowed() async {
+
+    bool _allowed = false;
+
+    if (_awesomeNotification != null){
+      _allowed = await _awesomeNotification.isNotificationAllowed();
+    }
+
+    blog('isNotificationAllowed : $_allowed');
+
+    return _allowed;
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _listenToNotificationsStream(BuildContext context) async {
+
+    blog('_listenToNotificationsStream --------- START');
+
+    final bool _notificationsAllowed = await isNotificationAllowed();
+
+    if (_notificationsAllowed != null) {
+
+      _streamSubscription = _awesomeNotification.createdStream.listen((ReceivedNotification notification) async {
 
         blog('the FUCKING notification is aho 5ara :  Channel : ${notification.channelKey} : id : ${notification.id}');
 
-        await _flickerPyramids();
-
-        // await NavDialog.showNavDialog(
-        //   context: context,
-        //   firstLine: 'Notification created',
-        //   secondLine: 'sent on Channel : ${notification.channelKey} : id : ${notification.id}',
-        //   isBig: true,
-        // );
+        await TopDialog.showTopDialog(
+          context: context,
+          firstLine: 'Notification created',
+          secondLine: 'sent on Channel : ${notification.channelKey} : id : ${notification.id}',
+        );
 
       });
 
@@ -151,66 +164,28 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         await Nav.pushAndRemoveUntil(
           context: context,
           screen: const SecondNotiTestScreen(
-            // thing: 'thing'
+
           ),
         );
+
       });
     }
 
-    blog('ended notiStream');
+    blog('_listenToNotificationsStream --------- END');
   }
 
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification() async {
     await Notifications.createWelcomeNotification();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onSendScheduledNotification() async {
     await Notifications.createScheduledNotification();
   }
-
-// -----------------------------------------------------------------------------
-  String _pyramids;
-  Future<void> _flickerPyramids() async {
-    // Duration _duration = Ratioz.duration150ms;
-
-    setState(() {
-      _pyramids = Iconz.pyramidsWhite;
-    });
-
-    await Future<void>.delayed(const Duration(milliseconds: 50), () {
-      setState(() {
-        _pyramids = Iconz.pyramidsYellow;
-      });
-    });
-
-    await Future<void>.delayed(const Duration(milliseconds: 100), () {
-      setState(() {
-        _pyramids = Iconz.pyramidsWhite;
-      });
-    });
-
-    await Future<void>.delayed(const Duration(milliseconds: 150), () {
-      setState(() {
-        _pyramids = Iconz.pyramidsYellow;
-      });
-    });
-
-    blog('pyramids : $_pyramids');
-  }
-
-// -----------------------------------------------------------------------------
-  Future<void> _multiFlickerPyramids() async {
-    await _flickerPyramids();
-
-    final String _audio = Sounder.randomBldrsNameSoundPath();
-    blog(_audio);
-  }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return MainLayout(
       scaffoldKey: _scaffoldKey,
       appBarType: AppBarType.basic,
@@ -222,6 +197,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
           const Stratosphere(),
 
+          /// SEND NOTIFICATION
           Container(
             width: 300,
             height: 300,
@@ -238,19 +214,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             ),
           ),
 
-          DreamBox(
-            height: 60,
-            width: 250,
-            verse: 'multi Flicker Pyramids',
-            verseScaleFactor: 0.7,
-            color: Colorz.yellow255,
-            verseColor: Colorz.black255,
-            verseShadow: false,
-            onTap: () async {
-              await _multiFlickerPyramids();
-            },
-          ),
-
+          /// SEND SCHEDULED
           DreamBox(
             height: 60,
             width: 250,
@@ -262,6 +226,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             onTap: _onSendScheduledNotification,
           ),
 
+          /// CANCEL SCHEDULED
           DreamBox(
             height: 60,
             width: 250,
@@ -275,8 +240,24 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             },
           ),
 
+          WideButton(
+            verse: 'Cancel Stream',
+            onTap: () async {
+
+              if (_streamSubscription == null){
+                blog('_streamSubscription is null');
+              }
+              else {
+                await _streamSubscription.cancel();
+                blog('_streamSubscription is cancelled');
+              }
+
+            },
+          ),
+
         ],
       ),
     );
+
   }
 }

@@ -215,9 +215,20 @@ int createUniqueIndex({
   return _randomNumber;
 }
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-int createUniqueID() {
-  return DateTime.now().microsecondsSinceEpoch;
+/// TESTED :
+int createUniqueID({
+  int limitDigits
+}) {
+
+  final String _string = DateTime.now().microsecondsSinceEpoch.toString();
+  final int _numberOfDigitsToTrim = _string.length - limitDigits;
+  final String _trimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(
+      string: _string,
+      numberOfCharacters: _numberOfDigitsToTrim,
+  );
+  final int _output = transformStringToInt(_trimmed);
+
+  return _output;
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
