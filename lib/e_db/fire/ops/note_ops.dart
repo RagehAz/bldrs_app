@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 /// CREATE
 
 // -----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> createNote({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -34,6 +35,7 @@ Future<void> createNote({
 /// ALL NOTES PAGINATION
 
 // -----------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<NoteModel>> readReceivedNotes({
   @required BuildContext context,
   @required String recieverID,
@@ -75,7 +77,7 @@ Future<List<NoteModel>> readReceivedNotes({
 
   return _notes;
 }
-
+// -----------------------------------
 Future<List<NoteModel>> paginateAllSentNotes({
   @required BuildContext context,
   @required String senderID,
@@ -166,6 +168,7 @@ Future<List<NoteModel>> paginateAllReceivedNotes({
 /// AUTHORSHIP NOTES PAGINATION
 
 // -----------------------------------
+/// TESTED : WORKS PERFECT
 List<FireFinder> generatePendingSentAuthorshipNotesFireFinder({
   @required String senderID,
 }){
@@ -412,6 +415,7 @@ Future<void> deleteAllSentNotes({
 
 }
 // -----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteNote({
   @required BuildContext context,
   @required String noteID,
@@ -429,6 +433,7 @@ Future<void> deleteNote({
 
 }
 // -----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> deleteNotes({
   @required BuildContext context,
   @required List<NoteModel> notes,
@@ -486,3 +491,4 @@ Future<void> deleteAllReceivedNotes({
   }
 
 }
+// -----------------------------------

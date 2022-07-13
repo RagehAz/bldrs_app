@@ -5,25 +5,15 @@ import 'package:bldrs/f_helpers/notifications/local_note.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/notifications/notifications_models/fcm_channel.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-enum FCMTiming {
-  onMessage,
-  onResume,
-  onLaunch,
-}
+class Notifications {
 
-enum FCMChannel {
-  basic,
-  scheduled,
-}
-
-class FCM {
-
-  FCM();
+  Notifications();
 
   // -----------------------------------------------------------------------------
 
@@ -31,21 +21,22 @@ class FCM {
 
   // -----------------------------------
   //   String _ahmedURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/slidesPics%2FXmwKpOsu1RZW3YfDAkli_00.jpg?alt=media&token=a4c8a548-74d2-4086-b3db-1678f46db00a';
-  static const String _redBldrsBanner = 'resource://drawable/res_red_bldrs';
-  static const String _flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
+  static const String redBldrsBanner = 'resource://drawable/res_red_bldrs';
+  static const String flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
+  static const String flatBldrsNotiIcon2 = 'res_flat_logo'; //'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
   // -----------------------------------
   /// THIS GOES BEFORE RUNNING THE BLDRS APP
-  static Future<void> preInitializeNoti() async {
-    FirebaseMessaging.onBackgroundMessage(fcmPushHandler);
+  static Future<void> preInitializeNotifications() async {
+    FirebaseMessaging.onBackgroundMessage(notificationPushHandler);
 
     final AwesomeNotifications _awesomeNotification = AwesomeNotifications();
 
     await _awesomeNotification.initialize(
-      _flatBldrsNotiIcon,
+      flatBldrsNotiIcon,
       <NotificationChannel>[
         basicNotificationChannel(),
         scheduledNotificationChannel(),
@@ -54,7 +45,7 @@ class FCM {
   }
   // -----------------------------------
   /// THIS GOES IN MAIN WIDGET INIT
-  static Future<void> initializeNoti(BuildContext context) async {
+  static Future<void> initializeNotifications(BuildContext context) async {
     final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
     if (initialRemoteMessage != null) {
@@ -84,7 +75,7 @@ class FCM {
 
       final Map<String, dynamic> _msgMap = remoteMessage.data;
 
-      await receiveAndActUponNoti(
+      await onReceiveNotification(
         context: context,
         msgMap: _msgMap,
         // FCMTiming: FCMTiming.onMessage,
@@ -102,25 +93,25 @@ class FCM {
 
       final Map<String, dynamic> _msgMap = event.data;
 
-      receiveAndActUponNoti(
+      onReceiveNotification(
         context: context,
         msgMap: _msgMap,
         // FCMTiming: FCMTiming.onLaunch,
       );
 
       /// to display the notification while app in foreground
-      LocalNote.display(event);
+      LocalNotification.display(event);
     });
 
     /// when app running in background and notification tapped while having
     /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
-    FirebaseMessaging.onBackgroundMessage(fcmPushHandler);
+    FirebaseMessaging.onBackgroundMessage(notificationPushHandler);
 
     // fbm.getToken();
     await _fbm.subscribeToTopic('flyers');
   }
   // -----------------------------------
-  static Future<NoteModel> receiveAndActUponNoti({
+  static Future<NoteModel> onReceiveNotification({
     @required BuildContext context,
     @required dynamic msgMap,
     // @required FCMTiming FCMTiming,
@@ -152,7 +143,7 @@ class FCM {
   /// fcm on background
   //  AndroidNotificationChannel channel;
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  static Future<void> fcmPushHandler(RemoteMessage message) async {
+  static Future<void> notificationPushHandler(RemoteMessage message) async {
 
     blog('Handling a background message ${message.messageId}');
 
@@ -195,39 +186,34 @@ class FCM {
     // }
   }
   // -----------------------------------------------------------------------------
-  static String getFCMChannelName(FCMChannel channel) {
-    switch (channel) {
-      case FCMChannel.basic: return 'Basic Notifications';break;
-      case FCMChannel.scheduled: return 'Scheduled Notifications';break;
-      default: return 'Basic Notifications';
-    }
-  }
-  // -----------------------------------------------------------------------------
+
+  /// CREATION
+
+  // -----------------------------------
   static Future<void> createWelcomeNotification() async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: Numeric.createUniqueID(),
-        channelKey: getFCMChannelName(FCMChannel.basic),
+        channelKey: Notifications.getNotificationChannelName(FCMChannel.basic),
         title: '${Emojis.shape_red_triangle_pointed_up} Welcome to Bldrs.net',
         body: 'Browse Thousands of flyers and pick your choices',
-        bigPicture: _redBldrsBanner,
+        bigPicture: Notifications.redBldrsBanner,
         notificationLayout: NotificationLayout.BigPicture,
         color: Colorz.yellow255,
         backgroundColor: Colorz.bloodTest,
       ),
     );
   }
-  // -----------------------------------------------------------------------------
+  // -----------------------------------
   static Future<void> createScheduledNotification() async {
 
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: Numeric.createUniqueID(),
-        channelKey: getFCMChannelName(FCMChannel.scheduled),
+        channelKey: Notifications.getNotificationChannelName(FCMChannel.scheduled),
         title: '${Emojis.hotel_bellhop_bell} Alert from Bldrs.net',
-        body:
-        'You need to open the app now, not tomorrow, not after tomorrow, NOW !, Do I make my self clear ? or you want me to repeat What I have just wrote,, read again !',
-        bigPicture: _redBldrsBanner,
+        body: 'You need to open the app now, not tomorrow, not after tomorrow, NOW !, Do I make my self clear ? or you want me to repeat What I have just wrote,, read again !',
+        bigPicture: Notifications.redBldrsBanner,
         notificationLayout: NotificationLayout.BigPicture,
         color: Colorz.yellow255,
         backgroundColor: Colorz.skyDarkBlue,
@@ -236,7 +222,7 @@ class FCM {
         NotificationActionButton(
           key: 'MARK_DONE',
           label: 'Mark Done',
-          icon: _flatBldrsNotiIcon,
+          icon: flatBldrsNotiIcon2,
           buttonType: ActionButtonType.KeepOnTop,
           // autoCancel: false,
           enabled: true,
@@ -270,19 +256,35 @@ class FCM {
     );
   }
   // -----------------------------------------------------------------------------
+
+  /// CANCELLATION
+
+  // -----------------------------------
   static Future<void> cancelScheduledNotification() async {
     await AwesomeNotifications().cancelAllSchedules();
   }
   // -----------------------------------------------------------------------------
+
+  /// CHANNELS
+
+  // -----------------------------------
+  static String getNotificationChannelName(FCMChannel channel) {
+    switch (channel) {
+      case FCMChannel.basic: return 'Basic Notifications';break;
+      case FCMChannel.scheduled: return 'Scheduled Notifications';break;
+      default: return 'Basic Notifications';
+    }
+  }
+  // -----------------------------------
   static NotificationChannel basicNotificationChannel() {
     return NotificationChannel(
-      channelKey: getFCMChannelName(FCMChannel.basic),
-      channelName: getFCMChannelName(FCMChannel.basic),
+      channelKey: getNotificationChannelName(FCMChannel.basic),
+      channelName: getNotificationChannelName(FCMChannel.basic),
       channelDescription:
       'this is for testing', // this will be visible to user in android notification settings
       defaultColor: Colorz.yellow255,
       channelShowBadge: true,
-      icon: _flatBldrsNotiIcon,
+      icon: flatBldrsNotiIcon,
       ledColor: Colorz.yellow255,
       importance: NotificationImportance.High,
       locked: true,
@@ -292,17 +294,17 @@ class FCM {
       enableVibration: true,
     );
   }
-  // -----------------------------------------------------------------------------
+  // -----------------------------------
   static NotificationChannel scheduledNotificationChannel() {
     return NotificationChannel(
-      channelKey: getFCMChannelName(FCMChannel.scheduled),
-      channelName: getFCMChannelName(FCMChannel.scheduled),
+      channelKey: getNotificationChannelName(FCMChannel.scheduled),
+      channelName: getNotificationChannelName(FCMChannel.scheduled),
       channelDescription:
       'This is the first scheduled notification', // this will be visible to user in android notification settings
       defaultColor: Colorz.yellow255,
       channelShowBadge: true,
       enableLights: true,
-      icon: _flatBldrsNotiIcon,
+      icon: flatBldrsNotiIcon,
       ledColor: Colorz.yellow255,
       importance: NotificationImportance.High,
       enableVibration: true,
@@ -311,8 +313,15 @@ class FCM {
       soundSource: Sounder.randomBldrsNameSoundPath(),
     );
   }
+  // -----------------------------------
+
+  /// GETTERS
+
   // -----------------------------------------------------------------------------
-  static Future<void> onNotifyButtonTap(BuildContext context, Widget screenToGoToOnNotiTap) async {
+  static Future<void> onNotifyButtonTap({
+    @required BuildContext context,
+    @required Widget screenToGoToOnNotiTap,
+  }) async {
 
     await notify();
 
@@ -334,7 +343,7 @@ class FCM {
         channelKey: 'onNotifyTap',
         title: 'Local Notify by tap',
         body: 'this was sent by tapping a button',
-        bigPicture: _redBldrsBanner,
+        bigPicture: redBldrsBanner,
         notificationLayout: NotificationLayout.BigPicture,
       ),
     );

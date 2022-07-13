@@ -5,9 +5,9 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
-export 'package:bldrs/e_db/fire/fire_models/query_order_by.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
+export 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
 
 class Fire {
 
