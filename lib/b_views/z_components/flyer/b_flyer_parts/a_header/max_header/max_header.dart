@@ -1,9 +1,13 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/secondary_models/record_model.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/black_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_counter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_fields.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_verse.dart';
+import 'package:bldrs/b_views/z_components/flyer/e_flyer_special_widgets/report_button.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
@@ -146,16 +150,18 @@ class MaxHeader extends StatelessWidget {
             iconSizeFactor: 0.95,
           ),
 
-          /// BZ GALLERY
-          // if (Mapper.canLoopList(bzModel.flyersIDs))
-          //   Gallery(
-          //     key: const ValueKey<String>('max_header_gallery'),
-          //     bzModel: bzModel,
-          //     showFlyers: true,
-          //     galleryBoxWidth: flyerBoxWidth,
-          //     addAuthorButtonIsOn: false,
-          //     // tinyFlyers: _bzTinyFlyers,
-          //   ),
+          /// REPORT
+          BlackBox(
+            width: flyerBoxWidth,
+            child: ReportButton(
+              modelType: ModelType.bz,
+              color: Colorz.black255,
+              onTap: () => BzFireOps.reportBz(
+                context: context,
+                bzModel: bzModel,
+              ),
+            ),
+          ),
 
           /// BOTTOM PADDING
           MaxHeaderBottomPadding(
@@ -167,8 +173,8 @@ class MaxHeader extends StatelessWidget {
       ),
     );
   }
-}
 
+}
 
 class MaxHeaderBottomPadding extends StatelessWidget {
   /// --------------------------------------------------------------------------
