@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/black_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -21,25 +22,19 @@ class BzPgVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    const dynamic bzPageBGColor = Colorz.black80;
-    final double bzPageDividers = flyerBoxWidth * 0.005;
 
     final double _margins = maxLines > 1 ? flyerBoxWidth * 0.05 : flyerBoxWidth * 0.02;
 
-    return Padding(
-      padding: EdgeInsets.only(top: bzPageDividers),
-      child: Container(
-        width: flyerBoxWidth,
-        color: bzPageBGColor,
-        child: SuperVerse(
-          verse: verse,
-          weight: VerseWeight.thin,
-          italic: true,
-          size: size,
-          color: Colorz.white200,
-          margin: _margins,
-          maxLines: maxLines,
-        ),
+    return BlackBox(
+      width: flyerBoxWidth,
+      child: SuperVerse(
+        verse: verse,
+        weight: VerseWeight.thin,
+        italic: true,
+        size: size,
+        color: Colorz.white200,
+        margin: _margins,
+        maxLines: maxLines,
       ),
     );
   }
@@ -76,44 +71,33 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
   @override
   Widget build(BuildContext context) {
 
-    const dynamic bzPageBGColor = Colorz.black80;
-    final double bzPageDividers = widget.flyerBoxWidth * 0.005;
-
-    final double _margins = widget.flyerBoxWidth * 0.05;
-
-    return GestureDetector(
+    return BlackBox(
+      width: widget.flyerBoxWidth,
       onTap: _expandMaxLines,
-      child: Padding(
-        padding: EdgeInsets.only(top: bzPageDividers),
-        child: Container(
-          width: widget.flyerBoxWidth,
-          color: bzPageBGColor,
-          padding: EdgeInsets.only(left: _margins, right: _margins, bottom: _margins),
-          child: Column(
-            children: <Widget>[
+      child: Column(
+        children: <Widget>[
 
-              SuperVerse(
-                verse: '${superPhrase(context, 'phid_about')} ${widget.bzName}',
-                weight: VerseWeight.thin,
-                margin: 10,
-                color: Colorz.grey255,
-                maxLines: 3,
-              ),
-
-              SuperVerse(
-                verse: widget.verse,
-                weight: VerseWeight.thin,
-                italic: true,
-                size: 3,
-                color: Colorz.white200,
-                margin: 0,
-                maxLines: aboutMaxLines,
-              ),
-
-            ],
+          SuperVerse(
+            verse: '${superPhrase(context, 'phid_about')} ${widget.bzName}',
+            weight: VerseWeight.thin,
+            margin: 10,
+            color: Colorz.grey255,
+            maxLines: 3,
           ),
-        ),
+
+          SuperVerse(
+            verse: widget.verse,
+            weight: VerseWeight.thin,
+            italic: true,
+            size: 3,
+            color: Colorz.white200,
+            margin: 0,
+            maxLines: aboutMaxLines,
+          ),
+
+        ],
       ),
     );
+
   }
 }
