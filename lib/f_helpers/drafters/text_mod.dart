@@ -289,7 +289,10 @@ String removeFirstCharacterFromAString(String string) {
   return stringWithoutFirstCharacter;
 }
 // ----------------------------
-String removeNumberOfCharactersFromBeginningOfAString(String string, int numberOfCharacters) {
+String removeNumberOfCharactersFromBeginningOfAString({
+  @required String string,
+  @required int numberOfCharacters,
+}) {
   String _stringTrimmed;
   if (numberOfCharacters > string.length) {
     blog('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');

@@ -308,7 +308,10 @@ Future<File> getFileFromLocalRasterAsset({
       methodName: 'getFileFromLocalRasterAsset',
       functions: () async {
         // blog('0. removing [assets/] from input image path');
-        final String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(_asset, 7);
+        final String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(
+            string: _asset,
+            numberOfCharacters: 7,
+        );
         // blog('1. starting getting image from assets');
         // final ByteData _byteData = await rootBundle.load('assets/$_pathTrimmed');
         // blog('2. we got byteData and creating the File aho');
