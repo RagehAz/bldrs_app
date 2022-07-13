@@ -1,5 +1,4 @@
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class LocalAssetChecker extends StatefulWidget {
@@ -31,7 +30,7 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'LocalAssetChecker',);
+      // blogLoading(loading: _loading.value, callerName: 'LocalAssetChecker',);
     }
   }
 // -----------------------------------------------------------------------------

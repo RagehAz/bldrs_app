@@ -18,6 +18,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/keyboard_field_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/fcm_tet_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
@@ -170,7 +171,7 @@ class SpecializedLabs extends StatelessWidget {
       DashButtonModel(
         verse: 'FCM test screen',
         icon: Iconz.news,
-        screen: null,//const FCMTestScreen(),
+        screen: const FCMTestScreen(),
       ),
 
       /// AWESOME NOTIFICATION TEST

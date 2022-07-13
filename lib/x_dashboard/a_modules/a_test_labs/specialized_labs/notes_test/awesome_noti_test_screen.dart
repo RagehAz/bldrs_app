@@ -5,10 +5,11 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/f_helpers/notifications/fcm.dart';
+import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/notifications/notifications_models/fcm_channel.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
@@ -122,8 +123,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     if (_awesomeNotification.isNotificationAllowed() != null) {
       _awesomeNotification.createdStream
           .listen((ReceivedNotification notification) async {
-        blog(
-            'the FUCKING notification is aho 5ara :  Channel : ${notification.channelKey} : id : ${notification.id}');
+
+        blog('the FUCKING notification is aho 5ara :  Channel : ${notification.channelKey} : id : ${notification.id}');
 
         await _flickerPyramids();
 
@@ -133,11 +134,12 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         //   secondLine: 'sent on Channel : ${notification.channelKey} : id : ${notification.id}',
         //   isBig: true,
         // );
+
       });
 
       _awesomeNotification.actionStream.listen((ReceivedAction notification) async {
 
-        final bool _isBasicChannel = notification.channelKey == FCM.getFCMChannelName(FCMChannel.basic);
+        final bool _isBasicChannel = notification.channelKey == Notifications.getNotificationChannelName(FCMChannel.basic);
 
         final bool _isIOS = DeviceChecker.deviceIsIOS();
 
@@ -160,12 +162,12 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification() async {
-    await FCM.createWelcomeNotification();
+    await Notifications.createWelcomeNotification();
   }
 
 // -----------------------------------------------------------------------------
   Future<void> _onSendScheduledNotification() async {
-    await FCM.createScheduledNotification();
+    await Notifications.createScheduledNotification();
   }
 
 // -----------------------------------------------------------------------------
@@ -269,7 +271,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             verseColor: Colorz.black255,
             verseShadow: false,
             onTap: () async {
-              await FCM.cancelScheduledNotification();
+              await Notifications.cancelScheduledNotification();
             },
           ),
 

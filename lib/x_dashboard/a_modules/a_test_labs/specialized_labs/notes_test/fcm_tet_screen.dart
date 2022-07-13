@@ -31,6 +31,7 @@ class FCMTestScreen extends StatefulWidget {
 }
 
 class _FCMTestScreenState extends State<FCMTestScreen> {
+// -----------------------------------------------------------------------------
   /// FCM : firebase cloud messaging
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
@@ -64,7 +65,6 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     _fcm.subscribeToTopic('flyers');
     // firebaseMessaging.unsubscribeFromTopic('flyers');
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _saveDeviceTokenToUserDocInFireStore() async {
     final String _userID = superUserID();
@@ -87,6 +87,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
         input: _token.toMap(toJSON: false),
       );
     }
+
   }
 // -----------------------------------------------------------------------------
   NoteModel _note;
@@ -234,7 +235,9 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             _startCounter();
 
             final dynamic map = await CloudFunctionz.callFunction(
-                context: context, cloudFunctionName: 'sayHello');
+                context: context,
+                cloudFunctionName: 'sayHello',
+            );
 
             _lapCounter();
 
