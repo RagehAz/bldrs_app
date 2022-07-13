@@ -49,6 +49,7 @@ List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps) {
   return _listOfValues;
 }
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 List<String> getStringsFromDynamics({
   @required List<dynamic> dynamics,
 }) {

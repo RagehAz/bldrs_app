@@ -173,7 +173,6 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     blog('_listenToNotificationsStream --------- END');
   }
-
 // -----------------------------------------------------------------------------
   Future<void> _onSendNotification() async {
     await Notifications.createWelcomeNotification();
