@@ -31,7 +31,6 @@ class Notifications {
   // -----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> preInitializeNotifications() async {
-
     /// THIS GOES BEFORE RUNNING THE BLDRS APP
 
     FirebaseMessaging.onBackgroundMessage(notificationPushHandler);
@@ -45,15 +44,17 @@ class Notifications {
         scheduledNotificationChannel(),
       ],
     );
+
   }
   // -----------------------------------
   /// THIS GOES IN MAIN WIDGET INIT
   static Future<void> initializeNotifications(BuildContext context) async {
+
     final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
     if (initialRemoteMessage != null) {
       blogRemoteMessage(
-        methodName: 'initializeNoti',
+        methodName: 'initializeNotifications',
         remoteMessage: initialRemoteMessage,
       );
 
@@ -61,9 +62,9 @@ class Notifications {
 
     }
 
-    final FirebaseMessaging _fbm = FirebaseMessaging.instance;
+    final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
 
-    await _fbm.requestPermission(
+    await _fireMessaging.requestPermission(
       criticalAlert: true,
       carPlay: true,
       announcement: true,
@@ -80,7 +81,7 @@ class Notifications {
 
       await onReceiveNotification(
         context: context,
-        msgMap: _msgMap,
+        fcmMap: _msgMap,
         // FCMTiming: FCMTiming.onMessage,
       );
 
@@ -98,7 +99,7 @@ class Notifications {
 
       onReceiveNotification(
         context: context,
-        msgMap: _msgMap,
+        fcmMap: _msgMap,
         // FCMTiming: FCMTiming.onLaunch,
       );
 
@@ -111,37 +112,36 @@ class Notifications {
     FirebaseMessaging.onBackgroundMessage(notificationPushHandler);
 
     // fbm.getToken();
-    await _fbm.subscribeToTopic('flyers');
+    await _fireMessaging.subscribeToTopic('flyers');
   }
   // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> onReceiveNotification({
     @required BuildContext context,
-    @required dynamic msgMap,
+    @required dynamic fcmMap,
     // @required FCMTiming FCMTiming,
   }) async {
 
-    // blog('receiveAndActUponNoti : FCMTiming : $FCMTiming');
-
-    NoteModel _noti;
+    NoteModel _noteModel;
 
     blog('msg map is');
 
-    blog(msgMap);
+    blog(fcmMap);
 
     await tryAndCatch(
       context: context,
       methodName: 'onReceiveNotification',
       functions: () {
 
-        _noti = NoteModel.decipherNote(
-          map: msgMap,
+        _noteModel = NoteModel.decipherNote(
+          map: fcmMap,
           fromJSON: false,
         );
 
         },
     );
 
-    return _noti;
+    return _noteModel;
   }
   // -----------------------------------------------------------------------------
 

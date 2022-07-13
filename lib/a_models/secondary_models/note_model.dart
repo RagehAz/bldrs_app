@@ -119,6 +119,7 @@ class NoteModel {
   /// CLONING
 
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   NoteModel copyWith({
     String id,
     String senderID,
@@ -167,6 +168,7 @@ class NoteModel {
   /// MODEL CYPHERS
 
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -192,6 +194,7 @@ class NoteModel {
     };
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> _cipherNotificationField(){
     return <String, dynamic>{
       'notification': <String, dynamic>{
@@ -202,6 +205,7 @@ class NoteModel {
     };
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherNotesModels({
     @required List<NoteModel> notes,
     @required bool toJSON,
@@ -220,6 +224,7 @@ class NoteModel {
     return _maps;
 }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static NoteModel decipherNote({
     @required dynamic map,
     @required bool fromJSON
@@ -271,6 +276,7 @@ class NoteModel {
     return _noti;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String _decipherNotificationField({
     @required dynamic map,
     @required bool titleNotBody,
@@ -298,6 +304,7 @@ class NoteModel {
     return _field;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> _decipherNotificationData(dynamic map){
     Map<String, dynamic> _output;
 
@@ -312,6 +319,7 @@ class NoteModel {
     return _output;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> decipherNotes({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -346,6 +354,7 @@ class NoteModel {
   /// NOTE TYPE CYPHERS
 
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherNoteType(NoteType noteType){
     switch(noteType){
       case NoteType.authorship:   return 'authorship';    break;
@@ -356,6 +365,7 @@ class NoteModel {
     }
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static NoteType decipherNoteType(String noteType){
     switch(noteType){
       case 'authorship': return NoteType.authorship;      break;
@@ -366,6 +376,7 @@ class NoteModel {
     }
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static const List<NoteType> noteTypesList = <NoteType>[
     NoteType.announcement,
     NoteType.authorship,
@@ -377,6 +388,7 @@ class NoteModel {
   /// ATTACHMENT TYPE CYPHERS
 
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static dynamic decipherNoteAttachment({
     @required NoteAttachmentType attachmentType,
     @required dynamic attachment,
@@ -406,6 +418,7 @@ class NoteModel {
     return _output;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static NoteAttachmentType decipherNoteAttachmentType(String attachmentType) {
     switch (attachmentType) {
       case 'non':       return NoteAttachmentType.non;        break;
@@ -416,6 +429,7 @@ class NoteModel {
     }
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherNoteAttachmentType(NoteAttachmentType attachmentType) {
     switch (attachmentType) {
       case NoteAttachmentType.non:          return 'non';       break; /// data type : null
@@ -426,6 +440,7 @@ class NoteModel {
     }
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static const List<NoteAttachmentType> noteAttachmentTypesList = <NoteAttachmentType>[
     NoteAttachmentType.non,
     NoteAttachmentType.flyersIDs,
@@ -437,6 +452,7 @@ class NoteModel {
   /// NOTE SENDER TYPE CYPHERS
 
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherNoteSenderType(NoteSenderType type){
     switch (type) {
       case NoteSenderType.bz:           return 'bz';      break; /// data type : String bzID
@@ -448,6 +464,7 @@ class NoteModel {
     }
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static NoteSenderType decipherNoteSenderType(String type){
     switch (type) {
       case 'bldrs':   return NoteSenderType.bldrs;    break;
@@ -459,6 +476,7 @@ class NoteModel {
     }
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static const List<NoteSenderType> noteSenderTypesList = <NoteSenderType>[
     NoteSenderType.bz,
     // NoteSenderType.author,
@@ -471,6 +489,7 @@ class NoteModel {
   /// NOTE SENDER TYPE CYPHERS
 
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherNoteReceiverType(NoteReceiverType type){
     switch (type) {
       case NoteReceiverType.bz:           return 'bz';      break; /// data type : String bzID
@@ -479,6 +498,7 @@ class NoteModel {
     }
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static NoteReceiverType decipherNoteReceiverType(String type){
     switch (type) {
       case 'user':    return NoteReceiverType.user;     break;
@@ -487,6 +507,7 @@ class NoteModel {
     }
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static const List<NoteReceiverType> noteReceiverTypesList = <NoteReceiverType>[
     NoteReceiverType.bz,
     NoteReceiverType.user,
@@ -496,6 +517,7 @@ class NoteModel {
   /// RESPONSE CYPHERS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherResponse(NoteResponse response){
     switch (response){
       case NoteResponse.accepted:   return 'accepted'; break;
@@ -506,6 +528,7 @@ class NoteModel {
     }
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static NoteResponse decipherResponse(String response){
     switch (response){
       case 'accepted':  return NoteResponse.accepted; break;
