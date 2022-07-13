@@ -31,74 +31,92 @@ FieldValue ++
 // -----------------------------------------------------------------------------
 */
 
+class CloudFunction {
+
+  CloudFunction();
+
+//------------------------------------------------------------------------------
+
+/// CLOUD FUNCTIONS NAMES
+
+// -----------------------------------
+static const String sendNotificationToDevice = 'sendNotificationToDevice';
+//------------------------------------------------------------------------------
+
+  /// CALLERS
+
+// -----------------------------------
+  /// TESTED :
+  static Future<dynamic> callFunction({
+    @required BuildContext context,
+    String cloudFunctionName,
+    Map<String, dynamic> toDBMap,
+  }) async {
+
+    /// http trigger -> ( callable function - end point request )
+
+    final HttpsCallable _function = _getCallableFunction(
+      funcName: cloudFunctionName,
+    );
+
+    dynamic _output;
+
+    await tryAndCatch(
+        context: context,
+        methodName: 'CLOUD FUNCTIONS : callFunction',
+        functions: () async {
+
+          final Map<String, dynamic> _arguments = toDBMap ?? <String, dynamic>{};
+
+          final HttpsCallableResult _result = await _function.call(_arguments);
+
+          _output = _result.data;
+        },
+        onError: (String error) async {
+
+          final bool _unauthenticated = TextChecker.stringContainsSubString(
+            string: error,
+            subString: '/unauthenticated]',
+          );
+
+          blog('callFunction : unauthenticated IS $_unauthenticated');
+
+          if (_unauthenticated == true) {
+            await CenterDialog.showCenterDialog(
+              context: context,
+              title: 'You Are not Signed in',
+              body: 'Please Sign in into your account first',
+            );
+          }
+
+          else {
+            await CenterDialog.showCenterDialog(
+              context: context,
+              title: 'error',
+              body: error,
+            );
+          }
+
+        }
+    );
+
+    return _output;
+  }
+// -----------------------------------
+  static HttpsCallable _getCallableFunction({String funcName}) {
+    return FirebaseFunctions.instance.httpsCallable(
+      funcName,
+      options: HttpsCallableOptions(),
+    );
+  }
+//------------------------------------------------------------------------------
+}
+
 //------------------------------------------------------------------------------
 const String funcNameMyFunction = 'myFunction';
 // String callable_toBlackHole = 'toBlackHole';
 const String callableRandomNumber = 'randomNumber';
 const String callableSayHello = 'x_sayHello';
-//------------------------------------------------------------------------------
-/// http trigger -> ( callable function - end point request )
-Future<dynamic> callFunction({
-  @required BuildContext context,
-  String cloudFunctionName,
-  Map<String, dynamic> toDBMap,
-}) async {
-
-  final HttpsCallable _function = _getCallableFunction(
-      funcName: cloudFunctionName,
-  );
-
-  dynamic _output;
-
-  await tryAndCatch(
-      context: context,
-      methodName: 'CLOUD FUNCTIONS : callFunction',
-      functions: () async {
-
-        final Map<String, dynamic> _arguments = toDBMap ?? <String, dynamic>{};
-
-        final HttpsCallableResult _result = await _function.call(_arguments);
-
-        _output = _result.data;
-      },
-      onError: (String error) async {
-
-        final bool _unauthenticated = TextChecker.stringContainsSubString(
-          string: error,
-          subString: '/unauthenticated]',
-        );
-
-        blog('callFunction : unauthenticated IS $_unauthenticated');
-
-        if (_unauthenticated == true) {
-          await CenterDialog.showCenterDialog(
-            context: context,
-            title: 'You Are not Signed in',
-            body: 'Please Sign in into your account first',
-          );
-        }
-
-        else {
-          await CenterDialog.showCenterDialog(
-            context: context,
-            title: 'error',
-            body: error,
-          );
-        }
-
-      }
-  );
-
-  return _output;
-}
-//------------------------------------------------------------------------------
-HttpsCallable _getCallableFunction({String funcName}) {
-  return FirebaseFunctions.instance.httpsCallable(
-    funcName,
-    options: HttpsCallableOptions(),
-  );
-}
-
 //------------------------------------------------------------------------------
 Future<String> deleteFirebaseUser({String userID}) async {
   blog('will delete user tomorrow isa, after 3eid');

@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
-import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
+import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/real/real.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -54,7 +54,6 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -83,7 +82,6 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 //     double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-
     // double _gWidth = _screenWidth * 0.4;
     // double _gHeight = _screenWidth * 0.6;
 
@@ -104,7 +102,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
             WideButton(
                 verse: 'call a cloud function callable_sayHello',
                 onTap: () async {
-                  final dynamic map = await CloudFunctionz.callFunction(
+                  final dynamic map = await CloudFunction.callFunction(
                       context: context,
                       cloudFunctionName: 'n001_notifyUser',
                       toDBMap: <String, dynamic>{
@@ -128,7 +126,6 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                     context: context,
                     firstLine: 'sending request to nour')
                 );
-
 
                 // await CounterOps.incrementFlyerCounter(
                 //   context: context,

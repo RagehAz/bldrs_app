@@ -134,7 +134,7 @@ Future<void> onSendAuthorshipInvitation({
     await NoteProtocols.sendAuthorshipInvitationNote(
       context: context,
       bzModel: bzModel,
-      sendTo: selectedUser,
+      userModelToSendTo: selectedUser,
     );
 
     // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
