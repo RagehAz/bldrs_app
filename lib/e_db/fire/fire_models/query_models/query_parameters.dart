@@ -1,4 +1,4 @@
-import 'package:bldrs/e_db/fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

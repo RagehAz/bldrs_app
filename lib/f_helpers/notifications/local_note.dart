@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notes_test/awesome_noti_test_screen.dart';
@@ -5,19 +6,21 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class LocalNote {
+class LocalNotification {
 
-  LocalNote();
+  LocalNotification();
 
-// -----------------------------------------------------------------------------
-  static const String _flatBldrsNotiIcon = 'res_flat_logo'; //'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
-// -----------------------------------------------------------------------------
+  // -----------------------------------
+
+  /// INITIALIZATION
+
+  // -----------------------------------
   static Future<void> initialize(BuildContext context) async {
 
     final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
 
     const InitializationSettings initializationSettings = InitializationSettings(
-      android: AndroidInitializationSettings(_flatBldrsNotiIcon),
+      android: AndroidInitializationSettings(Notifications.flatBldrsNotiIcon2),
     );
 
     await _notiPlugin.initialize(initializationSettings,
@@ -38,7 +41,7 @@ class LocalNote {
 
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------
   static Future<void> display(RemoteMessage remoteMessage) async {
 
     final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
@@ -69,5 +72,5 @@ class LocalNote {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

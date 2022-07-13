@@ -17,7 +17,7 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/notifications/fcm.dart';
+import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/notifications/local_note.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
@@ -43,7 +43,7 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
 
-  await FCM.preInitializeNoti();
+  await Notifications.preInitializeNotifications();
 
   runApp(const BldrsApp());
 }
@@ -102,8 +102,8 @@ class _BldrsAppState extends State<BldrsApp> {
         );
 
         /// NOTIFICATIONS
-        await LocalNote.initialize(context);
-        await FCM.initializeNoti(context);
+        await LocalNotification.initialize(context);
+        await Notifications.initializeNotifications(context);
 
         /// DYNAMIC LINKS
         await DynamicLinksApi().initializeDynamicLinks(context);
