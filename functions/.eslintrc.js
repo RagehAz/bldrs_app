@@ -1,3 +1,4 @@
+
 module.exports = {
   root: true,
   env: {
@@ -5,14 +6,17 @@ module.exports = {
     node: true,
   },
   extends: [
-    "eslint:recommended",
-    "google",
+    'eslint:recommended',
+    'google',
   ],
   rules: {
-    quotes: ["error", "double"],
+    'linebreak-style': 0,
+    'quotes': [2, 'single', {'avoidEscape': true}],
+    'max-len': ['error', {'code': 120}],
+    // quotes: ["error", "double"],
   },
-//  parserOptions: {
-// Required for certain syntax usages
-//    "ecmaVersion": 2018,
-//  },
+  parserOptions: {
+    // Required for certain syntax usages
+    'ecmaVersion': 2020,
+  },
 };

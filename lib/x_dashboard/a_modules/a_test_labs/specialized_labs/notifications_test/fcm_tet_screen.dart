@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
+import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -33,47 +33,64 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 // -----------------------------------------------------------------------------
   /// FCM : firebase cloud messaging
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-
+// -----------------------------------------------------------------------------
   // StreamSubscription _iosSubscription;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
     /// for ios notifications
-    if (Platform.isIOS) {
-      // iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
-      //   _saveDeviceTokenToUserDocInFireStore();
-      // });
-      //
-      // _fcm.requestPermission(
-      //   alert: true,
-      //   badge: true,
-      //   provisional: true,
-      //   sound: true,
-      //   announcement: true,
-      //   carPlay: true,
-      //   criticalAlert: true,
-      // );
+    // if (Platform.isIOS) {
+    //   // iosSubscription = _fcm.onIosSettingsRegistered.listen((data) {
+    //   //   _saveDeviceTokenToUserDocInFireStore();
+    //   // });
+    //   //
+    //   // _fcm.requestPermission(
+    //   //   alert: true,
+    //   //   badge: true,
+    //   //   provisional: true,
+    //   //   sound: true,
+    //   //   announcement: true,
+    //   //   carPlay: true,
+    //   //   criticalAlert: true,
+    //   // );
+    //
+    //   // }
+    //
+    //   // else {
+    //   //   _saveDeviceTokenToUserDocInFireStore();
+    //   // }
+    //
+    //   // fbm.getToken();
+    //   // firebaseMessaging.unsubscribeFromTopic('flyers');
+    // }
 
-    }
-
-    else {
-      _saveDeviceTokenToUserDocInFireStore();
-    }
-
-    // fbm.getToken();
-    _fcm.subscribeToTopic('flyers');
-    // firebaseMessaging.unsubscribeFromTopic('flyers');
   }
 // -----------------------------------------------------------------------------
-  Future<void> _saveDeviceTokenToUserDocInFireStore() async {
-    final String _userID = superUserID();
-    // User _firebaseUser = superFirebaseUser();
-
+  void _subscribeToFlyers(){
+    _fcm.subscribeToTopic('flyers');
+    blog('subscribed to [ flyers ]');
+  }
+// ------------------------------------
+  void _unsubscribeFromFlyers(){
+    _fcm.unsubscribeFromTopic('flyers');
+  }
+// ------------------------------------
+  Future<String> _getToken() async {
     final String _fcmToken = await _fcm.getToken();
+    blog('_getToken : _fcmToken : $_fcmToken');
+    return _fcmToken;
+  }
+// ------------------------------------
+  Future<void> _updateMyUserFCMToken() async {
+
+    final String _userID = superUserID();
+
+    final String _fcmToken = await _getToken();
 
     if (_fcmToken != null) {
+
       final FCMToken _token = FCMToken(
         token: _fcmToken,
         createdAt: DateTime.now(),
@@ -108,7 +125,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   }
 // -----------------------------------------------------------------------------
   String _received = 'Nothing yet';
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -117,6 +134,38 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
       columnChildren: <Widget>[
 
         const Stratosphere(),
+
+        /// GET TOKEN
+        WideButton(
+          verse: 'Get Token',
+          onTap: () async {
+            await _getToken();
+          },
+        ),
+
+        /// SUBSCRIBE TO FLYER
+        WideButton(
+          verse: 'Subscribe to flyer',
+          onTap: () async {
+            _subscribeToFlyers();
+          },
+        ),
+
+        /// UNSUBSCRIBE FROM FLYER
+        WideButton(
+          verse: 'UN-Subscribe to flyer',
+          onTap: () async {
+            _unsubscribeFromFlyers();
+          },
+        ),
+
+        /// UPDATE MY USER FCM TOKEN
+        WideButton(
+          verse: 'update my user fcm token',
+          onTap: () async {
+            await _updateMyUserFCMToken();
+          },
+        ),
 
         /// NOTIFICATION IS ON
         WideButton(
@@ -160,12 +209,12 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           verseShadow: false,
           onTap: () async {
 
-            final dynamic map = await CloudFunctionz.callFunction(
+            final dynamic map = await CloudFunction.callFunction(
                 context: context,
-                cloudFunctionName: 'sayHello',
+                cloudFunctionName: CloudFunction.sendNotificationToDevice,
             );
 
-            blog('The Map is Amazingly : $map');
+            blog('The Map type : ${map.runtimeType} : map : $map');
 
             setState(() {
               _received = 'received : ${map.toString()}';

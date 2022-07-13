@@ -68,6 +68,7 @@ class NoteModel {
     @required this.response,
     @required this.responseTime,
     @required this.buttons,
+    @required this.token,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -90,6 +91,7 @@ class NoteModel {
   final NoteResponse response;
   final DateTime responseTime;
   final List<String> buttons;
+  final String token;
   final QueryDocumentSnapshot<Object> docSnapshot;
   // -----------------------------------------------------------------------------
 
@@ -140,6 +142,7 @@ class NoteModel {
     NoteResponse response,
     DateTime responseTime,
     List<String> buttons,
+    String token,
   }){
     return NoteModel(
       id: id ?? this.id,
@@ -161,6 +164,7 @@ class NoteModel {
       response: response ?? this.response,
       responseTime: responseTime ?? this.responseTime,
       buttons: buttons ?? this.buttons,
+      token: token ?? this.token,
     );
   }
   // -----------------------------------------------------------------------------
@@ -191,6 +195,7 @@ class NoteModel {
       'response': cipherResponse(response),
       'responseTime': Timers.cipherTime(time: responseTime, toJSON: toJSON),
       'buttons': buttons,
+      'token': token,
     };
   }
   // -------------------------------------
@@ -267,6 +272,7 @@ class NoteModel {
           fromJSON: fromJSON,
         ),
         buttons: Mapper.getStringsFromDynamics(dynamics: map['buttons']),
+        token: map['token'],
         docSnapshot: map['docSnapshot'],
       );
     }
@@ -1267,6 +1273,7 @@ class NoteModel {
       response: NoteResponse.pending,
       responseTime: Timers.createClock(hour: 10, minute: 50),
       buttons: const <String>['Fuck', 'You'],
+      token: null,
     );
   }
   // -------------------------------------

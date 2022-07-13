@@ -243,6 +243,7 @@ Future<void> _sendFlyerVerificationUpdateNote({
     response: null,
     responseTime: null,
     buttons: null,
+    token: null,
   );
 
   await NoteFireOps.createNote(
