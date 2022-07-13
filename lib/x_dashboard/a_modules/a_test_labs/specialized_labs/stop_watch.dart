@@ -3,11 +3,12 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 
 class StopWatchBar extends StatefulWidget {
   /// -----------------------------------------------------------------------------
@@ -59,13 +60,19 @@ class _StopWatchBarState extends State<StopWatchBar> {
 
   }
 // -------------------------------
-  void _lapCounter() {
+  Future<void> _lapCounter() async {
     _stopWatchTimer.onExecute.add(StopWatchExecute.lap);
-    _logScrollController.jumpTo(_logScrollController.position.maxScrollExtent + 10);
 
     if (widget.onLap != null){
       widget.onLap();
     }
+
+    await _logScrollController.animateTo(
+      _logScrollController.position.maxScrollExtent + 20,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeIn,
+    );
+
   }
 // -------------------------------
   void _stopCounter() {
@@ -130,7 +137,6 @@ class _StopWatchBarState extends State<StopWatchBar> {
                       height: _boxHeight * 0.5,
                       width: _boxWidth * 0.5,
                       verse: displayTime,
-                      verseScaleFactor: 0.7,
                     );
                   },
                 ),
@@ -198,9 +204,13 @@ class _StopWatchBarState extends State<StopWatchBar> {
 
                         final StopWatchRecord record = records[index];
 
+                        final String _verse = '${index + 1} : ${record.displayTime}';
+                        final String _highlighted = removeTextBeforeLastSpecialCharacter(_verse, ': ');
+
                         return SuperVerse(
-                          verse: '${index + 1} : ${record.displayTime}',
-                          size: 1,
+                          verse: _verse,
+                          weight: VerseWeight.thin,
+                          highlight: ValueNotifier<String>(_highlighted),
                         );
                       });
                 }

@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -42,41 +43,53 @@ Future<dynamic> callFunction({
   String cloudFunctionName,
   Map<String, dynamic> toDBMap,
 }) async {
-  final HttpsCallable _function =
-      _getCallableFunction(funcName: cloudFunctionName);
 
-  try {
-    final Map<String, dynamic> _arguments = toDBMap ?? <String, dynamic>{};
+  final HttpsCallable _function = _getCallableFunction(
+      funcName: cloudFunctionName,
+  );
 
-    final HttpsCallableResult _result = await _function.call(_arguments);
+  dynamic _output;
 
-    return _result.data;
-  } on Exception catch (e) {
-    blog('THE ERROR IS : xxxxx[${e.toString()}]xxxxx');
+  await tryAndCatch(
+      context: context,
+      methodName: 'CLOUD FUNCTIONS : callFunction',
+      functions: () async {
 
-    final bool _unauthenticated = TextChecker.stringContainsSubString(
-      string: e.toString(),
-      subString: '/unauthenticated]',
-    );
+        final Map<String, dynamic> _arguments = toDBMap ?? <String, dynamic>{};
 
-    blog('unauthenticated IS $_unauthenticated');
+        final HttpsCallableResult _result = await _function.call(_arguments);
 
-    if (_unauthenticated == true) {
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'You Are not Signed in',
-        body: 'Please Sign in into your account first',
-      );
-    } else {
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'error',
-        body: e.toString(),
-      );
-    }
+        _output = _result.data;
+      },
+      onError: (String error) async {
 
-    // rethrow;
-  }
+        final bool _unauthenticated = TextChecker.stringContainsSubString(
+          string: error,
+          subString: '/unauthenticated]',
+        );
+
+        blog('callFunction : unauthenticated IS $_unauthenticated');
+
+        if (_unauthenticated == true) {
+          await CenterDialog.showCenterDialog(
+            context: context,
+            title: 'You Are not Signed in',
+            body: 'Please Sign in into your account first',
+          );
+        }
+
+        else {
+          await CenterDialog.showCenterDialog(
+            context: context,
+            title: 'error',
+            body: error,
+          );
+        }
+
+      }
+  );
+
+  return _output;
 }
 //------------------------------------------------------------------------------
 HttpsCallable _getCallableFunction({String funcName}) {

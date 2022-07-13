@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -12,21 +11,22 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart' as CloudFunctionz;
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/stop_watch.dart';
+import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class FCMTestScreen extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const FCMTestScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _FCMTestScreenState createState() => _FCMTestScreenState();
-
+/// --------------------------------------------------------------------------
 }
 
 class _FCMTestScreenState extends State<FCMTestScreen> {
@@ -56,7 +56,9 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
       //   criticalAlert: true,
       // );
 
-    } else {
+    }
+
+    else {
       _saveDeviceTokenToUserDocInFireStore();
     }
 
@@ -100,32 +102,6 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     }
   }
 // -----------------------------------------------------------------------------
-  void onReceiveNoteAction({
-    @required dynamic msgMap,
-    @required NoteType noteType,
-  }) {
-
-    blog('receiveAndActUponNoti : noteType : $noteType');
-
-    NoteModel _note;
-
-    tryAndCatch(
-      context: context,
-      onError: (String error) => blog(error),
-      methodName: 'receiveAndActUponNoti',
-      functions: () {
-
-        _note = NoteModel.decipherNote(
-          map: msgMap,
-          fromJSON: false,
-        );
-
-      },
-    );
-
-    _setNoti(_note);
-  }
-// -----------------------------------------------------------------------------
   @override
   void dispose() {
     super.dispose(); /// tamam
@@ -142,35 +118,11 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         const Stratosphere(),
 
-        /// RECEIVE NOTIFICATION
-        DreamBox(
-          height: 50,
-          verse: 'receive noti ops',
-          onTap: () {
-            blog('operating noti');
-
-            // onReceiveNoteAction(
-            //   msgMap: ,
-            //   noteType: ,
-            // );
-
-          },
-        ),
-
-        /// SPACING
-        const SizedBox(
-          width: 100,
-          height: 10,
-        ),
-
         /// NOTIFICATION IS ON
-        DreamBox(
-          height: 40,
-          width: 200,
+        WideButton(
           verse: _noteIsOn == true ? 'Notification on' : 'Notification is off',
           color: _noteIsOn == true ? Colorz.red255 : Colorz.grey50,
-          verseColor: _noteIsOn == true ? Colorz.white255 : Colorz.black255,
-          verseShadow: false,
+          verseColor: _noteIsOn == true ? Colorz.white255 : Colorz.white80,
           onTap: () async {
             setState(() {
               _noteIsOn = false;
@@ -182,29 +134,25 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           },
         ),
 
-        /// SPACING
-        const SizedBox(
-          width: 100,
-          height: 10,
-        ),
-
         /// NOTIFICATION DATA
         // if (_noteIsOn == true)
-        SuperVerse(
-          verse: '_note.notification.title : ${_note?.title}\n'
-              ' '
-              '_note.notification.body : ${_note?.body}\n'
-              ' '
-              '_note.data : ${_note?.metaData}\n',
-          maxLines: 100,
+        Container(
+          width: superScreenWidth(context),
+          color: Colorz.bloodTest,
+          child: SuperVerse(
+            verse: '_note.notification.title : ${_note?.title}\n'
+                '_note.notification.body : ${_note?.body}\n'
+                '_note.data : ${_note?.metaData}',
+            maxLines: 100,
+            margin: 20,
+          ),
         ),
 
         /// CLOUD FUNCTION
         DreamBox(
           height: 50,
           width: 250,
-          verse: 'call cloud function \n'
-              '$_received',
+          verse: 'call cloud function \n$_received',
           verseScaleFactor: 0.7,
           verseMaxLines: 2,
           color: Colorz.blue80,
@@ -225,8 +173,6 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
           },
         ),
-
-        const StopWatchBar(),
 
       ],
     );
