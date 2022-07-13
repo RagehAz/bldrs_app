@@ -78,7 +78,7 @@ class RecordModel {
       'activityType' : cipherActivityType(recordType),
       'userID' : userID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
-      'modelType' : _cipherModelType(modelType),
+      'modelType' : cipherModelType(modelType),
       'modelID' : modelID,
       'recordDetailsType' : _cipherRecordDetailsType(recordDetailsType),
       'recordDetails' : recordDetails,
@@ -104,7 +104,7 @@ class RecordModel {
             time: map['timeStamp'],
             fromJSON: fromJSON,
         ),
-        modelType: _decipherModelType(map['modelType']),
+        modelType: decipherModelType(map['modelType']),
         modelID: map['modelID'],
         recordDetailsType: _decipherRecordDetailsType(map['recordDetailsType']),
         recordDetails: map['recordDetails'],
@@ -215,7 +215,7 @@ class RecordModel {
   /// MODEL TYPE CYPHERS
 
 // ---------------------------------
-  static String _cipherModelType(ModelType modelType){
+  static String cipherModelType(ModelType modelType){
     switch (modelType){
       case ModelType.flyer:     return 'flyer';     break;
       case ModelType.bz:        return 'bz';        break;
@@ -226,7 +226,7 @@ class RecordModel {
     }
   }
 // ---------------------------------
-  static ModelType _decipherModelType(String modelType){
+  static ModelType decipherModelType(String modelType){
     switch (modelType){
       case 'flyer':     return ModelType.flyer;     break;
       case 'bz':        return ModelType.bz;        break;

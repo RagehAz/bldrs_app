@@ -43,10 +43,14 @@ class FloatingCenteredList extends StatelessWidget {
 
   const FloatingCenteredList({
     @required this.columnChildren,
+    this.crossAxisAlignment,
+    this.mainAxisAlignment,
     Key key
   }) : super(key: key);
 
   final List<Widget> columnChildren;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +68,8 @@ class FloatingCenteredList extends StatelessWidget {
         alignment: Alignment.center,
         padding: Stratosphere.stratosphereSandwich,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
+          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
           children: <Widget>[
 
             ...columnChildren,

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
@@ -7,6 +8,9 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_paragraph.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_separator.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
+import 'package:bldrs/b_views/z_components/flyer/e_flyer_special_widgets/report_button.dart';
+import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:flutter/material.dart';
 
 class InfoPageContents extends StatelessWidget {
@@ -37,8 +41,7 @@ class InfoPageContents extends StatelessWidget {
       child: Column(
         children: <Widget>[
 
-          /// -------------------------------------------------------- SEPARATOR
-          InfoPageSeparator(
+          InfoPageSeparator( /// ------------------------- SEPARATOR
             pageWidth: _pageWidth,
           ),
 
@@ -48,66 +51,87 @@ class InfoPageContents extends StatelessWidget {
             headline: 'Main Details',
           ),
 
-          /// MAIN DETAILS
+          /// MAIN DETAILS : FLYER TYPE - PUBLISH TIME - ZONE
           InfoPageMainDetails(
             pageWidth: _pageWidth,
             flyerModel: flyerModel,
             flyerZone: flyerZone,
           ),
 
-          /// -------------------------------------------------------- SEPARATOR
-          InfoPageSeparator(
+          InfoPageSeparator( /// ------------------------- SEPARATOR
             pageWidth: _pageWidth,
           ),
 
           /// KEYWORDS HEADLINE
-          InfoPageHeadline(
+          if (flyerModel.keywordsIDs.isNotEmpty == true)
+            InfoPageHeadline(
             pageWidth: _pageWidth,
             headline: 'Flyer Keywords',
           ),
 
-          /// MAIN DETAILS
-          InfoPageKeywords(
+          /// KEYWORDS
+          if (flyerModel.keywordsIDs.isNotEmpty == true)
+            InfoPageKeywords(
             pageWidth: _pageWidth,
             keywordsIDs: flyerModel.keywordsIDs,
           ),
 
-          /// -------------------------------------------------------- SEPARATOR
-          InfoPageSeparator(
+          if (flyerModel.keywordsIDs.isNotEmpty == true)
+            InfoPageSeparator( /// ------------------------- SEPARATOR
             pageWidth: _pageWidth,
           ),
 
-          /// MORE INFO HEADLINE
-          InfoPageHeadline(
+          /// SPECS HEADLINE
+          if (flyerModel.specs.isNotEmpty == true)
+            InfoPageHeadline(
             pageWidth: _pageWidth,
             headline: 'Flyer specifications',
           ),
 
           /// SPECS
-          InfoPageSpecs(
+          if (flyerModel.specs.isNotEmpty == true)
+            InfoPageSpecs(
             pageWidth: _pageWidth,
             specs: flyerModel.specs,
             flyerType: flyerModel.flyerType,
           ),
 
-          /// -------------------------------------------------------- SEPARATOR
-          InfoPageSeparator(
+          if (flyerModel.specs.isNotEmpty == true)
+            InfoPageSeparator( /// ------------------------- SEPARATOR
             pageWidth: _pageWidth,
           ),
 
-          /// MORE INFO HEADLINE
-          InfoPageHeadline(
+          /// DESCRIPTION HEADLINE
+          if (flyerModel.description.isNotEmpty == true)
+            InfoPageHeadline(
               pageWidth: _pageWidth,
               headline: 'More about this flyer',
           ),
 
           /// INFO BODY
+          if (flyerModel.description.isNotEmpty == true)
           InfoPageParagraph(
             pageWidth: _pageWidth,
             flyerInfo: flyerModel.description,
           ),
 
-          /// -------------------------------------------------------- SEPARATOR
+
+          if (flyerModel.description.isNotEmpty == true)
+            InfoPageSeparator( /// ------------------------- SEPARATOR
+            pageWidth: _pageWidth,
+          ),
+
+          Align(
+            alignment: superCenterAlignment(context),
+            child: ReportButton(
+              modelType: ModelType.flyer,
+              onTap: () => FlyerFireOps.onReportFlyer(
+                context: context,
+                flyer: flyerModel,
+              ),
+            ),
+          ),
+
           InfoPageSeparator(
             pageWidth: _pageWidth,
           ),
