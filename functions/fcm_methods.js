@@ -54,15 +54,15 @@ const sendNotificationToDevice = functions.database
       return admin.messaging()
           .sendToDevice(token, payload)
           .then(function(response) {
-            console.log(
+            functions.logger.log(
                 'sendNotification : message is sent successfuly',
                 response,
             );
-            console.log(
+            functions.logger.log(
                 response.results[0].error,
             );
           }).catch(function(error) {
-            console.log(
+            functions.logger.log(
                 'sendNotification : error while sending notification',
                 error,
             );
