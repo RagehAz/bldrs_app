@@ -15,7 +15,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/auditor_button.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart' as NoteFireOps;
+import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 
 // -----------------------------------------------------------------------------

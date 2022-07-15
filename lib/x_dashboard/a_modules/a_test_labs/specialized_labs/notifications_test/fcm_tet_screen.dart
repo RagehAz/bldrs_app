@@ -3,14 +3,16 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/c_protocols/user_protocols.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -85,31 +87,38 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 // ------------------------------------
   Future<void> _updateMyUserFCMToken() async {
 
-    final String _userID = superUserID();
-
     final String _fcmToken = await _getToken();
+
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
     if (_fcmToken != null) {
 
-      final FCMToken _token = FCMToken(
-        token: _fcmToken,
-        createdAt: DateTime.now(),
-        platform: Platform.operatingSystem,
-      );
+      if (_myUserModel.fcmToken.token != _fcmToken){
 
-      await Fire.updateDocField(
-        context: context,
-        collName: FireColl.users,
-        docName: _userID,
-        field: 'fcmToken',
-        input: _token.toMap(toJSON: false),
-      );
+        final FCMToken _token = FCMToken(
+          token: _fcmToken,
+          createdAt: DateTime.now(),
+          platform: Platform.operatingSystem,
+        );
+
+        final UserModel _updated = _myUserModel.copyWith(
+          fcmToken: _token,
+        );
+
+        await UserProtocol.updateMyUserEverywhereProtocol(
+          context: context,
+          newUserModel: _updated,
+        );
+
+      }
+
     }
 
   }
 // -----------------------------------------------------------------------------
   NoteModel _note;
   bool _noteIsOn = false;
+  /*
   void _setNoti(NoteModel note) {
     if (note != null) {
       setState(() {
@@ -118,6 +127,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
       });
     }
   }
+   */
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
@@ -128,6 +138,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('FUCK YOU');
 
     return CenteredListLayout(
       title: 'Notifications',
@@ -198,15 +210,10 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
         ),
 
         /// CLOUD FUNCTION
-        DreamBox(
-          height: 50,
+        WideButton(
           width: 250,
           verse: 'call cloud function \n$_received',
-          verseScaleFactor: 0.7,
-          verseMaxLines: 2,
           color: Colorz.blue80,
-          verseColor: Colorz.black255,
-          verseShadow: false,
           onTap: () async {
 
             final dynamic map = await CloudFunction.callFunction(
@@ -219,6 +226,53 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             setState(() {
               _received = 'received : ${map.toString()}';
             });
+
+          },
+        ),
+
+        /// SEND NOTE
+        WideButton(
+          verse: 'send note to call\n[ sendNotificationToDevice ]',
+          color: Colorz.blue80,
+          onTap: () async {
+
+            final UserModel _userModel = UsersProvider.proGetMyUserModel(
+                context: context,
+                listen: false,
+            );
+
+            final NoteModel _noteModel = NoteModel(
+              id: 'x',
+              senderID: NoteModel.bldrsSenderID,
+              senderImageURL: NoteModel.bldrsLogoURL,
+              noteSenderType: NoteSenderType.bldrs,
+              receiverID: _userModel.id,
+              receiverType: NoteReceiverType.user,
+              title: 'This is going to be Awesome',
+              body: 'Isa will work',
+              metaData: NoteModel.defaultMetaData,
+              sentTime: DateTime.now(),
+              attachment: null,
+              attachmentType: NoteAttachmentType.non,
+              seen: false,
+              seenTime: null,
+              sendFCM: true,
+              noteType: NoteType.announcement,
+              response: null,
+              responseTime: null,
+              buttons: null,
+              token: _userModel?.fcmToken?.token,
+            );
+
+            await NoteFireOps.createNote(
+                context: context,
+                noteModel: _noteModel
+            );
+
+            await TopDialog.showTopDialog(
+              context: context,
+              firstLine: 'Note Sent Successfully',
+            );
 
           },
         ),
