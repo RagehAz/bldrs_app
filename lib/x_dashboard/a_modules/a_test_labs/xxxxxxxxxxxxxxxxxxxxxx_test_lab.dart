@@ -415,7 +415,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
               /// READ ALL NOTES
               for (int i = 0; i <= 500; i++){
-                final List<NoteModel> _notes = await readReceivedNotes(
+                final List<NoteModel> _notes = await NoteFireOps.readReceivedNotes(
                   context: context,
                   // limit: 10,
                   receiverType: NoteReceiverType.user,
@@ -436,7 +436,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                   methodName: 'TEST',
               );
 
-              await deleteNotes(
+              await NoteFireOps.deleteNotes(
                 context: context,
                 notes: _notesToDelete,
               );
