@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -21,9 +20,8 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -411,37 +409,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             verse: ' C ( ) ',
             onTap: () async {
 
-              final List<NoteModel> _notesToDelete = <NoteModel>[];
-
-              /// READ ALL NOTES
-              for (int i = 0; i <= 500; i++){
-                final List<NoteModel> _notes = await NoteFireOps.readReceivedNotes(
-                  context: context,
-                  // limit: 10,
-                  receiverType: NoteReceiverType.user,
-                  recieverID: superUserID(),
-                  startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
-                );
-
-                if (checkCanLoopList(_notes) == true){
-                  _notesToDelete.addAll(_notes);
-                }
-                else {
-                  break;
-                }
-              }
-
-              NoteModel.blogNotes(
-                  notes: _notesToDelete,
-                  methodName: 'TEST',
+              final int _id = createUniqueID(
+                maxDigitsCount: 3,
               );
 
-              await NoteFireOps.deleteNotes(
-                context: context,
-                notes: _notesToDelete,
-              );
-
-              blog('DONE');
+              blog('DONE : $_id');
 
             }
         ),

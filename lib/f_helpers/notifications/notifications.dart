@@ -112,67 +112,6 @@ class Notifications {
 
   }
   // -----------------------------------
-  /// TESTED : ...
-  static Future<void> updateMyUserFCMToken({
-    @required BuildContext context,
-  }) async {
-
-    String _fcmToken;
-
-    final bool _continue = await tryCatchAndReturnBool(
-      context: context,
-      methodName: 'updateMyUserFCMToken',
-      functions: () async {
-
-        final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-
-        if (Platform.isIOS) {
-          _fcmToken = await _fcm.getToken();
-        }
-        else {
-          _fcmToken = await _fcm.getToken();
-        }
-
-      },
-      onError: (String error){
-
-        /// error codes reference
-        // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
-        // UNREGISTERED (HTTP 404)
-        // INVALID_ARGUMENT (HTTP 400)
-
-        /// TASK : SHOULD DELETE THE FCM TOKEN FROM USER DOC AND GENERATE NEW TOKEN !
-
-      },
-    );
-
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
-
-    if (_continue == true && _fcmToken != null && _myUserModel != null){
-
-      if (_myUserModel?.fcmToken?.token != _fcmToken){
-
-        final FCMToken _token = FCMToken(
-          token: _fcmToken,
-          createdAt: DateTime.now(),
-          platform: Platform.operatingSystem,
-        );
-
-        final UserModel _updated = _myUserModel.copyWith(
-          fcmToken: _token,
-        );
-
-        await UserProtocol.updateMyUserEverywhereProtocol(
-          context: context,
-          newUserModel: _updated,
-        );
-
-      }
-
-    }
-
-  }
-  // -----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onReceiveNotification({
     @required BuildContext context,
@@ -193,6 +132,7 @@ class Notifications {
   /// CREATION
 
   // -----------------------------------
+  /// TESTED : ...
   static Future<void> _pushNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
 
     if (remoteMessage != null){
@@ -224,7 +164,7 @@ class Notifications {
 
       await AwesomeNotifications().createNotification(
         content: NotificationContent(
-          id: Numeric.createUniqueID(limitDigits: 8),
+          id: Numeric.createUniqueID(maxDigitsCount: 8),
           channelKey: Notifications.getNotificationChannelName(FCMChannel.basic),
           title: title,
           body: body,
@@ -311,6 +251,108 @@ class Notifications {
       //   ],
       // ),
     );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// TOKEN AND SUBSCRIPTIONS
+
+  // -----------------------------------
+  /// TESTED : ...
+  static Future<void> updateMyUserFCMToken({
+    @required BuildContext context,
+  }) async {
+
+    /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
+    /*
+         - Unsubscribe stale tokens from topics
+         Managing topics subscriptions to remove stale registration
+         tokens is another consideration. It involves two steps:
+
+         - Your app should resubscribe to topics once per month and/or
+          whenever the registration token changes. This forms a self-healing
+          solution, where the subscriptions reappear automatically
+          when an app becomes active again.
+
+         - If an app instance is idle for 2 months (or your own staleness window)
+         you should unsubscribe it from topics using the Firebase Admin
+         SDK to delete the token/topic mapping from the FCM backend.
+
+         - The benefit of these two steps is that your fanouts will occur
+         faster since there are fewer stale tokens to fan out to, and your
+          stale app instances will automatically resubscribe once they are active again.
+
+     */
+
+    String _fcmToken;
+
+    final bool _continue = await tryCatchAndReturnBool(
+      context: context,
+      methodName: 'updateMyUserFCMToken',
+      functions: () async {
+
+        final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+
+        if (Platform.isIOS) {
+          _fcmToken = await _fcm.getToken();
+        }
+        else {
+          _fcmToken = await _fcm.getToken();
+        }
+
+      },
+      onError: (String error){
+
+        /// error codes reference
+        // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
+        // UNREGISTERED (HTTP 404)
+        // INVALID_ARGUMENT (HTTP 400)
+
+        /// TASK : SHOULD DELETE THE FCM TOKEN FROM USER DOC AND GENERATE NEW TOKEN !
+
+      },
+    );
+
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+
+    if (_continue == true && _fcmToken != null && _myUserModel != null){
+
+      if (_myUserModel?.fcmToken?.token != _fcmToken){
+
+        final FCMToken _token = FCMToken(
+          token: _fcmToken,
+          createdAt: DateTime.now(),
+          platform: Platform.operatingSystem,
+        );
+
+        final UserModel _updated = _myUserModel.copyWith(
+          fcmToken: _token,
+        );
+
+        await UserProtocol.updateMyUserEverywhereProtocol(
+          context: context,
+          newUserModel: _updated,
+        );
+
+      }
+
+    }
+
+  }
+  // -----------------------------------
+  /// TESTED : ...
+  static Future<void> subscribeToTopic({
+    String topicName
+  }) async {
+    final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
+    await _fireMessaging.subscribeToTopic(topicName);
+  }
+  // -----------------------------------
+  /// TESTED : ...
+  static Future<void> unsubscribeFromTopic({
+    @required String topicName,
+  }) async {
+    final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
+    await _fireMessaging.unsubscribeFromTopic(topicName);
   }
   // -----------------------------------------------------------------------------
 

@@ -389,7 +389,7 @@ Future<void> onZoneChanged({
 
 // ----------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> onPublishFlyerButtonTap({
+Future<void> onPublishNewFlyerTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
   @required GlobalKey<FormState> formKey,
@@ -422,7 +422,7 @@ Future<void> onPublishFlyerButtonTap({
 }
 // ----------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> onPublishFlyerUpdatesButtonTap({
+Future<void> onPublishFlyerUpdatesTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
   @required GlobalKey<FormState> formKey,
