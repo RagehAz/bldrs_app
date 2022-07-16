@@ -288,7 +288,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     );
 
     /// SEND AUTHOR DELETION NOTES
-    await NoteProtocols.sendAuthorDeletionNotes(
+    await NoteProtocol.sendAuthorDeletionNotes(
       context: context,
       bzModel: bzModel,
       deletedAuthor: authorModel,
@@ -362,7 +362,7 @@ Future<void> _removeAuthorWhoHasNoFlyers({
   );
 
   /// SEND AUTHOR DELETION NOTES
-  await NoteProtocols.sendAuthorDeletionNotes(
+  await NoteProtocol.sendAuthorDeletionNotes(
     context: context,
     bzModel: bzModel,
     deletedAuthor: authorModel,

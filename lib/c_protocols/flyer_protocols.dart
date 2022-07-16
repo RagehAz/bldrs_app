@@ -31,11 +31,13 @@ class FlyerProtocol {
     @required FlyerModel flyerToPublish,
   }) async {
 
+    blog('FlyerProtocol.createFlyerByActiveBzProtocol : START');
+
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: false,
     );
-    blog('bz flyers IDs before upload : ${_bzModel.flyersIDs}');
+    blog('FlyerProtocol.bz flyers IDs before upload : ${_bzModel.flyersIDs}');
 
     /// FIRE BASE --------------------------------------
     final Map<String, dynamic> _uploadedFlyerAndBz = await FlyerFireOps.createFlyerOps(
@@ -55,7 +57,9 @@ class FlyerProtocol {
       flyers: <FlyerModel>[..._bzzProvider.myActiveBzFlyers, _uploadedFlyer],
       notify: false,
     );
-    blog('onPublish flyer : myActiveBzFlyers on provider updated');
+    blog('FlyerProtocol.onPublish flyer : myActiveBzFlyers on provider updated');
+
+    blog('FlyerProtocol.createFlyerByActiveBzProtocol : END');
 
   }
 // -----------------------------------------------------------------------------
@@ -70,13 +74,13 @@ class FlyerProtocol {
     @required FlyerModel oldFlyer,
   }) async {
 
-    blog('updateFlyerByActiveBzProtocol : START');
+    blog('FlyerProtocol.updateFlyerByActiveBzProtocol : START');
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: false,
     );
-    blog('updateFlyerByActiveBzProtocol : bz flyers IDs before upload : ${_bzModel.flyersIDs}');
+    blog('FlyerProtocol.updateFlyerByActiveBzProtocol : bz flyers IDs before upload : ${_bzModel.flyersIDs}');
 
     /// FIRE BASE --------------------------------------
     final FlyerModel _uploadedFlyer = await FlyerFireOps.updateFlyerOps(
@@ -86,7 +90,7 @@ class FlyerProtocol {
         bzModel: _bzModel
     );
 
-    await NoteProtocols.sendFlyerUpdateNoteToItsBz(
+    await NoteProtocol.sendFlyerUpdateNoteToItsBz(
         context: context,
         bzModel: _bzModel,
         flyerID: _uploadedFlyer.id,
@@ -100,7 +104,7 @@ class FlyerProtocol {
     //   insertInActiveBzFlyersIfAbsent: true,
     // );
 
-    blog('updateFlyerByActiveBzProtocol : END');
+    blog('FlyerProtocol.updateFlyerByActiveBzProtocol : END');
 
   }
 // ----------------------------------
@@ -111,6 +115,8 @@ class FlyerProtocol {
     @required bool insertInActiveBzFlyersIfAbsent,
     @required bool notify,
   }) async {
+
+    blog('FlyerProtocol.localFlyerUpdateProtocol : START');
 
     if (flyerModel != null){
 
@@ -134,6 +140,8 @@ class FlyerProtocol {
 
     }
 
+    blog('FlyerProtocol.localFlyerUpdateProtocol : END');
+
   }
 // -----------------------------------------------------------------------------
 
@@ -146,6 +154,8 @@ class FlyerProtocol {
     @required FlyerModel flyer,
     @required bool showWaitDialog,
   }) async {
+
+    blog('FlyerProtocol.deleteSingleFlyerByActiveBzProtocol : START');
 
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
@@ -182,6 +192,8 @@ class FlyerProtocol {
       WaitDialog.closeWaitDialog(context);
     }
 
+    blog('FlyerProtocol.deleteSingleFlyerByActiveBzProtocol : END');
+
   }
 // ----------------------------------
   static Future<BzModel> deleteMultipleBzFlyersProtocol({
@@ -191,6 +203,8 @@ class FlyerProtocol {
     @required bool showWaitDialog,
     @required bool updateBzEveryWhere,
   }) async {
+
+    blog('FlyerProtocol.deleteMultipleBzFlyersProtocol : START');
 
     BzModel _bzModel = bzModel;
 
@@ -204,7 +218,7 @@ class FlyerProtocol {
         ));
       }
 
-      blog('starting deleteMultipleBzFlyersProtocol');
+      blog('FlyerProtocol.starting deleteMultipleBzFlyersProtocol');
 
       /// FIRE DELETION
       _bzModel = await FlyerFireOps.deleteMultipleBzFlyers(
@@ -214,14 +228,14 @@ class FlyerProtocol {
         updateBzFireOps: updateBzEveryWhere,
       );
 
-      blog('starting deleteMultipleBzFlyersProtocol 2');
+      blog('FlyerProtocol.starting deleteMultipleBzFlyersProtocol 2');
 
 
       /// FLYER LDB DELETION
       final List<String> _flyersIDs = FlyerModel.getFlyersIDsFromFlyers(flyers);
       await FlyerLDBOps.deleteFlyers(_flyersIDs);
 
-      blog('starting deleteMultipleBzFlyersProtocol 3');
+      blog('FlyerProtocol.starting deleteMultipleBzFlyersProtocol 3');
 
       /// BZ LDB UPDATE
       if (updateBzEveryWhere == true){
@@ -230,7 +244,7 @@ class FlyerProtocol {
         );
       }
 
-      blog('starting deleteMultipleBzFlyersProtocol 4');
+      blog('FlyerProtocol.starting deleteMultipleBzFlyersProtocol 4');
 
       /// FLYER PRO DELETION
       final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
@@ -239,7 +253,7 @@ class FlyerProtocol {
         notify: true,
       );
 
-      blog('starting deleteMultipleBzFlyersProtocol 5');
+      blog('FlyerProtocol.starting deleteMultipleBzFlyersProtocol 5');
 
       /// BZ PRO UPDATE
       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -261,7 +275,7 @@ class FlyerProtocol {
         );
       }
 
-      blog('starting deleteMultipleBzFlyersProtocol 6');
+      blog('FlyerProtocol.starting deleteMultipleBzFlyersProtocol 6');
 
       if (showWaitDialog == true){
         WaitDialog.closeWaitDialog(context);
@@ -269,7 +283,7 @@ class FlyerProtocol {
 
     }
 
-    blog('DONE END FINISH deleteMultipleBzFlyersProtocol');
+    blog('FlyerProtocol.deleteMultipleBzFlyersProtocol : END');
 
     return _bzModel;
   }

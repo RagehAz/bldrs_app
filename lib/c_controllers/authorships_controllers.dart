@@ -131,7 +131,7 @@ Future<void> onSendAuthorshipInvitation({
 
   if (_result == true){
 
-    await NoteProtocols.sendAuthorshipInvitationNote(
+    await NoteProtocol.sendAuthorshipInvitationNote(
       context: context,
       bzModel: bzModel,
       userModelToSendTo: selectedUser,
@@ -180,7 +180,7 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
     if (_result == true){
 
-      await NoteProtocols.cancelSentAuthorshipInvitation(
+      await NoteProtocol.cancelSentAuthorshipInvitation(
           context: context,
           note: note,
       );
@@ -273,13 +273,13 @@ Future<void> _acceptAuthorshipInvitation({
     );
 
     /// MODIFY NOTE RESPONSE
-    await NoteProtocols.modifyNoteResponse(
+    await NoteProtocol.modifyNoteResponse(
       context: context,
       noteModel: noteModel,
       response: NoteResponse.accepted,
     );
 
-    await NoteProtocols.sendAuthorshipAcceptanceNote(
+    await NoteProtocol.sendAuthorshipAcceptanceNote(
       context: context,
       bzID: noteModel.senderID,
     );
@@ -324,7 +324,7 @@ Future<void> _declineAuthorshipInvitation({
 
   if (_result == true){
 
-    await NoteProtocols.modifyNoteResponse(
+    await NoteProtocol.modifyNoteResponse(
       context: context,
       noteModel: noteModel,
       response: NoteResponse.declined,

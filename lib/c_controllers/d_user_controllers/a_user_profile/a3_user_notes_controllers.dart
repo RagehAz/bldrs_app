@@ -65,7 +65,7 @@ Future<void> onShowNoteOptions({
           height: 50,
           onTap: () async {
 
-            await NoteProtocols.deleteNoteEverywhereProtocol(
+            await NoteProtocol.deleteNoteEverywhereProtocol(
               context: context,
               noteModel: noteModel,
             );
