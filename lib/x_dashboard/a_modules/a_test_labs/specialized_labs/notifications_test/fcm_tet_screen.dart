@@ -1,21 +1,18 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_protocols/user_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -90,52 +87,10 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
 // ------------------------------------
   Future<void> _updateMyUserFCMToken() async {
-    final String _fcmToken = await _getToken();
 
-    /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
-    /*
-         - Unsubscribe stale tokens from topics
-         Managing topics subscriptions to remove stale registration
-         tokens is another consideration. It involves two steps:
+    await Notifications.updateMyUserFCMToken(context: context);
 
-         - Your app should resubscribe to topics once per month and/or
-          whenever the registration token changes. This forms a self-healing
-          solution, where the subscriptions reappear automatically
-          when an app becomes active again.
-
-         - If an app instance is idle for 2 months (or your own staleness window)
-         you should unsubscribe it from topics using the Firebase Admin
-         SDK to delete the token/topic mapping from the FCM backend.
-
-         - The benefit of these two steps is that your fanouts will occur
-         faster since there are fewer stale tokens to fan out to, and your
-          stale app instances will automatically resubscribe once they are active again.
-
-     */
-
-    final UserModel _myUserModel =
-        UsersProvider.proGetMyUserModel(context: context, listen: false);
-
-    if (_fcmToken != null && _myUserModel != null) {
-      if (_myUserModel.fcmToken.token != _fcmToken) {
-        final FCMToken _token = FCMToken(
-          token: _fcmToken,
-          createdAt: DateTime.now(),
-          platform: Platform.operatingSystem,
-        );
-
-        final UserModel _updated = _myUserModel.copyWith(
-          fcmToken: _token,
-        );
-
-        await UserProtocol.updateMyUserEverywhereProtocol(
-          context: context,
-          newUserModel: _updated,
-        );
-      }
-    }
   }
-
 // -----------------------------------------------------------------------------
   Future<void> checkPermissions() async {
     final NotificationSettings _settings = await _fcm.requestPermission(
@@ -154,6 +109,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 // -----------------------------------------------------------------------------
   NoteModel _note;
   bool _noteIsOn = false;
+
   /*
   void _setNoti(NoteModel note) {
     if (note != null) {

@@ -769,8 +769,8 @@ class UserModel {
     );
     blog('myBzzIDs : $myBzzIDs');
     blog('emailIsVerified : $emailIsVerified');
-    fcmToken.blogToken();
-    appState.blogAppState();
+    fcmToken?.blogToken();
+    appState?.blogAppState();
 
     blog('$methodName : ---------------- END -- ');
   }

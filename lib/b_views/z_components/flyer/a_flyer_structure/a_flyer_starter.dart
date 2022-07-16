@@ -110,10 +110,13 @@ class _FlyerStarterState extends State<FlyerStarter> {
           );
         }
 
-        final CityModel _flyerCity = await getFlyerBzCity(
-          context: context,
-          cityID: widget.flyerModel.zone.cityID,
-        );
+        CityModel _flyerCity;
+        if (mounted == true){
+          _flyerCity = await getFlyerBzCity(
+            context: context,
+            cityID: widget.flyerModel.zone.cityID,
+          );
+        }
 // -----------------------------------------------------------------
         /// STARTING INDEX
         final int _startingIndex = getPossibleStartingIndex(
