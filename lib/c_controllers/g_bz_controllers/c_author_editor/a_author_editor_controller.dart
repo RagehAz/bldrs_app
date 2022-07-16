@@ -158,7 +158,7 @@ Future<void> onChangeAuthorRoleOps({
           newAuthorModel: _author,
         ),
 
-        NoteProtocols.sendAuthorRoleChangeNote(
+        NoteProtocol.sendAuthorRoleChangeNote(
           context: context,
           bzID: _bzModel.id,
           author: _author,

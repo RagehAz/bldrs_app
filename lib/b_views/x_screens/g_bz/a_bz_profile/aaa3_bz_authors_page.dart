@@ -96,9 +96,14 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
       builder: (BuildContext context, BzModel bzModel, Widget child){
 
         final List<AuthorModel> _authors = _bzModel?.authors;
-        final bool _authorIsMaster = AuthorModel.checkUserIsCreatorAuthor(
-          userID: superUserID(),
-          bzModel: bzModel,
+
+        final bool _canSendAuthorships = AuthorModel.checkAuthorAbility(
+          ability: AuthorAbility.canSendAuthorships,
+          theDoer: AuthorModel.getAuthorFromBzByAuthorID(
+              bz: bzModel,
+              authorID: superUserID(),
+          ),
+          theDoneWith: null,
         );
 
         return ListView(
@@ -119,11 +124,11 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
               ),
 
             /// PENDING SENT AUTHORSHIP REQUESTS
-            if (_authorIsMaster == true)
+            if (_canSendAuthorships == true)
               const PendingSentAuthorshipNotesStreamer(),
 
             /// ADD BUTTON
-            if (_authorIsMaster == true)
+            if (_canSendAuthorships == true)
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

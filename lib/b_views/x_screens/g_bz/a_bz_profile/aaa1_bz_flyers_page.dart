@@ -30,7 +30,7 @@ class BzFlyersPage extends StatelessWidget {
     return FlyersGrid(
       key: const ValueKey<String>('BzFlyersPage_grid'),
       heroTag: 'bzFlyersPage',
-      paginationFlyersIDs: bzModel.flyersIDs,
+      paginationFlyersIDs: bzModel.flyersIDs?.reversed?.toList(),
       gridWidth: width ?? Scale.superScreenWidth(context),
       gridHeight: height ?? Scale.superScreenHeight(context),
       authorMode: true,

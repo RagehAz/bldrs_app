@@ -41,7 +41,7 @@ class UserProtocol {
     @required UserModel newUserModel,
   }) async {
 
-    blog('updateMyUserEverywhereProtocol : START');
+    blog('UserProtocol.updateMyUserEverywhereProtocol : START');
 
     UserModel _uploadedModel;
 
@@ -71,7 +71,8 @@ class UserProtocol {
 
     }
 
-    blog('updateMyUserEverywhereProtocol : END');
+    blog('UserProtocol.updateMyUserEverywhereProtocol : END');
+
     return _uploadedModel ?? newUserModel;
   }
 // ----------------------------------
@@ -80,6 +81,8 @@ class UserProtocol {
     @required UserModel newUserModel,
     @required BuildContext context,
   }) async {
+
+    blog('UserProtocol.updateUserModelLocally : START');
 
     final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
       context: context,
@@ -112,6 +115,8 @@ class UserProtocol {
 
     }
 
+    blog('UserProtocol.updateUserModelLocally : END');
+
   }
 // -----------------------------------------------------------------------------
 
@@ -122,6 +127,8 @@ class UserProtocol {
   @required BuildContext context,
     @required bool showWaitDialog,
 }) async {
+
+    blog('UserProtocol.deleteUserProtocol : START');
 
     /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
     if (showWaitDialog == true){
@@ -163,6 +170,8 @@ class UserProtocol {
       WaitDialog.closeWaitDialog(context);
     }
 
+    blog('UserProtocol.deleteUserProtocol : END');
+
   }
 // ----------------------------------
   static Future<void> _deleteNonAuthorUserProtocol({
@@ -170,7 +179,7 @@ class UserProtocol {
     @required UserModel userModel,
   }) async {
 
-    blog('_deleteNonAuthorUserProtocol : start');
+    blog('UserProtocol._deleteNonAuthorUserProtocol : START');
 
     /// TASK SHOULD DELETE QUESTIONS, RECORDS, SEARCHES
 
@@ -189,7 +198,7 @@ class UserProtocol {
 
     }
 
-    blog('_deleteNonAuthorUserProtocol : end');
+    blog('UserProtocol._deleteNonAuthorUserProtocol : END');
 
   }
 // ----------------------------------
@@ -197,6 +206,8 @@ class UserProtocol {
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
+
+    blog('UserProtocol._deleteAuthorUserProtocol : START');
 
     await _deleteAllMyAuthorImages(
       context: context,
@@ -218,12 +229,16 @@ class UserProtocol {
       userModel: userModel,
     );
 
+    blog('UserProtocol._deleteAuthorUserProtocol : END');
+
   }
 // ----------------------------------
   static Future<void> _deleteAllMyAuthorImages({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
+
+    blog('UserProtocol._deleteAllMyAuthorImages : START');
 
     final List<String> _bzzIDs = userModel.myBzzIDs;
 
@@ -238,12 +253,16 @@ class UserProtocol {
 
     }
 
+    blog('UserProtocol._deleteAllMyAuthorImages : END');
+
   }
 // ----------------------------------
   static Future<void> _deleteBzzICreatedProtocol({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
+
+    blog('UserProtocol._deleteBzzICreatedProtocol : START');
 
     final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
       context: context,
@@ -274,12 +293,16 @@ class UserProtocol {
 
     }
 
+    blog('UserProtocol._deleteBzzICreatedProtocol : END');
+
   }
 // ----------------------------------
   static Future<void> _exitBzzIDidNotCreateProtocol({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
+
+    blog('UserProtocol._exitBzzIDidNotCreateProtocol : START');
 
     final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
       context: context,
@@ -312,6 +335,8 @@ class UserProtocol {
 
     }
 
+    blog('UserProtocol._exitBzzIDidNotCreateProtocol : END');
+
   }
 // ----------------------------------
   static Future<void> _deleteMyUserLocallyProtocol({
@@ -319,7 +344,7 @@ class UserProtocol {
     @required UserModel userModel,
 }) async {
 
-    blog('_deleteMyUserLocallyProtocol : start');
+    blog('UserProtocol._deleteMyUserLocallyProtocol : START');
 
     /// LDB : DELETE USER MODEL
     await UserLDBOps.deleteUserOps(userModel.id);
@@ -328,7 +353,7 @@ class UserProtocol {
     /// LDB : DELETE SAVED FLYERS
     await FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs);
 
-    blog('_deleteMyUserLocallyProtocol : end');
+    blog('UserProtocol._deleteMyUserLocallyProtocol : END');
 
   }
 // -----------------------------------------------------------------------------

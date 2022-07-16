@@ -10,9 +10,9 @@ import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:flutter/material.dart';
 
-class NoteProtocols {
+class NoteProtocol {
 
-  NoteProtocols();
+  NoteProtocol();
 
 // -----------------------------------------------------------------------------
 
@@ -25,6 +25,8 @@ class NoteProtocols {
     @required BzModel bzModel,
     @required UserModel userModelToSendTo,
   }) async {
+
+    blog('NoteProtocol.sendAuthorshipInvitationNote : START');
 
     final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
       bz: bzModel,
@@ -62,6 +64,8 @@ class NoteProtocols {
       noteModel: _note,
     );
 
+    blog('NoteProtocol.sendAuthorshipInvitationNote : END');
+
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
@@ -69,6 +73,8 @@ class NoteProtocols {
     @required BuildContext context,
     @required String bzID,
   }) async {
+
+    blog('NoteProtocol.sendAuthorshipAcceptanceNote : START');
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
@@ -103,6 +109,8 @@ class NoteProtocols {
         noteModel: _noteModel
     );
 
+    blog('NoteProtocol.sendAuthorshipAcceptanceNote : END');
+
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
@@ -111,6 +119,8 @@ class NoteProtocols {
     @required String bzID,
     @required AuthorModel author,
   }) async {
+
+    blog('NoteProtocol.sendAuthorRoleChangeNote : START');
 
     final String _authorRoleString = AuthorModel.translateRole(
       context: context,
@@ -145,6 +155,7 @@ class NoteProtocols {
       noteModel: _noteModel,
     );
 
+    blog('NoteProtocol.sendAuthorRoleChangeNote : END');
 
   }
 // ----------------------------------
@@ -154,6 +165,8 @@ class NoteProtocols {
     @required BzModel bzModel,
     @required AuthorModel deletedAuthor,
   }) async {
+
+    blog('NoteProtocol.sendAuthorDeletionNotes : START');
 
     /// NOTE TO BZ
     final NoteModel _noteToBz = NoteModel(
@@ -218,6 +231,8 @@ class NoteProtocols {
       noteModel: _noteToUser,
     );
 
+    blog('NoteProtocol.sendAuthorDeletionNotes : END');
+
   }
 // ----------------------------------
   /// TESTED : ...
@@ -225,6 +240,8 @@ class NoteProtocols {
     @required BuildContext context,
     @required BzModel bzModel,
   }) async {
+
+    blog('NoteProtocol.sendBzDeletionNoteToAllAuthors : START');
 
     if (bzModel != null && Mapper.checkCanLoopList(bzModel.authors) == true){
 
@@ -269,6 +286,7 @@ class NoteProtocols {
 
     }
 
+    blog('NoteProtocol.sendBzDeletionNoteToAllAuthors : END');
 
   }
 // ----------------------------------
@@ -278,6 +296,8 @@ class NoteProtocols {
     @required BzModel bzModel,
     @required String flyerID,
   }) async {
+
+    blog('NoteProtocol.sendFlyerUpdateNoteToItsBz : START');
 
     final NoteModel _note = NoteModel(
       id: 'x',
@@ -307,6 +327,7 @@ class NoteProtocols {
         noteModel: _note
     );
 
+    blog('NoteProtocol.sendFlyerUpdateNoteToItsBz : END');
 
   }
 // -----------------------------------------------------------------------------
@@ -327,6 +348,8 @@ class NoteProtocols {
     @required NoteResponse response,
   }) async {
 
+    blog('NoteProtocol.modifyNoteResponse : START');
+
     final NoteModel _newNoteModel = noteModel.copyWith(
       response: response,
       responseTime: DateTime.now(),
@@ -343,6 +366,8 @@ class NoteProtocols {
       newNoteModel: _newNoteModel,
     );
 
+    blog('NoteProtocol.modifyNoteResponse : END');
+
   }
 // -----------------------------------------------------------------------------
 
@@ -355,6 +380,8 @@ class NoteProtocols {
     @required NoteModel note,
   }) async {
 
+    blog('NoteProtocol.cancelSentAuthorshipInvitation : START');
+
     final NoteModel _updated = note.copyWith(
       response: NoteResponse.cancelled,
       responseTime: DateTime.now(),
@@ -365,12 +392,16 @@ class NoteProtocols {
       newNoteModel: _updated,
     );
 
+    blog('NoteProtocol.cancelSentAuthorshipInvitation : END');
+
   }
 // ----------------------------------
   static Future<void> deleteNoteEverywhereProtocol({
     @required BuildContext context,
     @required NoteModel noteModel,
   }) async {
+
+    blog('NoteProtocol.deleteNoteEverywhereProtocol : START');
 
     /// FIRE DELETE
     await NoteFireOps.deleteNote(
@@ -385,6 +416,7 @@ class NoteProtocols {
       notify: true,
     );
 
+    blog('NoteProtocol.deleteNoteEverywhereProtocol : END');
   }
 // -----------------------------------------------------------------------------
 
@@ -397,11 +429,15 @@ class NoteProtocols {
     @required String bzID,
   }) async {
 
+    blog('NoteProtocol.deleteAllBzReceivedNotes : START');
+
     await NoteFireOps.deleteAllReceivedNotes(
         context: context,
         receiverID: bzID,
         receiverType: NoteReceiverType.bz,
     );
+
+    blog('NoteProtocol.deleteAllBzReceivedNotes : END');
 
   }
 // ----------------------------------
@@ -411,7 +447,7 @@ class NoteProtocols {
     @required String userID,
   }) async {
 
-    blog('deleteAllUserReceivedNotes : start');
+    blog('NoteProtocol.deleteAllUserReceivedNotes : START');
 
     await NoteFireOps.deleteAllReceivedNotes(
       context: context,
@@ -419,7 +455,7 @@ class NoteProtocols {
       receiverType: NoteReceiverType.user,
     );
 
-    blog('deleteAllUserReceivedNotes : end');
+    blog('NoteProtocol.deleteAllUserReceivedNotes : END');
 
   }
 // ----------------------------------
