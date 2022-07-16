@@ -442,6 +442,7 @@ class UsersProvider extends ChangeNotifier {
   /// PRO FETCHERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static UserModel proGetMyUserModel({
     @required BuildContext context,
     @required bool listen
@@ -450,6 +451,7 @@ class UsersProvider extends ChangeNotifier {
     return _usersProvider.myUserModel;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> proFetchUsersModels({
     @required BuildContext context,
     @required List<String> usersIDs,
@@ -471,6 +473,7 @@ class UsersProvider extends ChangeNotifier {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> proFetchUserModel({
     @required BuildContext context,
     @required String userID,

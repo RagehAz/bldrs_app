@@ -72,6 +72,7 @@ class UserProtocol {
     return _uploadedModel ?? newUserModel;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateUserModelLocally({
     @required UserModel newUserModel,
     @required BuildContext context,

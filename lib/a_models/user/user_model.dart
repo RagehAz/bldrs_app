@@ -493,6 +493,7 @@ class UserModel {
     return _contains;
   }
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkUsersAreIdentical({
     @required UserModel user1,
     @required UserModel user2,
