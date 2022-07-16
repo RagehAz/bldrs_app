@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -13,6 +12,7 @@ import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
+import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -22,13 +22,13 @@ import 'package:flutter/material.dart';
 
 class FCMTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FCMTestScreen({
-    Key key
-  }) : super(key: key);
+  const FCMTestScreen({Key key}) : super(key: key);
+
   /// --------------------------------------------------------------------------
   @override
   _FCMTestScreenState createState() => _FCMTestScreenState();
-/// --------------------------------------------------------------------------
+
+  /// --------------------------------------------------------------------------
 }
 
 class _FCMTestScreenState extends State<FCMTestScreen> {
@@ -67,34 +67,56 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     //   // fbm.getToken();
     //   // firebaseMessaging.unsubscribeFromTopic('flyers');
     // }
-
   }
+
 // -----------------------------------------------------------------------------
-  void _subscribeToFlyers(){
+  void _subscribeToFlyers() {
     _fcm.subscribeToTopic('flyers');
     blog('subscribed to [ flyers ]');
   }
+
 // ------------------------------------
-  void _unsubscribeFromFlyers(){
+  void _unsubscribeFromFlyers() {
     _fcm.unsubscribeFromTopic('flyers');
   }
+
 // ------------------------------------
   Future<String> _getToken() async {
     final String _fcmToken = await _fcm.getToken();
     blog('_getToken : _fcmToken : $_fcmToken');
     return _fcmToken;
   }
+
 // ------------------------------------
   Future<void> _updateMyUserFCMToken() async {
-
     final String _fcmToken = await _getToken();
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+    /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
+    /*
+         - Unsubscribe stale tokens from topics
+         Managing topics subscriptions to remove stale registration
+         tokens is another consideration. It involves two steps:
 
-    if (_fcmToken != null) {
+         - Your app should resubscribe to topics once per month and/or
+          whenever the registration token changes. This forms a self-healing
+          solution, where the subscriptions reappear automatically
+          when an app becomes active again.
 
-      if (_myUserModel.fcmToken.token != _fcmToken){
+         - If an app instance is idle for 2 months (or your own staleness window)
+         you should unsubscribe it from topics using the Firebase Admin
+         SDK to delete the token/topic mapping from the FCM backend.
 
+         - The benefit of these two steps is that your fanouts will occur
+         faster since there are fewer stale tokens to fan out to, and your
+          stale app instances will automatically resubscribe once they are active again.
+
+     */
+
+    final UserModel _myUserModel =
+        UsersProvider.proGetMyUserModel(context: context, listen: false);
+
+    if (_fcmToken != null && _myUserModel != null) {
+      if (_myUserModel.fcmToken.token != _fcmToken) {
         final FCMToken _token = FCMToken(
           token: _fcmToken,
           createdAt: DateTime.now(),
@@ -109,12 +131,25 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           context: context,
           newUserModel: _updated,
         );
-
       }
-
     }
-
   }
+
+// -----------------------------------------------------------------------------
+  Future<void> checkPermissions() async {
+    final NotificationSettings _settings = await _fcm.requestPermission(
+      alert: true,
+      badge: true,
+      provisional: true,
+      sound: true,
+      announcement: true,
+      carPlay: true,
+      criticalAlert: true,
+    );
+
+    blog(_settings.toString());
+  }
+
 // -----------------------------------------------------------------------------
   NoteModel _note;
   bool _noteIsOn = false;
@@ -131,21 +166,30 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose(); /// tamam
+    super.dispose();
+
+    /// tamam
   }
+
 // -----------------------------------------------------------------------------
   String _received = 'Nothing yet';
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
     blog('FUCK YOU');
 
     return CenteredListLayout(
       title: 'Notifications',
       columnChildren: <Widget>[
-
         const Stratosphere(),
+
+        /// REQUEST PERMISSION
+        WideButton(
+          verse: 'Request Permission',
+          onTap: () async {
+            await checkPermissions();
+          },
+        ),
 
         /// GET TOKEN
         WideButton(
@@ -215,10 +259,9 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           verse: 'call cloud function \n$_received',
           color: Colorz.blue80,
           onTap: () async {
-
             final dynamic map = await CloudFunction.callFunction(
-                context: context,
-                cloudFunctionName: CloudFunction.sendNotificationToDevice,
+              context: context,
+              cloudFunctionName: CloudFunction.sendNotificationToDevice,
             );
 
             blog('The Map type : ${map.runtimeType} : map : $map');
@@ -226,7 +269,6 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             setState(() {
               _received = 'received : ${map.toString()}';
             });
-
           },
         ),
 
@@ -236,9 +278,11 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           color: Colorz.blue80,
           onTap: () async {
 
-            final UserModel _userModel = UsersProvider.proGetMyUserModel(
+            const String _userID = '7B8qNuRdXAfyIm5HaIKfne3qKIw2';
+
+            final UserModel _userModel = await UserFireOps.readUser(
                 context: context,
-                listen: false,
+                userID: _userID,
             );
 
             final NoteModel _noteModel = NoteModel(
@@ -265,18 +309,14 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             );
 
             await NoteFireOps.createNote(
-                context: context,
-                noteModel: _noteModel
-            );
+                context: context, noteModel: _noteModel);
 
             await TopDialog.showTopDialog(
               context: context,
               firstLine: 'Note Sent Successfully',
             );
-
           },
         ),
-
       ],
     );
   }

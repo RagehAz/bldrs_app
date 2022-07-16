@@ -746,7 +746,7 @@ class UserModel {
 
 // -----------------------------------
   void blogUserModel({
-    String methodName = 'PRINTING USER MODEL',
+    String methodName = 'BLOGGING USER MODEL',
   }) {
     blog('$methodName : ---------------- START -- ');
 
@@ -768,7 +768,7 @@ class UserModel {
     );
     blog('myBzzIDs : $myBzzIDs');
     blog('emailIsVerified : $emailIsVerified');
-    blog('fcmToken : ${fcmToken?.createdAt}');
+    fcmToken.blogToken();
     appState.blogAppState();
 
     blog('$methodName : ---------------- END -- ');
