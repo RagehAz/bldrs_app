@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -53,7 +53,7 @@ class BzFireOps {
             context: context,
             logo: draftBz.logo,
             bzID: _bzID,
-            ownerID: userModel.id,
+            bzCreatorID: userModel.id,
           );
 
           /// update authorModel with _authorPicURL
@@ -118,7 +118,7 @@ class BzFireOps {
     @required BuildContext context,
     @required dynamic logo,
     @required String bzID,
-    @required String ownerID,
+    @required String bzCreatorID,
   }) async {
 
     blog('_uploadBzLogoAndGetURL : START');
@@ -133,7 +133,7 @@ class BzFireOps {
         inputFile: logo,
         picName: bzID,
         docName: StorageDoc.logos,
-        ownerID: ownerID,
+        ownersIDs: <String>[bzCreatorID],
       );
 
     }
@@ -146,12 +146,13 @@ class BzFireOps {
           url: logo,
       );
 
+
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
         context: context,
         inputFile: _fileFromURL,
         picName: bzID,
         docName: StorageDoc.logos,
-        ownerID: ownerID,
+        ownersIDs: <String>[bzCreatorID],
       );
 
       blog('_bzLogoURL : used old logo : $_bzLogoURL');
@@ -188,7 +189,7 @@ class BzFireOps {
         context: context,
         inputFile: draftBz.authors[0].pic,
         docName: StorageDoc.authors,
-        ownerID: userModel.id,
+        ownersIDs: <String>[userModel.id],
         picName: AuthorModel.generateAuthorPicID(
           authorID: userModel.id,
           bzID: bzID,
@@ -428,7 +429,7 @@ class BzFireOps {
           inputFile: newAuthorPic,
           docName: StorageDoc.authors,
           picName: _picName,
-          ownerID: _oldAuthor.userID,
+          ownersIDs: <String>[_oldAuthor.userID,],
         );
 
         final AuthorModel _updatedAuthor = _oldAuthor.copyWith(

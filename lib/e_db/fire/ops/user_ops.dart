@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -53,7 +53,6 @@ class UserFireOps {
     // ----------
 
     /// check if user pic is file to upload or URL from facebook to keep
-    /// TASK : TRANSFORM FACEBOOK PICS TO LOCAL PICS U KNO
     String _userPicURL;
     if (ObjectChecker.objectIsFile(userModel.pic) == true) {
       _userPicURL = await Storage.createStoragePicAndGetURL(
@@ -61,10 +60,11 @@ class UserFireOps {
         inputFile: userModel.pic,
         picName: userModel.id,
         docName: StorageDoc.users,
-        ownerID: userModel.id,
+        ownersIDs: <String>[userModel.id],
       );
     }
 
+    /// TASK : TRANSFORM FACEBOOK PICS TO LOCAL PICS U KNO
     /// if from google or facebook url pics
     else if (ObjectChecker.objectIsURL(userModel.pic) == true) {
       /// TASK : this facebook / google image thing is not tested
@@ -75,7 +75,7 @@ class UserFireOps {
           inputFile: _picFile,
           picName: userModel.id,
           docName: StorageDoc.users,
-          ownerID: userModel.id,
+          ownersIDs: <String>[userModel.id],
         );
       }
     }
@@ -254,7 +254,7 @@ class UserFireOps {
         oldURL: oldUserModel.pic,
         newPic: newUserModel.pic,
         picName: newUserModel.id,
-        ownerID: newUserModel.id,
+        ownersIDs: <String>[newUserModel.id],
         docName: StorageDoc.users,
       );
 

@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/c_controllers/h_zoning_controllers/zoning_controllers.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -829,7 +829,7 @@ Future<void> _modifyAttachmentIfFile({
       inputFile: note.value.attachment,
       picName: _id,
       docName: StorageDoc.notesBanners,
-      ownerID: _concludeImageOwnerID(note.value),
+      ownersIDs: _concludeImageOwnersIDs(note.value),
     );
 
     if (_url != null){
@@ -843,7 +843,7 @@ Future<void> _modifyAttachmentIfFile({
 }
 // -------------------------------
 /// TESTED : WORKS PERFECT
-String _concludeImageOwnerID(NoteModel noteModel){
+List<String> _concludeImageOwnersIDs(NoteModel noteModel){
 
   String _ownerID;
 
@@ -860,7 +860,7 @@ String _concludeImageOwnerID(NoteModel noteModel){
   _ownerID = noteModel.senderID;
   }
 
-  return _ownerID;
+  return <String>[_ownerID];
 }
 // -------------------------------
 /// TESTED : WORKS PERFECT
