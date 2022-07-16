@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
@@ -26,10 +24,9 @@ class Notifications {
   /// CONSTANTS
 
   // -----------------------------------
-  //   String _ahmedURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/slidesPics%2FXmwKpOsu1RZW3YfDAkli_00.jpg?alt=media&token=a4c8a548-74d2-4086-b3db-1678f46db00a';
   static const String redBldrsBanner = 'resource://drawable/res_red_bldrs';
   static const String flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
-  static const String flatBldrsNotiIcon2 = 'res_flat_logo'; //'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
+  static const String flatBldrsNotiIcon2 = 'res_flat_logo'; ///'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -40,7 +37,7 @@ class Notifications {
 
     /// THIS GOES BEFORE RUNNING THE BLDRS APP
 
-    FirebaseMessaging.onBackgroundMessage(pushNotificationFromRemoteMessage);
+    FirebaseMessaging.onBackgroundMessage(_pushNotificationFromRemoteMessage);
 
     final AwesomeNotifications _awesomeNotification = AwesomeNotifications();
 
@@ -54,8 +51,9 @@ class Notifications {
 
   }
   // -----------------------------------
-  /// THIS GOES IN MAIN WIDGET INIT
+  /// TESTED : ...
   static Future<void> initializeNotifications(BuildContext context) async {
+  /// THIS GOES IN MAIN WIDGET INIT
 
     final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
@@ -93,6 +91,8 @@ class Notifications {
     /// APP IS LAUNCHING ( AT STARTUP )
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
 
+      blog('onMessageOpenedApp : when does this fucking work exactly mesh fahem ya3ny');
+
       onReceiveNotification(
         context: context,
         remoteMessage: remoteMessage,
@@ -105,13 +105,14 @@ class Notifications {
 
     /// when app running in background and notification tapped while having
     /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
-    FirebaseMessaging.onBackgroundMessage(pushNotificationFromRemoteMessage);
+    FirebaseMessaging.onBackgroundMessage(_pushNotificationFromRemoteMessage);
 
     // fbm.getToken();
     // await _fireMessaging.subscribeToTopic('flyers');
 
   }
   // -----------------------------------
+  /// TESTED : ...
   static Future<void> updateMyUserFCMToken({
     @required BuildContext context,
   }) async {
@@ -184,99 +185,15 @@ class Notifications {
       remoteMessage: remoteMessage,
     );
 
-    await pushNotificationFromRemoteMessage(remoteMessage);
-
-    // await tryAndCatch(
-    //   context: context,
-    //   methodName: 'onReceiveNotification',
-    //   functions: () async {
-    //
-    //     _noteModel = NoteModel.decipherNote(
-    //       map: fcmMap,
-    //       fromJSON: false,
-    //     );
-    //
-    //     if (_noteModel != null){
-    //       await pushNotificationFromNote(_noteModel);
-    //     }
-    //
-    //     },
-    // );
+    await _pushNotificationFromRemoteMessage(remoteMessage);
 
   }
-  // -----------------------------------------------------------------------------
-
-  /// FCM
-
-  // -----------------------------------
-  /// fcm on background
-  //  AndroidNotificationChannel channel;
-  // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  // static Future<void> createAwesomeNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
-  //
-  //   // blogRemoteMessage(
-  //   //   methodName: 'notificationPushHandler',
-  //   //   remoteMessage: remoteMessage,
-  //   // );
-  //
-  //   await pushNotificationFromRemoteMessage(remoteMessage);
-  //
-  //
-  //   // final bool _notificationCreated = await AwesomeNotifications().createNotificationFromJsonData(remoteMessage.data);
-  //
-  //   // blog('_notificationCreated : $_notificationCreated');
-  //
-  //   // if (!kIsWeb) {
-  //   //   channel = const AndroidNotificationChannel(
-  //   //     'high_importance_channel', // id
-  //   //     'High Importance Notifications', // title
-  //   //     'This channel is used for important notifications.', // description
-  //   //     importance: Importance.high,
-  //   //   );
-  //   //
-  //   //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  //   //
-  //   //   /// Create an Android Notification Channel.
-  //   //   ///
-  //   //   /// We use this channel in the `AndroidManifest.xml` file to override the
-  //   //   /// default FCM channel to enable heads up notifications.
-  //   //   await flutterLocalNotificationsPlugin
-  //   //       .resolvePlatformSpecificImplementation<
-  //   //       AndroidFlutterLocalNotificationsPlugin>()
-  //   //       ?.createNotificationChannel(channel);
-  //
-  //   // /// Update the iOS foreground notification presentation options to allow
-  //   // /// heads up notifications.
-  //   // await FirebaseMessaging.instance
-  //   //     .setForegroundNotificationPresentationOptions(
-  //   //   alert: true,
-  //   //   badge: true,
-  //   //   sound: true,
-  //   // );
-  //   // }
-  // }
   // -----------------------------------------------------------------------------
 
   /// CREATION
 
   // -----------------------------------
-  /*
-  static Future<void> pushNotificationsFromNotes(List<NoteModel> notes) async {
-
-    if (Mapper.checkCanLoopList(notes) == true){
-
-      for (final NoteModel note in notes){
-
-        await Notifications.pushNotificationFromNote(note);
-
-      }
-
-    }
-
-  }
-   */
-  // -----------------------------------
-  static Future<void> pushNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
+  static Future<void> _pushNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
 
     if (remoteMessage != null){
 
@@ -322,7 +239,8 @@ class Notifications {
 
   }
   // -----------------------------------
-  static Future<void> pushNotificationFromNote(NoteModel note) async {
+  /*
+  static Future<void> _pushNotificationFromNote(NoteModel note) async {
 
     if (note != null){
 
@@ -342,21 +260,7 @@ class Notifications {
     }
 
   }
-  // -----------------------------------
-  static Future<void> createWelcomeNotification() async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: Numeric.createUniqueID(limitDigits: 8),
-        channelKey: Notifications.getNotificationChannelName(FCMChannel.basic),
-        title: '${Emojis.shape_red_triangle_pointed_up} Welcome to Bldrs.net',
-        body: 'Browse Thousands of flyers and pick your choices',
-        bigPicture: Notifications.redBldrsBanner,
-        notificationLayout: NotificationLayout.BigPicture,
-        color: Colorz.yellow255,
-        backgroundColor: Colorz.bloodTest,
-      ),
-    );
-  }
+   */
   // -----------------------------------
   static Future<void> createScheduledNotification() async {
 
@@ -466,7 +370,7 @@ class Notifications {
   }
   // -----------------------------------
 
-  /// GETTERS
+  /// NOTIFY THING
 
   // -----------------------------------------------------------------------------
   static Future<void> onNotifyButtonTap({
@@ -504,6 +408,7 @@ class Notifications {
   /// BLOGGING
 
   // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogRemoteMessage({
     String methodName,
     RemoteMessage remoteMessage
@@ -566,5 +471,58 @@ class Notifications {
 
     blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
   }
+// -----------------------------------------------------------------------------
+
+/// OLD CODES
+
+// -----------------------------------
+/*
+  /// fcm on background
+  //  AndroidNotificationChannel channel;
+  // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  // static Future<void> createAwesomeNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
+  //
+  //   // blogRemoteMessage(
+  //   //   methodName: 'notificationPushHandler',
+  //   //   remoteMessage: remoteMessage,
+  //   // );
+  //
+  //   await pushNotificationFromRemoteMessage(remoteMessage);
+  //
+  //
+  //   // final bool _notificationCreated = await AwesomeNotifications().createNotificationFromJsonData(remoteMessage.data);
+  //
+  //   // blog('_notificationCreated : $_notificationCreated');
+  //
+  //   // if (!kIsWeb) {
+  //   //   channel = const AndroidNotificationChannel(
+  //   //     'high_importance_channel', // id
+  //   //     'High Importance Notifications', // title
+  //   //     'This channel is used for important notifications.', // description
+  //   //     importance: Importance.high,
+  //   //   );
+  //   //
+  //   //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  //   //
+  //   //   /// Create an Android Notification Channel.
+  //   //   ///
+  //   //   /// We use this channel in the `AndroidManifest.xml` file to override the
+  //   //   /// default FCM channel to enable heads up notifications.
+  //   //   await flutterLocalNotificationsPlugin
+  //   //       .resolvePlatformSpecificImplementation<
+  //   //       AndroidFlutterLocalNotificationsPlugin>()
+  //   //       ?.createNotificationChannel(channel);
+  //
+  //   // /// Update the iOS foreground notification presentation options to allow
+  //   // /// heads up notifications.
+  //   // await FirebaseMessaging.instance
+  //   //     .setForegroundNotificationPresentationOptions(
+  //   //   alert: true,
+  //   //   badge: true,
+  //   //   sound: true,
+  //   // );
+  //   // }
+  // }
+   */
 // -----------------------------------------------------------------------------
 }
