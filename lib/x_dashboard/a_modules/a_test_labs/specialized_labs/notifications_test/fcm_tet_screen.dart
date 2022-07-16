@@ -229,6 +229,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           color: _noteIsOn == true ? Colorz.red255 : Colorz.grey50,
           verseColor: _noteIsOn == true ? Colorz.white255 : Colorz.white80,
           onTap: () async {
+
             setState(() {
               _noteIsOn = false;
               _note = null;
@@ -236,6 +237,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
             await _fcm.setAutoInitEnabled(false);
             blog('the thing is : ');
+
           },
         ),
 
@@ -259,6 +261,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           verse: 'call cloud function \n$_received',
           color: Colorz.blue80,
           onTap: () async {
+
             final dynamic map = await CloudFunction.callFunction(
               context: context,
               cloudFunctionName: CloudFunction.sendNotificationToDevice,
@@ -269,6 +272,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             setState(() {
               _received = 'received : ${map.toString()}';
             });
+
           },
         ),
 
@@ -309,14 +313,18 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             );
 
             await NoteFireOps.createNote(
-                context: context, noteModel: _noteModel);
+              context: context,
+              noteModel: _noteModel,
+            );
 
             await TopDialog.showTopDialog(
               context: context,
               firstLine: 'Note Sent Successfully',
             );
+
           },
         ),
+
       ],
     );
   }
