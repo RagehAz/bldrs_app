@@ -9,7 +9,7 @@ import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
 export 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
 
-class Fire {
+class Fire{
 
   Fire();
 
