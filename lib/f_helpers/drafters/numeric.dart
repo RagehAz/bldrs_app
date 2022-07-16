@@ -215,18 +215,24 @@ int createUniqueIndex({
   return _randomNumber;
 }
 // -------------------------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 int createUniqueID({
-  int limitDigits
+  int maxDigitsCount = 16, // 8'640'000'000'000'000'000
 }) {
 
+  blog('a77a');
+
+  assert(maxDigitsCount > 0 && maxDigitsCount <= 16, 'Take care : 0 < maxDigitsCount <= 16',);
+
   final String _string = DateTime.now().microsecondsSinceEpoch.toString();
-  final int _numberOfDigitsToTrim = _string.length - limitDigits;
+  final int _numberOfDigitsToTrim = _string.length - maxDigitsCount;
   final String _trimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(
       string: _string,
       numberOfCharacters: _numberOfDigitsToTrim,
   );
   final int _output = transformStringToInt(_trimmed);
+
+  blog('createUniqueID : _string : $_string : _trimmed : $_trimmed');
 
   return _output;
 }

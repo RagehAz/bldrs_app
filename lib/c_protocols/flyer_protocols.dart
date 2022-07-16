@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
@@ -85,13 +86,19 @@ class FlyerProtocol {
         bzModel: _bzModel
     );
 
-    /// LDB - PRO
-    await localFlyerUpdateProtocol(
-      context: context,
-      flyerModel: _uploadedFlyer,
-      notify: true,
-      insertInActiveBzFlyersIfAbsent: true,
+    await NoteProtocols.sendFlyerUpdateNoteToItsBz(
+        context: context,
+        bzModel: _bzModel,
+        flyerID: _uploadedFlyer.id,
     );
+
+    // /// LDB - PRO
+    // await localFlyerUpdateProtocol(
+    //   context: context,
+    //   flyerModel: _uploadedFlyer,
+    //   notify: true,
+    //   insertInActiveBzFlyersIfAbsent: true,
+    // );
 
     blog('updateFlyerByActiveBzProtocol : END');
 
