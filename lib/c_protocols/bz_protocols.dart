@@ -44,6 +44,8 @@ class BzProtocol {
     @required BzModel oldBzModel,
   }) async {
 
+    blog('BzProtocol.updateMyBzEverywhereProtocol : START');
+
     /// FIRE
     final BzModel _uploadedBzModel = await BzFireOps.updateBz(
       context: context,
@@ -64,6 +66,8 @@ class BzProtocol {
       bzModel: _uploadedBzModel,
     );
 
+    blog('BzProtocol.updateMyBzEverywhereProtocol : END');
+
     return _uploadedBzModel;
   }
   // -------------------------------
@@ -74,6 +78,8 @@ class BzProtocol {
     @required BzModel oldBzModel,
   }) async {
 
+    blog('BzProtocol.myActiveBzLocalUpdateProtocol : START');
+
     /// LOCAL UPDATE PROTOCOL
     /// is to update my-active-bz-model in PRO and LDB in case of model changes
 
@@ -82,7 +88,7 @@ class BzProtocol {
       bz2: oldBzModel,
     );
 
-    blog('myActiveBzLocalUpdateProtocol : bzz are identical : $_areTheSame');
+    blog('BzProtocol.myActiveBzLocalUpdateProtocol : bzz are identical : $_areTheSame');
 
     /// UPDATE BZ MODEL EVERYWHERE
     if (_areTheSame == false){
@@ -114,10 +120,12 @@ class BzProtocol {
         notify: true,
       );
 
-      blog('myActiveBzLocalUpdateProtocol : my active bz updated in PRO & LDB');
+      blog('BzProtocol.myActiveBzLocalUpdateProtocol : my active bz updated in PRO & LDB');
 
       // }
     }
+
+    blog('BzProtocol.myActiveBzLocalUpdateProtocol : END');
 
   }
 // -----------------------------------------------------------------------------
@@ -130,6 +138,8 @@ class BzProtocol {
     @required BzModel bzModel,
     @required bool showWaitDialog,
   }) async {
+
+    blog('BzProtocol.deleteBzProtocol : START');
 
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
@@ -148,7 +158,7 @@ class BzProtocol {
     );
 
     /// DELETE BZ NOTES
-    await NoteProtocols.deleteAllBzReceivedNotes(
+    await NoteProtocol.deleteAllBzReceivedNotes(
         context: context,
         bzID: bzModel.id,
     );
@@ -160,7 +170,7 @@ class BzProtocol {
     );
 
     /// SEND DELETION NOTES TO AUTHORS
-    await NoteProtocols.sendBzDeletionNoteToAllAuthors(
+    await NoteProtocol.sendBzDeletionNoteToAllAuthors(
       context: context,
       bzModel: bzModel,
     );
@@ -196,12 +206,16 @@ class BzProtocol {
       WaitDialog.closeWaitDialog(context);
     }
 
+    blog('BzProtocol.deleteBzProtocol : END');
+
   }
 // ----------------------------------
   static Future<void> localBzDeletionProtocol({
     @required BuildContext context,
     @required String bzID,
   }) async {
+
+    blog('BzProtocol.localBzDeletionProtocol : START');
 
     // NOTE DELETES ALL BZ MODEL INSTANCES IN LDB AND BZ PRO
 
@@ -210,7 +224,7 @@ class BzProtocol {
       bzID: bzID,
     );
 
-    blog('localBzDeletionProtocol : ops should reach here ba2aaaaa');
+    blog('BzProtocol.localBzDeletionProtocol : ops should reach here ba2aaaaa');
 
     /// DELETE BZ ON PROVIDER
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -219,6 +233,7 @@ class BzProtocol {
       notify: true,
     );
 
+    blog('BzProtocol.localBzDeletionProtocol : END');
 
   }
 // ----------------------------------
@@ -226,6 +241,8 @@ class BzProtocol {
     @required BuildContext context,
     @required String bzID,
   }) async {
+
+    blog('BzProtocol.myBzGotDeletedAndIShouldDeleteAllMyBzRelatedData : START');
 
     /// so I had this bzID in my bzIDs and I still have its old model
     /// scattered around in pro, ldb & fire
@@ -254,12 +271,16 @@ class BzProtocol {
       newUserModel: _updatedUserModel,
     );
 
+    blog('BzProtocol.myBzGotDeletedAndIShouldDeleteAllMyBzRelatedData : END');
+
   }
 // ----------------------------------
   static Future<void> deleteMyAuthorPicProtocol({
     @required BuildContext context,
     @required String bzID,
   }) async {
+
+    blog('BzProtocol.deleteMyAuthorPicProtocol : START');
 
     /// GET MY USER MODEL -------------------
     final UserModel _myUserModel = await UsersProvider.proFetchUserModel(
@@ -296,6 +317,8 @@ class BzProtocol {
 
     }
 
+    blog('BzProtocol.deleteMyAuthorPicProtocol : END');
+
   }
 // -----------------------------------------------------------------------------
   /// bz deletion ops
@@ -306,6 +329,8 @@ class BzProtocol {
     @required bool updateBz,
     @required bool showWaitDialog,
   }) async {
+
+    blog('BzProtocol._deleteAllBzFlyersOps : START');
 
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
@@ -332,6 +357,8 @@ class BzProtocol {
     if (showWaitDialog == true){
       WaitDialog.closeWaitDialog(context);
     }
+
+    blog('BzProtocol._deleteAllBzFlyersOps : END');
 
   }
 // ------------------

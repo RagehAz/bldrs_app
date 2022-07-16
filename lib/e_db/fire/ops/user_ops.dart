@@ -646,7 +646,7 @@ static Future<dynamic> deleteUserOps({
 
           /// SHOULD BE DELETED BEFORE DELETING USER DOC
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user received notes');
-          await NoteProtocols.deleteAllUserReceivedNotes(
+          await NoteProtocol.deleteAllUserReceivedNotes(
             context: context,
             userID: userModel.id,
           );

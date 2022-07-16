@@ -29,6 +29,8 @@ class AuthorProtocol {
     @required BzModel oldBzModel,
   }) async {
 
+    blog('AuthorProtocol.addMeAsNewAuthorToABzProtocol : START');
+
     /// GET AND MODIFY MY USER MODEL --------------------------
     // NOTE : modify user before bz to allow the user modify the bz in fire security rules
     final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
@@ -66,6 +68,8 @@ class AuthorProtocol {
         oldBzModel: oldBzModel
     );
 
+    blog('AuthorProtocol.addMeAsNewAuthorToABzProtocol : END');
+
     return _uploadedBzModel;
   }
 // -----------------------------------------------------------------------------
@@ -78,6 +82,8 @@ class AuthorProtocol {
     @required BzModel oldBzModel,
     @required AuthorModel newAuthorModel,
   }) async {
+
+    blog('AuthorProtocol.updateAuthorProtocol : START');
 
     final BzModel _updatedBzModel = BzModel.replaceAuthor(
       updatedAuthor: newAuthorModel,
@@ -98,6 +104,8 @@ class AuthorProtocol {
     //   oldBzModel: _bzModel,
     // );
 
+    blog('AuthorProtocol.updateAuthorProtocol : END');
+
     return _uploadedBzModel;
   }
 // -----------------------------------------------------------------------------
@@ -109,6 +117,8 @@ class AuthorProtocol {
     @required BuildContext context,
     @required BzModel streamedBzModelWithoutMyID,
   }) async {
+
+    blog('AuthorProtocol.removeMeFromBzProtocol : START');
 
     // description
     // when the streamedBzModel does not include my ID
@@ -149,6 +159,8 @@ class AuthorProtocol {
       bzIDResigned: streamedBzModelWithoutMyID.id,
     );
 
+    blog('AuthorProtocol.removeMeFromBzProtocol : END');
+
   }
 // ----------------------------------
   static Future<void> removeFlyerlessAuthorProtocol({
@@ -156,6 +168,8 @@ class AuthorProtocol {
     @required BzModel bzModel,
     @required AuthorModel author,
   }) async {
+
+    blog('AuthorProtocol.removeFlyerlessAuthorProtocol : START');
 
     /// REMOVE AUTHOR MODEL FROM BZ MODEL
     final BzModel _updatedBzModel = BzModel.removeAuthor(
@@ -173,6 +187,8 @@ class AuthorProtocol {
 
     /// NOTE : no need to update bz locally here as bz stream listener does the job
 
+    blog('AuthorProtocol.removeFlyerlessAuthorProtocol : END');
+
   }
 // ----------------------------------
   static Future<void> authorBzExitAfterBzDeletionProtocol({
@@ -180,7 +196,7 @@ class AuthorProtocol {
     @required String bzID,
   }) async {
 
-    blog('authorBzExitAfterBzDeletionProtocol : start');
+    blog('AuthorProtocol.authorBzExitAfterBzDeletionProtocol : start');
 
     await _authorBzDeletionDialog(
       context: context,
@@ -221,7 +237,7 @@ class AuthorProtocol {
         bzID: bzID,
     );
 
-    blog('authorBzExitAfterBzDeletionProtocol : end');
+    blog('AuthorProtocol.authorBzExitAfterBzDeletionProtocol : end');
 
   }
 // ----------------------------------

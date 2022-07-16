@@ -20,6 +20,7 @@ enum AuthorAbility {
   canEditOtherAuthor,
   // canEditSelf, // keda keda
   canRemoveOtherAuthor,
+  canSendAuthorships,
   // canRemoveSelf, // keda keda
 }
 // -----------------------------------------------------------------------------
@@ -968,6 +969,7 @@ class AuthorModel {
           case AuthorAbility.canChangeSelfRole :        return false; break;
           case AuthorAbility.canEditOtherAuthor :       return true; break;
           case AuthorAbility.canRemoveOtherAuthor :     return true; break;
+          case AuthorAbility.canSendAuthorships :       return true; break;
           default: return false;
         } break;
     /// MODERATOR -------------
@@ -976,7 +978,8 @@ class AuthorModel {
           case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
           case AuthorAbility.canChangeSelfRole :        return true; break;
           case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
-          case AuthorAbility.canRemoveOtherAuthor :     return _higherRank; break;
+          case AuthorAbility.canRemoveOtherAuthor :     return false; break;
+          case AuthorAbility.canSendAuthorships :       return true; break;
           default: return false;
         } break;
     /// TEAM MEMBER -------------
@@ -985,7 +988,8 @@ class AuthorModel {
           case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
           case AuthorAbility.canChangeSelfRole :        return true; break;
           case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
-          case AuthorAbility.canRemoveOtherAuthor :     return _higherRank; break;
+          case AuthorAbility.canRemoveOtherAuthor :     return false; break;
+          case AuthorAbility.canSendAuthorships :       return false; break;
           default: return false;
         } break;
     /// DEFAULT -------------
