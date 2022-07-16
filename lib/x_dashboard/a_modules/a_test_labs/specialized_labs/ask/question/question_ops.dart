@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -76,7 +76,7 @@ class QuestionOps {
         context: context,
         names: _picsNames,
         pics: question.pics,
-        userID: userID,
+        ownersIDs: <String>[userID,]
       );
     }
 

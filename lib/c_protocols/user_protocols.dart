@@ -41,6 +41,8 @@ class UserProtocol {
     @required UserModel newUserModel,
   }) async {
 
+    blog('updateMyUserEverywhereProtocol : START');
+
     UserModel _uploadedModel;
 
     final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
@@ -69,6 +71,7 @@ class UserProtocol {
 
     }
 
+    blog('updateMyUserEverywhereProtocol : END');
     return _uploadedModel ?? newUserModel;
   }
 // ----------------------------------

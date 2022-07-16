@@ -16,7 +16,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/foundation/storage.dart' as Storage;
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
@@ -65,11 +65,15 @@ class FlyerFireOps {
 
       if (_flyerID != null){
 
+        final String _bzCreatorID = AuthorModel.getCreatorAuthorFromBz(bzModel).userID;
+        final String _flyerAuthorID = superUserID();
+
         _finalFlyer = await _createFlyerStorageImagesAndUpdateFlyer(
           context: context,
           flyerID: _flyerID,
           draftFlyer: draftFlyer,
-          creatorAuthorID: AuthorModel.getCreatorAuthorFromBz(bzModel).userID,
+          creatorAuthorID: _bzCreatorID,
+          flyerAuthorID: _flyerAuthorID,
         );
 
         _finalBz = await _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs(
@@ -122,6 +126,7 @@ class FlyerFireOps {
     @required FlyerModel draftFlyer,
     @required String flyerID,
     @required String creatorAuthorID,
+    @required String flyerAuthorID,
   }) async {
 
     blog('_createFlyerStorageImagesAndUpdateFlyer : START');
@@ -134,7 +139,8 @@ class FlyerFireOps {
         context: context,
         slides: draftFlyer.slides,
         flyerID: flyerID,
-        creatorAuthorID: creatorAuthorID,
+        bzCreatorID: creatorAuthorID,
+        flyerAuthorID: flyerAuthorID,
       );
 
       if (Mapper.checkCanLoopList(_picturesURLs) == true){
@@ -430,6 +436,7 @@ class FlyerFireOps {
       context: context,
       oldFlyer: oldFlyer,
       newFlyer: newFlyer,
+      bzModel: bzModel,
     );
 
     await _deleteUnusedSlides(
@@ -452,6 +459,7 @@ class FlyerFireOps {
     @required BuildContext context,
     @required FlyerModel oldFlyer,
     @required FlyerModel newFlyer,
+    @required BzModel bzModel,
   }) async {
 
     blog('_updateSlides : START');
@@ -478,7 +486,10 @@ class FlyerFireOps {
             context: context,
             docName: StorageDoc.slides,
             inputFile: slide.pic,
-            ownerID: oldFlyer.authorID,
+            ownersIDs: <String>[
+              AuthorModel.getCreatorAuthorFromBz(bzModel).userID,
+              oldFlyer.authorID,
+            ],
             picName: SlideModel.generateSlideID(
               flyerID: newFlyer.id,
               slideIndex: slide.slideIndex,
