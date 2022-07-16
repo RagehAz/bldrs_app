@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -181,6 +182,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     return CenteredListLayout(
       title: 'Notifications',
       columnChildren: <Widget>[
+
         const Stratosphere(),
 
         /// REQUEST PERMISSION
@@ -282,7 +284,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           color: Colorz.blue80,
           onTap: () async {
 
-            const String _userID = '7B8qNuRdXAfyIm5HaIKfne3qKIw2';
+            // user1 : '7B8qNuRdXAfyIm5HaIKfne3qKIw2';
+            final String _userID = superUserID();
 
             final UserModel _userModel = await UserFireOps.readUser(
                 context: context,
@@ -296,8 +299,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
               noteSenderType: NoteSenderType.bldrs,
               receiverID: _userModel.id,
               receiverType: NoteReceiverType.user,
-              title: 'This is going to be Awesome',
-              body: 'Isa will work',
+              title: 'booobo',
+              body: 'dodo',
               metaData: NoteModel.defaultMetaData,
               sentTime: DateTime.now(),
               attachment: null,
@@ -319,7 +322,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
             await TopDialog.showTopDialog(
               context: context,
-              firstLine: 'Note Sent Successfully',
+              firstLine: 'Note Sent Successfully x',
             );
 
           },

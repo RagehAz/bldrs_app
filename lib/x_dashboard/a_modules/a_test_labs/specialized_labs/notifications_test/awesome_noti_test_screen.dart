@@ -174,10 +174,6 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     blog('_listenToNotificationsStream --------- END');
   }
 // -----------------------------------------------------------------------------
-  Future<void> _onSendNotification() async {
-    await Notifications.createWelcomeNotification();
-  }
-// -----------------------------------------------------------------------------
   Future<void> _onSendScheduledNotification() async {
     await Notifications.createScheduledNotification();
   }
@@ -204,12 +200,14 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             child: DreamBox(
               height: 60,
               width: 250,
-              verse: 'Send Notification Bitch !',
+              verse: 'Send Notification',
               verseScaleFactor: 0.7,
               color: Colorz.yellow255,
               verseColor: Colorz.black255,
               verseShadow: false,
-              onTap: _onSendNotification,
+              onTap: (){
+                blog('SHOULD SEND NOTIFICATION NOW');
+              },
             ),
           ),
 
