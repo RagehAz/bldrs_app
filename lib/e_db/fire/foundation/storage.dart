@@ -461,7 +461,7 @@ Future<String> updateExistingPic({
   return _newURL;
 }
 // ------------------------------------------------
-/// returns updated pic new URL
+/// TESTED : WORKS PERFECT
 Future<String> createOrUpdatePic({
   @required BuildContext context,
   @required String oldURL,
@@ -470,6 +470,7 @@ Future<String> createOrUpdatePic({
   @required String docName,
   @required String picName,
 }) async {
+  /// returns updated pic new URL
 
   String _outputURL;
 
