@@ -16,6 +16,7 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
+import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,11 +39,12 @@ Future<void> initializeLogoScreen({
       _initializeUserModel(context),
       /// APP STATE
       _initializeAppState(context),
-      /// INITIALIZE USER NOTES STREAM
-      // _initializeUserNotesStream(context);
 
   ]
   );
+
+      /// USER APP - FCM - TOKEN
+      await _initializeMyDeviceFCMToken(context);
 
 }
 // -----------------------------------------------------------------------------
@@ -278,18 +280,28 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 }
 // -----------------------------------------------------------------------------
 
+/// MY DEVICE FCM TOKEN
+
+// ---------------------------------
+Future<void> _initializeMyDeviceFCMToken(BuildContext context) async {
+  await Notifications.updateMyUserFCMToken(context: context);
+}
+// -----------------------------------------------------------------------------
+
 /// NOTES STREAM INITIALIZATION
 
 // ---------------------------------
-// void _initializeUserNotesStream(BuildContext context){
-//
-//   // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-//   // _notesProvider.startSetUserNotesStream(
-//   //   context: context,
-//   //   notify: true,
-//   // );
-//
-// }
+/*
+void _initializeUserNotesStream(BuildContext context){
+
+  // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+  // _notesProvider.startSetUserNotesStream(
+  //   context: context,
+  //   notify: true,
+  // );
+
+}
+ */
 // -----------------------------------------------------------------------------
 
 /// NAVIGATION

@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/f_helpers/notifications/local_note.dart';
+import 'package:bldrs/a_models/user/fcm_token.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/c_protocols/user_protocols.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/notifications/local_note.dart';
 import 'package:bldrs/f_helpers/notifications/notifications_models/fcm_channel.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -74,37 +80,26 @@ class Notifications {
       alert: true,
     );
 
-    /// when app running in foreground
+    /// APP IS IN FOREGROUND ( FRONT AND ACTIVE )
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
-
-      final Map<String, dynamic> _msgMap = remoteMessage.data;
-
       await onReceiveNotification(
         context: context,
-        fcmMap: _msgMap,
-        // FCMTiming: FCMTiming.onMessage,
+        remoteMessage: remoteMessage,
+        callerName: 'onMessage',
       );
-
     });
 
-    /// when launching the app
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage event) {
-
-      blogRemoteMessage(
-        methodName: 'initializeNoti',
-        remoteMessage: event,
-      );
-
-      final Map<String, dynamic> _msgMap = event.data;
+    /// APP IS LAUNCHING ( AT STARTUP )
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) {
 
       onReceiveNotification(
         context: context,
-        fcmMap: _msgMap,
-        // FCMTiming: FCMTiming.onLaunch,
+        remoteMessage: remoteMessage,
+        callerName: 'onMessageOpenedApp',
       );
 
       /// to display the notification while app in foreground
-      LocalNotification.display(event);
+      LocalNotification.display(remoteMessage);
     });
 
     /// when app running in background and notification tapped while having
@@ -112,36 +107,101 @@ class Notifications {
     FirebaseMessaging.onBackgroundMessage(notificationPushHandler);
 
     // fbm.getToken();
-    await _fireMessaging.subscribeToTopic('flyers');
+    // await _fireMessaging.subscribeToTopic('flyers');
+
+  }
+  // -----------------------------------
+  static Future<void> updateMyUserFCMToken({
+    @required BuildContext context,
+  }) async {
+
+    String _fcmToken;
+
+    final bool _continue = await tryCatchAndReturnBool(
+      context: context,
+      methodName: 'updateMyUserFCMToken',
+      functions: () async {
+
+        final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+
+        if (Platform.isIOS) {
+          _fcmToken = await _fcm.getToken();
+        }
+        else {
+          _fcmToken = await _fcm.getToken();
+        }
+
+      },
+      onError: (String error){
+
+        /// error codes reference
+        // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
+        // UNREGISTERED (HTTP 404)
+        // INVALID_ARGUMENT (HTTP 400)
+
+        /// TASK : SHOULD DELETE THE FCM TOKEN FROM USER DOC AND GENERATE NEW TOKEN !
+
+      },
+    );
+
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+
+    if (_continue == true && _fcmToken != null && _myUserModel != null){
+
+      if (_myUserModel?.fcmToken?.token != _fcmToken){
+
+        final FCMToken _token = FCMToken(
+          token: _fcmToken,
+          createdAt: DateTime.now(),
+          platform: Platform.operatingSystem,
+        );
+
+        final UserModel _updated = _myUserModel.copyWith(
+          fcmToken: _token,
+        );
+
+        await UserProtocol.updateMyUserEverywhereProtocol(
+          context: context,
+          newUserModel: _updated,
+        );
+
+      }
+
+    }
+
   }
   // -----------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<NoteModel> onReceiveNotification({
+  static Future<void> onReceiveNotification({
     @required BuildContext context,
-    @required dynamic fcmMap,
-    // @required FCMTiming FCMTiming,
+    @required RemoteMessage remoteMessage,
+    @required String callerName,
   }) async {
 
-    NoteModel _noteModel;
-
-    blog('msg map is');
-
-    blog(fcmMap);
-
-    await tryAndCatch(
-      context: context,
-      methodName: 'onReceiveNotification',
-      functions: () {
-
-        _noteModel = NoteModel.decipherNote(
-          map: fcmMap,
-          fromJSON: false,
-        );
-
-        },
+    blogRemoteMessage(
+      methodName: 'callerName : $callerName',
+      remoteMessage: remoteMessage,
     );
 
-    return _noteModel;
+    await notificationPushHandler(remoteMessage);
+
+    // await tryAndCatch(
+    //   context: context,
+    //   methodName: 'onReceiveNotification',
+    //   functions: () async {
+    //
+    //     _noteModel = NoteModel.decipherNote(
+    //       map: fcmMap,
+    //       fromJSON: false,
+    //     );
+    //
+    //     if (_noteModel != null){
+    //       await pushNotificationFromNote(_noteModel);
+    //     }
+    //
+    //     },
+    // );
+
   }
   // -----------------------------------------------------------------------------
 
@@ -151,16 +211,14 @@ class Notifications {
   /// fcm on background
   //  AndroidNotificationChannel channel;
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  static Future<void> notificationPushHandler(RemoteMessage message) async {
-
-    blog('Handling a background message ${message.messageId}');
+  static Future<void> notificationPushHandler(RemoteMessage remoteMessage) async {
 
     blogRemoteMessage(
-      methodName: 'fcmPushHandler',
-      remoteMessage: message,
+      methodName: 'notificationPushHandler',
+      remoteMessage: remoteMessage,
     );
 
-    final bool _thing = await AwesomeNotifications().createNotificationFromJsonData(message.data);
+    final bool _thing = await AwesomeNotifications().createNotificationFromJsonData(remoteMessage.data);
 
     blog('thing is : $_thing');
 
@@ -197,6 +255,43 @@ class Notifications {
 
   /// CREATION
 
+  // -----------------------------------
+  /*
+  static Future<void> pushNotificationsFromNotes(List<NoteModel> notes) async {
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+
+        await Notifications.pushNotificationFromNote(note);
+
+      }
+
+    }
+
+  }
+   */
+  // -----------------------------------
+  static Future<void> pushNotificationFromNote(NoteModel note) async {
+
+    if (note != null){
+
+      await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: Numeric.createUniqueID(limitDigits: 8),
+          channelKey: Notifications.getNotificationChannelName(FCMChannel.basic),
+          title: note.title,
+          body: note.body,
+          // bigPicture: Notifications.redBldrsBanner,
+          // notificationLayout: NotificationLayout.BigPicture,
+          // color: Colorz.yellow255,
+          // backgroundColor: Colorz.bloodTest,
+        ),
+      );
+
+    }
+
+  }
   // -----------------------------------
   static Future<void> createWelcomeNotification() async {
     await AwesomeNotifications().createNotification(
@@ -364,19 +459,32 @@ class Notifications {
     RemoteMessage remoteMessage
   }) {
 
-    final RemoteNotification remoteNotification = remoteMessage.notification;
-    final String category = remoteMessage.category;
-    final String collapseKey = remoteMessage.collapseKey;
-    final bool contentAvailable = remoteMessage.contentAvailable;
-    final String from = remoteMessage.from;
-    final String messageId = remoteMessage.messageId;
-    final String messageType = remoteMessage.messageType;
-    final bool mutableContent = remoteMessage.mutableContent;
-    final String senderId = remoteMessage.senderId;
-    final DateTime sentTime = remoteMessage.sentTime;
-    final String threadId = remoteMessage.threadId;
-    final int ttl = remoteMessage.ttl;
-    final Map<String, dynamic> data = remoteMessage.data;
+    final RemoteNotification remoteNotification = remoteMessage?.notification;
+    final String body = remoteNotification?.body;
+    final String title = remoteNotification?.title;
+    final AndroidNotification android = remoteNotification?.android;
+    final AppleNotification apple = remoteNotification?.apple;
+    final String analyticsLabel = remoteNotification?.web?.analyticsLabel;
+    final String image = remoteNotification?.web?.image;
+    final String link = remoteNotification?.web?.link;
+
+    final String bodyLocKey = remoteNotification?.bodyLocKey;
+    final List<String> bodyLocArgs = remoteNotification?.bodyLocArgs;
+    final String titleLocKey = remoteNotification?.titleLocKey;
+    final List<String> titleLocArgs = remoteNotification?.titleLocArgs;
+
+    final String category = remoteMessage?.category;
+    final String collapseKey = remoteMessage?.collapseKey;
+    final bool contentAvailable = remoteMessage?.contentAvailable;
+    final String from = remoteMessage?.from;
+    final String messageId = remoteMessage?.messageId;
+    final String messageType = remoteMessage?.messageType;
+    final bool mutableContent = remoteMessage?.mutableContent;
+    final String senderId = remoteMessage?.senderId;
+    final DateTime sentTime = remoteMessage?.sentTime;
+    final String threadId = remoteMessage?.threadId;
+    final int ttl = remoteMessage?.ttl;
+    final Map<String, dynamic> data = remoteMessage?.data;
 
     blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- START -');
 
@@ -394,6 +502,18 @@ class Notifications {
     blog('12 - threadId : $threadId');
     blog('13 - ttl : $ttl');
     blog('14 - data : $data');
+    blog('15 - body : $body');
+    blog('16 - title : $title');
+    blog('17 - android : $android');
+    blog('18 - apple : $apple');
+    blog('19 - analyticsLabel : $analyticsLabel');
+    blog('20 - image : $image');
+    blog('21 - link : $link');
+    blog('22 - bodyLocKey : $bodyLocKey');
+    blog('23 - bodyLocArgs : $bodyLocArgs');
+    blog('24 - titleLocKey : $titleLocKey');
+    blog('25 - titleLocArgs : $titleLocArgs');
+
 
     blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
   }
