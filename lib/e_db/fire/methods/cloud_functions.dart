@@ -106,7 +106,9 @@ static const String sendNotificationToDevice = 'sendNotificationToDevice';
   static HttpsCallable _getCallableFunction({String funcName}) {
     return FirebaseFunctions.instance.httpsCallable(
       funcName,
-      options: HttpsCallableOptions(),
+      options: HttpsCallableOptions(
+        // timeout:
+      ),
     );
   }
 //------------------------------------------------------------------------------
