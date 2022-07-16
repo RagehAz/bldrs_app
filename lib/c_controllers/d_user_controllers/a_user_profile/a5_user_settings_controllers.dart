@@ -138,6 +138,10 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
         );
 
       }
+      /// USER HAS NO CREATED BZZ BUT MIGHT BE AUTHOR IN OTHERS
+      else {
+        _canDeleteAndExitMyBzz = true;
+      }
 
       /// USER IS AUTHOR BUT DID NOT CREATE ANY BZZ
       if (checkCanLoopList(_myBzzIDidNotCreate) == true && _canDeleteAndExitMyBzz == true){
@@ -151,6 +155,10 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
           confirmButtonText: 'Continue',
         );
 
+      }
+      /// BOGUS USE CASE,
+      else {
+        _canDeleteAndExitMyBzz = true;
       }
 
     }

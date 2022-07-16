@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -19,9 +20,11 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -31,6 +34,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -406,14 +410,44 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ),
 
         AppBarButton(
-            verse: ' C ( ) ',
+            verse: ' C ( u ) ',
             onTap: () async {
 
-              final int _id = createUniqueID(
-                maxDigitsCount: 3,
+              final UserModel _userModel = await UsersProvider.proFetchUserModel(
+                  context: context,
+                  userID: superUserID(),
               );
 
-              blog('DONE : $_id');
+              final FullMetadata _meta = await Storage.getMetadataFromURL(
+                  url: _userModel.pic,
+                  context: context
+              );
+
+              final Map<String, String> _map = <String, String>{
+                'width': _meta.customMetadata['width'],
+                'height': _meta.customMetadata['height'],
+                _userModel.id : 'cool',
+                'ownerA': null,
+              };
+
+              await Storage.updatePicMetadata(
+                context: context,
+                picURL: _userModel.pic,
+                metaDataMap: _map,
+              );
+
+              // final String _newURL = await _ref.getDownloadURL();
+              //
+              // if (_newURL != _userModel.pic){
+              //
+              //   await UserProtocol.updateMyUserEverywhereProtocol(
+              //       context: context,
+              //       newUserModel: _userModel.copyWith(pic: _newURL),
+              //   );
+              //
+              //   blog('updated user model everywhere');
+              //
+              // }
 
             }
         ),

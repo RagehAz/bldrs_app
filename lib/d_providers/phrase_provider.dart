@@ -199,7 +199,7 @@ class PhraseProvider extends ChangeNotifier {
           list2: _activeCountriesIDs,
       );
 
-      blog('generateActiveCountriesMixedLangPhrases : _noNewActiveCountries : $_noNewActiveCountries');
+      blog('generateActiveCountriesMixedLangPhrases : _noNewActiveCountries : $_noNewActiveCountries : _duplicatesCleaned : ${_duplicatesCleaned?.length} : _activeCountriesIDs : ${_activeCountriesIDs?.length}');
 
       /// NO CHANGES HAPPENED
       if (_noNewActiveCountries == true){
