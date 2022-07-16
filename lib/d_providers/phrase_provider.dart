@@ -80,7 +80,7 @@ class PhraseProvider extends ChangeNotifier {
       setLangCode: setLangCode,
     );
 
-    await getSetActiveCountriesPhrases(
+    await generateActiveCountriesMixedLangPhrases(
       context: context,
     );
 
@@ -157,41 +157,87 @@ class PhraseProvider extends ChangeNotifier {
 }) async {
 
     List<Phrase> _countriesMixedLangPhrases = <Phrase>[];
+    final List<String> _activeCountriesIDs = getActiveCountriesIDs(context);
 
     /// GET THEM FROM LDB
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
       docName: LDBDoc.countriesPhrases,
     );
 
-    if (Mapper.checkCanLoopList(_maps) == true){
-      blog('fetchCountriesMixedLangPhrases : ${_maps.length} phrases found in LDB doc countriesMixedPhrases');
+    /// WHEN LDB IS EMPTY
+    if (_maps == null || _maps.isEmpty == true){
 
-      _countriesMixedLangPhrases = Phrase.decipherMixedLangPhrases(
-        maps: _maps,
+      /// CREATE THEM FROM JSON
+      _countriesMixedLangPhrases = await CountryModel.createMixedCountriesPhrases(
+        langCodes: ['en', 'ar'],
+        countriesIDs: _activeCountriesIDs,
+      );
+
+      /// THEN STORE THEM IN LDB
+      await LDBOps.insertMaps(
+        inputs: Phrase.cipherMixedLangPhrases(phrases: _countriesMixedLangPhrases),
+        docName: LDBDoc.countriesPhrases,
+        allowDuplicateIDs: true,
       );
 
     }
 
-    /// WHEN NOT IN LDB
+    /// WHEN LDB HAS VALUES
     else {
 
-    /// CREATE THEM FROM JSON
-    _countriesMixedLangPhrases = await CountryModel.createMixedCountriesPhrases(
-        langCodes: ['en', 'ar'],
-        countriesIDs: getActiveCountriesIDs(context),
-    );
 
-    /// THEN STORE THEM IN LDB
-      await LDBOps.insertMaps(
+      final List<String> _mapsIDs = Mapper.getMapsPrimaryKeysValues(
+        maps: _maps,
+      );
+
+      final List<String> _duplicatesCleaned = Mapper.cleanDuplicateStrings(
+          strings: _mapsIDs,
+      );
+
+      final bool _noNewActiveCountries = Mapper.checkListsAreIdentical(
+          list1: _duplicatesCleaned,
+          list2: _activeCountriesIDs,
+      );
+
+      blog('generateActiveCountriesMixedLangPhrases : _noNewActiveCountries : $_noNewActiveCountries');
+
+      /// NO CHANGES HAPPENED
+      if (_noNewActiveCountries == true){
+
+        _countriesMixedLangPhrases = Phrase.decipherMixedLangPhrases(
+          maps: _maps,
+        );
+
+      }
+      /// ACTIVE COUNTRIES LISTS HAD CHANGED
+      else {
+
+        await LDBOps.deleteAllMapsAtOnce(
+          docName: LDBDoc.countriesPhrases,
+        );
+
+        /// CREATE THEM FROM JSON
+        _countriesMixedLangPhrases = await CountryModel.createMixedCountriesPhrases(
+          langCodes: ['en', 'ar'],
+          countriesIDs: _activeCountriesIDs,
+        );
+
+        /// THEN STORE THEM IN LDB
+        await LDBOps.insertMaps(
           inputs: Phrase.cipherMixedLangPhrases(phrases: _countriesMixedLangPhrases),
           docName: LDBDoc.countriesPhrases,
-      );
+          allowDuplicateIDs: true,
+        );
+
+
+      }
 
     }
 
     return _countriesMixedLangPhrases;
   }
-
+// -------------------------------------
+  /*
   Future<void> getSetActiveCountriesPhrases({
     @required BuildContext context,
     // @required bool notify,
@@ -218,7 +264,7 @@ class PhraseProvider extends ChangeNotifier {
     // }
 
   }
-
+   */
 // -----------------------------------------------------------------------------
 
   /// RELOADING PHRASES

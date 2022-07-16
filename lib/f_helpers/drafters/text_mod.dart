@@ -289,6 +289,7 @@ String removeFirstCharacterFromAString(String string) {
   return stringWithoutFirstCharacter;
 }
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String removeNumberOfCharactersFromBeginningOfAString({
   @required String string,
   @required int numberOfCharacters,

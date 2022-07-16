@@ -367,7 +367,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                         isDeactivated: !_canPublish,
                         firstLine: 'Update Flyer',
                         positionedAlignment: Alignment.bottomLeft,
-                        onTap: () => onPublishFlyerUpdatesButtonTap(
+                        onTap: () => onPublishFlyerUpdatesTap(
                           context: context,
                           draft: draft,
                           formKey: formKey,
@@ -381,7 +381,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                         isDeactivated: !_canPublish,
                         firstLine: superPhrase(context, 'phid_publish'),
                         positionedAlignment: Alignment.bottomLeft,
-                        onTap: () => onPublishFlyerButtonTap(
+                        onTap: () => onPublishNewFlyerTap(
                           context: context,
                           draft: draft,
                           formKey: formKey,

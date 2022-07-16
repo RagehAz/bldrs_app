@@ -25,10 +25,9 @@ const fcmMethods = require('./fcm_methods');
 // const docStatistics = fireAdmin.collection('admin').doc('statistics');
 // --------------------------------------------------------------------------
 
-// FCM
+// EXPORTS
 
 // -------------------------------------
-// let bitches = bitch.sendNotificationToDevice;
 exports.onNoteCreation = fcmMethods.onNoteCreation;
 // --------------------------------------------------------------------------
 

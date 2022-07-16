@@ -220,6 +220,7 @@ class NoteProtocols {
 
   }
 // ----------------------------------
+  /// TESTED : ...
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -267,6 +268,44 @@ class NoteProtocols {
       }
 
     }
+
+
+  }
+// ----------------------------------
+  /// TESTED : ...
+  static Future<void> sendFlyerUpdateNoteToItsBz({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String flyerID,
+  }) async {
+
+    final NoteModel _note = NoteModel(
+      id: 'x',
+      senderID: bzModel.id,
+      senderImageURL: bzModel.logo,
+      noteSenderType: NoteSenderType.bz,
+      receiverID: bzModel.id,
+      receiverType: NoteReceiverType.bz,
+      title: 'Flyer has been updated',
+      body: 'This Flyer has been updated',
+      metaData: NoteModel.defaultMetaData,
+      sentTime: DateTime.now(),
+      attachment: <String>[flyerID],
+      attachmentType: NoteAttachmentType.flyersIDs,
+      seen: false,
+      seenTime: null,
+      sendFCM: false,
+      noteType: NoteType.flyerUpdate,
+      response: null,
+      responseTime: null,
+      buttons: null,
+      token: null,
+    );
+
+    await NoteFireOps.createNote(
+        context: context,
+        noteModel: _note
+    );
 
 
   }
