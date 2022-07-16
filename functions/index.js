@@ -29,7 +29,7 @@ const fcmMethods = require('./fcm_methods');
 
 // -------------------------------------
 // let bitches = bitch.sendNotificationToDevice;
-exports.sendNotificationToDevice = fcmMethods.sendNotificationToDevice;
+exports.notifyDevice = fcmMethods.fcmToDevice;
 // --------------------------------------------------------------------------
 
 // TRACERS

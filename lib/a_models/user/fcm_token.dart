@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 
@@ -38,12 +39,19 @@ class FCMToken {
     if (map != null) {
       _token = FCMToken(
         token: map['token'],
-        createdAt:
-            Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
+        createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         platform: map['platform'],
       );
     }
     return _token;
   }
+// -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
 // -------------------------------------
+  void blogToken(){
+    blog('Token : platform $platform : createdAt : $createdAt : token : $token');
+  }
+// -----------------------------------------------------------------------------
 }

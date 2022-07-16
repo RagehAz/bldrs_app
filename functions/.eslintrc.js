@@ -17,6 +17,6 @@ module.exports = {
   },
   parserOptions: {
     // Required for certain syntax usages
-    'ecmaVersion': 2020,
+    'ecmaVersion': 2017,
   },
 };
