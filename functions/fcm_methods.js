@@ -38,52 +38,96 @@ admin.initializeApp();
 //  METHODS
 
 // -------------------------------------
-const fcmToDevice = functions.firestore
+const onNoteCreation = functions.firestore
     .document('notes/{note}')
     .onCreate((snapshot, context) => {
-      functions.logger.log(
-          'fcmToDevice : START',
-      );
+      functions.logger.log('onNoteCreation : START');
       const noteModel = snapshot.data();
       const token = noteModel.token;
       const noteTitle = noteModel.notification.notification.title;
       const body = noteModel.notification.notification.body;
-      const payload = {
-        to: token,
-        mutable_content: true,
-        content_available: true,
-        priority: 'high',
+      const map = {
+        token: token,
+        notification: {
+          body: body,
+          title: noteTitle,
+        },
         data: {
-          content: {
-            id: noteModel.id,
-            title: noteTitle,
-            body: body,
-            showWhen: true,
-            autoDismissible: true,
-            privacy: 'Private',
+          hello: 'world',
+          click_action: 'FLUTTER_NOTIFICATION_CLICK',
+        },
+        // Set Android priority to "high"
+        android: {
+          priority: 'high',
+        },
+        // Add APNS (Apple) config
+        apns: {
+          payload: {
+            aps: {
+              contentAvailable: true,
+            },
+          },
+          headers: {
+            'apns-push-type': 'background',
+            'apns-priority': '5', // Must be `5` when `contentAvailable` is set to true.
+            'apns-topic': 'io.flutter.plugins.firebase.messaging', // bundle identifier
           },
         },
-        notification: {
-          title: noteTitle,
-          body: body,
-          sound: 'default',
-          badge: '1',
-          clickAction: 'FLUTTER_NOTIFICATION_CLICK',
-          data: 'bitch',
-        },
       };
-      const options = {
-        priority: 'high',
-      };
-      functions.logger.log(
-          'fcmToDevice : this will work isa 2ool yarab',
-      );
-      admin.messaging().sendToDevice(token, payload, options);
-      functions.logger.log(
-          'fcmToDevice : END',
-      );
+      functions.logger.log('onNoteCreation : isa works');
+      admin.messaging().send(map);
+      functions.logger.log('onNoteCreation : END');
       return noteModel;
     });
+// -------------------------------------
+// const oldFcmToDevice = functions.firestore
+//     .document('notes/{note}')
+//     .onCreate((snapshot, context) => {
+//       functions.logger.log(
+//           'fcmToDevice : START',
+//       );
+//       const noteModel = snapshot.data();
+//       const token = noteModel.token;
+//       const noteTitle = noteModel.notification.notification.title;
+//       const body = noteModel.notification.notification.body;
+//       const payload = {
+//         notification: {
+//           title: noteTitle,
+//           body: body,
+//           sound: 'default',
+//           badge: '1',
+//           clickAction: 'FLUTTER_NOTIFICATION_CLICK',
+//           data: 'bitch',
+//         },
+//         data: {
+//           to: token,
+//           // mutable_content: true,
+//           // content_available: true,
+//           priority: 'high',
+//           data: {
+//             content: {
+//               id: noteModel.id,
+//               title: noteTitle,
+//               body: body,
+//               // showWhen: true,
+//               // autoDismissible: true,
+//               privacy: 'Private',
+//             },
+//           },
+//         },
+//       };
+//       const options = {
+//         priority: 'high',
+//       };
+//       functions.logger.log(
+//           'fcmToDevice : this will work isa 2ool yarab',
+//       );
+//       admin.messaging().send(token, payload, options);
+//       functions.logger.log(
+//           'fcmToDevice : END',
+//       );
+//       return noteModel;
+//     });
 // -------------------------------------
 // const sendNotificationToDevice = functions.firestore
 //     .document('notes/{note}')
@@ -141,6 +185,6 @@ const fcmToDevice = functions.firestore
 // -------------------------------------
 module.exports = {
   // 'send_fcm_on_note_creation': send_fcm_on_note_creation,
-  'fcmToDevice': fcmToDevice,
+  'onNoteCreation': onNoteCreation,
 };
 // --------------------------------------------------------------------------

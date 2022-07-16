@@ -37,9 +37,10 @@ class Notifications {
   // -----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> preInitializeNotifications() async {
+
     /// THIS GOES BEFORE RUNNING THE BLDRS APP
 
-    FirebaseMessaging.onBackgroundMessage(notificationPushHandler);
+    FirebaseMessaging.onBackgroundMessage(pushNotificationFromRemoteMessage);
 
     final AwesomeNotifications _awesomeNotification = AwesomeNotifications();
 
@@ -64,7 +65,7 @@ class Notifications {
         remoteMessage: initialRemoteMessage,
       );
 
-      // can navigate here and shit
+      blog('can navigate here and shit');
 
     }
 
@@ -104,7 +105,7 @@ class Notifications {
 
     /// when app running in background and notification tapped while having
     /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
-    FirebaseMessaging.onBackgroundMessage(notificationPushHandler);
+    FirebaseMessaging.onBackgroundMessage(pushNotificationFromRemoteMessage);
 
     // fbm.getToken();
     // await _fireMessaging.subscribeToTopic('flyers');
@@ -183,7 +184,7 @@ class Notifications {
       remoteMessage: remoteMessage,
     );
 
-    await notificationPushHandler(remoteMessage);
+    await pushNotificationFromRemoteMessage(remoteMessage);
 
     // await tryAndCatch(
     //   context: context,
@@ -211,46 +212,49 @@ class Notifications {
   /// fcm on background
   //  AndroidNotificationChannel channel;
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  static Future<void> notificationPushHandler(RemoteMessage remoteMessage) async {
-
-    blogRemoteMessage(
-      methodName: 'notificationPushHandler',
-      remoteMessage: remoteMessage,
-    );
-
-    final bool _thing = await AwesomeNotifications().createNotificationFromJsonData(remoteMessage.data);
-
-    blog('thing is : $_thing');
-
-    // if (!kIsWeb) {
-    //   channel = const AndroidNotificationChannel(
-    //     'high_importance_channel', // id
-    //     'High Importance Notifications', // title
-    //     'This channel is used for important notifications.', // description
-    //     importance: Importance.high,
-    //   );
-    //
-    //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    //
-    //   /// Create an Android Notification Channel.
-    //   ///
-    //   /// We use this channel in the `AndroidManifest.xml` file to override the
-    //   /// default FCM channel to enable heads up notifications.
-    //   await flutterLocalNotificationsPlugin
-    //       .resolvePlatformSpecificImplementation<
-    //       AndroidFlutterLocalNotificationsPlugin>()
-    //       ?.createNotificationChannel(channel);
-
-    // /// Update the iOS foreground notification presentation options to allow
-    // /// heads up notifications.
-    // await FirebaseMessaging.instance
-    //     .setForegroundNotificationPresentationOptions(
-    //   alert: true,
-    //   badge: true,
-    //   sound: true,
-    // );
-    // }
-  }
+  // static Future<void> createAwesomeNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
+  //
+  //   // blogRemoteMessage(
+  //   //   methodName: 'notificationPushHandler',
+  //   //   remoteMessage: remoteMessage,
+  //   // );
+  //
+  //   await pushNotificationFromRemoteMessage(remoteMessage);
+  //
+  //
+  //   // final bool _notificationCreated = await AwesomeNotifications().createNotificationFromJsonData(remoteMessage.data);
+  //
+  //   // blog('_notificationCreated : $_notificationCreated');
+  //
+  //   // if (!kIsWeb) {
+  //   //   channel = const AndroidNotificationChannel(
+  //   //     'high_importance_channel', // id
+  //   //     'High Importance Notifications', // title
+  //   //     'This channel is used for important notifications.', // description
+  //   //     importance: Importance.high,
+  //   //   );
+  //   //
+  //   //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  //   //
+  //   //   /// Create an Android Notification Channel.
+  //   //   ///
+  //   //   /// We use this channel in the `AndroidManifest.xml` file to override the
+  //   //   /// default FCM channel to enable heads up notifications.
+  //   //   await flutterLocalNotificationsPlugin
+  //   //       .resolvePlatformSpecificImplementation<
+  //   //       AndroidFlutterLocalNotificationsPlugin>()
+  //   //       ?.createNotificationChannel(channel);
+  //
+  //   // /// Update the iOS foreground notification presentation options to allow
+  //   // /// heads up notifications.
+  //   // await FirebaseMessaging.instance
+  //   //     .setForegroundNotificationPresentationOptions(
+  //   //   alert: true,
+  //   //   badge: true,
+  //   //   sound: true,
+  //   // );
+  //   // }
+  // }
   // -----------------------------------------------------------------------------
 
   /// CREATION
@@ -271,6 +275,52 @@ class Notifications {
 
   }
    */
+  // -----------------------------------
+  static Future<void> pushNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
+
+    if (remoteMessage != null){
+
+      final String body = remoteMessage?.notification?.body;
+      final String title = remoteMessage?.notification?.title;
+      // final AndroidNotification android = remoteMessage?.notification?.android;
+      // final AppleNotification apple = remoteMessage?.notification?.apple;
+      // final String analyticsLabel = remoteMessage?.notification?.web?.analyticsLabel;
+      // final String image = remoteMessage?.notification?.web?.image;
+      // final String link = remoteMessage?.notification?.web?.link;
+      // final String bodyLocKey = remoteMessage?.notification?.bodyLocKey;
+      // final List<String> bodyLocArgs = remoteMessage?.notification?.bodyLocArgs;
+      // final String titleLocKey = remoteMessage?.notification?.titleLocKey;
+      // final List<String> titleLocArgs = remoteMessage?.notification?.titleLocArgs;
+      // final String category = remoteMessage?.category;
+      // final String collapseKey = remoteMessage?.collapseKey;
+      // final bool contentAvailable = remoteMessage?.contentAvailable;
+      // final String from = remoteMessage?.from;
+      // final String messageId = remoteMessage?.messageId;
+      // final String messageType = remoteMessage?.messageType;
+      // final bool mutableContent = remoteMessage?.mutableContent;
+      // final String senderId = remoteMessage?.senderId;
+      // final DateTime sentTime = remoteMessage?.sentTime;
+      // final String threadId = remoteMessage?.threadId;
+      // final int ttl = remoteMessage?.ttl;
+      // final Map<String, dynamic> data = remoteMessage?.data;
+
+
+      await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: Numeric.createUniqueID(limitDigits: 8),
+          channelKey: Notifications.getNotificationChannelName(FCMChannel.basic),
+          title: title,
+          body: body,
+          // bigPicture: Notifications.redBldrsBanner,
+          // notificationLayout: NotificationLayout.BigPicture,
+          // color: Colorz.yellow255,
+          // backgroundColor: Colorz.bloodTest,
+        ),
+      );
+
+    }
+
+  }
   // -----------------------------------
   static Future<void> pushNotificationFromNote(NoteModel note) async {
 
@@ -459,19 +509,18 @@ class Notifications {
     RemoteMessage remoteMessage
   }) {
 
-    final RemoteNotification remoteNotification = remoteMessage?.notification;
-    final String body = remoteNotification?.body;
-    final String title = remoteNotification?.title;
-    final AndroidNotification android = remoteNotification?.android;
-    final AppleNotification apple = remoteNotification?.apple;
-    final String analyticsLabel = remoteNotification?.web?.analyticsLabel;
-    final String image = remoteNotification?.web?.image;
-    final String link = remoteNotification?.web?.link;
+    final String body = remoteMessage?.notification?.body;
+    final String title = remoteMessage?.notification?.title;
+    final AndroidNotification android = remoteMessage?.notification?.android;
+    final AppleNotification apple = remoteMessage?.notification?.apple;
+    final String analyticsLabel = remoteMessage?.notification?.web?.analyticsLabel;
+    final String image = remoteMessage?.notification?.web?.image;
+    final String link = remoteMessage?.notification?.web?.link;
 
-    final String bodyLocKey = remoteNotification?.bodyLocKey;
-    final List<String> bodyLocArgs = remoteNotification?.bodyLocArgs;
-    final String titleLocKey = remoteNotification?.titleLocKey;
-    final List<String> titleLocArgs = remoteNotification?.titleLocArgs;
+    final String bodyLocKey = remoteMessage?.notification?.bodyLocKey;
+    final List<String> bodyLocArgs = remoteMessage?.notification?.bodyLocArgs;
+    final String titleLocKey = remoteMessage?.notification?.titleLocKey;
+    final List<String> titleLocArgs = remoteMessage?.notification?.titleLocArgs;
 
     final String category = remoteMessage?.category;
     final String collapseKey = remoteMessage?.collapseKey;
@@ -489,7 +538,6 @@ class Notifications {
     blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- START -');
 
     blog('1 - METHOD NAMED : $methodName');
-    blog('2 - remoteNotification : $remoteNotification');
     blog('3 - category : $category');
     blog('4 - collapseKey : $collapseKey');
     blog('5 - contentAvailable : $contentAvailable');
@@ -514,6 +562,7 @@ class Notifications {
     blog('24 - titleLocKey : $titleLocKey');
     blog('25 - titleLocArgs : $titleLocArgs');
 
+    // click_action : FLUTTER_NOTIFICATION_CLICK
 
     blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
   }
