@@ -41,7 +41,6 @@ class SpecializedLabs extends StatelessWidget {
 // -----------------------------------------------------------------------------
   List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
-
     final List<DashButtonModel> _buttons = <DashButtonModel>[
 
       /// DYNAMIC LINKS TEST
