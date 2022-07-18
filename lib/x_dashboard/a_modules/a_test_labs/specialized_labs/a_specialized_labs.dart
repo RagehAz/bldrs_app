@@ -13,6 +13,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/keyboard_field_widget_test.dart';
@@ -42,6 +43,13 @@ class SpecializedLabs extends StatelessWidget {
 
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// DYNAMIC LINKS TEST
+      DashButtonModel(
+        verse: 'Dynamic Links',
+        icon: Iconz.reload,
+        screen: const DynamicLinksTestScreen(),
+      ),
 
       /// THE GO BACK WIDGET
       DashButtonModel(

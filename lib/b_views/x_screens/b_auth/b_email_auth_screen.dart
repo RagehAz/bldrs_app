@@ -75,12 +75,15 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 
     closeKeyboard(context);
 
-    await authByEmailSignIn(
-      context: context,
-      email: _emailController.text,
-      password: _passwordController.text,
-      formKey: _formKey,
-    );
+    if (mounted == true){
+      await authByEmailSignIn(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        formKey: _formKey,
+      );
+    }
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSignup() async {

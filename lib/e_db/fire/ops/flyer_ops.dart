@@ -774,7 +774,7 @@ class FlyerFireOps {
     blog('deleteMultipleBzFlyers : start');
 
     /// NOTE : just in case, this filters flyers IDs and only delete those already in the bzModel.flyersIDs
-    BzModel _bzModel = bzModel;
+    BzModel _bzModel = bzModel.copyWith();
 
     if (Mapper.checkCanLoopList(flyersToDelete) == true && bzModel != null){
 
