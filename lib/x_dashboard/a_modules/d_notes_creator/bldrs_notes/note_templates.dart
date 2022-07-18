@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 
 const List<NoteModel> noteTemplates = <NoteModel>[
 
