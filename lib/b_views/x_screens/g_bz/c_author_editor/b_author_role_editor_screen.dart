@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/author_label.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';

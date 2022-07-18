@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/b_slide_editor_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;

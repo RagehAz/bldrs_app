@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/structure/a_chains_drawer_starter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_field/a_keyboard_floating_field.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
