@@ -52,11 +52,11 @@ class TopDialog extends StatelessWidget {
 
     await Flushbar(
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
-      dismissDirection: FlushbarDismissDirection.VERTICAL,
-      flushbarPosition: FlushbarPosition.TOP,
-      flushbarStyle: FlushbarStyle.FLOATING,
-      isDismissible: true,
-      blockBackgroundInteraction: false, // prevents gestures on background widgets
+      // dismissDirection: FlushbarDismissDirection.VERTICAL,
+      // flushbarPosition: FlushbarPosition.TOP,
+      // flushbarStyle: FlushbarStyle.FLOATING,
+      // isDismissible: true,
+      // blockBackgroundInteraction: false, // prevents gestures on background widgets
 
       /// SIZING ----------------------------------------------
       maxWidth: _screenWidth,
@@ -65,12 +65,12 @@ class TopDialog extends StatelessWidget {
       margin: const EdgeInsets.all(Ratioz.appBarMargin),
 
       /// COLORING ----------------------------------------------
-      routeColor: null, // SCREEN BACKGROUND COLOR
+      // routeColor: null, // SCREEN BACKGROUND COLOR
       backgroundColor: color, // DIALOG BACKGROUND COLOR
       // barBlur: 50,
-      backgroundGradient: null,
+      // backgroundGradient: null,
       boxShadows: Shadowz.appBarShadow,
-      routeBlur: null,
+      // routeBlur: null,
 
       /// BORDERS ----------------------------------------------
       // borderColor: Colorz.Black255,
@@ -83,10 +83,10 @@ class TopDialog extends StatelessWidget {
       reverseAnimationCurve: Curves.easeInOut,
 
       ///   LEFT BAR INDICATOR ----------------------------------------------
-      leftBarIndicatorColor: null,
+      // leftBarIndicatorColor: null,
 
       /// LEADING ----------------------------------------------
-      icon: null,
+      // icon: null,
 
       /// TITLE ----------------------------------------------
       titleText: Container(
@@ -124,11 +124,11 @@ class TopDialog extends StatelessWidget {
 
       /// BODY ----------------------------------------------
       messageText: const SizedBox(),
-      messageColor: null,
-      messageSize: null,
+      // messageColor: null,
+      // messageSize: null,
 
       /// ACTION BUTTON ----------------------------------------------
-      mainButton: null,
+      // mainButton: null,
       // DreamBox(
       //   height: 40,
       //   width: 100,
@@ -137,7 +137,7 @@ class TopDialog extends StatelessWidget {
       // ),
 
       /// PROGRESS INDICATOR ----------------------------------------------
-      showProgressIndicator: false,
+      // showProgressIndicator: false,
       progressIndicatorBackgroundColor: Colorz.yellow255,
       // progressIndicatorController: AnimationController(),
       // progressIndicatorValueColor: ,
@@ -176,23 +176,23 @@ class TopDialog extends StatelessWidget {
       onTap: onTap,
       duration: const Duration(milliseconds: 5000),
       title: 'wtf',
-      padding: EdgeInsets.zero,
-      margin: EdgeInsets.zero,
+      // padding: EdgeInsets.zero,
+      // margin: EdgeInsets.zero,
       borderRadius: Borderers.superBorderAll(context, 0),
       animationDuration: const Duration(milliseconds: 5000),
       backgroundColor: Colorz.black10,
       barBlur: 5,
-      backgroundGradient: null,
+      // backgroundGradient: null,
       blockBackgroundInteraction: true,
-      borderColor: null,
+      // borderColor: null,
       borderWidth: _screenWidth,
-      dismissDirection: FlushbarDismissDirection.VERTICAL,
+      // dismissDirection: FlushbarDismissDirection.VERTICAL,
       flushbarPosition: FlushbarPosition.TOP,
       boxShadows: const <BoxShadow>[],
       endOffset: Offset.zero,
-      flushbarStyle: FlushbarStyle.FLOATING,
+      // flushbarStyle: FlushbarStyle.FLOATING,
       forwardAnimationCurve: Curves.easeInOut,
-      isDismissible: true,
+      // isDismissible: true,
       leftBarIndicatorColor: Colorz.blue125,
       mainButton: const DreamBox(
         height: 40,
@@ -210,14 +210,14 @@ class TopDialog extends StatelessWidget {
       onStatusChanged: (FlushbarStatus status) {
         blog('status is : $status');
       },
-      positionOffset: 0,
+      // positionOffset: 0,
       progressIndicatorBackgroundColor: Colorz.cyan50,
       // progressIndicatorController: AnimationController(),
       // progressIndicatorValueColor: ,
       reverseAnimationCurve: Curves.easeInOut,
       routeBlur: 0,
       routeColor: Colorz.black255,
-      shouldIconPulse: true,
+      // shouldIconPulse: true,
       showProgressIndicator: true,
       titleColor: Colorz.bloodTest,
       titleSize: 15,

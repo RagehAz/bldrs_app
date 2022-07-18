@@ -31,7 +31,7 @@ class QuestionFullScreen extends StatelessWidget {
 
     return DismissiblePage(
       key: const ValueKey<String>('QuestionFullScreen_DismissiblePage'),
-      onDismiss: () => _onDismiss(context),
+      onDismissed: () => _onDismiss(context),
       isFullScreen: false,
       dragSensitivity: .4,
       maxTransformValue: 4,

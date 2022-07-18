@@ -1,5 +1,15 @@
 /// TASK : ASSERT THAT DEVICE CLOCK IS SYNCED WITH ACTUAL INTERNET CLOCK
 
+/*
+
+Package Name                              Current   Upgradable  Resolvable  Latest
+
+direct dependencies:
+
+path                                      *1.8.1    *1.8.1      *1.8.1      1.8.2
+
+ */
+
 // Future<void> bypassUpdate() async {
 //
 //   await _nourBypassEndPoint(
