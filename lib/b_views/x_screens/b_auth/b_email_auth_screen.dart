@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/b_views/x_screens/b_auth/bb_email_auth_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/b_auth_controllers/auth_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:flutter/material.dart';
