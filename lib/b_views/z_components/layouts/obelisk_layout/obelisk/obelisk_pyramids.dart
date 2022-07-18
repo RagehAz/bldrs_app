@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:provider/provider.dart';
 
 class ObeliskPyramids extends StatelessWidget {

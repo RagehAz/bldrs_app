@@ -9,7 +9,7 @@
 // import 'package:bldrs/f_helpers/drafters/mappers.dart';
 // import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 // import 'package:bldrs/f_helpers/theme/colorz.dart';
-// import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+// import 'package:bldrs/f_helpers/theme/iconz.dart';
 // import 'package:bldrs/f_helpers/theme/ratioz.dart';
 // import 'package:bldrs/f_helpers/theme/standards.dart';
 // import 'package:flutter/material.dart';

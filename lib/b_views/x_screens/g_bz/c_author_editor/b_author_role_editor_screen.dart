@@ -12,7 +12,7 @@ import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_ed
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class AuthorRoleEditorScreen extends StatefulWidget {
