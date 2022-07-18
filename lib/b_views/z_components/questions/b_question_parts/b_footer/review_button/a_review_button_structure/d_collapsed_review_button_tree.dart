@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class QuestionCollapsedReviewButtonTree extends StatelessWidget {
