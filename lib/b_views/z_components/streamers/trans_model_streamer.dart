@@ -19,7 +19,7 @@ Widget phrasesStreamBuilder({
 
     StreamBuilder(
         stream: stream,
-        initialData: null,
+        // initialData: null,
         builder: (BuildContext ctx, AsyncSnapshot<List<Phrase>> snapshot){
 
           // blog('snapshot is : $snapshot');

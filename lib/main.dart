@@ -46,6 +46,7 @@ Future<void> main() async {
   await Notifications.preInitializeNotifications();
 
   runApp(const BldrsApp());
+
 }
 
 class BldrsApp extends StatefulWidget {
