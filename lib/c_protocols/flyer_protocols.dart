@@ -37,7 +37,6 @@ class FlyerProtocol {
       context: context,
       listen: false,
     );
-    blog('FlyerProtocol.bz flyers IDs before upload : ${_bzModel.flyersIDs}');
 
     /// FIRE BASE --------------------------------------
     final Map<String, dynamic> _uploadedFlyerAndBz = await FlyerFireOps.createFlyerOps(
@@ -57,7 +56,6 @@ class FlyerProtocol {
       flyers: <FlyerModel>[..._bzzProvider.myActiveBzFlyers, _uploadedFlyer],
       notify: false,
     );
-    blog('FlyerProtocol.onPublish flyer : myActiveBzFlyers on provider updated');
 
     blog('FlyerProtocol.createFlyerByActiveBzProtocol : END');
 
