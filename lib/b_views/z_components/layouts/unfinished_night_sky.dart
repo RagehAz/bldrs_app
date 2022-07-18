@@ -1,160 +1,10 @@
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-
-//double  _width = 500.0;
-//double _height = 500.0;
-// const _durations = <Duration>[
-// //  Duration(seconds: 1),
-//   Duration(seconds: 10),
-//   Duration(seconds: 3),
-//   Duration(seconds: 6),
-//   Duration(seconds: 5),
-//   Duration(seconds: 2),
-// ];
-// final _random = math.Random();
-
-// class NightSky extends StatefulWidget {
-//   final SkyType sky;
-//
-//   const NightSky({
-//     this.sky,
-// });
-//
-//   @override
-//   _NightSkyState createState() => _NightSkyState();
-//   }
-//
-//
-// class _NightSkyState extends State<NightSky> with TickerProviderStateMixin {
-//   // final _controllers = <AnimationController>[];
-//   //Animation _animation;
-// // -----------------------------------------------------------------------------
-//   @override
-//   void initState() {
-//     super.initState();
-//     // _durations.forEach((Duration d) {
-//     //   _controllers.add(AnimationController(
-//     //     vsync: this, // the SingleTickerProviderStateMixin
-//     //     duration: d,
-//     //   ));
-//     // }
-//   }
-// // -----------------------------------------------------------------------------
-//   @override
-//   void dispose() {
-//     // _controllers.forEach((AnimationController c) => c.dispose());
-//     super.dispose(); /// tamam
-//   }
-// // -----------------------------------------------------------------------------
-// //     for (final controller in _controllers) {
-// //       controller.addStatusListener((AnimationStatus status) {
-// //         if (status == AnimationStatus.completed) {
-// //           controller.reverse();
-// //         } else if (status == AnimationStatus.dismissed) {
-// //           controller.forward();
-// //         }
-// //       });
-// //       controller.forward();
-// //     }
-// //   }
-// // -----------------------------------------------------------------------------
-// //     Color _starsColor = Colorz.White255;
-// // -----------------------------------------------------------------------------
-// //   Widget _createAnimatedStars(context) {
-// //
-// //     double _screenWidth = Scale.superScreenWidth(context);
-// //     double _screenHeight = Scale.superScreenHeight(context);
-// //
-// //     final _customController = _controllers[_random.nextInt(4)];
-// //     final _colorTween = ColorTween(begin: _starsColor, end: Colors.transparent);
-// //     final _tweenAnimation = _colorTween.animate(_customController);
-// //     final _positionAnimation = CurveTween(curve: ElasticInCurve()).animate(_customController);
-// //     final _pieceSize = 0.5;
-// //     final _topOffset = _random.nextDouble() * (_screenHeight - _pieceSize);
-// //     final _leftOffset = _random.nextDouble() * (_screenWidth - _pieceSize);
-// //
-// //     return AnimatedBuilder(
-// //       animation: _customController,
-// //       builder: (BuildContext context, Widget widget) {
-// //         final piece = Container(
-// //             width: _pieceSize, height: _pieceSize, color: _tweenAnimation.value);
-// //
-// //         return Positioned(
-// //           top: _topOffset + (_positionAnimation.value * _random.nextInt(5)),
-// //           left: _leftOffset + (_positionAnimation.value * _random.nextInt(5)),
-// //           child: piece,
-// //         );
-// //       },
-// //     );
-// //   }
-// // -----------------------------------------------------------------------------
-// //   List<Widget> _createStars(int numberOfStars) {
-// //     final pieces = <Widget>[];
-// //     //for (var i = 0; i< numPieces; i++) {
-// //     //    pieces.add(_createStateStars());
-// //     //  }
-// //     for (var i = 0; i < numberOfStars; i++) {
-// //       pieces.add(_createAnimatedStars(context));
-// //     }
-// //     //for (var i = 0; i < numPieces; i++) {
-// //     //    pieces.add(_createReverseStars());
-// //     //  }
-// //     return pieces;
-// //   }
-// // -----------------------------------------------------------------------------
-//   @override
-//   Widget build(BuildContext context) {
-// // -----------------------------------------------------------------------------
-//     final double _screenWidth = Scale.superScreenWidth(context);
-//     final double _screenHeight = Scale.superScreenHeight(context);
-// // -----------------------------------------------------------------------------
-//     final List<Color> _skyColors =
-//     widget.sky == SkyType.Night ? <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue] :
-//         widget.sky == SkyType.Black ? <Color>[Colorz.blackSemi230, Colorz.blackSemi230] :
-//         <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
-// // -----------------------------------------------------------------------------
-//     final Gradient _skyGradient =
-//     widget.sky == SkyType.Night || widget.sky == SkyType.Black ? RadialGradient(
-//         center: const Alignment(0.75, 1.25),
-//         radius: 1,
-//         colors: _skyColors,
-//         stops: const <double>[0.0, 0.65]
-//     ) : null;
-// // -----------------------------------------------------------------------------
-//     final Color _plainColor = widget.sky == SkyType.Night || widget.sky == SkyType.Black ? null : Colorz.skyDarkBlue;
-// // -----------------------------------------------------------------------------
-//     return Container(
-//       width: _screenWidth,
-//       height: _screenHeight,
-//
-//       // the linear Gradient test
-//       //            decoration: BoxDecoration(
-//       //              gradient: LinearGradient(
-//       //                  begin: Alignment.topCenter,
-//       //                  end: Alignment.bottomCenter,
-//       //                  stops: [0.95,1],
-//       //                  colors: [
-//       //                    Color.fromARGB(1000, 0, 19, 56), // Dark
-//       //                    Color.fromARGB(1000, 0, 82, 137), // Medium
-//       ////                  Color.fromARGB(1000, 0, 71, 123), // Light
-//       //                  ]
-//       //              ),
-//       //            ), // Line
-//
-//       /// Radial Gradient test
-//       decoration: BoxDecoration(
-//           color: _plainColor,
-//           gradient: _skyGradient
-//       ),
-//
-//       // child: Stack(children: _createStars(100)),
-//
-//     );
-//   }
-// }
-
-// -----------------------------------------------------------------------------
 
 class Sky extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -168,19 +18,39 @@ class Sky extends StatelessWidget {
   final SkyType skyType;
   final bool gradientIsOn;
   /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
-// -----------------------------------------------------------------------------
+  static List<Color> _getSkyColors({
+    @required SkyType skyType,
+  }){
+
     final List<Color> _skyColors = skyType == SkyType.night ? <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue]
         :
     skyType == SkyType.black ?
     <Color>[Colorz.blackSemi230, Colorz.blackSemi230]
         :
     <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
+
+    return _skyColors;
+  }
 // -----------------------------------------------------------------------------
+  static Color _getBaseColor({
+    @required SkyType skyType,
+}){
+
+    final Color _baseColor = skyType == SkyType.night || skyType == SkyType.black ?
+    null
+        :
+    Colorz.skyDarkBlue;
+
+    return _baseColor;
+  }
+// -----------------------------------------------------------------------------
+  static Gradient _getSkyGradient({
+    @required SkyType skyType,
+    @required bool gradientIsOn,
+  }){
+
+    final List<Color> _skyColors = _getSkyColors(skyType: skyType);
+
     final Gradient _skyGradient = gradientIsOn == true ?
     RadialGradient(
         center: const Alignment(0.75, 1.25),
@@ -190,11 +60,22 @@ class Sky extends StatelessWidget {
     )
         :
     null;
+
+    return _skyGradient;
+  }
 // -----------------------------------------------------------------------------
-    final Color _plainColor =
-        skyType == SkyType.night || skyType == SkyType.black
-            ? null
-            : Colorz.skyDarkBlue;
+  @override
+  Widget build(BuildContext context) {
+// -----------------------------------------------------------------------------
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
+// -----------------------------------------------------------------------------
+    final Gradient _skyGradient = _getSkyGradient(
+      skyType: skyType,
+      gradientIsOn: gradientIsOn,
+    );
+// -----------------------------------------------------------------------------
+    final Color _plainColor = _getBaseColor(skyType: skyType);
 // -----------------------------------------------------------------------------
     return Container(
       key: key,
@@ -204,9 +85,136 @@ class Sky extends StatelessWidget {
           color: _plainColor,
           gradient: _skyGradient
       ),
+      child: const SkyStars(),
     );
   }
 }
+
+class SkyStars extends StatelessWidget {
+
+  const SkyStars({
+    Key key
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    // -----------------------------------------------------------------------------
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
+// -----------------------------------------------------------------------------
+
+    blog('wtf');
+
+    return SizedBox(
+      width: _screenWidth,
+      height: _screenHeight,
+      child: Stack(
+        children: const <Widget>[
+
+          StarsLayer(
+            numberOfStars: 10,
+            seconds: 3,
+          ),
+
+          StarsLayer(
+            numberOfStars: 20,
+            color: Colorz.yellow255,
+            seconds: 5,
+          ),
+
+          StarsLayer(
+            numberOfStars: 80,
+            color: Colorz.white125,
+            seconds: 8,
+          ),
+
+        ],
+      ),
+    );
+
+  }
+}
+
+class StarsLayer extends StatelessWidget {
+
+  const StarsLayer({
+    @required this.numberOfStars,
+    this.seconds = 2,
+    this.minOpacity = 0,
+    this.maxOpacity = 1,
+    this.color = Colorz.white255,
+    this.starSize = 1,
+    Key key
+  }) : super(key: key);
+
+  final int numberOfStars;
+  final int seconds;
+  final double minOpacity;
+  final double maxOpacity;
+  final Color color;
+  final double starSize;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return WidgetFader(
+      fadeType: FadeType.repeatAndReverse,
+      min: minOpacity,
+      max: maxOpacity,
+      duration: Duration(seconds: seconds),
+      child: Stack(
+        children: <Widget>[
+
+          ...List.generate(numberOfStars, (index){
+            return RandomStar(
+              size: starSize,
+              color: color,
+            );
+          }),
+
+        ],
+      ),
+    );
+
+  }
+}
+
+class RandomStar extends StatelessWidget {
+
+  const RandomStar({
+    @required this.size,
+    @required this.color,
+    Key key
+  }) : super(key: key);
+
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.superScreenHeight(context);
+
+    return Positioned(
+      left: (createRandomIndex(listLength: 100) / 100) * _screenWidth,
+      bottom: (createRandomIndex(listLength: 100) / 100) * _screenHeight,
+      child: Container(
+        width: size,
+        height: size,
+        color: color,
+        child: SuperImage(
+          width: size,
+          height: size,
+          pic: Iconz.,
+        ),
+      ),
+    );
+
+  }
+}
+
 
 // -----------------------------------------------------------------------------
 enum SkyType {

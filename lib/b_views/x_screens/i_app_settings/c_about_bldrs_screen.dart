@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart'
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class AboutBldrsScreen extends StatelessWidget {

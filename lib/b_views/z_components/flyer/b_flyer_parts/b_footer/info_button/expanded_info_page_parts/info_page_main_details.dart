@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class InfoPageMainDetails extends StatelessWidget {
