@@ -7,7 +7,7 @@ import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa8_bz_settin
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart' as Iconz;
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class BzSettingsPage extends StatefulWidget {
