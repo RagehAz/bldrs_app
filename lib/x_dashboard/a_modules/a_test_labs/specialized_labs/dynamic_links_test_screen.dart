@@ -1,13 +1,26 @@
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
-class DynamicLinksTestScreen extends StatelessWidget {
-
+class DynamicLinksTestScreen extends StatefulWidget {
+  /// --------------------------------------------------------------------------
   const DynamicLinksTestScreen({
     Key key
   }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  @override
+  State<DynamicLinksTestScreen> createState() => _DynamicLinksTestScreenState();
+/// --------------------------------------------------------------------------
+}
+
+class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +30,21 @@ class DynamicLinksTestScreen extends StatelessWidget {
         columnChildren: <Widget>[
 
           WideButton(
-            verse: 'Dynamic Link Shit',
-            onTap: (){
+            verse: 'Initialize dynamic Links',
+            onTap: () async {
 
-              blog('Fuck You Bitch');
+              await DynamicLinks.initDynamicLinks(context);
+
+            },
+          ),
+
+          WideButton(
+            verse: 'Create dynamic Link',
+            onTap: () async {
+
+              final Uri _uri = await DynamicLinks.createDynamicLink();
+
+              DynamicLinks.blogURI(_uri);
 
             },
           ),
