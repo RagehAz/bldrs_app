@@ -52,7 +52,7 @@ class GeneralStatistics extends StatelessWidget {
           collName: FireColl.admin,
           docName: 'statistics',
         ),
-        initialData: null,
+        // initialData: null,
         builder: (BuildContext context, AsyncSnapshot<Object> snapshot) {
 
           if (StreamChecker.connectionIsLoading(snapshot) == true) {

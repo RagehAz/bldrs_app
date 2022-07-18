@@ -167,7 +167,7 @@ Future<File> cropImage({
   const double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
   const double _maxWidth = 1000;
 
-  final File _croppedFile = await ImageCropper().cropImage(
+  final CroppedFile _croppedFile = await ImageCropper().cropImage(
     sourcePath: file.path,
     aspectRatio: const CropAspectRatio(
         ratioX: 1,
@@ -184,32 +184,36 @@ Future<File> cropImage({
     compressQuality: 100, // max
     cropStyle: CropStyle.rectangle,
     maxHeight: (_maxWidth * _flyerHeightRatio).toInt(),
-    androidUiSettings: const AndroidUiSettings(
-      initAspectRatio: CropAspectRatioPreset.square,
-      lockAspectRatio: false,
+    uiSettings: <PlatformUiSettings>[
 
-      statusBarColor: Colorz.black255,
-      backgroundColor: Colorz.black230,
-      dimmedLayerColor: Colorz.black200,
+      AndroidUiSettings(
+        initAspectRatio: CropAspectRatioPreset.square,
+        lockAspectRatio: false,
 
-      toolbarTitle:
-          'Crop Image', //'Crop flyer Aspect Ratio 1:${Ratioz.xxflyerZoneHeight}',
-      toolbarColor: Colorz.black255,
-      toolbarWidgetColor:
-          Colorz.white255, // color of : cancel, title, confirm widgets
+        statusBarColor: Colorz.black255,
+        backgroundColor: Colorz.black230,
+        dimmedLayerColor: Colorz.black200,
 
-      activeControlsWidgetColor: Colorz.yellow255,
-      hideBottomControls: false,
+        toolbarTitle:
+        'Crop Image', //'Crop flyer Aspect Ratio 1:${Ratioz.xxflyerZoneHeight}',
+        toolbarColor: Colorz.black255,
+        toolbarWidgetColor:
+        Colorz.white255, // color of : cancel, title, confirm widgets
 
-      cropFrameColor: Colorz.grey80,
-      cropFrameStrokeWidth: 5,
+        activeControlsWidgetColor: Colorz.yellow255,
+        hideBottomControls: false,
 
-      showCropGrid: true,
-      cropGridColumnCount: 3,
-      cropGridRowCount: 6,
-      cropGridColor: Colorz.grey80,
-      cropGridStrokeWidth: 2,
-    ),
+        cropFrameColor: Colorz.grey80,
+        cropFrameStrokeWidth: 5,
+
+        showCropGrid: true,
+        cropGridColumnCount: 3,
+        cropGridRowCount: 6,
+        cropGridColor: Colorz.grey80,
+        cropGridStrokeWidth: 2,
+      ),
+
+    ],
 
     /// TASK : check cropper in ios
     // iosUiSettings: IOSUiSettings(
@@ -237,7 +241,7 @@ Future<File> cropImage({
   if (_croppedFile == null) {
     return null;
   } else {
-    return _croppedFile;
+    return File(_croppedFile.path);
   }
 }
 // -----------------------------------------------------------------
