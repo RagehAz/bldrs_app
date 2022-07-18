@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/d_author_search/aa_search_for_author_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/d_author_search/a_author_search_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:flutter/material.dart';

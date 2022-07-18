@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
-import 'package:bldrs/b_views/z_components/layouts/unfinished_night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/slides_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
