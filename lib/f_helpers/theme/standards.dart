@@ -5,7 +5,19 @@ import 'package:flutter/foundation.dart';
 class Standards {
 
   Standards();
+// -----------------------------------------------------------------------------
 
+  /// APP STANDARDS
+
+// ----------------------------------
+  static const String androidPackageName = 'com.bldrs.net';
+  static const String iosBundleID = 'com.bldrs.net';
+  static const String databaseURL = 'https://bldrsnet.firebaseio.com';
+  static const String storageBucket = 'bldrsnet.appspot.com';
+  static const String projectID = 'bldrsnet';
+  static const String dynamicLinksPrefix = 'https://bldrs.page.link';
+
+  static const String ragehImageURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/users%2FXvwGvt42RFhvcz5CYr8xFujzI5F2.jpg?alt=media&token=99b37689-c553-4eed-a14f-b6530a393b45';
 // -----------------------------------------------------------------------------
 
 /// FLYER STANDARDS

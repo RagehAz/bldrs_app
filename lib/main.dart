@@ -106,7 +106,7 @@ class _BldrsAppState extends State<BldrsApp> {
         await Notifications.initializeNotifications(context);
 
         /// DYNAMIC LINKS
-        await DynamicLinksApi().initializeDynamicLinks(context);
+        await DynamicLinks.initializeDynamicLinks(context);
 
         /// END
         await _triggerLoading();
