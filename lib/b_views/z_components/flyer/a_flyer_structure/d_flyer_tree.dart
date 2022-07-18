@@ -103,7 +103,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     );
     // ------------------------------------------
 
-    blog('FLYER IN FLIGHT : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
+    blog('FLYER IN FLIGHT [ ${widget.flyerModel.id} ] : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
 
     _canShowGallery = canShowGalleryPage(
       bzModel: widget.bzModel,
