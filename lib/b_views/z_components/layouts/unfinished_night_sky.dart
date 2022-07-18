@@ -4,8 +4,9 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-
+// -----------------------------------------------------------------------------
 class Sky extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Sky({
@@ -13,7 +14,6 @@ class Sky extends StatelessWidget {
     this.gradientIsOn = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final SkyType skyType;
   final bool gradientIsOn;
@@ -85,16 +85,21 @@ class Sky extends StatelessWidget {
           color: _plainColor,
           gradient: _skyGradient
       ),
-      child: const SkyStars(),
+      child: SkyStars(
+        starsAreOn: skyType == SkyType.blackStars || skyType == SkyType.nightStars,
+      ),
     );
   }
 }
-
+// -----------------------------------------------------------------------------
 class SkyStars extends StatelessWidget {
 
   const SkyStars({
+    @required this.starsAreOn,
     Key key
   }) : super(key: key);
+
+  final bool starsAreOn;
 
   @override
   Widget build(BuildContext context) {
@@ -106,36 +111,58 @@ class SkyStars extends StatelessWidget {
 
     blog('wtf');
 
-    return SizedBox(
-      width: _screenWidth,
-      height: _screenHeight,
-      child: Stack(
-        children: const <Widget>[
+    if (starsAreOn == false){
+      return const SizedBox();
+    }
 
-          StarsLayer(
-            numberOfStars: 10,
-            seconds: 3,
-          ),
+    else {
+      return SizedBox(
+        width: _screenWidth,
+        height: _screenHeight,
+        child: Stack(
+          children: const <Widget>[
 
-          StarsLayer(
-            numberOfStars: 20,
-            color: Colorz.yellow255,
-            seconds: 5,
-          ),
+            StarsLayer(
+              numberOfStars: 1,
+              seconds: 3,
+              starSize: 4,
+            ),
 
-          StarsLayer(
-            numberOfStars: 80,
-            color: Colorz.white125,
-            seconds: 8,
-          ),
+            StarsLayer(
+              numberOfStars: 1,
+              seconds: 6,
+              starSize: 5,
+            ),
 
-        ],
-      ),
-    );
+            StarsLayer(
+              numberOfStars: 10,
+              color: Colorz.yellow255,
+              seconds: 5,
+              starSize: 3,
+            ),
+
+            StarsLayer(
+              numberOfStars: 5,
+              color: Colorz.yellow255,
+              seconds: 2,
+              starSize: 2.5,
+            ),
+
+            StarsLayer(
+              numberOfStars: 80,
+              color: Colorz.white125,
+              seconds: 8,
+              starSize: 2,
+            ),
+
+          ],
+        ),
+      );
+    }
 
   }
 }
-
+// -----------------------------------------------------------------------------
 class StarsLayer extends StatelessWidget {
 
   const StarsLayer({
@@ -179,7 +206,7 @@ class StarsLayer extends StatelessWidget {
 
   }
 }
-
+// -----------------------------------------------------------------------------
 class RandomStar extends StatelessWidget {
 
   const RandomStar({
@@ -200,26 +227,22 @@ class RandomStar extends StatelessWidget {
     return Positioned(
       left: (createRandomIndex(listLength: 100) / 100) * _screenWidth,
       bottom: (createRandomIndex(listLength: 100) / 100) * _screenHeight,
-      child: Container(
+      child: SuperImage(
         width: size,
         height: size,
-        color: color,
-        child: SuperImage(
-          width: size,
-          height: size,
-          pic: Iconz.,
-        ),
+        pic: Iconz.star,
+        iconColor: color,
       ),
     );
 
   }
 }
-
-
 // -----------------------------------------------------------------------------
 enum SkyType {
   night,
   black,
+  nightStars,
+  blackStars,
   non,
 }
 // -----------------------------------------------------------------------------
