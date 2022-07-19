@@ -1,3 +1,5 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -31,13 +33,15 @@ enum ModelType{
   bz,
   question,
   answer,
-  review,
+  // review,
+  user,
 }
 
 enum RecordDetailsType{
   slideIndexDuration,
   text,
   questionID,
+  answerID,
 }
 
 @immutable
@@ -68,14 +72,15 @@ class RecordModel {
   final FieldValue serverTimeStamp;
 // -----------------------------------------------------------------------------
 
-  /// MODEL CYPHERS
+  /// CYPHERS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, Object> toMap({
     @required bool toJSON,
   }) {
     return <String, Object>{
-      'activityType' : cipherActivityType(recordType),
+      'recordType' : cipherRecordType(recordType),
       'userID' : userID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
       'modelType' : cipherModelType(modelType),
@@ -88,6 +93,7 @@ class RecordModel {
     };
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static RecordModel decipherRecord({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -97,7 +103,7 @@ class RecordModel {
     if (map != null) {
 
       _record = RecordModel(
-        recordType: decipherActivityType(map['activityType']),
+        recordType: decipherRecordType(map['recordType']),
         userID: map['userID'],
         recordID: map['id'],
         timeStamp: Timers.decipherTime(
@@ -117,10 +123,11 @@ class RecordModel {
     return _record;
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherRecords({
     @required List<RecordModel> records,
     @required bool toJSON,
-  }){
+  }) {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -138,6 +145,7 @@ class RecordModel {
     return _maps;
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static List<RecordModel> decipherRecords({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -165,8 +173,9 @@ class RecordModel {
   /// RECORD TYPE CYPHERS
 
 // ---------------------------------
-  static String cipherActivityType(RecordType activity) {
-    switch (activity) {
+  /// TESTED : WORKS PERFECT
+  static String cipherRecordType(RecordType recordType) {
+    switch (recordType) {
       case RecordType.follow:         return 'follow';          break;
       case RecordType.unfollow:       return 'unfollow';        break;
       case RecordType.call:           return 'call';            break;
@@ -188,8 +197,9 @@ class RecordModel {
     }
   }
 // ---------------------------------
-  static RecordType decipherActivityType(String activity) {
-    switch (activity) {
+  /// TESTED : WORKS PERFECT
+  static RecordType decipherRecordType(String type) {
+    switch (type) {
       case 'follow':          return RecordType.follow;         break;
       case 'unfollow':        return RecordType.unfollow;       break;
       case 'call':            return RecordType.call;           break;
@@ -215,46 +225,80 @@ class RecordModel {
   /// MODEL TYPE CYPHERS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherModelType(ModelType modelType){
     switch (modelType){
       case ModelType.flyer:     return 'flyer';     break;
       case ModelType.bz:        return 'bz';        break;
       case ModelType.question:  return 'question';  break;
       case ModelType.answer:    return 'answer';    break;
-      case ModelType.review:    return 'review';    break;
+      // case ModelType.review:    return 'review';    break;
+      case ModelType.user:      return 'user';      break;
       default: return null;
     }
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static ModelType decipherModelType(String modelType){
     switch (modelType){
       case 'flyer':     return ModelType.flyer;     break;
       case 'bz':        return ModelType.bz;        break;
       case 'question':  return ModelType.question;  break;
       case 'answer':    return ModelType.answer;    break;
-      case 'review':    return ModelType.review;    break;
+      // case 'review':    return ModelType.review;    break;
+      case 'user':      return ModelType.user;      break;
       default: return null;
     }
+  }
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
+  static ModelType getModelTypeByRecordType(RecordType recordType){
+
+    switch(recordType){
+      case RecordType.follow          : return ModelType.bz; break;
+      case RecordType.unfollow        : return ModelType.bz; break;
+      case RecordType.call            : return ModelType.bz; break;
+      case RecordType.share           : return ModelType.flyer; break;
+      case RecordType.view            : return ModelType.flyer; break;
+      case RecordType.save            : return ModelType.flyer; break;
+      case RecordType.unSave          : return ModelType.flyer; break;
+      case RecordType.createReview    : return ModelType.flyer; break;
+      case RecordType.editReview      : return ModelType.flyer; break;
+      case RecordType.deleteReview    : return ModelType.flyer; break;
+      case RecordType.createQuestion  : return ModelType.question; break;
+      case RecordType.editQuestion    : return ModelType.question; break;
+      case RecordType.deleteQuestion  : return ModelType.question; break;
+      case RecordType.createAnswer    : return ModelType.question; break;
+      case RecordType.editAnswer      : return ModelType.question; break;
+      case RecordType.deleteAnswer    : return ModelType.question; break;
+      case RecordType.search          : return ModelType.user; break;
+      default: return null;
+    }
+
   }
 // -----------------------------------------------------------------------------
 
   /// RECORD DETAILS CYPHERS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static String _cipherRecordDetailsType(RecordDetailsType recordDetailsType){
     switch (recordDetailsType){
       case RecordDetailsType.slideIndexDuration:  return 'slideIndex';  break;
       case RecordDetailsType.text:                return 'text';        break;
       case RecordDetailsType.questionID:          return 'questionID';  break;
+      case RecordDetailsType.answerID:            return 'answerID';    break;
       default: return null;
     }
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static RecordDetailsType _decipherRecordDetailsType(String recordDetailsType){
     switch (recordDetailsType){
       case 'slideIndex':  return RecordDetailsType.slideIndexDuration;  break;
       case 'text':        return RecordDetailsType.text;                break;
       case 'questionID':  return RecordDetailsType.questionID;          break;
+      case 'answerID':    return RecordDetailsType.answerID;            break;
       default: return null;
     }
   }
@@ -339,7 +383,7 @@ class RecordModel {
       recordType: RecordType.follow,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.bz,
+      modelType: getModelTypeByRecordType(RecordType.follow),
       modelID: bzID,
       recordDetailsType: null,
       recordDetails: null,
@@ -357,7 +401,7 @@ class RecordModel {
       recordType: RecordType.unfollow,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.bz,
+      modelType: getModelTypeByRecordType(RecordType.unfollow),
       modelID: bzID,
       recordDetailsType: null,
       recordDetails: null,
@@ -375,7 +419,7 @@ class RecordModel {
       recordType: RecordType.call,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.bz,
+      modelType: getModelTypeByRecordType(RecordType.call),
       modelID: bzID,
       recordDetailsType: null,
       recordDetails: null,
@@ -397,7 +441,7 @@ class RecordModel {
       recordType: RecordType.share,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.flyer,
+      modelType: getModelTypeByRecordType(RecordType.share),
       modelID: flyerID,
       recordDetailsType: null,
       recordDetails: null,
@@ -417,7 +461,7 @@ class RecordModel {
       recordType: RecordType.view,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.flyer,
+      modelType: getModelTypeByRecordType(RecordType.view),
       modelID: flyerID,
       recordDetailsType: RecordDetailsType.slideIndexDuration,
       recordDetails: createIndexAndDurationString(
@@ -463,7 +507,7 @@ class RecordModel {
       recordType: RecordType.save,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.flyer,
+      modelType: getModelTypeByRecordType(RecordType.save),
       modelID: flyerID,
       recordDetailsType: RecordDetailsType.slideIndexDuration,
       recordDetails: slideIndex,
@@ -481,7 +525,7 @@ class RecordModel {
       recordType: RecordType.unSave,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.flyer,
+      modelType: getModelTypeByRecordType(RecordType.unSave),
       modelID: flyerID,
       recordDetailsType: null,
       recordDetails: null,
@@ -491,7 +535,7 @@ class RecordModel {
 // ---------------------------------
   static RecordModel createCreateReviewRecord({
     @required String userID,
-    @required String reviewID,
+    @required String flyerID,
     @required String review,
   }){
 
@@ -500,8 +544,8 @@ class RecordModel {
       recordType: RecordType.createReview,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.review,
-      modelID: reviewID,
+      modelType: getModelTypeByRecordType(RecordType.createReview),
+      modelID: flyerID,
       recordDetailsType: RecordDetailsType.text,
       recordDetails: review,
     );
@@ -510,7 +554,7 @@ class RecordModel {
 // ---------------------------------
   static RecordModel createEditReviewRecord({
     @required String userID,
-    @required String reviewID,
+    @required String flyerID,
     @required String reviewEdit,
   }){
 
@@ -519,8 +563,8 @@ class RecordModel {
       recordType: RecordType.editReview,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.review,
-      modelID: reviewID,
+      modelType: getModelTypeByRecordType(RecordType.editReview),
+      modelID: flyerID,
       recordDetailsType: RecordDetailsType.text,
       recordDetails: reviewEdit,
     );
@@ -529,7 +573,7 @@ class RecordModel {
 // ---------------------------------
   static RecordModel createDeleteReviewRecord({
     @required String userID,
-    @required String reviewID,
+    @required String flyerID,
   }){
 
     return RecordModel(
@@ -537,8 +581,8 @@ class RecordModel {
       recordType: RecordType.deleteReview,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.review,
-      modelID: reviewID,
+      modelType: getModelTypeByRecordType(RecordType.deleteReview),
+      modelID: flyerID,
       recordDetailsType: null,
       recordDetails: null,
     );
@@ -559,7 +603,7 @@ class RecordModel {
       recordType: RecordType.createQuestion,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.question,
+      modelType: getModelTypeByRecordType(RecordType.createQuestion),
       modelID: questionID,
       recordDetailsType: null,
       recordDetails: null,
@@ -577,7 +621,7 @@ class RecordModel {
       recordType: RecordType.editQuestion,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.question,
+      modelType: getModelTypeByRecordType(RecordType.editQuestion),
       modelID: questionID,
       recordDetailsType: null,
       recordDetails: null,
@@ -595,7 +639,7 @@ class RecordModel {
       recordType: RecordType.deleteQuestion,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.question,
+      modelType: getModelTypeByRecordType(RecordType.deleteQuestion),
       modelID: questionID,
       recordDetailsType: null,
       recordDetails: null,
@@ -614,10 +658,10 @@ class RecordModel {
       recordType: RecordType.createAnswer,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.answer,
-      modelID: answerID,
-      recordDetailsType: RecordDetailsType.questionID,
-      recordDetails: questionID,
+      modelType: getModelTypeByRecordType(RecordType.createAnswer),
+      modelID: questionID,
+      recordDetailsType: RecordDetailsType.answerID,
+      recordDetails: answerID,
     );
 
   }
@@ -633,10 +677,10 @@ class RecordModel {
       recordType: RecordType.editAnswer,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.answer,
-      modelID: answerID,
-      recordDetailsType: RecordDetailsType.questionID,
-      recordDetails: questionID,
+      modelType: getModelTypeByRecordType(RecordType.editAnswer),
+      modelID: questionID,
+      recordDetailsType: RecordDetailsType.answerID,
+      recordDetails: answerID,
     );
 
   }
@@ -652,10 +696,10 @@ class RecordModel {
       recordType: RecordType.deleteAnswer,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: ModelType.answer,
-      modelID: answerID,
-      recordDetailsType: RecordDetailsType.questionID,
-      recordDetails: questionID,
+      modelType: getModelTypeByRecordType(RecordType.deleteAnswer),
+      modelID: questionID,
+      recordDetailsType: RecordDetailsType.answerID,
+      recordDetails: answerID,
     );
 
   }
@@ -674,13 +718,72 @@ class RecordModel {
       recordType: RecordType.search,
       userID: userID,
       timeStamp: DateTime.now(),
-      modelType: null,
-      modelID: null,
+      modelType: getModelTypeByRecordType(RecordType.search),
+      modelID: userID,
       recordDetailsType: RecordDetailsType.text,
       recordDetails: searchText,
     );
 
   }
+// -----------------------------------------------------------------------------
+
+  /// DUMMY RECORD
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
+  static RecordModel dummyRecord(){
+
+    const RecordType recordType = RecordType.search;
+
+    final RecordModel _recordModel = RecordModel(
+      recordID: 'x',
+      recordType: recordType,
+      userID: superUserID(),
+      timeStamp: DateTime.now(),
+      modelType: getModelTypeByRecordType(recordType),
+      modelID: superUserID(),
+      recordDetailsType: RecordDetailsType.text,
+      recordDetails: 'This is a dummy record',
+      serverTimeStamp: FieldValue.serverTimestamp(),
+    );
+
+    return _recordModel;
+  }
+// -----------------------------------------------------------------------------
+
+/// BLOG
+
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
+  void blogRecord(){
+    blog('BLOG RECORD : START');
+    blog('recordID : $recordID : recordType : $recordType');
+    blog('userID : $userID');
+    blog('modelType : $modelType : modelID : $modelID');
+    blog('recordDetailsType : $recordDetailsType : recordDetails : $recordDetails');
+    blog('timeStamp : $timeStamp : serverTimeStamp : $serverTimeStamp');
+    blog('docSnapshot : $docSnapshot');
+    blog('BLOG RECORD : END');
+  }
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
+  static void blogRecords({
+    @required List<RecordModel> records,
+  }){
+
+    if (Mapper.checkCanLoopList(records) == true){
+
+      for (final RecordModel record in records){
+        record.blogRecord();
+      }
+
+    }
+
+    else {
+      blog('BLOG RECORD : records are empty');
+    }
+
+  }
+// -----------------------------------------------------------------------------
+
 }
