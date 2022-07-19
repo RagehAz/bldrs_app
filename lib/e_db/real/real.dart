@@ -17,13 +17,16 @@ enum RealOrderBy{
 }
 /// --------------------------------------------------------------------------
 class Real {
-  /// --------------------------------------------------------------------------
+// ----------------------------------------
+
   Real();
+
 // -----------------------------------------------------------------------------
 
   /// REF
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static DatabaseReference  _getRef(){
     return FirebaseDatabase.instance.ref();
   }
@@ -36,7 +39,8 @@ class Real {
   }
    */
 // ----------------------------------------
-  static String _getPath({
+  /// TESTED : WORKS PERFECT
+  static String _createPath({
     @required String collName,
     String docName,
     String key,
@@ -57,16 +61,25 @@ class Real {
     return _path;
   }
 // ----------------------------------------
-  static DatabaseReference _getRefByPath({
+  /// TESTED : WORKS PERFECT
+  static DatabaseReference _createPathAndGetRef({
     @required String collName,
     String docName,
     String key,
   }){
-    final String path = _getPath(
+    final String path = _createPath(
       collName: collName,
       docName: docName,
       key: key,
     );
+    return FirebaseDatabase.instance.ref(path);
+  }
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static DatabaseReference _getRefByPath({
+    @required String path,
+  }){
+    assert(path != null, 'PATH SHOULD NOT BE NULL');
     return FirebaseDatabase.instance.ref(path);
   }
 // ----------------------------------------
@@ -112,7 +125,7 @@ class Real {
       functions: () async {
 
         /// GET PATH
-        final _ref = _getRefByPath(
+        final _ref = _createPathAndGetRef(
           collName: collName,
         );
 
@@ -162,7 +175,7 @@ class Real {
     bool isUpdating = false,
   }) async {
 
-    DatabaseReference _ref = _getRefByPath(
+    DatabaseReference _ref = _createPathAndGetRef(
       collName: collName,
       docName: docName,
     );
@@ -188,6 +201,63 @@ class Real {
 
 
 
+  }
+// ----------------------------------------
+  /// TESTED : ...
+  static Future<Map<String, dynamic>> createDocInPath({
+    @required BuildContext context,
+    @required String path,
+    @required bool addDocIDToOutput,
+    @required Map<String, dynamic> map,
+  }) async {
+
+    Map<String, dynamic> _output;
+    String _docID;
+
+    await tryAndCatch(
+        context: context,
+        methodName: 'createDoc',
+        functions: () async {
+
+      /// GET PATH
+      final _ref = _getRefByPath(
+        path: path,
+      );
+
+      /// ADD EVENT LISTENER
+      final StreamSubscription _sub = _ref.onChildAdded.listen((event){
+
+        _docID = event.previousChildKey;
+
+        _output = Mapper.getMapFromDataSnapshot(
+          snapshot: event.snapshot,
+          onNull: () => blog('Real.createNamedDoc : failed to create doc '),
+        );
+
+        if (addDocIDToOutput == true){
+          _output = Mapper.insertPairInMap(
+            map: _output,
+            key: 'id',
+            value: _docID,
+          );
+        }
+
+      });
+
+      /// CREATE
+      await _ref.push().set(map);
+
+      /// CANCEL EVENT LISTENER
+      await _sub.cancel();
+
+    },
+    );
+
+    if (_output != null){
+      blog('Real.createDoc : map added to [REAL/$path] : map : $map');
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 
@@ -254,7 +324,7 @@ class Real {
         context: context,
         functions: () async {
 
-          final DatabaseReference _ref = _getRefByPath(
+          final DatabaseReference _ref = _createPathAndGetRef(
               collName: collName
           );
 
@@ -321,7 +391,7 @@ class Real {
 
     final DatabaseReference ref = _getRef();
 
-    final String _path = _getPath(
+    final String _path = _createPath(
       collName: collName,
       docName: docName,
     );
@@ -355,7 +425,7 @@ class Real {
     @required String docName,
   }) async {
 
-    final DatabaseReference ref = _getRefByPath(
+    final DatabaseReference ref = _createPathAndGetRef(
         collName: collName,
         docName: docName,
     );
@@ -388,7 +458,7 @@ class Real {
     @required ValueChanged<Map<String, dynamic>> onChanged,
   }){
 
-    final DatabaseReference _ref = _getRefByPath(
+    final DatabaseReference _ref = _createPathAndGetRef(
         collName: collName,
         docName: docName,
     );
@@ -436,7 +506,7 @@ class Real {
     @required dynamic value,
   }) async {
 
-    final DatabaseReference _ref = _getRefByPath(
+    final DatabaseReference _ref = _createPathAndGetRef(
       collName: collName,
       docName: docName,
       key: fieldName,
@@ -497,7 +567,7 @@ class Real {
     @required String docName,
   }) async {
 
-    final DatabaseReference _ref = _getRefByPath(
+    final DatabaseReference _ref = _createPathAndGetRef(
       collName: collName,
       docName: docName,
     );
@@ -543,7 +613,7 @@ class Real {
     @required bool applyLocally,
   }) async {
 
-    final DatabaseReference _ref = _getRefByPath(
+    final DatabaseReference _ref = _createPathAndGetRef(
         collName: collName,
         docName: docName
     );

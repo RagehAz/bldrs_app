@@ -145,6 +145,8 @@ String replaceVarTag({
   String authorName2,
   String number1,
   String number2,
+  String customTag,
+  String customValue,
 }){
   String _output = input;
 
@@ -213,8 +215,16 @@ String replaceVarTag({
       key: numberVarTag2,
       value: number2,
     );
-
   }
+  /// CUSTOM
+  if (customTag != null){
+    _varTagsMap = Mapper.insertPairInMap(
+      map: _varTagsMap,
+      key: customTag,
+      value: customValue,
+    );
+  }
+
 
   final List<String> _keys = _varTagsMap.keys.toList();
 

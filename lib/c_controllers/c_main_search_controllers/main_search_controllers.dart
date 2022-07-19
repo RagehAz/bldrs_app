@@ -13,7 +13,7 @@ import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/e_db/fire/ops/record_ops.dart' as RecordOps;
+import 'package:bldrs/e_db/fire/ops/record_ops.dart';
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
