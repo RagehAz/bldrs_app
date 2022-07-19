@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dar
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

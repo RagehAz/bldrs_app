@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/streamers/real/real_coll_streamer.dar
 import 'package:bldrs/b_views/z_components/streamers/real/real_doc_streamer.dart';
 import 'package:bldrs/e_db/real/real.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart';

@@ -367,7 +367,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
               final Map<String, dynamic> _map = json.decode(_json);
 
-              blogMap(_map);
+              Mapper.blogMap(_map);
 
               final String _utcDateTimeString = _map['utc_datetime'];
 
