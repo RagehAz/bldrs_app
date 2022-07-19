@@ -75,7 +75,9 @@ class Sky extends StatelessWidget {
       gradientIsOn: gradientIsOn,
     );
 // -----------------------------------------------------------------------------
-    final Color _plainColor = _getBaseColor(skyType: skyType);
+    final Color _plainColor = _getBaseColor(
+      skyType: skyType,
+    );
 // -----------------------------------------------------------------------------
     return Container(
       key: key,
@@ -83,13 +85,14 @@ class Sky extends StatelessWidget {
       height: _screenHeight,
       decoration: BoxDecoration(
           color: _plainColor,
-          gradient: _skyGradient
+          gradient: _skyGradient,
       ),
       child: SkyStars(
         starsAreOn: skyType == SkyType.blackStars || skyType == SkyType.nightStars,
       ),
     );
   }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 class SkyStars extends StatelessWidget {
@@ -144,7 +147,7 @@ class SkyStars extends StatelessWidget {
             StarsLayer(
               numberOfStars: 5,
               color: Colorz.yellow255,
-              seconds: 2,
+              // seconds: 2,
               starSize: 2.5,
             ),
 
