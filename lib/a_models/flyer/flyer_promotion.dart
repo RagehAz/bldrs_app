@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mappers;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:flutter/foundation.dart';
 
@@ -51,7 +51,7 @@ class FlyerPromotion {
               flyerID: map['flyerID'],
               from: Timers.decipherTime(time: map['from'], fromJSON: fromJSON),
               to: Timers.decipherTime(time: map['to'], fromJSON: fromJSON),
-              districtsIDs: Mappers.getStringsFromDynamics(dynamics: map['districtsIDs']),
+              districtsIDs: Mapper.getStringsFromDynamics(dynamics: map['districtsIDs']),
           );
 
     }
@@ -65,7 +65,7 @@ class FlyerPromotion {
   }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mappers.checkCanLoopList(flyersPromotions)){
+    if (Mapper.checkCanLoopList(flyersPromotions)){
 
       for (final FlyerPromotion promo in flyersPromotions){
 
@@ -84,7 +84,7 @@ class FlyerPromotion {
   }){
     final List<FlyerPromotion> _promotions = <FlyerPromotion>[];
 
-    if (Mappers.checkCanLoopList(maps)){
+    if (Mapper.checkCanLoopList(maps)){
 
       for (final Map<String, dynamic> map in maps){
 
@@ -107,7 +107,7 @@ class FlyerPromotion {
 
     final List<String> _flyersIDs = <String>[];
 
-    if (Mappers.checkCanLoopList(promotions)){
+    if (Mapper.checkCanLoopList(promotions)){
 
       for (final FlyerPromotion promo in promotions){
 
