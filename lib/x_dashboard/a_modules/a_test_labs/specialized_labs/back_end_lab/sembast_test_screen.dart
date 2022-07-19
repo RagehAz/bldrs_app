@@ -3,7 +3,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/foundation/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

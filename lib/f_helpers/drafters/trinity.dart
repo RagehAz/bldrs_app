@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 

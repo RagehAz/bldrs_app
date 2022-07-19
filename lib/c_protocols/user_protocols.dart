@@ -7,13 +7,14 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
+import 'package:bldrs/c_protocols/record_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 /// PROTOCOLS ARE SET OF OPS CALLED BY CONTROLLERS TO LAUNCH ( FIRE - LDB - PRO ) OPS.
@@ -116,6 +117,51 @@ class UserProtocol {
     }
 
     blog('UserProtocol.updateUserModelLocally : END');
+
+  }
+
+  static Future<void> followingProtocol({
+    @required BuildContext context,
+    @required bool followIsOn,
+    @required String bzID,
+  }) async {
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
+    if (followIsOn == true){
+
+      await RecordProtocols.followBz(context: context, bzID: bzID);
+
+      final UserModel _updatedModel = UserModel.addBzIDToUserFollows(
+        userModel: _userModel,
+        bzIDToFollow: bzID,
+      );
+
+      await updateMyUserEverywhereProtocol(
+          context: context,
+          newUserModel: _updatedModel,
+      );
+
+    }
+
+    else {
+
+      await RecordProtocols.unfollowBz(context: context, bzID: bzID);
+
+      final UserModel _updatedModel = UserModel.removeBzIDFromMyFollows(
+        userModel: _userModel,
+        bzIDToUnFollow: bzID,
+      );
+
+      await updateMyUserEverywhereProtocol(
+        context: context,
+        newUserModel: _updatedModel,
+      );
+
+    }
 
   }
 // -----------------------------------------------------------------------------

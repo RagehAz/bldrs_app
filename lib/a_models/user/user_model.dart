@@ -8,7 +8,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -683,7 +683,7 @@ class UserModel {
   }
 // -----------------------------------
   /// TESTED : WORKS PERFECT
-  static UserModel addBzIDToUserModel({
+  static UserModel addBzIDToUserBzz({
     @required UserModel userModel,
     @required String bzIDToAdd,
   }){
@@ -700,14 +700,30 @@ class UserModel {
     return _updatedUserModel;
   }
 // -----------------------------------
+  /// TESTED : ...
+  static UserModel addBzIDToUserFollows({
+    @required UserModel userModel,
+    @required String bzIDToFollow,
+  }){
+
+    final List<String> _newBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+      strings: userModel.followedBzzIDs,
+      stringToAdd: bzIDToFollow,
+    );
+
+    final UserModel _updatedUserModel = userModel.copyWith(
+      followedBzzIDs: _newBzzIDs,
+    );
+
+    return _updatedUserModel;
+  }
+// -----------------------------------
+  ///
   static UserModel removeBzIDFromMyBzzIDs({
     @required String bzIDToRemove,
     @required UserModel userModel,
   }){
-
     UserModel _userModel = userModel;
-
-    /// THIS UPDATES MY AUTH MODEL AND MY USER MODEL
 
     if (Mapper.checkCanLoopList(userModel?.myBzzIDs) == true) {
 
@@ -724,7 +740,28 @@ class UserModel {
 
     return _userModel;
   }
+// -----------------------------------
+  static UserModel removeBzIDFromMyFollows({
+    @required UserModel userModel,
+    @required String bzIDToUnFollow,
+  }){
+    UserModel _userModel = userModel;
 
+    if (Mapper.checkCanLoopList(userModel?.followedBzzIDs) == true) {
+
+      final List<String> _newList = Mapper.removeStringsFromStrings(
+        removeFrom: userModel.followedBzzIDs,
+        removeThis: <String>[bzIDToUnFollow],
+      );
+
+      _userModel = userModel.copyWith(
+        followedBzzIDs: _newList,
+      );
+
+    }
+
+    return _userModel;
+  }
 // -----------------------------------
   /*
   static List<String> removeIDFromIDs(List<String> ids, String id) {
@@ -756,19 +793,24 @@ class UserModel {
     blog('createdAt : $createdAt');
     blog('userStatus : $status');
     blog('name : $name');
+    blog('trigram : $trigram');
     blog('pic : $pic');
     blog('title : $title');
     blog('company : $company');
     blog('gender : $gender');
-    zone.blogZone();
     blog('language : $language');
     blog('location : $location');
+    blog('myBzzIDs : $myBzzIDs');
+    blog('followedBzzIDs : $followedBzzIDs');
+    blog('savedFlyersIDs : $savedFlyersIDs');
+    blog('isAdmin : $isAdmin');
+    blog('emailIsVerified : $emailIsVerified');
+    blog('docSnapshot : $docSnapshot');
+    zone.blogZone();
     ContactModel.blogContacts(
       contacts: contacts,
       methodName: 'blogUserModel',
     );
-    blog('myBzzIDs : $myBzzIDs');
-    blog('emailIsVerified : $emailIsVerified');
     fcmToken?.blogToken();
     appState?.blogAppState();
 

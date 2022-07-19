@@ -153,7 +153,7 @@ class TalkingBalloon extends StatelessWidget {
 }){
     final List<TypewriterAnimatedText> _lines = <TypewriterAnimatedText>[];
 
-    if (checkCanLoopList(lines) == true){
+    if (Mapper.checkCanLoopList(lines) == true){
 
       for (final String line in lines){
 

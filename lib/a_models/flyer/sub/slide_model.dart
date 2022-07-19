@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

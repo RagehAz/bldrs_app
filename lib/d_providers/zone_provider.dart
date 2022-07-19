@@ -11,7 +11,7 @@ import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
 import 'package:bldrs/e_db/ldb/ops/zone_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -126,7 +126,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
       );
 
       /// USER HAS CREATED SOME BZZ
-      if (checkCanLoopList(_myBzzICreated) == true){
+      if (Mapper.checkCanLoopList(_myBzzICreated) == true){
 
         /// SHOW WILL DELETE BZZ DIALOG
         _canDeleteAndExitMyBzz = await Dialogz.bzzBannersDialog(
@@ -144,7 +144,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
       }
 
       /// USER IS AUTHOR BUT DID NOT CREATE ANY BZZ
-      if (checkCanLoopList(_myBzzIDidNotCreate) == true && _canDeleteAndExitMyBzz == true){
+      if (Mapper.checkCanLoopList(_myBzzIDidNotCreate) == true && _canDeleteAndExitMyBzz == true){
 
         /// SHOW WILL EXIT BZZ DIALOG
         _canDeleteAndExitMyBzz = await Dialogz.bzzBannersDialog(

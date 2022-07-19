@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a3_user_notes_controllers.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

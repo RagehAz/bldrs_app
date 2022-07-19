@@ -12,7 +12,7 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;

@@ -17,7 +17,7 @@ import 'package:bldrs/e_db/fire/ops/record_ops.dart';
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
