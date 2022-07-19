@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/flyer/e_flyer_special_widgets/report_
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';

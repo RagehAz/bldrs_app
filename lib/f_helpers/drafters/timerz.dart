@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';

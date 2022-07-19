@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -175,19 +176,13 @@ Future<void> onFollowTap({
   @required ValueNotifier<bool> followIsOn,
 }) async {
 
-
-  /// TASK : start follow bz ops
-  // final List<String> _updatedBzFollows = await RecordOps.followBzOPs(
-  //   context: context,
-  //   bzID: _superFlyer.bz.bzID,
-  //   userID: superUserID(),
-  // );
-  //
-  // /// add or remove tinyBz from local followed bzz
-  // _prof.updatedFollowsInLocalList(_updatedBzFollows);
-
-  /// trigger current follow value
   followIsOn.value = !followIsOn.value;
+
+  await UserProtocol.followingProtocol(
+    context: context,
+    bzID: bzModel.id,
+    followIsOn: followIsOn.value,
+  );
 
 }
 // -----------------------------------------------------------------------------

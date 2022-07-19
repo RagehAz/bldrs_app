@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_gene
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:flutter/material.dart';

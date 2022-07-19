@@ -37,7 +37,7 @@ class AuthorProtocol {
       context: context,
       listen: false,
     );
-    final UserModel _newUserModel = UserModel.addBzIDToUserModel(
+    final UserModel _newUserModel = UserModel.addBzIDToUserBzz(
       userModel: _oldUserModel,
       bzIDToAdd: oldBzModel.id,
     );

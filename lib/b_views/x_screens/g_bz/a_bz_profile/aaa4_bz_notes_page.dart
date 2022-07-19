@@ -9,7 +9,7 @@ import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa4_bz_notes_
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

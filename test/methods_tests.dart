@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;

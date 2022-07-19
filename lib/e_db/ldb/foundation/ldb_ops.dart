@@ -1,6 +1,6 @@
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/e_db/ldb/foundation/sembast_api.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';

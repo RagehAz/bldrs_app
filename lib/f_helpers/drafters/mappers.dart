@@ -9,124 +9,129 @@ import 'package:sembast/utils/value_utils.dart';
   typedef dMap = Map<String, dynamic>;
    */
 // -----------------------------------------------------------------------------
+class Mapper {
 
-/// STRINGS GETTERS FROM LISTS
+  Mapper();
 
-// -------------------------------------
-List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps) {
-
-  /// TASK : check getFirstValuesFromMaps if not used in production
-  /// [
-  /// {'key' : 'ID'         , 'key' : 'Value'       },
-  /// {'key' : 'firstValue' , 'key' : 'secondValue' },
-  /// ]
-
-  final List<String> _listOfFirstValues = <String>[];
-
-  for (int x = 0; x < listOfMaps.length; x++) {
-    final String _firstValue = (listOfMaps[x].values.toList())[0];
-    _listOfFirstValues.add(_firstValue);
-  }
-
-  return _listOfFirstValues;
-}
-// -----------------------------------------------------------------------------
-List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps) {
-
-  /// TASK : check getFirstValuesFromMaps if not used in production
-  /// [
-  /// {'key' : 'ID'         , 'key' : 'Value'       },
-  /// {'key' : 'firstValue' , 'key' : 'secondValue' },
-  /// ]
-
-  final List<String> _listOfValues = <String>[];
-
-  for (int x = 0; x < listOfMaps.length; x++) {
-    final String _secondValue = (listOfMaps[x].values.toList())[1];
-    _listOfValues.add(_secondValue);
-  }
-
-  return _listOfValues;
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-List<String> getStringsFromDynamics({
-  @required List<dynamic> dynamics,
-}) {
-  final List<String> _strings = <String>[];
-
-  if (checkCanLoopList(dynamics)) {
-    for (final dynamic thing in dynamics) {
-      if (thing is String == true) {
-        _strings.add(thing);
-      } else {
-        _strings.add(thing.toString());
-      }
-    }
-  }
-
-  // blog('getStringsFromDynamics : _strings : $_strings');
-
-  return _strings;
-}
-// -------------------------------------
-List<String> getUniqueStringsFromStrings({
-  @required List<String> strings,
-}){
-
-  final List<String> _output = <String>[];
-
-  if (checkCanLoopList(strings) == true){
-
-    for (final String string in strings){
-
-      if (_output.contains(string) == false){
-        _output.add(string);
-      }
-
-    }
-
-  }
-
-  return _output;
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-List<String> getMapsPrimaryKeysValues({
-  @required List<Map<String, dynamic>> maps,
-  String primaryKey = 'id',
-}){
-
-  final List<String> _primaryKeys = <String>[];
-
-  if (checkCanLoopList(maps) == true){
-
-    for (final Map<String, dynamic> map in maps){
-
-      final String _id = map[primaryKey];
-
-      _primaryKeys.add(_id);
-
-    }
-
-  }
-
-  return _primaryKeys;
-}
 // -----------------------------------------------------------------------------
 
-/// STRINGS MODIFIERS
+  /// STRINGS GETTERS FROM LISTS
 
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-List<String> removeStringsFromStrings({
-  @required List<String> removeFrom,
-  @required List<String> removeThis,
-}){
+  static List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps) {
 
-  final List<String> _output = <String>[];
+    /// TASK : check getFirstValuesFromMaps if not used in production
+    /// [
+    /// {'key' : 'ID'         , 'key' : 'Value'       },
+    /// {'key' : 'firstValue' , 'key' : 'secondValue' },
+    /// ]
 
-  if (checkCanLoopList(removeFrom) == true){
+    final List<String> _listOfFirstValues = <String>[];
+
+    for (int x = 0; x < listOfMaps.length; x++) {
+      final String _firstValue = (listOfMaps[x].values.toList())[0];
+      _listOfFirstValues.add(_firstValue);
+    }
+
+    return _listOfFirstValues;
+  }
+// -----------------------------------------------------------------------------
+  static List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps) {
+
+    /// TASK : check getFirstValuesFromMaps if not used in production
+    /// [
+    /// {'key' : 'ID'         , 'key' : 'Value'       },
+    /// {'key' : 'firstValue' , 'key' : 'secondValue' },
+    /// ]
+
+    final List<String> _listOfValues = <String>[];
+
+    for (int x = 0; x < listOfMaps.length; x++) {
+      final String _secondValue = (listOfMaps[x].values.toList())[1];
+      _listOfValues.add(_secondValue);
+    }
+
+    return _listOfValues;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getStringsFromDynamics({
+    @required List<dynamic> dynamics,
+  }) {
+    final List<String> _strings = <String>[];
+
+    if (checkCanLoopList(dynamics)) {
+      for (final dynamic thing in dynamics) {
+        if (thing is String == true) {
+          _strings.add(thing);
+        } else {
+          _strings.add(thing.toString());
+        }
+      }
+    }
+
+    // blog('getStringsFromDynamics : _strings : $_strings');
+
+    return _strings;
+  }
+// -------------------------------------
+  static List<String> getUniqueStringsFromStrings({
+    @required List<String> strings,
+  }){
+
+    final List<String> _output = <String>[];
+
+    if (checkCanLoopList(strings) == true){
+
+      for (final String string in strings){
+
+        if (_output.contains(string) == false){
+          _output.add(string);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getMapsPrimaryKeysValues({
+    @required List<Map<String, dynamic>> maps,
+    String primaryKey = 'id',
+  }){
+
+    final List<String> _primaryKeys = <String>[];
+
+    if (checkCanLoopList(maps) == true){
+
+      for (final Map<String, dynamic> map in maps){
+
+        final String _id = map[primaryKey];
+
+        _primaryKeys.add(_id);
+
+      }
+
+    }
+
+    return _primaryKeys;
+  }
+// -----------------------------------------------------------------------------
+
+  /// STRINGS MODIFIERS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> removeStringsFromStrings({
+    @required List<String> removeFrom,
+    @required List<String> removeThis,
+  }){
+
+    final List<String> _output = <String>[];
+
+    if (checkCanLoopList(removeFrom) == true){
 
       for (final String string in removeFrom){
 
@@ -144,98 +149,132 @@ List<String> removeStringsFromStrings({
 
       }
 
-  }
+    }
 
-  return _output;
-}
+    return _output;
+  }
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-List<String> putStringInStringsIfAbsent({
-  @required List<String> strings,
-  @required String string,
-}){
+  /// TESTED : WORKS PERFECT
+  static List<String> putStringInStringsIfAbsent({
+    @required List<String> strings,
+    @required String string,
+  }){
 
-  List<String> _output = <String>[];
+    List<String> _output = <String>[];
 
-  if (checkCanLoopList(strings) == true){
+    if (checkCanLoopList(strings) == true){
 
-    _output = <String>[...strings];
+      _output = <String>[...strings];
 
+    }
+
+    final bool _contains = checkStringsContainString(
+      strings: _output,
+      string: string,
+    );
+
+    if (_contains == false){
+      _output.add(string);
+    }
+
+
+    return _output;
   }
-
-  final bool _contains = checkStringsContainString(
-    strings: _output,
-    string: string,
-  );
-
-  if (_contains == false){
-    _output.add(string);
-  }
-
-
-  return _output;
-}
 // -------------------------------------
-List<String> cleanDuplicateStrings({
-  @required List<String> strings,
-}){
-  final List<String> _output = <String>[];
+  static List<String> cleanDuplicateStrings({
+    @required List<String> strings,
+  }){
+    final List<String> _output = <String>[];
 
-  if (checkCanLoopList(strings) == true){
+    if (checkCanLoopList(strings) == true){
 
-    for (final String string in strings){
+      for (final String string in strings){
 
-      if (_output.contains(string) == false){
-        _output.add(string);
+        if (_output.contains(string) == false){
+          _output.add(string);
+        }
+
       }
 
     }
 
+    return _output;
   }
-
-  return _output;
-}
 // -----------------------------------------------------------------------------
 
-/// MAPS - QUERY SNAPSHOT - QUERY DOCUMENT SNAPSHOT
+  /// MAPS - QUERY SNAPSHOT - QUERY DOCUMENT SNAPSHOT
 
 // -------------------------------------
-List<Map<String, dynamic>> getMapsFromQuerySnapshot({
-  @required QuerySnapshot<Object> querySnapshot,
-  @required bool addDocsIDs,
-  @required bool addDocSnapshotToEachMap,
-}) {
+  static List<Map<String, dynamic>> getMapsFromQuerySnapshot({
+    @required QuerySnapshot<Object> querySnapshot,
+    @required bool addDocsIDs,
+    @required bool addDocSnapshotToEachMap,
+  }) {
 
-  final List<QueryDocumentSnapshot<Object>> _docsSnapshots = querySnapshot?.docs;
+    final List<QueryDocumentSnapshot<Object>> _docsSnapshots = querySnapshot?.docs;
 
-  final List<Map<String, dynamic>> _maps = getMapsFromQueryDocumentSnapshotsList(
-    queryDocumentSnapshots: _docsSnapshots,
-    addDocsIDs: addDocsIDs,
-    addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-  );
+    final List<Map<String, dynamic>> _maps = getMapsFromQueryDocumentSnapshotsList(
+      queryDocumentSnapshots: _docsSnapshots,
+      addDocsIDs: addDocsIDs,
+      addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+    );
 
-  return _maps;
-}
+    return _maps;
+  }
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
-  @required List<QueryDocumentSnapshot<Object>> queryDocumentSnapshots,
-  @required bool addDocsIDs,
-  @required bool addDocSnapshotToEachMap,
-}) {
+  /// TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
+    @required List<QueryDocumentSnapshot<Object>> queryDocumentSnapshots,
+    @required bool addDocsIDs,
+    @required bool addDocSnapshotToEachMap,
+  }) {
 
-  final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-  if (checkCanLoopList(queryDocumentSnapshots)) {
-    for (final QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots) {
+    if (checkCanLoopList(queryDocumentSnapshots)) {
+      for (final QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots) {
 
-      Map<String, dynamic> _map = docSnapshot.data();
+        Map<String, dynamic> _map = docSnapshot.data();
 
-      if (addDocsIDs == true) {
+        if (addDocsIDs == true) {
+          _map['id'] = docSnapshot.id;
+        }
+
+        if (addDocSnapshotToEachMap == true) {
+          _map = insertPairInMap(
+            map: _map,
+            key: 'docSnapshot',
+            value: docSnapshot,
+          );
+        }
+
+        _maps.add(_map);
+      }
+    }
+
+    return _maps;
+  }
+// -----------------------------------------------------------------------------
+
+  /// MAPS - SNAPSHOTS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> getMapFromDocumentSnapshot({
+    @required DocumentSnapshot<Object> docSnapshot,
+    @required bool addDocID,
+    @required bool addDocSnapshot,
+  }) {
+
+    Map<String, dynamic> _map = docSnapshot?.data();
+
+    if (docSnapshot != null && docSnapshot.exists == true){
+
+      if (addDocID == true) {
         _map['id'] = docSnapshot.id;
       }
 
-      if (addDocSnapshotToEachMap == true) {
+      if (addDocSnapshot == true) {
         _map = insertPairInMap(
           map: _map,
           key: 'docSnapshot',
@@ -243,194 +282,158 @@ List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
         );
       }
 
-      _maps.add(_map);
     }
+
+    return _map;
   }
-
-  return _maps;
-}
-// -----------------------------------------------------------------------------
-
-/// MAPS - SNAPSHOTS
-
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-Map<String, dynamic> getMapFromDocumentSnapshot({
-  @required DocumentSnapshot<Object> docSnapshot,
-  @required bool addDocID,
-  @required bool addDocSnapshot,
-}) {
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> getMapFromDataSnapshot({
+    @required DataSnapshot snapshot,
+    bool addDocID = true,
+    Function onExists,
+    Function onNull,
+  }){
 
-  Map<String, dynamic> _map = docSnapshot?.data();
+    Map<String, dynamic> _output;
 
-  if (docSnapshot != null && docSnapshot.exists == true){
+    if (snapshot.exists) {
+      _output = Map<String, dynamic>.from(snapshot.value);
 
-    if (addDocID == true) {
-      _map['id'] = docSnapshot.id;
-    }
-
-    if (addDocSnapshot == true) {
-      _map = insertPairInMap(
-        map: _map,
-        key: 'docSnapshot',
-        value: docSnapshot,
-      );
-    }
-
-  }
-
-  return _map;
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-Map<String, dynamic> getMapFromDataSnapshot({
-  @required DataSnapshot snapshot,
-  bool addDocID = true,
-  Function onExists,
-  Function onNull,
-}){
-
-  Map<String, dynamic> _output;
-
-  if (snapshot.exists) {
-    _output = Map<String, dynamic>.from(snapshot.value);
-
-    if (addDocID == true){
-      _output = insertPairInMap(
+      if (addDocID == true){
+        _output = insertPairInMap(
           map: _output,
           key: 'id',
           value: snapshot.key,
-      );
-    }
+        );
+      }
 
-    if (onExists != null){
-      onExists();
-    }
-  }
-
-  else {
-    if (onNull != null){
-      onNull();
-    }
-  }
-
-  return _output;
-}
-// -------------------------------------
-List<Map<String, dynamic>> getMapsFromDataSnapshots({
-  @required List<DataSnapshot> snapshots,
-  bool addDocsIDs = true,
-}){
-
-  final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
-
-  if (checkCanLoopList(snapshots) == true){
-
-    for (final DataSnapshot snap in snapshots){
-
-      final Map<String, dynamic> _map = getMapFromDataSnapshot(
-        snapshot: snap,
-        addDocID: addDocsIDs,
-      );
-
-      _output.add(_map);
-
-    }
-
-  }
-
-  return _output;
-}
-
-// -----------------------------------------------------------------------------
-
-/// MAP GETTERS FROM (URL - DYNAMIC - STRING STRING IMMUTABLE MAP STRING OBJECT)
-
-// -------------------------------------
-List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
-  final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
-
-  if (checkCanLoopList(dynamics)) {
-    for (final dynamic map in dynamics) {
-      _maps.add(map);
-    }
-  }
-
-  return _maps;
-}
-// -------------------------------------
-
-Map<String, dynamic> getMapFromURLQuery({
-  @required String urlQuery,
-}) {
-
-  /// url query should look like this
-  /// 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
-  /// url query looks like "key1=value1&key1=value2&key3=value3"
-
-  Map<String, dynamic> _output = <String, dynamic>{};
-
-  final int _numberOfAnds = '&'.allMatches(urlQuery).length;
-  final int _numberOfEquals = '='.allMatches(urlQuery).length;
-  final bool _countsOfPairsAreGood = _numberOfAnds + 1 == _numberOfEquals;
-
-  /// if urlQuery counts are good
-  if (_countsOfPairsAreGood == true) {
-    /// pairs should look like this : key=value
-    final List<String> _pairs = <String>[];
-
-    /// holds temp trimmed url in here while trimming loops
-    String _trimmedURL = urlQuery;
-
-    blog('_trimmedURL : $_trimmedURL');
-
-    /// trim urlQuery into string pairs
-    for (int i = 0; i < _numberOfAnds; i++) {
-      final String _beforeAnd =
-      TextMod.removeTextAfterFirstSpecialCharacter(_trimmedURL, '&');
-      _pairs.add(_beforeAnd);
-
-      final String _afterAnd =
-      TextMod.removeTextBeforeFirstSpecialCharacter(_trimmedURL, '&');
-
-      if (i == _numberOfAnds - 1) {
-        _pairs.add(_afterAnd);
-      } else {
-        _trimmedURL = _afterAnd;
+      if (onExists != null){
+        onExists();
       }
     }
 
-    /// add pairs to a map
-    for (final String pair in _pairs) {
-      final String _key =
-      TextMod.removeTextAfterFirstSpecialCharacter(pair, '=');
-      final String _value =
-      TextMod.removeTextBeforeFirstSpecialCharacter(pair, '=');
-
-      _output = insertPairInMap(
-        map: _output,
-        key: _key,
-        value: _value,
-      );
+    else {
+      if (onNull != null){
+        onNull();
+      }
     }
-  }
 
-  /// if counts are no good
-  else {
-    blog('getMapFromURLQuery : _countsOfPairsAreGood : $_countsOfPairsAreGood');
-    blog(
-        'getMapFromURLQuery : something is wrong in this : urlQuery : $urlQuery');
+    return _output;
   }
-
-  return _output;
-}
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic object){
+  static List<Map<String, dynamic>> getMapsFromDataSnapshots({
+    @required List<DataSnapshot> snapshots,
+    bool addDocsIDs = true,
+  }){
 
-  Map<String, String> _output = {};
+    final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
-  if (object != null){
+    if (checkCanLoopList(snapshots) == true){
+
+      for (final DataSnapshot snap in snapshots){
+
+        final Map<String, dynamic> _map = getMapFromDataSnapshot(
+          snapshot: snap,
+          addDocID: addDocsIDs,
+        );
+
+        _output.add(_map);
+
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// MAP GETTERS FROM (URL - DYNAMIC - STRING STRING IMMUTABLE MAP STRING OBJECT)
+
+// -------------------------------------
+  static List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+
+    if (checkCanLoopList(dynamics)) {
+      for (final dynamic map in dynamics) {
+        _maps.add(map);
+      }
+    }
+
+    return _maps;
+  }
+// -------------------------------------
+  static Map<String, dynamic> getMapFromURLQuery({
+    @required String urlQuery,
+  }) {
+
+    /// url query should look like this
+    /// 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
+    /// url query looks like "key1=value1&key1=value2&key3=value3"
+
+    Map<String, dynamic> _output = <String, dynamic>{};
+
+    final int _numberOfAnds = '&'.allMatches(urlQuery).length;
+    final int _numberOfEquals = '='.allMatches(urlQuery).length;
+    final bool _countsOfPairsAreGood = _numberOfAnds + 1 == _numberOfEquals;
+
+    /// if urlQuery counts are good
+    if (_countsOfPairsAreGood == true) {
+      /// pairs should look like this : key=value
+      final List<String> _pairs = <String>[];
+
+      /// holds temp trimmed url in here while trimming loops
+      String _trimmedURL = urlQuery;
+
+      blog('_trimmedURL : $_trimmedURL');
+
+      /// trim urlQuery into string pairs
+      for (int i = 0; i < _numberOfAnds; i++) {
+        final String _beforeAnd =
+        TextMod.removeTextAfterFirstSpecialCharacter(_trimmedURL, '&');
+        _pairs.add(_beforeAnd);
+
+        final String _afterAnd =
+        TextMod.removeTextBeforeFirstSpecialCharacter(_trimmedURL, '&');
+
+        if (i == _numberOfAnds - 1) {
+          _pairs.add(_afterAnd);
+        } else {
+          _trimmedURL = _afterAnd;
+        }
+      }
+
+      /// add pairs to a map
+      for (final String pair in _pairs) {
+        final String _key =
+        TextMod.removeTextAfterFirstSpecialCharacter(pair, '=');
+        final String _value =
+        TextMod.removeTextBeforeFirstSpecialCharacter(pair, '=');
+
+        _output = insertPairInMap(
+          map: _output,
+          key: _key,
+          value: _value,
+        );
+      }
+    }
+
+    /// if counts are no good
+    else {
+      blog('getMapFromURLQuery : _countsOfPairsAreGood : $_countsOfPairsAreGood');
+      blog(
+          'getMapFromURLQuery : something is wrong in this : urlQuery : $urlQuery');
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic object){
+
+    Map<String, String> _output = {};
+
+    if (object != null){
 
       blog('1 - FUCK : object ${object.runtimeType}');
 
@@ -447,9 +450,9 @@ Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic objec
             final String _value = _map[key] is String ? _map[key] : _map[key].toString();
 
             _output = _insertPairInMapWithStringValue(
-                map: _output,
-                key: key,
-                value: _value,
+              map: _output,
+              key: key,
+              value: _value,
             );
 
           }
@@ -462,504 +465,506 @@ Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic objec
         blog('getStringStringMapFromImmutableMapStringObject : starts : is NOT IMMUTABLE MAP');
       }
 
+    }
+
+    blog('4 - getStringStringMapFromImmutableMapStringObject : _output ${_output.runtimeType}');
+    blogMap(_output);
+
+    // assert(_output != null, 'DO NOT CONTINUE BITCH');
+
+    return _output;
   }
-
-  blog('4 - getStringStringMapFromImmutableMapStringObject : _output ${_output.runtimeType}');
-  blogMap(_output);
-
-  // assert(_output != null, 'DO NOT CONTINUE BITCH');
-
-  return _output;
-}
 // -----------------------------------------------------------------------------
 
-/// MAP IN MAPS INDEX CHECKERS
+  /// MAP IN MAPS INDEX CHECKERS
 
 // -------------------------------------
-int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map) {
-  final int _indexOfTheMap =
-      listOfMaps.indexWhere(
-              (Map<String, dynamic> m) =>
-                  checkMapsAreIdentical(
-                     map1: m,
-                     map2: map
-                 )
-      );
-  return _indexOfTheMap;
-}
+  static int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map) {
+    final int _indexOfTheMap =
+    listOfMaps.indexWhere(
+            (Map<String, dynamic> m) =>
+            checkMapsAreIdentical(
+                map1: m,
+                map2: map
+            )
+    );
+    return _indexOfTheMap;
+  }
 // -------------------------------------
-int indexOfMapByValueInListOfMaps({
-  @required List<Map<String, dynamic>> listOfMaps,
-  @required String key,
-  @required dynamic value}) {
-  final int _indexOfTheMap =
-      listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
-  return _indexOfTheMap;
-}
+  static int indexOfMapByValueInListOfMaps({
+    @required List<Map<String, dynamic>> listOfMaps,
+    @required String key,
+    @required dynamic value}) {
+    final int _indexOfTheMap =
+    listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
+    return _indexOfTheMap;
+  }
 // -----------------------------------------------------------------------------
 
-/// CLONING
+  /// CLONING
 
 // -------------------------------------
-List<String> cloneListOfStrings(List<String> list) {
-  final List<dynamic> _newList = <dynamic>[];
+  static List<String> cloneListOfStrings(List<String> list) {
+    final List<dynamic> _newList = <dynamic>[];
 
-  for (final String x in list) {
-    _newList.add(x);
+    for (final String x in list) {
+      _newList.add(x);
+    }
+    return _newList;
   }
-  return _newList;
-}
 // -----------------------------------------------------------------------------
 
-/// MAPS MODIFIERS
+  /// MAPS MODIFIERS
 
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-Map<String, dynamic> insertPairInMap({
-  @required Map<String, dynamic> map,
-  @required String key,
-  @required dynamic value,
-}) {
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> insertPairInMap({
+    @required Map<String, dynamic> map,
+    @required String key,
+    @required dynamic value,
+  }) {
 
-  Map<String, dynamic> _result = <String, dynamic>{};
+    Map<String, dynamic> _result = <String, dynamic>{};
 
-  if (map != null){
-    map.putIfAbsent(key, () => value);
-    _result = _result..addAll(map);
+    if (map != null){
+      map.putIfAbsent(key, () => value);
+      _result = _result..addAll(map);
+    }
+
+    return _result;
   }
-
-  return _result;
-}
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-Map<String, String> _insertPairInMapWithStringValue({
-  @required Map<String, String> map,
-  @required String key,
-  @required String value,
-}) {
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> _insertPairInMapWithStringValue({
+    @required Map<String, String> map,
+    @required String key,
+    @required String value,
+  }) {
 
-  Map<String, String> _result = <String, String>{};
+    Map<String, String> _result = <String, String>{};
 
-  if (map != null){
-    map.putIfAbsent(key, () => value);
-    _result = _result..addAll(map);
+    if (map != null){
+      map.putIfAbsent(key, () => value);
+      _result = _result..addAll(map);
+    }
+
+    return _result;
   }
-
-  return _result;
-}
 // -------------------------------------
-Map<String, Object> replacePair({
-  @required Map<String, Object> map,
-  @required String fieldKey,
-  @required dynamic inputValue,
-}) {
-  final Map<String, Object> _aMap = cloneMap(map);
+  static Map<String, Object> replacePair({
+    @required Map<String, Object> map,
+    @required String fieldKey,
+    @required dynamic inputValue,
+  }) {
+    final Map<String, Object> _aMap = cloneMap(map);
 
-  try {
-    _aMap[fieldKey] = inputValue;
-  } on Exception catch (e) {
-    blog('error is : $e');
-    blog('map is : $map');
-    blog('fieldKey is : $fieldKey');
-    blog('inputValue : $inputValue');
+    try {
+      _aMap[fieldKey] = inputValue;
+    } on Exception catch (e) {
+      blog('error is : $e');
+      blog('map is : $map');
+      blog('fieldKey is : $fieldKey');
+      blog('inputValue : $inputValue');
+    }
+
+    return _aMap;
   }
-
-  return _aMap;
-}
 // -------------------------------------
-Map<String, Object> removePair({
-  @required Map<String, Object> map,
-  @required String fieldKey,
-}) {
-  final Map<String, Object> _map = cloneMap(map);
+  static Map<String, Object> removePair({
+    @required Map<String, Object> map,
+    @required String fieldKey,
+  }) {
+    final Map<String, Object> _map = cloneMap(map);
 
-  _map.remove(fieldKey);
+    _map.remove(fieldKey);
 
-  return _map;
-}
+    return _map;
+  }
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-List<Map<String, dynamic>> cleanDuplicateMaps({
-  @required List<Map<String, dynamic>> maps,
-}){
-  final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
-  
-  if (checkCanLoopList(maps) == true){
-    
-    for (final Map<String, dynamic> map in maps){
-      
-      final bool _exists = checkMapsContainMap(
+  /// TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> cleanDuplicateMaps({
+    @required List<Map<String, dynamic>> maps,
+  }){
+    final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+
+    if (checkCanLoopList(maps) == true){
+
+      for (final Map<String, dynamic> map in maps){
+
+        final bool _exists = checkMapsContainMap(
           maps: _output,
           map: map,
-      );
-      
-      if (_exists == false){
-        _output.add(map);
+        );
+
+        if (_exists == false){
+          _output.add(map);
+        }
+
       }
-      
+
     }
-    
+
+    return _output;
   }
-  
-  return _output;
-}
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-List<Map<String, dynamic>> cleanMapsOfDuplicateIDs({
-  @required List<Map<String, dynamic>> maps,
-  @required String idFieldName,
-}){
-  final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+  /// TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> cleanMapsOfDuplicateIDs({
+    @required List<Map<String, dynamic>> maps,
+    @required String idFieldName,
+  }){
+    final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
-  if (checkCanLoopList(maps) == true){
+    if (checkCanLoopList(maps) == true){
 
-    for (final Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps){
 
-      final int _index = _output.indexWhere((m) => m[idFieldName] == map[idFieldName]);
+        final int _index = _output.indexWhere((m) => m[idFieldName] == map[idFieldName]);
 
-      if (_index == -1){
-        _output.add(map);
+        if (_index == -1){
+          _output.add(map);
+        }
+
       }
 
     }
 
+    return _output;
   }
-
-  return _output;
-}
 // -----------------------------------------------------------------------------
 
-/// CHECKERS
+  /// CHECKERS
 
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-bool checkCanLoopList(List<dynamic> list) {
-  bool _canLoop = false;
+  /// TESTED : WORKS PERFECT
+  static bool checkCanLoopList(List<dynamic> list) {
+    bool _canLoop = false;
 
-  if (list != null && list.isNotEmpty) {
-    _canLoop = true;
+    if (list != null && list.isNotEmpty) {
+      _canLoop = true;
+    }
+    return _canLoop;
   }
-  return _canLoop;
-}
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-bool checkListHasNullValue(List<dynamic> list){
-  bool _hasNull = false;
+  /// TESTED : WORKS PERFECT
+  static bool checkListHasNullValue(List<dynamic> list){
+    bool _hasNull = false;
 
-  if (checkCanLoopList(list) == true){
+    if (checkCanLoopList(list) == true){
 
-    _hasNull = list.contains(null);
+      _hasNull = list.contains(null);
 
+    }
+
+    return _hasNull;
   }
-
-  return _hasNull;
-}
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-bool checkMapsAreIdentical({
-  Map<String, dynamic> map1,
-  Map<String, dynamic> map2,
-}) {
-  bool _mapsAreIdentical = false;
+  /// TESTED : WORKS PERFECT
+  static bool checkMapsAreIdentical({
+    Map<String, dynamic> map1,
+    Map<String, dynamic> map2,
+  }) {
+    bool _mapsAreIdentical = false;
 
-  if (map1 == null && map2 == null) {
-    _mapsAreIdentical = true;
-  }
+    if (map1 == null && map2 == null) {
+      _mapsAreIdentical = true;
+    }
 
-  else if (map1 == null || map2 == null){
-    _mapsAreIdentical = false;
-  }
-
-  else if (map1 != null && map2 != null){
-
-    final List<String> _map1Keys = map1.keys.toList();
-    final List<String> _map2Keys = map2.keys.toList();
-
-    if (_map1Keys.length != _map2Keys.length) {
+    else if (map1 == null || map2 == null){
       _mapsAreIdentical = false;
     }
 
-    else {
+    else if (map1 != null && map2 != null){
 
-      final List<dynamic> _map1Values = map1.values.toList();
-      final List<dynamic> _map2Values = map2.values.toList();
+      final List<String> _map1Keys = map1.keys.toList();
+      final List<String> _map2Keys = map2.keys.toList();
 
-      if (
-      checkListsAreIdentical(list1: _map1Keys, list2: _map2Keys) == true
-          &&
-      checkListsAreIdentical(list1: _map1Values, list2: _map2Values) == true
-      ){
-        _mapsAreIdentical = true;
+      if (_map1Keys.length != _map2Keys.length) {
+        _mapsAreIdentical = false;
       }
 
       else {
-        _mapsAreIdentical = false;
-      }
-    }
 
-  }
+        final List<dynamic> _map1Values = map1.values.toList();
+        final List<dynamic> _map2Values = map2.values.toList();
 
-  return _mapsAreIdentical;
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-bool checkMapsListsAreIdentical({
-  @required List<Map<String, dynamic>> maps1,
-  @required List<Map<String, dynamic>> maps2,
-}){
-  bool _listsAreIdentical = false;
-
-  if (maps1 == null && maps2 == null){
-    _listsAreIdentical = true;
-  }
-
-  else if (maps1 == [] && maps2 == []){
-    _listsAreIdentical = true;
-  }
-
-  else if (checkCanLoopList(maps1) == true && checkCanLoopList(maps2) == true){
-
-    if (maps1.length != maps2.length) {
-      // blog('lists do not have the same length : list1 is ${maps1.length} : list2 is ${maps2.length}');
-      // blog(' ---> lis1 is ( ${maps1.toString()} )');
-      // blog(' ---> lis2 is ( ${maps2.toString()} )');
-      _listsAreIdentical = false;
-    }
-
-    else {
-      for (int i = 0; i < maps1.length; i++) {
-
-        final bool _mapsAreIdentical = checkMapsAreIdentical(
-          map1: maps1[i],
-          map2: maps2[i],
-        );
-
-        if (_mapsAreIdentical == false) {
-          // blog('items at index ( $i ) do not match : ( ${maps1[i]} ) <=> ( ${maps2[i]} )');
-          _listsAreIdentical = false;
-          break;
+        if (
+        checkListsAreIdentical(list1: _map1Keys, list2: _map2Keys) == true
+            &&
+            checkListsAreIdentical(list1: _map1Values, list2: _map2Values) == true
+        ){
+          _mapsAreIdentical = true;
         }
 
         else {
-          _listsAreIdentical = true;
+          _mapsAreIdentical = false;
         }
-
       }
+
     }
 
+    return _mapsAreIdentical;
   }
-
-  return _listsAreIdentical;
-
-}
 // -------------------------------------
-bool checkMapsContainValue({
-  @required List<Map<String, dynamic>> listOfMaps,
-  @required String field,
-  @required String value,
-}) {
-  bool _listOfMapContainsTheValue;
+  /// TESTED : WORKS PERFECT
+  static bool checkMapsListsAreIdentical({
+    @required List<Map<String, dynamic>> maps1,
+    @required List<Map<String, dynamic>> maps2,
+  }){
+    bool _listsAreIdentical = false;
 
-  for (final Map<String, dynamic> map in listOfMaps) {
-
-    if (map[field] == value) {
-      _listOfMapContainsTheValue = true;
-      break;
+    if (maps1 == null && maps2 == null){
+      _listsAreIdentical = true;
     }
 
-    else {
-      _listOfMapContainsTheValue = false;
+    else if (maps1 == [] && maps2 == []){
+      _listsAreIdentical = true;
     }
+
+    else if (checkCanLoopList(maps1) == true && checkCanLoopList(maps2) == true){
+
+      if (maps1.length != maps2.length) {
+        // blog('lists do not have the same length : list1 is ${maps1.length} : list2 is ${maps2.length}');
+        // blog(' ---> lis1 is ( ${maps1.toString()} )');
+        // blog(' ---> lis2 is ( ${maps2.toString()} )');
+        _listsAreIdentical = false;
+      }
+
+      else {
+        for (int i = 0; i < maps1.length; i++) {
+
+          final bool _mapsAreIdentical = checkMapsAreIdentical(
+            map1: maps1[i],
+            map2: maps2[i],
+          );
+
+          if (_mapsAreIdentical == false) {
+            // blog('items at index ( $i ) do not match : ( ${maps1[i]} ) <=> ( ${maps2[i]} )');
+            _listsAreIdentical = false;
+            break;
+          }
+
+          else {
+            _listsAreIdentical = true;
+          }
+
+        }
+      }
+
+    }
+
+    return _listsAreIdentical;
 
   }
-
-  return _listOfMapContainsTheValue;
-}
 // -------------------------------------
-bool checkMapsContainMap({
-  @required List<Map<String, dynamic>> maps,
-  @required Map<String, dynamic> map,
-}) {
+  static bool checkMapsContainValue({
+    @required List<Map<String, dynamic>> listOfMaps,
+    @required String field,
+    @required String value,
+  }) {
+    bool _listOfMapContainsTheValue;
 
-  /// listOfMaps = [
-  /// {'key1' : 'value', 'key2' : 'value2'}
-  /// {'key1' : 'value', 'key2' : 'value2'}
-  /// {'key1' : 'value', 'key2' : 'value2'}
-  /// ];
-  ///
-  /// map = {'key1' : 'value', 'key2' : 'value2'};
+    for (final Map<String, dynamic> map in listOfMaps) {
 
-  // ---------------------------------
-  bool _inputsAreInvalid;
-
-  if (maps == null || maps.isEmpty || map == null) {
-    _inputsAreInvalid = true;
-  } else {
-    _inputsAreInvalid = false;
-  }
-  // ---------------------------------
-  bool _listOfMapContainsTheMap;
-
-  if (_inputsAreInvalid == true) {
-    _listOfMapContainsTheMap = false;
-  }
-
-  else {
-
-    for (final Map<String, dynamic> _map in maps) {
-
-      final bool _mapsAreIdentical = checkMapsAreIdentical(
-        map1: _map,
-        map2: map,
-      );
-
-      if (_mapsAreIdentical == true) {
-        _listOfMapContainsTheMap = true;
+      if (map[field] == value) {
+        _listOfMapContainsTheValue = true;
         break;
       }
 
       else {
-        _listOfMapContainsTheMap = false;
+        _listOfMapContainsTheValue = false;
       }
 
     }
-  }
 
-  return _listOfMapContainsTheMap;
-}
+    return _listOfMapContainsTheValue;
+  }
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-bool checkListsAreIdentical({
-  @required List<dynamic> list1,
-  @required List<dynamic> list2
-}) {
-  bool _listsAreIdentical = false;
+  static bool checkMapsContainMap({
+    @required List<Map<String, dynamic>> maps,
+    @required Map<String, dynamic> map,
+  }) {
 
-  if (list1 == null && list2 == null){
-    _listsAreIdentical = true;
-  }
-  else if (list1.isEmpty && list2.isEmpty){
-    _listsAreIdentical = true;
-  }
+    /// listOfMaps = [
+    /// {'key1' : 'value', 'key2' : 'value2'}
+    /// {'key1' : 'value', 'key2' : 'value2'}
+    /// {'key1' : 'value', 'key2' : 'value2'}
+    /// ];
+    ///
+    /// map = {'key1' : 'value', 'key2' : 'value2'};
 
-  else if (checkCanLoopList(list1) == true && checkCanLoopList(list2) == true){
+    // ---------------------------------
+    bool _inputsAreInvalid;
 
-    if (list1.length != list2.length) {
-      // blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
-      // blog(' ---> lis1 is ( ${list1.toString()} )');
-      // blog(' ---> lis2 is ( ${list2.toString()} )');
-      _listsAreIdentical = false;
+    if (maps == null || maps.isEmpty || map == null) {
+      _inputsAreInvalid = true;
+    } else {
+      _inputsAreInvalid = false;
+    }
+    // ---------------------------------
+    bool _listOfMapContainsTheMap;
+
+    if (_inputsAreInvalid == true) {
+      _listOfMapContainsTheMap = false;
     }
 
     else {
-      for (int i = 0; i < list1.length; i++) {
 
-        if (list1[i] != list2[i]) {
-          // blog('items at index ( $i ) do not match : ( ${list1[i]} ) <=> ( ${list2[i]} )');
-          _listsAreIdentical = false;
+      for (final Map<String, dynamic> _map in maps) {
+
+        final bool _mapsAreIdentical = checkMapsAreIdentical(
+          map1: _map,
+          map2: map,
+        );
+
+        if (_mapsAreIdentical == true) {
+          _listOfMapContainsTheMap = true;
           break;
         }
 
         else {
-          _listsAreIdentical = true;
+          _listOfMapContainsTheMap = false;
         }
 
       }
     }
 
+    return _listOfMapContainsTheMap;
   }
-
-  return _listsAreIdentical;
-}
 // -------------------------------------
-/// TESTED : WORKS PERFECT
-bool checkStringsContainString({
-  @required List<String> strings,
-  @required String string,
-}) {
-  bool _containsIt = false;
+  /// TESTED : WORKS PERFECT
+  static bool checkListsAreIdentical({
+    @required List<dynamic> list1,
+    @required List<dynamic> list2
+  }) {
+    bool _listsAreIdentical = false;
 
-  if (checkCanLoopList(strings) && string != null) {
-    _containsIt = strings.contains(string);
-  }
-
-  return _containsIt;
-}
-// -------------------------------------
-
-bool checkIsLastListObject({
-  @required List<dynamic> list,
-  @required int index,
-}){
-
-  bool _isAtLast = false;
-
-  if (checkCanLoopList(list) == true){
-
-    if (index != null){
-
-      _isAtLast = index == (list.length - 1);
-
+    if (list1 == null && list2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (list1.isEmpty && list2.isEmpty){
+      _listsAreIdentical = true;
     }
 
-  }
+    else if (checkCanLoopList(list1) == true && checkCanLoopList(list2) == true){
 
-  return _isAtLast;
-}
-// -----------------------------------------------------------------------------
+      if (list1.length != list2.length) {
+        // blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
+        // blog(' ---> lis1 is ( ${list1.toString()} )');
+        // blog(' ---> lis2 is ( ${list2.toString()} )');
+        _listsAreIdentical = false;
+      }
 
-/// BLOGGING MAPS
+      else {
+        for (int i = 0; i < list1.length; i++) {
 
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-void blogMap(Map<dynamic, dynamic> map, {String methodName = ''}) {
-  blog('MAP-PRINT $methodName : --------------------------------------------------START');
+          if (list1[i] != list2[i]) {
+            // blog('items at index ( $i ) do not match : ( ${list1[i]} ) <=> ( ${list2[i]} )');
+            _listsAreIdentical = false;
+            break;
+          }
 
-  if (map != null){
-    final List<dynamic> _keys = map.keys.toList();
-    final List<dynamic> _values = map.values.toList();
+          else {
+            _listsAreIdentical = true;
+          }
 
-    for (int i = 0; i < _keys.length; i++) {
-      blog('MAP-PRINT : ${_keys[i]} : ${_values[i]}');
-    }
-  }
-  else {
-    blog('map is null : can not blog');
-  }
-
-  blog('MAP-PRINT $methodName : --------------------------------------------------END');
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-void blogMaps(List<Map<dynamic, dynamic>> maps, {String methodName}) {
-  if (checkCanLoopList(maps)) {
-    for (final Map<dynamic, dynamic> map in maps) {
-      blogMap(map, methodName: methodName);
-    }
-  }
-}
-// -----------------------------------------------------------------------------
-
-/// ?
-
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-List<double> getDoublesFromDynamics(List<dynamic> dynamics){
-
-  final List<double> _output = <double>[];
-
-  if (checkCanLoopList(dynamics) == true){
-
-    for (final dynamic dyn in dynamics){
-
-      if (dyn is double){
-        final double _double = dyn;
-        _output.add(_double);
+        }
       }
 
     }
 
+    return _listsAreIdentical;
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkStringsContainString({
+    @required List<String> strings,
+    @required String string,
+  }) {
+    bool _containsIt = false;
 
-  return _output;
+    if (checkCanLoopList(strings) && string != null) {
+      _containsIt = strings.contains(string);
+    }
+
+    return _containsIt;
+  }
+// -------------------------------------
+
+  static bool checkIsLastListObject({
+    @required List<dynamic> list,
+    @required int index,
+  }){
+
+    bool _isAtLast = false;
+
+    if (checkCanLoopList(list) == true){
+
+      if (index != null){
+
+        _isAtLast = index == (list.length - 1);
+
+      }
+
+    }
+
+    return _isAtLast;
+  }
+// -----------------------------------------------------------------------------
+
+  /// BLOGGING MAPS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void blogMap(Map<dynamic, dynamic> map, {String methodName = ''}) {
+    blog('MAP-PRINT $methodName : --------------------------------------------------START');
+
+    if (map != null){
+      final List<dynamic> _keys = map.keys.toList();
+      final List<dynamic> _values = map.values.toList();
+
+      for (int i = 0; i < _keys.length; i++) {
+        blog('MAP-PRINT : ${_keys[i]} : ${_values[i]}');
+      }
+    }
+    else {
+      blog('map is null : can not blog');
+    }
+
+    blog('MAP-PRINT $methodName : --------------------------------------------------END');
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void blogMaps(List<Map<dynamic, dynamic>> maps, {String methodName}) {
+    if (checkCanLoopList(maps)) {
+      for (final Map<dynamic, dynamic> map in maps) {
+        blogMap(map, methodName: methodName);
+      }
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// ?
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<double> getDoublesFromDynamics(List<dynamic> dynamics){
+
+    final List<double> _output = <double>[];
+
+    if (checkCanLoopList(dynamics) == true){
+
+      for (final dynamic dyn in dynamics){
+
+        if (dyn is double){
+          final double _double = dyn;
+          _output.add(_double);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 }

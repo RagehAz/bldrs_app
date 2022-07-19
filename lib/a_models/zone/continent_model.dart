@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/zone/region_model.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart' as Mapper;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
