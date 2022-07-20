@@ -259,20 +259,6 @@ class FlyersProvider extends ChangeNotifier {
     );
   }
 // -------------------------------------
-  bool checkFlyerIsSaved(String flyerID){
-    bool _ankhIsOn = false;
-
-    final FlyerModel _flyer = _savedFlyers?.firstWhere((FlyerModel flyer) => flyer.id == flyerID, orElse: () => null);
-
-    if(_flyer == null){
-      _ankhIsOn = false;
-    } else {
-      _ankhIsOn = true;
-    }
-
-    return _ankhIsOn;
-  }
-// -------------------------------------
   Future<void> saveOrUnSaveFlyer({
     @required BuildContext context,
     @required FlyerModel inputFlyer,

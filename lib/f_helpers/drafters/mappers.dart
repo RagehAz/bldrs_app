@@ -882,7 +882,7 @@ class Mapper {
   }) {
     bool _containsIt = false;
 
-    if (checkCanLoopList(strings) && string != null) {
+    if (checkCanLoopList(strings) == true && string != null) {
       _containsIt = strings.contains(string);
     }
 

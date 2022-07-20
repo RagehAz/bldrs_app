@@ -24,6 +24,7 @@ class FlyerFooter extends StatefulWidget {
     @required this.footerPageController,
     @required this.headerIsExpanded,
     @required this.inFlight,
+    @required this.flyerIsSaved,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class FlyerFooter extends StatefulWidget {
   final PageController footerPageController;
   final ValueNotifier<bool> headerIsExpanded; /// p
   final bool inFlight;
+  final ValueNotifier<bool> flyerIsSaved;
   /// --------------------------------------------------------------------------
   @override
   State<FlyerFooter> createState() => _FlyerFooterState();
@@ -65,10 +67,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _canShowConvertibleReviewButton.dispose();
     _isEditingReview.dispose();
     super.dispose(); /// tamam
-  }
-// -----------------------------------------------------------------------------
-  void _onShareFlyer(){
-    blog('SHARE FLYER NOW');
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false); /// tamam disposed
@@ -177,14 +175,14 @@ class _FlyerFooterState extends State<FlyerFooter> {
               // if (widget.tinyMode == false)// && widget.inFlight == false)
                 FlyerFooterButtons(
                   key: const ValueKey<String>('FooterButtons'),
-                  flyerID: widget.flyerModel.id,
+                  flyerModel: widget.flyerModel,
                   flyerBoxWidth: widget.flyerBoxWidth,
                   tinyMode: widget.tinyMode,
                   onSaveFlyer: widget.onSaveFlyer,
                   onReviewFlyer: onReviewButtonTap,
-                  onShareFlyer: _onShareFlyer,
                   inFlight: widget.inFlight,
                   infoButtonType: _infoButtonType,
+                  flyerIsSaved: widget.flyerIsSaved,
                 ),
 
               /// INFO BUTTON

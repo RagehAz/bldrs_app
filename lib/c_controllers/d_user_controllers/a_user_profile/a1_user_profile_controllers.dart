@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
-import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // ---------------------------------
