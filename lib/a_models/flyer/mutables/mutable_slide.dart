@@ -10,7 +10,8 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
+
 
 // -----------------------------------------------------------------------------
 @immutable

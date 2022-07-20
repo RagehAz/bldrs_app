@@ -6,9 +6,9 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
+// import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:contacts_service/contacts_service.dart';
+// import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -248,6 +248,7 @@ class UsersProvider extends ChangeNotifier {
   /// MY DEVICE CONTACTS
 
 // -------------------------------------
+  /*
   List<Contact> _myDeviceContacts = <Contact>[];
   List<String> _selectedDeviceContacts = <String>[];
   List<Contact> _searchedDeviceContacts = <Contact>[];
@@ -437,6 +438,7 @@ class UsersProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+  */
 // -----------------------------------------------------------------------------
 
   /// PRO FETCHERS
@@ -509,29 +511,29 @@ class UsersProvider extends ChangeNotifier {
       notify: false,
     );
 
-    /// _myDeviceContacts
-    _usersProvider.setMyDeviceContacts(
-      contacts: <Contact>[],
-      notify: false,
-    );
-
-    /// _selectedDeviceContacts
-    _usersProvider._setSelectedDeviceContacts(
-      contacts: <String>[],
-      notify: false
-    );
-
-    /// _searchedDeviceContacts
-    _usersProvider._serSearchedDeviceContacts(
-        setTo: <Contact>[],
-        notify: false,
-    );
-
-    /// _isSearchingDeviceContacts
-    _usersProvider._setIsSearchingDeviceContacts(
-        setTo: false,
-        notify: notify,
-    );
+    // /// _myDeviceContacts
+    // _usersProvider.setMyDeviceContacts(
+    //   contacts: <Contact>[],
+    //   notify: false,
+    // );
+    //
+    // /// _selectedDeviceContacts
+    // _usersProvider._setSelectedDeviceContacts(
+    //   contacts: <String>[],
+    //   notify: false
+    // );
+    //
+    // /// _searchedDeviceContacts
+    // _usersProvider._serSearchedDeviceContacts(
+    //     setTo: <Contact>[],
+    //     notify: false,
+    // );
+    //
+    // /// _isSearchingDeviceContacts
+    // _usersProvider._setIsSearchingDeviceContacts(
+    //     setTo: false,
+    //     notify: notify,
+    // );
 
   }
 // -----------------------------------------------------------------------------
