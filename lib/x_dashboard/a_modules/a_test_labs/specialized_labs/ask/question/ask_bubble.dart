@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -113,11 +113,17 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   }
   // ----------------------------------------------------------------------
   Future<void> _addPic() async {
-    final File _imageFile =
-        await Imagers.takeGalleryPicture(picType: Imagers.PicType.askPic);
+    final List<File> _imageFiles = await Imagers.pickMultipleImages(
+        // picType: Imagers.PicType.askPic
+      context: context,
+    );
+
+    final File _file = _imageFiles?.first;
+
     setState(() {
-      _questionPics.add(File(_imageFile.path));
+      _questionPics.add(File(_file.path));
     });
+
   }
   // ----------------------------------------------------------------------
   void _deletePic(File pic) {

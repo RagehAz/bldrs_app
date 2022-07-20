@@ -19,7 +19,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 
 // -----------------------------------------------------------------------------
 enum UserStatus {

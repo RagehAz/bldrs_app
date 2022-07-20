@@ -16,7 +16,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -676,9 +676,12 @@ Future<void> _onSelectImageURLAsAttachment({
   @required NoteAttachmentType attachmentType,
 }) async {
 
-  final File _pic = await Imagers.takeGalleryPicture(
-    picType: Imagers.PicType.slideHighRes,
+  final List<File> _pics = await Imagers.pickMultipleImages(
+    context: context
+    // picType: Imagers.PicType.slideHighRes,
   );
+
+  final File _file = _pics?.first;
 
   // final ImageSize _picSize = await ImageSize.superImageSize(_pic);
   // final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(
@@ -689,7 +692,7 @@ Future<void> _onSelectImageURLAsAttachment({
 
   note.value = note.value.copyWith(
     attachmentType: attachmentType,
-    attachment: _pic,
+    attachment: _file,
   );
 
 }

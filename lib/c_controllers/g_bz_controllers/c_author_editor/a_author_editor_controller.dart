@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 
@@ -19,15 +19,19 @@ import 'package:flutter/material.dart';
 
 // -------------------------------
 Future<void> takeAuthorImage({
+  @required BuildContext context,
   @required ValueNotifier<AuthorModel> author,
 }) async {
 
-  final File _imageFile = await Imagers.takeGalleryPicture(
-      picType: Imagers.PicType.authorPic
+  final List<File> _imageFiles = await Imagers.pickMultipleImages(
+    context: context,
+    // picType: Imagers.PicType.authorPic
   );
 
+  final File _file = _imageFiles?.first;
+
   author.value = author.value.copyWith(
-    pic: _imageFile,
+    pic: _file,
   );
 
 }
