@@ -1707,9 +1707,36 @@ class BzModel{
 
     }
 
-
     blog('ending blogBzzDifferences checkup');
 
+  }
+// ------------------------------------------
+  static bool checkBzHasContacts({
+    @required BzModel bzModel,
+  }){
+    bool _hasContacts = false;
+
+    if (bzModel != null){
+
+      if (Mapper.checkCanLoopList(bzModel.contacts) == true){
+        _hasContacts = true;
+      }
+      else {
+
+        for (final AuthorModel author in bzModel.authors){
+
+          if (Mapper.checkCanLoopList(author.contacts) == true){
+            _hasContacts = true;
+            break;
+          }
+
+        }
+
+      }
+
+    }
+
+    return _hasContacts;
   }
 // -----------------------------------------------------------------------------
 

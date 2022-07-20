@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
@@ -9,35 +12,50 @@ import 'package:url_launcher/url_launcher.dart' as Launcher;
 /// LAUNCH URL
 
 // ----------------------------------------
-Future<void> launchURL(String link) async {
-  /// should make a condition
-  /// if it starts with http:// or not
-  /// then do whats necessary, as the link should include http://
+/// TESTED : WORKS PERFECT
+Future<bool> launchURL(String link) async {
 
-  final Uri _uri = Uri.parse(link);
+  Uri _uri;
+  bool _success = false;
 
-  if (await Launcher.canLaunchUrl(_uri)) {
-    await Launcher.launchUrl(_uri);
-  } else {
+  /// LINK SHOULD CONTAIN 'http://' to work
+  final bool _containsHttp = stringContainsSubString(
+    string: link,
+    subString: 'http://',
+  );
+
+  if (_containsHttp == true){
+    _uri = Uri.parse(link);
+  }
+  else {
+    _uri = Uri.parse('http://$link');
+  }
+
+  if (await Launcher.canLaunchUrl(_uri) == true) {
+
+    unawaited(Launcher.launchUrl(_uri));
+    _success = true;
+  }
+  else {
     blog('Can Not launch link');
   }
+
+  return _success;
 }
 // -----------------------------------------------------------------------------
 
 /// LAUNCH CALL
 
 // ----------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> launchCall(String phoneNumber) async {
-
-  // final String _link = 'tel: $phoneNumber';
-  // final Uri _uri = Uri.parse(_link;
 
   final Uri _uri = Uri(
     path: phoneNumber,
     scheme: 'tel',
   );
 
-  if (await Launcher.canLaunchUrl(_uri)) {
+  if (await Launcher.canLaunchUrl(_uri) == true) {
     await Launcher.launchUrl(_uri);
   }
 

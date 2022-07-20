@@ -26,11 +26,13 @@ String fileExtensionOf(dynamic file) {
           : null;
 }
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 bool objectIsURL(dynamic file) {
   bool _validURL;
 
   if (file is String) {
     _validURL = Uri.parse(file).isAbsolute;
+
   }
 
   else {

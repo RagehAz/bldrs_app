@@ -119,7 +119,7 @@ class UserProtocol {
     blog('UserProtocol.updateUserModelLocally : END');
 
   }
-
+// ----------------------------------
   static Future<void> followingProtocol({
     @required BuildContext context,
     @required bool followIsOn,

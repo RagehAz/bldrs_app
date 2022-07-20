@@ -1,10 +1,15 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
+import 'package:bldrs/c_protocols/note_protocols.dart';
+import 'package:bldrs/c_protocols/record_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+
 // -----------------------------------------------------------------------------
 AnimationController initializeHeaderAnimationController({
   @required BuildContext context,
@@ -192,30 +197,73 @@ Future<void> onCallTap({
   @required BzModel bzModel,
 }) async {
 
-  final String _contact = ContactModel.getAContactValueFromContacts(
-      contacts: bzModel.contacts,
-      contactType: ContactType.phone,
+  final bool _bzHasContacts = BzModel.checkBzHasContacts(
+    bzModel: bzModel,
   );
 
   /// alert user there is no contact to call
-  if (_contact == null) {
-    blog('no contact here');
+  if (_bzHasContacts == false){
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: '${bzModel.name} has no available contact',
+      body: 'A reminder notification for the business will be sent to request updating their phone number',
+    );
+
+    await NoteProtocol.sendNoBzContactAvailableNote(
+      context: context,
+      bzModel: bzModel,
+    );
+
   }
 
-  /// or launch call and start call bz ops
   else {
 
-    /// launch call
-    await Launcher.launchCall(_contact);
+    await bzContactsDialog(
+        context: context,
+        title: 'Contact ${bzModel.name}',
+        body: 'Select an Author to contact',
+        bzModel: bzModel,
+        onContact: (ContactModel contact) async {
 
-    /// TASK : start call bz ops
-    // await RecordOps.callBzOPs(
-    //   context: context,
-    //   bzID: _bzID,
-    //   userID: _userID,
-    //   slideIndex: _superFlyer.currentSlideIndex,
-    // );
+          bool _success = false;
+
+          /// PHONE CALL
+          if (contact.contactType == ContactType.phone){
+            await Launcher.launchCall(contact.value);
+            _success = true;
+          }
+
+          /// WEB LINK - SOCIAL MEDIA
+          else if (ContactModel.checkIsWebLink(contact) == true){
+            _success = await Launcher.launchURL(contact.value);
+          }
+
+          /// EMAIL
+          else if (contact.contactType == ContactType.email){
+            /// TASK : LAUNCH EMAIL CONTACT
+            blog('onCallTap : SHOULD SEND AN EMAIL TO THIS BITCH : ${contact.value}');
+          }
+
+          /// OTHER UNKNOWN
+          else {
+            blog('onCallTap : CAN NOT LAUNCH THIS CONTACT MAN : ${contact.contactType} : ${contact.value}');
+          }
+
+          /// CALL RECORD PROTOCOL
+          if (_success == true){
+            await RecordProtocols.callBz(
+              context: context,
+              bzID: bzModel.id,
+              contact: contact,
+            );
+          }
+
+        }
+    );
+
 
   }
+
 }
 // -----------------------------------------------------------------------------

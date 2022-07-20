@@ -330,6 +330,49 @@ class NoteProtocol {
     blog('NoteProtocol.sendFlyerUpdateNoteToItsBz : END');
 
   }
+// ----------------------------------
+  /// TESTED : ...
+  static Future<void> sendNoBzContactAvailableNote({
+    @required BuildContext context,
+    @required BzModel bzModel,
+}) async {
+    blog('NoteProtocol.sendNoBzContactAvailableNote : START');
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
+    final NoteModel _note = NoteModel(
+      id: 'x',
+      senderID: _userModel.id,
+      senderImageURL: _userModel.pic,
+      noteSenderType: NoteSenderType.user,
+      receiverID: bzModel.id,
+      receiverType: NoteReceiverType.bz,
+      title: '${_userModel.name} has tried to contact you',
+      body: 'Please update your Business contacts info to allow customers to reach you',
+      metaData: NoteModel.defaultMetaData,
+      sentTime: DateTime.now(),
+      attachment: null,
+      attachmentType: NoteAttachmentType.non,
+      seen: false,
+      seenTime: null,
+      sendFCM: true,
+      noteType: NoteType.announcement,
+      response: null,
+      responseTime: null,
+      buttons: null,
+      token: null,
+    );
+
+    await NoteFireOps.createNote(
+        context: context,
+        noteModel: _note
+    );
+
+    blog('NoteProtocol.sendNoBzContactAvailableNote : END');
+}
 // -----------------------------------------------------------------------------
 
 /// READ - STREAMING
