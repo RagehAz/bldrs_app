@@ -9,7 +9,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class KeywordsPickerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -38,7 +37,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
   void initState() {
     super.initState();
 
-    _scrollController = ItemScrollController();
+    // _scrollController = ItemScrollController();
     // _itemPositionListener = ItemPositionsListener.create();
 
     _selectedKeywordsIDs = ValueNotifier(<String>[...widget.selectedKeywordsIDs]);
@@ -192,35 +191,35 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
   }
    */
 // -----------------------------------------------------------------------------
-  ItemScrollController _scrollController;
-  ItemPositionsListener _itemPositionListener;
+//   ItemScrollController _scrollController;
+//   ItemPositionsListener _itemPositionListener;
   Future _scrollToEndOfAppBar() async {
     // _scrollController.animateTo(_scrollController.position.maxScrollExtent + 100, duration: Ratioz.fadingDuration, curve: Curves.easeInOut);
 
-    if (_selectedKeywordsIDs.value.length <= 2 || _scrollController == null){
-      blog('no scroll available');
-    } else {
-      await _scrollController?.scrollTo(
-        index: _selectedKeywordsIDs.value.length - 1,
-        duration: Ratioz.duration150ms,
-        curve: Curves.easeOut,
-      );
+    // if (_selectedKeywordsIDs.value.length <= 2 || _scrollController == null){
+    //   blog('no scroll available');
+    // } else {
+    //   await _scrollController?.scrollTo(
+    //     index: _selectedKeywordsIDs.value.length - 1,
+    //     duration: Ratioz.duration150ms,
+    //     curve: Curves.easeOut,
+    //   );
+    // }
 
-
-    }
   }
 // -----------------------------------------------------------------------------
   Future<void> _scrollToIndex(int index) async {
 
-    if (_selectedKeywordsIDs.value.length <= 1){
-      blog('no scroll available');
-    } else {
-      await _scrollController.scrollTo(
-        index: index,
-        duration: Ratioz.duration150ms,
-        curve: Curves.easeOut,
-      );
-    }
+    // if (_selectedKeywordsIDs.value.length <= 1){
+    //   blog('no scroll available');
+    // } else {
+    //   await _scrollController.scrollTo(
+    //     index: index,
+    //     duration: Ratioz.duration150ms,
+    //     curve: Curves.easeOut,
+    //   );
+    // }
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSelectKeyword(String keywordID) async {
@@ -291,8 +290,8 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
               /// selected keywords zone
               SelectedKeywordsBar(
                 selectedKeywordsIDs: selectedIDs,
-                scrollController: _scrollController,
-                itemPositionListener: _itemPositionListener,
+                // scrollController: _scrollController,
+                // itemPositionListener: _itemPositionListener,
                 highlightedKeywordID: _highlightedKeywordID,
                 removeKeyword: (String keywordID) => _onSelectKeyword(keywordID)
               ),

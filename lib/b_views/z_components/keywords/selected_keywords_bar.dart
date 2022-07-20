@@ -3,22 +3,21 @@ import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SelectedKeywordsBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SelectedKeywordsBar({
     @required this.selectedKeywordsIDs,
-    @required this.scrollController,
-    @required this.itemPositionListener,
+    // @required this.scrollController,
+    // @required this.itemPositionListener,
     @required this.highlightedKeywordID,
     @required this.removeKeyword,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<String> selectedKeywordsIDs;
-  final ItemScrollController scrollController;
-  final ItemPositionsListener itemPositionListener;
+  // final ItemScrollController scrollController;
+  // final ItemPositionsListener itemPositionListener;
   final String highlightedKeywordID;
   final ValueChanged<String> removeKeyword;
   /// --------------------------------------------------------------------------
@@ -60,7 +59,10 @@ class SelectedKeywordsBar extends StatelessWidget {
           child: selectedKeywordsIDs.isEmpty ?
           const SizedBox()
               :
-          ScrollablePositionedList.builder(
+              const SizedBox()
+
+            /*
+                      ScrollablePositionedList.builder(
             physics: const BouncingScrollPhysics(),
             itemScrollController: scrollController,
             scrollDirection: Axis.horizontal,
@@ -82,6 +84,9 @@ class SelectedKeywordsBar extends StatelessWidget {
 
             },
           ),
+
+             */
+
         ),
 
       ],
