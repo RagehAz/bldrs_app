@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
 
 // -----------------------------------------------------------------------------
 extension FileExtention on FileSystemEntity {

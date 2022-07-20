@@ -15,18 +15,17 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_cropper/image_cropper.dart';
+// import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path_provider/path_provider.dart';
 
 enum PicType {
@@ -157,7 +156,7 @@ Future<List<Asset>> takeGalleryMultiPictures({
 /// IMAGE MODIFIERS
 
 // ---------------------------------------
-///
+/*
 Future<File> cropImage({
   @required BuildContext context,
   @required File file,
@@ -244,6 +243,7 @@ Future<File> cropImage({
     return File(_croppedFile.path);
   }
 }
+ */
 // -----------------------------------------------------------------
 
 /// FILE CREATORS
@@ -381,8 +381,7 @@ Future<File> getFileFromURL(String imageUrl) async {
 // ---------------------------------------
 Future<File> getFileFromPickerAsset(Asset asset) async {
   final ByteData _byteData = await asset.getThumbByteData(
-      asset.originalWidth, asset.originalHeight,
-      quality: 100
+      asset.originalWidth, asset.originalHeight
   );
 
   final String _name = TextMod.removeTextAfterLastSpecialCharacter(asset.name, '.');
@@ -960,6 +959,7 @@ List<BoxFit> concludeBoxesFitsForAssets({
 /// CropAspectRatioPreset
 
 // ---------------------------------------
+/*
 List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets() {
   const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
     CropAspectRatioPreset.square,
@@ -983,6 +983,7 @@ List<CropAspectRatioPreset> getIOSCropAspectRatioPresets() {
   ];
   return _androidRatios;
 }
+ */
 // -----------------------------------------------------------------
 
 /// CHECKERS
