@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
+import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
 
 @immutable
 class ImageSize {
