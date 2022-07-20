@@ -2,23 +2,20 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:flutter/material.dart';
-import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
-
-
 // -----------------------------------------------------------------------------
 @immutable
 class MutableSlide {
   /// --------------------------------------------------------------------------
   const MutableSlide({
-    @required this.picAsset,
     @required this.picFile,
     @required this.headline,
     @required this.midColor,
@@ -37,7 +34,6 @@ class MutableSlide {
   /// --------------------------------------------------------------------------
   final int slideIndex;
   final String picURL;
-  final Asset picAsset;
   final File picFile;
   final BoxFit picFit;
   final ImageSize imageSize;
@@ -55,7 +51,6 @@ class MutableSlide {
   MutableSlide copyWith({
       int slideIndex,
       String picURL,
-      Asset picAsset,
       File picFile,
       BoxFit picFit,
       TextEditingController headline,
@@ -70,7 +65,6 @@ class MutableSlide {
       ImageFilterModel filter,
 }){
     return MutableSlide(
-      picAsset: picAsset ?? this.picAsset,
       picFile: picFile ?? this.picFile,
       headline: headline ?? this.headline,
       imageSize: imageSize ?? this.imageSize,
@@ -97,7 +91,6 @@ class MutableSlide {
     return MutableSlide(
       slideIndex: slide.slideIndex,
       picURL: slide.pic,
-      picAsset: null,
       picFile: null,
       headline: TextEditingController(text: slide.headline),
       description: TextEditingController(text: slide.description),
@@ -146,7 +139,6 @@ class MutableSlide {
     return MutableSlide(
       slideIndex: slide.slideIndex,
       picURL: slide.pic,
-      picAsset: null,
       picFile: _file,
       headline: TextEditingController(text: slide.headline),
       description: TextEditingController(text: slide.description),
@@ -186,30 +178,31 @@ class MutableSlide {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<MutableSlide>> createMutableSlidesByAssets({
-    @required List<Asset> assets,
+  static Future<List<MutableSlide>> createMutableSlidesByFiles({
+    @required BuildContext context,
+    @required List<File> files,
     @required List<MutableSlide> existingSlides,
     @required TextEditingController headlineController,
 }) async {
 
     final List<MutableSlide> _output = <MutableSlide>[];
 
-    if (Mapper.checkCanLoopList(assets) == true){
+    if (Mapper.checkCanLoopList(files) == true){
 
-      for (int i = 0; i < assets.length; i++){
+      for (int i = 0; i < files.length; i++){
 
-        final Asset _pickedAsset = assets[i];
+        final File _file = files[i];
 
-        final int _slideIndexThatIncludesThisAsset = MutableSlide.getMutableSlideIndexThatContainsThisAsset(
+        final int _slideIndexThatIncludesThisFile = MutableSlide.getMutableSlideIndexThatContainsThisFile(
           mSlides: existingSlides,
-          assetToSearchFor: _pickedAsset,
+          fileToSearchFor: _file,
         );
 
         /// A - IF FOUND EXITING SLIDE CONTAINING THIS ASSET => ALREADY PICKED ASSET
-        if (_slideIndexThatIncludesThisAsset != -1){
+        if (_slideIndexThatIncludesThisFile != -1){
 
           /// A1 - ADJUST SLIDE INDEX AND HEADLINE OF EXISTING SLIDE
-          final MutableSlide _adjustedSlide = existingSlides[_slideIndexThatIncludesThisAsset].copyWith(
+          final MutableSlide _adjustedSlide = existingSlides[_slideIndexThatIncludesThisFile].copyWith(
             slideIndex: i,
             headline: i == 0 ? headlineController : null,
           );
@@ -222,8 +215,9 @@ class MutableSlide {
         else {
 
           /// B1 - CREATE NEW SLIDE
-          final MutableSlide _newSlide = await createNewMutableSlideByAsset(
-            asset: _pickedAsset,
+          final MutableSlide _newSlide = await createNewMutableSlideByFile(
+            context: context,
+            file: _file,
             index: i,
             headline: i == 0 ? headlineController : null,
           );
@@ -239,25 +233,28 @@ class MutableSlide {
     return _output;
   }
 // -------------------------------------
-  static Future<MutableSlide> createNewMutableSlideByAsset({
-    @required Asset asset,
+  /// RE-TEST REQUIRED
+  static Future<MutableSlide> createNewMutableSlideByFile({
+    @required BuildContext context,
+    @required File file,
     @required int index,
     @required TextEditingController headline,
 }) async {
     MutableSlide _slide;
 
-    if (asset != null){
+    if (file != null){
 
-      final File _file = await Imagers.getFileFromPickerAsset(asset);
-      final BoxFit _fit = Imagers.concludeBoxFitForAsset(
-          asset: asset,
-          flyerBoxWidth: 100, /// TASK : no need for this, dig deeper to understand, Ratio is calculated inside
+      final File _file = file;
+      final ImageSize _imageSize = await ImageSize.superImageSize(file);
+      final BoxFit _fit = ImageSize.concludeBoxFit(
+          picWidth: _imageSize.width,
+          picHeight: _imageSize.width,
+          viewWidth: FlyerBox.width(context, 1),
+          viewHeight: FlyerBox.heightBySizeFactor(context: context, flyerSizeFactor: 1),
       );
-      final ImageSize _imageSize = ImageSize.getImageSizeFromAsset(asset);
       final Color _midColor = await Colorizers.getAverageColor(_file);
 
       _slide = MutableSlide(
-        picAsset: asset,
         picFile: _file,
         headline: headline ?? TextEditingController(),
         imageSize: _imageSize,
@@ -283,27 +280,27 @@ class MutableSlide {
   /// GETTERS
 
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<Asset> getAssetsFromMutableSlides({
+  /// RE-TEST REQUIRED
+  static List<File> getFilesFromMutableSlides({
     @required List<MutableSlide> mutableSlides,
   }) {
 
-    final List<Asset> _assets = <Asset>[];
+    final List<File> _files = <File>[];
 
     for (final MutableSlide mSlide in mutableSlides) {
-      if (mSlide.picAsset != null) {
-        _assets.add(mSlide.picAsset);
+      if (mSlide.picFile != null) {
+        _files.add(mSlide.picFile);
       }
     }
 
-    return _assets;
+    return _files;
   }
 // -----------------------------------------------------------------------------
 
   /// INDEXES
 
 // -------------------------------------
-  static int getAssetTrueIndexFromMutableSlides({
+  static int getFileTrueIndexFromMutableSlides({
     @required List<MutableSlide> mutableSlides,
     @required int slideIndex,
   }) {
@@ -324,7 +321,7 @@ class MutableSlide {
     /// A - search for first slide where its picture of object type asset
     final MutableSlide _firstSlideWithAssetPicture = mutableSlides.firstWhere(
         (MutableSlide slide) =>
-            ObjectChecker.objectIsAsset(slide.picURL) == true,
+            ObjectChecker.objectIsFile(slide.picURL) == true,
         orElse: () => null);
 
     /// B - when found
@@ -341,17 +338,18 @@ class MutableSlide {
     return _trueIndex;
   }
 // -------------------------------------
-  static int getMutableSlideIndexThatContainsThisAsset({
+  /// RETEST REQUIRED
+  static int getMutableSlideIndexThatContainsThisFile({
     @required List<MutableSlide> mSlides,
-    @required Asset assetToSearchFor,
+    @required File fileToSearchFor,
   }) {
 
     int _assetIndexInAssets = -1;
 
-    if (mSlides != null && mSlides.isNotEmpty && assetToSearchFor != null) {
+    if (mSlides != null && mSlides.isNotEmpty && fileToSearchFor != null) {
       _assetIndexInAssets = mSlides.indexWhere(
             (MutableSlide mSlide) =>
-        mSlide?.picAsset?.identifier == assetToSearchFor.identifier,
+        mSlide?.picFile?.path == fileToSearchFor.path,
       );
     }
 
@@ -383,7 +381,6 @@ class MutableSlide {
   void blogSlide(){
 
     blog('BLOGGING SLIDE ------------> START');
-    blog('picAsset : $picAsset');
     blog('picFile : $picFile');
     blog('headline : ${headline.text}');
     imageSize.blogSize();

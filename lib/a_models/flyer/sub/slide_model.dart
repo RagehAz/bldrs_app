@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -13,7 +13,6 @@ import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
 
 @immutable
 class SlideModel {
@@ -533,6 +532,7 @@ class SlideModel {
     return _files;
   }
 // -------------------------------------
+  /*
   static Future<List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
     final List<Asset> _assets = <Asset>[];
 
@@ -558,6 +558,7 @@ class SlideModel {
 
     return _assets;
   }
+   */
 // -------------------------------------
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
     final List<BoxFit> _boxFits = <BoxFit>[];
@@ -601,7 +602,7 @@ class SlideModel {
     if (mSlide != null) {
       _slideModel = SlideModel(
         slideIndex: mSlide.slideIndex,
-        pic: mSlide.picURL ?? mSlide.picFile ?? mSlide.picAsset,
+        pic: mSlide.picURL ?? mSlide.picFile,
         headline: mSlide.headline.text,
         description: mSlide.description.text,
         sharesCount: mSlide.sharesCount,
