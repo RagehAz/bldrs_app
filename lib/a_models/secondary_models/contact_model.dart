@@ -4,6 +4,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 
 // -----------------------------------------------------------------------------
 enum ContactType {
@@ -609,6 +610,7 @@ class ContactModel {
     return _isEmpty;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkContactIsSocialMedia(ContactModel contact){
     bool _isSocialMedia = false;
 
@@ -749,6 +751,27 @@ class ContactModel {
         default: return false;
       }
     }
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIsWebLink(ContactModel contact){
+    bool _isWebLink = false;
+
+    if (contact != null){
+
+      if (ObjectChecker.objectIsURL(contact.value) == true){
+        _isWebLink = true;
+      }
+      else if (contact.contactType == ContactType.website){
+        _isWebLink = true;
+      }
+      else {
+        _isWebLink = checkContactIsSocialMedia(contact);
+      }
+
+    }
+
+    return _isWebLink;
   }
 // -----------------------------------------------------------------------------
 }

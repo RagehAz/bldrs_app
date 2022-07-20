@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -300,6 +302,53 @@ Future<bool> bzzBannersDialog({
 }
 // -----------------------------------------------------------------------------
 
+/// AUTHORS DIALOGS
+
+// ---------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> bzContactsDialog({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required String title,
+  @required String body,
+  String confirmButtonText,
+  ValueChanged<ContactModel> onContact,
+}) async {
+
+  final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+
+  await CenterDialog.showCenterDialog(
+    context: context,
+    title: title,
+    body: body,
+    confirmButtonText: 'Cancel',
+    height: Scale.superScreenHeight(context) * 0.85,
+    child: Container(
+      width: CenterDialog.getWidth(context),
+      height: _gridHeight,
+      color: Colorz.white10,
+      alignment: Alignment.center,
+      child: ListView.builder(
+        itemCount: bzModel?.authors?.length ?? 0,
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        itemBuilder: (_, int index){
+
+          return AuthorCard(
+            author: bzModel.authors[index],
+            bzModel: bzModel,
+            onContact: onContact,
+            bubbleWidth: CenterDialog.getWidth(context),
+            moreButtonIsOn: false,
+          );
+
+        },
+      ),
+    ),
+  );
+
+}
+// -----------------------------------------------------------------------------
 /// FLYERS DIALOGS
 
 // ---------------------------------
