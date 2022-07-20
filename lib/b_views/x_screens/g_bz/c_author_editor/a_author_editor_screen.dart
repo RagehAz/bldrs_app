@@ -136,6 +136,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       redDot: true,
                       bubbleType: BubbleType.authorPic,
                       onAddPicture: () => takeAuthorImage(
+                        context: context,
                         author: _author,
                       ),
                       onDeletePicture: () => onDeleteAuthorImage(

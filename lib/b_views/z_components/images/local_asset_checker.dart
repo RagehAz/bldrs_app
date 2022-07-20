@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:flutter/material.dart';
 
 class LocalAssetChecker extends StatefulWidget {

@@ -231,6 +231,7 @@ class BzEditorScreenView extends StatelessWidget {
                     redDot: true,
                     bubbleType: BubbleType.bzLogo,
                     onAddPicture: () => takeBzLogo(
+                      context: context,
                       bzLogo: bzLogo,
                     ),
                     onDeletePicture: () => onDeleteLogo(

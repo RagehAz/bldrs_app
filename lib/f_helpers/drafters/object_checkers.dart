@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
 
 // -----------------------------------------------------------------------------
 extension FileExtention on FileSystemEntity {
@@ -105,6 +104,7 @@ bool objectIsSVG(dynamic object) {
   return _isSVG;
 }
 // -----------------------------------------------------------------------------
+/*
 /// TESTED : WORKS PERFECT
 bool objectIsAsset(dynamic object) {
   bool _objectIsAsset;
@@ -117,6 +117,7 @@ bool objectIsAsset(dynamic object) {
 
   return _objectIsAsset;
 }
+ */
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 bool objectIsJPGorPNG(dynamic object) {

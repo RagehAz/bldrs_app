@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
@@ -21,7 +21,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/record_ops.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -410,16 +410,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             verse: ' C ( x ) ',
             onTap: () async {
 
-              final RecordModel _recordModel = RecordModel.dummyRecord();
-
-              _recordModel.blogRecord();
-
-              final RecordModel _record = await RecordOps.createRecord(
-                context: context,
-                record: _recordModel,
+              final List<File> _files = await Imagers.pickMultipleImages(
+                  context: context,
               );
 
-              _record.blogRecord();
+              final File _thing = _files?.first;
+
+              _thePic.value = _thing;
 
             }
         ),
