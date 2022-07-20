@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -9,7 +10,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
@@ -18,7 +19,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
 // -----------------------------------------------------------------------------
 /*
 /// GIF THING
@@ -186,15 +186,15 @@ Future<void> _addImagesForNewFlyer({
   if(mounted){
 
     /// GET ONLY ASSETS AND IGNORE FILES
-    final List<Asset> _existingAssets = MutableSlide.getAssetsFromMutableSlides(
-      mutableSlides: draftFlyer.value.mutableSlides,
-    );
+    // final List<File> _existingFiles = MutableSlide.getFilesFromMutableSlides(
+    //   mutableSlides: draftFlyer.value.mutableSlides,
+    // );
 
-    final List<Asset> _pickedAssets = await Imagers.takeGalleryMultiPictures(
+    final List<File> _pickedAssets = await Imagers.pickMultipleImages(
       context: context,
-      images: _existingAssets,
-      mounted: mounted,
-      accountType: bzModel.accountType,
+      // images: _existingFiles,
+      // mounted: mounted,
+      // accountType: bzModel.accountType,
     );
 
     /// B - if didn't pick more images
@@ -207,8 +207,9 @@ Future<void> _addImagesForNewFlyer({
 
       blog('the thing is : $_pickedAssets');
 
-      final List<MutableSlide> _newMutableSlides = await MutableSlide.createMutableSlidesByAssets(
-        assets: _pickedAssets,
+      final List<MutableSlide> _newMutableSlides = await MutableSlide.createMutableSlidesByFiles(
+        context: context,
+        files: _pickedAssets,
         existingSlides: draftFlyer.value.mutableSlides,
         headlineController: headlineController,
       );

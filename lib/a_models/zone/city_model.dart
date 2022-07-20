@@ -133,29 +133,29 @@ class CityModel {
   }
 // -------------------------------------
 /// -----------------------------------------------------------------------------
-///   static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
-///     final List<CityModel> _cities = <CityModel>[];
-///
-///     final List<String> _keys = map.keys.toList();
-///     final List<dynamic> _values = map.values.toList();
-///
-///     if (Mapper.canLoopList(_keys)){
-///
-///       for (int i = 0; i<_keys.length; i++){
-///
-///         final CityModel _city = decipherCityMap(
-///           map: _values[i],
-///           fromJSON: fromJSON,
-///         );
-///
-///         _cities.add(_city);
-///
-///       }
-///
-///     }
-///
-///     return _cities;
-///   }
+//   static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
+//     final List<CityModel> _cities = <CityModel>[];
+//
+//     final List<String> _keys = map.keys.toList();
+//     final List<dynamic> _values = map.values.toList();
+//
+//     if (Mapper.canLoopList(_keys)){
+//
+//       for (int i = 0; i<_keys.length; i++){
+//
+//         final CityModel _city = decipherCityMap(
+//           map: _values[i],
+//           fromJSON: fromJSON,
+//         );
+//
+//         _cities.add(_city);
+//
+//       }
+//
+//     }
+//
+//     return _cities;
+//   }
 /// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 

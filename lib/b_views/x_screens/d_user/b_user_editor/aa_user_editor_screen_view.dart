@@ -105,6 +105,7 @@ class UserEditorScreenView extends StatelessWidget {
                     picture: picture,
                   ),
                   onAddPicture: () => takeUserPicture(
+                      context: context,
                       canPickImage: canPickImage,
                       picture: picture
                   ),

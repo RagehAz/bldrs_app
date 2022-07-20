@@ -2,11 +2,11 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/image_picker/multi_image_picker_2/multi_image_picker2.dart';
 
 @immutable
 class ImageSize {
@@ -60,6 +60,7 @@ class ImageSize {
     return height / width;
   }
 // -------------------------------------
+  /*
   static ImageSize getImageSizeFromAsset(Asset asset) {
     ImageSize _imageSize;
 
@@ -71,6 +72,7 @@ class ImageSize {
 
     return _imageSize;
   }
+   */
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<ImageSize> superImageSize(dynamic image) async {
@@ -80,7 +82,7 @@ class ImageSize {
       // -----------------------------------------------------------o
       final bool _isURL = ObjectChecker.objectIsURL(image) == true;
       // blog('_isURL : $_isURL');
-      final bool _isAsset = ObjectChecker.objectIsAsset(image) == true;
+      // final bool _isAsset = ObjectChecker.objectIsAsset(image) == true;
       // blog('_isAsset : $_isAsset');
       final bool _isFile = ObjectChecker.objectIsFile(image) == true;
       // blog('_isFile : $_isFile');
@@ -97,6 +99,7 @@ class ImageSize {
         _decodedImage = await Imagers.getUiImageFromUint8List(_uInt8List);
       }
       // --------------------------o
+      /*
       else if (_isAsset == true) {
         final Asset _asset = image;
         final ByteData _byteData = await _asset.getByteData();
@@ -104,6 +107,7 @@ class ImageSize {
         // await null;
         _imageSize = ImageSize.getImageSizeFromAsset(image);
       }
+       */
       // --------------------------o
       else if (_isFile) {
         // blog('_isFile staring aho : $_isFile');
@@ -223,7 +227,99 @@ class ImageSize {
 
     return _identical;
   }
-// -------------------------------------
+// -----------------------------------------------------------------
+
+  /// BOX FIT
+
+// ---------------------------------------
+  /*
+  static BoxFit concludeBoxFitOld(Asset asset) {
+    final BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
+    return _fit;
+  }
+   */
+// ---------------------------------------
+  static BoxFit concludeBoxFit({
+    @required double picWidth,
+    @required double picHeight,
+    @required double viewWidth,
+    @required double viewHeight,
+  }) {
+    BoxFit _boxFit;
+
+    /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
+    // double _originalImageRatio = _originalImageWidth / _originalImageHeight
+
+    // double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
+
+    // double _fittedImageWidth = flyerBoxWidth; // for info only
+    final double _fittedImageHeight = (viewWidth * picHeight) / picWidth;
+
+    final double _heightAllowingFitHeight = (Ratioz.slideFitWidthLimit / 100) * viewHeight;
+
+    /// if fitted height is less than the limit
+    if (_fittedImageHeight < _heightAllowingFitHeight) {
+      _boxFit = BoxFit.fitWidth;
+    }
+
+    /// if fitted height is higher that the limit
+    else {
+      _boxFit = BoxFit.fitHeight;
+    }
+
+    return _boxFit;
+  }
+// ---------------------------------------
+  /*
+  BoxFit concludeBoxFitForAsset({
+    @required Asset asset,
+    @required double flyerBoxWidth,
+  }) {
+    /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
+    final double _originalImageWidth = asset.originalWidth.toDouble();
+    final double _originalImageHeight = asset.originalHeight.toDouble();
+    // double _originalImageRatio = _originalImageWidth / _originalImageHeight
+
+    /// slide aspect ratio : 1 / 1.74 ~= 0.575
+    final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
+
+    return concludeBoxFit(
+      picWidth: _originalImageWidth,
+      picHeight: _originalImageHeight,
+      viewWidth: flyerBoxWidth,
+      viewHeight: _flyerZoneHeight,
+    );
+  }
+   */
+// ---------------------------------------
+  /*
+  List<BoxFit> concludeBoxesFitsForAssets({
+    @required List<Asset> assets,
+    @required double flyerBoxWidth,
+  }) {
+    final List<BoxFit> _fits = <BoxFit>[];
+
+    for (final Asset asset in assets) {
+      /// straigh forward solution,, bas ezzay,, I'm Rage7 and I can't just let it go keda,,
+      // if(asset.isPortrait){
+      //   _fits.add(BoxFit.fitHeight);
+      // } else {
+      //   _fits.add(BoxFit.fitWidth);
+      // }
+
+      /// boss ba2a
+      final BoxFit _fit = concludeBoxFitForAsset(
+        asset: asset,
+        flyerBoxWidth: flyerBoxWidth,
+      );
+
+      _fits.add(_fit);
+    }
+
+    return _fits;
+  }
+   */
+// -----------------------------------------------------------------
 }
 
 /*

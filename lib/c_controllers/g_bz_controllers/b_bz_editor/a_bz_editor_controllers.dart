@@ -19,7 +19,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -103,14 +103,18 @@ void onSelectBzForm({
 }
 // ----------------------------------
 Future<void> takeBzLogo({
+  @required BuildContext context,
   @required ValueNotifier<dynamic> bzLogo,
 }) async {
 
-  final File _imageFile = await Imagers.takeGalleryPicture(
-      picType: Imagers.PicType.bzLogo
+  final List<File> _imageFiles = await Imagers.pickMultipleImages(
+    context: context,
+    // picType: Imagers.PicType.bzLogo
   );
 
-  bzLogo.value = _imageFile;
+  final File _file = _imageFiles?.first;
+
+  bzLogo.value = _file;
 
 }
 // ----------------------------------

@@ -9,7 +9,7 @@ import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_control
 import 'package:bldrs/c_controllers/a_starters_controllers/c_home_controllers.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart' as Imagers;
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 
 // ----------------------------------------
 Future<void> takeUserPicture({
+  @required BuildContext context,
   @required ValueNotifier<bool> canPickImage,
   @required ValueNotifier<dynamic> picture,
 }) async {
@@ -27,9 +28,12 @@ Future<void> takeUserPicture({
 
     canPickImage.value = false;
 
-    final File _imageFile = await Imagers.takeGalleryPicture(
-      picType: Imagers.PicType.userPic,
+    final List<File> _imageFiles = await Imagers.pickMultipleImages(
+      context: context,
+      // picType: Imagers.PicType.userPic,
     );
+
+    final File _imageFile = _imageFiles?.last;
 
 
     /// IF DID NOT PIC ANY IMAGE
