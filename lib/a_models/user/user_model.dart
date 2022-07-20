@@ -542,6 +542,30 @@ class UserModel {
 
     return _identical;
   }
+// -----------------------------------
+  static bool checkUserFollowsBz({
+    @required UserModel userModel,
+    @required String bzID,
+  }){
+
+    return Mapper.checkStringsContainString(
+        strings: userModel.followedBzzIDs,
+        string: bzID
+    );
+
+  }
+// -----------------------------------
+  static bool checkFlyerIsSaved({
+    @required UserModel userModel,
+    @required String flyerID,
+  }){
+
+    return Mapper.checkStringsContainString(
+        strings: userModel.savedFlyersIDs,
+        string: flyerID
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -700,7 +724,7 @@ class UserModel {
     return _updatedUserModel;
   }
 // -----------------------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static UserModel addBzIDToUserFollows({
     @required UserModel userModel,
     @required String bzIDToFollow,
@@ -718,7 +742,25 @@ class UserModel {
     return _updatedUserModel;
   }
 // -----------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static UserModel addFlyerIDToSavedFlyersIDs({
+    @required UserModel userModel,
+    @required String flyerIDToAdd,
+}){
+
+    final List<String> _newBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+      strings: userModel.savedFlyersIDs,
+      stringToAdd: flyerIDToAdd,
+    );
+
+    final UserModel _updatedUserModel = userModel.copyWith(
+      savedFlyersIDs: _newBzzIDs,
+    );
+
+    return _updatedUserModel;
+  }
+// -----------------------------------
+  /// TESTED : WORKS PERFECT
   static UserModel removeBzIDFromMyBzzIDs({
     @required String bzIDToRemove,
     @required UserModel userModel,
@@ -741,6 +783,7 @@ class UserModel {
     return _userModel;
   }
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static UserModel removeBzIDFromMyFollows({
     @required UserModel userModel,
     @required String bzIDToUnFollow,
@@ -763,21 +806,28 @@ class UserModel {
     return _userModel;
   }
 // -----------------------------------
-  /*
-  static List<String> removeIDFromIDs(List<String> ids, String id) {
-    final int _idIndex = ids.indexWhere((String _id) => _id == id,);
+  /// TESTED : WORKS PERFECT
+  static UserModel removeFlyerIDFromSavedFlyersIDs({
+    @required UserModel userModel,
+    @required String flyerIDToRemove,
+  }){
+    UserModel _userModel = userModel;
 
-    if (_idIndex != null) {
-      ids.removeAt(_idIndex);
-      return ids;
+    if (Mapper.checkCanLoopList(userModel?.savedFlyersIDs) == true) {
+
+      final List<String> _newList = Mapper.removeStringsFromStrings(
+        removeFrom: userModel.savedFlyersIDs,
+        removeThis: <String>[flyerIDToRemove],
+      );
+
+      _userModel = userModel.copyWith(
+        savedFlyersIDs: _newList,
+      );
+
     }
 
-    else {
-      return null;
-    }
-
+    return _userModel;
   }
-   */
 // -----------------------------------------------------------------------------
 
   /// BLOGGING

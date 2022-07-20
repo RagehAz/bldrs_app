@@ -120,11 +120,14 @@ class UserProtocol {
 
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> followingProtocol({
     @required BuildContext context,
     @required bool followIsOn,
     @required String bzID,
   }) async {
+
+    blog('UserProtocol.followingProtocol : START');
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
         context: context,
@@ -162,6 +165,67 @@ class UserProtocol {
       );
 
     }
+
+    blog('UserProtocol.followingProtocol : END');
+
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> savingFlyerProtocol({
+    @required BuildContext context,
+    @required bool flyerIsSaved,
+    @required String flyerID,
+    @required int slideIndex,
+  }) async {
+
+    blog('UserProtocol.savingFlyerProtocol : START');
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    if (flyerIsSaved == true){
+
+      await RecordProtocols.saveFlyer(
+          context: context,
+          flyerID: flyerID,
+          slideIndex: slideIndex
+      );
+
+      final UserModel _updatedModel = UserModel.addFlyerIDToSavedFlyersIDs(
+        userModel: _userModel,
+        flyerIDToAdd: flyerID,
+      );
+
+      await updateMyUserEverywhereProtocol(
+        context: context,
+        newUserModel: _updatedModel,
+      );
+
+    }
+
+    else {
+
+      await RecordProtocols.unSaveFlyer(
+        context: context,
+        flyerID: flyerID,
+        slideIndex: slideIndex,
+      );
+
+      final UserModel _updatedModel = UserModel.removeFlyerIDFromSavedFlyersIDs(
+        userModel: _userModel,
+        flyerIDToRemove: flyerID,
+      );
+
+      await updateMyUserEverywhereProtocol(
+        context: context,
+        newUserModel: _updatedModel,
+      );
+
+    }
+
+    blog('UserProtocol.savingFlyerProtocol : END');
 
   }
 // -----------------------------------------------------------------------------

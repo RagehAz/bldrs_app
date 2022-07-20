@@ -25,7 +25,7 @@ class Scroller extends StatelessWidget {
       return Scrollbar(
         thickness: 3,
         radius: const Radius.circular(1.5),
-        thumbVisibility: false,
+        isAlwaysShown: false,
         controller: controller ?? ScrollController(),
         interactive: false,
         // hoverThickness: 40,
