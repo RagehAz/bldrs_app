@@ -21,8 +21,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/launchers.dart' as Launcher;
-
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
 // -----------------------------------------------------------------------------
 
 /// LANGUAGE

@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -9,11 +10,11 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/flyer_controllers.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/c_controllers/x_flyer_controllers/footer_controller.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FlyerStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -57,7 +58,6 @@ class _FlyerStarterState extends State<FlyerStarter> {
   /// FLYER ZONE
   final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null); /// tamam disposed
 // -----------------------------------------------------------------------------
-  FlyersProvider _flyersProvider;
   FlyerModel _flyerModel;
 // -----------------------------------------------------------------------------
   /// CURRENT SLIDE INDEX
@@ -68,8 +68,11 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
     _flyerModel = widget.flyerModel;
 
-    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final bool _isSaved = _flyersProvider.checkFlyerIsSaved(widget.flyerModel.id);
+    final bool _isSaved = UserModel.checkFlyerIsSaved(
+        userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
+        flyerID: _flyerModel.id,
+    );
+
     _flyerIsSaved = ValueNotifier(_isSaved);
 
     super.initState();
@@ -187,13 +190,12 @@ class _FlyerStarterState extends State<FlyerStarter> {
   ValueNotifier<bool> _flyerIsSaved; /// tamam disposed
   Future<void> onTriggerSave() async {
 
-    await _flyersProvider.saveOrUnSaveFlyer(
-      context: context,
-      inputFlyer: widget.flyerModel,
-      notify: true,
+    await onSaveFlyer(
+        context: context,
+        flyerModel: _flyerModel,
+        slideIndex: _currentSlideIndex.value,
+        flyerIsSaved: _flyerIsSaved
     );
-
-    _flyerIsSaved.value = !_flyerIsSaved.value;
 
   }
 // -----------------------------------------------------------------------------
