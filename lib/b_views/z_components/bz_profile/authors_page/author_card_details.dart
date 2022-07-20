@@ -8,7 +8,9 @@ class AuthorCardDetail extends StatelessWidget {
     @required this.icon,
     @required this.verse,
     @required this.boxWidth,
+    @required this.bubble,
     this.iconColor,
+    this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -16,6 +18,8 @@ class AuthorCardDetail extends StatelessWidget {
   final String verse;
   final double boxWidth;
   final Color iconColor;
+  final Function onTap;
+  final bool bubble;
   /// --------------------------------------------------------------------------
   static const double height = 30;
 // -----------------------------------------------------------------------------
@@ -23,13 +27,16 @@ class AuthorCardDetail extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DreamBox(
-      height: height,
+      onTap: onTap,
+      height: bubble == true ? height * 1.5 : height,
+      margins: EdgeInsets.symmetric(vertical: bubble == true ? 2.5 : 0),
       width: boxWidth,
       icon: icon,
+      iconSizeFactor: bubble == true ? 0.5 : 0.7,
+      verseScaleFactor: bubble == true ? 1.3 : 1,
       iconColor: iconColor,
       verse: verse,
-      iconSizeFactor: 0.7,
-      bubble: false,
+      bubble: bubble,
       verseWeight: VerseWeight.thin,
       verseShadow: false,
       verseCentered: false,

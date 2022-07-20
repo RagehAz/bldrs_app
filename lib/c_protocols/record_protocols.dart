@@ -1,5 +1,4 @@
-
-
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -60,10 +59,11 @@ class RecordProtocols {
 
   }
 // ----------------------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> callBz({
     @required BuildContext context,
     @required String bzID,
+    @required ContactModel contact,
   }) async {
 
     blog('RecordProtocols.callBz : START');
@@ -71,6 +71,7 @@ class RecordProtocols {
     final RecordModel _record = RecordModel.createCallRecord(
       userID: superUserID(),
       bzID: bzID,
+      contact: contact,
     );
 
     await RecordOps.createRecord(

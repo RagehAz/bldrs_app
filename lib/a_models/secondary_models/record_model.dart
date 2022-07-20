@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -42,6 +43,7 @@ enum RecordDetailsType{
   text,
   questionID,
   answerID,
+  contact,
 }
 
 @immutable
@@ -288,6 +290,7 @@ class RecordModel {
       case RecordDetailsType.text:                return 'text';        break;
       case RecordDetailsType.questionID:          return 'questionID';  break;
       case RecordDetailsType.answerID:            return 'answerID';    break;
+      case RecordDetailsType.contact:             return 'contact';     break;
       default: return null;
     }
   }
@@ -299,6 +302,7 @@ class RecordModel {
       case 'text':        return RecordDetailsType.text;                break;
       case 'questionID':  return RecordDetailsType.questionID;          break;
       case 'answerID':    return RecordDetailsType.answerID;            break;
+      case 'contact':     return RecordDetailsType.contact;             break;
       default: return null;
     }
   }
@@ -373,6 +377,7 @@ class RecordModel {
 /// BZ RECORD CREATORS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static RecordModel createFollowRecord({
     @required String userID,
     @required String bzID,
@@ -391,6 +396,7 @@ class RecordModel {
 
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static RecordModel createUnfollowRecord({
     @required String userID,
     @required String bzID,
@@ -409,9 +415,11 @@ class RecordModel {
 
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static RecordModel createCallRecord({
     @required String userID,
     @required String bzID,
+    @required ContactModel contact,
   }){
 
     return RecordModel(
@@ -421,8 +429,8 @@ class RecordModel {
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.call),
       modelID: bzID,
-      recordDetailsType: null,
-      recordDetails: null,
+      recordDetailsType: RecordDetailsType.contact,
+      recordDetails: contact.value,
     );
 
   }

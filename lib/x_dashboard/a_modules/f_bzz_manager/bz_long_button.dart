@@ -244,18 +244,18 @@ class BzLongButton extends StatelessWidget {
 
     final String _zoneString = ZoneModel.generateZoneString(
         context: context,
-        zoneModel: bzModel.zone,
+        zoneModel: bzModel?.zone,
     );
 
-    final String _bzIDString = showID == true ? '\n${bzModel.id}' : null;
+    final String _bzIDString = showID == true ? '\n${bzModel?.id}' : null;
 
     return DreamBox(
       height: height,
       width: BldrsAppBar.width(context, boxWidth: boxWidth),
       color: isSelected == true? Colorz.yellow255 : Colorz.white10,
       verseColor: isSelected == true ? Colorz.black255 : Colorz.white255,
-      verse: bzModel.name,
-      icon: bzModel.logo,
+      verse: bzModel?.name,
+      icon: bzModel?.logo,
       margins: const EdgeInsets.only(top: bzButtonMargin),
       verseScaleFactor: 0.7,
       verseCentered: false,
