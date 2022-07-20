@@ -5,99 +5,103 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:url_launcher/url_launcher.dart' as Launcher;
+import 'package:url_launcher/url_launcher.dart' as Launch;
+
+class Launcher {
+
+  Launcher();
 
 // -----------------------------------------------------------------------------
 
-/// LAUNCH URL
+  /// LAUNCH URL
 
 // ----------------------------------------
-/// TESTED : WORKS PERFECT
-Future<bool> launchURL(String link) async {
+  /// TESTED : WORKS PERFECT
+  static Future<bool> launchURL(String link) async {
 
-  Uri _uri;
-  bool _success = false;
+    Uri _uri;
+    bool _success = false;
 
-  /// LINK SHOULD CONTAIN 'http://' to work
-  final bool _containsHttp = stringContainsSubString(
-    string: link,
-    subString: 'http://',
-  );
+    /// LINK SHOULD CONTAIN 'http://' to work
+    final bool _containsHttp = stringContainsSubString(
+      string: link,
+      subString: 'http://',
+    );
 
-  if (_containsHttp == true){
-    _uri = Uri.parse(link);
+    if (_containsHttp == true){
+      _uri = Uri.parse(link);
+    }
+    else {
+      _uri = Uri.parse('http://$link');
+    }
+
+    if (await Launch.canLaunchUrl(_uri) == true) {
+
+      unawaited(Launch.launchUrl(_uri));
+      _success = true;
+    }
+    else {
+      blog('Can Not launch link');
+    }
+
+    return _success;
   }
-  else {
-    _uri = Uri.parse('http://$link');
-  }
-
-  if (await Launcher.canLaunchUrl(_uri) == true) {
-
-    unawaited(Launcher.launchUrl(_uri));
-    _success = true;
-  }
-  else {
-    blog('Can Not launch link');
-  }
-
-  return _success;
-}
 // -----------------------------------------------------------------------------
 
-/// LAUNCH CALL
+  /// LAUNCH CALL
 
 // ----------------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> launchCall(String phoneNumber) async {
+  /// TESTED : WORKS PERFECT
+  static Future<void> launchCall(String phoneNumber) async {
 
-  final Uri _uri = Uri(
-    path: phoneNumber,
-    scheme: 'tel',
-  );
+    final Uri _uri = Uri(
+      path: phoneNumber,
+      scheme: 'tel',
+    );
 
-  if (await Launcher.canLaunchUrl(_uri) == true) {
-    await Launcher.launchUrl(_uri);
+    if (await Launch.canLaunchUrl(_uri) == true) {
+      await Launch.launchUrl(_uri);
+    }
+
+    else {
+      blog('cant call');
+    }
   }
-
-  else {
-    blog('cant call');
-  }
-}
 // -----------------------------------------------------------------------------
 
-/// SHARING
+  /// SHARING
 
 // ----------------------------------------
-Future<void> shareLink({
-  @required BuildContext context,
-  @required LinkModel link,
-}) async {
+  static Future<void> shareLink({
+    @required BuildContext context,
+    @required LinkModel link,
+  }) async {
 
-  final RenderBox _box = context.findRenderObject();
-  // final String url = '${flyerLink.url} & ${flyerLink.description}';
+    final RenderBox _box = context.findRenderObject();
+    // final String url = '${flyerLink.url} & ${flyerLink.description}';
 
-  await Share.share(
-    link.url,
-    subject: link.description,
-    sharePositionOrigin: _box.localToGlobal(Offset.zero) & _box.size,
-  );
+    await Share.share(
+      link.url,
+      subject: link.description,
+      sharePositionOrigin: _box.localToGlobal(Offset.zero) & _box.size,
+    );
 
-}
+  }
 // ----------------------------------------
-Future<void> shareFlyer({
-  @required BuildContext context,
-  @required LinkModel flyerLink,
-}) async {
+  static Future<void> shareFlyer({
+    @required BuildContext context,
+    @required LinkModel flyerLink,
+  }) async {
 
-  final RenderBox box = context.findRenderObject();
+    final RenderBox box = context.findRenderObject();
 
-  await Share.share(
-    flyerLink.url,
-    subject: flyerLink.description,
-    sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-  );
+    await Share.share(
+      flyerLink.url,
+      subject: flyerLink.description,
+      sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
+    );
 
-}
+  }
 // -----------------------------------------------------------------------------
 /*
 // -----------------------------------------------------------------------------
@@ -133,3 +137,5 @@ void _onShare(BuildContext context) async {
 // }
 // -----------------------------------------------------------------------------
  */
+// -----------------------------------------------------------------------------
+}

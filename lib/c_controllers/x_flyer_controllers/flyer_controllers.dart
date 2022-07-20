@@ -17,6 +17,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
+
+/// FLYER DATA COMPLETION
+
+// ----------------------------------
 Future<BzModel> getFlyerBzModel({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -30,7 +34,7 @@ Future<BzModel> getFlyerBzModel({
 
   return _bzModel;
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
 Future<CountryModel> getFlyerBzCountry({
   @required BuildContext context,
   @required String countryID,
@@ -44,7 +48,7 @@ Future<CountryModel> getFlyerBzCountry({
 
   return _country;
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
 Future<CityModel> getFlyerBzCity({
   @required BuildContext context,
   @required String cityID,
@@ -58,7 +62,7 @@ Future<CityModel> getFlyerBzCity({
 
   return _city;
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
 ZoneModel getZoneModel({
   @required BuildContext context,
   @required String countryID,
@@ -93,48 +97,10 @@ ZoneModel getZoneModel({
 
 }
 // -----------------------------------------------------------------------------
-bool canShowGalleryPage({
-  @required BzModel bzModel,
-  @required String heroTag,
-}){
-  bool _canShowGallery = false;
 
-  if (bzModel != null){
+/// SLIDES INDEXING
 
-    if (Mapper.checkCanLoopList(bzModel.flyersIDs)){
-
-      /// only CAN SHOW : WHEN BZ FLYERS ARE MORE THAN THE SHOWN FLYER
-      final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
-
-      /// & only CAN SHOW : WHEN HERO TAG CONTAINS MORE THAN 1 FLYER ID
-      final List<String> _heroFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
-      final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.length > 1;
-
-      /// & only CAN SHOW : WHEN HERO TAG HAS LESS THAN 3 FLYERS IDS
-      final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 3;
-
-      /// so :-
-      if (_bzHasMoreThanOneFlyer == true){
-
-        if (_heroTagHasMoreThanOneFlyerID == true){
-
-          if (_heroTagHasLessThanThreeFlyersIDs == true){
-
-            _canShowGallery = true;
-
-          }
-
-        }
-
-      }
-
-    }
-
-  }
-
-  return _canShowGallery;
-}
-// -----------------------------------------------------------------------------
+// ----------------------------------
 int getNumberOfSlides({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
@@ -157,7 +123,7 @@ int getNumberOfSlides({
 
   return _numberOfSlides;
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
 int getPossibleStartingIndex({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
@@ -188,6 +154,10 @@ int getPossibleStartingIndex({
   return _output;
 }
 // -----------------------------------------------------------------------------
+
+/// HERO
+
+// ----------------------------------
 String createHeroTag({
   @required String heroTag,
   @required String flyerID
@@ -204,7 +174,7 @@ String createHeroTag({
 
   return _heroTag;
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
 List<String> splitHeroTagIntoFlyersIDs({
   @required String heroTag,
 }){
@@ -218,73 +188,7 @@ List<String> splitHeroTagIntoFlyersIDs({
 
   return _output;
 }
-// --------------------------------------------
-/// GETS ONLY THE NEXT UNLOADED NUMBER OF FLYERS IDS
-List<String> getNextFlyersIDs({
-  @required List<String> allFlyersIDs,
-  @required List<String> loadedFlyersIDs,
-  @required String heroTag,
-  @required FlyerModel flyerModel,
-  int numberOfFlyers = 4,
-}){
-  final List<String> _nextFlyersIDs = <String>[];
-
-  /// 1 - check each id in all Ids
-  /// 2 - if id is already inserted in [loadedFlyersIDs], skip
-  /// 3 - if not
-  ///   A - if next flyers IDs reach max count [numberOfFlyers] => break
-  ///   B - if not : insert that id
-
-  for (int i = 0; i < allFlyersIDs.length; i++){
-
-    /// A - WHILE TARGET [numberOfFlyers] NOT YET REACHED
-    if (_nextFlyersIDs.length <= numberOfFlyers){
-
-      final String _flyerID = allFlyersIDs[i];
-
-      final bool _alreadyLoaded = Mapper.checkStringsContainString(
-        strings: loadedFlyersIDs,
-        string: _flyerID,
-      );
-
-      final List<String> _parentFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
-
-      final bool _alreadyAParentFlyer = Mapper.checkStringsContainString(
-          strings: _parentFlyersIDs,
-          string: _flyerID
-      );
-
-      final bool _flyerIsAlreadyActive = _flyerID == flyerModel.id;
-
-      /// B - WHEN ID IS NOT YET LOADED NOR A PARENT
-      if (
-      _alreadyLoaded == false
-          &&
-          _flyerIsAlreadyActive == false
-          &&
-          _alreadyAParentFlyer == false
-      ){
-        /// do nothing and go next
-        _nextFlyersIDs.add(_flyerID);
-      }
-
-      /// B - WHEN ID IS ALREADY LOADED
-      // else {
-      /// do nothing
-      // }
-
-    }
-
-    /// A - WHEN TARGET [numberOfFlyers] IS REACHED
-    else {
-      break;
-    }
-
-  }
-
-  return _nextFlyersIDs;
-}
-// -----------------------------------------------------------------------------
+// ----------------------------------
 Widget flyerFlightShuttle({
   @required BuildContext flightContext,
   @required Animation<double> animation, // 0 to 1
@@ -360,9 +264,9 @@ Widget flyerFlightShuttle({
         );
 
       }
-      );
+  );
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
 FlightDirection getFlightDirection(String direction){
 
   switch(direction){
@@ -373,19 +277,118 @@ FlightDirection getFlightDirection(String direction){
 
 }
 // -----------------------------------------------------------------------------
-double flyerWidthSizeFactor({
-  @required double tween,
-  /// min flyer width factor * screen width = minimum flyer width
-  @required double minWidthFactor,
-  /// max flyer width factor * screen width = max flyer width
-  double maxWidthFactor = 1,
-}) {
-  /// EW3AAA
-  final double _flyerWidthSizeFactor =
-      minWidthFactor + (tween * (maxWidthFactor - minWidthFactor));
-  return _flyerWidthSizeFactor;
+
+/// GALLERY
+
+// ----------------------------------
+bool canShowGalleryPage({
+  @required BzModel bzModel,
+  @required String heroTag,
+}){
+  bool _canShowGallery = false;
+
+  if (bzModel != null){
+
+    if (Mapper.checkCanLoopList(bzModel.flyersIDs)){
+
+      /// only CAN SHOW : WHEN BZ FLYERS ARE MORE THAN THE SHOWN FLYER
+      final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
+
+      /// & only CAN SHOW : WHEN HERO TAG CONTAINS MORE THAN 1 FLYER ID
+      final List<String> _heroFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
+      final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.length > 1;
+
+      /// & only CAN SHOW : WHEN HERO TAG HAS LESS THAN 3 FLYERS IDS
+      final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 3;
+
+      /// so :-
+      if (_bzHasMoreThanOneFlyer == true){
+
+        if (_heroTagHasMoreThanOneFlyerID == true){
+
+          if (_heroTagHasLessThanThreeFlyersIDs == true){
+
+            _canShowGallery = true;
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  return _canShowGallery;
 }
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// GETS ONLY THE NEXT UNLOADED NUMBER OF FLYERS IDS
+List<String> getNextFlyersIDs({
+  @required List<String> allFlyersIDs,
+  @required List<String> loadedFlyersIDs,
+  @required String heroTag,
+  @required FlyerModel flyerModel,
+  int numberOfFlyers = 4,
+}){
+  final List<String> _nextFlyersIDs = <String>[];
+
+  /// 1 - check each id in all Ids
+  /// 2 - if id is already inserted in [loadedFlyersIDs], skip
+  /// 3 - if not
+  ///   A - if next flyers IDs reach max count [numberOfFlyers] => break
+  ///   B - if not : insert that id
+
+  for (int i = 0; i < allFlyersIDs.length; i++){
+
+    /// A - WHILE TARGET [numberOfFlyers] NOT YET REACHED
+    if (_nextFlyersIDs.length <= numberOfFlyers){
+
+      final String _flyerID = allFlyersIDs[i];
+
+      final bool _alreadyLoaded = Mapper.checkStringsContainString(
+        strings: loadedFlyersIDs,
+        string: _flyerID,
+      );
+
+      final List<String> _parentFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
+
+      final bool _alreadyAParentFlyer = Mapper.checkStringsContainString(
+          strings: _parentFlyersIDs,
+          string: _flyerID
+      );
+
+      final bool _flyerIsAlreadyActive = _flyerID == flyerModel.id;
+
+      /// B - WHEN ID IS NOT YET LOADED NOR A PARENT
+      if (
+      _alreadyLoaded == false
+          &&
+          _flyerIsAlreadyActive == false
+          &&
+          _alreadyAParentFlyer == false
+      ){
+        /// do nothing and go next
+        _nextFlyersIDs.add(_flyerID);
+      }
+
+      /// B - WHEN ID IS ALREADY LOADED
+      // else {
+      /// do nothing
+      // }
+
+    }
+
+    /// A - WHEN TARGET [numberOfFlyers] IS REACHED
+    else {
+      break;
+    }
+
+  }
+
+  return _nextFlyersIDs;
+}
+// ----------------------------------
 Future<List<FlyerModel>> fetchMoreFlyers({
   @required BuildContext context,
   @required List<FlyerModel> loadedFlyers,
@@ -412,17 +415,20 @@ Future<List<FlyerModel>> fetchMoreFlyers({
   return _moreFlyers;
 }
 // -----------------------------------------------------------------------------
-bool checkFollowIsOn({
-  @required BuildContext context,
-  @required BzModel bzModel,
-}){
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-  final _followIsOn = _bzzProvider.checkFollow(
-      context: context,
-      bzID: bzModel.id
-  );
+/// SIZING
 
-  return _followIsOn;
+// ----------------------------------
+double flyerWidthSizeFactor({
+  @required double tween,
+  /// min flyer width factor * screen width = minimum flyer width
+  @required double minWidthFactor,
+  /// max flyer width factor * screen width = max flyer width
+  double maxWidthFactor = 1,
+}) {
+  /// EW3AAA
+  final double _flyerWidthSizeFactor =
+      minWidthFactor + (tween * (maxWidthFactor - minWidthFactor));
+  return _flyerWidthSizeFactor;
 }
 // -----------------------------------------------------------------------------

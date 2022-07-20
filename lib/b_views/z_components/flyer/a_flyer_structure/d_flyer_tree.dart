@@ -443,6 +443,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           footerPageController: _footerPageController,
           headerIsExpanded: _headerIsExpanded,
           inFlight: _inFlight(),
+          flyerIsSaved: widget.flyerIsSaved,
         ),
 
         /// PROGRESS BAR
