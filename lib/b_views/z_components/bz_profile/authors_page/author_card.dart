@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_details.dart';
@@ -18,13 +19,17 @@ class AuthorCard extends StatelessWidget {
   const AuthorCard({
     @required this.author,
     @required this.bzModel,
-    this.bubbleWidth,
+    @required this.bubbleWidth,
+    this.onContact,
+    this.moreButtonIsOn = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final AuthorModel author;
   final BzModel bzModel;
   final double bubbleWidth;
+  final ValueChanged<ContactModel> onContact;
+  final bool moreButtonIsOn;
   /// --------------------------------------------------------------------------
   static const double authorPicSize = 80;
   static const double spaceBetweenImageAndText = 5;
@@ -33,18 +38,21 @@ class AuthorCard extends StatelessWidget {
   static double authorTextDetailsClearWidth({
     @required BuildContext context,
     @required double bubbleWidth,
+    @required bool withMoreButton,
   }){
 
-    final double _bubbleClearWidth = Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth);
+    final double _bubbleClearWidth = bubbleWidth - 20;
     // final double _bubblePaddingValue = Bubble.paddingValue() * 0;
     // const double _spaceBetweenImageAndText = spaceBetweenImageAndText;
+
+    final double _moreButtonSize = withMoreButton == true ? moreButtonSize : 0;
 
     final double _clearTextWidth =
         _bubbleClearWidth
             // - (2 * _bubblePaddingValue)
             // - _spaceBetweenImageAndText
             - authorPicSize
-            - moreButtonSize
+            - _moreButtonSize
             ; // for margin
 
     return _clearTextWidth;
@@ -68,10 +76,14 @@ class AuthorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _bubbleWidth = bubbleWidth ?? BldrsAppBar.width(context);
+
     final double _textAreaBoxWidth = authorTextDetailsClearWidth(
       context: context,
-      bubbleWidth: bubbleWidth,
+      bubbleWidth: _bubbleWidth,
+      withMoreButton: true
     );
+
     final double _textAreaWidth = _textAreaBoxWidth - 20;
 
     final bool _authorIsMaster = AuthorModel.checkUserIsCreatorAuthor(
@@ -87,7 +99,7 @@ class AuthorCard extends StatelessWidget {
     final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
 
     return Bubble(
-      width: bubbleWidth,
+      width: _bubbleWidth,
       corners: bubbleCornerValue(),
       margins: Scale.superInsets(context: context, bottom: 10, enLeft: 10, enRight: 10),
       columnChildren: <Widget>[
@@ -155,38 +167,11 @@ class AuthorCard extends StatelessWidget {
                     ),
                   ),
 
-                  /// Role
-                  AuthorCardDetail(
-                    verse: _role,
-                    icon: Iconz.bz,
-                    iconColor: _roleIconColor,
-                    boxWidth: _textAreaWidth,
-                  ),
-
-                  /// NUMBER OF FLYERS
-                  AuthorCardDetail(
-                    verse: '${author.flyersIDs.length} published flyers',
-                    icon: Iconz.flyer,
-                    boxWidth: _textAreaWidth,
-                  ),
-
-                  /// CONTACTS
-                  ...List.generate(author.contacts.length, (index){
-
-                    final ContactModel _contact = author.contacts[index];
-
-                    return AuthorCardDetail(
-                      icon: ContactModel.getContactIcon(_contact.contactType),
-                      verse: _contact.value,
-                      boxWidth: _textAreaWidth,
-                    );
-
-                  }),
-
                 ],
               ),
             ),
 
+            if (moreButtonIsOn == true)
             DreamBox(
               width: moreButtonSize,
               height: moreButtonSize,
@@ -201,6 +186,48 @@ class AuthorCard extends StatelessWidget {
 
 
           ],
+        ),
+
+        Container(
+          width: _bubbleWidth,
+          padding: Scale.superInsets(context: context, enLeft: authorPicSize),
+          child: Column(
+            children: <Widget>[
+
+              /// ROLE
+              AuthorCardDetail(
+                verse: _role,
+                bubble: false,
+                icon: Iconz.bz,
+                iconColor: _roleIconColor,
+                boxWidth: _bubbleWidth - authorPicSize - 40,
+              ),
+
+              /// NUMBER OF FLYERS
+              AuthorCardDetail(
+                verse: '${author.flyersIDs.length} published flyers',
+                bubble: false,
+                icon: Iconz.flyer,
+                boxWidth: _bubbleWidth - authorPicSize - 40,
+              ),
+
+              /// CONTACTS
+              ...List.generate(author.contacts.length, (index){
+
+                final ContactModel _contact = author.contacts[index];
+
+                return AuthorCardDetail(
+                    icon: ContactModel.getContactIcon(_contact.contactType),
+                    bubble: true,
+                    verse: _contact.value,
+                    boxWidth: _bubbleWidth - authorPicSize - 40,
+                    onTap: () => onContact(_contact)
+                );
+
+              }),
+
+            ],
+          ),
         ),
 
       ],
