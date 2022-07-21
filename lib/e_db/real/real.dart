@@ -43,7 +43,7 @@ class Real {
   static String _createPath({
     @required String collName,
     String docName,
-    String key,
+    String key, // what is this ?
   }){
 
     String _path = collName;
@@ -199,66 +199,99 @@ class Real {
 
     );
 
-
-
   }
 // ----------------------------------------
   /// TESTED : ...
   static Future<Map<String, dynamic>> createDocInPath({
     @required BuildContext context,
-    @required String path,
+    @required String pathWithoutDocName,
     @required bool addDocIDToOutput,
     @required Map<String, dynamic> map,
+    String docName,
   }) async {
 
     Map<String, dynamic> _output;
     String _docID;
 
     await tryAndCatch(
-        context: context,
-        methodName: 'createDoc',
-        functions: () async {
+      context: context,
+      methodName: 'createDoc',
+      functions: () async {
 
-      /// GET PATH
-      final _ref = _getRefByPath(
-        path: path,
-      );
+        final String _path = docName == null ? pathWithoutDocName : '$pathWithoutDocName$docName';
 
-      /// ADD EVENT LISTENER
-      final StreamSubscription _sub = _ref.onChildAdded.listen((event){
-
-        _docID = event.previousChildKey;
-
-        _output = Mapper.getMapFromDataSnapshot(
-          snapshot: event.snapshot,
-          onNull: () => blog('Real.createNamedDoc : failed to create doc '),
+        /// GET PATH
+        DatabaseReference _ref = _getRefByPath(
+          path: _path,
         );
 
-        if (addDocIDToOutput == true){
-          _output = Mapper.insertPairInMap(
-            map: _output,
-            key: 'id',
-            value: _docID,
+        /// ADD EVENT LISTENER
+        final StreamSubscription _sub = _ref.onValue.listen((DatabaseEvent event){
+
+          _docID = event.previousChildKey;
+
+          _output = Mapper.getMapFromDataSnapshot(
+            snapshot: event.snapshot,
+            onNull: () => blog('Real.createNamedDoc : failed to create doc '),
           );
+
+          if (addDocIDToOutput == true){
+            _output = Mapper.insertPairInMap(
+              map: _output,
+              key: 'id',
+              value: _docID,
+            );
+          }
+
+        });
+
+        if (docName == null){
+          _ref = _ref.push();
         }
 
-      });
+        /// CREATE
+        await _ref.set(map);
 
-      /// CREATE
-      await _ref.push().set(map);
+        /// CANCEL EVENT LISTENER
+        await _sub.cancel();
 
-      /// CANCEL EVENT LISTENER
-      await _sub.cancel();
-
-    },
+      },
     );
 
+
     if (_output != null){
-      blog('Real.createDoc : map added to [REAL/$path] : map : $map');
+      blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : $map');
     }
 
     return _output;
   }
+
+  // static Future<Map<String, dynamic>> createNamedDocInPath({
+  //   @required BuildContext context,
+  //   @required String path,
+  //   @required String docName,
+  //   @required bool addDocIDToOutput,
+  //   @required Map<String, dynamic> map,
+  // }) async {
+  //
+  //   DatabaseReference _ref = _getRefByPath(path: path)
+  //
+  //   await tryAndCatch(
+  //     context: context,
+  //     methodName: 'createNamedDoc',
+  //
+  //     functions: () async {
+  //
+  //       await _ref.set(map);
+  //
+  //       blog('Real.createNamedDoc : added to [$path$docName] : push is $pushNodeOneStepDeepWithUniqueID : map : $map');
+  //
+  //     },
+  //
+  //   );
+  //
+  //
+  // }
 // -----------------------------------------------------------------------------
 
   /// READ

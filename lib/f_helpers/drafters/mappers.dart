@@ -298,6 +298,9 @@ class Mapper {
     Map<String, dynamic> _output;
 
     if (snapshot.exists) {
+
+      blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
+
       _output = Map<String, dynamic>.from(snapshot.value);
 
       if (addDocID == true){

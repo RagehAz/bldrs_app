@@ -57,6 +57,9 @@ class RecordRealOps {
     @required RecordModel record,
   }) async {
 
+    /// NOTE : if record has recordID initialized : its used automatically as docName
+    /// otherwise, a random doc name is created
+
     Map<String, dynamic> _map;
 
     if (record != null){
@@ -68,9 +71,10 @@ class RecordRealOps {
 
       _map = await Real.createDocInPath(
         context: context,
-        path: _path,
+        pathWithoutDocName: _path,
         addDocIDToOutput: true,
         map: record.toMap(toJSON: true), // real db is json
+        docName: record.recordID,
       );
 
     }

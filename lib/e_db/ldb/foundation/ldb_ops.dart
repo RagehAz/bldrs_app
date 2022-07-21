@@ -12,11 +12,11 @@ import 'package:flutter/foundation.dart';
 // ----------------------------------------
 String getPrimaryKey(String docName) {
   switch (docName) {
-    case LDBDoc.follows: return 'followID';
-    case LDBDoc.calls: return 'callID';
-    case LDBDoc.shares: return 'shareID';
-    case LDBDoc.views: return 'viewID';
-    case LDBDoc.saves: return 'saveID';
+    case LDBDoc.follows: return 'recordID';
+    case LDBDoc.calls: return 'recordID';
+    case LDBDoc.shares: return 'recordID';
+    case LDBDoc.views: return 'recordID';
+    case LDBDoc.saves: return 'recordID';
     case LDBDoc.reviews: return 'reviewID';
     case LDBDoc.questions: return 'questionID';
     case LDBDoc.answers: return 'answerID';
