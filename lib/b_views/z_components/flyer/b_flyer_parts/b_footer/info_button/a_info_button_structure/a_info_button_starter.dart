@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
@@ -21,6 +22,7 @@ class InfoButtonStarter extends StatelessWidget {
     @required this.infoButtonType,
     @required this.infoPageVerticalController,
     @required this.inFlight,
+    @required this.flyerCounter,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,6 +35,7 @@ class InfoButtonStarter extends StatelessWidget {
   final InfoButtonType infoButtonType;
   final ScrollController infoPageVerticalController;
   final bool inFlight;
+  final ValueNotifier<FlyerCounterModel> flyerCounter;
   // --------------------------------------------------------------------------
 
   /// WIDTH
@@ -561,6 +564,7 @@ class InfoButtonStarter extends StatelessWidget {
             tinyMode: tinyMode,
             infoPageVerticalController: infoPageVerticalController,
             inFlight: inFlight,
+            flyerCounter: flyerCounter,
           ),
 
         ),

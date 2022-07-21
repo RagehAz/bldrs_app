@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/footer_page_box.dart';
@@ -21,6 +22,7 @@ class InfoPageTree extends StatelessWidget {
     @required this.tinyMode,
     @required this.inFlight,
     @required this.infoPageVerticalController,
+    @required this.flyerCounter,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,6 +34,7 @@ class InfoPageTree extends StatelessWidget {
   final bool tinyMode;
   final bool inFlight;
   final ScrollController infoPageVerticalController;
+  final ValueNotifier<FlyerCounterModel> flyerCounter;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -120,6 +123,7 @@ class InfoPageTree extends StatelessWidget {
                     flyerBoxWidth: flyerBoxWidth,
                     flyerModel: flyerModel,
                     flyerZone: flyerZone,
+                    flyerCounter: flyerCounter,
                   ),
 
 

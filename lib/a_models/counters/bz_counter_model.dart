@@ -9,7 +9,6 @@ class BzCounterModel {
     @required this.allSaves,
     @required this.allShares,
     @required this.allSlides,
-    @required this.allFlyers,
     @required this.allViews,
     @required this.allReviews,
   });
@@ -20,7 +19,6 @@ class BzCounterModel {
   final int allSaves;
   final int allShares;
   final int allSlides;
-  final int allFlyers;
   final int allViews;
   final int allReviews;
 // -----------------------------------------------------------------------------
@@ -37,7 +35,6 @@ class BzCounterModel {
         allSaves: 0,
         allShares: 0,
         allSlides: 0,
-        allFlyers: 0,
         allViews: 0,
         allReviews: 0,
     );
@@ -51,7 +48,6 @@ class BzCounterModel {
     int allSaves,
     int allShares,
     int allSlides,
-    int allFlyers,
     int allViews,
     int allReviews,
   }){
@@ -62,7 +58,6 @@ class BzCounterModel {
       calls: calls ?? this.calls,
       allSaves: allSaves ?? this.allSaves,
       allShares: allShares ?? this.allShares,
-      allFlyers: allFlyers ?? this.allFlyers,
       allSlides: allSlides ?? this.allSlides,
       allViews: allViews ?? this.allViews,
       allReviews: allReviews ?? this.allReviews,
@@ -83,7 +78,6 @@ class BzCounterModel {
       'allSaves': allSaves,
       'allShares': allShares,
       'allSlides': allSlides,
-      'allFlyers': allFlyers,
       'allViews': allViews,
       'allReviews': allReviews,
     };
@@ -102,7 +96,6 @@ class BzCounterModel {
         allSaves: map['allSaves'] ?? 0,
         allShares: map['allShares'] ?? 0,
         allSlides: map['allSlides'] ?? 0,
-        allFlyers: map['allFlyers'] ?? 0,
         allViews: map['allViews'] ?? 0,
         allReviews: map['allReviews'] ?? 0,
       );

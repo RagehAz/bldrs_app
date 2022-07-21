@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/f_info_page_contents.dart';
@@ -10,6 +11,7 @@ class ExpandedInfoPageTree extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.flyerZone,
+    @required this.flyerCounter,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -17,6 +19,7 @@ class ExpandedInfoPageTree extends StatelessWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final ZoneModel flyerZone;
+  final ValueNotifier<FlyerCounterModel> flyerCounter;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,8 @@ class ExpandedInfoPageTree extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         flyerModel: flyerModel,
         flyerZone: flyerZone,
+        buttonExpanded: buttonIsExpanded,
+        flyerCounter: flyerCounter,
       ),
 
     );
