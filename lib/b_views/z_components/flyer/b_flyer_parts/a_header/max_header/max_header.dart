@@ -113,11 +113,21 @@ class MaxHeader extends StatelessWidget {
 
               /// PUBLISHED SLIDE & FLYERS
               BzPgCounter(
+                key: const ValueKey<String>('max_header_BzPgCounter_flyers'),
+                flyerBoxWidth: flyerBoxWidth,
+                count: bzModel.flyersIDs.length,
+                verse: 'Published flyers',
+                icon: Iconz.gallery,
+                iconSizeFactor: 0.85,
+              ),
+
+              /// PUBLISHED SLIDE & FLYERS
+              BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_slides'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter.allSlides,
                 verse: superPhrase(context, 'phid_slidesPublished'),
-                icon: Iconz.gallery,
+                icon: Iconz.flyerScale,
                 iconSizeFactor: 0.85,
               ),
 

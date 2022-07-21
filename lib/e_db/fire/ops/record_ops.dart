@@ -203,7 +203,13 @@ class RecordRealOps {
 
     const String collName = 'bzzCounters';
 
-    final int _value = incrementThis ?? increaseOne ? 1 : -1;
+    int _value;
+    if (incrementThis == null){
+      _value = increaseOne == true ? 1 : -1;
+    }
+    else {
+      _value = incrementThis;
+    }
 
     await Real.updateDocField(
       context: context,

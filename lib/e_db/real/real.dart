@@ -343,7 +343,7 @@ class Real {
 // ----------------------------------------
   static Future<List<Map<String, dynamic>>> readColl({
     @required BuildContext context,
-    @required String collName,
+    @required String nodePath,
     RealOrderBy realOrderBy,
     Map<String, dynamic> startAfter,
     int limit,
@@ -357,9 +357,7 @@ class Real {
         context: context,
         functions: () async {
 
-          final DatabaseReference _ref = _createPathAndGetRef(
-              collName: collName
-          );
+          final DatabaseReference _ref = _getRefByPath(path: nodePath);
 
           final Query _query = _createQuery(
             ref: _ref,

@@ -596,6 +596,23 @@ class FlyerModel {
 
     return _totalFlyers;
   }
+// ------------------------------------------
+  /// TESTED : ...
+  static int getNumberOfFlyersSlides(List<FlyerModel> flyers){
+    int _count = 0;
+
+    if (Mapper.checkCanLoopList(flyers) == true){
+
+      for (final FlyerModel flyer in flyers){
+
+        _count = _count + flyer.slides.length;
+
+      }
+
+    }
+
+    return _count;
+  }
 // -----------------------------------------------------------------------------
 
   /// FLYER SEARCHES
