@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -170,6 +172,12 @@ class _FlyerStarterState extends State<FlyerStarter> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {
+
+    unawaited(recordFlyerView(
+      context: context,
+      index: 0,
+      flyerModel: widget.flyerModel,
+    ));
 
     await context.pushTransparentRoute(
         FlyerFullScreen(

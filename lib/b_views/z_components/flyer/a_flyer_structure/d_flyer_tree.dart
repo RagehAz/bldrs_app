@@ -103,7 +103,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     );
     // ------------------------------------------
 
-    blog('FLYER IN FLIGHT [ ${widget.flyerModel.id} ] : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
+    // blog('FLYER IN FLIGHT [ ${widget.flyerModel.id} ] : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
 
     _canShowGallery = canShowGalleryPage(
       bzModel: widget.bzModel,
@@ -247,6 +247,14 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   void _onSwipeSlide(int index){
 
+    blog('OPENING SLIDE INDEX : $index');
+
+    unawaited(recordFlyerView(
+      context: context,
+      index: index,
+      flyerModel: widget.flyerModel,
+    ));
+
     onHorizontalSlideSwipe(
       context: context,
       newIndex: index,
@@ -254,7 +262,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       swipeDirection: _swipeDirection,
     );
 
-    blog('index has become ${widget.currentSlideIndex.value}');
+    // blog('index has become ${widget.currentSlideIndex.value}');
 
   }
 // -----------------------------------------------------------------------------
