@@ -213,6 +213,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
             width: superScreenWidth(context) * 0.5,
             height: superScreenHeight(context),
             child: RealCollPaginator(
+              nodePath: 'colors/',
                 scrollController: _scrollController,
                 builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
 

@@ -228,7 +228,9 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       headerPageOpacity: _headerPageOpacity,
     );
 
-    if (_headerIsExpanded.value == true){
+    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+
+    if (_headerIsExpanded.value == true && _tinyMode == false){
       await readBzCounters(
         context: context,
         bzID: widget.bzModel.id,

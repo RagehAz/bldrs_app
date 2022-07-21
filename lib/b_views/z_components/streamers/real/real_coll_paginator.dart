@@ -8,12 +8,18 @@ class RealCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const RealCollPaginator({
     @required this.builder,
+    @required this.nodePath,
     this.scrollController,
+    this.limit = 5,
+    this.realOrderBy = RealOrderBy.key,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Widget Function(BuildContext, List<Map<String, dynamic>> maps, bool isLoading) builder;
   final ScrollController scrollController;
+  final String nodePath;
+  final int limit;
+  final RealOrderBy realOrderBy;
   /// --------------------------------------------------------------------------
   @override
   _RealCollPaginatorState createState() => _RealCollPaginatorState();
@@ -106,10 +112,10 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
 
     final List<Map<String, dynamic>> _nextMaps = await Real.readColl(
       context: context,
-      collName: 'colors',
+      nodePath: widget.nodePath,
       startAfter: _startAfter,
-      limit: 7,
-      realOrderBy: RealOrderBy.key,
+      limit: widget.limit,
+      realOrderBy: widget.realOrderBy,
       limitToFirst: false,
       // realOrderBy:
     );
