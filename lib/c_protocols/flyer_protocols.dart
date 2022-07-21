@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -7,6 +6,7 @@ import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/e_db/fire/ops/record_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -55,6 +55,13 @@ class FlyerProtocol {
     _bzzProvider.setActiveBzFlyers(
       flyers: <FlyerModel>[..._bzzProvider.myActiveBzFlyers, _uploadedFlyer],
       notify: false,
+    );
+
+    await RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: _uploadedFlyer.bzID,
+        field: 'allSlides',
+        incrementThis: _uploadedFlyer.slides.length,
     );
 
     blog('FlyerProtocol.createFlyerByActiveBzProtocol : END');
@@ -176,6 +183,13 @@ class FlyerProtocol {
       bzFireUpdateOps: true,
     );
 
+    await RecordRealOps.incrementBzCounter(
+      context: context,
+      bzID: _bzModel.id,
+      field: 'allSlides',
+      incrementThis: - flyer.slides.length,
+    );
+    
     /// DELETE FLYER ON LDB
     await FlyerLDBOps.deleteFlyers(<String>[flyer.id]);
 
@@ -225,6 +239,14 @@ class FlyerProtocol {
         bzModel: bzModel,
         updateBzFireOps: updateBzEveryWhere,
       );
+
+      await RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: _bzModel.id,
+        field: 'allSlides',
+        incrementThis: - FlyerModel.getNumberOfFlyersSlides(flyers),
+      );
+
 
       blog('FlyerProtocol.starting deleteMultipleBzFlyersProtocol 2');
 

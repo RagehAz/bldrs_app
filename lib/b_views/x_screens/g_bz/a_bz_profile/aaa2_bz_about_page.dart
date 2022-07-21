@@ -61,7 +61,6 @@ class BzAboutPage extends StatelessWidget {
           const DotSeparator(),
 
         /// STATS
-        if (_bzModel.totalSlides != null)
           const BzStatsBubble(),
 
         const Horizon(),

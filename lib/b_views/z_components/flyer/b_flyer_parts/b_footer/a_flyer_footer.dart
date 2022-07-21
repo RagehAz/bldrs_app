@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_convertible_review_page_pre_starter.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/record_protocols.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -48,10 +50,12 @@ class _FlyerFooterState extends State<FlyerFooter> {
   ScrollController _infoPageVerticalController; /// tamam disposed
   ScrollController _reviewPageVerticalController; /// tamam disposed
   TextEditingController _reviewTextController; /// tamam disposed
+  ValueNotifier<FlyerCounterModel> _flyerCounter;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+    _flyerCounter = ValueNotifier(null);
     _infoPageVerticalController = ScrollController(); /// tamam
     _reviewPageVerticalController = ScrollController(); /// tamam
     _reviewTextController = TextEditingController(); /// tamam
@@ -59,6 +63,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
+    _flyerCounter.dispose();
     _infoPageVerticalController.dispose();
     _reviewPageVerticalController.dispose();
     _reviewTextController.dispose();
@@ -92,6 +97,16 @@ class _FlyerFooterState extends State<FlyerFooter> {
       _canShowConvertibleReviewButton.value = false;
     }
 
+    /// LOAD FLYER COUNTERS
+    if (_infoButtonExpanded.value == true && widget.tinyMode == false){
+
+      _flyerCounter.value ??= await RecordProtocols.readFlyerCounters(
+            context: context,
+            flyerID: widget.flyerModel.id,
+        );
+
+
+    }
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false); /// tamam disposed
@@ -197,6 +212,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                   infoButtonType: _infoButtonType,
                   infoPageVerticalController: _infoPageVerticalController,
                   inFlight: widget.inFlight,
+                  flyerCounter: _flyerCounter,
                 ),
 
               /// CONVERTIBLE REVIEW BUTTON
