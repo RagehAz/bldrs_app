@@ -342,15 +342,9 @@ Future<void> _createFireSearchRecord({
 
   if (searchText.isNotEmpty){
 
-    final RecordModel _record = RecordModel(
-      // recordID: null, /// will be defined as docID and injected into retrieved map
-      userID: AuthFireOps.superUserID(),
-      timeStamp: DateTime.now(),
-      recordType: RecordType.search,
-      modelType: null, /// only used to trace model id
-      modelID: null, /// like flyerID, bzID, questionID, answerID
-      recordDetailsType: RecordDetailsType.text,
-      recordDetails: searchText,
+    final RecordModel _record = RecordModel.createSearchRecord(
+        userID: AuthFireOps.superUserID(),
+        searchText: searchText,
     );
 
     if (AuthModel.userIsSignedIn() == true){

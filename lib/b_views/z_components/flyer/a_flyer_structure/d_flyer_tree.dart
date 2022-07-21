@@ -316,7 +316,9 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       Nav.goBack(context);
     }
 
-    await widget.onSaveFlyer();
+    if (mounted == true){
+      await widget.onSaveFlyer();
+    }
 
     // await Future.delayed(Ratioz.durationFading200, () async {
 

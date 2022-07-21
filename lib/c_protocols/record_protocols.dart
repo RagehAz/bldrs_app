@@ -4,10 +4,7 @@ import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/record_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 
 class RecordProtocols {
 // -----------------------------------------------------------------------------
@@ -118,8 +115,11 @@ class RecordProtocols {
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required int index,
-    @required int seconds,
   }) async {
+
+    /// TASK : CAUTION : THIS METHOD WILL DUPLICATE RECORAD IN REAL DB IF LDB VIEWS DOX IS WIPED OUT
+    /// WE WEEN A MORE SOLID WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS
+    /// OR,, CHANGE THE NODE ID IN
 
     blog('RecordProtocols.viewFlyer : START');
 
@@ -127,58 +127,50 @@ class RecordProtocols {
 
     if (index < _numberOfSlides){
 
-      final List<Map<String, dynamic>> _maps = await LDBOps.searchAllMaps(
-        fieldToSortBy: 'recordDetails',
-        searchField: 'modelID',
-        fieldIsList: false,
-        searchValue: flyerModel.id,
-        docName: LDBDoc.views,
-      );
-      bool _slideSeenAlready = false;
-
-      /// IF RECORD IS FOUND IN LDB
-      if (Mapper.checkCanLoopList(_maps) == true){
-
-        const String key = 'recordDetails';
-        final int searchValue = index;
-
-        for (final Map<String, dynamic> map in _maps){
-          if (map[key] == searchValue){
-            _slideSeenAlready = true;
-            break;
-          }
-        }
-
-      }
-
-      if (_slideSeenAlready == true){
-        blog('RecordProtocols.viewFlyer : VIEW RECORD ALREADY EXISTS');
-      }
-      else {
+      // final List<Map<String, dynamic>> _maps = await LDBOps.searchAllMaps(
+      //   fieldToSortBy: 'recordDetails',
+      //   searchField: 'modelID',
+      //   fieldIsList: false,
+      //   searchValue: flyerModel.id,
+      //   docName: LDBDoc.views,
+      // );
+      // bool _slideSeenAlready = false;
+      //
+      // blog('_maps are fuck : ${_maps.length} maps');
+      //
+      // /// IF RECORD IS FOUND IN LDB
+      // if (Mapper.checkCanLoopList(_maps) == true){
+      //
+      //   const String key = 'recordDetails';
+      //   final int searchValue = index;
+      //
+      //   for (final Map<String, dynamic> map in _maps){
+      //
+      //     blog('the thing is : key : $key : value : ${map[key]} : valueType : ${map[key].runtimeType} : index : $index');
+      //
+      //     if (map[key] == searchValue){
+      //       _slideSeenAlready = true;
+      //       break;
+      //     }
+      //   }
+      //
+      // }
+      //
+      // if (_slideSeenAlready == true){
+      //   blog('RecordProtocols.viewFlyer : VIEW RECORD ALREADY EXISTS');
+      // }
+      // else {
 
         final RecordModel _record = RecordModel.createViewRecord(
           userID: superUserID(),
           flyerID: flyerModel.id,
           slideIndex: index,
-          durationSeconds: seconds,
         );
 
-        await Future.wait(<Future>[
-
-          RecordRealOps.createRecord(
-            context: context,
-            record: _record,
-          ),
-
-          LDBOps.insertMap(
-            input: _record.toMap(toJSON: true),
-            docName: LDBDoc.views,
-          )
-
-        ]);
-
-      }
-
+        await RecordRealOps.createRecord(
+          context: context,
+          record: _record,
+        );
 
     }
 
