@@ -19,20 +19,25 @@ String formatNumToSeparatedKilos({
 }) {
 
   /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
-
   String _result = '0';
 
   if (number != null) {
+
+    /// -999 < x < 999
     if (number > -1000 && number < 1000) {
       _result = number.toString();
     }
 
+    /// 1000 < x
     else {
-      final double _fractions = getFractions(number: number.toDouble());
+
+      final double _fractions = getFractions(
+          number: number.toDouble(),
+      );
+
       final int _number = number.floor();
       final String _digits = _number.abs().toString();
-      final StringBuffer _separatedNumberWithoutFractions =
-          StringBuffer(_number < 0 ? '-' : '');
+      final StringBuffer _separatedNumberWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
       final int _maxDigitIndex = _digits.length - 1;
 
       for (int i = 0; i <= _maxDigitIndex; i += 1) {
@@ -41,35 +46,46 @@ String formatNumToSeparatedKilos({
         if (i < _maxDigitIndex && (_maxDigitIndex - i) % 3 == 0) {
           _separatedNumberWithoutFractions.write("'");
         }
+
       }
 
       if (_fractions > 0) {
-        final String _fractionWithoutZero =
-            getFractionStringWithoutZero(fraction: _fractions);
+
+        final String _fractionWithoutZero = getFractionStringWithoutZero(
+            fraction: _fractions,
+        );
+
         _result = '$_separatedNumberWithoutFractions.$_fractionWithoutZero';
-      } else {
+
+      }
+
+      else {
         _result = '$_separatedNumberWithoutFractions';
       }
+
     }
 
-    return _result;
-  }
+    // if (number == null) return '0';
+    // if (number > -1000 && number < 1000) return number.toString();
 
-  // if (number == null) return '0';
-  // if (number > -1000 && number < 1000) return number.toString();
+    final String _digits = number.abs().toString();
+    final StringBuffer _resultStringBuffer = StringBuffer(number < 0 ? '-' : '');
+    final int maxDigitIndex = _digits.length - 1;
 
-  final String _digits = number.abs().toString();
-  final StringBuffer _resultStringBuffer = StringBuffer(number < 0 ? '-' : '');
-  final int maxDigitIndex = _digits.length - 1;
+    for (int i = 0; i <= maxDigitIndex; i += 1) {
 
-  for (int i = 0; i <= maxDigitIndex; i += 1) {
-    _resultStringBuffer.write(_digits[i]);
+      _resultStringBuffer.write(_digits[i]);
 
-    if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) {
-      _resultStringBuffer.write(separator);
+      if (i < maxDigitIndex && (maxDigitIndex - i) % 3 == 0) {
+        _resultStringBuffer.write(separator);
+      }
+
     }
+    _result =  _resultStringBuffer.toString();
+
   }
-  return _resultStringBuffer.toString();
+
+  return _result;
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT

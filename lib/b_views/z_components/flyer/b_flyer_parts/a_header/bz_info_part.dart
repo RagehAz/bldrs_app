@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/max_header.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -11,6 +12,7 @@ class BzInfoPart extends StatelessWidget {
     @required this.bzModel,
     @required this.flyerModel,
     @required this.headerPageOpacity,
+    @required this.bzCounters,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -18,6 +20,7 @@ class BzInfoPart extends StatelessWidget {
   final BzModel bzModel;
   final FlyerModel flyerModel;
   final ValueNotifier<double> headerPageOpacity; /// p
+  final ValueNotifier<BzCounterModel> bzCounters;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,7 @@ class BzInfoPart extends StatelessWidget {
         child: MaxHeader(
           flyerBoxWidth: flyerBoxWidth,
           bzModel: bzModel,
+          bzCounters: bzCounters,
         ),
         builder: (_, double _headerPageOpacity, Widget child){
 
