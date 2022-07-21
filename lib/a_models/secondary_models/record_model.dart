@@ -20,12 +20,14 @@ enum RecordType {
   createReview,
   editReview,
   deleteReview,
+
   createQuestion,
   editQuestion,
   deleteQuestion,
   createAnswer,
   editAnswer,
   deleteAnswer,
+
   search,
 }
 
@@ -439,6 +441,7 @@ class RecordModel {
   /// FLYER RECORD CREATORS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static RecordModel createShareRecord({
     @required String userID,
     @required String flyerID,
@@ -504,6 +507,7 @@ class RecordModel {
     return Numeric.transformStringToInt(_duration);
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static RecordModel createSaveRecord({
     @required String userID,
     @required String flyerID,
@@ -523,6 +527,7 @@ class RecordModel {
 
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static RecordModel createUnSaveRecord({
     @required String userID,
     @required String flyerID,

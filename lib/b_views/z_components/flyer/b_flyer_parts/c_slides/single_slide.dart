@@ -48,7 +48,9 @@ class SingleSlide extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // blog('single slide title is : ${slideModel?.headline} and tinyMode is : $tinyMode');
+// -----------------------------------------------------------------------------
+//     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+//     blog('${slideModel.slideIndex} : single slide title is : ${slideModel?.headline} and tinyMode is : $_tinyMode');
 // -----------------------------------------------------------------------------
 //     double _blurImageScale = 1.5;
     // -----------------------------o
@@ -59,6 +61,7 @@ class SingleSlide extends StatelessWidget {
     //   flyerBoxWidth: flyerBoxWidth,
     //   imageSize: imageSize,
     // );
+
 // -----------------------------------------------------------------------------
     return SlideBox(
       key: const ValueKey<String>('SingleSlideBox'),
