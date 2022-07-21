@@ -354,7 +354,7 @@ Future<void> _createFireSearchRecord({
     );
 
     if (AuthModel.userIsSignedIn() == true){
-      await RecordOps.createRecord(
+      await RecordRealOps.createRecord(
         context: context,
         record: _record,
       );

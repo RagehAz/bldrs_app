@@ -6,10 +6,10 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class RecordOps {
+class RecordRealOps {
 // -----------------------------------------------------------------------------
 
-  RecordOps();
+  RecordRealOps();
 
 // -----------------------------------------------------------------------------
 
@@ -61,7 +61,7 @@ class RecordOps {
 
     if (record != null){
 
-      final String _path = RecordOps.createRecordTypeRealPath(
+      final String _path = RecordRealOps.createRecordTypeRealPath(
         recordType: record.recordType,
         modelID: record.modelID,
       );

@@ -214,7 +214,7 @@ class SearchProvider extends ChangeNotifier {
       _lastRecordSnapshot = _lastRecord.docSnapshot;
     }
 
-    final List<RecordModel> _records = await RecordOps.paginateRecords(
+    final List<RecordModel> _records = await RecordRealOps.paginateRecords(
       context: context,
       userID: AuthFireOps.superUserID(),
       activityType: RecordType.search,
