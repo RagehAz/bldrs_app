@@ -443,7 +443,6 @@ Future<void> recordFlyerView({
     context: context,
     flyerModel: flyerModel,
     index: index,
-    seconds: null,
   );
 
 }
