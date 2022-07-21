@@ -141,7 +141,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                 final List<Future<dynamic>> futures = <Future<dynamic>>[];
 
                 for (int i = 0; i < _numberOfTimes; i++){
-                  futures.add(Real.incrementDocField(
+                  futures.add(Real.incrementDocFieldNourMethod(
                     context: context,
                     docID: 'flyerID',
                     fieldName: 'shares',

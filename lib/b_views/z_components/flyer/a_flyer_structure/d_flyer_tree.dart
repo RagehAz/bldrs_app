@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
@@ -72,7 +73,9 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
+    // ------------------------------------------
+    final BzCounterModel _initialCounters = BzCounterModel.createInitialModel(widget.bzModel.id);
+    _bzCounters = ValueNotifier<BzCounterModel>(_initialCounters);
     // ------------------------------------------
     /// FOR HEADER
     _headerScrollController = ScrollController();
@@ -169,6 +172,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     _swipeDirection.dispose();
     _graphicIsOn.dispose();
     _graphicOpacity.dispose();
+    _bzCounters.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -211,22 +215,27 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   /// SWIPE DIRECTION
   final ValueNotifier<Sliders.SwipeDirection> _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next); /// tamam disposed
 // -----------------------------------------------------------------------------
+  ValueNotifier<BzCounterModel> _bzCounters;
+// -----------------------------------------------------------------------------
   Future<void> _onHeaderTap() async {
 
-    // await Future.delayed(const Duration(milliseconds: 100),
-    //         () async {
+    await onTriggerHeader(
+      context: context,
+      headerAnimationController: _headerAnimationController,
+      verticalController: _headerScrollController,
+      headerIsExpanded: _headerIsExpanded,
+      progressBarOpacity: _progressBarOpacity,
+      headerPageOpacity: _headerPageOpacity,
+    );
 
-          await onTriggerHeader(
-            context: context,
-            headerAnimationController: _headerAnimationController,
-            verticalController: _headerScrollController,
-            headerIsExpanded: _headerIsExpanded,
-            progressBarOpacity: _progressBarOpacity,
-            headerPageOpacity: _headerPageOpacity,
-          );
+    if (_headerIsExpanded.value == true){
+      await readBzCounters(
+        context: context,
+        bzID: widget.bzModel.id,
+        bzCounters: _bzCounters,
+      );
+    }
 
-        // }
-    // );
 
   }
 // -----------------------------------------------------------------------------
@@ -440,6 +449,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           headerIsExpanded: _headerIsExpanded,
           followIsOn: _followIsOn,
           headerPageOpacity: _headerPageOpacity,
+          bzCounters: _bzCounters,
         ),
 
         /// FOOTER

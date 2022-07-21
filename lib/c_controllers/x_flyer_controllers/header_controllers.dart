@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
@@ -56,11 +57,11 @@ Future<void> onTriggerHeader({
   @required ValueNotifier<double> headerPageOpacity,
 }) async {
 
-  /// PROGRESS BAR OPACITY
   await _triggerProgressBarOpacity(
     context: context,
     progressBarOpacity: progressBarOpacity,
   );
+
 
   /// HEADER ANIMATION
   _animateHeaderExpansion(
@@ -77,7 +78,6 @@ Future<void> onTriggerHeader({
     headerIsExpanded: headerIsExpanded,
   );
 
-
   /// HEADER FADING
   _triggerHeaderPageOpacity(
     context: context,
@@ -86,6 +86,21 @@ Future<void> onTriggerHeader({
   );
 
   blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');
+}
+// ----------------------------------
+Future<void> readBzCounters({
+  @required BuildContext context,
+  @required String bzID,
+  @required ValueNotifier<BzCounterModel> bzCounters,
+}) async {
+
+  final BzCounterModel _bzCounters = await RecordProtocols.readBzCounters(
+    context: context,
+    bzID: bzID,
+  );
+
+  bzCounters.value = _bzCounters;
+
 }
 // ----------------------------------
 /// PROGRESS BAR OPACITY
