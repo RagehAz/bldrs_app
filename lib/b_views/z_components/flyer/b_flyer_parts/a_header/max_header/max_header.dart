@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/black_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_counter.dart';
@@ -21,21 +22,24 @@ class MaxHeader extends StatelessWidget {
   const MaxHeader({
     @required this.flyerBoxWidth,
     @required this.bzModel,
+    @required this.bzCounters,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final BzModel bzModel;
+  final ValueNotifier<BzCounterModel> bzCounters;
   /// --------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
-//   Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
-//
-//     await Nav.openFlyer(
-//         context: context,
-//         flyerID: flyerID,
-//     );
-//
-//   }
+  /*
+  Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
+
+    await Nav.openFlyer(
+        context: context,
+        flyerID: flyerID,
+    );
+
+  }
+   */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,7 @@ class MaxHeader extends StatelessWidget {
     bzModel != null ? bzModel?.authors : <AuthorModel>[];
 // -----------------------------------------------------------------------------
     final List<String> _bzTeamIDs = <String>[];
-
+// -----------------------------------------------------------------------------
     if (Mapper.checkCanLoopList(_bzAuthors)) {
       for (final AuthorModel author in _bzAuthors) {
         _bzTeamIDs.add(author.userID);
@@ -54,122 +58,122 @@ class MaxHeader extends StatelessWidget {
 
     }
 // -----------------------------------------------------------------------------
-    final int _followersCount = bzModel != null ? bzModel.totalFollowers : 0;
-    final int _bzTotalSaves = bzModel != null ? bzModel.totalSaves : 0;
-    final int _bzTotalShares = bzModel != null ? bzModel.totalShares : 0;
-    final int _bzTotalSlides = bzModel != null ? bzModel.totalSlides : 0;
-    final int _bzTotalViews = bzModel != null ? bzModel.totalViews : 0;
-    final int _callsCount = bzModel != null ? bzModel.totalCalls : 0;
-// -----------------------------------------------------------------------------
     return SizedBox(
       key: const ValueKey<String>('Max_Header'),
       width: flyerBoxWidth,
-      child: Column(
-        children: <Widget>[
+      child: ValueListenableBuilder(
+        valueListenable: bzCounters,
+        builder: (_, BzCounterModel _counter, Widget child){
 
-          /// BUSINESS FIELD
-          BzPgFields(
-            key: const ValueKey<String>('max_header_bzPageFields'),
-            flyerBoxWidth: flyerBoxWidth,
-            bzScope: _bzScope,
-          ),
+          return Column(
+            children: <Widget>[
 
-          /// BUSINESS BIRTH YEAR
-          BzPgVerse(
-            key: const ValueKey<String>('max_header_BzPgVerse'),
-            flyerBoxWidth: flyerBoxWidth,
-            verse: Timers.generateString_in_bldrs_since_month_yyyy(context, bzModel.createdAt),
-            size: 2,
-          ),
-
-          /// BUSINESS DESCRIPTION
-          BzAboutVerse(
-            key: const ValueKey<String>('max_header_BzAboutVerse'),
-            flyerBoxWidth: flyerBoxWidth,
-            verse: bzModel != null ? bzModel.about : '',
-            bzName: bzModel != null ? bzModel.name : '',
-          ),
-
-          /// FOLLOWERS
-          BzPgCounter(
-            key: const ValueKey<String>('max_header_BzPgCounter_follows'),
-            flyerBoxWidth: flyerBoxWidth,
-            count: _followersCount,
-            verse: superPhrase(context, 'phid_followers'),
-            icon: Iconz.follow,
-            iconSizeFactor: 0.8,
-          ),
-
-          /// CALLS
-          BzPgCounter(
-            key: const ValueKey<String>('max_header_BzPgCounter_calls'),
-            flyerBoxWidth: flyerBoxWidth,
-            count: _callsCount,
-            verse: superPhrase(context, 'phid_callsReceived'),
-            icon: Iconz.comPhone,
-            iconSizeFactor: 0.8,
-          ),
-
-          /// PUBLISHED SLIDE & FLYERS
-          BzPgCounter(
-            key: const ValueKey<String>('max_header_BzPgCounter_slides'),
-            flyerBoxWidth: flyerBoxWidth,
-            count: _bzTotalSlides,
-            verse: superPhrase(context, 'phid_slidesPublished'),
-            icon: Iconz.gallery,
-            iconSizeFactor: 0.85,
-          ),
-
-          /// TOTAL VIEWS
-          BzPgCounter(
-            key: const ValueKey<String>('max_header_BzPgCounter_views'),
-            flyerBoxWidth: flyerBoxWidth,
-            count: _bzTotalViews,
-            verse: superPhrase(context, 'phid_totalViews'),
-            icon: Iconz.viewsIcon,
-            iconSizeFactor: 0.85,
-          ),
-
-          /// TOTAL SHARES
-          BzPgCounter(
-            key: const ValueKey<String>('max_header_BzPgCounter_shares'),
-            flyerBoxWidth: flyerBoxWidth,
-            count: _bzTotalShares,
-            verse: superPhrase(context, 'phid_totalShares'),
-            icon: Iconz.share,
-            iconSizeFactor: 0.85,
-          ),
-
-          /// TOTAL SAVES
-          BzPgCounter(
-            key: const ValueKey<String>('max_header_BzPgCounter_saves'),
-            flyerBoxWidth: flyerBoxWidth,
-            count: _bzTotalSaves,
-            verse: superPhrase(context, 'phid_totalSaves'),
-            icon: Iconz.saveOn,
-            iconSizeFactor: 0.95,
-          ),
-
-          /// REPORT
-          BlackBox(
-            width: flyerBoxWidth,
-            child: ReportButton(
-              modelType: ModelType.bz,
-              color: Colorz.black255,
-              onTap: () => BzFireOps.reportBz(
-                context: context,
-                bzModel: bzModel,
+              /// BUSINESS FIELD
+              BzPgFields(
+                key: const ValueKey<String>('max_header_bzPageFields'),
+                flyerBoxWidth: flyerBoxWidth,
+                bzScope: _bzScope,
               ),
-            ),
-          ),
 
-          /// BOTTOM PADDING
-          MaxHeaderBottomPadding(
-            key: const ValueKey<String>('max_header_bottom_padding'),
-            flyerBoxWidth: flyerBoxWidth,
-          ),
+              /// BUSINESS BIRTH YEAR
+              BzPgVerse(
+                key: const ValueKey<String>('max_header_BzPgVerse'),
+                flyerBoxWidth: flyerBoxWidth,
+                verse: Timers.generateString_in_bldrs_since_month_yyyy(context, bzModel.createdAt),
+                size: 2,
+              ),
 
-        ],
+              /// BUSINESS DESCRIPTION
+              BzAboutVerse(
+                key: const ValueKey<String>('max_header_BzAboutVerse'),
+                flyerBoxWidth: flyerBoxWidth,
+                verse: bzModel != null ? bzModel.about : '',
+                bzName: bzModel != null ? bzModel.name : '',
+              ),
+
+              /// FOLLOWERS
+              BzPgCounter(
+                key: const ValueKey<String>('max_header_BzPgCounter_follows'),
+                flyerBoxWidth: flyerBoxWidth,
+                count: _counter.follows,
+                verse: superPhrase(context, 'phid_followers'),
+                icon: Iconz.follow,
+                iconSizeFactor: 0.8,
+              ),
+
+              /// CALLS
+              BzPgCounter(
+                key: const ValueKey<String>('max_header_BzPgCounter_calls'),
+                flyerBoxWidth: flyerBoxWidth,
+                count: _counter.calls,
+                verse: superPhrase(context, 'phid_callsReceived'),
+                icon: Iconz.comPhone,
+                iconSizeFactor: 0.8,
+              ),
+
+              /// PUBLISHED SLIDE & FLYERS
+              BzPgCounter(
+                key: const ValueKey<String>('max_header_BzPgCounter_slides'),
+                flyerBoxWidth: flyerBoxWidth,
+                count: _counter.allSlides,
+                verse: superPhrase(context, 'phid_slidesPublished'),
+                icon: Iconz.gallery,
+                iconSizeFactor: 0.85,
+              ),
+
+              /// TOTAL VIEWS
+              BzPgCounter(
+                key: const ValueKey<String>('max_header_BzPgCounter_views'),
+                flyerBoxWidth: flyerBoxWidth,
+                count: _counter.allViews,
+                verse: superPhrase(context, 'phid_totalViews'),
+                icon: Iconz.viewsIcon,
+                iconSizeFactor: 0.85,
+              ),
+
+              /// TOTAL SHARES
+              BzPgCounter(
+                key: const ValueKey<String>('max_header_BzPgCounter_shares'),
+                flyerBoxWidth: flyerBoxWidth,
+                count: _counter.allShares,
+                verse: superPhrase(context, 'phid_totalShares'),
+                icon: Iconz.share,
+                iconSizeFactor: 0.85,
+              ),
+
+              /// TOTAL SAVES
+              BzPgCounter(
+                key: const ValueKey<String>('max_header_BzPgCounter_saves'),
+                flyerBoxWidth: flyerBoxWidth,
+                count: _counter.allSaves,
+                verse: superPhrase(context, 'phid_totalSaves'),
+                icon: Iconz.saveOn,
+                iconSizeFactor: 0.95,
+              ),
+
+              /// REPORT
+              BlackBox(
+                width: flyerBoxWidth,
+                child: ReportButton(
+                  modelType: ModelType.bz,
+                  color: Colorz.black255,
+                  onTap: () => BzFireOps.reportBz(
+                    context: context,
+                    bzModel: bzModel,
+                  ),
+                ),
+              ),
+
+              /// BOTTOM PADDING
+              MaxHeaderBottomPadding(
+                key: const ValueKey<String>('max_header_bottom_padding'),
+                flyerBoxWidth: flyerBoxWidth,
+              ),
+
+            ],
+          );
+
+        },
       ),
     );
   }

@@ -175,6 +175,7 @@ class UserProtocol {
     @required BuildContext context,
     @required bool flyerIsSaved,
     @required String flyerID,
+    @required String bzID,
     @required int slideIndex,
   }) async {
 
@@ -190,6 +191,7 @@ class UserProtocol {
       await RecordProtocols.saveFlyer(
           context: context,
           flyerID: flyerID,
+          bzID: bzID,
           slideIndex: slideIndex
       );
 
@@ -210,6 +212,7 @@ class UserProtocol {
       await RecordProtocols.unSaveFlyer(
         context: context,
         flyerID: flyerID,
+        bzID: bzID,
         slideIndex: slideIndex,
       );
 

@@ -1,9 +1,6 @@
-
-
 import 'package:flutter/foundation.dart';
 
-
-/// ON FLYER CREATION => CLOUD FUNCTION = > CREATE FLYER STATS OBJECT ON DB
+/// ON FLYER CREATION => CLOUD FUNCTION = > CREATE FLYER COUNTER OBJECT ON DB
 /// ON RECORD CREATION => CLOUD  FUNCTION => INCREMENT - DECREMENT
 class FlyerCounterModel {
   /// -----------------------------------------------------------------------------
@@ -24,7 +21,8 @@ class FlyerCounterModel {
 
   /// INITIALIZATION
 
-// ----------------------------------------
+  // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerCounterModel createInitialModel(String flyerID){
     return FlyerCounterModel(
         flyerID: flyerID,
@@ -34,7 +32,8 @@ class FlyerCounterModel {
         reviews: 0,
     );
   }
-// ----------------------------------------
+  // ----------------------------------
+  /// TESTED : WORKS PERFECT
   FlyerCounterModel copyWith({
     String flyerID,
     int saves,
@@ -56,18 +55,20 @@ class FlyerCounterModel {
 
   /// CYPHERS
 
-// ----------------------------------------
+  // ----------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
-      'flyerID' : flyerID,
+      // 'flyerID' : flyerID,
       'saves' : saves,
       'shares' : shares,
       'views' : views,
       'reviews' : reviews,
     };
   }
-// ----------------------------------------
-  static FlyerCounterModel decipherStatsModel(Map<String, dynamic> map){
+  // ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static FlyerCounterModel decipherCounterMap(Map<String, dynamic> map){
 
     FlyerCounterModel _model;
 

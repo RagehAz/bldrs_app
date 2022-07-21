@@ -24,6 +24,7 @@ Future<void> onSaveFlyer({
   await UserProtocol.savingFlyerProtocol(
     context: context,
     flyerID: flyerModel.id,
+    bzID: flyerModel.bzID,
     flyerIsSaved: flyerIsSaved.value,
     slideIndex: slideIndex,
   );
@@ -52,18 +53,24 @@ Future<void> onShareFlyer({
 
   /// TASK : GENERATE FLYER SHARING LINK
 
-  await Launcher.shareFlyer(
+  await Future.wait(<Future>[
+
+    Launcher.shareFlyer(
       context: context,
       flyerLink: LinkModel(
         url: 'www.bldrs.net/flyer',
         description: flyerModel.description,
       ),
-  );
+    ),
 
-  await RecordProtocols.shareFlyer(
+    RecordProtocols.shareFlyer(
       context: context,
       flyerID: flyerModel.id,
-  );
+      bzID: flyerModel.bzID,
+    ),
+
+  ]);
+
 
 }
 // -----------------------------------------------------------------------------
