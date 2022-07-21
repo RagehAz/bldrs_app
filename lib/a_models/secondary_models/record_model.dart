@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -41,7 +40,7 @@ enum ModelType{
 }
 
 enum RecordDetailsType{
-  slideIndexDuration,
+  slideIndex,
   text,
   questionID,
   answerID,
@@ -288,7 +287,7 @@ class RecordModel {
   /// TESTED : WORKS PERFECT
   static String _cipherRecordDetailsType(RecordDetailsType recordDetailsType){
     switch (recordDetailsType){
-      case RecordDetailsType.slideIndexDuration:  return 'slideIndex';  break;
+      case RecordDetailsType.slideIndex:          return 'slideIndex';  break;
       case RecordDetailsType.text:                return 'text';        break;
       case RecordDetailsType.questionID:          return 'questionID';  break;
       case RecordDetailsType.answerID:            return 'answerID';    break;
@@ -300,7 +299,7 @@ class RecordModel {
   /// TESTED : WORKS PERFECT
   static RecordDetailsType _decipherRecordDetailsType(String recordDetailsType){
     switch (recordDetailsType){
-      case 'slideIndex':  return RecordDetailsType.slideIndexDuration;  break;
+      case 'slideIndex':  return RecordDetailsType.slideIndex;  break;
       case 'text':        return RecordDetailsType.text;                break;
       case 'questionID':  return RecordDetailsType.questionID;          break;
       case 'answerID':    return RecordDetailsType.answerID;            break;
@@ -386,6 +385,7 @@ class RecordModel {
   }){
 
     return RecordModel(
+      recordID: '${bzID}_$userID',
       serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.follow,
       userID: userID,
@@ -405,6 +405,7 @@ class RecordModel {
   }){
 
     return RecordModel(
+      recordID: '${bzID}_$userID',
       serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.unfollow,
       userID: userID,
@@ -425,6 +426,7 @@ class RecordModel {
   }){
 
     return RecordModel(
+      // recordID: '${bzID}_$userID', // NO MAKE A RECORD FOR EACH CALL
       serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.call,
       userID: userID,
@@ -448,6 +450,7 @@ class RecordModel {
   }){
 
     return RecordModel(
+      // recordID: '${flyerID}_$userID', // MAKE A RECORD FOR EACH SHARE : LEAVE IT NULL
       serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.share,
       userID: userID,
@@ -463,22 +466,24 @@ class RecordModel {
   static RecordModel createViewRecord({
     @required String userID,
     @required String flyerID,
-    @required int durationSeconds,
+    // @required int durationSeconds,
     @required int slideIndex,
   }){
 
     return RecordModel(
+      recordID: '${flyerID}_${slideIndex}_$userID',
       serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.view,
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.view),
       modelID: flyerID,
-      recordDetailsType: RecordDetailsType.slideIndexDuration,
-      recordDetails: createIndexAndDurationString(
-        index: slideIndex,
-        durationSeconds: durationSeconds,
-      ),
+      recordDetailsType: RecordDetailsType.slideIndex,
+      recordDetails: slideIndex,
+      // recordDetails: createIndexAndDurationString(
+      //   index: slideIndex,
+      //   durationSeconds: durationSeconds,
+      // ),
     );
 
   }
@@ -497,6 +502,7 @@ class RecordModel {
 
   }
 // ---------------------------------
+  /*
   static int getIndexFromIndexDurationString(String string){
     final String _index = removeTextAfterLastSpecialCharacter(string, '_');
     return Numeric.transformStringToInt(_index);
@@ -506,6 +512,7 @@ class RecordModel {
     final String _duration = removeTextBeforeLastSpecialCharacter(string, '_');
     return Numeric.transformStringToInt(_duration);
   }
+   */
 // ---------------------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createSaveRecord({
@@ -515,13 +522,14 @@ class RecordModel {
   }){
 
     return RecordModel(
+      recordID: '${flyerID}_$userID',
       serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.save,
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.save),
       modelID: flyerID,
-      recordDetailsType: RecordDetailsType.slideIndexDuration,
+      recordDetailsType: RecordDetailsType.slideIndex,
       recordDetails: slideIndex,
     );
 
@@ -534,6 +542,7 @@ class RecordModel {
   }){
 
     return RecordModel(
+      recordID: '${flyerID}_$userID',
       serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.unSave,
       userID: userID,
@@ -546,6 +555,7 @@ class RecordModel {
 
   }
 // ---------------------------------
+
   static RecordModel createCreateReviewRecord({
     @required String userID,
     @required String flyerID,
@@ -565,6 +575,7 @@ class RecordModel {
 
   }
 // ---------------------------------
+
   static RecordModel createEditReviewRecord({
     @required String userID,
     @required String flyerID,
@@ -584,6 +595,7 @@ class RecordModel {
 
   }
 // ---------------------------------
+
   static RecordModel createDeleteReviewRecord({
     @required String userID,
     @required String flyerID,
@@ -727,6 +739,7 @@ class RecordModel {
   }){
 
     return RecordModel(
+      // recordID: , // MAKE A RECORD FOR EACH SEARCH
       serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.search,
       userID: userID,
@@ -749,7 +762,6 @@ class RecordModel {
     const RecordType recordType = RecordType.search;
 
     final RecordModel _recordModel = RecordModel(
-      recordID: 'x',
       recordType: recordType,
       userID: superUserID(),
       timeStamp: DateTime.now(),

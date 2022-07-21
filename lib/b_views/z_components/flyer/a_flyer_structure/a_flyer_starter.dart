@@ -198,12 +198,14 @@ class _FlyerStarterState extends State<FlyerStarter> {
   ValueNotifier<bool> _flyerIsSaved; /// tamam disposed
   Future<void> onTriggerSave() async {
 
-    await onSaveFlyer(
-        context: context,
-        flyerModel: _flyerModel,
-        slideIndex: _currentSlideIndex.value,
-        flyerIsSaved: _flyerIsSaved
-    );
+    if (mounted == true){
+      await onSaveFlyer(
+          context: context,
+          flyerModel: _flyerModel,
+          slideIndex: _currentSlideIndex.value,
+          flyerIsSaved: _flyerIsSaved
+      );
+    }
 
   }
 // -----------------------------------------------------------------------------
