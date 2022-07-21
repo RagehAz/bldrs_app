@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
@@ -8,6 +9,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/converti
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -29,6 +31,7 @@ class FlyerHeader extends StatefulWidget {
     @required this.headerIsExpanded,
     @required this.followIsOn,
     @required this.headerPageOpacity,
+    @required this.bzCounters,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -45,6 +48,7 @@ class FlyerHeader extends StatefulWidget {
   final ValueNotifier<bool> headerIsExpanded; /// p
   final ValueNotifier<bool> followIsOn; /// p
   final ValueNotifier<double> headerPageOpacity; /// p
+  final ValueNotifier<BzCounterModel> bzCounters;
   /// --------------------------------------------------------------------------
   @override
   _FlyerHeaderState createState() => _FlyerHeaderState();
@@ -228,7 +232,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
         onHeaderTap: widget.onHeaderTap,
         headerIsExpanded: widget.headerIsExpanded,
       ),
-      builder: (_, Widget child) {
+      builder: (_, Widget xButton) {
 
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
         final BorderRadius _headerBorders = _headerCornerTween.evaluate(_animation);
@@ -290,20 +294,37 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 ),
 
                 /// - BZ INFO PART
-                BzInfoPart(
-                  key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
-                  flyerBoxWidth: widget.flyerBoxWidth,
-                  bzModel: widget.bzModel,
-                  flyerModel: widget.flyerModel,
-                  headerPageOpacity: widget.headerPageOpacity,
+                ValueListenableBuilder(
+                    valueListenable: widget.headerIsExpanded,
+                    builder: (_, bool isExpanded, Widget child){
+
+                      if (isExpanded == true && widget.tinyMode == false){
+                        blog('BzInfoPart SHOULD BUILD NOWWW XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+                        return child;
+                      }
+
+                      else {
+                        return const SizedBox();
+                      }
+
+                    },
+                  child: BzInfoPart(
+                    key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    bzModel: widget.bzModel,
+                    flyerModel: widget.flyerModel,
+                    headerPageOpacity: widget.headerPageOpacity,
+                    bzCounters: widget.bzCounters,
+                  ),
                 ),
+
 
               ],
             ),
 
             /// --- CORNER X BUTTON
             if (widget.tinyMode == false)
-            child,
+            xButton,
 
 
           ],

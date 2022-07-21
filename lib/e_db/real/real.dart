@@ -43,7 +43,7 @@ class Real {
   static String _createPath({
     @required String collName,
     String docName,
-    String key, // what is this ?
+    String key, // what is this ? sub node / doc field
   }){
 
     String _path = collName;
@@ -539,6 +539,8 @@ class Real {
     @required dynamic value,
   }) async {
 
+    blog('updateDocField : START');
+
     final DatabaseReference _ref = _createPathAndGetRef(
       collName: collName,
       docName: docName,
@@ -554,7 +556,6 @@ class Real {
         context: context,
         functions: () async {
 
-
           await _ref.set(value).then((_) {
             // Data saved successfully!
             blog('Real.updateField : updated (Real/$collName/$docName/$fieldName) : $value');
@@ -568,7 +569,7 @@ class Real {
         }
     );
 
-
+    blog('updateDocField : END');
 
   }
 // ----------------------------------------
@@ -724,13 +725,15 @@ class Real {
   /// TESTED : WORKS PERFECT
   static const String _realIncrementationLink = 'https://www.bldrs.net/counters?operation=';
 // -----------------------------------------------------------------------------
-  static Future<void> incrementDocField({
+  static Future<void> incrementDocFieldNourMethod({
     @required BuildContext context,
     @required String docID,
     @required String fieldName,
     @required String collName,
     @required bool increment,
   }) async {
+
+    /// TASK : SHOULD RETURN THE ENTIRE MAP
 
     String _docID;
 

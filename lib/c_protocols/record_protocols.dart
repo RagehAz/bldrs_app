@@ -1,9 +1,12 @@
+import 'package:bldrs/a_models/counters/bz_counter_model.dart';
+import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/record_ops.dart';
+import 'package:bldrs/e_db/real/real.dart';
 import 'package:flutter/material.dart';
 
 class RecordProtocols {
@@ -13,7 +16,7 @@ class RecordProtocols {
 
 // -----------------------------------------------------------------------------
 
-  /// BZ
+  /// CREATE BZ RECORDS AND COUNTERS
 
 // ----------------------------------
     /// TESTED : WORKS PERFECT
@@ -29,10 +32,22 @@ class RecordProtocols {
         bzID: bzID
     );
 
-    await RecordRealOps.createRecord(
+    await Future.wait(<Future>[
+
+      RecordRealOps.createRecord(
         context: context,
         record: _record,
-    );
+      ),
+
+      RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: bzID,
+        field: 'follows',
+        increaseOne: true,
+      ),
+
+    ]);
+
 
     blog('RecordProtocols.followBz : END');
 
@@ -56,6 +71,22 @@ class RecordProtocols {
       record: _record,
     );
 
+    await Future.wait(<Future>[
+
+      RecordRealOps.createRecord(
+        context: context,
+        record: _record,
+      ),
+
+      RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: bzID,
+        field: 'follows',
+        increaseOne: false,
+      ),
+
+    ]);
+
     blog('RecordProtocols.unfollowBz : END');
 
   }
@@ -75,23 +106,35 @@ class RecordProtocols {
       contact: contact,
     );
 
-    await RecordRealOps.createRecord(
-      context: context,
-      record: _record,
-    );
+    await Future.wait(<Future>[
+
+      RecordRealOps.createRecord(
+        context: context,
+        record: _record,
+      ),
+
+      RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: bzID,
+        field: 'calls',
+        increaseOne: true,
+      ),
+
+    ]);
 
     blog('RecordProtocols.callBz : END');
 
   }
 // -----------------------------------------------------------------------------
 
-  /// FLYER
+  /// CREATE FLYER RECORDS AND COUNTERS
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> shareFlyer({
     @required BuildContext context,
     @required String flyerID,
+    @required String bzID,
   }) async {
 
     blog('RecordProtocols.shareFlyer : START');
@@ -101,16 +144,36 @@ class RecordProtocols {
       flyerID: flyerID,
     );
 
-    await RecordRealOps.createRecord(
-      context: context,
-      record: _record,
-    );
+    await Future.wait(<Future>[
+
+      RecordRealOps.createRecord(
+        context: context,
+        record: _record,
+      ),
+
+      RecordRealOps.incrementFlyerCounter(
+        context: context,
+        flyerID: flyerID,
+        field: 'shares',
+        increaseOne: true,
+      ),
+
+      RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: bzID,
+        field: 'allShares',
+        increaseOne: true,
+      ),
+
+    ]);
+
+
 
     blog('RecordProtocols.shareFlyer : END');
 
   }
 // ----------------------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> viewFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -167,10 +230,31 @@ class RecordProtocols {
           slideIndex: index,
         );
 
-        await RecordRealOps.createRecord(
-          context: context,
-          record: _record,
-        );
+        // await Future.wait(<Future>[]);
+
+        await Future.wait(<Future>[
+
+          RecordRealOps.createRecord(
+            context: context,
+            record: _record,
+          ),
+
+          RecordRealOps.incrementFlyerCounter(
+            context: context,
+            flyerID: flyerModel.id,
+            field: 'views',
+            increaseOne: true,
+          ),
+
+          RecordRealOps.incrementBzCounter(
+            context: context,
+            bzID: flyerModel.bzID,
+            field: 'allViews',
+            increaseOne: true,
+          ),
+
+        ]);
+
 
     }
 
@@ -182,6 +266,7 @@ class RecordProtocols {
   static Future<void> saveFlyer({
     @required BuildContext context,
     @required String flyerID,
+    @required String bzID,
     @required int slideIndex,
   }) async {
 
@@ -193,10 +278,28 @@ class RecordProtocols {
       slideIndex: slideIndex,
     );
 
-    await RecordRealOps.createRecord(
-      context: context,
-      record: _record,
-    );
+    await Future.wait(<Future>[
+
+      RecordRealOps.createRecord(
+        context: context,
+        record: _record,
+      ),
+
+      RecordRealOps.incrementFlyerCounter(
+        context: context,
+        flyerID: flyerID,
+        field: 'saves',
+        increaseOne: true,
+      ),
+
+      RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: bzID,
+        field: 'allSaves',
+        increaseOne: true,
+      ),
+
+    ]);
 
     blog('RecordProtocols.saveFlyer : END');
 
@@ -206,6 +309,7 @@ class RecordProtocols {
   static Future<void> unSaveFlyer({
     @required BuildContext context,
     @required String flyerID,
+    @required String bzID,
     @required int slideIndex,
   }) async {
 
@@ -216,20 +320,43 @@ class RecordProtocols {
       flyerID: flyerID,
     );
 
-    await RecordRealOps.createRecord(
-      context: context,
-      record: _record,
-    );
+    await Future.wait(<Future>[
+
+      RecordRealOps.createRecord(
+        context: context,
+        record: _record,
+      ),
+
+      RecordRealOps.incrementFlyerCounter(
+        context: context,
+        flyerID: flyerID,
+        field: 'saves',
+        increaseOne: false,
+      ),
+
+      RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: bzID,
+        field: 'allSaves',
+        increaseOne: false,
+      ),
+
+    ]);
 
     blog('RecordProtocols.unSaveFlyer : END');
 
   }
+// -----------------------------------------------------------------------------
+
+  /// CREATE FLYER REVIEWS RECORDS AND COUNTERS
+
 // ----------------------------------
   /// TESTED : ...
   static Future<void> createCreateReview({
     @required BuildContext context,
     @required String review,
     @required String flyerID,
+    @required String bzID,
   }) async {
 
     blog('RecordProtocols.createCreateReview : START');
@@ -240,10 +367,28 @@ class RecordProtocols {
       flyerID: flyerID,
     );
 
-    await RecordRealOps.createRecord(
-      context: context,
-      record: _record,
-    );
+    await Future.wait(<Future>[
+
+      RecordRealOps.createRecord(
+        context: context,
+        record: _record,
+      ),
+
+      RecordRealOps.incrementFlyerCounter(
+        context: context,
+        flyerID: flyerID,
+        field: 'reviews',
+        increaseOne: true,
+      ),
+
+      RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: bzID,
+        field: 'allReviews',
+        increaseOne: true,
+      ),
+
+    ]);
 
     blog('RecordProtocols.createCreateReview : END');
 
@@ -277,6 +422,7 @@ class RecordProtocols {
   static Future<void> createDeleteReview({
     @required BuildContext context,
     @required String flyerID,
+    @required String bzID,
   }) async {
 
     blog('RecordProtocols.createDeleteReview : START');
@@ -286,17 +432,35 @@ class RecordProtocols {
       flyerID: flyerID,
     );
 
-    await RecordRealOps.createRecord(
-      context: context,
-      record: _record,
-    );
+    await Future.wait(<Future>[
+
+      RecordRealOps.createRecord(
+        context: context,
+        record: _record,
+      ),
+
+      RecordRealOps.incrementFlyerCounter(
+        context: context,
+        flyerID: flyerID,
+        field: 'reviews',
+        increaseOne: false,
+      ),
+
+      RecordRealOps.incrementBzCounter(
+        context: context,
+        bzID: bzID,
+        field: 'allReviews',
+        increaseOne: false,
+      ),
+
+    ]);
 
     blog('RecordProtocols.createDeleteReview : END');
 
   }
 // -----------------------------------------------------------------------------
 
-  /// QUESTIONS
+  /// CREATE QUESTIONS RECORDS AND COUNTERS
 
 // ----------------------------------
   /// TESTED : ...
@@ -457,6 +621,42 @@ class RecordProtocols {
 
     blog('RecordProtocols.createSearch : END');
 
+  }
+// -----------------------------------------------------------------------------
+
+/// READ COUNTERS
+
+// ----------------------------------
+  static Future<BzCounterModel> readBzCounters({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+
+    final Map<String, dynamic> _map = await Real.readDocOnce(
+      context: context,
+      collName: 'bzzCounters',
+      docName: bzID,
+    );
+
+    final BzCounterModel _bzCounters = BzCounterModel.decipherCounterMap(_map);
+
+    return _bzCounters;
+  }
+// ----------------------------------
+  static Future<FlyerCounterModel> readFlyerCounters({
+    @required BuildContext context,
+    @required String flyerID,
+  }) async {
+
+    final Map<String, dynamic> _map = await Real.readDocOnce(
+      context: context,
+      collName: 'flyersCounters',
+      docName: flyerID,
+    );
+
+    final FlyerCounterModel _flyerCounters = FlyerCounterModel.decipherCounterMap(_map);
+
+    return _flyerCounters;
   }
 // ----------------------------------
 
