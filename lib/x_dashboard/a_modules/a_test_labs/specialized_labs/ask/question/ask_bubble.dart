@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -141,14 +141,14 @@ class _QuestionBubbleState extends State<QuestionBubble> {
 // ---------------------------------------------------------------------------
   Future<void> _onAsk() async {
     if (TextChecker.textControllerIsEmpty(_bodyController) == true) {
-      NavDialog.showNavDialog(
+      TopDialog.showUnawaitedTopDialog(
           context: context,
           firstLine: 'Question is empty',
           secondLine: 'Please type your question first');
     }
 
     else if (TextChecker.textControllerIsEmpty(_titleController) == true) {
-      NavDialog.showNavDialog(
+      TopDialog.showUnawaitedTopDialog(
           context: context,
           firstLine: 'Title is empty',
           secondLine: 'Please type question title to proceed');
@@ -180,7 +180,7 @@ class _QuestionBubbleState extends State<QuestionBubble> {
         userID: AuthFireOps.superUserID(),
       );
 
-      NavDialog.showNavDialog(
+      TopDialog.showUnawaitedTopDialog(
           context: context,
           firstLine: 'Question submitted',
           secondLine: 'Question is submitted, and all bitched will see now');

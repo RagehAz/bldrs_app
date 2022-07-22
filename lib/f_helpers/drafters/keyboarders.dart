@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -203,7 +202,7 @@ Future<void> copyToClipboard({
       )
   );
 
-  NavDialog.showNavDialog(
+  TopDialog.showUnawaitedTopDialog(
     context: context,
     firstLine: 'Copied to clipboard',
     secondLine: copy,

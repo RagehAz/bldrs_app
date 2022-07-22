@@ -357,8 +357,7 @@ Future<void> _firstTimerCreateNewBzOps({
 
     /// NAVIGATE
     Nav.goBackToHomeScreen(context);
-    unawaited(
-        Nav.goToNewScreen(
+    unawaited(Nav.goToNewScreen(
           context: context,
           transitionType: PageTransitionType.fade,
           screen: const MyBzScreen(),
