@@ -32,7 +32,7 @@ import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 
 class BldrsDashBoard extends StatelessWidget {
   /// --------------------------------------------------------------------------

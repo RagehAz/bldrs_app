@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -7,6 +9,7 @@ import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -49,9 +52,19 @@ class AuthorProtocol {
     );
 
     /// MODIFY BZ MODEL --------------------------
-    final BzModel _newBzModel = BzModel.addNewUserAsAuthor(
+    final File _file = await Storage.getImageFileByURL(
+        context: context,
+        url: _uploadedUser.pic,
+    );
+    final BzModel _bzModelWithAuthorPicFile = BzModel.addNewUserAsAuthor(
       oldBzModel: oldBzModel,
-      userModel: _uploadedUser,
+      userModel: _uploadedUser.copyWith(
+          pic: _file,
+      ),
+    );
+    final BzModel _newBzModel = await BzFireOps.updateAuthorPicIfChangedAndReturnNewBzModel(
+        context: context,
+        bzModel: _bzModelWithAuthorPicFile,
     );
 
     /// ADD BZ MODEL TO MY BZZ --------------------------

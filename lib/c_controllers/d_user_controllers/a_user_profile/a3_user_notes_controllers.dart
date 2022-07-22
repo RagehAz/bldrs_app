@@ -32,7 +32,7 @@ FireQueryModel userReceivedNotesPaginationQueryParameters({
       FireFinder(
         field: 'receiverID',
         comparison: FireComparison.equalTo,
-        value: superUserID(),
+        value: AuthFireOps.superUserID(),
       ),
     ],
     onDataChanged: onDataChanged,

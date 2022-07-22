@@ -241,7 +241,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           onTap: () async {
 
             // user1 : '7B8qNuRdXAfyIm5HaIKfne3qKIw2';
-            final String _userID = superUserID();
+            final String _userID = AuthFireOps.superUserID();
 
             final UserModel _userModel = await UserFireOps.readUser(
                 context: context,
