@@ -101,7 +101,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
           ability: AuthorAbility.canSendAuthorships,
           theDoer: AuthorModel.getAuthorFromBzByAuthorID(
               bz: bzModel,
-              authorID: superUserID(),
+              authorID: AuthFireOps.superUserID(),
           ),
           theDoneWith: null,
         );

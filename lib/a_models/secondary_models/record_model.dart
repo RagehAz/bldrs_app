@@ -763,10 +763,10 @@ class RecordModel {
 
     final RecordModel _recordModel = RecordModel(
       recordType: recordType,
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(recordType),
-      modelID: superUserID(),
+      modelID: AuthFireOps.superUserID(),
       recordDetailsType: RecordDetailsType.text,
       recordDetails: 'This is a dummy record',
       serverTimeStamp: FieldValue.serverTimestamp(),

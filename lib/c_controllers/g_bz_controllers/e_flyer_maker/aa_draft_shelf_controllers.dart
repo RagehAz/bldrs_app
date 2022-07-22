@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/b_slide_editor_screen
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';

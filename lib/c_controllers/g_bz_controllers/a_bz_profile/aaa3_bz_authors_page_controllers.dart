@@ -48,11 +48,11 @@ Future<void> onAuthorOptionsTap({
   @required BzModel bzModel,
 }) async {
 
-  final bool _itIsMine = superUserID() == authorModel.userID;
+  final bool _itIsMine = AuthFireOps.superUserID() == authorModel.userID;
 
   final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromAuthorsByID(
       authors: bzModel.authors,
-      authorID: superUserID(),
+      authorID: AuthFireOps.superUserID(),
   );
 
   final bool _canChangeRoles = AuthorModel.checkAuthorAbility(

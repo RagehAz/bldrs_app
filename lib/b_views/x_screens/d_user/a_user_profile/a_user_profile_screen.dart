@@ -46,7 +46,7 @@ class UserProfileScreen extends StatelessWidget {
 
             final UserModel _fireUserModel = await UserFireOps.readUser(
               context: context,
-              userID: superUserID(),
+              userID: AuthFireOps.superUserID(),
             );
 
             await UserProtocol.updateUserModelLocally(

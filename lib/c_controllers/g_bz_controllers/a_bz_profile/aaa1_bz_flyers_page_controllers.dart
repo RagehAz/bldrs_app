@@ -42,7 +42,7 @@ Future<void> onFlyerBzOptionsTap({
 
   final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(
     flyer: flyer,
-    myID: superUserID(),
+    myID: AuthFireOps.superUserID(),
     bzModel: BzzProvider.proGetActiveBzModel(context: context, listen: false),
   );
 
@@ -170,7 +170,7 @@ Future<bool> _preFlyerDeleteCheckups({
   );
 
   final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(
-      myID: superUserID(),
+      myID: AuthFireOps.superUserID(),
       flyer: flyer,
       bzModel: _bzModel
   );

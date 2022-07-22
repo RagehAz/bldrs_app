@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
