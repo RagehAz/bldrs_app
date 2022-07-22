@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -53,7 +55,7 @@ class TopDialog extends StatelessWidget {
     await Flushbar(
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
       // dismissDirection: FlushbarDismissDirection.VERTICAL,
-      // flushbarPosition: FlushbarPosition.TOP,
+      flushbarPosition: FlushbarPosition.TOP,
       // flushbarStyle: FlushbarStyle.FLOATING,
       // isDismissible: true,
       // blockBackgroundInteraction: false, // prevents gestures on background widgets
@@ -165,6 +167,28 @@ class TopDialog extends StatelessWidget {
       // userInputForm: ,
     ).show(context);
   }
+// -----------------------------------------------------------------------------
+  static void showUnawaitedTopDialog({
+    @required BuildContext context,
+    @required String firstLine,
+    String secondLine,
+    Color color = Colorz.yellow255,
+    Color textColor = Colorz.black255,
+    Function onTap,
+    int seconds = 6,
+}){
+
+    unawaited(showTopDialog(
+      context: context,
+      firstLine: firstLine,
+      secondLine: secondLine,
+      color: color,
+      textColor: textColor,
+      onTap: onTap,
+      seconds: seconds,
+    ));
+
+}
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
