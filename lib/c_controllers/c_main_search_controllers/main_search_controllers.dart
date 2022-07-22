@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
@@ -323,7 +323,7 @@ Future<void> _handleSearchResult({
       notify: true,
     );
 
-    NavDialog.showNavDialog(
+    TopDialog.showUnawaitedTopDialog(
       context: context,
       firstLine: 'No result found',
       secondLine: 'Try again with different words',

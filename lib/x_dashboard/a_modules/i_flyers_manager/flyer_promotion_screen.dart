@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
@@ -74,7 +73,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
     if (_zone == null || _zone.countryID == null || _zone.cityID == null){
 
-      NavDialog.showNavDialog(
+      TopDialog.showUnawaitedTopDialog(
         context: context,
         firstLine: 'Select promotion zone man !',
         color: Colorz.red255,

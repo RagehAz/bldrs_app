@@ -9,7 +9,6 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/c_specs_pickers_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/e_keywords_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -526,7 +525,7 @@ Future<bool> _prePublishFlyerCheck({
     if (_isValid == false){
 
       if (draft.value.headlineController.text.length < 10){
-        NavDialog.showNavDialog(
+        TopDialog.showUnawaitedTopDialog(
           context: context,
           firstLine: 'Flyer headline can not be less than 10 characters long',
         );

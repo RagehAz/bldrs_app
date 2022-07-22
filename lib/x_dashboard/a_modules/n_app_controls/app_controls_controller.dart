@@ -1,6 +1,4 @@
-
-
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_fire_ops.dart';
@@ -23,7 +21,7 @@ Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
       newAppControlsModel: appControlsModel.value,
   );
 
-  NavDialog.showNavDialog(
+  TopDialog.showUnawaitedTopDialog(
     context: context,
     firstLine: 'showOnlyVerifiedFlyersInHomeWall updated to : $value',
     color: Colorz.green255,

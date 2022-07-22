@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -174,7 +173,7 @@ Future<void> onVerifyFlyer({
 
     CenterDialog.closeCenterDialog(context);
 
-    NavDialog.showNavDialog(
+    TopDialog.showUnawaitedTopDialog(
       context: context,
       firstLine: 'Done',
       secondLine: 'flyer ${flyerModel.getShortHeadline()}... got verified',
