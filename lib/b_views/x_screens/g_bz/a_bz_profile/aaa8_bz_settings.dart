@@ -31,7 +31,7 @@ class _BzSettingsPageState extends State<BzSettingsPage> {
     );
 
     final bool _userIsCreator = AuthorModel.checkUserIsCreatorAuthor(
-        userID: superUserID(),
+        userID: AuthFireOps.superUserID(),
         bzModel: _bzModel,
     );
 

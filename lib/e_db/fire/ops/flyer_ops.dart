@@ -66,7 +66,7 @@ class FlyerFireOps {
       if (_flyerID != null){
 
         final String _bzCreatorID = AuthorModel.getCreatorAuthorFromBz(bzModel).userID;
-        final String _flyerAuthorID = superUserID();
+        final String _flyerAuthorID = AuthFireOps.superUserID();
 
         _finalFlyer = await _createFlyerStorageImagesAndUpdateFlyer(
           context: context,
@@ -967,7 +967,7 @@ class FlyerFireOps {
 
     if (_feedback != null){
       final FeedbackModel _model =  FeedbackModel(
-        userID: superUserID(),
+        userID: AuthFireOps.superUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedback,
         modelType: ModelType.flyer,

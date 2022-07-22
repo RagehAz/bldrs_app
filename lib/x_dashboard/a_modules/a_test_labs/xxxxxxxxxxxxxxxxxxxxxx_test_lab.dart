@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -21,7 +20,6 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -407,16 +405,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ),
 
         AppBarButton(
-            verse: ' C ( x ) ',
+            verse: ' C ( w ) ',
             onTap: () async {
 
-              final List<File> _files = await Imagers.pickMultipleImages(
-                  context: context,
-              );
 
-              final File _thing = _files?.first;
-
-              _thePic.value = _thing;
 
             }
         ),

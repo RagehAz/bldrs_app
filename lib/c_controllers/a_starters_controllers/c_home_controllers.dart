@@ -307,7 +307,7 @@ Future<void> checkIfUserIsMissingFields({
   @required BuildContext context,
 }) async {
 
-  if (superUserID() != null){
+  if (AuthFireOps.superUserID() != null){
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 

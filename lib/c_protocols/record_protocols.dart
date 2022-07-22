@@ -28,7 +28,7 @@ class RecordProtocols {
     blog('RecordProtocols.followBz : START');
 
     final RecordModel _record = RecordModel.createFollowRecord(
-        userID: superUserID(),
+        userID: AuthFireOps.superUserID(),
         bzID: bzID
     );
 
@@ -62,7 +62,7 @@ class RecordProtocols {
     blog('RecordProtocols.unfollowBz : START');
 
     final RecordModel _record = RecordModel.createUnfollowRecord(
-        userID: superUserID(),
+        userID: AuthFireOps.superUserID(),
         bzID: bzID,
     );
 
@@ -101,7 +101,7 @@ class RecordProtocols {
     blog('RecordProtocols.callBz : START');
 
     final RecordModel _record = RecordModel.createCallRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       bzID: bzID,
       contact: contact,
     );
@@ -140,7 +140,7 @@ class RecordProtocols {
     blog('RecordProtocols.shareFlyer : START');
 
     final RecordModel _record = RecordModel.createShareRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       flyerID: flyerID,
     );
 
@@ -225,7 +225,7 @@ class RecordProtocols {
       // else {
 
         final RecordModel _record = RecordModel.createViewRecord(
-          userID: superUserID(),
+          userID: AuthFireOps.superUserID(),
           flyerID: flyerModel.id,
           slideIndex: index,
         );
@@ -273,7 +273,7 @@ class RecordProtocols {
     blog('RecordProtocols.saveFlyer : START');
 
     final RecordModel _record = RecordModel.createSaveRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       flyerID: flyerID,
       slideIndex: slideIndex,
     );
@@ -316,7 +316,7 @@ class RecordProtocols {
     blog('RecordProtocols.unSaveFlyer : START');
 
     final RecordModel _record = RecordModel.createUnSaveRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       flyerID: flyerID,
     );
 
@@ -362,7 +362,7 @@ class RecordProtocols {
     blog('RecordProtocols.createCreateReview : START');
 
     final RecordModel _record = RecordModel.createCreateReviewRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       review: review,
       flyerID: flyerID,
     );
@@ -404,7 +404,7 @@ class RecordProtocols {
     blog('RecordProtocols.createEditReview : START');
 
     final RecordModel _record = RecordModel.createEditReviewRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       reviewEdit: reviewEdit,
       flyerID: flyerID,
     );
@@ -428,7 +428,7 @@ class RecordProtocols {
     blog('RecordProtocols.createDeleteReview : START');
 
     final RecordModel _record = RecordModel.createDeleteReviewRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       flyerID: flyerID,
     );
 
@@ -472,7 +472,7 @@ class RecordProtocols {
     blog('RecordProtocols.createCreateQuestion : START');
 
     final RecordModel _record = RecordModel.createCreateQuestionRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       questionID: questionID,
     );
 
@@ -494,7 +494,7 @@ class RecordProtocols {
     blog('RecordProtocols.createEditQuestion : START');
 
     final RecordModel _record = RecordModel.createEditQuestionRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       questionID: questionID,
     );
 
@@ -516,7 +516,7 @@ class RecordProtocols {
     blog('RecordProtocols.createDeleteQuestion : START');
 
     final RecordModel _record = RecordModel.createDeleteQuestionRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       questionID: questionID,
     );
 
@@ -539,7 +539,7 @@ class RecordProtocols {
     blog('RecordProtocols.createCreateAnswer : START');
 
     final RecordModel _record = RecordModel.createCreateAnswerRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       questionID: questionID,
       answerID: answerID,
     );
@@ -563,7 +563,7 @@ class RecordProtocols {
     blog('RecordProtocols.createEditAnswer : START');
 
     final RecordModel _record = RecordModel.createEditAnswerRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       questionID: questionID,
       answerID: answerID,
     );
@@ -587,7 +587,7 @@ class RecordProtocols {
     blog('RecordProtocols.createDeleteAnswer : START');
 
     final RecordModel _record = RecordModel.createDeleteAnswerRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       questionID: questionID,
       answerID: answerID,
     );
@@ -610,7 +610,7 @@ class RecordProtocols {
     blog('RecordProtocols.createSearch : START');
 
     final RecordModel _record = RecordModel.createSearchRecord(
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
       searchText: searchText,
     );
 
