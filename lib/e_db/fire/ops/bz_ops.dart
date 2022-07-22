@@ -12,7 +12,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart' as AuthFireOps;
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -329,11 +329,9 @@ class BzFireOps {
           oldBzModel: oldBzModel,
         );
 
-        final BzModel _finalBzModel = await _updateAuthorPicIfChangedAndReturnNewBzModel(
+        final BzModel _finalBzModel = await updateAuthorPicIfChangedAndReturnNewBzModel(
           context: context,
-          oldBzModel: _updatedBzModel,
-          authorID: AuthFireOps.superUserID(),
-          newAuthorPic: authorPicFile,
+          bzModel: _updatedBzModel,
         );
 
         await _updateBzDoc(
@@ -399,53 +397,57 @@ class BzFireOps {
   }
 // --------------------------
 
-  static Future<BzModel> _updateAuthorPicIfChangedAndReturnNewBzModel({
+  static Future<BzModel> updateAuthorPicIfChangedAndReturnNewBzModel({
     @required BuildContext context,
-    @required BzModel oldBzModel,
-    @required String authorID,
-    @required File newAuthorPic,
+    @required BzModel bzModel,
   }) async {
 
-    BzModel _finalBz = oldBzModel;
+    BzModel _finalBz = bzModel;
 
     blog('_updateAuthorPicIfChangedAndUpdateBzModel : START');
 
-    if (authorID != null && newAuthorPic != null){
+    final AuthorModel _authorWithImageFile = AuthorModel.getAuthorWhosePicIsFile(
+      authors: bzModel.authors,
+    );
 
-      final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
-        bz: oldBzModel,
-        authorID: authorID,
+    if (_authorWithImageFile != null){
+
+      final String _picName = AuthorModel.generateAuthorPicID(
+        authorID: _authorWithImageFile.userID,
+        bzID: bzModel.id,
       );
 
-      if (_oldAuthor != null){
+      final List<String> _picOwnersIDs = AuthorModel.getAuthorPicOwnersIDs(
+        bzModel: bzModel,
+        authorModel: _authorWithImageFile,
+      );
 
-        final String _picName = AuthorModel.generateAuthorPicID(
-          authorID: _oldAuthor.userID,
-          bzID: oldBzModel.id,
-        );
+      final String _authorPicURL = await Storage.createStoragePicAndGetURL(
+        context: context,
+        inputFile: _authorWithImageFile.pic,
+        docName: StorageDoc.authors,
+        picName: _picName,
+        ownersIDs: _picOwnersIDs,
+      );
 
-        final String _authorPicURL = await Storage.createStoragePicAndGetURL(
-          context: context,
-          inputFile: newAuthorPic,
-          docName: StorageDoc.authors,
-          picName: _picName,
-          ownersIDs: <String>[_oldAuthor.userID,],
-        );
+      final AuthorModel _updatedAuthor = _authorWithImageFile.copyWith(
+        pic: _authorPicURL,
+      );
 
-        final AuthorModel _updatedAuthor = _oldAuthor.copyWith(
-          pic: _authorPicURL,
-        );
+      final List<AuthorModel> _finalAuthorsList = AuthorModel.replaceAuthorModelInAuthorsListByID(
+        authors: bzModel.authors,
+        authorToReplace: _updatedAuthor,
+      );
 
-        final List<AuthorModel> _finalAuthorsList = AuthorModel.replaceAuthorModelInAuthorsListByID(
-          authors: oldBzModel.authors,
-          authorToReplace: _updatedAuthor,
-        );
+      // for (final AuthorModel author in _finalAuthorsList){
+      //   blog('author ${author.userID} : pic : ${author.pic}');
+      // }
+      // blog('_authorPicURL : $_authorPicURL');
+      // blog('_updatedAuthor pic : ${_updatedAuthor.pic}');
 
-        _finalBz = oldBzModel.copyWith(
-          authors: _finalAuthorsList,
-        );
-
-      }
+      _finalBz = bzModel.copyWith(
+        authors: _finalAuthorsList,
+      );
 
     }
 

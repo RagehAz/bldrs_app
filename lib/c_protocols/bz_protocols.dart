@@ -285,7 +285,7 @@ class BzProtocol {
     /// GET MY USER MODEL -------------------
     final UserModel _myUserModel = await UsersProvider.proFetchUserModel(
       context: context,
-      userID: superUserID(),
+      userID: AuthFireOps.superUserID(),
     );
 
     /// GET THE BZ MODEL -------------------

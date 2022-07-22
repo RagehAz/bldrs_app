@@ -63,13 +63,13 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
       _triggerLoading().then((_) async {
 
+        final BzCounterModel _counters = await RecordProtocols.readBzCounters(
+          context: context,
+          bzID: _myActiveBzModel.id,
+        );
+
         if (mounted == true){
-
-          _bzCounter.value = await RecordProtocols.readBzCounters(
-            context: context,
-            bzID: _myActiveBzModel.id,
-          );
-
+          _bzCounter.value = _counters;
         }
 
       });

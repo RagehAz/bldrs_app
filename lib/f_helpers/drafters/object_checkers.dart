@@ -66,10 +66,22 @@ bool objectIsFile(dynamic file) {
   bool _isFile = false;
 
   if (file != null) {
-    if (file.runtimeType.toString() == '_File') {
+
+    final bool isFileA = file is File;
+    final bool isFileB = file.runtimeType.toString() == '_File';
+    final bool isFileC = file.runtimeType.toString() == 'File';
+
+    if (isFileA == true || isFileB == true || isFileC == true) {
       _isFile = true;
     }
+
+    blog('objectIsFile : isFile : $_isFile : [file is File : $isFileA] - [file == _File] : $isFileB - [file == File] : $isFileC');
+
   }
+  else {
+    blog('objectIsFile : isFile : null');
+  }
+
 
   return _isFile;
 }

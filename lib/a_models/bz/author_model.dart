@@ -4,6 +4,8 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -186,6 +188,49 @@ class AuthorModel {
 
   /// GETTERS
 
+// ----------------------------------
+
+  static AuthorModel getAuthorWhosePicIsFile({
+    @required List<AuthorModel> authors,
+  }){
+    AuthorModel _output;
+
+    if (Mapper.checkCanLoopList(authors) == true){
+
+      _output = authors.firstWhere(
+              (element) => objectIsFile(element.pic) == true,
+          orElse: () => null
+      );
+
+    }
+
+    return _output;
+  }
+// ----------------------------------
+  static List<String> getAuthorPicOwnersIDs({
+    @required BzModel bzModel,
+    @required AuthorModel authorModel,
+  }){
+
+    /// NOTE : GETS ONLY THE CREATOR ID AND THE AUTHOR ID IF NOT IDNETICAL
+
+    List<String> _ownersIDs = <String>[];
+
+    if (bzModel != null && authorModel != null){
+
+      final AuthorModel _creatorAuthor = getCreatorAuthorFromBz(bzModel);
+
+      _ownersIDs.add(_creatorAuthor.userID);
+
+      _ownersIDs = addStringToListIfDoesNotContainIt(
+          strings: _ownersIDs,
+          stringToAdd: authorModel.userID,
+      );
+
+    }
+
+    return _ownersIDs;
+  }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static int getAuthorGalleryCountFromBzModel({
@@ -743,7 +788,7 @@ class AuthorModel {
 
       final AuthorModel _myAuthorModel = getAuthorFromBzByAuthorID(
           bz: bzModel,
-          authorID: superUserID(),
+          authorID: AuthFireOps.superUserID(),
       );
 
       if (_myAuthorModel != null){

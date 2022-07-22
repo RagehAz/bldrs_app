@@ -37,7 +37,7 @@ class RealHttpTestScreen extends StatelessWidget {
             final String _randomID = createUniqueID().toString();
 
             final RecordModel _recordModel = RecordModel.createSaveRecord(
-              userID: superUserID(),
+              userID: AuthFireOps.superUserID(),
               flyerID: _randomID,
               slideIndex: 0,
             );

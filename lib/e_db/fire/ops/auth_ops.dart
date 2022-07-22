@@ -16,13 +16,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+class AuthFireOps {
+
+  AuthFireOps();
+
 /// ----------------------------------------------------------------------------
-User superFirebaseUser() {
+  static User superFirebaseUser() {
   final User _user = FirebaseAuth.instance.currentUser;
   return _user;
 }
 /// ----------------------------------------------------------------------------
-String superUserID() {
+static String superUserID() {
   final String userID = superFirebaseUser()?.uid;
   return userID;
 }
@@ -33,7 +37,7 @@ String superUserID() {
 // ---------------------------------------
 /// TASK : fix this error
 /// deleteFirebaseUser : tryAndCatch ERROR : [firebase_auth/requires-recent-login] This operation is sensitive and requires recent authentication. Log in again before retrying this request.
-Future<bool> deleteFirebaseUser({
+  static Future<bool> deleteFirebaseUser({
   @required BuildContext context,
   @required String userID,
 }) async {
@@ -102,7 +106,7 @@ Future<bool> deleteFirebaseUser({
 
 // ---------------------------------------
 /// SIGN IN BY EMAIL AND PASSWORD
-Future<AuthModel> signInByEmailAndPassword({
+  static Future<AuthModel> signInByEmailAndPassword({
   @required BuildContext context,
   @required String email,
   @required String password,
@@ -159,7 +163,7 @@ Future<AuthModel> signInByEmailAndPassword({
 }
 // ---------------------------------------
 /// REGISTER BY EMAIL AND PASSWORD
-Future<AuthModel> registerByEmailAndPassword({
+  static Future<AuthModel> registerByEmailAndPassword({
   @required BuildContext context,
   @required ZoneModel currentZone,
   @required String email,
@@ -224,7 +228,7 @@ Future<AuthModel> registerByEmailAndPassword({
   return _authModel;
 }
 // ---------------------------------------
-Future<AuthModel> signInByFacebook({
+  static Future<AuthModel> signInByFacebook({
   @required BuildContext context,
   @required ZoneModel currentZone,
 }) async {
@@ -316,7 +320,7 @@ Future<AuthModel> signInByFacebook({
 }
 // ---------------------------------------
 /// returns error string or AuthModel
-Future<AuthModel> signInByGoogle({
+  static Future<AuthModel> signInByGoogle({
   @required BuildContext context,
   @required ZoneModel currentZone,
 }) async {
@@ -416,7 +420,7 @@ Future<AuthModel> signInByGoogle({
   return _authModel;
 }
 // ---------------------------------------
-Future<AuthModel> signInByApple({
+  static Future<AuthModel> signInByApple({
   @required BuildContext context,
   @required ZoneModel currentZone,
 }) async {
@@ -433,7 +437,7 @@ Future<AuthModel> signInByApple({
 /// sign out
 
 // ---------------------------------------
-Future<void> emailSignOutOps(BuildContext context) async {
+  static Future<void> emailSignOutOps(BuildContext context) async {
 
   try {
     final FirebaseAuth _auth = FirebaseAuth?.instance;
@@ -451,7 +455,7 @@ Future<void> emailSignOutOps(BuildContext context) async {
 }
 // ---------------------------------------
 /// google sign out
-Future<bool> googleSignOutOps(BuildContext context) async {
+  static Future<bool> googleSignOutOps(BuildContext context) async {
 
   bool _isSignedIn = true;
 
@@ -481,7 +485,7 @@ Future<bool> googleSignOutOps(BuildContext context) async {
   return _isSignedIn;
 }
 // ---------------------------------------
-Future<void> signOut({
+  static Future<void> signOut({
   @required BuildContext context,
   @required bool routeToLogoScreen,
 }) async {
@@ -504,7 +508,7 @@ Future<void> signOut({
 
 // ---------------------------------------
 /// TESTED :
-Future<bool> passwordIsCorrect({
+static Future<bool> passwordIsCorrect({
   @required BuildContext context,
   @required String password,
   @required String email,
@@ -536,3 +540,4 @@ Future<bool> passwordIsCorrect({
 
 }
 // -----------------------------------------------------------------------------
+}
