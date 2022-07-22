@@ -94,7 +94,6 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
   @override
   Widget build(BuildContext context) {
 
-
     return ValueListenableBuilder(
         valueListenable: _bzCounter,
         builder: (_, BzCounterModel bzCounter, Widget child){
