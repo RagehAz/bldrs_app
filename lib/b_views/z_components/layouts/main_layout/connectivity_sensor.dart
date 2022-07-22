@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -101,7 +101,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
 
         /// SHOW CONNECTED DIALOG
         if (isConnected == true){
-          NavDialog.showNavDialog(
+          TopDialog.showUnawaitedTopDialog(
             context: context,
             firstLine: 'Connected',
             color: Colorz.green255,
@@ -110,7 +110,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
         }
         /// SHOW DISCONNECTED DIALOG
         else {
-          NavDialog.showNavDialog(
+          TopDialog.showUnawaitedTopDialog(
             context: context,
             firstLine: 'Disconnected',
             secondLine: 'Check your Internet connection',

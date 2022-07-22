@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/nav_dialog/nav_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -30,7 +30,7 @@ class IsConnectedButton extends StatelessWidget {
                 //
                 // await _onConnectivityChanged(_connected);
 
-                NavDialog.showNavDialog(
+                TopDialog.showUnawaitedTopDialog(
                   context: context,
                   firstLine: 'Hello There',
                   secondLine: "Welcome to Bldrs.net the Builders' network",
