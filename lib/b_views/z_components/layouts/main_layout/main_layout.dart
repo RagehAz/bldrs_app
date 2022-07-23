@@ -197,7 +197,7 @@ class MainLayout extends StatelessWidget {
                   backgroundColor: _backgroundColor,
 
                   /// DRAWER
-                  drawer: const ChainsDrawerStarter(),
+                  drawer: sectionButtonIsOn == true ? const ChainsDrawerStarter() : null,
                   drawerEdgeDragWidth: ChainsDrawerStarter.drawerEdgeDragWidth,
                   drawerScrimColor: ChainsDrawerStarter.drawerScrimColor,
                   onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
