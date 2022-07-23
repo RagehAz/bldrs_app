@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -256,11 +257,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     blog('wall phid : $_wallPhid');
   }
 // -----------------------------------------------------------------------------
-
   final String _original = 'Fuck you ${TextMod.userNameVarTag1} you fuck '
       'ya ${TextMod.userNameVarTag1}, ya bitch fuck you company ${TextMod.bzNameVarTag1} and your co founder ${TextMod.authorNameVarTag1} '
       'after that, lets have a beer at ${TextMod.bzNameVarTag2} at night because i need to eat two chickens';
-
+// -----------------------------------------------------------------------------
   ValueNotifier<String> _hashVerse;
   final ValueNotifier<bool> _showHash = ValueNotifier(false);
   void replaceHash(){
@@ -277,8 +277,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _showHash.value = !_showHash.value;
 
   }
-
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -408,6 +407,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             verse: ' C ( w ) ',
             onTap: () async {
 
+              await TopDialog.showTopDialog(
+                context: context,
+                firstLine: 'Fuck you',
+                secondLine: 'Whore fuck',
+                seconds: 1000,
+              );
 
 
             }
