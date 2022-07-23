@@ -18,6 +18,62 @@ class NotificationFlyers extends StatelessWidget {
   final List<FlyerModel> flyers;
   final ValueChanged<FlyerModel> onFlyerTap;
   /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+      width: bodyWidth,
+      height: 20 + 200.0,
+      decoration: BoxDecoration(
+        color: Colorz.white10,
+        borderRadius: FlyerBox.corners(
+          context,
+          FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 220)),
+        ),
+      ),
+      child:
+      Mapper.checkCanLoopList(flyers) == false ?
+      const SizedBox()
+          :
+      flyers.length == 1 ?
+      FlyerInNoteCard(
+        flyerModel: flyers[0],
+        onFlyerTap: onFlyerTap,
+      )
+          :
+      ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: flyers.length,
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          itemBuilder: (BuildContext ctx, int index) {
+
+            final FlyerModel _flyer = flyers[index];
+
+            return FlyerInNoteCard(
+              flyerModel: _flyer,
+              onFlyerTap: onFlyerTap,
+            );
+
+          }
+
+      ),
+
+    );
+  }
+}
+
+class FlyerInNoteCard extends StatelessWidget {
+
+  const FlyerInNoteCard({
+    @required this.flyerModel,
+    @required this.onFlyerTap,
+    Key key
+  }) : super(key: key);
+
+  final FlyerModel flyerModel;
+  final ValueChanged<FlyerModel> onFlyerTap;
+// -----------------------------------------------------------------------------
   bool _absorbFlyerTap() {
     bool _absorb;
 
@@ -33,48 +89,22 @@ class NotificationFlyers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      width: bodyWidth,
-      height: 20 + 200.0,
-      decoration: BoxDecoration(
-        color: Colorz.white10,
-        borderRadius: FlyerBox.corners(
-          context,
-          FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 220)),
+    return GestureDetector(
+      onTap: onFlyerTap == null ?
+      null
+          :
+          () => onFlyerTap(flyerModel),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: AbsorbPointer(
+          absorbing: _absorbFlyerTap(),
+          child: FlyerStarter(
+            minWidthFactor: FlyerBox.sizeFactorByHeight(context, 200),
+            flyerModel: flyerModel,
+          ),
         ),
       ),
-      child: Mapper.checkCanLoopList(flyers) == false ?
-      const SizedBox()
-          :
-      ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: flyers.length,
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          itemBuilder: (BuildContext ctx, int index) {
-
-            final FlyerModel _flyer = flyers[index];
-
-            return GestureDetector(
-              onTap: onFlyerTap == null ?
-              null
-                  :
-                  () => onFlyerTap(_flyer),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: AbsorbPointer(
-                  absorbing: _absorbFlyerTap(),
-                  child: FlyerStarter(
-                    minWidthFactor: FlyerBox.sizeFactorByHeight(context, 200),
-                    flyerModel: _flyer,
-                  ),
-                ),
-              ),
-            );
-
-          }
-
-          ),
     );
+
   }
 }

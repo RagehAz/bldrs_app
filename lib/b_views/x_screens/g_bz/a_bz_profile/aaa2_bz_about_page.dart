@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
@@ -29,10 +30,12 @@ class BzAboutPage extends StatelessWidget {
 
         /// BZ BANNER
         BzBanner(
-          boxWidth: Scale.superScreenWidth(context),
-          margins: 10,
+          boxWidth: BldrsAppBar.width(context),
+          boxHeight: BldrsAppBar.width(context),
+          // margins: 10,
           bzModel: _bzModel,
           corners: Bubble.cornersValue,
+          bigName: true,
         ),
 
         /// ABOUT
