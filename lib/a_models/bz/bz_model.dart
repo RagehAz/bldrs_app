@@ -1338,9 +1338,9 @@ class BzModel{
     return BzModel(
       id: _bzID,
       logo: Iconz.dumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
-      name: 'Business Name',
+      name: 'Business Name That os a bit too kinda tall and little bit extra tall aho',
       trigram: TextGen.createTrigram(input: 'Business Name'),
-      bzTypes: const <BzType>[BzType.designer],
+      bzTypes: const <BzType>[BzType.designer, BzType.broker, BzType.contractor, BzType.craftsman],
       zone: ZoneModel.dummyZone(),
       totalFollowers: 1000,
       totalFlyers: 10,
