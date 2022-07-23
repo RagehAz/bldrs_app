@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -407,11 +407,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
             verse: ' C ( w ) ',
             onTap: () async {
 
-              await TopDialog.showTopDialog(
+              await bzzBannersDialog(
                 context: context,
-                firstLine: 'Fuck you',
-                secondLine: 'Whore fuck',
-                seconds: 1000,
+                bzzModels: [BzModel.dummyBz('fuck'), BzModel.dummyBz('fuck'), BzModel.dummyBz('fuck'), BzModel.dummyBz('fuck')],
+                title: 'fuck you mother fucking son of a bitch whore ass fucker',
+                body: 'this will end someday because i work everyday',
+                confirmButtonText: 'eshat',
               );
 
 

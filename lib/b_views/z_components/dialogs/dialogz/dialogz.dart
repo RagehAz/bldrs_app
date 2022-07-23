@@ -248,8 +248,10 @@ Future<bool> bzBannerDialog({
     boolDialog: boolDialog,
     height: Scale.superScreenHeight(context) * 0.85,
     child: BzBanner(
-      boxWidth: CenterDialog.clearWidth(context) * 0.8,
+      boxWidth: CenterDialog.clearWidth(context),
+      boxHeight: CenterDialog.clearWidth(context),
       bzModel: bzModel,
+      bigName: false,
     ),
   );
 
@@ -284,11 +286,14 @@ Future<bool> bzzBannersDialog({
         itemCount: bzzModels?.length ?? 0,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         itemBuilder: (_, int index){
 
             return BzBanner(
               bzModel: bzzModels[index],
-              boxWidth: CenterDialog.clearWidth(context) * 0.5,
+              boxWidth: CenterDialog.clearWidth(context) * 0.8,
+              boxHeight: CenterDialog.clearWidth(context),
+              bigName: false,
             );
 
           },

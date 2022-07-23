@@ -41,7 +41,9 @@ class NoteAttachment extends StatelessWidget {
           else {
             return BzBanner(
               boxWidth: boxWidth,
+              boxHeight: boxWidth,
               bzModel: _bzModel,
+              bigName: false,
             );
 
           }

@@ -4,24 +4,25 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class BzBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzBanner({
-    this.bzModel,
-    this.boxWidth = 100,
-    this.margins = 30,
+    @required this.boxWidth,
+    @required this.boxHeight,
+    @required this.bigName,
+    @required this.bzModel,
     this.corners,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final double boxWidth;
-  final dynamic margins;
+  final double boxHeight;
   final double corners;
+  final bool bigName;
   /// --------------------------------------------------------------------------
   /*
   static double getHeight(){
@@ -36,48 +37,61 @@ class BzBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double logoSize = (boxWidth ?? 100) * 0.5;
+    final double logoSize = (boxWidth ?? 100) * 0.38;
+    final double _bigNameFactor = bigName == true ? 0.005 : 0.003;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colorz.white10,
-        borderRadius: Borderers.superBorderAll(context, corners ?? boxWidth * 0.1),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      alignment: Alignment.center,
-      margin: Scale.superMargins(margins: margins),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+    return Center(
+      child: Container(
+        width: boxWidth,
+        height: boxHeight,
+        decoration: BoxDecoration(
+          color: Colorz.white10,
+          borderRadius: Borderers.superBorderAll(context, corners ?? boxWidth * 0.1),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
 
-          /// LOGO
-          BzLogo(
-            width: logoSize,
-            image: bzModel?.logo,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              /// LOGO
+              BzLogo(
+                width: logoSize,
+                image: bzModel?.logo,
+              ),
+
+              /// NAME
+              SuperVerse(
+                verse: bzModel?.name,
+                size: 3,
+                scaleFactor: boxWidth * _bigNameFactor,
+                maxLines: 3,
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              ),
+
+              /// COMPANY TYPE AND FORM
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: BzTypesLine(
+                  bzModel: bzModel,
+                  width: logoSize * 2,
+                ),
+              ),
+
+              /// ZONE
+              if (bzModel?.zone != null)
+              ZoneLine(
+                zoneModel: bzModel?.zone,
+              ),
+
+
+            ],
           ),
-
-          /// NAME
-          SuperVerse(
-            verse: bzModel?.name,
-            size: 4,
-            maxLines: 3,
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-          ),
-
-          /// COMPANY TYPE AND FORM
-          BzTypesLine(
-            bzModel: bzModel,
-            width: logoSize * 2,
-          ),
-
-          /// ZONE
-          if (bzModel?.zone != null)
-          ZoneLine(
-            zoneModel: bzModel?.zone,
-          ),
-
-
-        ],
+        ),
       ),
     );
   }
