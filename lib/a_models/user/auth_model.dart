@@ -754,7 +754,7 @@ class AuthModel {
   void blogAuthModel({String methodName = 'AUTH MODEL'}){
 
     blog('BLOGGING AUTH MODEL   : $methodName -------------------------------------------------------');
-    userModel.blogUserModel(methodName: 'blogAuthModel');
+    userModel?.blogUserModel(methodName: 'blogAuthModel');
     blog('bool                  : firstTimer : $firstTimer');
     blog('bool                  : authSucceeds : $authSucceeds');
     blog('String                : authError : $authError');
