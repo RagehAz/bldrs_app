@@ -58,7 +58,7 @@ class TopDialog extends StatelessWidget {
       flushbarPosition: FlushbarPosition.TOP,
       // flushbarStyle: FlushbarStyle.FLOATING,
       // isDismissible: true,
-      // blockBackgroundInteraction: false, // prevents gestures on background widgets
+      blockBackgroundInteraction: true, // prevents gestures on background widgets
 
       /// SIZING ----------------------------------------------
       maxWidth: _screenWidth,
@@ -93,7 +93,9 @@ class TopDialog extends StatelessWidget {
       /// TITLE ----------------------------------------------
       titleText: Container(
         width: BldrsAppBar.width(context),
-        height: BldrsAppBar.height(context, AppBarType.basic) - 5,
+        constraints: BoxConstraints(
+          minHeight: BldrsAppBar.height(context, AppBarType.basic) - 5,
+        ),
         decoration: BoxDecoration(
           // color: Colorz.Black255,
           borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
@@ -106,7 +108,8 @@ class TopDialog extends StatelessWidget {
             SuperVerse(
               verse: firstLine,
               color: textColor,
-              maxLines: secondLine == null ? 2 : 1,
+              maxLines: 2,
+              margin: 5,
             ),
 
             /// SECOND LINE
@@ -118,6 +121,7 @@ class TopDialog extends StatelessWidget {
               weight: VerseWeight.thin,
               italic: true,
               maxLines: 2,
+              margin: 5,
             ),
 
           ],
@@ -146,7 +150,7 @@ class TopDialog extends StatelessWidget {
 
       /// INTERACTIONS ----------------------------------------------
       onTap: (Flushbar<dynamic> flushbar) {
-        blog('on tap : flushbar : $flushbar');
+        blog('on tap : flushbar : ${flushbar.onTap}');
 
         // if (context != null){
         //   Nav.goBack(context);
