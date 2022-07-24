@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_bal
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:flutter/material.dart';
 
 class NoteSenderBalloon extends StatelessWidget {
@@ -46,7 +46,7 @@ class NoteSenderBalloon extends StatelessWidget {
       /// USER
       else if (noteModel.noteSenderType == NoteSenderType.user){
         return FutureBuilder(
-          future: UsersProvider.proFetchUserModel(
+          future: UserProtocols.fetchUser(
               context: context,
               userID: noteModel.senderID,
           ),

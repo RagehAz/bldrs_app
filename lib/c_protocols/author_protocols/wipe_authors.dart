@@ -3,7 +3,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
@@ -62,7 +62,7 @@ class WipeAuthorProtocols {
     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : START');
 
     /// GET MY USER MODEL -------------------
-    final UserModel _myUserModel = await UsersProvider.proFetchUserModel(
+    final UserModel _myUserModel = await UserProtocols.fetchUser(
       context: context,
       userID: AuthFireOps.superUserID(),
     );

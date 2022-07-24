@@ -1,9 +1,10 @@
 import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/c_protocols/user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
@@ -328,7 +329,7 @@ class Notifications {
           fcmToken: _token,
         );
 
-        await UserProtocol.updateMyUserEverywhereProtocol(
+        await UserProtocols.renovateMyUserModel(
           context: context,
           newUserModel: _updated,
         );
