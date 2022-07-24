@@ -1,15 +1,14 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
@@ -84,7 +83,7 @@ Future<UserModel> completeUserZoneModel({
   if (userModel != null){
 
     /// COMPLETED ZONE MODEL
-    final ZoneModel _completeZoneModel = await ZoneProvider.proFetchCompleteZoneModel(
+    final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
       context: context,
       incompleteZoneModel: userModel.zone,
     );

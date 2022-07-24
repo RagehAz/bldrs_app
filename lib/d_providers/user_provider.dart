@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
@@ -115,7 +115,7 @@ class UsersProvider extends ChangeNotifier {
           userID: _myUserID,
       );
 
-      final ZoneModel _completeZoneModel = await ZoneProvider.proFetchCompleteZoneModel(
+      final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
           context: context,
           incompleteZoneModel: _userModel.zone,
       );

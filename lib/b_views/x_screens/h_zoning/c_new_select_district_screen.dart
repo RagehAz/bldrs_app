@@ -8,8 +8,8 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -75,7 +75,7 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       _triggerLoading(setTo: true).then((_) async {
         // ----------------------------------------
         /// COMPLETE CURRENT ZONE
-        _currentZone.value = await ZoneProvider.proFetchCompleteZoneModel(
+        _currentZone.value = await ZoneProtocols.completeZoneModel(
           context: context,
           incompleteZoneModel: _currentZone.value,
         );
@@ -101,7 +101,7 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       closeKeyboard(context);
     }
 
-    final ZoneModel _zoneWithDistrict = await ZoneProvider.proFetchCompleteZoneModel(
+    final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(
       context: context,
       incompleteZoneModel: _currentZone.value.copyWith(
         districtID: districtID,

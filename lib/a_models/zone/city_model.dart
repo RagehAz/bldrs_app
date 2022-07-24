@@ -41,6 +41,7 @@ class CityModel {
   /// CYPHERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, Object> toMap({
     @required bool toJSON,
   }) {
@@ -65,6 +66,7 @@ class CityModel {
     };
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherCities({
     @required List<CityModel> cities,
     @required bool toJSON,
@@ -85,6 +87,7 @@ class CityModel {
     return _citiesMap;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static CityModel decipherCityMap({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -113,6 +116,7 @@ class CityModel {
     return _city;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<CityModel> decipherCitiesMaps({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,

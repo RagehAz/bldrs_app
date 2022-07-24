@@ -91,6 +91,7 @@ class ZoneLDBOps{
   // ---------------------------------
   /// CREATE / INSERT
   // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertCity(CityModel city) async {
 
     await LDBOps.insertMap(
@@ -102,6 +103,7 @@ class ZoneLDBOps{
   // ---------------------------------
   /// READ
   // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<CityModel> readCity(String cityID) async {
 
     final Map<String, Object> _map = await LDBOps.searchFirstMap(
@@ -119,6 +121,7 @@ class ZoneLDBOps{
     return _city;
   }
   // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> searchCitiesByName({
     @required String cityName,
     @required String langCode,
@@ -148,6 +151,7 @@ class ZoneLDBOps{
   // ---------------------------------
   /// CREATE / INSERT
   // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertCurrencies(List<CurrencyModel> currencies) async {
 
     await LDBOps.insertMap(
@@ -159,6 +163,7 @@ class ZoneLDBOps{
   // ---------------------------------
   /// READ
   // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<List<CurrencyModel>> readCurrencies() async {
 
     final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
@@ -173,6 +178,6 @@ class ZoneLDBOps{
 
     return _currencies;
   }
-
+// -----------------------------------------------------------------------------
 
 }

@@ -17,10 +17,10 @@ protocol level ops
 
  */
 
-class ComposeFlyerProtocol {
+class ComposeFlyerProtocols {
 // -----------------------------------------------------------------------------
 
-  ComposeFlyerProtocol();
+  ComposeFlyerProtocols();
 
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT

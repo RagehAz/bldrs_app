@@ -10,12 +10,11 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/record_protocols.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -40,8 +39,7 @@ Future<CountryModel> getFlyerBzCountry({
   @required String countryID,
 }) async {
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final CountryModel _country = await _zoneProvider.fetchCountryByID(
+  final CountryModel _country = await ZoneProtocols.fetchCountry(
       context: context,
       countryID: countryID
   );
@@ -54,8 +52,7 @@ Future<CityModel> getFlyerBzCity({
   @required String cityID,
 }) async {
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final CityModel _city = await _zoneProvider.fetchCityByID(
+  final CityModel _city = await ZoneProtocols.fetchCity(
       context: context,
       cityID: cityID
   );

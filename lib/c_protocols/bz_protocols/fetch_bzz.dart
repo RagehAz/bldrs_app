@@ -5,10 +5,10 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
-class FetchBzProtocol {
+class FetchBzProtocols {
 // -----------------------------------------------------------------------------
 
-  FetchBzProtocol();
+  FetchBzProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<BzModel> fetchBz({

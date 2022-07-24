@@ -9,8 +9,8 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -19,7 +19,6 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SelectCityScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -87,14 +86,13 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
       _triggerLoading(setTo: true).then((_) async {
         // ----------------------------------------
         /// COMPLETE CURRENT ZONE
-        _currentZone.value = await ZoneProvider.proFetchCompleteZoneModel(
+        _currentZone.value = await ZoneProtocols.completeZoneModel(
             context: context,
             incompleteZoneModel: _currentZone.value,
         );
 
-        final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
         List<CityModel> _growingList = <CityModel>[];
-        final List<CityModel> _fetchedCities = await _zoneProvider.fetchCitiesByIDs(
+        final List<CityModel> _fetchedCities = await ZoneProtocols.fetchCities(
           context: context,
           citiesIDs: _currentZone.value.countryModel?.citiesIDs,
           onCityLoaded: (CityModel city) async {
@@ -141,7 +139,7 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
       closeKeyboard(context);
     }
 
-    final ZoneModel _zoneWithCity = await ZoneProvider.proFetchCompleteZoneModel(
+    final ZoneModel _zoneWithCity = await ZoneProtocols.completeZoneModel(
       context: context,
       incompleteZoneModel: _currentZone.value.copyWith(
         cityID: cityID,

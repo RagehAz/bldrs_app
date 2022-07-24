@@ -9,8 +9,8 @@ import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -196,8 +196,6 @@ class ExoticMethods {
   static Future<List<CountryModel>> fetchAllCountryModels({
   @required BuildContext context,
 }) async {
-  final ZoneProvider zoneProvider =
-      Provider.of<ZoneProvider>(context, listen: false);
 
   final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
 
@@ -205,7 +203,7 @@ class ExoticMethods {
 
   for (final String id in _allCountriesIDs) {
 
-    final CountryModel _country = await zoneProvider.fetchCountryByID(
+    final CountryModel _country = await ZoneProtocols.fetchCountry(
         context: context,
         countryID: id,
     );
