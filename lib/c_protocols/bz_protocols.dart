@@ -7,10 +7,10 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
@@ -341,7 +341,7 @@ class BzProtocol {
     }
 
     /// DELETE BZ FLYERS
-    final List<FlyerModel> _flyers = await FlyersProvider.proFetchFlyers(
+    final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
         context: context,
         flyersIDs: bzModel.flyersIDs
     );

@@ -7,9 +7,9 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/record_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -408,7 +408,7 @@ Future<List<FlyerModel>> fetchMoreFlyers({
     // numberOfFlyers: 4
   );
 
-  final List<FlyerModel> _moreFlyers = await FlyersProvider.proFetchFlyers(
+  final List<FlyerModel> _moreFlyers = await FlyerProtocols.fetchFlyers(
     context:  context,
     flyersIDs: _nextFlyersIDs,
   );
