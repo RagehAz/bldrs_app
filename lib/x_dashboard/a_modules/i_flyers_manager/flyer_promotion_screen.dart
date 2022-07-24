@@ -13,15 +13,14 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/h_zoning_controllers/zoning_controllers.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FlyerPromotionScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -52,9 +51,8 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
     if (_zone?.countryID != null && _zone?.cityID != null){
 
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-      final CountryModel _country = await _zoneProvider.fetchCountryByID(context: context, countryID: _zone.countryID);
-      final CityModel _city = await _zoneProvider.fetchCityByID(context: context, cityID: _zone.cityID);
+      final CountryModel _country = await ZoneProtocols.fetchCountry(context: context, countryID: _zone.countryID);
+      final CityModel _city = await ZoneProtocols.fetchCity(context: context, cityID: _zone.cityID);
 
       _selectedZone.value = ZoneModel(
         countryID: _zone.countryID,

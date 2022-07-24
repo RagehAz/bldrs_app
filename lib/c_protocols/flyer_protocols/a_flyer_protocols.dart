@@ -21,7 +21,7 @@ class FlyerProtocols {
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required BzModel bzModel,
-  }) => ComposeFlyerProtocol.compose(
+  }) => ComposeFlyerProtocols.compose(
       context: context,
       flyerToPublish: flyerModel,
       bzModel: bzModel,
@@ -35,7 +35,7 @@ class FlyerProtocols {
   static Future<FlyerModel> fetchFlyer({
     @required BuildContext context,
     @required  String flyerID,
-  }) => FetchFlyerProtocol.fetchFlyer(
+  }) => FetchFlyerProtocols.fetchFlyer(
     context: context,
     flyerID: flyerID,
   );
@@ -44,7 +44,7 @@ class FlyerProtocols {
   static Future<List<FlyerModel>> fetchFlyers({
     @required BuildContext context,
     @required List<String> flyersIDs,
-  }) => FetchFlyerProtocol.fetchFlyers(
+  }) => FetchFlyerProtocols.fetchFlyers(
       context: context,
       flyersIDs: flyersIDs
   );

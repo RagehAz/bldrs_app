@@ -19,10 +19,10 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ComposeBzProtocol {
+class ComposeBzProtocols {
 // -----------------------------------------------------------------------------
 
-  ComposeBzProtocol();
+  ComposeBzProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<void> compose({

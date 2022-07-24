@@ -22,7 +22,7 @@ class BzProtocols {
     @required BuildContext context,
     @required BzModel newBzModel,
     @required UserModel userModel,
-  }) => ComposeBzProtocol.compose(
+  }) => ComposeBzProtocols.compose(
     context: context,
     newBzModel: newBzModel,
     userModel: userModel,
@@ -35,7 +35,7 @@ class BzProtocols {
   static Future<BzModel> fetchBz({
     @required BuildContext context,
     @required String bzID
-  }) => FetchBzProtocol.fetchBz(
+  }) => FetchBzProtocols.fetchBz(
     context: context,
     bzID: bzID,
   );
@@ -43,7 +43,7 @@ class BzProtocols {
   static Future<List<BzModel>> fetchBzz({
     @required BuildContext context,
     @required List<String> bzzIDs
-  }) => FetchBzProtocol.fetchBzz(
+  }) => FetchBzProtocols.fetchBzz(
     context: context,
     bzzIDs: bzzIDs,
   );
@@ -57,8 +57,8 @@ class BzProtocols {
     @required BzModel newBzModel,
     @required BzModel oldBzModel,
     @required bool showWaitDialog,
-    @required bool navigateToBzInfoPageOnEnd,
-  }) => RenovateBzProtocol.renovateBz(
+    @required bool navigateToBzInfoPageOnEnd, // should be done in controller not here
+  }) => RenovateBzProtocols.renovateBz(
     context: context,
     newBzModel: newBzModel,
     oldBzModel: oldBzModel,
@@ -70,7 +70,7 @@ class BzProtocols {
     @required BuildContext context,
     @required BzModel newBzModel,
     @required BzModel oldBzModel,
-}) => RenovateBzProtocol.updateBzLocally(
+}) => RenovateBzProtocols.updateBzLocally(
     context: context,
     newBzModel: newBzModel,
     oldBzModel: oldBzModel,
@@ -79,7 +79,7 @@ class BzProtocols {
   static Future<BzModel> completeBzZoneModel({
     @required BuildContext context,
     @required BzModel bzModel,
-  }) => RenovateBzProtocol.completeBzZoneModel(
+  }) => RenovateBzProtocols.completeBzZoneModel(
       context: context,
       bzModel: bzModel
   );
@@ -92,7 +92,7 @@ class BzProtocols {
     @required BuildContext context,
     @required BzModel bzModel,
     @required bool showWaitDialog,
-  }) => WipeBzProtocol.wipeBz(
+  }) => WipeBzProtocols.wipeBz(
     context: context,
     bzModel: bzModel,
     showWaitDialog: showWaitDialog,
@@ -101,7 +101,7 @@ class BzProtocols {
   static Future<void> deleteLocally({
     @required BuildContext context,
     @required String bzID,
-  }) => WipeBzProtocol.deleteLocally(
+  }) => WipeBzProtocols.deleteLocally(
     context: context,
     bzID: bzID,
   );

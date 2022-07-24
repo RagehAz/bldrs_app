@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/x_screens/h_zoning/b_new_select_city_screen.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
@@ -77,7 +78,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
       closeKeyboard(context);
     }
 
-    final ZoneModel _zone = await ZoneProvider.proFetchCompleteZoneModel(
+    final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
       context: context,
       incompleteZoneModel: ZoneModel(
         countryID: countryID,

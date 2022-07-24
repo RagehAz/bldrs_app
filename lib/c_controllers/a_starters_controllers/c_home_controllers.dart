@@ -19,6 +19,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -97,7 +98,7 @@ Future<void> _initializeUserZone(BuildContext context) async {
 
   if (_myUserModel != null){
 
-    final ZoneModel _userZoneCompleted = await ZoneProvider.proFetchCompleteZoneModel(
+    final ZoneModel _userZoneCompleted = await ZoneProtocols.completeZoneModel(
       context: context,
       incompleteZoneModel: _myUserModel?.zone,
     );
@@ -133,7 +134,7 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
   /// USER ZONE IS NOT DEFINED
   else {
 
-    final ZoneModel _zoneByIP = await superGetZoneByIP(context);
+    final ZoneModel _zoneByIP = await ZoneFireOps.superGetZoneByIP(context);
 
     await zoneProvider.fetchSetCurrentCompleteZone(
       context: context,
