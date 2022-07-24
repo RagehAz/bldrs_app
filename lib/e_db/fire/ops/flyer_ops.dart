@@ -43,15 +43,13 @@ class FlyerFireOps {
     @required FlyerModel draftFlyer,
     @required BzModel bzModel,
   }) async {
-
     /// NOTE
     /// RETURNS
     /// {
     /// 'flyer' : _uploadedFlyerModel,
     /// 'bz' : _uploadedBzModel,
     /// }
-
-    blog('createFlyerOps : START');
+    blog('FlyerFireOps.createFlyerOps : START');
 
     FlyerModel _finalFlyer;
     BzModel _finalBz;
@@ -86,8 +84,7 @@ class FlyerFireOps {
 
     }
 
-    blog('createFlyerOps : END');
-
+    blog('FlyerFireOps.createFlyerOps : END');
     return {
       'flyer' : _finalFlyer,
       'bz' : _finalBz,
@@ -221,6 +218,7 @@ class FlyerFireOps {
   /// READ
 
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> readFlyerOps({
     @required BuildContext context,
     @required String flyerID,
