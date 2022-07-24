@@ -1,8 +1,8 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
@@ -25,6 +25,7 @@ class FlyerProtocol {
   /// CREATE
 
 // ----------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<void> createFlyerByActiveBzProtocol({
     @required BuildContext context,
@@ -62,11 +63,13 @@ class FlyerProtocol {
     blog('FlyerProtocol.createFlyerByActiveBzProtocol : END');
 
   }
+   */
 // -----------------------------------------------------------------------------
 
 /// UPDATE
 
 // ----------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerByActiveBzProtocol({
     @required BuildContext context,
@@ -107,6 +110,7 @@ class FlyerProtocol {
     blog('FlyerProtocol.updateFlyerByActiveBzProtocol : END');
 
   }
+   */
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> localFlyerUpdateProtocol({

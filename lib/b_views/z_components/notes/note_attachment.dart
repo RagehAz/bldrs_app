@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/notes/notification_flyers.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/components/note_image_banner.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +55,7 @@ class NoteAttachment extends StatelessWidget {
     else if (noteModel?.attachmentType == NoteAttachmentType.flyersIDs){
 
       return FutureBuilder<List<FlyerModel>>(
-          future: FlyersProvider.proFetchFlyers(
+          future: FlyerProtocols.fetchFlyers(
             context: context,
             flyersIDs: noteModel.attachment,
           ),

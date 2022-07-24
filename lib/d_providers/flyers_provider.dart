@@ -4,18 +4,16 @@ import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart' as LDBOps;
-import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
+import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +24,7 @@ class FlyersProvider extends ChangeNotifier {
   /// FETCHING FLYERS
 
 // -------------------------------------
+/*
   Future<FlyerModel> fetchFlyerByID({
     @required BuildContext context,
     @required  String flyerID,
@@ -60,7 +59,9 @@ class FlyersProvider extends ChangeNotifier {
 
     return _flyer;
   }
+ */
 // -------------------------------------
+/*
   Future<List<FlyerModel>> fetchFlyersByIDs({
     @required BuildContext context,
     @required List<String> flyersIDs,
@@ -85,30 +86,7 @@ class FlyersProvider extends ChangeNotifier {
 
     return _flyers;
   }
-// -------------------------------------
-  Future<List<FlyerModel>> fetchAllBzFlyersByBzID({
-    @required BuildContext context,
-    @required String bzID,
-  }) async {
-
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final BzModel _activeBz = _bzzProvider.myActiveBz;
-    final List<String> _bzFlyersIDs = _activeBz?.flyersIDs;
-
-    List<FlyerModel> _flyers = <FlyerModel>[];
-
-    if (Mapper.checkCanLoopList(_bzFlyersIDs)) {
-
-      _flyers = await fetchFlyersByIDs(
-          context: context,
-          flyersIDs: _bzFlyersIDs,
-      );
-
-      blog('fetchAllBzFlyersByBzID : ${_flyers?.length} flyers');
-    }
-
-    return _flyers;
-  }
+ */
 // -----------------------------------------------------------------------------
 
   /// MODIFY / DELETE FLYER FROM FLYERS PROVIDER
@@ -226,7 +204,7 @@ class FlyersProvider extends ChangeNotifier {
 
     if (Mapper.checkCanLoopList(_savedFlyersIDs)){
 
-      final List<FlyerModel> _flyers = await fetchFlyersByIDs(
+      final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
         context: context,
         flyersIDs: _savedFlyersIDs,
       );
@@ -348,7 +326,10 @@ class FlyersProvider extends ChangeNotifier {
 
       final List<String> _flyersIDs = FlyerPromotion.getFlyersIDsFromFlyersPromotions(promotions: _promotions);
 
-      final List<FlyerModel> _flyers = await fetchFlyersByIDs(context: context, flyersIDs: _flyersIDs);
+      final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
+          context: context,
+          flyersIDs: _flyersIDs,
+      );
 
       _setPromotedFlyers(
         flyers: _flyers,
@@ -480,8 +461,13 @@ class FlyersProvider extends ChangeNotifier {
 
       for (final String flyerID in _flyersIDs){
 
-        final FlyerModel _flyer = await fetchFlyerByID(context: context, flyerID: flyerID);
+        final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+            context: context,
+            flyerID: flyerID,
+        );
+
         _bzFlyers.add(_flyer);
+
       }
 
     }
@@ -542,6 +528,7 @@ class FlyersProvider extends ChangeNotifier {
   /// PRO GETTERS
 
 // -------------------------------------
+  /*
 static Future<List<FlyerModel>> proFetchFlyers({
   @required BuildContext context,
   @required List<String> flyersIDs,
@@ -569,6 +556,7 @@ static Future<FlyerModel> proFetchFlyer({
 
   return _flyer;
 }
+   */
 // -----------------------------------------------------------------------------
 
   /// WIPE OUT

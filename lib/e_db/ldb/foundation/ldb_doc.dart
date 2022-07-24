@@ -1,34 +1,36 @@
 
-  const String follows = 'follows';
-  const String calls = 'calls';
-  const String shares = 'shares';
-  const String views = 'views';
-  const String saves = 'saves';
-  const String reviews = 'reviews';
-  const String questions = 'questions';
-  const String answers = 'answers';
-  const String searches = 'searches';
-  const String flyers = 'flyers';
-  const String bzz = 'bzz';
-  const String users = 'users';
-  const String keywordsChain = 'keywordsChain';
-  const String specsChain = 'specsChain';
-  const String specPickers = 'specPickers';
-  const String countries = 'countries';
-  const String cities = 'cities';
-  const String continents = 'continents';
-  const String currencies = 'currencies';
-  const String notes = 'notes';
+class LDBDoc {
+
+  static const String follows = 'follows';
+  static const String calls = 'calls';
+  static const String shares = 'shares';
+  static const String views = 'views';
+  static const String saves = 'saves';
+  static const String reviews = 'reviews';
+  static const String questions = 'questions';
+  static const String answers = 'answers';
+  static const String searches = 'searches';
+  static const String flyers = 'flyers';
+  static const String bzz = 'bzz';
+  static const String users = 'users';
+  static const String keywordsChain = 'keywordsChain';
+  static const String specsChain = 'specsChain';
+  static const String specPickers = 'specPickers';
+  static const String countries = 'countries';
+  static const String cities = 'cities';
+  static const String continents = 'continents';
+  static const String currencies = 'currencies';
+  static const String notes = 'notes';
 
   /// all docs include mixed lang phrases with extra primary key of "id_langCodo"
-  const String basicPhrases = 'basicPhrases';
-  const String countriesPhrases = 'countriesPhrases';
+  static const String basicPhrases = 'basicPhrases';
+  static const String countriesPhrases = 'countriesPhrases';
 
-  const String appState = 'appState';
-  const String appControls = 'appControls';
-  const String authModel = 'authModel';
+  static const String appState = 'appState';
+  static const String appControls = 'appControls';
+  static const String authModel = 'authModel';
 
-  const List<String> allDocs = <String>[
+  static const List<String> allDocs = <String>[
     follows,
     calls,
     shares,
@@ -55,3 +57,5 @@
     appControls,
     authModel,
   ];
+
+}

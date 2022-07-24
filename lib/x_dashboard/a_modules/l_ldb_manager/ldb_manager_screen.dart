@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -14,7 +14,6 @@ import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LDBViewersScreen extends StatelessWidget {
 // -----------------------------------------------------------------------------
@@ -40,8 +39,7 @@ class LDBViewersScreen extends StatelessWidget {
 
         blog('starting the thing');
 
-        final FlyersProvider _prof = Provider.of<FlyersProvider>(context, listen: false);
-        final FlyerModel _flyer = await _prof.fetchFlyerByID(
+        final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
           context: context,
           flyerID: 'f002',
         );
