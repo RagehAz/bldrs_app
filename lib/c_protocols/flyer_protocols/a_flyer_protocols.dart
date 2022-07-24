@@ -62,6 +62,7 @@ class FlyerProtocols {
     @required BzModel bzModel,
     @required bool sendFlyerUpdateNoteToItsBz,
     @required bool updateFlyerLocally,
+    @required bool resetActiveBz,
   }) => RenovateFlyerProtocols.renovate(
     context: context,
     newFlyer: newFlyer,
@@ -69,17 +70,20 @@ class FlyerProtocols {
     bzModel: bzModel,
     sendFlyerUpdateNoteToItsBz: sendFlyerUpdateNoteToItsBz,
     updateFlyerLocally: updateFlyerLocally,
+    resetActiveBz: resetActiveBz,
   );
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerLocally({
     @required BuildContext context,
     @required FlyerModel flyerModel,
-    @required bool notify,
+    @required bool notifyFlyerPro,
+    @required bool resetActiveBz,
   }) => RenovateFlyerProtocols.updateLocally(
-      context: context,
-      flyerModel: flyerModel,
-      notify: notify
+    context: context,
+    flyerModel: flyerModel,
+    notifyFlyerPro: notifyFlyerPro,
+    resetActiveBz: resetActiveBz,
   );
 // -----------------------------------------------------------------------------
 

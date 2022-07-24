@@ -927,7 +927,8 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
         await FlyerProtocols.updateFlyerLocally(
           context: context,
           flyerModel: flyerModel,
-          notify: (i + 1) == _flyerUpdatesNotes.length,
+          notifyFlyerPro: (i + 1) == _flyerUpdatesNotes.length,
+          resetActiveBz: true,
         );
 
       }

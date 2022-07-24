@@ -603,12 +603,13 @@ Future<void> _updateFlyerOps({
     );
 
     await FlyerProtocols.renovateFlyer(
-        context: context,
-        newFlyer: _flyerToUpdate,
-        oldFlyer: oldFlyer,
-        bzModel: _bzModel,
-        sendFlyerUpdateNoteToItsBz: _bzModel.authors.length > 1,
-        updateFlyerLocally: _bzModel.authors.length == 1,
+      context: context,
+      newFlyer: _flyerToUpdate,
+      oldFlyer: oldFlyer,
+      bzModel: _bzModel,
+      sendFlyerUpdateNoteToItsBz: _bzModel.authors.length > 1,
+      updateFlyerLocally: _bzModel.authors.length == 1,
+      resetActiveBz: _bzModel.authors.length == 1,
     );
 
     WaitDialog.closeWaitDialog(context);

@@ -470,6 +470,15 @@ class BzzProvider extends ChangeNotifier {
     }
 
   }
+// -------------------------------------
+  static void resetActiveBz(BuildContext context){
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzModel _bzModel = _bzzProvider.myActiveBz.copyWith();
+    _bzzProvider.setActiveBz(
+      bzModel: _bzModel,
+      notify: true,
+    );
+  }
 // -----------------------------------------------------------------------------
   void clearMyActiveBz({
   @required bool notify,
