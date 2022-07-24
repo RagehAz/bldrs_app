@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -79,7 +77,7 @@ class ZoneProtocols {
   static Future<List<Continent>> fetchContinents({
     @required BuildContext context,
   }) => FetchZoneProtocols.fetchContinents(
-      context: context,
+    context: context,
   );
 // -----------------------------------------------------------------------------
 

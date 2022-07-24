@@ -9,8 +9,8 @@ import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -19,7 +19,6 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ExoticMethods {
 
@@ -338,8 +337,10 @@ class ExoticMethods {
   /// Auth => can only be done in firebase
   /// security level => can only be done in firebase
 
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  final UserModel _oldUserModel = await _usersProvider.fetchUserByID(context: context, userID: oldUserID);
+  final UserModel _oldUserModel = await UserProtocols.fetchUser(
+      context: context,
+      userID: oldUserID,
+  );
 
   final List<String> _oldUserFlyersIDs = <String>[];
 
@@ -371,8 +372,7 @@ class ExoticMethods {
 
     if (_oldAuthor != null){
 
-      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-      final UserModel _newUserModel = await _usersProvider.fetchUserByID(
+      final UserModel _newUserModel = await UserProtocols.fetchUser(
         context: context,
         userID: newUserID,
       );

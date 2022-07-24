@@ -16,7 +16,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
@@ -456,7 +456,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                             if (noteModel?.receiverID != null)
                               FutureBuilder(
                                   future: noteModel.receiverType == NoteReceiverType.user ?
-                                  UsersProvider.proFetchUserModel(
+                                  UserProtocols.fetchUser(
                                     context: context,
                                     userID: noteModel.receiverID,
                                   )
@@ -661,7 +661,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       FutureBuilder(
                           future:
                           note?.receiverType == NoteReceiverType.user ?
-                          UsersProvider.proFetchUserModel(
+                          UserProtocols.fetchUser(
                             context: context,
                             userID: note.receiverID,
                           )
