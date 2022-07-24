@@ -4,16 +4,16 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -148,7 +148,7 @@ Future<void> onNoteButtonTap({
   /// AUTHORSHIP NOTES
   if (noteModel.noteType == NoteType.authorship){
 
-    final BzModel _bzModel = await BzzProvider.proFetchBzModel(
+    final BzModel _bzModel = await BzProtocols.fetchBz(
       context: context,
       bzID: noteModel.senderID,
     );

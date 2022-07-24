@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -461,7 +461,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                     userID: noteModel.receiverID,
                                   )
                                       :
-                                  BzzProvider.proFetchBzModel(
+                                  BzProtocols.fetchBz(
                                       context: context,
                                       bzID: noteModel.receiverID
                                   ),
@@ -667,7 +667,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           )
                               :
                           note?.receiverType == NoteReceiverType.bz ?
-                          BzzProvider.proFetchBzModel(
+                          BzProtocols.fetchBz(
                             context: context,
                             bzID: note.receiverID,
                           )

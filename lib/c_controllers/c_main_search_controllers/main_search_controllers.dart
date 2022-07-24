@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -229,7 +229,6 @@ Future<List<SearchResult>> _searchAuthors({
 }) async {
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
   final List<SearchResult> _results = <SearchResult>[];
 
@@ -241,7 +240,11 @@ Future<List<SearchResult>> _searchAuthors({
   if (Mapper.checkCanLoopList(_users)) {
     for (final UserModel user in _users) {
       /// task should get only bzz showing teams
-      final List<BzModel> _userBzz = await _bzzProvider.fetchUserBzz(context: context, userModel: user);
+      ///
+      final List<BzModel> _userBzz = await BzProtocols.fetchBzz(
+        context: context,
+        bzzIDs: user.myBzzIDs,
+      );
 
       if (Mapper.checkCanLoopList(_userBzz)) {
         for (final BzModel bz in _userBzz) {

@@ -45,7 +45,7 @@ class FetchFlyerProtocol {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<FlyerModel>> fetchFlyersByIDs({
+  static Future<List<FlyerModel>> fetchFlyers({
     @required BuildContext context,
     @required List<String> flyersIDs,
   }) async {
