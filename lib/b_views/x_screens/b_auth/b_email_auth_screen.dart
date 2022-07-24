@@ -71,36 +71,52 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     );
   }
 // -----------------------------------------------------------------------------
+//   bool _canSignIn = true;
   Future<void> _onSignin() async {
 
     closeKeyboard(context);
 
-    if (mounted == true){
+    if (
+    mounted == true
+        // &&
+        // _canSignIn == true
+    ){
+      // _canSignIn = false;
       await authByEmailSignIn(
         context: context,
         email: _emailController.text,
         password: _passwordController.text,
         formKey: _formKey,
       );
+
     }
 
   }
 // -----------------------------------------------------------------------------
+//   bool _canSignUp = true;
   Future<void> _onSignup() async {
 
     closeKeyboard(context);
 
-    await authByEmailRegister(
-      context: context,
-      email: _emailController.text,
-      password: _passwordController.text,
-      passwordConfirmation: _passwordConfirmationController.text,
-      formKey: _formKey,
-    );
+    if (
+    mounted == true
+        // &&
+        // _canSignUp == true
+    ){
+      // _canSignUp = false;
+      await authByEmailRegister(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        passwordConfirmation: _passwordConfirmationController.text,
+        formKey: _formKey,
+      );
+    }
+
   }
 // -----------------------------------------------------------------------------
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

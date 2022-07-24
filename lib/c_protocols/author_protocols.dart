@@ -4,7 +4,8 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
-import 'package:bldrs/c_protocols/bz_protocols.dart';
+import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
@@ -75,10 +76,12 @@ class AuthorProtocol {
     );
 
     /// UPDATE BZ EVERYWHERE PROTOCOL --------------------------
-    final BzModel _uploadedBzModel = await BzProtocol.updateMyBzEverywhereProtocol(
-        context: context,
-        newBzModel: _newBzModel,
-        oldBzModel: oldBzModel
+    final BzModel _uploadedBzModel = await BzProtocols.renovateBz(
+      context: context,
+      newBzModel: _newBzModel,
+      oldBzModel: oldBzModel,
+      showWaitDialog: false,
+      navigateToBzInfoPageOnEnd: false,
     );
 
     blog('AuthorProtocol.addMeAsNewAuthorToABzProtocol : END');
@@ -239,13 +242,13 @@ class AuthorProtocol {
     );
 
     /// DELETE MY AUTHOR PICTURE FROM STORAGE
-    await BzProtocol.deleteMyAuthorPicProtocol(
+    await AuthorProtocols.deleteMyAuthorPicProtocol(
       context: context,
       bzID: bzID,
     );
 
     /// DELETE BZ LOCALLY
-    await BzProtocol.localBzDeletionProtocol(
+    await BzProtocols.deleteLocally(
         context: context,
         bzID: bzID,
     );

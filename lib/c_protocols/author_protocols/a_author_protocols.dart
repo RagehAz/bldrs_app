@@ -1,32 +1,40 @@
 
 
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/c_protocols/author_protocols/wipe_authors.dart';
+import 'package:flutter/material.dart';
 
-class RenovateZoneProtocols {
-// -----------------------------------------------------------------------------
+class AuthorProtocols {
 
-  RenovateZoneProtocols();
-
+  AuthorProtocols();
 // -----------------------------------------------------------------------------
 
 /// COMPOSE
 
 // ----------------------------------
+
 // -----------------------------------------------------------------------------
 
 /// FETCH
 
 // ----------------------------------
+
 // -----------------------------------------------------------------------------
 
 /// RENOVATE
 
 // ----------------------------------
-  static Future<ZoneModel> completeZoneModel() async {}
+
 // -----------------------------------------------------------------------------
 
 /// WIPE
 
 // ----------------------------------
-
+  static Future<void> deleteMyAuthorPicProtocol({
+    @required BuildContext context,
+    @required String bzID,
+  }) => WipeAuthorProtocols.deleteMyAuthorPicProtocol(
+      context: context,
+      bzID: bzID
+  );
+// -----------------------------------------------------------------------------
 }
