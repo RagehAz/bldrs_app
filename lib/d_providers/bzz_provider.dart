@@ -1,11 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +15,7 @@ class BzzProvider extends ChangeNotifier {
   /// FETCHING BZZ
 
 // -------------------------------------
+/*
   /// TESTED : WORKS PERFECT
   Future<BzModel> fetchBzByID({
     @required BuildContext context,
@@ -52,7 +50,9 @@ class BzzProvider extends ChangeNotifier {
 
     return _bz;
   }
+ */
 // -------------------------------------
+/*
   Future<List<BzModel>> fetchBzzModels({
     @required BuildContext context,
     @required List<String> bzzIDs
@@ -77,7 +77,9 @@ class BzzProvider extends ChangeNotifier {
 
     return _bzz;
   }
+ */
 // -------------------------------------
+/*
   Future<List<BzModel>> fetchUserBzz({
     @required BuildContext context,
     @required UserModel userModel
@@ -98,7 +100,9 @@ class BzzProvider extends ChangeNotifier {
 
     return _bzz;
   }
+ */
 // -------------------------------------
+/*
   static Future<BzModel> proFetchBzModel({
     @required BuildContext context,
     @required String bzID,
@@ -110,6 +114,7 @@ class BzzProvider extends ChangeNotifier {
     );
     return _bzModel;
   }
+ */
 // -----------------------------------------------------------------------------
 
   /// OPS
@@ -167,7 +172,7 @@ class BzzProvider extends ChangeNotifier {
 
     if (Mapper.checkCanLoopList(_sponsorsBzzIDs)) {
       /// 2 - fetch bzz
-      final List<BzModel> _bzzSponsors = await fetchBzzModels(
+      final List<BzModel> _bzzSponsors = await BzProtocols.fetchBzz(
           context: context,
           bzzIDs: _sponsorsBzzIDs
       );
@@ -257,7 +262,10 @@ class BzzProvider extends ChangeNotifier {
 
     if (Mapper.checkCanLoopList(_userBzzIDs)) {
       /// 2 - fetch bzz
-      final List<BzModel> _bzz = await fetchBzzModels(context: context, bzzIDs: _userBzzIDs);
+      final List<BzModel> _bzz = await BzProtocols.fetchBzz(
+          context: context,
+          bzzIDs: _userBzzIDs,
+      );
 
       _setMyBzz(
         bzz: _bzz,
@@ -368,7 +376,7 @@ class BzzProvider extends ChangeNotifier {
 
     if (Mapper.checkCanLoopList(_followedBzzIDs)) {
 
-      final List<BzModel> _bzz = await fetchBzzModels(
+      final List<BzModel> _bzz = await BzProtocols.fetchBzz(
         context: context,
         bzzIDs: _followedBzzIDs,
       );

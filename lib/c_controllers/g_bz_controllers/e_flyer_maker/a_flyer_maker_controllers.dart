@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -597,7 +598,7 @@ Future<void> _updateFlyerOps({
 
     final FlyerModel _flyerToUpdate = draft.value.toFlyerModel();
 
-    final BzModel _bzModel = await BzzProvider.proFetchBzModel(
+    final BzModel _bzModel = await BzProtocols.fetchBz(
         context: context,
         bzID: oldFlyer.bzID,
     );
