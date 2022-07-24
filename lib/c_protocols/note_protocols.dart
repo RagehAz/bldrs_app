@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -197,7 +198,7 @@ class NoteProtocol {
       noteModel: _noteToBz,
     );
 
-    final UserModel _userModel = await UsersProvider.proFetchUserModel(
+    final UserModel _userModel = await UserProtocols.fetchUser(
         context: context,
         userID: deletedAuthor.userID,
     );
@@ -249,7 +250,7 @@ class NoteProtocol {
 
       for (final AuthorModel author in bzModel.authors){
 
-        final UserModel _userModel = await UsersProvider.proFetchUserModel(
+        final UserModel _userModel = await UserProtocols.fetchUser(
             context: context,
             userID: author.userID,
         );

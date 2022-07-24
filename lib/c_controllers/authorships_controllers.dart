@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
@@ -162,7 +162,7 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
   if (note != null){
 
-    final UserModel _receiverModel = await UsersProvider.proFetchUserModel(
+    final UserModel _receiverModel = await UserProtocols.fetchUser(
         context: context,
         userID: note.receiverID
     );

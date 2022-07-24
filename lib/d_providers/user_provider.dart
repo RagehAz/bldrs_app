@@ -1,89 +1,16 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/fire/ops/user_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-// import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
-// -------------------------------------
-
-  /// FETCHING USER
-
-// -------------------------------------
-  Future<UserModel> fetchUserByID({
-    @required BuildContext context,
-    @required String userID
-  }) async {
-
-    /// 1 - GET USER FROM LDB
-    UserModel _userModel= await UserLDBOps.readUserOps(
-      userID: userID,
-    );
-
-    if (_userModel != null){
-      blog('fetchUserByID : ($userID) UserModel FOUND in LDB');
-    }
-
-    else {
-
-      /// 2.1 read firebase UserOps
-      _userModel = await UserFireOps.readUser(
-        context: context,
-        userID: userID,
-      );
-
-      /// 2.2 if found on firebase, store in ldb sessionUsers
-      if (_userModel != null) {
-        blog('fetchUserByID : ($userID) UserModel FOUND in FIRESTORE and inserted in LDB');
-        await UserLDBOps.insertUserModel(_userModel);
-      }
-
-    }
-
-    if (_userModel == null){
-      blog('fetchUserByID : ($userID) UserModel NOT FOUND');
-    }
-
-    return _userModel;
-  }
-// -------------------------------------
-  Future<List<UserModel>> fetchUsersByIDs({
-    @required BuildContext context,
-    @required List<String> usersIDs,
-  }) async {
-
-    final List<UserModel> _userModels = <UserModel>[];
-
-    if (Mapper.checkCanLoopList(usersIDs) == true){
-
-      for (final String userID in usersIDs){
-
-        final UserModel _userModel = await fetchUserByID(
-            context: context,
-            userID: userID,
-        );
-
-        if (_userModel != null){
-
-          _userModels.add(_userModel);
-
-        }
-
-      }
-
-    }
-
-    return _userModels;
-  }
 // -----------------------------------------------------------------------------
 
   /// MY USER MODEL
@@ -110,7 +37,7 @@ class UsersProvider extends ChangeNotifier {
 
     if (_myUserID != null) {
 
-      _userModel = await fetchUserByID(
+      _userModel = await UserProtocols.fetchUser(
           context: context,
           userID: _myUserID,
       );
@@ -451,42 +378,6 @@ class UsersProvider extends ChangeNotifier {
   }){
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
     return _usersProvider.myUserModel;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<UserModel>> proFetchUsersModels({
-    @required BuildContext context,
-    @required List<String> usersIDs,
-}) async {
-
-    List<UserModel> _output = <UserModel>[];
-
-    if (Mapper.checkCanLoopList(usersIDs) == true){
-
-      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-      final List<UserModel> _users = await _usersProvider.fetchUsersByIDs(
-        context: context,
-        usersIDs: usersIDs,
-      );
-
-      _output = _users;
-    }
-
-    return _output;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<UserModel> proFetchUserModel({
-    @required BuildContext context,
-    @required String userID,
-  }) async {
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final UserModel _userModel = await _usersProvider.fetchUserByID(
-        context: context,
-        userID: userID
-    );
-
-    return _userModel;
   }
 // -----------------------------------------------------------------------------
 

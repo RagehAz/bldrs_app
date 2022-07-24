@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/ggg_mini_user_banner.dart';
 import 'package:bldrs/b_views/z_components/streamers/real/real_coll_paginator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +69,7 @@ class FlyerRecordsBox extends StatelessWidget {
                   itemBuilder: (_, int index){
 
                     return FutureBuilder(
-                      future: UsersProvider.proFetchUserModel(context: context, userID: _records[index].userID),
+                      future: UserProtocols.fetchUser(context: context, userID: _records[index].userID),
                       builder: (_, AsyncSnapshot<dynamic> snapshot){
 
                         final UserModel _user = snapshot.data;

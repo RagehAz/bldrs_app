@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -47,7 +47,7 @@ class AuthorProtocol {
     );
 
     /// UPDATE MY USER MODEL EVERY WHERE --------------------------
-    final UserModel _uploadedUser = await UserProtocol.updateMyUserEverywhereProtocol(
+    final UserModel _uploadedUser = await UserProtocols.renovateMyUserModel(
         context: context,
         newUserModel: _newUserModel,
     );
@@ -164,7 +164,7 @@ class AuthorProtocol {
     );
 
     /// UPDATE MY USER MODEL EVERYWHERE
-    await UserProtocol.updateMyUserEverywhereProtocol(
+    await UserProtocols.renovateMyUserModel(
         context: context,
         newUserModel: _newUserModel,
     );
@@ -236,7 +236,7 @@ class AuthorProtocol {
     );
 
     /// UPDATE USER MODEL EVERYWHERE
-    await UserProtocol.updateMyUserEverywhereProtocol(
+    await UserProtocols.renovateMyUserModel(
         context: context,
         newUserModel: _newUserModel,
     );
